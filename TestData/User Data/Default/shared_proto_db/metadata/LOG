@@ -1,0 +1,4 @@
+2022/06/28-11:38:30.525 830 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\shared_proto_db\metadata/MANIFEST-000001
+2022/06/28-11:38:30.526 830 Recovering log #3
+2022/06/28-11:38:30.527 830 (ignoring error) C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 7895 bytes; Corruption: checksum mismatch
+2022/06/28-11:38:30.529 830 Reusing old log C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\shared_proto_db\metadata/000003.log 

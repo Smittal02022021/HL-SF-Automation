@@ -1,0 +1,29 @@
+:::Jar already downloaded, launching jetty server...:::
+:::Starting jetty server...:::
+:::Making Request to Service: http://localhost:8080/sikuli/api/wait POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\Screenshot_Username.png","offset_x":0,"offset_y":0,"similar":0.7},"timeout":10.0}:::
+:::{"result":"PASS","message":"Pattern Found"}:::
+:::Result: PASS Message: Pattern Found Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/type POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\Screenshot_Username.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE","text":"Smittal0207"}:::
+:::{"result":"PASS","message":"Pattern Typed in"}:::
+:::Result: PASS Message: Pattern Typed in Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/type POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\Screenshot_Password.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE","text":"Yankee@1234"}:::
+:::{"result":"PASS","message":"Pattern Typed in"}:::
+:::Result: PASS Message: Pattern Typed in Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/click POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\Screenshot_Login.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE"}:::
+:::{"result":"PASS","message":"Pattern Clicked"}:::
+:::Result: PASS Message: Pattern Clicked Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/wait POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\BankerDropdown.png","offset_x":0,"offset_y":0,"similar":0.7},"timeout":30.0}:::
+:::{"result":"PASS","message":"Pattern Found"}:::
+:::Result: PASS Message: Pattern Found Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/click POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\BankerDropdown.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE"}:::
+:::{"result":"PASS","message":"Pattern Clicked"}:::
+:::Result: PASS Message: Pattern Clicked Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/type POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\BankerTextbox.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE","text":"Alford Scott"}:::
+:::{"result":"PASS","message":"Pattern Typed in"}:::
+:::Result: PASS Message: Pattern Typed in Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/click POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\BankerName.png","offset_x":0,"offset_y":0,"similar":0.7},"jKeyModifier":"NONE"}:::
+:::{"result":"PASS","message":"Pattern Clicked"}:::
+:::Result: PASS Message: Pattern Clicked Stacktrace: :::
+:::Making Request to Service: http://localhost:8080/sikuli/api/exists POST: {"jPattern":{"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\CoverageOfficer.png","offset_x":0,"offset_y":0,"similar":0.7},"timeout":60.0,"patternExists":false,"jResult":null}:::
+:::{"jResult":{"result":"PASS","message":"Pattern Exists"},"patternExists":true,"jPattern":{"similar":0.699999988079071,"imagePath":"C:\\Users\\SMittal0207\\source\\repos\\SalesForce_Project\\TestData\\CoverageOfficer.png","offset_x":0,"offset_y":0},"timeout":60}:::
+:::Result: PASS Message: Pattern Exists Stacktrace: :::
