@@ -12,7 +12,6 @@ namespace SalesForce_Project.TestCases.EventExpense
 {
     class TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover : BaseClass
     {
-    //Start of test case
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
