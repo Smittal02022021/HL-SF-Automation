@@ -21,8 +21,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
         By ButtonRefresh = By.XPath("//button[text()='Refresh']");
-        
-        public static string fileTMT1411= "TMTT0011411_Verify_user_with_Title_TAG_Outsourced_Contractor";
+
+        public static string fileTMT1411 = "TMTT0011411_Verify_user_with_Title_TAG_Outsourced_Contractor";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 driver.Navigate().Refresh();
                 Thread.Sleep(30000);
                 //string weekDay = timeRecorder.EditWeeklyEntryMatrix();
-                extentReports.CreateLog("User has edited the Weekly Entry Matrix: "+weekDay+" ");
+                extentReports.CreateLog("User has edited the Weekly Entry Matrix: " + weekDay + " ");
 
                 //Go to Summary Logs
                 timeEntry.GoToSummaryLog();
@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Get Summary Log Time Entry
                 string summaryLogTime = timeRecorder.GetSummaryLogsTimeHour();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Update_Hours", 1).ToString(), summaryLogTime);
-                extentReports.CreateLog("Hours: "+ summaryLogTime+" is logged in Sumamry logs ");
+                extentReports.CreateLog("Hours: " + summaryLogTime + " is logged in Sumamry logs ");
 
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
@@ -125,8 +125,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string summaryLogTime1 = timeRecorder.GetSummaryLogsTimeHour();
                 string summaryhours = ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString();
 
-                Assert.AreEqual(  summaryLogTime1,ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString());
-                extentReports.CreateLog("Hours: " +  ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString() + " is logged in Sumamry logs ");
+                Assert.AreEqual(summaryLogTime1, ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString());
+                extentReports.CreateLog("Hours: " + ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString() + " is logged in Sumamry logs ");
 
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
@@ -152,7 +152,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.GoToSummaryLog();
                 extentReports.CreateLog("User has navigated to Summary logs ");
                 timeEntry.EnterSummaryLogHours(fileTMT1411);
-                
+
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
                 extentReports.CreateLog("User has naigated to details log ");
@@ -162,7 +162,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 Assert.AreEqual(Convert.ToDouble(ReadExcelData.ReadData(excelPath, "Update_Hours", 1)), DetailLogTImedb1);
                 extentReports.CreateLog("Time displaying in detail log: " + DetailLogTImedb1 + " Hours ");
-                
+
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
                 extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");

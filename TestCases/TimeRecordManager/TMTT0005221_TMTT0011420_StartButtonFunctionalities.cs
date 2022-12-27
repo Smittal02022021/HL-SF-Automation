@@ -20,7 +20,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
-              RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
+        RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
 
@@ -86,11 +86,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 refreshButton.ClickStartButton();
 
                 //Verify error message when project is not Selected
-              string errMsg=  refreshButton.GetErrorMessageStart();
+                string errMsg = refreshButton.GetErrorMessageStart();
                 //Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Error_Message", 1), errMsg);
 
                 Assert.IsTrue(errMsg.Contains(ReadExcelData.ReadData(excelPath, "Error_Message", 1)), "Error message is dispalying correctly");
-                extentReports.CreateLog(" Error message: " + errMsg+" is displaying upon clicking Start Button ");
+                extentReports.CreateLog(" Error message: " + errMsg + " is displaying upon clicking Start Button ");
 
 
                 //Select Project and Activity from Drop Down
@@ -99,19 +99,19 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
 
                 //Verify Start button is enabled when project and activity is selected
-                
-                Assert.AreEqual(RefreshButtonFunctionality.ButtonStartClickable(), true);
-               extentReports.CreateLog("Start button is enabled after selecting Project and Activity Drop down ");
 
-                
+                Assert.AreEqual(RefreshButtonFunctionality.ButtonStartClickable(), true);
+                extentReports.CreateLog("Start button is enabled after selecting Project and Activity Drop down ");
+
+
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
-                
+
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
 
-               
+
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
 
@@ -143,7 +143,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
-               
+
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
                 extentReports.CreateLog("User has navigated to details log ");

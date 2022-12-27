@@ -24,8 +24,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
         By ButtonRefresh = By.XPath("//button[text()='Refresh']");
-        
-        public static string fileTMT1413= "TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically";
+
+        public static string fileTMT1413 = "TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -43,7 +43,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             try
             {
 
-                
+
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMT1413;
                 Console.WriteLine(excelPath);
@@ -67,16 +67,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
 
 
-                
+
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
 
                 //Select Staff Member from the list
 
-                string name= ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 1);
-               
+                string name = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 1);
+
                 timeEntry.SelectStaffMember(name);
-                string selectedStaffMember= timeEntry.GetSelectedStaffMember();
+                string selectedStaffMember = timeEntry.GetSelectedStaffMember();
                 string selectedStaffMemberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 1);
                 Assert.AreEqual(selectedStaffMemberExl, selectedStaffMember);
                 extentReports.CreateLog("Staff Member Title: " + selectedStaffMember + " is displayed upon click of staff Member link ");
@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 Thread.Sleep(3000);
                 extentReports.CreateLog("Time Entries are rounded off to 1 decimal place automatically");
-                
+
                 timeEntry.SelectStaffMember(name);
                 Thread.Sleep(4000);
                 timeEntry.GoToWeeklyEntryMatrix();

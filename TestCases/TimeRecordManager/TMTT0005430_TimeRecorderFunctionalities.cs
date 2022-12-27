@@ -23,8 +23,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
         By ButtonRefresh = By.XPath("//button[text()='Refresh']");
-        
-        public static string fileTMT5430= "TMTT0005430_TimeRecorderFunctionalities";
+
+        public static string fileTMT5430 = "TMTT0005430_TimeRecorderFunctionalities";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -91,14 +91,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Click Finish Button
                 refreshButton.ClickFinishButton();
                 extentReports.CreateLog("Clicked the finish button ");
-                                
+
                 //Go to Weekly Entry Matrix
                 timeEntry.GoToWeeklyEntryMatrix();
                 extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
                 Thread.Sleep(3000);
                 //Edit the Weekly Entry Matrix
                 string weekDay = timeRecorder.EditWeeklyEntryMatrix();
-                extentReports.CreateLog("User has edited the Weekly Entry Matrix: "+weekDay+" ");
+                extentReports.CreateLog("User has edited the Weekly Entry Matrix: " + weekDay + " ");
 
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
@@ -109,8 +109,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //extentReports.CreateLog(ReadExcelData.ReadData(excelPath, "Update_Hours", 2).ToString());
                 Assert.AreEqual(1, DetailLogTIme2db);
-                extentReports.CreateLog("TIme displaying in detail log: "+ DetailLogTIme2db+" Hours ");
-                
+                extentReports.CreateLog("TIme displaying in detail log: " + DetailLogTIme2db + " Hours ");
+
                 //Edit the details log
                 timeRecorder.EditDetailsLog();
                 extentReports.CreateLog("User has edited details log ");
@@ -132,7 +132,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
-              
+
                 //Edit the Weekly Entry Matrix
                 string weekDay2 = timeRecorder.EditWeeklyEntryMatrix();
                 extentReports.CreateLog("User has edited the Weekly Entry Matrix: " + weekDay2 + " ");
@@ -177,9 +177,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User has navigated to Summary logs ");
 
                 //Get Summary Log Time Entry
-                string summaryLogTime= timeRecorder.GetSummaryLogsTimeHour();
+                string summaryLogTime = timeRecorder.GetSummaryLogsTimeHour();
                 //Assert.AreEqual("0.1", summaryLogTime);
-                extentReports.CreateLog("Hours are round up to "+summaryLogTime+" even when only a few seconds has been recorded ");
+                extentReports.CreateLog("Hours are round up to " + summaryLogTime + " even when only a few seconds has been recorded ");
 
                 //Go to Weekly Entry Matrix
                 timeEntry.GoToWeeklyEntryMatrix();

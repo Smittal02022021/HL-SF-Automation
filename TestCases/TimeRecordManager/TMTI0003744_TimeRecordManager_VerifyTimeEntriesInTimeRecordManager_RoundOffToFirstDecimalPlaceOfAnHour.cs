@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                homePage.SearchUserByGlobalSearch(fileTMTI0003744,user);
+                homePage.SearchUserByGlobalSearch(fileTMTI0003744, user);
                 string userPeople = homePage.GetPeopleOrUserName();
                 string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                 Assert.AreEqual(userPeopleExl, userPeople);
@@ -85,14 +85,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("Time Entry Project Default: " + defaultSelectedProjectOption + " is displayed upon deletion of time entry ");
 
                 // Enter summary logs entry
-                timeEntry.EnterSummaryLogs( ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", 2, 1),fileTMTI0003744);
+                timeEntry.EnterSummaryLogs(ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", 2, 1), fileTMTI0003744);
                 string summaryLogTimeEntryRoundOff = timeEntry.GetSummaryLogsTimeEntry();
                 string summaryLogTimeEntryRoundOffExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 4);
                 Assert.AreEqual(summaryLogTimeEntryRoundOffExl, summaryLogTimeEntryRoundOff);
                 extentReports.CreateLog("Summary Log Rounded Off Value: " + summaryLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
 
                 //Enter detail logs entry
-                timeEntry.EnterDetailLogs(ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", 2, 1),fileTMTI0003744);
+                timeEntry.EnterDetailLogs(ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", 2, 1), fileTMTI0003744);
                 string detailLogTimeEntryRoundOff = timeEntry.GetDetailLogsTimeEntry();
                 string detailLogTimeEntryRoundOffExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 4);
                 Assert.AreEqual(detailLogTimeEntryRoundOff, detailLogTimeEntryRoundOffExl);

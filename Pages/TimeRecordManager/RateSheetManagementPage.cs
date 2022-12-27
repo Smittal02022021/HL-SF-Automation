@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -27,7 +28,98 @@ namespace SF_Automation.Pages.TimeRecordManager
         By txtBillingAmt = By.CssSelector("#tab-billing > div > div.slds-table.slds-table--striped > tr > td:nth-child(5) > span.uiOutputNumber");
         By valDetailList = By.XPath("//*/td[contains(text(),'Intern/Financial')]");
 
-        public void EnterRateSheet(string engagement,string rateSheet)
+
+        By sheetInitials = By.CssSelector(".linkBar.brandSecondaryBrd .rolodex a");
+        By rateSheetList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[4]");
+        By titleOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[@class='labelCol']");
+        By rateOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[contains(@class,'dataCol')]//div");
+        By viewGoButton = By.Name("go");
+        By nameRateSheetDetailPage = By.CssSelector(".content > h2");
+
+        //private By rateSheetName(String rateSheetname)
+        //{
+        //    return By.XPath($"//a/span[text()={rateSheetname}]");
+        //}     
+
+        public string GetRateSheetDetailPage()
+        {
+
+            return driver.FindElement(nameRateSheetDetailPage).Text;
+        }
+
+        //Selecting the Title Rate Sheet Object
+        public void SelectTitleRateSheetObject()
+        {
+            driver.FindElement(shwAllTab).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(imgTitleRateSheet).Click();
+            Thread.Sleep(2000);
+
+        }
+        public void SelectAllRateSheets()
+        {
+            Thread.Sleep(4000);
+            bool goButton = driver.FindElement(viewGoButton).Displayed;
+            if (goButton)
+                driver.FindElement(viewGoButton).Click();
+        }
+
+        //Selecting the Rate Sheet initials
+        public void SelectSheetIntials(String initialValue)
+        {
+            Thread.Sleep(4000);
+            IList<IWebElement> initials = driver.FindElements(sheetInitials);
+            for (int i = 0; i <= initials.Count; i++)
+            {
+                String initialsValue = initials[i].Text;
+                if (initialsValue.Equals(initialValue))
+                {
+                    initials[i].Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, rateSheetList);
+                    break;
+                }
+
+            }
+        }
+
+        //Selecting the Rate Sheet
+        public void SelectRateSheet(string rateSheetname)
+        {
+
+            IList<IWebElement> rateSheets = driver.FindElements(rateSheetList);
+            for (int i = 0; i <= rateSheets.Count; i++)
+            {
+                String rateSheetValue = rateSheets[i].Text;
+                if (rateSheetValue.Equals(rateSheetname))
+                {
+                    rateSheets[i].Click();
+                    break;
+                }
+            }
+        }
+
+        //Get the Title and its respectice Rate on selected Rate sheet
+        public bool IsRateAsPerTitle(String title, String rate)
+        {
+            IList<IWebElement> titles = driver.FindElements(titleOnSheetDetail);
+            IList<IWebElement> rates = driver.FindElements(rateOnSheetDetail);
+            bool IsRateAsPerTitleAvailable = false;
+            for (int titleTableRow = 2; titleTableRow <= titles.Count; titleTableRow++)
+            {
+                String titleValue = titles[titleTableRow].Text;
+                if (titleValue.Equals(title))
+                {
+                    string rateValue = rates[titleTableRow].Text;
+                    IsRateAsPerTitleAvailable = rateValue.Contains(rate);
+                    break;
+                }
+            }
+            return IsRateAsPerTitleAvailable;
+        }
+
+
+        //============================================================
+        public void EnterRateSheet(string engagement, string rateSheet)
         {
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
@@ -35,7 +127,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
             WebDriverWaits.WaitUntilEleVisible(driver, comboEngagementOptions, 220);
-            
+
             driver.FindElement(comboEngagement).SendKeys(engagement);
             Thread.Sleep(5000);
 
@@ -69,22 +161,46 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         public void DeleteRateSheet(string engagementName)
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
-            driver.FindElement(tabRateSheetManagement).Click();
-            Thread.Sleep(10000);
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+                driver.FindElement(tabRateSheetManagement).Click();
+                Thread.Sleep(10000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
-            driver.FindElement(comboEngagement).SendKeys(engagementName);
-            Thread.Sleep(10000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+                driver.FindElement(comboEngagement).SendKeys(engagementName);
+                Thread.Sleep(10000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
-            driver.FindElement(btnCrossDeleteRecord).Click();
-            Thread.Sleep(5000);
-            
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
-            Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                driver.FindElement(btnCrossDeleteRecord).Click();
+                Thread.Sleep(5000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+            catch (Exception e)
+            {
+                CustomFunctions.PageReload();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+                driver.FindElement(tabRateSheetManagement).Click();
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+                driver.FindElement(comboEngagement).SendKeys(engagementName);
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                driver.FindElement(btnCrossDeleteRecord).Click();
+                Thread.Sleep(5000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+
         }
 
         public string GetBillingAmountFromBillingPreparationTab()
@@ -92,7 +208,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
             driver.FindElement(tabBillingPreparation).Click();
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtBillingAmt,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtBillingAmt, 120);
             string BillingAmt = driver.FindElement(txtBillingAmt).Text;
             return BillingAmt;
         }
@@ -230,7 +346,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             {
                 result = true;
             }
-            
+
             return result;
         }
     }

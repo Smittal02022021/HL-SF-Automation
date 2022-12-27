@@ -24,8 +24,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
         By ButtonRefresh = By.XPath("//button[text()='Refresh']");
-        
-        public static string fileTMT1418= "TMTT0011418_Verify_the_TAS_Supervisor can_only_enter_hours_more_than_24hours_for_one_day_for_Associates_with_Title_TAG_Outsourced_Contractor";
+
+        public static string fileTMT1418 = "TMTT0011418_Verify_the_TAS_Supervisor can_only_enter_hours_more_than_24hours_for_one_day_for_Associates_with_Title_TAG_Outsourced_Contractor";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -79,7 +79,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 string selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
                 timeEntry.SelectProjectWeeklyEntryMatrix(selectProject, fileTMT1418);
-                
+
                 timeEntry.LogCurrentDateHours(fileTMT1418);
 
                 driver.Navigate().Refresh();

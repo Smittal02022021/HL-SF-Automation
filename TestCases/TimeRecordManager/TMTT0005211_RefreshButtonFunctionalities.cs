@@ -22,7 +22,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
 
-        
+
 
         public static string fileTMT5211 = "TMTT0005211_RefreshButtonFunctionalities";
 
@@ -79,35 +79,35 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string TimeClockRecorderPageTitle = refreshButton.GetTitleTimeClockRecorderPage();
                 string TimeClockRecorderPageTitleExl = ReadExcelData.ReadData(excelPath, "Time_Record_Period_Title", 1);
                 Assert.AreEqual(TimeClockRecorderPageTitleExl, TimeClockRecorderPageTitle);
-                extentReports.CreateLog( TimeClockRecorderPageTitle + " is displayed upon clicking Time Clock Recorder ");
+                extentReports.CreateLog(TimeClockRecorderPageTitle + " is displayed upon clicking Time Clock Recorder ");
                 //Check recorder is reset or not
                 refreshButton.ClickResetButton();
 
                 //TMT10009566
                 //Verify Refresh button is not displaying when project is not selected
-                
+
                 Assert.AreEqual(RefreshButtonFunctionality.HiddenRefreshButton(), true);
                 extentReports.CreateLog("Refresh button is hidden when project is not selected ");
 
-                
-                 //Select Project and Activity from Drop Down
-                  refreshButton.SelectDropDownProjectandActivity(excelPath);
+
+                //Select Project and Activity from Drop Down
+                refreshButton.SelectDropDownProjectandActivity(excelPath);
                 extentReports.CreateLog("Selected Project and Activity from Drop down");
 
-             //Click Start Button
-             refreshButton.ClickStartButton();
+                //Click Start Button
+                refreshButton.ClickStartButton();
                 extentReports.CreateLog("Click Start button in Timer ");
 
                 //Click Refresh Button
                 refreshButton.ClickRefreshButton();
                 extentReports.CreateLog("Click Refresh button in Timer ");
 
-               // TMT10009559
+                // TMT10009559
                 //Get Seconds Text
                 int GetSecondsTimer = int.Parse(refreshButton.GetSecondsTimer1());
-                 Assert.AreNotEqual(0,GetSecondsTimer,"Seconds timer is not working fine ", true);
-                extentReports.CreateLog("Timer is resumed upon clicking Refresh Button " );
-                             
+                Assert.AreNotEqual(0, GetSecondsTimer, "Seconds timer is not working fine ", true);
+                extentReports.CreateLog("Timer is resumed upon clicking Refresh Button ");
+
                 //Click on Time Clock Recorder Tab
                 refreshButton.GotoTimeClockRecorderPage();
                 extentReports.CreateLog("User is navigated to Clock Recorder Page ");
@@ -127,9 +127,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //TNT10009582
                 //Get Seconds Text
                 int GetSecondsTimer1 = int.Parse(refreshButton.GetSecondsTimer1());
-                Assert.AreNotEqual(0, GetSecondsTimer1, "Seconds timer is not working fine " , true);
-                extentReports.CreateLog("Timer is displaying accurate time upon clicking Refresh Button " );
-                          
+                Assert.AreNotEqual(0, GetSecondsTimer1, "Seconds timer is not working fine ", true);
+                extentReports.CreateLog("Timer is displaying accurate time upon clicking Refresh Button ");
+
                 //Update Timer
                 refreshButton.UpdateTimer(excelPath);
                 extentReports.CreateLog("Update the timer ");
@@ -137,13 +137,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Click Refresh Button
                 refreshButton.ClickRefreshButton();
                 extentReports.CreateLog("Click Refresh button in Timer ");
-                               
+
                 //TNT10009878
                 //Get Hours Text
                 int GetHoursTimer = int.Parse(refreshButton.GetHoursTimer1());
                 Assert.AreEqual(1, GetHoursTimer, "Hours timer is not working fine ", true);
                 extentReports.CreateLog("Added minutes are reflecting after refresh button is clicked ");
-             
+
                 //Click Pause Button
                 refreshButton.ClickPauseButton();
                 extentReports.CreateLog("User had clicked on Pause button ");
@@ -157,12 +157,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //TMT10009599
                 int GetHoursTimer1 = int.Parse(refreshButton.GetHoursTimer1());
                 Assert.AreEqual(1, GetHoursTimer1, "Hours timer is not working fine ", true);
-                extentReports.CreateLog("Clicking on Refresh button is not setting back the hours or minutes of timer" );
-                                             
-            usersLogin.UserLogOut();
-            usersLogin.UserLogOut();
-            driver.Quit();
-        }
+                extentReports.CreateLog("Clicking on Refresh button is not setting back the hours or minutes of timer");
+
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
+            }
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
@@ -170,6 +170,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-}
+        }
     }
 }

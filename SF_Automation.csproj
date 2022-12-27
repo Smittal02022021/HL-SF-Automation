@@ -715,9 +715,13 @@
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
     <Compile Include="TestCases\TimeRecordManager\T2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
+    <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
+    <Compile Include="TestCases\TimeRecordManager\TMTI0045472_VerifyBetauserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.cs" />
+    <Compile Include="TestCases\TimeRecordManager\TMTI0045474_VerifytheAmountisCalculatedandreflectedforNewEngagement.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005211_RefreshButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005221_TMTT0011420_StartButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />
+    <Compile Include="TestCases\TimeRecordManager\TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011418_TMTT0011410_VerifyTheTASSupervisorCanOnlyEnterHoursMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.cs" />
@@ -880,6 +884,9 @@
     <None Include="TestData\TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
+    <None Include="TestData\TMTI0045469_VerifyNewTitleAddedinTitleRateSheet.xlsx" />
+    <None Include="TestData\TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.xlsx" />
+    <None Include="TestData\TMTI0045474_VerifytheAmountiscalculatedandreflectedforNewEngagement.xlsx" />
     <None Include="TestData\TMTT0005173_ActivitiesList_VerifyLayoutOfActivitiesList.xlsx" />
     <None Include="TestData\TMTT0005211_RefreshButtonFunctionalities.xlsx" />
     <None Include="TestData\TMTT0005221_StartButtonFunctionalities.xlsx" />
@@ -889,6 +896,7 @@
     <None Include="TestData\TMTT0005815_NBCAndCNBC_ExistingFunctionality.xlsx" />
     <None Include="TestData\TMTT0005817_NBCAndCNBCForm_RestrictedAccess.xlsx" />
     <None Include="TestData\TMTT0005817_NBCAndCNBCForm_RestrictedAccess1.xlsx" />
+    <None Include="TestData\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.xlsx" />
     <None Include="TestData\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity1.xlsx" />
     <None Include="TestData\TMTT0011411_Verify_user_with_Title_TAG_Outsourced_Contractor.xlsx" />
     <None Include="TestData\TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.xlsx" />

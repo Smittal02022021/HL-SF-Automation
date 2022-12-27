@@ -6,8 +6,12 @@ namespace SF_Automation.UtilityFunctions
 {
     public class WebDriverWaits
     {
-       //To Validate Page Title
-       public static bool TitleContains(IWebDriver driver, String Title, int timeout = 150)
+        public static bool WaitUntilTitleContains(IWebDriver driver, String Title, int timeout = 10)
+        {
+            return driver.Title.Contains(Title);
+        }
+        //To Validate Page Title
+        public static bool TitleContains(IWebDriver driver, String Title, int timeout = 150)
         {
            try
                 { 

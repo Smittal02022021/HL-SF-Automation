@@ -23,8 +23,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 
         By ButtonRefresh = By.XPath("//button[text()='Refresh']");
-        
-        public static string fileTMT1411= "TMTT0011424_VerifytheTASSupervisorcanonlyenterhourslessthan24hoursforonedayforAssociates";
+
+        public static string fileTMT1411 = "TMTT0011424_VerifytheTASSupervisorcanonlyenterhourslessthan24hoursforonedayforAssociates";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -65,13 +65,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Verify TAS Supervisor is able to make own time entries
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
-                
+
                 string selectProject1 = ReadExcelData.ReadData(excelPath, "Project_Title", 1);
-                
+
                 timeEntry.SelectProjectWeeklyEntryMatrix(selectProject1, fileTMT1411);
                 timeEntry.LogCurrentDateHours(fileTMT1411);
 
-                driver.Navigate().Refresh();
+                //driver.Navigate().Refresh();
 
                 Thread.Sleep(3000);
                 //Click Time Record Manager Tab
@@ -83,7 +83,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Get Summary Log Time Entry
                 string summaryLogTime1 = timeRecorder.GetSummaryLogsTimeHour();
-                
+
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Update_Timer", 1).ToString(), summaryLogTime1);
                 extentReports.CreateLog("Hours: " + summaryLogTime1 + " is logged in Sumamry logs ");
 
@@ -108,7 +108,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
 
-                string selectProject2= ReadExcelData.ReadData(excelPath, "Project_Title", 1);
+                string selectProject2 = ReadExcelData.ReadData(excelPath, "Project_Title", 1);
                 timeEntry.SelectProjectWeeklyEntryMatrix(selectProject2, fileTMT1411);
                 string weekDay = timeEntry.LogFutureDateHours(fileTMT1411);
 
@@ -134,7 +134,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Get border color of weekly entry
                 timeEntry.GetBorderColorTimeEntry(weekDay1);
-                
+
                 extentReports.CreateLog("User has color: ");
 
                 //Verify Time Entires provided on Weekly time sheet by TAS Supervisor user is reflecting on Summary and Detail Log tabs for selected associate

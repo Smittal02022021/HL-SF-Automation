@@ -52,6 +52,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         By AddBtnSummaryLog = By.CssSelector("span[class*='bBody']");
         By TxtSuccessMsg = By.XPath("//h4[text()='Success -']");
 
+        By tabBetaSummaryLogs = By.CssSelector("li[title='Summary'] > a");
+        By tabBetaDetailLogs = By.CssSelector("li[title='Details'] > a");
 
         public void GoToWeeklyEntryMatrix()
         {
@@ -135,7 +137,26 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
             driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 3));
         }
-
+        public void BetaUserEnterSummaryLogs(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBetaSummaryLogs);
+            driver.FindElement(tabBetaSummaryLogs).Click();
+            Thread.Sleep(2000);
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+            driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 3));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 2));
+        }
         public void EnterSummaryLogs1(string selectProject, string file)
         {
 
@@ -183,6 +204,27 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
             driver.FindElement(tabDetailLogs).Click();
             Thread.Sleep(5000);
+        }
+        public void BetaUserEnterDetailLogs(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBetaDetailLogs);
+            driver.FindElement(tabBetaDetailLogs).Click();
+            Thread.Sleep(5000);
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+            driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 3));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 2));
         }
 
         public void EnterDetailLogs(string selectProject, string file)
