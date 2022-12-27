@@ -214,6 +214,7 @@ namespace SF_Automation.Pages.Engagement
         By msgStaffRoleDel = By.CssSelector("tbody>tr>td:nth-child(2)>span[id*='panPostTransactionStaffRoles']>label");
         By txtClassification = By.CssSelector("select[name*='mainForm:dummyStaffRole']");
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
+        By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
@@ -2081,7 +2082,15 @@ namespace SF_Automation.Pages.Engagement
             string message = driver.FindElement(msgStaffRoleDel).Text;
             return message;
         }
+        //Click on Return to Engagement
+        public void ClickReturnToEngagement()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement, 150);
+            driver.FindElement(btnReturnToEngagement).Click();
+        }
     }
 }
+
 
 

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -202,6 +203,12 @@ namespace SF_Automation.Pages.Engagement
 
         By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");
         By lblHeaderText = By.XPath("//h1/span[2]");
+        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
+        By btnSendEmail = By.CssSelector("input[value='Send Email']");
+        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
+        By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
+        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
+        By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
 
         public string NavigateToCFEngagementSummaryPage()
         {
@@ -1725,6 +1732,18 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
+        //To Click Mass Edit Records button
+        public string ClickMassEditRecordsButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
+            driver.FindElement(btnMassEditRecords).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleMassEditPage, 120);
+            string name = driver.FindElement(titleMassEditPage).Text;
+            return name;
+        }
         public void ClickFirstContractLink(int row)
         {
             Thread.Sleep(3000);
@@ -1892,6 +1911,45 @@ namespace SF_Automation.Pages.Engagement
                 string value = driver.FindElement(txtSecWomenLedOther).Text;
                 return value;
             }
+        }
+        //Select value from Type dropdown and validate the displayed values
+        public string SelectValueFromTypeDropdown(string name)
+        {
+            Thread.Sleep(9000);
+            driver.FindElement(valType).Click();
+            Thread.Sleep(3000);
+            if (name.Equals("PE Firm") || name.Equals("Subject"))
+            {
+                var element = driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']"));
+                Actions action = new Actions(driver);
+                action.MoveToElement(element);
+                action.Perform();
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+                Thread.Sleep(6000);
+                //string value = driver.FindElement(valSelectedType).Text;
+                string value = driver.FindElement(valSelectedType).GetAttribute("data-value");
+                return value;
+            }
+            else
+            {
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+                Thread.Sleep(6000);
+                //string value = driver.FindElement(valSelectedType).Text;
+                string value = driver.FindElement(valSelectedType).GetAttribute("data-value");
+                return value;
+            }
+        }
+        //To click on Back To Engagement button
+        public string ClickBackToEngButtonAndValidatePage()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEng, 150);
+            driver.FindElement(btnBackToEng).Click();
+            driver.SwitchTo().DefaultContent();
+            string name = driver.FindElement(titleEngDetails).Text;
+            return name;
         }
 
     }
