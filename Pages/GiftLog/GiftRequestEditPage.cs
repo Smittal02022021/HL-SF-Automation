@@ -1,11 +1,11 @@
 ﻿using OpenQA.Selenium;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SF_Automation.Pages.GiftLog
+namespace SalesForce_Project.Pages.GiftLog
 {
     class GiftRequestEditPage : BaseClass
     {
@@ -29,8 +29,8 @@ namespace SF_Automation.Pages.GiftLog
         By txtRecipientName = By.CssSelector("span[id*='j_id48:j_id51']");
         By txtDesiredDate = By.CssSelector("input[id*='j_id48:j_id59']");
 
-        
-        
+
+
         public string GetGiftRequestEditTitle()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestEditTitle, 60);
@@ -136,7 +136,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public string VerifyGiftNameEditable()
         {
-            return CustomFunctions.IsElementEditable(driver,txtGiftName);
+            return CustomFunctions.IsElementEditable(driver, txtGiftName);
         }
 
         public string VerifyGiftTypeEditable()

@@ -1,13 +1,13 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SF_Automation.Pages.GiftLog
+namespace SalesForce_Project.Pages.GiftLog
 {
     class GiftApprovePage : BaseClass
     {
@@ -35,8 +35,8 @@ namespace SF_Automation.Pages.GiftLog
         By btnDelete = By.CssSelector("td[id='topButtonRow'] > input[value='Delete']");
         By comboMonth = By.CssSelector("select[id*='monthOptions']");
         By comboYear = By.CssSelector("select[id*='yearOptions']");
-        By errorMsgApprovalComment = By.CssSelector("div[id*='j_id5:j_id7']");
-        By errorMsgFrApproveGift = By.CssSelector("div[id*='j_id5:j_id7']");
+        By errorMsgApprovalComment = By.CssSelector("div[id*='j_id6:j_id8']"); // div[id*='j_id5:j_id7']");
+        By errorMsgFrApproveGift = By.CssSelector("div[id*='j_id6:j_id8']"); // div[id*='j_id5:j_id7']");
         By txtGiftStatus = By.CssSelector("td[id*='j_id124']>span");
         By btnSubmitRequest = By.XPath("//td[@id='j_id0:j_id2:j_id32:j_id46']/input[@value='Submit Request']");
 
@@ -48,9 +48,9 @@ namespace SF_Automation.Pages.GiftLog
         By labelGiftValue = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(6) > td:nth-child(2)");
         By labelCurrency = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(7) > td:nth-child(2)");
         By labelHLRelationship = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(8) > td:nth-child(2)");
-        By labelReasonForGift = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(12) > td:nth-child(2)");
-        By labelApprovalNumber = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(13) > td:nth-child(2)");
-        By labelCreatedBy = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(14) > td:nth-child(2)");
+        By labelReasonForGift = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(9) > td:nth-child(2)");// table[class='detailList'] >tbody > tr:nth-child(12) > td:nth-child(2)");
+        By labelApprovalNumber = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(10) > td:nth-child(2)"); //table[class='detailList'] >tbody > tr:nth-child(13) > td:nth-child(2)"); 
+        By labelCreatedBy = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(11) > td:nth-child(2)"); //table[class='detailList'] >tbody > tr:nth-child(14) > td:nth-child(2)"); // 
         By labelApproveDate = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(12) > td:nth-child(2)");
         By labelApproved = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(1) > td:nth-child(4)");
         By labelApprovalComment = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(2) > td:nth-child(4)");
@@ -69,7 +69,7 @@ namespace SF_Automation.Pages.GiftLog
                 string giftName = driver.FindElement(labelGiftName).Text;
                 if (giftName == giftDesc)
                 {
-                    result=true;
+                    result = true;
                 }
             }
             return result;
@@ -263,9 +263,9 @@ namespace SF_Automation.Pages.GiftLog
                 driver.FindElement(btnSubmitRequest).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                
+
             }
         }
 
@@ -577,7 +577,7 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftTableColLength);
             int totalColumns = element.Count;
 
-            for (int columnPosition=2; columnPosition<totalColumns; columnPosition++)
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
             {
                 //Get the column name
                 By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
@@ -935,6 +935,6 @@ namespace SF_Automation.Pages.GiftLog
 
 
         }
-            
+
     }
 }

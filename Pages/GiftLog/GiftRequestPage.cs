@@ -1,12 +1,12 @@
 ﻿using OpenQA.Selenium;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 
-namespace SF_Automation.Pages.GiftLog
+namespace SalesForce_Project.Pages.GiftLog
 {
     class GiftRequestPage : BaseClass
     {
@@ -83,8 +83,8 @@ namespace SF_Automation.Pages.GiftLog
         By srchHoulihanEmployeeResult = By.CssSelector("tr.dataRow.even.first > th>a:nth-of-type(1)");
 
 
-        By titleResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(1)");
-        By deptResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(2)");
+        By titleResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(2)");
+        By deptResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(3)");
         //  By SrchCmpnyResults = By.XPath("//tr[@class='dataRow even  first']/td[3]/span");
         By selectCompanyName = By.CssSelector("td[class='data2Col  first '] > span > select");
         By selectContactName = By.CssSelector("td[class='data2Col '] > span > select");
@@ -99,7 +99,7 @@ namespace SF_Automation.Pages.GiftLog
         By selectCurrencyDrpDown = By.CssSelector("select[id*='j_id28:ddlCurrency']");
 
         By linkGiftRequestTab = By.XPath("//a[text()='Gift Requests']");
-        
+
         public void GoToGiftRequestPage()
         {
 
@@ -573,7 +573,7 @@ namespace SF_Automation.Pages.GiftLog
         public bool VerifyWarningMessageDisplayed()
         {
             bool result = false;
-            if(driver.FindElement(valWarningMsgFirstLine).Displayed && driver.FindElement(valWarningMsgNextLine).Displayed)
+            if (driver.FindElement(valWarningMsgFirstLine).Displayed && driver.FindElement(valWarningMsgNextLine).Displayed)
             {
                 result = true;
             }
@@ -762,7 +762,7 @@ namespace SF_Automation.Pages.GiftLog
 
         }
         //Verify combination of COmpany and Contact Combo Box
-        public void VerifyCompanyContactNameComboBox(string file, string value,string val, string companyname, string contactname)
+        public void VerifyCompanyContactNameComboBox(string file, string value, string val, string companyname, string contactname)
         {
             CustomFunctions.SelectByText(driver, driver.FindElement(selectContactName), value);
             CustomFunctions.SelectByText(driver, driver.FindElement(selectCompanyName), val);
@@ -771,7 +771,7 @@ namespace SF_Automation.Pages.GiftLog
 
             driver.FindElement(txtCompanyName).SendKeys(companyname);
             //Enter contact name
-           
+
             driver.FindElement(txtContactName).SendKeys(contactname);
 
             //Click search button
@@ -834,9 +834,9 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void EnterGiftValue(string value)
         {
-           // string excelPath = dir + file;
+            // string excelPath = dir + file;
             // Enter gift value
-            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValue,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValue, 120);
             driver.FindElement(txtGiftValue).Clear();
             driver.FindElement(txtGiftValue).SendKeys(value);
         }
@@ -854,10 +854,11 @@ namespace SF_Automation.Pages.GiftLog
             return CurrentNextYearGiftAmtText;
         }
 
-        public void SelectCurrencyDrpDown(string value) {
+        public void SelectCurrencyDrpDown(string value)
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, selectCurrencyDrpDown, 60);
             CustomFunctions.SelectByText(driver, driver.FindElement(selectCurrencyDrpDown), value);
-            
+
 
         }
     }

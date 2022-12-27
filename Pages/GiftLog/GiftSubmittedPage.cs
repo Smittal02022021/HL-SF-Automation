@@ -1,12 +1,12 @@
 ﻿using OpenQA.Selenium;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SF_Automation.Pages.GiftLog
+namespace SalesForce_Project.Pages.GiftLog
 {
     class GiftSubmittedPage : BaseClass
     {
@@ -19,7 +19,7 @@ namespace SF_Automation.Pages.GiftLog
         By valGiftType = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(2) > td:nth-child(2)");
         By valHLRelationship = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(8) > td:nth-child(2)");
         By valGiftValue = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(6) > td:nth-child(2)");
-        By valEditedReason = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(12) > td:nth-child(2)");
+        By valEditedReason = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(9) > td:nth-child(2)");
         By btnDelete = By.CssSelector("td[id='topButtonRow'] > input[value='Delete']");
 
         By comboApprovedStatus = By.XPath("//select[@id='j_id0:theSubmitterForm:j_id27:searchOptions']");
@@ -31,7 +31,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, shwAllTab, 120);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(shwAllTab));
-                //driver.FindElement(shwAllTab).Click();
+            //driver.FindElement(shwAllTab).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, linkGiftsSubmitted, 120);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(linkGiftsSubmitted));
@@ -61,7 +61,7 @@ namespace SF_Automation.Pages.GiftLog
                 else
                 {
                     Console.WriteLine("Gift Description is not available in the list");
-                }              
+                }
             }
         }
 
@@ -78,7 +78,7 @@ namespace SF_Automation.Pages.GiftLog
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEdit));
 
-          //  driver.FindElement(btnEdit).Click();
+            //  driver.FindElement(btnEdit).Click();
         }
 
         public bool tableListPresent()

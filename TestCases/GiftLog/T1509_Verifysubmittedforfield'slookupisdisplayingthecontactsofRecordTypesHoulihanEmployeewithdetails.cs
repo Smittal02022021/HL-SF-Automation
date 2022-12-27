@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
-using SF_Automation.Pages;
-using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
-using SF_Automation.Pages.GiftLog;
-using SF_Automation.Pages.HomePage;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.Pages;
+using SalesForce_Project.Pages.Common;
+using SalesForce_Project.Pages.Companies;
+using SalesForce_Project.Pages.Company;
+using SalesForce_Project.Pages.GiftLog;
+using SalesForce_Project.Pages.HomePage;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SF_Automation.TestCases.GiftLog
+namespace SalesForce_Project.TestCases.GiftLog
 {
     class T1509_VerifysubmittedforfieldslookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails : BaseClass
     {
@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.GiftLog
               //  Thread.Sleep(3000);
                 //Verify appropriate results are displayed when user searched for Department
                 string DeptSrchResults = giftRequest.SrchDept();
-                //Assert.AreEqual("CF", DeptSrchResults);
+                Assert.AreEqual("CF", DeptSrchResults);
                 extentReports.CreateLog("Appropriate results are displayed when user searched for Department ");
 
 

@@ -1,17 +1,17 @@
 ﻿using NUnit.Framework;
-using SF_Automation.Pages;
-using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
-using SF_Automation.Pages.Contact;
-using SF_Automation.Pages.GiftLog;
-using SF_Automation.Pages.HomePage;
-using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
+using SalesForce_Project.Pages;
+using SalesForce_Project.Pages.Common;
+using SalesForce_Project.Pages.Companies;
+using SalesForce_Project.Pages.Company;
+using SalesForce_Project.Pages.Contact;
+using SalesForce_Project.Pages.GiftLog;
+using SalesForce_Project.Pages.HomePage;
+using SalesForce_Project.TestData;
+using SalesForce_Project.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SF_Automation.TestCases.GiftLog
+namespace SalesForce_Project.TestCases.GiftLog
 {
     class T1526_ApproveGifts_DenySelected_ToDenySelectedGiftsFromApprovedList : BaseClass
     {
@@ -57,6 +57,8 @@ namespace SF_Automation.TestCases.GiftLog
                 //Calling Login function                
                 login.LoginApplication();
 
+
+
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -78,45 +80,47 @@ namespace SF_Automation.TestCases.GiftLog
                 string complianceUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                 Assert.AreEqual(complianceUserExl.Contains(trimmedcomplianceUser), true);
                 extentReports.CreateLog("Compliance User: " + trimmedcomplianceUser + " is able to login ");
-
                 //Navigate to Gift Request page
                 giftRequest.GoToGiftRequestsPage();
                 string giftRequestTitle = giftRequest.GetGiftRequestPageTitle();
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
                 // Enter required details in client gift pre- approval page
-                giftRequest.SetDesiredDateToCurrentDate();
                 string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC1526);
+                //  giftRequest.EnterGiftValue("110");
 
-                //Adding recipient from add recipient section to selected recipient section
+
+                // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
 
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
-                giftApprove.ClickSubmitRequest();
+                //  giftRequest.ClickSubmitRequestButton();
                 string congratulationMsg2 = giftRequest.GetCongratulationsMsg();
                 string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg2);
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg2 + " in displayed upon successful submission of gift request ");
-                
                 //Click on approve gifts tab
                 giftApprove.ClickApproveGiftsTab();
                 Assert.IsTrue(giftApprove.ApproveSelectedButtonVisibility());
                 extentReports.CreateLog("Approve Selected button is visible on click of approve gifts tab ");
 
+
                 //Search gift details by recipient last name
                 giftApprove.SearchByRecipientLastName(fileTC1526);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
+
                 // Click on approve selected button
                 giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                giftApprove.SetApprovalDenialComments();
                 giftApprove.ClickApproveSelectedButton();
                 extentReports.CreateLog("Approve selected button is clicked successfully ");
-                
-                //Denying an approved gift
+
                 giftApprove.SearchByStatus(fileTC1526, "Approved");
                 giftApprove.ClickDenySelectedButton();
+
+
+
 
                 String ErrorMsgApproveGiftText1 = giftApprove.ErrorMsgForApproveGift();
                 Assert.IsTrue(ErrorMsgApproveGiftText1.Contains("You must select at least one gift to deny."));
@@ -132,13 +136,15 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual("Denied", txtStatus);
                 extentReports.CreateLog(txtStatus + " is displaying in gift status ");
 
+
+
+
                 //Navigate to Gift Request page
                 giftRequest.GoToGiftRequestsPage();
                 string giftRequestTitle1 = giftRequest.GetGiftRequestPageTitle();
                 extentReports.CreateLog("Page Title: " + giftRequestTitle1 + " is diplayed upon click of Gift Request link ");
 
                 // Enter required details in client gift pre- approval page
-                giftRequest.SetDesiredDateToCurrentDate();
                 string valGiftNameEntered1 = giftRequest.EnterDetailsGiftRequest(fileTC1526);
                 giftRequest.EnterGiftValue(ReadExcelData.ReadData(excelPath, "GiftValue", 1));
 
@@ -165,9 +171,8 @@ namespace SF_Automation.TestCases.GiftLog
 
 
                 giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
-                giftApprove.SetApprovalDenialComments();
                 giftApprove.ClickDenySelectedButton();
-                
+
                 giftApprove.SearchByStatus(fileTC1526, "Denied");
                 // Verification of gift status displaying in Denied list
                 string txtStatus1 = giftApprove.GetStatusCompareGiftDescWithGiftName(valGiftNameEntered);
