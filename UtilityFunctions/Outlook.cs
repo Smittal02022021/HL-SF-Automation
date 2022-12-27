@@ -38,7 +38,7 @@ namespace SalesForce_Project.UtilityFunctions
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']");
 
-        string dir = @"C:\HL\SalesForce_Project\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public void LoginOutlook(string file)
         {
