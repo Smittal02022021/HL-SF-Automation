@@ -158,6 +158,11 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(5000);
             string excelPath = dir + file;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditEventInfo, 120);
             driver.FindElement(btnEditEventInfo).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtDescriptOfOtherCost).Clear();
@@ -172,6 +177,11 @@ namespace SF_Automation.Pages.EventExpense
         public string GetUpdatedDescriptionOfOtherCost()
         {
             Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblDescriptionOfOtherCost, 120);
             string updatedDescOfOtherCost = driver.FindElement(lblDescriptionOfOtherCost).Text;
             Thread.Sleep(3000);
             return updatedDescOfOtherCost;
@@ -183,6 +193,12 @@ namespace SF_Automation.Pages.EventExpense
             string excelPath = dir + file;
 
             Thread.Sleep(3000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditEventInfo, 120);
             driver.FindElement(btnEditEventInfo).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtDescriptOfOtherCost).Clear();

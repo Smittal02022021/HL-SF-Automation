@@ -52,7 +52,7 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
 
-                int userCount = 2; // ReadExcelData.GetRowCount(excelPath, "Users");
+                int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
                 {
                     string evName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 4);
@@ -113,7 +113,7 @@ namespace SF_Automation.TestCases.EventExpense
                     Assert.IsTrue(lvExpenseRequest.VerifyIfRequestsPendingMyApprovalTabIsDisplayed());
                     extentReports.CreateLog("Requests Pending My Approval tab is also displayed upon opening Expense Reuest page. ");
 
-                    if (row==4)
+                    if (row==3)
                     {
                         //TC - TMTI0038468 - Verify All Requests tab is displayed for CAO User Only
                         Assert.IsTrue(lvExpenseRequest.VerifyIfAllRequestsTabIsDisplayed());
@@ -183,9 +183,9 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("Expense request is deleted succssfully with status: " + eventStatus2 + " ");
 
                         //TC - TMTI0038484 - Verify expense detail page on deleting the request as requester.
-                        string approverResponse = lvExpRequestDetail.GetApproverResponseFromApprovalHistorySection();
+                        string approverResponse = lvExpRequestDetail.GetApproverResponseFromApprovalHistorySectionForApprover();
                         Assert.AreEqual(approverResp, approverResponse);
-                        string expReqNotes = lvExpRequestDetail.GetNotesFromApprovalHistorySection();
+                        string expReqNotes = lvExpRequestDetail.GetNotesFromApprovalHistorySectionForApprover();
                         Assert.AreEqual(approverNotes, expReqNotes);
                         extentReports.CreateLog("Deleted Expense Request detail page is showing Notes along with approver's response in Expense History. ");
                     }
