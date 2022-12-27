@@ -1,3 +1,18 @@
-2022/06/28-11:34:05.335 192c Reusing MANIFEST C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\Session Storage/MANIFEST-000001
-2022/06/28-11:34:05.481 192c Recovering log #454
-2022/06/28-11:34:05.544 192c Reusing old log C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\Session Storage/000454.log 
+2022/12/27-15:51:48.410 2de8 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
+2022/12/27-15:51:48.428 2de8 Recovering log #477
+2022/12/27-15:51:48.434 2de8 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/000477.log 
+2022/12/27-15:53:01.234 2de8 Level-0 table #481: started
+2022/12/27-15:53:01.243 2de8 Level-0 table #481: 44296 bytes OK
+2022/12/27-15:53:01.248 2de8 Delete type=0 #477
+2022/12/27-15:57:57.334 28cc Level-0 table #483: started
+2022/12/27-15:57:57.342 28cc Level-0 table #483: 32840 bytes OK
+2022/12/27-15:57:57.346 28cc Delete type=0 #480
+2022/12/27-15:57:57.347 28cc Compacting 4@0 + 1@1 files
+2022/12/27-15:57:57.433 28cc Generated table #484@0: 32685 keys, 651753 bytes
+2022/12/27-15:57:57.434 28cc Compacted 4@0 + 1@1 files => 651753 bytes
+2022/12/27-15:57:57.436 28cc compacted to: files[ 0 1 1 0 0 0 0 ]
+2022/12/27-15:57:57.437 28cc Delete type=2 #473
+2022/12/27-15:57:57.438 28cc Delete type=2 #476
+2022/12/27-15:57:57.438 28cc Delete type=2 #478
+2022/12/27-15:57:57.438 28cc Delete type=2 #481
+2022/12/27-15:57:57.438 28cc Delete type=2 #483

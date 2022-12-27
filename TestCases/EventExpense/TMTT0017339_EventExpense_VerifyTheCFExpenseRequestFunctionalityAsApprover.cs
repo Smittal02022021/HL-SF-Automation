@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                 string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 string user1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
-                int rowCount = 5; //ReadExcelData.GetRowCount(excelPath, "Actions");
+                int rowCount = ReadExcelData.GetRowCount(excelPath, "Actions");
 
                 //Search standard user by global search
                 homePage.SearchUserByGlobalSearch(fileTC17339, user);
@@ -95,7 +95,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //Click on the Menu button
                 lvHomePage.ClickExpenseRequestMenuButton();
 
-                for (int actionRow = 4; actionRow <= rowCount; actionRow++)
+                for (int actionRow = 5; actionRow <= rowCount; actionRow++)
                 {
                     //Read what action approver needs to perform
                     string action = ReadExcelData.ReadDataMultipleRows(excelPath, "Actions", actionRow, 1);

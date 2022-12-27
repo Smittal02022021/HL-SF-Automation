@@ -1,0 +1,13 @@
+2022/12/27-16:00:16.791 45d0 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\IndexedDB\https_outlook.office.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/12/27-16:00:16.792 45d0 Recovering log #22
+2022/12/27-16:00:16.793 45d0 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\IndexedDB\https_outlook.office.com_0.indexeddb.leveldb/000022.log 
+2022/12/27-16:00:25.335 4b1c Level-0 table #27: started
+2022/12/27-16:00:25.340 4b1c Level-0 table #27: 1212 bytes OK
+2022/12/27-16:00:25.344 4b1c Delete type=0 #22
+2022/12/27-16:00:25.345 4b1c Manual compaction at level-0 from '\x00\x0a\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0b\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0a\x00\x00\x05' @ 367 : 1
+2022/12/27-16:00:25.346 4b1c Compacting 1@0 + 1@1 files
+2022/12/27-16:00:25.351 4b1c Generated table #28@0: 24 keys, 1102 bytes
+2022/12/27-16:00:25.351 4b1c Compacted 1@0 + 1@1 files => 1102 bytes
+2022/12/27-16:00:25.353 4b1c compacted to: files[ 0 1 1 0 0 0 0 ]
+2022/12/27-16:00:25.354 4b1c Delete type=2 #27
+2022/12/27-16:00:25.355 4b1c Manual compaction at level-0 from '\x00\x0a\x00\x00\x05' @ 367 : 1 .. '\x00\x0b\x00\x00\x00' @ 0 : 0; will stop at (end)

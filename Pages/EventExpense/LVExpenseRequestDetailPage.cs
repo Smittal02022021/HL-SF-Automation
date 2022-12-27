@@ -85,6 +85,7 @@ namespace SF_Automation.Pages.EventExpense
         By lblNotes = By.XPath("(//lightning-base-formatted-text)[1]");
 
         By txtAreaNotes = By.XPath("//label[text()='Notes']/following::div/textarea");
+        By txtAreaNotes1 = By.XPath("//label[text()='Textarea field with a placeholder']/following::div/textarea");
         By lblApproverEditExpReqErrorMsg = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
@@ -205,7 +206,7 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
 
             //Get Expense Request details from the details page
             string requestor = driver.FindElement(linkRequestor).Text;
@@ -229,6 +230,9 @@ namespace SF_Automation.Pages.EventExpense
             string eventLoc = driver.FindElement(lblEventLocation).Text;
             string numOfGuests = driver.FindElement(lblNumberOfGuests).Text;
 
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(4000);
+
             string expAirfareCost = driver.FindElement(lblExpectedAirfareCost).Text;
             string expRegFee = driver.FindElement(lblExpectedRegistrationFee).Text;
             string otherCost = driver.FindElement(lblOtherCost).Text;
@@ -236,6 +240,9 @@ namespace SF_Automation.Pages.EventExpense
             string expLodgingCost = driver.FindElement(lblExpectedLodgingCost).Text;
             string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
             string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(4000);
 
             driver.FindElement(btnClone).Click();
             Thread.Sleep(3000);
@@ -502,8 +509,8 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnRequestMoreInformation, 120);
             driver.FindElement(btnRequestMoreInformation).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes, 120);
-            driver.FindElement(txtAreaNotes).SendKeys(notes);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes1, 120);
+            driver.FindElement(txtAreaNotes1).SendKeys(notes);
             Thread.Sleep(3000);
             driver.FindElement(btnOK).Click();
             Thread.Sleep(5000);
