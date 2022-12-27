@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 Reports/
+Defects_Screenshots/
+TestData/Default/
+TestData/GrShaderCache/
+TestData/ShaderCache/
