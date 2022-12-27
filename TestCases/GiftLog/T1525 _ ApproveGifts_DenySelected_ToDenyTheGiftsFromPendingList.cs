@@ -1,17 +1,17 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Companies;
-using SalesForce_Project.Pages.Company;
-using SalesForce_Project.Pages.Contact;
-using SalesForce_Project.Pages.GiftLog;
-using SalesForce_Project.Pages.HomePage;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Company;
+using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.GiftLog;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class T1525_ApproveGifts_DenySelected_ToDenyTheGiftsFromPendingList: BaseClass
     {
