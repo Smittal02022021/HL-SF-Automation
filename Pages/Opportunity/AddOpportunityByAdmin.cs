@@ -67,7 +67,7 @@ namespace SalesForce_Project.Pages
         By lnkEstimatedClosedDateFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By btnSave = By.CssSelector("input[value=' Save ']");
 
-        //string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
         public string AddOpportunities(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");

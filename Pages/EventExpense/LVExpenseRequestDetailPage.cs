@@ -19,7 +19,7 @@ namespace SalesForce_Project.Pages.EventExpense
         By btnRejectLWC = By.XPath("//button[text()='Reject(LWC)']");
         By btnReject = By.XPath("//button[text()='Reject']");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
-
+        
         //Requestor/Host Information
         By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/slot/slot/span)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
@@ -87,7 +87,7 @@ namespace SalesForce_Project.Pages.EventExpense
         By txtAreaNotes = By.XPath("//label[text()='Notes']/following::div/textarea");
         By lblApproverEditExpReqErrorMsg = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public bool VerifyIfExpensePreapprovalNumberIsDisplayed()
         {

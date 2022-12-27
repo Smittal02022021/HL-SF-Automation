@@ -19,7 +19,7 @@ namespace SalesForce_Project.Pages.HomePage
         By userImage = By.XPath("(//span[@data-aura-class='uiImage'])[1]");
         By linkLogOut = By.XPath("//a[text()='Log Out']");
         
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public void SearchText()
         {

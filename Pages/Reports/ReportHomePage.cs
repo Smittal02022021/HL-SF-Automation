@@ -33,7 +33,7 @@ namespace SalesForce_Project.Pages.Reports
         By btnNeverUpdate = By.CssSelector("div[id='stateCountryPicklistWarning_buttons'] > input[value='Never Update']");
         By btnStateCountryPicklistWarning = By.XPath("//input[@id='buttonNever']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         //To Click on Company tab
         public void ClickReportsTab()

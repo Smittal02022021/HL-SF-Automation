@@ -56,7 +56,7 @@ namespace SalesForce_Project.Pages
         By txtSubjectRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[3]/td[3]");
 
         //public static string fileTC1649 = "T1649_AdditionalClientsSubjectRequired.xlsx";
-        //string excelPath = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\" + fileTC1649;
+        //string excelPath = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\" + fileTC1649;
 
         public void ClickContinue()
         {

@@ -45,7 +45,7 @@ namespace SalesForce_Project.Pages.Opportunity
         By checkRow = By.CssSelector("#dtable > div.fix-column > div.tbody > div > div > div:nth-child(1) > input.targetCheck");
         By btnDelete = By.CssSelector("input[value='Delete']");
         By msgText = By.CssSelector("span[id*=':f']> div");
-        //string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
 
         //To validate Counterparties button

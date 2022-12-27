@@ -25,7 +25,7 @@ namespace SalesForce_Project.Pages.Tableau
 
         By lblCompanyCountry = By.XPath("//div[@id='00Ni000000DvFsEj_id0_j_id1_ileinner']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
         Screen screen = new Screen();
 
         public void LoginintoTableau()

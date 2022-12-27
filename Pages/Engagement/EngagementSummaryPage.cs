@@ -215,7 +215,7 @@ namespace SalesForce_Project.Pages.Engagement
         By txtClassification = By.CssSelector("select[name*='mainForm:dummyStaffRole']");
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
         public string GetLabelTransactionType()

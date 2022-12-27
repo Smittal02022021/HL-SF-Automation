@@ -48,7 +48,7 @@ namespace SalesForce_Project.Pages
         By txtEvalDate = By.CssSelector("input[id*='id192']");
         By valEvalDate = By.CssSelector("div[class='pbSubsection']>table>tbody>tr:nth-child(1)>td>span>span[class='dateFormat']>a");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public void ClickExpenseRequest()
         {

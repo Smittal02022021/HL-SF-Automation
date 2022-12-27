@@ -56,7 +56,7 @@ namespace SalesForce_Project.Pages
         By txtContactHeading = By.CssSelector("h2[class='pageDescription']");
         By valDefaultHLAttendee = By.CssSelector("tbody[id*='pbsHLEmployees'] > tr > td:nth-child(3) > span");
         
-        string dir = @"C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public string SearchContactWithExternalContact(string file)
         {
