@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace SalesForce_Project.UtilityFunctions
+namespace SF_Automation.UtilityFunctions
 {
     public class SendEmailNotification
     {

@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.UtilityFunctions;
 using System.Threading;
 
-namespace SalesForce_Project.Pages
+namespace SF_Automation.Pages
 {
     class CoverageSectorDependenciesHomePage : BaseClass
     {

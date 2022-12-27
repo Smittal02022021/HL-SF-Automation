@@ -7,7 +7,7 @@ using System.IO;
 using System.Threading;
 
 
-namespace SalesForce_Project.UtilityFunctions
+namespace SF_Automation.UtilityFunctions
 {
   public class ExtentReport :BaseClass
     {

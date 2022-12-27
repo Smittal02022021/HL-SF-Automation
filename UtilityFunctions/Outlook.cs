@@ -1,11 +1,11 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SalesForce_Project.UtilityFunctions
+namespace SF_Automation.UtilityFunctions
 {
     public class Outlook: BaseClass
     {

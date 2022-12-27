@@ -1,12 +1,12 @@
-﻿using SalesForce_Project.UtilityFunctions;
+﻿using SF_Automation.UtilityFunctions;
 using OpenQA.Selenium;
-using SalesForce_Project.TestData;
+using SF_Automation.TestData;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using NUnit.Framework;
-using SalesForce_Project.Pages.Common;
+using SF_Automation.Pages.Common;
 
-namespace SalesForce_Project.Pages.Contact
+namespace SF_Automation.Pages.Contact
 {
     class ContactSelectRecordPage : BaseClass
     {

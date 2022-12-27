@@ -6,7 +6,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
 
-namespace SalesForce_Project.UtilityFunctions
+namespace SF_Automation.UtilityFunctions
 {
     public class BaseClass
     {

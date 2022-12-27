@@ -4,7 +4,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using excel = Microsoft.Office.Interop.Excel;
 
-namespace SalesForce_Project.TestData
+namespace SF_Automation.TestData
 {
     class ReadExcelData
     {

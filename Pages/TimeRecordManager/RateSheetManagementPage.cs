@@ -1,11 +1,11 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SalesForce_Project.Pages.TimeRecordManager
+namespace SF_Automation.Pages.TimeRecordManager
 {
     class RateSheetManagementPage : BaseClass
     {

@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.UtilityFunctions;
-using SalesForce_Project.TestData;
+using SF_Automation.Pages;
+using SF_Automation.UtilityFunctions;
+using SF_Automation.TestData;
 using System;
-using SalesForce_Project.Pages.Common;
+using SF_Automation.Pages.Common;
 using System.Collections.Generic;
 
-namespace SalesForce_Project.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunity
 {
     class ValidateAllJobType : BaseClass
     {

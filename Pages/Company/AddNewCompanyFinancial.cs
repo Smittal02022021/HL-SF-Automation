@@ -1,13 +1,13 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.Pages.Companies;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages.Companies;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
-namespace SalesForce_Project.Pages.Company
+namespace SF_Automation.Pages.Company
 {
     class AddNewCompanyFinancial : BaseClass
     {

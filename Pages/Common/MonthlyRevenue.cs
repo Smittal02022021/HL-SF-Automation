@@ -1,12 +1,12 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.UtilityFunctions;
 using System.Threading;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace SalesForce_Project.Pages.Common
+namespace SF_Automation.Pages.Common
 {
     class MonthlyRevenue : BaseClass
     {

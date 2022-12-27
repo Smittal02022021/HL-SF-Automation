@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SalesForce_Project.Pages.Engagement
+namespace SF_Automation.Pages.Engagement
 {
     class ContractDetailsPage : BaseClass
     {

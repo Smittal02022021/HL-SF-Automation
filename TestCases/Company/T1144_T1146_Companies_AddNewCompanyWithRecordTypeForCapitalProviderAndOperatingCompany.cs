@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Companies;
-using SalesForce_Project.Pages.Company;
-using SalesForce_Project.Pages.HomePage;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Company;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SalesForce_Project.TestCases.Companies
+namespace SF_Automation.TestCases.Companies
 {
     class T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany : BaseClass
     {

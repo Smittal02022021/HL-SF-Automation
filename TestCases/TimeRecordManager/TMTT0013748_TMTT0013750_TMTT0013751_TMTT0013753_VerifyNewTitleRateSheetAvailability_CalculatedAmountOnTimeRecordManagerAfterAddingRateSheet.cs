@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Engagement;
-using SalesForce_Project.Pages.Contact;
-using SalesForce_Project.Pages.Opportunity;
-using SalesForce_Project.Pages.TimeRecordManager;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
-using SalesForce_Project.Pages.HomePage;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.Pages.TimeRecordManager;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
+using SF_Automation.Pages.HomePage;
 using System;
 
-namespace SalesForce_Project.TestCases.TimeRecordManager
+namespace SF_Automation.TestCases.TimeRecordManager
 {
     class TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet : BaseClass
     {

@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SalesForce_Project.Pages.Company
+namespace SF_Automation.Pages.Company
 {
     class CapIQCompaniesHomePage : BaseClass
     {

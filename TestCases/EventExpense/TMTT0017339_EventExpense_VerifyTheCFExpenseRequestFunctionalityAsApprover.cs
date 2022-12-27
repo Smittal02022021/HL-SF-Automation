@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.EventExpense;
-using SalesForce_Project.Pages.HomePage;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.EventExpense;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SalesForce_Project.TestCases.EventExpense
+namespace SF_Automation.TestCases.EventExpense
 {
     class TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover : BaseClass
     {

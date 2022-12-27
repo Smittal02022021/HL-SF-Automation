@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System.Threading;
 using System.IO;
 using System.Collections;
@@ -8,7 +8,7 @@ using System;
 using Sikuli4Net.sikuli_REST;
 using Sikuli4Net.sikuli_UTIL;
 
-namespace SalesForce_Project.Pages.Tableau
+namespace SF_Automation.Pages.Tableau
 {
     class TableauPage : BaseClass
     {

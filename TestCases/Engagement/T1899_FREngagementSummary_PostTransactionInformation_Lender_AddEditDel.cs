@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Engagement;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
-namespace SalesForce_Project.TestCases.Engagement
+namespace SF_Automation.TestCases.Engagement
 {
     class T1899_FREngagementSummary_PostTransactionInformation_Lender_AddEditDel : BaseClass
     {

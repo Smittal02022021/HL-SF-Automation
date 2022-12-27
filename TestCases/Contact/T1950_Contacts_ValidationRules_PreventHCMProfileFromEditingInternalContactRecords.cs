@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Contact;
-using SalesForce_Project.Pages.HomePage;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Contact
+namespace SF_Automation.TestCases.Contact
 {
     class T1950_Contacts_ValidationRules_PreventHCMProfileFromEditingInternalContactRecords : BaseClass
     {

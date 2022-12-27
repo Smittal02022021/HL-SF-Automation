@@ -3,7 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 
-namespace SalesForce_Project.TestData
+namespace SF_Automation.TestData
 {
     class ReadJSONData
     {

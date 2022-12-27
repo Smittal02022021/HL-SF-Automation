@@ -8,7 +8,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 
-namespace SalesForce_Project.UtilityFunctions
+namespace SF_Automation.UtilityFunctions
 {
     class CustomFunctions :BaseClass
     {

@@ -1,15 +1,15 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages.Tableau;
-using SalesForce_Project.Pages;
-using SalesForce_Project.TestData;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages.Tableau;
+using SF_Automation.Pages;
+using SF_Automation.TestData;
+using SF_Automation.Pages.Common;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Diagnostics;
 using System.Collections;
 using Sikuli4Net.sikuli_REST;
 
-namespace SalesForce_Project.TestCases.Tableau
+namespace SF_Automation.TestCases.Tableau
 {
     class TableauPOC : BaseClass
     {
