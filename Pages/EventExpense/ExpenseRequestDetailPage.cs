@@ -41,7 +41,11 @@ namespace SF_Automation.Pages.EventExpense
         By valRequestor = By.CssSelector("span[id*='j_id71:j_id72'] > a");
         By btnApprove = By.CssSelector("input[value='Approve']");
 
-        
+        By latestRequestStatus = By.CssSelector("span[id*='j_id71:j_id73']");
+        By totalBudgetRequested = By.CssSelector("span[id*='j_id159:j_id163']");
+
+
+
         //Function to get expense report status
         public string GetEventRequestor()
         {
@@ -55,6 +59,8 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApproval);
             driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(4000);
+
         }
 
         //Function to get expense report status
@@ -73,6 +79,23 @@ namespace SF_Automation.Pages.EventExpense
             return eventName;
         }
 
+        public string getRequestStatus()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, latestRequestStatus, 60);
+            string statusEventRequestor = driver.FindElement(latestRequestStatus).Text;
+            return statusEventRequestor;
+
+        }
+
+
+        public decimal getTotalBudgetRequested()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, totalBudgetRequested, 60);
+            string totalBudget = driver.FindElement(totalBudgetRequested).Text;
+
+            return CustomFunctions.ReadDecimalValueFromString(totalBudget);
+        }
         // Function to get event contact
         public string GetEventContact()
         {
@@ -151,7 +174,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToExpRequestList);
             driver.FindElement(btnBackToExpRequestList).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
             CustomFunctions.SwitchToWindow(driver, windowId);
             Thread.Sleep(2000);
         }

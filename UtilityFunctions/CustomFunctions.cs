@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace SF_Automation.UtilityFunctions
@@ -64,6 +65,52 @@ namespace SF_Automation.UtilityFunctions
              driver.FindElement(lnkCompanies).Click();
             */
 
+        }
+        //Convertion from String
+
+        public static double ReadDoubleValueFromString(string value)
+        {
+            return Convert.ToDouble(Regex.Match(value.Replace(",", "").Trim(), @"\d+\.*\d*").Value);
+        }
+
+
+
+        public static string ConvertStringInToSingleLine(string value)
+        {
+            return value.Replace("\r\n", " ");
+        }
+
+
+
+        public static string RemoveAllSpaceFromString(string value)
+        {
+            return Regex.Replace(value, @"\s+", "");
+        }
+
+
+
+        public static string ConvertDoubleInToString(double value)
+        {
+            return string.Format("{0:N2}", value);
+        }
+
+
+
+        public static decimal ConvertDoubleInToDecimal(double value)
+        {
+            return Convert.ToDecimal(value);
+        }
+
+
+
+        public static decimal ReadDecimalValueFromString(string value)
+        {
+            return decimal.Parse(Regex.Match(value.Replace(",", "").Trim(), @"-?[0-9]*\.?[0-9]+").Value);
+        }
+
+        public static void PageReload()
+        {
+            driver.Navigate().Refresh();
         }
         //Enter Text Function
         public static void EnterText(IWebDriver driver, IWebElement element, string value)

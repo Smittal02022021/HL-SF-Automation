@@ -630,8 +630,8 @@
     <Compile Include="TestCases\EventExpense\T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
     <Compile Include="TestCases\EventExpense\T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2.cs" />
     <Compile Include="TestCases\EventExpense\T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\T2278_EventExpense_EmailNotification_RequestMoreInformationAsFirstLevelApproverForEventExpenseRequest.cs" />
-    <Compile Include="TestCases\EventExpense\T2279_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
+    <Compile Include="TestCases\EventExpense\T2278_TMTI0036294_TMTI0036296_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
+    <Compile Include="TestCases\EventExpense\T2279_TMTI0036293_91_92_93_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.cs" />
@@ -862,8 +862,8 @@
     <None Include="TestData\T2274_VerifyValidationRulesOnEventExpenseSet.xlsx" />
     <None Include="TestData\T2275_VerifyValidationRulesOnEventExpenseSet2.xlsx" />
     <None Include="TestData\T2276_T2277_RejectApproveEventExpenseFormAsFirstLevelApprover.xlsx" />
-    <None Include="TestData\T2278_RequestMoreInformationEventExpenseFormAsFirstLevelApprover.xlsx" />
-    <None Include="TestData\T2279_ApproveEventExpenseFormAsSecondLevelApprover.xlsx" />
+    <None Include="TestData\T2278_TMTI0036294_TMTI0036296_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.xlsx" />
+    <None Include="TestData\T2279_TMTI0036293_91_92_93_95_97_98_ApproveEventExpenseFormAsSecondLevelApprover.xlsx" />
     <None Include="TestData\T2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.xlsx" />
     <None Include="TestData\T2295_TMTC0001638_ValidateToAddNegativeNumbersToPeriodAccruedFee.xls" />
     <None Include="TestData\T2296_TMTC0001641_ValidateToAddNegativeNumbersToPeriodAccruedFee1.xls" />

@@ -32,9 +32,82 @@ namespace SF_Automation.Pages.EventExpense
         By txtTeamMember = By.CssSelector("input[id*='j_id218:inputContactId3'][type='text']");
         By drpdwnListTeamMember = By.XPath("/html/body/ul[3]");
         By btnSave = By.CssSelector("input[name*='bottom:j_id61']");
-       
 
-        
+
+
+        public void CreateExpenseRequest(int row, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkExpenseRequest, 120);
+            driver.FindElement(lnkExpenseRequest).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLOB);
+            driver.FindElement(comboLOB).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 1));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEventType);
+            driver.FindElement(comboEventType).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 2));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewExpenseForm);
+            driver.FindElement(btnCreateNewExpenseForm).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRequestor);
+            driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 3));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEventContact);
+            driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 4));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboProductType);
+            driver.FindElement(comboProductType).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 5));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEventName);
+            driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 6));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEventCity);
+            driver.FindElement(txtEventCity).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 7));
+
+            string getDate = DateTime.Today.AddDays(1).ToString("MM/dd/yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStartDate);
+            driver.FindElement(txtStartDate).SendKeys(getDate);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEventFormat);
+            driver.FindElement(comboEventFormat).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 8));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboNoOfGuest);
+            driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 9));
+            WebDriverWaits.WaitUntilEleVisible(driver, selAvailableTargetAudience);
+            driver.FindElement(selAvailableTargetAudience).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnArrowRightTargetAudience);
+            driver.FindElement(btnArrowRightTargetAudience).Click();
+
+            string valPotentialGuest = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 16);
+            Thread.Sleep(3000);
+            driver.FindElement(txtPotentialGuest).SendKeys(valPotentialGuest);
+            Thread.Sleep(3000);
+            CustomFunctions.SelectValueWithoutSelect(driver, drpdwnPotentialGuest, valPotentialGuest);
+            Thread.Sleep(1000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtExpectedTravelCost);
+            driver.FindElement(txtExpectedTravelCost).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 10));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtExpectedFnBCost);
+            driver.FindElement(txtExpectedFnBCost).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 11));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOtherCost);
+            driver.FindElement(txtOtherCost).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 12));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDescOtherCost);
+            driver.FindElement(txtDescOtherCost).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 13));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLInternalOpportunityName);
+            driver.FindElement(txtHLInternalOpportunityName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 14));
+
+            string valTeamMember = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", row, 15);
+            Thread.Sleep(3000);
+            driver.FindElement(txtTeamMember).SendKeys(valTeamMember);
+            Thread.Sleep(4000);
+            CustomFunctions.SelectValueWithoutSelect(driver, drpdwnListTeamMember, valTeamMember);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
+            driver.FindElement(btnSave).Click();
+        }
 
         public void CreateExpenseRequest(string file)
         {

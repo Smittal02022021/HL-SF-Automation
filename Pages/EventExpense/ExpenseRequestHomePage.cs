@@ -100,13 +100,13 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboLOB, 120);
             CustomFunctions.SelectByText(driver, driver.FindElement(comboLOB), LOB);
-           // driver.FindElement(comboLOB).SendKeys(LOB);
-
+            // driver.FindElement(comboLOB).SendKeys(LOB);
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtExpenseReqNumberStandard);
             driver.FindElement(txtExpenseReqNumberStandard).SendKeys(preApproverNo);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboExpRequestStatus, 120);
-            driver.FindElement(comboExpRequestStatus).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, comboExpRequestStatus, 120);
+            //driver.FindElement(comboExpRequestStatus).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilterStandard, 120);
             driver.FindElement(btnApplyFilterStandard).Click();

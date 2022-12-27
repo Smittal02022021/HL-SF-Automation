@@ -48,7 +48,7 @@ namespace SF_Automation.Pages
         By txtEvalDate = By.CssSelector("input[id*='id192']");
         By valEvalDate = By.CssSelector("div[class='pbSubsection']>table>tbody>tr:nth-child(1)>td>span>span[class='dateFormat']>a");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
         public void ClickExpenseRequest()
         {
@@ -153,6 +153,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSave).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApproval, 70);
             driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(6000);
             string errorList = driver.FindElement(msgErrorList).Text.Replace("\r\n", ", ").ToString();
             return errorList;
         }
@@ -201,7 +202,8 @@ namespace SF_Automation.Pages
         public void SubmitEventExpenseRequest()
         { 
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApproval, 90);
-            driver.FindElement(btnSubmitForApproval).Click();            
+            driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(6000);
         }
 
         //To get value of Status
@@ -211,6 +213,7 @@ namespace SF_Automation.Pages
             string status = driver.FindElement(valStatus).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToExpense, 90);
             driver.FindElement(btnReturnToExpense).Click();
+            Thread.Sleep(6000);
             return status;
         }
 
@@ -288,6 +291,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "EventExp", 11));
             driver.FindElement(btnSave).Click();
             driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(5000);
             string validation = driver.FindElement(msgOtherCost).Text.Replace("\r\n", " ");
             return validation;
         }
@@ -302,6 +306,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtEvalDate).SendKeys("11/11/2020");
             driver.FindElement(btnSave).Click();
             driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(4000);
             string errorList = driver.FindElement(msgErrorList).Text.Replace("\r\n", ", ").ToString();
             return errorList;
         }
@@ -312,7 +317,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, valEvalDate);            
             driver.FindElement(valEvalDate).Click();
             driver.FindElement(btnSave).Click();
-            driver.FindElement(btnSubmitForApproval).Click();            
+            driver.FindElement(btnSubmitForApproval).Click();
+            Thread.Sleep(5000);
         }
     }
 }
