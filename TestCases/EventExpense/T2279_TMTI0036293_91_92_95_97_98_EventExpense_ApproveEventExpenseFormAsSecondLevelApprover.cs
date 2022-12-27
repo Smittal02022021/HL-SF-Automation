@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class T2279_TMTI0036293_91_92_93_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover : BaseClass
+    class T2279_TMTI0036293_91_92_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

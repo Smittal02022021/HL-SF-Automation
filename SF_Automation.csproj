@@ -631,7 +631,7 @@
     <Compile Include="TestCases\EventExpense\T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2.cs" />
     <Compile Include="TestCases\EventExpense\T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\T2278_TMTI0036294_TMTI0036296_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\T2279_TMTI0036293_91_92_93_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
+    <Compile Include="TestCases\EventExpense\T2279_TMTI0036293_91_92_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.cs" />
