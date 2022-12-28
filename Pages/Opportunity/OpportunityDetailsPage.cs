@@ -263,9 +263,7 @@ namespace SF_Automation.Pages
 
         By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
         By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
-
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
-
         By btnGo = By.XPath("//input[@type='submit']");
         By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");

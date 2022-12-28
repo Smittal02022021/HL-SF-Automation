@@ -200,7 +200,6 @@ namespace SF_Automation.Pages.Engagement
         By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
-
         By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");
         By lblHeaderText = By.XPath("//h1/span[2]");
         By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
@@ -209,6 +208,7 @@ namespace SF_Automation.Pages.Engagement
         By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
         By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
+
 
         public string NavigateToCFEngagementSummaryPage()
         {
