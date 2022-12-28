@@ -17,7 +17,22 @@ namespace SF_Automation.Pages
         By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
+        By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
 
+
+
+
+
+        public void SwitchToLightningExperience()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
+            IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
+
+            if (linkSwitchtoLightning.Displayed)
+            {
+                linkSwitchtoLightning.Click();
+            }
+        }
 
         public void LoginAsExpenseRequestApprover(string file, int row)
         {

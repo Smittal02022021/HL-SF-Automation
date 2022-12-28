@@ -1,13 +1,13 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Opportunity;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 
-namespace SalesForce_Project.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTT0013765_VerifyTheAvailableFieldsOnNBCLightningForm: BaseClass
     {
@@ -160,9 +160,9 @@ namespace SalesForce_Project.TestCases.Opportunity
                 Assert.AreEqual("Estimated Valuation (MM)", txtExtVal);
                 extentReports.CreateLog("Field with name: " + txtExtVal + " is displayed ");
 
-                string txtValExp = form.GetLabelValExp();
-                Assert.AreEqual("Valuation Expectations", txtValExp);
-                extentReports.CreateLog("Field with name: " + txtValExp + " is displayed ");
+                //string txtValExp = form.GetLabelValExp();
+                //Assert.AreEqual("Valuation Expectations", txtValExp);
+                //extentReports.CreateLog("Field with name: " + txtValExp + " is displayed ");
 
                 string txtRealEst = form.GetLabelRealEstAngle();
                 Assert.AreEqual("Real Estate Angle", txtRealEst);

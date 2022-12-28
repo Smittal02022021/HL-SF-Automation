@@ -40,13 +40,14 @@ namespace SF_Automation.Pages
         By labelWomenLed = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(4) > td:nth-child(3) > label");
         By labelWomenLedFVA = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(3) > label");
         By labelWomenLedFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(4) > td:nth-child(3) > label");
-        By labelAdmSection = By.CssSelector("div[id='head_11_ep'] > h3");
+        By labelAdmSection = By.CssSelector("div[id='head_12_ep'] > h3");
         By labelAdmSectionFVA = By.CssSelector("div[id = 'head_12_ep'] > h3");
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By comboWomenLed = By.CssSelector("select[id*='NgW']>option");
+        By msgFee = By.XPath("//*[@id='ep']/div[2]/div[17]/table/tbody/tr[3]/td[2]/div/div[2]");
 
         By comboSuccessProb = By.CssSelector("select[id*='00N5A00000M4yXq']");
         By txtEstTranscSize = By.CssSelector("input[id*='00Ni000000D80P4']");
@@ -109,8 +110,7 @@ namespace SF_Automation.Pages
             else if (driver.FindElement(comboRecordType).Text.Contains("FVA"))
             {
                 Console.WriteLine("in else if");
-                driver.FindElement(txtFee).SendKeys("10001");
-
+                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
             }
             else
             {
@@ -234,12 +234,12 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-             //--------------------------Update Missing Opportunity details-----------------------------
-             //Information Section
+            //--------------------------Update Missing Opportunity details-----------------------------
+            //Information Section
 
-             //driver.FindElement(comboSuccessProb).Click();
-             Thread.Sleep(3000);
-             driver.FindElement(comboSuccessProb).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30));
+            //driver.FindElement(comboSuccessProb).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(comboSuccessProb).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30));
 
             //Estimated Financials Section
             driver.FindElement(txtEstTranscSize).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 31));
@@ -265,7 +265,7 @@ namespace SF_Automation.Pages
 
         public bool ValidateIfTailExpiresFieldIsRequiredOrNot()
         {
-            if(driver.FindElement(txtErrorMessages).Displayed)
+            if (driver.FindElement(txtErrorMessages).Displayed)
             {
                 string errorMessages = driver.FindElement(txtErrorMessages).Text;
                 if (errorMessages.Contains("Tail Expires"))
@@ -378,7 +378,7 @@ namespace SF_Automation.Pages
             string prefilledClientName = driver.FindElement(txtClient).GetAttribute("value");
             return prefilledClientName;
         }
-
+        
         // Get prefilled opportunity subject
         public string GetPrefilledOpportunitySubject()
         {
@@ -484,6 +484,65 @@ namespace SF_Automation.Pages
                 }
             }
             return isSame;
+        }
+        
+        public string AddOpportunitiesForFVA(string type, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+            //--------------------------Enter Opportunity details-----------------------------	
+            //Information Section           	
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityName, 40);
+            string valOpportunity = CustomFunctions.RandomValue();
+            driver.FindElement(txtOpportunityName).SendKeys(valOpportunity);
+            //driver.FindElement(txtClient).SendKeys(ReadJSONData.data.addOpportunityDetails.client);            	
+            driver.FindElement(txtClient).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1));
+            driver.FindElement(txtSubject).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
+            driver.FindElement(comboJobType).SendKeys(type);
+            driver.FindElement(comboIndustryGroup).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 4));
+            driver.FindElement(comboSector).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 5));
+            driver.FindElement(comboClientOwnership).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 18));
+            driver.FindElement(comboSubjectOwnership).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 19));
+            Console.WriteLine("Subject");
+            //Additional Client/Subject	
+            driver.FindElement(comboAdditionalClient).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6));
+            driver.FindElement(comboAdditionalSubject).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 7));
+            //Referral Information	
+            driver.FindElement(comboReferralType).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 8));
+            //Compliance Section	
+            driver.FindElement(comboNonPublicInfo).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 9));
+            driver.FindElement(comboBeneficialOwner).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 10));
+            Console.WriteLine("owner");
+            //Administration Section	
+            driver.FindElement(comboPrimaryOffice).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 11));
+            driver.FindElement(txtLegalEntity).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 12));
+            driver.FindElement(comboDisclosureStatus).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 13));
+            if (driver.FindElement(comboRecordType).Text.Contains("FR"))
+            {
+                Console.WriteLine("in if");
+                driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+                driver.FindElement(comboEMEAInitiatives).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 29));
+            }
+            else if (driver.FindElement(comboRecordType).Text.Contains("FVA"))
+            {
+                Console.WriteLine("in else if");
+                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+            }
+            else
+            {
+                Console.WriteLine("CF types ");
+            }
+            //Click Save button	
+            driver.FindElement(btnSave).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgFee, 80);
+            string message = driver.FindElement(msgFee).Text;
+            driver.FindElement(txtFee).Clear();
+            driver.FindElement(txtFee).SendKeys("10000");
+            driver.FindElement(btnSave).Click();
+            return message;
         }
     }
 }

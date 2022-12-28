@@ -22,7 +22,7 @@ namespace SF_Automation.TestCases.Opportunity
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
 
-        public static string file8026 = "TMTT0008327_AdditionalClientSubjects_NewEngagementClientSubjectFunctionalities3";
+        public static string file8026 = "TMTT0008327_AdditionalClientSubjects_NewEngagementClientSubjectFunctionalities1";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

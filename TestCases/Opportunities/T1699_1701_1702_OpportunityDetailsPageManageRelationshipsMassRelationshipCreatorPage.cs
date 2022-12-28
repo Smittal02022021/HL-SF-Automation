@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        AddCounterparty addCounterparty = new AddCounterparty();
+        AddOppCounterparty addCounterparty = new AddOppCounterparty();
         MassRelationshipCreatorPage creatorPage = new MassRelationshipCreatorPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 

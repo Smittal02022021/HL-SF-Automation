@@ -1,13 +1,13 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Opportunity;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 
-namespace SalesForce_Project.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunity
 {
     class T1654AndT1655_Opportunity_AdditionalClient_CancelSaveEditDelete : BaseClass
     {
@@ -16,7 +16,7 @@ namespace SalesForce_Project.TestCases.Opportunity
         OpportunityHomePage oppHome = new OpportunityHomePage();
         OpportunityDetailsPage oppDetails = new OpportunityDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
-        AddCounterparty addCounterparty = new AddCounterparty();
+        AddOppCounterparty addCounterparty = new AddOppCounterparty();
 
         public static string fileTC1654 = "T1672AndT1673_AdditionalClient_CancelSaveEditDelete";
 

@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunity
 {
     class T1649AdditionalClientSubjectRequiredDefaultPopUpWithJson : BaseClass
     {
@@ -16,7 +16,7 @@ namespace SalesForce_Project.TestCases.Opportunity
         AdditionalClientSubjectPageWithJson clientSubjectsPage = new AdditionalClientSubjectPageWithJson();
         UsersLogin usersLogin = new UsersLogin();
         public static string fileTC1649 = "T1649_AdditionalClientSubjectRequired.xlsx";
-        string excelPath = @"C:\Users\SGoyal0427\source\repos\SalesForce_Project\TestData\" + fileTC1649;
+        string excelPath = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\" + fileTC1649;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

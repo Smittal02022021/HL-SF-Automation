@@ -26,6 +26,16 @@ namespace SF_Automation.Pages
         By titleOppManager = By.CssSelector("label[id*='PageTitle']");
         By radioMyOpp = By.CssSelector("input[id*='myOpportunities:pbMain:j_id34:j_id35:1']");
         By lnkOppSelected = By.CssSelector("a[title = 'Opportunities Tab - Selected']");
+        By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
+        By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
+        public void SelectOpportunity(String OppNumber)
+        {
+            driver.FindElement(searchOppBox).SendKeys(OppNumber);
+            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            driver.FindElement(selectOpp).Click();
+            Thread.Sleep(4000);
+        }
         public void ClickOpportunity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);

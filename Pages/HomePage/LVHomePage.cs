@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace SF_Automation.Pages.HomePage
@@ -18,9 +19,54 @@ namespace SF_Automation.Pages.HomePage
         By txtMainSearch = By.XPath("//input[@placeholder='Search...']");
         By userImage = By.XPath("(//span[@data-aura-class='uiImage'])[1]");
         By linkLogOut = By.XPath("//a[text()='Log Out']");
-        
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        By appLauncher = By.CssSelector("button[class*='slds-icon-waffle_container'] div.slds-icon-waffle");
+        By appHeader = By.CssSelector("div.slds-context-bar__label-action .slds-truncate");
+        By menuNavigation = By.CssSelector("button[title = 'Show Navigation Menu']");
+        By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
 
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        private By _appInAppLauncher(string appName)
+        {
+            return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
+
+        }
+
+        public void SelectModule(string moduleName)
+        {
+            Thread.Sleep(2000);
+            driver.FindElement(menuNavigation).Click();
+            IList<IWebElement> modules = driver.FindElements(avaiableModules);
+            for (int module = 0; module <= modules.Count; module++)
+            {
+                string moduleValue = modules[module].Text;
+                if (moduleValue.Equals(moduleName))
+                {
+                    modules[module].Click();
+                    Thread.Sleep(4000);
+                    break;
+                }
+            }
+        }
+        public void ClickAppLauncher()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
+            driver.FindElement(appLauncher).Click();
+            Thread.Sleep(3000);
+        }
+        public void SelectApp(string appName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchItems, 30);
+            driver.FindElement(txtSearchItems).SendKeys(appName);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _appInAppLauncher(appName), 60);
+            driver.FindElement(_appInAppLauncher(appName)).Click();
+            Thread.Sleep(3000);
+        }
+        public string GetAppName()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, appHeader, 30);
+            return driver.FindElement(appHeader).Text;
+        }
         public void SearchText()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);

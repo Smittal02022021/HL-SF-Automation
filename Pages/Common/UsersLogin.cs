@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
+using System;
 using System.Threading;
 
 namespace SF_Automation.Pages.Common
@@ -29,7 +30,45 @@ namespace SF_Automation.Pages.Common
         By titleUserDetail = By.CssSelector("a[title='User Detail']");
         By dropDwnForUserDetail = By.CssSelector("a[id='moderatorMutton']");
         By optionUserDetail = By.CssSelector("a[id='USER_DETAIL']");
+        By lnkUser = By.XPath("//img[@title='User']/following::strong");
+        By imgProfile = By.CssSelector("div[class*='profileTrigger ']>span[class='uiImage']");
+        By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
 
+
+        public void SearchCFUserAndLogin(string name)
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 150);
+            driver.FindElement(txtSearch).SendKeys(name);
+            Thread.Sleep(5000);
+            // CustomFunctions.SelectValueWithoutSelect(driver, listUser, name);
+            driver.FindElement(lnkUser).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, arrowMenu, 130);
+            driver.FindElement(arrowMenu).Click();
+            driver.FindElement(titleUserDetail).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin, 100);
+            driver.FindElement(btnLogin).Click();
+            Thread.Sleep(2000);
+            string url = driver.Url;
+            try
+            {
+                if (url.Contains("lightning"))
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
+                    driver.FindElement(imgProfile).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 120);
+                    driver.FindElement(lnkSwitchToClassic).Click();
+                }
+                else
+                {
+                    Console.WriteLine("No switch required ");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No switch required ");
+            }
+        }
         public void ClickManageUsers()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkSetUp);
