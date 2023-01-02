@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class T2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB :BaseClass
+    class T2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -22,7 +22,7 @@ namespace SF_Automation.TestCases.Engagement
         public void OneTimeSetUp()
         {
 
-            Initialize();   
+            Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the visibility of Portfolio Valuation button
                 string btnPV1 = engagementDetails.ValidatePortfolioValuationButton();
                 Assert.AreEqual("Portfolio Valuation button is not displayed", btnPV1);
-                extentReports.CreateLog(btnPV1 + " for Job Type " + ReadExcelData.ReadData(excelPath, "Engagement", 2) +" ");
+                extentReports.CreateLog(btnPV1 + " for Job Type " + ReadExcelData.ReadData(excelPath, "Engagement", 2) + " ");
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }
 

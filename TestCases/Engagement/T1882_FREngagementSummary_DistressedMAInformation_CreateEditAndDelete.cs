@@ -102,6 +102,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Added Distressed M&A Information record has been deleted ");
 
                 usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
 
@@ -109,9 +110,10 @@ namespace SF_Automation.TestCases.Engagement
             {
                 extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

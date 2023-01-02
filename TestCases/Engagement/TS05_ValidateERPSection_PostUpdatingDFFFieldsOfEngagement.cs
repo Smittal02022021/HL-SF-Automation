@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
@@ -18,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
-        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();      
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         RandomPages pages = new RandomPages();
         LegalEntityDetail entityDetails = new LegalEntityDetail();
@@ -27,7 +26,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
 
-        public static string ERP = "ERPPostCoversionToEngagement.xlsx";
+        public static string ERP = "TS05_ValidateERPSection.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -54,17 +53,17 @@ namespace SF_Automation.TestCases.Engagement
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
 
                 //Login as Standard User and validate the user                
-                  usersLogin.SearchUserAndLogin(valUser);
-                  string stdUser = login.ValidateUser();
-                  Assert.AreEqual(stdUser.Contains(valUser), true);
-                  extentReports.CreateLog("User: " + stdUser + " logged in ");
-                                
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser = login.ValidateUser();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser + " logged in ");
+
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
@@ -96,7 +95,7 @@ namespace SF_Automation.TestCases.Engagement
                 string subjectName = opportunityDetails.GetSubject();
                 string oppNumber = opportunityDetails.GetOppNumber();
                 string jobType = opportunityDetails.GetJobType();
-                Console.WriteLine(jobType);                
+                Console.WriteLine(jobType);
 
                 //Create External Primary Contact         
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
@@ -182,13 +181,13 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Get ERP Submitted to Sync and get ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = engagementDetails.GetERPSubmittedToSync();
-                extentReports.CreateLog("ERP Submitted to Sync before update is: " + ERPSubmitted +" ");
+                extentReports.CreateLog("ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
 
                 string valERPUpdateDFF = engagementDetails.GetERPUpdateDFFIfChecked();
                 Assert.AreEqual("Checkbox is not checked", valERPUpdateDFF);
-                extentReports.CreateLog("ERP Update DFF " + valERPUpdateDFF +" by default ");
-                               
-                string ERPResDate = engagementDetails.GetERPIntegrationResponseDate();                
+                extentReports.CreateLog("ERP Update DFF " + valERPUpdateDFF + " by default ");
+
+                string ERPResDate = engagementDetails.GetERPIntegrationResponseDate();
                 extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
 
                 //-----Update Primary office, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status -----
@@ -200,11 +199,11 @@ namespace SF_Automation.TestCases.Engagement
                 string valDFFPrimaryOffice = engagementDetails.GetERPUpdateDFFIfChecked();
                 Assert.AreEqual("Checkbox is checked", valDFFPrimaryOffice);
                 extentReports.CreateLog("ERP Update DFF " + valDFFPrimaryOffice + " after updating Primary office ");
-                                 
+
                 string ERPSubmittedOffice = engagementDetails.GetERPSubmittedToSync();
                 Assert.AreNotEqual(ERPSubmitted, ERPSubmittedOffice);
-                extentReports.CreateLog("ERP Submitted to Sync: " + ERPSubmittedOffice+ " ");
-                
+                extentReports.CreateLog("ERP Submitted to Sync: " + ERPSubmittedOffice + " ");
+
                 string ERPStatusOffice = engagementDetails.GetERPIntegrationStatus();
                 Assert.AreEqual("Success", ERPStatusOffice);
                 extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
@@ -305,7 +304,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valDFFClient = engagementDetails.GetERPUpdateDFFIfChecked();
                 Assert.AreEqual("Checkbox is checked", valDFFClient);
                 extentReports.CreateLog("ERP Update DFF " + valDFFClient + " after updating Client Ownership ");
-                                
+
                 string ERPSubmittedClient = engagementDetails.GetERPSubmittedToSync();
                 Assert.AreNotEqual(ERPSubmittedJobType, ERPSubmittedClient);
                 extentReports.CreateLog("ERP Submitted to Sync: " + ERPSubmittedClient + " ");
@@ -355,9 +354,9 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

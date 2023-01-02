@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate the added Equity Holder value
                 string valEquity = summaryPage.ValidatePostAddedEquityHolderValue();
-                Assert.AreEqual("Techno", valEquity);
+                Assert.AreEqual("Techno Coatings, Inc.", valEquity);
                 extentReports.CreateLog("Equity Holder with name: " + valEquity + " is added ");
 
                 //Edit the added Equity Holder details and Validate the same
@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.Engagement
                 string msgDelete = summaryPage.DeleteAndValidatePostEquityHolderRecord();
                 Assert.AreEqual("No records to display", msgDelete);
                 extentReports.CreateLog(msgDelete + " is displayed upon deleting the Equity Holder record ");
-                
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -107,7 +107,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

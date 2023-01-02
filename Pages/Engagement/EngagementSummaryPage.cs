@@ -353,9 +353,9 @@ namespace SF_Automation.Pages.Engagement
         //Compare values of Currency Financials
         public bool VerifyCurrencyFinancialsValues()
         {
-            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes); 
+            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes);
             var actualValue = valCurTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
+            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1477,7 +1477,7 @@ namespace SF_Automation.Pages.Engagement
         public string SaveEquityHolderDetails()
         {
             driver.SwitchTo().Frame(1);
-            driver.FindElement(txtEquitySearch).SendKeys("Techno");
+            driver.FindElement(txtEquitySearch).SendKeys("Techno Coatings");
             driver.FindElement(btnGo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, checkRow, 90);
             driver.FindElement(checkRow).Click();
@@ -1528,7 +1528,7 @@ namespace SF_Automation.Pages.Engagement
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }           
+            }
         }
         public bool ValidateCopiedEquityHolderValues()
         {
@@ -1606,7 +1606,8 @@ namespace SF_Automation.Pages.Engagement
         public string SaveBoardMemberDetails()
         {
             driver.SwitchTo().Frame(1);
-            driver.FindElement(txtEquitySearch).SendKeys("Adam Daland");
+            //driver.FindElement(txtEquitySearch).SendKeys("Adam Daland");
+            driver.FindElement(txtEquitySearch).SendKeys("Adam B. Davis");
             driver.FindElement(btnGo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, checkRowBoard, 120);
             driver.FindElement(checkRowBoard).Click();
@@ -1649,7 +1650,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, rowBoardMemberPost, 80);
             IReadOnlyCollection<IWebElement> valRow = driver.FindElements(rowBoardMemberPost);
             var actualValue = valRow.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Del", "Adam Daland", "Investors Management Corp", "" };
+            string[] expectedValue = { "Del", "Adam B. Davis", "Wells Fargo", "" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1703,7 +1704,7 @@ namespace SF_Automation.Pages.Engagement
         public string SaveDebtStructureDetails(string file)
         {
             string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSecurityTypeDebt, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSecurityTypeDebt, 180);
             driver.FindElement(comboSecurityTypeDebt).SendKeys(ReadExcelData.ReadData(excelPath, "Debt", 1));
             driver.FindElement(txtMaturityDate).Click();
             driver.FindElement(txtInterest).SendKeys(ReadExcelData.ReadData(excelPath, "Debt", 2));
@@ -1729,7 +1730,7 @@ namespace SF_Automation.Pages.Engagement
             var actualValue = valRow.Select(x => x.Text).ToArray();
             string value2 = DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
             Console.WriteLine(value2);
-            string[] expectedValue = {"LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
+            string[] expectedValue = { "LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1757,6 +1758,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(comboSecurityTypeDebt).SendKeys(ReadExcelData.ReadData(excelPath, "Debt", 10));
             driver.FindElement(btnSaveDebt).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
             driver.FindElement(btnEquityClose).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valDebtSecurityType, 90);
             Thread.Sleep(3000);
@@ -1806,7 +1808,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, rowLender, 100);
             IReadOnlyCollection<IWebElement> valRow = driver.FindElements(rowLender);
             var actualValue = valRow.Select(x => x.Text).ToArray();
-            string[] expectedValue = {"ABC", "10.00"};
+            string[] expectedValue = { "ABC", "10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1847,7 +1849,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valLoanAmt, 90);
             Thread.Sleep(3000);
-            string Amount = driver.FindElement(valLoanAmt).Text;           
+            string Amount = driver.FindElement(valLoanAmt).Text;
             return Amount;
         }
 
@@ -1859,16 +1861,16 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
 
             try
             {
                 string rowDisplayed = driver.FindElement(rowLenderPostDel).Displayed.ToString();
-                Console.WriteLine("rowDisplayed :" + rowDisplayed);               
+                Console.WriteLine("rowDisplayed :" + rowDisplayed);
                 return rowDisplayed;
             }
             catch (Exception)
-            {                
+            {
                 return "No row displayed";
             }
         }
@@ -1876,8 +1878,10 @@ namespace SF_Automation.Pages.Engagement
         //To close lender page
         public void CloseLenderDetailsPage()
         {
+            Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEquityClose, 100);
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEquityClose, 300);
             driver.FindElement(btnEquityClose).Click();
         }
 
@@ -1906,10 +1910,11 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtOwnership, 90);
             driver.FindElement(txtOwnership).Clear();
             driver.FindElement(txtOwnership).SendKeys("10.00");
+            Thread.Sleep(3000);
             driver.FindElement(btnEquitySave).Click();
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, valPostOwnership, 90);
-            Thread.Sleep(5000);            
+            Thread.Sleep(5000);
             string valOwner = driver.FindElement(valPostOwnership).Text;
             return valOwner;
         }

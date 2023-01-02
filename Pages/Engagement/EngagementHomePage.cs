@@ -18,7 +18,18 @@ namespace SF_Automation.Pages
         By lnkEngageManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
         By titleEngageManager = By.CssSelector("label[id*='PageTitle']");
         By txtEngageName = By.CssSelector("input[name*='nameSearch']");
+        By txtEngageNum = By.CssSelector("input[name*='NumberSearch']");
         By txtErrorMessage = By.CssSelector("span[id*=':theError']");
+
+        //Lightning  
+        By btnEngNum = By.XPath("//button[@aria-label='Search']");
+        By btnEngNumNotBlank = By.XPath("//section/header/div[2]/div[2]/div/button");
+        By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By lnkEngLightning = By.XPath("//search_dialog-instant-result-item[1]/div[1]/div[2]/div/lightning-formatted-rich-text/span");
+        By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
+        By btnOppNumL = By.XPath("//button[@aria-label='Search']");
+        By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
 
 
         //To Click on Engagement tab
@@ -94,20 +105,21 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
             driver.FindElement(lnkEngagements).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngageName,80);
-            driver.FindElement(txtEngageName).SendKeys(name);           
-            driver.FindElement(btnSearch).Click();                       
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngageName, 100);
+            driver.FindElement(txtEngageName).SendKeys(name);
+            driver.FindElement(btnSearch).Click();
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
                 Thread.Sleep(6000);
                 string result = driver.FindElement(matchedResult).Displayed.ToString();
                 Console.WriteLine("Search Results :" + result);
-                driver.FindElement(matchedResult).Click();                
+                driver.FindElement(matchedResult).Click();
+                Thread.Sleep(5000);
                 return "Record found";
-            }                   
-           
-            catch(Exception)
+            }
+
+            catch (Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
@@ -117,9 +129,118 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnSearch).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
                 Thread.Sleep(6000);
-                driver.FindElement(matchedResult).Click();               
-                return "Error page found or no record found";               
-            }           
+                driver.FindElement(matchedResult).Click();
+                return "Error page found or no record found";
+            }
+        }
+
+        //To Search with Engagement Name
+        public string SearchEngagementWithNumber(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
+            driver.FindElement(lnkEngagements).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNum, 80);
+            driver.FindElement(txtEngageNum).SendKeys(name);
+            driver.FindElement(btnSearch).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+                Thread.Sleep(6000);
+                string result = driver.FindElement(matchedResult).Displayed.ToString();
+                Console.WriteLine("Search Results :" + result);
+                driver.FindElement(matchedResult).Click();
+                Thread.Sleep(5000);
+                return "Record found";
+            }
+
+            catch (Exception)
+            {
+                driver.Navigate().Refresh();
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
+                driver.FindElement(lnkEngagements).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNum, 80);
+                driver.FindElement(txtEngageNum).SendKeys(name);
+                driver.FindElement(btnSearch).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+                Thread.Sleep(6000);
+                driver.FindElement(matchedResult).Click();
+                return "Error page found or no record found";
+            }
+        }
+
+        public void HandlePopUp(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
+            driver.FindElement(lnkEngagements).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngageName, 80);
+            driver.FindElement(txtEngageName).SendKeys(name);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedResult).Displayed.ToString();
+                Console.WriteLine("Search Results :" + result);
+                driver.FindElement(matchedResult).Click();
+                Thread.Sleep(10000);
+            }
+            catch (Exception)
+            {
+
+            }
+            //InputSimulator sim = new InputSimulator();
+            //sim.Keyboard.KeyPress(VirtualKeyCode.TAB);
+            //sim.Keyboard.KeyPress(VirtualKeyCode.TAB);
+            //sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            Thread.Sleep(5000);
+        }
+
+        //To Search with Engagement number on Lightning 
+        public string SearchEngagementWithNumberOnLightning(string name, string jobType)
+        {
+            Thread.Sleep(6000);
+            if (jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
+                driver.FindElement(btnEngNum).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
+                driver.FindElement(txtEngNumLightning).Clear();
+                driver.FindElement(txtEngNumLightning).SendKeys(name);
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 480);
+                driver.FindElement(lnkEngLightning).Click();
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumNotBlank, 180);
+                driver.FindElement(btnEngNumNotBlank).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(txtEngNumLightning).Clear();
+                driver.FindElement(txtEngNumLightning).SendKeys(name);
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
+                driver.FindElement(lnkEngLightning).Click();
+            }
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
+            string engName = driver.FindElement(valEngName).Text;
+            return engName;
+        }
+
+        //To Search Opportunity with Opportunity Name in Lighting
+        public void SearchMyEngInLightning(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+            driver.FindElement(btnOppNumL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+            Thread.Sleep(6000);
+            driver.FindElement(imgOppL).Click();
+            Thread.Sleep(2000);
+
         }
     }
 }

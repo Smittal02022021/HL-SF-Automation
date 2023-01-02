@@ -93,7 +93,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Navigate to engagement details and validate if Period Accrured Fee Net is updated 
                 engManager.ClickFREngagementName();
-                string accrualFee = engagementDetails.GetPeriodAccrualFeeNetValue();                
+                string accrualFee = engagementDetails.GetPeriodAccrualFeeNetValue();
                 Assert.AreEqual("USD -11.00", accrualFee);
                 extentReports.CreateLog("Period Accrued Fee Net is updated with sum of Actual Monthly Fee and Actual Transaction Fee value ");
 

@@ -49,17 +49,17 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-               
+
                 //Search for required engagement
                 engHome.SearchEngagementWithName("Delaware River Solar");
                 extentReports.CreateLog("Matching record is found and Engagement Detail page is displayed ");
-               
+
                 //Update Accounting Status and Stage to Closed
-                engagementDetails.UpdateAccountingStatusAndStage("Closed","Closed");
+                engagementDetails.UpdateAccountingStatusAndStage("Closed", "Closed");
                 string valAccStatus = engagementDetails.GetAccontingStatus();
                 Assert.AreEqual("Closed", valAccStatus);
-                extentReports.CreateLog("Value of Accounting Status is updated to " +valAccStatus + " ");
-                
+                extentReports.CreateLog("Value of Accounting Status is updated to " + valAccStatus + " ");
+
                 //Validate if Available In Expense Application checkbox is checked or not
                 string chkValue1 = engagementDetails.ValidateIfExpenseApplicationIsChecked();
                 Assert.AreEqual("Expense Application checkbox is not checked", chkValue1);
@@ -69,7 +69,7 @@ namespace SF_Automation.TestCases.Engagement
                 engagementDetails.UpdateAccountingStatusAndStage("Open", "Retained");
                 string valAccStatus2 = engagementDetails.GetAccontingStatus();
                 Assert.AreEqual("Open", valAccStatus2);
-                extentReports.CreateLog("Value of Accounting Status is updated to " + valAccStatus2 +" ");
+                extentReports.CreateLog("Value of Accounting Status is updated to " + valAccStatus2 + " ");
 
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -79,9 +79,9 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Std User: " + stdUser + " is able to login ");
 
                 engHome.SearchEngagementWithName("Delaware River Solar");
-                string ownership = engagementDetails.UpdateClientOwnershipAndDebt("Bank","13.00");
+                string ownership = engagementDetails.UpdateClientOwnershipAndDebt("Bank", "13.00");
                 extentReports.CreateLog("Client ownership and Debt details are updated ");
-                Assert.AreEqual("Bank", ownership);                
+                Assert.AreEqual("Bank", ownership);
                 //string debt = engagementDetails.GetTotalDebt();
                 //Assert.AreEqual("13.00",debt);
                 extentReports.CreateLog("Updated Client Ownership details are displayed ");

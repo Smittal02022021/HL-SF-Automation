@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate the added Equity Holder value
                 string valEquity = summaryPage.ValidateAddedEquityHolderValue();
-                Assert.AreEqual("Techno", valEquity);
+                Assert.AreEqual("Techno Coatings, Inc.", valEquity);
                 extentReports.CreateLog("Equity Holder with name: " + valEquity + " is added ");
 
                 //Edit the added Equity Holder details and Validate the same
@@ -124,6 +124,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }

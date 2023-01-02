@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.Engagement
                 string msgDelete = summaryPage.DeleteAndValidatePostDebtStructureRecord();
                 Assert.AreEqual("No records to display", msgDelete);
                 extentReports.CreateLog(msgDelete + " is displayed upon deleting the Debt Structure record ");
-                
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -111,7 +111,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

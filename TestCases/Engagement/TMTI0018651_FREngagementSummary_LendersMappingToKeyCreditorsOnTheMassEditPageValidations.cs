@@ -53,7 +53,7 @@ namespace SF_Automation.TestCases.Engagement
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
-                                
+
                 //Search engagement with LOB - FR
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
                 Console.WriteLine(message);
@@ -148,18 +148,18 @@ namespace SF_Automation.TestCases.Engagement
 
                 string displayed2ndComp = clientSubjectsPage.Get2ndClientSubjectValue();
                 string displayed2ndType = clientSubjectsPage.Get2ndTypeOfAdditionalClient("Debtor Advisors", "Key Creditor");
-                Assert.AreEqual("ABC", displayed2ndComp);               
+                Assert.AreEqual("ABC", displayed2ndComp);
                 extentReports.CreateLog("Company with name : " + displayed2ndComp + " is displayed in the table upon selecting value: " + type + " in Type dropdown ");
 
                 //Delete displayed added companies
-                string value= clientSubjectsPage.DeleteAddedRecordsAndValidate();
+                string value = clientSubjectsPage.DeleteAddedRecordsAndValidate();
                 Assert.AreEqual("Records are deleted successfully", value);
                 extentReports.CreateLog("Added records are deleted successfully ");
                 engagementDetails.ClickBackToEngButtonAndValidatePage();
 
                 //Delete added creditors in Pre and Post Transaction tabs
                 engagementDetails.ClickFREngSummaryButton();
-                summaryPage.ClickPreTransInfoTab();                
+                summaryPage.ClickPreTransInfoTab();
                 string msgDelete = summaryPage.DeleteAndValidateDebtStructureRecord();
                 Assert.AreEqual("No records to display", msgDelete);
                 extentReports.CreateLog(msgDelete + " is displayed upon deleting the Debt Structure record ");
@@ -169,7 +169,7 @@ namespace SF_Automation.TestCases.Engagement
                 string msgDeletePost = summaryPage.DeleteAndValidatePostDebtStructureRecord();
                 Assert.AreEqual("No records to display", msgDeletePost);
                 extentReports.CreateLog(msgDeletePost + " is displayed upon deleting the Debt Structure record ");
-                
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -182,7 +182,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }
 

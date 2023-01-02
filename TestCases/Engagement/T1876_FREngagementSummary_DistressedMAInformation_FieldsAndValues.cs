@@ -52,6 +52,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
+                //Search Engagement to by pass Tableau pop up
+                //engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
+
                 //Search engagement with LOB - FR
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
                 Assert.AreEqual("Record found", message);
@@ -75,7 +78,7 @@ namespace SF_Automation.TestCases.Engagement
                 //----Validate Header row with all header values-----                
                 Assert.IsTrue(summaryPage.VerifyDistressedHeaderValues(), "Verified that header row is same");
                 extentReports.CreateLog("Header row of Distressed M&A Information tab is displayed as expected ");
-                
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -88,7 +91,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

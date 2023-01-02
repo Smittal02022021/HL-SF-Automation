@@ -73,8 +73,8 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Page with title: " + titleEngDetails + " is displayed upon clicking Engagement Name ");
 
                 //Get Engagament Name
-                string engName = engagementDetails.GetEngName();
-                Console.WriteLine(engName);
+                string engNum = engagementDetails.GetEngNumber();
+                Console.WriteLine(engNum);
 
                 //Delete existing Revenue Accurals 
                 //engagementDetails.DeleteExistingAccurals();
@@ -89,19 +89,19 @@ namespace SF_Automation.TestCases.Engagement
                 engManager.ClickEngageName();
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2021 - 11", month);
+                Assert.AreEqual("2022 - 10", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
 
                 //Logout of FAS CAO user and validate with admin user
                 usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                engHome.SearchEngagementWithName(engName);
+                engHome.SearchEngagementWithNumber(engNum);
 
                 //Validate value of Period Accrual Fee matches with entered Revenue Accrual Fees 
                 string AccrualFeeNet = engagementDetails.GetPeriodAccrualFeeNetValue();
                 string AccrualFee = engagementDetails.GetPeriodAccrualValueFAS();
-                Assert.AreEqual(AccrualFeeNet, "USD "+AccrualFee);
+                Assert.AreEqual(AccrualFeeNet, "USD " + AccrualFee);
                 extentReports.CreateLog("Period Accrual Fee in Revenue Accrual record matches with the Period Accrued Fee listed on the Engagement ");
 
                 //Validate value of Total Est Fee in Revenue Accrual record matches with value in engagement details 
@@ -109,7 +109,7 @@ namespace SF_Automation.TestCases.Engagement
                 string EstFee = engagementDetails.GetTotalEstFeeFAS();
                 Assert.AreEqual(EstFeeAccrual, EstFee);
                 extentReports.CreateLog("Total Est Fee in Revenue Accrual record matches with the Total Est Fee listed on the Engagement ");
-                
+
                 //Delete existing Revenue Accurals and Add Revenue Accurals for current year
                 engagementDetails.DeleteExistingAccurals();
 
@@ -121,10 +121,10 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Get the Engagement name and update value of Total Estimated Fees
                 engHome.ClickEngageManager();
-                engManager.ClickEngageName();                
+                engManager.ClickEngageName();
                 engagementDetails.UpdateTotalEstFee("10.00");
                 string valTotalEstFee = engagementDetails.GetTotalEstFeeFAS();
-                extentReports.CreateLog("Total Estimated Fees value is updated : " + valTotalEstFee +" on engagement details page ");
+                extentReports.CreateLog("Total Estimated Fees value is updated : " + valTotalEstFee + " on engagement details page ");
 
                 //Verify that Revenue Accrual record is created with same value of Total Estimated Fee
                 string valEstFees = engagementDetails.GetTotalEstFeeFromRevenueAccrualRecord();
@@ -135,13 +135,13 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("FAS CAO user logged out successfully ");
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");            
-                                engHome.SearchEngagementWithName(engName);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                engHome.SearchEngagementWithNumber(engNum);
 
                 //Validate value of Period Accrual Fee matches with entered Revenue Accrual Fees 
                 string periodAccrualFeeNet = engagementDetails.GetPeriodAccrualFeeNetValue();
                 string periodAccrualFee = engagementDetails.GetPeriodAccrualValueFAS();
-                Assert.AreEqual(periodAccrualFeeNet, "USD "+periodAccrualFee);
+                Assert.AreEqual(periodAccrualFeeNet, "USD " + periodAccrualFee);
                 extentReports.CreateLog("Period Accrual Fee in Revenue Accrual record matches with the Period Accrued Fee listed on the Engagement ");
 
                 //Validate value of Total Est Fee in Revenue Accrual record matches with value in engagement details 
@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valEstFee = engagementDetails.GetTotalEstFeeFAS();
                 Assert.AreEqual(valEstFeeAccrual, valEstFee);
                 extentReports.CreateLog("Total Est Fee in Revenue Accrual record matches with the Total Est Fee listed on the Engagement ");
-                                
+
                 //Update value of Total Est Fee in engagament details
                 engagementDetails.UpdateTotalEstFee("5.00");
 
@@ -163,8 +163,8 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }           
+        }
     }
- }
+}
 
 

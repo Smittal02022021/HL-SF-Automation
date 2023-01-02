@@ -14,7 +14,7 @@ namespace SF_Automation.TestCases.Engagement
         LoginPage login = new LoginPage();
         EngagementHomePage engHome = new EngagementHomePage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        UsersLogin usersLogin = new UsersLogin();       
+        UsersLogin usersLogin = new UsersLogin();
 
         public static string fileTC1710 = "T1615_Engagement_ChangeTheStage";
 
@@ -61,11 +61,11 @@ namespace SF_Automation.TestCases.Engagement
                 int rowRecType = ReadExcelData.GetRowCount(excelPath, "RecordType");
                 Console.WriteLine("rowUsers " + rowRecType);
 
-                for (int row = 2; row <= rowRecType; row++) 
+                for (int row = 2; row <= rowRecType; row++)
                 {
 
                     string valType = ReadExcelData.ReadDataMultipleRows(excelPath, "RecordType", row, 2);
-                    Console.WriteLine("valType: " +valType);
+                    Console.WriteLine("valType: " + valType);
 
                     //Update Record Type of Engagement and validate the same
                     string recType = engagementDetails.UpdateRecordType(valType);
@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.Engagement
                     for (int stage = 2; stage <= rowRecType; stage++)
                     {
                         string valStage = ReadExcelData.ReadDataMultipleRows(excelPath, "RecordType", stage, 1);
-                        Console.WriteLine("valStage: " + valStage);                       
+                        Console.WriteLine("valStage: " + valStage);
 
                         //Update stage and validate the same
                         string Stage = engagementDetails.UpdateEngStage(valStage);
@@ -84,20 +84,20 @@ namespace SF_Automation.TestCases.Engagement
 
                         //Get the value of Percentage of Completion	
                         string POC = engagementDetails.GetPOCValue();
-                        if(valStage.Equals("Closed") || valStage.Equals("Bill/File"))
+                        if (valStage.Equals("Closed") || valStage.Equals("Bill/File"))
                         {
                             Assert.AreEqual("100%", POC);
-                            extentReports.CreateLog("POC: " +POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
-                        }                        
+                            extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
+                        }
 
                         else if (valStage.Equals("Performing Analysis") || valStage.Equals("Dead"))
-                            {
+                        {
                             if (valType.Equals("Other FAS"))
                             {
                                 Assert.AreEqual("75%", POC);
                                 extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
                             }
-                            else if(valType.Equals("Litigation"))
+                            else if (valType.Equals("Litigation"))
                             {
                                 Assert.AreEqual("60%", POC);
                                 extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
@@ -105,25 +105,25 @@ namespace SF_Automation.TestCases.Engagement
                             else
                             {
                                 Assert.AreEqual("50%", POC);
-                                extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);                            
+                                extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
                             }
-                            }
-                       else if (valStage.Equals("Opinion Report"))
-                         {
+                        }
+                        else if (valStage.Equals("Opinion Report"))
+                        {
                             Assert.AreEqual("90%", POC);
                             extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
                         }
-                       else if (valStage.Equals("Retained"))
+                        else if (valStage.Equals("Retained"))
                         {
                             Assert.AreEqual("0%", POC);
                             extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
                         }
-                        else 
+                        else
                         {
                             Assert.AreEqual("25%", POC);
                             extentReports.CreateLog("POC: " + POC + " is displayed for Stage " + valStage + " and Record Type " + valType);
                         }
-                    }                   
+                    }
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -134,6 +134,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }

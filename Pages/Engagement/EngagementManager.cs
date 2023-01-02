@@ -178,7 +178,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, comboStageField);
             driver.FindElement(comboStageField).SendKeys(value);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilters,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilters,180);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }

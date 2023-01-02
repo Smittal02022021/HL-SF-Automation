@@ -48,7 +48,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-               //Clicking on Engagement Tab and search for Engagement by entering Job type         
+                //Clicking on Engagement Tab and search for Engagement by entering Job type         
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 1));
                 Assert.AreEqual("Record found", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }
 

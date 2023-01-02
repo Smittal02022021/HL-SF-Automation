@@ -31,7 +31,7 @@ namespace SF_Automation.TestCases.Engagement
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData +fileTC1878;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1878;
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
@@ -51,6 +51,9 @@ namespace SF_Automation.TestCases.Engagement
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
+
+                //Search Engagement to by pass Tableau pop up
+                //engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
 
                 //Search engagement with LOB - FR
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
@@ -165,7 +168,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

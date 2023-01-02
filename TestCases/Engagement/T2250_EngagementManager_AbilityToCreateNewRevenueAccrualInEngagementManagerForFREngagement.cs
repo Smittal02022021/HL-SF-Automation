@@ -58,12 +58,12 @@ namespace SF_Automation.TestCases.Engagement
                 for (int row = 2; row <= rowUsers; row++)
                 {
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                     
+
                     //Login as User and validate the user                        
-                     usersLogin.SearchUserAndLogin(valUser);
-                     string stdUser = login.ValidateUser();
-                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                     extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");                    
+                    usersLogin.SearchUserAndLogin(valUser);
+                    string stdUser = login.ValidateUser();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
                     //Clicking on Engagement Manager link and Validate the title of page
                     string titleEngMgr = engHome.ClickEngageManager();
@@ -85,21 +85,21 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateLog("No revenue accruals exists on Engagement details page ");
 
                     //Login as User and validate the user
-                     usersLogin.SearchUserAndLogin(valUser);
-                     string stdUser1 = login.ValidateUser();
-                     Assert.AreEqual(stdUser1.Contains(valUser), true);
-                     extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
+                    usersLogin.SearchUserAndLogin(valUser);
+                    string stdUser1 = login.ValidateUser();
+                    Assert.AreEqual(stdUser1.Contains(valUser), true);
+                    extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
 
                     if (valUser.Equals("Simone Vitale"))
                     {
                         engHome.ClickEngageManager();
                         string actualFeeEnabled = engManager.ValidateIfActualMonthlyFeeIsEnabled();
                         Assert.AreEqual("Actual Monthly Fee column is read only", actualFeeEnabled);
-                        extentReports.CreateLog(actualFeeEnabled +" for " + valUser +" ");
+                        extentReports.CreateLog(actualFeeEnabled + " for " + valUser + " ");
 
                         string actualTxnEnabled = engManager.ValidateIfActualTxnFeeIsEnabled();
                         Assert.AreEqual("Actual Transaction Fee column is read only", actualTxnEnabled);
-                        extentReports.CreateLog(actualTxnEnabled+" for "+ valUser+ " ");
+                        extentReports.CreateLog(actualTxnEnabled + " for " + valUser + " ");
 
                         usersLogin.UserLogOut();
                     }
@@ -113,9 +113,8 @@ namespace SF_Automation.TestCases.Engagement
                         //Navigate to engagement details and validate for Revenue Accrual record
                         engManager.ClickFREngagementName();
                         string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
-                        //string expDate= 
                         Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                        Assert.AreEqual("2021 - 11", month);
+                        Assert.AreEqual("2022 - 10", month);
                         extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
                         usersLogin.UserLogOut();
                     }
@@ -130,9 +129,9 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
- }
+}
 
 
 

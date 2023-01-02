@@ -56,7 +56,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("CAO User: " + stdUser + " is able to login ");
 
                 //Clicking on Engagement Tab and search for Engagement by entering Job type         
-                string message =engHome.SearchEngagementWithLOB(ReadExcelData.ReadData(excelPath, "Engagement", 1), ReadExcelData.ReadData(excelPath, "Engagement", 2));
+                string message = engHome.SearchEngagementWithLOB(ReadExcelData.ReadData(excelPath, "Engagement", 1), ReadExcelData.ReadData(excelPath, "Engagement", 2));
                 Assert.AreEqual("Record found", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
@@ -68,17 +68,18 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate if revenue accural for current month exists
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2021 - 11", month);
+                Assert.AreEqual("2022 - 10", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " exists ");
 
                 //Get the value of Revenue Record Id
-                 string ID =engagementDetails.GetRevenueRecordNumber();
-                string extID = ID.Substring(35, 15);
+                string ID = engagementDetails.GetRevenueRecordNumber();
+                string extID = ID.Substring(43, 15);
 
-                //Click on Add Revenue Accrual button and try to create a new record
-                string errorMsg= engagementDetails.AddRevenueAccrual();
+                //Click on Add Revenue Accrual button and try to create a new record       
+
+                string errorMsg = engagementDetails.AddRevenueAccrual();
                 Console.WriteLine(errorMsg);
-                Assert.AreEqual("Error: Invalid Data. Review all error messages below to correct your data. Duplicate value on record: "+extID+ " (Related field: External Id)", errorMsg);
+                Assert.AreEqual("Error: Invalid Data. Review all error messages below to correct your data. Duplicate value on record: " + extID + " (Related field: External Id)", errorMsg);
                 extentReports.CreateLog(errorMsg + " is displayed ");
 
                 usersLogin.UserLogOut();
@@ -93,6 +94,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }

@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate the added Board Member details
                 string valMember = summaryPage.ValidateAddedBoardMember();
-                Assert.AreEqual("Adam Daland", valMember);
+                Assert.AreEqual("Adam B. Davis", valMember);
                 extentReports.CreateLog("Board Member with name: " + valMember + " is added ");
 
                 //Copy the added Board Member details 
@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

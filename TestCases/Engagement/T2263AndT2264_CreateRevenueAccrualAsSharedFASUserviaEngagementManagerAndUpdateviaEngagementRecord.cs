@@ -54,7 +54,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login "); 
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login as standard user                
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -75,12 +75,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Calling AddOpportunities function 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType,fileTC2263);
+                string value = addOpportunity.AddOpportunities(valJobType, fileTC2263);
                 Console.WriteLine("value : " + value);
                 extentReports.CreateLog("Opportunity : " + value + " is created ");
-                                
+
                 //Call function to update HL -Internal Team details
-                clientSubjectsPage.EnterStaffDetails(fileTC2263);               
+                clientSubjectsPage.EnterStaffDetails(fileTC2263);
 
                 //Validating Opportunity details  
                 string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
@@ -120,6 +120,9 @@ namespace SF_Automation.TestCases.Engagement
                 //Search for created opportunity
                 opportunityHome.SearchOpportunity(value);
 
+                //Update Total Anticipated Revenue
+                opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
+
                 //Requesting for engagement and validate the success message
                 string msgSuccess = opportunityDetails.ClickRequestEng();
                 Assert.AreEqual(msgSuccess, "Submission successful! Please wait for the approval");
@@ -142,15 +145,15 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
                 extentReports.CreateLog("Opportunity is approved ");
                 opportunityDetails.ClickConvertToEng();
-                //engagementDetails.EnterEngNumberAndSave();
+                Console.WriteLine("Opporunity got converted");
                 string engNumber = engagementDetails.GetEngagementNumber();
 
                 //Logout of CAO and login as shared FAS user
                 usersLogin.UserLogOut();
-                string valSharedUser = ReadExcelData.ReadData(excelPath, "Users",3);
+                string valSharedUser = ReadExcelData.ReadData(excelPath, "Users", 3);
                 usersLogin.SearchUserAndLogin(valSharedUser);
                 string stdUser3 = login.ValidateUser();
-                Assert.AreEqual(stdUser3.Contains(valUser), true);
+                Assert.AreEqual(stdUser3.Contains(valSharedUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser3 + " is able to login ");
 
                 //Clicking on Engagement Manager link and Validate the title of page
@@ -169,7 +172,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate if revenue accural for current month is created
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2021 - 04", month);
+                Assert.AreEqual("2022 - 10", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
 
                 //Update Total Estimate fee value in engagement details page and validate the change reflected in Revenue Accrual record
@@ -191,9 +194,9 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
-    }           
- }
+        }
+    }
+}
 
 
 

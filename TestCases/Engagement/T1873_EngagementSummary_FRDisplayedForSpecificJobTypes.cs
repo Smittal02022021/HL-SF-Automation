@@ -52,6 +52,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
+                //Search Engagement to by pass Tableau pop up
+                //engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
+
                 //Get row count of with all Job Types              
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "Engagement");
                 Console.WriteLine("rowCount " + rowJobType);
@@ -80,7 +83,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }
 

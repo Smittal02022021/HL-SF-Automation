@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -57,7 +58,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Std User: " + stdUser + " is able to login ");
 
                 //Clicking on Engagement Tab and search for Engagement by entering Job type         
-                string message =engHome.SearchEngagementWithName("Project Rockaway");
+                string message = engHome.SearchEngagementWithName("Project Rockaway");
                 Assert.AreEqual("Record found", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
@@ -82,14 +83,14 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog(successMsg + " is displayed upon adding record ");
 
                 //Validate page after clicking New Engagement Counterparty Çontact button
-                string titleCPCon =addCounterparty.ClickAddCounterPartyContact();
-                 Assert.AreEqual("Engagement Counterparty Contact Search", titleCPCon);
-                 extentReports.CreateLog(titleCPCon + " is displayed upon clicking New Engagement Counterparty Çontact button ");
+                string titleCPCon = addCounterparty.ClickAddCounterPartyContact();
+                Assert.AreEqual("Engagement Counterparty Contact Search", titleCPCon);
+                extentReports.CreateLog(titleCPCon + " is displayed upon clicking New Engagement Counterparty Çontact button ");
 
                 //Validate cancel functionality while adding Counterparty contact
                 string cancelMessage = addCounterparty.ValidateCancelFunctionalityOFCPContact();
-                 Assert.AreEqual("Record is not addded", cancelMessage);
-                 extentReports.CreateLog(cancelMessage + " upon clicking cancel button ");
+                Assert.AreEqual("Record is not addded", cancelMessage);
+                extentReports.CreateLog(cancelMessage + " upon clicking cancel button ");
 
                 //Validate error message when none of the record is selected
                 string valMessage = addCounterparty.ValidateErrorMessage();
@@ -125,7 +126,7 @@ namespace SF_Automation.TestCases.Engagement
                 string msgDelete = addCounterparty.DeleteAddedCompany();
                 Assert.AreEqual("No records to display", msgDelete);
                 extentReports.CreateLog("Message :" + msgDelete + " is displayed upon deleting added company ");
-                
+
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
@@ -135,6 +136,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }

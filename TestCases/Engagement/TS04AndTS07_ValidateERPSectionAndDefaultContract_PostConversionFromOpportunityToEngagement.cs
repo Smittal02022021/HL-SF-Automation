@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
@@ -18,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
-        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();      
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         RandomPages pages = new RandomPages();
         LegalEntityDetail entityDetails = new LegalEntityDetail();
@@ -27,7 +26,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementHomePage engHome = new EngagementHomePage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
 
-        public static string ERP = "ERPPostCoversionToEngagement1.xlsx";
+        public static string ERP = "TS04AndTS07_ValidateERPSection2.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -73,7 +72,7 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
-                    string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity",row, 25);
+                    string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 25);
                     Console.WriteLine("valRecordType:" + valRecordType);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
@@ -102,7 +101,7 @@ namespace SF_Automation.TestCases.Engagement
                     string subjectName = opportunityDetails.GetSubject();
                     string oppNumber = opportunityDetails.GetOppNumber();
                     string jobType = opportunityDetails.GetJobType();
-                    Console.WriteLine(jobType);                                     
+                    Console.WriteLine(jobType);
 
                     //Create External Primary Contact         
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
@@ -112,7 +111,7 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    if(valRecordType.Equals("CF"))
+                    if (valRecordType.Equals("CF"))
                     {
                         opportunityDetails.UpdateReqFieldsForCFConversion(ERP);
                     }
@@ -123,7 +122,7 @@ namespace SF_Automation.TestCases.Engagement
                     else
                     {
                         opportunityDetails.UpdateReqFieldsForFRConversion(ERP);
-                    }                    
+                    }
                     opportunityDetails.UpdateInternalTeamDetails(ERP);
 
                     //Logout of user and validate Admin login
@@ -158,13 +157,13 @@ namespace SF_Automation.TestCases.Engagement
                     //Update Total Anticipated Revenue                   
                     if (valRecordType.Equals("FVA"))
                     {
-                        opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();                        
+                        opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
                         extentReports.CreateLog("Total Anticipated Revenue fields are updated ");
                     }
                     else
                     {
                         extentReports.CreateLog("Revenue fields need not to be updated ");
-                    }                    
+                    }
 
                     //Requesting for engagement and validate the success message
                     string msgSuccess = opportunityDetails.ClickRequestEng();
@@ -175,9 +174,9 @@ namespace SF_Automation.TestCases.Engagement
                     usersLogin.UserLogOut();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 2));
+                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2));
                     string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 2)), true);
+                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " logged in ");
 
                     //Search for created opportunity
@@ -217,7 +216,7 @@ namespace SF_Automation.TestCases.Engagement
                     string ERPID = engagementDetails.GetERPID();
                     Assert.NotNull(ERPID);
                     extentReports.CreateLog("ERP ID in ERP section: " + ERPID + " is displayed ");
-                                       
+
                     //Validate HL Entity
                     string entity = engagementDetails.GetLegalEntity();
                     string HLEntity = engagementDetails.GetHLEntity();
@@ -247,7 +246,7 @@ namespace SF_Automation.TestCases.Engagement
                     //Validate ERP LOB
                     string LOB = engagementDetails.GetLOB();
                     string ERPLOB = engagementDetails.GetERPLOB();
-                    if (LOB.Equals("CF") ||LOB.Equals("FR"))
+                    if (LOB.Equals("CF") || LOB.Equals("FR"))
                     {
                         Assert.AreEqual(LOB, ERPLOB);
                         extentReports.CreateLog("ERP LOB in ERP section: " + ERPLOB + " matches with Engagement's LOB ");
@@ -362,8 +361,8 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Validate the creation of default contract
                     string contractID = engagementDetails.ValidateContractExists();
-                    Assert.AreEqual(contractID,engName);
-                    extentReports.CreateLog("Contract with name: "+contractID+" similar to Engagement's name is created upon conversion to engagement ");
+                    Assert.AreEqual(contractID, engName);
+                    extentReports.CreateLog("Contract with name: " + contractID + " similar to Engagement's name is created upon conversion to engagement ");
 
                     //Validate ERP Contract Type
                     string contractType = engagementDetails.GetERPContractType();
@@ -393,7 +392,7 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Validate Contract Start Date
                     string contractStartDate = engagementDetails.GetContractStartDate();
-                    if (LOB.Equals("FR")|| LOB.Equals("FVA"))
+                    if (LOB.Equals("FR") || LOB.Equals("FVA"))
                     {
                         Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), contractStartDate);
                         extentReports.CreateLog("Contract Start Date: " + contractStartDate + " is displayed same as current date ");
@@ -403,13 +402,13 @@ namespace SF_Automation.TestCases.Engagement
                         Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), contractStartDate);
                         extentReports.CreateLog("Contract Start Date: " + contractStartDate + " is displayed same as current date ");
                     }
-               
+
                     //Validate Is Main Contract checkbox is checked
                     string mainContract = engagementDetails.GetIfIsMainContractChecked();
                     Assert.AreEqual("Is Main Contract checkbox is checked", mainContract);
                     extentReports.CreateLog(mainContract + " ");
 
-                    usersLogin.UserLogOut();                    
+                    usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -421,9 +420,9 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

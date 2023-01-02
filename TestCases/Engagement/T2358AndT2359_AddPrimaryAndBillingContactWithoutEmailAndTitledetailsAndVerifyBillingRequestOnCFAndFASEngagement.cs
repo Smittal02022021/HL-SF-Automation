@@ -46,7 +46,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                              
+
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "Engagement");
                 Console.WriteLine("rowCount " + rowJobType);
@@ -55,10 +55,10 @@ namespace SF_Automation.TestCases.Engagement
                     string engName = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 1);
                     string LOB = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 4);
 
-                    if(LOB.Equals("CF"))
+                    if (LOB.Equals("CF"))
                     {
                         //Login as standard User and validate the user
-                        string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement",row,5);
+                        string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 5);
                         usersLogin.SearchUserAndLogin(valUser);
                         string caoUser = login.ValidateUser();
                         //Assert.AreEqual(caoUser.Contains(valUser), true);
@@ -70,16 +70,16 @@ namespace SF_Automation.TestCases.Engagement
                         string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 5);
                         usersLogin.SearchUserAndLogin(valUser);
                         string caoUser = login.ValidateUser();
-                       // Assert.AreEqual(caoUser.Contains(valUser), true);
+                        // Assert.AreEqual(caoUser.Contains(valUser), true);
                         extentReports.CreateLog("User: " + caoUser + " logged in ");
                     }
                     //Search engagement with Engagement number
                     string message = engHome.SearchEngagementWithName(engName);
                     Assert.AreEqual("Record found", message);
-                    extentReports.CreateLog("Enagagement with LOB: "+ LOB+" is found and Engagement Detail page is displayed ");
+                    extentReports.CreateLog("Enagagement with LOB: " + LOB + " is found and Engagement Detail page is displayed ");
 
                     //Update the Primary and billing contacts for that email and title fields are empty
-                    string value = engagementDetails.UpdateEngContact(ReadExcelData.ReadData(excelPath, "Engagement", 2),LOB);
+                    string value = engagementDetails.UpdateEngContact(ReadExcelData.ReadData(excelPath, "Engagement", 2), LOB);
                     Console.WriteLine("value: " + value);
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 2), value);
                     extentReports.CreateLog("Primary and billing contacts is updated such that email and title fields are empty ");
@@ -91,25 +91,25 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateLog("Validation: " + contact_validation + " is displayed upon clicking Billing request button ");
 
                     //Navigate to Engagement details and update Primary and billing contacts
-                    string updatedValue = engagementDetails.UpdateEngContact(ReadExcelData.ReadData(excelPath, "Engagement", 3),LOB);
+                    string updatedValue = engagementDetails.UpdateEngContact(ReadExcelData.ReadData(excelPath, "Engagement", 3), LOB);
                     Console.WriteLine("updatedValue: " + updatedValue);
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 3), updatedValue);
                     extentReports.CreateLog("Primary and billing contacts is updated such that email and title fields are not empty ");
 
                     //Click on Billing request button and validate the Billing Request Form
                     engagementDetails.ClickBillingRequestButton();
-                    string titleBilling = engagementDetails.GetTitleOfBillingReqForm();
+                    string titleBilling = engagementDetails.GetTitleOfSendEmailButton();
                     Assert.AreEqual("Send Email", titleBilling);
                     extentReports.CreateLog("Billing Request Form is displayed upon clicking Billing request button ");
                     usersLogin.UserLogOut();
                 }
-                  usersLogin.UserLogOut();              
-             }
+                usersLogin.UserLogOut();
+            }
 
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
-                usersLogin.UserLogOut();               
+                usersLogin.UserLogOut();
             }
         }
         [OneTimeTearDown]
@@ -127,6 +127,6 @@ namespace SF_Automation.TestCases.Engagement
             notification.SendOutlookEmailWithTestExecutionReport("Test Execution Report - Engagement");
         }
     }
- }
+}
 
 

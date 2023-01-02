@@ -53,6 +53,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
+                //Search Engagement to by pass Tableau pop up
+                //engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
+
                 //Search engagement with LOB - FR
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
                 Assert.AreEqual("Record found", message);
@@ -113,7 +116,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 

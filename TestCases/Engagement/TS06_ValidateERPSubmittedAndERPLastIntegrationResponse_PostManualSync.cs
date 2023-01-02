@@ -14,11 +14,11 @@ namespace SF_Automation.TestCases.Engagement
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        EngagementHomePage engHome = new EngagementHomePage();       
+        EngagementHomePage engHome = new EngagementHomePage();
         UsersLogin usersLogin = new UsersLogin();
-        EngagementDetailsPage engDetails = new EngagementDetailsPage();             
+        EngagementDetailsPage engDetails = new EngagementDetailsPage();
 
-        public static string ERP = "ERPPostCreationOfOpportunity.xlsx";
+        public static string ERP = "TS05_ValidateERPSection.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -45,10 +45,10 @@ namespace SF_Automation.TestCases.Engagement
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
 
                 //Login as Standard User and validate the user                
                 //usersLogin.SearchUserAndLogin(valUser);
@@ -59,15 +59,15 @@ namespace SF_Automation.TestCases.Engagement
                 //Search for an engagement
                 engHome.SearchEngagementWithName("FGIC");
                 extentReports.CreateLog("Matching record is displayed ");
-                                               
+
                 //Get ERP Submitted to Sync, Status, ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = engDetails.GetERPSubmittedToSync();
-                extentReports.CreateLog("ERP Submitted to Sync before update is: " + ERPSubmitted +" ");               
-                               
-                string ERPResDate = engDetails.GetERPIntegrationResponseDate();                
+                extentReports.CreateLog("ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
+
+                string ERPResDate = engDetails.GetERPIntegrationResponseDate();
                 extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
 
-                string ERPStatus = engDetails.GetERPIntegrationStatus();               
+                string ERPStatus = engDetails.GetERPIntegrationStatus();
                 extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
 
                 //-----Schedule ERP Submitted to Sync manually, validate ERP Update DFF checkbox, ERP Sync Date, Status and Last Integration Status -----
@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.Engagement
                 string ERPSubmittedPostSync = engDetails.GetERPSubmittedToSync();
                 Assert.AreNotEqual(ERPSubmitted, ERPSubmittedPostSync);
                 extentReports.CreateLog("ERP Submitted to Sync : " + ERPSubmittedPostSync + " is updated post scheduling ERP sync ");
-                                          
+
                 string ERPResDatePostSync = engDetails.GetERPIntegrationResponseDate();
                 Assert.AreNotEqual(ERPResDate, ERPResDatePostSync);
                 extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
@@ -83,19 +83,19 @@ namespace SF_Automation.TestCases.Engagement
                 string ERPStatusPostSync = engDetails.GetERPIntegrationStatus();
                 //Assert.AreEqual("Success", ERPStatusPostSync);
                 extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
-                               
+
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
-                usersLogin.UserLogOut();                
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

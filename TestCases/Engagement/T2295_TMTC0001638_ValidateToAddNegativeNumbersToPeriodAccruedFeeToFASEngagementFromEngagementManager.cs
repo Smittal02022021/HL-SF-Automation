@@ -90,14 +90,14 @@ namespace SF_Automation.TestCases.Engagement
                 engHome.ClickEngageManager();
                 string fees = ReadExcelData.ReadData(excelPath, "EngMgr", 1);
                 engManager.UpdateRevAccrualFeesValue(fees);
-                extentReports.CreateLog("Period Accrual Fees is updated to: "+ fees +" ");
-            
+                extentReports.CreateLog("Period Accrual Fees is updated to: " + fees + " ");
+
                 //Navigate to engagement details and validate if Revenue Accrual record exists
                 engManager.ClickEngageName();
-                string message =engagementDetails.GetRevAccrualMessage();                
+                string message = engagementDetails.GetRevAccrualMessage();
                 Assert.AreEqual("No records to display", message);
                 extentReports.CreateLog("No revenue Accrual record is created for current month in Engagement details ");
-                           
+
                 //Get Total Est. Fees and compare if it remains unchanged
                 string totalEstFees = engagementDetails.GetTotalEstFeeFAS();
                 Assert.AreEqual(estFees, totalEstFees);
@@ -117,6 +117,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }    
+        }
     }
 }

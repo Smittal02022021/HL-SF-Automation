@@ -110,7 +110,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Loan Amount is updated to " + loanAmt + " ");
 
                 //Delete and Validate lender details on Edit Post-Transaction Debt Structure window
-                summaryPage.CloseLenderDetailsPage();
+                //summaryPage.CloseLenderDetailsPage();
                 //string value = summaryPage.DeleteLenderDetails();
                 //Assert.AreEqual("No row displayed", value);
                 //extentReports.CreateLog("Lender details have been deleted successfully ");
