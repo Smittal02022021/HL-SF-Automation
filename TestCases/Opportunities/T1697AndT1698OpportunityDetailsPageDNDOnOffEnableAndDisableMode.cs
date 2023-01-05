@@ -4,7 +4,7 @@ using SF_Automation.Pages.Common;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-
+using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -68,10 +68,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
 
-
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 //Calling AddOpportunities function                
-                string value = addOpportunity.AddOpportunities(valJobType,fileTC1697);
+                string value = addOpportunity.AddOpportunities(valJobType, fileTC1697);
                 Console.WriteLine("value : " + value);
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
@@ -91,7 +90,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Log out from Standard User and Log in as CAO user and validate CAO login
                 usersLogin.UserLogOut();
-                usersLogin.LoginAsCAOUser();
+                string valUser1 = ReadExcelData.ReadData(excelPath, "Users", 2);
+                usersLogin.SearchUserAndLogin(valUser1);
                 string caoUser = login.ValidateUser();
                 Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                 extentReports.CreateLog("CAO User " + caoUser + " is able to login ");
@@ -133,18 +133,18 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine("result : " + valSearch);
                 opportunityDetails.ClickRejectButton();
                 extentReports.CreateLog("Admin user rejected DND request ");
-                usersLogin.ClickManageUsers();
-                usersLogin.LoginAsCAOUser();
-                string userCAO = login.ValidateUser();
-                Assert.AreEqual(userCAO.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
-                extentReports.CreateLog("CAO User " + userCAO + " is able to login ");
+
+                usersLogin.SearchUserAndLogin(valUser1);
+                string caoUser1 = login.ValidateUser();
+                Assert.AreEqual(caoUser1.Contains(valUser1), true);
+                extentReports.CreateLog("CAO User " + caoUser + " is able to login ");
 
                 //Search for created opportunity and validate for lock image 
                 string output = opportunityHome.SearchOpportunity(value);
                 extentReports.CreateLog(output + " with original Opportunity Name ");
                 string btnLockImageCAO = opportunityDetails.ValidateLockImage();
                 Assert.AreEqual("Lock Image is not displayed", btnLockImageCAO);
-                extentReports.CreateLog(btnLockImageCAO + " now for user " + userCAO);
+                extentReports.CreateLog(btnLockImageCAO + " now for user " + valUser1);
 
                 //Validate rejected status in Approval History table
                 string valStatus = opportunityDetails.ValidateOverallStatus();
@@ -162,15 +162,18 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search for created opportunity, approve opportunity and validate Opportunity Name
                 driver.Navigate().Refresh();
+                Thread.Sleep(2000);
                 opportunityHome.SearchOpportunity(value);
                 opportunityDetails.ClickApproveButton();
                 string approvedOppName = opportunityDetails.GetOpportunityName();
                 extentReports.CreateLog(opportunityDetails.ValidateOpportunityName(approvedOppName));
 
                 //Login again as CAO user and validate intially created opportunity before status update
-                usersLogin.ClickManageUsers();
-                usersLogin.LoginAsCAOUser();
-                extentReports.CreateLog("CAO User " + login.ValidateUser() + " is able to login ");
+
+                usersLogin.SearchUserAndLogin(valUser1);
+                string caoUser2 = login.ValidateUser();
+                Assert.AreEqual(caoUser2.Contains(valUser1), true);
+                extentReports.CreateLog("CAO User " + caoUser2 + " is able to login ");
                 string result = opportunityHome.SearchOpportunity(value);
                 Assert.AreEqual("No record found", result);
                 extentReports.CreateLog(result + " with old opportunity name ");
@@ -187,8 +190,11 @@ namespace SF_Automation.TestCases.Opportunity
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
-        }       
+        }
     }
 }
 

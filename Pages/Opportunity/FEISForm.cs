@@ -38,7 +38,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboRelationshipQuestion4 = By.CssSelector("select[id*='Conflicts5a']");
         By comboOtherOpinion = By.CssSelector("select[id*='shareholderVote']");
         By comboSpecialCommittee = By.CssSelector("select[id*='id306']");
-        By titleEmailPage = By.CssSelector("h2[class='mainTitle']");
+        By titleEmailPage = By.CssSelector("div.pbSubheader.brandTertiaryBgr.tertiaryPalette > h3");
         By valEmailOppName = By.CssSelector("body[id*='Body_rta_body'] > span:nth-child(9) > span");
         By btnCancelEmail = By.CssSelector("input[value='Cancel']");
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
@@ -158,7 +158,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         public string ValidateHeader()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, titleEmailPage, 70);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleEmailPage, 170);
             string title = driver.FindElement(titleEmailPage).Text;
             Console.WriteLine(title);
             return title;

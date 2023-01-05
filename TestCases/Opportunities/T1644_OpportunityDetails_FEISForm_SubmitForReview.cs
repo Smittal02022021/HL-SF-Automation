@@ -74,7 +74,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 //Calling AddOpportunities function                
-                string value = addOpportunity.AddOpportunities(valJobType,fileTC1644);
+                string value = addOpportunity.AddOpportunities(valJobType, fileTC1644);
                 Console.WriteLine("value : " + value);
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
@@ -150,14 +150,23 @@ namespace SF_Automation.TestCases.Opportunity
                 string valSearch = opportunityHome.SearchOpportunity(value);
                 Console.WriteLine("result : " + valSearch);
                 opportunityDetails.UpdateCCOnlyFAS();
+                extentReports.CreateLog("Conflict check details are updated ");
+
+                //Login as Standard User, validate the user and search for created opportunity
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser1 = login.ValidateUser();
+                Assert.AreEqual(stdUser1.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
+                opportunityHome.SearchOpportunity(value);
                 opportunityDetails.ClickFEISForm();
 
                 //Call function to enter NBC details
                 form.EnterDetailsAndClickSubmit(fileTC1644);
+                extentReports.CreateLog("FEIS details are saved ");
 
                 //Validate title of Email Template page
                 string pageTitle = form.ValidateHeader();
-                Assert.AreEqual("Send Email", pageTitle);
+                Assert.AreEqual("Additional CCs", pageTitle);
                 extentReports.CreateLog(pageTitle + " is displayed ");
 
                 //Validate Opportunity Name in Email and navigate to Opportunity details page
@@ -166,14 +175,18 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(" Email Template with Opportunity " + emailOppName + " is displayed ");
 
                 usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
 
-        }        
+        }
     }
 }
 

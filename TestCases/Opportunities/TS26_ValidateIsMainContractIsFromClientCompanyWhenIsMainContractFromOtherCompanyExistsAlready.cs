@@ -21,7 +21,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
 
-        public static string ERP = "ERPPostCreationOfOpportunity.xlsx";
+        public static string ERP = "TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -48,16 +48,16 @@ namespace SF_Automation.TestCases.Opportunity
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                              
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
-                
+
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
@@ -94,25 +94,25 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                
+
                 //Search for added opportunity
                 opportunityHome.SearchOpportunity(opportunityNumber);
 
                 //Click on New Contract button
                 string titleContract = opportunityDetails.ClickNewContract();
-                Assert.AreEqual("New Contract",titleContract);
-                extentReports.CreateLog("Page with title : " + titleContract+ " is displayed upon clicking on New Contract button ");
+                Assert.AreEqual("New Contract", titleContract);
+                extentReports.CreateLog("Page with title : " + titleContract + " is displayed upon clicking on New Contract button ");
 
                 //Add the contract by selecting any company other than Client Company
-                string titleDetail =opportunityDetails.AddContractBySelectingACompany("Test Contract", valContact, "Test Enterprises, Inc.");
+                string titleDetail = opportunityDetails.AddContractBySelectingACompany("Test Contract", valContact, "Test Enterprises, Inc.");
                 Assert.AreEqual("Test Contract", titleDetail);
-                extentReports.CreateLog("Contract with name: "+ titleDetail +" is added ");
+                extentReports.CreateLog("Contract with name: " + titleDetail + " is added ");
 
                 //Validate if Is Main Contract checkbox is checked
-                string valueIsMain= opportunityDetails.ValidateIsMainContract();
+                string valueIsMain = opportunityDetails.ValidateIsMainContract();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueIsMain);
                 extentReports.CreateLog(valueIsMain + " of added Contract even it was not selected while saving the details ");
-                             
+
                 //Add one more contract from client company
                 opportunityDetails.ClickNewContract();
                 string clientComp = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
@@ -129,19 +129,19 @@ namespace SF_Automation.TestCases.Opportunity
                 string valueNewIsMainPrev = opportunityDetails.ValidateIsMainContractOfOldContract();
                 Assert.AreEqual("Is Main Contract checkbox is not checked", valueNewIsMainPrev);
                 extentReports.CreateLog(valueNewIsMainPrev + " for the contract added earlier from company other than client company ");
-                               
+
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);               
+                extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

@@ -18,7 +18,7 @@ namespace SF_Automation.Pages
         By btnSearch = By.CssSelector("input[name*='btnSearch']");
         By tblResults = By.CssSelector("table[id*='pbtOpportunities']");
         By matchedResult = By.XPath("//*[contains(@id,':pbtOpportunities:0:j_id59')]/a");
-        By btnContinue= By.CssSelector("input[value='Continue']");
+        By btnContinue = By.CssSelector("input[value='Continue']");
         By comboRecordType = By.XPath("//select[@name='p3']");
         By comboJobType = By.CssSelector("select[name*='jobTypeSearch']");
         By comboStage = By.CssSelector("select[name*='stageSearch']");
@@ -26,16 +26,20 @@ namespace SF_Automation.Pages
         By titleOppManager = By.CssSelector("label[id*='PageTitle']");
         By radioMyOpp = By.CssSelector("input[id*='myOpportunities:pbMain:j_id34:j_id35:1']");
         By lnkOppSelected = By.CssSelector("a[title = 'Opportunities Tab - Selected']");
+        By btnReturnToOpp = By.XPath("//div/div[1]/table/tbody/tr/td[2]/span/input[2]");
+
+        By btnNew = By.XPath("//div[@title='New']");
+        By btnNext = By.XPath("//span[text()='Next']");
+        By valTitle = By.XPath("//h2[text()='New Opportunity: CF']");
+        By lnkOppL = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By btnOppNumL = By.XPath("//button[@aria-label='Search']");
+        By btnOppNumLCAO = By.XPath("//header/div[2]/div[2]/div/button/text()");
+        By txtOppNumL = By.XPath("//input[@placeholder='Search...']");
+        By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
+        By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
+
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
-        public void SelectOpportunity(String OppNumber)
-        {
-            driver.FindElement(searchOppBox).SendKeys(OppNumber);
-            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
-            Thread.Sleep(4000);
-            driver.FindElement(selectOpp).Click();
-            Thread.Sleep(4000);
-        }
         public void ClickOpportunity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -47,13 +51,15 @@ namespace SF_Automation.Pages
         }
         public void SelectLOBAndClickContinue(string name)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue, 110);
             driver.FindElement(comboRecordType).SendKeys(name);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue, 110);
             driver.FindElement(btnContinue).Submit();
         }
 
         public string SearchOpportunity(string oppName)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities, 150);
             Thread.Sleep(3000);
             driver.FindElement(lnkOpportunities).Click();
@@ -61,11 +67,11 @@ namespace SF_Automation.Pages
             driver.FindElement(linkAdvancedSearch).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityName);
             driver.FindElement(txtOpportunityName).SendKeys(oppName);
-            driver.FindElement(btnSearch).Click();         
+            driver.FindElement(btnSearch).Click();
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 120);
-                Thread.Sleep(7000);
+                Thread.Sleep(6000);
                 string result = driver.FindElement(matchedResult).Displayed.ToString();
                 Console.WriteLine("Search Results :" + result);
                 driver.FindElement(matchedResult).Click();
@@ -198,7 +204,7 @@ namespace SF_Automation.Pages
             return title;
         }
 
-         //To Search Opportunity with Opportunity Name
+        //To Search Opportunity with Opportunity Name
         public string SearchMyOpportunities(string oppName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOppSelected, 100);
@@ -225,7 +231,57 @@ namespace SF_Automation.Pages
             }
         }
 
+        //Click on New button
+        public string ClickNewButtonAndSelectCFOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 350);
+            driver.FindElement(btnNew).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNext, 100);
+            driver.FindElement(btnNext).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valTitle, 300);
+            string title = driver.FindElement(valTitle).Text;
+            return title;
+        }
 
+        //Click Opportunity 
+        public void ClickOpportunityL()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOppL, 100);
+            driver.FindElement(lnkOppL).Click();
+        }
+
+        //To Search Opportunity with Opportunity Name in Lighting
+        public void SearchMyOpportunitiesInLightning(string value, string user)
+        {
+            Thread.Sleep(6000);
+            if (user.Equals("James Craven"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                driver.FindElement(btnOppNumL).Click();
+                Thread.Sleep(4000);
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                driver.FindElement(btnOppNumL).Click();
+                Thread.Sleep(4000);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+            Thread.Sleep(6000);
+            driver.FindElement(imgOppL).Click();
+            Thread.Sleep(2000);
+
+        }
+        public void SelectOpportunity(String OppNumber)
+        {
+            driver.FindElement(searchOppBox).SendKeys(OppNumber);
+            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            driver.FindElement(selectOpp).Click();
+            Thread.Sleep(4000);
+        }
     }
 }
 

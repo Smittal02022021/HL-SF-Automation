@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0016556_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee : BaseClass
+    class TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -146,10 +146,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.IsTrue(form.VerifyTxnTypeFee(), "Verified that displayed Transaction Fee Types are same");
                 extentReports.CreateLog("Displayed Transaction Fee Types are correct ");
 
-                //Validate that Flat Fee (MM) field appears upon selecting Flat Fee type
-                string flatFee = form.ValidateFlatFeeField();
-                Assert.AreEqual("Flat Fee (MM)", flatFee);
-                extentReports.CreateLog("Field with name : " + flatFee + " is displayed upon selecting Transaction Fee Type as Flat Fee ");
+                //Validate that Other Fee Structure field appears upon selecting Other Fee Structure
+                string otherFee = form.ValidateOtherFeeField();
+                Assert.AreEqual("*Other Fee Structure", otherFee);
+                extentReports.CreateLog("Field with name : " + otherFee + " is displayed upon selecting Transaction Fee Type as other Fee ");
 
                 //Get Retainer from NBC form
                 Assert.AreEqual(retainer, nbcRetainer);
@@ -160,69 +160,16 @@ namespace SF_Automation.TestCases.Opportunity
 
                 form.SaveAllReqFieldsInFees(fileTC1232);
 
-                //Navigate to previous window and validate Retainer and Monthly Fee
-                form.NavigateToPreviousWindow();
-                string latestRetainer = opportunityDetails.GetRetainer();
-                Assert.AreEqual(retainer, latestRetainer);
-                extentReports.CreateLog("Retainer value in Opportunity details: " + latestRetainer + " matches with earlier value of Retainer ");
+                //Get the validation of Other Fee Structure
+                string msgOtherFee = form.GetValidationOfOtherFeeField();
+                Assert.AreEqual("Complete this field.", msgOtherFee);
+                extentReports.CreateLog("Validation : " + msgOtherFee + " is displayed when Other Fee Structure field is left blank and saved ");
 
-                string latestProgressFee = opportunityDetails.GetMonthlyFee();
-                Assert.AreEqual(progressFee, latestProgressFee);
-                extentReports.CreateLog("Progress Fee value in Opportunity details: " + latestProgressFee + " matches with earlier value of Progress Fee ");
-
-                //Clear out the Progress Fee and Progress Fee Creditable fields
-                form.NavigateToNextWindow();
-                string estFeeWithRetainer = form.UpdateReviewSubAndProgressFee(fileTC1232);
-                Console.WriteLine(estFeeWithRetainer);
-
-                string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
-                double actualFee = Convert.ToDouble(fee);
-                string feeCred = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
-                double actualFeeCred = Convert.ToDouble(feeCred);
-                Assert.AreEqual(((actualFee- ((actualFee*actualFeeCred)/100))/1000000).ToString("0.00"), estFeeWithRetainer);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithRetainer + " is getting calculated as expected when only Retainer and Retainer Fee Creditable is entered for Flat Fee ");
-
-                //Clear out Retainer Fee fields, enter Progress Fee and validate Estimated Total Fee
-                string estFeeWithProgress =form.UpdateRetainerAndProgressFee(fileTC1232);
-                Console.WriteLine(estFeeWithProgress);
-                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred)/100))).ToString("0.00"), estFeeWithProgress);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithProgress + " is getting calculated as expected when only Progress and Progress Fee Creditable is entered for Flat Fee ");
+                //Validate if validation is still displayed upon saving saving Other Fee Structure value
+                string msgOtherFeeUponSave = form.UpdateOtherFeeStructure();
+                Assert.AreEqual("Validation did not appear", msgOtherFeeUponSave);
+                extentReports.CreateLog("No validation message for Other Fee Structure is displayed when Other Fee Structure field is saved ");
                 
-                //Enter the values of Retainer Fee fieds and Progress Fee and validate Estimated Total Fee
-                string estFeeWithBoth = form.UpdateBothRetainerAndProgressFee(fileTC1232);
-                Console.WriteLine(estFeeWithBoth);
-                Assert.AreEqual((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000)+((actualFee - ((actualFee * actualFeeCred) / 100)))).ToString("0.00"), estFeeWithBoth);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered for Flat Fee ");
-
-                //Validate that Flat Fee (MM) field is blank
-                //string flatFeeMM = form.GetFlatFee();
-                //Assert.AreEqual("", flatFeeMM);
-                extentReports.CreateLog("No error is displayed when Flat Fee is left blank and saved ");
-
-                //Save the Flat Fee and validate the saved value
-                string savedFlatFee = form.SaveFlatFee(fileTC1232);
-                string valueFee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
-                Assert.AreEqual(valueFee, savedFlatFee);
-                extentReports.CreateLog("Flat Fee with value: "+savedFlatFee + " is saved ");
-
-                //Validate Estimated Total Fee after entering Flat Fee
-                string estFeeWithFlatFee = form.GetEstTotalFee();
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100)))))+ Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered along with Flat Fee ");
-
-                //Validate that if Minimum Fee is greater than Estimated Total Fee then it will be copied to Estimated Total Fee
-                string MinFee = form.UpdateMinFee();
-                string EstFeeWithGreaterMinFee = form.GetEstTotalFee();
-                Assert.AreEqual(MinFee, EstFeeWithGreaterMinFee);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed same as Minimum Fee when Minimum Fee is greater than Estimated Total Fee ");
-
-                //Validate that if Minimum Fee is less than Estimated Total Fee then it will not be copied to Estimated Total Fee
-                string MinFeeLess = form.UpdateMinFeeLessThanEstTotalFee();
-                string EstFeeWithLessMinFee = form.GetEstTotalFee();
-                Assert.AreNotEqual(MinFee, EstFeeWithLessMinFee);
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100))))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), EstFeeWithLessMinFee);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed as it is when Minimum Fee is less than Estimated Total Fee ");
-                                                                                          
                 form.SwitchFrame();
                 usersLogin.UserLogOut();                              
 

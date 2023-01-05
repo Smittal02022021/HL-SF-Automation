@@ -67,7 +67,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnLockUp = By.XPath("(//lightning-base-combobox)[11]");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
 
-        By btnRestricted = By.XPath("(//lightning-base-combobox)[12]");
+        By btnRestricted = By.XPath("(//lightning-base-combobox)[13]");
 
         By chkNextSchCall = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-checkbox/lightning-input/div/span/input");
         By btnSubmitForReview = By.XPath("//lightning-button/button[text()='Submit for Review']");
@@ -447,7 +447,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtOwnership).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 8));
             driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 9));
             Thread.Sleep(4000);
-            js.ExecuteScript("window.scrollTo(0,1500)");
+            js.ExecuteScript("window.scrollTo(0,1650)");
             Thread.Sleep(3000);
             //Selecting Pre Pitch value
             driver.FindElement(btnPrePitch).Click();
@@ -694,7 +694,9 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch the label of Houlihan Lokey Competition
         public string GetLabelHLComp()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblHLComp, 160);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,600)");
+            WebDriverWaits.WaitUntilEleVisible(driver, lblHLComp, 200);
             string text = driver.FindElement(lblHLComp).Text;
             return text;
         }
@@ -834,7 +836,7 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             WebDriverWaits.WaitUntilEleVisible(driver, lblGroup, 100);
             string text = driver.FindElement(lblGroup).Text;
-            js.ExecuteScript("window.scrollTo(0,-700)");
+            js.ExecuteScript("window.scrollTo(0,-900)");
             return text;
         }
         //Fetch message of Financials Unavailable

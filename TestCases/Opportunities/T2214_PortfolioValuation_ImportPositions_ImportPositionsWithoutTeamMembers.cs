@@ -49,16 +49,12 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                //Login as Standard User and validate the user
-                //usersLogin.ClickManageUsers();
-                //usersLogin.LoginAsStandardUser();
-
-                //
+                //Login as Standard User
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
                 //
                 string stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Call function to open Add Opportunity Page
@@ -73,7 +69,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 //Calling AddOpportunities function                
-                string value = addOpportunity.AddOpportunities(valJobType,fileTC2214);
+                string value = addOpportunity.AddOpportunities(valJobType, fileTC2214);
                 Console.WriteLine("value : " + value);
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
@@ -149,7 +145,10 @@ namespace SF_Automation.TestCases.Opportunity
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
-        }        
+        }
     }
 }

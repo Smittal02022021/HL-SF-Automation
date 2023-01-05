@@ -40,7 +40,9 @@ namespace SF_Automation.Pages.Opportunity
         By PitchTab = By.XPath("//lightning-tab-bar/ul/li[@title='Pitch']");
         By FairnessTab = By.XPath("//lightning-tab-bar/ul/li[@title='Fairness/Admin Checklist']");
         By PublicTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
-        By HLInternalTab = By.XPath("//lightning-tab-bar/ul/li[@title='HL Internal Team']");
+        By HLInternalTab = By.XPath("//span[text()='HL Internal Team']");
+        By HLInternalTabA = By.XPath("//a[text()='HL Internal Team']");
+        By MoreTab = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[7]/lightning-button-menu/button");
         By ReviewTab = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By btnAddFin = By.XPath("//button[@name= 'Opportunity_Approval__c.Add_Financials']");
         By titleAddFin = By.XPath("//h2[@class='slds-modal__title']");
@@ -141,6 +143,9 @@ namespace SF_Automation.Pages.Opportunity
         By valTxnFeeType = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
         By lblFlatFee = By.XPath("//flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/label");
+        By lblOtherFee = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-text-area/lightning-textarea/label");
+        By txtOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::textarea[1]");
+        By msgOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::div[2]");
         By lblIncentiveFeeStr = By.XPath("//span[@title='Incentive Fee structure']");
         By txtProgressFeeMM = By.XPath("//input[@name='Progress_Fee__c']");
         By txtMinFeeMM = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
@@ -258,7 +263,7 @@ namespace SF_Automation.Pages.Opportunity
         By secWould = By.XPath("//span[@title='Would the opportunity benefit from TAS Assistance?']");
         By lblTAS = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/following::span[1]");
         By secIfKnown = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTAS_Assistance_Benefit_cField1']/slot[1]/following::span[1]");
-        By lblOutside = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblOutside = By.XPath("//flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[4]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By secReferral = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordOutsideCouncil_cField1']/slot[1]/following::span[1]");
         By lblRefType = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblRefSource = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordReferral_Type_cField1']/slot[1]/following::span[1]");
@@ -436,6 +441,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblFinalRatchet = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[7]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblFinalRatchetAmt = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[8]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
 
+        By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee (MM)']/following::input[1]");
         //Validate Opp Name
         public string ValidateOppName()
         {
@@ -770,6 +776,24 @@ namespace SF_Automation.Pages.Opportunity
             return label;
         }
 
+        //Validate Other Fee Structure field
+        public string ValidateOtherFeeField()
+        {
+            //driver.FindElement(btnTxnFeeType).SendKeys("Flat Fee");
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            Thread.Sleep(3000);
+            string label = driver.FindElement(lblOtherFee).Text;
+            return label;
+        }
+
+        //Get Validation of Other Fee Structure field
+        public string GetValidationOfOtherFeeField()
+        {
+            Thread.Sleep(3000);
+            string label = driver.FindElement(msgOtherFee).Text;
+            return label;
+        }
+
         //Validate Incentive Fee section
         public string ValidateIncentiveFeeSection()
         {
@@ -943,12 +967,19 @@ namespace SF_Automation.Pages.Opportunity
             return valTab;
         }
 
+        public void ClickMoreTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, MoreTab, 80);
+            driver.FindElement(MoreTab).Click();
+        }
+
         //Click HL Internal Team tab
         public string ClickHLInternalTeamTab()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, HLInternalTab, 80);
-            driver.FindElement(HLInternalTab).Click();
-            string valTab = driver.FindElement(HLInternalTab).Text;
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, HLInternalTabA, 180);
+            driver.FindElement(HLInternalTabA).Click();
+            string valTab = driver.FindElement(HLInternalTabA).Text;
             return valTab;
         }
 
@@ -1006,18 +1037,19 @@ namespace SF_Automation.Pages.Opportunity
         public void UpdateReviewSubmissionAndUpdateReferralFee()
         {
             Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,100)");
             driver.FindElement(btnUpdSubmit).Click();
-            //driver.FindElement(btnUpdSubmit).Click();
             Console.WriteLine("Submit clicked once");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(6000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            Thread.Sleep(6000);           
             js.ExecuteScript("window.scrollTo(0,120)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub2nd, 100);
             driver.FindElement(lnkEditFeedback).Click();
             Thread.Sleep(5000);
+            //js.ExecuteScript("window.scrollTo(0,100)");
             driver.FindElement(btnUpdSubmit).Click();
             Thread.Sleep(3000);
             //driver.FindElement(btnUpdSubmit).Click();
@@ -1061,11 +1093,11 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnYes3).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
-            js.ExecuteScript("window.scrollTo(0,1050)");
+            js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
-            js.ExecuteScript("window.scrollTo(0,1300)");
+            js.ExecuteScript("window.scrollTo(0,1600)");
             driver.FindElement(btnYes5).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[23]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
@@ -1936,7 +1968,7 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch the label of Outside Council
         public string GetLabelOutsideCouncil()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblOutside, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOutside, 210);
             string text = driver.FindElement(lblOutside).Text;
             return text;
         }
@@ -3178,6 +3210,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(btnUpdSubmit).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,150)");
+            driver.FindElement(btnUpdSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,450)");
             WebDriverWaits.WaitUntilEleVisible(driver, txtRetainer, 150);
             Thread.Sleep(5000);
@@ -3536,6 +3570,23 @@ namespace SF_Automation.Pages.Opportunity
             return estValue.Substring(4, 5);
         }
 
+        //Update Estimated Transaction Value (MM)
+        public string UpdateMinFeeValue()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,150)");
+            Thread.Sleep(4000);
+            driver.FindElement(lnkEditCurrency).Click();
+            //js.ExecuteScript("window.scrollTo(0,-100)");          
+            Thread.Sleep(3000);
+            driver.FindElement(txtMinFee).Clear();
+            driver.FindElement(txtMinFee).SendKeys("300000");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string estValue = driver.FindElement(valEstTotalFeeMM).Text.Replace(",", "");
+            return estValue.Substring(4, 6);
+        }
+
         //Update 2nd Ratchet From and To amount fields
         public void Update2ndRatchetFromAndToAmt(string file)
         {
@@ -3547,6 +3598,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             driver.FindElement(lnkUpd2ndRatchet).Click();
             Thread.Sleep(4000);
+            driver.FindElement(txtMinFee).Clear();
             driver.FindElement(txtEstTxnVal).Clear();
             driver.FindElement(txtEstTxnVal).SendKeys(ToAmt);
             driver.FindElement(txt1stRatchetPer).Clear();
@@ -3644,6 +3696,85 @@ namespace SF_Automation.Pages.Opportunity
             string value = driver.FindElement(valEstTxnVal).Text;
             return value.Substring(4, 5);
         }
+
+        //Update all Ratchet values
+        public string UpdateAllRatchetValues(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string fromAmt = ReadExcelData.ReadData(excelPath, "NBCForm", 66);
+            string ToAmt = ReadExcelData.ReadData(excelPath, "NBCForm", 67);
+            Thread.Sleep(3000);
+            driver.FindElement(lnkUpdBaseFee).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(txtEstTxnVal).Clear();
+            driver.FindElement(txtEstTxnVal).SendKeys("100");
+            driver.FindElement(txt1stRatchetPer).SendKeys(fromAmt);
+            driver.FindElement(txt1stRatchetFromAmount).SendKeys(fromAmt);
+            driver.FindElement(txt1stRatchetToAmount).SendKeys(ToAmt);
+            driver.FindElement(txt2ndRatchetPer).SendKeys(fromAmt);
+            driver.FindElement(txt2ndRatchetFromAmount).SendKeys(fromAmt);
+            driver.FindElement(txt2ndRatchetToAmount).SendKeys(ToAmt);
+            driver.FindElement(txt3rdRatchetPer).SendKeys(fromAmt);
+            driver.FindElement(txt3rdRatchetFromAmount).SendKeys(fromAmt);
+            driver.FindElement(txt3rdRatchetToAmount).SendKeys(ToAmt);
+            driver.FindElement(txt4thRatchetPer).SendKeys(fromAmt);
+            driver.FindElement(txt4thRatchetFromAmount).SendKeys(fromAmt);
+            driver.FindElement(txt4thRatchetToAmount).SendKeys(ToAmt);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valEstTotalFee).Text;
+            return value.Substring(4, 10);
+        }
+
+        //Update Other Fee Structure
+        public string UpdateOtherFeeStructure()
+        {
+            driver.FindElement(txtOtherFee).SendKeys("10");
+            Thread.Sleep(3000);
+            driver.FindElement(txtEstimatedFee).SendKeys("10");
+            driver.FindElement(txtReferralFeeOwnedMM).SendKeys("10");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(3000);
+            try
+            {
+                string message = driver.FindElement(msgOtherFee).Text.ToString();
+                if (message.Equals("Complete this field."))
+                {
+                    return "Validation appears";
+                }
+                else
+                {
+                    return "Validation did not appear";
+                }
+            }
+            catch (Exception e)
+            {
+                return "Validation did not appear";
+            }
+        }
+
+        //Update Fee Creditabe to 0 and 100
+        public string UpdateFeeCreditables(string value)
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency, 180);
+            driver.FindElement(lnkEditCurrency).Click();
+            driver.FindElement(txtRetainerFeeCred).Clear();
+            driver.FindElement(txtRetainerFeeCred).SendKeys(value);
+            driver.FindElement(txtProgressFeeCred).Clear();
+            driver.FindElement(txtProgressFeeCred).SendKeys(value);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 180);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string fee = driver.FindElement(valEstTotalFeeMM).Text;
+            return fee.Substring(4, 10).Replace(",", "");
+        }
+
+
     }
 
 

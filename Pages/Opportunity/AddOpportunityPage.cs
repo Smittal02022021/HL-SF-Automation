@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
         By labelWomenLed = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(4) > td:nth-child(3) > label");
         By labelWomenLedFVA = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(3) > label");
         By labelWomenLedFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(4) > td:nth-child(3) > label");
-        By labelAdmSection = By.CssSelector("div[id='head_12_ep'] > h3");
+        By labelAdmSection = By.CssSelector("div[id='head_11_ep'] > h3");
         By labelAdmSectionFVA = By.CssSelector("div[id = 'head_12_ep'] > h3");
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");
@@ -58,6 +58,23 @@ namespace SF_Automation.Pages
         By comboReferType = By.CssSelector("select[id*='00Ni000000FF5uS']");
         By chkboxNBC = By.CssSelector("input[id*='00Ni000000FmBzh']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
+
+        //Lightning
+        By txtOpportunityNameL = By.XPath("//input[@name= 'Name']");
+        By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
+        By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
+        By btnJobTypeL = By.XPath("//button[@aria-label='Job Type, --None--']");
+        By btnIGL = By.XPath("//button[@aria-label='Industry Group, --None--']");
+        By comboSectorL = By.XPath("//button[@aria-label='Sector, --None--']");
+        By comboPrimaryOfficeL = By.XPath("//button[@aria-label='Primary Office, --None--']");
+        By txtLegalEntitiesL = By.XPath("//input[@placeholder='Search Legal Entities...']");
+        By comboRefTypeL = By.XPath("//button[@aria-label='Referral Type, --None--']");
+        By comboAddClientL = By.XPath("//button[@aria-label='Additional Client, --None--']");
+        By comboAddSubjectL = By.XPath("//button[@aria-label='Additional Subject, --None--']");
+        By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
+        By comboHLMaterialL = By.XPath("//button[@aria-label='Does HL Have Material Non-Public Info?, --None--']");
+        By btnSaveL = By.XPath("//button[text()='Save']");
+        By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
 
         public string AddOpportunities(string type, string file)
         {
@@ -110,7 +127,7 @@ namespace SF_Automation.Pages
             else if (driver.FindElement(comboRecordType).Text.Contains("FVA"))
             {
                 Console.WriteLine("in else if");
-                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
             }
             else
             {
@@ -378,7 +395,7 @@ namespace SF_Automation.Pages
             string prefilledClientName = driver.FindElement(txtClient).GetAttribute("value");
             return prefilledClientName;
         }
-        
+
         // Get prefilled opportunity subject
         public string GetPrefilledOpportunitySubject()
         {
@@ -485,7 +502,7 @@ namespace SF_Automation.Pages
             }
             return isSame;
         }
-        
+
         public string AddOpportunitiesForFVA(string type, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -544,6 +561,96 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSave).Click();
             return message;
         }
+
+        public string AddOpportunitiesLightning(string type, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+
+            //--------------------------Enter Opportunity details-----------------------------
+            //Information Section           
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityNameL, 240);
+            string valOpportunity = CustomFunctions.RandomValue();
+
+            driver.FindElement(txtOpportunityNameL).SendKeys(valOpportunity);
+            driver.FindElement(txtClientL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1));
+            driver.FindElement(txtClientL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/ul/li[1]/lightning-base-combobox-item/span[2]/span[2]/lightning-base-combobox-formatted-text")).Click();
+            driver.FindElement(txtSubjectL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2));
+            driver.FindElement(txtSubjectL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/ul/li[1]/lightning-base-combobox-item/span[2]/span[2]/lightning-base-combobox-formatted-text")).Click();
+            Thread.Sleep(4000);
+
+            //Select IG
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            Thread.Sleep(3000); WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
+            driver.FindElement(btnIGL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-field[6]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']")).Click();
+
+            //Select Job Type
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + type + "']")).Click();
+
+            //Select sector
+            string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
+            driver.FindElement(comboSectorL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 5));
+            driver.FindElement(By.XPath("//flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSector + "']")).Click();
+
+            //Select Primary Office
+            string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
+            driver.FindElement(comboPrimaryOfficeL).SendKeys(valPO);
+            driver.FindElement(By.XPath("//flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valPO + "']")).Click();
+
+            //Select Legal Entity
+            string valEntity = ReadExcelData.ReadData(excelPath, "AddOpportunity", 12);
+            driver.FindElement(txtLegalEntitiesL).SendKeys(valEntity);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]")).Click();
+
+            //Select Referral Type  
+            string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
+            driver.FindElement(comboRefTypeL).SendKeys(valRefType);
+            driver.FindElement(By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valRefType + "']")).Click();
+
+            //Select Additional Client
+            driver.FindElement(comboAddClientL).SendKeys("No");
+            driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
+
+            //Select Additional Subject
+            driver.FindElement(comboAddSubjectL).SendKeys("No");
+            driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
+
+            //Select Beneficial Owner
+            string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
+            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
+
+            //Select Does HL have material            
+            driver.FindElement(comboHLMaterialL).SendKeys(valBenOwner);
+            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
+
+            //Select Conf Agreement
+            string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            Thread.Sleep(4000);
+            //driver.FindElement(btnConfAgreeL).Click();
+            driver.FindElement(btnConfAgreeL).SendKeys(valConf);
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
+
+            //Click Save button                           
+            driver.FindElement(btnSaveL).Click();
+
+            //
+            return valOpportunity;
+        }
+
     }
 }
 

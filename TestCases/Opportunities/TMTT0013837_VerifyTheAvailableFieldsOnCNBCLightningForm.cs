@@ -166,7 +166,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string msgHLComp = cnbc.GetSectionHLComp();
                 Assert.AreEqual("Houlihan Lokey Competition", msgHLComp);
-                extentReports.CreateLog("SEction with name: " + msgHLComp + " is displayed ");
+                extentReports.CreateLog("Section with name: " + msgHLComp + " is displayed ");
 
                 string txtHLComp = cnbc.GetLabelHLComp();
                 Assert.AreEqual("Houlihan Lokey Competition", txtHLComp);

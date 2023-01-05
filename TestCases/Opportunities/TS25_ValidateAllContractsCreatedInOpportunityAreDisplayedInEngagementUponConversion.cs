@@ -21,7 +21,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
 
-        public static string ERP = "ERPPostCreationOfOpportunity1.xlsx";
+        public static string ERP = "TS25_ValidateAllContracts.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -48,16 +48,16 @@ namespace SF_Automation.TestCases.Opportunity
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                              
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
-                
+
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
@@ -103,19 +103,19 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Click on New Contract button
                 string titleContract = opportunityDetails.ClickNewContract();
-                Assert.AreEqual("New Contract",titleContract);
-                extentReports.CreateLog("Page with title : " + titleContract+ " is displayed upon clicking on New Contract button ");
+                Assert.AreEqual("New Contract", titleContract);
+                extentReports.CreateLog("Page with title : " + titleContract + " is displayed upon clicking on New Contract button ");
 
                 //Add the contract by not selecting "Is Main Contract" option
-                string titleDetail =opportunityDetails.AddContractByNotSelectingIsMainContract("Test Contract", valContact);
+                string titleDetail = opportunityDetails.AddContractByNotSelectingIsMainContract("Test Contract", valContact);
                 Assert.AreEqual("Test Contract", titleDetail);
-                extentReports.CreateLog("Contract with name: "+ titleDetail +" is added ");
+                extentReports.CreateLog("Contract with name: " + titleDetail + " is added ");
 
                 //Validate if Is Main Contract checkbox is checked
-                string valueIsMain= opportunityDetails.ValidateIsMainContract();
+                string valueIsMain = opportunityDetails.ValidateIsMainContract();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueIsMain);
                 extentReports.CreateLog(valueIsMain + " of added Contract even it was not selected while saving the details ");
-                             
+
                 //Add one more contract by selecting Is Main Contract checkbox
                 opportunityDetails.ClickNewContract();
                 string titleDetailIsMainTrue = opportunityDetails.AddContractBySelectingIsMainContract("Additional Contract", valContact);
@@ -128,7 +128,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(valueNewIsMainCon + " for newly added contract ");
 
                 //Logout of CAO user and login as Standard user
-                usersLogin.UserLogOut();                
+                usersLogin.UserLogOut();
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser1 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
@@ -197,7 +197,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string contract2 = engagementDetails.Get2ndContractName();
                 Assert.AreEqual(titleDetail, contract2);
-                extentReports.CreateLog(contract1 + " and " +contract2 + " added in Opportunity, are displayed in engagement details page ");
+                extentReports.CreateLog(contract1 + " and " + contract2 + " added in Opportunity, are displayed in engagement details page ");
 
                 //Validate Is Main checkbox checked for same contract as it is in Opportunity page
                 string IsMainEng = engagementDetails.GetIfIsMainContractChecked();
@@ -207,7 +207,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Click on Related Opportunity link and validate that added contracts are displayed post conversion to engagement as well
                 string titleOpp = engagementDetails.ClickRelatedOpportunityLink();
                 Assert.AreEqual("Opportunity", titleOpp);
-                extentReports.CreateLog("Page with title: " + titleOpp +" is displayed upon clicking related Opportunity link in engagement detail page ");
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking related Opportunity link in engagement detail page ");
 
                 //Validate that contracts are still displayed in Opportunity post conversion to engagement
                 string oppContract1 = opportunityDetails.Get1stContractName();
@@ -216,7 +216,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string oppContract2 = opportunityDetails.Get2ndContractName();
                 Assert.AreEqual(titleDetail, oppContract2);
                 extentReports.CreateLog(oppContract1 + " and " + oppContract2 + " are displayed in Opportunity post conversion to engagement ");
-                
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -228,9 +228,9 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

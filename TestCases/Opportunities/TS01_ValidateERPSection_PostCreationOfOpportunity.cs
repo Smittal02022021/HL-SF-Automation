@@ -17,14 +17,14 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
-        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();      
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         RandomPages pages = new RandomPages();
         LegalEntityDetail entityDetails = new LegalEntityDetail();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         ContactHomePage contactHome = new ContactHomePage();
 
-        public static string ERP = "ERPPostCreationOfOpportunity.xlsx";
+        public static string ERP = "TS01_ValidateERPSection1.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
-                    string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity",row, 25);
+                    string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 25);
                     Console.WriteLine("valRecordType:" + valRecordType);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //Validate ERP LOB
                     string LOB = opportunityDetails.GetLOB();
                     string ERPLOB = opportunityDetails.GetERPLOB();
-                    if (LOB.Equals("CF") ||LOB.Equals("FR"))
+                    if (LOB.Equals("CF") || LOB.Equals("FR"))
                     {
                         Assert.AreEqual(LOB, ERPLOB);
                         extentReports.CreateLog("ERP LOB in ERP section: " + ERPLOB + " matches with Opportunity's LOB ");
@@ -186,7 +186,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("ERP Last Integration Error Description in ERP section: " + error + " is displayed ");
 
                     //Click Job Types link 
-                    string type = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity",row, 3);
+                    string type = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     string pageTitle = pages.ClickJobTypes(type);
                     Assert.AreEqual("Job Type Detail", pageTitle);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
@@ -274,7 +274,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
                     extentReports.CreateLog("ERP Principal Manager in ERP section: " + ERPEmailID + " matches with email id of contact of Internal team member: " + valStaff + " ");
 
-                    usersLogin.UserLogOut();                    
+                    usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -286,9 +286,9 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

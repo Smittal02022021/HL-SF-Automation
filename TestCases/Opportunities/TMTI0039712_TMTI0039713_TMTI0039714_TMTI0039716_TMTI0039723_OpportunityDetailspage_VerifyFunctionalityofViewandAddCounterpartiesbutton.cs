@@ -127,8 +127,8 @@ namespace SF_Automation.TestCases.Opportunity
                         string filterValue = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 3);
                         extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from " + filterSection + " ");
                         addCounterparty.SearchCounterparties(filterSection, subFilterSection, filterValue);
-                        // Verify Company names have Hyperlinks
-                        // 
+
+                        // Verify Company names have Hyperlinks                         
                         Assert.IsTrue(addCounterparty.ValidateCompanyListHyperlinked(), "Verify all Counterparties under Company List have Hyperlinks ");
                         extentReports.CreateLog("All Counterparties under Companies List have Hyperlink");
                         // Verify Click on hypelink opend new tab with comapny details
@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Opportunity
                         //Verify the Success Message
                         msgSuccess = addCounterparty.GetLVMessagePopup();
                         Assert.AreEqual(msgSuccess, "Selected Counterparty Records have been created.");
-                        extentReports.CreateLog("Seccess: " + msgSuccess + " message Displayed ");
+                        extentReports.CreateLog("Success: " + msgSuccess + " message Displayed ");
                         //Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page
                         addCounterparty.ButtonClick("Back");
                         extentReports.CreateLog("Clicked on Back button");
