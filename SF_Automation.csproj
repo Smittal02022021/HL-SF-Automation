@@ -659,9 +659,11 @@
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1232_OpportunityDetails_NBCForm_SubmitforReview.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
+    <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
     <Compile Include="TestCases\Opportunities\T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
+    <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TC2154_TMTC0002470_VerifyTheRolesAvailableToRegisteredUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
@@ -700,7 +702,6 @@
     <Compile Include="TestCases\Opportunities\TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
     <Compile Include="TestCases\Opportunities\T1432_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
-    <Compile Include="TestCases\Opportunities\T1559_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
@@ -709,7 +710,6 @@
     <Compile Include="TestCases\Opportunities\T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
     <Compile Include="TestCases\Opportunities\T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
     <Compile Include="TestCases\Opportunities\T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
-    <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
     <Compile Include="TestCases\Opportunities\T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed.cs" />
     <Compile Include="TestCases\Opportunities\T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />

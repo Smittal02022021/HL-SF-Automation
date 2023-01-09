@@ -109,7 +109,6 @@ namespace SF_Automation.Pages.Opportunity
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
 
 
-
         //To validate Counterparties button
         public string ValidateAndAddCounterparties()
         {
