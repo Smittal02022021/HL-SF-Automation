@@ -23,8 +23,10 @@ namespace SF_Automation.Pages.HomePage
         By appHeader = By.CssSelector("div.slds-context-bar__label-action .slds-truncate");
         By menuNavigation = By.CssSelector("button[title = 'Show Navigation Menu']");
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
+        By lblTearsheetHeading = By.XPath("//h1");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\HL\SF_Automation\TestData\";
+
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
@@ -47,12 +49,14 @@ namespace SF_Automation.Pages.HomePage
                 }
             }
         }
+
         public void ClickAppLauncher()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
             driver.FindElement(appLauncher).Click();
             Thread.Sleep(3000);
         }
+
         public void SelectApp(string appName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchItems, 30);
@@ -62,11 +66,13 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(_appInAppLauncher(appName)).Click();
             Thread.Sleep(3000);
         }
+
         public string GetAppName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, appHeader, 30);
             return driver.FindElement(appHeader).Text;
         }
+
         public void SearchText()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
@@ -118,6 +124,51 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 120);
             driver.FindElement(linkLogOut).Click();
             Thread.Sleep(10000);
+        }
+
+        public bool VerifyUserNavigatedToTearsheetSearchCompanyPage()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTearsheetHeading, 120);
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(lblTearsheetHeading).Text =="Tearsheet")
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyThereExistTearsheetAsANavigationalItemOnHLBanker()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, menuNavigation, 120);
+            driver.FindElement(menuNavigation).Click();
+            Thread.Sleep(5000);
+
+            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
+            int size = elements.Count;
+
+            for (int items=1; items<=size; items++)
+            {
+                By linkTearsheet = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
+
+                WebDriverWaits.WaitUntilEleVisible(driver, linkTearsheet, 120);
+                string itemName = driver.FindElement(linkTearsheet).GetAttribute("data-label");
+
+                if (itemName == "Tearsheet")
+                {
+                    driver.FindElement(linkTearsheet).Click();
+                    Thread.Sleep(3000);
+
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }
