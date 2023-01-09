@@ -38,7 +38,7 @@ namespace SF_Automation.UtilityFunctions
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void LoginOutlook(string file)
         {

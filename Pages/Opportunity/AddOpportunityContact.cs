@@ -16,7 +16,7 @@ namespace SF_Automation.Pages.Opportunity
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
 
-        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
         {
