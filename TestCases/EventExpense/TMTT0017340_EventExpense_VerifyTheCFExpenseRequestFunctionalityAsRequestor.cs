@@ -63,7 +63,6 @@ namespace SF_Automation.TestCases.EventExpense
                     string approverResp = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 16);
                     string approverNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 17);
 
-
                     //Search standard user by global search
                     string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     homePage.SearchUserByGlobalSearch(fileTC17340, user);
@@ -146,7 +145,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                         //TC - TMTI0038477 - Verify that on clicking "Save" button, application creates the expense request with Status marked as "Saved" by logged in user.
                         //TC - TMTI0038478 - Verify the details page of the saved expense request.
-                        lvCreateExpRequest.CreateNewExpenseRequestLWC(lobName, fileTC17340, row);
+                        lvCreateExpRequest.CreateNewExpenseRequestLWC2(lobName, fileTC17340, row);
                         Assert.IsTrue(lvExpRequestDetail.VerifyIfExpensePreapprovalNumberIsDisplayed());
 
                         string expReqpreApprovalNo = lvExpRequestDetail.GetExpensePreapprovalNumber();
@@ -191,7 +190,7 @@ namespace SF_Automation.TestCases.EventExpense
                     }
 
                     //Logout from SF Lightning View
-                    lvHomePage.UserLogoutFromSFLightningView();
+                    lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateLog("User Logged Out from SF Lightning View. ");
                 }
 

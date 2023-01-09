@@ -23,10 +23,10 @@ namespace SF_Automation.Pages.EventExpense
         //Requestor/Host Information
         By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/slot/slot/span)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
-        By lblCloneStatus = By.XPath("((//span[text()='Status'])[3]/following::div/span/slot/lightning-formatted-text)[1]");
+        By lblCloneStatus = By.XPath("((//span[text()='Status'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By lblTitle = By.XPath("(//span[text()='Title']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
-        By lblCloneExpPreAppNum = By.XPath("((//span[text()='Expense Preapproval Number'])[3]/following::div/span/slot/lightning-formatted-text)[1]");
+        By lblCloneExpPreAppNum = By.XPath("((//span[text()='Expense Preapproval Number'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By linkPrimaryEmail = By.XPath("(//span[text()='Primary Email']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text/a)[1]");
         By linkEventContact = By.XPath("(//span[text()='Event Contact']/following::div/a/slot/slot/span)[1]");
         By lblIndustryGroup = By.XPath("(//span[text()='Industry Group']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
@@ -69,16 +69,16 @@ namespace SF_Automation.Pages.EventExpense
 
         //Clone Elements
         By txtRequestor1 = By.XPath("(//label[text()='Requestor']/following::div/input)[1]");
-        By lblTitle1 = By.XPath("((//span[text()='Title'])[3]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
-        By linkPrimaryEmail1 = By.XPath("((//span[text()='Primary Email'])[3]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
-        By lblIndustryGroup1 = By.XPath("((//span[text()='Industry Group'])[3]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
-        By lblOffice1 = By.XPath("((//span[text()='Office'])[3]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
+        By lblTitle1 = By.XPath("((//span[text()='Title'])[2]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
+        By linkPrimaryEmail1 = By.XPath("((//span[text()='Primary Email'])[2]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
+        By lblIndustryGroup1 = By.XPath("((//span[text()='Industry Group'])[2]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
+        By lblOffice1 = By.XPath("((//span[text()='Office'])[2]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblStatus1 = By.XPath("(//span[text()='Status']/following::div/span/slot/force-record-output-picklist)[1]");
         By txtEventContact1 = By.XPath("(//label[text()='Event Contact']/following::div/input)[1]");
-        By lblPrimaryPhnNum1 = By.XPath("((//span[text()='Primary phone number'])[3]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
+        By lblPrimaryPhnNum1 = By.XPath("((//span[text()='Primary phone number'])[2]/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
 
         By txtEvent1 = By.XPath("(//label[text()='Event']/following::div/input)[1]");
-        By lblLOB1 = By.XPath("((//span[text()='LOB'])[3]/following::div/span/slot/force-record-output-picklist)[1]");
+        By lblLOB1 = By.XPath("((//span[text()='LOB'])[2]/following::div/span/slot/force-record-output-picklist)[1]");
 
         By txtNotes = By.XPath("//textarea");
         By lblApproverResponse = By.XPath("(//lst-formatted-text)[2]");
