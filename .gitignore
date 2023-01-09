@@ -367,3 +367,6 @@ Defects_Screenshots/
 TestData/Default/
 TestData/GrShaderCache/
 TestData/ShaderCache/
+/TestCases/Engagement/T1720AndT1721_Engagement_CounterpartyDetails_NewBid_CancelSaveEditDelete.cs
+/TestCases/Engagement/T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs
+/TestData/T1720AndT1721_NewBid_CancelSaveEditDelete4.xls

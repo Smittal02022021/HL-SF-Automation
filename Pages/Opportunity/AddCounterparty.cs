@@ -105,7 +105,7 @@ namespace SF_Automation.Pages.Opportunity
         By buttonConfirmDelete = By.XPath("//footer//lightning-button[contains(@class,'confirmButton')]");
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
-        By comboTypeCounterparty = By.XPath("//button[contains(@aria-label,'Type')]");
+        By comboTypeCounterparty = By.XPath("(//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
 
 
