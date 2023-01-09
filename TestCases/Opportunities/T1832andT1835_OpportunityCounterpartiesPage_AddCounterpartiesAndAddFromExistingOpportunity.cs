@@ -16,7 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddCounterparty addCounterparty = new AddCounterparty();
+        AddOppCounterparty addCounterparty = new AddOppCounterparty();
             
         public static string fileTC1832 = "T1832_OpportunityCounterpartiesPageAddCounterparties";
                 
