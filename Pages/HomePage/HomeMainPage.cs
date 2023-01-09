@@ -24,7 +24,7 @@ namespace SF_Automation.Pages.HomePage
         By linkMonthlyRevenue = By.XPath("//a[@class='listRelatedObject Custom95Block title']");
         By linkSwitchToLightningExperience = By.XPath("//a[@class='switch-to-lightning']");
 
-        string dir = @"C:\HL\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public void NavigateToMonthlyRevenueProcessControlsPage()
         {

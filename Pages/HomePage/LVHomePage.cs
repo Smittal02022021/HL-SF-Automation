@@ -25,12 +25,11 @@ namespace SF_Automation.Pages.HomePage
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
         By lblTearsheetHeading = By.XPath("//h1");
 
-        string dir = @"C:\HL\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
-
         }
 
         public void SelectModule(string moduleName)

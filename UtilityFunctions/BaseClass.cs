@@ -58,7 +58,7 @@ namespace SF_Automation.UtilityFunctions
             if (extent == null)
             {
                 extent = new ExtentReports();
-                var htmlReporter = new ExtentHtmlReporter(@"C:\HL\SF_Automation\Reports\ExtentReport.html");
+                var htmlReporter = new ExtentHtmlReporter(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\ExtentReport.html");
                 htmlReporter.Config.DocumentTitle="Test Execution Report";
                 extent.AttachReporter(htmlReporter);
                 extent.AddSystemInfo("Application Under Test", "Salesforce Application");
