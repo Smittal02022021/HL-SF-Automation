@@ -117,7 +117,7 @@ namespace SF_Automation.TestCases.Companies
                     }
 
                     //Get most recent year from company financial
-                    string mostRecentYearCompanyLevel = companyDetail.GetCompanyFinancialYear(2);
+                    string mostRecentYearCompanyLevel = companyDetail.GetCompanyFinancialYear(4);
 
                     //Click on new company financial 
                     companyDetail.ClickNewCompanyFinancial(fileTC1886, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1));

@@ -21,7 +21,7 @@ namespace SF_Automation.UtilityFunctions
             options.AddArguments("user-data-dir=" + path);
             options.AddArguments("profile-directory=Default");
             driver = new ChromeDriver(options);            
-            driver.Navigate().GoToUrl("https://hl--test.my.salesforce.com/");
+            driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
             builder = new Actions(driver);
             return driver;
