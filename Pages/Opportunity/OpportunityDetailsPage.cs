@@ -57,7 +57,7 @@ namespace SF_Automation.Pages
         By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id43']");
         By chkUpSeller = By.CssSelector("input[name*=':1:j_id43']");
         By chkUpManager = By.CssSelector("input[name*=':3:j_id43']");
-        By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
+        By chkAdmin = By.CssSelector("input[name*='9:j_id65']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By btnCounterparties = By.CssSelector(".pbButton > input[title = 'Counterparties']");
@@ -81,7 +81,7 @@ namespace SF_Automation.Pages
         By lnkReDisplayRec = By.CssSelector(" table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
         By rowUser = By.XPath("//html/body/span[2]/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[1]/div/label");
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
-        By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id45:0:j_id47']");
+        By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id41:0:j_id43']");
         By msgHLIntTeam = By.CssSelector("div[id*='pgfrmId:internalTeam:j']");
         By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id55_ileinner'] > a");
         By comboRecType = By.CssSelector("select[id*='p3']");
@@ -142,7 +142,7 @@ namespace SF_Automation.Pages
         By lnkDateCAExpiresFR = By.CssSelector("div:nth-child(17) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By lnkEstimatedClosedDateFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By lnkOutcomeDateFR = By.CssSelector(" div:nth-child(19) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
-        By chk2ndInitiator = By.CssSelector("input[name*=':0:j_id75']");
+        By chk2ndInitiator = By.CssSelector("input[name*=':0:j_id65']");
         By valHLEntity = By.CssSelector("div[id*='WRj']");
         By valERPHLEntity = By.CssSelector("div[id*='fYj']");
         By valERPLegalEntityId = By.CssSelector("div[id*='fhj']");
