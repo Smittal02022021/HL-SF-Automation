@@ -235,6 +235,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("Deletion of Created Contact. ");
 
                 usersLogin.UserLogOut();
+
             }
 
             catch(TimeoutException te)
