@@ -468,6 +468,11 @@
     <Compile Include="Pages\Contacts\ContactSelectRecordPage.cs" />
     <Compile Include="Pages\Contacts\CoverageTeamDetail.cs" />
     <Compile Include="Pages\Contacts\LegalEntityDetailPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactDetailsPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactsActivityDetailPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactsAddActivityPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactsCreatePage.cs" />
+    <Compile Include="Pages\Contacts\LV_RecentlyViewedContactsPage.cs" />
     <Compile Include="Pages\Contacts\MergeContacts.cs" />
     <Compile Include="Pages\CoverageSectorDependencies\CoverageSectorDependenciesDetailPage.cs" />
     <Compile Include="Pages\CoverageSectorDependencies\CoverageSectorDependenciesHomePage.cs" />
@@ -570,6 +575,8 @@
     <Compile Include="TestCases\Contact\T2245_Contacts_DuplicateManagement_AddNewDuplicateEmployeeFromContactsTab.cs" />
     <Compile Include="TestCases\Contact\T2246_Contacts_DuplicateManagement_EditEmployeeRecordToMatchWithAnExistingEmployee.cs" />
     <Compile Include="TestCases\Contact\T2247_Contact_AddANewCompanyFromContactPage.cs" />
+    <Compile Include="TestCases\Contact\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
+    <Compile Include="TestCases\Contact\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\TMTT0013752_ContactDetailsPage_VerifyAvailabilityOfJobCodeFieldAndValue.cs" />
     <Compile Include="TestCases\Contact\TMTT0014212_TMTT0014213_TMTT0014215_Contact_VerifyTheUserIsAbleToAddNewSectorOnTheContactPage.cs" />
     <Compile Include="TestCases\Engagement\T1615_Engagement_ChangeTheStage_POCIsUpdated.cs" />
@@ -906,6 +913,8 @@
     <None Include="TestData\TC2331_TMTC0002485_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.xlsx" />
+    <None Include="TestData\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
     <None Include="TestData\TMTI0039712_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.xlsx" />
     <None Include="TestData\TMTI0045469_VerifyNewTitleAddedinTitleRateSheet.xlsx" />
