@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace SF_Automation.Pages.Contact
 {
-    class AddActivity : BaseClass
+    class LV_ContactsAddActivityPage : BaseClass
     {
         By lnkContacts = By.CssSelector("a[title*='Contacts Tab']");
         By btnAddActivity = By.CssSelector("td[class='pbButton center'] > input[value='Add Activity']");
@@ -253,11 +253,11 @@ namespace SF_Automation.Pages.Contact
 
         public void AddPrivateActivity(string file)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivityOnContactDetail,120);
-            driver.FindElement(btnAddActivityOnContactDetail).Click();
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+
+            //driver.SwitchTo().Frame(1);
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboAcitivityType);
             CustomFunctions.SelectByText(driver, driver.FindElement(comboAcitivityType), ReadExcelData.ReadData(excelPath, "Activity", 1));
@@ -266,17 +266,19 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(txtActivitySubject).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 2));
 
             driver.FindElement(chkboxPrivate).Click();
+            Thread.Sleep(3000);
             driver.FindElement(txtDescription).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 3));
-            driver.FindElement(txtInternalNotes).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 5));
-            string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 6);
+            driver.FindElement(txtInternalNotes).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 4));
+
+            string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 5);
             driver.FindElement(txtCompaniesDiscussed).SendKeys(valCompaniesDiscussed);
             Thread.Sleep(3000);
             driver.FindElement(selCompaniesDiscussed).Click();
 
             Thread.Sleep(3000);
 
-
-            try {
+            try 
+            {
                 Console.WriteLine(driver.FindElement(By.CssSelector("td[id*='j_id84:0:j_id90'] > a")).Text);
                 (driver.FindElement(By.CssSelector("td[id*='j_id84:0:j_id90'] > a")).Text).Equals("Test External");
             }
@@ -284,13 +286,14 @@ namespace SF_Automation.Pages.Contact
             {
                 //Add External Attendee
                 WebDriverWaits.WaitUntilEleVisible(driver, txtExternalLookupContact, 120);
-                driver.FindElement(txtExternalLookupContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 7));
+                driver.FindElement(txtExternalLookupContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 6));
                 WebDriverWaits.WaitUntilEleVisible(driver, selLookupContact);
                 driver.FindElement(selLookupContact).Click();
                 Thread.Sleep(4000);
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitySave);
             driver.FindElement(btnActivitySave).Click();
+            Thread.Sleep(5000);
         }
 
         //Add activity from contact detail page

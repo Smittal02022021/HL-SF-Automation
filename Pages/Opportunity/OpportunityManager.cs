@@ -14,7 +14,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");
         By comboStage = By.CssSelector("select[name*=':0:j_id132:11']");
         By comboStageFVA = By.CssSelector("select[name*=':0:j_id132:9']");
-        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:6']");
+        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:5']");
         By txtPitchDateFR = By.CssSelector("input[name*=':0:j_id132:3']");
         By txtRetainer = By.CssSelector("input[name*=':0:j_id132:6']");
         By txtRetainerFVA = By.CssSelector("input[name*=':0:j_id132:5']");

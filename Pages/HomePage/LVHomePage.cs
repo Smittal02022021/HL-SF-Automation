@@ -25,11 +25,14 @@ namespace SF_Automation.Pages.HomePage
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
         By lblTearsheetHeading = By.XPath("//h1");
 
+        By lblTabHeading = By.XPath("//a[@class='slds-context-bar__label-action slds-p-left--xx-small']/span");
+
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
+
         }
 
         public void SelectModule(string moduleName)
@@ -169,5 +172,52 @@ namespace SF_Automation.Pages.HomePage
 
             return result;
         }
+
+        public bool VerifyThereExistContactsOptionAsANavigationalItemOnHLBanker()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, menuNavigation, 120);
+            driver.FindElement(menuNavigation).Click();
+            Thread.Sleep(5000);
+
+            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
+            int size = elements.Count;
+
+            for (int items = 1; items <= size; items++)
+            {
+                By linkContacts = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
+
+                WebDriverWaits.WaitUntilEleVisible(driver, linkContacts, 120);
+                string itemName = driver.FindElement(linkContacts).GetAttribute("data-label");
+
+                if (itemName == "Contacts")
+                {
+                    driver.FindElement(linkContacts).Click();
+                    Thread.Sleep(5000);
+
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyUserNavigatedToRecentlyViewedContactsPage()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTabHeading, 120);
+            Thread.Sleep(5000);
+
+            if (driver.FindElement(lblTabHeading).Text == "Contacts")
+            {
+                result = true;
+            }
+            return result;
+        }
+
+
     }
 }
