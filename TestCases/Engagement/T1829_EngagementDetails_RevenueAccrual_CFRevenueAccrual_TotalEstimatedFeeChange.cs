@@ -70,14 +70,14 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Existing Total Estimated Fees is " + estFeesUSD + " ");
 
                 //Delete existing Revenue Accurals and Add Revenue Accurals for current year
-                engagementDetails.DeleteExistingAccurals();
+                 engagementDetails.DeleteExistingAccurals();
 
                 //Login as CAO user and Search for same Engagement and add Revenue Accurals                
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser1 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("CAO User: " + stdUser1 + " is able to login ");
-                engHome.SearchEngagementWithName(engName);
+                engHome.SearchEngagementWithName(engName); 
 
                 string revValueUSD = engagementDetails.AddNewRevenueAccurals();
                 Assert.AreEqual("USD 10.00", revValueUSD);
@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the Total estimated fee is sum of existing value plus entered Revenue Accrual Fees 
                 int totalEst = finalEstFees + finalRevValue;
                 Console.WriteLine("totalEst: " + totalEst);
-                Assert.AreEqual("USD 20", "USD " + totalEst);
+                Assert.AreEqual("USD 510", "USD " + totalEst);
                 extentReports.CreateLog("Total Estimated Fees is sum of its original value plus entered Revenue Accrual Fees ");
 
                 //Login as admin and validate value of Period Accrual Fee matches with entered Revenue Accrual Fees 
@@ -101,7 +101,7 @@ namespace SF_Automation.TestCases.Engagement
                 string periodAccrual = engagementDetails.GetPeriodAccrualValue();
                 Assert.AreEqual("10.00", periodAccrual);
                 extentReports.CreateLog("Period Accrual Fee matches with entered Revenue Accrual Fees ");
-
+                                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

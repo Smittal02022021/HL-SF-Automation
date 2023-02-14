@@ -44,10 +44,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
 
-                // Calling Login function                
+                //Calling Login function                
                 login.LoginApplication();
 
-                // Validate user logged in                   
+                //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
@@ -329,7 +329,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtRetainer + " is displayed ");
 
                 string txtProgFee = form.GetLabelProgressFee();
-                Assert.AreEqual("Progress Fee (MM)", txtProgFee);
+                Assert.AreEqual("Progress Fee", txtProgFee);
                 extentReports.CreateLog("Field with name: " + txtProgFee + " is displayed ");
 
                 string txtMinFee = form.GetLabelMinimumFee();
@@ -533,6 +533,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtConfirm + " is displayed ");
 
                 //Click HL Internal Team tab and validate its available fields 
+
                 string txtHLInt = form.ClickHLInternalTeamTab();
                 Assert.AreEqual("HL Internal Team", txtHLInt);
                 extentReports.CreateLog("Tab with name " + txtHLInt + " is displayed upon clicking HL Internal Team tab. ");

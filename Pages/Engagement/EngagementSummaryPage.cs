@@ -216,7 +216,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
         public string GetLabelTransactionType()
@@ -353,9 +353,9 @@ namespace SF_Automation.Pages.Engagement
         //Compare values of Currency Financials
         public bool VerifyCurrencyFinancialsValues()
         {
-            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes);
+            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes); 
             var actualValue = valCurTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar","Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -724,7 +724,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(comboDebtCurrency);
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1528,7 +1528,7 @@ namespace SF_Automation.Pages.Engagement
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
+            }           
         }
         public bool ValidateCopiedEquityHolderValues()
         {
@@ -1730,7 +1730,7 @@ namespace SF_Automation.Pages.Engagement
             var actualValue = valRow.Select(x => x.Text).ToArray();
             string value2 = DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
             Console.WriteLine(value2);
-            string[] expectedValue = { "LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
+            string[] expectedValue = {"LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1808,7 +1808,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, rowLender, 100);
             IReadOnlyCollection<IWebElement> valRow = driver.FindElements(rowLender);
             var actualValue = valRow.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "ABC", "10.00" };
+            string[] expectedValue = {"ABC", "10.00"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1849,7 +1849,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valLoanAmt, 90);
             Thread.Sleep(3000);
-            string Amount = driver.FindElement(valLoanAmt).Text;
+            string Amount = driver.FindElement(valLoanAmt).Text;           
             return Amount;
         }
 
@@ -1861,16 +1861,16 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);           
 
             try
             {
                 string rowDisplayed = driver.FindElement(rowLenderPostDel).Displayed.ToString();
-                Console.WriteLine("rowDisplayed :" + rowDisplayed);
+                Console.WriteLine("rowDisplayed :" + rowDisplayed);               
                 return rowDisplayed;
             }
             catch (Exception)
-            {
+            {                
                 return "No row displayed";
             }
         }
@@ -1914,7 +1914,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEquitySave).Click();
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, valPostOwnership, 90);
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);            
             string valOwner = driver.FindElement(valPostOwnership).Text;
             return valOwner;
         }
@@ -2087,15 +2087,15 @@ namespace SF_Automation.Pages.Engagement
             string message = driver.FindElement(msgStaffRoleDel).Text;
             return message;
         }
+
         //Click on Return to Engagement
         public void ClickReturnToEngagement()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement,150);
             driver.FindElement(btnReturnToEngagement).Click();
         }
     }
 }
-
 
 

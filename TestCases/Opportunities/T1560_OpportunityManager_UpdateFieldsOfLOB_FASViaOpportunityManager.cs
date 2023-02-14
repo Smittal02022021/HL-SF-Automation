@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage OpportunityDetails = new OpportunityDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityManager opportunityManager = new OpportunityManager();
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         public static string fileTC1560 = "T1560_OpportunityManager_UpdateFieldsOfLOB_FAS";
 
         [OneTimeSetUp]
@@ -69,6 +70,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Filters are reset and page with title: " + titleOpp + " is displayed upon clicking Opportunity name ");
 
                 //Validate details in Opportunity details page
+                //Validate Women Led field               
+                string womenLed = opportunityDetails.GetWomenLedText(valUser);
+                Assert.AreEqual("Women Led", womenLed);
+                extentReports.CreateLog("Women Led field is displayed on Opportunity details page ");
+
                 //-----Validating Stage
                 string stage = OpportunityDetails.GetStage();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "OppManager", 1), stage);

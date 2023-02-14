@@ -279,7 +279,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtRetainer + " is displayed ");
 
                 string txtProgFee = form.GetLabelProgressFee();
-                Assert.AreEqual("Progress Fee (MM)", txtProgFee);
+                Assert.AreEqual("Progress Fee", txtProgFee);
                 extentReports.CreateLog("Field with name: " + txtProgFee + " is displayed ");
 
                 string txtMinFee = form.GetLabelMinimumFee();

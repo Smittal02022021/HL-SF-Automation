@@ -22,6 +22,7 @@ namespace SF_Automation.Pages.Engagement
         By btnAddRec = By.CssSelector("input[value*='Add Selected Records To ']");
         By msgSuccess = By.CssSelector("div[class*='messageText']");
         By msgSuccessContact = By.CssSelector("div[id*='j_id8:j_id10']");
+        //By btnBack = By.Id("back_btn");
         By btnBack = By.Id("back_btn");
         By lnkDetails = By.CssSelector(".view_record__c > a");
         By valFirstName = By.XPath("//table/tbody/tr[2]/td[2]/a");
@@ -51,16 +52,16 @@ namespace SF_Automation.Pages.Engagement
         By txtDate = By.CssSelector("input[id*='FlXO1']");
         By lnkBidDel = By.XPath("//a[text()='Del']");
         //Lightning
-        By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By chkContact = By.XPath("//table/tbody/tr/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By valContact = By.XPath("//tr[1]/th/lightning-primitive-cell-factory/span/div/lightning-formatted-url/a");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnkContacts = By.XPath("//div[text()='Contacts']");
         By valAddedContact = By.XPath("//slot/lightning-layout/slot/lightning-layout-item/slot/div/table/tbody/tr/td[1]/div/div[2]/div[3]/div/section/div/p[1]");
         By btnView = By.XPath("//button[@data-value='Buyside Stages']");
-        By btnViewSellside = By.XPath("//button[@data-value='Sellside Stages']");
+        By btnViewSellside= By.XPath("//button[@data-value='Sellside Stages']");
         By valUpdView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
-        By selectedView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+        By selectedView = By.XPath("//div[2]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
         By tblCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div");
         By chkCounterparty = By.XPath("//lightning-layout/slot/lightning-layout-item[2]/slot/lightning-layout/slot/lightning-layout-item/slot/div/table/tbody/tr/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
@@ -71,14 +72,14 @@ namespace SF_Automation.Pages.Engagement
         By valMilestone = By.XPath("//c-counter-party-edit/section/div/div/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By lblTemplate = By.XPath("//label[text()='Template']");
         By btnTemplate = By.XPath("//c-counter-party-edit/section/div/div/div[1]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
-        By valTemplate = By.XPath("//c-counter-party-edit/section/div/div/div[1]/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valTemplate=  By.XPath("//c-counter-party-edit/section/div/div/div[1]/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnCancelConfirm = By.XPath("//c-counter-party-edit/section/div/footer/lightning-button[2]/button");
-        By btnSaveCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[1]/button");
-        By btnCancelCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[3]/button");
-        By btnDeleteCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[2]/button");
-        By btnAddCounterpartiesL = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[4]/button");
-        By btnEmailCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[8]/button");
-        By btnViewAllCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/slot/lightning-button[9]/button");
+        By btnSaveCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[1]/button");
+        By btnCancelCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[3]/button");
+        By btnDeleteCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[2]/button");
+        By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[4]/button");
+        By btnEmailCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[8]/button");
+        By btnViewAllCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[9]/button");
         By valExistingComp = By.XPath("//table/tbody/tr/td[1]/div/div[2]/div[1]");
         By btnAddCounterparty = By.XPath("//button[text()='Add Counterparties']");
         By lblCounterparties = By.XPath("//header/div[1]/h2/span[text()='Counterparties']");
@@ -94,12 +95,16 @@ namespace SF_Automation.Pages.Engagement
         By radioCompName = By.XPath("//table/tbody/tr[1]/td[1]/div/input");
         By btnOK = By.XPath("//button[@title='OK']");
         By chkCompany = By.XPath("//table/tbody/tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
-        By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
+        By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");        
         By tblCompanies = By.XPath("//table/tbody/tr[2]/td[1]/div/div[2]/div[1]");
-        By comboType = By.XPath("//button[@name='Type__c']/span");
-        By comboTier = By.XPath("//button[@name='Tier__c']/span");
-        By valSelectType = By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
-        By valSelectTier = By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By comboType = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+        By comboTier = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+        By valSelectType = By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span");
+        By valReSelectType = By.XPath("//lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By val1stRowType = By.XPath("//lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
+        By valSelectTier = By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span");
+        By valReSelectTier = By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By val1stRowTier = By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
         By chkCounterCompany = By.XPath("//tr/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
         By chk2ndCounterCompany = By.XPath("//tr[2]/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
         By combo2ndType = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
@@ -107,18 +112,18 @@ namespace SF_Automation.Pages.Engagement
         By valSelect2ndType = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span");
         By valSelect2ndTier = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span");
         By msgSelectRecord = By.XPath("//span[text()='Please select at least one row to delete.']");
-
+        
         By msgDeleteRecord = By.XPath("//div[text()='Are you sure you want to delete the selected rows?']");
         By btnDeleteConfirm = By.XPath("//c-counter-party-edit/section/div/footer/lightning-button[2]/button");
         By valCounterpartyName = By.XPath("//section[3]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/th/span/a");
         By lblCounterpartyName = By.XPath("//span[@title='Counterparty Name']");
-        By lblStatus = By.XPath("//span[@title='Status']");
+        By lblStatus = By.XPath("//th[3]/div/a/span[@title='Status']");
         By lblDateOfLast = By.XPath("//span[@title='Date of Last Status Change']");
         By btnNew = By.XPath("//div[@title='New']");
         By lnkShowMore = By.XPath("//table/tbody/tr/td[4]/span/div/a/span/span[1]");
         By lnkEdit = By.XPath("//a[@data-target-selection-name='sfdc:StandardButton.Engagement_Counterparty__c.Edit']");
         By lnkDelete = By.XPath("//a[@data-target-selection-name='sfdc:StandardButton.Engagement_Counterparty__c.Delete']");
-        By txtSearchBox = By.XPath("//lightning-layout-item[1]/slot/p[1]/lightning-input/div/input");
+        By txtSearchBox = By.XPath("//lightning-layout-item[1]/slot/p[1]/lightning-input/div/div/input");
         By btnSearchContact = By.XPath("//button[@title='Search']");
         By btnEditBids = By.XPath("//button[text()='Edit Bids']");
         By btnNewBidRound = By.XPath("//button[text()='New Bid Round']");
@@ -146,8 +151,8 @@ namespace SF_Automation.Pages.Engagement
         By valAddedCompany = By.XPath("//records-record-layout-row[2]/slot/records-record-layout-item[1]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By chkMassCheckbox = By.XPath("//div[1]/div/div/lightning-input/div/span/label/span[1]");
         By btn1stType = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
-        By btn1stTier = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By btn2ndType = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+         By btn1stTier = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By btn2ndTier = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By txtDeclined = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[3]/slot/div/lightning-input-field/lightning-input/lightning-datepicker/div[1]/div/input");
         By txtInitialContact = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[4]/slot/div/lightning-input-field/lightning-input/lightning-datepicker/div[1]/div/input");
@@ -163,6 +168,10 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveMass = By.XPath("//slot/div/div[2]/lightning-button/button");
         By valType1 = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
         By valTier1 = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
+        By chk1stRow = By.XPath("//tr[2]/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
+        By valTier2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
+        By valType2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
+
 
         //To Click Counterparties button
         public string ClickAddCounterpartiesbutton()
@@ -212,7 +221,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDetails, 190);
             driver.FindElement(lnkDetails).Click();
         }
-
+                 
         public string ClickAddCounterPartyContact()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddEngCounterPartyÇontact, 80);
@@ -413,8 +422,9 @@ namespace SF_Automation.Pages.Engagement
         //Search Contact using Name field
         public void SearchContactUsingName()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox, 180);
-            driver.FindElement(txtSearchBox).SendKeys("Jaffery Malik");
+            driver.FindElement(txtSearchBox).SendKeys("Salmaan Jaffery");
             driver.FindElement(btnSearchContact).Click();
         }
 
@@ -423,7 +433,7 @@ namespace SF_Automation.Pages.Engagement
         //Add Contact 
         public string AddContact()
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(22000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkContact, 180);
             driver.FindElement(chkContact).Click();
             string name = driver.FindElement(valContact).Text;
@@ -445,14 +455,14 @@ namespace SF_Automation.Pages.Engagement
             action.Perform();
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedContact, 80);
             string name = driver.FindElement(valAddedContact).Text;
-            return name.Substring(0, 13);
+            return name.Substring(0,15);
         }
 
         //Change the default view
         public string UpdateDefaultView()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnView, 80);
-            driver.FindElement(btnView).Click();
+            driver.FindElement(btnView).Click();           
             WebDriverWaits.WaitUntilEleVisible(driver, valUpdView, 80);
             driver.FindElement(valUpdView).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, selectedView, 80);
@@ -463,8 +473,10 @@ namespace SF_Automation.Pages.Engagement
         //Set the default view
         public string RevertDefaultView()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewSellside, 180);
             driver.FindElement(btnViewSellside).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valBuysideView, 90);
             driver.FindElement(valBuysideView).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, selectedView, 80);
@@ -505,7 +517,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate Milestone dropdown with its values
         public string ValidateMilestoneDropdown()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblMilestone, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMilestone, 80);            
             string name = driver.FindElement(lblMilestone).Text;
             return name;
         }
@@ -517,7 +529,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnMilestone).Click();
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(valMilestone);
-            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            var actualValue = valTypes.Select(x => x.Text).ToArray();           
             string[] expectedValue = { "None", "Sent CA", "Sent Teaser" };
             bool isSame = true;
 
@@ -540,7 +552,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateTemplateDropdown()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, titleConfirmEmails, 80);
-            driver.FindElement(titleConfirmEmails).Click();
+            driver.FindElement(titleConfirmEmails).Click();               
             WebDriverWaits.WaitUntilEleVisible(driver, lblTemplate, 80);
             string name = driver.FindElement(lblTemplate).Text;
             return name;
@@ -554,7 +566,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(valTemplate);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Counterparty Email", "Counterparty Email Clone" };
+            string[] expectedValue = {"Counterparty Email", "Counterparty Email Clone"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -570,7 +582,7 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
             driver.FindElement(btnCancelConfirm).Click();
-            return isSame;
+            return isSame;           
         }
 
         //Validate Save button
@@ -652,7 +664,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCounterparty, 150);
             driver.FindElement(btnViewAllCounterparty).Click();
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valCounterpartyName, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCounterpartyName, 180);
             string value = driver.FindElement(valCounterpartyName).Text;
             return value;
 
@@ -661,7 +673,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate Counterparty Name Column
         public string ValidateCounterpartyNameColumn()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCounterpartyName, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver,lblCounterpartyName , 150);
             string value = driver.FindElement(lblCounterpartyName).Text;
             return value;
         }
@@ -689,7 +701,7 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(btnNew).Text;
             return value;
         }
-
+        
         //Validate Edit option
         public string ValidateEditOption()
         {
@@ -854,15 +866,15 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateLabelGetCompaniesFromExistingEng()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblExistingEngagement, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver,lblExistingEngagement,150);            
             string name = driver.FindElement(lblExistingEngagement).Text;
             return name;
         }
 
         //Validate Search Box
         public string ValidateSearchBox()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver,txtSearchEng,150);
             string name = driver.FindElement(txtSearchEng).GetAttribute("type");
             return name;
         }
@@ -871,15 +883,15 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateLabelGetCompaniesFromExistingCompanyList()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblExistingCompanyList, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver,lblExistingCompanyList,150);
             string name = driver.FindElement(lblExistingCompanyList).Text;
             return name;
         }
 
         //Expand Get Companies From Existing Company List section and validate search box
         public string ExpandCompanyListAndValidateSearchBox()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblExistingCompanyList, 250);
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver,lblExistingCompanyList,250);
             driver.FindElement(lblExistingCompanyList).Click();
             Thread.Sleep(5000);
             string name = driver.FindElement(txtSearchCompanyList).GetAttribute("type");
@@ -904,7 +916,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(chk2ndCounterCompany).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnDeleteCounterparty).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver,btnDeleteCounterparty,150);
             driver.FindElement(btnDeleteCounterparty).Click();
             string text = driver.FindElement(msgSelectRecord).Text;
             return text;
@@ -934,7 +946,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnViewAllCompList).Click();
             Thread.Sleep(4000);
             string title = driver.FindElement(titleCompanyList).Text;
-            return title;
+            return title;            
         }
 
         //Select the company
@@ -961,8 +973,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate if 2nd company still exists
         public string Validate2ndCompanyPostDeletion()
         {
-            try
-            {
+            try {
                 Thread.Sleep(5000);
                 string name = driver.FindElement(tblCompanies).Text;
                 return name;
@@ -1050,7 +1061,7 @@ namespace SF_Automation.Pages.Engagement
 
         //Enter the details of the columns and save it
         public void SaveAllDetailsOfBid()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, txtMinBid, 250);
             driver.FindElement(txtMinBid).SendKeys("10");
             driver.FindElement(lblMinBid).Click();
@@ -1075,12 +1086,12 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtComments).SendKeys("Testing");
             driver.FindElement(lblEquity).Click();
             driver.FindElement(btnSaveBid).Click();
-        }
+        }       
 
         //Check Mass checkbox
         public void ClickMassCheckbox()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkMassCheckbox, 250);
             driver.FindElement(chkMassCheckbox).Click();
         }
@@ -1090,7 +1101,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(5000);
             driver.FindElement(btn1stType).Click();
-            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span"));
             Actions action = new Actions(driver);
             action.MoveToElement(element);
             action.Perform();
@@ -1098,7 +1109,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(valSelectType).Click();
             Thread.Sleep(3000);
             driver.FindElement(btn1stTier).Click();
-            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span"));
             Actions action1 = new Actions(driver);
             action1.MoveToElement(element1);
             action1.Perform();
@@ -1110,7 +1121,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtMarkupSent).SendKeys(date);
             driver.FindElement(txtMarkupReceived).SendKeys(date);
             driver.FindElement(txtExecutedCA).SendKeys(date);
-            driver.FindElement(txtReceivedBook).SendKeys(date);
+            driver.FindElement(txtReceivedBook).SendKeys(date);            
             driver.FindElement(txtProposal).SendKeys(date);
             Thread.Sleep(3000);
             driver.FindElement(txtMetWith).SendKeys(date);
@@ -1122,7 +1133,7 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valType1).Text;
             return value;
         }
-
+       
         public string GetValueOfTier()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valTier1, 90);
@@ -1140,14 +1151,14 @@ namespace SF_Automation.Pages.Engagement
             action.MoveToElement(element);
             action.Perform();
             Thread.Sleep(2000);
-            driver.FindElement(valSelectType).Click();
+            driver.FindElement(valReSelectType).Click();
             Thread.Sleep(3000);
             driver.FindElement(btn1stTier).Click();
-            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
             Actions action1 = new Actions(driver);
             action1.MoveToElement(element1);
             action1.Perform();
-            driver.FindElement(valSelectTier).Click();
+            driver.FindElement(valReSelectTier).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtDeclined).SendKeys(date);
             driver.FindElement(txtInitialContact).SendKeys(date);
@@ -1155,27 +1166,101 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtMarkupSent).SendKeys(date);
             driver.FindElement(txtMarkupReceived).SendKeys(date);
             driver.FindElement(txtExecutedCA).SendKeys(date);
-            driver.FindElement(txtReceivedBook).SendKeys(date);
+            driver.FindElement(txtReceivedBook).SendKeys(date);            
             driver.FindElement(txtProposal).SendKeys(date);
             Thread.Sleep(3000);
             driver.FindElement(txtMetWith).SendKeys(date);
             driver.FindElement(txtLetter).SendKeys(date);
             driver.FindElement(txtCommentsL).SendKeys(date);
             driver.FindElement(btnSaveCounterparty).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
+            driver.Navigate().Refresh();
             WebDriverWaits.WaitUntilEleVisible(driver, valType1, 90);
             string value = driver.FindElement(valType1).Text;
+            return value;
+        }
+
+        //Reset Tyep and Tire columns and click Save button
+        public void ResetTypeAndTireColumns()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btn1stType).Click();
+            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(2000);
+            driver.FindElement(valSelectType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btn1stTier).Click();
+            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            Actions action1 = new Actions(driver);
+            action1.MoveToElement(element1);
+            action1.Perform();
+            driver.FindElement(valSelectTier).Click();            
+            driver.FindElement(btnSaveCounterparty).Click();
+            Thread.Sleep(4000);           
+        }
+
+        //Select 2nd row
+        public void SelectOnly1stRow()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chk1stRow, 90);
+            driver.FindElement(chk1stRow).Click();            
+        }
+
+        //Update only selected row
+        public string UpdateOnlySelectedRow()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btn1stType).Click();
+            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(2000);
+            driver.FindElement(val1stRowType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btn1stTier).Click();
+            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
+            Actions action1 = new Actions(driver);
+            action1.MoveToElement(element1);
+            action1.Perform();
+            driver.FindElement(val1stRowTier).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btnSaveCounterparty).Click();
+            driver.Navigate().Refresh();
+            WebDriverWaits.WaitUntilEleVisible(driver, valType1, 90);
+            string value = driver.FindElement(valType1).Text;
+            return value;
+        }
+
+        //Get Tier of 2nd Row
+        public string GetValueOf2ndRowTier()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTier2, 90);
+            string value = driver.FindElement(valTier2).Text;
+            return value;
+        }
+        //Get Type of 2nd Row
+        public string GetValueOf2ndRowType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valType2, 90);
+            string value = driver.FindElement(valType2).Text;
             return value;
         }
 
         //Enter all the values for available columns and click Save button
         public void ValidateDeleteFunctonalityAfterEnteringValuesForAllColumns()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);            
             driver.FindElement(btnDeleteCounterparty).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteConfirm, 90);
-            driver.FindElement(btnDeleteConfirm).Click();
+            driver.FindElement(btnDeleteConfirm).Click();            
         }
     }
+
 }
+
+

@@ -120,7 +120,7 @@ namespace SF_Automation.TestCases.ERPtoOracle
                     extentReports.CreateLog("Opportunity is created succcessfully ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(ERPSectionWithExistingCompany,row);
+                    clientSubjectsPage.EnterStaffDetails(ERPSectionWithExistingCompany, row);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
                     extentReports.CreateLog(driver.Title + " is displayed ");
 

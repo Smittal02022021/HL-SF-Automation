@@ -21,6 +21,8 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddRec = By.Id("add_btn");
         By msgSuccess = By.CssSelector("td.messageCell>div");
         By btnBack = By.Id("back_btn");
+        By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");
+        By buttonSearch = By.XPath("//section[@class='slds-accordion__section slds-is-open']//button[@title='Search'][normalize-space()='Search']");
         By lnkDetails = By.CssSelector(".view_record__c > a");
         By btnAddOppCounterPartyÇontact = By.CssSelector("input[value='New Opportunity Counterparty Contact']");
         By btnSave = By.Name("save");
@@ -37,7 +39,8 @@ namespace SF_Automation.Pages.Opportunity
         By btnCancelBack = By.CssSelector("input[name*='id64']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By listStaff = By.XPath("/html/body/ul");
-        By chkInitiator = By.CssSelector("input[name*='0:j_id75']");
+        By chkInitiator = By.CssSelector("input[name*='0:j_id65']");
+        By buttonConfirmDelete = By.XPath("//footer//lightning-button[contains(@class,'confirmButton')]");
         By btnReturnToOpp = By.CssSelector("input[value*='Return To Opportunity']");
         By chkInternalTeamPrompt = By.CssSelector("input[name*='FnLTz']");
         By btnSaveRoles = By.CssSelector("input[value='Save']");
@@ -46,6 +49,8 @@ namespace SF_Automation.Pages.Opportunity
         By checkRow = By.CssSelector("#dtable > div.fix-column > div.tbody > div > div > div:nth-child(1) > input.targetCheck");
         By btnDelete = By.CssSelector("input[value='Delete']");
         By msgText = By.CssSelector("span[id*=':f']> div");
+        By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']"); 
+        By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
 
         //Lightning
         By btnViewCounterpartiesL = By.XPath("//button[text()='View Counterparties']");
@@ -69,44 +74,103 @@ namespace SF_Automation.Pages.Opportunity
         By lnkDetailsL = By.XPath("//lightning-layout-item/slot/div/table/tbody/tr/td[1]/div/div[1]/lightning-formatted-rich-text/span/a");
         By valCommentL = By.XPath("//h3/lst-template-list-field/lightning-base-formatted-text");
         By valOppCreator = By.XPath("//formula-output-formula-html/lightning-formatted-rich-text/span");
-        By tabCounterparty = By.XPath("//span[normalize-space()='Counterparty Editor']");       
+        By tabCounterparty = By.XPath("//span[normalize-space()='Counterparty Editor']");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By titleNewTab = By.XPath("//h1/div");
         By linkCompany = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/th)[1]//a");
         By companyFromCompanyList = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/th)[1]");
-
-
-        private By _counterpartyButtons(string buttonName)
-        {
-            return By.XPath($"//button[contains(text(),'{buttonName}')]");
-        }
-        private By _subFilterEle(string sectionName)
-        {
-            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div/input");
-        }
-        private By _counterpartyCompanyEle(string companyName)
-        {
-            return By.XPath($"//div[@title='{companyName}']");
-        }
-        private By _comboTypeCounterpartyOptionEle(string value)
-        {
-            return By.XPath($"//span[@title='{value}']");
-        }
-        private By _closeCurrentTabEle(string tabText)
-        {
-            return By.XPath($"//button[@title='{tabText}']");
-        }
-        By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']");
-        By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");
-        By buttonSearch = By.XPath("//section[@class='slds-accordion__section slds-is-open']//button[@title='Search'][normalize-space()='Search']");
-        By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
         By checkBoxSelectItem = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/td)[1]");
         By buttonAddCunterpartyToOpportunity = By.XPath("//button[@title='counterparty']");
-        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By listViewCounterparties = By.XPath("//label[contains(text(),'View')]");
-        By buttonConfirmDelete = By.XPath("//footer//lightning-button[contains(@class,'confirmButton')]");
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
-        By comboTypeCounterparty = By.XPath("//button[contains(@aria-label,'Type')]");
+        By comboTypeCounterparty = By.XPath("(//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
+
+        public bool IsExpectedFilterNameavailable(string expectedSection)
+        {
+            System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
+            bool isFilternameAvaialable = false;
+            for (int count = 0; count < filtersSection.Count; count++)
+            {
+                string section = filtersSection[count].Text;
+                if (expectedSection.Equals(section))
+                {
+                    isFilternameAvaialable = true;
+                    break;
+                }
+            }
+            return isFilternameAvaialable;
+        }
+        public bool IsExpectedSubfilterAvailable(string filterSection, string subFilter)
+        {
+            System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
+            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
+            bool isSubFilternameAvaialable = false;
+            for (int count = 0; count < filtersSection.Count; count++)
+            {
+                filtersSection[count].Click();
+                string section = filtersSection[count].Text;
+                if (filterSection.Equals(section))
+                {
+                    if (subFilterOption.Displayed)
+                        isSubFilternameAvaialable = true;
+                    break;
+                }
+            }
+            return isSubFilternameAvaialable;
+        }       
+
+       private By _subFilterEle(string sectionName)
+        {
+            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div//input");
+        }
+        public void SearchCounterparties(string filterSection, string subFilter, string value)
+        {
+            IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
+            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
+            for (int count = 0; count < filtersSection.Count; count++)
+            {
+                filtersSection[count].Click();
+                string section = filtersSection[count].Text;
+                if (filterSection.Equals(section))
+                {
+                    if (subFilterOption.Displayed)
+                        subFilterOption.Click();
+                    subFilterOption.SendKeys(value);
+                    Thread.Sleep(2000);
+                    driver.FindElement(optionCompanyListElement).Click();
+                    break;
+                }
+            }
+            Thread.Sleep(2000);
+            driver.FindElement(buttonSearch).Click();
+        }
+        public bool ValidateCompanyListHyperlinked()
+        {
+            Thread.Sleep(2000);
+            IList<IWebElement> hyperlinkes = driver.FindElements(hyperlinkedCompanies);
+            bool hyperlinkFound = true;
+            for (int index = 0; index < hyperlinkes.Count; index++)
+            {
+                if (!(hyperlinkes[index].Displayed))
+                {
+                    hyperlinkFound = false;
+                    break;
+                }
+            }
+            return hyperlinkFound;
+        }
+
+
+
+        public int GetCounterpartiesFiltersCount()
+        {
+            driver.FindElement(tabCounterparty).Click();
+            Thread.Sleep(4000);
+            return driver.FindElements(fitersSectionsCounterparties).Count;
+        }
+
 
 
         //To validate Counterparties button
@@ -135,7 +199,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(comboCity).SendKeys("City");
                 driver.FindElement(txtCityName).SendKeys("China");
                 Thread.Sleep(5000);
-                driver.FindElement(btnSearch).Click();
+                driver.FindElement(btnSearch).Click();                
                 Thread.Sleep(7000);
                 //driver.FindElement(btnSearch).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, checkCity, 100);
@@ -286,12 +350,12 @@ namespace SF_Automation.Pages.Opportunity
             string title = driver.FindElement(titlePage).Text;
             return title;
         }
-
+                     
         //Add company from existing opportunity
         public string AddCompanyFromExistingOpp(string Name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpp, 80);
-            driver.FindElement(txtOpp).SendKeys(Name);
+            driver.FindElement(txtOpp).SendKeys(Name);          
             driver.FindElement(btnSearchOpp).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, checkCity, 80);
             driver.FindElement(checkCity).Click();
@@ -315,7 +379,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, checkRow, 140);
             driver.FindElement(checkRow).Click();
             driver.FindElement(btnDelete).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             string text = driver.FindElement(msgText).Text;
             return text;
         }
@@ -353,7 +417,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valCommentL);
-            string comment = driver.FindElement(valCommentL).Text;
+            string comment =driver.FindElement(valCommentL).Text; 
             Thread.Sleep(4000);
             return comment;
         }
@@ -390,7 +454,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtCompanyL).SendKeys(name);
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text")).Click();
-
+            
             //Select Type            
             driver.FindElement(comboType).SendKeys(type);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + type + "']")).Click();
@@ -401,11 +465,11 @@ namespace SF_Automation.Pages.Opportunity
         //Add Counterparty Contact
         public void AddCounterpartyContactInOpportunityL()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(4000); 
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppCounterpartyContactL, 250);
             driver.FindElement(btnNewOppCounterpartyContactL).Click();
             Thread.Sleep(6000);
-
+           
             //Select Name            
             driver.FindElement(chkNameL).Click();
             Thread.Sleep(3000);
@@ -420,7 +484,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 250);
             driver.FindElement(lnkShowMore).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);                     
             driver.FindElement(lnkNewOppCounterpartyComment).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtRelatedOppL, 300);
@@ -429,12 +493,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//div/div[2]/ul/li/lightning-base-combobox-item/span[1]/lightning-icon/lightning-primitive-icon")).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtCommentsL).SendKeys("Testing");
-            driver.FindElement(btnSaveCommentL).Click();
+            driver.FindElement(btnSaveCommentL).Click();            
             Thread.Sleep(4000);
-
+                 
         }
 
-
+      
 
         //Click Opportunity Tab
         public void ClickOpportunityTab()
@@ -442,12 +506,6 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabOppNumL, 250);
             driver.FindElement(tabOppNumL).Click();
-        }
-    
-public Boolean IsCounterpartyButtonsDisplayed(string buttonName)
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons(buttonName), 60);
-            return driver.FindElement(_counterpartyButtons(buttonName)).Displayed;
         }
 
         public void ButtonClickAddCounterparties()
@@ -457,85 +515,28 @@ public Boolean IsCounterpartyButtonsDisplayed(string buttonName)
             Thread.Sleep(4000);
         }
 
-        public bool IsExpectedFilterNameavailable(string expectedSection)
+        private By _counterpartyButtons(string buttonName)
         {
-            System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
-            bool isFilternameAvaialable = false;
-            for (int count = 0; count < filtersSection.Count; count++)
-            {
-                string section = filtersSection[count].Text;
-                if (expectedSection.Equals(section))
-                {
-                    isFilternameAvaialable = true;
-                    break;
-                }
-            }
-            return isFilternameAvaialable;
+            return By.XPath($"//button[contains(text(),'{buttonName}')]");
+        }
+        public Boolean IsCounterpartyButtonsDisplayed(string buttonName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons(buttonName), 60);
+            return driver.FindElement(_counterpartyButtons(buttonName)).Displayed;
         }
 
-        public void SearchCounterparties(string filterSection, string subFilter, string value)
+        private By _closeCurrentTabEle(string tabText)
         {
-            IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
-            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
-            for (int count = 0; count < filtersSection.Count; count++)
-            {
-                filtersSection[count].Click();
-                string section = filtersSection[count].Text;
-                if (filterSection.Equals(section))
-                {
-                    if (subFilterOption.Displayed)
-                        subFilterOption.Click();
-                    subFilterOption.SendKeys(value);
-                    Thread.Sleep(2000);
-                    driver.FindElement(optionCompanyListElement).Click();
-                    break;
-                }
-            }
-            Thread.Sleep(2000);
-            driver.FindElement(buttonSearch).Click();
-        }
-       
-public bool ValidateCompanyListHyperlinked()
-        {
-            Thread.Sleep(2000);
-            IList<IWebElement> hyperlinkes = driver.FindElements(hyperlinkedCompanies);
-            bool hyperlinkFound = true;
-            for (int index = 0; index < hyperlinkes.Count; index++)
-            {
-                if (!(hyperlinkes[index].Displayed))
-                {
-                    hyperlinkFound = false;
-                    break;
-                }
-            }
-            return hyperlinkFound;
+            return By.XPath($"//button[contains(@title,'{tabText}')]");
         }
 
-        public int GetCounterpartiesFiltersCount()
+
+        private By _counterpartyCompanyEle(string companyName)
         {
-            driver.FindElement(tabCounterparty).Click();
-            Thread.Sleep(4000);
-            return driver.FindElements(fitersSectionsCounterparties).Count;
+            return By.XPath($"//div[@title='{companyName}']");
         }
+
        
-        public bool IsExpectedSubfilterAvailable(string filterSection, string subFilter)
-        {
-            System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
-            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
-            bool isSubFilternameAvaialable = false;
-            for (int count = 0; count < filtersSection.Count; count++)
-            {
-                filtersSection[count].Click();
-                string section = filtersSection[count].Text;
-                if (filterSection.Equals(section))
-                {
-                    if (subFilterOption.Displayed)
-                        isSubFilternameAvaialable = true;
-                    break;
-                }
-            }
-            return isSubFilternameAvaialable;
-        }
         public int VerifyTabCountOnClickCompanyLink()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkCompany, 30);
@@ -544,8 +545,6 @@ public bool ValidateCompanyListHyperlinked()
             Thread.Sleep(5000);
             return driver.WindowHandles.Count;
         }
-
-
 
         public void SwitchBackToPreviousTab()
         {
@@ -568,8 +567,6 @@ public bool ValidateCompanyListHyperlinked()
             driver.FindElement(checkBoxSelectItem).Click();
         }
 
-
-
         public void ClickAddCompanyToCounterparty()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, buttonAddCunterpartyToOpportunity, 30);
@@ -581,6 +578,8 @@ public bool ValidateCompanyListHyperlinked()
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
             return driver.FindElement(msgLVPopup).Text;
         }
+
+
         public void ButtonClick(string buttonName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons(buttonName), 30);
@@ -593,6 +592,7 @@ public bool ValidateCompanyListHyperlinked()
             WebDriverWaits.WaitUntilEleVisible(driver, listViewCounterparties, 60);
             return driver.FindElement(listViewCounterparties).Displayed;
         }
+
         public bool IsCompanyInCounterpartyList(string companyName)
         {
             return driver.FindElement(_counterpartyCompanyEle(companyName)).Displayed;
@@ -602,6 +602,7 @@ public bool ValidateCompanyListHyperlinked()
             driver.FindElement(_counterpartyCompanyEle(companyName)).FindElement(By.XPath("//ancestor::td//div/lightning-input[contains(@class,'rowCheckbox')]//label/span[@class='slds-checkbox_faux']")).Click();
             Thread.Sleep(2000);
         }
+
         public void ButtonConfirmDeleteCounterparty()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, buttonConfirmDelete, 30);
@@ -632,6 +633,12 @@ public bool ValidateCompanyListHyperlinked()
             closeTabIcon.Click();
             Thread.Sleep(2000);
         }
+
+        private By _comboTypeCounterpartyOptionEle(string value)
+        {
+            return By.XPath($"//span[@title='{value}']");
+        }
+
     }
 }
 

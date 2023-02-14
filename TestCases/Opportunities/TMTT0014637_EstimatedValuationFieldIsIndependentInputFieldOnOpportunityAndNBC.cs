@@ -73,8 +73,8 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Public Sensitivity",title);
                 extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
 
-                string oppOverview = nform.ClickOpportunityOverview();
-                Assert.AreEqual("Opportunity Overview", oppOverview);
+                string oppOverview = nform.ClickFeesTab();
+                Assert.AreEqual("Fees", oppOverview);
                 extentReports.CreateLog("Page with tab: " + oppOverview + " is displayed upon clicking Opportunity Overview tab ");
 
                 //Validate the value of Estimated Valuation on NBC Form

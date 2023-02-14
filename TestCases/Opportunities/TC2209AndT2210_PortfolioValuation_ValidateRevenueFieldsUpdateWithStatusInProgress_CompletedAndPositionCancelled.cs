@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("No value is displayed in Completed Date and Cancel Date ");
 
                 //Update Status and Report Fee of existing position and validate details of Position
-                string message1 = valuationPeriods.UpdateStatusAndReportFee(fileTC2209);
+                string message1 =valuationPeriods.UpdateStatusAndReportFee(fileTC2209);
                 //Assert.AreEqual("System Information\r\nCreated By "+valUser+ " "+ DateTime.Now.ToString("MM/dd/yyyy HH:MM "), message1);
                 extentReports.CreateLog("Status and Report Fee of position is updated ");
 
@@ -148,8 +148,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validate Completed Date
                 string compDate = valuationPeriods.GetCompletedDate();
-                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), compDate.Substring(0, 9));
-                extentReports.CreateLog("Completed Date: " + compDate.Substring(0, 9) + " same as today's date is displayed ");
+                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), compDate.Substring(0,9));
+                extentReports.CreateLog("Completed Date: " + compDate.Substring(0,9) + " same as today's date is displayed ");
 
                 //-----Validate Cancel Month, Cancel Year
                 string canMonth = valuationPeriods.GetCancelMonth();
@@ -186,12 +186,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validate Cancel Date
                 string can_Date = valuationPeriods.GetCancelDate();
-                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), can_Date.Substring(0, 9));
-                extentReports.CreateLog("Cancel Date: " + can_Date.Substring(0, 9) + " same as today's date is displayed after position is cancelled ");
+                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), can_Date.Substring(0,9));
+                extentReports.CreateLog("Cancel Date: " + can_Date.Substring(0,9) + " same as today's date is displayed after position is cancelled ");
 
                 //Logout of standard user 
                 usersLogin.UserLogOut();
-
+                
                 //Calling function to delete Position
                 //valuationPeriods.DeletePosition();
 
@@ -203,8 +203,10 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
+
+
             }
-        }
+        }       
     }
 }
 
