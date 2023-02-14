@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Engagement;
-using SalesForce_Project.Pages.Opportunity;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SalesForce_Project.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunity
 {
     class VerifyTheFunctionalityOfInfoAndFeesTabOfOpportunityInSFLightning : BaseClass
     {
@@ -18,7 +18,7 @@ namespace SalesForce_Project.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddCounterpartyOpp counterparty = new AddCounterpartyOpp();       
+        AddOppCounterparty counterparty = new AddOppCounterparty();       
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string TMTT0017889 = "TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx";
@@ -258,13 +258,43 @@ namespace SalesForce_Project.TestCases.Opportunity
                 Assert.AreEqual("Additional Client/Subject", secAddClient);
                 extentReports.CreateLog("Section with name: " + secAddClient + " is displayed under Client/Subject & Referral tab ");
 
-                ////Validate Edit functionality of Client/Subject & Referral tab              
-                //string tabAddClientEditable = opportunityDetails.ValidateClientSubjectRefTabIsEditable();
-                //Assert.AreEqual("True", tabAddClientEditable);
-                //extentReports.CreateLog("Page is editable after clicking pencil icon and Client/Subject & Referral details can be edited ");
+                //Validate Edit functionality of Client/Subject & Referral tab              
+                string tabAddClientEditable = opportunityDetails.ValidateClientSubjectRefTabIsEditable();
+                Assert.AreEqual("True", tabAddClientEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and Client/Subject & Referral details can be edited ");
 
+                //Update any value and validate if it gets saved post clicking saving button
+                string valRefType = opportunityDetails.GetRefTypeL();
+                Console.WriteLine(valRefType);
+                opportunityDetails.UpdateRefTypeL();
+                string valUpdRefType = opportunityDetails.GetRefTypePostUpdate();
+                Assert.AreNotEqual(valRefType, valUpdRefType);
+                extentReports.CreateLog("Entered value : " + valUpdRefType + " is displayed after updating details of Referral Type ");
 
+                //Validate Compliance and Legal tab and its sections
+                string tabCompliance = opportunityDetails.ValidateComplianceAndLegalTabL();
+                Assert.AreEqual("Compliance & Legal", tabCompliance);
+                extentReports.CreateLog("Tab with name: " + tabCompliance + " is displayed under Opportunity Details page ");
 
+                //Validate Compliance tab
+                string secCompliance = opportunityDetails.ValidateComplianceTab();
+                Assert.AreEqual("Compliance", secCompliance);
+                extentReports.CreateLog("Sub tab with name: " + secCompliance + " is displayed under Compliance and Legal tab ");
+
+                //Validate Legal Matters tab
+                string secLegal = opportunityDetails.ValidateLegalMattersTab();
+                Assert.AreEqual("Legal Matters", secLegal);
+                extentReports.CreateLog("Sub tab with name: " + secLegal + " is displayed under Compliance and Legal tab ");
+
+                //Validate Conflicts Check tab
+                string secConflicts = opportunityDetails.ValidateConflictsCheckTab();
+                Assert.AreEqual("Conflicts Check", secConflicts);
+                extentReports.CreateLog("Sub tab with name: " + secConflicts + " is displayed under Compliance and Legal tab ");
+
+                //Validate Edit functionality of Compliance tab              
+                string subTabCompliance = opportunityDetails.ValidateComplianceTabIsEditable();
+                Assert.AreEqual("True", subTabCompliance);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and Compliance details can be edited ");
 
                 driver.Quit();
             }

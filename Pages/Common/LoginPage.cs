@@ -18,6 +18,7 @@ namespace SF_Automation.Pages
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
+        By valUser = By.XPath("//section/header/div[1]/div/span");
 
 
 
@@ -150,6 +151,14 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "FirstLevelApprover", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "FirstLevelApprover", 2));
             driver.FindElement(btnLogin).Click();
+        }
+
+        public string ValidateUserLightning()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 12);
         }
     }
 }
