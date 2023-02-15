@@ -354,11 +354,22 @@ namespace SF_Automation.Pages
         By valRefTypeBefore = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
         By valRefTypeAfter = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
+
+        By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegalMatters = By.XPath("//a[text()='Legal Matters']");
         By subTabConflictsCheck = By.XPath("//a[text()='Conflicts Check']");
         By lnkEditBeneficial = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditConfAgreement = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+
+
+        By valBenOwnerBefore = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+        By valConfAgreeBefore = By.XPath("//label[text()='Confidentiality Agreement']/ancestor::lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+
+        By btnBenOwner = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
+        By btnConfAgreement = By.XPath("//label[text()='Confidentiality Agreement']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
 
         By valLineOfBusiness = By.CssSelector("div[id*='00Ni000000D8hW2j']");
         By valAdditionalClient = By.CssSelector("div[id*='00Ni000000FmBzaj']");
@@ -3235,6 +3246,25 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             return value;
         }
 
+        //Get default value of Beneficial Owner
+        public string GetBeneficialOwnerL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valBenOwnerBefore, 150);
+            string value = driver.FindElement(valBenOwnerBefore).Text;
+            return value;
+        }
+
+        //Get default value of Legal Matters
+        public string GetConfAgreementL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valConfAgreeBefore,160);
+            string value = driver.FindElement(valBenOwnerBefore).Text;
+            return value;
+        }
+
+
         //Update the value of Currency
         public void UpdateCurrencyL()
         {
@@ -3252,6 +3282,28 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             driver.FindElement(btnRefType).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item[6]/span[2]/span")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+        }
+
+        //Update the value of Beneficial Owner
+        public void UpdateBenOwnerL()
+        {
+            driver.FindElement(btnBenOwner).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+        }
+
+        //Update the value of Confidential Agreement
+        public void UpdateConfAgreementL()
+        {
+            driver.FindElement(btnConfAgreement).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(3000);
@@ -3275,6 +3327,24 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             return value;
         }
 
+        //Get updated value of Beneficial Owner
+        public string GetBenOwnerPostUpdate()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valBenOwnerAfter, 150);
+            string value = driver.FindElement(valBenOwnerAfter).Text;
+            return value;
+        }
+
+        //Get updated value of Confidential Agreement
+        public string GetConfAgreementPostUpdate()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valConfAfter, 150);
+            string value = driver.FindElement(valConfAfter).Text;
+            return value;
+        }
+
         //Get the validation message when Est Transaction size exceeds than 100000
 
         public string GetValidationOfEstTxnSizeWhenItExceeds100000()
@@ -3286,7 +3356,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             WebDriverWaits.WaitUntilEleVisible(driver, txtEstTxnSizeL, 150);
             driver.FindElement(txtEstTxnSizeL).SendKeys("100001");
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(btnCloseL).Click();
             Thread.Sleep(3000);
             string message = driver.FindElement(msgEstTxnSize).Text;
@@ -3391,6 +3461,20 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditBeneficial, 150);
             driver.FindElement(lnkEditBeneficial).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate if Legal Matters tab is editable after clicking pencil icon
+        public string ValidateLegalMattersTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            driver.FindElement(subTabLegalMatters).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditConfAgreement, 150);
+            driver.FindElement(lnkEditConfAgreement).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();

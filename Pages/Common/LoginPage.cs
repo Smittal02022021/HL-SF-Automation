@@ -21,9 +21,6 @@ namespace SF_Automation.Pages
         By valUser = By.XPath("//section/header/div[1]/div/span");
 
 
-
-
-
         public void SwitchToLightningExperience()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);

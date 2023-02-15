@@ -33,7 +33,9 @@ namespace SF_Automation.Pages.Common
         By lnkUser = By.XPath("//img[@title='User']/following::strong");
         By imgProfile = By.CssSelector("div[class*='profileTrigger ']>span[class='uiImage']");
         By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
-
+        By imgUser = By.XPath("//span/div/span[@class='uiImage']");
+        By lnkLogout = By.XPath("//div[2]/div[1]/div[1]/div/div[2]/div/a[2]");
+        By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
 
         public void SearchCFUserAndLogin(string name)
         {
@@ -173,7 +175,8 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 150);
             driver.FindElement(txtSearch).SendKeys(name);
             Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listUser, name);
+            driver.FindElement(lnkUser).Click();
+            //CustomFunctions.SelectValueWithoutSelect(driver, listUser, name);
             WebDriverWaits.WaitUntilEleVisible(driver, arrowMenu, 130);
             driver.FindElement(arrowMenu).Click();
             driver.FindElement(titleUserDetail).Click();
@@ -194,11 +197,30 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(2000);
         }
         //--------------------
-       
+
+        public void LightningLogout()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 250);
+            driver.FindElement(imgUser).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogout, 150);
+            driver.FindElement(lnkLogout).Click();
+        }
+
+        //Log out of Lightning
+        public void DiffLightningLogout()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 250);
+            driver.FindElement(imgUser).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 150);
+            driver.FindElement(lnkLogoutL).Click();
+        }
 
 
-    
-        
+
     }
 }
 

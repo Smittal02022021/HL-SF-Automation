@@ -607,6 +607,8 @@
     <Compile Include="TestCases\Engagement\TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0017877_7888_7883_7884_7886_7882_7890_7887_7879_7879_7880_View_Email_Access_Add_ExistingEng_ButtonControls_Delete_ViewAll.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0017881_ViewCounterparties_MassCheckbox.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
@@ -994,7 +996,7 @@
     <Error Condition="!Exists('packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.108.0.5359.7100\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.108.0.5359.7100\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
   <Import Project="packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
@@ -1002,6 +1004,6 @@
   <Import Project="packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets" Condition="Exists('packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets')" />
   <Import Project="packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" />
   <Import Project="packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.108.0.5359.7100\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.108.0.5359.7100\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>

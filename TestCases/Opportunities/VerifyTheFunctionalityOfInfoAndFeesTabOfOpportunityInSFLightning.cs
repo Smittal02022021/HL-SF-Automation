@@ -296,6 +296,30 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("True", subTabCompliance);
                 extentReports.CreateLog("Page is editable after clicking pencil icon and Compliance details can be edited ");
 
+                //Update any value and validate if it gets saved post clicking saving button
+                string valBenOwner = opportunityDetails.GetBeneficialOwnerL();
+                Console.WriteLine(valBenOwner);
+                opportunityDetails.UpdateBenOwnerL();
+                string valUpdBenOwner = opportunityDetails.GetBenOwnerPostUpdate();
+                Assert.AreNotEqual(valBenOwner, valUpdBenOwner);
+                extentReports.CreateLog("Entered value : " + valUpdBenOwner + " is displayed after updating details of Beneficial Owner & Control Person form? ");
+
+                //Validate Edit functionality of Legal Matters tab                
+                string subTabLegal = opportunityDetails.ValidateLegalMattersTabIsEditable();
+                Assert.AreEqual("True", subTabLegal);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and Legal Matters details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button
+                string valConf = opportunityDetails.GetConfAgreementL();
+                Console.WriteLine(valConf);
+                opportunityDetails.UpdateConfAgreementL();
+                string valUpdConf = opportunityDetails.GetConfAgreementPostUpdate();
+                Assert.AreNotEqual(valConf, valUpdConf);
+                extentReports.CreateLog("Entered value : " + valUpdConf + " is displayed after updating details of Confidentiality Agreement ");
+
+               
+
+
                 driver.Quit();
             }
             catch (Exception e)

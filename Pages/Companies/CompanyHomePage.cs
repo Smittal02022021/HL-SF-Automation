@@ -21,7 +21,7 @@ namespace SF_Automation.Pages
         By btnAddCompany = By.CssSelector("td[class='pbButton center'] > input[value='Add Company']");
         By errPage = By.CssSelector("span[id='theErrorPage:theError']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         // To Search Company
         public string SearchCompany(string file, string CompanyType)
