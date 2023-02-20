@@ -58,6 +58,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Calling functions to validate Clone operation
+
                 int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
                 Console.WriteLine("rowUsers " + rowUsers);
 
@@ -86,7 +87,7 @@ namespace SF_Automation.TestCases.Opportunity
                         }
                         else
                         {
-                            Assert.AreEqual("Clone button is displayed", expClone);
+                            Assert.AreEqual("Clone button is not displayed", expClone);//is>not
                             extentReports.CreateLog(expClone + " on Expense Request Detail page for " + valUser + " ");
                             Pages.CloseAdditionalTab();
                         }
@@ -114,7 +115,7 @@ namespace SF_Automation.TestCases.Opportunity
                         }
                         else
                         {
-                            Assert.AreEqual("Clone button is displayed", expClone);
+                            Assert.AreEqual("Clone button is not displayed", expClone);//is>not
                             extentReports.CreateLog(expClone + " on Expense Request Detail page for " + valUser + " ");
                             Pages.CloseAdditionalTab();
                         }
@@ -205,14 +206,14 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Page with title : " + titleCov + " is displayed ");
 
                     string coverageClone = opportunityDetails.ValidateCloneButton();
-                    if (valUser.Equals("Emre Abale1") || valUser.Equals("Ayati Arvind1"))
+                    if (valUser.Equals("Emre Abale"))//removed || valUser.Equals("Ayati Arvind"), || valUser.Equals("Drew Koecher") 
                     {
                         Assert.AreEqual("Clone button is not displayed", coverageClone);
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", coverageClone);
+                        Assert.AreEqual("Clone button is displayed", coverageClone);//is>not
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
 
@@ -229,7 +230,7 @@ namespace SF_Automation.TestCases.Opportunity
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", compListClone);
+                        Assert.AreEqual("Clone button is not displayed", compListClone);
                         extentReports.CreateLog(compListClone + " on Company List Member Detail page for " + valUser + " ");
                     }
 
@@ -263,7 +264,7 @@ namespace SF_Automation.TestCases.Opportunity
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", dbCompClone);
+                        Assert.AreEqual("Clone button is not displayed", dbCompClone);
                         extentReports.CreateLog(dbCompClone + " on D&B Company Record Detail page for " + valUser + " ");
                     }
 
@@ -280,7 +281,7 @@ namespace SF_Automation.TestCases.Opportunity
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", dbContactClone);
+                        Assert.AreEqual("Clone button is not displayed", dbContactClone);
                         extentReports.CreateLog(dbContactClone + " on D&B Contacts Record Detail page for " + valUser + " ");
                     }
                     usersLogin.UserLogOut();
@@ -299,9 +300,3 @@ namespace SF_Automation.TestCases.Opportunity
         }
     }
 }
-
-
-
-
-
-

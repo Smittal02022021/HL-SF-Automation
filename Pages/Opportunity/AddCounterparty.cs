@@ -80,7 +80,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         private By _subFilterEle(string sectionName)
         {
-            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div/input");
+            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div//input");
         }
         private By _counterpartyCompanyEle(string companyName)
         {
@@ -92,7 +92,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         private By _closeCurrentTabEle(string tabText)
         {
-            return By.XPath($"//button[@title='{tabText}']");
+            return By.XPath($"//button[contains(@title,'{tabText}')]");
         }
         By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']");
         By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");

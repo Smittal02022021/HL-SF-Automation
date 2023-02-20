@@ -15,7 +15,7 @@ namespace SF_Automation.Pages.Companies
     {
         By linkCoverageTeam = By.CssSelector("a[id*='bV0_link']>span");
         By linkOfficerName = By.CssSelector("div[id*='V0_body'] > table > tbody > tr:nth-child(2) > th > a");
-        By titleCoverageTeam = By.CssSelector("h2[class='mainTitle']");
+        By titleCoverageTeam = By.XPath("//div[@id='ep']//h2[@class='mainTitle']");
         By titlePage = By.CssSelector("h1[class='pageType']");
         By linkCompany = By.CssSelector("a[id*='D7bV0']");
         By linkCompanyList = By.CssSelector("a[id*='13ee_link']>span");

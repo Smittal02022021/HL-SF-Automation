@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityDetails.UpdateOutcomeDetails(fileTC1693);
                                
                 //Update client and Subject 
-                opportunityDetails.UpdateClientandSubject("A & K Earth Movers, Inc.");
+                opportunityDetails.UpdateClientandSubject("A + K Agency GmbH");
                 string val2 = opportunityDetails.ClickRequestEngWithoutDetails();
                 Console.WriteLine("val2: " + val2);
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 11), val2);

@@ -169,8 +169,8 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         By txtSecWomenLedActivism = By.CssSelector("div[id*='X1_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFVA = By.CssSelector("div[id*='9E_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFR = By.CssSelector("div[id*='PL_ep_j_id0_j_id4']>h3");
-        By labelWomenLed = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(9) > td:nth-child(1)");
-        By labelWomenLedJob = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(8) > td:nth-child(3)");
+        By labelWomenLed = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(9) > td:nth-child(1)");
+        By labelWomenLedJob = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(8) > td:nth-child(3)");
         By labelWomenLedActivism = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(7) > td:nth-child(1)");
         By labelWomenFVA = By.CssSelector("div:nth-child(29) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By labelWomenFR = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(13) > td:nth-child(1)");
@@ -251,7 +251,8 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         By valCommentTypeL = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[1]/lst-template-list-field/lst-formatted-text");
         By valCreatorL = By.XPath("//dt[text()='Creator:']/ancestor::dl/dd[2]/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span");
 
-
+        By valEngInternalMember = By.CssSelector("[action*='HL_EngagementInternalTeamView'] table tbody tr.dataRow.even.first.last label");
+        By valEngContact = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         //To get name of Page
         public string GetTitle()
         {
@@ -344,6 +345,80 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
             WebDriverWaits.WaitUntilEleVisible(driver, valWomenLed, 60);
             string value = driver.FindElement(valWomenLed).Text;
             return value;
+        }
+        public bool IsEngExternalContactPresent()
+        {
+            try
+            {
+                CustomFunctions.PageReload();
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
+                    return driver.FindElement(valEngContact).Displayed;
+                }
+                catch (Exception ex)
+                {
+                    CustomFunctions.PageReload();
+                    WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
+                    return driver.FindElement(valEngContact).Displayed;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool IsEngDealTeamMemberPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
+                WebDriverWaits.WaitUntilEleVisible(driver, valEngInternalMember, 30);
+                bool isItemFound = driver.FindElement(valEngInternalMember).Displayed;
+                driver.SwitchTo().DefaultContent();
+                return isItemFound;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public string GetEngDealTeamMember()
+        {
+
+            try
+            {
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
+                string value = driver.FindElement(valEngInternalMember).Text.Trim();
+                driver.SwitchTo().DefaultContent();
+                return value;
+            }
+            catch(Exception e)
+            {
+                CustomFunctions.PageReload();
+                
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
+                string value = driver.FindElement(valEngInternalMember).Text.Trim();
+                driver.SwitchTo().DefaultContent();
+                return value;
+            }
+            
+        }
+        public string GetEngExternalContact()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
+                return driver.FindElement(valEngContact).Text.Trim();
+            }
+            catch(Exception e)
+            {
+                CustomFunctions.PageReload();
+                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
+                return driver.FindElement(valEngContact).Text.Trim();
+            }
+           
         }
         public string GetLegalEntity()
         {

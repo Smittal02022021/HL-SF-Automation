@@ -31,7 +31,7 @@ namespace SF_Automation.Pages
         By btnAddSubject = By.Id("newSubject");
         By titleHLTeam = By.CssSelector("h1 b");  //By.CssSelector("h2[class='mainTitle']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id89:0:j_id91']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
         By btnSave = By.CssSelector("input[value='Save']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
