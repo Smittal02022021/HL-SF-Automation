@@ -335,6 +335,8 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Comments", tabComments);
                 extentReports.CreateLog("Tab with name: " + tabComments + " is displayed under Opportunity Details page ");
 
+
+
                 //Save an Opportunity Comment
 
 
