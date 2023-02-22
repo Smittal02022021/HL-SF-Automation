@@ -4,7 +4,6 @@ using SF_Automation.UtilityFunctions;
 using SF_Automation.TestData;
 using System;
 using SF_Automation.Pages.Common;
-using System.Collections.Generic;
 
 namespace SF_Automation.TestCases.Opportunity
 {

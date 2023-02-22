@@ -1,14 +1,3 @@
-2023/02/15-15:24:19.722 5380 Reusing MANIFEST C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/MANIFEST-000001
-2023/02/15-15:24:19.725 5380 Recovering log #9
-2023/02/15-15:24:19.726 5380 Reusing old log C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/000009.log 
-2023/02/15-15:29:46.643 5380 Level-0 table #12: started
-2023/02/15-15:29:46.653 5380 Level-0 table #12: 11564 bytes OK
-2023/02/15-15:29:46.658 5380 Delete type=0 #9
-2023/02/15-15:29:46.659 5380 Compacting 4@0 + 0@1 files
-2023/02/15-15:29:46.664 5380 Generated table #13@0: 12 keys, 1462 bytes
-2023/02/15-15:29:46.665 5380 Compacted 4@0 + 0@1 files => 1462 bytes
-2023/02/15-15:29:46.668 5380 compacted to: files[ 0 1 0 0 0 0 0 ]
-2023/02/15-15:29:46.671 5380 Delete type=2 #3
-2023/02/15-15:29:46.671 5380 Delete type=2 #6
-2023/02/15-15:29:46.671 5380 Delete type=2 #8
-2023/02/15-15:29:46.671 5380 Delete type=2 #12
+2023/02/22-15:24:57.864 5340 Reusing MANIFEST C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/MANIFEST-000001
+2023/02/22-15:24:57.865 5340 Recovering log #59
+2023/02/22-15:24:57.867 5340 Reusing old log C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/000059.log 

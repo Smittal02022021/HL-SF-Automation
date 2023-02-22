@@ -56,6 +56,7 @@ namespace SF_Automation.Pages
         By btnSaveITTeam = By.CssSelector("input[name*=':bottom:j_id120']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOpp = By.CssSelector("input[value*='Return To Opportunity']");
+        By tabAfterReturnToOpp = By.XPath("//a[text()='Details']");
         By btnConverttoEng = By.CssSelector("input[value='Convert to Engagement']");
         By chkConvertedtoEng = By.CssSelector("input[name*='FaP8F']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
@@ -210,6 +211,9 @@ namespace SF_Automation.Pages
         By checkRMS = By.CssSelector("input[name*='internalTeam:j_id63:10:j_id65']");
         By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id63:11:j_id65']");
         By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id63:12:j_id65']");
+        By btnSaveDealTeam = By.CssSelector("input[value='Save']");
+        By valAddedMember = By.XPath("//div[2]/span[2]/table/tbody/tr[1]/td[1]");
+
         By lnkEngagement = By.CssSelector("div[id*='zAz_body']>table>tbody>tr.dataRow.even.last.first>th>a");
         By txtAnticipatedRevenue = By.CssSelector("input[name*='zNU']");
         By valDefaultClient = By.CssSelector("div[id*='DuhQp_body'] > table > tbody > tr:nth-child(2)>th>a");
@@ -348,6 +352,10 @@ namespace SF_Automation.Pages
         By lnkEditRetainer = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabIT= By.XPath("//a[text()='Internal Team']");
+        By tabComments = By.XPath("//a[text()='Comments']");
+        By btnComments = By.XPath("//button[@aria-label='Comment Type, Internal']");
+
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
         By lnkEditRefType = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
@@ -414,9 +422,9 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
 
 
-        
-        
-        
+
+
+
         //Get ERP Legal Entity Name    
         public string GetERPLegalEntityName()
         {
@@ -1067,11 +1075,15 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             return title;
         }
         //Click Return to Opp
-        public void ClickReturnToOpp()
+        public string ValidateReturnToOpp()
         {
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
             driver.FindElement(btnReturnToOpp).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAfterReturnToOpp, 90);
+            string name = driver.FindElement(tabAfterReturnToOpp).Text;
+            return name;
         }
 
         //To get Stage
@@ -3387,6 +3399,42 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             return name;
         }
 
+        //Validate Internal Team tab
+        public string ValidateInternalTeamTabL()
+        {
+            Thread.Sleep(3000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabIT);
+            string name = driver.FindElement(tabIT).Text;
+            driver.FindElement(tabIT).Click();
+            return name;
+        }
+
+        //Validate Modify Roles button
+        public string ValidateModifyRolesButton()
+        {            
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRoles,170);            
+            driver.FindElement(btnModifyRoles).Click();
+            Thread.Sleep(4000);
+            //driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div[1]/div/div/article/div[2]/div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL,120);
+            driver.FindElement(txtStaffL).SendKeys("James Craven");
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "James Craven");
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSaveDealTeam).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedMember, 240);
+            string name = driver.FindElement(valAddedMember).Text;           
+            return name;
+        }
+
         //Validate Client/Subject and Referral tab
         public string ValidateComplianceAndLegalTabL()
         {
@@ -4014,6 +4062,22 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(3000);
         }
 
+        //Validate Comments tab
+        public string ValidateCommentsTabL()
+        {           
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComments);
+            string name = driver.FindElement(tabComments).Text;           
+            return name;
+        }
+
+        ////Add Opportunity Comments
+        //public string AddOppCommentaAndValidate()
+        //{
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 160);
+        //    driver.FindElement(btnComments).Click();
+
+        //}
 
     }
 }
