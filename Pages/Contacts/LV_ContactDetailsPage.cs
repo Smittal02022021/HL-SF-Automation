@@ -190,7 +190,7 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyCreatedActivityDisplayedUnderCFFinancialUser(string extName)
         {
             bool result = false;
-            driver.SwitchTo().Frame(1);
+            driver.SwitchTo().Frame(0);
 
             WebDriverWaits.WaitUntilEleVisible(driver,lblGetPrimaryContactNameFromActivity,60);
             string name = driver.FindElement(lblGetPrimaryContactNameFromActivity).Text;
