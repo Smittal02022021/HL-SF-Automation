@@ -23,6 +23,7 @@ namespace SF_Automation.Pages.HomePage
         By appHeader = By.CssSelector("div.slds-context-bar__label-action .slds-truncate");
         By menuNavigation = By.CssSelector("button[title = 'Show Navigation Menu']");
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
+        By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
         private By _appInAppLauncher(string appName)
@@ -118,6 +119,10 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 120);
             driver.FindElement(linkLogOut).Click();
             Thread.Sleep(10000);
+        }
+        public bool IsModulePageDisplayed(string moduleName)
+        {
+            return (driver.FindElement(pageHeaderEle).Text).Contains(moduleName);
         }
     }
 }

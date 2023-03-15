@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.EventExpense
                     Assert.AreEqual("Outlook", outlookLabel);
                     extentReports.CreateLog("Verified and Validation is done for User is logged in to outlook ");
 
-                    outlook.SelectExpenseApprovalEmail();
+                    outlook.SelectExpenseApprovalEmailV();
                     login.LoginAsExpenseRequestApprover(fileTC2278, row);
                     extentReports.CreateLog("Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
 
@@ -279,7 +279,7 @@ namespace SF_Automation.TestCases.EventExpense
                     Assert.AreEqual("Outlook", outlookLabel);
                     extentReports.CreateLog("Verified and Validation is done for User is logged in to outlook ");
 
-                    outlook.SelectExpenseApprovalEmail();
+                    outlook.SelectExpenseApprovalEmailV();
                     login.LoginAsExpenseRequestApprover(fileTC2278, row);
                     extentReports.CreateLog("Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
 

@@ -183,7 +183,15 @@ namespace SF_Automation.UtilityFunctions
                 }
             }
         }
-
+        //To Upload File in LV
+        public static void FileUpload(IWebDriver driver, string filePath)
+        {
+            By btnUploadFile = By.XPath("//input[@type='file']");
+            By btnDone = By.XPath("//span[contains(text(),'Done')]"); driver.FindElement(btnUploadFile).SendKeys(filePath);
+            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
+            Thread.Sleep(5000);
+            driver.FindElement(btnDone).Click();
+        }
         //Select value from drop down based on entered name without li tag
         public static void SelectValueWithXpath(string Name)
         {

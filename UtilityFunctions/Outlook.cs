@@ -37,6 +37,7 @@ namespace SF_Automation.UtilityFunctions
         By lblScopeInbox = By.XPath("//div[@id='searchScopeButtonId-list']/button[2]");
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']");
+        By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
 
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
@@ -81,6 +82,31 @@ namespace SF_Automation.UtilityFunctions
             }
           
         }
+        public void SelectExpenseApprovalEmailV()
+        {
+            Thread.Sleep(4000);
+            //Sandbox: Request for Marketing Expense Approval *Action Required*
+            driver.FindElement(searchBox).SendKeys("Sandbox: Request");// 
+
+            //Request for Marketing Expense Approval *Action Required
+            Thread.Sleep(2000);
+            //   driver.FindElement(searchBox).Click();
+            Thread.Sleep(2000);
+            //CustomFunctions.MouseOver(driver, btnSearch);
+
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+
+            Thread.Sleep(5000);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+
+
+
+            driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            Thread.Sleep(10000);
+        }
 
         public void SelectExpenseApprovalEmail()
         {
@@ -117,6 +143,59 @@ namespace SF_Automation.UtilityFunctions
             Thread.Sleep(10000);
         }
 
+        //select the Email Searched by specific subject text
+        public void SelectEmail(string subject)
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).SendKeys(Keys.Control + "a");
+            driver.FindElement(searchBox).SendKeys(subject);
+            Thread.Sleep(2000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 10);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+        }
+        public string IsCaseLinkPresent()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains("https://hl--test.sandbox.my.salesforce.com"))
+            {
+                return "Case Link is Present";
+            }
+            else
+            {
+                return "Case Link is not Present";
+            }
+        }
+        public string IsSubmitterPresentInEmail(string submitterUser)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains(submitterUser))
+            {
+                return "Submitter name is Present";
+            }
+            else
+            {
+                return "Submitter Link is not Present";
+            }
+        }
+        public bool IsUpdatedCaseEmailFound()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains("review new changes"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public string VerifyExpenseRequestForRejectedEmail(int windowId)
         {
             CustomFunctions.SwitchToWindow(driver, 0);

@@ -605,6 +605,11 @@
     <Compile Include="TestCases\Engagement\T2296_TMTC0001641_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFREngagementFromEngagementManager.cs" />
     <Compile Include="TestCases\Engagement\T2358AndT2359_AddPrimaryAndBillingContactWithoutEmailAndTitledetailsAndVerifyBillingRequestOnCFAndFASEngagement.cs" />
     <Compile Include="TestCases\Engagement\TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0046858_Verify_Functionality_Of_Outlook_Invitation_Tab_on_CST_Questionnaire_Page.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0048263_0048282_45498_45523_48654_48269_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
@@ -906,9 +911,14 @@
     <None Include="TestData\TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
     <None Include="TestData\TMTI0039712_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.xlsx" />
+    <None Include="TestData\TMTI0045436_Verify_Client_Services_Questionnaire_Button_Functionality.xlsx" />
     <None Include="TestData\TMTI0045469_VerifyNewTitleAddedinTitleRateSheet.xlsx" />
     <None Include="TestData\TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.xlsx" />
     <None Include="TestData\TMTI0045474_VerifytheAmountiscalculatedandreflectedforNewEngagement.xlsx" />
+    <None Include="TestData\TMTI0046858_Verify_Functionality_Of_Outlook_Invitation_Tab_on_CST_Questionnaire_Page.xlsx" />
+    <None Include="TestData\TMTI0048263_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.xlsx" />
+    <None Include="TestData\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.xlsx" />
+    <None Include="TestData\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOn_MeetingManagementPresentationPage.xlsx" />
     <None Include="TestData\TMTT0005173_ActivitiesList_VerifyLayoutOfActivitiesList.xlsx" />
     <None Include="TestData\TMTT0005211_RefreshButtonFunctionalities.xlsx" />
     <None Include="TestData\TMTT0005221_StartButtonFunctionalities.xlsx" />
@@ -975,6 +985,7 @@
     <Content Include="JSikuliModule.jar" />
     <Content Include="mongocrypt.dll" />
     <Content Include="packages\Sikuli4Net.1.0.6\lib\Sikuli4Net.dll" />
+    <Content Include="TestData\FileToUpload.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

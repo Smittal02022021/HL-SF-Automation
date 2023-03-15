@@ -31,7 +31,17 @@ namespace SF_Automation.Pages
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
 
+        By searchEngBox = By.XPath("//lightning-input[@class='slds-form-element']");
+        By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
 
+        public void SelectEngagement(String engNumber)
+        {
+            driver.FindElement(searchEngBox).SendKeys(engNumber);
+            driver.FindElement(searchEngBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            driver.FindElement(selectEng).Click();
+            Thread.Sleep(4000);
+        }
         //To Click on Engagement tab
         public void ClickEngagement()
         {

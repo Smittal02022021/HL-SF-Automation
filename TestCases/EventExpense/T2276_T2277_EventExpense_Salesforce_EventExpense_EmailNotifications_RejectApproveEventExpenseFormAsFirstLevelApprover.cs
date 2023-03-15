@@ -159,7 +159,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateLog("Verified and Validation is done for User is logged in to outlook ");
 
                 //Selecting Expense Request Approval email
-                outlook.SelectExpenseApprovalEmail();
+                outlook.SelectExpenseApprovalEmailV();
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog("User is redirected to salesforce with "+driver.Title + " is displayed ");
@@ -295,7 +295,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateLog("Verified and Validation is done for User is logged in to outlook ");
 
                 //Select expense request approval email 
-                outlook.SelectExpenseApprovalEmail();
+                outlook.SelectExpenseApprovalEmailV();
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog("User is redirected to salesforce with " + driver.Title + " is displayed ");

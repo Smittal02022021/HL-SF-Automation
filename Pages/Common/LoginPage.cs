@@ -56,7 +56,14 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 2));
             driver.FindElement(btnLogin).Click();
         }
-
+        public void SwitchToClassicView()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
+            driver.FindElement(imgProfile).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 120);
+            driver.FindElement(lnkSwitchToClassic).Click();
+            Thread.Sleep(2000);
+        }
         public void LoginApplication()
         {
            
