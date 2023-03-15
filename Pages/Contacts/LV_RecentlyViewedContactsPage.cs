@@ -47,12 +47,15 @@ namespace SF_Automation.Pages.Contact
 
         }
 
-        public void SearchContactFromRecentlyViewedContactsListBasedOnView(string contactName)
+        public void SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(string contactName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, inputSearchContact, 120);
             driver.FindElement(inputSearchContact).Clear();
-            Thread.Sleep(10000);
+            driver.FindElement(inputSearchContact).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
             driver.FindElement(inputSearchContact).SendKeys(contactName);
+            driver.FindElement(inputSearchContact).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
 
             //Get no of records
             int recordCount = driver.FindElements(By.XPath("//table/tbody/tr")).Count;

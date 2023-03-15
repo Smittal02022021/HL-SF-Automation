@@ -69,7 +69,7 @@ namespace SF_Automation.TestCases.Contact
                     homePage.SwitchToLightningView();
                     extentReports.CreateLog("User switched to lightning view. ");
                 }
-
+                
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTC0019612, 2));
                 extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
 
@@ -81,12 +81,11 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvHomePage.VerifyUserNavigatedToRecentlyViewedContactsPage());
                 extentReports.CreateLog("User has navigated to Recently Viewed Contacts Page. ");
 
-                lvRecentlyViewContact.ChangeContactListView("External Contact List");
+                //lvRecentlyViewContact.ChangeContactListView("External Contact List");
                 lvRecentlyViewContact.NavigateToCreateNewContactPage();
                 extentReports.CreateLog("User has navigated to Create New Contacts Page. ");
 
                 //TC - TMT0034856 - Verify new Contact with Record Type "External Contact" is created upon furnishing the detailed information along with the required information.
-
                 //Validate FirstName, LastName and CompanyName display with red flag as mandatory fields
                 Assert.IsTrue(lvCreateContact.ValidateMandatoryFields(),"Validate Mandatory fields");
                 extentReports.CreateLog("Validated FirstName, LastName and CompanyName displayed with red flag as mandatory fields ");
@@ -114,8 +113,28 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab(extContactName);
 
                 lvRecentlyViewContact.ChangeContactListView("Recently Viewed");
-                lvRecentlyViewContact.SearchContactFromRecentlyViewedContactsListBasedOnView(extContactName);
+                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(extContactName);
                 extentReports.CreateLog("Search functionality on recently viewed contact page is working as expected. ");
+
+                //TC Start - TMT0034863 - As a CF Finacial User, Verify the Quick Links and Related Objects for contact in the Contact Detail page for External Record Type. 
+                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
+                extentReports.CreateLog("External contact have Edit, Add Relationship L, Add Activity, and Printable View buttons displayed at the top for CF Financial user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser());
+                extentReports.CreateLog("External contact have Info, Relationship, Activity, Coverage, Campaign History and History tabs displayed at the top for CF Financial user. ");
+
+                //TC - TMT0034884 - Verify adding a New Houlihan Lokey Relationship through the "Add Relationship" button on the External Contact Detail Page. 
+                lvContactDetails.AddNewRelationshipUsingAddRelationshipButtonForCFFinancialUser(fileTMTC0019612);
+                Assert.IsTrue(lvContactDetails.VerifyNewRelationshipVisibleUnderHLRelationshipTabCFFinancialUser(fileTMTC0019612));
+                extentReports.CreateLog("New Relationship has been added successfully for external contact by CF Financial user. ");
+
+                //TC - TMT0034889 - Verify the Relationships can be edited and deleted through Edit and Delete link for respective relationships in Houlihan Lokey Relationships of External Contact.
+                Assert.IsTrue(lvContactDetails.VerifyCFFinancialUserIsAbleToEditNewRelationship("Update"));
+                extentReports.CreateLog("CF Financial user is able to edit the created New Relationship successfully. ");
+
+
+
+
 
                 //TC Start - TMT0034847 - Verify the functionality of the Add Activity with a private check for the external type contact.
                 Assert.IsTrue(lvContactDetails.VerifyUserNavigatedToAddActivityPageForExternalContact());
@@ -123,7 +142,6 @@ namespace SF_Automation.TestCases.Contact
 
                 //Add Private Activity
                 lvAddActivityForContact.AddPrivateActivity(fileTMTC0019612);
-                driver.SwitchTo().Frame(0);
                 string activityDetailheading = lvActivityDetailForContact.GetActivityDetailsHeading();
                 Assert.IsTrue(activityDetailheading == "Activity Details");
                 extentReports.CreateLog("Private Activity added successfully. ");
@@ -132,7 +150,7 @@ namespace SF_Automation.TestCases.Contact
                 lvActivityDetailForContact.CloseTab(extContactName);
 
                 //Verify Created activity is displayed for External Contact
-                lvRecentlyViewContact.SearchContactFromRecentlyViewedContactsListBasedOnView(extContactName);
+                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(extContactName);
                 lvContactDetails.NavigateToActivityTabInsideExternalContact();
 
                 Assert.IsTrue(lvContactDetails.VerifyCreatedActivityDisplayedUnderExternalContact(extContactName));
@@ -142,7 +160,7 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab(extContactName);
 
                 //Verify Created activity is displayed for logged in CF Financial User
-                lvRecentlyViewContact.SearchContactFromRecentlyViewedContactsListBasedOnView(user);
+                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(user);
                 lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
 
                 Assert.IsTrue(lvContactDetails.VerifyCreatedActivityDisplayedUnderCFFinancialUser(extContactName));
@@ -153,21 +171,48 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("CF Financial User is able to edit the private activity. ");
 
                 driver.SwitchTo().DefaultContent();
-
+                
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
-                extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+                extentReports.CreateLog("CF Financial User Logged Out from SF Lightning View. ");
+                
+                /*
+                homePage.SwitchToLightningView();
+                extentReports.CreateLog("System Admin User switched to lightning view. ");
 
-                // To Delete created contact
+                //TC - TMT0034866 - As a System Admin User, Verify the Quick Links and Related Objects for contact in the Contact Detail page for External Record Type. 
+                lvHomePage.SearchContactFromMainSearch(extContactName);
+                Assert.IsTrue(lvContactDetails.VerifyQuickLinksOnContactDetailPageForSysAdminUser(fileTMTC0019612));
+                extentReports.CreateLog("All the quick links are displayed as expected for System Admin user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser());
+                extentReports.CreateLog("External contact have Details, Related and News tabs displayed at the top for System Admin user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForSysAdminUser());
+                extentReports.CreateLog("External contact have Tearsheet, Add Relationship, Contact Reports M, Delete and Submit for Approval buttons displayed at the top for System Admin user. ");
+
+                //TC - TMT0034877 - Verify the related Links for external contacts - HL Relationships, Affiliated Companies, Campaign History, Industry Focus, Opportunity Contacts  - leads to respective pages.
+                Assert.IsTrue(lvContactDetails.VerifyIfClickingOnQuickLinksLeadsToRespectivePages(fileTMTC0019612));
+                extentReports.CreateLog("All quick links leads to respective pages. ");
+
+                //TC - TMT0034884 - Verify adding a New Houlihan Lokey Relationship through the "Add Relationship" button on the External Contact Detail Page. 
+                lvContactDetails.AddNewRelationshipUsingAddRelationshipButtonForSysAdmin(fileTMTC0019612);
+                Assert.IsTrue(lvContactDetails.VerifyNewRelationshipVisibleUnderHLRelationshipSectionForSysAdmin(fileTMTC0019612));
+                extentReports.CreateLog("New Relationship has been added successfully for external contact by System Admin user. ");
+
+                //Switch Back to SF Classic View
+                lvHomePage.SwitchBackToClassicView();
+                extentReports.CreateLog("System Admin user switched back to SF classic view. ");
+                */
+
+                //To Delete created contact
                 contactDetails.DeleteCreatedContact(fileTMTC0019612,"External Contact");
-                extentReports.CreateLog("External Contact created is deleted successfully. ");
+                extentReports.CreateLog("Created External Contact is deleted successfully. ");
 
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged Out from SF Classic View. ");
-
+                extentReports.CreateLog("System Admin User Logged Out from SF Classic View. ");
                 driver.Quit();
-
             }
             catch (Exception e)
             {

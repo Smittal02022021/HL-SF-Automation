@@ -37,6 +37,13 @@ namespace SF_Automation.Pages.Contact
         public string GetActivityDetailsHeading()
         {
             Thread.Sleep(5000);
+
+            int framCount = driver.FindElements(By.XPath("//iframe")).Count;
+            if(framCount > 0)
+            {
+                driver.SwitchTo().Frame(framCount - 1);
+            }
+
             WebDriverWaits.WaitUntilEleVisible(driver, headingActivityDetail, 60);
             string headingActivity = driver.FindElement(headingActivityDetail).Text;
             return headingActivity;

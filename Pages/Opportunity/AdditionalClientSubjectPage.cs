@@ -338,11 +338,10 @@ namespace SF_Automation.Pages
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSave).Click();
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         //To enter team member details
         public void EnterHLAndGCAStaffDetails(string file, int row)
         {
@@ -380,6 +379,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         public void ClickContinue()
         {
             //Calling wait function--Continue button     

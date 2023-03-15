@@ -257,7 +257,13 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            //driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+
+            int framCount = driver.FindElements(By.XPath("//iframe")).Count;
+            if(framCount>0)
+            {
+                driver.SwitchTo().Frame(framCount - 1);
+            }
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboAcitivityType);
             CustomFunctions.SelectByText(driver, driver.FindElement(comboAcitivityType), ReadExcelData.ReadData(excelPath, "Activity", 1));

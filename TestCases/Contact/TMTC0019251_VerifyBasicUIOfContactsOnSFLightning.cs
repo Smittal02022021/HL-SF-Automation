@@ -90,11 +90,11 @@ namespace SF_Automation.TestCases.Contact
 
                 //TC - TMT0033924, TMT0033925 - Verify that the Search functionality on recently viewed contact page as per the entered keyword.
                 //lvRecentlyViewContact.ChangeContactListView("New This Week");
-                lvRecentlyViewContact.SearchContactFromRecentlyViewedContactsListBasedOnView("Test External");
+                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView("Test External");
                 extentReports.CreateLog("Search functionality on recently viewed contact page is working as expected. ");
 
                 //TC - TMT0034266 - Verify that as a CF Finacial user, external contact have Edit, Add Relationship L, Add Activity, and Printable View as Menu options.
-                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopForExternalContact());
+                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
                 extentReports.CreateLog("External contact have Edit, Add Relationship L, Add Activity, and Printable View buttons displayed at the top. ");
 
                 //TC - TMT0034276 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 

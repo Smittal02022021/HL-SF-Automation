@@ -1,5 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -26,8 +29,24 @@ namespace SF_Automation.Pages.HomePage
         By lblTearsheetHeading = By.XPath("//h1");
 
         By lblTabHeading = By.XPath("//a[@class='slds-context-bar__label-action slds-p-left--xx-small']/span");
+        By lblTabTitle = By.XPath("(//span[@class='title slds-truncate'])[1]");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        //HomePage Dashboard
+        By homePageH1Heading = By.XPath("//div[@class='dash-title']/div/div/h1");
+        By activitiesFilter = By.XPath("//span[text()='Activities']");
+        By myCoverageTab = By.XPath("//span[text()='My Coverage']");
+        By dropdownStartDateFilter = By.XPath("//div[@class='selected-values']");
+        By lblNoRecords = By.XPath("//span[text()='No results found']");
+        By lblKPITotal = By.XPath("//div[text()='Total']");
+        By lblKPIMeetings = By.XPath("//div[text()='Meetings']");
+        By lblKPICalls = By.XPath("//div[text()='Calls']");
+        By lblKPIEmailsTasks = By.XPath("//div[text()='Emails/Tasks ']");
+        By lblKPIOthers = By.XPath("//div[text()='Others']");
+        By lblKPIMeetingNotes = By.XPath("//div[text()='Meeting Notes']");
+
+        By linkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
+        By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
+        By linkContactsInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[8]/lightning-base-combobox-item/span[2]/span");
 
         private By _appInAppLauncher(string appName)
         {
@@ -75,13 +94,23 @@ namespace SF_Automation.Pages.HomePage
             return driver.FindElement(appHeader).Text;
         }
 
-        public void SearchText()
+        public void SearchContactFromMainSearch(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(3000);
-            driver.FindElement(txtMainSearch).SendKeys("dummyText");
-            Thread.Sleep(3000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver,linkContactsInSearchAllDropDown,120);
+            driver.FindElement(linkContactsInSearchAllDropDown).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath($"//a[@title='{name}']")).Click();
+            Thread.Sleep(5000);
         }
 
         public void ClickExpenseRequestMenuButton()
@@ -122,9 +151,23 @@ namespace SF_Automation.Pages.HomePage
 
             WebDriverWaits.WaitUntilEleVisible(driver, userImage, 120);
             driver.FindElement(userImage).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 120);
             driver.FindElement(linkLogOut).Click();
+            Thread.Sleep(10000);
+        }
+
+        public void SwitchBackToClassicView()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver,userImage,120);
+            driver.FindElement(userImage).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver,linkSwitchToClassic,120);
+            driver.FindElement(linkSwitchToClassic).Click();
             Thread.Sleep(10000);
         }
 
@@ -218,6 +261,409 @@ namespace SF_Automation.Pages.HomePage
             return result;
         }
 
+        public void NavigateToHomePageTabFromHLBankerDropdown()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver,menuNavigation,120);
+            driver.FindElement(menuNavigation).Click();
+            Thread.Sleep(5000);
 
+            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
+            int size = elements.Count;
+
+            for(int items = 1;items <= size;items++)
+            {
+                By linkHome = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
+
+                WebDriverWaits.WaitUntilEleVisible(driver,linkHome,120);
+                string itemName = driver.FindElement(linkHome).GetAttribute("data-label");
+
+                if(itemName == "Home")
+                {
+                    driver.FindElement(linkHome).Click();
+                    Thread.Sleep(10000);
+                    driver.SwitchTo().Frame(0);
+                    WebDriverWaits.WaitUntilEleVisible(driver,homePageH1Heading,120);
+                    string heading = driver.FindElement(homePageH1Heading).Text;
+                    Assert.IsTrue(heading == "My Homepage");
+                    break;
+                }
+            }
+        }
+
+        public bool VerifyIfActivitiesFilterGridIsAvailableNextToEngAndOppFilters()
+        {
+            bool result = false;
+            if(driver.FindElement(activitiesFilter).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver,activitiesFilter,120);
+            driver.FindElement(activitiesFilter).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(myCoverageTab).Displayed)
+            {
+                driver.FindElement(myCoverageTab).Click();
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyAvailabilityOfStartDateFilterOnActivityDashboard(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            if(driver.FindElement(dropdownStartDateFilter).Displayed)
+            {
+                driver.FindElement(dropdownStartDateFilter).Click();
+                Thread.Sleep(3000);
+                int recordCount = driver.FindElements(By.XPath("//div[@class='css-1m3zwzh']/div/div[3]/div/div")).Count;
+                int excelCount = ReadExcelData.GetRowCount(excelPath,"StartDateFilterOptions");
+
+                for(int i = 2;i <= excelCount;i++)
+                {
+                    string exlListViewValue = ReadExcelData.ReadDataMultipleRows(excelPath,"StartDateFilterOptions",i,1);
+
+                    for(int j = 1;j <= recordCount;j++)
+                    {
+                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1m3zwzh']/div/div[3]/div/div[{j}]/div[2]/div/div")).Text;
+                        if(exlListViewValue == sfListViewValue)
+                        {
+                            result = true;
+                            break;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                    }
+                    continue;
+                }
+            }
+            driver.FindElement(dropdownStartDateFilter).Click();
+            Thread.Sleep(3000);
+            return result;
+        }
+
+        public bool VerifyDefaultValueSelectedInActivityStartDateFilter()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            if(driver.FindElement(dropdownStartDateFilter).Text == "Last 7 Days")
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            driver.FindElement(dropdownStartDateFilter).Click();
+            Thread.Sleep(5000);
+
+            //Get filter count
+            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1m3zwzh']/div/div[3]/div/div")).Count;
+            DateTime currentDate = DateTime.Today;
+
+            for(int i = 1;i <= filterCount;i++)
+            {
+                driver.FindElement(By.XPath($"//div[@class='css-1m3zwzh']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
+                Thread.Sleep(3000);
+
+                //Get selected Filter value
+                string selectedFilterValue = driver.FindElement(dropdownStartDateFilter).Text;
+
+                switch(selectedFilterValue)
+                {
+                    case "Last 7 Days":
+                        DateTime setDate = currentDate.AddDays(-7);
+
+                        bool recPresent = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime < currentDate && dateTime >= setDate)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Last 30 Days":
+                        DateTime setDate1 = currentDate.AddDays(-30);
+
+                        bool recPresent1 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent1==false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime < currentDate && dateTime >= setDate1)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Last 3 Months":
+                        DateTime setDate2 = currentDate.AddMonths(-3);
+
+                        bool recPresent2 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent2 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[4]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime < currentDate && dateTime >= setDate2)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Last 6 Months":
+                        DateTime setDate3 = currentDate.AddMonths(-6);
+
+                        bool recPresent3 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent3 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[4]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime < currentDate && dateTime >= setDate3)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Last 12 Months":
+                        DateTime setDate4 = currentDate.AddMonths(-12);
+
+                        bool recPresent4 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent4 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[4]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime < currentDate && dateTime >= setDate4)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Next 7 Days":
+                        DateTime setDate5 = currentDate.AddDays(7);
+
+                        bool recPresent5 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent5 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[4]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime > currentDate && dateTime <= setDate5)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Next 30 Days":
+                        DateTime setDate6 = currentDate.AddDays(30);
+
+                        bool recPresent6 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent6 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[4]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[4]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime > currentDate && dateTime <= setDate6)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Next 3 Months":
+                        DateTime setDate7 = currentDate.AddMonths(3);
+
+                        bool recPresent7 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent7 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime > currentDate && dateTime <= setDate7)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Next 6 Months":
+                        DateTime setDate8 = currentDate.AddMonths(6);
+
+                        bool recPresent8 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent8 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime > currentDate && dateTime <= setDate8)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "Next 12 Months":
+                        DateTime setDate9 = currentDate.AddMonths(12);
+
+                        bool recPresent9 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        if(recPresent9 == false)
+                        {
+                            //Get the no. of record in table
+                            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr")).Count;
+
+                            for(int j = 2;j <= recordCount;j++)
+                            {
+                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div"));
+                                if(elePresent == true)
+                                {
+                                    string activityDate = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                    DateTime dateTime = DateTime.Parse(activityDate);
+                                    if(dateTime > currentDate && dateTime <= setDate9)
+                                    {
+                                        result = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+
+                WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+                driver.FindElement(dropdownStartDateFilter).Click();
+                Thread.Sleep(5000);
+            }
+
+            driver.FindElement(dropdownStartDateFilter).Click();
+            Thread.Sleep(5000);
+            return result;
+        }
+
+        public bool VerifyAvailabilityOfKPIMetricesOnMyCoverageDashboard(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            bool result = false;
+            int excelCount = ReadExcelData.GetRowCount(excelPath,"KPIMetrics");
+            string lblKPI1 = driver.FindElement(lblKPITotal).Text;
+            string lblKPI2 = driver.FindElement(lblKPIMeetings).Text;
+            string lblKPI3 = driver.FindElement(lblKPICalls).Text;
+            string lblKPI4 = driver.FindElement(lblKPIEmailsTasks).Text;
+            string lblKPI5 = driver.FindElement(lblKPIOthers).Text;
+            string lblKPI6 = driver.FindElement(lblKPIMeetingNotes).Text;
+
+            for(int i = 2;i <= excelCount;i++)
+            {
+                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath,"KPIMetrics",i,1);
+                if(exlKPIValue==lblKPI1 || exlKPIValue == lblKPI2 || exlKPIValue == lblKPI3 || exlKPIValue == lblKPI4 || exlKPIValue == lblKPI5 || exlKPIValue == lblKPI6)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }
