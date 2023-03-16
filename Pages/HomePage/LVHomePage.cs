@@ -42,7 +42,7 @@ namespace SF_Automation.Pages.HomePage
         By lblKPICalls = By.XPath("//div[text()='Calls']");
         By lblKPIEmailsTasks = By.XPath("//div[text()='Emails/Tasks ']");
         By lblKPIOthers = By.XPath("//div[text()='Others']");
-        By lblKPIMeetingNotes = By.XPath("//div[text()='Meeting Notes']");
+        By lblKPIMissingNotes = By.XPath("//div[text()='Missing Notes']");
 
         By linkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
@@ -653,7 +653,7 @@ namespace SF_Automation.Pages.HomePage
             string lblKPI3 = driver.FindElement(lblKPICalls).Text;
             string lblKPI4 = driver.FindElement(lblKPIEmailsTasks).Text;
             string lblKPI5 = driver.FindElement(lblKPIOthers).Text;
-            string lblKPI6 = driver.FindElement(lblKPIMeetingNotes).Text;
+            string lblKPI6 = driver.FindElement(lblKPIMissingNotes).Text;
 
             for(int i = 2;i <= excelCount;i++)
             {
