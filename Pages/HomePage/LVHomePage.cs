@@ -665,5 +665,37 @@ namespace SF_Automation.Pages.HomePage
             }
             return result;
         }
+
+        public bool VerifyAvailableColumnsInActivitiesTableOnMyCoverageDashboard(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            bool result = false;
+            int excelCount = ReadExcelData.GetRowCount(excelPath,"ActivityColumns");
+            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr[1]/th")).Count;
+
+            for(int i = 2;i <= excelCount;i++)
+            {
+                string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath,"ActivityColumns",i,1);
+
+                for(int j = 1;j <= recordCount;j++)
+                {
+                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
+                    if(exlColValue == sfColValue)
+                    {
+                        result = true;
+                        break;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                continue;
+            }
+            return result;
+        }
     }
 }

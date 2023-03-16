@@ -86,12 +86,16 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Default value selected under Activity Start Date Filter is: Last 7 Days. ");
 
                 //TC - TMTI0051067 - Verify the functionality of Activity Start Date grid filter available on My Coverage dashboard
-                lvHomePage.VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard();
+                Assert.IsTrue(lvHomePage.VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard());
                 extentReports.CreateLog("The functionality of Activity Start Date grid filter is working as expected. ");
 
                 //TC - TMTI0054949 - Verify the availabilty of KPI metrices on My Coverage dashboard
                 Assert.IsTrue(lvHomePage.VerifyAvailabilityOfKPIMetricesOnMyCoverageDashboard(fileTMTT0022150));
                 extentReports.CreateLog("All KPI Metrices are available on My Coverage Dashboard. ");
+
+                //TC - TMTI0054954 - Verification of available columns on My Coverage dashboard in detail activities table
+                Assert.IsTrue(lvHomePage.VerifyAvailableColumnsInActivitiesTableOnMyCoverageDashboard(fileTMTT0022150));
+                extentReports.CreateLog("All columns are displayed as expected on My Coverage Dashboard in detail activities table. ");
 
                 driver.SwitchTo().DefaultContent();
 
