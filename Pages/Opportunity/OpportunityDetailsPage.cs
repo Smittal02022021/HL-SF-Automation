@@ -3093,7 +3093,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             Thread.Sleep(4000);
             driver.FindElement(txtCommentsL).SendKeys("Approved");
             driver.FindElement(btnApproveOppL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             string status = driver.FindElement(valStatusL).Text;
             return status;
         }
@@ -4243,7 +4243,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Click Opp Name tab
         public void ClickOppName()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabOppNameL, 150);
             driver.FindElement(tabOppNameL).Click();
         }

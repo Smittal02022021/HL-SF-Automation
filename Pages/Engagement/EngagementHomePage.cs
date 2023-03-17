@@ -38,6 +38,11 @@ namespace SF_Automation.Pages
         By tblEngagements = By.XPath("//div[1]/div/div/table");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
+        By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
+        By btnRefresh = By.XPath("//button[@title='Refresh']");
+        By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
+        By valSearchedEngName = By.XPath("//table/tbody/tr/th/span/a");
+        By titleEngDetails = By.XPath("//a[text()='Details']");
 
         //To Click on Engagement tab
         public void ClickEngagement()
@@ -311,6 +316,37 @@ namespace SF_Automation.Pages
 
             driver.FindElement(lnkRecentlyViewed).Click();
             return isTrue;
+        }
+
+        //Validate if Search functionality is available
+        public string ValidateSearchFunctionalityIsAvailable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+            string name = driver.FindElement(txtSearchEng).Displayed.ToString();
+            return name;
+        }
+
+        //Validate if Search functionality is working as expected
+        public string ValidateSearchFunctionalityOfEngagements(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+            driver.FindElement(txtSearchEng).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(4000);
+            string opp = driver.FindElement(valSearchedEng).Text;
+            return opp;
+        }
+
+        //Validate Engagement details page upon clicking Engagement Name
+        public string ClickEngNumAndValidateThePage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEngName, 150);
+            driver.FindElement(valSearchedEngName).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetails, 150);
+            string title = driver.FindElement(titleEngDetails).Text;
+            return title;
         }
     }
 }

@@ -206,6 +206,14 @@ By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By checkPrimaryContact = By.CssSelector("input[name*='D7OP7']");
         By valClientL = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valSubjectL = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
+        By tabInfo = By.XPath("//a[text()='Info']");
+        By subTabDetails = By.XPath("//a[text()='Details']");
+        By subTabImpDates = By.XPath("//a[text()='Important Dates']");
+        By subTabAdmin = By.XPath("//a[text()='Administration']");
+        By subTabClosingInfo = By.XPath("//a[text()='Closing Info']");
+        By subTabCST = By.XPath("//a[text()='CST Questionnaire Details']");
+        By subTabBilling = By.XPath("//a[text()='Billing Comments");
+
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2180,6 +2188,67 @@ public string VerifyIfCoExistFieldIsEditableOrNot()
 
         }
 
+        //Get Info value
+        public string ValidateInfoTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabInfo, 100);
+            string value = driver.FindElement(tabInfo).Text;
+            return value;
+
+        }
+
+        //Get Details Sub tab
+        public string ValidateDetailsSubTab()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabDetails, 100);
+            string value = driver.FindElement(subTabDetails).Text;
+            return value;
+        }
+        //Get Important Dates Sub tab
+        public string ValidateImportantDatesSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabImpDates, 100);
+            string value = driver.FindElement(subTabImpDates).Text;
+            return value;
+        }
+
+        //Get Administration Sub tab
+        public string ValidateAdministrationSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 100);
+            string value = driver.FindElement(subTabAdmin).Text;
+            return value;
+        }
+        //Get Closing Info Sub tab
+        public string ValidateClosingInfoSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver,  subTabClosingInfo, 100);
+            string value = driver.FindElement(subTabClosingInfo).Text;
+            return value;
+        }
+
+        //Get CST Questionnaire Sub tab
+        public string ValidateCSTQuestionnaireDetailsSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabCST, 100);
+            string value = driver.FindElement(subTabCST).Text;
+            return value;
+        }
+
+        //Get Billing CommentsSub tab
+        public string ValidateBillingCommentsSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabBilling , 100);
+            string value = driver.FindElement(subTabBilling).Text;
+            return value;
+        }
 
     }
 }

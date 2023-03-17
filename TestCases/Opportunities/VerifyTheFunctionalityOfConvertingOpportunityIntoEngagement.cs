@@ -209,20 +209,49 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.IsTrue(engHome.ValidateRecentlyViewedValues(), "Verified that displayed Recently Viewed values are same");
                 extentReports.CreateLog("Recently Viewed dropdown values are displayed as expected ");
 
-                ////Validate if Search functionality is available or not
-                //string searchOpp = engHome.ValidateSearchFunctionalityIsAvailable();
-                //Assert.AreEqual("True", searchOpp);
-                //extentReports.CreateLog("Search Engagements functionality is available ");
+                //Validate if Search functionality is available or not
+                string searchOpp = engHome.ValidateSearchFunctionalityIsAvailable();
+                Assert.AreEqual("True", searchOpp);
+                extentReports.CreateLog("Search Engagements functionality is available ");
 
-                ////Verify Search Functionality of Engagements
-                //string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements("123665");
-                //Assert.AreEqual("123665", searchedEng);
-                //extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
+                //Verify Search Functionality of Engagements
+                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements("123665");
+                Assert.AreEqual("123665", searchedEng);
+                extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
 
-                ////Validate on clicking Engagement number, engagement details page is displayed
-                //string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
-                //Assert.AreEqual("Details", titleEngDetails);
-                //extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
+                //Validate on clicking Engagement number, engagement details page is displayed
+                string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
+                Assert.AreEqual("Details", titleEngDetails);
+                extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
+
+                //Validate Info tab and all its Sub tabs
+                string tabInfo = engagementDetails.ValidateInfoTab();
+                Assert.AreEqual("Info", tabInfo);
+                extentReports.CreateLog("Sub Tab " + tabInfo + " is displayed on Engagement Details page ");
+
+                string details = engagementDetails.ValidateDetailsSubTab();
+                Assert.AreEqual("Details", details);
+                extentReports.CreateLog("Sub Tab " + details + " is displayed under Info Tab ");
+
+                string impDates = engagementDetails.ValidateImportantDatesSubTab();
+                Assert.AreEqual("Important Dates", impDates);
+                extentReports.CreateLog("Sub Tab " + impDates + " is displayed under Info Tab ");
+
+                string admin = engagementDetails.ValidateAdministrationSubTab();
+                Assert.AreEqual("Administration", admin);
+                extentReports.CreateLog("Sub Tab " + admin + " is displayed under Info Tab ");
+
+                string closingInfo = engagementDetails.ValidateClosingInfoSubTab();
+                Assert.AreEqual("Closing Info", closingInfo);
+                extentReports.CreateLog("Sub Tab " + closingInfo + " is displayed under Info Tab ");
+
+                string CST = engagementDetails.ValidateCSTQuestionnaireDetailsSubTab();
+                Assert.AreEqual("CST Questionnaire Details", CST);
+                extentReports.CreateLog("Sub Tab " + CST + " is displayed under Info Tab ");
+
+                string billing = engagementDetails.ValidateBillingCommentsSubTab();
+                Assert.AreEqual("Billing Comments", billing);
+                extentReports.CreateLog("Sub Tab " + billing + " is displayed under Info Tab ");
 
 
 
