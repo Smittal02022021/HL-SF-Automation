@@ -234,7 +234,9 @@ namespace SF_Automation.Pages
         //To Search Opportunity with Opportunity Name in Lighting
         public void SearchMyEngInLightning(string value)
         {
-            Thread.Sleep(6000);           
+            Thread.Sleep(6000);  
+            
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
             driver.FindElement(btnOppNumL).Click();
              Thread.Sleep(4000);           
