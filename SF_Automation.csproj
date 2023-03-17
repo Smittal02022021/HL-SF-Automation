@@ -609,6 +609,7 @@
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0017877_7888_7883_7884_7886_7882_7890_7887_7879_7879_7880_View_Email_Access_Add_ExistingEng_ButtonControls_Delete_ViewAll.cs" />
     <Compile Include="TestCases\Engagement\TMTT0017881_ViewCounterparties_MassCheckbox.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0017889_TMTT0018902_TMTT0017878_CommentsAndContactsMappingToEngUponConversionFromOpportunity_AddNewCounterparty.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />

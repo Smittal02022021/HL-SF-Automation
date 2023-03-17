@@ -91,7 +91,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgRetainer = By.XPath("//label[text()='Retainer']/following::div[2]");
         By msgRetainerFee = By.XPath("//label[text()='Retainer Fee Creditable ?']/following::div[3]");
         By msgProgressFee = By.XPath("//label[text()='Progress Fee Creditable ?']/following::div[3]");
-        By msgMinFee = By.XPath("//label[text()='Minimum Fee (MM)']/following::div[3]");
+        By msgMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/following::div[2]");
         By msgTxnFeeType = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
         By msgEstTxnValue = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
 

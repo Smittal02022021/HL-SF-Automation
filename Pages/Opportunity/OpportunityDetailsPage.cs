@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
-using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using SF_Automation.TestData;
 using System.Linq;
 using System.Threading;
 
@@ -298,18 +298,18 @@ namespace SF_Automation.Pages
         By txtEstTxnSizeL = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
         By btnWomenLedL = By.XPath("//button[@aria-label='Women Led, --None--']");
-        By txtDateEngL = By.XPath("//flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/lightning-input/lightning-datepicker/div[1]/div/input");
+        By txtDateEngL = By.XPath("//input[@name='Date_Engaged__c']");
         By btnFairnessL = By.XPath("//button[@aria-label='Fairness Opinion Component, --None--']");
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
         By txtStaffL = By.XPath("//input[@placeholder='Begin Typing Name...']");
-        By chkInitiatorL = By.XPath("//table/tbody/tr[2]/td[2]/input");
-        By chkSellerL = By.XPath("//table/tbody/tr[2]/td[3]/input");
-        By chkPrincipalL = By.XPath("//table/tbody/tr[2]/td[4]/input");
-        By chkManagerL = By.XPath("//table/tbody/tr[2]/td[5]/input");
-        By chkAssociateL = By.XPath("//table/tbody/tr[2]/td[6]/input");
-        By chkAnalystL = By.XPath("//table/tbody/tr[2]/td[7]/input");
+        By chkInitiatorL = By.XPath("//table/tbody/tr[3]/td[2]/input");
+        By chkSellerL = By.XPath("//table/tbody/tr[3]/td[3]/input");
+        By chkPrincipalL = By.XPath("//table/tbody/tr[3]/td[4]/input");
+        By chkManagerL = By.XPath("//table/tbody/tr[3]/td[5]/input");
+        By chkAssociateL = By.XPath("//table/tbody/tr[3]/td[6]/input");
+        By chkAnalystL = By.XPath("//table/tbody/tr[3]/td[7]/input");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
         By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
@@ -321,9 +321,14 @@ namespace SF_Automation.Pages
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
         By btnSaveContactL = By.XPath("//footer/button[2]/span");
         By btnReqEngL = By.XPath("//button[text()='Request Engagement']");
+        By btnConvertToEngL = By.XPath("//span[text()='Convert to Engagement']");
+        By lblEngagement = By.XPath("//div[text()='Engagement']");
         By lnkViewAllL = By.XPath("//span[text()='View All']");
+        By titleApproveL = By.XPath("//h1[@title='Approval History']");
         By btnApproveL = By.XPath("//div[@title='Approve']");
+        By btnRejectL = By.XPath("//div[@title='Reject']");
         By btnApproveOppL = By.XPath("//span[text()='Approve']");
+        By btnRejectOppL = By.XPath("//span[text()='Reject']");
         By txtCommentsL = By.XPath("//textarea[@class='inputTextArea cuf-messageTextArea textarea']");
         By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
         By lnkMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
@@ -355,6 +360,19 @@ namespace SF_Automation.Pages
         By tabIT= By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
         By btnComments = By.XPath("//button[@aria-label='Comment Type, Internal']");
+        By valCommentsType = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By txtCommentNotes = By.XPath("//textarea[@name='Comment__c']");
+        By btnSaveComments = By.XPath("//button[@name='save']");
+        By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
+        By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
+        By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
+        By txtClearOppName = By.XPath("//input[@name='Name']");
+        By msgOppName = By.XPath("//records-record-layout-base-input/lightning-input/div[2]");
+        By valOppNameL = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
+        By btnAddCFContact = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
+        By titleAddCFOppContact = By.XPath("//h2[text()='Add CF Opportunity Contact']");
 
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
@@ -419,11 +437,11 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valOppContact = By.CssSelector("div[id*='D7zBE_body'] table th a:nth-child(2)");
         By valOppInternalMember = By.CssSelector("[action*='HL_OpportunityInternalTeamView'] table tbody tr.dataRow.even.first.last label");
        By valERPLegalEntityName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(6)");
+        By btnEditTopPanelL = By.XPath("//button[@name='Edit']");
+        By btnViewCounterpartiesL = By.XPath("//button[@name='Opportunity__c.ViewCounterparties']");
 
-
-
-
-
+        By lnkReqEngL = By.XPath("//button[@class='slds-button slds-button_icon-border-filled']");
+        By valOppStatus = By.XPath("//li[1]/article/div/div[2]/ul/li[2]/div/div[2]/span");
 
         //Get ERP Legal Entity Name    
         public string GetERPLegalEntityName()
@@ -1439,12 +1457,12 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         public void UpdateNBCApproval()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             driver.FindElement(btnEdit).Click();
             try
             {
-                Thread.Sleep(3000);
-                WebDriverWaits.WaitUntilEleVisible(driver, checkNBCApproved, 150);
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, checkNBCApproved, 250);
                 driver.FindElement(checkNBCApproved).Click();
                 driver.FindElement(btnSave).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
@@ -3048,6 +3066,19 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             driver.FindElement(btnReqEngL).Click();
         }
 
+        //Reject the submitted Opportunity
+        public string ClickRejectButtonL()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectL, 100);
+            driver.FindElement(btnRejectL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtCommentsL).SendKeys("Rejected");
+            driver.FindElement(btnRejectOppL).Click();
+            Thread.Sleep(4000);
+            string status = driver.FindElement(valStatusL).Text;
+            return status;
+        }
+
         //Approve in Lightning
         public string ClickApproveButtonL()
         {
@@ -3067,6 +3098,43 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             return status;
         }
 
+        //Validate the status
+        public string ValidateStatusOfOpportunity()
+        {
+            Thread.Sleep(4000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppStatus, 100);
+            string status= driver.FindElement(valOppStatus).Text;
+            return status;            
+        }
+
+        //Validate Approve  button
+        public string ValidateApproveButton()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 100);
+            driver.FindElement(lnkViewAllL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApproveL, 100);
+            string name = driver.FindElement(btnApproveL).Text;
+            return name;             
+                    }
+
+        //Validate Approval page 
+        public string ValidateApprovalHistoryPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, titleApproveL, 100);
+            string name = driver.FindElement(titleApproveL).Text;
+            return name;
+        }
+
+        //Validate Reject button
+        public string ValidateRejectButton()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectL, 100);
+            string name = driver.FindElement(btnRejectL).Text;
+            return name;
+        }
         //To click on Convert to Engagement button
         public void ClickConvertToEngL()
         {
@@ -3395,7 +3463,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubject);
             string name = driver.FindElement(tabClientSubject).Text;
-            driver.FindElement(tabClientSubject).Click();
+            Thread.Sleep(3000);
+                        driver.FindElement(tabClientSubject).Click();
             return name;
         }
 
@@ -3414,11 +3483,11 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate Modify Roles button
         public string ValidateModifyRolesButton()
         {            
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRoles,170);            
             driver.FindElement(btnModifyRoles).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             //driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div[1]/div/div/article/div[2]/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL,120);
@@ -3450,7 +3519,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate Referral Info Section
         public string ValidateReferralInfoSection()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, secReferralInfo);
+            WebDriverWaits.WaitUntilEleVisible(driver, secReferralInfo,120);
             string name = driver.FindElement(secReferralInfo).Text;
             driver.FindElement(secReferralInfo).Click();
             return name;
@@ -4071,15 +4140,152 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             return name;
         }
 
-        ////Add Opportunity Comments
-        //public string AddOppCommentaAndValidate()
-        //{
-        //    WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 160);
-        //    driver.FindElement(btnComments).Click();
 
-        //}
+        //Validate Edit tab
+        public string ValidateEditTabL()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditTopPanelL);
+            string name = driver.FindElement(btnEditTopPanelL).Text;
+            driver.FindElement(btnEditTopPanelL).Click();
+            return name;
+        }
+        //Click Return to Opp
+        public void ClickReturnToOpp()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
+            driver.FindElement(btnReturnToOpp).Click();
+        }
 
+        //Validate View Counterparties tab
+        public string ValidateViewCounterpartiesTabL()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterpartiesL);
+            string name = driver.FindElement(btnViewCounterpartiesL).Text;
+            driver.FindElement(btnViewCounterpartiesL).Click();
+            return name;
+        }
+              
+
+        //Add Opportunity Comments
+        public string AddOppCommentaAndValidate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 160);
+            driver.FindElement(btnComments).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(valCommentsType).Click();
+            driver.FindElement(txtCommentNotes).SendKeys("Testing");
+            driver.FindElement(btnSaveComments).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 160);
+            string commentType = driver.FindElement(valAddedCommentType).Text;
+            return commentType;          
+                    }
+
+        //Get added Opportunity comments
+        public string GetOppCommentsL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 160);
+            string comment = driver.FindElement(valAddedComment).Text;
+            return comment;
+        }
+
+        //Validate File upload option under Files
+        public string ValidateFileUploadsOption()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUploadFiles, 160);
+            string comment = driver.FindElement(txtUploadFiles).Text;
+            return comment;
+        }
+
+        //Upload a file and validate the same
+        public string UploadFileAndValidate(string path)
+        {
+               IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;              
+               js.ExecuteScript("window.scrollTo(0,350)");
+              //WebDriverWaits.WaitUntilEleVisible(driver, PanelCSTFiles, 30);
+               CustomFunctions.FileUpload(driver, path);
+               Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 100);
+                return driver.FindElement(toastMsgPopup).Text;     
+
+               //WebDriverWaits.WaitUntilEleVisible(driver, txtUploadFiles, 160);
+               //driver.FindElement(txtUploadFiles).Click();
+
+        }
+
+        //Leave any mandatory field blank and get the validation
+        public string GetMandatoryFieldValidationOfGeneral()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClearOppName, 100);
+            driver.FindElement(txtClearOppName).Clear();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 250);
+            driver.FindElement(btnCloseL).Click();
+            Thread.Sleep(3000);
+            string message = driver.FindElement(msgOppName).Text;
+            return message;
+        }
+
+        //Update the data and validate the same
+        public string UpdateDataAndValidate(string name)
+        {
+            driver.FindElement(txtClearOppName).SendKeys(name);            
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valOppNameL).Text;
+            return value;
+        }
+
+        //Click Opp Name tab
+        public void ClickOppName()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOppNameL, 150);
+            driver.FindElement(tabOppNameL).Click();
+        }
+
+        //Click Add CF Opprotunity Contact 
+        public string ClickAddCFOppContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContact, 150);
+            driver.FindElement(btnAddCFContact).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
+            string title = driver.FindElement(titleAddCFOppContact).Text;
+            return title;
+        }
+
+        //Validate Request Engagement button
+        public string ValidateRequestEngButton()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+            driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 350);
+            string value = driver.FindElement(btnReqEngL).Displayed.ToString();
+            return value;
+        }
+
+        public string ClickReqToEngagement()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+            driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 350);
+            driver.FindElement(btnConvertToEngL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 350);
+            string value = driver.FindElement(lblEngagement).Text;
+            return value;
+        }
     }
+    
 }
 
 

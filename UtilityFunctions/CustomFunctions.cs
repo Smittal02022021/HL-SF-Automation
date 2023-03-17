@@ -311,5 +311,15 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(by);
             new Actions(driver).MoveToElement(element).Build().Perform();
         }
+
+        //To Upload File in LV
+        public static void FileUpload(IWebDriver driver, string filePath)
+        {
+            By btnUploadFile = By.XPath("//input[@type='file']");
+            By btnDone = By.XPath("//span[contains(text(),'Done')]"); driver.FindElement(btnUploadFile).SendKeys(filePath);
+            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
+            Thread.Sleep(5000);
+            driver.FindElement(btnDone).Click();
+        }
     }
 }

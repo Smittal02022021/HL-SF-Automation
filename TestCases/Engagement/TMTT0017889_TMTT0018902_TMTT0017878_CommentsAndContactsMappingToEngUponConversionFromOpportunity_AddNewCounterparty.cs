@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
-using SalesForce_Project.Pages;
-using SalesForce_Project.Pages.Common;
-using SalesForce_Project.Pages.Engagement;
-using SalesForce_Project.Pages.Opportunity;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SalesForce_Project.TestCases.Engagement
+namespace SF_Automation.TestCases.Engagement
 {
     class TMTT0017889_TMTT0018902_TMTT0017878_CommentsAndContactsMappingToEngUponConversionFromOpportunity_AddNewCounterparty : BaseClass
     {
@@ -18,7 +18,7 @@ namespace SalesForce_Project.TestCases.Engagement
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddCounterpartyOpp counterparty = new AddCounterpartyOpp();
+        AddOppCounterparty counterparty = new AddOppCounterparty();
         AddCounterparty  engCounterparty = new AddCounterparty();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
@@ -149,9 +149,9 @@ namespace SalesForce_Project.TestCases.Engagement
                 Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2)), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");
 
-                //Search for created opportunity
+                //Search for created opportunity 
                 opportunityHome.SearchMyOpportunitiesInLightning(value, ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2));
-
+               
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonL();
                 Assert.AreEqual("Approved", status);

@@ -3,6 +3,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -86,6 +87,23 @@ namespace SF_Automation.Pages.Opportunity
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
         By comboTypeCounterparty = By.XPath("(//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
+        By secAddCounterparty1 = By.XPath("//span[@title='Get Companies from existing Opportunity']");
+        By secAddCounterparty2 = By.XPath("//span[@title='Get Companies from existing Company List']");
+        By txtOppAddCounterparty = By.XPath("//input[@placeholder='Search Opportunity here...']");
+        By txtCompAddCounterparty = By.XPath("//input[@placeholder='Search Company List here...']");
+        By btnSearchOppAddCounterparty = By.XPath("//button[@title='Search']");
+        By btnSearchCompAddCounterparty = By.XPath("//lightning-accordion-section[2]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[2]/lightning-button[1]/button");
+        By btnAddCounterparty = By.XPath("//button[@title='counterparty']");
+        By msgNoCompany = By.XPath("//span[text()='Please select counterparty record(s) to add']");
+        By chkCompany = By.XPath("//table/tbody/tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By msgSuccessL = By.XPath("//span[text()='Selected Counterparty Records have been created.']");
+        By chkCompany2 = By.XPath("//table/tbody/tr[2]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnBackAddCounterpartiesL = By.XPath("//button[text()='Back']");
+        By titleCounterparties = By.XPath("//span[text()='Counterparties']");
+        By rowCounterpartiesL = By.XPath("//lightning-layout-item[1]/slot/div/c-s-l-custom-datatable-type/div[2]/div/div/table/tbody/tr[1]");
+        By valView = By.XPath("//lightning-base-combobox-item/span[2]/span");
+        By btnView = By.XPath("//label[text()='View']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button");
+        By msgNoRecords = By.XPath("//div[text()='No records found']");
 
         public bool IsExpectedFilterNameavailable(string expectedSection)
         {
@@ -639,6 +657,172 @@ namespace SF_Automation.Pages.Opportunity
             return By.XPath($"//span[@title='{value}']");
         }
 
+        //Validate View Counterparties button
+        public string ValidateAddCounterpartiesButtonL()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL);
+            driver.FindElement(btnAddCounterpartiesL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty1, 150);
+            string name = driver.FindElement(secAddCounterparty1).Text;
+            return name;
+        }
+
+        //Validate 2nd section of Add Counterparties 
+        public string Get2ndSectionOfAddCounterpartyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty2, 150);
+            string name = driver.FindElement(secAddCounterparty2).Text;
+            return name;
+        }
+
+        //Get error message when no company is added
+        public string GetErrorMessageWhenNoCompanyIsAdded()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppAddCounterparty, 150);
+            driver.FindElement(txtOppAddCounterparty).SendKeys("Project Astro1");
+            driver.FindElement(txtOppAddCounterparty).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-accordion-section[1]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
+            driver.FindElement(btnSearchOppAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 350);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNoCompany, 150);
+            string message = driver.FindElement(msgNoCompany).Text;
+            return message;       
+        }
+
+        //Get success message when a company is added
+        public string GetSuccessMessageWhenACompanyIsAdded()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 250);
+            driver.FindElement(chkCompany).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessL, 350);
+            string message = driver.FindElement(msgSuccessL).Text;
+            return message;
+        }
+
+        //Get success message when multiple companies are added
+        public string GetSuccessMessageWhenMultipleCompaniesAreAdded()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
+            driver.FindElement(chkCompany).Click();
+            driver.FindElement(chkCompany2).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessL, 350);
+            string message = driver.FindElement(msgSuccessL).Text;
+            return message;
+        }
+
+        //Get error message when no company is added
+        public string GetErrorMessageWhenNoCompanyIsAddedFromExistingCompany()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty2, 150);
+            driver.FindElement(secAddCounterparty2).Click();
+            Thread.Sleep(3000);            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompAddCounterparty, 150);
+            driver.FindElement(txtCompAddCounterparty).SendKeys("2022 Summit Attendees");
+            Thread.Sleep(2000);
+            driver.FindElement(txtCompAddCounterparty).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-accordion-section[2]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearchCompAddCounterparty, 150);
+            driver.FindElement(btnSearchCompAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNoCompany, 150);
+            string message = driver.FindElement(msgNoCompany).Text;
+            return message;
+        }
+
+        //Get success message when a company is added From Company list
+        public string GetSuccessMessageWhenACompanyIsAddedFromExistingCompany()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 250);
+            driver.FindElement(chkCompany).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessL, 350);
+            string message = driver.FindElement(msgSuccessL).Text;
+            return message;
+        }
+
+        //Click an Back button and Validate the page
+        public string ClickBackButtonAndValidateViewCounterpartiesPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackAddCounterpartiesL, 150);
+            driver.FindElement(btnBackAddCounterpartiesL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleCounterparties, 150);
+            string title= driver.FindElement(titleCounterparties).Text;
+            return title;
+        }
+
+        //Validate if added counterparties row exist in View Counterparties page
+        public string ValidateIfAddedCounterpartiesExists()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, rowCounterpartiesL, 150);
+            string value = driver.FindElement(rowCounterpartiesL).Displayed.ToString();
+            Console.WriteLine(value);
+            if (value.Equals("True"))
+            {
+                return "Added Counterparties are displayed";
+            }
+            else
+            {
+                return "Added Counterparties are not displayed";
+            }
+        }
+
+        //Validate all View values
+        public bool VerifyViewTypes()
+        {
+            driver.FindElement(btnView).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valView);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = {"All", "Sellside Stages", "Buyside Stages", "Capital Markets Stages" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate displayed records as per selected View
+        public string ValidateDisplayedRecordsAsPerSelectedView()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnView, 150);
+            //driver.FindElement(btnView).Click();
+            driver.FindElement(By.XPath("//span[text()='Sellside Stages']")).Click();
+            Thread.Sleep(7000);
+            string message= driver.FindElement(msgNoRecords).Text;
+            driver.FindElement(btnView).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//span[text()='Buyside Stages']")).Click();
+            Thread.Sleep(3000);
+            return message;
+        }       
     }
 }
 
