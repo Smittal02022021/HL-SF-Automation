@@ -3,7 +3,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Linq;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace SF_Automation.Pages
 {
@@ -32,8 +32,12 @@ namespace SF_Automation.Pages
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
-
-
+        By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
+        By tagEngagements = By.XPath("//div/ul/li[3]/div/a/span[2]/span");        
+        By lnkRecentlyViewed = By.XPath("//h1/span[2]");
+        By tblEngagements = By.XPath("//div[1]/div/div/table");
+        By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
+        By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
 
         //To Click on Engagement tab
         public void ClickEngagement()
@@ -246,6 +250,67 @@ namespace SF_Automation.Pages
             driver.FindElement(imgOppL).Click();
             Thread.Sleep(2000);
 
+        }
+
+        public string ValidateEngUnderHLBanker()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
+            driver.FindElement(btnNavigationMenu).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 350);
+            string value = driver.FindElement(tagEngagements).Text;
+            return value;
+        }
+
+        //Validate Recently Viewed is displayed upon selecting Engagements
+        public string ValidateRecentViewedUponSelectingEngagements()
+        {
+            driver.FindElement(tagEngagements).Click();
+            Thread.Sleep(3000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRecentlyViewed, 350);
+            string value = driver.FindElement(lnkRecentlyViewed).Text;
+            return value;
+        }
+
+        //Validate if recently viewed Engagements are displayed or not
+        public string ValidateIfRecentlyViewedEngagementsAreDisplayed()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tblEngagements, 100);
+            string value = driver.FindElement(tblEngagements).Displayed.ToString();
+            return value;
+        }
+        //Validate Recently Viewed values
+        public bool ValidateRecentlyViewedValues()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
+            driver.FindElement(btnRecentlyViewed).Click();
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
+            Thread.Sleep(3000);
+            string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "All Engagements", "FAS Engagements", "My Active Engagements","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements",  "Recently Viewed", "(Pinned list)" };
+            bool isTrue = true;
+
+            Console.WriteLine(actualNamesAndDesc[5]);
+            Console.WriteLine(actualNamesAndDesc[6]);
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+
+            driver.FindElement(lnkRecentlyViewed).Click();
+            return isTrue;
         }
     }
 }
