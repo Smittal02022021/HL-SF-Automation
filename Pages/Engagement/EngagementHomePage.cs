@@ -42,7 +42,7 @@ namespace SF_Automation.Pages
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
         By valSearchedEngName = By.XPath("//table/tbody/tr/th/span/a");
-        By titleEngDetails = By.XPath("//a[text()='Details']");
+        By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
 
         //To Click on Engagement tab
         public void ClickEngagement()
