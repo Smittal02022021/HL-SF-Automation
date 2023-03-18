@@ -253,6 +253,41 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Billing Comments", billing);
                 extentReports.CreateLog("Sub Tab " + billing + " is displayed under Info Tab ");
 
+                //Validate Edit functionality of Details tab                
+                string tabDetailsEditable = engagementDetails.ValidateDetailsTabIsEditable();
+                Assert.AreEqual("True", tabDetailsEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button
+                string valClientOwnership = engagementDetails.GetClientOwnershipL();
+                engagementDetails.UpdateClientOwnershipL();
+                string valUpdClientOwnership = engagementDetails.GetClientOwnershipLPostUpdate();
+                Assert.AreNotEqual(valClientOwnership, valUpdClientOwnership);
+                extentReports.CreateLog("Entered value : " + valUpdClientOwnership + " is displayed after updating details of Client Ownership ");
+
+                //Click Imp Dates tab and validate edit functionality
+                engagementDetails.ClickImpDates();
+                string tabImpEditable = engagementDetails.ValidateImpDatesTabIsEditable();
+                Assert.AreEqual("True", tabDetailsEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button                
+                engagementDetails.UpdateExpectedMktDateL();
+                string valUpdExpMktDate = engagementDetails.GetExpMktDatePostUpdate();
+                Assert.AreNotEqual(" ", valUpdExpMktDate);
+                extentReports.CreateLog("Entered value : " + valUpdExpMktDate + " is displayed after updating details of Expected In Market Date ");
+
+                //Click Administration tab and validate edit functionality
+                engagementDetails.ClickAdmin();
+                string tabAdminEditable = engagementDetails.ValidateAdministrationTabIsEditable();
+                Assert.AreEqual("True", tabAdminEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button               
+                string valDeal = engagementDetails.UpdateDealCloudIDAndValidate();
+                Assert.AreNotEqual(" ", valDeal);
+                extentReports.CreateLog("Entered value : " + valDeal + " is displayed after updating details of Client Ownership ");
+
 
 
                 driver.Quit();
