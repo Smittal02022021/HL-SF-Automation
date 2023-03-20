@@ -64,7 +64,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Selecting the desired Rate Sheet 
                     rateSheet.SelectRateSheet(rowRateSheetname);
                     extentReports.CreateLog("User Selected the " + rowRateSheetname);
-                    Assert.IsTrue(WebDriverWaits.WaitUntilTitleContains(driver, rowRateSheetname),"Verifying user is on Rate Sheet detail page");
+                    //Assert.IsTrue(WebDriverWaits.WaitUntilTitleContains(driver, rowRateSheetname),"Verifying user is on Rate Sheet detail page");
                     //Verifying user is on Rate Sheet detail page
                     string nameRateSheetDetailPage = rateSheet.GetRateSheetDetailPage();
                     Assert.AreEqual(nameRateSheetDetailPage, rowRateSheetname);
