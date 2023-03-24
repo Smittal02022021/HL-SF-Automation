@@ -37,13 +37,31 @@ namespace SF_Automation.Pages.HomePage
         By myCoverageTab = By.XPath("//span[text()='My Coverage']");
         By dropdownStartDateFilter = By.XPath("//div[@class='selected-values']");
         By lblNoRecords = By.XPath("//span[text()='No results found']");
-        By lblKPITotal = By.XPath("//div[text()='Total']");
-        By lblKPIMeetings = By.XPath("//div[text()='Meetings']");
-        By lblKPICalls = By.XPath("//div[text()='Calls']");
-        By lblKPIEmailsTasks = By.XPath("//div[text()='Emails/Tasks ']");
-        By lblKPIOthers = By.XPath("//div[text()='Others']");
-        By lblKPIMissingNotes = By.XPath("//div[text()='Missing Notes']");
 
+        By lblKPITotal = By.XPath("//div[text()='Total']");
+        By lblTotalRecords = By.XPath("//div[text()='Total']/../../div/div/div");
+
+        By lblKPIMeetings = By.XPath("//div[text()='Meetings']");
+        By lblMeetingRecords = By.XPath("//div[text()='Meetings']/../../div/div/div");
+        By linkKPIMeetingsViewDetails = By.XPath("(//span[text()='View Details'])[1]/..");
+
+        By lblKPICalls = By.XPath("//div[text()='Calls']");
+        By lblCallRecords = By.XPath("//div[text()='Calls']/../../div/div/div");
+        By linkKPICallsViewDetails = By.XPath("(//span[text()='View Details'])[2]/..");
+
+        By lblKPIEmailsTasks = By.XPath("//div[text()='Emails/Tasks ']");
+        By lblEmailRecords = By.XPath("//div[text()='Emails/Tasks ']/../../div/div/div");
+        By linkKPIEmailsViewDetails = By.XPath("(//span[text()='View Details'])[3]/..");
+
+        By lblKPIOthers = By.XPath("//div[text()='Others']");
+        By lblOtherRecords = By.XPath("//div[text()='Others']/../../div/div/div");
+        By linkKPIOthersViewDetails = By.XPath("(//span[text()='View Details'])[4]/..");
+
+        By lblKPIMissingNotes = By.XPath("//div[text()='Missing Notes']");
+        By lblMissingNoteRecords = By.XPath("//div[text()='Missing Notes']/../../div/div/div");
+        By linkKPIMissingNotesViewDetails = By.XPath("(//span[text()='View Details'])[5]/..");
+
+        //General
         By linkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
         By linkContactsInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[8]/lightning-base-combobox-item/span[2]/span");
@@ -673,8 +691,11 @@ namespace SF_Automation.Pages.HomePage
             string excelPath = dir + file;
 
             bool result = false;
+
+            Thread.Sleep(3000);
+
             int excelCount = ReadExcelData.GetRowCount(excelPath,"ActivityColumns");
-            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr[1]/th")).Count;
+            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[1]/tbody/tr[1]/th")).Count;
 
             for(int i = 2;i <= excelCount;i++)
             {
@@ -682,7 +703,7 @@ namespace SF_Automation.Pages.HomePage
 
                 for(int j = 1;j <= recordCount;j++)
                 {
-                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
+                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[1]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
                     if(exlColValue == sfColValue)
                     {
                         result = true;
@@ -696,6 +717,174 @@ namespace SF_Automation.Pages.HomePage
                 continue;
             }
             return result;
+        }
+
+        public bool VerifyFunctionalityOfKPIMetricesOnMyCoverageDashboard(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            bool overallResult = false;
+            bool result1 = false;
+            bool result2 = false;
+            bool result3 = false;
+            bool result4 = false;
+            bool result5 = false;
+            bool result6 = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            driver.FindElement(dropdownStartDateFilter).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath("//div[@class='css-1m3zwzh']/div/div[3]/div/div[3]/div[1]/div/input")).Click();
+            Thread.Sleep(3000);
+
+            //Get total no. of KPI
+            int excelCount = ReadExcelData.GetRowCount(excelPath,"KPIMetrics");
+
+            for(int i = 2;i <= excelCount;i++)
+            {
+                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath,"KPIMetrics",i,1);
+                switch(exlKPIValue)
+                {
+                    case "Total":
+                        string lblKPI1Count = driver.FindElement(lblTotalRecords).Text;
+
+                        //Get the no. of rows in table
+                        int rowCount = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+
+                        for(int j = rowCount;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI1Count==totalRecCount)
+                                {
+                                    result1 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "Meetings":
+                        string lblKPI2Count = driver.FindElement(lblMeetingRecords).Text;
+
+                        driver.FindElement(linkKPIMeetingsViewDetails).Click();
+                        Thread.Sleep(3000);
+
+                        //Get the no. of rows in table
+                        int rowCount2 = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+                        for(int j = rowCount2;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI2Count == totalRecCount)
+                                {
+                                    result2 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "Calls":
+                        string lblKPI3Count = driver.FindElement(lblCallRecords).Text;
+
+                        driver.FindElement(linkKPICallsViewDetails).Click();
+                        Thread.Sleep(3000);
+
+                        //Get the no. of rows in table
+                        int rowCount3 = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+                        for(int j = rowCount3;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI3Count == totalRecCount)
+                                {
+                                    result3 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "Emails/Tasks":
+                        string lblKPI4Count = driver.FindElement(lblEmailRecords).Text;
+
+                        driver.FindElement(linkKPIEmailsViewDetails).Click();
+                        Thread.Sleep(3000);
+
+                        //Get the no. of rows in table
+                        int rowCount4 = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+                        for(int j = rowCount4;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI4Count == totalRecCount)
+                                {
+                                    result4 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "Others":
+                        string lblKPI5Count = driver.FindElement(lblOtherRecords).Text;
+
+                        driver.FindElement(linkKPIOthersViewDetails).Click();
+                        Thread.Sleep(3000);
+
+                        //Get the no. of rows in table
+                        int rowCount5 = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+                        for(int j = rowCount5;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI5Count == totalRecCount)
+                                {
+                                    result5 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case "Missing Notes":
+                        string lblKPI6Count = driver.FindElement(lblMissingNoteRecords).Text;
+
+                        driver.FindElement(linkKPIMissingNotesViewDetails).Click();
+                        Thread.Sleep(3000);
+
+                        //Get the no. of rows in table
+                        int rowCount6 = driver.FindElements(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr")).Count;
+                        for(int j = rowCount6;j >= 1;j--)
+                        {
+                            bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div"));
+                            if(elePresent == true)
+                            {
+                                string totalRecCount = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[1]/tbody/tr[{j}]/th/div/div")).Text;
+                                if(lblKPI6Count == totalRecCount)
+                                {
+                                    result6 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+            if(result1==true && result2==true && result3 == true && result4 == true && result5 == true && result6 == true)
+            {
+                overallResult = true;
+            }
+            return overallResult;
         }
     }
 }
