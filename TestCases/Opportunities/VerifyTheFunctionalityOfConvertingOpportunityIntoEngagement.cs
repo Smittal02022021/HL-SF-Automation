@@ -220,6 +220,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
 
                 //Validate on clicking Engagement number, engagement details page is displayed
+                engHome.ClickEngNumber();
                 string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
                 Assert.AreEqual("Details", titleEngDetails);
                 extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
@@ -263,7 +264,7 @@ namespace SF_Automation.TestCases.Opportunity
                 engagementDetails.UpdateClientOwnershipL();
                 string valUpdClientOwnership = engagementDetails.GetClientOwnershipLPostUpdate();
                 Assert.AreNotEqual(valClientOwnership, valUpdClientOwnership);
-                extentReports.CreateLog("Entered value : " + valUpdClientOwnership + " is displayed after updating details of Client Ownership ");
+                extentReports.CreateLog("Entered value : " + valUpdClientOwnership + " is displayed after updating details of Client Ownership in Details tab ");
 
                 //Click Imp Dates tab and validate edit functionality
                 engagementDetails.ClickImpDates();
@@ -274,8 +275,8 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update any value and validate if it gets saved post clicking saving button                
                 engagementDetails.UpdateExpectedMktDateL();
                 string valUpdExpMktDate = engagementDetails.GetExpMktDatePostUpdate();
-                Assert.AreNotEqual(" ", valUpdExpMktDate);
-                extentReports.CreateLog("Entered value : " + valUpdExpMktDate + " is displayed after updating details of Expected In Market Date ");
+                Assert.NotNull(valUpdExpMktDate);
+                extentReports.CreateLog("Entered value : " + valUpdExpMktDate + " is displayed after updating details of Expected In Market Date in Important Dates tab ");
 
                 //Click Administration tab and validate edit functionality
                 engagementDetails.ClickAdmin();
@@ -283,10 +284,23 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("True", tabAdminEditable);
                 extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
 
+                //Update any value and validate if it gets saved post clicking saving button
+                string deal = CustomFunctions.RandomValue();
+                string valDeal = engagementDetails.UpdateDealCloudIDAndValidate(deal);
+                Assert.AreEqual(deal, valDeal);
+                extentReports.CreateLog("Entered value : " + valDeal + " is displayed after updating details of DealCloud ID in Administration tab ");
+
+                //Click Closing Info tab and validate edit functionality
+                engagementDetails.ClickClosingInfo();
+                string tabClosingInfoEditable = engagementDetails.ValidateClosingInfoTabIsEditable();
+                Assert.AreEqual("True", tabClosingInfoEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+
                 //Update any value and validate if it gets saved post clicking saving button               
-                string valDeal = engagementDetails.UpdateDealCloudIDAndValidate();
-                Assert.AreNotEqual(" ", valDeal);
-                extentReports.CreateLog("Entered value : " + valDeal + " is displayed after updating details of Client Ownership ");
+                string valIntDeal = engagementDetails.UpdateIntDealAnnAndValidate();
+                Assert.AreEqual("Completed", valIntDeal);
+                extentReports.CreateLog("Entered value : " + valIntDeal + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
+
 
 
 
