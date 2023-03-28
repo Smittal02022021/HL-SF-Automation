@@ -706,7 +706,7 @@
     <Compile Include="TestCases\Opportunities\TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
-    <Compile Include="TestCases\Opportunities\T1432_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
+    <Compile Include="TestCases\Opportunities\T1432_TMTI0056866_56870_56872_56884OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
     <Compile Include="TestCases\Opportunities\T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />

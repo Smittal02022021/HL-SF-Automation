@@ -9,8 +9,16 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1432_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation : BaseClass
+    class T1432_TMTI0056866_56870_56872_56884OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation : BaseClass
     {
+        //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
+        /*
+         TMTI0056866_TMTI0056870_TMTI0056872_TMTI0056884 Verify the availability of new Job Type- FA - Portfolio-Auto Struct Prd/Consulting in Job Type Picklist while adding new FVA Opportunity
+         TMTI0056870 Verify user is able to create new Opportunity with new Job Type - FA - Portfolio-Auto Struct Prd/Consulting
+         TMTI0056872 Verify the availability of Job Types for converted engagement on the Engagement page
+         TMTI0056884 Verify the Record Type conversion of Opportunity to Engagement
+        */
+
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
