@@ -310,7 +310,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update any value and validate if it gets saved post clicking saving button               
                 string valCST = engagementDetails.UpdateCSTQuestionnaireAndValidate();
                 Assert.AreEqual("Yes", valCST);
-                extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
+                extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of CST Questionnaire in CST Questionnaire Details tab ");
 
 
 
