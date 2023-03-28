@@ -314,6 +314,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -513,6 +514,7 @@ namespace SF_Automation.Pages
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
             driver.FindElement(checkInitiator).Click();
@@ -536,6 +538,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
