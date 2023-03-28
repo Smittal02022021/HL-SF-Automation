@@ -301,6 +301,17 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Completed", valIntDeal);
                 extentReports.CreateLog("Entered value : " + valIntDeal + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
 
+                //Click CST Questionnaire Details tab and validate edit functionality
+                engagementDetails.ClickCSTQuesTab();
+                string tabCSTEditable = engagementDetails.ValidateCSTTabIsEditable();
+                Assert.AreEqual("True", tabCSTEditable);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button               
+                string valCST = engagementDetails.UpdateCSTQuestionnaireAndValidate();
+                Assert.AreEqual("Yes", valCST);
+                extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
+
 
 
 
