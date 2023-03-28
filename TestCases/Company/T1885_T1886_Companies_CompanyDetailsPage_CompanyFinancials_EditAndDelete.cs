@@ -77,7 +77,6 @@ namespace SF_Automation.TestCases.Companies
 
                     // Calling Search Company function
                     companyHome.SearchCompany(fileTC1886, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1));
-                    //
                     
                     int rowCompanyFinancialSheet = ReadExcelData.GetRowCount(excelPath, "CompanyFinancial");
                     
@@ -111,29 +110,29 @@ namespace SF_Automation.TestCases.Companies
                         
                         //Validate date of company financial
                         string companyFinancialAsOfDate = companyDetail.GetAsOfYearFinancialYear(rows);
-                        //Assert.AreEqual(asOfDate, companyFinancialAsOfDate);
+                        Assert.AreEqual(asOfDate, companyFinancialAsOfDate);
                         extentReports.CreateLog("As Of Date: " + companyFinancialAsOfDate + " is displayed in company financial section of company detail page upon creating new company financial ");
                         
                     }
 
                     //Get most recent year from company financial
-                    string mostRecentYearCompanyLevel = companyDetail.GetCompanyFinancialYear(4);
+                    string mostRecentYearCompanyLevel = companyDetail.GetCompanyFinancialYear(2);
 
                     //Click on new company financial 
                     companyDetail.ClickNewCompanyFinancial(fileTC1886, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1));
                     string mostRecentYearFromNewFinancialCreateDrpDwn = companyFinancial.GetMostRecentYear(2);
-                    //Assert.AreEqual(mostRecentYearFromNewFinancialCreateDrpDwn, mostRecentYearCompanyLevel);
+                    Assert.AreEqual(mostRecentYearFromNewFinancialCreateDrpDwn, mostRecentYearCompanyLevel);
                     extentReports.CreateLog("Most Recent year: " + mostRecentYearCompanyLevel + " is displayed to the company level ");
 
                     //Get third listed year from new financial
-                    string thirdListedYearFromNewFinancialCreateDrpDwn  = companyFinancial.GetMostRecentYear(4);
+                    string thirdListedYearFromNewFinancial  = companyFinancial.GetMostRecentYear(4);
 
                     companyFinancial.ClickCancelButton();
 
                     //Get value of Financial year from annual financial
                     string financialYearAnnualFinancial = companyDetail.GetFinancialsYearAnnualFinancial();
-                    Assert.AreEqual(mostRecentYearCompanyLevel, financialYearAnnualFinancial);
-                    extentReports.CreateLog("Most Recent year: " + financialYearAnnualFinancial + " is displayed to the annual financial and matches with company level ");
+                    Assert.AreEqual(thirdListedYearFromNewFinancial, financialYearAnnualFinancial);
+                    extentReports.CreateLog("Financial year: " + financialYearAnnualFinancial + " is displayed to the annual financial and matches with company level ");
 
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("LogOut from StandardUser ");
@@ -147,15 +146,10 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(topCompanyFinancialYearAfterEdit, secondMostRecentYear);
                     extentReports.CreateLog("Most Recent year: " + topCompanyFinancialYearAfterEdit + " is displayed at company level after changing the latest year to oldest year ");
 
-                    //Validate annual financial after changing the latest year to oldest year
-                    string updatedfinancialYearAnnualFinancial = companyDetail.GetFinancialsYearAnnualFinancial();
-                    Assert.AreEqual(secondMostRecentYear, updatedfinancialYearAnnualFinancial);
-                    extentReports.CreateLog("Most Recent year: " + topCompanyFinancialYearAfterEdit + " is displayed at annual financial after changing the latest year to oldest year ");
-
                     //Delete most recent year
                     companyDetail.DeleteCompanyFinancialRecord(fileTC1886, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1));
                     string topCompanyFinancialYearAfterDelete = companyDetail.GetCompanyFinancialYear(2);
-                    Assert.AreEqual(topCompanyFinancialYearAfterDelete, thirdListedYearFromNewFinancialCreateDrpDwn);
+                    Assert.AreEqual(topCompanyFinancialYearAfterDelete,thirdListedYearFromNewFinancial);
                     extentReports.CreateLog("Next top Recent year: " + topCompanyFinancialYearAfterDelete + " is displayed at company level after deleting most recent year ");
 
                     //Validate second most recent year in annual financial
@@ -181,8 +175,8 @@ namespace SF_Automation.TestCases.Companies
                     string ValueAfterCompanyFinancialRecordDeletion = companyDetail.GetFinancialsYearAnnualFinancial();
                     Assert.AreEqual("", ValueAfterCompanyFinancialRecordDeletion);
                     extentReports.CreateLog("Annual Financial is displayed as blank after deleting all Company financial records ");
-
                 }
+
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

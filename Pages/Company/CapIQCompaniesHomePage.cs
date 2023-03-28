@@ -142,7 +142,7 @@ namespace SF_Automation.Pages.Company
         // To get company detail page heading
         public string GetCompanyDetailHeading()
         {
-            //WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyDetail, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyDetail, 60);
             string headingCompanyDetail = driver.FindElement(lblCompanyDetail).Text;
             return headingCompanyDetail;
         }
