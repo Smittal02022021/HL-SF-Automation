@@ -60,142 +60,110 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
-                for (int row = 2; row <= userCount; row++)
-                {
-                    //Navigate to Coverage Sector Dependencies home page
-                    companyDetail.NavigateToCoverageSectorDependenciesPage();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " page is displayed ");
+                //Navigate to Coverage Sector Dependencies home page
+                companyDetail.NavigateToCoverageSectorDependenciesPage();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog(driver.Title + " page is displayed ");
 
-                    //Click New Coverage Sector Dependencies Button
-                    coverageSectorDependenciesHome.ClickNewCoverageDependenciesButton();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Coverage Sector Dependency Edit: New Coverage Sector Dependency ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " page is displayed ");
+                //Click New Coverage Sector Dependencies Button
+                coverageSectorDependenciesHome.ClickNewCoverageDependenciesButton();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependency Edit: New Coverage Sector Dependency ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog(driver.Title + " page is displayed ");
 
-                    //Create New coverage Sector Dependency
-                    newCoverageSectorDependencies.CreateNewCoverageSectorDependency(fileTC14212);
+                //Create New coverage Sector Dependency
+                newCoverageSectorDependencies.CreateNewCoverageSectorDependency(fileTC14212);
 
-                    //Fetch the Coverage Sector Dependency Name from its detail page
-                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorDependencyName();
-                    extentReports.CreateLog("Coverage Sector Dependency Name is: " + coverageSectorDependencyName + " ");
+                //Fetch the Coverage Sector Dependency Name from its detail page
+                string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorDependencyName();
+                extentReports.CreateLog("Coverage Sector Dependency Name is: " + coverageSectorDependencyName + " ");
 
-                    //Search user by global search
-                    string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    homePage.SearchUserByGlobalSearch(fileTC14212,user);
-                    string userPeople = homePage.GetPeopleOrUserName();
-                    Assert.AreEqual(user, userPeople);
-                    extentReports.CreateLog("User " + userPeople + " details are displayed ");
+                //Search user by global search
+                string user = ReadExcelData.ReadDataMultipleRows(excelPath,"Users",2,1);
+                homePage.SearchUserByGlobalSearch(fileTC14212,user);
+                string userPeople = homePage.GetPeopleOrUserName();
+                Assert.AreEqual(user,userPeople);
+                extentReports.CreateLog("User " + userPeople + " details are displayed ");
 
-                    //Login user
-                    usersLogin.LoginAsSelectedUser();
+                //Login user
+                usersLogin.LoginAsSelectedUser();
 
-                    //Handling salesforce Lightning
-                    login.HandleSalesforceLightningPage();
+                //Handling salesforce Lightning
+                login.HandleSalesforceLightningPage();
 
-                    string userName = login.ValidateUser();
-                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1).Contains(userName), true);
-                    switch (row)
-                    {
-                        case 2:
-                            extentReports.CreateLog("Standard User: " + userName + " is able to login ");
-                            break;
-                        case 3:
-                            extentReports.CreateLog("Marketing User: " + userName + " is able to login ");
-                            break;
-                        case 4:
-                            extentReports.CreateLog("CF Financial User: " + userName + " is able to login ");
-                            break;
-                        case 5:
-                            extentReports.CreateLog("CAO User: " + userName + " is able to login ");
-                            break;
-                        case 6:
-                            extentReports.CreateLog("Business Operation User: " + userName + " is able to login ");
-                            break;
-                        case 7:
-                            extentReports.CreateLog("System Administrator User: " + userName + " is able to login ");
-                            break;
-                    }
+                string userName = login.ValidateUser();
+                Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath,"Users",2,1).Contains(userName),true);
+                extentReports.CreateLog("Standard User: " + userName + " is able to login ");
 
-                    //login.HandleSalesforceLightningPage();
+                //Calling click contact function
+                conHome.ClickContact();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    //Calling click contact function
-                    conHome.ClickContact();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                //Calling click add contact function
+                conHome.ClickAddContact();
+                extentReports.CreateLog("User navigate to add contact page. ");
 
-                    //Calling click add contact function
-                    conHome.ClickAddContact();
-                    extentReports.CreateLog("User navigate to add contact page. ");
+                //Calling Create Contact function to create new external contact
+                createContact.CreateContact(fileTC14212);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact: Test ExternalContact ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("New external contact is created. ");
 
-                    if(row==userCount)
-                    {
-                        //Select contact record type
-                        conSelectRecord.SelectContactRecordType(fileTC14212, ReadExcelData.ReadData(excelPath, "ContactTypes", 1));
-                    }
+                //Verify if Contact Sector Quick Link is displayed
+                Assert.IsTrue(contactDetails.VerifyIfContactSectorQuickLinkIsDisplayed());
+                extentReports.CreateLog("Contact Sector Quick Link is displayed on contact details page. ");
 
-                    //Calling Create Contact function to create new external contact
-                    createContact.CreateContact(fileTC14212);
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact: Test ExternalContact ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("New external contact is created. ");
+                //Click on new Contact Sector button
+                contactDetails.ClickNewContactSectorButton();
 
-                    //Verify if Contact Sector Quick Link is displayed
-                    Assert.IsTrue(contactDetails.VerifyIfContactSectorQuickLinkIsDisplayed());
-                    extentReports.CreateLog("Contact Sector Quick Link is displayed on contact details page. ");
-                    
-                    //Click on new Contact Sector button
-                    contactDetails.ClickNewContactSectorButton();
+                //Validating Title of Contact Sector Page
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact Sector Edit: New Contact Sector ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog(driver.Title + " is displayed. ");
 
-                    //Validating Title of Contact Sector Page
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact Sector Edit: New Contact Sector ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " is displayed. ");
+                //Select Coverage Sector Dependency
+                contactDetails.SelectCoverageSectorDependencyForContactSector(coverageSectorDependencyName);
 
-                    //Select Coverage Sector Dependency
-                    contactDetails.SelectCoverageSectorDependencyForContactSector(coverageSectorDependencyName);
+                //Save new contact sector details
+                contactDetails.SaveNewContactSectorDetails();
+                string conSecName = contactDetails.GetContactSectorName();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact Sector: " + conSecName + " ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("Contact Sector with name: " + conSecName + " is created successfully. ");
 
-                    //Save new contact sector details
-                    contactDetails.SaveNewContactSectorDetails();
-                    string conSecName = contactDetails.GetContactSectorName();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact Sector: " + conSecName + " ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("Contact Sector with name: " + conSecName + " is created successfully. ");
+                string contactName = ReadExcelData.ReadData(excelPath,"Contact",4);
 
-                    string contactName = ReadExcelData.ReadData(excelPath, "Contact", 4);
+                //Validating filters functionality is working properly on coverage sector dependency popup
+                Assert.IsTrue(contactDetails.VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(fileTC14212,coverageSectorDependencyName));
+                extentReports.CreateLog("Filters functionality is working properly on coverage sector dependency popup. ");
 
-                    //Validating filters functionality is working properly on coverage sector dependency popup
-                    Assert.IsTrue(contactDetails.VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(fileTC14212, coverageSectorDependencyName));
-                    extentReports.CreateLog("Filters functionality is working properly on coverage sector dependency popup. ");
+                //Save contact sector details
+                contactDetails.SaveNewContactSectorDetails();
 
-                    //Save contact sector details
-                    contactDetails.SaveNewContactSectorDetails();
+                //Navigate to contact detail page from contact sector detail page
+                contactDetails.NavigateToContactDetailPageFromContactSectorDetailPage();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact: " + contactName + " ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("User navigated back to Contact detail page. ");
 
-                    //Navigate to contact detail page from contact sector detail page
-                    contactDetails.NavigateToContactDetailPageFromContactSectorDetailPage();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact: " + contactName + " ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("User navigated back to Contact detail page. ");
+                //Verify if contact sector is added successfully to a company or not
+                Assert.IsTrue(contactDetails.VerifyContactSectorAddedToContactOrNot(conSecName));
+                extentReports.CreateLog("Contact sector: " + conSecName + " is added successfully to a contact: " + contactName + " ");
 
-                    //Verify if contact sector is added successfully to a company or not
-                    Assert.IsTrue(contactDetails.VerifyContactSectorAddedToContactOrNot(conSecName));
-                    extentReports.CreateLog("Contact sector: " + conSecName + " is added successfully to a contact: " + contactName + " ");
+                //Delete contact sector
+                contactDetails.DeleteContactSector();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact Sectors: Home ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("Contact Sector deleted successfully. ");
 
-                    //Delete contact sector
-                    contactDetails.DeleteContactSector();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact Sectors: Home ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("Contact Sector deleted successfully. ");
-                    
-                    usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
 
-                    //Delete Coverage Sector Dependency
-                    contactDetails.NavigateToCoverageSectorDependenciesPage();
-                    coverageSectorDependenciesHome.NavigateToCoverageSectorDependencyDetailPage(coverageSectorDependencyName);
-                    coverageSectorDependenciesDetail.DeleteCoverageSectorDependency();
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("Coverage sector dependency deleted successfully. ");
+                //Delete Coverage Sector Dependency
+                contactDetails.NavigateToCoverageSectorDependenciesPage();
+                coverageSectorDependenciesHome.NavigateToCoverageSectorDependencyDetailPage(coverageSectorDependencyName);
+                coverageSectorDependenciesDetail.DeleteCoverageSectorDependency();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("Coverage sector dependency deleted successfully. ");
 
-                    //To Delete created contact
-                    contactDetails.DeleteCreatedContact(fileTC14212, "External Contact");
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog("Created contact is deleted successfully ");
-                }
+                //To Delete created contact
+                contactDetails.DeleteCreatedContact(fileTC14212,"External Contact");
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Salesforce - Unlimited Edition"),true);
+                extentReports.CreateLog("Created contact is deleted successfully ");
 
                 usersLogin.UserLogOut();
                 driver.Quit();

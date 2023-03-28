@@ -95,6 +95,7 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser()
         {
             bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver,btnEdit,120);
             if(driver.FindElement(btnEdit).Displayed && driver.FindElement(btnAddRelationshipL).Displayed && driver.FindElement(btnAddActivity).Displayed && driver.FindElement(btnPrintableView).Displayed)
             {
                 result = true;

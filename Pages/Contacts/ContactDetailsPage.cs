@@ -237,7 +237,7 @@ namespace SF_Automation.Pages.Contact
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
             Thread.Sleep(2000);
 
-            driver.FindElement(linkShowAllResults).Click();
+            //driver.FindElement(linkShowAllResults).Click();
             Thread.Sleep(2000);
             driver.FindElement(linkCoverageSectorDependencyName).Click();
             Thread.Sleep(4000);
@@ -283,7 +283,7 @@ namespace SF_Automation.Pages.Contact
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
             Thread.Sleep(2000);
 
-            driver.FindElement(linkShowAllResults).Click();
+            //driver.FindElement(linkShowAllResults).Click();
             Thread.Sleep(4000);
 
             if(driver.FindElement(linkShowFilters).Displayed)
