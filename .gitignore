@@ -364,6 +364,7 @@ FodyWeavers.xsd
 
 Reports/
 Defects_Screenshots/
-TestData/Default/
-TestData/GrShaderCache/
-TestData/ShaderCache/
+TestData/Default
+TestData/GrShaderCache
+TestData/ShaderCache
+TestData/BrowserMetrices
