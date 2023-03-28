@@ -31,7 +31,6 @@ namespace SF_Automation.Pages
         By btnAddSubject = By.Id("newSubject");
         By titleHLTeam = By.CssSelector("h1 b");  //By.CssSelector("h2[class='mainTitle']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id89:0:j_id91']");
         By btnSave = By.CssSelector("input[value='Save']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
@@ -165,7 +164,7 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-325']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
         By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
-        //By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
+        By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkMarketing = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
         By checkSeller = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[4]/input");
         By checkPrincipal = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[5]/input");
@@ -252,8 +251,6 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-
-
             int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
             string valStaff = "";
             for (int row = 2; row <= rowCount; row++)
@@ -263,13 +260,9 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtStaff).SendKeys(valStaff);
                 Thread.Sleep(5000);
 
-
-
                 By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
                 CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
                 Thread.Sleep(2000);
-
-
 
                 switch (row)
                 {
@@ -309,19 +302,16 @@ namespace SF_Automation.Pages
                         break;
                 }
 
-
-
                 driver.FindElement(btnSave).Click();
                 Thread.Sleep(10000);
                 WebDriverWaits.WaitForPageToLoad(driver, 120);
             }
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
             Thread.Sleep(5000);
         }
+
         public void EnterStaffDetailsMultipleRows(string file, int row)
         {
             Thread.Sleep(3000);
@@ -331,7 +321,8 @@ namespace SF_Automation.Pages
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -529,7 +520,8 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
             driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
             driver.FindElement(checkInitiator).Click();
@@ -551,13 +543,13 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSave).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
