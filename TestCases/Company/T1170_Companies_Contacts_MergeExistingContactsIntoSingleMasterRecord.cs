@@ -60,6 +60,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual("Contacts", contactPageHeading);
                 extentReports.CreateLog("Contact Page Heading: " + contactPageHeading + " is displayed on click of Contacts tab");
 
+               
                 int rowContact = ReadExcelData.GetRowCount(excelPath, "Contact");
                 for (int row = 2; row <= 3; row++)
                 {
