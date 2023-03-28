@@ -134,7 +134,7 @@ namespace SF_Automation.TestCases.Companies
                 companyDetail.ClickNewCompanySectorButton();
 
                 //Validating Title of Company Sector Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sector Edit: New Company Sector ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sector & Investment Preference Edit: New Company Sector & Investment Preference ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog(driver.Title + " is displayed. ");
 
                 //Select CoverageSectorDependency
@@ -143,7 +143,7 @@ namespace SF_Automation.TestCases.Companies
                 //Save new company sector details
                 companyDetail.SaveNewCompanySectorDetails();
                 string compSecName = companyDetail.GetCompanySectorName();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sector: " + compSecName + " ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sector & Investment Preference: " + compSecName + " ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog("Company Sector with name: " + compSecName + " is created successfully. ");
 
                 //Validating filters functionality is working properly on coverage sector dependency popup
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.Companies
 
                 //Delete company sector
                 companyDetail.DeleteCompanySector();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sectors: Home ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Company Sectors & Investment Preferences: Home ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog("Company Sector deleted successfully. ");
 
                 usersLogin.UserLogOut();

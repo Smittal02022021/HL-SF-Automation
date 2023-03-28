@@ -148,10 +148,10 @@ namespace SF_Automation.Pages.Companies
         By btnContinue = By.CssSelector("input[title='Continue']");
         By drpdownOfficeCode = By.CssSelector("select[id*='00Fjq9q']");
 
-        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector']");
+        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector & Investment Preference']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
-        By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
+        By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Sector Categorization Lookup (New Window)']");
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
         By btnSaveCompanySector = By.XPath("(//input[@title='Save'])[1]");
@@ -167,6 +167,8 @@ namespace SF_Automation.Pages.Companies
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
+
+        By drpdownInvestmentPref = By.XPath("//label[text()='Investment Preference / Operating Sector']/../../td[2]/div/span/select");
 
         public bool VerifyIfCompanySectorQuickLinkIsDisplayed()
         {
@@ -187,6 +189,10 @@ namespace SF_Automation.Pages.Companies
 
         public void SelectCoverageSectorDependency(string covSectorDependencyName)
         {
+            WebDriverWaits.WaitUntilEleVisible(driver,drpdownInvestmentPref,120);
+            driver.FindElement(drpdownInvestmentPref).SendKeys("Operating Sector");
+            Thread.Sleep(2000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, imgCompanySectorDependencyLookUp, 120);
             driver.FindElement(imgCompanySectorDependencyLookUp).Click();
             Thread.Sleep(2000);
