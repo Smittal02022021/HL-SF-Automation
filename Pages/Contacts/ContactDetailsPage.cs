@@ -1150,7 +1150,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteContact);
             driver.FindElement(btnDeleteContact).Click();
             IAlert alert = driver.SwitchTo().Alert();
-            Thread.Sleep(500);
+            Thread.Sleep(5000);
             alert.Accept();
             Thread.Sleep(2000);
         }

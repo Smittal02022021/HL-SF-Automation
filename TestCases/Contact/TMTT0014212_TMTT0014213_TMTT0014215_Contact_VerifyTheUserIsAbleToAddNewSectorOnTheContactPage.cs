@@ -104,8 +104,9 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("User navigate to add contact page. ");
 
                 //Calling Create Contact function to create new external contact
+                string contactName = ReadExcelData.ReadData(excelPath, "Contact", 4);
                 createContact.CreateContact(fileTC14212);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact: Test ExternalContact ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Contact: " + contactName + " ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog("New external contact is created. ");
 
                 //Verify if Contact Sector Quick Link is displayed
@@ -127,8 +128,6 @@ namespace SF_Automation.TestCases.Contact
                 string conSecName = contactDetails.GetContactSectorName();
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Contact Sector: " + conSecName + " ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog("Contact Sector with name: " + conSecName + " is created successfully. ");
-
-                string contactName = ReadExcelData.ReadData(excelPath,"Contact",4);
 
                 //Validating filters functionality is working properly on coverage sector dependency popup
                 Assert.IsTrue(contactDetails.VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(fileTC14212,coverageSectorDependencyName));
