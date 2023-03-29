@@ -34,6 +34,14 @@ namespace SF_Automation.Pages
         By searchEngBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
 
+        By linkShowAdvanceSearch = By.CssSelector(".link-options");
+
+        public void ClickEngagementTabAdvanceSearch()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements);
+            driver.FindElement(lnkEngagements).Click();
+            driver.FindElement(linkShowAdvanceSearch).Click();
+        }
         public void SelectEngagement(String engNumber)
         {
             driver.FindElement(searchEngBox).SendKeys(engNumber);

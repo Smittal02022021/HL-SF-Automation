@@ -27,7 +27,7 @@ namespace SF_Automation.UtilityFunctions
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
         By recentEmail = By.CssSelector("div[class='XG5Jd JtO0E'] > div:nth-child(2)");
 
-        By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'CF_Event123')]/..");
+        By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
         By expenseRequestNumberApprove = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");

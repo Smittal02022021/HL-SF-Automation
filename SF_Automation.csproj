@@ -670,6 +670,7 @@
     <Compile Include="TestCases\Opportunities\T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0056880_TMTI0056878_ValidateNewJobTypesAvailability.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TC2154_TMTC0002470_VerifyTheRolesAvailableToRegisteredUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
     <Compile Include="TestCases\Opportunities\TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInUSOpportunityDeal.cs" />
@@ -772,7 +773,6 @@
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
     <None Include="TestData\T1048_Contact_CreateNewContactRecordTypeHoulihanEmployee.xlsx" />
     <None Include="TestData\T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton.xlsx" />
-    <None Include="TestData\T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton_1.xlsx" />
     <None Include="TestData\T1103_CreateNewRelationshipInHoulihanEmployeeDetailPage.xlsx" />
     <None Include="TestData\T1106_Contact_CreateNewHLRelationshipInExternalContactDetailPage.xlsx" />
     <None Include="TestData\T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.xlsx" />
@@ -780,7 +780,6 @@
     <None Include="TestData\T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.xlsx" />
     <None Include="TestData\T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.xlsx" />
     <None Include="TestData\T1147_Companies_EditAndUpdateTheExistingInformation.xlsx" />
-    <None Include="TestData\T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage - Copy.xlsx" />
     <None Include="TestData\T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage.xlsx" />
     <None Include="TestData\T1170_Companies_Contacts_MergeExistingContactsIntoSingleMasterRecord %282%29.xlsx" />
     <None Include="TestData\T1170_Companies_Contacts_MergeExistingContactsIntoSingleMasterRecord.xlsx" />
@@ -833,7 +832,6 @@
     <None Include="TestData\T1828_FASRevenueAccrual_TotalEstimatedFeeChange.xls" />
     <None Include="TestData\T1832_OpportunityCounterpartiesPageAddCounterparties.xlsx" />
     <None Include="TestData\T1845_ContactDetails_Activities_AddPrivateActivity.xlsx" />
-    <None Include="TestData\T1846_Contact_ContactDetailsActivitiesCreateAnActivityWithFollowUpContact - Copy.xlsx" />
     <None Include="TestData\T1846_Contact_ContactDetailsActivitiesCreateAnActivityWithFollowUpContact.xlsx" />
     <None Include="TestData\T1873_FRDisplayedForSpecificJobTypes.xls" />
     <None Include="TestData\T1874_FREngagementSummary_FieldsAndValues.xls" />
@@ -919,6 +917,7 @@
     <None Include="TestData\TMTI0048263_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.xlsx" />
     <None Include="TestData\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.xlsx" />
     <None Include="TestData\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOn_MeetingManagementPresentationPage.xlsx" />
+    <None Include="TestData\TMTI0056880_ValidateNewJobTypesAvailability.xlsx" />
     <None Include="TestData\TMTT0005173_ActivitiesList_VerifyLayoutOfActivitiesList.xlsx" />
     <None Include="TestData\TMTT0005211_RefreshButtonFunctionalities.xlsx" />
     <None Include="TestData\TMTT0005221_StartButtonFunctionalities.xlsx" />
@@ -1008,6 +1007,7 @@
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets'))" />
   </Target>
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
   <Import Project="packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
@@ -1017,5 +1017,6 @@
   <Import Project="packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.110.0.5481.7700\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
+  <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>

@@ -40,6 +40,40 @@ namespace SF_Automation.Pages
 
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
+
+        By linkShowAdvanceSearch = By.CssSelector(".link-options");
+        By comboTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
+
+        public void ClickOpportunityTabAdvanceSearch()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
+            driver.FindElement(lnkOpportunities).Click();
+            driver.FindElement(linkShowAdvanceSearch).Click();
+        }
+        public bool IsJobTypePresentInDropdown(string jobType)
+        {
+            bool isFound = false;
+            driver.FindElement(comboJobType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypes);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)          
+            {                
+                if (actualValue[row].Contains(jobType))
+                {
+                    isFound = true;
+                    break;
+                }                
+            }
+            return isFound;
+        }
+        public void SelectOpportunity(String OppNumber)
+        {
+            driver.FindElement(searchOppBox).SendKeys(OppNumber);
+            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            driver.FindElement(selectOpp).Click();
+            Thread.Sleep(4000);
+        }
         public void ClickOpportunity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -274,14 +308,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
 
         }
-        public void SelectOpportunity(String OppNumber)
-        {
-            driver.FindElement(searchOppBox).SendKeys(OppNumber);
-            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
-            Thread.Sleep(4000);
-            driver.FindElement(selectOpp).Click();
-            Thread.Sleep(4000);
-        }
+       
     }
 }
 
