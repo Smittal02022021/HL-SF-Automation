@@ -84,7 +84,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 4), coverageTeamEditHeading);
                 extentReports.CreateLog("Page with heading: " + coverageTeamEditHeading + " is displayed upon click of new coverage team button ");
 
-
                 // Validation of fields Company\, Officer\, Coverage Level\, Type and Tier marked with Red Icon 
                 companyDetail.ValidateMandatoryFields();
                 extentReports.CreateLog("Validation of mandatory fields for Comapany,Officer,Coverage Level,Type and Tier  ");
@@ -122,7 +121,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Priority help tooltip text matches ");
 
                 //Add new coverage team
-                coverageTeam.AddNewCoverageTeam(fileTC2040,8);
+                coverageTeam.AddNewCoverageTeam(fileTC2040,5);
 
                 //Verify Coverage Team Officer
                 string officerName = companyDetail.GetCoverageTeamOfficer();
@@ -142,19 +141,11 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(coverageTypeExl, coverageType);
                 extentReports.CreateLog("Coverage Type: " + coverageType + " is displayed on company detail page under Coverage Team section upon adding a new coverage team ");
 
-
                 usersLogin.UserLogOut();
+
                 // Cleanup code
                 companyHome.SearchCompany(fileTC2040, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
                 companyDetail.DeleteCoverageTeamRecord(fileTC2040, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //This is not available for now 
-                //companyDetail.DeleteCoverageSector(fileTC2040, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
-                //companyHome.SearchCompany(fileTC2040, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //This is not available for now
-                //companyDetail.DeleteCoverageTeamRecord(fileTC2040, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
                 extentReports.CreateLog("Coverage Team is deleted successfully ");
 
                 usersLogin.UserLogOut();

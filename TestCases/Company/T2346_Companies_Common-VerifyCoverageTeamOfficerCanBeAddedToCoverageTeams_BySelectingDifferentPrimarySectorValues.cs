@@ -55,6 +55,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 CustomFunctions.TableauPopUp();
+
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 homePage.SearchUserByGlobalSearch(fileTC2346, user);
@@ -79,7 +80,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
 
                 //Add new coverage team
-                coverageTeam.AddNewCoverageTeam(fileTC2346,8);
+                coverageTeam.AddNewCoverageTeam(fileTC2346,5);
 
                 //Verify Coverage Team Officer
                 string officerName = companyDetail.GetCoverageTeamOfficer();

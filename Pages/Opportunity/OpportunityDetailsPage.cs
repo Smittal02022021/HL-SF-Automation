@@ -884,7 +884,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(2000);
             CustomFunctions.ActionClicks(driver, btnDeleteOpportunity);
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(2000);
@@ -900,7 +900,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lnkInternalTeam, 60);
             driver.FindElement(lnkInternalTeam).Click();
             CustomFunctions.ActionClicks(driver, btnDeleteInternalTeam);
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
             alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(2000);
