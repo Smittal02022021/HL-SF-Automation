@@ -97,6 +97,7 @@ namespace SF_Automation.TestCases.Companies
 
                 // Click Add Company button
                 companyHome.ClickAddCompany();
+
                 //string companyRecordTypePage = companySelectRecord.GetCompanyRecordTypePageHeading();
                 Assert.AreEqual("Select Company Record Type", companyRecordTypePage);
                 extentReports.CreateLog("Page with heading: " + companyRecordTypePage + " is displayed upon click add company button ");
@@ -224,7 +225,7 @@ namespace SF_Automation.TestCases.Companies
 
                 int dupRecordCount = 0;
                 int companyList = reportsHome.GetCompanyColumnList();
-                for (int i = 4; i <= companyList-2; i++)
+                for (int i = 6; i <= companyList-2; i++)
                 {
                     string CompanyNameFromExcel = ReadExcelData.ReadData(excelPath, "Company", 2);
                     

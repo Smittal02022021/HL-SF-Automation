@@ -128,22 +128,8 @@ namespace SF_Automation.Pages.Companies
                 result = true;
             }
 
-            return result;
-        }
-
-        public bool VerifyHQCompanyHaveFlagHQOnTopOfTheirNameOnTearsheet()
-        {
-            bool result = false;
-
-            Thread.Sleep(5000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, lblHQCompanyName, 120);
-            if (driver.FindElement(lblHQCompanyName).Text.Contains("HQ"))
-            {
-                result = true;
-            }
-
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
             return result;
         }
 

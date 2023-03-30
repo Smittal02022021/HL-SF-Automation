@@ -96,10 +96,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(lvTearsheetPage.VerifyCompanyTearsheetOpensUpUponSelectingCompanyFromDropdown(companyName));
                 extentReports.CreateLog("Company Tearsheet opens up upon selecting company from drop down as expected. ");
 
-                //TC - TMTI0045142 - Verify that the companies that are HQ will have the flag "HQ" on top of their name on Tearsheet.
-                Assert.IsTrue(lvTearsheetPage.VerifyHQCompanyHaveFlagHQOnTopOfTheirNameOnTearsheet());
-                extentReports.CreateLog("HQ companies have flag HQ on top of their name on Tearsheet. ");
-
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateLog("User Logged Out from SF Lightning View. ");

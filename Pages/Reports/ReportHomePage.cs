@@ -11,7 +11,7 @@ namespace SF_Automation.Pages.Reports
     class ReportHomePage : BaseClass
     {
         By lnkReports = By.CssSelector("a[title*='Reports Tab']");
-        By txtFindAFolder = By.CssSelector("input[class='x-form-text x-form-field quickfindInput x-form-focus']");
+        By txtFindAFolder = By.XPath("(//input[@class='x-form-text x-form-field quickfindInput x-form-empty-field'])[1]");
         By matchedFolderResult = By.CssSelector("span[unselectable='on'] > div");
         By txtFindAReportAndDashboard = By.CssSelector("input[id='ext-comp-1017']");
         By matchedReportResult = By.CssSelector("div[class='nameFieldContainer descrContainer'] > a");
@@ -40,7 +40,7 @@ namespace SF_Automation.Pages.Reports
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkReports);
             driver.FindElement(lnkReports).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
         }
 
         //To Click on Company tab
