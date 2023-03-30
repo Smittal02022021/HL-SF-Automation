@@ -60,6 +60,7 @@ namespace SF_Automation.Pages.Reports
             if(CustomFunctions.IsElementPresent(driver, btnSavePageSetting))
             {
                 driver.FindElement(btnSavePageSetting).Click();
+                Thread.Sleep(5000);
             }
         }
         public void ClickNeverUpdateOfPageSettings()
@@ -68,6 +69,7 @@ namespace SF_Automation.Pages.Reports
             if (CustomFunctions.IsElementPresent(driver, btnNeverUpdate))
             {
                 driver.FindElement(btnNeverUpdate).Click();
+                Thread.Sleep(5000);
             }
         }
 
