@@ -234,6 +234,24 @@ namespace SF_Automation.Pages.Engagement
         By btnCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By valCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]");
         By valCSTPostUpdate = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By btnNewBilling = By.XPath("//button[@name='New']");
+        By btnCloseBilling = By.XPath("//button[@title='Close error dialog']");
+        By msgDate = By.XPath("//records-record-layout-item[2]/div/span/slot/lightning-input/lightning-datepicker/div[2]");
+        By msgStatus = By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
+        By msgComment = By.XPath("//records-record-layout-text-area/lightning-textarea/div[2]");
+        By txtDate = By.XPath("//input[@name='Date__c']");
+        By btnStatus = By.XPath("//records-record-layout-item[2]/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button");
+        By valStatus = By.XPath("//div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By txtBillingComment = By.XPath("//records-record-layout-text-area/lightning-textarea/div[1]/textarea");
+        By valBillingID = By.XPath("//h1/div[text()='Billing Comment']/ancestor::h1/slot/lightning-formatted-text[1]");
+        By btnEditBillingComment = By.XPath("//lst-list-view-row-level-action/force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
+        By btnEditComment = By.XPath("//a[@title='Edit']");
+        By lnkAddedComment = By.XPath("//lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
+        By valEditComment = By.XPath("//records-record-layout-section[2]/div/div/div/slot/records-record-layout-row/slot/records-record-layout-item/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By tabEng = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        By btnDeleteComment = By.XPath("//a[@title='Delete']");
+        By btnConfirmDelete = By.XPath("//span[text()='Delete']");
+        By secDocChecklist = By.XPath("//span[@title='Document Checklist']");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2328,9 +2346,16 @@ namespace SF_Automation.Pages.Engagement
         public void ClickCSTQuesTab()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,-350)");
+            js.ExecuteScript("window.scrollTo(0,-450)");
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabCST, 150);
             driver.FindElement(subTabCST).Click();
+        }
+
+        //Click Billing Comments tab
+        public void ClickBillingCommentsTab()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabBilling, 150);
+            driver.FindElement(subTabBilling).Click();
         }
 
         //Validate if Important Dates tab is editable after clicking pencil icon
@@ -2357,6 +2382,14 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Validate if section Document Checklist is present
+        public string ValidateSectionDocChecklist()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secDocChecklist, 150);
+            string value = driver.FindElement(secDocChecklist).Text;
+            return value;
+        }
+
         //Validate if Closing tab is editable after clicking pencil icon
         public string ValidateClosingInfoTabIsEditable()
         {
@@ -2378,6 +2411,40 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate the mandatory message for Comment Date
+        public string ValidateCommentDateMandatoryValidation()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBilling, 150);
+            driver.FindElement(btnNewBilling).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btnCloseBilling).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDate, 150);
+            string value = driver.FindElement(msgDate).Text;
+            return value;
+        }
+
+        //Validate the mandatory message for Comment Status
+        public string ValidateCommentStatusMandatoryValidation()
+        {            
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgStatus, 150);
+            string value = driver.FindElement(msgStatus).Text;
+            return value;
+        }
+
+        //Validate the mandatory message for Comment
+        public string ValidateBillingCommentMandatoryValidation()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgComment, 150);
+            string value = driver.FindElement(msgComment).Text;
             return value;
         }
 
@@ -2425,13 +2492,13 @@ namespace SF_Automation.Pages.Engagement
         public string UpdateIntDealAnnAndValidate()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,450)");
+            js.ExecuteScript("window.scrollTo(0,500)");
             WebDriverWaits.WaitUntilEleVisible(driver, btnIntDeal, 150);
             driver.FindElement(btnIntDeal).Click();
             Thread.Sleep(3000);
             driver.FindElement(valIntDeal).Click();               
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             string value = driver.FindElement(valIntDealPostUpdate).Text;
             return value;
         }
@@ -2444,9 +2511,86 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             driver.FindElement(valCST).Click();
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             string value = driver.FindElement(valCSTPostUpdate).Text;
             return value;
+        }
+
+
+        //Save the Billing Comment
+        public string SaveBillingComment()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDate, 150);
+            driver.FindElement(txtDate).SendKeys("3/22/2023");            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnStatus, 210);
+            Thread.Sleep(3000);
+            driver.FindElement(btnStatus).Click();
+            driver.FindElement(btnStatus).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(valStatus).Click();
+            driver.FindElement(txtBillingComment).SendKeys("Testing");
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valBillingID, 150);
+            string id = driver.FindElement(valBillingID).Text;
+            return id;
+        }
+
+        //Edit the Billing Comment and validate error message
+        public string ValidateMandatoryMessageUponEditingBillingComment()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditBillingComment, 150);
+            driver.FindElement(btnEditBillingComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditComment, 190);
+            driver.FindElement(btnEditComment).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtBillingComment, 190);
+            driver.FindElement(txtBillingComment).Clear();
+            driver.FindElement(btnSaveDetailsL).Click();
+            driver.FindElement(btnCloseBilling).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDate, 150);
+            string value = driver.FindElement(msgDate).Text;
+            return value;
+        }
+
+        //Edit billing comments and validate the updated comments'
+        public string ValidateEditFunctionalityOfBillingComment(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtBillingComment, 190);
+            driver.FindElement(txtBillingComment).SendKeys(value);
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkAddedComment, 190);
+            driver.FindElement(lnkAddedComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valEditComment, 150);
+            string comment = driver.FindElement(valEditComment).Text;
+            return comment;
+        }
+
+        //Delete Billing Comments and validate the same
+        public string ValidateDeleteFunctionalityOfBillingComment()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEng, 190);
+            driver.FindElement(tabEng).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditBillingComment, 180);
+            driver.FindElement(btnEditBillingComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteComment, 150);
+            driver.FindElement(btnDeleteComment).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 150);
+            driver.FindElement(btnConfirmDelete).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valBillingID, 150);
+                string id = driver.FindElement(valBillingID).Text;
+                return id;
+            }
+            
+            catch(Exception e)
+            {
+                return "Billing comment does not exist";
+            }
         }
     }
 }

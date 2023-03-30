@@ -292,6 +292,10 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Click Closing Info tab and validate edit functionality
                 engagementDetails.ClickClosingInfo();
+                string secDoc = engagementDetails.ValidateSectionDocChecklist();
+                Assert.AreEqual("Document Checklist", secDoc);
+                extentReports.CreateLog("Section with name: " + secDoc+" is displayed on Closing Info tab ");
+
                 string tabClosingInfoEditable = engagementDetails.ValidateClosingInfoTabIsEditable();
                 Assert.AreEqual("True", tabClosingInfoEditable);
                 extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
@@ -312,7 +316,38 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Yes", valCST);
                 extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of CST Questionnaire in CST Questionnaire Details tab ");
 
+                //Click Billing Comments tab and validate displayed validations
+                engagementDetails.ClickBillingCommentsTab();
+                string tabBillingEditable = engagementDetails.ValidateCommentDateMandatoryValidation();
+                Assert.AreEqual("Complete this field.", tabBillingEditable);
+                extentReports.CreateLog("Message: " + tabBillingEditable + " is displayed upon clicking Save button without entering Date ");
 
+                string msgStatus = engagementDetails.ValidateCommentStatusMandatoryValidation();
+                Assert.AreEqual("Complete this field.", msgStatus);
+                extentReports.CreateLog("Message: " + msgStatus + " is displayed upon clicking Save button without entering Status ");
+
+                string msgComment = engagementDetails.ValidateBillingCommentMandatoryValidation();
+                Assert.AreEqual("Complete this field.", msgComment);
+                extentReports.CreateLog("Message: " + msgComment + " is displayed upon clicking Save button without entering Comment ");
+
+                //Save the billing comments
+                string commentID= engagementDetails.SaveBillingComment();
+                extentReports.CreateLog("Billing comment with id: " + commentID + " is displayed after adding it ");
+
+                //Edit Billing Comments and validate the mandatory validation
+                string msgCommentsUponEdit = engagementDetails.ValidateMandatoryMessageUponEditingBillingComment();
+                Assert.AreEqual("Complete this field.", msgCommentsUponEdit);
+                extentReports.CreateLog("Message: " + msgCommentsUponEdit + " is displayed upon clicking Save button without entering Comment on Edit Comments page ");
+
+                //Edit Billing comments and validate the updated values
+                string valCommentsUponEdit = engagementDetails.ValidateEditFunctionalityOfBillingComment("Testing Comments");
+                Assert.AreEqual("Testing Comments", valCommentsUponEdit);
+                extentReports.CreateLog("Updated comments : " + valCommentsUponEdit + " is displayed upon clicking editing Comment on Edit Comments page ");
+
+                //Delete Billing comments and validate the same
+                string valCommentsUponDelete = engagementDetails.ValidateDeleteFunctionalityOfBillingComment();
+                Assert.AreEqual("Billing comment does not exist", valCommentsUponDelete);
+                extentReports.CreateLog(valCommentsUponDelete + " after deleting Billing Comments ");
 
 
                 driver.Quit();
