@@ -30,8 +30,8 @@ namespace SF_Automation.UtilityFunctions
         By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
-        By expenseRequestNumberApprove = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/font");
-        //*[@id="x_topTable"]/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font
+        By expenseRequestNumberApprove1 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
+        By expenseRequestNumberApprove2 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/font");
 
         By btnSearchScope = By.XPath("//span[@id='searchScopeButtonId-option']");
         By lblScopeInbox = By.XPath("//div[@id='searchScopeButtonId-list']/button[2]");
@@ -232,10 +232,18 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(2000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove, 60);
-            string expRequestNumber = driver.FindElement(expenseRequestNumberApprove).Text.TrimEnd();
-            return expRequestNumber;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove1, 20);
+                string expRequestNumber = driver.FindElement(expenseRequestNumberApprove1).Text.TrimEnd();
+                return expRequestNumber;
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove2, 20);
+                string expRequestNumber = driver.FindElement(expenseRequestNumberApprove2).Text.TrimEnd();
+                return expRequestNumber;
+            }
         }
 
         public string VerifyExpenseRequestForRequestForMoreInfoEmail(int windowId)
