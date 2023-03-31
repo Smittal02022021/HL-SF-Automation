@@ -50,7 +50,7 @@ namespace SF_Automation.Pages
             driver.FindElement(lnkOpportunities).Click();
             driver.FindElement(linkShowAdvanceSearch).Click();
         }
-        public bool IsJobTypePresentInDropdown(string jobType)
+        public bool IsJobTypePresentInDropdownHomePage(string jobType)
         {
             bool isFound = false;
             driver.FindElement(comboJobType).Click();

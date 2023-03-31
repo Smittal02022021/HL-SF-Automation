@@ -1,19 +1,18 @@
-﻿using NUnit.Framework;
-using SF_Automation.Pages.Common;
+﻿using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages;
-using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AventStack.ExtentReports;
+using NUnit.Framework;
+using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056880_TMTI0056878_ValidateNewJobTypesAvailability: BaseClass
+    class TMTI0056883_VerifyNewJobTypeIsForFVAOnly : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,9 +22,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
-
-
-        public static string fileTC1432 = "TMTI0056880_ValidateNewJobTypesAvailability";
+        public static string fileTMTI0056883 = "TMTI0056883_VerifyNewJobTypeIsForFVAOnly";
         string valJobType;
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -36,14 +33,12 @@ namespace SF_Automation.TestCases.Opportunity
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void ValidateNewJobTypesAvailabilityForFVA()
+        public void VerifyNewJobTypeIsForFVAOnly()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1432;
-                Console.WriteLine(excelPath);
-
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056883;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -55,37 +50,30 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
-                Console.WriteLine("rowCount " + rowJobType);
+                int rowJRecordType = ReadExcelData.GetRowCount(excelPath, "RecordType");
+
                 //Login as Standard User profile and validate the user
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                extentReports.CreateLog("Verify the JobTypes are present on Opportunity Home Page ");
-                //Call function to open Opportunity Home Page
-                // TMTI0056880- Verify the availability of new Job Types in Job Type column on Opportunity Search page
-                extentReports.CreateLog("Verify the availability of new Job Types in Job Type column on Opportunity Home page ");
-                opportunityHome.ClickOpportunityTabAdvanceSearch();
-                for (int row = 1; row <rowJobType; row++)
-                {                    
-                    valJobType = ReadExcelData.ReadData(excelPath, "JobType", row);                 
-                    Assert.IsTrue(opportunityHome.IsJobTypePresentInDropdownHomePage(valJobType)," Verify "+ valJobType+" is present on Opportunity Home Page under Job Type Dropdown ");
-                    extentReports.CreateLog("Desired Job Type: " + valJobType + " Found on Opportunity Home page ");
-                }
-           
-                extentReports.CreateLog("Verify the availability of new Job Types in Job Type column on Engagement Home page ");
-                //Call function to open Engagement Home Page
-                //TMTI0056878- Verify the availability of new Job Types in Job Type column on Engagement Search page
-                engagementHome.ClickEngagementTabAdvanceSearch();
-                for (int row = 1; row < rowJobType; row++)
+                extentReports.CreateLog("Verify the JobTypes are available only for Opportunity LOB: FVA ");
+                for (int row = 1; row < rowJRecordType; row++)
                 {
-                    valJobType = ReadExcelData.ReadData(excelPath, "JobType", row);
-                    Assert.IsTrue(opportunityHome.IsJobTypePresentInDropdownHomePage(valJobType), " Verify " + valJobType + " is present on Engagement Home Page under Job Type Dropdown ");
-                    extentReports.CreateLog("Desired Job Type: " + valJobType + " Found on Engagement Home Page ");
-                }
+                    //Call function to open Add Opportunity Page
+                    opportunityHome.ClickOpportunity();
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "RecordType", row);
+                    Console.WriteLine("valRecordType:" + valRecordType);
+                    opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
+                    //Validating Title of New Opportunity Page
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 100), true);
+                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    valJobType = ReadExcelData.ReadData(excelPath, "JobType", row);
+                    Assert.IsFalse(opportunityDetails.IsJobTypePresentInDropdownOppDetailPage(valJobType), " Verify " + valJobType + " is present not Present on Opportunity Detail Page for LOB: " + valRecordType + "under Job Type Dropdown ");
+                    extentReports.CreateLog(" Job Type: " + valJobType + " is not Found ");
+                }
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User: " + stdUser + " logged Out ");
                 driver.Quit();

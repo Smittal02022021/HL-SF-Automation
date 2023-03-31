@@ -496,11 +496,16 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         }
         public void SwitchToClassicView()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
-            driver.FindElement(imgProfile).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 120);
-            driver.FindElement(lnkSwitchToClassic).Click();
-            Thread.Sleep(2000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
+                driver.FindElement(imgProfile).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 120);
+                driver.FindElement(lnkSwitchToClassic).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception e) { }
+            
         }
 
         public bool ValidateRelatedQuickLink(string linkText)

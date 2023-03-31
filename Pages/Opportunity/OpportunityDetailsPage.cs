@@ -384,6 +384,33 @@ namespace SF_Automation.Pages
         By lnkMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
         By lnkConvertToEngL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/div/div/slot/runtime_platform_actions-action-renderer[2]/runtime_platform_actions-executor-page-reference/slot/slot/runtime_platform_actions-ribbon-menu-item/a/span");
 
+
+        By comboTypesOptions = By.CssSelector("select[id*= 'hWW'] option");
+
+        public string GetOppJobType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 10);
+            return driver.FindElement(valJobType).Text;
+        }
+
+        public bool IsJobTypePresentInDropdownOppDetailPage(string JobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 10);
+            driver.FindElement(comboJobType).Click();
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypesOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                Console.WriteLine(actualValue[row]);
+                if (actualValue[row].Contains(JobType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
         //Get Opportunity Number
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateAdditionalSubjectFromPopUp(string jobType, string name)

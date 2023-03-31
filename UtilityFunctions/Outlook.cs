@@ -30,7 +30,7 @@ namespace SF_Automation.UtilityFunctions
         By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
-        By expenseRequestNumberApprove = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
+        By expenseRequestNumberApprove = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/font");
         //*[@id="x_topTable"]/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font
 
         By btnSearchScope = By.XPath("//span[@id='searchScopeButtonId-option']");
