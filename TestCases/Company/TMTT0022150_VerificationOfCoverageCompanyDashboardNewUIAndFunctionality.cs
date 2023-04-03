@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Company;
+using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Companies
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
+        LV_RecentlyViewedCompaniesPage lvRecentlyViewCompany = new LV_RecentlyViewedCompaniesPage();
 
         public static string fileTMTT0022150 = "TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality";
 
@@ -67,6 +68,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTT0022150, 2));
                 extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
 
+                /*
                 //TC - TMTI0051053 - Verifiy the availability of My Coverage tab under Activities filter
                 lvHomePage.NavigateToHomePageTabFromHLBankerDropdown();
                 extentReports.CreateLog("User has navigated to Homepage tab under Home option from HL Banker dropdown. ");
@@ -102,6 +104,14 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("The functionality of Activity Start Date grid filter is working as expected. ");
 
                 driver.SwitchTo().DefaultContent();
+                */
+
+                //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
+                lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");
+                extentReports.CreateLog("User has navigated to Companies option from HL Banker dropdown. ");
+
+                string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
+                lvRecentlyViewCompany.SearchAndNavigateToCompanyDetailFromRecentlyViewedCompaniesListBasedOnView(companyName);
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

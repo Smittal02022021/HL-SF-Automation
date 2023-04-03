@@ -428,7 +428,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Selenium.WebDriver.4.8.1\lib\net46\WebDriver.dll</HintPath>
+      <HintPath>packages\Selenium.WebDriver.4.8.2\lib\net46\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Selenium.Support.4.8.1\lib\net46\WebDriver.Support.dll</HintPath>
@@ -446,6 +446,7 @@
     <Compile Include="Pages\Common\MonthlyRevenue.cs" />
     <Compile Include="Pages\Common\RandomPages.cs" />
     <Compile Include="Pages\Companies\LVTearsheetPage.cs" />
+    <Compile Include="Pages\Companies\LV_RecentlyViewedCompaniesPage.cs" />
     <Compile Include="Pages\Company\AddCoverageTeam.cs" />
     <Compile Include="Pages\Company\AddNewCompanyFinancial.cs" />
     <Compile Include="Pages\Company\CapIQCompaniesHomePage.cs" />
@@ -1008,8 +1009,8 @@
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.4.8.2\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.8.2\build\Selenium.WebDriver.targets'))" />
   </Target>
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
   <Import Project="packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
@@ -1018,7 +1019,7 @@
   <Import Project="packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" />
   <Import Project="packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <Import Project="packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
+  <Import Project="packages\Selenium.WebDriver.4.8.2\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.2\build\Selenium.WebDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>
