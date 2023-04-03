@@ -59,7 +59,7 @@ namespace SF_Automation.Pages.Company
             WebDriverWaits.WaitUntilEleVisible(driver, comboYear, 40);
             driver.FindElement(comboYear).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyFinancial",rows,  1));
 
-            string getDate = DateTime.Today.AddDays(0).ToString("M/dd/yyyy");
+            string getDate = DateTime.Today.AddDays(0).ToString("M/d/yyyy");
             getDate = getDate.Replace('-','/');
             WebDriverWaits.WaitUntilEleVisible(driver, txtAsOfDate);
             driver.FindElement(txtAsOfDate).SendKeys(getDate);
