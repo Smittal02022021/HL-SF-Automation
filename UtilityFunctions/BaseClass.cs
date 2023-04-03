@@ -16,7 +16,7 @@ namespace SF_Automation.UtilityFunctions
 
         public IWebDriver Initialize()
         {            
-            string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData";
+            string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\";
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("user-data-dir=" + path);
             options.AddArguments("profile-directory=Default");
