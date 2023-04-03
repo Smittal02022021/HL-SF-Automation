@@ -1,3 +1,5 @@
-2023/04/03-16:47:19.896 5070 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
-2023/04/03-16:47:19.897 5070 Recovering log #925
-2023/04/03-16:47:19.898 5070 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/000925.log 
+2023/04/03-17:02:58.430 6b04 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
+2023/04/03-17:02:58.431 6b04 Recovering log #925
+2023/04/03-17:02:58.431 6b04 Level-0 table #486: started
+2023/04/03-17:02:58.435 6b04 Level-0 table #486: 29364 bytes OK
+2023/04/03-17:02:58.437 6b04 Delete type=0 #925

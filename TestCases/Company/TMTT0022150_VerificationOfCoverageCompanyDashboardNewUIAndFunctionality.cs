@@ -69,7 +69,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTT0022150, 2));
                 extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
 
-                /*
                 //TC - TMTI0051053 - Verifiy the availability of My Coverage tab under Activities filter
                 lvHomePage.NavigateToHomePageTabFromHLBankerDropdown();
                 extentReports.CreateLog("User has navigated to Homepage tab under Home option from HL Banker dropdown. ");
@@ -105,7 +104,6 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("The functionality of Activity Start Date grid filter is working as expected. ");
 
                 driver.SwitchTo().DefaultContent();
-                */
 
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");

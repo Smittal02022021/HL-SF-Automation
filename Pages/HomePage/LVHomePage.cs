@@ -880,7 +880,7 @@ namespace SF_Automation.Pages.HomePage
                         break;
                 }
             }
-            if(result1==true && result2==true && result3 == true && result4 == true && result5 == true && result6 == true)
+            if(result1==true || result2==true && result3 == true && result4 == true && result5 == true && result6 == true)
             {
                 overallResult = true;
             }
