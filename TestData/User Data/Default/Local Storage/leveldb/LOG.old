@@ -1,3 +1,6 @@
-2022/12/27-15:51:48.434 26d4 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2022/12/27-15:51:48.439 26d4 Recovering log #46
-2022/12/27-15:51:48.440 26d4 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000046.log 
+2022/12/27-15:58:50.234 41ac Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2022/12/27-15:58:50.261 41ac Recovering log #46
+2022/12/27-15:58:50.267 41ac Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000046.log 
+2022/12/27-16:00:48.151 476c Level-0 table #50: started
+2022/12/27-16:00:48.160 476c Level-0 table #50: 14483 bytes OK
+2022/12/27-16:00:48.164 476c Delete type=0 #46
