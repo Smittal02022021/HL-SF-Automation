@@ -2787,7 +2787,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         public string ValidateAdditionalClientFromPopUp(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
             string value = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[5]/th/a[text()='" + name + "']")).Displayed.ToString();
             if (value.Equals("True"))
             {
@@ -3068,7 +3068,9 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
         //Reject the submitted Opportunity
         public string ClickRejectButtonL()
-        {            
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
             WebDriverWaits.WaitUntilEleVisible(driver, btnRejectL, 100);
             driver.FindElement(btnRejectL).Click();
             Thread.Sleep(4000);
@@ -3111,7 +3113,10 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
         //Validate Approve  button
         public string ValidateApproveButton()
-        {           
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 100);
             driver.FindElement(lnkViewAllL).Click();
             Thread.Sleep(3000);

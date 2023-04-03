@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info : BaseClass
+    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -348,6 +348,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string valCommentsUponDelete = engagementDetails.ValidateDeleteFunctionalityOfBillingComment();
                 Assert.AreEqual("Billing comment does not exist", valCommentsUponDelete);
                 extentReports.CreateLog(valCommentsUponDelete + " after deleting Billing Comments ");
+
 
                 driver.Quit();
             }

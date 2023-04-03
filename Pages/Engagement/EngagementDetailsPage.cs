@@ -248,10 +248,18 @@ namespace SF_Automation.Pages.Engagement
         By btnEditComment = By.XPath("//a[@title='Edit']");
         By lnkAddedComment = By.XPath("//lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valEditComment = By.XPath("//records-record-layout-section[2]/div/div/div/slot/records-record-layout-row/slot/records-record-layout-item/div/div/div[2]/span/slot[1]/lightning-formatted-text");
-        By tabEng = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        By tabEng = By.XPath("//ul[2]/li[4]/a/span[2]");
         By btnDeleteComment = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Comment__c.Delete']");
         By btnConfirmDelete = By.XPath("//span[text()='Delete']");
         By secDocChecklist = By.XPath("//span[@title='Document Checklist']");
+        By tabFees = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
+        By lnkEditCurrency = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
+        By txtEBITDA= By.XPath("//input[@name='EBITDA_MM__c']");
+        By valEBITDA = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By tabClientSub = By.XPath("  //forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
+        By lnkRefType = By.XPath("//button[@title='Edit Referral Type']");
+        By txtEstRefFee = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div/div/input");
+        By valEstFee = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2231,11 +2239,35 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(Driver, tabInfo, 100);
-            string value = driver.FindElement(tabInfo).Text;
+            string value = driver.FindElement(tabInfo).Text;           
             return value;
 
         }
 
+        //Get Fees & Financials value
+        public string ValidateFeesTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabEng, 100);
+            driver.FindElement(tabEng).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabFees, 100);
+            string value = driver.FindElement(tabFees).Text;
+            driver.FindElement(tabFees).Click();
+            return value;
+
+        }
+
+        //Get Client/Subject & Referral value
+        public string ValidateClientSubjectAndReferralTab()
+        {
+            Thread.Sleep(3000);            
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabClientSub, 100);
+            string value = driver.FindElement(tabClientSub).Text;
+            driver.FindElement(tabClientSub).Click();
+            return value;
+
+        }
         //Get Details Sub tab
         public string ValidateDetailsSubTab()
         {
@@ -2294,6 +2326,30 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditEngName, 150);
             driver.FindElement(lnkEditEngName).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate if Fees and Financials tab is editable after clicking pencil icon
+        public string ValidateFeesTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency, 150);
+            driver.FindElement(lnkEditCurrency).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate if Client/Subject & Referral tab is editable after clicking pencil icon
+        public string ValidateClientSubjectAndReferralTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRefType, 150);
+            driver.FindElement(lnkRefType).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
@@ -2516,7 +2572,27 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Update the value of EBITSA in Fees and Financials tab
+        public string UpdateFeesAndFinAndValidate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEBITDA, 150);
+            driver.FindElement(txtEBITDA).SendKeys("10");                        
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valEBITDA).Text.Substring(0,9);
+            return value;
+        }
 
+        //Update the value of Est Referral Fee in Client/Subject & Referral tab
+        public string UpdateEstReferralFeeAndValidate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEstRefFee, 150);
+            driver.FindElement(txtEstRefFee).SendKeys("10");
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valEstFee).Text.Substring(0,9);
+            return value;
+        }
         //Save the Billing Comment
         public string SaveBillingComment()
         {
@@ -2580,6 +2656,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 150);
             driver.FindElement(btnConfirmDelete).Click();
+            Thread.Sleep(3000);
             try
             {
                 driver.Navigate().Refresh();

@@ -325,6 +325,9 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             driver.FindElement(txtObjective).SendKeys("Testing");
 
             //Select IG
+            Thread.Sleep(3000);
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));            
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
