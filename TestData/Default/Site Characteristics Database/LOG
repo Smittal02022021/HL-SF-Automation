@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2023/04/03-12:16:41.695 4450 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/MANIFEST-000001
 2023/04/03-12:16:41.696 4450 Recovering log #6
 2023/04/03-12:16:41.697 4450 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/000006.log 
+=======
+2023/03/31-15:45:38.975 5cb8 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/MANIFEST-000001
+2023/03/31-15:45:38.984 5cb8 Recovering log #6
+2023/03/31-15:45:38.985 5cb8 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/000006.log 
+>>>>>>> 811a5a53dfc6a95d6ef5f8c390f170c66e0ca511
