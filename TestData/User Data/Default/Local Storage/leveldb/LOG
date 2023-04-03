@@ -1,3 +1,5 @@
-2023/04/03-15:35:15.173 54b8 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2023/04/03-15:35:15.174 54b8 Recovering log #320
-2023/04/03-15:35:15.176 54b8 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000320.log 
+2023/04/03-16:56:16.337 5cb0 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2023/04/03-16:56:16.338 5cb0 Recovering log #320
+2023/04/03-16:56:16.338 5cb0 Level-0 table #52: started
+2023/04/03-16:56:16.341 5cb0 Level-0 table #52: 18484 bytes OK
+2023/04/03-16:56:16.344 5cb0 Delete type=0 #320

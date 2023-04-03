@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Companies
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
         LV_RecentlyViewedCompaniesPage lvRecentlyViewCompany = new LV_RecentlyViewedCompaniesPage();
+        LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
 
         public static string fileTMTT0022150 = "TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality";
 
@@ -112,6 +113,18 @@ namespace SF_Automation.TestCases.Companies
 
                 string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
                 lvRecentlyViewCompany.SearchAndNavigateToCompanyDetailFromRecentlyViewedCompaniesListBasedOnView(companyName);
+                extentReports.CreateLog("Company : " + companyName + " detail page is opened. ");
+
+                lvCompanyDetailsPage.NavigateToAParticularTab("Coverage");
+                Assert.IsTrue(lvCompanyDetailsPage.VerifyCoverageTabIsOpened());
+                extentReports.CreateLog("Coverage tab is opened successfully. ");
+
+                Assert.IsTrue(lvCompanyDetailsPage.VerifyLoggedInUserHasIndustryCoverageForACompany(user));
+                extentReports.CreateLog("User : " + user + " has coverage for the company : " + companyName + " .");
+
+                lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
+                Assert.IsTrue(lvCompanyDetailsPage.VerifyActivityTabIsOpened());
+                extentReports.CreateLog("Activity tab is opened successfully. ");
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

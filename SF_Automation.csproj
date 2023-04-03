@@ -445,6 +445,7 @@
     <Compile Include="Pages\Common\LegalEntityDetail.cs" />
     <Compile Include="Pages\Common\MonthlyRevenue.cs" />
     <Compile Include="Pages\Common\RandomPages.cs" />
+    <Compile Include="Pages\Companies\LV_CompanyDetailsPage.cs" />
     <Compile Include="Pages\Companies\LVTearsheetPage.cs" />
     <Compile Include="Pages\Companies\LV_RecentlyViewedCompaniesPage.cs" />
     <Compile Include="Pages\Company\AddCoverageTeam.cs" />
