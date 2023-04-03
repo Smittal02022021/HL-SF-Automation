@@ -695,7 +695,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(3000);
 
             int excelCount = ReadExcelData.GetRowCount(excelPath,"ActivityColumns");
-            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[1]/tbody/tr[1]/th")).Count;
+            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr[1]/th")).Count;
 
             for(int i = 2;i <= excelCount;i++)
             {
@@ -703,7 +703,7 @@ namespace SF_Automation.Pages.HomePage
 
                 for(int j = 1;j <= recordCount;j++)
                 {
-                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[1]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
+                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
                     if(exlColValue == sfColValue)
                     {
                         result = true;
@@ -886,5 +886,31 @@ namespace SF_Automation.Pages.HomePage
             }
             return overallResult;
         }
+
+        public void NavigateToAnItemFromHLBankerDropdown(string item)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver,menuNavigation,120);
+            driver.FindElement(menuNavigation).Click();
+            Thread.Sleep(5000);
+
+            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
+            int size = elements.Count;
+
+            for(int items = 1;items <= size;items++)
+            {
+                By linkHome = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
+
+                WebDriverWaits.WaitUntilEleVisible(driver,linkHome,120);
+                string itemName = driver.FindElement(linkHome).GetAttribute("data-label");
+
+                if(itemName == item)
+                {
+                    driver.FindElement(linkHome).Click();
+                    Thread.Sleep(10000);
+                    break;
+                }
+            }
+        }
+
     }
 }
