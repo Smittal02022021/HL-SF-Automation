@@ -361,7 +361,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Update any value and validate if it gets saved post clicking saving button               
                 string valEBITDA = engagementDetails.UpdateFeesAndFinAndValidate();
-                Assert.AreEqual("GBP 10.00", valEBITDA);
+                Assert.AreEqual("GBP 10.0", valEBITDA);
                 extentReports.CreateLog("Entered value : " + valEBITDA + " is displayed after updating details of EBITDA in Fees & Financials tab ");
 
                 //Validate Client/Subject & Referral tab 
@@ -376,10 +376,13 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Update any value and validate if it gets saved post clicking saving button               
                 string valFee= engagementDetails.UpdateEstReferralFeeAndValidate();
-                Assert.AreEqual("GBP 10.00", valFee);
+                Assert.AreEqual("GBP 10.0", valFee);
                 extentReports.CreateLog("Entered value : " + valFee + " is displayed after updating details of Est. Referral Fee in Client/Subject & Referral tab ");
 
-                //
+                //Validate the updated value of Additional Client and Subject section            
+                string valType = engagementDetails.ValidateMandatoryValidationOfClientSubject();
+                Assert.AreEqual("Client", valType);
+                extentReports.CreateLog("Updated value: " + valType + " is not displayed upon editing as Primary Client and Subject can not change the Type ");
 
                 driver.Quit();
             }

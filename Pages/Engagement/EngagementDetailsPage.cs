@@ -215,6 +215,7 @@ namespace SF_Automation.Pages.Engagement
         By subTabBilling = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[6]/a");
         By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
         By valClientOwnershipAfter = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
@@ -260,6 +261,11 @@ namespace SF_Automation.Pages.Engagement
         By lnkRefType = By.XPath("//button[@title='Edit Referral Type']");
         By txtEstRefFee = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div/div/input");
         By valEstFee = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By btnShowMore = By.XPath("//tr[1]/td[8]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnEditClient = By.XPath("//body/div[8]/div/ul/li/a");
+        By btnTypeClient = By.XPath("//records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+        By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
+        By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2572,14 +2578,14 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        //Update the value of EBITSA in Fees and Financials tab
+        //Update the value of EBITDA in Fees and Financials tab
         public string UpdateFeesAndFinAndValidate()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEBITDA, 150);
             driver.FindElement(txtEBITDA).SendKeys("10");                        
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
-            string value = driver.FindElement(valEBITDA).Text.Substring(0,9);
+            string value = driver.FindElement(valEBITDA).Text.Substring(0,8);
             return value;
         }
 
@@ -2590,9 +2596,34 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtEstRefFee).SendKeys("10");
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
-            string value = driver.FindElement(valEstFee).Text.Substring(0,9);
+            string value = driver.FindElement(valEstFee).Text.Substring(0,8);
             return value;
         }
+
+        //Validate the edit functionality of Client/Subject & Referral section
+        public string ValidateMandatoryValidationOfClientSubject()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,350)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMore, 150);           
+            driver.FindElement(btnShowMore).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditClient, 150);
+            driver.FindElement(btnEditClient).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnTypeClient).Click();
+            Thread.Sleep(5000);            
+            driver.FindElement(By.XPath("//div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnCloseMsg).Click();
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUpdatedType, 150);
+            string value = driver.FindElement(valUpdatedType).Text;
+            return value;
+        }
+
         //Save the Billing Comment
         public string SaveBillingComment()
         {
