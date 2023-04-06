@@ -44,7 +44,7 @@ namespace SF_Automation.Pages.Companies
                 if(tab == tabName)
                 {
                     driver.FindElement(linkTab).Click();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(8000);
                     break;
                 }
             }
@@ -117,14 +117,18 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver,lblAddNewActivity,120);
 
             //Enter Activity details
-            driver.FindElement(By.XPath($"//input[@value='{type}']")).Click();
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
             DateTime setDate = currentDate.AddDays(-3);
-            driver.FindElement(txtDate).SendKeys(setDate.ToString());
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
 
-            driver.FindElement(drpdownIndustryGroup).SendKeys(industryGroup);
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
+            Thread.Sleep(2000);
+
             driver.FindElement(drpdownProductType).SendKeys(productType);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
