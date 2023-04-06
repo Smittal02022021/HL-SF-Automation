@@ -266,6 +266,9 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
+        By tabRevenue = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[5]/a");
+
+
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2326,6 +2329,16 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Get Revenue tab
+        public string ValidateRevenueTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabRevenue, 100);
+            string value = driver.FindElement(tabRevenue).Text;
+            driver.FindElement(tabRevenue).Click();
+            return value;
+
+        }
         //Validate if Details tab is editable after clicking pencil icon
         public string ValidateDetailsTabIsEditable()
         {

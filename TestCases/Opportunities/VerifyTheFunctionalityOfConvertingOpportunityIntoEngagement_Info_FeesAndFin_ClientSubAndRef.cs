@@ -384,6 +384,17 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Client", valType);
                 extentReports.CreateLog("Updated value: " + valType + " is not displayed upon editing as Primary Client and Subject can not change the Type ");
 
+                //Validate Revenue tab 
+                string tabRevenue = engagementDetails.ValidateRevenueTab();
+                Assert.AreEqual("Revenue", tabRevenue);
+                extentReports.CreateLog("Tab " + tabRevenue + " is displayed on Engagement Details page ");
+
+                //Validate Add functionality of Revenue Accural tab                
+                //string tabClientEditable = engagementDetails.ValidateClientSubjectAndReferralTabIsEditable();
+                //Assert.AreEqual("True", tabClientEditable);
+                //extentReports.CreateLog("Page is editable after clicking pencil icon and Client/Subject & Referral details can be edited ");
+
+
                 driver.Quit();
             }
             catch (Exception e)
