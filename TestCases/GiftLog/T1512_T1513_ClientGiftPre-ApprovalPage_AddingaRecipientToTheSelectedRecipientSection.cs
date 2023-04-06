@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.GiftLog
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         GiftRequestPage giftRequest = new GiftRequestPage();
+        GiftApprovePage giftApprove = new GiftApprovePage();
 
         public static string fileTC1513 = "T1513_ClientGiftPre_ApprovalPage_AddingaRecipientToTheSelectedRecipientSection";
 
@@ -207,6 +208,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
+                giftApprove.ClickSubmitRequest();
                 string congratulationMsg = giftRequest.GetCongratulationsMsg();
                 string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg);
