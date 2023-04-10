@@ -108,11 +108,7 @@ namespace SF_Automation.UtilityFunctions
             return decimal.Parse(Regex.Match(value.Replace(",", "").Trim(), @"-?[0-9]*\.?[0-9]+").Value);
         }
 
-        public static void PageReload()
-        {
-            driver.Navigate().Refresh();
-        }
-        //Enter Text Function
+       //Enter Text Function
         public static void EnterText(IWebDriver driver, IWebElement element, string value)
         {
             element.SendKeys(value);
@@ -319,5 +315,12 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(by);
             new Actions(driver).MoveToElement(element).Build().Perform();
         }
+        //Move/Scrol to Element
+        public static void MoveToElement(IWebDriver driver, IWebElement element)
+        {
+            //Actions builder = new Actions(driver);
+            new Actions(driver).MoveToElement(element).Build().Perform();
+        }
+
     }
 }

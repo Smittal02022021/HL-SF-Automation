@@ -43,7 +43,9 @@ namespace SF_Automation.Pages
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
         By comboTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
+        By linkEngManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
 
+      
         public void ClickOpportunityTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -236,6 +238,17 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, titleOppManager, 60);
             string title = driver.FindElement(titleOppManager).Text;
             return title;
+        }
+        //To click Engagement Manager Link
+        public string ClickEngManager()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, linkEngManager, 60);
+            driver.FindElement(linkEngManager).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, titleOppManager, 60);
+            string title = driver.FindElement(titleOppManager).Text;
+            return title;
+
         }
 
         //To Search Opportunity with Opportunity Name

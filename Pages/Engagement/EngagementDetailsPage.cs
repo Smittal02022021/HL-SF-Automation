@@ -1965,7 +1965,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         {
             try
             {
-                CustomFunctions.PageReload();
+                driver.Navigate().Refresh();
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
@@ -1973,7 +1973,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
                 }
                 catch (Exception ex)
                 {
-                    CustomFunctions.PageReload();
+                    driver.Navigate().Refresh();
                     WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
                     return driver.FindElement(valEngContact).Displayed;
                 }
@@ -2011,8 +2011,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
             }
             catch(Exception e)
             {
-                CustomFunctions.PageReload();
-                
+                driver.Navigate().Refresh();
                 driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
                 string value = driver.FindElement(valEngInternalMember).Text.Trim();
                 driver.SwitchTo().DefaultContent();
@@ -2029,7 +2028,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
             }
             catch(Exception e)
             {
-                CustomFunctions.PageReload();
+                driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
                 return driver.FindElement(valEngContact).Text.Trim();
             }

@@ -182,7 +182,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             catch (Exception e)
             {
-                CustomFunctions.PageReload();
+                driver.Navigate().Refresh();
                 Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
                 driver.FindElement(tabRateSheetManagement).Click();

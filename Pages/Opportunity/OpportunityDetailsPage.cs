@@ -159,7 +159,7 @@ namespace SF_Automation.Pages
         By valERPLegCode = By.CssSelector("div[id*='fij']");
         By valERPID = By.CssSelector("div[id*='fZj']");
         By valERPProjStatusCode = By.CssSelector("div[id*='frj']");
-        By valERPLastIntStatus = By.CssSelector("div[id*='ffj']");
+        By valERPLastIntStatus = By.CssSelector("div[id*='eeCj']");//ffj
         By valERPResponseDate = By.CssSelector("div[id*='efej']");
         By valERPError = By.CssSelector("div[id*='fdj']");
         By valERPProductType = By.CssSelector("div[id*='g8j']");
@@ -2507,7 +2507,7 @@ namespace SF_Automation.Pages
             driver.Navigate().Refresh();
             WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntStatus, 80);
             string status = driver.FindElement(valERPLastIntStatus).Text;
-            return status;
+            return status;        
         }
 
         //Get ERP Last Integration Response Date

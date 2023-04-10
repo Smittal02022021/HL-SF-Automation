@@ -64,15 +64,14 @@ namespace SF_Automation.TestCases.Opportunity
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
                     string valRecordType = ReadExcelData.ReadData(excelPath, "RecordType", row);
-                    Console.WriteLine("valRecordType:" + valRecordType);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                     //Validating Title of New Opportunity Page
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 100), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    extentReports.CreateLog(driver.Title + " is displayed for Job Type: "+ valRecordType);
                     valJobType = ReadExcelData.ReadData(excelPath, "JobType", row);
                     Assert.IsFalse(opportunityDetails.IsJobTypePresentInDropdownOppDetailPage(valJobType), " Verify " + valJobType + " is present not Present on Opportunity Detail Page for LOB: " + valRecordType + "under Job Type Dropdown ");
-                    extentReports.CreateLog(" Job Type: " + valJobType + " is not Found ");
+                    extentReports.CreateLog(" Job Type: " + valJobType + " is not Found for LOB: "+ valRecordType);
                 }
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User: " + stdUser + " logged Out ");

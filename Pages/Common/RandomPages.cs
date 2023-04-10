@@ -32,6 +32,99 @@ namespace SF_Automation.Pages.Common
         By valProdLines = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(4)");
         By valBlank = By.CssSelector("div[id*='wN2_00Ni000000G8Xmo']");
 
+        By txtPageCountString = By.XPath("//div[@class='paginator']//td[2]//span//i");
+        By linkNext = By.XPath("//div[@class='paginator']//a[contains(text(),'Next')]");
+        By loader = By.XPath("//b[contains(text(),'Loading')]");
+        By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
+        By comboJobType = By.CssSelector("select[name*='fcf']");
+        By txtPageTitle = By.XPath("//h1[@class='pageType']");
+
+        private By _txtJobTypeMgrPage(string valJobType)
+        {
+            return By.XPath($"//td[contains(@id,'PIPELINE_Job_Type')]//span[contains(text(),'{valJobType}')]");
+        }
+
+        private By _txtJobTypeObjPage(string valJobType)
+        {
+            return By.XPath($"//table[contains(@class,'row-table')]//span[contains(text(),'{valJobType}')]");
+        }
+
+        private By _objJobTypeCode(string valJobCode)
+        {
+            return By.XPath($"//div[contains(text(),'{valJobCode}')]");
+        }
+        public string selectJobTypesObject(string viewOption)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, shwAllTab, 20);
+            driver.FindElement(shwAllTab).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkJobTypes, 20);
+            driver.FindElement(linkJobTypes).Click();
+            string pageTitle= driver.FindElement(txtPageTitle).Text;
+            driver.FindElement(comboJobType).SendKeys(viewOption);
+            try
+            {
+                driver.FindElement(btnGo).Click();
+            }
+            catch(Exception e)
+            {
+                //do nothing
+            }
+           
+            return pageTitle;
+        }
+        //Validate the Job Type in Displayed in List 
+        public bool IsJobTypeVailableOnPage(string pageTitle, string valJobType)
+        {
+            //string paginationFooter = driver.FindElement(txtPageCountString).Text;
+            //string lastSubstr = paginationFooter.Substring(paginationFooter.LastIndexOf(" ") + 1);
+            //int pageCount = int.Parse(lastSubstr);
+            bool isJobTypefound = false;
+            IWebElement elmJobType;
+            
+               check: try
+                {
+                if (pageTitle == "Job Types")
+                {
+                    elmJobType = driver.FindElement(_txtJobTypeObjPage(valJobType));
+                }
+                else
+                {
+                    elmJobType = driver.FindElement(_txtJobTypeMgrPage(valJobType));
+                }
+
+                CustomFunctions.MoveToElement(driver, elmJobType);
+                    if (elmJobType.Displayed)
+                    {
+                        isJobTypefound = true;
+                        //break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (driver.FindElement(linkNext).Enabled)
+                    {
+                        driver.FindElement(linkNext).Click();
+                        WebDriverWaits.WaitTillElementVisible(driver, loader);
+                        Thread.Sleep(1000);
+                        goto check;
+                    }
+                    
+                }
+            //}
+            return isJobTypefound;
+        }
+
+        public bool IsJobCodeAvailable(string valJobCode)
+        {
+            try
+            {
+                return driver.FindElement(_objJobTypeCode(valJobCode)).Displayed;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
         //To click Expense Request Tab
         public string ClickExpenseRequestTab()
         {
