@@ -267,6 +267,9 @@ namespace SF_Automation.Pages.Engagement
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
         By tabRevenue = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[5]/a");
+        By tabCompliance = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[6]/a");
+        By subTabCompliance = By.XPath("//a[text()='Compliance']");
+        By subTabLegal = By.XPath("//a[text()='Legal Matters']");
         By btnAddRevenue = By.XPath("// button[text()='Add Revenue Accrual']");
         By valRevAccID = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[1]/div[2]/h1/slot[1]/lightning-formatted-text");
         By btnEditRevenue = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[4]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
@@ -285,7 +288,13 @@ namespace SF_Automation.Pages.Engagement
         By valStartingMonthDisplayed = By.XPath("//section/div/div/div[2]/table/tbody/tr[1]/td[1]");
         By btnSubmitRevProj = By.XPath("//button[text()='submit']");
         By btnReturnToEng = By.XPath("//button[text()='Return to Engagement']");
-                        
+        By lnkEditBeneficial = By.XPath("//button[@title='Edit Beneficial Owner & Control Person form?']");
+        By txtComplianceDate = By.XPath("//input[@name='Received_by_Compliance_Date__c']");
+        By valComplianceDate = By.XPath("//flexipage-tab2[6]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By lnkEditConfAgree = By.XPath("//button[@title='Edit Confidentiality Agreement']");
+        By txtDateSigned = By.XPath("//input[@name='Date_CA_Signed__c']");
+        By valDateSigned = By.XPath("//flexipage-tab2[6]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -2355,6 +2364,39 @@ namespace SF_Automation.Pages.Engagement
             return value;
 
         }
+
+        //Get Compliance & Legal tab
+        public string ValidateComplianceAndLegalTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabCompliance, 100);
+            string value = driver.FindElement(tabCompliance).Text;
+            driver.FindElement(tabCompliance).Click();
+            return value;
+
+        }
+
+        //Get Compliance Sub tab
+        public string ValidateComplianceSubTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabCompliance, 100);
+            string value = driver.FindElement(subTabCompliance).Text;
+            driver.FindElement(subTabCompliance).Click();
+            return value;
+
+        }
+
+        //Get Legal Matters Sub tab
+        public string ValidateLegalMattersSubTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabLegal, 100);
+            string value = driver.FindElement(subTabLegal).Text;
+            driver.FindElement(subTabLegal).Click();
+            return value;
+
+        }
         //Validate if Details tab is editable after clicking pencil icon
         public string ValidateDetailsTabIsEditable()
         {
@@ -2831,6 +2873,51 @@ namespace SF_Automation.Pages.Engagement
             {
                 return "Billing comment does not exist";
             }
+        }
+
+        //Validate if Compliance sub tab is editable after clicking pencil icon
+        public string ValidateComplianceSubTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditBeneficial, 150);
+            driver.FindElement(lnkEditBeneficial).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate if Legal Matters sub tab is editable after clicking pencil icon
+        public string ValidateLegalMattersSubTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditConfAgree, 150);
+            driver.FindElement(lnkEditConfAgree).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+        //Update the value of Compliance Date in Compliance tab
+        public string UpdateComplianceDetailsAndValidate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtComplianceDate, 150);
+            driver.FindElement(txtComplianceDate).SendKeys("4/11/2023");
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valComplianceDate).Text;
+            return value;
+        }
+
+        //Update the value of Date Signed in Legal Matters tab
+        public string UpdateDateSignedAndValidate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateSigned, 150);
+            driver.FindElement(txtDateSigned).SendKeys("4/11/2023");
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valDateSigned).Text;
+            return value;
         }
     }
 }

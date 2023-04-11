@@ -423,7 +423,40 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Revenue Projection", title);
                 extentReports.CreateLog("Tab with name: " + title + " is displayed after clicking Return To Engagement button ");
 
-                
+                //Validate Compliance & Legal tab 
+                string tabCompliance = engagementDetails.ValidateComplianceAndLegalTab();
+                Assert.AreEqual("Compliance & Legal", tabCompliance);
+                extentReports.CreateLog("Tab " + tabCompliance + " is displayed on Engagement Details page ");
+
+                //Validate Compliance Sub tab 
+                string subTabCompliance = engagementDetails.ValidateComplianceSubTab();
+                Assert.AreEqual("Compliance", subTabCompliance);
+                extentReports.CreateLog("Sub Tab " + subTabCompliance + " is displayed under Compliance & Legal tab ");
+
+                //Validate Edit functionality of Compliance sub tab                
+                string subTabComplianceEdit = engagementDetails.ValidateComplianceSubTabIsEditable();
+                Assert.AreEqual("True", subTabComplianceEdit);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and Compliance details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button               
+                string valCompliance = engagementDetails.UpdateComplianceDetailsAndValidate();
+                Assert.AreEqual("4/11/2023", valCompliance);
+                extentReports.CreateLog("Entered value : " + valCompliance + " is displayed after updating details of Received by Compliance Date in Compliance Sub tab ");
+
+                //Validate Legal Matters Sub tab 
+                string subTabLegal = engagementDetails.ValidateLegalMattersSubTab();
+                Assert.AreEqual("Legal Matters", subTabLegal);
+                extentReports.CreateLog("Sub Tab " + subTabLegal + " is displayed under Compliance & Legal tab ");
+
+                //Validate Edit functionality of Legal Matters sub tab                
+                string subTabLegalEdit = engagementDetails.ValidateLegalMattersSubTabIsEditable();
+                Assert.AreEqual("True", subTabLegalEdit);
+                extentReports.CreateLog("Page is editable after clicking pencil icon and Compliance details can be edited ");
+
+                //Update any value and validate if it gets saved post clicking saving button               
+                string valDateSigned = engagementDetails.UpdateDateSignedAndValidate();
+                Assert.AreEqual("4/11/2023", valDateSigned);
+                extentReports.CreateLog("Entered value : " + valDateSigned + " is displayed after updating details of Date Signed in Legal Matters Sub tab ");
 
                 driver.Quit();
             }
