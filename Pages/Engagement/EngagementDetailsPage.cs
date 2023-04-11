@@ -2397,7 +2397,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddRevenue, 150);
             driver.FindElement(btnAddRevenue).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
             string id = driver.FindElement(valRevAccID).Text;
