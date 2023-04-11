@@ -267,9 +267,25 @@ namespace SF_Automation.Pages.Engagement
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
         By tabRevenue = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[5]/a");
-
-
-
+        By btnAddRevenue = By.XPath("// button[text()='Add Revenue Accrual']");
+        By valRevAccID = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[1]/div[2]/h1/slot[1]/lightning-formatted-text");
+        By btnEditRevenue = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[4]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
+        By txtLegacyDC = By.XPath("//input[@name='Legacy_DC_ID__c']");
+        By valLegacyDC = By.XPath("//records-record-layout-row[7]/slot/records-record-layout-item[1]/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By tabRevProj = By.XPath("//a[text()='Revenue Projection']");
+        By titleRevProj = By.XPath("//span[text()='Revenue Projections']");
+        By btnEditRevProj = By.XPath("//button[text()='Update Revenue Projection']");
+        By txtProjMonFee = By.XPath("//tr[1]/td[3]/lightning-input/div/div/input");
+        By btnSaveRevproj = By.XPath("//button[@title='Save']");
+        By valRevProj = By.XPath("//tr/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
+        By lnkClearRevProj = By.XPath("//table/tbody/tr[1]/td[7]/a");
+        By msgNoRec = By.XPath("//p[text()='No Records To Display']");
+        By btnStartingMonth = By.XPath("//lightning-layout-item[1]/slot/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+        By valStartingMonth = By.XPath("//lightning-base-combobox-item[5]/span[2]/span");
+        By valStartingMonthDisplayed = By.XPath("//section/div/div/div[2]/table/tbody/tr[1]/td[1]");
+        By btnSubmitRevProj = By.XPath("//button[text()='submit']");
+        By btnReturnToEng = By.XPath("//button[text()='Return to Engagement']");
+                        
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -2373,6 +2389,106 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
             return value;
+        }
+
+        //Validate Add Revenue Accural functionality
+        public string ValidateAddRevenueFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRevenue, 150);
+            driver.FindElement(btnAddRevenue).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string id = driver.FindElement(valRevAccID).Text;
+            return id;
+        }
+
+        //Validate Edit Revenue Accural functionality
+        public string ValidateEditRevenueFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 150);
+            driver.FindElement(btnEditRevenue).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLegacyDC, 250);
+            driver.FindElement(txtLegacyDC).SendKeys("Testing");           
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string id = driver.FindElement(valLegacyDC).Text;
+            return id;
+        }
+
+        //Click Revenue Projection Tab
+        public string ValidateAndClickRevenueProjectionTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEng, 150);
+            driver.FindElement(tabEng).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRevProj, 250);
+            driver.FindElement(tabRevProj).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleRevProj, 250);
+            string title = driver.FindElement(titleRevProj).Text;
+            return title;
+        }
+
+        //Validate Edit Revenue Projection
+        public string ValidateEditRevenueProjFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevProj, 150);
+            driver.FindElement(btnEditRevProj).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtProjMonFee, 250);
+            driver.FindElement(txtProjMonFee).SendKeys("10");
+            driver.FindElement(btnSaveRevproj).Click();
+            Thread.Sleep(5000);
+            string id = driver.FindElement(valRevProj).Text;
+            return id;
+        }
+
+        //Validate Clear functionality of Revenue Projection
+        public string ValidateClearRevenueProjFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevProj, 150);
+            driver.FindElement(btnEditRevProj).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkClearRevProj, 250);
+            driver.FindElement(lnkClearRevProj).Click();
+            driver.FindElement(btnSaveRevproj).Click();
+            Thread.Sleep(5000);
+            string message = driver.FindElement(msgNoRec).Text;
+            return message;
+        }
+
+
+        //Validate Submit functionality of Revenue Projection
+        public string ValidateSubmitRevenueProjFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevProj, 150);
+            driver.FindElement(btnEditRevProj).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnStartingMonth, 150);
+            driver.FindElement(btnStartingMonth).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valStartingMonth, 250);
+            driver.FindElement(valStartingMonth).Click();
+            driver.FindElement(btnSubmitRevProj).Click();
+            Thread.Sleep(5000);
+            string month = driver.FindElement(valStartingMonthDisplayed).Text;
+            return month;
+        }
+
+        //Validate Return To Engagement functionality 
+        public string ValidateReturnToEngFunctionality()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEng, 150);
+            driver.FindElement(btnReturnToEng).Click();            
+            Thread.Sleep(5000);
+            string label = driver.FindElement(tabRevProj).Text;
+            return label;
         }
 
         //Get default value of Client Ownership

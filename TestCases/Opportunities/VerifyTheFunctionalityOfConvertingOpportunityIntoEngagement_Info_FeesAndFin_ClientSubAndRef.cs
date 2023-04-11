@@ -390,10 +390,40 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab " + tabRevenue + " is displayed on Engagement Details page ");
 
                 //Validate Add functionality of Revenue Accural tab                
-                //string tabClientEditable = engagementDetails.ValidateClientSubjectAndReferralTabIsEditable();
-                //Assert.AreEqual("True", tabClientEditable);
-                //extentReports.CreateLog("Page is editable after clicking pencil icon and Client/Subject & Referral details can be edited ");
+                 string RevID = engagementDetails.ValidateAddRevenueFunctionality();               
+                 extentReports.CreateLog("Revenue Accural with id: "+ RevID + " is created after adding Revenue Accural ");
 
+                //Validate Edit Functionality of Revenue Accural tab    
+                string Legacy = engagementDetails.ValidateEditRevenueFunctionality();
+                Assert.AreEqual("Testing", Legacy);
+                extentReports.CreateLog("Legacy DC ID wth value: " + Legacy + " is saved after updating Revenue Accural ");
+
+                //Validate and click Revenue Projection tab
+                string RevProj = engagementDetails.ValidateAndClickRevenueProjectionTab();
+                Assert.AreEqual("Revenue Projections", RevProj);
+                extentReports.CreateLog("Page with title: " + RevProj + " is displayed after clicking Revenue Projection tab ");
+
+                //Validate Update functionality of Revenue Projection
+                string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
+                Assert.AreEqual("GBP 10.00", valRevProj);
+                extentReports.CreateLog("Revenue Projection with Projected Monthly Fee: " + valRevProj + " is displayed after updating Revenue Projection ");
+
+                //Validate Clear functionality of Revenue Projection
+                string msgRevProjPostClear = engagementDetails.ValidateClearRevenueProjFunctionality();
+                Assert.AreEqual("No Records To Display", msgRevProjPostClear);
+                extentReports.CreateLog("Message: " + msgRevProjPostClear + " is displayed after clicking clear on Revenue Projection ");
+
+                //Validate Submit functionality of Revenue Projection
+                string valMonth = engagementDetails.ValidateSubmitRevenueProjFunctionality();
+                Assert.AreEqual("05", valMonth);
+                extentReports.CreateLog("Month: " + valMonth + " is displayed after selecting Month and clicking Submit on Revenue Projection ");
+
+                //Validate Return To Engagement button functionality
+                string title = engagementDetails.ValidateReturnToEngFunctionality();
+                Assert.AreEqual("Revenue Projection", title);
+                extentReports.CreateLog("Tab with name: " + title + " is displayed after clicking Return To Engagement button ");
+
+                
 
                 driver.Quit();
             }
