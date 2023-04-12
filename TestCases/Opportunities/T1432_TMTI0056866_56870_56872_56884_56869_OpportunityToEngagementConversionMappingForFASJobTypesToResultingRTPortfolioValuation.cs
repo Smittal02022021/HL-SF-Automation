@@ -64,7 +64,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                Console.WriteLine("rowCount " + rowJobType);
+                extentReports.CreateLog("rowCount " + rowJobType);
 
                 for (int row = 2; row <= rowJobType; row++)
                 {

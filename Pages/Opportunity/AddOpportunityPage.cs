@@ -37,10 +37,10 @@ namespace SF_Automation.Pages
         By comboEMEAInitiatives = By.CssSelector("span>select[name*='MR']");
         By txtFee = By.CssSelector("input[name*='FmBzg']");
         By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
-        By labelWomenLed = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span > label");
+        By labelWomenLed = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span");//> label
         By labelWomenLedFVA = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(3) > span > label");
         By labelWomenLedFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span > label");
-        By labelAdmSection = By.CssSelector("div[id='head_12_ep'] > h3");
+        By labelAdmSection = By.CssSelector("div[id='head_12_ep'] > h3");//head_12_ep'] > h3
         By labelAdmSectionFVA = By.CssSelector("div[id = 'head_12_ep'] > h3");
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");

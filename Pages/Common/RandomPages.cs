@@ -38,7 +38,27 @@ namespace SF_Automation.Pages.Common
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By comboJobType = By.CssSelector("select[name*='fcf']");
         By txtPageTitle = By.XPath("//h1[@class='pageType']");
+        By tabReports = By.XPath("//a[@title='Reports Tab']");
+        By btnNewReport = By.XPath("//Input[@title='New Report...']");
+        By searchBox = By.XPath("//input[@id='quickFindInput']");
+        By btnCreateReport = By.CssSelector("input[value='Create']");
+        By btnAddFilter = By.XPath("//button[normalize-space()='Add']");
+        By searchField = By.XPath("//div[@class='cfPanel_fieldFilterSection']/div/div[2]/div[2]/div/form/div/div[2]/input[2]");
+        By txtReportsPageHeader = By.XPath("//h1[@class='pageType noSecondHeader']");
+        By txtReportHeader = By.XPath("//h1[@class='pageType']");
+        By txtSearchValue = By.XPath("//input[@name='pv']");
+        By listOptions = By.XPath("//div[@class='lookup']//label");
+        By iconLookup = By.XPath("//a[@class='rb_lookupIcon']");
+        By sectionFilter = By.XPath("//div[contains(@class,'filterItemContainer')]");
+        By optionsFilterFields = By.XPath("//div[contains(@class,'filterItemContainer')]//div[2]//form//div//div[2]//img");
+        By filterList = By.XPath("//div[contains(@class,'combo-list pc-list')]//div//div");
+        By btnCloseReport = By.XPath("//table[@id='closeBtn']//button");
+        By btnConfirmClose = By.XPath("//div[contains(@class,'window-footer')]//button[text() = 'Close']");
 
+        private By _optionReports(string reportName)
+        {
+            return By.XPath($"//ul[contains(@class,'tree-lines')]//li//span[text()='{reportName}']");
+        }
         private By _txtJobTypeMgrPage(string valJobType)
         {
             return By.XPath($"//td[contains(@id,'PIPELINE_Job_Type')]//span[contains(text(),'{valJobType}')]");
@@ -52,6 +72,109 @@ namespace SF_Automation.Pages.Common
         private By _objJobTypeCode(string valJobCode)
         {
             return By.XPath($"//div[contains(text(),'{valJobCode}')]");
+        }
+        public string ClickReportsTab()
+        {
+            try
+            {
+                driver.FindElement(tabReports).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtReportsPageHeader, 20);
+                return driver.FindElement(txtReportsPageHeader).Text;
+            }
+            catch(Exception e)
+            {
+                return e.Message;
+            }
+
+        }
+        public string CreateNewReport(string reportName)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNewReport, 20);
+                driver.FindElement(btnNewReport).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 20);
+                driver.FindElement(searchBox).SendKeys(reportName);
+                Thread.Sleep(2000);
+                IWebElement optionReport = driver.FindElement(_optionReports(reportName));
+                CustomFunctions.MoveToElement(driver, optionReport);
+                optionReport.Click();
+                driver.FindElement(btnCreateReport).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtReportHeader, 20);
+                return driver.FindElement(txtReportHeader).Text;
+            }
+            catch(Exception e)
+            {
+                return e.Message;
+            }
+            
+        }
+        public string AddFilter(string value)
+        {
+            try
+            {
+                Thread.Sleep(1000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddFilter, 20);
+                driver.FindElement(btnAddFilter).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, sectionFilter, 20);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, optionsFilterFields, 10);
+                driver.FindElement(optionsFilterFields).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, filterList, 5);
+                IReadOnlyCollection<IWebElement> listOption = driver.FindElements(filterList);
+                foreach (IWebElement element in listOption)
+                {
+                    CustomFunctions.MoveToElement(driver, element);
+                    if (element.Text == value)
+                    {
+                        element.Click();
+                        break;
+                    }
+                }
+                return driver.FindElement(searchField).GetAttribute("value");
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        public bool IsJobTypeVailableOnReportsPage(string valJobType)
+        {
+            bool found = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, iconLookup, 10);
+            driver.FindElement(iconLookup).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(listOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            string expectedValue = valJobType;
+            for (int rec = 0; rec < actualValue.Length; rec++)
+            {
+                if (expectedValue.Equals(actualValue[rec]))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            driver.Close();
+            CustomFunctions.SwitchToWindow(driver, 0);
+            return found;        
+        }
+        public string CloseUnsavedReport()
+        {
+            try
+            {                
+                driver.FindElement(btnCloseReport).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmClose, 10);
+                driver.FindElement(btnConfirmClose).Click();
+                Thread.Sleep(1000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtReportsPageHeader, 20);
+                return driver.FindElement(txtReportsPageHeader).Text;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
         }
         public string selectJobTypesObject(string viewOption)
         {
