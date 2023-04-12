@@ -270,6 +270,7 @@ namespace SF_Automation.Pages.Engagement
         By tabCompliance = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[6]/a");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegal = By.XPath("//a[text()='Legal Matters']");
+        By subTabCC = By.XPath("//a[text()='Conflict Check']");
         By btnAddRevenue = By.XPath("// button[text()='Add Revenue Accrual']");
         By valRevAccID = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[1]/div[2]/h1/slot[1]/lightning-formatted-text");
         By btnEditRevenue = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[4]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
@@ -2397,6 +2398,17 @@ namespace SF_Automation.Pages.Engagement
             return value;
 
         }
+
+        //Get Legal Matters Sub tab
+        public string ValidateConflictCheckSubTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabCC, 100);
+            string value = driver.FindElement(subTabCC).Text;
+            driver.FindElement(subTabCC).Click();
+            return value;
+
+        }
         //Validate if Details tab is editable after clicking pencil icon
         public string ValidateDetailsTabIsEditable()
         {
@@ -2454,7 +2466,8 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 150);
             driver.FindElement(btnEditRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLegacyDC, 250);
-            driver.FindElement(txtLegacyDC).SendKeys("Testing");           
+            driver.FindElement(txtLegacyDC).SendKeys("Testing");
+            Thread.Sleep(3000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
             string id = driver.FindElement(valLegacyDC).Text;
@@ -2905,6 +2918,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtComplianceDate).SendKeys("4/11/2023");
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valComplianceDate, 150);
             string value = driver.FindElement(valComplianceDate).Text;
             return value;
         }

@@ -289,7 +289,7 @@ namespace SF_Automation.Pages
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = {"GCA Migration Tracy View", "Latest Opportunities", "My Active Opportunities", "My Dead/Hold Opportunities", "My Engaged Opportunities", "Recently Viewed", "(Pinned list)"};
+            string[] expectedValues = {"All FR Opportunities","GCA Migration Tracy View", "Latest Opportunities", "My Active Opportunities", "My Dead/Hold Opportunities", "My Engaged Opportunities", "Recently Viewed", "(Pinned list)"};
             bool isTrue = true;
             
             Console.WriteLine(actualNamesAndDesc[5]);

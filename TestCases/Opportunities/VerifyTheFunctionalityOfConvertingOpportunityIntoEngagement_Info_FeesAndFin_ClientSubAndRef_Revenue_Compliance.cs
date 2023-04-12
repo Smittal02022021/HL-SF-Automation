@@ -215,8 +215,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Search Engagements functionality is available ");
 
                 //Verify Search Functionality of Engagements
-                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements("123665");
-                Assert.AreEqual("123665", searchedEng);
+                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements("125486");
+                Assert.AreEqual("125486", searchedEng);
                 extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
 
                 //Validate on clicking Engagement number, engagement details page is displayed
@@ -457,6 +457,11 @@ namespace SF_Automation.TestCases.Opportunity
                 string valDateSigned = engagementDetails.UpdateDateSignedAndValidate();
                 Assert.AreEqual("4/11/2023", valDateSigned);
                 extentReports.CreateLog("Entered value : " + valDateSigned + " is displayed after updating details of Date Signed in Legal Matters Sub tab ");
+
+                //Validate Conflict Check Sub tab 
+                string subTabCC = engagementDetails.ValidateConflictCheckSubTab();
+                Assert.AreEqual("Conflict Check", subTabCC);
+                extentReports.CreateLog("Sub Tab " + subTabCC + " is displayed under Compliance & Legal tab ");
 
                 driver.Quit();
             }
