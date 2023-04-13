@@ -425,9 +425,12 @@ namespace SF_Automation.Pages.GiftLog
             return GiftDescriptionFromTable;
         }
 
-        public void CompareGiftDescWithGiftName(string giftName)
+        public bool CompareGiftDescWithGiftName(string giftName)
         {
             Thread.Sleep(6000);
+
+            bool result = false;
+
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             for (int i = 1; i <= totalRows; i++)
@@ -446,9 +449,12 @@ namespace SF_Automation.Pages.GiftLog
                     Thread.Sleep(3000);
                     descGiftWebElement.Click();
                     Thread.Sleep(3000);
+
+                    result = true;
                     break;
                 }
             }
+            return result;
         }
 
         public void CompareAndClickGiftDesc(string giftName)
@@ -835,13 +841,9 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(2000);
         }
 
-        public void SearchByMonthYearAndStatusOnly(string file,string status)
+        public void SearchByMonthYearAndStatusOnly(string status)
         {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-
             Thread.Sleep(3000);
-            string excelPath = dir + file;
 
             string getMonth = DateTime.Today.ToString("MMM");
             WebDriverWaits.WaitUntilEleVisible(driver,comboMonth);

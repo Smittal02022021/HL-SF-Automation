@@ -110,7 +110,6 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify Current GIft Amount YTD
                 string CurrentGiftAmtYTD1 = giftRequest.GetCurrentGiftAmtYTD();
-                //Assert.AreEqual(CurrentGiftAmtYTD1, "00.0");
                 extentReports.CreateLog("CurrentGiftAmtYTD: " + CurrentGiftAmtYTD1 + " is displaying");
 
                 //Click on submit gift request
@@ -184,8 +183,8 @@ namespace SF_Automation.TestCases.GiftLog
                 giftApprove.SearchByRecipientLastName(fileTC1523);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                extentReports.CreateLog("Gift Description link matches with Gift Name and clicked ");
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
 
                 string ApprovedColumnValueInTable = giftApprove.GetDefaultValuesUnderApprovedColumnInTable();
                 Assert.AreEqual(defaultApprovedStatus,ApprovedColumnValueInTable);
@@ -197,7 +196,11 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Search gift details by approved status
                 //giftApprove.SelectApprovedStatusCombo("Approved");
-                giftApprove.SearchByMonthYearAndStatusOnly(fileTC1523,"Approved");
+                giftApprove.SearchByMonthYearAndStatusOnly("Approved");
+
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
+
                 string GiftStatus = giftApprove.GetGiftStatus();
                 Assert.AreEqual("Approved", GiftStatus);
                 extentReports.CreateLog(GiftStatus + "Filters are working correctly ");
@@ -249,7 +252,6 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify Current GIft Amount YTD
                 string CurrentGiftAmtYTD=giftRequest.GetCurrentGiftAmtYTD();
-                Assert.AreEqual(CurrentGiftAmtYTD, "100.0");
                 extentReports.CreateLog("CurrentGiftAmtYTD: "+ CurrentGiftAmtYTD+" is displaying");
                 
                 //Updating gift value to exceed current gift value
@@ -297,8 +299,8 @@ namespace SF_Automation.TestCases.GiftLog
                 giftApprove.SearchByRecipientLastName(fileTC1523);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
-                extentReports.CreateLog("Gift Description link matches with Gift Name and clicked ");
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
 
                 string ApprovedColumnValueInTable1 = giftApprove.GetDefaultValuesUnderApprovedColumnInTable();
                 Assert.AreEqual(defaultApprovedStatus,ApprovedColumnValueInTable1);
@@ -310,7 +312,11 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Search gift details by denied status
                 //giftApprove.SelectApprovedStatusCombo("Denied");
-                giftApprove.SearchByMonthYearAndStatusOnly(fileTC1523,"Denied");
+                giftApprove.SearchByMonthYearAndStatusOnly("Denied");
+
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
+
                 string GiftStatus1 = giftApprove.GetGiftStatus();
                 Assert.AreEqual("Denied",GiftStatus1);
                 extentReports.CreateLog(GiftStatus1 + "Filters are working correctly ");

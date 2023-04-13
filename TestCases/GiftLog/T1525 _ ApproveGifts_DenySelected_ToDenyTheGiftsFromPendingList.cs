@@ -120,7 +120,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(ErrorMsgApproveGiftText1.Contains("You must select at least one gift to approve."));
                 extentReports.CreateLog("Error message:" + ErrorMsgApproveGiftText1 + " is displaying ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 giftApprove.ClickDenySelectedButton();
 
                 giftApprove.SearchByStatus(fileTC1525, "Denied");
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 giftApprove.ClickDenySelectedButton();
                 
                 giftApprove.SearchByStatus(fileTC1525, "Denied");

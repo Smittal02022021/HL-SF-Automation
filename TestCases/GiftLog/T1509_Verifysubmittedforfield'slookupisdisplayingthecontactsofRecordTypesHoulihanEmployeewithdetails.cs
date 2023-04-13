@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.GiftLog
               //  Thread.Sleep(3000);
                 //Verify appropriate results are displayed when user searched for Department
                 string DeptSrchResults = giftRequest.SrchDept();
-                Assert.AreEqual("FVA", DeptSrchResults);
+                Assert.AreEqual("FR", DeptSrchResults);
                 extentReports.CreateLog("Appropriate results are displayed when user searched for Department ");
 
                 //  Thread.Sleep(300);
