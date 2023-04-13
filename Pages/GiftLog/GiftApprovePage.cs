@@ -441,11 +441,11 @@ namespace SF_Automation.Pages.GiftLog
                     Console.WriteLine("Gift Description and Gift Name Matches");
                     By checkbox = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > input");
                     IWebElement CheckBoxElement = driver.FindElement(checkbox);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(3000);
                     CheckBoxElement.Click();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(3000);
                     descGiftWebElement.Click();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(3000);
                     break;
                 }
             }
@@ -835,6 +835,30 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(2000);
         }
 
+        public void SearchByMonthYearAndStatusOnly(string file,string status)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+
+            Thread.Sleep(3000);
+            string excelPath = dir + file;
+
+            string getMonth = DateTime.Today.ToString("MMM");
+            WebDriverWaits.WaitUntilEleVisible(driver,comboMonth);
+            driver.FindElement(comboMonth).SendKeys(getMonth);
+
+            WebDriverWaits.WaitUntilEleVisible(driver,comboApprovedStatus);
+            driver.FindElement(comboApprovedStatus).SendKeys(status);
+
+            WebDriverWaits.WaitUntilEleVisible(driver,txtAreaRecipientLastName);
+            driver.FindElement(txtAreaRecipientLastName).Clear();
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver,btnGo);
+            driver.FindElement(btnGo).Click();
+            Thread.Sleep(2000);
+        }
+
         public void SearchByStatusForNextYear(string file, string status)
         {
 
@@ -896,7 +920,6 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(comboApprovedStatus).SendKeys(status);
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-
         }
 
         public string GetGiftStatus()
