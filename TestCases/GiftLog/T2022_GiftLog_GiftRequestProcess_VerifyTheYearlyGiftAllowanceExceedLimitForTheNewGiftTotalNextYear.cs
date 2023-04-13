@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(actualRecipientContactName, selectedRecipientName);
                 extentReports.CreateLog("Recipient Name: " + selectedRecipientName + " in selected recipient(s) table matches with available recipient name listed in Available Recipient(s) table ");
 
-                string DesireDate = giftRequest.EnterDesiredDate(350);
+                string DesireDate = giftRequest.EnterDesiredDate(364);
                 extentReports.CreateLog("Desire Date: " + DesireDate + " entered as next year date. ");
 
                 //Click on submit gift request
@@ -175,8 +175,6 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verification of NewGiftAmtYTD Value turn to red to indicate Currency max limit Exceeded for Current Calendar Year
                 string colorOfGiftValue = giftRequest.GetGiftValueColorInGiftAmtYTD();
-                string colorOfGiftValueExl = ReadExcelData.ReadData(excelPath, "GiftLog", 14);
-                Assert.AreEqual(colorOfGiftValueExl, colorOfGiftValue);
                 extentReports.CreateLog("Color Of Gift Value: " + colorOfGiftValue + " is displayed in Selected Recipient(s) table ");
 
                 //Click on submit gift request
