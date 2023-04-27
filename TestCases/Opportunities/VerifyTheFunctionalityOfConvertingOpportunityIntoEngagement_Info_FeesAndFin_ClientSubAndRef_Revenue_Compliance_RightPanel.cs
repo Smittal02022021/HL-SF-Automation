@@ -294,7 +294,7 @@ namespace SF_Automation.TestCases.Opportunity
                 engagementDetails.ClickClosingInfo();
                 string secDoc = engagementDetails.ValidateSectionDocChecklist();
                 Assert.AreEqual("Document Checklist", secDoc);
-                extentReports.CreateLog("Section with name: " + secDoc+" is displayed on Closing Info tab ");
+                extentReports.CreateLog("Section with name: " + secDoc + " is displayed on Closing Info tab ");
 
                 string tabClosingInfoEditable = engagementDetails.ValidateClosingInfoTabIsEditable();
                 Assert.AreEqual("True", tabClosingInfoEditable);
@@ -331,7 +331,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message: " + msgComment + " is displayed upon clicking Save button without entering Comment ");
 
                 //Save the billing comments
-                string commentID= engagementDetails.SaveBillingComment();
+                string commentID = engagementDetails.SaveBillingComment();
                 extentReports.CreateLog("Billing comment with id: " + commentID + " is displayed after adding it ");
 
                 //Edit Billing Comments and validate the mandatory validation
@@ -375,7 +375,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page is editable after clicking pencil icon and Client/Subject & Referral details can be edited ");
 
                 //Update any value and validate if it gets saved post clicking saving button               
-                string valFee= engagementDetails.UpdateEstReferralFeeAndValidate();
+                string valFee = engagementDetails.UpdateEstReferralFeeAndValidate();
                 Assert.AreEqual("GBP 10.0", valFee);
                 extentReports.CreateLog("Entered value : " + valFee + " is displayed after updating details of Est. Referral Fee in Client/Subject & Referral tab ");
 
@@ -383,15 +383,16 @@ namespace SF_Automation.TestCases.Opportunity
                 string valType = engagementDetails.ValidateMandatoryValidationOfClientSubject();
                 Assert.AreEqual("Client", valType);
                 extentReports.CreateLog("Updated value: " + valType + " is not displayed upon editing as Primary Client and Subject can not change the Type ");
-
+               
+                //TC_04 --Revenue
                 //Validate Revenue tab 
                 string tabRevenue = engagementDetails.ValidateRevenueTab();
                 Assert.AreEqual("Revenue", tabRevenue);
                 extentReports.CreateLog("Tab " + tabRevenue + " is displayed on Engagement Details page ");
 
                 //Validate Add functionality of Revenue Accural tab                
-                 string RevID = engagementDetails.ValidateAddRevenueFunctionality();               
-                 extentReports.CreateLog("Revenue Accural with id: "+ RevID + " is created after adding Revenue Accural ");
+                string RevID = engagementDetails.ValidateAddRevenueFunctionality();
+                extentReports.CreateLog("Revenue Accural with id: " + RevID + " is created after adding Revenue Accural ");
 
                 //Validate Edit Functionality of Revenue Accural tab    
                 string Legacy = engagementDetails.ValidateEditRevenueFunctionality();
@@ -422,7 +423,8 @@ namespace SF_Automation.TestCases.Opportunity
                 string title = engagementDetails.ValidateReturnToEngFunctionality();
                 Assert.AreEqual("Revenue Projection", title);
                 extentReports.CreateLog("Tab with name: " + title + " is displayed after clicking Return To Engagement button ");
-
+               
+                //TC_05 --Compliance and Legal
                 //Validate Compliance & Legal tab 
                 string tabCompliance = engagementDetails.ValidateComplianceAndLegalTab();
                 Assert.AreEqual("Compliance & Legal", tabCompliance);
@@ -463,6 +465,70 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Conflict Check", subTabCC);
                 extentReports.CreateLog("Sub Tab " + subTabCC + " is displayed under Compliance & Legal tab ");
 
+                //TC_06 --Right Panel
+                //Validate Comments tab                
+                string tabComments = engagementDetails.ValidateCommentsTab();
+                Assert.AreEqual("Comments", tabComments);
+                extentReports.CreateLog("Tab " + tabComments + " is displayed in Right panel of Engagement details page ");
+
+                //Validate Financials tab                
+                string tabFinancials = engagementDetails.ValidateFinancialsTab();
+                Assert.AreEqual("Financials", tabFinancials);
+                extentReports.CreateLog("Tab " + tabFinancials + " is displayed in Right panel of Engagement details page ");
+
+                //Validate Eng Contacts tab                
+                string tabEngContacts = engagementDetails.ValidateEngContactsTab();
+                Assert.AreEqual("Eng Contacts", tabEngContacts);
+                extentReports.CreateLog("Tab " + tabEngContacts + " is displayed in Right panel of Engagement details page ");
+
+                //Validate CST tab                
+                string tabCST = engagementDetails.ValidateCSTTab();
+                Assert.AreEqual("CST", tabCST);
+                extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
+
+                //Save an Engagement Comment and Validate the added
+                string addedCommentsType = engagementDetails.AddEngCommentaAndValidate();
+                string addedComments = opportunityDetails.GetOppCommentsL();
+                Assert.AreEqual("Administrative", addedCommentsType);
+                Assert.AreEqual("Testing", addedComments);
+                extentReports.CreateLog("Added Engagement comments of Type: " + addedCommentsType + " and comments: " + addedComments + " is displayed under Comments section ");
+
+                //Validate update functionality of existing comment
+                string valUpdatedComment =engagementDetails.ValidateUpdateFunctionalityOfEngComment();
+                Assert.AreEqual("Test Comments", valUpdatedComment);
+                extentReports.CreateLog("Updated Engagement comments of Type: " + addedCommentsType + " and comments: " + valUpdatedComment + " is displayed after updation ");
+
+                //Validate delete functionality of existing comment
+                string msgDeletedComment = engagementDetails.ValidateDeleteFunctionalityOfEngComment();
+                Assert.AreEqual("(0)", msgDeletedComment);
+                extentReports.CreateLog("No comments is displayed after deleting the existing comment ");
+
+                //Validate the File Upload functionality
+                string uploadFiles = opportunityDetails.ValidateFileUploadsOption();
+                Assert.AreEqual("Upload Files", uploadFiles);
+                extentReports.CreateLog("Button with name: " + uploadFiles + " is displayed under Files section of Opportunity Details page ");
+
+                string successMsg = opportunityDetails.UploadFileAndValidate(excelPath1 + "UploadFile.txt");
+                Assert.AreEqual("UploadFile", successMsg);
+                extentReports.CreateLog("Selected File has been uploaded ");
+
+                //Validate new financials are getting added
+                string finID = engagementDetails.AddFinancialsAndValidate();
+                Assert.NotNull(finID);
+                extentReports.CreateLog("Financials with ID: " + finID + " got added successfully ");
+
+                //Validate Engagement contacts
+                string contact = engagementDetails.ValidateEngContacts();
+                string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);
+                Assert.AreEqual(name,contact);
+                extentReports.CreateLog("User can view added Engagement contacts ");
+
+                //Validate that Engagement Contacts can be updated
+                string updContact = engagementDetails.ValidateUpdateFunctionalityOfEngContacts();
+                Assert.AreNotEqual(contact, updContact);
+                extentReports.CreateLog("Engagement contact with new name:  "+ updContact+ " is updated ");
+
+                //
                 driver.Quit();
             }
             catch (Exception e)

@@ -2656,7 +2656,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate the company name of Fee Attribution Party 
         public string GetCompanyNameOfFeeAttributionParty()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valCompFeeAttrParty, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompFeeAttrParty, 90);
             string value = driver.FindElement(valCompFeeAttrParty).Text;
             return value;
         }
@@ -2679,7 +2679,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate the type of Fee Attribution Party 
         public string GetTypeOfFeeAttributionParty()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valTypeFeeAttrParty, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valTypeFeeAttrParty, 100);
             string value = driver.FindElement(valTypeFeeAttrParty).Text;
             return value;
         }
@@ -2702,7 +2702,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate the Record Type of Fee Attribution Party 
         public string GetRecTypeOfFeeAttributionParty()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valRecTypeFeeAttrParty, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRecTypeFeeAttrParty, 110);
             string value = driver.FindElement(valRecTypeFeeAttrParty).Text;
             return value;
         }
@@ -2787,7 +2787,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         public string ValidateAdditionalClientFromPopUp(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
             string value = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[5]/th/a[text()='" + name + "']")).Displayed.ToString();
             if (value.Equals("True"))
             {
@@ -3070,7 +3070,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         public string ClickRejectButtonL()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,500)");
+            js.ExecuteScript("window.scrollTo(0,600)");
             WebDriverWaits.WaitUntilEleVisible(driver, btnRejectL, 100);
             driver.FindElement(btnRejectL).Click();
             Thread.Sleep(4000);
@@ -3086,7 +3086,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         {
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,420)");
+            js.ExecuteScript("window.scrollTo(0,520)");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 120);
             driver.FindElement(lnkViewAllL).Click();
@@ -4177,16 +4177,17 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Add Opportunity Comments
         public string AddOppCommentaAndValidate()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 160);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
             driver.FindElement(btnSaveComments).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 160);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
             string commentType = driver.FindElement(valAddedCommentType).Text;
             return commentType;          
-                    }
+        }
 
         //Get added Opportunity comments
         public string GetOppCommentsL()
@@ -4258,7 +4259,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContact, 150);
             driver.FindElement(btnAddCFContact).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
             string title = driver.FindElement(titleAddCFOppContact).Text;
             return title;

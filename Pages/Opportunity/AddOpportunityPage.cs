@@ -359,6 +359,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             //Select Additional Client
             driver.FindElement(comboAddClientL).SendKeys("No");
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
 
             //Select Additional Subject

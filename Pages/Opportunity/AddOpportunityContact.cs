@@ -94,7 +94,7 @@ namespace SF_Automation.Pages.Opportunity
             string excelPath = dir + file;
             string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);
             driver.FindElement(txtContactL).SendKeys(name);
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             driver.FindElement(imgContactL).Click();
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);

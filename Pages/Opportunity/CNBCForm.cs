@@ -384,6 +384,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(comboAsia).Click();
             driver.FindElement(By.XPath("//label[text()='Asia Angle']/following::lightning-base-combobox-item/span[2]/span[text()='" + real + "']")).Click();
             driver.FindElement(comboRealEstate).Click();
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//label[text()='Real Estate Angle']/following::lightning-base-combobox-item/span[2]/span[text()='" + real + "']")).Click();
            
             js.ExecuteScript("window.scrollTo(0,400)");

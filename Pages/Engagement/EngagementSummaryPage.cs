@@ -884,6 +884,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidatePostTransAddDebtTitle()
         {
             driver.FindElement(btnPostTransAddDebt).Click();
+            Thread.Sleep(4000);
             string title = driver.FindElement(titleInsertNewHL).Text;
             return title;
         }
