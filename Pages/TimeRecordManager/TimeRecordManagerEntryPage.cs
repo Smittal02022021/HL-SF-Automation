@@ -44,7 +44,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tableSummaryLog = By.CssSelector("table[class='slds-table'] > tbody");
         By comboBoxProjectInLog = By.CssSelector("select[class='slds-select'] > option");
         By txtWeeklyEntry = By.XPath("//div[starts-with(@data-key,'a4C')]//parent::div/div/input");
-        By drpdownFuturePeriod = By.XPath("//div[@data-aura-class='cTimeRecordPeriodPicker']/select/option[@selected='selected']//preceding::option");
+        By drpdownFuturePeriod = By.XPath("//div[@data-aura-class='cHL_LightningComponent cTimeRecordPeriodPicker']/select/option[@selected='selected']//preceding::option");
         By txtCurrentTimePeriod = By.CssSelector("div[class*='cTimeRecordPeriodPicker']");
         By drpdwnSelectPreSetTemplate = By.CssSelector("select[class*='slds-input']");
         By EnterDateSummaryLog = By.CssSelector("input[class*='date input']");

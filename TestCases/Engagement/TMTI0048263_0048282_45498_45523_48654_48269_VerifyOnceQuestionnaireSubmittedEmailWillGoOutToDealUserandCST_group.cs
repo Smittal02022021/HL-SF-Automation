@@ -261,7 +261,6 @@ namespace SF_Automation.TestCases.Engagement
                     driver.Quit();
                     extentReports.CreateLog("Browser Closed ");
                 }
-
             }
             catch (Exception ex)
             {
