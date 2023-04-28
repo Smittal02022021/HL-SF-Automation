@@ -21,7 +21,6 @@ namespace SF_Automation.TestCases.GiftLog
         GiftApprovePage giftApprove = new GiftApprovePage();
         ContactHomePage conHome = new ContactHomePage();
         ContactCreatePage createContact = new ContactCreatePage();
-
         ContactDetailsPage contactDetails = new ContactDetailsPage();
       
         public static string fileTC1523 = "T1523_GiftLog_ApproveGifts_DefaultLayoutFieldsAndFieldsValues";
