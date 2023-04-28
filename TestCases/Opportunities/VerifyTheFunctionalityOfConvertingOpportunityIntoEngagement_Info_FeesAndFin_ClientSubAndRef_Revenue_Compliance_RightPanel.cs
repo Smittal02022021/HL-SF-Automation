@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance : BaseClass
+    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -77,7 +77,8 @@ namespace SF_Automation.TestCases.Opportunity
                               
                 //Enter details for all mandatory fields
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunitiesLightning(valJobType, TMTT0017889);
+
+				string value = addOpportunity.AddOpportunitiesLightning(valJobType, TMTT0017889);
                 Console.WriteLine("value : " + value);
                 extentReports.CreateLog("Opportunity with number : " + value + " is created ");
 
@@ -528,8 +529,89 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreNotEqual(contact, updContact);
                 extentReports.CreateLog("Engagement contact with new name:  "+ updContact+ " is updated ");
 
-                //
-                driver.Quit();
+				//TC_07 -- Top Panel
+				//Validate Update Backlog button   
+				string uploadBacklog = engagementDetails.ValidateUpdateBacklogButton();
+				Assert.AreEqual("Update Backlog", uploadBacklog);
+				extentReports.CreateLog("Button: " + uploadBacklog + " is displayed on the Top panel of Engagement details page ");
+
+				//Validate mandatory validation of Update Backlog button   
+				string validationBacklog = engagementDetails.ValidateMandatoryValidationOfUpdateBacklog();
+				Assert.AreEqual("These required fields must be completed: Engagement Name", validationBacklog);
+				extentReports.CreateLog("Validation message: " + validationBacklog + " is displayed when Save button is clicked without entering mandatory field values. ");
+
+				//Validate edit functionality of Update Backlog button   
+				string updateBacklog = engagementDetails.ValidateEditFunctionalityOfUpdateBacklog();
+				Assert.AreEqual("Testing", updateBacklog);
+                extentReports.CreateLog("Updated value: " + updateBacklog + " of Engagement Name is displayed upon updation ");
+
+				//Validate Add Client button   
+				string addClient = engagementDetails.ValidateAddClientButton();
+				Assert.AreEqual("Add Client", addClient);
+				extentReports.CreateLog("Button: " + addClient + " is displayed on the Top panel of Engagement details page ");
+
+				//Validate mandatory validation of Add Client button   
+				string validationClient = engagementDetails.ValidateMandatoryValidationOfAddClient();
+				Assert.AreEqual("These required fields must be completed: Client/Subject", validationClient);
+				extentReports.CreateLog("Validation message: " + validationClient + " is displayed when Save button is clicked without entering mandatory field values. ");
+
+				//Validate edit functionality of Update Backlog button   
+				string updateClient= engagementDetails.ValidateEditFunctionalityOfAddClient();
+				string typeClient = engagementDetails.GetTypeOfClientCompany();
+				Assert.AreNotEqual(valClient, updateClient);
+                Assert.AreEqual("Client",typeClient);
+				extentReports.CreateLog("New company with name: " + updateClient + " and Type: " + typeClient + " is added upon adding new company ");
+
+				//Validate Add Subject button   
+				string addSubject = engagementDetails.ValidateAddSubjectButton();
+				Assert.AreEqual("Add Subject", addSubject);
+				extentReports.CreateLog("Button: " + addSubject + " is displayed on the Top panel of Engagement details page ");
+
+				//Validate mandatory validation of Add Subject button   
+				string validationSubject = engagementDetails.ValidateMandatoryValidationOfAddSubject();
+				Assert.AreEqual("These required fields must be completed: Client/Subject", validationSubject);
+				extentReports.CreateLog("Validation message: " + validationSubject + " is displayed when Save button is clicked without entering mandatory field values. ");
+
+				//Validate edit functionality of Add Subject button   
+				string updateSubject = engagementDetails.ValidateEditFunctionalityOfAddSubject();
+                string typeSubject = engagementDetails.GetTypeOfSubCompany();
+				Assert.AreNotEqual(valClient, updateSubject);
+				Assert.AreEqual("Subject", typeSubject);
+				extentReports.CreateLog("New company with name: " + updateSubject + " and Type: " + typeSubject + " is added upon adding new company ");
+
+				//Validate Add Other Party button   
+				string addOther = engagementDetails.ValidateAddOtherPartyButton();
+				Assert.AreEqual("Add Other Party", addOther);
+				extentReports.CreateLog("Button: " + addOther + " is displayed on the Top panel of Engagement details page ");
+
+				//Validate mandatory validation of Add Other Party button   
+				string validationOther = engagementDetails.ValidateMandatoryValidationOfAddOtherParty();
+				Assert.AreEqual("These required fields must be completed: Client/Subject", validationOther);
+				extentReports.CreateLog("Validation message: " + validationOther + " is displayed when Save button is clicked without entering mandatory field values. ");
+
+				//Validate edit functionality of Add Other Party button   
+				string updateOther = engagementDetails.ValidateEditFunctionalityOfAddOtherParty();
+				string typeOther = engagementDetails.GetTypeOfOtherCompany();
+				Assert.AreNotEqual(valClient, updateOther);
+				Assert.AreEqual("Other", typeOther);
+				extentReports.CreateLog("New company with name: " + updateOther + " and Type: " + typeOther+ " is added upon adding new company ");
+
+				//Validate Add CF Engagement Contact button   
+				string addEngContact = engagementDetails.ValidateAddCFEngContactButton();
+				Assert.AreEqual("Add CF Engagement Contact", addEngContact);
+				extentReports.CreateLog("Button: " + addEngContact + " is displayed on the Top panel of Engagement details page ");
+
+				//Validate mandatory validation of Add CF Engagement Contact button   
+				string validationAddContact = engagementDetails.ValidateMandatoryValidationOfAddCFEngContact();
+				Assert.AreEqual("These required fields must be completed: Contact, Party", validationAddContact);
+				extentReports.CreateLog("Validation message: " + validationAddContact + " is displayed when Save button is clicked without entering mandatory field values. ");
+
+				//Validate add functionality of Add CF Engagement Contact button   
+				string addedContact = engagementDetails.ValidateEditFunctionalityOfAddEngContact();
+                extentReports.CreateLog("New Contact: " + addedContact + " is displayed after saving contact details ");
+
+
+				driver.Quit();
             }
             catch (Exception e)
             {
