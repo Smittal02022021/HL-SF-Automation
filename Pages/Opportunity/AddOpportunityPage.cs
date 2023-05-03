@@ -75,6 +75,14 @@ namespace SF_Automation.Pages
         By comboHLMaterialL = By.XPath("//button[@aria-label='Does HL Have Material Non-Public Info?, --None--']");
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+        By btnNewOppL = By.XPath("//div[contains(@class,'lvmForceActionsContainer')]//a[@title='New']");
+        By txtStaff = By.XPath("//input[@placeholder='Begin Typing Name...']");
+        By listStaff = By.XPath("/html/body/ul");
+        By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+        By btnSaveDealTeam = By.CssSelector("input[value='Save']");
+        By tabInfo = By.XPath("//a[text()='Info']");
+        
 
         public string AddOpportunities(string type, string file)
         {
@@ -650,7 +658,36 @@ namespace SF_Automation.Pages
             //
             return valOpportunity;
         }
+        //To enter team member details on LV
+        public string EnterStaffDetailsL(string file)
+        {
+            Thread.Sleep(8000);
+            ReadJSONData.Generate("Admin_Data.json");
+            Console.WriteLine("Entered staff function");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
+            Console.WriteLine("Before entering Staff");
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSaveDealTeam).Click();
 
+
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
+            string name = driver.FindElement(tabInfo).Text;
+            return name;
+        }
     }
 }
 

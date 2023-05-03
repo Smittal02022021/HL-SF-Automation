@@ -166,7 +166,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityNumber, engName);
                     extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
 
-                    countDealTeamMember = opportunityDetails.AddEngMultipleDealTeamMembers(valRecordType, fileTMTI0055018);
+                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembers(valRecordType, fileTMTI0055018);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Engagement after conversion after Conversion ");
 
                     msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();
