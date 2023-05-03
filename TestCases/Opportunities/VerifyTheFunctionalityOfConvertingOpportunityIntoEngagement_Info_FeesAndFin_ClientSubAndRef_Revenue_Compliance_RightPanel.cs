@@ -187,6 +187,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string clientComp = engagementDetails.GetClientCompanyL();
                 string subjectComp = engagementDetails.GetSubjectCompanyL();
+                string engNum = engagementDetails.GetEngNumL();
                 Assert.AreEqual(valClient, clientComp);
                 Assert.AreEqual(valSubject, subjectComp);
                 extentReports.CreateLog("Client and Subject companies are copied in Engagement from created Opportunity ");
@@ -216,8 +217,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Search Engagements functionality is available ");
 
                 //Verify Search Functionality of Engagements
-                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements("125486");
-                Assert.AreEqual("125486", searchedEng);
+                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements(engNum);
+                Assert.AreEqual(searchedEng, engNum);
                 extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
 
                 //Validate on clicking Engagement number, engagement details page is displayed
@@ -609,7 +610,6 @@ namespace SF_Automation.TestCases.Opportunity
 				//Validate add functionality of Add CF Engagement Contact button   
 				string addedContact = engagementDetails.ValidateEditFunctionalityOfAddEngContact();
                 extentReports.CreateLog("New Contact: " + addedContact + " is displayed after saving contact details ");
-
 
 				driver.Quit();
             }

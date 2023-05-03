@@ -269,7 +269,7 @@ namespace SF_Automation.Pages
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[@aria-controls='tab-1']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
-
+        By btnReturnToOppL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[2]");
         By txtEstTxnSize = By.CssSelector("input[name*='P4']");
         By valEstTxnSize = By.CssSelector("div[id*='P4']");
         By txtRequestDate = By.CssSelector("input[id*='yN']");
@@ -312,6 +312,7 @@ namespace SF_Automation.Pages
         By chkAnalystL = By.XPath("//table/tbody/tr[3]/td[7]/input");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
+
         By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By btnAddCFOppContactL = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
         By txtContactL = By.XPath("//input[@placeholder='Search Contacts...']");
@@ -3020,10 +3021,13 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             driver.FindElement(chkAnalystL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 240);
             driver.FindElement(btnSaveTeamL).Click();
+            Thread.Sleep(7000);
+            //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            driver.FindElement(btnReturnToOppL).Click();
             Thread.Sleep(5000);
-            driver.SwitchTo().DefaultContent();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
-            driver.FindElement(tabEngTeamL).Click();
+            
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
+            //driver.FindElement(tabEngTeamL).Click();
         }
 
         //Add contact in Opportunity
