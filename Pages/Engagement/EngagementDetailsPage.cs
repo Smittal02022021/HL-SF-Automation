@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Engagement
         By txtStage = By.CssSelector("select[name*='NlW']");
         By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
         By txtContact = By.CssSelector("span>input[id*='OPH']");     
-By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
+        By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         
         By txtParty = By.CssSelector("select[name*='M0eMS']");
         By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");

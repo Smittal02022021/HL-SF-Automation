@@ -58,7 +58,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
 
                     //Login as Standard User profile and validate the user
-                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 29);
+                    string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                     usersLogin.SearchUserAndLogin(valUser);
                     login.SwitchToClassicView();
 

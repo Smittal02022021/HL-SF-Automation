@@ -403,96 +403,7 @@ namespace SF_Automation.Pages
         By btnConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
-        public string GetOpportunityNumberL()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
-            return driver.FindElement(txtOppNumberL).Text;
-        }
-        public int AddOppMultipleDealTeamMembers(string RecordType, string file)
-        {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
-            driver.FindElement(btnEdit).Click();
-            driver.FindElement(chkInternalTeamPrompt).Click();
-            driver.FindElement(btnSave).Click();
-            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
-            int totalDealTeamMemberadded = 0;
-            for (int row = 2; row <= rowCount; row++)
-            {
-				string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
-				Thread.Sleep(5000);
-				try
-                {                    
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                    driver.FindElement(txtStaff).SendKeys(valStaff);
-                    Thread.Sleep(5000);
-                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
-                    Thread.Sleep(2000);
-                    try
-                    {
-                        if (RecordType == "CF")
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
-                            driver.FindElement(checkCFSpeciality).Click();
-                        }
-                        else
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
-                        }
-                        driver.FindElement(btnSaveITTeam).Click();
-                        totalDealTeamMemberadded = row - 2;
-                    }
-                    catch (Exception e)
-                    {
-                        WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                        driver.FindElement(txtStaff).Clear();
-                        driver.FindElement(txtStaff).SendKeys(valStaff);
-                        Thread.Sleep(5000);
-                        CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
-                        Thread.Sleep(2000);
-                        if (RecordType == "CF")
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
-                            driver.FindElement(checkCFSpeciality).Click();
-                        }
-                        else
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
-                        }
-                        driver.FindElement(btnSaveITTeam).Click();
-                        totalDealTeamMemberadded = row - 2;
-                    }
-                }
-                catch (Exception)
-                {
-                    return row - 2;
-                }
-            }
-            return totalDealTeamMemberadded;
-        }
-
         
-        public string ValidateDealTeamMemberOverLimit()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
-            string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
-            driver.FindElement(btnBackPopup).Click();
-            return msgPopup;
-        }
-        public string GetLineErrorMessage()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
-            string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
-            driver.FindElement(btnReturnToOpporEng).Click();
-            return txtLineErroeMsg;
-        }
         public string GetOppJobType()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 10);
@@ -3895,6 +3806,97 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             string status = driver.FindElement(valStatusL).Text;
             return status;
+        }
+        public string GetOpportunityNumberL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
+            return driver.FindElement(txtOppNumberL).Text;
+        }
+        public int AddOppMultipleDealTeamMembers(string RecordType, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(chkInternalTeamPrompt).Click();
+            driver.FindElement(btnSave).Click();
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+                Thread.Sleep(5000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    try
+                    {
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                    catch (Exception e)
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                        driver.FindElement(txtStaff).Clear();
+                        driver.FindElement(txtStaff).SendKeys(valStaff);
+                        Thread.Sleep(5000);
+                        CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                        Thread.Sleep(2000);
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                }
+                catch (Exception)
+                {
+                    return row - 2;
+                }
+            }
+            return totalDealTeamMemberadded;
+        }
+
+        public string ValidateDealTeamMemberOverLimit()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
+            string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
+            driver.FindElement(btnBackPopup).Click();
+            return msgPopup;
+        }
+
+        public string GetLineErrorMessage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
+            string txtLineErrorMsg = driver.FindElement(txtLineErrormsg).Text;
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+
+            driver.FindElement(btnReturnToOpporEng).Click();            
+            return txtLineErrorMsg;
         }
         public int AddOppMultipleDealTeamMembersL(string RecordType, string file)
         {

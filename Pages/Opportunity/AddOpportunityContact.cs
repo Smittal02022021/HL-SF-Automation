@@ -129,6 +129,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(chkPrimaryContactL).Click();
             driver.FindElement(btnSaveL).Click();
         }
+       
     }
 }
 
