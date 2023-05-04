@@ -25,12 +25,17 @@ namespace SF_Automation.Pages
 
         public void SwitchToLightningExperience()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
-            IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
-
-            if (linkSwitchtoLightning.Displayed)
+            try
             {
-                linkSwitchtoLightning.Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
+                IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
+                if (linkSwitchtoLightning.Displayed)
+                {
+                    linkSwitchtoLightning.Click();
+                }
+            }
+            catch (Exception e)
+            {
             }
         }
 
@@ -58,15 +63,18 @@ namespace SF_Automation.Pages
         }
         public void SwitchToClassicView()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
-            driver.FindElement(imgProfile).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 120);
-            driver.FindElement(lnkSwitchToClassic).Click();
-            Thread.Sleep(2000);
+            string url = driver.Url;
+            if (url.Contains(".com/lightning/"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
+                driver.FindElement(imgProfile).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 20);
+                driver.FindElement(lnkSwitchToClassic).Click();
+                Thread.Sleep(2000);
+            }
         }
         public void LoginApplication()
-        {
-           
+        {           
             driver.FindElement(txtUserName).SendKeys(ReadJSONData.data.authentication.username);
             Console.WriteLine(ReadJSONData.data.authentication.username);
             driver.FindElement(txtPassWord).SendKeys(ReadJSONData.data.authentication.password);
