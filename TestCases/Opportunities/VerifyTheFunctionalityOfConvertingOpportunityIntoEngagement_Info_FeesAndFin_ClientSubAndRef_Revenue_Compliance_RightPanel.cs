@@ -608,10 +608,39 @@ namespace SF_Automation.TestCases.Opportunity
 				extentReports.CreateLog("Validation message: " + validationAddContact + " is displayed when Save button is clicked without entering mandatory field values. ");
 
 				//Validate add functionality of Add CF Engagement Contact button   
-				string addedContact = engagementDetails.ValidateEditFunctionalityOfAddEngContact();
-                extentReports.CreateLog("New Contact: " + addedContact + " is displayed after saving contact details ");
+				string addedContactNum = engagementDetails.ValidateEditFunctionalityOfAddEngContact();
+                Assert.AreEqual("(2)", addedContactNum);
+                extentReports.CreateLog("New Contact is added under Engagement Contacts ");
 
-				driver.Quit();
+                //Validate View Counterparties button   
+                string viewCounterparties = engagementDetails.ValidateVisibilityOfViewCounterpartiesButton();
+                Assert.AreEqual("View Counterparties button is displayed", viewCounterparties);
+                extentReports.CreateLog("Button: " + viewCounterparties + " is displayed on the Top panel of Engagement details page ");
+
+                //Validate Billing Request button   
+                string billingReq = engagementDetails.ValidateBillingRequestButton();
+                Assert.AreEqual("Billing Request", billingReq);
+                extentReports.CreateLog("Button: " + billingReq + " is displayed on the Top panel of Engagement details page ");
+
+                //Validate Additional CCs section   
+                string additionalCC = engagementDetails.ValidateAdditionalCCSecction();
+                Assert.AreEqual("Additional CCs", additionalCC);
+                extentReports.CreateLog("Section with name: " + additionalCC + " is displayed after clicking Billing Request button ");
+
+                //Validate mandatory validation of Billing Request 
+                string validationSendEmail = engagementDetails.ValidateMandatoryValidationOfBillingRequest();
+                Assert.AreEqual("To is required.", validationSendEmail);
+                extentReports.CreateLog("Validation message: " + validationSendEmail + " is displayed when Send Email button is clicked without entering mandatory field values. ");
+
+                //Validate cancel functionality of Billing Request 
+                string titleEngDetailsL = engagementDetails.ValidateCancelFunctionalityOfBillingRequest();
+                Assert.AreEqual("Info", titleEngDetailsL);
+                extentReports.CreateLog("Page with title : " + titleEngDetailsL + " is displayed when cancel button is clicked on Billing Request page ");
+
+
+
+
+                driver.Quit();
             }
             catch (Exception e)
             {

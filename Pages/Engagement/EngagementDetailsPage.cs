@@ -347,6 +347,16 @@ namespace SF_Automation.Pages.Engagement
         By txtContacts = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnPartyContact = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
 		By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+        By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
+        By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
+        By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
+        By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
+        By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div/text()");
+        By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
+
+
+
+
 
 		public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2764,7 +2774,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtDealCloudID, 150);
             driver.FindElement(txtDealCloudID).SendKeys(deal);
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valDealCloudIDPostUpdate).Text;
             return value;
         }
@@ -3381,11 +3391,11 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
 			driver.FindElement(btnPartyContact).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='Seller']")).Click();
+            driver.FindElement(By.XPath("/html/body/div[9]/div/ul/li/a[text()='Seller']")).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(4000);		
-			string name = driver.FindElement(valAddedContact).Text;
+			Thread.Sleep(6000);		
+			string name = driver.FindElement(valAddedContactNum).Text;
 			return name;
 		}
 
@@ -3396,5 +3406,52 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(valEngNumL).Text;
             return name;
         }
-	}
+
+        //Validate Billing Request button
+        public string ValidateBillingRequestButton()
+        {
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 100);
+            string value = driver.FindElement(btnBillingRequestL).Text;
+            return value;
+        }
+
+        //Validate Additional CCs section on Billing Request button
+        public string ValidateAdditionalCCSecction()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 100);
+            driver.FindElement(btnBillingRequestL).Click();
+            Thread.Sleep(5000);
+            //frmae //div[1]/div/div/div/force-aloha-page/div/iframe
+            WebDriverWaits.WaitUntilEleVisible(driver, secAdditionalCC, 100);
+            string value = driver.FindElement(secAdditionalCC).Text;
+            return value;
+        }
+
+        //Validate validation of Billing Request
+        public string ValidateMandatoryValidationOfBillingRequest()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendEmailL, 200);
+            driver.FindElement(btnSendEmailL).Click();
+            Thread.Sleep(3000);
+            string validation = driver.FindElement(msgSendEmail).Text;
+            return validation;
+        }
+
+        //Validate Cancel Functionality of Billing Request
+        public string ValidateCancelFunctionalityOfBillingRequest()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSendEmail, 200);
+            driver.FindElement(btnCancelSendEmail).Click();
+            Thread.Sleep(3000);
+            string name = driver.FindElement(tabInfo).Text;
+            return name;
+        }
+    }
 }
