@@ -7,7 +7,6 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.HomePage;
-
 namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView:BaseClass
@@ -96,7 +95,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(displayedTab, "Info");
                     extentReports.CreateLog("User is on Opportunity detail "+ displayedTab + " tab ");
                     
-                    //Validating Opportunity details  
+                    //Validating Opportunity with new opportunity number details  
                     string opportunityNumber = opportunityDetails.GetOpportunityNumberL();
                     Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
@@ -175,7 +174,6 @@ namespace SF_Automation.TestCases.Opportunity
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
-
                     
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
@@ -259,7 +257,6 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
                     
                     login.SwitchToClassicView();
-
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + caoUser + " logged out ");
                 }
@@ -274,8 +271,6 @@ namespace SF_Automation.TestCases.Opportunity
                 login.SwitchToClassicView();
                 driver.Quit();
             }
-
         }
-
     }
 }
