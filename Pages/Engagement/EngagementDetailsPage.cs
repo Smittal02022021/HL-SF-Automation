@@ -351,9 +351,9 @@ namespace SF_Automation.Pages.Engagement
         By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
         By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
-        By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div/text()");
+        By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
-
+        By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
 
 
 
@@ -3426,6 +3426,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 100);
             driver.FindElement(btnBillingRequestL).Click();
             Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
             //frmae //div[1]/div/div/div/force-aloha-page/div/iframe
             WebDriverWaits.WaitUntilEleVisible(driver, secAdditionalCC, 100);
             string value = driver.FindElement(secAdditionalCC).Text;
@@ -3450,6 +3451,19 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSendEmail, 200);
             driver.FindElement(btnCancelSendEmail).Click();
             Thread.Sleep(3000);
+            string name = driver.FindElement(tabInfo).Text;
+            return name;
+        }
+
+        //Validate Send Email Functionality of Billing Request
+        public string ValidateSendEmailFunctionalityOfBillingRequest()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTo, 200);
+            driver.FindElement(txtTo).SendKeys("Sonika Goyal");
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("/html/body/ul[1]/li/a")).Click();
+            driver.FindElement(btnSendEmailL).Click();
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }

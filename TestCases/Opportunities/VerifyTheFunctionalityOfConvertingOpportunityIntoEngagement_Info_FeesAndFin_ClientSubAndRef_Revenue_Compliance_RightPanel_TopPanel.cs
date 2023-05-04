@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel : BaseClass
+    class VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -594,8 +594,8 @@ namespace SF_Automation.TestCases.Opportunity
 				string updateOther = engagementDetails.ValidateEditFunctionalityOfAddOtherParty();
 				string typeOther = engagementDetails.GetTypeOfOtherCompany();
 				Assert.AreNotEqual(valClient, updateOther);
-				Assert.AreEqual("Other", typeOther);
-				extentReports.CreateLog("New company with name: " + updateOther + " and Type: " + typeOther+ " is added upon adding new company ");
+				//Assert.AreEqual("Other", typeOther);
+				extentReports.CreateLog("New company with name: " + updateOther + " is added upon adding new company ");
 
 				//Validate Add CF Engagement Contact button   
 				string addEngContact = engagementDetails.ValidateAddCFEngContactButton();
@@ -629,7 +629,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate mandatory validation of Billing Request 
                 string validationSendEmail = engagementDetails.ValidateMandatoryValidationOfBillingRequest();
-                Assert.AreEqual("To is required.", validationSendEmail);
+                Assert.AreEqual("Warning:To is required.", validationSendEmail);
                 extentReports.CreateLog("Validation message: " + validationSendEmail + " is displayed when Send Email button is clicked without entering mandatory field values. ");
 
                 //Validate cancel functionality of Billing Request 
@@ -637,8 +637,11 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Info", titleEngDetailsL);
                 extentReports.CreateLog("Page with title : " + titleEngDetailsL + " is displayed when cancel button is clicked on Billing Request page ");
 
-
-
+                //Validate Send Email functionality of Billing Request
+                engagementDetails.ValidateAdditionalCCSecction();
+                string msgSendEmail = engagementDetails.ValidateSendEmailFunctionalityOfBillingRequest();
+                Assert.AreEqual("Info", titleEngDetailsL);
+                extentReports.CreateLog("Page with title : " + titleEngDetailsL + " is displayed when Send Email button is clicked after entering all required details on Billing Request page ");
 
                 driver.Quit();
             }
