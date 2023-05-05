@@ -408,10 +408,10 @@ namespace SF_Automation.Pages
             int totalDealTeamMemberadded = 0;
             for (int row = 2; row <= rowCount; row++)
             {
-                try
-                {
-                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
-                    Thread.Sleep(5000);
+				string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+				Thread.Sleep(5000);
+				try
+                {                    
                     WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
                     driver.FindElement(txtStaff).SendKeys(valStaff);
                     Thread.Sleep(5000);
