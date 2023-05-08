@@ -383,7 +383,8 @@ namespace SF_Automation.Pages
         By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
         By lnkMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
         By lnkConvertToEngL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/div/div/slot/runtime_platform_actions-action-renderer[2]/runtime_platform_actions-executor-page-reference/slot/slot/runtime_platform_actions-ribbon-menu-item/a/span");
-
+        By btnRejectL = By.XPath("//div[@title='Reject']");
+        By btnRejectOppL = By.XPath("//span[text()='Reject']");
         By comboTypesOptions = By.CssSelector("select[id*= 'hWW'] option");
         By txtMsgOverlimit = By.XPath("//div[@class='message warningM2']//div[@class='messageText']");
         By btnBackPopup = By.XPath("//div[@class='message warningM2']//input[@type='Button']");
@@ -393,6 +394,20 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
+        By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
+        By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
+
+        By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
+        By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
+        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
+        By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
+        
+        By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
+        By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
@@ -3939,92 +3954,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
             return driver.FindElement(txtOppNumberL).Text;
         }
-        public int AddOppMultipleDealTeamMembers(string RecordType, string file)
-        {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
-            driver.FindElement(btnEdit).Click();
-            driver.FindElement(chkInternalTeamPrompt).Click();
-            driver.FindElement(btnSave).Click();
-            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
-            int totalDealTeamMemberadded = 0;
-            for (int row = 2; row <= rowCount; row++)
-            {
-                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
-                Thread.Sleep(5000);
-                try
-                {
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                    driver.FindElement(txtStaff).SendKeys(valStaff);
-                    Thread.Sleep(5000);
-                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
-                    Thread.Sleep(2000);
-                    try
-                    {
-                        if (RecordType == "CF")
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
-                            driver.FindElement(checkCFSpeciality).Click();
-                        }
-                        else
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
-                        }
-                        driver.FindElement(btnSaveITTeam).Click();
-                        totalDealTeamMemberadded = row - 2;
-                    }
-                    catch (Exception e)
-                    {
-                        WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                        driver.FindElement(txtStaff).Clear();
-                        driver.FindElement(txtStaff).SendKeys(valStaff);
-                        Thread.Sleep(5000);
-                        CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
-                        Thread.Sleep(2000);
-                        if (RecordType == "CF")
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
-                            driver.FindElement(checkCFSpeciality).Click();
-                        }
-                        else
-                        {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
-                        }
-                        driver.FindElement(btnSaveITTeam).Click();
-                        totalDealTeamMemberadded = row - 2;
-                    }
-                }
-                catch (Exception)
-                {
-                    return row - 2;
-                }
-            }
-            return totalDealTeamMemberadded;
-        }
 
-        public string ValidateDealTeamMemberOverLimit()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
-            string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
-            driver.FindElement(btnBackPopup).Click();
-            return msgPopup;
-        }
-
-        public string GetLineErrorMessage()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
-            string txtLineErrorMsg = driver.FindElement(txtLineErrormsg).Text;
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
-
-            driver.FindElement(btnReturnToOpporEng).Click();            
-            return txtLineErrorMsg;
-        }
         public int AddOppMultipleDealTeamMembersL(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -4033,7 +3963,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
             driver.FindElement(tabInternalTeamL).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(8000);            
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
