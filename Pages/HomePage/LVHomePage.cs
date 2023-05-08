@@ -50,6 +50,7 @@ namespace SF_Automation.Pages.HomePage
         }
         public void ClickAppLauncher()
         {
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
             driver.FindElement(appLauncher).Click();
             Thread.Sleep(3000);
