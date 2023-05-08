@@ -179,6 +179,20 @@ namespace SF_Automation.UtilityFunctions
                 }
             }
         }
+        public static void MultiSelectValueWithoutSelect(IWebDriver driver, By by, string value)
+        {
+            var dropList = driver.FindElements(by);
+            for (int i = 0; i < dropList.Count; i++)
+            {
+                string text = dropList[i].Text;
+                if (text.Contains(value))
+                {
+                    Thread.Sleep(3000);
+                    dropList[i].Click();
+                    break;
+                }
+            }
+        }
         //To Upload File in LV
         public static void FileUpload(IWebDriver driver, string filePath)
         {
