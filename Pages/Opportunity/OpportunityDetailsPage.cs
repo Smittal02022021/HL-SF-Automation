@@ -353,18 +353,18 @@ namespace SF_Automation.Pages
         By txtEstTxnSizeL = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
         By btnWomenLedL = By.XPath("//button[@aria-label='Women Led, --None--']");
-        By txtDateEngL = By.XPath("//flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/lightning-input/lightning-datepicker/div[1]/div/input");
+        By txtDateEngL = By.XPath("//input[@name='Date_Engaged__c']");
         By btnFairnessL = By.XPath("//button[@aria-label='Fairness Opinion Component, --None--']");
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
         By txtStaffL = By.XPath("//input[@placeholder='Begin Typing Name...']");
-        By chkInitiatorL = By.XPath("//table/tbody/tr[2]/td[2]/input");
-        By chkSellerL = By.XPath("//table/tbody/tr[2]/td[3]/input");
-        By chkPrincipalL = By.XPath("//table/tbody/tr[2]/td[4]/input");
-        By chkManagerL = By.XPath("//table/tbody/tr[2]/td[5]/input");
-        By chkAssociateL = By.XPath("//table/tbody/tr[2]/td[6]/input");
-        By chkAnalystL = By.XPath("//table/tbody/tr[2]/td[7]/input");
+        By chkInitiatorL = By.XPath("//table/tbody/tr[3]/td[2]/input");
+        By chkSellerL = By.XPath("//table/tbody/tr[3]/td[3]/input");
+        By chkPrincipalL = By.XPath("//table/tbody/tr[3]/td[4]/input");
+        By chkManagerL = By.XPath("//table/tbody/tr[3]/td[5]/input");
+        By chkAssociateL = By.XPath("//table/tbody/tr[3]/td[6]/input");
+        By chkAnalystL = By.XPath("//table/tbody/tr[3]/td[7]/input");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
         By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
@@ -383,7 +383,8 @@ namespace SF_Automation.Pages
         By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
         By lnkMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
         By lnkConvertToEngL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/div/div/slot/runtime_platform_actions-action-renderer[2]/runtime_platform_actions-executor-page-reference/slot/slot/runtime_platform_actions-ribbon-menu-item/a/span");
-
+        By btnRejectL = By.XPath("//div[@title='Reject']");
+        By btnRejectOppL = By.XPath("//span[text()='Reject']");
         By comboTypesOptions = By.CssSelector("select[id*= 'hWW'] option");
         By txtMsgOverlimit = By.XPath("//div[@class='message warningM2']//div[@class='messageText']");
         By btnBackPopup = By.XPath("//div[@class='message warningM2']//input[@type='Button']");
@@ -393,6 +394,20 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
+        By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
+        By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
+
+        By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
+        By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
+        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
+        By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
+        
+        By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
+        By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
@@ -3648,7 +3663,7 @@ namespace SF_Automation.Pages
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 240);
-            driver.FindElement(chkInitiatorL).Click();
+            //driver.FindElement(chkInitiatorL).Click();
             driver.FindElement(chkSellerL).Click();
             driver.FindElement(chkPrincipalL).Click();
             driver.FindElement(chkManagerL).Click();
@@ -3831,6 +3846,217 @@ namespace SF_Automation.Pages
             {
             }
         }
+        //Lightning-----------------------------
+        //Update all required fields to convert Opportunity to Engagement 
+        public void UpdateReqFieldsForCFConversionL2(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 100);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).SendKeys(valClient);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valClient + "']")).Click();
+
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
+
+            //Enter SIC
+            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            Thread.Sleep(3000);
+            driver.FindElement(comboSICL).Click();
+            
+            //Opp Desc
+            driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Estimated Fees
+            driver.FindElement(txtRetainerL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
+            driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //Ref Contact
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            driver.FindElement(txtRefContactL).SendKeys(valRef);
+            Thread.Sleep(5000);
+            driver.FindElement(comboRefContactL).Click();
+
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+
+            //Select Beneficial Owner
+            string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            driver.FindElement(comboUpdBenOwnerL).SendKeys(valBenOwner);
+            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(4000);
+            
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
+
+            //Select Fairness
+            Thread.Sleep(4000);
+            driver.FindElement(btnFairnessL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + valWomen + "']")).Click();
+
+            //Date Engaged            
+            driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        
+        public void ClickRetutnToOpportunityL()
+        {
+            By btnReturnToOpp = By.XPath("//span[contains(@id,'internalTeam')]//input[@value='Return To Opportunity']");
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            Thread.Sleep(2000);
+            driver.FindElement(btnReturnToOpp).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+        }     
+
+        //Click Return to Opportunity button
+        public void ClickRequesToEngL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
+            driver.FindElement(btnReqEngL).Click();
+        }
+
+
+        //Reject the submitted Opportunity
+        public string ClickRejectButtonL()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectL, 100);
+            driver.FindElement(btnRejectL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtCommentsL).SendKeys("Rejected");
+            driver.FindElement(btnRejectOppL).Click();
+            Thread.Sleep(4000);
+            string status = driver.FindElement(valStatusL).Text;
+            return status;
+        }
+        public string GetOpportunityNumberL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
+            return driver.FindElement(txtOppNumberL).Text;
+        }
+
+        public int AddOppMultipleDealTeamMembersL(string RecordType, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);            
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
+
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                try
+                {
+                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+                    Thread.Sleep(5000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL, 20);
+                    driver.FindElement(txtStaffL).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    try
+                    {
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                    catch (Exception e)
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                        driver.FindElement(txtStaff).Clear();
+                        driver.FindElement(txtStaff).SendKeys(valStaff);
+                        Thread.Sleep(5000);
+                        CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                        Thread.Sleep(2000);
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                }
+                catch (Exception)
+                {
+                    return row - 2;
+                }
+            }
+            return totalDealTeamMemberadded;
+        }
+        public string GetRequestToEngMsgL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRequestMsgL, 20);
+            string txtMsg = driver.FindElement(txtRequestMsgL).Text;
+            driver.FindElement(btnPopupOKL).Click();
+            return txtMsg;
+        }
+        public void CloseApprovalHistoryTabL()
+        {
+            driver.FindElement(tabApprovalHistoryL).Click();
+        }
+        public void ClickConvertToEngagementL()
+        {
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 10);
+                driver.FindElement(btnConvertToEngL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 10);
+                driver.FindElement(btnConvertToEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 60);
+            }
+        }
+        
     }
 
 }

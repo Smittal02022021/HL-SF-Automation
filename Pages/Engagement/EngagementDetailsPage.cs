@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Engagement
         By txtStage = By.CssSelector("select[name*='NlW']");
         By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
         By txtContact = By.CssSelector("span>input[id*='OPH']");     
-By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
+        By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         
         By txtParty = By.CssSelector("select[name*='M0eMS']");
         By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");
@@ -384,6 +384,21 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
         By venueLocation = By.XPath("//flexipage-field[contains(@data-field-id,'Location')]//lightning-formatted-text");
         By Phone = By.XPath("//flexipage-field[contains(@data-field-id,'Phone')]//lightning-formatted-text");
         By Website = By.XPath("//flexipage-field[contains(@data-field-id,'Website')]//a");
+        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNameL = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By listStaff = By.XPath("/html/body/ul");
+        By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
+        By tabEngInternalTeamL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Internal Team'])[2]");
+        By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
+        By btnSaveITTeam = By.CssSelector("input[name*=':bottom:j_id120']");
+        By linkHLInternalTeam = By.XPath("//a//span[@id='internalTeamList_link']");
+        By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
+        By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
+        By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
+
+        By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
+        By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
         private By _linkQuestionnaireNumer(string caseNumber)
         {
@@ -4226,7 +4241,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             Thread.Sleep(2000);
         }
         
-public bool VerifyIfEngagementSectorQuickLinkIsDisplayed()
+        public bool VerifyIfEngagementSectorQuickLinkIsDisplayed()
         {
             bool result = false;
             if (driver.FindElement(linkEngagementSector).Displayed)
@@ -4235,9 +4250,138 @@ public bool VerifyIfEngagementSectorQuickLinkIsDisplayed()
             }
             return result;
         }
+        public string GetEngagementNumberL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 30);
+            return driver.FindElement(txtEngNumberL).Text;
+        }
+        public string GetEngagementNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 30);
+            return driver.FindElement(txtEngNameL).Text;
+        }
+        public int AddEngMultipleDealTeamMembers(string RecordType, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkHLInternalTeam, 20);
+            driver.FindElement(linkHLInternalTeam).Click();
+            Thread.Sleep(2000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeam));
+            Thread.Sleep(2000);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEngModifyRoles));
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "EngDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                try
+                {
+                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);
+                    Thread.Sleep(5000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    if (RecordType == "CF")
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                        driver.FindElement(checkCFSpeciality).Click();
+                    }
+                    else
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                        driver.FindElement(checkSpeciality).Click();
+                    }
+                    driver.FindElement(btnSaveITTeam).Click();
+                    totalDealTeamMemberadded = row - 2;
+                }
+                catch (Exception)
+                {
+                    return row - 2;
+                }
+            }
+            return totalDealTeamMemberadded;
+        }
+        public int AddEngMultipleDealTeamMembersL(string RecordType, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngInternalTeamL, 30);
+            driver.FindElement(tabEngInternalTeamL).Click();
+            Thread.Sleep(8000);
 
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
 
-
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "EngDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                try
+                {
+                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);
+                    Thread.Sleep(5000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    try
+                    {
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                    catch (Exception e)
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                        driver.FindElement(txtStaff).Clear();
+                        driver.FindElement(txtStaff).SendKeys(valStaff);
+                        Thread.Sleep(5000);
+                        CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                        Thread.Sleep(2000);
+                        if (RecordType == "CF")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        driver.FindElement(btnSaveITTeam).Click();
+                        totalDealTeamMemberadded = row - 2;
+                    }
+                }
+                catch (Exception)
+                {
+                    return row - 2;
+                }
+            }
+            //driver.SwitchTo().DefaultContent();
+            return totalDealTeamMemberadded;
+        }
     }
 }
 

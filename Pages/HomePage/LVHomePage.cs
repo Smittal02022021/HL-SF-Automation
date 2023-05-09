@@ -25,7 +25,7 @@ namespace SF_Automation.Pages.HomePage
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
         By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+       
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
