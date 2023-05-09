@@ -162,8 +162,32 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine("value : " + value);
                 extentReports.CreateLog("Opportunity with number : " + value + " is created ");
 
+                //PRJ0019053 - Opportunity Initiator----
+                //Validate HL Internal Team page
+                string titleHL = addOpportunity.ValidateHLInternalTeamPage();
+                Assert.AreEqual( value +" - HL Internal Team", titleHL);
+                extentReports.CreateLog("Page with title: " + titleHL + " is displayed upon saving all mandatory details while creating Opportunity ");
+
+                //PRJ0019053 - Opportunity Initiator---
+                //Verify Initiator message
+                string msgInitiator = addOpportunity.ValidateInitiatorMessage();
+                Assert.AreEqual("*Note: An Initiator is Required", msgInitiator);
+                extentReports.CreateLog("Message: " + msgInitiator + " is displayed on HL Internal Team page ");
+
+                //PRJ0019053 - Opportunity Initiator---
+                //Verify Roles validation
+                string msgRoles = addOpportunity.ValidateRolesValidation(TMTT0017889);
+                Assert.AreEqual("Error:\r\nPlease Select at least one Role for the New Team Member.", msgRoles);
+                extentReports.CreateLog("Message: " + msgRoles + " is displayed when no role is selected for entered staff on HL Internal Team page ");
+
+                //PRJ0019053 - Opportunity Initiator---
+                //Validate User is redirected to Internal team page if Initiator is not selected
+                string titleHLRedirect = addOpportunity.ValidateUserIsRedirectedToHLInternalPage();
+                Assert.AreEqual(value + " - HL Internal Team", titleHLRedirect);
+                extentReports.CreateLog("Page with title: " + titleHLRedirect + " is displayed when Initiator role is not selectd and Opportunity is opened again ");
+
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab=  addOpportunity.EnterStaffDetailsL(TMTT0017889);
+                string displayedTab =  addOpportunity.EnterStaffDetailsL(TMTT0017889);
                 Assert.AreEqual("Info", displayedTab);
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 

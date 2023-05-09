@@ -75,11 +75,17 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By msgBenOwner = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div[2]");
         By msgDoesHL = By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/ancestor::lightning-combobox/div[2]");
         By txtStaff = By.XPath("//input[@placeholder='Begin Typing Name...']");
+        By titleHLIntTeam = By.XPath("//h1/b");
+        By msgInitiator = By.XPath("//label[@class='warning']");
+        By msgRolesL = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id88:1:j_id90']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
         By tabInfo = By.XPath("//a[text()='Info']");
+        By tabOpp = By.XPath("//span[text()='Opportunities']");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");       
@@ -487,6 +493,67 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string validation = driver.FindElement(msgDoesHL).Text;
             return validation;
         }
+
+        //Validate HL Internal Team title
+        public string ValidateHLInternalTeamPage()
+        {
+            Thread.Sleep(6000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 80);
+            string title = driver.FindElement(titleHLIntTeam).Text;
+            return title;
+        }
+
+        //Validate Initiator message
+        public string ValidateInitiatorMessage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgInitiator, 80);
+            string title = driver.FindElement(msgInitiator).Text;
+            return title;
+        }
+
+        //Validate Roles message
+        public string ValidateRolesValidation(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            Console.WriteLine("Entered staff function");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
+            Console.WriteLine("Before entering Staff");
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveDealTeam).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgRolesL, 80);
+            string title = driver.FindElement(msgRolesL).Text;
+            return title;
+        }
+
+        //Validate User is redirected to Internal team page if Initiator is not selected
+        public string ValidateUserIsRedirectedToHLInternalPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 240);
+            driver.FindElement(checkSeller).Click();
+            driver.FindElement(btnSaveDealTeam).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpp, 260);
+            driver.FindElement(tabOpp).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+            driver.FindElement(valRec1st).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 240);
+            string title = driver.FindElement(titleHLIntTeam).Text;
+            return title;
+        }
+
 
         //To enter team member details
         public string EnterStaffDetailsL(string file)
