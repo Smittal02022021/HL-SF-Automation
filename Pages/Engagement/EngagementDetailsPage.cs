@@ -399,7 +399,18 @@ namespace SF_Automation.Pages.Engagement
 
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
+        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
+        By txtAssociatedEngLabelL = By.XPath("//span[text()='Associated Engagement']");
+        By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input[contains(@placeholder,'Search Engagement')]");
+        By txtAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");
+        By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
 
+        By txtAssociatedEngLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']");
+        By editAssociatedEngField = By.XPath("//input[@name='CF00N8N000007XeiK']");
+        By txtAssociatedEng = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']//following::td//a[contains(@id,'XeiK')]");
+        By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
+        By txtPrivileges = By.XPath("//span[text()='Insufficient Privileges']");
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4381,6 +4392,135 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             }
             //driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
+        }
+        public bool IsAssociatedEngFieldPresent()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngLabel, 10);
+                return driver.FindElement(txtAssociatedEngLabel).Displayed;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+
+        }
+        public bool IsAssociatedEngFieldPresentL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngLabelL, 10);
+                return driver.FindElement(txtAssociatedEngLabelL).Displayed;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+
+        }
+        public bool IsAssociatedEngFieldEditable()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+                driver.FindElement(btnEdit).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
+                bool IsDisplayed = driver.FindElement(editAssociatedEngFieldL).Displayed;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditForm, 10);
+                driver.FindElement(btnCancelEditForm).Click();
+                return IsDisplayed;
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    driver.FindElement(btnCancelEditForm).Click();
+                }
+                catch (Exception ex)
+                {
+                    if (driver.FindElement(txtPrivileges).Displayed)
+                    {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        }
+        public bool IsAssociatedEngFieldEditableL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+                driver.FindElement(btnEditL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
+                bool IsDisplayed = driver.FindElement(editAssociatedEngFieldL).Displayed;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditFormL, 10);
+                driver.FindElement(btnCancelEditFormL).Click();
+                return IsDisplayed;
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    if (driver.FindElement(txtPrivileges).Displayed)
+                    {
+                        return false;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    driver.FindElement(btnCancelEditFormL).Click();
+                }
+                return false;
+            }
+        }
+        public string EnterAssociatedEngagement(string name)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(editAssociatedEngField).Clear();
+                driver.FindElement(editAssociatedEngField).SendKeys(name);
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEng, 20);
+                return driver.FindElement(txtAssociatedEng).Text;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditForm).Click();
+                return e.Message;
+            }
+
+
+
+        }
+        public string EnterAssociatedEngagementL(string name)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+                driver.FindElement(btnEditL).Click();
+                driver.FindElement(editAssociatedEngFieldL).Clear();
+                driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
+                driver.FindElement(btnSaveDetailsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
+                return driver.FindElement(txtAssociatedEngL).Text;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditFormL).Click();
+                return e.Message;
+            }
+
+
+
         }
     }
 }

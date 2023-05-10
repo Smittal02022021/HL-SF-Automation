@@ -33,8 +33,12 @@ namespace SF_Automation.Pages
 
         By searchEngBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
+        By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
+        By btnEngsearchL = By.XPath("//button[@aria-label='Search']");
+        By txtEngsearchL = By.XPath("//input[contains(@placeholder,'Search Engagements')]");
+        By imgEng = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
 
         public void ClickEngagementTabAdvanceSearch()
         {
@@ -260,6 +264,70 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
 
         }
+        public string SearchEngagement(string engName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 20);
+            Thread.Sleep(3000);
+            driver.FindElement(lnkEngagements).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName);
+            driver.FindElement(txtEngagementName).SendKeys(engName);
+            driver.FindElement(btnSearch).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 120);
+                Thread.Sleep(6000);
+                string result = driver.FindElement(matchedResult).Displayed.ToString();
+                Console.WriteLine("Search Results :" + result);
+                driver.FindElement(matchedResult).Click();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                driver.Navigate().Refresh();
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
+                Thread.Sleep(3000);
+                driver.FindElement(lnkEngagements).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName);
+                driver.FindElement(txtEngagementName).SendKeys(engName);
+                driver.FindElement(btnSearch).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 120);
+                Thread.Sleep(6000);
+                try
+                {
+                    string result = driver.FindElement(matchedResult).Displayed.ToString();
+                    Console.WriteLine("result");
+                    driver.FindElement(matchedResult).Click();
+                    return "Record found";
+                }
+                catch
+                {
+                    return "No record found";
+                }
+            }
+        }
+            //To Search Eng with Eng Name in Lighting
+            public void SearchMyEngagementInLightning(string value, string user)
+            {
+                Thread.Sleep(6000);
+                if (user.Equals("James Craven"))
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 20);
+                    driver.FindElement(btnEngsearchL).Click();
+                    Thread.Sleep(4000);
+                }
+                else
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 20);
+                    driver.FindElement(btnEngsearchL).Click();
+                    Thread.Sleep(4000);
+                }
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngsearchL, 10);
+                driver.FindElement(txtEngsearchL).SendKeys(value);
+                Thread.Sleep(6000);
+                driver.FindElement(imgEng).Click();
+                Thread.Sleep(2000);
+            }
+        
     }
 }
 

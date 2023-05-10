@@ -409,6 +409,11 @@ namespace SF_Automation.Pages
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
+        By txtAssociatedOppLabelL = By.XPath("//span[text()='Associated Opportunity']");
+        By editAssociatedOppFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//input[contains(@placeholder,'Search Opportunities')]");
+        By txtAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//span");
+        By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
+
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -4056,7 +4061,111 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 60);
             }
         }
-        
+        public bool IsAssociatedOppFieldPresent()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppLabel, 10);
+                return driver.FindElement(txtAssociatedOppLabel).Displayed;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+        public bool IsAssociatedOppFieldPresentL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppLabelL, 10);
+                return driver.FindElement(txtAssociatedOppLabelL).Displayed;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+
+        }
+        public bool IsAssociatedOppFieldEditable()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+                driver.FindElement(btnEdit).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedOppField, 10);
+                bool IsDisplayed = driver.FindElement(editAssociatedOppField).Displayed;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditForm, 10);
+                driver.FindElement(btnCancelEditForm).Click();
+                return IsDisplayed;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditForm).Click();
+                return false;
+            }
+        }
+        public bool IsAssociatedOppFieldEditableL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+                driver.FindElement(btnEditL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedOppFieldL, 10);
+                bool IsDisplayed = driver.FindElement(editAssociatedOppFieldL).Displayed;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditFormL, 10);
+                driver.FindElement(btnCancelEditFormL).Click();
+                return IsDisplayed;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditFormL).Click();
+                return false;
+            }
+        }
+        public string EnterAssociatedOpportunity(string name)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(editAssociatedOppField).Clear();
+                driver.FindElement(editAssociatedOppField).SendKeys(name);
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);
+                return driver.FindElement(txtAssociatedOpp).Text;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditForm).Click();
+                return e.Message;
+            }
+
+        }
+        public string EnterAssociatedOpportunityL(string name)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+                driver.FindElement(btnEditL).Click();
+                driver.FindElement(editAssociatedOppFieldL).Clear();
+                driver.FindElement(editAssociatedOppFieldL).SendKeys(name);
+                CustomFunctions.SelectValueWithoutSelect(driver, editAssociatedOppFieldL, name);
+                driver.FindElement(btnSaveDetailsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
+                return driver.FindElement(txtAssociatedOppL).Text;
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnCancelEditFormL).Click();
+                return e.Message;
+            }
+
+
+
+        }
     }
 
 }
