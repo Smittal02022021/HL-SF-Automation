@@ -435,7 +435,7 @@ namespace SF_Automation.Pages
                     WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
                     driver.FindElement(txtStaff).SendKeys(valStaff);
                     Thread.Sleep(5000);
-                    CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
                     Thread.Sleep(2000);
                     try
                     {
@@ -482,59 +482,7 @@ namespace SF_Automation.Pages
             return totalDealTeamMemberadded;
         }
 
-        public int AddEngMultipleDealTeamMembers(string RecordType, string file)
-        {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, linkHLInternalTeam, 20);
-            driver.FindElement(linkHLInternalTeam).Click();
-            Thread.Sleep(2000);
-            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeam));
-            Thread.Sleep(2000);
-            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEngModifyRoles));
-            Thread.Sleep(5000);
-            driver.SwitchTo().DefaultContent();
-            int rowCount = ReadExcelData.GetRowCount(excelPath, "EngDealTeamMembers");
-            int totalDealTeamMemberadded = 0;
-
-            for (int row = 2; row <= rowCount; row++)
-            {
-                try
-                {
-                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);
-                    Thread.Sleep(5000);
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                    driver.FindElement(txtStaff).SendKeys(valStaff);
-                    Thread.Sleep(5000);
-                    CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-                    Thread.Sleep(2000);
-                    if (RecordType == "CF")
-                    {
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
-                        driver.FindElement(checkCFSpeciality).Click();
-                    }
-                    else
-                    {
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                        driver.FindElement(checkSpeciality).Click();
-                    }
-                    driver.FindElement(btnSaveITTeam).Click();
-                    totalDealTeamMemberadded = row - 2;
-                }
-                catch (Exception)
-                {
-                    return row - 2;
-                }
-            }
-            return totalDealTeamMemberadded;
-
-
-
-        }
+        
         public string ValidateDealTeamMemberOverLimit()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
