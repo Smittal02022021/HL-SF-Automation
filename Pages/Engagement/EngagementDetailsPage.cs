@@ -2347,7 +2347,7 @@ namespace SF_Automation.Pages.Engagement
             //Thread.Sleep(3000);
             //WebDriverWaits.WaitUntilEleVisible(Driver, tabEng, 100);
             //driver.FindElement(tabEng).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(Driver, tabFees, 100);
             string value = driver.FindElement(tabFees).Text;
             driver.FindElement(tabFees).Click();

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -81,10 +82,16 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+        By checkEditIniatiator = By.CssSelector("input[name*='internalTeam:j_id39:0:j_id41:0']");
         By checkSeller = By.CssSelector("input[name*='internalTeam:j_id88:1:j_id90']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
         By tabInfo = By.XPath("//a[text()='Info']");
         By tabOpp = By.XPath("//span[text()='Opportunities']");
+        By txtSearch = By.XPath("//input[@placeholder='Search this list...']");
+        By btnRefresh = By.XPath("//button[@title='Refresh']");
+        By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
+        By btnOppNavigation = By.XPath("//div/button[@aria-label='Show Navigation Menu']");
+
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
@@ -370,7 +377,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             //Select Additional Subject
             driver.FindElement(comboAddSubjectL).SendKeys("No");
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             //Select Beneficial Owner
@@ -497,7 +504,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         //Validate HL Internal Team title
         public string ValidateHLInternalTeamPage()
         {
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 80);
@@ -548,12 +555,112 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+             WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 250);
+            string title = driver.FindElement(titleHLIntTeam).Text;
+            return title;
+        }
+
+        //Validate User is redirected to Internal team page if Initiator is not selected
+        public string ValidateUserIsRedirectedToHLInternalPageWhenOppOpenedFromGlobalSearch(string name)
+        {
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpp, 260);
+            driver.FindElement(tabOpp).Click();
+            Thread.Sleep(3000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 150);
+            driver.FindElement(txtSearch).SendKeys(name);
             Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+            driver.FindElement(valRec1st).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 240);
             string title = driver.FindElement(titleHLIntTeam).Text;
             return title;
         }
 
+        //Validate User is redirected to Internal team page if Initiator is not selected
+        public string ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp()
+        {           
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpp, 260);
+            driver.FindElement(tabOpp).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
+            driver.FindElement(btnRecentlyViewed).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[5]")).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+            driver.FindElement(valRec1st).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 250);
+            string title = driver.FindElement(titleHLIntTeam).Text;
+            return title;
+        }
+
+
+        //Validate Return To Opp button is dislayed if Initiator is selected
+        public string ValidateReturnToOppButtonWhenInitiatorIsSelected()
+        {           
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkEditIniatiator, 350);
+            driver.FindElement(checkEditIniatiator).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDealTeam, 350);
+            driver.FindElement(btnSaveDealTeam).Click();
+            Thread.Sleep(6000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor, 250);
+            string title = driver.FindElement(btnReturnToOppor).GetAttribute("value");
+            return title;
+        }
+
+        //Validate User is not redirected to Internal team page if Initiator is selected
+        public string ValidatePageWhenInitiatorRoleIsSelected()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpp, 260);
+            driver.FindElement(tabOpp).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
+            driver.FindElement(btnRecentlyViewed).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[8]")).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+            driver.FindElement(valRec1st).Click();
+            Thread.Sleep(8000);
+            //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 250);
+            string title = driver.FindElement(tabInfo).Text;
+            Thread.Sleep(4000);                     
+             return title;
+        }
+
+        ////Validate User is redirected to Internal team page if Initiator is not selected
+        //public string ValidateUserIsRedirectedToHLInternalPageWhenInitiatorIsSelected()
+        //{
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNavigation, 260);
+        //    driver.FindElement(btnOppNavigation).Click();
+        //    Thread.Sleep(3000);            
+        //    driver.FindElement(By.XPath("//span[text()='Companies']")).Click();
+        //    Thread.Sleep(4000);
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 240);
+        //    driver.FindElement(valRec1st).Click();
+        //    Thread.Sleep(8000);
+        //    driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+        //    WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 250);
+        //    string title = driver.FindElement(titleHLIntTeam).Text;
+        //    return title;
+        //}
 
         //To enter team member details
         public string EnterStaffDetailsL(string file)

@@ -443,6 +443,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
         By lnkReqEngL = By.XPath("//button[@class='slds-button slds-button_icon-border-filled']");
         By valOppStatus = By.XPath("//li[1]/article/div/div[2]/ul/li[2]/div/div[2]/span");
+        By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+
 
         //Get ERP Legal Entity Name    
         public string GetERPLegalEntityName()
@@ -616,6 +618,14 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppNum);
             string oppNum = driver.FindElement(valOppNum).Text;
+            return oppNum;
+        }
+
+        public string GetOppNumberL()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppNumL);
+            string oppNum = driver.FindElement(valOppNumL).Text;
             return oppNum;
         }
         //Get LOB
@@ -3500,9 +3510,9 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             //driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div[1]/div/div/article/div[2]/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL,120);
-            driver.FindElement(txtStaffL).SendKeys("James Craven");
+            driver.FindElement(txtStaffL).SendKeys("Rob Oudman");
             Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "James Craven");
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "Rob Oudman");
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();

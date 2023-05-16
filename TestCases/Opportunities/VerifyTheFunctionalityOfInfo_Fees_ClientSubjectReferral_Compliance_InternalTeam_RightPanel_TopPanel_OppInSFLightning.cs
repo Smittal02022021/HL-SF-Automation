@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOppCounterparty counterparty = new AddOppCounterparty();       
         AddOpportunityContact addContact = new AddOpportunityContact();
 
-        public static string TMTT0017889 = "TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx";
+        public static string TMTT0017889 = "VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -47,8 +47,8 @@ namespace SF_Automation.TestCases.Opportunity
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
 
@@ -160,37 +160,63 @@ namespace SF_Automation.TestCases.Opportunity
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 string value = addOpportunity.AddOpportunitiesLightning(valJobType, TMTT0017889);
                 Console.WriteLine("value : " + value);
+               
                 extentReports.CreateLog("Opportunity with number : " + value + " is created ");
 
-                //PRJ0019053 - Opportunity Initiator----
+                //PRJ0019053 - Opportunity Initiator - TC01----
                 //Validate HL Internal Team page
                 string titleHL = addOpportunity.ValidateHLInternalTeamPage();
                 Assert.AreEqual( value +" - HL Internal Team", titleHL);
                 extentReports.CreateLog("Page with title: " + titleHL + " is displayed upon saving all mandatory details while creating Opportunity ");
 
-                //PRJ0019053 - Opportunity Initiator---
+                //PRJ0019053 - Opportunity Initiator - TC02----
                 //Verify Initiator message
                 string msgInitiator = addOpportunity.ValidateInitiatorMessage();
                 Assert.AreEqual("*Note: An Initiator is Required", msgInitiator);
                 extentReports.CreateLog("Message: " + msgInitiator + " is displayed on HL Internal Team page ");
 
-                //PRJ0019053 - Opportunity Initiator---
+                //PRJ0019053 - Opportunity Initiator - TC03----
                 //Verify Roles validation
                 string msgRoles = addOpportunity.ValidateRolesValidation(TMTT0017889);
                 Assert.AreEqual("Error:\r\nPlease Select at least one Role for the New Team Member.", msgRoles);
                 extentReports.CreateLog("Message: " + msgRoles + " is displayed when no role is selected for entered staff on HL Internal Team page ");
 
-                //PRJ0019053 - Opportunity Initiator---
+                //PRJ0019053 - Opportunity Initiator - TC04----
                 //Validate User is redirected to Internal team page if Initiator is not selected
                 string titleHLRedirect = addOpportunity.ValidateUserIsRedirectedToHLInternalPage();
                 Assert.AreEqual(value + " - HL Internal Team", titleHLRedirect);
-                extentReports.CreateLog("Page with title: " + titleHLRedirect + " is displayed when Initiator role is not selectd and Opportunity is opened again ");
+                extentReports.CreateLog("Page with title: " + titleHLRedirect + " is displayed when Initiator role is not selected and Opportunity is opened again from Recent items ");
 
-                //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab =  addOpportunity.EnterStaffDetailsL(TMTT0017889);
-                Assert.AreEqual("Info", displayedTab);
-                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
+                //PRJ0019053 - Opportunity Initiator - TC05----
+                //Validate User is redirected to Internal team page if Initiator is not selected
+                string titleHLGlobal = addOpportunity.ValidateUserIsRedirectedToHLInternalPageWhenOppOpenedFromGlobalSearch(value);
+                Assert.AreEqual(value + " - HL Internal Team", titleHLGlobal);
+                extentReports.CreateLog("Page with title: " + titleHLGlobal + " is displayed when Initiator role is not selectd and Opportunity is opened again from Global Search ");
+                
+                //PRJ0019053 - Opportunity Initiator - TC07----
+                //Validate User is redirected to Internal team page if Initiator is not selected
+                string titleHLActiveList = addOpportunity.ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp();
+                Assert.AreEqual(value + " - HL Internal Team", titleHLActiveList);
+                extentReports.CreateLog("Page with title: " + titleHLActiveList + " is displayed when Initiator role is not selected and Opportunity is opened again from My Active Opportunities ");
 
+                //PRJ0019053 - Opportunity Initiator - TC09----
+                //Validate Return to Opportunity button is displayed if Initiator is  selected
+                string btnReturnToOpp = addOpportunity.ValidateReturnToOppButtonWhenInitiatorIsSelected();
+                Assert.AreEqual("Return To Opportunity", btnReturnToOpp);
+                extentReports.CreateLog("Button with name: " + btnReturnToOpp + " is displayed when Initiator role is selected ");
+
+                //PRJ0019053 - Opportunity Initiator - TC10----
+                //Validate User is not redirected to Internal team page if Initiator is selected
+                string titlePage = addOpportunity.ValidatePageWhenInitiatorRoleIsSelected();
+                Assert.AreEqual("Info", titlePage);
+                extentReports.CreateLog("Page with tab: " + titlePage + " is displayed when Initiator role is selected and Opportunity is opened again ");
+
+                ////PRJ0019053 - Opportunity Initiator - TC11----
+                ////Validate User is redirected to Internal team page if Initiator is not selected while creating Opp from Company page
+                //string titleHLComp = addOpportunity.ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp();
+                //Assert.AreEqual(value + " - HL Internal Team", titleHLActiveList);
+                //extentReports.CreateLog("Page with title: " + titleHLActiveList + " is displayed when Initiator role is not selected and Opportunity is opened again from My Active Opportunities ");
+                                            
                 string tabDetails = opportunityDetails.ValidateDetailsTabL();
                 Assert.AreEqual("Details", tabDetails);
                 extentReports.CreateLog("Sub Tab with name: " + tabDetails + " is displayed under Info Tab ");
@@ -351,8 +377,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Team member with name: " + addedStaff + " is displayed upon saving it ");
 
                 //Validate Return to Opportunity button and its functionality  
-                string btnReturnToOpp = opportunityDetails.ValidateReturnToOpp();
-                Assert.AreEqual("Details", btnReturnToOpp);
+                string btnReturnToOpp1 = opportunityDetails.ValidateReturnToOpp();
+                Assert.AreEqual("Details", btnReturnToOpp1);
                 extentReports.CreateLog("Opportunity details page is displayed after clicking Return To Opportunity button ");
 
                 //TC_06:- Validate Comments tab                
