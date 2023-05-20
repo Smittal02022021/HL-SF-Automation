@@ -21,6 +21,10 @@ namespace SF_Automation.Pages
         By btnAddCompany = By.CssSelector("td[class='pbButton center'] > input[value='Add Company']");
         By errPage = By.CssSelector("span[id='theErrorPage:theError']");
 
+        By btnCompanysearchL = By.XPath("//button[@aria-label='Search']");
+        By txtCompanysearchL = By.XPath("//input[contains(@placeholder,'Search Companies')]");
+        By imgCompany = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
+
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         // To Search Company
@@ -106,6 +110,22 @@ namespace SF_Automation.Pages
                 //return "No record found";
             }
             return ReadExcelData.ReadDataMultipleRows(excelPath, "Sheet 1", row1, 4);
+        }
+        //To Search Company with Company Name in Lighting
+        public void SearchCompanyInLightning(string value)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCompanysearchL, 20);
+            driver.FindElement(btnCompanysearchL).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL, 10);
+            driver.FindElement(txtCompanysearchL).SendKeys(value);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgCompany, 10);
+            driver.FindElement(imgCompany).Click();
+            Thread.Sleep(6000);
         }
     }
 }

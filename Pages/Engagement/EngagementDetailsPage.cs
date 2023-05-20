@@ -405,12 +405,15 @@ namespace SF_Automation.Pages.Engagement
         By txtAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By btnEditEngL = By.XPath("//ul//li[contains(@data-target-selection-name,'Button.Engagement')]//button[@name='Edit']");
 
         By txtAssociatedEngLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']");
         By editAssociatedEngField = By.XPath("//input[@name='CF00N8N000007XeiK']");
         By txtAssociatedEng = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']//following::td//a[contains(@id,'XeiK')]");
         By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
         By txtPrivileges = By.XPath("//span[text()='Insufficient Privileges']");
+        By iconClearAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
+
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4429,8 +4432,8 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
                 driver.FindElement(btnEdit).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
-                bool IsDisplayed = driver.FindElement(editAssociatedEngFieldL).Displayed;
+                WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngField, 10);
+                bool IsDisplayed = driver.FindElement(editAssociatedEngField).Displayed;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditForm, 10);
                 driver.FindElement(btnCancelEditForm).Click();
                 return IsDisplayed;
@@ -4455,6 +4458,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         {
             try
             {
+                Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
@@ -4503,23 +4507,41 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         }
         public string EnterAssociatedEngagementL(string name)
         {
+            Thread.Sleep(2000);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
-                driver.FindElement(btnEditL).Click();
-                driver.FindElement(editAssociatedEngFieldL).Clear();
-                driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
+                driver.FindElement(btnEditEngL).Click();
+
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedEngL, 10);
+                    jse.ExecuteScript("arguments[0].click();", driver.FindElement(iconClearAssociatedEngL));
+                    driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
+                    driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
+                    CustomFunctions.SelectValueWithoutSelect(driver, editAssociatedEngFieldL, name);
+                }
+
+                catch (Exception e)
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
+                    driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
+                    Thread.Sleep(2000);
+                    driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
+                    //CustomFunctions.SelectValueWithoutSelect(driver, editAssociatedEngFieldL, name);
+                }
+
                 driver.FindElement(btnSaveDetailsL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
                 return driver.FindElement(txtAssociatedEngL).Text;
+
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
                 return e.Message;
             }
-
-
 
         }
     }

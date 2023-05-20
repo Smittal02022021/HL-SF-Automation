@@ -81,7 +81,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
                     valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    extentReports.CreateLog("valRecordType: " + valRecordType+" ");
+                    extentReports.CreateLog("Record Type: " + valRecordType+" ");
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                     //Validating Title of New Opportunity Page
@@ -218,7 +218,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
                     usersLogin.UserLogOut();
-                    extentReports.CreateLog("CAU User "+caoUser + "Logged Out");
+                    extentReports.CreateLog("CAO User "+caoUser + "Logged Out");
 
                     //Logout of user and validate Admin login
                     user = login.ValidateUser();

@@ -400,19 +400,22 @@ namespace SF_Automation.Pages
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
         By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By btnConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
-
-        By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
-        By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
-        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
-        By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
-        
+                
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
         By txtAssociatedOppLabelL = By.XPath("//span[text()='Associated Opportunity']");
-        By editAssociatedOppFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//input[contains(@placeholder,'Search Opportunities')]");
+        By editAssociatedOppFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//input");
+        By iconClearAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
         By txtAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
+        By linkReqEngL = By.XPath("//a[contains(@name,'Request_Engagement')]");
+        By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
+        By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
+        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
+        By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
+
+        
 
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
@@ -3602,14 +3605,14 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 300);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(3000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(6000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             string name = ReadExcelData.ReadData(excelPath, "Users", 1);
             driver.FindElement(txtStaffL).SendKeys(name);
             Thread.Sleep(5000);
@@ -3870,21 +3873,30 @@ namespace SF_Automation.Pages
         
         public void ClickRetutnToOpportunityL()
         {
-            By btnReturnToOpp = By.XPath("//span[contains(@id,'internalTeam')]//input[@value='Return To Opportunity']");
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             Thread.Sleep(2000);
             driver.FindElement(btnReturnToOpp).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
-        }     
-
+        }
         //Click Return to Opportunity button
-        public void ClickRequesToEngL()
+        public void ClickRequestToEngL()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
-            driver.FindElement(btnReqEngL).Click();
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 20);
+                driver.FindElement(btnReqEngL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkReqEngL, 20);
+                driver.FindElement(linkReqEngL).Click();
+            }
         }
 
 
@@ -4059,6 +4071,7 @@ namespace SF_Automation.Pages
         {
             try
             {
+                Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedOppFieldL, 10);
@@ -4094,14 +4107,20 @@ namespace SF_Automation.Pages
         }
         public string EnterAssociatedOpportunityL(string name)
         {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             try
             {
+                Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
-                driver.FindElement(editAssociatedOppFieldL).Clear();
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedOppL, 10);
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(iconClearAssociatedOppL));
+
                 driver.FindElement(editAssociatedOppFieldL).SendKeys(name);
-                CustomFunctions.SelectValueWithoutSelect(driver, editAssociatedOppFieldL, name);
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
+                Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
                 return driver.FindElement(txtAssociatedOppL).Text;
             }
@@ -4110,9 +4129,6 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnCancelEditFormL).Click();
                 return e.Message;
             }
-
-
-
         }
     }
 

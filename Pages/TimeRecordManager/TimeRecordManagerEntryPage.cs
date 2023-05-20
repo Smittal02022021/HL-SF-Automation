@@ -20,6 +20,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tabSummaryLogs = By.CssSelector("li[id*='summary'] > a");
         By tabDetailLogs = By.CssSelector("li[id*='view'] > a");
         By comboSelectProject = By.CssSelector("select[class='slds-select']");
+        By comboSelectProjectN = By.XPath("//input[contains(@placeholder,'Type to filter projects')]");
         By txtEnterSundayTime = By.CssSelector("table > tr > td:nth-child(2) > div[class='activityRecordEntry'] > div > div > div > input");
         By comboSelectActivity = By.CssSelector("table > tr > td:nth-child(2) > div[class='activityRecordEntry'] > div > div:nth-child(2) > div > select");
         By comboLogActivity = By.CssSelector("div[class*='medium'] > select[class*='uiInput--select']");
@@ -54,6 +55,8 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         By tabBetaSummaryLogs = By.CssSelector("li[title='Summary'] > a");
         By tabBetaDetailLogs = By.CssSelector("li[title='Details'] > a");
+        By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
+        By optionProject = By.XPath("//div//label[text()='Select Project']//following::div//input");
 
         public void GoToWeeklyEntryMatrix()
         {
@@ -68,6 +71,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void EnterWeeklyEntryMatrix(string selectProject, string file)
         {
 
+
+
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             Thread.Sleep(6000);
@@ -78,12 +83,24 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
             driver.FindElement(tabWeeklyEntryMatrix).Click();
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSundayTime);
             driver.FindElement(txtEnterSundayTime).SendKeys(ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 2));
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity);
             driver.FindElement(comboSelectActivity).SendKeys(ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 3));
         }
@@ -109,11 +126,10 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         public void EnterSummaryLogs(string selectProject, string file)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-
+            
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
             driver.FindElement(tabStaffTimeSheet).Click();
             Thread.Sleep(2000);
@@ -127,9 +143,23 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
 
+            //
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 2));
@@ -142,20 +172,40 @@ namespace SF_Automation.Pages.TimeRecordManager
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+
             WebDriverWaits.WaitUntilEleVisible(driver, tabBetaSummaryLogs);
             driver.FindElement(tabBetaSummaryLogs).Click();
             Thread.Sleep(2000);
+
             string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
             driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+
             WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
             driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 3));
+
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 2));
+
         }
         public void EnterSummaryLogs1(string selectProject, string file)
         {
@@ -211,17 +261,35 @@ namespace SF_Automation.Pages.TimeRecordManager
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, tabBetaDetailLogs);
             driver.FindElement(tabBetaDetailLogs).Click();
             Thread.Sleep(5000);
+
             string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
             driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            //
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
             driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 3));
+
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 2));
@@ -246,8 +314,21 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
@@ -332,8 +413,10 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         public string GetDefaultSelectedProjectOption()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboDefaultSelectProject, 80);
-            string DefaultSelectProject = driver.FindElement(comboDefaultSelectProject).Text;
+            By dropDownSelectProject = By.XPath("//div//label[text()='Select Project']");
+            WebDriverWaits.WaitUntilEleVisible(driver, dropDownSelectProject, 80);
+
+            string DefaultSelectProject = driver.FindElement(optionProject).GetAttribute("placeholder");
             return DefaultSelectProject;
         }
 
@@ -518,8 +601,22 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void SelectProjectWeeklyEntryMatrix(string selectProject, string file)
         {
             Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject, 220);
-            driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
             Thread.Sleep(3000);
         }
 

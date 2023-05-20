@@ -99,21 +99,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-
-
-
-                    //Call function to open Add Opportunity Page
-                    //opportunityHome.ClickOpportunity();
-                    //valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    //extentReports.CreateLog("valRecordType: " + valRecordType + " ");
-                    //opportunityHome.SelectLOBAndClickContinue(valRecordType);
-
-                    ////Validating Title of New Opportunity Page
-                    //Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                    //extentReports.CreateLog("Page Title: " + driver.Title + " is displayed ");
-
-                    //Calling AddOpportunities function
-                    //
+                    
                     //Validating Title of New Opportunity Page
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
@@ -122,7 +108,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string opportunityName = addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0054719);
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
-                    
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTI0054719);
                     Assert.AreEqual(displayedTab, "Info");
@@ -130,9 +115,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Validating Opportunity details  
                     string opportunityNumber = opportunityDetails.GetOpportunityNumberL();
-                    Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
+                    Assert.IsNotNull(opportunityNumber);
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
-
 
                     //New Field is Present on Opportunity Detail Page for Standard User
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
@@ -148,8 +132,6 @@ namespace SF_Automation.TestCases.Opportunities
                     addOpportunityContact.CickAddCFOpportunityContact();
                     addOpportunityContact.CreateContactL2(fileTMTI0054719);
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
-
-
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForCFConversionL2(fileTMTI0054719);
@@ -168,7 +150,8 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(user.Equals(ReadJSONData.data.authentication.loggedUser), true);
                     extentReports.CreateLog("User " + user + " is logged in ");
 
-                    //Search for created opportunity
+                    //System Administrator Search for created opportunity
+                    extentReports.CreateLog("System Administrator Search for Created Opportunity");
                     opportunityHome.SearchOpportunity(opportunityName);
 
                     //New Field is Present on Opportunity Detail Page for Admin login
@@ -209,6 +192,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
 
                     //Login again as Standard User
+                    extentReports.CreateLog("login as Standard User ");
                     usersLogin.SearchUserAndLogin(valUser);
                     login.SwitchToClassicView();
 
@@ -219,7 +203,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
-
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
@@ -232,11 +215,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
+                    extentReports.CreateLog(stdUser+" Standard User Search for Created Opportunity ");
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
 
-
                     //Requesting for engagement and validate the success message
-                    opportunityDetails.ClickRequesToEngL();
+                    opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
@@ -247,8 +230,8 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("Standard User: " + stdUser + " logged out ");
 
-
                     //Login as CAO user to approve the Opportunity
+                    extentReports.CreateLog("login as CAO  User switched to Lightning View ");
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
                     login.SwitchToClassicView();
 
@@ -272,8 +255,8 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
+                    extentReports.CreateLog(caoUser + " CAO User Search for Created Opportunity");
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
-
 
                     //New Field is Present on Opportunity Detail Page for CAO user
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
@@ -284,7 +267,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for CAO User: " + caoUser + " ");
 
                     //Enter the Associated Opportunity name
-                    valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 1);
+                    valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 2);
                     nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityL(valAssociatedOpp);
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(user + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
@@ -298,10 +281,11 @@ namespace SF_Automation.TestCases.Opportunities
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
+
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                     string engagementName = engagementDetails.GetEngagementNameL();
+
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
@@ -315,7 +299,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Editable for CAO User: " + caoUser + " ");
 
                     //Enter the Associated Opportunity name
-                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 3, 1);
+                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 1);
                     nameAssociatedEng = engagementDetails.EnterAssociatedEngagementL(valAssociatedEng);
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
@@ -323,11 +307,12 @@ namespace SF_Automation.TestCases.Opportunities
                     //CAO Logged Out
                     login.SwitchToClassicView(); 
                     usersLogin.UserLogOut();
-                    extentReports.CreateLog("CAU User " + caoUser + "Logged Out");
+                    extentReports.CreateLog("CAO User " + caoUser + "Logged Out");
 
                     //Logout of user and validate Admin login
                     user = login.ValidateUser();
                     extentReports.CreateLog("User " + user + " is able to login ");
+                    extentReports.CreateLog("System Administrator Search for Created Opportunity");
 
                     //Search for created Engagement
                     engagementHome.SearchEngagement(engagementName);
@@ -341,7 +326,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Editable for System Administrator: " + user + " ");
 
                     //Enter the Associated Opportunity name
-                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 1);
+                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 2);
                     nameAssociatedEng = engagementDetails.EnterAssociatedEngagement(valAssociatedEng);
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(user + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
@@ -362,8 +347,11 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
+                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 2);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    
+                    extentReports.CreateLog("System Administrator Search for converted Engagement");
 
                     //Search for created Engagement
                     engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);
@@ -375,6 +363,7 @@ namespace SF_Automation.TestCases.Opportunities
                     // New Field on Opportunity Detail Page is not editable for Standard User
                     Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditableL(), "Verify Associated Engagement should not be editable for Standard User ");
                     extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + stdUser + " ");
+                    login.SwitchToClassicView(); 
                     usersLogin.UserLogOut();
 
                     driver.Quit();
@@ -385,6 +374,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateLog("Browser Closed ");

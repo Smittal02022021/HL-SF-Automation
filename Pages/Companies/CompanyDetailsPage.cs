@@ -167,7 +167,24 @@ namespace SF_Automation.Pages.Companies
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
+        By txtCompanyType = By.XPath("//p[@title='Company Type']//following::p//span");
 
+        By searchOpportunitiesL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer']//input[contains(@placeholder,'Search')]");
+        By searchEngagementsL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer2']//input[contains(@placeholder,'Search')]");
+
+        By linkViewAllOppL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer']//div[contains(@class,'card__footer')]//slot[@name='footer']//a[text()='View All']");
+        By btnCloseViewAllPopup = By.XPath("//div[@class='slds-modal__container']//button[contains(@class,'slds-modal__close')]");
+        By linkViewAllEngL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer2']//div[contains(@class,'card__footer')]//slot[@name='footer']//a[text()='View All']");
+        By searchViewAllOppEngL = By.XPath("//div[@class='slds-modal__container']//input[contains(@placeholder,'Search')]");
+
+        private By _homePageTab(string name)
+        {
+            return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[@data-label='{name}']");
+        }
+        private By _tabHeader(string name)
+        {
+            return By.XPath($"//div[@class='slds-card__header slds-grid']//h2//span[text()='{name}']");
+        }
         public bool VerifyIfCompanySectorQuickLinkIsDisplayed()
         {
             bool result = false;
@@ -1252,6 +1269,323 @@ namespace SF_Automation.Pages.Companies
             }
 
         }
+
+        public string GetCompanyTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyType, 30);
+            return driver.FindElement(txtCompanyType).Text;
+        }
+        
+        // Click on tab from Company Detail page 
+
+        public bool ClickCompanyDetailPageTabL(string value)
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, _homePageTab(value), 30);
+
+            driver.FindElement(_homePageTab(value)).Click();
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, _tabHeader(value), 30);
+
+                return driver.FindElement(_tabHeader(value)).Displayed;
+
+            }
+
+            catch (Exception e)
+
+            {
+
+                return false;
+
+            }
+
+        }
+
+
+        public bool IsOpportunitiesSearchBoxL()
+
+        {
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 30);
+
+                return driver.FindElement(searchOpportunitiesL).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsOppoortunitiesFoundByNameL(string name)
+
+        {
+
+            By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
+
+            driver.FindElement(searchOpportunitiesL).SendKeys(name);
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
+
+                return driver.FindElement(recordByName).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsOppoortunitiesFoundByNumberL(string number)
+
+        {
+
+            By recordByNumber = By.XPath($"//lightning-datatable//table//tbody//tr//td[@data-label='Opportunity Number']//lightning-base-formatted-text[text()='{number}']");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
+
+            driver.FindElement(searchOpportunitiesL).Clear();
+
+            driver.FindElement(searchOpportunitiesL).SendKeys(number);
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
+
+                return driver.FindElement(recordByNumber).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsOppoortunitiesFoundByStageL(string stage)
+
+        {
+
+            By recordByStage = By.XPath($"//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Priority')]//lightning-base-formatted-text[text()='{stage}']");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
+
+            driver.FindElement(searchOpportunitiesL).Clear();
+
+            driver.FindElement(searchOpportunitiesL).SendKeys(stage);
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByStage, 10);
+
+                return driver.FindElement(recordByStage).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsEngagementSearchBoxL()
+
+        {
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 30);
+
+                return driver.FindElement(searchEngagementsL).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+        public bool IsEngagementFoundByNameL(string name)
+
+        {
+
+            By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
+
+            driver.FindElement(searchEngagementsL).SendKeys(name);
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
+
+                return driver.FindElement(recordByName).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsEngagementFoundByNumberL(string number)
+        {
+            By recordByNumber = By.XPath($"//lightning-datatable//table//tbody//tr//td[@data-label='Engagement Number']//lightning-base-formatted-text[text()='{number}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
+            driver.FindElement(searchEngagementsL).Clear();
+            driver.FindElement(searchEngagementsL).SendKeys(number);
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
+
+                return driver.FindElement(recordByNumber).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
+
+        public bool IsEngagementFoundByStageL(string stage)
+
+        {
+            By recordByStage = By.XPath($"//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Stage')]//lightning-base-formatted-text[text()='{stage}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
+            driver.FindElement(searchEngagementsL).Clear();
+            driver.FindElement(searchEngagementsL).SendKeys(stage);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByStage, 10);
+                return driver.FindElement(recordByStage).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public void CloseCompanyTabL(string name)
+         {
+            By buttonCloseTab = By.XPath($"//button[@title='Close {name}']");
+            By txtSearchBox = By.XPath("//div[contains(@class,'forceSearchAssistant')]//button[contains(@aria-label,'Search')]");
+            By clearSearch = By.XPath("//button[@data-element-id='searchClear']");
+            By tabInfo = By.XPath("//a[text()='Info']");
+            driver.FindElement(buttonCloseTab).Click();
+        }
+        public void ClickViewAllOpportunities()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkViewAllOppL, 10);
+            driver.FindElement(linkViewAllOppL).Click();
+        }
+        public void ClickViewAllEngagements()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkViewAllEngL, 10);
+            driver.FindElement(linkViewAllEngL).Click();
+        }
+        public void CloseViewAllPopup()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseViewAllPopup, 10);
+            driver.FindElement(btnCloseViewAllPopup).Click();
+        }
+       
+        public bool IsOppEngFoundByNameOnViewAllL(string name)
+        {
+            try
+            {
+                By recordByName = By.XPath($"//div[contains(@class,'slds-modal__content')]//lightning-datatable//table//tbody//tr//a[text()='{name}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, searchViewAllOppEngL, 10);
+                driver.FindElement(searchViewAllOppEngL).Clear();
+                driver.FindElement(searchViewAllOppEngL).SendKeys(name);
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
+                return driver.FindElement(recordByName).Displayed;
+            }
+
+            catch { return false; }
+
+        }
+
+public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
+        {
+            try
+
+            {
+
+                By recordByNumber = By.XPath($"//div[contains(@class,'slds-modal__content')]//lightning-datatable//table//tbody//tr//td[@data-label='Opportunity Number']//lightning-base-formatted-text[text()='{number}']");
+
+                WebDriverWaits.WaitUntilEleVisible(driver, searchViewAllOppEngL, 10);
+
+                driver.FindElement(searchViewAllOppEngL).Clear();
+
+                driver.FindElement(searchViewAllOppEngL).SendKeys(number);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
+
+                return driver.FindElement(recordByNumber).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+        public bool IsEngagementsFoundByNumberOnViewAllL(string number)
+        {
+            try
+            {
+                By recordByNumber = By.XPath($"//div[contains(@class,'slds-modal__content')]//lightning-datatable//table//tbody//tr//td[@data-label='Engagement Number']//lightning-base-formatted-text[text()='{number}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, searchViewAllOppEngL, 10);
+                driver.FindElement(searchViewAllOppEngL).Clear();
+                driver.FindElement(searchViewAllOppEngL).SendKeys(number);
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
+                return driver.FindElement(recordByNumber).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public bool IsOppEngFoundByStageOnViewAllL(string stage)
+        {
+            try
+            {
+                By recordByStage = By.XPath($"//div[contains(@class,'slds-modal__content')]//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Stage')]//lightning-base-formatted-text[text()='{stage}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, searchViewAllOppEngL, 10);
+                driver.FindElement(searchViewAllOppEngL).Clear();
+                driver.FindElement(searchViewAllOppEngL).SendKeys(stage);
+                WebDriverWaits.WaitUntilEleVisible(driver, recordByStage, 10);
+                return driver.FindElement(recordByStage).Displayed;
+
+            }
+
+            catch { return false; }
+
+        }
+
+
 
     }
 }

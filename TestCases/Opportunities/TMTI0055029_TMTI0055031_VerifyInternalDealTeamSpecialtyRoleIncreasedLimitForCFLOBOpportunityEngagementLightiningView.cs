@@ -189,7 +189,7 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
 
                     //Requesting for engagement and validate the success message
-                    opportunityDetails.ClickRequesToEngL();
+                    opportunityDetails.ClickRequestToEngL();
 
                     //Submit Request To Engagement Conversion 
                     string msgSuccess= opportunityDetails.GetRequestToEngMsgL();
