@@ -351,7 +351,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                     
-                    extentReports.CreateLog("System Administrator Search for converted Engagement");
+                    extentReports.CreateLog("Standard User Search for converted Engagement ");
 
                     //Search for created Engagement
                     engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);

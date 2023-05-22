@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports.Utils;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
@@ -401,7 +402,7 @@ namespace SF_Automation.Pages.Engagement
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
         By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By txtAssociatedEngLabelL = By.XPath("//span[text()='Associated Engagement']");
-        By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input[contains(@placeholder,'Search Engagement')]");
+        By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input");
         By txtAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
@@ -4459,8 +4460,8 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             try
             {
                 Thread.Sleep(2000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
-                driver.FindElement(btnEditL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
+                driver.FindElement(btnEditEngL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedEngFieldL, 10);
                 bool IsDisplayed = driver.FindElement(editAssociatedEngFieldL).Displayed;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditFormL, 10);
