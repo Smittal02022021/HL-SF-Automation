@@ -179,11 +179,11 @@ namespace SF_Automation.Pages.Companies
 
         private By _homePageTab(string name)
         {
-            return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[@data-label='{name}']");
+            return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
         }
         private By _tabHeader(string name)
         {
-            return By.XPath($"//div[@class='slds-card__header slds-grid']//h2//span[text()='{name}']");
+            return By.XPath($"//div[@class='slds-card__header slds-grid']//h2//span[contains(text(),'{name}')]");
         }
         public bool VerifyIfCompanySectorQuickLinkIsDisplayed()
         {
