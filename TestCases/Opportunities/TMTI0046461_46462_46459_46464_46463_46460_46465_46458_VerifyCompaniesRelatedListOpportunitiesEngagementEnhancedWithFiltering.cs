@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Companies
 {
     class TMTI0046461_46462_46459_46464_46463_46460_46465_46458_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering : BaseClass
     {
@@ -21,7 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         CompanyHomePage companyhome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
 
-        public static string fileTMTI0045436 = "TMTI0046461_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering";
+        public static string fileTMTI0046461 = "TMTI0046461_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering";
         public string engNumber;
         public string appNameExl;
         public string moduleNameExl;
@@ -47,7 +47,7 @@ namespace SF_Automation.TestCases.Opportunities
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0045436;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0046461;
                 string fileToUpload = ReadJSONData.data.filePaths.testData + "FileToUpload.txt";
                 
                 //Validating Title of Login Page
