@@ -158,7 +158,17 @@ namespace SF_Automation.Pages.Contact
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
+        By txtContactHLRelationshipContactL = By.XPath("//article//div[contains(@class,'listDisplays')]//table//tr[1]//td[@data-label='HL Contact']//a");
 
+        private By _tabContactDetailPageL(string name)
+        {
+            return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
+        }
+
+        private By _tabContactDetailPageHeaderL(string name)
+        {
+            return By.XPath($"//div[contains(@class,'firstHeaderRow')]//h2//a//span[contains(@title,'{name}')]");
+        }
         public bool VerifyIfContactSectorQuickLinkIsDisplayed()
         {
             Thread.Sleep(5000);
@@ -1361,6 +1371,31 @@ namespace SF_Automation.Pages.Contact
                 result = true;
             }
             return result;
+        }
+        public bool ClickContactDetailsPageTabL(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageL(value), 30);
+            driver.FindElement(_tabContactDetailPageL(value)).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageHeaderL(value), 30);
+                return driver.FindElement(_tabContactDetailPageHeaderL(value)).Displayed;
+            }
+
+
+
+            catch { return false; }
+        }
+
+
+
+        public string GetContactHLRelationshipCotactL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLRelationshipContactL, 30);
+            return driver.FindElement(txtContactHLRelationshipContactL).GetAttribute("title");
+
+
+
         }
     }
 }

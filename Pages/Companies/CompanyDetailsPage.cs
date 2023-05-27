@@ -177,6 +177,17 @@ namespace SF_Automation.Pages.Companies
         By linkViewAllEngL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer2']//div[contains(@class,'card__footer')]//slot[@name='footer']//a[text()='View All']");
         By searchViewAllOppEngL = By.XPath("//div[@class='slds-modal__container']//input[contains(@placeholder,'Search')]");
 
+        By headerNestedListL = By.XPath("//article[contains(@class,'NestedTables_CardChild')]//h2[contains(@class,'container')]//span");
+        By txtCompanyHLRelationshipContactL = By.XPath("//article//div[contains(@class,'otherBrowser')]//table//tr[1]//td[@data-label='HL Contact']//a");
+        By txtCompanyHLRelationshipCoverageOfficerL = By.XPath("//flexipage-component2[contains(@data-component-id,'NestedTables2')]//table//tr[1]//td[@data-label='Officer Name']//a");//div[contains(@class,'NestedTables')]//table//tr[1]//td[@data-label='Officer Name']//a
+        By txtCoverageTeamCompanyNameL = By.XPath("//div[contains(@class,'page-header')]//h1//slot[@name='primaryField']//a//span");
+        By txtCoverageTeamOfficerNameL = By.XPath("//p[@title='Officer Name']//following::p//span//a");
+        By txtCompanyDetailCoverageTypeL = By.XPath("//article//div[contains(@class,'otherBrowser')]//table//tbody/tr[1]//td[1]//span");
+        By panelCoverageTypeL = By.XPath("//dt[text()='Coverage Type:']//following-sibling::dd[1]//span");
+        By panelCoverageSector = By.XPath("//ul[@role='tablist']//li[contains(@title,'Coverage Sectors')]//a");
+        By buttonCloseCoverageTab = By.XPath("//button[contains(@title,'Close C-')]");
+        By alertDuplicate = By.XPath("//div[@role='alertdialog']//button[@title='Close']");
+
         private By _homePageTab(string name)
         {
             return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
@@ -1583,8 +1594,141 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
             catch { return false; }
 
+        }      
+
+        public void CloseCoverageTeamDetailPageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, buttonCloseCoverageTab, 20);
+            driver.FindElement(buttonCloseCoverageTab).Click();
+            Thread.Sleep(5000);
+            driver.Navigate().Refresh();
+        }
+        public bool IsContactNestedListHLRelationshipL(string contactName)
+        {
+            try
+            {
+                By btnNestedHLRelationship = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationship, 20);
+                return driver.FindElement(btnNestedHLRelationship).Displayed;
+            }
+            catch { return false; }
+        }
+        public bool IsCoverageNestedListOfficerL(string contactName)
+        {
+            try
+            {
+                By btnNestedHLRelationship = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{contactName}']//ancestor::td//preceding-sibling::td//button");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationship, 20);
+                return driver.FindElement(btnNestedHLRelationship).Displayed;
+            }
+            catch { return false; }
+        }
+        public string ClickContactNestedListHLRelationshipL(string contactName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            By btnNestedHLRelationship = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationship, 20);
+            //driver.FindElement(btnNestedHLRelationship).Click();
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationship));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, headerNestedListL, 20);
+            return driver.FindElement(headerNestedListL).Text;
         }
 
+
+
+        public string ClickCoverageNestedList(string contactName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{contactName}']//ancestor::td//preceding-sibling::td//button");
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationshipL, 20);
+            //driver.FindElement(btnNestedHLRelationship).Click();
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationshipL));
+
+
+
+            WebDriverWaits.WaitUntilEleVisible(driver, headerNestedListL, 20);
+            return driver.FindElement(headerNestedListL).Text;
+        }
+
+
+
+
+        public string GetCompanyHLRelationshipContactL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyHLRelationshipContactL, 20);
+            return driver.FindElement(txtCompanyHLRelationshipContactL).Text;
+        }
+
+
+
+        public string GetCompanyHLRelationshipOfficerNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyHLRelationshipCoverageOfficerL, 20);
+            return driver.FindElement(txtCompanyHLRelationshipCoverageOfficerL).Text;
+        }
+        public void ClickCompanyNestedContactL(string contactName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            By linkNestedHLRelationshipL = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']");
+            //driver.FindElement(linkNestedHLRelationship ).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkNestedHLRelationshipL, 20);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(linkNestedHLRelationshipL));
+
+
+
+        }
+        public void ClickNestedCoverageTeamOfficerL(string officerName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{officerName}']");
+            // WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationshipL, 20);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationshipL));
+
+
+
+        }
+
+        public bool IsCoverageTeamDetailsPageDisplayedL(string value)
+        {
+            By titleCoverageteamL = By.XPath($"//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')][contains(text(),'{value}')]");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, titleCoverageteamL, 20);
+                return driver.FindElement(titleCoverageteamL).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public string GetCoverageTeamCompanyNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCoverageTeamCompanyNameL, 20);
+            return driver.FindElement(txtCoverageTeamCompanyNameL).Text;
+        }
+
+        public string GetCoverageOfficerNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCoverageTeamOfficerNameL, 20);
+            return driver.FindElement(txtCoverageTeamOfficerNameL).Text;
+        }
+
+        public string GetCompanyOfficeNameCoverageTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyDetailCoverageTypeL, 20);
+            return driver.FindElement(txtCompanyDetailCoverageTypeL).Text;
+        }
+
+        public void ClickCoverageSectorPanelL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageSector, 20);
+            driver.FindElement(panelCoverageSector).Click();
+        }
+
+        public string GetOfficerCoverageTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 20);
+            return driver.FindElement(panelCoverageTypeL).Text;
+        }
 
 
     }
