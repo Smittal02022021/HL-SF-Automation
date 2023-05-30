@@ -155,7 +155,7 @@ namespace SF_Automation.Pages
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
         By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-164']");
-        By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-172']");
+        By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-192']");
         By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-185']");
         By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-235']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-230']");

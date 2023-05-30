@@ -339,6 +339,15 @@ namespace SF_Automation.Pages
             string opp = driver.FindElement(valSearchedEng).Text;
             return opp;
         }
+        //Validate if Search functionality is working as expected
+        public void ValidateSearchFunctionalityOfEngagementsForAdmin(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+            driver.FindElement(txtSearchEng).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(3000);
+        }
 
         //Validate Engagement details page upon clicking Engagement Name
         public string ClickEngNumAndValidateThePage()

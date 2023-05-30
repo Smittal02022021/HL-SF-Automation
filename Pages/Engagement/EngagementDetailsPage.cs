@@ -220,7 +220,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
-        By valClientOwnershipAfter = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valClientOwnershipAfter = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lnkImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By txtEstMktDate = By.XPath("//input[@name='Expected_In_Market_Date__c']");
@@ -263,7 +263,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkRefType = By.XPath("//button[@title='Edit Referral Type']");
         By txtEstRefFee = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div/div/input");
         By valEstFee = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
-        By btnShowMore = By.XPath("//tr[1]/td[8]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnShowMore = By.XPath("//tr[1]/td[8]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action");
         By btnEditClient = By.XPath("//body/div[8]/div/ul/li/a");
         By btnTypeClient = By.XPath("//records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
@@ -321,6 +321,8 @@ namespace SF_Automation.Pages.Engagement
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//div[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
+            
         By valEngContact = By.XPath("//h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/div/button/lightning-primitive-icon");
@@ -354,11 +356,27 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
+        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
+        By lblBid = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Bids']");
+        By tblBids = By.XPath("//div/slot/lightning-tab/slot/lightning-card/article/div[2]/slot/div/lightning-datatable/div[2]/div/div/table");
+        By btnNewBid = By.XPath("//button[text()='New Bid Round']");
+        By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
+        By tabAddedBid = By.XPath("//a[text()='Round First']");
+        By lnkEditMinBid = By.XPath("//table/tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/button");
+        By lnkEditMaxBid = By.XPath("//table/tbody/tr[1]/td[3]/lightning-primitive-cell-factory/span/button");
+        By txtMinBid = By.XPath("//input[@name='dt-inline-edit-currency']");
+        By txtBidDate = By.XPath("//input[@name='dt-inline-edit-dateLocal']");
+        By btnSaveMinBid = By.XPath("//lightning-primitive-datatable-status-bar/div/div/button[2]");
+        By btnMsgBid = By.XPath("//button[@class='slds-button slds-button_icon slds-button_icon-error']");
+        By msgMinBid = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[1]");
+        By msgMaxBid = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[2]");
+        By lblMinBid = By.XPath("//span[@title='Min Bid']");
+        By lnkEditBidDate = By.XPath("//table/tbody/tr[1]/td[6]/lightning-primitive-cell-factory/span/button");
+        By msgBidDate = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[3]");
+        By btnManage = By.XPath("//button[text()='Manage']");
+        By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
 
-
-
-
-		public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
+        public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -2516,7 +2534,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string id = driver.FindElement(valRevAccID).Text;
             return id;
         }
@@ -2539,9 +2557,11 @@ namespace SF_Automation.Pages.Engagement
         //Click Revenue Projection Tab
         public string ValidateAndClickRevenueProjectionTab()
         {
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 150);
-            driver.FindElement(tabEngagementNumL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngName, 150);
+            driver.FindElement(lnkEngName).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 150);
+            driver.FindElement(tabRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabRevProj, 250);
             driver.FindElement(tabRevProj).Click();
             Thread.Sleep(3000);
@@ -2621,7 +2641,7 @@ namespace SF_Automation.Pages.Engagement
         //Get default value of Client Ownership
         public string GetClientOwnershipLPostUpdate()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipAfter, 150);
             string value = driver.FindElement(valClientOwnershipAfter).Text;
             return value;
@@ -2852,6 +2872,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,350)");
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnShowMore, 150);
             driver.FindElement(btnShowMore).Click();
             Thread.Sleep(3000);
@@ -3467,5 +3488,134 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }
+
+        //Validate Bid tab
+        public string ValidateBidTab()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMore, 200);
+            driver.FindElement(tabMore).Click();
+            Thread.Sleep(3000);            
+            string name = driver.FindElement(lblBid).Text;
+            driver.FindElement(lblBid).Click();
+            return name;
+        }
+
+        //Validate existing bids
+        public string ValidateExistingBids()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tblBids, 200);
+            string table = driver.FindElement(tblBids).Displayed.ToString();           
+            return table;
+        }
+
+        //Validate the newly added bid
+        public string ValidateAddedBid()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBid, 200);
+            driver.FindElement(btnNewBid).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);
+            driver.FindElement(btnSelectNewRound).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//div[2]/slot/div/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[@data-value='First']")).Click();
+            string tab = driver.FindElement(tabAddedBid).Text;
+            driver.Navigate().Refresh();
+            return tab;            
+        }
+
+        //Validate Mandatory fields validation
+        public string ValidateMandatoryFieldValidationOfMinBid()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditMinBid, 200);
+            driver.FindElement(lnkEditMinBid).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMinBid, 350);
+            driver.FindElement(txtMinBid).Clear();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 200);
+            driver.FindElement(lblMinBid).Click();
+
+            //Clear Max Bid
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditMaxBid, 350);
+            driver.FindElement(lnkEditMaxBid).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMinBid, 350);
+            driver.FindElement(txtMinBid).Clear();
+            Thread.Sleep(4000);            
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 200);
+            driver.FindElement(lblMinBid).Click();
+
+            //Clear Bid Date
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditBidDate, 350);
+            driver.FindElement(lnkEditBidDate).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtBidDate, 350);
+            driver.FindElement(txtBidDate).Clear();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 200);
+            driver.FindElement(lblMinBid).Click();
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(5000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveMinBid, 240);
+            driver.FindElement(btnSaveMinBid).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMsgBid, 200);
+            driver.FindElement(btnMsgBid).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgMinBid, 200);
+            string message = driver.FindElement(msgMinBid).Text;
+            return message;
+        }
+
+        //Validate Mandatory fields validation
+        public string ValidateMandatoryFieldValidationOfMaxBid()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgMaxBid, 200);
+            string message = driver.FindElement(msgMaxBid).Text;
+            return message;
+        }
+
+        //Validate Mandatory fields validation of Bid Date
+        public string ValidateMandatoryFieldValidationOfBidDate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgBidDate, 200);
+            string message = driver.FindElement(msgBidDate).Text;
+            driver.Navigate().Refresh();
+            return message;
+        }
+
+        //Get the value of Min Bid
+        public string GetMinBidValue()
+        {
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valMinBid).Text;
+            return value;
+        }
+
+        //Validate manage functionality
+        public string ValidateManageBidFunctionality(string bid)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnManage, 200);
+            driver.FindElement(btnManage).Click();
+            driver.FindElement(txtMinBid).Clear();
+            driver.FindElement(txtMinBid).SendKeys(bid);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 200);
+            driver.FindElement(lblMinBid).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveMinBid, 240);
+            driver.FindElement(btnSaveMinBid).Click();
+            js.ExecuteScript("window.scrollTo(0,-300)");
+            Thread.Sleep(3000);
+            string value = driver.FindElement(valMinBid).Text;
+            return value;
+        }
+
+        
     }
 }

@@ -104,12 +104,14 @@ namespace SF_Automation.TestCases.Engagement
                     usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();
+                driver.Quit();
             }
 
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
+                driver.Quit();
             }
         }
         [OneTimeTearDown]

@@ -36,6 +36,7 @@ namespace SF_Automation.Pages.Common
         By imgUser = By.XPath("//span/div/span[@class='uiImage']");
         By lnkLogout = By.XPath("//div[2]/div[1]/div[1]/div/div[2]/div/a[2]");
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
+        By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
 
         public void SearchCFUserAndLogin(string name)
         {
@@ -124,50 +125,8 @@ namespace SF_Automation.Pages.Common
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabHome,120);
             driver.FindElement(tabHome).Click();
-        }
+        }            
 
-        //Login as Standard FAS user
-        public void LoginAsStandardFASUser()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkStdFASUser);
-            driver.FindElement(linkStdFASUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
-        }
-
-        //Login as Standard FR user
-        public void LoginAsStandardFRUser()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkStdFRUser);
-            driver.FindElement(linkStdFRUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
-        }
-        //Login as FR CAO user
-        public void LoginAsFRCAOUser()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkFRCAOUser);
-            driver.FindElement(linkFRCAOUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
-        }
-
-        //Login as FR Accounting user
-        public void LoginAsFRAccountingUser()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkFRAccountingUser);
-            driver.FindElement(linkFRAccountingUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
-        }
-
-        public void LoginAsComplianceUser()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkcompUser);
-            driver.FindElement(linkcompUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
-        }
 
         public void SearchUserAndLogin(string name)
         {
@@ -219,7 +178,13 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(lnkLogoutL).Click();
         }
 
-
+        //Click on Switch To Lightning Experience link
+        public void ClickSwitchToLightning()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchTo, 250);
+            driver.FindElement(lnkSwitchTo).Click();
+        }
 
     }
 }
