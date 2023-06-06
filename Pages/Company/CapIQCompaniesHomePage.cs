@@ -3,7 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace SF_Automation.Pages.Company
 {
@@ -43,7 +45,12 @@ namespace SF_Automation.Pages.Company
         By tblResults = By.CssSelector("div[class='x-panel-bwrap']");
         By txtPotentialMatch = By.CssSelector("div[class='messageText']");
         By btnCancelAndBack = By.CssSelector("td[class*='pbButtonb'] > input[value='Cancel and Back']");
-        
+
+        By btnNewCapIQCompany = By.CssSelector("input[name='new']");
+        By btnSaveCapIQCompany = By.CssSelector("input[name='save']");
+        By comboIndustryType = By.CssSelector("select[id*='GBVBf']");
+        By comboIndustryTypeOptions = By.CssSelector("select[id*='GBVBf'] option");
+
         // To Search for CapIQ Company
         public string SearchCapIQCompany(string companyName)
         {
@@ -174,6 +181,40 @@ namespace SF_Automation.Pages.Company
         public bool ValidateCapIQCompanyList()
         {
             return CustomFunctions.IsElementPresent(driver, CapIQList);
-        }        
+        }
+        public void ClickCapIQCompanyModule()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, shwAllTab, 20);
+            driver.FindElement(shwAllTab).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCapIQCompanies, 20);
+            driver.FindElement(lnkCapIQCompanies).Click();
+
+
+
+        }
+
+
+
+        public bool IsIndustryGroupAvailableOnNewCapIQCompanyPage(string industryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCapIQCompany, 10);
+            driver.FindElement(btnNewCapIQCompany).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCapIQCompany, 20);
+
+            bool isFound = false;
+            driver.FindElement(comboIndustryType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
     }
 }

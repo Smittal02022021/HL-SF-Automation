@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SF_Automation.Pages.HomePage;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView:BaseClass
     {

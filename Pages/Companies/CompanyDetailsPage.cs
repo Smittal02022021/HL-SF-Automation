@@ -188,6 +188,19 @@ namespace SF_Automation.Pages.Companies
         By buttonCloseCoverageTab = By.XPath("//button[contains(@title,'Close C-')]");
         By alertDuplicate = By.XPath("//div[@role='alertdialog']//button[@title='Close']");
 
+        By comboIndustryType = By.CssSelector("select[id*='FD7Vf']");
+        By comboIndustryTypeOptions = By.CssSelector("select[id*='FD7Vf'] option");
+        By btnCancel = By.CssSelector("input[name='cancel']");
+        By comboType = By.CssSelector("select[id*='FjXsE']");
+        By comboTypeOption = By.CssSelector("select[id*='FjXsE'] option");
+
+        //By txtSearchBox = By.XPath("//div[contains(@class,'forceSearchAssistant')]//button[contains(@aria-label,'Search')]");
+        
+        private By _DetailPageQuickLink(string name)
+        {
+            return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
+        }
+
         private By _homePageTab(string name)
         {
             return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
@@ -723,7 +736,6 @@ namespace SF_Automation.Pages.Companies
 
             driver.FindElement(btnSaveCompanyEdit).Click();
         }
-
 
         public void EditCompanyContact(string email, string phone, int row)
         {
@@ -1290,179 +1302,94 @@ namespace SF_Automation.Pages.Companies
         // Click on tab from Company Detail page 
 
         public bool ClickCompanyDetailPageTabL(string value)
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, _homePageTab(value), 30);
-
             driver.FindElement(_homePageTab(value)).Click();
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, _tabHeader(value), 30);
-
                 return driver.FindElement(_tabHeader(value)).Displayed;
-
             }
-
             catch (Exception e)
-
             {
-
                 return false;
-
             }
-
         }
 
 
         public bool IsOpportunitiesSearchBoxL()
-
         {
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 30);
-
                 return driver.FindElement(searchOpportunitiesL).Displayed;
-
             }
-
             catch { return false; }
-
         }
-
-
 
         public bool IsOppoortunitiesFoundByNameL(string name)
-
         {
-
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
-
             driver.FindElement(searchOpportunitiesL).SendKeys(name);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
-
                 return driver.FindElement(recordByName).Displayed;
-
             }
-
             catch { return false; }
-
         }
-
-
 
         public bool IsOppoortunitiesFoundByNumberL(string number)
-
         {
-
             By recordByNumber = By.XPath($"//lightning-datatable//table//tbody//tr//td[@data-label='Opportunity Number']//lightning-base-formatted-text[text()='{number}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
-
             driver.FindElement(searchOpportunitiesL).Clear();
-
             driver.FindElement(searchOpportunitiesL).SendKeys(number);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
-
                 return driver.FindElement(recordByNumber).Displayed;
-
             }
-
             catch { return false; }
-
         }
-
-
 
         public bool IsOppoortunitiesFoundByStageL(string stage)
-
         {
-
             By recordByStage = By.XPath($"//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Priority')]//lightning-base-formatted-text[text()='{stage}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
-
             driver.FindElement(searchOpportunitiesL).Clear();
-
             driver.FindElement(searchOpportunitiesL).SendKeys(stage);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByStage, 10);
-
                 return driver.FindElement(recordByStage).Displayed;
-
             }
-
             catch { return false; }
-
         }
 
-
-
         public bool IsEngagementSearchBoxL()
-
         {
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 30);
-
                 return driver.FindElement(searchEngagementsL).Displayed;
-
             }
-
             catch { return false; }
-
         }
 
         public bool IsEngagementFoundByNameL(string name)
-
         {
-
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
-
             driver.FindElement(searchEngagementsL).SendKeys(name);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
-
                 return driver.FindElement(recordByName).Displayed;
-
             }
-
             catch { return false; }
-
         }
-
-
 
         public bool IsEngagementFoundByNumberL(string number)
         {
@@ -1471,19 +1398,12 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(searchEngagementsL).Clear();
             driver.FindElement(searchEngagementsL).SendKeys(number);
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
-
                 return driver.FindElement(recordByNumber).Displayed;
-
             }
-
             catch { return false; }
-
         }
-
 
 
         public bool IsEngagementFoundByStageL(string stage)
@@ -1504,9 +1424,6 @@ namespace SF_Automation.Pages.Companies
         public void CloseCompanyTabL(string name)
          {
             By buttonCloseTab = By.XPath($"//button[@title='Close {name}']");
-            By txtSearchBox = By.XPath("//div[contains(@class,'forceSearchAssistant')]//button[contains(@aria-label,'Search')]");
-            By clearSearch = By.XPath("//button[@data-element-id='searchClear']");
-            By tabInfo = By.XPath("//a[text()='Info']");
             driver.FindElement(buttonCloseTab).Click();
         }
         public void ClickViewAllOpportunities()
@@ -1728,6 +1645,104 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 20);
             return driver.FindElement(panelCoverageTypeL).Text;
+        }
+        
+        public bool IsIndustryTypePresent(string industryType)
+        {
+            bool isFound = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit);
+            driver.FindElement(btnEdit).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
+            driver.FindElement(comboIndustryType).Click();
+
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
+                 var actualValue = valTypes.Select(x => x.Text).ToArray();
+
+            for (int row = 0; row <= actualValue.Length; row++)
+
+            {
+
+                if (actualValue[row].Contains(industryType))
+
+                {
+
+                    isFound = true;
+
+                    driver.FindElement(btnCancel).Click();
+
+                    break;
+
+                }
+
+            }
+
+
+            return isFound;
+
+        }
+
+        public void ClickDetailPageQuickLink(string linkName)
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, _DetailPageQuickLink(linkName));
+
+            driver.FindElement(_DetailPageQuickLink(linkName)).Click();
+
+        }
+
+
+        public void ClickNewCoverageTeamButton()
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeam);
+
+            driver.FindElement(btnNewCoverageTeam).Click();
+
+        }
+
+
+
+
+
+        public bool IsIndustryTypePresentonCoverageTeam(string industryType)
+
+        {
+
+            bool isFound = false;
+
+
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboType);
+
+            driver.FindElement(comboType).Click();
+
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypeOption);
+
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+
+            for (int row = 0; row <= actualValue.Length; row++)
+
+            {
+
+                if (actualValue[row].Contains(industryType))
+
+                {
+
+                    isFound = true;
+
+                    driver.FindElement(btnCancel).Click();
+
+                    break;
+
+                }
+
+            }
+
+            return isFound;
+
         }
 
 

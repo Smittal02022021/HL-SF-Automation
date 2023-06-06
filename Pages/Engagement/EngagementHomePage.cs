@@ -39,6 +39,7 @@ namespace SF_Automation.Pages
         By btnEngsearchL = By.XPath("//button[@aria-label='Search']");
         By txtEngsearchL = By.XPath("//input[contains(@placeholder,'Search Engagements')]");
         By imgEng = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
+        By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
 
         public void ClickEngagementTabAdvanceSearch()
         {
@@ -327,7 +328,26 @@ namespace SF_Automation.Pages
                 driver.FindElement(imgEng).Click();
                 Thread.Sleep(2000);
             }
-        
+        public string SearchEngagementsWithIndustryType(string industryType)
+        {
+            By matchedEngagement = By.XPath($"//table[contains(@id,'myEngagements')]//tbody//td//span[contains(text(),'{industryType}')]");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
+            driver.FindElement(comboIndustryType).SendKeys(industryType);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedEngagement).Displayed.ToString();
+                Console.WriteLine("Search Results :" + result);
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
     }
 }
 

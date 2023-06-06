@@ -414,8 +414,9 @@ namespace SF_Automation.Pages
         By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
         By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
         By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
+        By comboIGOptions = By.CssSelector("select[id*='VT3'] option");
 
-        
+
 
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
@@ -4129,6 +4130,37 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnCancelEditFormL).Click();
                 return e.Message;
             }
+        }
+        public bool IsGetIndustryGroupSaved(string value)
+        {
+            By txtIndustryGroup = By.XPath($"//td[text()='Industry Group']//following-sibling::td//div[contains(text(),'{value}')]");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtIndustryGroup, 20);
+                return driver.FindElement(txtIndustryGroup).Displayed;
+            }
+            catch { return false; }
+        }
+        public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIG, 10);
+            driver.FindElement(comboIG).Click();
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                Console.WriteLine(actualValue[row]);
+                if (actualValue[row].Contains(IndustryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancel).Click();
+            return isFound;
         }
     }
 

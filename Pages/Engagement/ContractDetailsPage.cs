@@ -58,6 +58,7 @@ namespace SF_Automation.Pages.Engagement
         By valERPTaskDescription = By.CssSelector("#ep > div.pbBody > div:nth-child(4) > table > tbody > tr:nth-child(7) > td:nth-child(4)");
         By lnkERPSubmittedToSyncDate = By.CssSelector("#ep > div.pbBody > div:nth-child(5) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
         By btnSave = By.CssSelector("td[id='topButtonRow'] > input[title='Save']");
+        By valIGCode = By.CssSelector("div[id*='M0ecw']");
         //By valERPId
 
         public string GetERPSubmittedToSync()
@@ -533,6 +534,10 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(lnkERPSubmittedToSyncDate).Click();
             driver.FindElement(btnSave).Click();
         }
-
+        public string GetContractIGCode()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valIGCode, 10);
+            return driver.FindElement(valIGCode).Text;
+        }
     }
 }

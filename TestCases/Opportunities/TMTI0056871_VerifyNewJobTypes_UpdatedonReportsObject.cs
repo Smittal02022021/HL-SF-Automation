@@ -7,7 +7,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056871_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
+    class TMTI0056871_TMTI0027295_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -15,7 +15,7 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTMTI0056877 = "TMTI0056871_VerifyNewJobTypes_UpdatedonReportsObject";
+        public static string fileTMTI0056871 = "TMTI0056871_VerifyNewJobTypes_UpdatedonReportsObject";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -26,12 +26,12 @@ namespace SF_Automation.TestCases.Opportunity
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyNewJobTypeOnOppEngManagerPage()
+        public void VerifyNewFilterRecordOnReportsObject()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056877;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056871;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -44,17 +44,18 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
+                //Selecting Reports Tab
+                string pageHeader = randomPages.ClickReportsTab();
+                Assert.IsTrue(pageHeader.Contains("Reports & Dashboards"));
+                extentReports.CreateLog("User is on " + pageHeader + " page ");
+
+                int rowJobType = ReadExcelData.GetRowCount(excelPath, "FilterRecord");
 
                 for (int row = 2; row <= rowJobType; row++)
                 {
-                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1);
+                    string valFilterRecord = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterRecord", row, 1);
                     string valReportOption = ReadExcelData.ReadDataMultipleRows(excelPath, "ReportOption", row, 1);
                     string valFilter = ReadExcelData.ReadDataMultipleRows(excelPath, "Filter", row, 1);
-
-                    string pageHeader = randomPages.ClickReportsTab();
-                    Assert.IsTrue(pageHeader.Contains("Reports & Dashboards"));
-                    extentReports.CreateLog("User is on " + pageHeader + " page ");
 
                     string reportPageHeader = randomPages.CreateNewReport(valReportOption);
                     Assert.IsTrue(reportPageHeader.Contains(valReportOption), "Verify User is on New Report Page ");
@@ -64,16 +65,18 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(fieldValue, valFilter);
                     extentReports.CreateLog("Field: " + fieldValue + " is selected ");
 
-                    Assert.IsTrue(randomPages.IsJobTypeVailableOnReportsPage(valJobType), "Verify New Job Type is available in Job Type List");
-                    extentReports.CreateLog("Job Type " + valJobType + " is avaialable in Job Type List on Reports page ");
+                    //TMTI0027302, TMTI0027295 Verify the Industry Group is changed while creating Opportunities & Engagements Reports
+                    Assert.IsTrue(randomPages.IsRecordAvailableOnReportsPage(valFilterRecord), "Verify " + valFilterRecord + " is available in " + valFilter + " List");
+                    extentReports.CreateLog(valFilter + ": " + valFilterRecord + " is avaialable in  List on Reports page ");
                     pageHeader = randomPages.CloseUnsavedReport();
                     Assert.IsTrue(pageHeader.Contains("Reports & Dashboards"));
                     extentReports.CreateLog("Report is closed and User is on " + pageHeader + " page ");
                 }
                 usersLogin.UserLogOut();
-                extentReports.CreateLog("User logged out ");
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+
+
+
             }
             catch (Exception e)
             {

@@ -55,6 +55,16 @@ namespace SF_Automation.Pages.Common
         By btnCloseReport = By.XPath("//table[@id='closeBtn']//button");
         By btnConfirmClose = By.XPath("//div[contains(@class,'window-footer')]//button[text() = 'Close']");
 
+        By comboIndustryTypeOpp = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsOpps']");
+        By comboIndustryTypeOptionsOpp = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsOpps'] option");
+        By comboIndustryTypeEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng']");
+        By comboIndustryTypeOptionsEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng'] option");
+        By btnApplyFilter = By.CssSelector("input[id*='ApplyFilters']");
+
+        private By _elmIGType(string industryType)
+        {
+            return By.XPath($"//div[contains(@id,'ManagerContainer')]//table//tbody//td[contains(@id,'Industry')]//span[contains(text(),'{industryType}')]");
+        }
         private By _optionReports(string reportName)
         {
             return By.XPath($"//ul[contains(@class,'tree-lines')]//li//span[text()='{reportName}']");
@@ -138,7 +148,7 @@ namespace SF_Automation.Pages.Common
                 return e.Message;
             }
         }
-        public bool IsJobTypeVailableOnReportsPage(string valJobType)
+        public bool IsRecordAvailableOnReportsPage(string valJobType)
         {
             bool found = false;
             WebDriverWaits.WaitUntilEleVisible(driver, iconLookup, 10);
@@ -157,8 +167,9 @@ namespace SF_Automation.Pages.Common
             }
             driver.Close();
             CustomFunctions.SwitchToWindow(driver, 0);
-            return found;        
+            return found;
         }
+
         public string CloseUnsavedReport()
         {
             try
@@ -497,6 +508,124 @@ namespace SF_Automation.Pages.Common
                 }
             }
             return isSame;
+        }
+        public bool IsIndustryTypePresentInDropdownOppManager(string valIndustryGroup)
+        {
+            bool isFound = false;
+            driver.FindElement(comboIndustryTypeOpp).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsOpp);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(valIndustryGroup))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(comboIndustryTypeOpp).Click();
+            return isFound;
+        }
+
+
+
+        public bool IsIndustryTypePresentInDropdownEngManager(string valIndustryGroup)
+        {
+            bool isFound = false;
+            driver.FindElement(comboIndustryTypeEng).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsEng);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(valIndustryGroup))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(comboIndustryTypeEng).Click();
+            return isFound;
+        }
+        public bool IsOpportunityFoundWithIndustryType(string industryType)
+        {
+            bool isFound = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryTypeOpp);
+            driver.FindElement(comboIndustryTypeOpp).SendKeys(industryType);
+            driver.FindElement(btnApplyFilter).Click();
+            Thread.Sleep(15000);
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(_elmIGType(industryType));
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public bool IsEngagementFoundWithIndustryType(string industryType)
+        {
+            bool isFound = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryTypeEng);
+            driver.FindElement(comboIndustryTypeEng).SendKeys(industryType);
+            driver.FindElement(btnApplyFilter).Click();
+            Thread.Sleep(15000);
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(_elmIGType(industryType));
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+
+
+
+        By dropdownCompaign = By.CssSelector("select[id='fcf']");
+
+        //Verify Industry Group in list 
+        public bool IsIndustryGroupAvailableOnCampaignPage(string valCampaign, string valIndustryGroup)
+        {
+            By typeIG = By.XPath($"//div[@class='listBody']//table//tbody//td//div[text()='{valIndustryGroup}']");
+            bool isIndustryGroupfound = false;
+            IWebElement elmIGType;
+            driver.FindElement(dropdownCompaign).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownCompaign);
+            driver.FindElement(dropdownCompaign).SendKeys(valCampaign);
+            driver.FindElement(dropdownCompaign).Click();
+            try
+            {
+                driver.FindElement(btnGo).Click();
+            }
+            catch (Exception ex) { }
+            Thread.Sleep(5000);
+        check: try
+            {
+                elmIGType = driver.FindElement(typeIG);
+                CustomFunctions.MoveToElement(driver, elmIGType);
+                if (elmIGType.Displayed)
+                {
+                    isIndustryGroupfound = true;
+                    //break;
+                }
+            }
+            catch (Exception e)
+            {
+                if (driver.FindElement(linkNext).Enabled)
+                {
+                    driver.FindElement(linkNext).Click();
+                    WebDriverWaits.WaitTillElementVisible(driver, loader);
+                    Thread.Sleep(1000);
+                    goto check;
+                }
+            }
+            return isIndustryGroupfound;
         }
 
     }

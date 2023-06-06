@@ -42,10 +42,12 @@ namespace SF_Automation.Pages
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
-        By comboTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
+        By comboJobTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
+        By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
+        By comboIndustryTypeOptions = By.CssSelector("select[name*='industryGroupSearch'] option");
         By linkEngManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
 
-      
+
         public void ClickOpportunityTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -56,7 +58,7 @@ namespace SF_Automation.Pages
         {
             bool isFound = false;
             driver.FindElement(comboJobType).Click();
-            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypes);
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypes);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
             for (int row = 0; row <= actualValue.Length; row++)          
             {                
@@ -321,7 +323,40 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
 
         }
-       
+        public bool IsIndustryTypePresentInDropdownHomePage(string industryType)
+        {
+            bool isFound = false;
+            driver.FindElement(comboIndustryType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public string SearchOpportunityWithIndustryType(string industryType)
+        {
+            By matchedOpportunity = By.XPath($"//table[contains(@id,'myOpportunities')]//tbody//td//span[contains(text(),'{industryType}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
+            driver.FindElement(comboIndustryType).SendKeys(industryType);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
     }
 }
 

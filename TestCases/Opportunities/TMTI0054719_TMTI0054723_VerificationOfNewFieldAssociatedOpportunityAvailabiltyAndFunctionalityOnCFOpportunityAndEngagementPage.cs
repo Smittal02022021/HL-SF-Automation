@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage:BaseClass
     {

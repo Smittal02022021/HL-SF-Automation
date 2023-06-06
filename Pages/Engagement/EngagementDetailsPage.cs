@@ -414,7 +414,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
         By txtPrivileges = By.XPath("//span[text()='Insufficient Privileges']");
         By iconClearAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
-
+        By comboIGOptions = By.CssSelector("select[id*='6Ax'] option");
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4543,6 +4543,88 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 driver.FindElement(btnCancelEditFormL).Click();
                 return e.Message;
             }
+        }
+     
+        public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+
+            driver.FindElement(btnEdit).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIG, 10);
+
+            driver.FindElement(comboIG).Click();
+
+            bool isFound = false;
+
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptions);
+
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+
+            for (int row = 0; row < actualValue.Length; row++)
+
+            {
+
+                Console.WriteLine(actualValue[row]);
+
+                if (actualValue[row].Contains(IndustryType))
+
+                {
+
+                    isFound = true;
+
+                    break;
+
+                }
+
+            }
+
+            driver.FindElement(btnCancel).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+
+            return isFound;
+
+        }
+
+        private By _DetailPageQuickLink(string name)
+
+        {
+
+            return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
+
+        }
+
+        public void ClickDetailPageQuickLink(string value)
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, _DetailPageQuickLink(value), 20);
+
+            driver.FindElement(_DetailPageQuickLink(value)).Click();
+
+
+        }
+
+        public string GetContractName()
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContract, 20);
+
+            return driver.FindElement(lnkContract).Text;
+
+        }
+
+        public void ClickContractName()
+
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContract, 20);
+
+            driver.FindElement(lnkContract).Click();
 
         }
     }

@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0054728_TMTI0054730_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage:BaseClass
     {
