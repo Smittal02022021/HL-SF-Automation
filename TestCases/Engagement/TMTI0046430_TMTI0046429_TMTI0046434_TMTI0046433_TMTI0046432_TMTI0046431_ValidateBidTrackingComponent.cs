@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Open the selected Engagement
                 engHome.ValidateSearchFunctionalityOfEngagementsForAdmin("106347");
                 engHome.ClickEngNumber();
-                string bidAdmin = engagementDetails.ValidateBidTab();
+                string bidAdmin = engagementDetails.ValidateBidTabForAdmin();
                 Assert.AreEqual("Bids", bidAdmin);
                 extentReports.CreateLog("Tab: " + bidAdmin + " is displayed under More tab on Engagement details page for Admin ");
 

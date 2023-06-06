@@ -629,7 +629,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate mandatory validation of Billing Request 
                 string validationSendEmail = engagementDetails.ValidateMandatoryValidationOfBillingRequest();
-                Assert.AreEqual("Warning:To is required.", validationSendEmail);
+                Assert.AreEqual("Warning:\r\nTo is required.", validationSendEmail);
                 extentReports.CreateLog("Validation message: " + validationSendEmail + " is displayed when Send Email button is clicked without entering mandatory field values. ");
 
                 //Validate cancel functionality of Billing Request 

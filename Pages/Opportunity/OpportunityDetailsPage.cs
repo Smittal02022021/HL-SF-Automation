@@ -4214,7 +4214,10 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Validate File upload option under Files
         public string ValidateFileUploadsOption()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtUploadFiles, 160);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,300)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUploadFiles, 190);
             string comment = driver.FindElement(txtUploadFiles).Text;
             return comment;
         }

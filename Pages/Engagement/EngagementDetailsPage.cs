@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.SqlServer.Server;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
@@ -358,6 +359,8 @@ namespace SF_Automation.Pages.Engagement
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
         By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
         By lblBid = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Bids']");
+        By lblReport = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Report']");
+        By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/a");
         By tblBids = By.XPath("//div/slot/lightning-tab/slot/lightning-card/article/div[2]/slot/div/lightning-datatable/div[2]/div/div/table");
         By btnNewBid = By.XPath("//button[text()='New Bid Round']");
         By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
@@ -375,6 +378,15 @@ namespace SF_Automation.Pages.Engagement
         By msgBidDate = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[3]");
         By btnManage = By.XPath("//button[text()='Manage']");
         By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
+        By tabBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/a");
+        By lnkEngAR = By.XPath("//span/a[text()='Engagement AR Receipt']");
+        By lnkEngExp = By.XPath("//span/a[text()='Engagement Expenses']");
+        By lnkEngInvoice = By.XPath("//span/a[text()='Engagement Invoice Details']");
+        By lblEngAR = By.XPath("//h1/span[2]");
+        By btnEngReport = By.XPath("//div[@class='pbHeader']/table/tbody/tr/td[2]/input[@name='engagement_reports']");
+        By titleEngReport = By.XPath("//table/tbody/tr[1]/th[1]");
+        By lnkEngWorking = By.XPath("//table/tbody/tr[6]/td[1]/a");
+        By lblEngWorking = By.XPath("//table/tbody/tr/td[2]/div/div[1]/h1");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -3119,7 +3131,7 @@ namespace SF_Automation.Pages.Engagement
             return commentType;
         }
 
-        //Add Financials
+        //Add Financials.
         public string AddFinancialsAndValidate()
         {
             Thread.Sleep(4000);
@@ -3152,7 +3164,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngContacts, 150);
             driver.FindElement(tabEngContacts).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string name = driver.FindElement(valEngContact).Text;
             return name;
         }
@@ -3501,6 +3513,41 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate Report tab
+        public string ValidateReportTab()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMore, 200);
+            driver.FindElement(tabMore).Click();
+            Thread.Sleep(3000);
+            string name = driver.FindElement(lblReport).Text;
+            driver.FindElement(lblReport).Click();
+            return name;
+        }
+
+        //Validate Engagement Report button
+        public string ValidateEngReportButton()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnEngReport).Click();
+            Thread.Sleep(3000);
+            string name = driver.FindElement(titleEngReport).Text;
+            driver.FindElement(titleEngReport).Click();
+            return name;
+        }
+
+        //Validate Bid tab
+        public string ValidateBidTabForAdmin()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBidAdmin, 200);
+            driver.FindElement(tabBidAdmin).Click();
+            Thread.Sleep(3000);
+            string name = driver.FindElement(lblBidAdmin).Text;
+            driver.FindElement(lblBidAdmin).Click();
+            return name;
+        }
+
         //Validate existing bids
         public string ValidateExistingBids()
         {
@@ -3616,6 +3663,62 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        
+        //Valdiate Engagement AR Receipt report
+        public string ValidateEngARReceiptReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngAR, 140);
+            driver.FindElement(lnkEngAR).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngAR, 240);
+            string value = driver.FindElement(lblEngAR).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+     //Valdiate Engagement Expenses report
+        public string ValidateEngExpReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngExp, 140);
+            driver.FindElement(lnkEngExp).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngAR, 240);
+            string value = driver.FindElement(lblEngAR).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+        //Valdiate Engagement Invoice report
+        public string ValidateEngInvoiceReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngInvoice, 140);
+            driver.FindElement(lnkEngInvoice).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/iframe")));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngAR, 240);
+            string value = driver.FindElement(lblEngAR).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+        //Valdiate Engagement Working Group list
+        public string ValidateEngWorkingGroupListReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngWorking, 140);
+            driver.FindElement(lnkEngWorking).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);            
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngWorking, 240);
+            string value = driver.FindElement(lblEngWorking).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
     }
 }
