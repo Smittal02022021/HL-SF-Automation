@@ -3,6 +3,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 
 
@@ -235,6 +236,8 @@ namespace SF_Automation.Pages.Common
                 }
                 catch (Exception e)
                 {
+                try
+                {
                     if (driver.FindElement(linkNext).Enabled)
                     {
                         driver.FindElement(linkNext).Click();
@@ -242,6 +245,11 @@ namespace SF_Automation.Pages.Common
                         Thread.Sleep(1000);
                         goto check;
                     }
+                }
+                catch(Exception ee)
+                {
+                    isJobTypefound = false;
+                }
                     
                 }
             //}

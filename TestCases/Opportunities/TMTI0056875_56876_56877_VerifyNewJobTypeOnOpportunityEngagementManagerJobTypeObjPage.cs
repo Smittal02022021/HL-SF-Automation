@@ -45,7 +45,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
-                extentReports.CreateLog("rowCount " + rowJobType);
+                extentReports.CreateLog("rowCount " + rowJobType+ " ");
 
                 for (int row = 2; row <= rowJobType; row++)
                 {
@@ -53,9 +53,9 @@ namespace SF_Automation.TestCases.Opportunity
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1); 
 
                     //Login as Standard User profile and validate the user
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 1));
                     string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                    Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 1)), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                     //Clicking on Opportunity Manager link and Validate the title of page
@@ -76,7 +76,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //TMTI0056876_Verify_New Updated Job Type And Job Cod eUnder Job Type Object
                     //System Admin: Verify New Job Type is present on Job Type Object page
-                    extentReports.CreateLog("Verify New Job Type is present on Job Type Object page ");
+                    extentReports.CreateLog("Verify New Job Type is present on Job Type Object page as System Administrator");
                     string valView = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 3);
                     pageTitle = randomPages.selectJobTypesObject(valView);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed with View: " + valView + " ");
@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("New Job Type: " + valJobType + " is available in Job Type Object List ");
 
                     Assert.IsTrue(randomPages.IsJobCodeAvailable(valJobCode), "Verify New Job Type Code is available in Job Type Object List ");
-                    extentReports.CreateLog("New Job Code: " + valJobCode + " is available in Job Type Object List ");
+                    extentReports.CreateLog("New Job Code: " + valJobCode + " is available in Job Type Object List for Jon Type: "+ valJobType+" ");
 
                 }
 

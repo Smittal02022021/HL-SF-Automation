@@ -2988,7 +2988,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string value = driver.FindElement(txtSecWomenled).Text;
                 return value;
             }
-            else if (JobType.Equals("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense"))
+            else if (JobType.Equals("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense") || JobType.Contains("Strategy") || JobType.Contains("Post Merger Integration") || JobType.Contains("Valuation Advisory"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedESOP, 125);
                 string value = driver.FindElement(txtSecWomenLedESOP).Text;
@@ -3023,7 +3023,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         //Get field name of Women Led in Engagement details page
         public string ValidateWomenLedField(string JobType)
         {
-            if (JobType.Contains("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense"))
+            if (JobType.Contains("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense") || JobType.Contains("Strategy") || JobType.Contains("Post Merger Integration") || JobType.Contains("Valuation Advisory"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedJob, 130);
                 string value = driver.FindElement(labelWomenLedJob).Text;
