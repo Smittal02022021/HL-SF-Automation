@@ -1,4 +1,5 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.SqlServer.Server;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -360,7 +361,7 @@ namespace SF_Automation.Pages.Engagement
         By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
         By lblBid = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Bids']");
         By lblReport = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Report']");
-        By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/a");
+        By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
         By tblBids = By.XPath("//div/slot/lightning-tab/slot/lightning-card/article/div[2]/slot/div/lightning-datatable/div[2]/div/div/table");
         By btnNewBid = By.XPath("//button[text()='New Bid Round']");
         By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
@@ -378,7 +379,7 @@ namespace SF_Automation.Pages.Engagement
         By msgBidDate = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[3]");
         By btnManage = By.XPath("//button[text()='Manage']");
         By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
-        By tabBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/a");
+        By tabBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
         By lnkEngAR = By.XPath("//span/a[text()='Engagement AR Receipt']");
         By lnkEngExp = By.XPath("//span/a[text()='Engagement Expenses']");
         By lnkEngInvoice = By.XPath("//span/a[text()='Engagement Invoice Details']");
@@ -387,6 +388,11 @@ namespace SF_Automation.Pages.Engagement
         By titleEngReport = By.XPath("//table/tbody/tr[1]/th[1]");
         By lnkEngWorking = By.XPath("//table/tbody/tr[6]/td[1]/a");
         By lblEngWorking = By.XPath("//table/tbody/tr/td[2]/div/div[1]/h1");
+        By btnMoreEng = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
+        By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
+        By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
+        By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
+
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -2830,7 +2836,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Update the value of Internal deal announcement
-        public string UpdateIntDealAnnAndValidate()
+        public string UpdateIntDealAndValidate()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,500)");
@@ -3534,6 +3540,116 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(titleEngReport).Text;
             driver.FindElement(titleEngReport).Click();
             return name;
+        }
+
+        //Click More button on Top panel
+        public void ClickEngReportsButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMoreEng, 200);
+            driver.FindElement(btnMoreEng).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(lnkEngReports).Click();
+            Thread.Sleep(4000);
+        }
+
+        //Validate displayed reports
+        public bool VerifyReportNamesForNonDealTeamMemberLightning()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
+            var actualValue = valReportNames.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Capital Markets Contact Log", "PIF"};
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnReturnToEngLightning).Click();
+            driver.SwitchTo().DefaultContent();
+            return isSame;
+        }
+
+       
+        //Validate displayed reports
+        public bool VerifyReportNamesForNonDealMemberClassic()
+        {
+            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
+            var actualValue = valReportNames.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Capital Markets Contact Log", "PIF" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnReturnToEngLightning).Click();            
+            return isSame;
+        }
+        //Validate displayed reports for deal team member
+        public bool VerifyReportNamesForDealTeamMemberLightning()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
+            var actualValue = valReportNames.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF","Potential Counterparty List - Client Copy","Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnReturnToEngLightning).Click();
+            driver.SwitchTo().DefaultContent();
+            return isSame;
+        }
+
+        //Validate displayed reports for deal team member
+        public bool VerifyReportNamesForDealTeamMemberClassic()
+        {
+            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
+            var actualValue = valReportNames.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnReturnToEngLightning).Click();           
+            return isSame;
         }
 
         //Validate Bid tab

@@ -164,5 +164,6 @@ namespace SF_Automation.Pages
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
         }
+
     }
 }

@@ -303,7 +303,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
 
                 //Update any value and validate if it gets saved post clicking saving button               
-                string valIntDeal = engagementDetails.UpdateIntDealAnnAndValidate();
+                string valIntDeal = engagementDetails.UpdateIntDealAndValidate();
                 Assert.AreEqual("Completed", valIntDeal);
                 extentReports.CreateLog("Entered value : " + valIntDeal + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
 

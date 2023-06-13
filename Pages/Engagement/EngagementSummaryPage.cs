@@ -1881,7 +1881,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(8000);
+            Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEquityClose, 300);
             driver.FindElement(btnEquityClose).Click();
         }
