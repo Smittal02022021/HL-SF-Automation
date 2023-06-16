@@ -2,25 +2,23 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Threading;
 
 namespace SF_Automation.TestCases.GiftLog
 {
     class T1509_VerifysubmittedforfieldslookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
-    LoginPage login = new LoginPage();
-    CompanyHomePage companyHome = new CompanyHomePage();
-    CompanyDetailsPage companyDetail = new CompanyDetailsPage();
-    UsersLogin usersLogin = new UsersLogin();
-    HomeMainPage homePage = new HomeMainPage();
-    GiftRequestPage giftRequest = new GiftRequestPage();
+        LoginPage login = new LoginPage();
+        CompanyHomePage companyHome = new CompanyHomePage();
+        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
+        UsersLogin usersLogin = new UsersLogin();
+        HomeMainPage homePage = new HomeMainPage();
+        GiftRequestPage giftRequest = new GiftRequestPage();
 
     public static string fileTC1509 = "T1509_Verifysubmittedforfield'slookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails";
 
@@ -60,7 +58,6 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
 
-
                 //Navigate to Gift Request page
                 giftRequest.GoToGiftRequestsPage();
                 string giftRequestTitle = giftRequest.GetGiftRequestPageTitle();
@@ -91,16 +88,14 @@ namespace SF_Automation.TestCases.GiftLog
                 //Verify appropriate results are displayed when user searched for title
                 string TitleSrchResults = giftRequest.SrchTitle();
                 Assert.IsTrue(TitleSrchResults.Contains("Managing Director"));
-              //  Assert.AreEqual("Managing Director", TitleSrchResults);
+                Assert.AreEqual("Managing Director", TitleSrchResults);
                 extentReports.CreateLog("Appropriate results are displayed when user searched for title ");
 
-              //  Thread.Sleep(3000);
                 //Verify appropriate results are displayed when user searched for Department
                 string DeptSrchResults = giftRequest.SrchDept();
-                Assert.AreEqual("FR", DeptSrchResults);
+                Assert.AreEqual("CF", DeptSrchResults);
                 extentReports.CreateLog("Appropriate results are displayed when user searched for Department ");
 
-                //  Thread.Sleep(300);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
