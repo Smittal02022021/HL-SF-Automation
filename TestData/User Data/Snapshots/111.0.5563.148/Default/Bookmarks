@@ -1,0 +1,103 @@
+{
+   "checksum": "1f30479266940b3996f5a0025c88abd9",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13221298219754599",
+            "guid": "810e06de-8f81-4d20-a503-885823e34aa7",
+            "id": "5",
+            "name": "Google",
+            "type": "url",
+            "url": "https://www.google.com/"
+         }, {
+            "date_added": "13221299004132268",
+            "guid": "db564d05-913d-44a8-9ddc-84f1b21b73b3",
+            "id": "6",
+            "name": "c# kudvenkat - YouTube",
+            "type": "url",
+            "url": "https://www.youtube.com/results?search_query=c%23+kudvenkat"
+         }, {
+            "date_added": "13226671109488665",
+            "guid": "afc5ad28-7e8a-43f8-9922-81e296c7af0e",
+            "id": "10",
+            "name": "Re-OCRed PDF_1981-ReOCR.pdf",
+            "type": "url",
+            "url": "file:///E:/New%20folder%20(2)/Re-OCRed%20PDF_1981-ReOCR.pdf"
+         }, {
+            "date_added": "13224248937952604",
+            "guid": "ca01ff5c-3c77-41ec-9a79-ff13f4736b31",
+            "id": "8",
+            "name": "Selenium WebDriver with C# for Beginners + Live Testing Site | Udemy",
+            "type": "url",
+            "url": "https://www.udemy.com/course/seleniumqa/"
+         }, {
+            "date_added": "13234256609053814",
+            "guid": "52f32128-ab25-4f6c-a061-8bd8ba737a5f",
+            "id": "12",
+            "name": "Python Web Development | Web Development Using Django | Python Django Tutorial | Edureka - YouTube",
+            "type": "url",
+            "url": "https://www.youtube.com/watch?v=zuxzE7--RYM"
+         }, {
+            "date_added": "13234446924210831",
+            "guid": "457e5a0c-5ea5-4276-8984-dc629778c2d7",
+            "id": "13",
+            "name": "sending report as email",
+            "type": "url",
+            "url": "https://journeyofquality.com/category/parallel-execution-in-selenium-c-automation/"
+         }, {
+            "date_added": "13240471821402996",
+            "guid": "7cccb687-a688-447f-982b-2a9e06176b8a",
+            "id": "15",
+            "name": "Most Complete Selenium WebDriver C# Cheat Sheet",
+            "type": "url",
+            "url": "https://www.automatetheplanet.com/selenium-webdriver-csharp-cheat-sheet/"
+         }, {
+            "date_added": "13264583839023877",
+            "guid": "fe02f636-2e2c-4a77-9f3b-2b350197ff36",
+            "id": "17",
+            "name": "Salesforce - Unlimited Edition",
+            "type": "url",
+            "url": "https://hl--test--c.visualforce.com/apex/HL_TimeRecordManager?sfdc.tabName=01r3100000129wJ"
+         }, {
+            "date_added": "13275402952104667",
+            "guid": "52a897e1-7a6a-4c0a-861d-433562297a39",
+            "id": "19",
+            "name": "Contact Edit: HRSample Jing ~ Salesforce - Unlimited Edition",
+            "type": "url",
+            "url": "https://hl--test.my.salesforce.com/00379000001EFaM/e?retURL=https%3A%2F%2Fhl--test--c.visualforce.com%2Fapex%2FHL_ContactView%3Fid%3D00379000001EFaMAAW%26sfdc.override%3D1"
+         }, {
+            "date_added": "13283434583157459",
+            "guid": "13cda912-48ba-4f47-a398-c2b0bc893fdd",
+            "id": "21",
+            "name": "https://hl--test--c.visualforce.com/apex/HL_ContactActivityLogDisplay?id=0035A00003JFA8ZQAX",
+            "type": "url",
+            "url": "https://hl--test--c.visualforce.com/apex/HL_ContactActivityLogDisplay?id=0035A00003JFA8ZQAX"
+         } ],
+         "date_added": "13220777633207998",
+         "date_modified": "13283434583157459",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13220777633208053",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13220777633208064",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
