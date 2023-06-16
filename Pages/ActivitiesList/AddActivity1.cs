@@ -211,7 +211,7 @@ namespace SF_Automation.Pages.ActivitiesList
             WebDriverWaits.WaitUntilEleVisible(driver, selCompaniesDiscussed);
             driver.FindElement(selCompaniesDiscussed).Click();
             driver.FindElement(txtDate).Clear();
-            string getDate = DateTime.Today.AddDays(3).ToString("MM/dd/yyyy");
+            string getDate = DateTime.Today.AddDays(300).ToString("MM/dd/yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtDate);
             driver.FindElement(txtDate).SendKeys(getDate);
             Thread.Sleep(3000);
