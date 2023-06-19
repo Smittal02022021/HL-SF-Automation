@@ -379,7 +379,8 @@ namespace SF_Automation.Pages.Engagement
         By msgBidDate = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[3]");
         By btnManage = By.XPath("//button[text()='Manage']");
         By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
-        By tabBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
+        By btnMoreAdmin = By.XPath("//slot/flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/button");
+        By tabBidAdmin = By.XPath("//ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item[1]/a/span");
         By lnkEngAR = By.XPath("//span/a[text()='Engagement AR Receipt']");
         By lnkEngExp = By.XPath("//span/a[text()='Engagement Expenses']");
         By lnkEngInvoice = By.XPath("//span/a[text()='Engagement Invoice Details']");
@@ -3655,7 +3656,9 @@ namespace SF_Automation.Pages.Engagement
         //Validate Bid tab
         public string ValidateBidTabForAdmin()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(5000); 
+             WebDriverWaits.WaitUntilEleVisible(driver, btnMoreAdmin, 200);
+            driver.FindElement(btnMoreAdmin).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabBidAdmin, 200);
             driver.FindElement(tabBidAdmin).Click();
             Thread.Sleep(3000);

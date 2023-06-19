@@ -302,7 +302,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnReturnToOpp =By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[2]");
         By btnRoleDef =    By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[3]");
 
-        By lblNextSchCall = By.XPath("//*[@class='section-content slds-size_1-of-1 slds-grid slds-section__content slds-wrap']/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblNextSchCall = By.XPath("//*[@class='section-content slds-section__content slds-size_1-of-1 slds-grid slds-wrap']/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblReqFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordNext_Scheduled_Call_cField1']/following::span[1]");
         By lblRequiresFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordReq_feedback_prior_to_normal_sched_call_cField1']/following::span[1]");
         By lblReviewSub = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -1598,6 +1598,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("(//lightning-base-combobox)[13]/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             js.ExecuteScript("window.scrollTo(0,450)");
             driver.FindElement(btnTAS).Click();
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + fee + "']")).Click();
             driver.FindElement(txtOutsideCouncil).SendKeys(text);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);

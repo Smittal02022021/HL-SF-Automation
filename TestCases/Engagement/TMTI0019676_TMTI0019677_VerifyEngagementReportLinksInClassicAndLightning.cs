@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.Engagement
                             usersLogin.LightningLogout();
                         }
                     }
-                    
+
                     else
                     {
                         string stdUser = login.ValidateUser();
@@ -100,14 +100,15 @@ namespace SF_Automation.TestCases.Engagement
 
                         //Open the selected Engagement 
                         string searchedEng = engHome.SearchEngagementWithNumber(valEng);
-                        
+
                         //Validate displayed Engagement Reports for non deal team member, deal team member and user who is in Public group
                         engagementDetails.ValidateEngReportButton();
                         if (valUser.Equals("Aaron Schultz"))
-                            {
+                        {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealMemberClassic(), "Verified that displayed reports are same");
                             extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for FR engagement ");
-                             }
+                            usersLogin.UserLogOut();
+                        }
                         else
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForDealTeamMemberClassic(), "Verified that displayed reports are same");
@@ -119,30 +120,29 @@ namespace SF_Automation.TestCases.Engagement
                             {
                                 extentReports.CreateLog("All required reports are displayed for deal team member - " + valUser + " for FR engagement ");
                             }
-
+                            usersLogin.UserLogOut();
                         }
-                        usersLogin.UserLogOut();   
                     }
                 }
 
-                //Login as Financial User and validate the user
-                string valUser1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
+                    //Login as Financial User and validate the user
+                    string valUser1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
 
-                usersLogin.SearchUserAndLogin(valUser1);
-                bool stdUser1 = login.ValidateUserLightningView(TMTI0019676, 4);
-                Assert.IsTrue(stdUser1);
-                extentReports.CreateLog("User: " + valUser1 + " logged in ");
+                    usersLogin.SearchUserAndLogin(valUser1);
+                    bool stdUser1 = login.ValidateUserLightningView(TMTI0019676, 4);
+                    Assert.IsTrue(stdUser1);
+                    extentReports.CreateLog("User: " + valUser1 + " logged in ");
 
-                //Open the selected Engagement
-                string searchedEng1 = engHome.ValidateSearchFunctionalityOfEngagements("114595");
-                engHome.ClickEngNumber();
+                    //Open the selected Engagement
+                    string searchedEng1 = engHome.ValidateSearchFunctionalityOfEngagements("114595");
+                    engHome.ClickEngNumber();
 
-                //Validate Report tab
-                 string report = engagementDetails.ValidateReportTab();
-                 Assert.AreEqual("Report", report);
-                 extentReports.CreateLog("Tab: " + report + " is displayed under More tab on Engagement details page ");
+                    //Validate Report tab
+                    string report = engagementDetails.ValidateReportTab();
+                    Assert.AreEqual("Report", report);
+                    extentReports.CreateLog("Tab: " + report + " is displayed under More tab on Engagement details page ");
 
-                 //Validate Engagement AR Receipt report
+                    //Validate Engagement AR Receipt report
                     string titleEngAR = engagementDetails.ValidateEngARReceiptReport();
                     Assert.AreEqual("Engagement AR Receipt", titleEngAR);
                     extentReports.CreateLog("Page with title: " + titleEngAR + " is displayed upon clicking Engagement AR Receipt report link ");

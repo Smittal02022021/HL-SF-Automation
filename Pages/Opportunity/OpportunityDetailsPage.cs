@@ -53,7 +53,7 @@ namespace SF_Automation.Pages
         By chkInitiator = By.CssSelector("input[name*='internalTeam:j_id73:0:j_id75']");
         By chkPrincipal = By.CssSelector("input[name*='internalTeam:j_id73:2:j_id75']");
         By chkManager = By.CssSelector("input[name*='internalTeam:j_id73:3:j_id75']");
-        By btnSaveITTeam = By.CssSelector("input[name*=':bottom:j_id121']");
+        By btnSaveITTeam = By.XPath("//div[3]/table/tbody/tr/td[2]/span/input[1]");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOpp = By.CssSelector("input[value*='Return To Opportunity']");
         By tabAfterReturnToOpp = By.XPath("//a[text()='Details']");
@@ -61,9 +61,9 @@ namespace SF_Automation.Pages
         By chkConvertedtoEng = By.CssSelector("input[name*='FaP8F']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id44']");
-        By chkUpSeller = By.CssSelector("input[name*=':2:j_id44']");
-        By chkUpManager = By.CssSelector("input[name*=':4:j_id44']");
+        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id43']");
+        By chkUpSeller = By.CssSelector("input[name*=':2:j_id43']");
+        By chkUpManager = By.CssSelector("input[name*=':4:j_id43']");
         By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
@@ -82,9 +82,9 @@ namespace SF_Automation.Pages
         By valOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr[class*='first']>td:nth-child(3)");
         By linkDel = By.CssSelector("td[class='actionColumn']>a[title='Delete - Record 1 - View']");
         By btnClone = By.CssSelector("input[title='Clone']");
-        By chkUpMgr = By.CssSelector("input[name*='4:j_id44']");
-        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id44']");
-        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id44']");
+        By chkUpMgr = By.CssSelector("input[name*='4:j_id43']");
+        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id43']");
+        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id43']");
         By lnkReDisplayRec = By.CssSelector(" table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
         By rowUser = By.XPath("//html/body/span[2]/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[1]/div/label");
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
@@ -198,19 +198,19 @@ namespace SF_Automation.Pages
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
         By txtClientContract = By.CssSelector("span>input[id*='CF00N5A00000M0ebj']");
         By btnModifyRoles = By.CssSelector("td[id*='j_id0:j_id1:j_id2:j_id3:pbHLInternalTeam:j_id4:bottom']>a");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
-        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id64:1:j_id66']");
-        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id64:2:j_id66']");
-        By checkManager = By.CssSelector("input[name*='internalTeam:j_id64:3:j_id66']");
-        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id64:4:j_id66']");
-        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id64:5:j_id66']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By checkPE = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id64:8:j_id66']");
-        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id64:9:j_id66']");
-        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id64:10:j_id66']");
-        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id64:11:j_id66']");
-        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id64:12:j_id66']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id63:0:j_id65']");
+        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id63:1:j_id65']");
+        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id63:2:j_id65']");
+        By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
+        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
+        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
+        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
+        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
+        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id63:10:j_id65']");
+        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id63:11:j_id65']");
+        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id63:12:j_id65']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
         By valAddedMember = By.XPath("//div[2]/span[2]/table/tbody/tr[1]/td[1]");
 
@@ -263,8 +263,8 @@ namespace SF_Automation.Pages
         By btnYes = By.XPath("//footer/lightning-button[1]/button");
         By txtType = By.XPath("//tr[2]/td[4]/div/lightning-formatted-text");
         By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
-        By valTotalDebtCurrency = By.CssSelector("div[id*='0FaYh4j_id0_j_id55_ileinner']");
-        By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
+        By valTotalDebtCurrency = By.XPath("//div[7]/table/tbody/tr[5]/td[2]");
+        By valTotalDebtMM = By.XPath("//div[3]/div[2]/div[7]/table/tbody/tr[4]/td[2]");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[@aria-controls='tab-1']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
@@ -290,7 +290,7 @@ namespace SF_Automation.Pages
         By txtMonthlyL = By.XPath("//input[@name= 'ProgressMonthly_Fee__c']");
         By txtContigentL = By.XPath("//input[@name= 'Contingent_Fee__c']");
         By txtTailExpiresL = By.XPath("//input[@name= 'Tail_Expires__c']");
-        By txtRefContactL = By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
+        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
         By comboRefContactL = By.XPath("//li[5]/lightning-base-combobox-item/span[2]/span[2]/lightning-base-combobox-formatted-text");
         By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
         By comboUpdBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, No']");
@@ -1046,6 +1046,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 driver.FindElement(chkUpAssociate).Click();
                 driver.FindElement(chkUpAnalyst).Click();
                 driver.FindElement(btnSaveITTeam).Click();
+                Thread.Sleep(3000);
 
                 //Click to return back to Opportunity details
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
@@ -4296,7 +4297,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
 
         public string ClickReqToEngagement()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
             driver.FindElement(lnkReqEngL).Click();
             Thread.Sleep(4000);

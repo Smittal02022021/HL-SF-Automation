@@ -23,7 +23,7 @@ namespace SF_Automation.Pages.Opportunity
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
         By txtContactL = By.XPath("//input[@title='Search Contacts']");
-        By imgContactL = By.XPath("//ul/li[12]/a/div[1]/span/img");
+        By imgContactL = By.XPath("//ul/li[5]/a/div[1]/span/img");
         By btnSaveL = By.XPath("//div/footer/button[2]/span");
         By tabRelated = By.XPath("//a[text()='Related']");
         By valAddedContact = By.XPath("//formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");

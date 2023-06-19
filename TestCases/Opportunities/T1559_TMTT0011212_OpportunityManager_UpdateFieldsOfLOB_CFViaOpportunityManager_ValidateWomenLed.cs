@@ -92,25 +92,25 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validating Transaction Size
                 string txnSize = OpportunityDetails.GetTransactionSize();
-                string expTxnSize = "GBP " + (ReadExcelData.ReadData(excelPath, "OppManager", 6));
+                string expTxnSize = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 6) + " (GBP 1.71)");
                 Assert.AreEqual(expTxnSize, txnSize);
                 extentReports.CreateLog("Transaction Size :" + txnSize + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
                 //-----Validating Retainer
                 string retainer = OpportunityDetails.GetRetainer();
-                string expRetainer = "GBP " + (ReadExcelData.ReadData(excelPath, "OppManager", 10));
+                string expRetainer = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 10) + " (GBP 8.57)");
                 Assert.AreEqual(expRetainer, retainer);
                 extentReports.CreateLog("Retainer :" + retainer + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
                 //-----Validating Monthly Fee
                 string fee = OpportunityDetails.GetMonthlyFee();
-                string expMonthlyFee = "GBP " + (ReadExcelData.ReadData(excelPath, "OppManager", 9));
+                string expMonthlyFee = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 9) + " (GBP 8.57)");
                 //Assert.AreEqual(expMonthlyFee, fee);
                 extentReports.CreateLog("Monthly Fee :" + fee + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
                 //-----Validating Contingent Fee
                 string contingentFee = OpportunityDetails.GetContingentFee();
-                string expContingentFee = "GBP " + (ReadExcelData.ReadData(excelPath, "OppManager", 8)) ;
+                string expContingentFee = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 8) + " (GBP 8.57)") ;
                 Assert.AreEqual(expContingentFee, contingentFee);
                 extentReports.CreateLog("Contingent Fee :" + contingentFee + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
