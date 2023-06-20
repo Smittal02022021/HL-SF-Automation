@@ -348,6 +348,24 @@ namespace SF_Automation.Pages
                 return "No record found";
             }
         }
+        public string SearchEngagemenstWithJobType(string jobType)
+        {
+            By matchedOpportunity = By.XPath($"//table[contains(@id,'myEngagements')]//tbody//td//span[contains(text(),'{jobType}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType);
+            driver.FindElement(comboJobType).SendKeys(jobType);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
     }
 }
 

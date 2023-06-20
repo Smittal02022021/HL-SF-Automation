@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace SF_Automation.Pages.Common
 {
-    class RandomPages :BaseClass
+    class RandomPages : BaseClass
     {
         By linkExpenseRequest = By.XPath("//a[text() = 'Expense Request']");
         By linkExpenseNumber = By.CssSelector("tbody[id*='pbtableId1:tb']>tr>td[id*='j_id142'] > a");
@@ -29,7 +29,7 @@ namespace SF_Automation.Pages.Common
         By valProductLine = By.CssSelector("table > tbody > tr:nth-child(21) > td:nth-child(2)");
         By valProductTypeCode = By.CssSelector("table > tbody > tr:nth-child(22) > td:nth-child(2)");
         By valJobTypeNames = By.CssSelector("div[id*='_Name']>a>span");
-        By valJobTypes =By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(3)");
+        By valJobTypes = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(3)");
         By valProdLines = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(4)");
         By valBlank = By.CssSelector("div[id*='wN2_00Ni000000G8Xmo']");
 
@@ -37,7 +37,8 @@ namespace SF_Automation.Pages.Common
         By linkNext = By.XPath("//div[@class='paginator']//a[contains(text(),'Next')]");
         By loader = By.XPath("//b[contains(text(),'Loading')]");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By comboJobType = By.CssSelector("select[name*='fcf']");
+        //By comboJobType = By.CssSelector("select[name*='fcf']");
+        By comboJobType = By.CssSelector("select[name*='jobTypeSearch']");
         By txtPageTitle = By.XPath("//h1[@class='pageType']");
         By tabReports = By.XPath("//a[@title='Reports Tab']");
         By btnNewReport = By.XPath("//Input[@title='New Report...']");
@@ -61,6 +62,7 @@ namespace SF_Automation.Pages.Common
         By comboIndustryTypeEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng']");
         By comboIndustryTypeOptionsEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng'] option");
         By btnApplyFilter = By.CssSelector("input[id*='ApplyFilters']");
+        By comboJobTypeOptions = By.CssSelector("select[name*='jobTypeSearch'] option");
 
         private By _elmIGType(string industryType)
         {
@@ -92,7 +94,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportsPageHeader, 20);
                 return driver.FindElement(txtReportsPageHeader).Text;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
@@ -114,11 +116,11 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportHeader, 20);
                 return driver.FindElement(txtReportHeader).Text;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
-            
+
         }
         public string AddFilter(string value)
         {
@@ -174,7 +176,7 @@ namespace SF_Automation.Pages.Common
         public string CloseUnsavedReport()
         {
             try
-            {                
+            {
                 driver.FindElement(btnCloseReport).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmClose, 10);
                 driver.FindElement(btnConfirmClose).Click();
@@ -194,17 +196,17 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(shwAllTab).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkJobTypes, 20);
             driver.FindElement(linkJobTypes).Click();
-            string pageTitle= driver.FindElement(txtPageTitle).Text;
+            string pageTitle = driver.FindElement(txtPageTitle).Text;
             driver.FindElement(comboJobType).SendKeys(viewOption);
             try
             {
                 driver.FindElement(btnGo).Click();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //do nothing
             }
-           
+
             return pageTitle;
         }
         //Validate the Job Type in Displayed in List 
@@ -215,9 +217,9 @@ namespace SF_Automation.Pages.Common
             //int pageCount = int.Parse(lastSubstr);
             bool isJobTypefound = false;
             IWebElement elmJobType;
-            
-               check: try
-                {
+
+        check: try
+            {
                 if (pageTitle == "Job Types")
                 {
                     elmJobType = driver.FindElement(_txtJobTypeObjPage(valJobType));
@@ -228,14 +230,14 @@ namespace SF_Automation.Pages.Common
                 }
 
                 CustomFunctions.MoveToElement(driver, elmJobType);
-                    if (elmJobType.Displayed)
-                    {
-                        isJobTypefound = true;
-                        //break;
-                    }
-                }
-                catch (Exception e)
+                if (elmJobType.Displayed)
                 {
+                    isJobTypefound = true;
+                    //break;
+                }
+            }
+            catch (Exception e)
+            {
                 try
                 {
                     if (driver.FindElement(linkNext).Enabled)
@@ -246,12 +248,12 @@ namespace SF_Automation.Pages.Common
                         goto check;
                     }
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     isJobTypefound = false;
                 }
-                    
-                }
+
+            }
             //}
             return isJobTypefound;
         }
@@ -262,7 +264,7 @@ namespace SF_Automation.Pages.Common
             {
                 return driver.FindElement(_objJobTypeCode(valJobCode)).Displayed;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -315,7 +317,7 @@ namespace SF_Automation.Pages.Common
         //To click D&B Company Records
         public string ClickDBCompanyRecords()
         {
-            driver.Navigate().Refresh();            
+            driver.Navigate().Refresh();
             WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
             driver.FindElement(btnAllList).Click();
             driver.FindElement(linkDBCompanyRecords).Click();
@@ -335,7 +337,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
             driver.FindElement(btnAllList).Click();
             driver.FindElement(linkDBContactRecords).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo,100);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
             driver.FindElement(btnGo).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, linkDBContactRec, 110);
@@ -354,7 +356,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 120);
             driver.FindElement(btnGo).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div/a/span[text() = '" + name + "']")).Click();           
+            driver.FindElement(By.XPath("//div/a/span[text() = '" + name + "']")).Click();
             string title = driver.FindElement(titleCoverageTeam).Text;
             return title;
         }
@@ -368,15 +370,15 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(linkJobTypes).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(3000); 
-            driver.FindElement(By.XPath("//div/a/span[text() = '" + name + "']")).Click();           
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//div/a/span[text() = '" + name + "']")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, titleCoverageTeam, 110);
             string title = driver.FindElement(titleCoverageTeam).Text;
             return title;
         }
-       
-        
-             
+
+
+
 
 
         //To get Job Types 
@@ -391,31 +393,31 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> type = driver.FindElements(valJobTypes);
             //Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
-            int row_num = 1;           
+            int row_num = 1;
             foreach (IWebElement element in type)
             {
                 Console.WriteLine(element.Text);
-                row_num++;               
+                row_num++;
             }
         }
 
         //To get Product Line 
         public void GetProductLines()
-        {            
+        {
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> type = driver.FindElements(valProdLines);
             Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
-            
-            int row_num = 1; 
-            
-                foreach (IWebElement element in type)
-                {
-                Console.WriteLine("row# "+row_num+element.Text);                
-                row_num++;
-                }               
-              }
 
-       
+            int row_num = 1;
+
+            foreach (IWebElement element in type)
+            {
+                Console.WriteLine("row# " + row_num + element.Text);
+                row_num++;
+            }
+        }
+
+
 
         public string GetBlankValue()
         {
@@ -423,8 +425,8 @@ namespace SF_Automation.Pages.Common
             return value;
         }
 
-             
-                    
+
+
 
         //Get the value of Product Line
         public string GetProductLine()
@@ -635,6 +637,22 @@ namespace SF_Automation.Pages.Common
             }
             return isIndustryGroupfound;
         }
+        public bool IsJobTypePresentInDropdownHomePage(string jobType)
+        {
+            bool isFound = false;
+            driver.FindElement(comboJobType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypeOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(jobType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
 
+        }
     }
 }

@@ -122,7 +122,6 @@ namespace SF_Automation.Pages
         //To Search Company with Company Name in Lighting
         public void SearchCompanyInLightning(string value)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnCompanysearchL, 20);
             driver.FindElement(btnCompanysearchL).Click();

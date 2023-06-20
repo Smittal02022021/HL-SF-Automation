@@ -64,7 +64,7 @@ namespace SF_Automation.Pages
         public void SwitchToClassicView()
         {
             string url = driver.Url;
-            if (url.Contains(".com/lightning/"))
+            if (url.Contains(".com/lightning"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
                 driver.FindElement(imgProfile).Click();

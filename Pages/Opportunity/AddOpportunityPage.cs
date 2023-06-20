@@ -584,10 +584,12 @@ namespace SF_Automation.Pages
 
             driver.FindElement(txtOpportunityNameL).SendKeys(valOpportunity);
             driver.FindElement(txtClientL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1));
+            Thread.Sleep(2000);
             driver.FindElement(txtClientL).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/ul/li[1]/lightning-base-combobox-item/span[2]/span[2]/lightning-base-combobox-formatted-text")).Click();
             driver.FindElement(txtSubjectL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2));
+            Thread.Sleep(2000);
             driver.FindElement(txtSubjectL).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/ul/li[1]/lightning-base-combobox-item/span[2]/span[2]/lightning-base-combobox-formatted-text")).Click();
@@ -595,7 +597,8 @@ namespace SF_Automation.Pages
 
             //Select IG
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
-            Thread.Sleep(3000); WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
+            Thread.Sleep(3000); 
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
             driver.FindElement(btnIGL).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-field[6]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']")).Click();

@@ -1,19 +1,15 @@
 ﻿using NUnit.Framework;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046472_46478_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdmin : BaseClass
+    class TMTI0046479_46477_46473_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -39,7 +35,7 @@ namespace SF_Automation.TestCases.Companies
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageSystemAdminLV()
+        public void VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLV()
         {
             try
             {
@@ -55,6 +51,12 @@ namespace SF_Automation.TestCases.Companies
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                //Login again as CF Financial User
+                string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+                usersLogin.SearchCFUserAndLogin(valUser);
+                string cfUser = login.ValidateUser();
+                Assert.AreEqual(cfUser.Contains(valUser), true);
+                extentReports.CreateLog("CF User: " + cfUser + " logged in ");
 
                 //Switching to LightningView
                 login.SwitchToLightningExperience();
@@ -96,13 +98,13 @@ namespace SF_Automation.TestCases.Companies
                     string txtHeaderNestedList = companyDetails.ClickCoverageNestedList(coverageOfficerNameExl);
                     Assert.IsTrue(txtHeaderNestedList.Contains("Coverage"));
                     extentReports.CreateLog("Nested List of Coverage is displayed for Coverage Officer" + coverageOfficerNameExl + "  ");
-
+                    
                     //Get Coverage Type from Nested List of Coverage Officer
                     string txtCompanyOfficeNameCoverageType = companyDetails.GetCompanyOfficeNameCoverageTypeL();
                     extentReports.CreateLog("Coverage type for selected officer in nested list " + txtCompanyOfficeNameCoverageType + " ");
-
+                    
                     companyDetails.ClickNestedCoverageTeamOfficerL(coverageOfficerNameExl);
-
+                   
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
                     bool IsCoverageTeamDetailsPageDisplayed = companyDetails.IsCoverageTeamDetailsPageDisplayedL(tabNameExl);
                     Assert.IsTrue(IsCoverageTeamDetailsPageDisplayed, "Verify User is on Coverage Team Detail Page ");
@@ -144,5 +146,6 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Browser Closed ");
             }
         }
+
     }
 }

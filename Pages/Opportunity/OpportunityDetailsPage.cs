@@ -78,7 +78,7 @@ namespace SF_Automation.Pages
         By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
         By chkUpAssociate = By.CssSelector("input[name*=':4:j_id43']");
         By chkUpAnalyst = By.CssSelector("input[name*=':5:j_id43']");
-        By lnkReDisplayRec = By.CssSelector(" table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
+        By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
         By rowUser = By.XPath("//html/body/span[2]/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[1]/div/label");
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
         By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id41:0:j_id43']");
@@ -159,7 +159,7 @@ namespace SF_Automation.Pages
         By valERPLegCode = By.CssSelector("div[id*='fij']");
         By valERPID = By.CssSelector("div[id*='fZj']");
         By valERPProjStatusCode = By.CssSelector("div[id*='frj']");
-        By valERPLastIntStatus = By.CssSelector("div[id*='eeCj']");//ffj
+        By valERPLastIntStatus = By.CssSelector("div[id*='ffj']");// eeCj
         By valERPResponseDate = By.CssSelector("div[id*='efej']");
         By valERPError = By.CssSelector("div[id*='fdj']");
         By valERPProductType = By.CssSelector("div[id*='g8j']");
@@ -411,10 +411,11 @@ namespace SF_Automation.Pages
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By linkReqEngL = By.XPath("//a[contains(@name,'Request_Engagement')]");
         By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
-        By editAssociatedOppField = By.XPath("//input[@name='CF00N8N000007XeiL']");
-        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'XeiL')]");
+        By editAssociatedOppField = By.XPath("//input[@name='CF00N6e00000MfcTx']");
+        By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'MfcTx')]");
         By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
         By comboIGOptions = By.CssSelector("select[id*='VT3'] option");
+        By valOppERPLastIntStatus = By.CssSelector("div[id*='ffj']");
 
 
 
@@ -435,7 +436,8 @@ namespace SF_Automation.Pages
 				string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
 				Thread.Sleep(5000);
 				try
-                {                    
+                {
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
                     WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
                     driver.FindElement(txtStaff).SendKeys(valStaff);
                     Thread.Sleep(5000);
@@ -1565,13 +1567,31 @@ namespace SF_Automation.Pages
         //To update Job type
         public string UpdateJobType(string jobType)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
-            driver.FindElement(btnEdit).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
-            driver.FindElement(comboJobType).SendKeys(jobType);
-            driver.FindElement(btnSave).Click();
-            string type = driver.FindElement(valJobType).Text;
-            return type;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
+                driver.FindElement(btnEdit).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
+                driver.FindElement(comboJobType).SendKeys(jobType);
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 20);
+                return driver.FindElement(valJobType).Text;
+            }
+
+
+            catch (Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                driver.FindElement(lnkReDisplayRec).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+                driver.FindElement(btnEdit).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
+                driver.FindElement(comboJobType).SendKeys(jobType);
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 20);
+                return driver.FindElement(valJobType).Text;
+
+            }
         }
         //To check the checkbox for Converted To Engagement in Opportunity details
         public void CheckConvertedToEng()
@@ -3630,8 +3650,8 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveTeamL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
-            driver.FindElement(tabEngTeamL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
+            //driver.FindElement(tabEngTeamL).Click();
         }
 
         //Add contact in Opportunity
@@ -4161,6 +4181,16 @@ namespace SF_Automation.Pages
             }
             driver.FindElement(btnCancel).Click();
             return isFound;
+        }
+        public string GetOppERPIntegrationStatus()
+        {
+            Thread.Sleep(8000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(2000);
+            driver.Navigate().Refresh();
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppERPLastIntStatus, 80);
+            string status = driver.FindElement(valOppERPLastIntStatus).Text;
+            return status;
         }
     }
 

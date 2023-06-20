@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V107.Browser;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.Pages.Company;
 using SF_Automation.TestData;
@@ -1423,8 +1424,11 @@ namespace SF_Automation.Pages.Companies
 
         public void CloseCompanyTabL(string name)
          {
-            By buttonCloseTab = By.XPath($"//button[@title='Close {name}']");
+            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");
             driver.FindElement(buttonCloseTab).Click();
+            Thread.Sleep(4000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
         }
         public void ClickViewAllOpportunities()
         {
@@ -1519,6 +1523,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             driver.FindElement(buttonCloseCoverageTab).Click();
             Thread.Sleep(5000);
             driver.Navigate().Refresh();
+            Thread.Sleep(5000);
         }
         public bool IsContactNestedListHLRelationshipL(string contactName)
         {

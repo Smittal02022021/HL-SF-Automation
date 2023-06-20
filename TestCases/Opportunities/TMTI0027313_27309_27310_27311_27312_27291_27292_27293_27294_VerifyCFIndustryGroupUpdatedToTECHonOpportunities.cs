@@ -112,7 +112,10 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0027313);
+                extentReports.CreateLog("Updated required Opportunity fields for conversion ");
+
                 opportunityDetails.UpdateInternalTeamDetails(fileTMTI0027313);
+                extentReports.CreateLog("Update required Internal team details for conversion ");
 
                 //Verify the New IF on Edit Opp page
                 //TMTI0027311 Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Editing Opportunity
@@ -177,7 +180,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("New Industry Type: TECH is available on Edit Engagement page ");
 
                 //TMTI0027305 Validate the ERP Last Integration Status on Engagement details page
-                string ERPStatusIG = opportunityDetails.GetERPIntegrationStatus();
+                string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
                 Assert.AreEqual("Success", ERPStatusIG);
                 extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed ");
 

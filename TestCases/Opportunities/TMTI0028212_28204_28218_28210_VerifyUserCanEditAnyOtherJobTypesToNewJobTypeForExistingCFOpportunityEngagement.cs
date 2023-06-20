@@ -1,17 +1,16 @@
-﻿using NUnit.Framework;
-using SF_Automation.Pages;
-using SF_Automation.Pages.Common;
+﻿using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
-using SF_Automation.TestData;
+using SF_Automation.Pages;
 using SF_Automation.UtilityFunctions;
 using System;
+using NUnit.Framework;
+using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTI0056868_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes : BaseClass
+    class TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement:BaseClass
     {
-
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -20,11 +19,13 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        SendEmailNotification notification = new SendEmailNotification();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
+        public static string fileTMTI0028212 = "TMTI0028212_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunity";
 
-        public static string fileTMTI0056868 = "TMTI0056868_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes";
+        string oldJobType;
+        string jobTypeExl;        
+        string updatedJobType;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -35,54 +36,53 @@ namespace SF_Automation.TestCases.Opportunity
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyStatusIsUpdatedInOracleERP()
+        public void EditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056868;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0028212;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
 
-                // Calling Login function                
+                //Calling Login function                
                 login.LoginApplication();
 
-                // Validate user logged in                   
+                //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                Console.WriteLine("rowCount " + rowJobType);
 
                 for (int row = 2; row <= rowJobType; row++)
                 {
-
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
 
                     //Login as Standard User profile and validate the user
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+                    usersLogin.SearchUserAndLogin(valUser);
                     string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    Console.WriteLine("valRecordType:" + valRecordType);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                     //Validating Title of New Opportunity Page
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                    
-                    //Calling AddOpportunities function
-                    string value = addOpportunity.AddOpportunities(valJobType, fileTMTI0056868);
-                    Console.WriteLine("value : " + value);
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 100), true);
+                    extentReports.CreateLog(driver.Title + " is displayed ");
+
+                    //Validate Women Led field and Calling AddOpportunities function      
+                    string value = addOpportunity.AddOpportunities(valJobType, fileTMTI0028212);
+
                     extentReports.CreateLog("Opportunity : " + value + " is created ");
 
-                    //Call function to enter Internal Team details and validate opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(fileTMTI0056868);
+                    //Call function to enter Internal Team details and validate Opportunity detail page
+                    clientSubjectsPage.EnterStaffDetails(fileTMTI0028212);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
@@ -92,15 +92,28 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                     //Create External Primary Contact         
-                    String valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                    String valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
-                    addOpportunityContact.CreateContact(fileTMTI0056868, valContact, valRecordType, valContactType);
+                    string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
+                    string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
+                    addOpportunityContact.CreateContact(fileTMTI0028212, valContact, valRecordType, valContactType);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
+                    //Get Actual Job Type of selected Opportunity and updated it with new Job Type
+                    extentReports.CreateLog("Verify User Can Edit Any Other Job Types To New Job Type For Existing CF Opportunity");
+                    int rowJobTypes = ReadExcelData.GetRowCount(excelPath, "JobTypes");
+
+                    for (int rowNewJobType = 2; rowNewJobType <= rowJobTypes; rowNewJobType++)
+                    {
+                        oldJobType = opportunityDetails.GetOppJobType();
+                        jobTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobTypes", rowNewJobType, 1);
+                        opportunityDetails.UpdateJobType(jobTypeExl);
+                        updatedJobType = opportunityDetails.GetOppJobType();
+                        Assert.AreEqual(jobTypeExl, updatedJobType);
+                        extentReports.CreateLog("Job Type: " + oldJobType + " is updated with new JobType: " + updatedJobType+" ");
+                    }
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForFVAConversion(fileTMTI0056868);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0056868);
+                    opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0028212);
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0028212);
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -110,21 +123,16 @@ namespace SF_Automation.TestCases.Opportunity
                     //Search for created opportunity
                     opportunityHome.SearchOpportunity(value);
 
-                    //update CC and NBC checkboxes 
-                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0056868);
-                    extentReports.CreateLog("Conflict Check fields are updated ");
-
+                    //update Update Outcome Details 
+                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0028212);
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                    usersLogin.SearchUserAndLogin(valUser);
                     string stdUser1 = login.ValidateUser();
-                    Assert.AreEqual(stdUser1.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                    Assert.AreEqual(stdUser1.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunity(value);
-
-                    //Update Total Anticipated Revenue
-                    opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
 
                     //Requesting for engagement and validate the success message
                     string msgSuccess = opportunityDetails.ClickRequestEng();
@@ -144,6 +152,7 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityHome.SearchOpportunity(value);
                     string OppContactMember = opportunityDetails.GetOppExternalContact();
                     extentReports.CreateLog(OppContactMember + " is added as External Contact on Opportunity page ");
+
                     string OppDealTeamMember = opportunityDetails.GetOppDealTeamMember();
                     extentReports.CreateLog(OppDealTeamMember + " is added as Deal Team Member on Opportunity page ");
 
@@ -151,34 +160,48 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityDetails.ClickApproveButton();
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
                     extentReports.CreateLog("Opportunity is approved ");
-
+                                                         
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEng();
-
+                    extentReports.CreateLog("Opportunity is Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engName = engagementDetails.GetEngName();
                     Assert.AreEqual(opportunityNumber, engName);
                     extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
 
-                    //Validate the ERP Last Integration Status on Engagement details page
-                    string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
+                    //TMTI0028218 Verify user is able to edit any other Job types to new job type for existing Engagement
+                    //TMTI0028204 Verify the availability of new Job Types on Edit Engagement page                  
+
+                    for (int rowNewJobType = 2; rowNewJobType <= rowJobTypes; rowNewJobType++)
+                    {
+                        oldJobType = engagementDetails.GetOppJobType();
+                        jobTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobTypes", rowNewJobType, 1);
+                        engagementDetails.UpdateJobType(jobTypeExl);
+                        updatedJobType = engagementDetails.GetOppJobType();
+                        Assert.AreEqual(jobTypeExl, updatedJobType);
+                        extentReports.CreateLog("Job Type: " + oldJobType + " is updated with new JobType: " + updatedJobType+" ");
+                    }
+                    //Verify the ERP Status is Updated on Opportunity Page
+                    //TMTI0028210 Verify the status is updated in Oracle ERP Information section after creating the Opportunity
+                    engagementDetails.ClickRelatedOpportunityLink();
+                    extentReports.CreateLog("User is on Opportunity Detail page");
+                    string ERPStatusIG = opportunityDetails.GetOppERPIntegrationStatus();
                     Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed ");
 
-                    usersLogin.UserLogOut();
                 }
+                usersLogin.UserLogOut();    
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateLog(ex.Message);
+                usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
+
             }
         }
     }
 }
-
-
-

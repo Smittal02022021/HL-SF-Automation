@@ -139,7 +139,7 @@ namespace SF_Automation.TestCases.Engagement
                     engagementDetails.SearchCaseNumber(caseNumber);
 
                     engagementDetails.SelectOpenCase();
-                    extentReports.CreateLog(caseNumber+" is opening and user is not case detail page");
+                    extentReports.CreateLog(caseNumber+" is opening and user is no case detail page");
                     //look for the Accept button on top right and accept the case to become case owner.
                     Assert.IsTrue(engagementDetails.IsBtnAcceptDisplayed(), "Verify Accept button is Displayed on Case Detail Page and Accept the Case to become the Case Owner ");
                     string message = engagementDetails.ClickBtnAccept();
