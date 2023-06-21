@@ -99,7 +99,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                     //Get Actual Job Type of selected Opportunity and updated it with new Job Type
-                    extentReports.CreateLog("Verify User Can Edit Any Other Job Types To New Job Type For Existing CF Opportunity");
+                    extentReports.CreateLog("Verify User Can Edit Any Other Job Types To New Job Type For Existing CF Opportunity ");
                     int rowJobTypes = ReadExcelData.GetRowCount(excelPath, "JobTypes");
 
                     for (int rowNewJobType = 2; rowNewJobType <= rowJobTypes; rowNewJobType++)

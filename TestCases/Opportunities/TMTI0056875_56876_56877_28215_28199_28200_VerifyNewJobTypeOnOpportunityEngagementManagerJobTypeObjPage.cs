@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //System Admin: Verify New Job Type is present on Job Type Object page
                     //TMTI0056876_Verify_New Updated Job Type And Job Cod eUnder Job Type Object
                     //TMTI0028200 Verify New / updated Job type and code under Job type Object/ tab
-                    extentReports.CreateLog("Verify New Job Type is present on Job Type Object page as System Administrator");
+                    extentReports.CreateLog("Verify New Job Type is present on Job Type Object page as System Administrator ");
                     string valView = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 3);
                     pageTitle = randomPages.selectJobTypesObject(valView);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed with View: " + valView + " ");

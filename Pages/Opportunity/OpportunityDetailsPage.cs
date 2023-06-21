@@ -1567,6 +1567,7 @@ namespace SF_Automation.Pages
         //To update Job type
         public string UpdateJobType(string jobType)
         {
+            again:
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
@@ -1581,15 +1582,16 @@ namespace SF_Automation.Pages
 
             catch (Exception)
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 20);
                 driver.FindElement(lnkReDisplayRec).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
-                driver.FindElement(btnEdit).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
-                driver.FindElement(comboJobType).SendKeys(jobType);
-                driver.FindElement(btnSave).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 20);
-                return driver.FindElement(valJobType).Text;
+                goto again;
+               // WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);                
+                //driver.FindElement(btnEdit).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
+                //driver.FindElement(comboJobType).SendKeys(jobType);
+                //driver.FindElement(btnSave).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, valJobType, 20);
+                //return driver.FindElement(valJobType).Text;
 
             }
         }
