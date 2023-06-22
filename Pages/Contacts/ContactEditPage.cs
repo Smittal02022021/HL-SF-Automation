@@ -86,7 +86,7 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             string val = driver.FindElement(txtOffice).Text;
-            if(val == "LA")
+            if(val == " ")
             {
                result = true;
             }

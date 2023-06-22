@@ -89,7 +89,6 @@ namespace SF_Automation.TestCases.Contact
                 lvRecentlyViewContact.CloseTab("New Contact");
 
                 //TC - TMT0033924, TMT0033925 - Verify that the Search functionality on recently viewed contact page as per the entered keyword.
-                //lvRecentlyViewContact.ChangeContactListView("New This Week");
                 lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView("Test External");
                 extentReports.CreateLog("Search functionality on recently viewed contact page is working as expected. ");
 

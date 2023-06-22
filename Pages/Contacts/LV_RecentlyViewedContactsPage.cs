@@ -14,7 +14,7 @@ namespace SF_Automation.Pages.Contact
         By btnNewContact = By.XPath("//a[@title='New']");
         By inputSearchContact = By.XPath("//input[@placeholder='Search this list...']");
         By lblTabTitle = By.XPath("(//span[@class='title slds-truncate'])[1]");
-        By btnSelectListView = By.XPath("//button[@title='Select a List View']");
+        By btnSelectListView = By.XPath("//button[@title='Select a List View: Contacts']");
         By linkContactsTab = By.XPath("//a[@title='Contacts']");
                 
         public void NavigateToCreateNewContactPage()
