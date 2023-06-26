@@ -37,8 +37,8 @@ namespace SF_Automation.Pages.Common
         By linkNext = By.XPath("//div[@class='paginator']//a[contains(text(),'Next')]");
         By loader = By.XPath("//b[contains(text(),'Loading')]");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By comboJobType = By.CssSelector("select[name*='fcf']");
-        //By comboJobType = By.CssSelector("select[name*='jobTypeSearch']");
+        By comboViewJobType = By.CssSelector("select[name*='fcf']");
+        By comboJobType = By.CssSelector("select[name*='jobTypeSearch']");
         By txtPageTitle = By.XPath("//h1[@class='pageType']");
         By tabReports = By.XPath("//a[@title='Reports Tab']");
         By btnNewReport = By.XPath("//Input[@title='New Report...']");
@@ -197,7 +197,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, linkJobTypes, 20);
             driver.FindElement(linkJobTypes).Click();
             string pageTitle = driver.FindElement(txtPageTitle).Text;
-            driver.FindElement(comboJobType).SendKeys(viewOption);
+            driver.FindElement(comboViewJobType).SendKeys(viewOption);
             try
             {
                 driver.FindElement(btnGo).Click();

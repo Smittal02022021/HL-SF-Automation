@@ -310,7 +310,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             int rowCount = element.Count;
             for (int p = 1; p <= rowCount; p++)
             {
-                By titleRateSheetName = By.CssSelector($"div[class='x-grid3-body'] > div:nth-child({p}) > table > tbody > tr > td:nth-child(3) > div > a > span");
+                By titleRateSheetName = By.CssSelector($"div[class='x-grid3-body'] > div:nth-child({p}) > table > tbody > tr > td:nth-child(4) > div > a > span");
                 IWebElement rateSheetName = driver.FindElement(titleRateSheetName);
 
                 string sheet = rateSheetName.Text;

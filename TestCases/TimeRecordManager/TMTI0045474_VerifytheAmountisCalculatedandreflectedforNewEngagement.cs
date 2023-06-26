@@ -194,7 +194,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Enter Rate Sheet details
 
-                selectProject = "E - " + opportunityNumber + "-FVA";
+                selectProject = opportunityNumber; //"E - " + opportunityNumber + "-FVA";
                 //Enter Rate Sheet details
                 string rateSheet = ReadExcelData.ReadData(excelPath, "RateSheetManagement", 1);
                 rateSheetMgt.EnterRateSheet(opportunityNumber, rateSheet);
@@ -262,7 +262,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //---------------Summary Logs---------------------//
 
                 //Enter summary log details
-                selectProject = "Engagement " + opportunityNumber + "-FVA";
+                selectProject = opportunityNumber; // "Engagement " + opportunityNumber + "-FVA";
                 timeEntry.EnterSummaryLogs(selectProject, fileTC45474);
                 timeEntry.ClickAddButton();
 

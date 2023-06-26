@@ -7,7 +7,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement:BaseClass
     {

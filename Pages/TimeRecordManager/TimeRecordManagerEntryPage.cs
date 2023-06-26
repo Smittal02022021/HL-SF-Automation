@@ -45,7 +45,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tableSummaryLog = By.CssSelector("table[class='slds-table'] > tbody");
         By comboBoxProjectInLog = By.CssSelector("select[class='slds-select'] > option");
         By txtWeeklyEntry = By.XPath("//div[starts-with(@data-key,'a4C')]//parent::div/div/input");
-        By drpdownFuturePeriod = By.XPath("//div[@data-aura-class='cHL_LightningComponent cTimeRecordPeriodPicker']/select/option[@selected='selected']//preceding::option");
+        By drpdownFuturePeriod = By.XPath("//div[@data-aura-class='cTimeRecordPeriodPicker']/select/option[@selected='selected']//preceding::option");////div[@data-aura-class='cHL_LightningComponent cTimeRecordPeriodPicker']/select/option[@selected='selected']//preceding::option
         By txtCurrentTimePeriod = By.CssSelector("div[class*='cTimeRecordPeriodPicker']");
         By drpdwnSelectPreSetTemplate = By.CssSelector("select[class*='slds-input']");
         By EnterDateSummaryLog = By.CssSelector("input[class*='date input']");
@@ -57,6 +57,9 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tabBetaDetailLogs = By.CssSelector("li[title='Details'] > a");
         By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
         By optionProject = By.XPath("//div//label[text()='Select Project']//following::div//input");
+        By option = By.XPath("//div//label[text()='Select Project']//following::div//input");
+        By txtTimeClockRecorder = By.XPath("//*[contains(@title,'Time Clock Recorder')]");
+        By txtWeeklyOverview = By.XPath("//div[contains(@class,'StaffTimeSheet')]//span[text()='Weekly Overview']");
 
         public void GoToWeeklyEntryMatrix()
         {
@@ -129,7 +132,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
             driver.FindElement(tabStaffTimeSheet).Click();
             Thread.Sleep(2000);
@@ -417,6 +420,13 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, dropDownSelectProject, 80);
 
             string DefaultSelectProject = driver.FindElement(optionProject).GetAttribute("placeholder");
+            return DefaultSelectProject;
+        }
+        public string GetDefaultSelectedProjectOptionN()
+        {
+            By dropDownSelectProject = By.XPath("//div//label[text()='Select Project']");
+            WebDriverWaits.WaitUntilEleVisible(driver, dropDownSelectProject, 80);
+            string DefaultSelectProject = driver.FindElement(option).GetAttribute("placeholder");
             return DefaultSelectProject;
         }
 
@@ -770,13 +780,13 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(tabWeeklyEntryMatrix).Click();
             Thread.Sleep(2000);
             IList<IWebElement> elements = driver.FindElements(btnCross);
-          
-                WebDriverWaits.WaitUntilEleVisible(driver, txtWeeklyEntry);
-                string txt = driver.FindElement(txtWeeklyEntry).GetAttribute("value");
-                string ExlTimer = ReadExcelData.ReadDataMultipleRows(excelPath, "Update_Timer", 2,2).ToString();
-                Assert.AreEqual(txt, ExlTimer);
 
-          
+            WebDriverWaits.WaitUntilEleVisible(driver, txtWeeklyEntry);
+            string txt = driver.FindElement(txtWeeklyEntry).GetAttribute("value");
+            string ExlTimer = ReadExcelData.ReadDataMultipleRows(excelPath, "Update_Timer", 2, 2).ToString();
+            Assert.AreEqual(txt, ExlTimer);
+
+
 
         }
 
@@ -889,25 +899,42 @@ namespace SF_Automation.Pages.TimeRecordManager
             return week;
         }
 
-        public void EnterSummaryLogHours(string file) {
+        public void EnterSummaryLogHours(string file)
+        {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-
             string TodayDate = DateTime.Now.AddDays(0).ToString("MMM dd, yyyy");
             driver.FindElement(EnterDateSummaryLog).SendKeys(TodayDate);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
-            driver.FindElement(comboSelectProject).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 1));
-
+            //WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+            //driver.FindElement(comboSelectProject).Click();
+            //driver.FindElement(comboSelectProject).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 1));
+            //extracode
+            //WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+            //driver.FindElement(comboSelectProjectName).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 1));
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 1));
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
             driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 2));
             driver.FindElement(EnterHoursSummaryLog).SendKeys(ReadExcelData.ReadData(excelPath, "Update_Hours", 2));
             driver.FindElement(AddBtnSummaryLog).Click();
             Thread.Sleep(5000);
-
         }
-        
+
         public bool VerifySuccessMsgDisplay()
         {
             try
@@ -919,12 +946,121 @@ namespace SF_Automation.Pages.TimeRecordManager
             {
                 return false;
             }
-        } }
+        }
+
+        public void ClickWeeklyEntryMatrixTab()
+        {
+        Retry: try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+                driver.FindElement(tabWeeklyEntryMatrix).Click();
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboSelectProjectN));
+                Thread.Sleep(2000);
+            }
+            catch (Exception e)
+            {
+                goto Retry;
+            }
+        }
+        public void ClickTimeClockRecorderTab()
+        {
+            driver.FindElement(txtTimeClockRecorder).Click();
+            Thread.Sleep(2000);
+        }
+        public void ClickSummaryLogsTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
+            driver.FindElement(tabSummaryLogs).Click();
+            Thread.Sleep(1000);
+        }
+        public void ClickDetailLogsTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
+            driver.FindElement(tabDetailLogs).Click();
+            Thread.Sleep(1000);
+        }
 
 
+
+        public void ClickWeeklyOverviewTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtWeeklyOverview);
+            driver.FindElement(txtWeeklyOverview).Click();
+            Thread.Sleep(1000);
+        }
+        public bool IsProjectSelected(string value)
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboSelectProjectN));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(value);
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool IsComboSelectProjectDisplayed()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                return driver.FindElement(comboSelectProject).Displayed;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public string SearchProjectandGetFullName(string value)
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboSelectProjectN));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(value);
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                return driver.FindElement(comboSelectProjectName).Text;
+            }
+            catch (Exception e)
+            {
+                return "No Item Found";
+            }
+        }
+
+        public bool IsActivityListDisplayed(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName, 5);
+                driver.FindElement(comboSelectProjectName).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject, 5);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity, 5);
+                return driver.FindElement(comboSelectActivity).Displayed;
+            }
+            catch (Exception e) { return false; }
+        }
 
     }
-
-
-    
-
+}

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunity
 {
     class TMTI0028216_VerifyNewJobForLOBOtherThanCF:BaseClass
     {
@@ -48,9 +48,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-
-                int rowJRecordType = ReadExcelData.GetRowCount(excelPath, "RecordType");
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");                
 
                 //Login as Standard User profile and validate the user
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
@@ -59,6 +57,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 extentReports.CreateLog("Verify the JobTypes are available only for Opportunity LOB: CF ");
+                int rowJRecordType = ReadExcelData.GetRowCount(excelPath, "RecordType");
                 for (int row = 1; row < rowJRecordType; row++)
                 {
                     //Call function to open Add Opportunity Page
@@ -66,12 +65,16 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadData(excelPath, "RecordType", row);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
-                    //Validating Title of New Opportunity Page
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 100), true);
-                    extentReports.CreateLog(driver.Title + " is displayed for Job Type: " + valRecordType+" ");
-                    valJobType = ReadExcelData.ReadData(excelPath, "JobType", row);
-                    Assert.IsFalse(opportunityDetails.IsJobTypePresentInDropdownOppDetailPage(valJobType), " Verify " + valJobType + " is present not Present on Opportunity Detail Page for LOB: " + valRecordType + "under Job Type Dropdown ");
-                    extentReports.CreateLog(" Job Type: " + valJobType + " is not Found for LOB: " + valRecordType+" ");
+                    int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
+                    for (int rec = 1; rec < rowJobType; rec++)
+                    {
+                        //Validating Title of New Opportunity Page
+                        Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 100), true);
+                        extentReports.CreateLog(driver.Title + " is displayed for Job Type: " + valRecordType + " ");
+                        valJobType = ReadExcelData.ReadData(excelPath, "JobType", rec);
+                        Assert.IsFalse(opportunityDetails.IsJobTypePresentInDropdownOppDetailPage(valJobType), " Verify " + valJobType + " is present not Present on Opportunity Detail Page for LOB: " + valRecordType + "under Job Type Dropdown ");
+                        extentReports.CreateLog(" Job Type: " + valJobType + " is not Found for LOB: " + valRecordType + " ");
+                    }
                 }
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User: " + stdUser + " logged Out ");
