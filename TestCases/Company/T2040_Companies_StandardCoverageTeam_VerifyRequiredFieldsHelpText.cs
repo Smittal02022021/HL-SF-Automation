@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Priority help tooltip text matches ");
 
                 //Add new coverage team
-                coverageTeam.AddNewCoverageTeam(fileTC2040,5);
+                coverageTeam.AddNewCoverageTeam(fileTC2040,6);
 
                 //Verify Coverage Team Officer
                 string officerName = companyDetail.GetCoverageTeamOfficer();

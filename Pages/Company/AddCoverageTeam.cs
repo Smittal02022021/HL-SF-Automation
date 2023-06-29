@@ -51,7 +51,7 @@ namespace SF_Automation.Pages.Company
             driver.FindElement(comboType).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 4));
 
            // Enter Tier
-            driver.FindElement(By.CssSelector($"table[class='detailList'] > tbody > tr:nth-child({tierNumber}) >td:nth-child(2) > div >  span > select")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
+            driver.FindElement(By.CssSelector($"table[class='detailList'] > tbody > tr:nth-child(6) >td:nth-child(2) > div >  span > select")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
 
             //Click Save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 40);

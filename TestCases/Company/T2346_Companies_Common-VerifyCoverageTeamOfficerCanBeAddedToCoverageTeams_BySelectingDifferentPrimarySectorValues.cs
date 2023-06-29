@@ -80,7 +80,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
 
                 //Add new coverage team
-                coverageTeam.AddNewCoverageTeam(fileTC2346,5);
+                coverageTeam.AddNewCoverageTeam(fileTC2346,4);
 
                 //Verify Coverage Team Officer
                 string officerName = companyDetail.GetCoverageTeamOfficer();
