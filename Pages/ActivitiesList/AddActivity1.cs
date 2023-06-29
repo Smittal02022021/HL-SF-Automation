@@ -109,7 +109,8 @@ namespace SF_Automation.Pages.ActivitiesList
             Thread.Sleep(1000);
             string valRelatedOpportunity = ReadExcelData.ReadData(excelPath, "Activity", 4);
             driver.FindElement(txtLookupOpportunity).SendKeys(valRelatedOpportunity);
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, selLookupOpportunity);
             driver.FindElement(selLookupOpportunity).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkBoxScheduleFollowUp);
