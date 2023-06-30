@@ -68,7 +68,7 @@ namespace SF_Automation.TestCases.ActivitiesList
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

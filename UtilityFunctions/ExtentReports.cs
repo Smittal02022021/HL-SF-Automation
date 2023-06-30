@@ -35,11 +35,33 @@ namespace SF_Automation.UtilityFunctions
                     break;
                 case TestStatus.Skipped:
                     logstatus = Status.Skip;                    
-                    test.Log(logstatus, message + logstatus);
+                    test.Log(logstatus, message);
                     break;
                 default:
-                    logstatus = Status.Pass;                    
-                    test.Log(logstatus, message + logstatus);                    
+                    logstatus = Status.Pass;
+                    test.Log(logstatus, message);
+                    break;
+            }
+        }
+
+        //To publish step logs in Extent Reports
+        public void CreateStepLogs(string result, string message)
+        {
+            var errorMessage = TestContext.CurrentContext.Result.Message;
+            Status logstatus;
+            switch(result)
+            {
+                case "Skipped":
+                    logstatus = Status.Skip;
+                    test.Log(logstatus, message);
+                    break;
+                case "Passed":
+                    logstatus = Status.Pass;
+                    test.Log(logstatus, message);
+                    break;
+                default:
+                    logstatus = Status.Info;
+                    test.Log(logstatus, message);
                     break;
             }
         }
