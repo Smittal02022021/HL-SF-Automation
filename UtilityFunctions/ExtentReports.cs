@@ -41,7 +41,17 @@ namespace SF_Automation.UtilityFunctions
                     logstatus = Status.Pass;                    
                     test.Log(logstatus, message + logstatus);                    
                     break;
-            }      
+            }
+        }
+
+        //To create exception logs
+        public void CreateExceptionLog(string message)
+        {
+            Status logstatus;
+            logstatus = Status.Fail;
+            string screenShotPath = Capture(driver, TestContext.CurrentContext.Test.Name);
+            test.Log(logstatus, "Test Failed : Error Message - " + message);
+            test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
         }
 
         //Capture Screenshot

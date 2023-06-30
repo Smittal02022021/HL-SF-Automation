@@ -134,18 +134,10 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Coverage Type: " + coverageType + " is displayed on company detail page under Coverage Team section upon adding a new coverage team ");
 
                 usersLogin.UserLogOut();
-                // Cleanup code
+
+                //Cleanup code
                 companyHome.SearchCompany(fileTC2041, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
                 companyDetail.DeleteCoverageTeamRecord(fileTC2041, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //coverageLevel sector is NotFiniteNumberException displaying to delete
-                //companyDetail.DeleteCoverageSector(fileTC2041, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
-                //companyHome.SearchCompany(fileTC2041, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                
-                 
-                //companyDetail.DeleteCoverageTeamRecord(fileTC2041, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
                 extentReports.CreateLog("Coverage Team is deleted successfully ");
 
                 usersLogin.UserLogOut();
@@ -153,7 +145,7 @@ namespace SF_Automation.TestCases.Companies
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

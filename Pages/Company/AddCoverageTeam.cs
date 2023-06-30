@@ -20,7 +20,7 @@ namespace SF_Automation.Pages.Company
         By btnSave = By.CssSelector("td[id='bottomButtonRow'] > input[name='save']");
         By btnEdit = By.CssSelector("div[id*='D7bV0_body']> table > tbody > tr > td:nth-child(1)");
 
-        public void AddNewCoverageTeam(string file, int tierNumber)
+        public void AddNewCoverageTeam(string file, int number)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -51,7 +51,7 @@ namespace SF_Automation.Pages.Company
             driver.FindElement(comboType).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 4));
 
            // Enter Tier
-            driver.FindElement(By.CssSelector($"table[class='detailList'] > tbody > tr:nth-child(6) >td:nth-child(2) > div >  span > select")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
+            driver.FindElement(By.CssSelector($"table[class='detailList'] > tbody > tr:nth-child({number}) >td:nth-child(2) > div >  span > select")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
 
             //Click Save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 40);
