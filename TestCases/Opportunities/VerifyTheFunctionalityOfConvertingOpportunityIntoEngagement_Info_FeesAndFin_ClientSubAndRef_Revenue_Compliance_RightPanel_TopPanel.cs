@@ -444,8 +444,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Update any value and validate if it gets saved post clicking saving button               
                 string valCompliance = engagementDetails.UpdateComplianceDetailsAndValidate();
-                Assert.AreEqual("4/11/2023", valCompliance);
-                extentReports.CreateLog("Entered value : " + valCompliance + " is displayed after updating details of Received by Compliance Date in Compliance Sub tab ");
+                Assert.AreEqual("No", valCompliance);
+                extentReports.CreateLog("Entered value : " + valCompliance + " is displayed after updating details of Beneficial Owner Control Person form in Compliance Sub tab ");
 
                 //Validate Legal Matters Sub tab 
                 string subTabLegal = engagementDetails.ValidateLegalMattersSubTab();
@@ -556,7 +556,7 @@ namespace SF_Automation.TestCases.Opportunity
 				Assert.AreEqual("These required fields must be completed: Client/Subject", validationClient);
 				extentReports.CreateLog("Validation message: " + validationClient + " is displayed when Save button is clicked without entering mandatory field values. ");
 
-				//Validate edit functionality of Update Backlog button   
+				//Validate edit functionality of Add Client button   
 				string updateClient= engagementDetails.ValidateEditFunctionalityOfAddClient();
 				string typeClient = engagementDetails.GetTypeOfClientCompany();
 				Assert.AreNotEqual(valClient, updateClient);

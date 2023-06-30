@@ -416,7 +416,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterpartiesL);
             driver.FindElement(btnViewCounterpartiesL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string name = driver.FindElement(tabCounterpartyEditorL).Text;
             return name;
         }

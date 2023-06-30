@@ -191,7 +191,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate User is redirected to Internal team page if Initiator is not selected
                 string titleHLGlobal = addOpportunity.ValidateUserIsRedirectedToHLInternalPageWhenOppOpenedFromGlobalSearch(value);
                 Assert.AreEqual(value + " - HL Internal Team", titleHLGlobal);
-                extentReports.CreateLog("Page with title: " + titleHLGlobal + " is displayed when Initiator role is not selectd and Opportunity is opened again from Global Search ");
+                extentReports.CreateLog("Page with title: " + titleHLGlobal + " is displayed when Initiator role is not selected and Opportunity is opened again from Global Search ");
                 
                 //PRJ0019053 - Opportunity Initiator - TC07----
                 //Validate User is redirected to Internal team page if Initiator is not selected

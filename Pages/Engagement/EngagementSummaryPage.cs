@@ -994,7 +994,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valClassi = driver.FindElements(comboClassification);
             var actualValue = valClassi.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry" };
+            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry", "FR" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1055,7 +1055,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valContact = driver.FindElements(headerExtContact);
             var actualValue = valContact.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "", "Name", "Relationship" };
+            string[] expectedValue = { "", "Name", "Relationship"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

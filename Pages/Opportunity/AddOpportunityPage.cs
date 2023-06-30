@@ -93,6 +93,8 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By btnOppNavigation = By.XPath("//div/button[@aria-label='Show Navigation Menu']");
 
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
+        By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");       
@@ -383,6 +385,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             //Select Beneficial Owner
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
             driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
 
             //Select Does HL have material            
@@ -600,8 +603,8 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();
-            Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(8000);            
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 250);
             string title = driver.FindElement(titleHLIntTeam).Text;
             return title;

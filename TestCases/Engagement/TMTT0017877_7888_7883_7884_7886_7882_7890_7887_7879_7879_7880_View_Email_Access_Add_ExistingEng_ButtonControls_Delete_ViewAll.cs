@@ -77,22 +77,34 @@ namespace SF_Automation.TestCases.Engagement
                 //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
                 engagementDetails.ClickViewCounterpartiesButton();
 
-                //Validate Save, Delete, Cancel,Add Counterparties, Email, View all buttons
-                string btnSave = counterparty.ValidateSaveButton();
-                Assert.AreEqual("Save", btnSave);
-                extentReports.CreateLog("Button with name : " + btnSave + " is displayed on Counterparty Details page ");
+                //Validate Add Remove Columns, Delete, Cancel,Add Counterparties, Email, View all buttons
+                string btnAddRemove = counterparty.ValidateAddRemoveColumnsButton();
+                Assert.AreEqual("Add/Remove Columns", btnAddRemove);
+                extentReports.CreateLog("Button with name : " + btnAddRemove + " is displayed on Counterparty Details page ");
 
                 string btnDelete = counterparty.ValidateDeleteButton();
                 Assert.AreEqual("Delete", btnDelete);
                 extentReports.CreateLog("Button with name : " + btnDelete + " is displayed on Counterparty Details page ");
 
-                string btnCancel = counterparty.ValidateCancelButton();
-                Assert.AreEqual("Cancel", btnCancel);
-                extentReports.CreateLog("Button with name : " + btnCancel + " is displayed on Counterparty Details page ");
-
                 string btnAddCounterparties = counterparty.ValidateAddCounterpartyButton();
                 Assert.AreEqual("Add Counterparties", btnAddCounterparties);
                 extentReports.CreateLog("Button with name : " + btnAddCounterparties + " is displayed on Counterparty Details page ");
+
+                string btnBidTracking = counterparty.ValidateBidTrackingReportButton();
+                Assert.AreEqual("Bid Tracking Report", btnBidTracking);
+                extentReports.CreateLog("Button with name : " + btnBidTracking + " is displayed on Counterparty Details page ");
+
+                string btnEditBids = counterparty.ValidateEditBidsButton();
+                Assert.AreEqual("Edit Bids", btnEditBids);
+                extentReports.CreateLog("Button with name : " + btnEditBids + " is displayed on Counterparty Details page ");
+
+                string btnImport = counterparty.ValidateImportWithDataloaderButton();
+                Assert.AreEqual("Import with Dataloader", btnImport);
+                extentReports.CreateLog("Button with name : " + btnImport + " is displayed on Counterparty Details page ");
+
+                string btnExport = counterparty.ValidateExportDataButton();
+                Assert.AreEqual("Export Data", btnExport);
+                extentReports.CreateLog("Button with name : " + btnExport + " is displayed on Counterparty Details page ");
 
                 string btnEmail = counterparty.ValidateEmailButton();
                 Assert.AreEqual("Email", btnEmail);
@@ -101,6 +113,10 @@ namespace SF_Automation.TestCases.Engagement
                 string btnViewAll = counterparty.ValidateViewAllButton();
                 Assert.AreEqual("View All", btnViewAll);
                 extentReports.CreateLog("Button with name : " + btnViewAll + " is displayed on Counterparty Details page ");
+
+                string txtSearch = counterparty.ValidateSearchTextBoxButton();
+                Assert.AreEqual("Search", txtSearch);
+                extentReports.CreateLog("Text box with name : " + txtSearch + " is displayed on Counterparty Details page ");
 
                 //Get the value of existing company
                 string valCompName = counterparty.GetExistingCompany();
