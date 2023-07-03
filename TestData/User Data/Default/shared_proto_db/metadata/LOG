@@ -1,5 +1,5 @@
-2023/06/30-14:20:22.802 214c Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/MANIFEST-000001
-2023/06/30-14:20:22.803 214c Recovering log #3
-2023/06/30-14:20:22.804 214c (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 24525 bytes; Corruption: checksum mismatch
-2023/06/30-14:20:22.804 214c (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 17 bytes; Corruption: missing start of fragmented record(2)
-2023/06/30-14:20:22.806 214c Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log 
+2023/07/03-11:20:21.260 3cb8 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/MANIFEST-000001
+2023/07/03-11:20:21.260 3cb8 Recovering log #3
+2023/07/03-11:20:21.262 3cb8 (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 24525 bytes; Corruption: checksum mismatch
+2023/07/03-11:20:21.262 3cb8 (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 17 bytes; Corruption: missing start of fragmented record(2)
+2023/07/03-11:20:21.264 3cb8 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log 
