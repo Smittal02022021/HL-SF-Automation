@@ -81,7 +81,7 @@ namespace SF_Automation.Pages.Company
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 return "No record found";
             }
         }
