@@ -1,6 +1,3 @@
-2022/04/20-14:50:32.541 6208 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\IndexedDB\https_hl--test.lightning.force.com_0.indexeddb.leveldb/MANIFEST-000001
-2022/04/20-14:50:32.541 6208 Recovering log #176
-2022/04/20-14:50:32.724 6208 Reusing old log C:\Users\SMittal0207\source\repos\SalesForce_Project\TestData\User Data\Default\IndexedDB\https_hl--test.lightning.force.com_0.indexeddb.leveldb/000176.log 
-2022/04/20-14:50:38.510 6458 Level-0 table #182: started
-2022/04/20-14:50:38.571 6458 Level-0 table #182: 2033113 bytes OK
-2022/04/20-14:50:38.577 6458 Delete type=0 #176
+version https://git-lfs.github.com/spec/v1
+oid sha256:b969ec3c3167bedee2d646a40b5e6bca852f843ad18e4f01b96a2cc384235d1c
+size 629

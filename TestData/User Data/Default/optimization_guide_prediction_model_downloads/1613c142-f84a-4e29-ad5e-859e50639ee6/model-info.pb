@@ -1,10 +1,3 @@
-ýûã "2g
-Ytype.googleapis.com/google.internal.chrome.optimizationguide.v1.PageEntitiesModelMetadata
-
-global:
-word_embeddings:
-model_metadata.pb:
-global-entities_names:
-global-entities_names_filter:!
-global-entities_prefixes_filter:
-global-entities_metadata
+version https://git-lfs.github.com/spec/v1
+oid sha256:2e0db91911afc8c79be996b20eaf899a1e5b3be0a915c227ce85bb5ebba63bcd
+size 276
