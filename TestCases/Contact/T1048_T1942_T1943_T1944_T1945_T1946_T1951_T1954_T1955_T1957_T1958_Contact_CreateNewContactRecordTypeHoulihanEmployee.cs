@@ -157,8 +157,8 @@ namespace SF_Automation.TestCases.Contact
                         usersLogin.UserLogOut();
 
                         //Delete the created contact
-                        conHome.SearchContactMultipleRows(fileTC1048, row);
-                        contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1));
+                        conHome.SearchContactMultipleRows(fileTC1048, 3);
+                        contactDetails.DeleteContact();
                         extentReports.CreateLog("Deletion of Created Contact ");
                     }
                     else

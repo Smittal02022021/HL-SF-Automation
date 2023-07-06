@@ -1136,17 +1136,22 @@ namespace SF_Automation.Pages.Contact
             return contactAddress;
         }
 
-        //Function to delete created contact
+        //Function to Search & delete created contact
         public void DeleteCreatedContact(string file, string contactType)
         {
-            /*
-            if (CustomFunctions.IsElementPresent(driver, errPage))
-            {
-                conHome.SearchContact(file, contactType);
-            }
-            */
             conHome.SearchContact(file, contactType);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteContact);
+            driver.FindElement(btnDeleteContact).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            Thread.Sleep(5000);
+            alert.Accept();
+            Thread.Sleep(2000);
+        }
+
+        //Function to delete contact from contact detail page
+        public void DeleteContact()
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteContact);
             driver.FindElement(btnDeleteContact).Click();
             IAlert alert = driver.SwitchTo().Alert();
