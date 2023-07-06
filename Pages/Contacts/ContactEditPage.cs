@@ -152,7 +152,7 @@ namespace SF_Automation.Pages.Contact
                 }
                 else
                 {
-                    string getDate = DateTime.Today.AddDays(-10).ToString("dd/MM/yyyy");
+                    string getDate = DateTime.Today.ToString("dd/MM/yyyy");
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDate);
                 }
@@ -277,21 +277,16 @@ namespace SF_Automation.Pages.Contact
             driver.SwitchTo().Frame(driver.FindElement(resultFrame));
             driver.FindElement(txtSearchResultExpenseApprover).Click();
 
-
             CustomFunctions.SwitchToWindow(driver, 0);
 
         }
-
 
         public void VerifyFlagReasonValidation(string value)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
-
             CustomFunctions.SelectByText(driver, driver.FindElement(selectFlagReasonDrpDown), value);
-
         }
-
 
         public void VerifyEmployeeCurrencyValidation(string value)
         {

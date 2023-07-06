@@ -76,6 +76,7 @@ namespace SF_Automation.TestCases.Contact
                         extentReports.CreateLog("HR User: " + HRUser + " is able to login ");
 
                     }
+
                     // Calling click contact function
                     conHome.ClickContact();
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
@@ -154,10 +155,11 @@ namespace SF_Automation.TestCases.Contact
                         contactEdit.ClickCancelBtn();
 
                         usersLogin.UserLogOut();
-                        conHome.SearchContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1));
-                        
-                       // contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1));
-                       // extentReports.CreateLog("Deletion of Created Contact ");
+
+                        //Delete the created contact
+                        conHome.SearchContactMultipleRows(fileTC1048, row);
+                        contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1));
+                        extentReports.CreateLog("Deletion of Created Contact ");
                     }
                     else
                     {                        
@@ -190,7 +192,6 @@ namespace SF_Automation.TestCases.Contact
                         extentReports.CreateLog("Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
                         
                         //Verify PDC Validation when primary PDC is null
-
                         contactEdit.ClickCancelBtn();
                         contactEdit.VerifyPrimaryPDCValidation();
                         contactEdit.ClickSaveBtn();
@@ -200,17 +201,9 @@ namespace SF_Automation.TestCases.Contact
                         extentReports.CreateLog("Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
 
                         contactEdit.ClickCancelBtn();
-                        //Test case is commented as per Greag comment
-                        // contactEdit.VerifyExpenseApproverValidation();
-
-                        // contactEdit.ClickSaveBtn();
-                        //string errMsg33 = contactEdit.TxtErrorMessageDepartureDate();
-
-                        // extentReports.CreateLog("Error message: " + "Expense Approver must be active when contact is active" + " is displaying when inactive employee is selected for expense approver");
-
+                        
                         //Verify error message is displaying when flag reason comment is not provided
-
-                        contactEdit.VerifyFlagReasonValidation("Deceased");
+                        contactEdit.VerifyFlagReasonValidation("Contact Has Left Company");
                         contactEdit.ClickSaveBtn();
                         string errMessage = contactEdit.TxtErrorMessageDepartureDate();
                         contactEdit.ClickCancelBtn();
@@ -218,8 +211,8 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual("Error: Please provide additional information for selected Flag Reason.", errMessage);
                         extentReports.CreateLog("Error message: " + errMessage + " is displaying when flag reason is not selected");
 
-                        //contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
-                        //extentReports.CreateLog("Deletion of Created Contact ");
+                        contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                        extentReports.CreateLog("Deletion of Created Contact ");
                     }
                 }
 
