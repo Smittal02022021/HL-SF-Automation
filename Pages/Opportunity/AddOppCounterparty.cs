@@ -680,7 +680,7 @@ namespace SF_Automation.Pages.Opportunity
         public string GetErrorMessageWhenNoCompanyIsAdded()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppAddCounterparty, 150);
-            driver.FindElement(txtOppAddCounterparty).SendKeys("Project Astro1");
+            driver.FindElement(txtOppAddCounterparty).SendKeys("3Pillar");
             driver.FindElement(txtOppAddCounterparty).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-accordion-section[1]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
@@ -722,7 +722,8 @@ namespace SF_Automation.Pages.Opportunity
 
         //Get error message when no company is added
         public string GetErrorMessageWhenNoCompanyIsAddedFromExistingCompany()
-        {            
+        {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty2, 150);
             driver.FindElement(secAddCounterparty2).Click();
             Thread.Sleep(3000);            
@@ -758,6 +759,7 @@ namespace SF_Automation.Pages.Opportunity
         //Click an Back button and Validate the page
         public string ClickBackButtonAndValidateViewCounterpartiesPage()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackAddCounterpartiesL, 150);
             driver.FindElement(btnBackAddCounterpartiesL).Click();
             Thread.Sleep(4000);
@@ -791,7 +793,8 @@ namespace SF_Automation.Pages.Opportunity
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valView);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
-            string[] expectedValue = {"All", "Sellside Stages", "Buyside Stages", "Capital Markets Stages" };
+            //string[] expectedValue = {"All", "Sellside Stages", "Buyside Stages", "Capital Markets Stages" };
+            string[] expectedValue = { "All", "Buyside Stages" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

@@ -70,12 +70,17 @@ namespace SF_Automation.TestCases.Engagement
                     //Validate the View Counterparties button
                     string viewCounterparty = engagementDetails.ValidateViewCounterpartiesButton(valJobType);
                     Assert.AreEqual("View Counterparties", viewCounterparty);
-                    extentReports.CreateLog("Button with name : " + viewCounterparty + " is displayed on Engagement Details page for Job Type: " + valJobType);
+                    extentReports.CreateLog("Button with name : " + viewCounterparty + " is displayed on Engagement Details page for Job Type: " + valJobType + " ");
 
                 }
 
                 //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
                 engagementDetails.ClickViewCounterpartiesButton();
+
+                //Validate the value in View dropdown is same as Job Type of Engagement
+                string view = counterparty.GetViewValue();
+                Assert.AreEqual("Buyside", view);
+                extentReports.CreateLog("View is displayed with same Job type for which engagement is associated ");
 
                 //Validate Add Remove Columns, Delete, Cancel,Add Counterparties, Email, View all buttons
                 string btnAddRemove = counterparty.ValidateAddRemoveColumnsButton();
@@ -117,6 +122,85 @@ namespace SF_Automation.TestCases.Engagement
                 string txtSearch = counterparty.ValidateSearchTextBoxButton();
                 Assert.AreEqual("Search", txtSearch);
                 extentReports.CreateLog("Text box with name : " + txtSearch + " is displayed on Counterparty Details page ");
+
+                //TC_04_Validate Email functionality
+                //Add Contact and Valdiate the same
+                string titleContact = engagementDetails.ClickEngCounterpartyButton();
+                Assert.AreEqual("Engagement Counterparty Contact Search", titleContact);
+                extentReports.CreateLog("Engagement Counterparty Contact Search page is displayed upon clicking New Engagement Counterparty Contact button ");
+
+                //Search Contact using search options i.e., Name and validate added contact under Engagement Counterparty Contacts section
+                counterparty.SearchContactUsingName();
+                string selectedName = counterparty.AddContact();
+                string titleEngCounterparty = counterparty.ValidateEngCounterpartiesPostClickingBackButton();
+                string val1stName = counterparty.Get1stName();
+                string val2ndName = counterparty.Get2ndName();
+                Assert.AreEqual("Engagement Counterparty", titleEngCounterparty);
+                extentReports.CreateLog("Page with title : " + titleEngCounterparty + " is displayed upon clicking Back button ");
+                Assert.AreEqual(selectedName.Replace(" ",""), val1stName+val2ndName);
+                extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed under Engagement Counterparty Contacts section ");
+
+                //Navigate to Counterparties page and validate Contacts link and Validate added contact along with its email id
+                string addedContactID = counterparty.ValidateContactDetailsOnCounterpartiesPage();
+                string addedCompCounterparty= counterparty.GetCompanyOfCounterparty();
+
+                Assert.AreEqual("Contacts", addedContactID);
+                extentReports.CreateLog("Contacts link is displayed after adding counterparty contact ");
+
+                //Select Counterparty, click on Email button and validate the page
+                string titleConfirm = counterparty.SelectCounterpartyAndClickEmailButton();
+                Assert.AreEqual("Confirm emails", titleConfirm);
+                extentReports.CreateLog("Page with title : " + titleConfirm + " is displayed upon clicking the Email button ");
+
+                //Validate Milestone dropdown and its values
+                string lblMilestone = counterparty.ValidateMilestoneDropdown();
+                Assert.AreEqual("Milestone", lblMilestone);
+                extentReports.CreateLog("Fild with name : " + lblMilestone + " is displayed ");
+
+                Assert.IsTrue(counterparty.ValidateMilestoneValues(), "Verified that displayed Milestone values are same");
+                extentReports.CreateLog("Displayed Milestone values are correct ");
+
+                //Validate Milestone dropdown and its values
+                string lblTemplate = counterparty.ValidateTemplateDropdown();
+                Assert.AreEqual("Template", lblTemplate);
+                extentReports.CreateLog("Field with name : " + lblTemplate + " is displayed ");
+
+                Assert.IsTrue(counterparty.ValidateTemplateValues(), "Verified that displayed Template values are same");
+                extentReports.CreateLog("Displayed Template values are correct ");
+
+                //Select a template and validate the email id and added counterparty's company
+                string emailID = counterparty.ValidateEmailIdOnEmailTemplate();
+                Assert.AreEqual("salmaan.jaffery@difc.ae", emailID);
+                extentReports.CreateLog("Email - " + emailID +" id of added counterparty contact is displayed ");
+
+                string company = counterparty.GetCompanyOfAddedCounterparty();
+                Assert.AreEqual(addedCompCounterparty, company);
+                extentReports.CreateLog("Company - " +company+ " of added counterparty contact is displayed ");
+
+                //TC05__Validate delete functionality
+                string confirmMessage = counterparty.SelectAnyRecordAndClickDelete();
+                Assert.AreEqual("Are you sure you want to delete the selected rows ?", confirmMessage);
+                extentReports.CreateLog("Message: " + confirmMessage + " is displayed upon clicking Delete button after selecting a record ");
+
+                string finalmessage = counterparty.ValidateIfRecordIsDeleted();
+                Assert.AreEqual("Displaying 0 to 0 of 0 records. Page 1 of 0.", finalmessage);
+                extentReports.CreateLog("Record is deleted post clicking Of button on the confirmation window ");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //Get the value of existing company
                 string valCompName = counterparty.GetExistingCompany();
@@ -230,61 +314,13 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Please select at least one row to delete.", msgAnyRec);
                 extentReports.CreateLog("Message: " + msgAnyRec + " is displayed upon clicking Delete button without selecting any record ");
 
-                string confirmMessage = counterparty.SelectAnyRecordAndClickDelete();
-                Assert.AreEqual("Are you sure you want to delete the selected rows?", confirmMessage);
-                extentReports.CreateLog("Message: " + confirmMessage + " is displayed upon clicking Delete button after selecting a record ");
-
+               
                 //Validate if 2nd added company is still displayed or not
                 string msg2ndCompany = counterparty.Validate2ndCompanyPostDeletion();
                 Assert.AreEqual("So-sure Limited", msg2ndCompany);
                 extentReports.CreateLog("Added company is not displayed post clicking Delete button ");
 
-                //Add Contact and Valdiate the same
-                string titleContact = engagementDetails.ClickEngCounterpartyButton();
-                Assert.AreEqual("Engagement Counterparty Contact Search", titleContact);
-                extentReports.CreateLog("Engagement Counterparty Contact Search page is displayed upon clicking New Engagement Counterparty Contact button ");
-
-                //Search Contact using search options i.e., Name 
-                counterparty.SearchContactUsingName();
-                string selectedName = counterparty.AddContact();
-                string addedName = counterparty.ValidateAddedContact();
-                Assert.AreEqual(selectedName, addedName);
-                extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed upon hovering the Contacts link ");
-
-                //Change the default view and validate that if records are still displayed or not as per selected Job Types
-                string updatedView = counterparty.UpdateDefaultView();
-                Assert.AreEqual("Sellside Stages", updatedView);
-                extentReports.CreateLog("View : " + updatedView + " has been selected ");
-
-                string records = counterparty.ValidateCounterpartyRecords();
-                Assert.AreEqual("No records found", records);
-                extentReports.CreateLog(records + " upon changing the default view ");
-
-                //Update view again to Buyside
-                string updatedBuysideView = counterparty.RevertDefaultView();
-                Assert.AreEqual("Buyside Stages", updatedBuysideView);
-                extentReports.CreateLog("View : " + updatedBuysideView + " has been selected again ");
-
-                //Select Counterparty, click on Email button and validate the page
-                string titleConfirm = counterparty.SelectCounterpartyAndClickEmailButton();
-                Assert.AreEqual("Confirm emails", titleConfirm);
-                extentReports.CreateLog("Page with title : " + titleConfirm + " is displayed upon clicking the Email button ");
-
-                //Validate Milestone dropdown and its values
-                string lblMilestone = counterparty.ValidateMilestoneDropdown();
-                Assert.AreEqual("Milestone", lblMilestone);
-                extentReports.CreateLog("Fild with name : " + lblMilestone + " is displayed ");
-
-                Assert.IsTrue(counterparty.ValidateMilestoneValues(), "Verified that displayed Milestone values are same");
-                extentReports.CreateLog("Displayed Milestone values are correct ");
-
-                //Validate Milestone dropdown and its values
-                string lblTemplate = counterparty.ValidateTemplateDropdown();
-                Assert.AreEqual("Template", lblTemplate);
-                extentReports.CreateLog("Field with name : " + lblTemplate + " is displayed ");
-
-                Assert.IsTrue(counterparty.ValidateTemplateValues(), "Verified that displayed Template values are same");
-                extentReports.CreateLog("Displayed Template values are correct ");
+               
 
                 usersLogin.LightningLogout();
                 driver.Quit();

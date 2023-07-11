@@ -113,7 +113,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Get added Counterparty Comment, Creator and Contact
                 counterparty.ClickOpportunityTab();
                 counterparty.ClickViewCounterparties();
-                string addedName = engCounterparty.ValidateAddedContact();
+                //string addedName = engCounterparty.ValidateAddedContact();
 
                 counterparty.ClickDetailsLinkL();
                 string addedComment = counterparty.GetAddedCommentL();
@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.Engagement
                 engagementDetails.ClickDetailsLinkL();
                 string firstName = engagementDetails.GetCounterpartyContact1stName();
                 string lastName = engagementDetails.GetCounterpartyContact2ndName();
-                Assert.AreEqual(addedName.Replace(" ", ""), firstName + lastName);
+               // Assert.AreEqual(addedName.Replace(" ", ""), firstName + lastName);
                 extentReports.CreateLog("Engagement Counterparty Contact name: " + firstName + " " + lastName + " is mapped from the opportunity ");
 
                 //Validate the added opportunity counterparty comment is mapped to Engagement

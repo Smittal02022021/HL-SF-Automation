@@ -340,16 +340,16 @@ namespace SF_Automation.Pages
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
         By valClientOwnershipAfter = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
-        By lnkEditPrimaryOffice = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditPrimaryOffice = By.XPath("//button[@title='Edit Primary Office']");
         By valPrimaryOfficeBefore = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By btnPO = By.XPath("//label[text()='Primary Office']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
-        By valPOAfter = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valPOAfter = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Primary_Office__c']/div[1]/div[2]/span/slot/lightning-formatted-text");
         By tabFees = By.XPath("//a[text()='Fees & Financials']");
         By secEstimatedFees = By.XPath("//span[text()='Estimated Fees']");
         By secFeeNotes = By.XPath("//span[text()='Fees Notes & Description']");
         By secFunds = By.XPath("//span[text()='Funds & Financials']");
-        By lnkEditCurrency = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By valCurrencyBefore = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
+        By lnkEditCurrency = By.XPath("//button[@title='Edit Currency']");
+        By valCurrencyBefore = By.XPath("//button[@data-value='GBP - British Pound']/span");
         By btnCurrency = By.XPath("//label[text()='Currency']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
         By valCurrencyAfter = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
@@ -377,10 +377,10 @@ namespace SF_Automation.Pages
 
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
-        By lnkEditRefType = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditRefType = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
         By valRefTypeBefore = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div[1]/div/button");
-        By valRefTypeAfter = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valRefTypeAfter = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
 
         By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
@@ -388,7 +388,7 @@ namespace SF_Automation.Pages
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegalMatters = By.XPath("//a[text()='Legal Matters']");
         By subTabConflictsCheck = By.XPath("//a[text()='Conflicts Check']");
-        By lnkEditBeneficial = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditBeneficial = By.XPath("//slot/flexipage-tab2[6]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
         By lnkEditConfAgreement = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
 
 
@@ -3236,7 +3236,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabAdmin, 150);
             driver.FindElement(tabAdmin).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditPrimaryOffice, 150);
             driver.FindElement(lnkEditPrimaryOffice).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
@@ -3308,7 +3308,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate if Fees & Financials tab is editable after clicking pencil icon
         public string ValidateFeesAndFinancialsTabIsEditable()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency, 150);
             driver.FindElement(lnkEditCurrency).Click();
             Thread.Sleep(3000);
@@ -3582,12 +3582,12 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Validate if Client/Subject and Referral tab is editable after clicking pencil icon
         public string ValidateClientSubjectRefTabIsEditable()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(secReferralInfo).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditRefType, 150);
             driver.FindElement(lnkEditRefType).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
             return value;

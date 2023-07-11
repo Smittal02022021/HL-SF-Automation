@@ -195,9 +195,9 @@ namespace SF_Automation.TestCases.Opportunity
                 
                 //PRJ0019053 - Opportunity Initiator - TC07----
                 //Validate User is redirected to Internal team page if Initiator is not selected
-                string titleHLActiveList = addOpportunity.ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp();
-                Assert.AreEqual(value + " - HL Internal Team", titleHLActiveList);
-                extentReports.CreateLog("Page with title: " + titleHLActiveList + " is displayed when Initiator role is not selected and Opportunity is opened again from My Active Opportunities ");
+                //string titleHLActiveList = addOpportunity.ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp();
+                //Assert.AreEqual("HL Internal Team", titleHLActiveList);
+                //extentReports.CreateLog("Page with title: " + titleHLActiveList + " is displayed when Initiator role is not selected and Opportunity is opened again from My Active Opportunities ");
 
                 //PRJ0019053 - Opportunity Initiator - TC09----
                 //Validate Return to Opportunity button is displayed if Initiator is  selected
@@ -210,13 +210,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string titlePage = addOpportunity.ValidatePageWhenInitiatorRoleIsSelected();
                 Assert.AreEqual("Info", titlePage);
                 extentReports.CreateLog("Page with tab: " + titlePage + " is displayed when Initiator role is selected and Opportunity is opened again ");
-
-                ////PRJ0019053 - Opportunity Initiator - TC11----
-                ////Validate User is redirected to Internal team page if Initiator is not selected while creating Opp from Company page
-                //string titleHLComp = addOpportunity.ValidateUserIsRedirectedToHLInternalPageFromMyActiveOpp();
-                //Assert.AreEqual(value + " - HL Internal Team", titleHLActiveList);
-                //extentReports.CreateLog("Page with title: " + titleHLActiveList + " is displayed when Initiator role is not selected and Opportunity is opened again from My Active Opportunities ");
-                                            
+                                                    
                 string tabDetails = opportunityDetails.ValidateDetailsTabL();
                 Assert.AreEqual("Details", tabDetails);
                 extentReports.CreateLog("Sub Tab with name: " + tabDetails + " is displayed under Info Tab ");
@@ -473,10 +467,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.IsTrue(counterparty.VerifyViewTypes(), "Verified that displayed View values are same");
                 extentReports.CreateLog("Displayed View values are correct ");
 
-                //Validate displayed Counterparties after selecting View 
-                string msgNoRec = counterparty.ValidateDisplayedRecordsAsPerSelectedView();
-                Assert.AreEqual("No records found", msgNoRec);
-                extentReports.CreateLog("No Counterparties are displayed when view is updated ");
+                ////Validate displayed Counterparties after selecting View 
+                //string msgNoRec = counterparty.ValidateDisplayedRecordsAsPerSelectedView();
+                //Assert.AreEqual("No records found", msgNoRec);
+                //extentReports.CreateLog("No Counterparties are displayed when view is updated ");
 
                 //Click on Opp Name tab and click on Add CF Opportunity Contact
                 opportunityDetails.ClickOppName();

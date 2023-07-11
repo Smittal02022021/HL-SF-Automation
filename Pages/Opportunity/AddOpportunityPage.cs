@@ -91,8 +91,8 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By btnOppNavigation = By.XPath("//div/button[@aria-label='Show Navigation Menu']");
-
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valRec3rd = By.XPath("//table/tbody/tr[5]/th/span/a");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
@@ -601,12 +601,12 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[1]/div/ul/li[5]")).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
-            driver.FindElement(valRec1st).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec3rd, 240);
+            driver.FindElement(valRec3rd).Click();
             Thread.Sleep(8000);            
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 250);
-            string title = driver.FindElement(titleHLIntTeam).Text;
+            string title = driver.FindElement(titleHLIntTeam).Text.Substring(17,16);
             return title;
         }
 
@@ -614,7 +614,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         //Validate Return To Opp button is dislayed if Initiator is selected
         public string ValidateReturnToOppButtonWhenInitiatorIsSelected()
         {           
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkEditIniatiator, 350);
             driver.FindElement(checkEditIniatiator).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDealTeam, 350);

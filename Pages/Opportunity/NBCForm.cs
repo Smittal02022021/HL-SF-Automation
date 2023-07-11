@@ -26,7 +26,7 @@ namespace SF_Automation.Pages.Opportunity
         By valprimaryIG = By.XPath("//records-highlights-details-item[6]/div/p[2]/slot/records-formula-output/slot/lightning-formatted-text");
 
         By valOppName = By.XPath("//div[2]/h1/slot/records-formula-output/slot/lightning-formatted-text");
-        By lnkEditReviewSub = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditReviewSub = By.XPath("//button[@title=\"Edit Review Submission\"]/span[1]");
         By lnkEditReviewSub2nd = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By lnkEditFeedback = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By btnSubmit = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
@@ -3316,7 +3316,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtMinFeeMM).SendKeys("230");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 180);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             double MinFee = (Convert.ToDouble((driver.FindElement(valMinFee).Text).Substring(4, 6)));
             Console.WriteLine("MinFee: " + MinFee.ToString("0.00"));
             return MinFee.ToString("0.00");
@@ -3335,7 +3335,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 180);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             double MinFee = (Convert.ToDouble((driver.FindElement(valMinFee).Text).Substring(4, 3)));
             Console.WriteLine("MinFee: " + MinFee.ToString("0.00"));
             return MinFee.ToString("0.00");
@@ -3372,7 +3372,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtMinFeeMM).Clear();
             driver.FindElement(txtBaseFee).SendKeys("10");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valBaseFee).Text;
             return value;           
         }
@@ -3453,7 +3453,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt4thRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt4thRatchetToAmount).SendKeys("50");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             driver.FindElement(btnClose).Click();
             string message = driver.FindElement(msg1stRatchetGreaterToAmount).Text;
             return message;
@@ -3524,7 +3524,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEstTxnVal).Clear();
             driver.FindElement(txtEstTxnVal).SendKeys(value);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string estValue = driver.FindElement(valEstTxnVal).Text;
             return estValue.Substring(4,5);
         }

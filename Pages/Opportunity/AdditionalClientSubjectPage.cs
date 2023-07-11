@@ -154,15 +154,15 @@ namespace SF_Automation.Pages
         By valColumnDebtHoldings = By.XPath("//table/thead/tr/td[7]/div/div");
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
-        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-138']");
+        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-151']");
         By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-192']");
-        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-159']");
-        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-209']");
+        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-172']");
+        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-222']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-230']");
-        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-230']");
-        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-278']");
+        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-243']");
+        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-291']");
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
-        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-299']");
+        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-312']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
         By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
         By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
@@ -447,7 +447,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSave).Click();
-
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }

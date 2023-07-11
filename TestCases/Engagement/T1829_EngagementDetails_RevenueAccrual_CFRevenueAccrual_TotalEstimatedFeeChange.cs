@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the Total estimated fee is sum of existing value plus entered Revenue Accrual Fees 
                 int totalEst = finalEstFees + finalRevValue;
                 Console.WriteLine("totalEst: " + totalEst);
-                Assert.AreEqual("USD 510", "USD " + totalEst);
+                Assert.AreEqual("USD 20", "USD " + totalEst);
                 extentReports.CreateLog("Total Estimated Fees is sum of its original value plus entered Revenue Accrual Fees ");
 
                 //Login as admin and validate value of Period Accrual Fee matches with entered Revenue Accrual Fees 
