@@ -67,9 +67,10 @@ namespace SF_Automation.Pages.Engagement
         By valUpdView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
         By selectedView = By.XPath("//div[2]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
-        By tblCounterparty = By.XPath("//c-counter-party-edit/div/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div");
+       By tblCounterparty = By.XPath("//lst-customized-datatable/div[2]/div/div/table/tbody");
         By chkCounterparty = By.XPath("//tr/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnEmail = By.XPath("//button[text()='Email']");
+        By btnNewViewAll = By.XPath("//button[@name='New']");
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
         By lblMilestone = By.XPath("//label[text()='Milestone']");
         By btnMilestone = By.XPath("//button[@aria-label=\"Milestone, Select an Option\"]");
@@ -89,12 +90,16 @@ namespace SF_Automation.Pages.Engagement
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
-
+        By btnEditViewAll = By.XPath("//li/div/div/div/div/a");
+        By lnkEditViewAll = By.XPath("//ul/li/a[@title='Edit']");
+        By lnkDeleteViewAll = By.XPath("//ul/li/a[@title='Delete']");
+        
         By btnCancelCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[3]/button");
         By btnDeleteCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[2]/button");
         By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
         By btnEmailCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[8]/button");
         By btnViewAllCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[9]/button");
+        By titleCounterparty = By.XPath("//h1[@class='slds-page-header__title listViewTitle slds-truncate']");
         By valExistingComp = By.XPath("//table/tbody/tr/td[1]/div/div[2]/div[1]");
         By txtSearch = By.XPath("//slot/lightning-input/div/div/input");
         By btnAddCounterparty = By.XPath("//button[text()='Add Counterparties']");
@@ -531,20 +536,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(selectedView).Text;
             return name;
         }
-
-        //Set the default view
-        public string RevertDefaultView()
-        {
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewSellside, 180);
-            driver.FindElement(btnViewSellside).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valBuysideView, 90);
-            driver.FindElement(valBuysideView).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, selectedView, 80);
-            string name = driver.FindElement(selectedView).Text;
-            return name;
-        }
+       
 
         //Validate the displayed records
         public string ValidateCounterpartyRecords()
@@ -554,15 +546,38 @@ namespace SF_Automation.Pages.Engagement
             Console.WriteLine(value);
             if (value.Equals("True"))
             {
-                string message = driver.FindElement(tblCounterparty).Text;
-                return message;
+                return "Counterparty records are displayed";
             }
             else
             {
-                return "Counterparty records are displayed";
+                return "Counterparty records are not displayed";
             }
         }
 
+        //Validate New  button on View all page
+        public string ValidateViewAllNewButton()      
+        {        
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewViewAll, 180);
+            string name = driver.FindElement(btnNewViewAll).Text;
+            return name;
+        }
+
+        //Validate the edit link on View All page
+        public string ValidateEditLinkOnViewAll()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditViewAll, 180);
+            driver.FindElement(btnEditViewAll).Click();
+            Thread.Sleep(4000);
+            string name = driver.FindElement(lnkEditViewAll).Text;
+            return name;
+        }
+
+        //Validate the delete link on View All page
+        public string ValidateDeleteLinkOnViewAll()
+        {            
+            string name = driver.FindElement(lnkDeleteViewAll).Text;
+            return name;
+        }
 
         //Select the counterparty and click the email button
         public string SelectCounterpartyAndClickEmailButton()
@@ -691,6 +706,16 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 150);
             string value = driver.FindElement(btnDeleteCounterparty).Text;
+            return value;
+        }
+
+        //Validate View All functionality
+        public string ValidateViewAllFunctionality()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCounterparty, 150);
+            driver.FindElement(btnViewAllCounterparty).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(titleCounterparty).Text;
             return value;
         }
 
@@ -1116,109 +1141,9 @@ namespace SF_Automation.Pages.Engagement
                 return "2nd company does not exist";
             }
         }
-
-        //Click Edit Bids button
-        public void ClickEditBidsButton()
-        {
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditBids, 250);
-            driver.FindElement(btnEditBids).Click();
-        }
-
-        //Click New Bid Round button
-        public void ClickNewBidRoundAndSelectFirstRound()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBidRound, 150);
-            driver.FindElement(btnNewBidRound).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 250);
-            driver.FindElement(btnSelectNewRound).Click();
-            driver.FindElement(valSelectNewRound).Click();
-        }
-
-        //Validate Company Name Column
-        public string ValidateCompanyName()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCompName, 150);
-            string name = driver.FindElement(lblCompName).Text;
-            return name;
-        }
-
-        //Validate Min Bid Column
-        public string ValidateMinBid()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 150);
-            string name = driver.FindElement(lblMinBid).Text;
-            return name;
-        }
-
-        //Validate Max Bid Column
-        public string ValidateMaxBid()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblMaxBid, 150);
-            string name = driver.FindElement(lblMaxBid).Text;
-            return name;
-        }
-
-        //Validate Equity Column
-        public string ValidateEquity()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblEquity, 150);
-            string name = driver.FindElement(lblEquity).Text;
-            return name;
-        }
-
-        //Validate Debt Column
-        public string ValidateDebt()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblDebt, 150);
-            string name = driver.FindElement(lblDebt).Text;
-            return name;
-        }
-
-        //Validate Bid Date Column
-        public string ValidateBidDate()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblBidDate, 150);
-            string name = driver.FindElement(lblBidDate).Text;
-            return name;
-        }
-
-        //Validate Comments Column
-        public string ValidateComments()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblComments, 150);
-            string name = driver.FindElement(lblComments).Text;
-            return name;
-        }
-
-        //Enter the details of the columns and save it
-        public void SaveAllDetailsOfBid()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtMinBid, 250);
-            driver.FindElement(txtMinBid).SendKeys("10");
-            driver.FindElement(lblMinBid).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkMaxBid, 250);
-            driver.FindElement(lnkMaxBid).Click();
-            driver.FindElement(txtMinBid).SendKeys("10");
-            driver.FindElement(lblMaxBid).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEquity, 250);
-            driver.FindElement(lnkEquity).Click();
-            driver.FindElement(txtEquity).SendKeys("10");
-            driver.FindElement(lblEquity).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkDebt, 250);
-            driver.FindElement(lnkDebt).Click();
-            driver.FindElement(txtEquity).SendKeys("10");
-            driver.FindElement(lblEquity).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkBidDate, 250);
-            driver.FindElement(lnkBidDate).Click();
-            driver.FindElement(txtBidDate).SendKeys("30-Nov-2022");
-            driver.FindElement(lblEquity).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 250);
-            driver.FindElement(lnkComments).Click();
-            driver.FindElement(txtComments).SendKeys("Testing");
-            driver.FindElement(lblEquity).Click();
-            driver.FindElement(btnSaveBid).Click();
-        }
+   
+           
+      
 
         //Check Mass checkbox
         public void ClickMassCheckbox()
@@ -1382,15 +1307,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        //Enter all the values for available columns and click Save button
-        public void ValidateDeleteFunctonalityAfterEnteringValuesForAllColumns()
-        {
-            Thread.Sleep(5000);
-            driver.FindElement(btnDeleteCounterparty).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteConfirm, 90);
-            driver.FindElement(btnDeleteConfirm).Click();
-        }
+       
     }
 
 }

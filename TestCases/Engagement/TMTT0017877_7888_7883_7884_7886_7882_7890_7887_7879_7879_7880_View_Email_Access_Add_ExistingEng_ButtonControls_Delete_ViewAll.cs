@@ -177,6 +177,27 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(addedCompCounterparty, company);
                 extentReports.CreateLog("Company - " +company+ " of added counterparty contact is displayed ");
 
+                //TC06_Validate View all functionality
+                string pageViewAll = counterparty.ValidateViewAllFunctionality();
+                Assert.AreEqual("Counterparties", pageViewAll);
+                extentReports.CreateLog("Page with title - " + pageViewAll + " is displayed upon clicking View All button ");
+
+                string tblCounterparties = counterparty.ValidateCounterpartyRecords();
+                Assert.AreEqual("Counterparty records are displayed", tblCounterparties);
+                extentReports.CreateLog("Existing counterparties are displayed ");
+
+                string newViewAll = counterparty.ValidateViewAllNewButton();
+                Assert.AreEqual("New", newViewAll);
+                extentReports.CreateLog("Button with name:- "+newViewAll + " is displayed ");
+
+                string editViewAll = counterparty.ValidateEditLinkOnViewAll();
+                Assert.AreEqual("Edit", editViewAll);
+                extentReports.CreateLog("Link - " + editViewAll + " is displayed to update counterparty details ");
+
+                string deleteViewAll = counterparty.ValidateDeleteLinkOnViewAll();
+                Assert.AreEqual("Delete", deleteViewAll);
+                extentReports.CreateLog("Link - " + deleteViewAll + " is displayed to delete added counterparty ");
+
                 //TC05__Validate delete functionality
                 string confirmMessage = counterparty.SelectAnyRecordAndClickDelete();
                 Assert.AreEqual("Are you sure you want to delete the selected rows ?", confirmMessage);

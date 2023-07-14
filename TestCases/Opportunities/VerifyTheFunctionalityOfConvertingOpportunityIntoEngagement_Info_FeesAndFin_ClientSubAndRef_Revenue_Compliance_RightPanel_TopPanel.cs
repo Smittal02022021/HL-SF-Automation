@@ -187,6 +187,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string clientComp = engagementDetails.GetClientCompanyL();
                 string subjectComp = engagementDetails.GetSubjectCompanyL();
+                Console.Write(clientComp);
                 string engNum = engagementDetails.GetEngNumL();
                 Assert.AreEqual(valClient, clientComp);
                 Assert.AreEqual(valSubject, subjectComp);
