@@ -58,10 +58,21 @@ namespace SF_Automation.Pages.Engagement
         By valContact = By.XPath("//tr[1]/th/lightning-primitive-cell-factory/span/div/lightning-formatted-url/a");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
+        By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
+       
+
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
         By lnkCompCounterparty = By.XPath("//a[@title='Ahana Cloud']");
-        By valAddedContact = By.XPath("//p[text()='salmaan.jaffery@difc.ae']");
-
+        By txtCPComments = By.XPath("//textarea[@name='Comment__c']");
+        By btnSaveCPComment = By.XPath("//button[@type='submit']");
+        By valAddedCPComment = By.XPath("//h3/lst-template-list-field/lightning-base-formatted-text");
+        By valCPCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[1]/lst-template-list-field/lst-formatted-text");
+        By valCPCommentCreator = By.XPath("//dt[text()='Creator:']/ancestor::dl/dd[2]/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span");
+        By valCPCommentCreatedDate = By.XPath("//dt[text()='Created Date:']/ancestor::dl/dd[3]/lst-template-list-field/lightning-formatted-date-time");
+        By btnEditCounterpartyComment = By.XPath("//lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
+        By lnkDeleteCounterpartyComment = By.XPath("//li[2]/a[@title='Delete']");
+        By btnDeleteCounterpartyComment = By.XPath("//span[text()='Delete']");
+        By valPostDeleteCounterpartyComment = By.XPath("//span[@title='Engagement Counterparty Comments']/ancestor::a/span[@title='(0)']");
         By btnView = By.XPath("//button[@data-value='Buyside Stages']");
         By btnViewSellside = By.XPath("//button[@data-value='Sellside Stages']");
         By valUpdView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
@@ -90,7 +101,7 @@ namespace SF_Automation.Pages.Engagement
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
-        By btnEditViewAll = By.XPath("//li/div/div/div/div/a");
+        By btnEditViewAll = By.XPath("//td[9]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By lnkEditViewAll = By.XPath("//ul/li/a[@title='Edit']");
         By lnkDeleteViewAll = By.XPath("//ul/li/a[@title='Delete']");
         
@@ -168,7 +179,6 @@ namespace SF_Automation.Pages.Engagement
         By txtEquity = By.XPath("//input[@name='dt-inline-edit-number']");
         By txtMinBid = By.XPath("//input[@name='dt-inline-edit-currency']");
         By txtBidDate = By.XPath("//input[@name='dt-inline-edit-dateLocal']");
-        By txtComments = By.XPath("//input[@name='dt-inline-edit-text']");
         By btnSaveBid = By.XPath("//lightning-primitive-datatable-status-bar/div/div/button[2]");
         By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
         By valAddedCompany = By.XPath("//records-record-layout-row[2]/slot/records-record-layout-item[1]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
@@ -456,7 +466,7 @@ namespace SF_Automation.Pages.Engagement
         //Add Contact 
         public string AddContact()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(12000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkContact, 180);
             driver.FindElement(chkContact).Click();
             string name = driver.FindElement(valContact).Text;
@@ -1070,10 +1080,63 @@ namespace SF_Automation.Pages.Engagement
             string text = driver.FindElement(msgSelectRecord).Text;
             return text;
         }
+        //Validate Engageemnt CP Comment
+        public string ValidateEngCPComment()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 90);
+            driver.FindElement(tabCounterpartyEditor).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(7000);
+            driver.FindElement(txtCPComments).SendKeys("Testing");
+            driver.FindElement(btnSaveCPComment).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCPComment, 90);
+            string name = driver.FindElement(valAddedCPComment).Text;
+            return name;
+        }
 
-        //Select any record and then click Delete button
+        public string GetCPCommentType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCPCommentType, 90);
+            string name = driver.FindElement(valCPCommentType).Text;
+            return name;
+            
+        }
+
+        public string GetCPCommentCreator()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCPCommentCreator, 90);
+            string name = driver.FindElement(valCPCommentCreator).Text;
+            return name;
+
+        }
+
+        public string GetCPCommentCreatedDate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCPCommentCreatedDate, 90);
+            string name = driver.FindElement(valCPCommentCreatedDate).Text;
+            return name;
+
+        }
+        //Deleted added counterparty comment
+        public string DeleteEngCounterpartyComment()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditCounterpartyComment);
+            driver.FindElement(btnEditCounterpartyComment).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDeleteCounterpartyComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterpartyComment,120);
+            driver.FindElement(btnDeleteCounterpartyComment).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valPostDeleteCounterpartyComment).Text;
+            return value;
+                    }
+        //Add Engagement Counterparty Contact
         public string SelectAnyRecordAndClickDelete()
         {
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 150);
             driver.FindElement(btnDeleteCounterparty).Click();

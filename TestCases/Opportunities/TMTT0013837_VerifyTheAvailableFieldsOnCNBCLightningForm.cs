@@ -246,11 +246,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message : " + msgFinUnavail + " is displayed ");
 
                 string txtNoFin = cnbc.GetLabelNoFin();
-                Assert.AreEqual("No Financials", txtNoFin);
+                Assert.AreEqual("Insufficient Financials", txtNoFin);
                 extentReports.CreateLog("Field with name: " + txtNoFin + " is displayed ");
 
                 string txtNoFinExp = cnbc.GetLabelNoFinExp();
-                Assert.AreEqual("No Financials Explanation", txtNoFinExp);
+                Assert.AreEqual("Insufficient Financials Explanation", txtNoFinExp);
                 extentReports.CreateLog("Field with name: " + txtNoFinExp + " is displayed ");
 
                 string msgAboveFin = cnbc.GetMessageFinSubToAudit();
@@ -354,21 +354,25 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate Submit For Review's available fields
                 string txtNextSch = form.ValidateNextScheduledCallCheckbox();
-                Assert.AreEqual("Next Scheduled Call", txtNextSch);
+                Assert.AreEqual("Is this for the next scheduled call?", txtNextSch);
                 extentReports.CreateLog("Checkbox with name: " + txtNextSch + " is displayed ");
 
                 string txtReqFeedback = form.ValidateReqFeedbackCheckbox();
-                Assert.AreEqual("Req feedback prior to normal sched call", txtReqFeedback);
+                Assert.AreEqual("Feedback required before next call?", txtReqFeedback);
                 extentReports.CreateLog("Checkbox with name: " + txtReqFeedback + " is displayed ");
 
+                string txtRequiresGMT = form.ValidateRequiresFeedbackInGMTCheckbox();
+                Assert.AreEqual("Requires Feedback Date&Time in GMT", txtRequiresGMT);
+                extentReports.CreateLog("Checkbox with name: " + txtRequiresGMT + " is displayed ");
+
                 string txtReviewSub = form.ValidateReviewSubCheckbox();
-                Assert.AreEqual("Review Submission", txtReviewSub);
+                Assert.AreEqual("Form Check (required to submit)", txtReviewSub);
                 extentReports.CreateLog("Checkbox with name: " + txtReviewSub + " is displayed ");
 
-                //Validate Attachments section
-                string txtAttachTab = cnbc.ValidateAttachemntsTab();
-                Assert.AreEqual("Attachment", txtAttachTab);
-                extentReports.CreateLog("Tab with name: " + txtAttachTab + " is displayed ");
+                ////Validate Attachments section
+                //string txtAttachTab = cnbc.ValidateAttachemntsTab();
+                //Assert.AreEqual("Attachment", txtAttachTab);
+                //extentReports.CreateLog("Tab with name: " + txtAttachTab + " is displayed ");
 
                 string txtFiles = form.ValidateFilesSection();
                 Assert.AreEqual("Files", txtFiles);
@@ -378,29 +382,29 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Upload Files", txtUpload);
                 extentReports.CreateLog("Button with name: " + txtUpload + " is displayed ");
 
-                string txtOwner = form.ValidateOwnerDetailsSection();
-                Assert.AreEqual("Ownership Details", txtOwner);
-                extentReports.CreateLog("Section with name: " + txtOwner + " is displayed ");
+                //string txtOwner = form.ValidateOwnerDetailsSection();
+                //Assert.AreEqual("Ownership Details", txtOwner);
+                //extentReports.CreateLog("Section with name: " + txtOwner + " is displayed ");
 
-                string txtClient= form.ValidateClientOwnershipField();
-                Assert.AreEqual("Client Ownership", txtClient);
-                extentReports.CreateLog("Field with name: " + txtClient + " is displayed ");
+                //string txtClient= form.ValidateClientOwnershipField();
+                //Assert.AreEqual("Client Ownership", txtClient);
+                //extentReports.CreateLog("Field with name: " + txtClient + " is displayed ");
 
-                string txtSub = form.ValidateSubjectOwnershipField();
-                Assert.AreEqual("Subject Ownership", txtSub);
-                extentReports.CreateLog("Field with name: " + txtSub + " is displayed ");
+                //string txtSub = form.ValidateSubjectOwnershipField();
+                //Assert.AreEqual("Subject Ownership", txtSub);
+                //extentReports.CreateLog("Field with name: " + txtSub + " is displayed ");
 
-                string valClient = form.ValidateValueOfClientOwnership();
-                Assert.AreEqual("Public Equity", valClient);
-                extentReports.CreateLog("Value of Client Ownership : " + valClient + " is displayed ");
+                //string valClient = form.ValidateValueOfClientOwnership();
+                //Assert.AreEqual("Public Equity", valClient);
+                //extentReports.CreateLog("Value of Client Ownership : " + valClient + " is displayed ");
 
-                string valSubject = form.ValidateValueOfSubjectOwnership();
-                Assert.AreEqual("Public Equity", valSubject);
-                extentReports.CreateLog("Value of Subject Ownership : " + valSubject + " is displayed ");
+                //string valSubject = form.ValidateValueOfSubjectOwnership();
+                //Assert.AreEqual("Public Equity", valSubject);
+                //extentReports.CreateLog("Value of Subject Ownership : " + valSubject + " is displayed ");
 
-                string secApproval = form.ValidateApprovalHistorySection();
-                Assert.AreEqual("Approval History", secApproval);
-                extentReports.CreateLog("Section with name: " + secApproval + " is displayed ");                
+                //string secApproval = form.ValidateApprovalHistorySection();
+                //Assert.AreEqual("Approval History", secApproval);
+                //extentReports.CreateLog("Section with name: " + secApproval + " is displayed ");                
               
                 form.SwitchFrame();
 

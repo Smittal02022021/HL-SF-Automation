@@ -5,6 +5,7 @@ using SF_Automation.Pages.Engagement;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -123,7 +124,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Search", txtSearch);
                 extentReports.CreateLog("Text box with name : " + txtSearch + " is displayed on Counterparty Details page ");
 
-                //TC_04_Validate Email functionality
+                //TC_04 and TC_07_Validate Email functionality
                 //Add Contact and Valdiate the same
                 string titleContact = engagementDetails.ClickEngCounterpartyButton();
                 Assert.AreEqual("Engagement Counterparty Contact Search", titleContact);
@@ -197,6 +198,22 @@ namespace SF_Automation.TestCases.Engagement
                 string deleteViewAll = counterparty.ValidateDeleteLinkOnViewAll();
                 Assert.AreEqual("Delete", deleteViewAll);
                 extentReports.CreateLog("Link - " + deleteViewAll + " is displayed to delete added counterparty ");
+
+                //TC_08__Validate Engagement CP Comment functionality
+                string addedComment = counterparty.ValidateEngCPComment();
+                Assert.AreEqual("Testing", addedComment);
+                string addedCommentType = counterparty.GetCPCommentType();
+                Assert.AreEqual("Internal", addedCommentType);
+                string addedCommentCreator = counterparty.GetCPCommentCreator();
+                Assert.AreEqual(valUser, addedCommentCreator);
+                string addedCommentCreatedDate = counterparty.GetCPCommentCreatedDate();
+                Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), addedCommentCreatedDate);
+                extentReports.CreateLog("Added comments - " + addedComment + " of Type: " + addedCommentType+ " by User: "+ addedCommentCreator+ " along with Date: " + addedCommentCreatedDate+ " is displayed in Engagement Counterparty Comments section ");
+
+                //Delete added comments before deleting counterparty
+                string valComment =counterparty.DeleteEngCounterpartyComment();
+                Assert.AreEqual("(0)", valComment);
+                extentReports.CreateLog("Added counterparty comments have been delete successfully. ");
 
                 //TC05__Validate delete functionality
                 string confirmMessage = counterparty.SelectAnyRecordAndClickDelete();

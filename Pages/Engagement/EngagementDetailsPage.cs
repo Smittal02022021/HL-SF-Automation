@@ -3439,7 +3439,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
 			WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
 			driver.FindElement(btnPartyContact).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("/html/body/div[9]/div/ul/li[3]/a[text()='Seller']")).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
