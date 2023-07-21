@@ -16,6 +16,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tableRateSheet = By.XPath("//table[@class='x-grid3-row-table']/tbody/tr");
         By linkFilterByLetterT = By.XPath("//a[@class='listItem']/span[text()='T']");
         By tabRateSheetManagement = By.CssSelector("li[id*='ratesheet'] > a");
+      
         By comboEngagement = By.CssSelector("select[class*='engagementPicker']");
         By comboEngagementOptions = By.CssSelector("select[class*='engagementPicker'] > option[value*='13aH7IQAU']");
         By comboSelectRateSheet = By.XPath("//div[contains(text(),'Add Record')]/following::div/div/div/select");
@@ -35,6 +36,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         By rateOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[contains(@class,'dataCol')]//div");
         By viewGoButton = By.Name("go");
         By nameRateSheetDetailPage = By.CssSelector(".content > h2");
+       
+        By tabStaffTimeSheet = By.CssSelector("li[id*='staff'] > a");
 
         //private By rateSheetName(String rateSheetname)
         //{
@@ -182,7 +185,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             catch (Exception e)
             {
-                driver.Navigate().Refresh();
+                driver.FindElement(tabStaffTimeSheet).Click(); 
                 Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
                 driver.FindElement(tabRateSheetManagement).Click();

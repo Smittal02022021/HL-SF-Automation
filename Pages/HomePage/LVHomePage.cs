@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -103,9 +104,20 @@ namespace SF_Automation.Pages.HomePage
 
         public void UserLogoutFromSFLightningView()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 140);
-            driver.FindElement(linkLogout).Click();
-            Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                driver.FindElement(linkLogout).Click();
+                Thread.Sleep(4000);
+            }
+            catch (Exception ex)
+            {
+                driver.Navigate().Refresh();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                driver.FindElement(linkLogout).Click();
+                Thread.Sleep(4000);
+            }
         }
 
         public void LogoutFromSFLightningAsApprover()

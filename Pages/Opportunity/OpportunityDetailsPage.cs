@@ -246,7 +246,7 @@ namespace SF_Automation.Pages
         By valRecTypeFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>td:nth-child(4)");
         By valRecTypeKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>td:nth-child(4)");
         By comboAdditionalClient = By.CssSelector("select[name*='FmBza']");
-        By txtWomenLed = By.CssSelector("div:nth-child(25)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
+        By txtWomenLed = By.CssSelector("div:nth-child(27)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
         By txtWomenLedFVA = By.CssSelector("div:nth-child(27)>table>tbody>tr:nth-child(3)>td:nth-child(3)");
         By txtWomenLedFR = By.CssSelector("div:nth-child(23)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
@@ -417,8 +417,9 @@ namespace SF_Automation.Pages
         By comboIGOptions = By.CssSelector("select[id*='VT3'] option");
         By valOppERPLastIntStatus = By.CssSelector("div[id*='ffj']");
 
-
-
+        By valReqFieldEng = By.CssSelector("div[class*='message error'] div");
+        By lnkEstimatedClosedDateCF = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(2) > span > span > a");
+        By lnkDateValuation = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -1995,6 +1996,588 @@ namespace SF_Automation.Pages
             driver.FindElement(comboConfAgreement).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 23));
             driver.FindElement(btnSave).Click();
         }
+        /// /////////////////////////////////////////////////////////////////////////////// 
+        public string ValidationForTransactionSizeMarketCapWithContingentFeeValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContingentFee, 20);
+            driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+            driver.FindElement(txtMarketCap).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 50);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForPitchDateFR()
+        {
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(By.CssSelector("input[name*='DwfqC']")).Clear();
+            driver.FindElement(btnSave).Click();
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 50);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+
+        }
+        public string ValidationForMonthlyFee()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkPitchDateFR, 20);
+            driver.FindElement(txtMonthlyFee).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 50);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForContingentFeeWithMonthlyFeeValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMonthlyFee, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
+            driver.FindElement(txtContingentFee).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 50);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForTotalDebtHLWithContingentFeeValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContingentFee, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+            driver.FindElement(txtTotalDebtHL).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForDebtConfirmedWithTotalDebtValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalDebtHL, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtTotalDebtHL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+            driver.FindElement(chkDebtConfirmed).Click();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForClientDescWithDebtConfirmedValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkDebtConfirmed, 20);
+            driver.FindElement(chkDebtConfirmed).Click();
+            driver.FindElement(txtClientDesc).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForLegalAdvisorCompWithClientDescValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClientDesc, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtClientDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+            driver.FindElement(comboLegalAdvisorComp).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+
+        }
+        public string ValidationForLegalAdvisorHLWithLegalAdvisorCompValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLegalAdvisorComp, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(comboLegalAdvisorComp).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30));
+            driver.FindElement(comboLegalAdvisorHL).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+
+        }
+        public string ValidationForEUSecurities(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLegalAdvisorHL, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(comboLegalAdvisorHL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 31));
+            driver.FindElement(comboEUSecurities).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForDateCASignedFR()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEUSecurities, 20);
+            driver.FindElement(comboEUSecurities).SendKeys("No");
+            driver.FindElement(By.CssSelector("input[name*='wmN']")).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForDateCAExpiresFR()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDateCASignedFR, 20);
+            driver.FindElement(lnkDateCASignedFR).Click();
+            driver.FindElement(By.CssSelector("input[name*='wmS']")).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForWomenLedWithLegalAdvisorValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLegalAdvisorHL, 20);
+            driver.FindElement(comboLegalAdvisorHL).SendKeys("Yes");
+            driver.FindElement(comboWomenLed).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForMarketCapWithValuationDateValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(lnkDateValuation).Click();
+            driver.FindElement(txtMarketCap).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForWomenLedWithMarketCapValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMarketCap, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtMarketCap).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
+            driver.FindElement(lnkEstClosedDate).Click();
+            driver.FindElement(comboWomenLed).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForWomenLedWithMarketCapValueCF(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMarketCap, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtMarketCap).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
+            driver.FindElement(comboWomenLed).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForDateEngagedWithWomenLedValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboWomenLed, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(comboWomenLed).SendKeys("No");
+            driver.FindElement(txtDateEngagedCF).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForTombstonePermissionWithDateEngagedValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDateEngaged, 20);
+            driver.FindElement(lnkDateEngaged).Click();
+            driver.FindElement(comboTombstonePermission).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForSICCodeWithTombstonePermissionValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTombstonePermission, 20);
+            driver.FindElement(comboTombstonePermission).SendKeys("No Restrictions");
+            driver.FindElement(txtSICCode).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForEstimatedClosedDateWithDateEngagedValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateEngagedCF, 20);
+            driver.FindElement(txtDateEngagedCF).SendKeys("02/07/2023");
+            driver.FindElement(By.CssSelector("input[name*='LTw']")).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+
+        }
+        public string ValidationForSICCodeWithEstimatedClosedDateValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEstimatedClosedDateFR, 20);
+            driver.FindElement(lnkEstimatedClosedDateFR).Click();
+            driver.FindElement(txtSICCode).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForSICCodeCFWithEstimatedClosedDateValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEstimatedClosedDateCF, 20);
+            driver.FindElement(lnkEstimatedClosedDateCF).Click();
+            driver.FindElement(txtSICCode).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForOppDescWithSICCodeValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSICCode, 20);
+            driver.FindElement(txtSICCode).SendKeys("9999");
+            driver.FindElement(txtOppDesc).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForRetainerWithOppDescValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDesc, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+            driver.FindElement(txtRetainer).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForReferralContactWithRetainerValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRetainer, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtReferralContact).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForConfAgreementWithReferralContactValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReferralContact, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
+            driver.FindElement(comboConfAgreement).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForTotalAnticipatedRevenueWithReferralContactValue(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReferralContact, 80);
+            driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
+            driver.FindElement(txtAnticipatedRevenue).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForTailExpiresWithConfAgreementValue(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboConfAgreement, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(comboConfAgreement).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 23));
+            driver.FindElement(By.CssSelector("input[name*='GAsL3']")).Clear();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForFairnessOpinionComponentWithTrialExpValue()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkTrialExp, 20);
+            driver.FindElement(lnkTrialExp).Click();
+            driver.FindElement(comboFairnessOpinion).SendKeys("--None--");
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+        }
+        public string ValidationForValuationDate()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnRequestEng, 20);
+                driver.FindElement(btnRequestEng).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valReqFieldEng, 20);
+                string validations = driver.FindElement(valReqFieldEng).Text.Replace("\r\n", ", ").ToString();
+                return validations;
+            }
+            catch (Exception ex) { return "Validation not Found"; }
+
+        }
+        public void SaveWithFairnessOpinionComponent()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkTrialExp, 20);
+            driver.FindElement(comboFairnessOpinion).SendKeys("No");
+            driver.FindElement(btnSave).Click();
+        }
+        public void SaveWithConfAgreement(string file)
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReferralContact, 20);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(comboConfAgreement).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 23));
+            driver.FindElement(btnSave).Click();
+        }
+        public void SaveWithDateEngaged()
+        {
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateEngagedCF, 20);
+            driver.FindElement(lnkDateEngaged).Click();
+            driver.FindElement(btnSave).Click();
+        }
+
+        /// ///////////////////////////////////////////////////////////////////////////////
+
+
 
         //To update Client and Subject to company without address details
         public void UpdateClientandSubject(string name)

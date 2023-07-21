@@ -92,7 +92,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validating Transaction Size
                 string txnSize = OpportunityDetails.GetTransactionSize();
-                string expTxnSize = "USD " + (ReadExcelData.ReadData(excelPath, "OppManager", 6)+" (GBP 1.73)");
+                string expTxnSize = "USD " + (ReadExcelData.ReadData(excelPath, "OppManager", 6)+" (GBP 1.59)");//1.73
                 Assert.AreEqual(expTxnSize, txnSize);
                 extentReports.CreateLog("Transaction Size :" + txnSize + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 

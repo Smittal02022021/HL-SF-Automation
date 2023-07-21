@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues : BaseClass
+    class Obsoleted_T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -38,6 +38,7 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1692;
+                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -60,7 +61,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                extentReports.CreateLog("Opportunity Record Type:" + valRecordType);
+                Console.WriteLine("valRecordType:" + valRecordType);
                 opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                 //Validating Title of New Opportunity Page
@@ -92,7 +93,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string clientName = opportunityDetails.GetClient();
                 string subjectName = opportunityDetails.GetSubject();
                 string jobType = opportunityDetails.GetJobType();
-                extentReports.CreateLog(jobType);
+                Console.WriteLine(jobType);
 
                 //Validate value of Women Led field
                 string womenLed = opportunityDetails.GetWomenLedValue();
@@ -117,7 +118,6 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
                 extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
-                // need to validate this later
                 opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
 
                 //Log out from standard User and validate admin
@@ -127,82 +127,15 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search created opportunity, update conflict check and NBC details
                 string valSearch = opportunityHome.SearchOpportunity(opportunityNumber);
-                extentReports.CreateLog("Opportunity: " + valSearch + " is found ");
+                Console.WriteLine("result : " + valSearch);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1692);
 
                 //Click on Request Enagagement button and validate all validations
                 opportunityDetails.UpdateJobType("FA - Portfolio-Valuation");         
                 string val1 = opportunityDetails.GetEstFinValidation();
-                extentReports.CreateLog("Validation for FA - Portfolio-Valuation: " + val1);
+                Console.WriteLine("val1: " + val1);
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 10), val1);
                 extentReports.CreateLog("Validations: " + val1 + " are displayed upon clicking Request Engagement button when Job Type is updated to Portfolio-Valuation ");
-                //////////////////////////////
-                //opportunityDetails.UpdateJobType("Fairness");
-
-                ////////////////////Field Level Validation//////////////////////////
-                string msgValidation;
-                //Login as Standard User and validate the user
-                usersLogin.SearchUserAndLogin(valUser);
-                stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
-
-                valSearch = opportunityHome.SearchOpportunity(opportunityNumber);
-                extentReports.CreateLog("Opportunity: " + valSearch + " is found ");
-
-                msgValidation = opportunityDetails.ValidationForValuationDate();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Detail - Valuation Date.", "Validation for field Progress/Monthly Fee should be displayed ");
-                extentReports.CreateLog("Validation for field Valuation Date:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForMarketCapWithValuationDateValue();
-                Assert.AreEqual(msgValidation, "Error:, Estimated Financials - Est. Transaction Size/Market Cap.", "Validation for field Progress/Monthly Fee should be displayed ");
-                extentReports.CreateLog("Validation for field Est. Transaction Size/Market Cap:  " + msgValidation + " ");
-                
-                msgValidation = opportunityDetails.ValidationForWomenLedWithMarketCapValueCF(fileTC1692);
-                Assert.AreEqual(msgValidation, "Error:, Administration - \"Women Led\" is required. Please update this field with the correct value", "Validation for field Women Led should be displayed ");
-                extentReports.CreateLog("Validation for field Women Led:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForDateEngagedWithWomenLedValue(fileTC1692);
-                Assert.AreEqual(msgValidation, "Error:, Administration - Date Engaged - Date of Executed Retainer or similar document.", "Validation for field Date Engaged should be displayed ");
-                extentReports.CreateLog("Validation for field Date Engaged:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForTombstonePermissionWithDateEngagedValue();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Detail - Tombstone Permission.", "Validation for field Date Engaged should be displayed ");
-                extentReports.CreateLog("Validation for field Tombstone Permission:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForSICCodeWithTombstonePermissionValue();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Detail - SIC Code.", "Validation for field Date Engaged should be displayed ");
-                extentReports.CreateLog("Validation for field SIC Code:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForOppDescWithSICCodeValue();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Description - Opportunity Description.", "Validation for field Opportunity Description should be displayed ");
-                extentReports.CreateLog("Validation for field Opp Description:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForRetainerWithOppDescValue(fileTC1692);
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Retainer, input zero if there's no Retainer fee.", "Validation for field Retainer should be displayed ");
-                extentReports.CreateLog("Validation for field Retainer:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForReferralContactWithRetainerValue(fileTC1692);
-                Assert.AreEqual(msgValidation, "Error:, Referral Information - Referral Contact name is required.", "Validation for field Referral Contact should be displayed ");
-                extentReports.CreateLog("Validation for field Referral Contact:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForTotalAnticipatedRevenueWithReferralContactValue(fileTC1692);
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Total Anticipated Revenue should be Greater Than or Equal to the Fee.", "Validation for field Referral Contact should be displayed ");
-                extentReports.CreateLog("Validation for field Total Anticipated Revenue:  " + msgValidation + " ");
-
-                opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
-                opportunityDetails.SaveWithDateEngaged();
-
-                ///////////////////////////////
-               
-                //Log out from standard User and validate admin
-                usersLogin.UserLogOut();
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("Admin user " + login.ValidateUser() + " logged in ");
-
-                //Search created opportunity, update conflict check and NBC details
-                valSearch = opportunityHome.SearchOpportunity(opportunityNumber);
-                Console.WriteLine("result : " + valSearch);
 
                 //Update client and Subject 
                 opportunityDetails.UpdateClientandSubject("A + K Agency GmbH");

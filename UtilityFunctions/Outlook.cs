@@ -85,23 +85,24 @@ namespace SF_Automation.UtilityFunctions
         public void SelectExpenseApprovalEmailV()
         {
             Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 10);
             //Sandbox: Request for Marketing Expense Approval *Action Required*
             driver.FindElement(searchBox).SendKeys("Sandbox: Request");// 
 
-            //Request for Marketing Expense Approval *Action Required
-            Thread.Sleep(2000);
-            //   driver.FindElement(searchBox).Click();
-            Thread.Sleep(2000);
-            //CustomFunctions.MouseOver(driver, btnSearch);
+            ////Request for Marketing Expense Approval *Action Required
+            //Thread.Sleep(2000);
+            ////   driver.FindElement(searchBox).Click();
+            //Thread.Sleep(2000);
+            ////CustomFunctions.MouseOver(driver, btnSearch);
 
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
-
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 10);
             Thread.Sleep(5000);
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(10000);
 
-
+            WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 20);
 
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
             CustomFunctions.SwitchToWindow(driver, 1);
@@ -266,18 +267,40 @@ namespace SF_Automation.UtilityFunctions
         }
         public void SelectSecondLevelExpenseApprovalEmail()
         {
-            driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
-            Thread.Sleep(1000);
-            //driver.FindElement(btnSearch).Click();
-            driver.FindElement(searchBox).SendKeys(Keys.Enter);
-            Thread.Sleep(3000);
-            IWebElement element = driver.FindElement(recentEmail);
-            element.Click();
-            Thread.Sleep(10000);
-           driver.FindElement(linkSecondLevelReviewSubmission).Click();
-           CustomFunctions.SwitchToWindow(driver, 1);
-
-            Thread.Sleep(10000);
+            try
+            {
+                driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
+                Thread.Sleep(1000);
+                //driver.FindElement(btnSearch).Click();
+                driver.FindElement(searchBox).SendKeys(Keys.Enter);
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 30);
+                IWebElement element = driver.FindElement(recentEmail);
+                element.Click();
+                Thread.Sleep(10000);
+                driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                CustomFunctions.SwitchToWindow(driver, 1);
+                Thread.Sleep(10000);
+            }
+            catch (Exception ex)
+            {
+                driver.Navigate().Refresh();
+                Thread.Sleep(10000);
+                WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 30);
+                driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
+                Thread.Sleep(1000);
+                //driver.FindElement(btnSearch).Click();
+                driver.FindElement(searchBox).SendKeys(Keys.Enter);
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 30);
+                IWebElement element = driver.FindElement(recentEmail);
+                element.Click();
+                Thread.Sleep(10000);
+                driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                CustomFunctions.SwitchToWindow(driver, 1);
+                Thread.Sleep(10000);
+            }
+            
         }
 
         public string GetLabelOfOutlook()

@@ -1424,11 +1424,26 @@ namespace SF_Automation.Pages.Companies
 
         public void CloseCompanyTabL(string name)
          {
-            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");
-            driver.FindElement(buttonCloseTab).Click();
-            Thread.Sleep(4000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(4000);
+            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");            
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, alertDuplicate, 5);
+                driver.FindElement(alertDuplicate).Click();
+                driver.FindElement(buttonCloseTab).Click();
+                Thread.Sleep(4000);
+                driver.Navigate().Refresh();
+                Thread.Sleep(4000);
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(buttonCloseTab).Click();
+                Thread.Sleep(4000);
+                driver.Navigate().Refresh();
+                Thread.Sleep(4000);
+
+            }
+
         }
         public void ClickViewAllOpportunities()
         {
