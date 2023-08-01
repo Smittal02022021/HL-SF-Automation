@@ -117,12 +117,14 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver,lblAddNewActivity,120);
 
             //Enter Activity details
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
             DateTime setDate = currentDate.AddDays(-3);
-            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("dd-MMM-yyyy"));
 
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
@@ -135,7 +137,7 @@ namespace SF_Automation.Pages.Companies
 
             //Enter External Attendee
             driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
 
             //Click Save

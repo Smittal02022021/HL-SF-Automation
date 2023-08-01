@@ -107,13 +107,8 @@ namespace SF_Automation.TestCases.Companies
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");
                 extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");
 
-
-
-                /*
-
-
                 string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
-                lvRecentlyViewCompany.SearchAndNavigateToCompanyDetailFromRecentlyViewedCompaniesListBasedOnView(companyName);
+                lvHomePage.SearchCompanyFromMainSearch(companyName);
                 extentReports.CreateStepLogs("Info", "Company : " + companyName + " detail page is opened. ");
 
                 lvCompanyDetailsPage.NavigateToAParticularTab("Coverage");
@@ -133,7 +128,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(lvHomePage.VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter());
 
                 extentReports.CreateStepLogs("Passed", "A new activity is created and is visible under My Coverage dashboard. ");
-                */
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
