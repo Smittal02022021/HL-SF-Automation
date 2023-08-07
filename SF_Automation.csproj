@@ -768,6 +768,7 @@
     <None Include="packages.config" />
     <None Include="packages\Sikuli4Net.1.0.6\.signature.p7s" />
     <None Include="packages\Sikuli4Net.1.0.6\Sikuli4Net.1.0.6.nupkg" />
+    <None Include="RunSFAutomationScripts.bat" />
     <None Include="TestData\CloneOperation1.xlsx" />
     <None Include="TestData\CNBC_EndToEnd.xlsx" />
     <None Include="TestData\ERPPostCoversionToEngagement.xlsx" />

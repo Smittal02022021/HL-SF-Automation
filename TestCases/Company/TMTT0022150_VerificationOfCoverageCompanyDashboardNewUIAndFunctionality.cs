@@ -16,7 +16,6 @@ namespace SF_Automation.TestCases.Companies
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
-        LV_RecentlyViewedCompaniesPage lvRecentlyViewCompany = new LV_RecentlyViewedCompaniesPage();
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
 
         public static string fileTMTT0022150 = "TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality";
