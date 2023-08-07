@@ -1,3 +1,6 @@
-2023/08/07-17:03:14.578 68b8 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
-2023/08/07-17:03:14.582 68b8 Recovering log #18
-2023/08/07-17:03:14.586 68b8 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/000018.log 
+2023/08/07-17:23:49.688 5a54 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
+2023/08/07-17:23:49.689 5a54 Recovering log #18
+2023/08/07-17:23:49.693 5a54 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/000018.log 
+2023/08/07-17:24:05.282 5a54 Level-0 table #22: started
+2023/08/07-17:24:05.289 5a54 Level-0 table #22: 10922 bytes OK
+2023/08/07-17:24:05.294 5a54 Delete type=0 #18
