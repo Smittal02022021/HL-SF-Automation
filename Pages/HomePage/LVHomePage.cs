@@ -116,6 +116,8 @@ namespace SF_Automation.Pages.HomePage
 
         public void SearchContactFromMainSearch(string name)
         {
+            Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(3000);
@@ -129,7 +131,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath($"//a[@title='{name}']")).Click();
+            driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")).Click();
             Thread.Sleep(5000);
         }
 

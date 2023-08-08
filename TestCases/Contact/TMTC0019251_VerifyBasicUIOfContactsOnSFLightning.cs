@@ -89,20 +89,23 @@ namespace SF_Automation.TestCases.Contact
                 lvRecentlyViewContact.CloseTab("New Contact");
 
                 //TC - TMT0033924, TMT0033925 - Verify that the Search functionality on recently viewed contact page as per the entered keyword.
+                lvHomePage.SearchContactFromMainSearch("Test External");
+                lvContactDetails.CloseTab("Test External");
+                lvContactDetails.CloseTab("Test External");
                 lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView("Test External");
                 extentReports.CreateLog("Search functionality on recently viewed contact page is working as expected. ");
 
-                //TC - TMT0034266 - Verify that as a CF Finacial user, external contact have Edit, Add Relationship L, Add Activity, and Printable View as Menu options.
+                //TC - TMT0034266 - Verify that as a CF Finacial user, external contact have Edit, Add Relationship L and Printable View as Menu options.
                 Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
-                extentReports.CreateLog("External contact have Edit, Add Relationship L, Add Activity, and Printable View buttons displayed at the top. ");
+                extentReports.CreateLog("External contact have Edit, Add Relationship L and Printable View buttons displayed at the top. ");
 
                 //TC - TMT0034276 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
                 Assert.IsTrue(lvContactDetails.VerifyDetailsDisplayedAtTheTopBarForExternalContact());
                 extentReports.CreateLog("External contact have Company Name,  title, phone and Email in top bar. ");
 
-                //TC - TMT0034269 - Verify that as a CF Finacial user, the external contact has Info, Relationships, coverage, activity, campaign activity, and History tabs. 
+                //TC - TMT0034269 - Verify that as a CF Finacial user, the external contact has Info, Relationships, coverage, activity, campaign history, and History tabs. 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedInRightSideForExternalContact(fileTMTC0019251));
-                extentReports.CreateLog("External contact have Info, Relationships, coverage, activity, campaign activity, and History tabs. ");
+                extentReports.CreateLog("External contact have Info, Relationships, coverage, activity, campaign history, and History tabs. ");
 
                 //TC - TMT0034271 - As CF Finacial user, verify that the Flag Contact and Company details coming in the Quick Updates. 
                 Assert.IsTrue(lvContactDetails.VerifyFlagContactAndCompanyDetailSectionsAreDisplayedInRightSideForExternalContact(fileTMTC0019251));

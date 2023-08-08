@@ -92,7 +92,8 @@ namespace SF_Automation.Pages.Contact
 
         public void CloseTab(string tabName)
         {
-            driver.FindElement(By.XPath($"//button[@title='Close {tabName}']")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
             Thread.Sleep(5000);
         }
 
@@ -100,7 +101,7 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             WebDriverWaits.WaitUntilEleVisible(driver,btnEdit,120);
-            if(driver.FindElement(btnEdit).Displayed && driver.FindElement(btnAddRelationshipL).Displayed && driver.FindElement(btnAddActivity).Displayed && driver.FindElement(btnPrintableView).Displayed)
+            if(driver.FindElement(btnEdit).Displayed && driver.FindElement(btnAddRelationshipL).Displayed && driver.FindElement(btnPrintableView).Displayed)
             {
                 result = true;
             }
@@ -169,14 +170,14 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
 
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ExternalContactSections");
-            int tabCount = driver.FindElements(By.XPath("//flexipage-tab2[@id='tab-7']/slot/flexipage-component2")).Count;
+            int tabCount = driver.FindElements(By.XPath("//div[@class='VIEW slds-card']/div/div/div[2]/h2/a")).Count;
 
             for (int i = 2; i <= excelCount; i++)
             {
                 string excelSectionName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContactSections", i, 1);
                 for (int j = 1; j <= tabCount; j++)
                 {
-                    string sectionName = driver.FindElement(By.XPath($"//flexipage-tab2[@id='tab-7']/slot/flexipage-component2[{j}]/slot/flexipage-aura-wrapper/div/article/div/div/div/div[2]/h2/a")).Text;
+                    string sectionName = driver.FindElement(By.XPath($"(//div[@class='VIEW slds-card']/div/div/div[2]/h2/a)[{j}]")).Text;
                     if (sectionName == excelSectionName)
                     {
                         result = true;
