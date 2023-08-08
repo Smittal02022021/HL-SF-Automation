@@ -64,8 +64,8 @@ namespace SF_Automation.Pages.HomePage
         //General
         By linkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
-        By linkContactsInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[8]/lightning-base-combobox-item/span[2]/span");
-        By linkCompaniesInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[7]/lightning-base-combobox-item/span[2]/span");
+        By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
+        By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
 
 
         private By _appInAppLauncher(string appName)

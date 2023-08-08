@@ -598,6 +598,7 @@
     <Compile Include="TestCases\Contact\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\TMTT0013752_ContactDetailsPage_VerifyAvailabilityOfJobCodeFieldAndValue.cs" />
+    <Compile Include="TestCases\Contact\TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage.cs" />
     <Compile Include="TestCases\Contact\TMTT0014212_TMTT0014213_TMTT0014215_Contact_VerifyTheUserIsAbleToAddNewSectorOnTheContactPage.cs" />
     <Compile Include="TestCases\Engagement\T1615_Engagement_ChangeTheStage_POCIsUpdated.cs" />
     <Compile Include="TestCases\Engagement\T1710AndT1422_EngagementCounterpartyDetails_EngagementCounterpartyContact_SaveAndCancelAndAddFromExistingEngagement.cs" />

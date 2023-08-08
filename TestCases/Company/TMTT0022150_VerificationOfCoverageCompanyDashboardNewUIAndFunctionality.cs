@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
-                //Search standard user by global search
+                //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTT0022150, user);
                 extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
 

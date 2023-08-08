@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using SF_Automation.TestCases.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -10,6 +11,9 @@ namespace SF_Automation.Pages.Contact
 {
     class LV_ContactDetailsPage : BaseClass
     {
+        //General elements
+        By txtContactName = By.XPath("//span[@class='custom-truncate uiOutputText']");
+
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
         By btnAddRelationshipL = By.XPath("//button[text()='Add Relationship L']");
@@ -492,6 +496,70 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnSaveEdit).Click();
             Thread.Sleep(5000);
             result = true;
+            return result;
+        }
+
+        public bool VerifyUserLandedOnCorrectContactDetailsPage(string contactName)
+        {
+            bool result=false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 120);
+            string name=driver.FindElement(txtContactName).Text;
+            if(name.Contains(contactName))
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyTheAvailableSectionsUnderRelationshipTreeMapOnContactDetailsPage(string path)
+        {
+            bool result=false;
+
+            Thread.Sleep(5000);
+            int exlRowCount = ReadExcelData.GetRowCount(path, "Sections");
+            for(int i = 1; i<=exlRowCount; i++)
+            {
+                string exlSectionName = ReadExcelData.ReadDataMultipleRows(path, "Sections", i, 1);
+                string sfSectionName = driver.FindElement(By.XPath($"(//span[@class='slds-icon_container slds-m-right_small']/following::span/b)[{i}]")).Text;
+                if(exlSectionName==sfSectionName)
+                {
+                    result=true;
+                }
+                else
+                {
+                    result=false;
+                }
+            }
+            if(result==true)
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//p[@title='Company Name']")).Displayed && driver.FindElement(By.XPath("//p[@title='Company Name']")).Text=="Company Name");
+            }
+            return result;
+        }
+
+        public bool VerifyTheAvailableFieldsUnderContactInformationSectionOnContactDetailsPage(string path)
+        {
+            bool result = false;
+
+            int exlRowCount = ReadExcelData.GetRowCount(path, "ContactInfoFields");
+            for(int i = 1; i <= exlRowCount; i++)
+            {
+                string exlFieldName = ReadExcelData.ReadDataMultipleRows(path, "ContactInfoFields", i, 1);
+                string sfFieldName = driver.FindElement(By.XPath($"(//records-highlights-details-item[@slot='secondaryFields'])[{i}]/div/p[1]")).Text;
+                if(exlFieldName == sfFieldName)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            if (result==true)
+            {
+                Assert.IsTrue(driver.FindElement(By.XPath("//button[@title='Show more Phone Numbers']/p")).Text == "Phone (2)");
+            }
             return result;
         }
     }
