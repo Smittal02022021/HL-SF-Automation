@@ -271,7 +271,6 @@ namespace SF_Automation.Pages.GiftLog
 
         public void ClickApproveGiftsTab()
         {
-            Thread.Sleep(2000);
             driver.FindElement(shwAllTab).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkApproveGifts);
