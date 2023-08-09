@@ -63,18 +63,23 @@ namespace SF_Automation.Pages.Opportunity
         By comboType = By.XPath("//button[@aria-label='Type, --None--']");
         By btnSaveCounterpartyL = By.XPath("//button[@name='SaveEdit']");
         By btnNewOppCounterpartyContactL = By.XPath("//button[text()='New Opportunity Counterparty Contact']");
+        By txtSearchBox = By.XPath("//lightning-layout-item[1]/slot/p[1]/lightning-input/div/div/input");
+        By btnSearchContact = By.XPath("//div[1]/lightning-layout/slot/lightning-layout-item[1]/slot/p[2]/lightning-button/button");
+
         By chkNameL = By.XPath("//tr/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By valContact = By.XPath("//tr[1]/th/lightning-primitive-cell-factory/span/div/lightning-formatted-url/a");
+
         By btnAddContactL = By.XPath("//button[text()='Add Contact']");
         By btnBackL = By.XPath("//c-opportunity-counter-party-contact/lightning-card/article/div[1]/header/div[2]/slot/lightning-button/button");
         By lnkShowMore = By.XPath("//div/div[2]/div[2]/slot/flexipage-component2[2]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li/lightning-button-menu/button/lightning-primitive-icon");
         By lnkNewOppCounterpartyComment = By.XPath("//span[text()='New Opportunity Counterparty Comment']");
         By txtRelatedOppL = By.XPath("//input[@placeholder='Search Opportunity Counterparties...']");
-        By txtCommentsL = By.XPath("//slot/records-record-layout-text-area/lightning-textarea/div/textarea");
-        By btnSaveCommentL = By.XPath("//li[3]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-lwc-headless/slot[1]/slot/lightning-button/button");
+        By txtCommentsL = By.XPath("//c-opp-counterparty-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[3]/div/lightning-input-field/lightning-textarea/div/textarea");
+        By btnSaveCommentL = By.XPath("//c-opp-counterparty-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[4]/div/lightning-button/button");
         By tabOppNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkDetailsL = By.XPath("//lightning-layout-item/slot/div/table/tbody/tr/td[1]/div/div[1]/lightning-formatted-rich-text/span/a");
         By valCommentL = By.XPath("//h3/lst-template-list-field/lightning-base-formatted-text");
-        By valOppCreator = By.XPath("//formula-output-formula-html/lightning-formatted-rich-text/span");
+        By valOppCreator = By.XPath("//dt[text()='Creator:']/ancestor::dl/dd[2]/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span");
         By tabCounterparty = By.XPath("//span[normalize-space()='Counterparty Editor']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By titleNewTab = By.XPath("//h1/div");
@@ -481,34 +486,36 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Add Counterparty Contact
-        public void AddCounterpartyContactInOpportunityL()
+        public string AddCounterpartyContactInOpportunityL()
         {
-            Thread.Sleep(4000); 
+            Thread.Sleep(7000); 
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppCounterpartyContactL, 250);
             driver.FindElement(btnNewOppCounterpartyContactL).Click();
             Thread.Sleep(6000);
-           
+
             //Select Name            
-            driver.FindElement(chkNameL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox, 180);
+            driver.FindElement(txtSearchBox).SendKeys("Salmaan Jaffery");
+            driver.FindElement(btnSearchContact).Click();
+            Thread.Sleep(12000);
+
+            //Slect contact
+            WebDriverWaits.WaitUntilEleVisible(driver, chkNameL, 180);
+            driver.FindElement(chkNameL).Click();            
+            string name = driver.FindElement(valContact).Text;
+            Thread.Sleep(4000);
             driver.FindElement(btnAddContactL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);           
             driver.FindElement(btnBackL).Click();
+            Thread.Sleep(8000);
+            return name;
         }
 
         //Add Counterparty Comment
         public void AddCounterpartyCommentL()
         {
-            Thread.Sleep(8000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 250);
-            driver.FindElement(lnkShowMore).Click();
-            Thread.Sleep(3000);                     
-            driver.FindElement(lnkNewOppCounterpartyComment).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtRelatedOppL, 300);
-            driver.FindElement(txtRelatedOppL).SendKeys("8K Miles Software Services Limited");
-            Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//div/div[2]/ul/li/lightning-base-combobox-item/span[1]/lightning-icon/lightning-primitive-icon")).Click();
+           
             Thread.Sleep(3000);
             driver.FindElement(txtCommentsL).SendKeys("Testing");
             driver.FindElement(btnSaveCommentL).Click();            
