@@ -64,8 +64,8 @@ namespace SF_Automation.Pages.HomePage
         //General
         By linkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
-        By linkContactsInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[8]/lightning-base-combobox-item/span[2]/span");
-        By linkCompaniesInSearchAllDropDown = By.XPath("//ul[@aria-label='Suggested For You']/li[7]/lightning-base-combobox-item/span[2]/span");
+        By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
+        By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
 
 
         private By _appInAppLauncher(string appName)
@@ -116,6 +116,8 @@ namespace SF_Automation.Pages.HomePage
 
         public void SearchContactFromMainSearch(string name)
         {
+            Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(3000);
@@ -129,7 +131,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath($"//a[@title='{name}']")).Click();
+            driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")).Click();
             Thread.Sleep(5000);
         }
 
