@@ -263,7 +263,7 @@ namespace SF_Automation.Pages.GiftLog
                 driver.FindElement(btnSubmitRequest).Click();
                 Thread.Sleep(2000);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

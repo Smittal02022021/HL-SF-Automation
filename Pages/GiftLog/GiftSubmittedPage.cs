@@ -160,7 +160,7 @@ namespace SF_Automation.Pages.GiftLog
                     {
                         WebDriverWaits.WaitUntilClickable(driver, linkGiftDesc, 5);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         break;
                     }

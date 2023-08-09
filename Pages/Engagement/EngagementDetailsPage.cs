@@ -1157,7 +1157,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
                 string id = driver.FindElement(rowContract).Text;
                 return id;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Contract does not exist";
             }
@@ -1753,7 +1753,7 @@ By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No validate message is displayed";
             }

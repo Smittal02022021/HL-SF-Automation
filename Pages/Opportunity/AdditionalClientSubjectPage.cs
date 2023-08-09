@@ -576,7 +576,7 @@ namespace SF_Automation.Pages
                 string valSubject = driver.FindElement(txtComSubjectName).Text;
                 return valSubject;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -610,7 +610,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new type exists";
             }
@@ -626,7 +626,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectRecType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new Rec type exists";
             }
@@ -862,7 +862,7 @@ namespace SF_Automation.Pages
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No validate message is displayed";
             }
@@ -1031,7 +1031,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -1045,7 +1045,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -1059,7 +1059,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -1074,7 +1074,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -1176,7 +1176,7 @@ namespace SF_Automation.Pages
                 string name = driver.FindElement(btnCancelRecords).Text;
                 return name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Cancel button is not displayed";
             }
