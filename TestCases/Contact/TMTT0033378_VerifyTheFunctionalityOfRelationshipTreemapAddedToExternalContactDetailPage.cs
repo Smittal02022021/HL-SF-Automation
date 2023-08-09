@@ -84,6 +84,14 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetailsPage.VerifyTheAvailableFieldsUnderContactInformationSectionOnContactDetailsPage(excelPath));
                 extentReports.CreateStepLogs("Passed", "All the expected fields are available under Contact Information section on the external contact details page. ");
 
+                //TC - TMTI0078926 - Verify the fields displayed in the "Top Relationships" section on the Relationship tree.
+                Assert.IsTrue(lvContactDetailsPage.VerifyTheAvailableFieldsUnderTopRelationshipsSectionOnContactDetailsPage(excelPath));
+                extentReports.CreateStepLogs("Passed", "All the expected fields are available under Top Relationships section on the external contact details page. ");
+
+                //TC - TMTI0078928, TMTI0078931 - Verify that the contacts in the Top Relationship will be sorted by Strength rating & will be sorted by the most recent activities if there is a tie in the Strength rating.
+                Assert.IsTrue(lvContactDetailsPage.VerifyContactsUnderTopRelationshipSectionIsSortedCorrectly());
+                extentReports.CreateStepLogs("Passed", "Sorting of contacts under Top Relationship section is working as expected. ");
+
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
@@ -94,10 +102,9 @@ namespace SF_Automation.TestCases.Contact
 
                 driver.Quit();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }

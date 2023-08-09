@@ -563,5 +563,144 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
+
+        public bool VerifyTheAvailableFieldsUnderTopRelationshipsSectionOnContactDetailsPage(string path)
+        {
+            bool result = false;
+
+            int exlRowCount = ReadExcelData.GetRowCount(path, "TopRelationships");
+            for(int i = 1; i <= exlRowCount; i++)
+            {
+                string exlFieldName = ReadExcelData.ReadDataMultipleRows(path, "TopRelationships", i, 1);
+                string sfFieldName = driver.FindElement(By.XPath($"(//b[text()='Top Relationships']/following::div/dl/dt/p)[{i}]")).Text;
+                if(exlFieldName == sfFieldName)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyContactsUnderTopRelationshipSectionIsSortedCorrectly() 
+        {
+            bool result = false;
+
+            //Get the no. of contacts under Top Relationship section
+            int noOfContacts = driver.FindElements(By.XPath("//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: ']")).Count;
+
+            //Get the name of each contact and store in an array
+            String[] contactNames = new String[noOfContacts];
+            for(int i=0; i< noOfContacts; i++)
+            {
+                try
+                {
+                    contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button/b)[1]")).Text;
+                }
+                catch (Exception)
+                {
+                    contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Text;
+                }
+            }
+
+            //Get star rating value for each contact and store in an array
+            String[] starRatingValueForContact = new String[5];
+            Int32[] totalStarRatingForContact = new int[noOfContacts];
+            int totalStarRating;
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                int k = 0;
+                for(int j = 1; j <= 5; j++)
+                {
+                    try
+                    {
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//b[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{j}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        k++;
+                    }
+                    catch(Exception)
+                    {
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//button[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{j}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        k++;
+                    }
+                }
+
+                totalStarRating = 1;
+
+                //Get star rating for each contact
+
+                for(int p = 0; p < 4; p++)
+                {
+                    if(starRatingValueForContact[0] == "favorite")
+                    {
+                        if(starRatingValueForContact[p] == starRatingValueForContact[p + 1])
+                        {
+                            totalStarRating++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        totalStarRating = 0;
+                    }
+                }
+                totalStarRatingForContact[i] = totalStarRating;
+            }
+
+            //Get the last activity date of each contact and store in an array
+            DateTime[] lastActivityDate = new DateTime[noOfContacts];
+            String[] sfContactActivityDate = new String[noOfContacts];
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                for(int j = 1; j <= 5; j++)
+                {
+                    sfContactActivityDate[i] = driver.FindElement(By.XPath($"(//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{j}]/following::dd[5]/p")).Text;
+                    lastActivityDate[i] = Convert.ToDateTime(sfContactActivityDate[i]);
+                }
+            }
+
+            //Compare the star rating for each contact and verify sorting
+            for(int finalCompare = 0; finalCompare < noOfContacts - 1; finalCompare++)
+            {
+                if(totalStarRatingForContact[finalCompare] < totalStarRatingForContact[finalCompare+1])
+                {
+                    result = false;
+                    break;
+                }
+                else if(totalStarRatingForContact[finalCompare] > totalStarRatingForContact[finalCompare + 1])
+                {
+                    result = true;
+                    continue;
+                }
+                else //If star ratings match then
+                {
+                    //compare last activity dates
+                    if(lastActivityDate[finalCompare] < lastActivityDate[finalCompare + 1])
+                    {
+                        result = false;
+                        break;
+                    }
+                    else if(lastActivityDate[finalCompare] > lastActivityDate[finalCompare + 1])
+                    {
+                        result = true;
+                        continue;
+                    }
+                    else //If last activity date also matches then
+                    {
+                        result = true;
+                        continue;
+                    }
+                }
+            }
+
+            return result;
+        }
+
     }
 }

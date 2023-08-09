@@ -131,7 +131,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")).Click();
+            driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
             Thread.Sleep(5000);
         }
 
