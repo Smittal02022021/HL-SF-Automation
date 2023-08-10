@@ -487,6 +487,7 @@
     <Compile Include="Pages\Contacts\ContactSelectRecordPage.cs" />
     <Compile Include="Pages\Contacts\CoverageTeamDetail.cs" />
     <Compile Include="Pages\Contacts\LegalEntityDetailPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactRelationshipPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactDetailsPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsActivityDetailPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsAddActivityPage.cs" />

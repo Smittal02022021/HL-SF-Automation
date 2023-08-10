@@ -8,7 +8,6 @@ using SF_Automation.UtilityFunctions;
 using SF_Automation.Pages.Contact;
 using System;
 
-
 namespace SF_Automation.TestCases.Contact
 {
     class TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage : BaseClass
@@ -18,6 +17,7 @@ namespace SF_Automation.TestCases.Contact
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
         LV_ContactDetailsPage lvContactDetailsPage = new LV_ContactDetailsPage();
+        LV_ContactRelationshipPage lvContactRelationshipPage = new LV_ContactRelationshipPage();
         UsersLogin usersLogin = new UsersLogin();
         
         public static string fileTCTMTT0033378 = "TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage";
@@ -45,7 +45,7 @@ namespace SF_Automation.TestCases.Contact
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " page is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -91,6 +91,19 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMTI0078928, TMTI0078931 - Verify that the contacts in the Top Relationship will be sorted by Strength rating & will be sorted by the most recent activities if there is a tie in the Strength rating.
                 Assert.IsTrue(lvContactDetailsPage.VerifyContactsUnderTopRelationshipSectionIsSortedCorrectly());
                 extentReports.CreateStepLogs("Passed", "Sorting of contacts under Top Relationship section is working as expected. ");
+
+                //TC - TMTI0078933 - Verify that if the strength rating is strong and the latest activity date is within the last month, then Contact Name will be displayed in bold text.
+                Assert.IsTrue(lvContactDetailsPage.VerifyContactNameUnderTopRelationshipIsBoldIfStrengthRatingIsStrongAndActivityDateIsWithinLastMonth());
+                extentReports.CreateStepLogs("Passed", "Contact name under Top Relationship is Bold if strength rating is strong and activity date is within Last Month. ");
+
+                //TC - TMTI0078935 - Verify that the Contact Name is linked to the relationship detail page. 
+                Assert.IsTrue(lvContactRelationshipPage.VerifyClickingOnTheContactNameTakesTheUserToItsRelationshipDetailPage(externalContactName));
+                extentReports.CreateStepLogs("Passed", "Clicking on the contact name takes the user to its relationship detail page. ");
+
+
+
+
+
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

@@ -614,16 +614,16 @@ namespace SF_Automation.Pages.Contact
             for(int i = 0; i < noOfContacts; i++)
             {
                 int k = 0;
-                for(int j = 1; j <= 5; j++)
+                for(int h = 1; h <= 5; h++)
                 {
                     try
                     {
-                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//b[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{j}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//b[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{h}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
                         k++;
                     }
                     catch(Exception)
                     {
-                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//button[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{j}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//button[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{h}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
                         k++;
                     }
                 }
@@ -632,7 +632,7 @@ namespace SF_Automation.Pages.Contact
 
                 //Get star rating for each contact
 
-                for(int p = 0; p < 4; p++)
+                for(int p = 0; p < noOfContacts - 1; p++)
                 {
                     if(starRatingValueForContact[0] == "favorite")
                     {
@@ -656,13 +656,12 @@ namespace SF_Automation.Pages.Contact
             //Get the last activity date of each contact and store in an array
             DateTime[] lastActivityDate = new DateTime[noOfContacts];
             String[] sfContactActivityDate = new String[noOfContacts];
+            int j = 1;
             for(int i = 0; i < noOfContacts; i++)
             {
-                for(int j = 1; j <= 5; j++)
-                {
-                    sfContactActivityDate[i] = driver.FindElement(By.XPath($"(//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{j}]/following::dd[5]/p")).Text;
-                    lastActivityDate[i] = Convert.ToDateTime(sfContactActivityDate[i]);
-                }
+                sfContactActivityDate[i] = driver.FindElement(By.XPath($"(//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{j}]/following::dd[5]/p")).Text;
+                lastActivityDate[i] = Convert.ToDateTime(sfContactActivityDate[i]);
+                j++;
             }
 
             //Compare the star rating for each contact and verify sorting
@@ -702,5 +701,118 @@ namespace SF_Automation.Pages.Contact
             return result;
         }
 
+        public bool VerifyContactNameUnderTopRelationshipIsBoldIfStrengthRatingIsStrongAndActivityDateIsWithinLastMonth()
+        {
+            bool result = false;
+
+            //Get the no. of contacts under Top Relationship section
+            int noOfContacts = driver.FindElements(By.XPath("//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: ']")).Count;
+
+            //Get the name of each contact and store in an array
+            String[] contactNames = new String[noOfContacts];
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                try
+                {
+                    contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button/b)[1]")).Text;
+                }
+                catch(Exception)
+                {
+                    contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Text;
+                }
+            }
+
+            //Get star rating value for each contact and store in an array
+            String[] starRatingValueForContact = new String[5];
+            Int32[] totalStarRatingForContact = new int[noOfContacts];
+            int totalStarRating;
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                int k = 0;
+                for(int h = 1; h <= 5; h++)
+                {
+                    try
+                    {
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//b[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{h}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        k++;
+                    }
+                    catch(Exception)
+                    {
+                        starRatingValueForContact[k] = driver.FindElement(By.XPath($"(//button[text()='{contactNames[i]}']/following::p[text()='Strength Rating: ']/following::dd/p/lightning-icon)[{h}]/span/lightning-primitive-icon/*")).GetAttribute("data-key");
+                        k++;
+                    }
+                }
+
+                totalStarRating = 1;
+
+                //Get star rating for each contact
+
+                for(int p = 0; p < noOfContacts - 1; p++)
+                {
+                    if(starRatingValueForContact[0] == "favorite")
+                    {
+                        if(starRatingValueForContact[p] == starRatingValueForContact[p + 1])
+                        {
+                            totalStarRating++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        totalStarRating = 0;
+                    }
+                }
+                totalStarRatingForContact[i] = totalStarRating;
+            }
+
+            //Get the last activity date of each contact and store in an array
+            DateTime[] lastActivityDate = new DateTime[noOfContacts];
+            String[] sfContactActivityDate = new String[noOfContacts];
+            int j = 1;
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                sfContactActivityDate[i] = driver.FindElement(By.XPath($"(//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{j}]/following::dd[5]/p")).Text;
+                lastActivityDate[i] = Convert.ToDateTime(sfContactActivityDate[i]);
+                j++;
+            }
+
+            //Validate the expected result of the function
+            for(int i = 0; i < noOfContacts; i++)
+            {
+                if(totalStarRatingForContact[i] == 5 && lastActivityDate[i] < DateTime.Today && lastActivityDate[i] > DateTime.Today.AddMonths(-1))
+                {
+                    string tagName1 = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button/b)[1]")).TagName;
+                    if(tagName1 == "b")
+                    {
+                        result = true;
+                        continue;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    string tagName2 = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).TagName;
+                    if(tagName2 != "b")
+                    {
+                        result = true;
+                        continue;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
