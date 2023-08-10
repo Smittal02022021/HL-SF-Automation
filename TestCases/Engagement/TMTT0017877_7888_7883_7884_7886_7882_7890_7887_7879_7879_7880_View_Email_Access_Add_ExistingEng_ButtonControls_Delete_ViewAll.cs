@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0027456_7457_7444_7458_7446_7448_7445_7449_View_Email_Access_Delete_ViewAll : BaseClass
+    class TMTT0017877_7888_7883_7884_7886_7882_7890_7887_7879_7880_View_Email_Access_Add_ExistingEng_ButtonControls_Delete_ViewAll : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         AddCounterparty counterparty = new AddCounterparty();
-        public static string fileTC7877 = "TMTT0027456_7457_7444_7458_7446_7448_7445_7449_View_Email_Access_Delete_ViewAll";
+        public static string fileTC7877 = "TMTT0017877_LightningEngagement";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -59,7 +59,6 @@ namespace SF_Automation.TestCases.Engagement
                 int rowJobTypes = ReadExcelData.GetRowCount(excelPath, "Engagement");
                 Console.WriteLine("rowUsers " + rowJobTypes);
 
-                //TC_01_And_TC_03_Validate View Counterparties button
                 for (int row = 2; row <= rowJobTypes; row++)
                 {
                     string valEngNum = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 1);
@@ -79,12 +78,12 @@ namespace SF_Automation.TestCases.Engagement
                 //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
                 engagementDetails.ClickViewCounterpartiesButton();
 
-                //TC_03_Validate the value in View dropdown is same as Job Type of Engagement
+                //Validate the value in View dropdown is same as Job Type of Engagement
                 string view = counterparty.GetViewValue();
                 Assert.AreEqual("Buyside", view);
                 extentReports.CreateLog("View is displayed with same Job type for which engagement is associated ");
 
-                //TC_02_Validate Add Remove Columns, Delete, Cancel,Add Counterparties, Email, View all buttons
+                //Validate Add Remove Columns, Delete, Cancel,Add Counterparties, Email, View all buttons
                 string btnAddRemove = counterparty.ValidateAddRemoveColumnsButton();
                 Assert.AreEqual("Add/Remove Columns", btnAddRemove);
                 extentReports.CreateLog("Button with name : " + btnAddRemove + " is displayed on Counterparty Details page ");
@@ -125,17 +124,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Search", txtSearch);
                 extentReports.CreateLog("Text box with name : " + txtSearch + " is displayed on Counterparty Details page ");
 
-                //TC_12_Validate Add counterparty functionality
-                string addedComp = counterparty.ValidateAddCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", addedComp);
-                extentReports.CreateLog("Counterparty with Company name : " + addedComp + " is displayed on Counterparty page after adding it ");
-
-                //TC_13_Search Counterparty
-                string searchCounterparty = counterparty.ValidateSearchCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", searchCounterparty);
-                extentReports.CreateLog("Searched Counterparty with Company name : " + searchCounterparty + " is displayed on Counterparty page ");
-
-                //TC_04__TC_07_Validate Email functionality
+                //TC_04 and TC_07_Validate Email functionality
                 //Add Contact and Valdiate the same
                 string titleContact = engagementDetails.ClickEngCounterpartyButton();
                 Assert.AreEqual("Engagement Counterparty Contact Search", titleContact);
@@ -232,38 +221,8 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + confirmMessage + " is displayed upon clicking Delete button after selecting a record ");
 
                 string finalmessage = counterparty.ValidateIfRecordIsDeleted();
-                Assert.AreEqual("Displaying 1 to 1 of 1 records. Page 1 of 1.", finalmessage);
-                extentReports.CreateLog("Added Counterparty is deleted post clicking Of button on the confirmation window ");
-
-                //TC11__Validate the Edit Bid functionality on the view counterparty
-                string tabBid = counterparty.ClickEditBidAndValidateNewTab();
-                Assert.AreEqual("Round First", tabBid);
-                extentReports.CreateLog("Tab with name: " + tabBid+ " is displayed upon adding bid ");
-
-                //Add all bid details and validate it
-                string value = ReadExcelData.ReadData(excelPath, "Bid", 7);
-                string minBid = counterparty.SaveBidValues(value);
-                Assert.AreEqual(value, minBid);
-                extentReports.CreateLog("Bid with Min Bid: " + minBid + " is displayed upon saving bid details ");
-
-                //Validate value of Max bid value
-                string maxBid = counterparty.GetMaxBid();
-                Assert.AreEqual(value, maxBid);
-                extentReports.CreateLog("Bid with Max Bid: " + maxBid + " is displayed upon saving bid details ");
-
-                //Validate added bid details on Counterparties details page
-                string minBidCounterparty = counterparty.ValidateMinBidDetailOnCounterpartiesPage();
-                Assert.AreEqual("GBP "+value, minBidCounterparty);
-                extentReports.CreateLog("Bid with Round Minimum (MM): " + minBidCounterparty + " is displayed on counterparty details page after saving ");
-
-                string maxBidCounterparty = counterparty.ValidateMaxBidDetailOnCounterpartiesPage();
-                Assert.AreEqual("GBP " + value, maxBidCounterparty);
-                extentReports.CreateLog("Bid with Round Maximum (MM): " + maxBidCounterparty + " is displayed on counterparty details page after saving ");
-
-
-
-
-                
+                Assert.AreEqual("Displaying 0 to 0 of 0 records. Page 1 of 0.", finalmessage);
+                extentReports.CreateLog("Record is deleted post clicking Of button on the confirmation window ");
 
 
 
@@ -273,7 +232,134 @@ namespace SF_Automation.TestCases.Engagement
 
 
 
-                
+
+
+
+
+
+
+
+
+                //Get the value of existing company
+                string valCompName = counterparty.GetExistingCompany();
+
+                //Enter some data in counterparty records and click cancel and then validate the same
+                string valDefType = counterparty.GetDefaultValueOfType();
+                Console.WriteLine("valDefType", valDefType);
+                string valDefTier = counterparty.GetDefaultValueOfTier();
+                Console.WriteLine("valDefTier", valDefTier);
+
+                string valCancelType = counterparty.SelectTypeTierAndClickCancel();
+                Assert.AreEqual(valDefType, valCancelType);
+                extentReports.CreateLog("Selected value of Type is not saved upon clicking cancel button on Counterparty Records page ");
+
+                string valCancelTier = counterparty.GetDefaultValueOfTier();
+                Assert.AreEqual(valDefTier, valCancelTier);
+                extentReports.CreateLog("Selected value of Tier is not saved upon clicking cancel button on Counterparty Records page ");
+
+                string valSaveType = counterparty.UpdateTypeTierAndClickSave();
+                Assert.AreEqual("Financial", valSaveType);
+                extentReports.CreateLog("Selected value of Type : " + valSaveType + " is saved upon clicking Save button on Counterparty Records page ");
+
+                string valSaveTier = counterparty.GetDefaultValueOfTier();
+                Assert.AreEqual("B", valSaveTier);
+                extentReports.CreateLog("Selected value of Tier : " + valSaveType + " is saved upon clicking Save button on Counterparty Records page ");
+
+                //Update some data in counterparty records, click cancel and validate it
+                string valUpdCancelType = counterparty.UpdateTypeTierAndClickCancel();
+                Assert.AreEqual(valSaveType, valUpdCancelType);
+                extentReports.CreateLog("Updated value of Type is not saved upon clicking cancel button on Counterparty Records page ");
+
+                string valUpdCancelTier = counterparty.GetDefaultValueOfTier();
+                Assert.AreEqual(valSaveTier, valUpdCancelTier);
+                extentReports.CreateLog("Updated value of Tier is not saved upon clicking cancel button on Counterparty Records page ");
+
+                //Click on View All button and validate the counterparties
+                string valCounterpartyName = counterparty.ClickViewAllAndValidateCounterpartiesName();
+                Assert.AreEqual("EC - " + valCompName, valCounterpartyName);
+                extentReports.CreateLog("Same Counterparty name is displayed on View all page ");
+
+                //Validate the all the displayed columns and buttons on the View all page
+                string lblCounterpartyName = counterparty.ValidateCounterpartyNameColumn();
+                Assert.AreEqual("Counterparty Name", lblCounterpartyName);
+                extentReports.CreateLog("Column with name: " + lblCounterpartyName + " is displayed on View all page ");
+
+                string lblStatus = counterparty.ValidateStatusColumn();
+                Assert.AreEqual("Status", lblStatus);
+                extentReports.CreateLog("Column with name: " + lblStatus + " is displayed on View all page ");
+
+                string lblDateOfLast = counterparty.ValidateDateOfLastStatusChangeColumn();
+                Assert.AreEqual("Date of Last Status Change", lblDateOfLast);
+                extentReports.CreateLog("Column with name: " + lblDateOfLast + " is displayed on View all page ");
+
+                string lblNew = counterparty.ValidateNewButton();
+                Assert.AreEqual("New", lblNew);
+                extentReports.CreateLog("Button with name: " + lblNew + " is displayed on View all page ");
+
+                string lblEdit = counterparty.ValidateEditOption();
+                Assert.AreEqual("Edit", lblEdit);
+                extentReports.CreateLog("Link with name: " + lblEdit + " is displayed to edit the Counterparty details ");
+
+                string lblDelete = counterparty.ValidateDeleteOption();
+                Assert.AreEqual("Delete", lblDelete);
+                extentReports.CreateLog("Link with name: " + lblDelete + " is displayed to delete the Counterparty details ");
+
+                //Click on Add Counterparties and validate all the displayed fields.
+                string titleCounterparty = counterparty.ClickAddCounterpartiesAndValidatePage();
+                Assert.AreEqual("Counterparties", titleCounterparty);
+                extentReports.CreateLog("Page with title : " + titleCounterparty + " is displayed upon clicking Add Counterparty button ");
+
+                string valExistingEng = counterparty.ValidateLabelGetCompaniesFromExistingEng();
+                Assert.AreEqual("Get Companies from existing Engagement", valExistingEng);
+                extentReports.CreateLog("Field with label : " + valExistingEng + " is displayed on Counterparties page ");
+
+                string valSearchBox = counterparty.ValidateSearchBox();
+                Assert.AreEqual("search", valSearchBox);
+                extentReports.CreateLog("Field with label : " + valSearchBox + " is displayed on Counterparties page ");
+
+                string valCompanyList = counterparty.ValidateLabelGetCompaniesFromExistingCompanyList();
+                Assert.AreEqual("Get Companies from existing Company List", valCompanyList);
+                extentReports.CreateLog("Field with label : " + valCompanyList + " is displayed on Counterparties page ");
+
+                string valSearchCompanyList = counterparty.ExpandCompanyListAndValidateSearchBox();
+                Assert.AreEqual("search", valSearchCompanyList);
+                extentReports.CreateLog("Field with label : " + valSearchCompanyList + " is displayed upon expanding Get Companies from existing Company List field ");
+
+                //Select Company and add it
+                string titleCompanyList = counterparty.EnterCompanyAndValidateThePage();
+                Assert.AreEqual("Company List", titleCompanyList);
+                extentReports.CreateLog("Page with title : " + titleCompanyList + " is displayed upon clicking View All Company List ");
+
+                string valCompany = counterparty.SelectAndAddCompany();
+                Assert.AreEqual("Ahana Cloud, Inc.", valCompany);
+                extentReports.CreateLog("Company with name : " + valCompany + " is displayed on Counterparties page after adding it ");
+
+                //Update some details in newly added counterparty and validate the same
+                string valSave2ndType = counterparty.UpdateTypeTierOf2ndCompanyAndClickSave();
+                Assert.AreEqual("Financial", valSave2ndType);
+                extentReports.CreateLog("Selected value of Type : " + valSave2ndType + " is saved upon clicking Save button on Counterparty Records page for 2nd counterparty ");
+
+                string valSave2ndTier = counterparty.GetValueOfTierOf2ndCounterparty();
+                Assert.AreEqual("B", valSave2ndTier);
+                extentReports.CreateLog("Selected value of Tier : " + valSave2ndTier + " is saved upon clicking Save button on Counterparty Records page for 2nd counterparty ");
+
+                string valView = counterparty.ClickBackButtonAndValidatePage();
+                Assert.AreEqual("View", valView);
+                extentReports.CreateLog("Counterparties List page is displayed upon clicking back button ");
+
+                //Validate the validation without selecting any record and clicking delete button
+                string msgAnyRec = counterparty.ValidateSelectAnyRecordValidation();
+                Assert.AreEqual("Please select at least one row to delete.", msgAnyRec);
+                extentReports.CreateLog("Message: " + msgAnyRec + " is displayed upon clicking Delete button without selecting any record ");
+
+               
+                //Validate if 2nd added company is still displayed or not
+                string msg2ndCompany = counterparty.Validate2ndCompanyPostDeletion();
+                Assert.AreEqual("So-sure Limited", msg2ndCompany);
+                extentReports.CreateLog("Added company is not displayed post clicking Delete button ");
+
+               
+
                 usersLogin.LightningLogout();
                 driver.Quit();
 
