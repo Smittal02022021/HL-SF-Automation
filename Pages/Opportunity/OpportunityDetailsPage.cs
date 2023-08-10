@@ -120,7 +120,7 @@ namespace SF_Automation.Pages
         By txtFee = By.CssSelector("input[name*='FmBzg']");
         By lnkDateEngaged = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(10) > td:nth-child(4) > span > span > a");
         By checkFEISApproved = By.CssSelector("input[name='00Ni000000FmBzh']");
-        By lnkOutcomeDateFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
+        By lnkOutcomeDateFAS = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
         By comboRecordType = By.CssSelector("select[name='00Ni000000D8hW2']");
         By valRecType = By.CssSelector("div[id*='RecordTypej']");
         By valOppNum = By.CssSelector("div[id*='VbIj_id0_j_id55_ileinner']");
@@ -134,8 +134,8 @@ namespace SF_Automation.Pages
         By txtDateEngagedCF = By.CssSelector("input[name*='FnLTv']");
         By lnkPitchDateFAS = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(7) > td:nth-child(4) > span > span > a");
         By lnkValuationDate = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
-        By lnkDateCASignedFAS = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
-        By lnkDateCAExpiresFAS = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
+        By lnkDateCASignedFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
+        By lnkDateCAExpiresFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By lnkPitchDateFR = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(6) > td:nth-child(4) > span > span > a");
         By chkDebtConfirmed = By.CssSelector("input[name*='4yQC']");
         By txtTotalDebtHL = By.CssSelector("input[name*='4yQD']");
@@ -3048,7 +3048,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFOppContactL, 320);
             driver.FindElement(btnAddCFOppContactL).Click();
             Thread.Sleep(2000);
@@ -3056,8 +3056,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             string name = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
             //Select Contact
             driver.FindElement(txtContactL).SendKeys(name);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//div[2]/ul/li[9]/a/div[1]/span/img")).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(By.XPath("//div[2]/ul/li[14]/a/div[1]/span/img")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
@@ -3221,11 +3221,12 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
         //Update the value of Client Ownership
         public void UpdateClientOwnershipL()
-        {
+         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnClientOwnership, 150);
             driver.FindElement(btnClientOwnership).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[8]/span[2]/span")).Click();
+            Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(3000);
         }

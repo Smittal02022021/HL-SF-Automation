@@ -1945,6 +1945,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnViewCounterparties).Click();
         }
 
+       
 
         //Click Engagement Counterparty Button
         public string ClickEngCounterpartyButton()
@@ -3380,7 +3381,7 @@ namespace SF_Automation.Pages.Engagement
 		{
 			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
 			driver.FindElement(txtCompanies).Click();
-			Thread.Sleep(4000);
+			Thread.Sleep(5000);
 			driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
 			Thread.Sleep(5000);
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
@@ -3440,7 +3441,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
 			driver.FindElement(btnPartyContact).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("/html/body/div[9]/div/ul/li[3]/a[text()='Seller']")).Click();
+            driver.FindElement(By.XPath("/html/body/div[8]/div/ul/li[3]/a[text()='Seller']")).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
 			Thread.Sleep(6000);		
