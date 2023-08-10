@@ -5,6 +5,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading;
 
 
@@ -57,11 +58,15 @@ namespace SF_Automation.Pages.Engagement
         By valContact = By.XPath("//tr[1]/th/lightning-primitive-cell-factory/span/div/lightning-formatted-url/a");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
+        By lnk2ndCompCounterparty = By.XPath("//a[@title='SparkCognition']");
+        By valMinRoundBid = By.XPath("//dt[text()='Round Minimum (MM):']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
        
 
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
-        By lnkCompCounterparty = By.XPath("//a[@title='Ahana Cloud']");
+        By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
+        By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
         By txtCPComments = By.XPath("//textarea[@name='Comment__c']");
         By btnSaveCPComment = By.XPath("//button[@type='submit']");
         By valAddedCPComment = By.XPath("//h3/lst-template-list-field/lightning-base-formatted-text");
@@ -78,7 +83,7 @@ namespace SF_Automation.Pages.Engagement
         By selectedView = By.XPath("//div[2]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
        By tblCounterparty = By.XPath("//lst-customized-datatable/div[2]/div/div/table/tbody");
-        By chkCounterparty = By.XPath("//tr/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By chkCounterparty = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnEmail = By.XPath("//button[text()='Email']");
         By btnNewViewAll = By.XPath("//button[@name='New']");
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
@@ -88,9 +93,9 @@ namespace SF_Automation.Pages.Engagement
         By lblTemplate = By.XPath("//label[text()='Template']");
         By btnTemplate = By.XPath("//button[@aria-label=\"Template, -Select-\"]");
         By valTemplate = By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
-        By btnContactEmail = By.XPath("//span[@title='Ahana Cloud']/ancestor::button");
+        By btnContactEmail = By.XPath("//span[@title='Skyhive']/ancestor::button");
         By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
-        By valComp= By.XPath("//h2/button/span[@title='Ahana Cloud']");
+        By valComp= By.XPath("//h2/button/span[@title='Skyhive']");
 
         By btnCancelConfirm = By.XPath("//button[text()='Cancel']");
         By btnAddRemoveCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[1]/button");
@@ -107,6 +112,12 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[3]/button");
         By btnDeleteCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[2]/button");
         By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
+        By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
+
+
+
+
+
         By btnEmailCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[8]/button");
         By btnViewAllCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[9]/button");
         By titleCounterparty = By.XPath("//h1[@class='slds-page-header__title listViewTitle slds-truncate']");
@@ -127,7 +138,7 @@ namespace SF_Automation.Pages.Engagement
         By titleCompanyList = By.XPath("//h2[text()='Company List']");
         By radioCompName = By.XPath("//table/tbody/tr[1]/td[1]/div/input");
         By btnOK = By.XPath("//button[@title='OK']");
-        By chkCompany = By.XPath("//table/tbody/tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
         By tblCompanies = By.XPath("//table/tbody/tr[2]/td[1]/div/div[2]/div[1]");
         By comboType = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
@@ -532,7 +543,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(4000);
             driver.Navigate().Refresh();
-            Thread.Sleep(7000);
+            Thread.Sleep(9000);
             //var element = driver.FindElement(lnkContacts);
             //Actions action = new Actions(driver);
             //action.MoveToElement(element);
@@ -611,7 +622,7 @@ namespace SF_Automation.Pages.Engagement
         //Select the counterparty and click the email button
         public string SelectCounterpartyAndClickEmailButton()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 180);
             driver.FindElement(chkCounterparty).Click();
             Thread.Sleep(7000);
@@ -812,139 +823,61 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        //Get the value of existing company
-        public string GetExistingCompany()
+        //Validate add counterparty functionality
+        public string ValidateAddCounterpartyFunctionality()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valExistingComp, 150);
-            string value = driver.FindElement(valExistingComp).Text;
-            return value;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL, 150);
+            driver.FindElement(btnAddCounterpartiesL).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkExistingCompanies, 150);
+            driver.FindElement(lnkExistingCompanies).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCompList, 150);
+            driver.FindElement(btnViewAllCompList).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, radioCompName, 150);
+            driver.FindElement(radioCompName).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
+            driver.FindElement(chkCompany).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyTo, 150);
+            driver.FindElement(btnAddCounterpartyTo).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackCounterparties, 150);
+            driver.FindElement(btnBackCounterparties).Click();
+            Thread.Sleep(8000);
+            string name = driver.FindElement(lnkCompCounterparty).Text;
+            return name;
+            
         }
 
-        //Get the default value of Type dropdown
-        public string GetDefaultValueOfType()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboType, 150);
-            string value = driver.FindElement(comboType).Text;
-            return value;
-        }
 
-        //Get the default value of Tier dropdown
-        public string GetDefaultValueOfTier()
+        //Validate search counterparty functionality
+        public string ValidateSearchCounterpartyFunctionality()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboTier, 150);
-            string value = driver.FindElement(comboTier).Text;
-            return value;
-        }
-
-        //Click View all button and validate the counterparties
-        public string ClickViewAllAndValidateCounterpartiesName()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCounterparty, 150);
-            driver.FindElement(btnViewAllCounterparty).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valCounterpartyName, 180);
-            string value = driver.FindElement(valCounterpartyName).Text;
-            return value;
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCounterparty, 150);
+            driver.FindElement(txtSearchCounterparty).SendKeys("Skyhive");
+            driver.FindElement(txtSearchCounterparty).Click();
+            Thread.Sleep(6000);
+            string name = driver.FindElement(lnkCompCounterparty).Text;
+            return name;
 
         }
 
-        //Validate Counterparty Name Column
-        public string ValidateCounterpartyNameColumn()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCounterpartyName, 150);
-            string value = driver.FindElement(lblCounterpartyName).Text;
-            return value;
-        }
 
-        //Validate Status Column
-        public string ValidateStatusColumn()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 150);
-            string value = driver.FindElement(lblStatus).Text;
-            return value;
-        }
 
-        //Validate Date of Last Status Change Column
-        public string ValidateDateOfLastStatusChangeColumn()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblDateOfLast, 150);
-            string value = driver.FindElement(lblDateOfLast).Text;
-            return value;
-        }
 
-        //Validate New button
-        public string ValidateNewButton()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 150);
-            string value = driver.FindElement(btnNew).Text;
-            return value;
-        }
 
-        //Validate Edit option
-        public string ValidateEditOption()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 180);
-            driver.FindElement(lnkShowMore).Click();
-            Thread.Sleep(5000);
-            string value = driver.FindElement(lnkEdit).Text;
-            return value;
-        }
 
-        //Validate Delete option
-        public string ValidateDeleteOption()
-        {
-            string value = driver.FindElement(lnkDelete).Text;
-            driver.FindElement(tabCounterpartyEditor).Click();
-            return value;
-        }
 
-        //Update the value of Type
-        public string SelectTypeTierAndClickCancel()
-        {
-            driver.FindElement(comboType).Click();
-            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
-            Actions action = new Actions(driver);
-            action.MoveToElement(element);
-            action.Perform();
-            driver.FindElement(valSelectType).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(comboTier).Click();
-            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
-            Actions action1 = new Actions(driver);
-            action1.MoveToElement(element1);
-            action1.Perform();
-            driver.FindElement(valSelectTier).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(btnCancelCounterparty).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboType, 150);
-            string value = driver.FindElement(comboType).Text;
-            return value;
-        }
 
-        //Update the value of Type and Tier and click Save
-        public string UpdateTypeTierAndClickSave()
-        {
-            driver.FindElement(comboType).Click();
-            var element = driver.FindElement(By.XPath("//lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
-            Actions action = new Actions(driver);
-            action.MoveToElement(element);
-            action.Perform();
-            driver.FindElement(valSelectType).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(comboTier).Click();
-            var element1 = driver.FindElement(By.XPath("//lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span"));
-            Actions action1 = new Actions(driver);
-            action1.MoveToElement(element1);
-            action1.Perform();
-            driver.FindElement(valSelectTier).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(btnSaveCounterparty).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboType, 150);
-            string value = driver.FindElement(comboType).Text;
-            return value;
-        }
+
+
 
         //Update the value of Type and Tier and click click
         public string UpdateTypeTierAndClickCancel()
@@ -1276,6 +1209,29 @@ namespace SF_Automation.Pages.Engagement
             string bid = driver.FindElement(valMaxBid).Text;
             return bid;
         }
+
+        //Validate added bid details on counterparty page
+        public string ValidateMinBidDetailOnCounterpartiesPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 80);
+            Thread.Sleep(6000);
+            driver.FindElement(tabCounterpartyEditor).Click();
+            Thread.Sleep(8000);
+            driver.FindElement(lnk2ndCompCounterparty).Click();
+            Thread.Sleep(8000);
+            driver.FindElement(lnk2ndCompCounterparty).Click();
+            Thread.Sleep(8000);
+            string bid = driver.FindElement(valMinRoundBid).Text;
+            return bid;
+        }
+
+        //Validate added bid details on counterparty page
+        public string ValidateMaxBidDetailOnCounterpartiesPage()
+        {            
+            string bid = driver.FindElement(valMaxRoundBid).Text;
+            return bid;
+        }
+
 
         //Search for a company and validate Company List
         public string EnterCompanyAndValidateThePage()
