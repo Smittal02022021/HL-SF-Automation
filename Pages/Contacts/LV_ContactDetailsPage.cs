@@ -866,7 +866,7 @@ namespace SF_Automation.Pages.Contact
                 }
                 else
                 {
-                    string tagName1 = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Type: '])[{i}]/following::dd/p/b)[1]")).TagName;
+                    string tagName1 = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Type: '])[{i}]/following::dd/p)[1]")).TagName;
                     if(tagName1 != "b")
                     {
                         result = true;
@@ -882,5 +882,28 @@ namespace SF_Automation.Pages.Contact
             
             return result;
         }
+
+        public bool VerifyFieldsDisplayedUnderAssociatedEngagementsSection(string path)
+        {
+            bool result = false;
+
+            int exlRowCount = ReadExcelData.GetRowCount(path, "AssociatedEngagements");
+            for(int i = 1; i <= exlRowCount; i++)
+            {
+                string exlFieldName = ReadExcelData.ReadDataMultipleRows(path, "AssociatedEngagements", i, 1);
+                string sfFieldName = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/following::div/dl/dt/p)[{i}]")).Text;
+                if(exlFieldName == sfFieldName)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
     }
 }

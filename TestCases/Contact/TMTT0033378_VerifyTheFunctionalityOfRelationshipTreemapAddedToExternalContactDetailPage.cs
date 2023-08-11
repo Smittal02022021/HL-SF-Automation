@@ -113,6 +113,10 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetailsPage.VerifyAffiliationTypeIsDisplayedInBoldIfItIsInsideBoardMemberOrOutsideBoardMember());
                 extentReports.CreateStepLogs("Passed", "If Affiliation Type is Inside Board Member or Outside Board Member, then it is displayed in bold text. ");
 
+                //TC - TMTI0078943 - Verify the fields displayed in the "Associated Engagements" section on the Relationship tree.
+                Assert.IsTrue(lvContactDetailsPage.VerifyFieldsDisplayedUnderAssociatedEngagementsSection(excelPath));
+                extentReports.CreateStepLogs("Passed", "All the expected fields are available under Associated Engagements section on the external contact details page. ");
+
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
