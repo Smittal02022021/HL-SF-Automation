@@ -58,7 +58,7 @@ namespace SF_Automation.Pages.Engagement
         By valContact = By.XPath("//tr[1]/th/lightning-primitive-cell-factory/span/div/lightning-formatted-url/a");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
-        By lnk2ndCompCounterparty = By.XPath("//a[@title='SparkCognition']");
+        By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
         By valMinRoundBid = By.XPath("//dt[text()='Round Minimum (MM):']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
@@ -831,22 +831,22 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkExistingCompanies, 150);
             driver.FindElement(lnkExistingCompanies).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCompList, 150);
             driver.FindElement(btnViewAllCompList).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, radioCompName, 150);
             driver.FindElement(radioCompName).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
             driver.FindElement(btnOK).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
             driver.FindElement(chkCompany).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyTo, 150);
             driver.FindElement(btnAddCounterpartyTo).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackCounterparties, 150);
             driver.FindElement(btnBackCounterparties).Click();
             Thread.Sleep(8000);
@@ -1084,6 +1084,7 @@ namespace SF_Automation.Pages.Engagement
         //Deleted added counterparty comment
         public string DeleteEngCounterpartyComment()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditCounterpartyComment);
             driver.FindElement(btnEditCounterpartyComment).Click();
             Thread.Sleep(4000);
@@ -1199,7 +1200,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveBid).Click();
             Thread.Sleep(5000);
             string bid = driver.FindElement(valMinBid).Text;
-            return bid;
+            return bid.Substring(1,2);
         }
 
         //Get value of Max bid
@@ -1207,7 +1208,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valMaxBid, 80);
             string bid = driver.FindElement(valMaxBid).Text;
-            return bid;
+            return bid.Substring(1, 2);
         }
 
         //Validate added bid details on counterparty page
