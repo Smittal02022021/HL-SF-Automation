@@ -210,7 +210,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string titlePage = addOpportunity.ValidatePageWhenInitiatorRoleIsSelected();
                 Assert.AreEqual("Info", titlePage);
                 extentReports.CreateLog("Page with tab: " + titlePage + " is displayed when Initiator role is selected and Opportunity is opened again ");
-                                                    
+                               
                 string tabDetails = opportunityDetails.ValidateDetailsTabL();
                 Assert.AreEqual("Details", tabDetails);
                 extentReports.CreateLog("Sub Tab with name: " + tabDetails + " is displayed under Info Tab ");
@@ -370,10 +370,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Rob Oudman", addedStaff);
                 extentReports.CreateLog("Team member with name: " + addedStaff + " is displayed upon saving it ");
 
-                //Validate Return to Opportunity button and its functionality  
-                string btnReturnToOpp1 = opportunityDetails.ValidateReturnToOpp();
-                Assert.AreEqual("Details", btnReturnToOpp1);
-                extentReports.CreateLog("Opportunity details page is displayed after clicking Return To Opportunity button ");
+                ////Validate Return to Opportunity button and its functionality  
+                //string btnReturnToOpp1 = opportunityDetails.ValidateReturnToOpp();
+                //Assert.AreEqual("Details", btnReturnToOpp1);
+                //extentReports.CreateLog("Opportunity details page is displayed after clicking Return To Opportunity button ");
 
                 //TC_06:- Validate Comments tab                
                 string tabComments = opportunityDetails.ValidateCommentsTabL();

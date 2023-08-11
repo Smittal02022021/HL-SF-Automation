@@ -354,6 +354,7 @@ namespace SF_Automation.Pages.Engagement
         By txtContacts = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnPartyContact = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
 		By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+        
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
@@ -2559,7 +2560,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             string id = driver.FindElement(valRevAccID).Text;
             return id;
         }
@@ -2567,7 +2568,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate Edit Revenue Accural functionality
         public string ValidateEditRevenueFunctionality()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 150);
             driver.FindElement(btnEditRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLegacyDC, 250);
@@ -3444,7 +3445,9 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("/html/body/div[8]/div/ul/li[3]/a[text()='Seller']")).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(6000);		
+			Thread.Sleep(6000);
+            driver.FindElement(tabEngContacts).Click();
+            Thread.Sleep(5000);
 			string name = driver.FindElement(valAddedContactNum).Text;
 			return name;
 		}
@@ -3497,7 +3500,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate Cancel Functionality of Billing Request
         public string ValidateCancelFunctionalityOfBillingRequest()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSendEmail, 200);
             driver.FindElement(btnCancelSendEmail).Click();
             Thread.Sleep(3000);
