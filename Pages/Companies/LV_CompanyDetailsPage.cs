@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -9,6 +10,9 @@ namespace SF_Automation.Pages.Companies
 {
     class LV_CompanyDetailsPage : BaseClass
     {
+        //General
+        By txtCompanyName = By.XPath("//div[text()='Company']/following::slot/sfa-output-name-with-hierarchy-icon-account/sfa-output-name-with-hierarchy-icon-wrapper/force-aura-action-wrapper/div/div/lightning-formatted-text");
+        
         //Coverage Tab
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");
 
@@ -143,6 +147,43 @@ namespace SF_Automation.Pages.Companies
             //Click Save
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
+        }
+
+        public bool VerifyClickingOnTheCompanyNameUnderAffiliatedCompaniesSectionTakesUserToCompanyDetailsPage()
+        {
+            bool result = false;
+
+            //Get the no. of companies under Affiliated Companies section
+            int noOfCompanies = driver.FindElements(By.XPath("//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Company Name: ']")).Count;
+
+            //Get the name of each company and store in an array
+            String[] companyNames = new String[noOfCompanies];
+            int j = 1;
+
+            for(int i = 0; i <= noOfCompanies - 1; i++)
+            {
+                companyNames[i] = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Company Name: '])[{j}]/following::dd/p/button)[1]")).Text;
+                driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Company Name: '])[{j}]/following::dd/p/button)[1]")).Click();
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 120);
+
+                if(driver.FindElement(txtCompanyName).Text == companyNames[i])
+                {
+                    result = true;
+                    Thread.Sleep(3000);
+                    driver.FindElement(By.XPath("(//button[contains(@title,'| Company')])[2]")).Click();
+                    Thread.Sleep(3000);
+                    j++;
+                    continue;
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

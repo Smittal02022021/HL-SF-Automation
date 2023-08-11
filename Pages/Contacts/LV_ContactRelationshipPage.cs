@@ -43,6 +43,7 @@ namespace SF_Automation.Pages.Contact
                     driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Click();
                     Thread.Sleep(5000);
 
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtHLContact, 120);
                     if(driver.FindElement(pageHeading).Text=="Relationship" && driver.FindElement(txtHLContact).Text == contactNames[i] && driver.FindElement(txtExternalContact).Text == extContactName) 
                     {
                         result = true;
@@ -65,6 +66,8 @@ namespace SF_Automation.Pages.Contact
                     contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Text;
                     driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Click();
                     Thread.Sleep(5000);
+
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtHLContact, 120);
 
                     if(driver.FindElement(pageHeading).Text == "Relationship" && driver.FindElement(txtHLContact).Text == contactNames[i] && driver.FindElement(txtExternalContact).Text == extContactName)
                     {

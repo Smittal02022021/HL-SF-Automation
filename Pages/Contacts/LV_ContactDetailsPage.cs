@@ -5,6 +5,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace SF_Automation.Pages.Contact
@@ -812,6 +813,73 @@ namespace SF_Automation.Pages.Contact
                 }
             }
 
+            return result;
+        }
+
+        public bool VerifyFieldsDisplayedUnderAffiliatedCompaniesSection(string path)
+        {
+            bool result = false;
+
+            int exlRowCount = ReadExcelData.GetRowCount(path, "AffiliatedCompanies");
+            for(int i = 1; i <= exlRowCount; i++)
+            {
+                string exlFieldName = ReadExcelData.ReadDataMultipleRows(path, "AffiliatedCompanies", i, 1);
+                string sfFieldName = driver.FindElement(By.XPath($"(//b[text()='Affiliated Companies ']/following::div/dl/dt/p)[{i}]")).Text;
+                if(exlFieldName == sfFieldName)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyAffiliationTypeIsDisplayedInBoldIfItIsInsideBoardMemberOrOutsideBoardMember()
+        {
+            bool result = false;
+
+            //Get the no. of companies under Affiliated Companies section
+            int noOfCompanies = driver.FindElements(By.XPath("//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Company Name: ']")).Count;
+
+            //Validate the expected result of the function
+            for(int i = 1; i <= noOfCompanies; i++)
+            {
+                //Get the typename
+                string typeName = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Type: '])[{i}]/following::dd/p)[1]")).Text;
+                if(typeName == "Outside Board Member" || typeName == "Inside Board Member")
+                {
+                    string tagName = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Type: '])[{i}]/following::dd/p/b)[1]")).TagName;
+                    if(tagName == "b")
+                    {
+                        result = true;
+                        continue;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    string tagName1 = driver.FindElement(By.XPath($"((//b[text()='Affiliated Companies ']/following::div/dl/dt/p[text()='Type: '])[{i}]/following::dd/p/b)[1]")).TagName;
+                    if(tagName1 != "b")
+                    {
+                        result = true;
+                        continue;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            
             return result;
         }
     }

@@ -128,8 +128,9 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             driver.FindElement(txtMainSearch).SendKeys(name);
+            Thread.Sleep(3000);
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
 
             driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
             Thread.Sleep(5000);

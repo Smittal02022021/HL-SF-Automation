@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.Contact
         LVHomePage lvHomePage = new LVHomePage();
         LV_ContactDetailsPage lvContactDetailsPage = new LV_ContactDetailsPage();
         LV_ContactRelationshipPage lvContactRelationshipPage = new LV_ContactRelationshipPage();
+        LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         
         public static string fileTCTMTT0033378 = "TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage";
@@ -96,14 +97,21 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetailsPage.VerifyContactNameUnderTopRelationshipIsBoldIfStrengthRatingIsStrongAndActivityDateIsWithinLastMonth());
                 extentReports.CreateStepLogs("Passed", "Contact name under Top Relationship is Bold if strength rating is strong and activity date is within Last Month. ");
 
-                //TC - TMTI0078935 - Verify that the Contact Name is linked to the relationship detail page. 
+                //TC - TMTI0078935 - Verify that the Contact Name is linked to the relationship detail page.
                 Assert.IsTrue(lvContactRelationshipPage.VerifyClickingOnTheContactNameTakesTheUserToItsRelationshipDetailPage(externalContactName));
                 extentReports.CreateStepLogs("Passed", "Clicking on the contact name takes the user to its relationship detail page. ");
 
+                //TC - TMTI0078937 - Verify the fields displayed in the "Affiliated Companies" section on the Relationship tree.
+                Assert.IsTrue(lvContactDetailsPage.VerifyFieldsDisplayedUnderAffiliatedCompaniesSection(excelPath));
+                extentReports.CreateStepLogs("Passed", "All the expected fields are available under Affiliated Companies section on the external contact details page. ");
 
+                //TC - TMTI0078939 - Verify that the Company Name is linked to the Company Detail page.
+                Assert.IsTrue(lvCompanyDetailsPage.VerifyClickingOnTheCompanyNameUnderAffiliatedCompaniesSectionTakesUserToCompanyDetailsPage());
+                extentReports.CreateStepLogs("Passed", "Clicking on the company name takes the user to the company detail page. ");
 
-
-
+                //TC - TMTI0078941 - Verify that if Affiliation Type is "Inside Board Member or Outside Board Member", then it will be displayed in bold text.
+                Assert.IsTrue(lvContactDetailsPage.VerifyAffiliationTypeIsDisplayedInBoldIfItIsInsideBoardMemberOrOutsideBoardMember());
+                extentReports.CreateStepLogs("Passed", "If Affiliation Type is Inside Board Member or Outside Board Member, then it is displayed in bold text. ");
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
