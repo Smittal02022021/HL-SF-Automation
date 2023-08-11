@@ -1373,6 +1373,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveCounterparty).Click();
             Thread.Sleep(5000);
             driver.Navigate().Refresh();
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, val1stDeclined, 90);
             string value = driver.FindElement(val1stDeclined).Text;
             return value;

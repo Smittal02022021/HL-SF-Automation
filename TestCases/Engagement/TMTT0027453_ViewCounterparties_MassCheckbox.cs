@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         AddCounterparty counterparty = new AddCounterparty();
-        public static string fileTC7877 = "TMTT0027453_ViewCounterparties_MassCheckbox";
+        public static string fileTC7877 = "TMTT0027453_MassCheckboxs";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -68,7 +68,7 @@ namespace SF_Automation.TestCases.Engagement
                 engagementDetails.ClickViewCounterpartiesButton();
                 counterparty.ClickMassCheckbox();               
                 string valDate = ReadExcelData.ReadData(excelPath, "Columns", 3);
-                string valCompDate = ReadExcelData.ReadData(excelPath, "Columns", 14);
+                string valCompDate = ReadExcelData.ReadData(excelPath, "Columns", 4);
 
                 //Fill all the details in available columns and Click Save button and then reset it
                 string val1stDeclined = counterparty.ValidateSaveFunctonalityAfterEnteringValuesForAllColumns(valDate);
@@ -107,8 +107,8 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Select the mass checkbox and unselect one row
                 counterparty.ClickMassCheckbox();
-                string valUpdatedDate = ReadExcelData.ReadData(excelPath, "Columns", 15);
-                string valUpdCompDate = ReadExcelData.ReadData(excelPath, "Columns", 16);
+                string valUpdatedDate = ReadExcelData.ReadData(excelPath, "Columns", 14);
+                string valUpdCompDate = ReadExcelData.ReadData(excelPath, "Columns", 15);
 
                 string val1stDeclinedUp = counterparty.SelectOnlyOneRowAndValidateSaveFunctionality(valUpdatedDate);
                 Assert.AreEqual(valUpdCompDate, val1stDeclinedUp);

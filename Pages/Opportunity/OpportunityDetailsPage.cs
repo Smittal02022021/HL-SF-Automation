@@ -2757,7 +2757,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         public string GetWomenLedText(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
-            if (name.Equals("Rob Oudman"))
+            if (name.Equals("Emre Abale"))
             {
                 string value = driver.FindElement(txtWomenLed).Text;
                 return value;
@@ -3057,7 +3057,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             //Select Contact
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//div[2]/ul/li[14]/a/div[1]/span/img")).Click();
+            driver.FindElement(By.XPath("//div[2]/ul/li[17]/a/div[1]/span/img")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
