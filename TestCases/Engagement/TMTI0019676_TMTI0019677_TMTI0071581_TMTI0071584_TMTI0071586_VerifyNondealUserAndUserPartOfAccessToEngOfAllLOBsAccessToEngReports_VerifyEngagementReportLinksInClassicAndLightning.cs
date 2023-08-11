@@ -18,7 +18,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engHome = new EngagementHomePage();
 
-        public static string TMTI0019676 = "VerifyEngagementReportLinks.xlsx";
+        public static string TMTI0019676 = "VerifyEngagementReportLinks.xls";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

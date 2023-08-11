@@ -2865,7 +2865,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             driver.FindElement(valCST).Click();
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             string value = driver.FindElement(valCSTPostUpdate).Text;
             return value;
         }

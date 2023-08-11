@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOppCounterparty counterparty = new AddOppCounterparty();       
         AddOpportunityContact addContact = new AddOpportunityContact();
 
-        public static string TMTT0017889 = "VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.xlsx";
+        public static string TMTT0017889 = "TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -367,7 +367,7 @@ namespace SF_Automation.TestCases.Opportunity
                 
                 //Validate Modify Roles button and save funcitonality  
                 string addedStaff = opportunityDetails.ValidateModifyRolesButton();
-                Assert.AreEqual("James Craven", addedStaff);
+                Assert.AreEqual("Rob Oudman", addedStaff);
                 extentReports.CreateLog("Team member with name: " + addedStaff + " is displayed upon saving it ");
 
                 //Validate Return to Opportunity button and its functionality  

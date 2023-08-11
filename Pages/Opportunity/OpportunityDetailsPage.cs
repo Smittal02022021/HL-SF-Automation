@@ -1107,7 +1107,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Click Return to Opp
         public string ValidateReturnToOpp()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
             driver.FindElement(btnReturnToOpp).Click();
             Thread.Sleep(3000);
