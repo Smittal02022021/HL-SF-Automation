@@ -59,10 +59,10 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valMinRoundBid = By.XPath("//dt[text()='Round Minimum (MM):']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text");
+        By valMinRoundBid = By.XPath("//*[@id='tab-2']/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//*[@id='tab-2']/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
-       
+        
 
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
         By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
@@ -158,7 +158,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSelectRecord = By.XPath("//span[text()='Please select at least one row to delete.']");
 
         By msgDeleteRecord = By.XPath("//lightning-confirm/p[text()='Are you sure you want to delete the selected rows ?']");
-        By btnDeleteConfirm = By.XPath("//div/button[text()='OK']");
+        By btnDeleteConfirm = By.XPath("//section/div/div/button[text()='OK']");
         By msgDeleteFinal = By.XPath("//span[text()='Displaying 1 to 1 of 1 records. Page 1 of 1.']");
         By valCounterpartyName = By.XPath("//section[3]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/th/span/a");
         By lblCounterpartyName = By.XPath("//span[@title='Counterparty Name']");
@@ -224,6 +224,13 @@ namespace SF_Automation.Pages.Engagement
         By chk1stRow = By.XPath("//tr[2]/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
         By valTier2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
         By valType2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[1]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
+        By val1stKPINo = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[1]");
+        By val1stKPIText = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[1]/slot/div/div[2]");
+        By val2ndKPINo = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[2]/slot/div/div[1]");
+        By val2ndKPIText = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[2]/slot/div/div[2]");
+        By val3rdKPINo = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div[1]");
+        By val3rdKPIText = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div[2]");
+
 
 
         //To Click Counterparties button
@@ -1098,15 +1105,19 @@ namespace SF_Automation.Pages.Engagement
         //Delete Engagement Counterparty Contact
         public string SelectAnyRecordAndClickDelete()
         {
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(4000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 150);
+            driver.FindElement(chkCounterparty).Click();           
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 150);
             driver.FindElement(btnDeleteCounterparty).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteRecord, 250);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteRecord, 270);
             string text = driver.FindElement(msgDeleteRecord).Text;
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteConfirm, 250);
-            driver.FindElement(btnDeleteConfirm).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteConfirm, 250);       
+            driver.FindElement(btnDeleteConfirm).Click();            
+                           
             return text;
         }
 
@@ -1122,6 +1133,7 @@ namespace SF_Automation.Pages.Engagement
         //Clik Edit bid button
         public string ClickEditBidAndValidateNewTab()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditBidsL, 150);
             driver.FindElement(btnEditBidsL).Click();
             Thread.Sleep(4000);
@@ -1219,9 +1231,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabCounterpartyEditor).Click();
             Thread.Sleep(8000);
             driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(8000);
-            driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(8000);            
             string bid = driver.FindElement(valMinRoundBid).Text;
             return bid;
         }
@@ -1558,7 +1568,68 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-       
+       //Validate Total KPI's count
+       public string GetNumberOf1stKPI()
+        {
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val1stKPINo, 90);
+            string value = driver.FindElement(val1stKPINo).Text;
+            return value;
+        }
+
+        //Validate Total KPI
+        public string GetTextOf1stKPI()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val1stKPIText, 90);
+            string value = driver.FindElement(val1stKPIText).Text;
+            return value;
+        }
+        //Validate Initial Contact KPI's count
+        public string GetNumberOf2ndKPI()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val2ndKPINo, 90);
+            string value = driver.FindElement(val2ndKPINo).Text;
+            return value;
+        }
+
+        //Validate Initial Contact KPI
+        public string GetTextOf2ndKPI()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val2ndKPIText, 90);
+            string value = driver.FindElement(val2ndKPIText).Text;
+            return value;
+        }
+        //Validate Sent Teaser KPI's count
+        public string GetNumberOf3rdKPI()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val3rdKPINo, 90);
+            string value = driver.FindElement(val3rdKPINo).Text;
+            return value;
+        }
+
+        //Validate Sent Teaser KPI
+        public string GetTextOf3rdKPI()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, val3rdKPIText, 90);
+            string value = driver.FindElement(val3rdKPIText).Text;
+            return value;
+        }
+
+        //Validate Sent Teaser KPI functionality
+        public string ValidateKPIFunctionality()
+        {
+            driver.FindElement(val3rdKPINo).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteFinal, 150);
+            string message = driver.FindElement(msgDeleteFinal).Text;
+            return message;
+        }
     }
 
 }

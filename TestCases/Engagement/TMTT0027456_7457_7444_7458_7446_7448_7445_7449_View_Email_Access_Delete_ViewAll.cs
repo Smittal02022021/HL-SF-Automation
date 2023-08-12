@@ -226,6 +226,29 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("(0)", valComment);
                 extentReports.CreateLog("Added counterparty comments have been delete successfully. ");
 
+                //TC_13_Validate the displayed KPIs and click on any KPI & validate the displayed records
+                string val1stKPI = counterparty.GetNumberOf1stKPI();
+                string total = counterparty.GetTextOf1stKPI();
+                Assert.AreEqual("2", val1stKPI);
+                Assert.AreEqual("Total", total);
+                extentReports.CreateLog("KPI with name :" +total +" is displayed with Count: "+val1stKPI +" as per the number of Counterparties ");
+
+                string val2ndKPI = counterparty.GetNumberOf2ndKPI();
+                string initialContact = counterparty.GetTextOf2ndKPI();
+                Assert.AreEqual("1", val2ndKPI);
+                Assert.AreEqual("Initial Contact", initialContact);
+                extentReports.CreateLog("KPI with name :" + initialContact + " is displayed with Count: " + val2ndKPI + " as per its value entered in the displayed Counterparties ");
+
+                string val3rdKPI = counterparty.GetNumberOf3rdKPI();
+                string sentTeaser = counterparty.GetTextOf3rdKPI();
+                Assert.AreEqual("1", val2ndKPI);
+                Assert.AreEqual("Sent Teaser", sentTeaser);
+                extentReports.CreateLog("KPI with name :" + sentTeaser + " is displayed with Count: " + val3rdKPI + " as per its value entered in the displayed Counterparties ");
+
+                string displayedRec = counterparty.ValidateKPIFunctionality();
+                Assert.AreEqual("Displaying 1 to 1 of 1 records. Page 1 of 1.", displayedRec);
+                extentReports.CreateLog("Counterparty with selected KPI's details is displayed upon clicking it. ");
+                                
                 //TC05__Validate delete functionality
                 string confirmMessage = counterparty.SelectAnyRecordAndClickDelete();
                 Assert.AreEqual("Are you sure you want to delete the selected rows ?", confirmMessage);
