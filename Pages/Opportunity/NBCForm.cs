@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 
@@ -303,12 +304,23 @@ namespace SF_Automation.Pages.Opportunity
         By btnReturnToOpp =By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[2]");
         By btnRoleDef =    By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[3]");
 
+        By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An NBC Form:']");
         By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/div[1]/span[1]");
         By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]/div[1]/span");
+        By btnNextSchCall = By.XPath("//flexipage-tab2/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/lightning-helptext/div/lightning-button-icon/button/lightning-primitive-icon");
+        By msgNextSchCall = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/lightning-helptext/div/lightning-button-icon/button/span");
         By lblRequiresFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordReq_feedback_prior_to_normal_sched_call_cField1']/following::span[1]");
-        By lblReviewSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/div[1]/div[1]/span");
+        By lblReviewSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/span/slot/records-record-layout-checkbox/lightning-input/label/span");
+        By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div/div[2]/button");
+        By chkReqFeedback = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
 
-        By lnkAttachments = By.XPath("//a[@data-label='Attachments']");
+         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
+        By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+
+        By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
+        By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
         By secFiles = By.XPath("//span[@title='Files']");
         By btnUploadFiles = By.XPath("//*[@class='slds-file-selector__body']/span[1]");
         By secOwnershipDetails = By.XPath("//a[@data-aura-class='uiOutputURL']");
@@ -317,7 +329,7 @@ namespace SF_Automation.Pages.Opportunity
         By valClientOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[1]/div/div[2]/span/span");
         By lblSubOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[2]/div/div[1]/span");
         By valSubOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[2]/div/div[2]/span/span");
-
+        By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By lnkEditFairnessOpinion = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By lblFairnessOpinionPublicly = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Opinion_Publicly_Disclosed_cField4']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblShareholderVote = By.XPath("//flexipage-field[@data-field-id='RecordShareholder_Vote_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -2286,6 +2298,14 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(3000);
             return text;
+        }        
+
+        //Validate section To submit NBC Form
+        public string ValidateSectionSubmitNBC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secToSubmit, 100);
+            string text = driver.FindElement(secToSubmit).Text;
+            return text;
         }
 
         //Validate Next Scheduled Call checkbox
@@ -2296,6 +2316,20 @@ namespace SF_Automation.Pages.Opportunity
             return text;
         }
 
+        //Validate Next Scheduled Call's Tool tip
+        public string ValidateNextScheduledCallToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNextSchCall, 100);
+            var element = driver.FindElement(btnNextSchCall);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();            
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
         //Validate Req feedback prior to normal sched call checkbox
         public string ValidateReqFeedbackCheckbox()
         {
@@ -2304,10 +2338,47 @@ namespace SF_Automation.Pages.Opportunity
             return text;
         }
 
+        //Valdiate additional fields of Req feedback
+        public string ValidateQuestion1OfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqfeedback, 100);
+            driver.FindElement(lnkReqfeedback).Click();
+            Thread.Sleep(7000);            
+            driver.FindElement(chkReqFeedback).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblQuestion1, 150);
+            string ques = driver.FindElement(lblQuestion1).Text;
+            return ques;
+                    }
+
+        public string Validate2ndQuestionOfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblQuestion2, 150);
+            string ques = driver.FindElement(lblQuestion2).Text;
+            return ques;
+        }
+
+        public string Validate1stMessageOfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string ques = driver.FindElement(msgQuestion1).Text;
+            return ques;
+        }
+
+        public string Validate2ndMessageOfReqFeedback()
+        {          
+            string ques = driver.FindElement(msgQuestion2).Text;
+            driver.FindElement(btnClose).Click();
+            return ques;
+        }
+
         //Validate Review Submission checkbox
         public string ValidateRequiresFeedbackInGMTCheckbox()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblRequiresFeedback, 100);
+            driver.FindElement(chkReqFeedback).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblRequiresFeedback, 130);
             string text = driver.FindElement(lblRequiresFeedback).Text;            
             Thread.Sleep(4000);
             return text;
@@ -2322,16 +2393,21 @@ namespace SF_Automation.Pages.Opportunity
             return text;
         }
 
-        //Validate Attachments tab
-        public string ValidateAttachemntsTab()
+        //Validate Supporting Doc question
+        public string ValidateSupportingDocQuestion()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkAttachments, 100);
-            string text = driver.FindElement(lnkAttachments).Text;
-            driver.FindElement(lnkAttachments).Click();
-            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSupportingQues, 110);
+            string text = driver.FindElement(lblSupportingQues).Text;            
             return text;
         }
 
+        //Validate Supporting Doc question's tool tip
+        public string ValidateSupportingDocQuestionTooltip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSupportingQues, 100);
+            string text = driver.FindElement(msgSupportingQues).Text;
+            return text;
+        }
         //Validate Files section
         public string ValidateFilesSection()
         {
@@ -2346,6 +2422,18 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnUploadFiles, 100);
             string text = driver.FindElement(btnUploadFiles).Text;
             return text;
+        }
+       
+     
+            //Upload a file and validate the same
+            public string UploadFileAndValidate(string path)
+            {
+                IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+                js.ExecuteScript("window.scrollTo(0,350)");                
+                CustomFunctions.FileUpload(driver, path);
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 100);
+                return driver.FindElement(toastMsgPopup).Text;                            
         }
 
         //Validate Ownership Details section
@@ -2398,8 +2486,8 @@ namespace SF_Automation.Pages.Opportunity
         //Update Fairness Opinion Provided option
         public void UpdateFairnessOpinionProvided()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditFairnessOpinion, 100);
-            driver.FindElement(lnkEditFairnessOpinion).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkEditFairnessOpinion, 100);
+            //driver.FindElement(lnkEditFairnessOpinion).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnFairnessOpinion).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='Yes']")).Click();

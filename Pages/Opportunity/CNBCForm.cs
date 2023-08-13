@@ -124,10 +124,8 @@ namespace SF_Automation.Pages.Opportunity
         By lblRestrictedList = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By msgCCInfo = By.XPath("//span[@title='Conflicts Check Information']");
         By lblCCStatus = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-
-
+        By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An CNBC Form:']");
         By lnkAttachments = By.XPath("//a[@data-label='Attachment']");
-
        
         By valOppNum = By.XPath("//body[@id='j_id0:j_id29:pbSendEmail:j_id47:Body_rta_body']/p[9]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
@@ -946,7 +944,13 @@ namespace SF_Automation.Pages.Opportunity
             string text = driver.FindElement(lblCCStatus).Text;
             return text;
         }
-
+        //Validate section To submit CNBC Form
+        public string ValidateSectionSubmitCNBC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secToSubmit, 100);
+            string text = driver.FindElement(secToSubmit).Text;
+            return text;
+        }
         //Validate Attachments tab
         public string ValidateAttachemntsTab()
         {

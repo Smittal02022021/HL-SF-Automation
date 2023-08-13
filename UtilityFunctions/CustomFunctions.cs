@@ -317,9 +317,9 @@ namespace SF_Automation.UtilityFunctions
         {
             By btnUploadFile = By.XPath("//input[@type='file']");
             By btnDone = By.XPath("//span[contains(text(),'Done')]");
-            driver.FindElement(btnUploadFile).SendKeys(filePath);
+            driver.FindElement(btnUploadFile).SendKeys(filePath);            
             WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
-            Thread.Sleep(9000);
+            Thread.Sleep(11000);
             driver.FindElement(btnDone).Click();
         }
     }

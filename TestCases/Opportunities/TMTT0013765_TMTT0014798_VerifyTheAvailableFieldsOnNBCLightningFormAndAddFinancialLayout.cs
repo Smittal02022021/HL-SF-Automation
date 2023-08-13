@@ -6,6 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -554,28 +555,60 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Role Definitions", txtRole);
                 extentReports.CreateLog("Button with name: " + txtRole + " is displayed ");
 
-                //Validate Submit For Review's available fields
+                //TMTI0078901_Validate Submit For Review's available fields
+                string txtToSubmit = form.ValidateSectionSubmitNBC();
+                Assert.AreEqual("To Submit An NBC Form:", txtToSubmit);
+                extentReports.CreateLog("Section with name: " + txtToSubmit + " is displayed ");
+
+                //TMTI0078903 ---
                 string txtNextSch = form.ValidateNextScheduledCallCheckbox();
                 Assert.AreEqual("Is this for the next scheduled call?", txtNextSch);
                 extentReports.CreateLog("Checkbox with name: " + txtNextSch + " is displayed ");
+
+                //string msgToolTip = form.ValidateNextScheduledCallToolTip();
+                //Assert.AreEqual("This is the optimum and preference of the committee.Calls are typically Monday unless it is an HL Holiday.", msgToolTip);
+                //extentReports.CreateLog("Tool tip with message: " + msgToolTip + " is displayed ");
 
                 string txtReqFeedback = form.ValidateReqFeedbackCheckbox();
                 Assert.AreEqual("Feedback required before next call?", txtReqFeedback);
                 extentReports.CreateLog("Checkbox with name: " + txtReqFeedback + " is displayed ");
 
+                //TMTI0078905_Validate additional fields of Req feedback along with its validations
+                string ques1 =form.ValidateQuestion1OfReqFeedback();
+                Assert.AreEqual("When is feedback needed by?", ques1);
+                extentReports.CreateLog("Question 1: " + ques1 + " is displayed upon selecting Feedback required before next call? checkbox ");
+
+                string ques2 = form.Validate2ndQuestionOfReqFeedback();
+                Assert.AreEqual("*Why can't this wait until next call?", ques2);
+                extentReports.CreateLog("Question 2: " + ques2 + " is displayed upon selecting Feedback required before next call? checkbox ");
+
+                string message1 = form.Validate1stMessageOfReqFeedback();
+                Assert.AreEqual("When is feedback needed by?", message1);
+                extentReports.CreateLog("Mandatory Validation: " + message1 + " is displayed upon clicking Save button without entering its values ");
+
+                string message2 = form.Validate2ndMessageOfReqFeedback();
+                Assert.AreEqual("Why can't this wait until next call?", message2);
+                extentReports.CreateLog("Mandatory Validation: " + message2 + " is displayed upon clicking Save button without entering its values ");
+
                 string txtRequiresGMT = form.ValidateRequiresFeedbackInGMTCheckbox();
                 Assert.AreEqual("Requires Feedback Date&Time in GMT", txtRequiresGMT);
                 extentReports.CreateLog("Checkbox with name: " + txtRequiresGMT + " is displayed ");
 
+                //TMTI0078909--
                 string txtReviewSub = form.ValidateReviewSubCheckbox();
                 Assert.AreEqual("Form Check (required to submit)", txtReviewSub);
-                extentReports.CreateLog("Checkbox with name: " + txtReviewSub + " is displayed ");                
+                extentReports.CreateLog("Checkbox with name: " + txtReviewSub + " is displayed ");
 
-                ////Validate Attachments section
-                //string txtAttachTab = form.ValidateAttachemntsTab();
-                //Assert.AreEqual("Attachments", txtAttachTab);
-                //extentReports.CreateLog("Tab with name: " + txtAttachTab + " is displayed ");
+                //TMTI0078907_Validate Question for supporting document and its tool tip
+                string supportingQues = form.ValidateSupportingDocQuestion();
+                Assert.AreEqual("Do you have any supporting documents?", supportingQues);
+                extentReports.CreateLog("Question : " + supportingQues + " is displayed ");
 
+                string supportingTip = form.ValidateSupportingDocQuestionTooltip();
+                Assert.AreEqual("*Such as potential buyers, financials, Supplementary pages only, not full decks.", supportingTip);
+                extentReports.CreateLog("Tool tip : " + supportingTip + " is displayed for Supporting document ");
+                        
+                //Validate files section and its functionality
                 string txtFiles = form.ValidateFilesSection();
                 Assert.AreEqual("Files", txtFiles);
                 extentReports.CreateLog("Section with name: " + txtFiles + " is displayed ");
@@ -583,6 +616,11 @@ namespace SF_Automation.TestCases.Opportunity
                 string txtUpload = form.ValidateUploadFilesButton();
                 Assert.AreEqual("Upload Files", txtUpload);
                 extentReports.CreateLog("Button with name: " + txtUpload + " is displayed ");
+
+                string excelPath1 = ReadJSONData.data.filePaths.testData;
+                string successMsg = form.UploadFileAndValidate(excelPath1 + "UploadFile.txt");
+                Assert.AreEqual("UploadFile", successMsg);
+                extentReports.CreateLog("Selected File has been uploaded ");
 
                 //string txtOwner = form.ValidateOwnerDetailsSection();
                 //Assert.AreEqual("Ownership Details", txtOwner);
