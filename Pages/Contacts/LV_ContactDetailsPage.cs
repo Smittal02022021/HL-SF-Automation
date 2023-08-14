@@ -91,6 +91,7 @@ namespace SF_Automation.Pages.Contact
 
         //Contact Informaction section
         By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../div[2]/span/slot/lightning-formatted-name");
+        By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
 
         public void CloseTab(string tabName)
         {
@@ -913,5 +914,32 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(2000);
         }
 
+        public bool VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection()
+        {
+            bool result= false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, associatedEngagementsIcon, 120);
+            driver.FindElement(associatedEngagementsIcon).Click();
+            Thread.Sleep(3000);
+
+            //Get total no of engagements
+            int totalAvailableEngagements = driver.FindElements(By.XPath("//table[@aria-label='Engagements']/tbody/tr")).Count;
+
+            //Get the name of each Engagement and store in an array
+            String[] engagementNames = new String[totalAvailableEngagements];
+            int rowNum = 1;
+
+            for(int i = 0; i <= totalAvailableEngagements - 1; i++)
+            {
+                if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text == "Active")
+                {
+                    engagementNames[i] = driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text;
+                    rowNum++;
+                    continue;
+                }
+            }
+            
+            return result;
+        }
     }
 }

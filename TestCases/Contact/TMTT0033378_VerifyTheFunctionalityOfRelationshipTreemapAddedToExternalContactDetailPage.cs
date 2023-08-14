@@ -126,13 +126,19 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvEngagementDetailsPage.VerifyAssociatedEngagementsSectionOnContactDetailsPageDisplaysEngagementsWhereTheExternalContactIsAnEngagementContact(engContactName));
                 extentReports.CreateStepLogs("Passed", "Associated Engagements section displays those engagements where the external contact is placed as Engagement Contact. ");
 
+                //TC - TMTI0078947 - Verify that if there are both Active and closed Engagements, then it will list only Active Engagements.
+                Assert.IsTrue(lvContactDetailsPage.VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection());
+
+
+
+
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Classic View. ");
 
                 driver.Quit();
             }
