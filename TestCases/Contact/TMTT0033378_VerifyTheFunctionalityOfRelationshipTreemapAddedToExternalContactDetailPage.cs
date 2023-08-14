@@ -19,6 +19,7 @@ namespace SF_Automation.TestCases.Contact
         LV_ContactDetailsPage lvContactDetailsPage = new LV_ContactDetailsPage();
         LV_ContactRelationshipPage lvContactRelationshipPage = new LV_ContactRelationshipPage();
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
+        LV_EngagementDetailsPage lvEngagementDetailsPage = new LV_EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         
         public static string fileTCTMTT0033378 = "TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage";
@@ -43,6 +44,7 @@ namespace SF_Automation.TestCases.Contact
 
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string externalContactName = ReadExcelData.ReadData(excelPath, "ExternalContact", 1);
+                string engContactName = ReadExcelData.ReadData(excelPath, "EngContact", 1);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -116,6 +118,13 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMTI0078943 - Verify the fields displayed in the "Associated Engagements" section on the Relationship tree.
                 Assert.IsTrue(lvContactDetailsPage.VerifyFieldsDisplayedUnderAssociatedEngagementsSection(excelPath));
                 extentReports.CreateStepLogs("Passed", "All the expected fields are available under Associated Engagements section on the external contact details page. ");
+
+                lvContactDetailsPage.CloseDuplicateCompanyAlertMessageDialogBox();
+                extentReports.CreateStepLogs("Info", "Close duplicate company alert box. ");
+
+                //TC - TMTI0078945 - Verify that the "Associated Engagements" section displays those engagements where this contact is placed as Engagement Contact.
+                Assert.IsTrue(lvEngagementDetailsPage.VerifyAssociatedEngagementsSectionOnContactDetailsPageDisplaysEngagementsWhereTheExternalContactIsAnEngagementContact(engContactName));
+                extentReports.CreateStepLogs("Passed", "Associated Engagements section displays those engagements where the external contact is placed as Engagement Contact. ");
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

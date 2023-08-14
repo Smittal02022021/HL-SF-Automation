@@ -504,6 +504,7 @@
     <Compile Include="Pages\Engagement\EngagementHomePage.cs" />
     <Compile Include="Pages\Engagement\EngagementManager.cs" />
     <Compile Include="Pages\Engagement\EngagementSummaryPage.cs" />
+    <Compile Include="Pages\Engagement\LV_EngagementDetailsPage.cs" />
     <Compile Include="Pages\Engagement\ValuationPeriods.cs" />
     <Compile Include="Pages\EventExpense\ExpenseRequestCreatePage.cs" />
     <Compile Include="Pages\EventExpense\ExpenseRequestDetailPage.cs" />

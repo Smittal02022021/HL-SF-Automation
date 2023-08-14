@@ -14,6 +14,7 @@ namespace SF_Automation.Pages.Contact
     {
         //General elements
         By txtContactName = By.XPath("//span[@class='custom-truncate uiOutputText']");
+        By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
 
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
@@ -903,6 +904,13 @@ namespace SF_Automation.Pages.Contact
             }
 
             return result;
+        }
+
+        public void CloseDuplicateCompanyAlertMessageDialogBox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseDuplicateCompanyAlertDialogBox, 120);
+            driver.FindElement(btnCloseDuplicateCompanyAlertDialogBox).Click();
+            Thread.Sleep(2000);
         }
 
     }
