@@ -282,8 +282,7 @@ namespace SF_Automation.TestCases.Engagement
                 string maxBidCounterparty = counterparty.ValidateMaxBidDetailOnCounterpartiesPage();
                 Assert.AreEqual("GBP " + value, maxBidCounterparty);
                 extentReports.CreateLog("Bid with Round Maximum (MM): " + maxBidCounterparty + " is displayed on counterparty details page after saving ");
-                                       
-                
+                                                       
                 usersLogin.LightningLogout();
                 driver.Quit();
 

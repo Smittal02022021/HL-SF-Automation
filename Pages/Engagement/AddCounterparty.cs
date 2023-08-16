@@ -60,9 +60,8 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valBidCount = By.XPath("//div[@class='slds-media__body slds-align-middle']/h2/a/span[@title='Bids']/ancestor::a/span[@title='(1)']");
-        By valMinRoundBid = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text");
+        By valMinRoundBid = By.XPath("//div[@class='slds-tile__detail']/dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//div[@class='slds-tile__detail']/dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
@@ -1232,9 +1231,10 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabCounterpartyEditor).Click();
             Thread.Sleep(7000);
             driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(9000);
+            Thread.Sleep(4000);
+            driver.Navigate().Refresh();
             Console.WriteLine("About to fetch the element");
-            //string bid = driver.FindElement(valBidCount).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, valMinRoundBid, 200);
             string bid = driver.FindElement(valMinRoundBid).Text;
             return bid;
         }
@@ -1244,59 +1244,8 @@ namespace SF_Automation.Pages.Engagement
         {            
             string bid = driver.FindElement(valMaxRoundBid).Text;
             return bid;
-        }
-
-
-        //Search for a company and validate Company List
-        public string EnterCompanyAndValidateThePage()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyList, 150);
-            driver.FindElement(txtCompanyList).SendKeys("etsy");
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCompList, 150);
-            driver.FindElement(btnViewAllCompList).Click();
-            Thread.Sleep(4000);
-            string title = driver.FindElement(titleCompanyList).Text;
-            return title;
-        }
-
-        //Select the company
-        public string SelectAndAddCompany()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, radioCompName, 150);
-            driver.FindElement(radioCompName).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
-            driver.FindElement(btnOK).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
-            driver.FindElement(chkCompany).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyTo, 150);
-            driver.FindElement(btnAddCounterpartyTo).Click();
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackCounterparties, 150);
-            driver.FindElement(btnBackCounterparties).Click();
-            Thread.Sleep(7000);
-            string name = driver.FindElement(tblCompanies).Text;
-            return name;
-        }
-
-        //Validate if 2nd company still exists
-        public string Validate2ndCompanyPostDeletion()
-        {
-            try
-            {
-                Thread.Sleep(5000);
-                string name = driver.FindElement(tblCompanies).Text;
-                return name;
-
-            }
-            catch (Exception e)
-            {
-                return "2nd company does not exist";
-            }
-        }
-   
-           
+        }                      
+                     
       
 
         //Check Mass checkbox

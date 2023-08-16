@@ -119,6 +119,121 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Opportunity Overview", title);
                 extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
 
+                //Click on Add Financials                
+                string txtAddFin = form.ClickAddFinancialsButton();
+                Assert.AreEqual("Add Financials", txtAddFin);
+                extentReports.CreateLog("Page with name " + txtAddFin + " is displayed upon clic  king the tab. ");
+
+                //Validate the year validation
+                string txtYear = form.GetYearValidation();
+                Assert.AreEqual("Complete this field.", txtYear);
+                extentReports.CreateLog("Validation :" + txtYear + " is displayed corresponding to Year upon clicking Save button ");
+
+                //Validate the Type validation
+                string txtType = form.GetTypeValidation();
+                Assert.AreEqual("Complete this field.", txtType);
+                extentReports.CreateLog("Validation :" + txtType + " is displayed corresponding to Type upon clicking Save button ");
+
+                //Validate the Related Company Field
+                string txtRel = form.GetRelatedCompanyField();
+                Assert.AreEqual("Related Company", txtRel);
+                extentReports.CreateLog("Field with name :" + txtRel + " is displayed ");
+
+                //Validate the Type Field
+                string txtTypeField = form.GetTypeField();
+                Assert.AreEqual("Type", txtTypeField);
+                extentReports.CreateLog("Field with name :" + txtTypeField + " is displayed ");
+
+                //Validate the Year Field
+                string txtYearField = form.GetYearField();
+                Assert.AreEqual("Year", txtYearField);
+                extentReports.CreateLog("Field with name :" + txtYearField + " is displayed ");
+
+                //Validate the As of Date Field
+                string txtAsOf = form.GetAsOfDateField();
+                Assert.AreEqual("As of Date", txtAsOf);
+                extentReports.CreateLog("Field with name :" + txtAsOf + " is displayed ");
+
+                //TMTI0078917 - Verify that on the Add Financials page, the following tooltip is added to the "As of Date" label
+                string msgAsOfDate = form.ValidateAsOfDateToolTip();
+                Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
+                extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
+
+                //Validate the Revenue (MM) Field
+                string txtRevneue = form.GetRevenueMMField();
+                Assert.AreEqual("Revenue (MM)", txtRevneue);
+                extentReports.CreateLog("Field with name :" + txtRevneue + " is displayed ");
+
+                //Validate the Annual Recurring Revenue (MM) Field
+                string txtAnnual = form.GetAnnualRecurringRevenue();
+                Assert.AreEqual("Annual Recurring Revenue (MM)", txtAnnual);
+                extentReports.CreateLog("Field with name :" + txtAnnual + " is displayed ");
+
+                //Validate the EBIT (MM) Field
+                string txtEBIT = form.GetEBIT();
+                Assert.AreEqual("EBIT (MM)", txtEBIT);
+                extentReports.CreateLog("Field with name :" + txtEBIT + " is displayed ");
+
+                //Validate the Currency Field
+                string txtCurrency = form.GetCurrency();
+                Assert.AreEqual("Currency", txtCurrency);
+                extentReports.CreateLog("Field with name :" + txtCurrency + " is displayed ");
+
+                //Validate the Face Value (MM) Field
+                string txtFaceValue = form.GetFaceValue();
+                Assert.AreEqual("Face Value (MM)", txtFaceValue);
+                extentReports.CreateLog("Field with name :" + txtFaceValue + " is displayed ");
+
+                //Validate the Net Asset Value(MM) Field
+                string txtNetAssetValue = form.GetNetAssetValue();
+                Assert.AreEqual("Net Asset Value (MM)", txtNetAssetValue);
+                extentReports.CreateLog("Field with name :" + txtNetAssetValue + " is displayed ");
+
+                //Validate the Number of Companies Field
+                string txtNoOfComp = form.GetNumberOfCompanies();
+                Assert.AreEqual("Number of Companies", txtNoOfComp);
+                extentReports.CreateLog("Field with name :" + txtNoOfComp + " is displayed ");
+
+                //Validate the Number of Loans Field
+                string txtNoOfLoan = form.GetNumberOfLoans();
+                Assert.AreEqual("Number of Loans", txtNoOfLoan);
+                extentReports.CreateLog("Field with name :" + txtNoOfLoan + " is displayed ");
+
+                //Validate the Number of Interests Field
+                string txtNoOfInterests = form.GetNumberOfInterests();
+                Assert.AreEqual("Number of Interests", txtNoOfInterests);
+                extentReports.CreateLog("Field with name :" + txtNoOfInterests + " is displayed ");
+
+                //Validate the Number of Policies Field
+                string txtNoOfPolicies = form.GetNumberOfPolicies();
+                Assert.AreEqual("Number of Policies", txtNoOfPolicies);
+                extentReports.CreateLog("Field with name :" + txtNoOfPolicies + " is displayed ");
+
+                //Validate the EBITDA (MM) Field
+                string txtEBITDA = form.GetEBITDA();
+                Assert.AreEqual("EBITDA (MM)", txtEBITDA);
+                extentReports.CreateLog("Field with name :" + txtEBITDA + " is displayed ");
+
+                //Validate Interest and Fee Income (MM) Field
+                string txtInterest = form.GetInterestAndFeeIncome();
+                Assert.AreEqual("Interest and Fee Income (MM)", txtInterest);
+                extentReports.CreateLog("Field with name :" + txtInterest + " is displayed ");
+
+                //Validate Pre - Tax Income(MM) Field
+                string txtPreTax = form.GetPreTaxIncome();
+                Assert.AreEqual("Pre-Tax Income (MM)", txtPreTax);
+                extentReports.CreateLog("Field with name :" + txtPreTax + " is displayed ");
+
+                //Validate Book Value (MM) Field
+                string txtBook = form.GetBookValue();
+                Assert.AreEqual("Book Value (MM)", txtBook);
+                extentReports.CreateLog("Field with name :" + txtBook + " is displayed ");
+
+                //Validate Assets Under Management (MM) Field
+                string txtAssets = form.GetAssetsUnderManagement();
+                Assert.AreEqual("Assets Under Management (MM)", txtAssets);
+                extentReports.CreateLog("Field with name :" + txtAssets + " is displayed ");
+
                 //Click Opportunity Overview tab and validate its available fields
                 string txtOppOverview = form.ClickOpportunityOverview();
                 Assert.AreEqual("Opportunity Overview", txtOppOverview);
@@ -242,24 +357,34 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name " + txtFinancials + " is displayed upon clicking Financials tab. ");
 
                 //TMTI0078911 - Verify that the red bolded text on the Financials tab 
-                //string msgAddFin = form.GetAddFinancialsText();
-                //Console.WriteLine("msgAddFin: " + msgAddFin);
-                //string colorMsg = form.GetColorOfAddFinancialsText();
-                //Assert.AreEqual("To add financials, please go to the “Add Financials” button at the top right of this form", msgAddFin);
-                //Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
-                //extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
+                string msgAddFin = form.GetAddFinancialsText();
+                Console.WriteLine("msgAddFin: " + msgAddFin);
+                string colorMsg = form.GetColorOfAddFinancialsText();
+                Assert.AreEqual("To add financials, please go to the “Add Financials” butto﻿n at the top right of this form", msgAddFin);
+                Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
+                extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
 
                 string msgFinUnavail = cnbc.GetMessageFinUnavailable();
                 Assert.AreEqual("Financials Unavailable", msgFinUnavail);
                 extentReports.CreateLog("Message : " + msgFinUnavail + " is displayed ");
 
+                //TMTI0078913_Verify that the "No Financials" label is "Insufficient Financials" on the Financials tab along with the tooltip
                 string txtNoFin = cnbc.GetLabelNoFin();
                 Assert.AreEqual("Insufficient Financials", txtNoFin);
                 extentReports.CreateLog("Field with name: " + txtNoFin + " is displayed ");
 
+                string msgInSuffFin = form.ValidateInsufficientFinancialsToolTip();
+                Assert.AreEqual("The committee would like to see at least four years of financials. If you don’t have at least four, add what you can and complete the explanation field below.", msgInSuffFin);
+                extentReports.CreateLog("Tool tip with message: " + msgInSuffFin + " is displayed upon hovering on Insufficient Financials ");
+
+                //TMTI0078915- Verify that the "No Financials Explanation" label is to "Insufficient Financials Explanation" with the following tooltip
                 string txtNoFinExp = cnbc.GetLabelNoFinExp();
                 Assert.AreEqual("Insufficient Financials Explanation", txtNoFinExp);
                 extentReports.CreateLog("Field with name: " + txtNoFinExp + " is displayed ");
+
+                string msgInSuffFinEx = form.ValidateInsufficientFinancialsExpToolTip();
+                Assert.AreEqual("Please explain why there are insufficient financials:", msgInSuffFinEx);
+                extentReports.CreateLog("Tool tip with message: " + msgInSuffFinEx + " is displayed upon hovering on Insufficient Financials ");
 
                 string msgAboveFin = cnbc.GetMessageFinSubToAudit();
                 Assert.AreEqual("Have the above Financials been subject to an audit?", msgAboveFin);

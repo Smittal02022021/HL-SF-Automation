@@ -155,8 +155,13 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("As of Date", txtAsOf);
                 extentReports.CreateLog("Field with name :" + txtAsOf + " is displayed ");
 
+                //TMTI0078917 - Verify that on the Add Financials page, the following tooltip is added to the "As of Date" label
+                string msgAsOfDate = form.ValidateAsOfDateToolTip();
+                Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
+                extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
+
                 //Validate the Revenue (MM) Field
-                string txtRevneue= form.GetRevenueMMField();
+                string txtRevneue = form.GetRevenueMMField();
                 Assert.AreEqual("Revenue (MM)", txtRevneue);
                 extentReports.CreateLog("Field with name :" + txtRevneue + " is displayed ");
 
@@ -288,13 +293,13 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Financials", txtFinancials);
                 extentReports.CreateLog("Tab with name " + txtFinancials + " is displayed upon clicking Financials tab. ");
 
-                ////TMTI0078911 - Verify that the red bolded text on the Financials tab 
-                //string msgAddFin = form.GetAddFinancialsText();
-                //string colorMsg = form.GetColorOfAddFinancialsText();
-                //Assert.AreEqual("To add financials, please go to the “Add Financials” button at the top right of this form", msgAddFin);
-                //Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
-                //extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
-
+                //TMTI0078911 - Verify that the red bolded text on the Financials tab 
+                string msgAddFin = form.GetAddFinancialsText();
+                Console.WriteLine("msgAddFin: " + msgAddFin);
+                string colorMsg = form.GetColorOfAddFinancialsText();
+                Assert.AreEqual("To add financials, please go to the “Add Financials” butto﻿n at the top right of this form", msgAddFin);
+                Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
+                extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
 
                 string msgCapMkt = form.GetMessageCapitalMarket();
                 Assert.AreEqual("Has the Capital Markets Group been Consulted regarding financing or capital structure?", msgCapMkt);
@@ -320,13 +325,23 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Financials Unavailable", msgFinUnavail);
                 extentReports.CreateLog("Message : " + msgFinUnavail + " is displayed ");
 
+                //TMTI0078913_Verify that the "No Financials" label is "Insufficient Financials" on the Financials tab along with the tooltip
                 string txtNoFin = form.GetLabelNoFin();
                 Assert.AreEqual("Insufficient Financials", txtNoFin);
                 extentReports.CreateLog("Field with name: " + txtNoFin + " is displayed ");
 
+                string msgInSuffFin = form.ValidateInsufficientFinancialsToolTip();
+                Assert.AreEqual("The committee would like to see at least four years of financials. If you don’t have at least four, add what you can and complete the explanation field below.", msgInSuffFin);
+                extentReports.CreateLog("Tool tip with message: " + msgInSuffFin + " is displayed upon hovering on Insufficient Financials ");
+
+                //TMTI0078915- Verify that the "No Financials Explanation" label is to "Insufficient Financials Explanation" with the following tooltip
                 string txtNoFinExp = form.GetLabelNoFinExp();
                 Assert.AreEqual("Insufficient Financials Explanation", txtNoFinExp);
-                extentReports.CreateLog("Field with name: " + txtNoFinExp + " is displayed ");                
+                extentReports.CreateLog("Field with name: " + txtNoFinExp + " is displayed ");
+
+                string msgInSuffFinEx = form.ValidateInsufficientFinancialsExpToolTip();
+                Assert.AreEqual("Please explain why there are insufficient financials:", msgInSuffFinEx);
+                extentReports.CreateLog("Tool tip with message: " + msgInSuffFinEx + " is displayed upon hovering on Insufficient Financials ");
 
                 //Click Fees tab and validate its mandatory validations 
                 string txtFees = form.ClickFeesTab();

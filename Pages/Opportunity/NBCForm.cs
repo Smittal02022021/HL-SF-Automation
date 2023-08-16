@@ -310,12 +310,16 @@ namespace SF_Automation.Pages.Opportunity
         By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]/div[1]/span");
         By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/lightning-helptext/div/lightning-button-icon");
         By btnFormCheck = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/span/slot/records-record-layout-checkbox/lightning-input/lightning-helptext/div/lightning-button-icon");
+        By btnInSuffFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnInSuffFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnAsOfDate = By.XPath("//label/div/lightning-icon");
 
         By msgNextSchCall = By.XPath("//lightning-primitive-bubble[@role='tooltip']//div[@class='slds-popover__body']");
         By lblRequiresFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordReq_feedback_prior_to_normal_sched_call_cField1']/following::span[1]");
         By lblReviewSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/span/slot/records-record-layout-checkbox/lightning-input/label/span");
         By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div/div[2]/button");
         By chkReqFeedback = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
+        By msgAsOfDate = By.XPath("//div/label/div/span");
 
          By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
@@ -1794,13 +1798,14 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 100);
             string text = driver.FindElement(msgAddFin).Text;
+            Console.WriteLine("text " + text);
             return text;
         }
 
         //Get color of newly added message in Financials tab
         public string GetColorOfAddFinancialsText()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 100);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 110);
             string text = driver.FindElement(msgAddFin).GetAttribute("style");
             return text;
         }
@@ -2349,6 +2354,34 @@ namespace SF_Automation.Pages.Opportunity
             string name = driver.FindElement(msgNextSchCall).Text;
             return name;
         }
+
+        //Validate Insufficient Financials's Tool tip
+        public string ValidateInsufficientFinancialsToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInSuffFin, 100);
+            var element = driver.FindElement(btnInSuffFin);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
+        //Validate Insufficient Financials's Explanation Tool tip
+        public string ValidateInsufficientFinancialsExpToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInSuffFinExp, 100);
+            var element = driver.FindElement(btnInSuffFinExp);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
         //Validate Form Check's Tool tip
         public string ValidateFormCheckToolTip()
         {
@@ -2360,6 +2393,20 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
             string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
+        //Validate As of Date's Tool tip
+        public string ValidateAsOfDateToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAsOfDate, 100);
+            var element = driver.FindElement(btnAsOfDate);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAsOfDate, 80);
+            string name = driver.FindElement(msgAsOfDate).Text;
             return name;
         }
 
