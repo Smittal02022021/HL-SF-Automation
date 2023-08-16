@@ -276,26 +276,13 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate added bid details on Counterparties details page
                 string minBidCounterparty = counterparty.ValidateMinBidDetailOnCounterpartiesPage();
-                Assert.AreEqual("GBP "+value, minBidCounterparty);
+                Assert.AreEqual("GBP " + value, minBidCounterparty);
                 extentReports.CreateLog("Bid with Round Minimum (MM): " + minBidCounterparty + " is displayed on counterparty details page after saving ");
 
                 string maxBidCounterparty = counterparty.ValidateMaxBidDetailOnCounterpartiesPage();
                 Assert.AreEqual("GBP " + value, maxBidCounterparty);
                 extentReports.CreateLog("Bid with Round Maximum (MM): " + maxBidCounterparty + " is displayed on counterparty details page after saving ");
-
-
-
-
-                
-
-
-
-
-
-
-
-
-
+                                       
                 
                 usersLogin.LightningLogout();
                 driver.Quit();

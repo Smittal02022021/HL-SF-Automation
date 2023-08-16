@@ -241,6 +241,14 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Financials", txtFinancials);
                 extentReports.CreateLog("Tab with name " + txtFinancials + " is displayed upon clicking Financials tab. ");
 
+                //TMTI0078911 - Verify that the red bolded text on the Financials tab 
+                //string msgAddFin = form.GetAddFinancialsText();
+                //Console.WriteLine("msgAddFin: " + msgAddFin);
+                //string colorMsg = form.GetColorOfAddFinancialsText();
+                //Assert.AreEqual("To add financials, please go to the “Add Financials” button at the top right of this form", msgAddFin);
+                //Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
+                //extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
+
                 string msgFinUnavail = cnbc.GetMessageFinUnavailable();
                 Assert.AreEqual("Financials Unavailable", msgFinUnavail);
                 extentReports.CreateLog("Message : " + msgFinUnavail + " is displayed ");
@@ -362,6 +370,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Is this for the next scheduled call?", txtNextSch);
                 extentReports.CreateLog("Checkbox with name: " + txtNextSch + " is displayed ");
 
+                string msgToolTip = form.ValidateNextScheduledCallToolTip();
+                Assert.AreEqual("This is the optimum and preference of the committee. Calls are typically Monday unless it is an HL Holiday.", msgToolTip);
+                extentReports.CreateLog("Tool tip with message: " + msgToolTip + " is displayed ");
+
                 string txtReqFeedback = form.ValidateReqFeedbackCheckbox();
                 Assert.AreEqual("Feedback required before next call?", txtReqFeedback);
                 extentReports.CreateLog("Checkbox with name: " + txtReqFeedback + " is displayed ");
@@ -391,6 +403,10 @@ namespace SF_Automation.TestCases.Opportunity
                 string txtReviewSub = form.ValidateReviewSubCheckbox();
                 Assert.AreEqual("Form Check (required to submit)", txtReviewSub);
                 extentReports.CreateLog("Checkbox with name: " + txtReviewSub + " is displayed ");
+
+                string msgToolTipForm = form.ValidateFormCheckToolTip();
+                Assert.AreEqual("First successfully complete the form check. After, you will be able to successfully submit by clicking “Submit for Review” (button will appear in upper right corner after form check is complete).", msgToolTipForm);
+                extentReports.CreateLog("Tool tip with message: " + msgToolTipForm + " is displayed ");
 
                 //TMTI0078907_Validate Question for supporting document and its tool tip
                 string supportingQues = form.ValidateSupportingDocQuestion();

@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Engagement
                 engManager.ClickEngageName();
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2023 - 06", month);
+                Assert.AreEqual("2023 - 07", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
 
                 //Logout of FAS CAO user and validate with admin user

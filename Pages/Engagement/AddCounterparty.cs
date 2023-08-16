@@ -4,6 +4,7 @@ using OpenQA.Selenium.Interactions;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Permissions;
 using System.Threading;
@@ -59,11 +60,11 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valMinRoundBid = By.XPath("//*[@id='tab-2']/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//*[@id='tab-2']/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[3]/lst-template-list-field/lst-formatted-text");
+        By valBidCount = By.XPath("//div[@class='slds-media__body slds-align-middle']/h2/a/span[@title='Bids']/ancestor::a/span[@title='(1)']");
+        By valMinRoundBid = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[4]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
-
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
         By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
         By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
@@ -1229,9 +1230,11 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 80);
             Thread.Sleep(6000);
             driver.FindElement(tabCounterpartyEditor).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(7000);
             driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(8000);            
+            Thread.Sleep(9000);
+            Console.WriteLine("About to fetch the element");
+            //string bid = driver.FindElement(valBidCount).Text;
             string bid = driver.FindElement(valMinRoundBid).Text;
             return bid;
         }

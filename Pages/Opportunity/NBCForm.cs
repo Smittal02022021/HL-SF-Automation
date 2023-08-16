@@ -237,6 +237,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblSanctions = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
 
         By msgCapMarket = By.XPath("//span[@title='Has the Capital Markets Group been Consulted regarding financing or capital structure?']");
+        By msgAddFin = By.XPath("//strong[contains(text(),'To add financials')]");
         By lblCapMkt = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Markets_Consulted__c']/div/div[1]/span[1]");
         By lblExistFin = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordCapital_Markets_Consulted_cField2']/slot[1]/following::span[1]");
         By msgAboveFin = By.XPath("//span[text()='Have the above financials been subject to an audit?']");
@@ -307,8 +308,10 @@ namespace SF_Automation.Pages.Opportunity
         By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An NBC Form:']");
         By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/div[1]/span[1]");
         By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]/div[1]/span");
-        By btnNextSchCall = By.XPath("//flexipage-tab2/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/lightning-helptext/div/lightning-button-icon/button/lightning-primitive-icon");
-        By msgNextSchCall = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/lightning-helptext/div/lightning-button-icon/button/span");
+        By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/lightning-helptext/div/lightning-button-icon");
+        By btnFormCheck = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/span/slot/records-record-layout-checkbox/lightning-input/lightning-helptext/div/lightning-button-icon");
+
+        By msgNextSchCall = By.XPath("//lightning-primitive-bubble[@role='tooltip']//div[@class='slds-popover__body']");
         By lblRequiresFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordReq_feedback_prior_to_normal_sched_call_cField1']/following::span[1]");
         By lblReviewSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/span/slot/records-record-layout-checkbox/lightning-input/label/span");
         By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div/div[2]/button");
@@ -1786,6 +1789,23 @@ namespace SF_Automation.Pages.Opportunity
             return text;
             }
 
+        //Validate newly added message in Financials tab
+        public string GetAddFinancialsText()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 100);
+            string text = driver.FindElement(msgAddFin).Text;
+            return text;
+        }
+
+        //Get color of newly added message in Financials tab
+        public string GetColorOfAddFinancialsText()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 100);
+            string text = driver.FindElement(msgAddFin).GetAttribute("style");
+            return text;
+        }
+
+
         //Fetch the label of Capital Market Consulted
         public string GetLabelCapMktConsult()
         {
@@ -2329,6 +2349,19 @@ namespace SF_Automation.Pages.Opportunity
             string name = driver.FindElement(msgNextSchCall).Text;
             return name;
         }
+        //Validate Form Check's Tool tip
+        public string ValidateFormCheckToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 100);
+            var element = driver.FindElement(btnFormCheck);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
 
         //Validate Req feedback prior to normal sched call checkbox
         public string ValidateReqFeedbackCheckbox()
@@ -2389,6 +2422,8 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblReviewSub, 100);
             string text = driver.FindElement(lblReviewSub).Text;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(4000);
             return text;
         }
