@@ -360,8 +360,8 @@ namespace SF_Automation.TestCases.Opportunity
                 string msgAddFin = form.GetAddFinancialsText();
                 Console.WriteLine("msgAddFin: " + msgAddFin);
                 string colorMsg = form.GetColorOfAddFinancialsText();
-                Assert.AreEqual("To add financials, please go to the “Add Financials” butto﻿n at the top right of this form", msgAddFin);
-                Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
+                Assert.AreEqual("To add financials, please go to the “Add Financials” button at the top right of this form", msgAddFin);
+                Assert.AreEqual("font-size: 14px; color: rgb(215, 13, 13);", colorMsg);
                 extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
 
                 string msgFinUnavail = cnbc.GetMessageFinUnavailable();

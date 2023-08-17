@@ -2358,13 +2358,14 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Insufficient Financials's Tool tip
         public string ValidateInsufficientFinancialsToolTip()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnInSuffFin, 100);
             var element = driver.FindElement(btnInSuffFin);
             Actions action = new Actions(driver);
             action.MoveToElement(element);
             action.Perform();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 120);
             string name = driver.FindElement(msgNextSchCall).Text;
             return name;
         }
@@ -2377,7 +2378,7 @@ namespace SF_Automation.Pages.Opportunity
             Actions action = new Actions(driver);
             action.MoveToElement(element);
             action.Perform();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
             string name = driver.FindElement(msgNextSchCall).Text;
             return name;

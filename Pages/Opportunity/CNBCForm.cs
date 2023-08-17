@@ -498,7 +498,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
             driver.FindElement(btnClose).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
 
         }
 
@@ -515,7 +515,10 @@ namespace SF_Automation.Pages.Opportunity
         //Click Submit button
         public string ClickSubmitButton()
         {            
-            Thread.Sleep(7000);
+            Thread.Sleep(4000); 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-300)");
+            Thread.Sleep(3000);
             driver.FindElement(btnSubmitForReview).Click();
             Thread.Sleep(7000);          
             driver.SwitchTo().Frame(0);
