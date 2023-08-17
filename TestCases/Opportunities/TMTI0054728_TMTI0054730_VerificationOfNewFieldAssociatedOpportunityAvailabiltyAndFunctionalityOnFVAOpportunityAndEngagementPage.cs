@@ -258,7 +258,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
                     Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditable(), "Verify Associated Engagement should not be editable for Standard stdUser ");
-                    extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + user + " ");
+                    extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + stdUser + " ");
                     usersLogin.UserLogOut();
 
                     driver.Quit();

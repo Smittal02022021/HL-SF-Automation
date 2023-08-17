@@ -415,7 +415,12 @@ namespace SF_Automation.Pages.Engagement
         By txtPrivileges = By.XPath("//span[text()='Insufficient Privileges']");
         By iconClearAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
         By comboIGOptions = By.CssSelector("select[id*='6Ax'] option");
-        By valEngERPLastIntStatus = By.CssSelector("div[id*='eeCj']");
+        By valEngERPLastIntStatus = By.CssSelector("div[id*='eeCj']");        
+        By btnViewCounterparty = By.XPath("//li[contains(@data-target-selection-name,'QuickAction.Engagement')]//button[contains(text(),'View Counterparties')]");
+        By headerText = By.XPath("//h1//div[text()='Engagement']");
+        By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
+        By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
+        By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -454,8 +459,14 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//lightning-layout-item/slot[contains(text(),'{value}')]");
         }
-
-
+        private By _DetailPageQuickLink(string name)
+        {
+            return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
+        }
+        private By _panelRightEngagement(string name)
+        {
+            return By.XPath($"//h2//a//span[contains(@title,'{name}')]");
+        }
         //Search and select the desired case
         public void SelectCase(string CaseNumber)
         {
@@ -3014,6 +3025,12 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string value = driver.FindElement(txtSecWomenLedFR).Text;
                 return value;
             }
+            else if (JobType.Contains("CVAS"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedCVAS, 10);
+                string value = driver.FindElement(txtSecWomenLedCVAS).Text;
+                return value;
+            }
             else
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedOther, 120);
@@ -3047,6 +3064,12 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFR, 125);
                 string value = driver.FindElement(labelWomenFR).Text;
+                return value;
+            }
+            else if (JobType.Contains("CVAS"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedCVAS, 125);
+                string value = driver.FindElement(labelWomenLedCVAS).Text;
                 return value;
             }
             else
@@ -4548,76 +4571,37 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         }
      
         public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
-
             driver.FindElement(btnEdit).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboIG, 10);
-
             driver.FindElement(comboIG).Click();
-
             bool isFound = false;
-
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptions);
-
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-
             for (int row = 0; row < actualValue.Length; row++)
-
-            {
-
-                Console.WriteLine(actualValue[row]);
-
+            {                
                 if (actualValue[row].Contains(IndustryType))
-
                 {
-
                     isFound = true;
-
                     break;
-
                 }
-
             }
-
             driver.FindElement(btnCancel).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
-
             return isFound;
-
-        }
-
-        private By _DetailPageQuickLink(string name)
-
-        {
-
-            return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
-
-        }
+        }      
 
         public void ClickDetailPageQuickLink(string value)
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, _DetailPageQuickLink(value), 20);
-
             driver.FindElement(_DetailPageQuickLink(value)).Click();
-
-
         }
 
         public string GetContractName()
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, lnkContract, 20);
-
             return driver.FindElement(lnkContract).Text;
-
         }
 
         public void ClickContractName()
@@ -4665,6 +4649,51 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             WebDriverWaits.WaitUntilEleVisible(driver, valEngERPLastIntStatus, 80);
             string status = driver.FindElement(valEngERPLastIntStatus).Text;
             return status;
+        }
+        public bool IsViewCounterpartyButtonEngagementPageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
+            return driver.FindElement(btnViewCounterparty).Displayed;
+        }
+        public void ClickViewCounterpartyButtonEngagementPageL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
+            driver.FindElement(btnViewCounterparty).Click();
+            Thread.Sleep(8000);
+        }
+        
+        public void ClickPanelRightEngagementPage(string name)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,150)");
+
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(footerSection));
+            WebDriverWaits.WaitUntilEleVisible(driver, _panelRightEngagement(name), 60);
+            driver.FindElement(_panelRightEngagement(name)).Click();
+            By header = By.XPath($"//h1[contains(@title,'{name}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, header, 20);
+        }
+        public bool IsJobTypePresentInDropdownOppDetailPage(string JobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 10);
+            driver.FindElement(comboJobType).Click();
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypeptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(JobType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+            return isFound;
         }
     }
 }

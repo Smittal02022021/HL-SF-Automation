@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -335,6 +336,48 @@ namespace SF_Automation.UtilityFunctions
             //Actions builder = new Actions(driver);
             new Actions(driver).MoveToElement(element).Build().Perform();
         }
+        
+        public static void CloseWindow(IWebDriver driver, int value)
+        {
+            driver.SwitchTo().Window(driver.WindowHandles[value]).Close();
+        }    
 
+        public static void PageReload(IWebDriver driver)
+        {
+            driver.Navigate().Refresh();
+        }
+        //Validate the file name after download
+        public static string ValidateFileName(string dir, string fileName)
+        {
+            string excelPath = dir + fileName;
+            FileInfo fileInfo = new FileInfo(excelPath);
+            return fileInfo.Name; ;
+        }
+        //Delete the downloaded file 
+        public static void DeleteFile(string dir, string fileName)
+        {
+            Process[] AllProcesses = Process.GetProcessesByName("EXCEL");
+            foreach (Process ExcelProcess in AllProcesses)
+            {
+                ExcelProcess.Kill();
+            }
+            string excelPath = dir + fileName;
+            FileInfo fileInfo = new FileInfo(excelPath);
+            fileInfo.Delete();
+        }
+
+        //Validate the file is present after download
+        public static bool ValidateFileExists(string dir, string fileName)
+        {
+            string excelPath = dir + fileName;
+            if (File.Exists(excelPath))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

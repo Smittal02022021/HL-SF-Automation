@@ -3,6 +3,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -84,7 +85,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         private By _counterpartyCompanyEle(string companyName)
         {
-            return By.XPath($"//div[@title='{companyName}']");
+            return By.XPath($"//article//table//div//*[@title='{companyName}']");
         }
         private By _comboTypeCounterpartyOptionEle(string value)
         {
@@ -94,7 +95,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             return By.XPath($"//button[contains(@title,'{tabText}')]");
         }
-        By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']");
+        By fitersSectionsCounterparties = By.XPath("//h2[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']");
         By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");
         By buttonSearch = By.XPath("//section[@class='slds-accordion__section slds-is-open']//button[@title='Search'][normalize-space()='Search']");
         By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
@@ -102,13 +103,92 @@ namespace SF_Automation.Pages.Opportunity
         By buttonAddCunterpartyToOpportunity = By.XPath("//button[@title='counterparty']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By listViewCounterparties = By.XPath("//label[contains(text(),'View')]");
-        By buttonConfirmDelete = By.XPath("//footer//lightning-button[contains(@class,'confirmButton')]");
+        By buttonConfirmDelete = By.XPath("//div[contains(@class,'footer')]//button[contains(text(),'OK')]");
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
         By comboTypeCounterparty = By.XPath("(//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
 
+        By searchContact = By.XPath("//input[@name='search']");
+        By buttoncontactSearch = By.XPath("//button[@title='Search']");
+        By btnViewCounterparties = By.XPath("//button[@name='view']");
+        By comboViewOptions = By.XPath("//button[@name='view']//parent::div//following-sibling::div[@role='listbox']//lightning-base-combobox-item//span[@class='slds-media__body']//span");
 
+        By btnDeleteCounterparty = By.XPath("//div[contains(@class,'button-group')]//slot//button[text()='Delete']");
+        By chkboxSelectAll = By.XPath("//input[contains(@class,'select-all')]//following::label//span[contains(@class,'checkbox')]");//lightning-layout-item//table//span[contains(@class,'checkbox')]//input[contains(@class,'select-all')]");
+        By tableCompanyList = By.XPath("//table[contains(@aria-describedby,'Company-list')]");
+        By btnOKCompanyList = By.XPath("//footer//button[@title='OK']");
+        By txtSearchCountryparty = By.XPath("//lightning-input[contains(@class,'searchField')]//input");
+        By loader = By.XPath("//b[contains(text(),'Loading')]");
+        By headerCounterparyPage = By.XPath("//h1//div[text()='Engagement Counterparty']");
+        By txtFromList = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/th)[1]");
+        By titleNewTab = By.XPath("//h1/div");
+
+
+
+        By headerConfirmEmailPopup = By.XPath("//header[@class='slds-modal__header']/h2");
+        By dropDownLabelconfirmEmailPopup = By.XPath("//div[@class='slds-modal__content slds-p-around_medium']//label");
+        By buttonCancelPopup = By.XPath("//lightning-button[contains(@class,'cancelButton')]//button");     
+        By buttonCloseTab = By.XPath("//button[@title='Close OC - Geller & Company']");
+        By radioButton = By.XPath("//label[@class='slds-radio__label']//span[@class='slds-form-element__label']");
+
+
+        By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
+        By valCompany = By.XPath("//h2/button/span[@title='Ahana Cloud']");
+        By btnEmail = By.XPath("//button[text()='Email']");
+        By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
+        By chkCounterparty = By.XPath("//tr/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnCancelConfirm = By.XPath("//button[text()='Cancel']");
+        By dropdownTemplate = By.XPath("//button[@name=\"progress\"]");
+        By optiontemplate = By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
+        By btnExportData = By.XPath("//button[text()='Export Data']");
+        By listCounterparties = By.XPath("//table//tr//th[@data-label='Company']//a");
+        By listOCCounterparties = By.XPath("//article//table//tbody//th[@data-label='Counterparty Name']//span//a//span");
+        By btnCloseOppCounterpartiesTab = By.XPath("//button[contains(@title,'Close Opportunity Counterparties')]");
+        By txtCounterpartyContacts = By.XPath("//table[contains(@aria-label,'Counterparty Contacts')]//tbody//tr//td[@data-label='Last Name']//lst-formatted-text");
+        By txtCounterpartyComments = By.XPath("//table[contains(@aria-label,'Engagement Counterparty Comments')]//tbody//tr//th[@data-label='Comment']");
+        By btnCloseEngCounterpartiesCommentsTab = By.XPath("//button[contains(@title,'Close Engagement Counterpart Comments')]");
+
+        By iconEditTier = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Tier']//button");
+        By optionsTier = By.XPath("//button[@name='picklist'][@aria-label='Choose Type']");
+        By optionTier = By.XPath("//div[@role='listbox']//span[@title='A']");
+        By iconEditDeclinePass = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Declined / Passed']//button");
+        By txtDeclinePass = By.XPath("//section[@aria-label='Edit Declined / Passed']//input");
+        By iconEditInitalContact = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Initial Contact']//button");
+        By txtInitalContact = By.XPath("//section[@aria-label='Edit Initial Contact']//input");
+        By iconEditSentTeaser = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Sent Teaser']//button");
+        By txtSentTeaser = By.XPath("//section[@aria-label='Edit Sent Teaser']//input");
+        By iconEditComments = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Comment']//button");
+        By txticonEditComments = By.XPath("//section[@aria-label='Edit Comment']//input");
+        By btnSaveDetails = By.XPath("//button[@title='Save']");
+        private By _btnContactEmail(string name)
+        {
+            return By.XPath($"//span[@title='{name}']/ancestor::button");
+        }
+        private By _valCompany(string name)
+        {
+            return By.XPath($"//h2/button/span[@title='{name}']");
+        }
+        private By _resultListItemEle(string value)
+        {
+            return By.XPath($"(//lightning-primitive-cell-factory[contains(@data-label,'{value}')])[1]");
+        }
+        private By _headerCounterparyPage(string headerText)
+        {
+            return By.XPath($"//h1//lightning-formatted-text[contains(text(),'{headerText}')]");
+        }
+
+
+        private By _radioButtonSearchTypeEle(string searchType)
+        {
+            return By.XPath($"//input[value='{searchType}']");
+        }
+
+        private By _counterpartyCompanyContactEle(string companyName)
+        {
+            return By.XPath($"//article//table//div//*[@title='{companyName}']/following::div/p[contains(text(),'Contacts')]");
+        }
+        
         //To validate Counterparties button
         public string ValidateAndAddCounterparties()
         {
@@ -585,17 +665,26 @@ public bool ValidateCompanyListHyperlinked()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons(buttonName), 30);
             driver.FindElement(_counterpartyButtons(buttonName)).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(20000);
         }
         public bool VerifyUserIsOnCounterpartiesListPage()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, listViewCounterparties, 60);
-            return driver.FindElement(listViewCounterparties).Displayed;
+            try
+            {
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, listViewCounterparties, 10);
+                return driver.FindElement(listViewCounterparties).Displayed;
+            }
+            catch (Exception ex) { return false; }
         }
         public bool IsCompanyInCounterpartyList(string companyName)
         {
-            return driver.FindElement(_counterpartyCompanyEle(companyName)).Displayed;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyEle(companyName), 10);
+                return driver.FindElement(_counterpartyCompanyEle(companyName)).Displayed;
+            }
+            catch (Exception ex) { return false; }
         }
         public void ClickCheckboxCounterpartyCompany(string companyName)
         {
@@ -604,9 +693,16 @@ public bool ValidateCompanyListHyperlinked()
         }
         public void ButtonConfirmDeleteCounterparty()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, buttonConfirmDelete, 30);
-            driver.FindElement(buttonConfirmDelete).Click();
-            Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, buttonConfirmDelete, 30);
+                driver.FindElement(buttonConfirmDelete).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 10);
+            }
+            catch (Exception ex)
+            {
+                //do nothing
+            }
         }
 
         public void AddNewOpportunityCounterparty(string companyName, string value)
@@ -631,6 +727,309 @@ public bool ValidateCompanyListHyperlinked()
             IWebElement closeTabIcon = driver.FindElement(_closeCurrentTabEle("Close OC - " + tabText));
             closeTabIcon.Click();
             Thread.Sleep(2000);
+        }
+        public bool IsJobTypeDisplayedOnCounterpartyView(string jobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparties, 10);
+            driver.FindElement(btnViewCounterparties).Click();
+            bool isFound = false;
+            string expectedJobType = jobType;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboViewOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                if (jobType == "Debt Capital Markets" || jobType == "Equity Capital Markets")
+                {
+                    expectedJobType = "Capital Markets";
+                }
+                if (actualValue[row].Contains(expectedJobType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public void ClickAddCounterpartiesButton()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons("Add Counterparties"), 60);
+            driver.FindElement(_counterpartyButtons("Add Counterparties")).Click();
+            //WebDriverWaits.WaitTillElementVisible(driver, loader);
+            Thread.Sleep(4000);
+        }
+        public void SelectFilter(string filterSection, string subFilter)
+        {
+
+            IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
+            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
+            for (int count = 0; count < filtersSection.Count; count++)
+            {
+                filtersSection[count].Click();
+                string section = filtersSection[count].Text;
+                if (filterSection.Equals(section))
+                {
+                    if (subFilterOption.Displayed)
+                        subFilterOption.Click();
+                    break;
+                }
+            }
+        }
+        public void SearchCounterparties(string subFilter, string value)
+        {
+            IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
+            subFilterOption.SendKeys(value);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, optionCompanyListElement, 10);
+            driver.FindElement(optionCompanyListElement).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(buttonSearch).Click();
+        }
+        public string GetItemNameFromList()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFromList, 30);
+            Thread.Sleep(2000);
+            return driver.FindElement(txtFromList).Text;
+        }
+        public void ClickAddCounterpartyToOpportunity()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, buttonAddCunterpartyToOpportunity, 30);
+            driver.FindElement(buttonAddCunterpartyToOpportunity).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
+            Thread.Sleep(2000);
+        }
+        public void SelectCompanyFromAllCompanyList(string companyName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tableCompanyList, 20);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//table[contains(@aria-describedby,'Company-list')]//div[text()='{companyName}']//preceding::div//input[@type='radio']")).Click();
+            driver.FindElement(btnOKCompanyList).Click();
+        }
+        
+        public int GetCounterpartiesCountFromCounterpartyEditorPage()
+        {
+            return driver.FindElements(listCounterparties).Count();
+        }
+        
+        private By _quickLinkObject(string linkName)
+        {
+            return By.XPath($"//flexipage-component2//li[contains(@class,'relatedListQuickLink')]//a[contains(@href,'{linkName}')]");
+        }
+        public int GetCounterpartiesCountFromOpportunityCounterpartiesPage()
+        {
+            return driver.FindElements(listOCCounterparties).Count();
+        }
+       
+        public void CloseOpportunityCounterpartiesTab()
+        {
+            driver.FindElement(btnCloseOppCounterpartiesTab).Click();
+            Thread.Sleep(2000);
+        }
+        public void ClickAddContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, buttonAddCunterpartyToOpportunity, 30);
+            driver.FindElement(buttonAddCunterpartyToOpportunity).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
+            Thread.Sleep(2000);
+        }
+
+        
+        public void ClickCounterparyQuickLink(string linkName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _quickLinkObject(linkName), 10);
+            driver.FindElement(_quickLinkObject(linkName)).Click();
+            Thread.Sleep(8000);
+        }
+        
+        public bool IsContactDisplayedInQuickLinkList(string contactName)
+        {
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCounterpartyContacts, 20);
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valContacts = driver.FindElements(txtCounterpartyContacts);
+            var actualValue = valContacts.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                if (contactName.Contains(actualValue[row]))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+        
+        public bool IsCommentDisplayedInQuickLinkList(string comments)
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCounterpartyComments, 20);
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valComments = driver.FindElements(txtCounterpartyComments);
+            var actualValue = valComments.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                if (comments.Contains(actualValue[row]))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+
+
+        public void CloseEngCounterpartiesCommentsTab()
+        {
+            driver.FindElement(btnCloseEngCounterpartiesCommentsTab).Click();
+            Thread.Sleep(2000);
+        }
+        
+        public void EditCoutnerpartyDetails(string comments)
+        {
+            string getDate = DateTime.Today.AddDays(1).ToString("dd/MM/yyyy");
+            driver.FindElement(chkboxSelectAll).Click();
+
+            driver.FindElement(iconEditTier).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, optionsTier, 10);
+            driver.FindElement(optionsTier).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, optionTier, 10);
+            driver.FindElement(optionTier).Click();
+
+            driver.FindElement(iconEditInitalContact).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtInitalContact, 10);
+            driver.FindElement(txtInitalContact).SendKeys(getDate);
+
+            driver.FindElement(iconEditDeclinePass).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDeclinePass, 10);
+            driver.FindElement(txtDeclinePass).SendKeys(getDate);
+
+            driver.FindElement(iconEditSentTeaser).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSentTeaser, 10);
+            driver.FindElement(txtSentTeaser).SendKeys(getDate);
+
+            IWebElement editComments = driver.FindElement(iconEditComments);
+            CustomFunctions.MoveToElement(driver, editComments);
+            editComments.Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txticonEditComments, 10);
+            driver.FindElement(txticonEditComments).SendKeys(comments);
+        }
+        public void SaveCounterpartyChanges()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(chkboxSelectAll));
+            driver.FindElement(btnSaveDetails).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
+            Thread.Sleep(1000);
+        }
+
+        //Select the counterparty and click the email button
+        public string SelectOpportunityCounterpartyAndClickEmailButton()
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 180);
+            driver.FindElement(chkCounterparty).Click();
+            //Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEmail, 20);
+            driver.FindElement(btnEmail).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleConfirmEmails, 20);
+            string name = driver.FindElement(titleConfirmEmails).Text;
+            return name;
+        }
+        //Select template and get email id
+
+        public string GetOpportunityCounterpartyContactEmailOnEmailTemplate(string companyName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownTemplate, 20);
+            driver.FindElement(dropdownTemplate).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 10);
+            driver.FindElement(optiontemplate).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnContactEmail(companyName), 10);
+            driver.FindElement(_btnContactEmail(companyName)).Click();
+            Thread.Sleep(2000);
+            string value = driver.FindElement(valEmailId).Text;
+            return value;
+        }
+
+        //Get Company of added counterparty
+        public bool IsAddedCounterpartyCompanyDisplayedOnEmailTemplate(string companyName)
+        {
+            bool companyFound = false;
+            try
+            {
+                companyFound = driver.FindElement(_valCompany(companyName)).Displayed;
+            }
+            catch
+            {
+                companyFound = false;
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelConfirm);
+            driver.FindElement(btnCancelConfirm).Click();
+            return companyFound;
+        }
+        public void ClickOpportunityCounterpartyExportDataButton()
+        {
+            driver.FindElement(btnExportData).Click();
+            Thread.Sleep(5000);
+        }
+        public void SearchCounterparty(string name)
+        {
+            driver.FindElement(txtSearchCountryparty).Click();
+            driver.FindElement(txtSearchCountryparty).SendKeys(name);
+            Thread.Sleep(2000);
+        }
+        public void ClearSearchbox()
+        {
+            driver.FindElement(txtSearchCountryparty).Clear();
+            Thread.Sleep(2000);
+        }
+        public void ClickDeleteCounterpartyButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 60);
+            driver.FindElement(btnDeleteCounterparty).Click();
+        }
+        public void ClickAllCheckboxCounterpartyCompany()
+        {
+            driver.FindElement(chkboxSelectAll).Click();
+            Thread.Sleep(5000);
+        }
+        public void ClickCounterpartyCompanyLink(string companyName)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyEle(companyName), 30);
+            IWebElement linkCounterparty = driver.FindElement(_counterpartyCompanyEle(companyName));
+            js.ExecuteScript("arguments[0].click();", linkCounterparty);
+            //WebDriverWaits.WaitUntilEleVisible(driver, _headerCounterparyPage(companyName), 30);
+            Thread.Sleep(12000);
+        }
+        public string GetContactSearched(string searchType, string value)
+        {
+            IList<IWebElement> raioButtons = driver.FindElements(radioButton);
+            foreach (IWebElement button in raioButtons)
+            {
+                if ((button.Text).Contains(searchType))
+                {
+                    button.Click();
+                    break;
+                }
+            }
+            IWebElement contactSearchField = driver.FindElement(searchContact);
+            contactSearchField.Clear();
+            contactSearchField.SendKeys(value);
+            driver.FindElement(buttoncontactSearch).Click();
+            Thread.Sleep(15000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _resultListItemEle(searchType), 60);
+            Thread.Sleep(5000);
+            return driver.FindElement(_resultListItemEle(searchType)).Text;
+        }
+        public bool IsContactAddedCounterpartyList(string companyName)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyContactEle(companyName), 30);
+                return driver.FindElement(_counterpartyCompanyContactEle(companyName)).Displayed;
+            }
+            catch (Exception ex) { return false; }
         }
     }
 }

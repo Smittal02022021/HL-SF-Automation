@@ -37,17 +37,17 @@ namespace SF_Automation.Pages
         By comboEMEAInitiatives = By.CssSelector("span>select[name*='MR']");
         By txtFee = By.CssSelector("input[name*='FmBzg']");
         By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
-        By labelWomenLed = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span");//> label
-        By labelWomenLedFVA = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(3) > span > label");
-        By labelWomenLedFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span > label");
-        By labelAdmSection = By.CssSelector("div[id='head_12_ep'] > h3");//head_12_ep'] > h3
-        By labelAdmSectionFVA = By.CssSelector("div[id = 'head_12_ep'] > h3");
+        By labelWomenLed = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span > label");// div:nth-child(27) > table > tbody > tr:nth-child(3) > td:nth-child(3) > span > label"); // div:nth-child(25) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span");
+        By labelWomenLedFVA = By.CssSelector("div:nth-child(27) > table > tbody > tr:nth-child(3) > td:nth-child(3) > span > label");//25
+        By labelWomenLedFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(4) > td:nth-child(3) > span > label");//21 >label
+        By labelAdmSection = By.CssSelector("div[id*= 'head_12_ep'] > h3");
+        By labelAdmSectionFVA = By.CssSelector("div[id*= 'head_13_ep'] > h3");
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");
         By labelOpportunityEdit = By.CssSelector("h2[class='mainTitle']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By comboWomenLed = By.CssSelector("select[id*='NgW']>option");
-        By msgFee = By.XPath("//*[@id='ep']/div[2]/div[17]/table/tbody/tr[3]/td[2]/div/div[2]");
+        By msgFee = By.XPath("//*[@id='ep']/div[2]/div[19]/table/tbody/tr[3]/td[2]/div/div[2]");//19
 
         By comboSuccessProb = By.CssSelector("select[id*='00N5A00000M4yXq']");
         By txtEstTranscSize = By.CssSelector("input[id*='00Ni000000D80P4']");

@@ -116,7 +116,7 @@ namespace SF_Automation.Pages
         By txtFee = By.CssSelector("input[name*='FmBzg']");
         By lnkDateEngaged = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(10) > td:nth-child(4) > span > span > a");
         By checkFEISApproved = By.CssSelector("input[name='00Ni000000FmBzh']");
-        By lnkOutcomeDateFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
+        By lnkOutcomeDateFAS = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");//23
         By comboRecordType = By.CssSelector("select[name='00Ni000000D8hW2']");
         By valRecType = By.CssSelector("div[id*='RecordTypej']");
         By valOppNum = By.CssSelector("div[id*='VbIj_id0_j_id55_ileinner']");
@@ -129,8 +129,8 @@ namespace SF_Automation.Pages
         By txtDateEngagedCF = By.CssSelector("input[name*='FnLTv']");
         By lnkPitchDateFAS = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(7) > td:nth-child(4) > span > span > a");
         By lnkValuationDate = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
-        By lnkDateCASignedFAS = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
-        By lnkDateCAExpiresFAS = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
+        By lnkDateCASignedFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");//21
+        By lnkDateCAExpiresFAS = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");//21
         By lnkPitchDateFR = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(6) > td:nth-child(4) > span > span > a");
         By chkDebtConfirmed = By.CssSelector("input[name*='4yQC']");
         By txtTotalDebtHL = By.CssSelector("input[name*='4yQD']");
@@ -141,7 +141,7 @@ namespace SF_Automation.Pages
         By lnkDateCASignedFR = By.CssSelector("div:nth-child(17) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
         By lnkDateCAExpiresFR = By.CssSelector("div:nth-child(17) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By lnkEstimatedClosedDateFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
-        By lnkOutcomeDateFR = By.CssSelector(" div:nth-child(19) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
+        By lnkOutcomeDateFR = By.CssSelector("div:nth-child(19) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
         By chk2ndInitiator = By.CssSelector("input[name*=':0:j_id65']");
         By valHLEntity = By.CssSelector("div[id*='WRj']");
         By valERPHLEntity = By.CssSelector("div[id*='fYj']");
@@ -416,10 +416,16 @@ namespace SF_Automation.Pages
         By btnCancelEditForm = By.XPath("//td[@id='topButtonRow']//input[@name='cancel']");
         By comboIGOptions = By.CssSelector("select[id*='VT3'] option");
         By valOppERPLastIntStatus = By.CssSelector("div[id*='ffj']");
-
+        By btnViewCounterparty = By.XPath("//button[contains(text(),'View Counterparties')]");
         By valReqFieldEng = By.CssSelector("div[class*='message error'] div");
         By lnkEstimatedClosedDateCF = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td:nth-child(2) > span > span > a");
         By lnkDateValuation = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
+
+        By txtOppJobTypeL = By.XPath("//div//p[text()='Job Type']//following-sibling::p//lightning-formatted-text");
+        By alertDuplicate = By.XPath("//div[@role='alertdialog']//button[@title='Close']");
+        By loader = By.XPath("//b[contains(text(),'Loading')]");
+        By btnManageRelationship = By.XPath("//span[contains(text(),'Manage Relationship')]");
+
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -4776,6 +4782,177 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, valOppERPLastIntStatus, 80);
             string status = driver.FindElement(valOppERPLastIntStatus).Text;
             return status;
+        }
+        public bool IsViewCounterpartyButtonOpportunityPageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
+            return driver.FindElement(btnViewCounterparty).Displayed;
+        }
+        public void ClickViewCounterpartyButtonOpportunityPageL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
+            driver.FindElement(btnViewCounterparty).Click();
+            //WebDriverWaits.WaitTillElementVisible(driver, loader);
+            Thread.Sleep(8000);
+        }
+        public string GetOpportunityJobTypeL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppJobTypeL, 10);
+                return driver.FindElement(txtOppJobTypeL).Text;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        public void CloseOpprtunityTabL(string name)
+        {
+            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, alertDuplicate, 5);
+                driver.FindElement(alertDuplicate).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, buttonCloseTab, 10);
+                driver.FindElement(buttonCloseTab).Click();
+            }
+            catch (Exception e)
+            {
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, buttonCloseTab, 10);
+                driver.FindElement(buttonCloseTab).Click();
+                Thread.Sleep(2000);
+            }
+        }
+        public void UpdateReqFieldsForCFConversionLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+            //Thread.Sleep(4000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
+            //driver.FindElement(tabEngagementNumL).Click();
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).SendKeys(valClient);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valClient + "']")).Click();
+
+
+
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
+
+            //Enter SIC
+            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            Thread.Sleep(3000);
+            driver.FindElement(comboSICL).Click();
+
+            //Opp Desc
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL, 20);
+            driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Estimated Fees
+            driver.FindElement(txtRetainerL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
+            driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //Ref Contact
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            driver.FindElement(txtRefContactL).SendKeys(valRef);
+            Thread.Sleep(5000);
+            driver.FindElement(comboRefContactL).Click();
+
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+
+            //Select Beneficial Owner
+            string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            driver.FindElement(comboUpdBenOwnerL).SendKeys(valBenOwner);
+            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
+
+            //Select Fairness
+            Thread.Sleep(4000);
+            driver.FindElement(btnFairnessL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + valWomen + "']")).Click();
+
+            //Date Engaged            
+            driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void UpdateInternalTeamDetailsLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(5000);
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(10000);
+            By internalTeamFrame = By.XPath("//article/div[2]/div/iframe");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            string name = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL, 20);
+            driver.FindElement(txtStaffL).SendKeys(name);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 240);
+            //driver.FindElement(chkInitiatorL).Click();
+            driver.FindElement(chkSellerL).Click();
+            driver.FindElement(chkPrincipalL).Click();
+            driver.FindElement(chkManagerL).Click();
+            driver.FindElement(chkAssociateL).Click();
+            driver.FindElement(chkAnalystL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 240);
+            driver.FindElement(btnSaveTeamL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
+            driver.FindElement(tabEngTeamL).Click();
+        }
+        public string ClickManageRelationshipsLV()
+        {
+            try
+            {
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnManageRelationship, 20);
+                driver.FindElement(btnManageRelationship).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnManageRelationship, 20);
+                driver.FindElement(btnManageRelationship).Click();
+            }
+            By frameMassRelationship = By.XPath("//div[@class='oneAlohaPage']//iframe");
+            Thread.Sleep(15000);
+            WebDriverWaits.WaitUntilEleVisible(driver, frameMassRelationship, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameMassRelationship));
+            By txtMangeRelationshipHeader = By.XPath("//span[@id='j_id0:j_id1']/form/table/tbody/tr/td/label");
+            return driver.FindElement(txtMangeRelationshipHeader).Text.Replace("\r\n", " ");
         }
     }
 

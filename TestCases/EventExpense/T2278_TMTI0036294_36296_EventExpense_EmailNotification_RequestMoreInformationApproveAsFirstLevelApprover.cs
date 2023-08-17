@@ -320,7 +320,7 @@ namespace SF_Automation.TestCases.EventExpense
                     //Verify approval email 
                     string expenseReqNumberFromApprovedEmail = outlook.VerifyExpenseRequestForApprovedEmail(0);
                     Assert.AreEqual(expensePreAppNumber, expenseReqNumberFromApprovedEmail);
-                    extentReports.CreateLog("Approval email is recieved with expense RequestNumber " + expenseReqNumberFromApprovedEmail + " ");
+                    extentReports.CreateLog("Approval email is recieved with expense Request Number " + expenseReqNumberFromApprovedEmail + " ");
 
                     //outlook.OutLookLogOut();
                     extentReports.CreateLog("Logout from outlook as approver of event expense requested ");

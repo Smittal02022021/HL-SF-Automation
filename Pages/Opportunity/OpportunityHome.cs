@@ -46,8 +46,24 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By comboIndustryTypeOptions = By.CssSelector("select[name*='industryGroupSearch'] option");
         By linkEngManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
+        By btnOppsearchL = By.XPath("//button[@aria-label='Search']");
+        By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search Opportunities')]");
+        By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
 
+        public void SearchOpportunityInLightning(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppsearchL, 5);
+            driver.FindElement(btnOppsearchL).Click();
+            Thread.Sleep(2000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppsearchL, 10);
+            driver.FindElement(txtOppsearchL).SendKeys(value);
+            Thread.Sleep(4000);
+            driver.FindElement(imgOpp).Click();
+            Thread.Sleep(6000);
+
+        }
         public void ClickOpportunityTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -318,9 +334,10 @@ namespace SF_Automation.Pages
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
             driver.FindElement(txtOppNumLCAO).SendKeys(value);
-            Thread.Sleep(6000);
-            driver.FindElement(imgOppL).Click();
             Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+            driver.FindElement(imgOppL).Click();
+            Thread.Sleep(8000);
 
         }
         public bool IsIndustryTypePresentInDropdownHomePage(string industryType)

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.DevTools;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Opportunity;
@@ -9,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed : BaseClass
+    class ZObsoleted_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -39,6 +38,7 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1592;
+                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -61,7 +61,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                extentReports.CreateLog("Opportunity Record Type: " + valRecordType + " ");
+                Console.WriteLine("valRecordType:" + valRecordType);
                 opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                 //Validating Title of New Opportunity Page
@@ -71,11 +71,11 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate Yes/No values of Women Led field
                 Assert.IsTrue(addOpportunity.VerifyWomenLedValues(), "Verified that displayed Women Led values are same");
                 extentReports.CreateLog("Displayed Women Led values are correct ");
-
+                
                 //Calling AddOpportunities function                
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 string value = addOpportunity.AddOpportunities(valJobType, fileTC1592);
-                extentReports.CreateLog("Opportunity Name: " + value + " ");
+                Console.WriteLine("value : " + value);
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
                 clientSubjectsPage.EnterStaffDetails(fileTC1592);
@@ -101,10 +101,10 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Click on Request Enagagement button and validate all validations
                 string val = opportunityDetails.ClickRequestEngWithoutDetails();
-                Console.WriteLine("val: " + val);
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 9), val);
+                Console.WriteLine("val: " +val);
+                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 9),val);
                 extentReports.CreateLog("Validations: " + val + " are displayed upon clicking Request Engagement button without entering additional details ");
-
+                
                 //Call function to update HL -Internal Team details, Est Fees values and other required details
                 opportunityDetails.UpdateInternalTeamDetails(fileTC1592);
                 opportunityDetails.AddEstFeesWithAdmin(fileTC1592);
@@ -125,18 +125,16 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search created opportunity, update conflict check and NBC details
                 string valSearch = opportunityHome.SearchOpportunity(value);
-                extentReports.CreateLog("result : " + valSearch);
+                Console.WriteLine("result : " + valSearch);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1592);
 
                 //Click on Request Enagagement button and validate all validations
                 opportunityDetails.UpdateJobType("Sellside");
                 opportunityDetails.UpdateNBCApproval();
                 string val1 = opportunityDetails.GetEstFinValidationForCF();
-                extentReports.CreateLog("Est Fin Validation: " + val1);
+                Console.WriteLine("val1: " + val1);
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 10), val1);
                 extentReports.CreateLog("Validations: " + val1 + " are displayed upon clicking Request Engagement button when Job Type is updated to SellSide ");
-                opportunityDetails.UpdateJobType("Debt Capital Markets");
-                opportunityDetails.UpdateNBCApproval();
 
                 //Login as Standard User and validate the user
                 string valUser1 = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -147,67 +145,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search created opportunity
                 string valSearch1 = opportunityHome.SearchOpportunity(value);
-                extentReports.CreateLog("Opportunity: " + valSearch + " is found ");
-
-                ////////////////////Field Level Validation//////////////////////////
-                string msgValidation;
-
-                msgValidation = opportunityDetails.ValidationForMonthlyFee();
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Progress/Monthly Fee.", "Validation for field Progress/Monthly Fee should be displayed ");
-                extentReports.CreateLog("Validation for field Progress/Monthly Fee:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForContingentFeeWithMonthlyFeeValue(fileTC1592);
-                Assert.AreEqual("Error:, Estimated Fees - Contingent Fee.", msgValidation, "Validation for field Contingent Fee should be displayed ");
-                extentReports.CreateLog("Validation for field Contingent Fee:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForTransactionSizeMarketCapWithContingentFeeValue(fileTC1592);
-                Assert.AreEqual("Error:, Estimated Financials - Est. Transaction Size/Market Cap.", msgValidation, "Validation for field Transaction Size Market Cap should be displayed ");
-                extentReports.CreateLog("Validation for field Transaction Size Market Cap:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForWomenLedWithMarketCapValue(fileTC1592);
-                Assert.AreEqual("Error:, Administration - \"Women Led\" is required. Please update this field with the correct value", msgValidation, "Validation for field Women Led should be displayed ");
-                extentReports.CreateLog("Validation for field Women Led:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForDateEngagedWithWomenLedValue(fileTC1592);
-                Assert.AreEqual("Error:, Administration - Date Engaged - Date of Executed Retainer or similar document.", msgValidation, "Validation for field Date Engaged should be displayed ");
-                extentReports.CreateLog("Validation for field Date Engaged:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForEstimatedClosedDateWithDateEngagedValue();
-                Assert.AreEqual("Error:, Administration - Estimated Closed Date.", msgValidation, "Validation for field Estimated Closed Date should be displayed ");
-                extentReports.CreateLog("Validation for field Estimated Closed Date:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForSICCodeCFWithEstimatedClosedDateValue();
-                Assert.AreEqual("Error:, Opportunity Detail - SIC Code.", msgValidation, "Validation for field SIC Code should be displayed ");
-                extentReports.CreateLog("Validation for field SIC Code:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForOppDescWithSICCodeValue();
-                Assert.AreEqual("Error:, Opportunity Description - Opportunity Description.", msgValidation, "Validation for field Opportunity Description should be displayed ");
-                extentReports.CreateLog("Validation for field Opp Description:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForRetainerWithOppDescValue(fileTC1592);
-                Assert.AreEqual("Error:, Estimated Fees - Retainer, input zero if there's no Retainer fee.", msgValidation, "Validation for field Retainer should be displayed ");
-                extentReports.CreateLog("Validation for field Retainer:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForReferralContactWithRetainerValue(fileTC1592);
-                Assert.AreEqual("Error:, Referral Information - Referral Contact name is required.", msgValidation, "Validation for field Referral Contact should be displayed ");
-                extentReports.CreateLog("Validation for field Referral Contact:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForConfAgreementWithReferralContactValue(fileTC1592);
-                Assert.AreEqual("Error:, Legal Matters - Confidentiality Agreement", msgValidation, "Validation for field Confidentiality Agreement should be displayed ");
-                extentReports.CreateLog("Validation for field Confidentiality Agreement:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForTailExpiresWithConfAgreementValue(fileTC1592);
-                Assert.AreEqual("Error:, Estimated Fees - Tail Expires.", msgValidation, "Validation for field Tail Expires should be displayed ");
-                extentReports.CreateLog("Validation for field Tail Expires:  " + msgValidation + " ");
-
-                msgValidation = opportunityDetails.ValidationForFairnessOpinionComponentWithTrialExpValue();
-                Assert.AreEqual("Error:, Administration - Fairness Opinion Component.", msgValidation, "Validation for field Fairness Opinion Component should be displayed ");
-                extentReports.CreateLog("Validation for field Fairness Opinion Component:  " + msgValidation + " ");
-
-                opportunityDetails.SaveWithFairnessOpinionComponent();
-
-
-                ////////////////////////////////////////
+                Console.WriteLine("result : " + valSearch1);
 
                 //Update client and Subject 
                 opportunityDetails.UpdateClientandSubject("A + K Agency GmbH");

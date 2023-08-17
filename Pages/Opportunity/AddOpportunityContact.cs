@@ -34,6 +34,7 @@ namespace SF_Automation.Pages.Opportunity
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
+        By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
         //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
@@ -129,7 +130,48 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(chkPrimaryContactL).Click();
             driver.FindElement(btnSaveL).Click();
         }
-       
+        public void CreateClientContactL(string nameContact, string partyContact, string typeContact)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            // string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);//prm
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
+            driver.FindElement(txtContactL).SendKeys(nameContact);
+            Thread.Sleep(3000);
+            try
+            {
+                By listContactOption = By.XPath($"//div[@role='listbox']//ul//li//a//div[2]//div[1][@title='{nameContact}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 20);
+                driver.FindElement(listContactOption).Click();
+            }
+            catch (Exception ex)
+            {
+                By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
+                WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
+                driver.FindElement(iconContactSearchItem).Click();
+                By txtContact = By.XPath("//div[contains(@class,'gridInScroller')]//table//tbody//tr[1]//td[1]//a");
+                WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
+                driver.FindElement(txtContact).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownContactType, 20);
+            driver.FindElement(dropdownContactType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[8]/div/ul/li/a[text()='{typeContact}']")).Click();//prm
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
+            driver.FindElement(btnPartyL).Click();
+            Thread.Sleep(3000);
+            //string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
+            driver.FindElement(By.XPath($"//div[9]/div/ul/li/a[text()='{partyContact}']")).Click();
+            driver.FindElement(chkBillingContactL).Click();
+            driver.FindElement(chkAckBillingContactL).Click();
+            driver.FindElement(chkPrimaryContactL).Click();
+            driver.FindElement(btnSaveL).Click();
+
+
+
+        }
+
     }
 }
 

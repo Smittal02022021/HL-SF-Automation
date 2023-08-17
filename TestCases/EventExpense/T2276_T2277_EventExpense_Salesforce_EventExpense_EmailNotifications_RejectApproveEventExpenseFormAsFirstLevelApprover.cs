@@ -232,7 +232,7 @@ namespace SF_Automation.TestCases.EventExpense
                     //Verify rejected email recieved on outlook
                     string expenseReqNumberFromEmail = outlook.VerifyExpenseRequestForRejectedEmail(0);
                     Assert.AreEqual(expensePreAppNumber, expenseReqNumberFromEmail);
-                    extentReports.CreateLog("Rejection email is recieved with expense RequestNumber " + expenseReqNumberFromEmail + " ");
+                    extentReports.CreateLog("Rejection email is recieved with expense Request Number " + expenseReqNumberFromEmail + " ");
 
                     // outlook.OutLookLogOut();
                     driver.Quit();

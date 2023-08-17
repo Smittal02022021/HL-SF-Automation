@@ -140,31 +140,31 @@ namespace SF_Automation.TestCases.Opportunity
                 //extentReports.CreateLog("Validation:  " + msg + " ");
 
                 msgValidation = opportunityDetails.ValidationForMonthlyFee();
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Progress/Monthly Fee.", "Validation for field Progress/Monthly Fee should be displayed ");
+                Assert.AreEqual("Error:, Estimated Fees - Progress/Monthly Fee.", msgValidation, "Validation for field Progress/Monthly Fee should be displayed ");
                 extentReports.CreateLog("Validation for field Progress/Monthly Fee:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForContingentFeeWithMonthlyFeeValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Contingent Fee.", "Validation for field Contingent Fee should be displayed ");
+                Assert.AreEqual("Error:, Estimated Fees - Contingent Fee.", msgValidation, "Validation for field Contingent Fee should be displayed ");
                 extentReports.CreateLog("Validation for field Contingent Fee:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForTotalDebtHLWithContingentFeeValue(fileTC1693);// Issue
-                Assert.AreEqual(msgValidation, "Error:, Marketing Information - Total Debt HL represents(MM), input zero if it’s N/A", "Validation for field Total Debt HL represents(MM) should be displayed ");
+                Assert.AreEqual("Error:, Marketing Information - Total Debt HL represents(MM), input zero if it’s N/A", msgValidation, "Validation for field Total Debt HL represents(MM) should be displayed ");
                 extentReports.CreateLog("Validation for field Total Debt HL:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForDebtConfirmedWithTotalDebtValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Marketing Information - Select \"Total Debt(MM) Confirmed\" checkbox to confirm Total Debt is most up to date.", "Validation for field Total Debt(MM) Confirmed should be displayed ");
+                Assert.AreEqual("Error:, Marketing Information - Select \"Total Debt(MM) Confirmed\" checkbox to confirm Total Debt is most up to date.", msgValidation, "Validation for field Total Debt(MM) Confirmed should be displayed ");
                 extentReports.CreateLog("Validation for field Total Debt(MM) Confirmed:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForClientDescWithDebtConfirmedValue();
-                Assert.AreEqual(msgValidation, "Error:, Marketing Information - Client Description.", "Validation for field Client Description should be displayed ");
+                Assert.AreEqual("Error:, Marketing Information - Client Description.", msgValidation, "Validation for field Client Description should be displayed ");
                 extentReports.CreateLog("Validation for field Client Description:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForLegalAdvisorCompWithClientDescValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Referral Information - \"Legal Advisor to Company\" is required. Please update this field with the correct value", "Validation for field Legal Advisor to Company should be displayed ");
+                Assert.AreEqual("Error:, Referral Information - \"Legal Advisor to Company\" is required. Please update this field with the correct value", msgValidation, "Validation for field Legal Advisor to Company should be displayed ");
                 extentReports.CreateLog("Validation for field Legal Advisor to Company:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForLegalAdvisorHLWithLegalAdvisorCompValue(fileTC1693);//
-                Assert.AreEqual(msgValidation, "Error:, Referral Information - \"Legal Advisor to Creditor\" is required. Please update this field with the correct value", "Validation for field Legal Advisor to Creditor should be displayed ");
+                Assert.AreEqual("Error:, Referral Information - \"Legal Advisor to Creditor\" is required. Please update this field with the correct value", msgValidation, "Validation for field Legal Advisor to Creditor should be displayed ");
                 extentReports.CreateLog("Validation for field Legal Advisor to Creditor :  " + msgValidation + " ");
 
                 //msg = opportunityDetails.ValidationForEUSecurities(fileTC1693);
@@ -177,35 +177,35 @@ namespace SF_Automation.TestCases.Opportunity
                 //extentReports.CreateLog("Validation:  " + msg + " ");
 
                 msgValidation = opportunityDetails.ValidationForWomenLedWithLegalAdvisorValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Administration - \"Women Led\" is required. Please update this field with the correct value", "Validation for field Women Led should be displayed ");
+                Assert.AreEqual("Error:, Administration - \"Women Led\" is required. Please update this field with the correct value", msgValidation, "Validation for field Women Led should be displayed ");
                 extentReports.CreateLog("Validation for field Women Led:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForDateEngagedWithWomenLedValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Administration - Date Engaged - Date of Executed Retainer or similar document.", "Validation for field Date Engaged should be displayed ");
+                Assert.AreEqual("Error:, Administration - Date Engaged - Date of Executed Retainer or similar document.", msgValidation, "Validation for field Date Engaged should be displayed ");
                 extentReports.CreateLog("Validation for field Date Engaged:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForEstimatedClosedDateWithDateEngagedValue();
-                Assert.AreEqual(msgValidation, "Error:, Administration - Estimated Closed Date.", "Validation for field Estimated Closed Date should be displayed ");
+                Assert.AreEqual("Error:, Administration - Estimated Closed Date.", msgValidation, "Validation for field Estimated Closed Date should be displayed ");
                 extentReports.CreateLog("Validation for field Estimated Closed Date:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForSICCodeWithEstimatedClosedDateValue();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Detail - SIC Code.", "Validation for field SIC Code should be displayed ");
+                Assert.AreEqual("Error:, Opportunity Detail - SIC Code.", msgValidation, "Validation for field SIC Code should be displayed ");
                 extentReports.CreateLog("Validation for field SIC Code:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForOppDescWithSICCodeValue();
-                Assert.AreEqual(msgValidation, "Error:, Opportunity Description - Opportunity Description.", "Validation for field Opportunity Description should be displayed ");
+                Assert.AreEqual("Error:, Opportunity Description - Opportunity Description.", msgValidation, "Validation for field Opportunity Description should be displayed ");
                 extentReports.CreateLog("Validation for field Opp Description:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForRetainerWithOppDescValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Estimated Fees - Retainer, input zero if there's no Retainer fee.", "Validation for field Retainer should be displayed ");
+                Assert.AreEqual("Error:, Estimated Fees - Retainer, input zero if there's no Retainer fee.", msgValidation, "Validation for field Retainer should be displayed ");
                 extentReports.CreateLog("Validation for field Retainer:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForReferralContactWithRetainerValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Referral Information - Referral Contact name is required.", "Validation for field Referral Contact should be displayed ");
+                Assert.AreEqual("Error:, Referral Information - Referral Contact name is required.", msgValidation, "Validation for field Referral Contact should be displayed ");
                 extentReports.CreateLog("Validation for field Referral Contact:  " + msgValidation + " ");
 
                 msgValidation = opportunityDetails.ValidationForConfAgreementWithReferralContactValue(fileTC1693);
-                Assert.AreEqual(msgValidation, "Error:, Legal Matters - Confidentiality Agreement", "Validation for field Confidentiality Agreement should be displayed "); Assert.IsTrue(msgValidation.Contains("Confidentiality Agreement"), "Validation for field Confidentiality Agreement should be displayed ");
+                Assert.AreEqual("Error:, Legal Matters - Confidentiality Agreement", msgValidation, "Validation for field Confidentiality Agreement should be displayed "); Assert.IsTrue(msgValidation.Contains("Confidentiality Agreement"), "Validation for field Confidentiality Agreement should be displayed ");
                 extentReports.CreateLog("Validation for field Confidentiality Agreement:  " + msgValidation + " ");
 
                 opportunityDetails.SaveWithConfAgreement(fileTC1693);
