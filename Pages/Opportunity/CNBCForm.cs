@@ -514,16 +514,8 @@ namespace SF_Automation.Pages.Opportunity
 
         //Click Submit button
         public string ClickSubmitButton()
-<<<<<<< HEAD
-        {
-            Thread.Sleep(4000);
-=======
         {            
-            Thread.Sleep(4000); 
->>>>>>> 95096c9b33f0798181e903afcc4e6d603d02b720
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,-300)");
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             driver.FindElement(btnSubmitForReview).Click();
             Thread.Sleep(7000);
             driver.SwitchTo().Frame(0);
