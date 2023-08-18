@@ -351,6 +351,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Group Head Approval", txtGroup);
                 extentReports.CreateLog("Field with name: " + txtGroup + " is displayed ");
 
+
                 //Click Financials tab and validate its available fields
                 string txtFinancials = form.ClickFinancialsTab();
                 Assert.AreEqual("Financials", txtFinancials);
