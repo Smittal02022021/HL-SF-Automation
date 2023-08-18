@@ -1,6 +1,3 @@
-2023/08/14-13:28:13.127 bd0 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2023/08/14-13:28:13.127 bd0 Recovering log #334
-2023/08/14-13:28:13.130 bd0 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000334.log 
-2023/08/14-13:32:18.743 5a20 Level-0 table #338: started
-2023/08/14-13:32:18.746 5a20 Level-0 table #338: 16992 bytes OK
-2023/08/14-13:32:18.749 5a20 Delete type=0 #334
+2023/08/18-11:20:52.463 6538 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2023/08/18-11:20:52.464 6538 Recovering log #337
+2023/08/18-11:20:52.467 6538 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000337.log 
