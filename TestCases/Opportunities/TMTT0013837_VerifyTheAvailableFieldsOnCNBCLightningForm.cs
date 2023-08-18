@@ -238,12 +238,12 @@ namespace SF_Automation.TestCases.Opportunity
                 string txtOppOverview = form.ClickOpportunityOverview();
                 Assert.AreEqual("Opportunity Overview", txtOppOverview);
                 extentReports.CreateLog("Tab with name " + txtOppOverview + " is displayed upon clicking the tab. ");
-                
-                string txtRelOpp = form.GetLabelRelatedOpportunity();                
+
+                string txtRelOpp = form.GetLabelRelatedOpportunity();
                 Assert.AreEqual("Related Opportunity", txtRelOpp);
                 extentReports.CreateLog("Field with name: " + txtRelOpp + " is displayed ");
 
-                string txtTxnOver = form.GetLabelTxnOverview();               
+                string txtTxnOver = form.GetLabelTxnOverview();
                 Assert.AreEqual("Transaction Overview", txtTxnOver);
                 extentReports.CreateLog("Field with name: " + txtTxnOver + " is displayed ");
 
@@ -254,7 +254,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string txtCompDesc = form.GetLabelCompDesc();
                 Assert.AreEqual("Company Description", txtCompDesc);
                 extentReports.CreateLog("Field with name: " + txtCompDesc + " is displayed ");
-                
+
                 string txtRiskFact = cnbc.GetLabelRiskFactors();
                 Assert.AreEqual("Risk Factors", txtRiskFact);
                 extentReports.CreateLog("Field with name: " + txtRiskFact + " is displayed ");
@@ -335,7 +335,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Referral", msgReferral);
                 extentReports.CreateLog("Section with name: " + msgReferral + " is displayed ");
 
-                string txtReferralType= cnbc.GetLabelReferralType();
+                string txtReferralType = cnbc.GetLabelReferralType();
                 Assert.AreEqual("Referral Type", txtReferralType);
                 extentReports.CreateLog("Field with name: " + txtReferralType + " is displayed ");
 
@@ -360,8 +360,8 @@ namespace SF_Automation.TestCases.Opportunity
                 string msgAddFin = form.GetAddFinancialsText();
                 Console.WriteLine("msgAddFin: " + msgAddFin);
                 string colorMsg = form.GetColorOfAddFinancialsText();
-                Assert.AreEqual("To add financials, please go to the “Add Financials” butto﻿n at the top right of this form", msgAddFin);
-                Assert.AreEqual("color: rgb(215, 13, 13); font-size: 14px;", colorMsg);
+                Assert.AreEqual("To add financials, please go to the “Add Financials” button at the top right of this form", msgAddFin);
+                Assert.AreEqual("font-size: 14px; color: rgb(215, 13, 13);", colorMsg);
                 extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
 
                 string msgFinUnavail = cnbc.GetMessageFinUnavailable();
@@ -401,7 +401,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string txtCapitalRaise = cnbc.GetLabelCapitalRaise();
                 Assert.AreEqual("Capital Raise (MM)", txtCapitalRaise);
                 extentReports.CreateLog("Field with name: " + txtCapitalRaise + " is displayed ");
-                                                                                           
+
                 //Click Fees tab and validate its available fields
                 string txtFees = form.ClickFeesTab();
                 Assert.AreEqual("Fees", txtFees);
@@ -431,7 +431,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Lockups on Future M&A or Financing Work", txtLockups);
                 extentReports.CreateLog("Field with name: " + txtLockups + " is displayed ");
 
-                string txtReferral= cnbc.GetLabelReferralFeeOwed();
+                string txtReferral = cnbc.GetLabelReferralFeeOwed();
                 Assert.AreEqual("Referral Fee Owed (MM)", txtReferral);
                 extentReports.CreateLog("Field with name: " + txtReferral + " is displayed ");
 
@@ -441,14 +441,14 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string txtProgressFee = cnbc.GetLabelProgressFeeCred();
                 Assert.AreEqual("Progress Fee Creditable ?", txtProgressFee);
-                extentReports.CreateLog("Field with name: " + txtProgressFee + " is displayed ");                          
-                
+                extentReports.CreateLog("Field with name: " + txtProgressFee + " is displayed ");
+
                 //Click HL Internal Team tab and validate its available fields 
                 string txtHLInt = form.ClickHLInternalTeamTab();
                 Assert.AreEqual("HL Internal Team", txtHLInt);
                 extentReports.CreateLog("Tab with name " + txtHLInt + " is displayed upon clicking HL Internal Team tab. ");
 
-                string txtStaff = form.GetLabelOfCNBCStaff();                                                                                                                                                                                    
+                string txtStaff = form.GetLabelOfCNBCStaff();
                 Assert.AreEqual("Staff:", txtStaff);
                 extentReports.CreateLog("Field with name: " + txtStaff + " is displayed ");
 
@@ -481,7 +481,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Conflicts Check Information", msgCCInfo);
                 extentReports.CreateLog("Section with name: " + msgCCInfo + " is displayed ");
 
-                string txtCCStatus= cnbc.GetLabelCCStatus();
+                string txtCCStatus = cnbc.GetLabelCCStatus();
                 Assert.AreEqual("Conflict Check Status", txtCCStatus);
                 extentReports.CreateLog("Field with name: " + txtCCStatus + " is displayed ");
 
@@ -582,20 +582,18 @@ namespace SF_Automation.TestCases.Opportunity
 
                 form.SwitchFrame();
 
-                usersLogin.UserLogOut();            
+                usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-        }
+            }
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            }                
+            }
+        }
     }
 }
-}
-
-    
 
