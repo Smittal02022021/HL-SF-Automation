@@ -40,7 +40,10 @@ namespace SF_Automation.Pages
         By txtEngsearchL = By.XPath("//input[contains(@placeholder,'Search Engagements')]");
         By imgEng = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
-
+        By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
+        By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
+        By eleItem = By.XPath("//table/tbody//td[7]/span/span");
+        
         public void ClickEngagementTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements);
@@ -365,6 +368,26 @@ namespace SF_Automation.Pages
             {
                 return "No record found";
             }
+        }
+        public bool SearchRecentEngagementLV(string oppName)
+        {
+            driver.FindElement(txtSearchBox).SendKeys(oppName);
+            driver.FindElement(txtSearchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            try
+            {
+                return driver.FindElement(eleItem).Displayed;
+            }
+            catch (Exception) { return false; }
+        }
+        public string GetSearchedEngJobType()
+        {
+            return driver.FindElement(eleItem).Text;
+        }
+        public void ClickEngagementTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagement, 80);
+            driver.FindElement(tabEngagement).Click();
         }
     }
 }

@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading;
 
 namespace SF_Automation.Pages.Engagement
@@ -421,6 +422,7 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
         By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
+      
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4694,6 +4696,38 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             driver.FindElement(btnCancel).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
             return isFound;
+        }
+        By txtPreviousJobType = By.XPath("(//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//slot//lightning-formatted-text)[2]");
+
+
+
+        public string GetDetailPageJobTypeLV()
+        {
+            Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtPreviousJobType, 20);
+                return driver.FindElement(txtPreviousJobType).Text;
+            }
+            catch (Exception) { return "Job Type not found"; }
+        }
+        
+        public void UpdateJobType(string oldJobType, string newJobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(3000);
+            By eleJobType = By.XPath("//lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + newJobType + "']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            driver.FindElement(eleJobType).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
     }
 }

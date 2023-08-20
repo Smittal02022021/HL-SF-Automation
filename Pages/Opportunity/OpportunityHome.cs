@@ -49,7 +49,8 @@ namespace SF_Automation.Pages
         By btnOppsearchL = By.XPath("//button[@aria-label='Search']");
         By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search Opportunities')]");
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
-
+        By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
+        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
         public void SearchOpportunityInLightning(string value)
         {
             Thread.Sleep(6000);
@@ -391,6 +392,21 @@ namespace SF_Automation.Pages
             {
                 return "No record found";
             }
+        }
+        public bool SearchRecentOpportunityLV(string oppName)
+        {
+            driver.FindElement(txtSearchBox).SendKeys(oppName);
+            driver.FindElement(txtSearchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            try
+            {
+                return driver.FindElement(eleItem).Displayed;
+            }
+            catch (Exception) { return false; }
+        }
+        public string GetSearchedOppJobType()
+        {
+            return driver.FindElement(eleItem).Text;
         }
     }
 }
