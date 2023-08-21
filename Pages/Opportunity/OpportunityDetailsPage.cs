@@ -281,6 +281,7 @@ namespace SF_Automation.Pages
         //Lightning
 
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By tabOpp = By.XPath("//span[text()='Opportunities']");
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
@@ -3417,7 +3418,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Get updated value of Currency
         public string GetCurrencyPostUpdate()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyAfter, 150);
             string value = driver.FindElement(valCurrencyAfter).Text;
             return value;
@@ -4167,8 +4168,11 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//table/tbody/tr[1]/th/span/a")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[9]")).Click();
             Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+            driver.FindElement(valRec1st).Click();
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 110);
             string name = driver.FindElement(tabComments).Text;           
             return name;

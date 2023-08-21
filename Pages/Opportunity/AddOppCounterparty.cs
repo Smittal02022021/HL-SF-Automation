@@ -668,7 +668,7 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateAddCounterpartiesButtonL()
         {
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL,120);
             driver.FindElement(btnAddCounterpartiesL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty1, 150);
             string name = driver.FindElement(secAddCounterparty1).Text;
