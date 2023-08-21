@@ -279,6 +279,9 @@ namespace SF_Automation.Pages
         By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
 
         //Lightning
+
+        By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
+        By tabOpp = By.XPath("//span[text()='Opportunities']");
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
@@ -4157,7 +4160,16 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         public string ValidateCommentsTabL()
         {           
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabComments);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpp, 260);
+            driver.FindElement(tabOpp).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
+            driver.FindElement(btnRecentlyViewed).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//table/tbody/tr[1]/th/span/a")).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 110);
             string name = driver.FindElement(tabComments).Text;           
             return name;
         }

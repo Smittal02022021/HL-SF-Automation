@@ -60,8 +60,8 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valMinRoundBid = By.XPath("//div[@class='slds-tile__detail']/dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//div[@class='slds-tile__detail']/dl/dd[3]/lst-template-list-field/lst-formatted-text");
+        By valMinRoundBid = By.XPath("//dt[contains(text(),'Round Minimum')]//following::dd[1]//lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//dt[contains(text(),'Round Maximum')]//following::dd[2]//lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
@@ -1227,14 +1227,14 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateMinBidDetailOnCounterpartiesPage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 80);
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             driver.FindElement(tabCounterpartyEditor).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(5000);
             driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(14000);
             driver.Navigate().Refresh();
             Console.WriteLine("About to fetch the element");
-            WebDriverWaits.WaitUntilEleVisible(driver, valMinRoundBid, 200);
+           //WebDriverWaits.WaitUntilEleVisible(driver, valMinRoundBid, 200);
             string bid = driver.FindElement(valMinRoundBid).Text;
             return bid;
         }
