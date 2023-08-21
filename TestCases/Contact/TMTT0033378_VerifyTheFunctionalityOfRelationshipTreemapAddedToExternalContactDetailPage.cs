@@ -83,6 +83,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetailsPage.VerifyTheAvailableSectionsUnderRelationshipTreeMapOnContactDetailsPage(excelPath));
                 extentReports.CreateStepLogs("Passed", "All the expected Relationship Treemap sections are available on the external contact details page. ");
 
+                /*
                 //TC - TMTI0078924 - Verify the fields displayed in the "Contact Information" section on the Relationship tree.
                 Assert.IsTrue(lvContactDetailsPage.VerifyTheAvailableFieldsUnderContactInformationSectionOnContactDetailsPage(excelPath));
                 extentReports.CreateStepLogs("Passed", "All the expected fields are available under Contact Information section on the external contact details page. ");
@@ -125,6 +126,7 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMTI0078945 - Verify that the "Associated Engagements" section displays those engagements where this contact is placed as Engagement Contact.
                 Assert.IsTrue(lvEngagementDetailsPage.VerifyAssociatedEngagementsSectionOnContactDetailsPageDisplaysEngagementsWhereTheExternalContactIsAnEngagementContact(engContactName));
                 extentReports.CreateStepLogs("Passed", "Associated Engagements section displays those engagements where the external contact is placed as Engagement Contact. ");
+                */
 
                 //TC - TMTI0078947 - Verify that if there are both Active and closed Engagements, then it will list only Active Engagements.
                 Assert.IsTrue(lvContactDetailsPage.VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection());

@@ -4,8 +4,10 @@ using SF_Automation.TestCases.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Contact
@@ -15,6 +17,7 @@ namespace SF_Automation.Pages.Contact
         //General elements
         By txtContactName = By.XPath("//span[@class='custom-truncate uiOutputText']");
         By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
+        By linkImportantDates = By.XPath("//a[text()='Important Dates']");
 
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
@@ -926,16 +929,71 @@ namespace SF_Automation.Pages.Contact
             int totalAvailableEngagements = driver.FindElements(By.XPath("//table[@aria-label='Engagements']/tbody/tr")).Count;
 
             //Get the name of each Engagement and store in an array
-            String[] engagementNames = new String[totalAvailableEngagements];
-            int rowNum = 1;
+            ArrayList activeEngagementNames = new ArrayList();
+            int rowNum;
 
-            for(int i = 0; i <= totalAvailableEngagements - 1; i++)
+            for(rowNum = 1; rowNum <= totalAvailableEngagements - 1; rowNum++)
             {
-                if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text == "Active")
+                if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text != "Closed")
                 {
-                    engagementNames[i] = driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text;
-                    rowNum++;
-                    continue;
+                    activeEngagementNames.Add(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text);
+                }
+            }
+
+            //Get the total no of active Engagements
+            int totalActiveEngagements = activeEngagementNames.Count;
+            string[] myArray = (string[]) activeEngagementNames.ToArray(typeof(string));
+
+            DateTime[] estCloseDate = new DateTime[totalActiveEngagements];
+            int j;
+
+            if(totalActiveEngagements > 5)
+            {
+                for(j = 0; j < totalActiveEngagements; j++)
+                {
+                    for(rowNum = 1; rowNum <= totalAvailableEngagements; rowNum++)
+                    {
+                        if(myArray[j] == driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text)
+                        {
+                            //Open Active Engagement
+                            driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Click();
+
+                            //Navigate to Important Dates tab
+                            WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
+                            driver.FindElement(linkImportantDates).Click();
+                            Thread.Sleep(3000);
+
+                            //Get the Estimated Close Date for each Active Engagement
+                            try
+                            {
+                                string abc = driver.FindElement(By.XPath("(//span[text()='Estimated Close Date']/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                                estCloseDate[j] = DateTime.ParseExact(abc, "M/dd/yyyy", null);
+                            }
+                            catch(Exception)
+                            {
+                            
+                            }
+
+                            CloseTab(myArray[j]);
+                            break;
+                        }
+                    }
+                }
+
+                int k = 1;
+                string[] finalActiveEngagementNames = new string[5];
+
+                for(j = 0; j < totalActiveEngagements; j++)
+                {
+                    if(estCloseDate[j] > estCloseDate[k])
+                    {
+                        finalActiveEngagementNames[j] = myArray[j];
+                    }
+                    else
+                    {
+                        finalActiveEngagementNames[j] = myArray[k];
+                    }
+                    k++;
                 }
             }
             
