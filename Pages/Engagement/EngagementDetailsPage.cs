@@ -29,6 +29,7 @@ namespace SF_Automation.Pages.Engagement
         By valEngNum = By.CssSelector("div[id*='D96p8j']");
         By btnPortfolioValuation = By.CssSelector("input[title='Portfolio Valuation']");
         By btnFREngSummary = By.CssSelector("input[value='FR Engagement Summary']");
+        By btnFREngSummaryL = By.XPath("//button[@name='Engagement__c.Engagement_Summary_FR']");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr>th:nth-child(1)");
@@ -593,6 +594,15 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnFREngSummary, 150);
             string valFREngSum = driver.FindElement(btnFREngSummary).Displayed.ToString();
+            return valFREngSum;
+        }
+
+        //To Validate FR Engagement Summary button in Lightning
+        public string ValidateFREngSummaryButtonInLightning()
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFREngSummaryL, 180);
+            string valFREngSum = driver.FindElement(btnFREngSummaryL).Displayed.ToString();
             return valFREngSum;
         }
         //Click FR Engagement Summary button 

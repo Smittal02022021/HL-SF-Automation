@@ -41,9 +41,11 @@ namespace SF_Automation.Pages
         By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
-        By valSearchedEngName = By.XPath("//table/tbody/tr/th/span/a");
+        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
         By titleEngDetails = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span/a");
+        By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
+        By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
         
 
         //To Click on Engagement tab
@@ -339,6 +341,20 @@ namespace SF_Automation.Pages
             string opp = driver.FindElement(valSearchedEng).Text;
             return opp;
         }
+
+        //Validate if Search functionality is working as expected
+        public string ValidateSearchFunctionalityOfEngagementsByJobType(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+            driver.FindElement(txtSearchEng).Clear();
+            driver.FindElement(txtSearchEng).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(6000);
+            string opp = driver.FindElement(valSearchedEngName).Text;
+            driver.FindElement(valSearchedEngName).Click();
+            return opp;
+        }
         //Validate if Search functionality is working as expected
         public void ValidateSearchFunctionalityOfEngagementsForAdmin(string name)
         {
@@ -365,6 +381,14 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
         }
 
+        public void ClickEngTab()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseTab, 190);
+            driver.FindElement(btnCloseTab).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementL, 180);
+            driver.FindElement(tabEngagementL).Click();
+            Thread.Sleep(3000);
+        }
     }
 }
 

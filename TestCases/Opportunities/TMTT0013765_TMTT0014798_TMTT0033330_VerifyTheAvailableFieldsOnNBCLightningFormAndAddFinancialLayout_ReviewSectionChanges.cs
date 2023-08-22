@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0013765_TMTT0014798_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout : BaseClass
+    class TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
