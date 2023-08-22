@@ -30,6 +30,7 @@ namespace SF_Automation.Pages.Engagement
         By btnPortfolioValuation = By.CssSelector("input[title='Portfolio Valuation']");
         By btnFREngSummary = By.CssSelector("input[value='FR Engagement Summary']");
         By btnFREngSummaryL = By.XPath("//button[@name='Engagement__c.Engagement_Summary_FR']");
+        By tabDefault = By.XPath("//li/a[text()='Engagement Info']");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr>th:nth-child(1)");
@@ -613,6 +614,17 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnFREngSummary).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, titleFREngSum, 90);
             string title = driver.FindElement(titleFREngSum).Text;
+            return title;
+        }
+
+        //Click FR Engagement Summary button on Lightning
+        public string ClickFREngSummaryButtonL()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFREngSummaryL, 150);
+            driver.FindElement(btnFREngSummaryL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDefault, 90);
+            string title = driver.FindElement(tabDefault).Text;
             return title;
         }
 

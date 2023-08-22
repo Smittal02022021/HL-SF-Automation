@@ -6,12 +6,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Transactions;
 
 namespace SF_Automation.Pages.Engagement
 {
     class EngagementSummaryPage : BaseClass
     {
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
+        By lblTransTypeL = By.XPath("//label[text()='Transaction Type']");
+        By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
+        By lblCompDescL = By.XPath("//label[text()='Company Description']");
+        By lblClientDescL = By.XPath("//label[text()='Client Description']");
+        By lblReTxnL = By.XPath("//label[text()='Restructuring Transaction Description']");
+
         By comboTxnTypes = By.CssSelector("select[name*='j_id41']>option");
         By lblClientDesc = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(3) > label");
         By lblPostTxnStatus = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(2) > td:nth-child(1) > label");
@@ -2096,6 +2103,41 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement,150);
             driver.FindElement(btnReturnToEngagement).Click();
         }
+        public string ValidateFieldTransactionTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTransTypeL, 90);
+            string txtTransType = driver.FindElement(lblTransTypeL).Text;
+            return txtTransType;
+        }
+
+        public string ValidateFieldPostTransactionStatusL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTxnStatusL, 90);
+            string value = driver.FindElement(lblPostTxnStatusL).Text;
+            return value;
+        }
+
+        public string ValidateFieldCompDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompDescL, 90);
+            string value = driver.FindElement(lblCompDescL).Text;
+            return value;
+        }
+
+        public string ValidateFieldClientDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClientDescL, 90);
+            string value = driver.FindElement(lblClientDescL).Text;
+            return value;
+        }
+
+        public string ValidateFieldRestructuringTxnDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblReTxnL, 90);
+            string value = driver.FindElement(lblReTxnL).Text;
+            return value;
+        }
+
     }
 }
 
