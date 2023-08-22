@@ -113,17 +113,11 @@ namespace SF_Automation.TestCases.Companies
                 }
                 usersLogin.UserLogOut();
 
-                // Cleanup code
+                //Cleanup code
                 companyHome.SearchCompany(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
                 companyDetail.DeleteCoverageTeamRecord(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyDetail.DeleteCoverageSector(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyHome.SearchCompany(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyDetail.DeleteCoverageTeamRecord(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
-
                 extentReports.CreateLog("Coverage Team is deleted successfully ");
-
-
+                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

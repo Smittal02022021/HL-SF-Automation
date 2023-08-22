@@ -50,8 +50,8 @@ namespace SF_Automation.Pages.Company
             WebDriverWaits.WaitUntilEleVisible(driver, comboType, 40);
             driver.FindElement(comboType).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 4));
 
-           // Enter Tier
-            driver.FindElement(By.CssSelector($"table[class='detailList'] > tbody > tr:nth-child({number}) >td:nth-child(2) > div >  span > select")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
+            // Enter Tier
+            driver.FindElement(By.XPath("//select[@id='00Ni000000FjXsJ']")).SendKeys(ReadExcelData.ReadData(excelPath, "AddCoverageTeam", 7));
 
             //Click Save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 40);
