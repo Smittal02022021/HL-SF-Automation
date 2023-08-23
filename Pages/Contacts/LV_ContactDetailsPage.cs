@@ -921,6 +921,20 @@ namespace SF_Automation.Pages.Contact
         {
             bool result= false;
 
+            //Get the no. of Engagements under Associated Engagements section
+            int noOfEngagements = driver.FindElements(By.XPath("//b[text()='Associated Engagements ']/../../div/dl")).Count;
+
+            //Get the name of each Engagement and store in an array
+            String[] engagementNames = new String[noOfEngagements];
+            int j = 1;
+
+            for(int i = 0; i <= noOfEngagements - 1; i++)
+            {
+                engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
+                j++;
+            }
+
+            //Navigate to Total Engagements page
             WebDriverWaits.WaitUntilEleVisible(driver, associatedEngagementsIcon, 120);
             driver.FindElement(associatedEngagementsIcon).Click();
             Thread.Sleep(3000);
@@ -930,9 +944,8 @@ namespace SF_Automation.Pages.Contact
 
             //Get the name of each Engagement and store in an array
             ArrayList activeEngagementNames = new ArrayList();
-            int rowNum;
 
-            for(rowNum = 1; rowNum <= totalAvailableEngagements - 1; rowNum++)
+            for(int rowNum = 1; rowNum <= totalAvailableEngagements - 1; rowNum++)
             {
                 if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text != "Closed")
                 {
@@ -945,55 +958,144 @@ namespace SF_Automation.Pages.Contact
             string[] myArray = (string[]) activeEngagementNames.ToArray(typeof(string));
 
             DateTime[] estCloseDate = new DateTime[totalActiveEngagements];
-            int j;
 
             if(totalActiveEngagements > 5)
             {
-                for(j = 0; j < totalActiveEngagements; j++)
+                for(int k = 0; k < totalActiveEngagements; k++)
                 {
-                    for(rowNum = 1; rowNum <= totalAvailableEngagements; rowNum++)
+                    //Open active Engagements
+                    driver.FindElement(By.XPath($"//span[text()='{myArray[k]}']")).Click();
+
+                    //Navigate to Important Dates tab
+                    WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
+                    driver.FindElement(linkImportantDates).Click();
+                    Thread.Sleep(3000);
+
+                    //Get the Estimated Close Date for each Active Engagement
+                    try
                     {
-                        if(myArray[j] == driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text)
+                        string abc = driver.FindElement(By.XPath("(//span[text()='Estimated Close Date']/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                        if(abc!="")
                         {
-                            //Open Active Engagement
-                            driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Click();
-
-                            //Navigate to Important Dates tab
-                            WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
-                            driver.FindElement(linkImportantDates).Click();
-                            Thread.Sleep(3000);
-
-                            //Get the Estimated Close Date for each Active Engagement
-                            try
-                            {
-                                string abc = driver.FindElement(By.XPath("(//span[text()='Estimated Close Date']/following::div/span)[1]/slot/lightning-formatted-text")).Text;
-                                estCloseDate[j] = DateTime.ParseExact(abc, "M/dd/yyyy", null);
-                            }
-                            catch(Exception)
-                            {
-                            
-                            }
-
-                            CloseTab(myArray[j]);
-                            break;
+                            estCloseDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
                         }
+                    }
+                    catch(Exception)
+                    {
+
+                    }
+
+                    CloseTab(myArray[k]);
+                    Thread.Sleep(2000);
+                }
+
+                //Get the latest 5 estimated close dates
+                DateTime[] latestDates = estCloseDate.OrderByDescending(date => date).Take(5).ToArray();
+
+                for(int m = 0; m < latestDates.Length; m++)
+                {
+                    for(int p = 0; p < totalActiveEngagements; p++)
+                    {
+                        if(m>0)
+                        {
+                            if(latestDates[m] == estCloseDate[m - 1])
+                            {
+                                p = m;
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                            else if(latestDates[m] == estCloseDate[p])
+                            {
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                        }
+                        else
+                        {
+                            if(latestDates[m] == estCloseDate[p])
+                            {
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
 
-                int k = 1;
-                string[] finalActiveEngagementNames = new string[5];
-
-                for(j = 0; j < totalActiveEngagements; j++)
+            }
+            else
+            {
+                for(int x = 0; x <= totalActiveEngagements; x++)
                 {
-                    if(estCloseDate[j] > estCloseDate[k])
+                    for(int y = 0; y <= noOfEngagements; y++)
                     {
-                        finalActiveEngagementNames[j] = myArray[j];
+                        if(myArray[x] == engagementNames[y])
+                        {
+                            result = true;
+                            break;
+                        }
+                        else if(y == noOfEngagements)
+                        {
+                            result = false;
+                            break; ;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        finalActiveEngagementNames[j] = myArray[k];
-                    }
-                    k++;
                 }
             }
             
