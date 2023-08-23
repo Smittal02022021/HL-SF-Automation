@@ -43,7 +43,8 @@ namespace SF_Automation.TestCases.Contact
                 Console.WriteLine(excelPath);
 
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                string externalContactName = ReadExcelData.ReadData(excelPath, "ExternalContact", 1);
+                string externalContactName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContact", 1, 1);
+                string externalContactName1 = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContact", 2, 1);
                 string engContactName = ReadExcelData.ReadData(excelPath, "EngContact", 1);
 
                 //Validating Title of Login Page
@@ -129,6 +130,22 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMTI0078947 - Verify that if there are both Active and closed Engagements, then it will list only Active Engagements.
                 Assert.IsTrue(lvContactDetailsPage.VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection());
                 extentReports.CreateStepLogs("Passed", "If there are both Active and Closed Engagements, then only Active Engagements are listed under Associated Engagements section. ");
+
+                //TC - TMTI0078951 - Verify that the Engagement Name is linked to the Engagement Detail page.
+                lvContactDetailsPage.CloseTab("Engagement Contacts");
+                Assert.IsTrue(lvEngagementDetailsPage.VerifyClickingOnTheEngagementNameUnderAssociatedEngagementsSectionTakesUserToEngagementDetailsPage());
+                extentReports.CreateStepLogs("Passed", "Clicking on the engagement name takes the user to the engagement detail page. ");
+
+                //Switch to a different external contact details page
+                lvContactDetailsPage.CloseTab(externalContactName);
+                lvContactDetailsPage.CloseTab(externalContactName);
+                lvHomePage.SearchContactFromMainSearch(externalContactName1);
+                Assert.IsTrue(lvContactDetailsPage.VerifyUserLandedOnCorrectContactDetailsPage(externalContactName1));
+                extentReports.CreateStepLogs("Passed", "User successfully navigated to an external contact: " + externalContactName1 + " details page. ");
+
+                //TC - TMTI0078949 - Verify that if there are no Active Engagements, then it will list the latest 5 Closed Engagements.
+                Assert.IsTrue(lvContactDetailsPage.VerifyIfThereAreNoActiveEngagementsThenLatest5ClosedEngagementsAreDisplayedUnderAssociatedEngagementsSection());
+                extentReports.CreateStepLogs("Passed", "If there are no Active Engagements, then latest 5 Closed Engagements are listed under Associated Engagements section. ");
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

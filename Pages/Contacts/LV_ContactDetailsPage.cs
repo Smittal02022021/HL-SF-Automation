@@ -945,7 +945,7 @@ namespace SF_Automation.Pages.Contact
             //Get the name of each Engagement and store in an array
             ArrayList activeEngagementNames = new ArrayList();
 
-            for(int rowNum = 1; rowNum <= totalAvailableEngagements - 1; rowNum++)
+            for(int rowNum = 1; rowNum <= totalAvailableEngagements; rowNum++)
             {
                 if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text != "Closed")
                 {
@@ -1101,5 +1101,191 @@ namespace SF_Automation.Pages.Contact
             
             return result;
         }
+
+        public bool VerifyIfThereAreNoActiveEngagementsThenLatest5ClosedEngagementsAreDisplayedUnderAssociatedEngagementsSection()
+        {
+            bool result = false;
+
+            Thread.Sleep(8000);
+
+            //Get the no. of Engagements under Associated Engagements section
+            int noOfEngagements = driver.FindElements(By.XPath("//b[text()='Associated Engagements ']/../../div/dl")).Count;
+
+            //Get the name of each Engagement and store in an array
+            String[] engagementNames = new String[noOfEngagements];
+            int j = 1;
+
+            for(int i = 0; i <= noOfEngagements - 1; i++)
+            {
+                engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
+                j++;
+            }
+
+            //Navigate to Total Engagements page
+            WebDriverWaits.WaitUntilEleVisible(driver, associatedEngagementsIcon, 120);
+            driver.FindElement(associatedEngagementsIcon).Click();
+            Thread.Sleep(3000);
+
+            //Get total no of engagements
+            int totalAvailableEngagements = driver.FindElements(By.XPath("//table[@aria-label='Engagements']/tbody/tr")).Count;
+
+            //Get the name of each closed Engagement and store in an array
+            ArrayList closeEngagementNames = new ArrayList();
+
+            for(int rowNum = 1; rowNum <= totalAvailableEngagements; rowNum++)
+            {
+                if(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/td[6]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text")).Text == "Closed")
+                {
+                    closeEngagementNames.Add(driver.FindElement(By.XPath($"(//table[@aria-label='Engagements']/tbody/tr)[{rowNum}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span")).Text);
+                }
+            }
+
+            //Get the total no of closed Engagements
+            int totalClosedEngagements = closeEngagementNames.Count;
+            string[] myArray = (string[]) closeEngagementNames.ToArray(typeof(string));
+
+            DateTime[] closeDate = new DateTime[totalClosedEngagements];
+
+            if(totalClosedEngagements > 5)
+            {
+                for(int k = 0; k < totalClosedEngagements; k++)
+                {
+                    //Open closed Engagements
+                    driver.FindElement(By.XPath($"//span[text()='{myArray[k]}']")).Click();
+
+                    //Navigate to Important Dates tab
+                    WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
+                    driver.FindElement(linkImportantDates).Click();
+                    Thread.Sleep(8000);
+
+                    //Get the Close Date for each Closed Engagement
+                    try
+                    {
+                        string abc = driver.FindElement(By.XPath("((//span[text()='Close Date'])[1]/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                        if(abc != "")
+                        {
+                            closeDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
+                        }
+                    }
+                    catch(Exception)
+                    {
+
+                    }
+
+                    CloseTab(myArray[k]);
+                }
+
+                //Get the latest 5 close dates
+                DateTime[] latestDates = closeDate.OrderByDescending(date => date).Take(5).ToArray();
+
+                for(int m = 0; m < latestDates.Length; m++)
+                {
+                    for(int p = 0; p < totalClosedEngagements; p++)
+                    {
+                        if(m > 0)
+                        {
+                            if(latestDates[m] == closeDate[m - 1])
+                            {
+                                p = m;
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                            else if(latestDates[m] == closeDate[p])
+                            {
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                        }
+                        else
+                        {
+                            if(latestDates[m] == closeDate[p])
+                            {
+                                for(int d = 0; d <= noOfEngagements; d++)
+                                {
+                                    if(myArray[p] == engagementNames[d])
+                                    {
+                                        result = true;
+                                        break;
+                                    }
+                                    else if(d == noOfEngagements)
+                                    {
+                                        result = false;
+                                        break; ;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                for(int x = 0; x <= totalClosedEngagements; x++)
+                {
+                    for(int y = 0; y <= noOfEngagements; y++)
+                    {
+                        if(myArray[x] == engagementNames[y])
+                        {
+                            result = true;
+                            break;
+                        }
+                        else if(y == noOfEngagements)
+                        {
+                            result = false;
+                            break; ;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
     }
 }

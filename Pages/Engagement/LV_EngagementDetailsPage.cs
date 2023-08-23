@@ -95,6 +95,44 @@ namespace SF_Automation.Pages.Companies
 
             return result;
         }
+
+        public bool VerifyClickingOnTheEngagementNameUnderAssociatedEngagementsSectionTakesUserToEngagementDetailsPage()
+        {
+            bool result = false;
+
+            //Get the no. of Engagements under Associated Engagements section
+            int noOfEngagements = driver.FindElements(By.XPath("//b[text()='Associated Engagements ']/../../div/dl")).Count;
+
+            //Get the name of each Engagement and store in an array
+            String[] engagementNames = new String[noOfEngagements];
+            int j = 1;
+
+            for(int i = 0; i <= noOfEngagements - 1; i++)
+            {
+                engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
+                driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Click();
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName, 120);
+
+                if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
+                {
+                    result = true;
+                    Thread.Sleep(3000);
+                    driver.FindElement(By.XPath("(//button[contains(@title,'| Engagement')])[2]")).Click();
+                    Thread.Sleep(3000);
+                    j++;
+                    continue;
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
     }
 }
 
