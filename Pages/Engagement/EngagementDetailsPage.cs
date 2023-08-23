@@ -31,6 +31,12 @@ namespace SF_Automation.Pages.Engagement
         By btnFREngSummary = By.CssSelector("input[value='FR Engagement Summary']");
         By btnFREngSummaryL = By.XPath("//button[@name='Engagement__c.Engagement_Summary_FR']");
         By tabDefault = By.XPath("//li/a[text()='Engagement Info']");
+        By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
+        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
+        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div/div[2]/span/slot/lightning-formatted-text");
+        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div/div[2]/span/slot/lightning-formatted-text");
+        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div/div[2]/span/slot/lightning-formatted-text");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr>th:nth-child(1)");
@@ -627,6 +633,56 @@ namespace SF_Automation.Pages.Engagement
             string title = driver.FindElement(tabDefault).Text;
             return title;
         }
+
+        //Get value of Transaction Type
+        public string GetValueOfTransactionTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientL, 150);
+            driver.FindElement(tabClientL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
+            string title = driver.FindElement(valTxnType).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 150);
+            driver.FindElement(tabInfo).Click();
+            return title;
+            
+        }
+
+        //Get value of Post Transaction Status
+        public string GetValueOfPostTransactionStatusL()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, valPostTxnStatus, 90);
+            string title = driver.FindElement(valPostTxnStatus).Text;            
+            return title;
+
+        }
+
+        //Get value of Company Description
+        public string GetValueOfCompDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompDesc, 90);
+            string title = driver.FindElement(valCompDesc).Text;
+            return title;
+
+        }
+
+        //Get value of Business Description
+        public string GetValueOfBusinessDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valBusDesc, 110);
+            string title = driver.FindElement(valBusDesc).Text;
+            return title;
+
+        }
+
+        //Get value of Restructuring Description
+        public string GetValueOfRestructuringDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valReDesc, 100);
+            string title = driver.FindElement(valReDesc).Text;
+            return title;
+
+        }
+
 
         //Get value of Total Estimated Fee
         public string GetTotalEstFee()

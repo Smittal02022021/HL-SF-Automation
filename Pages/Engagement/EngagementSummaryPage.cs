@@ -18,7 +18,13 @@ namespace SF_Automation.Pages.Engagement
         By lblCompDescL = By.XPath("//label[text()='Company Description']");
         By lblClientDescL = By.XPath("//label[text()='Client Description']");
         By lblReTxnL = By.XPath("//label[text()='Restructuring Transaction Description']");
-
+        By valTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By txtTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field");
+        By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valCompDesc = By.XPath("//label[text()='Company Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valReTxnDesc = By.XPath("//label[text()='Restructuring Transaction Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By msgReqInfo = By.XPath("//div[text()='*Please fill out the required information in the Engagement and Business Information Section of the Engagement']");
         By comboTxnTypes = By.CssSelector("select[name*='j_id41']>option");
         By lblClientDesc = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(3) > label");
         By lblPostTxnStatus = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(2) > td:nth-child(1) > label");
@@ -2138,6 +2144,59 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Get the value of Transaction Type
+        public string GetValueOfTransactionTypeInFREngL()
+        {            
+           WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
+            string value = driver.FindElement(valTxnType).Text;
+            return value;
+        }
+        
+        //Validate if Transaction Type is editable or not
+        public string ValidateTransactionTypeIfEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTxnType, 90);
+            string value = driver.FindElement(txtTxnType).Enabled.ToString();
+            return value;
+        }
+        //Get the value of Transaction Type
+        public string GetValueOfPostTransactionStatusInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valPostTxnStatus, 90);
+            string value = driver.FindElement(valPostTxnStatus).Text;
+            return value;
+        }
+
+        //Get the value of Client Description
+        public string GetValueOfClientDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientDesc, 90);
+            string value = driver.FindElement(valClientDesc).Text;
+            return value;
+        }
+        //Get the value of Company Description
+        public string GetValueOfCompDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompDesc, 90);
+            string value = driver.FindElement(valCompDesc).Text;
+            return value;
+        }
+
+        //Get the value of Restructuring Transaction Description
+        public string GetValueOfReTxnDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valReTxnDesc, 90);
+            string value = driver.FindElement(valReTxnDesc).Text;
+            return value;
+        }
+
+        //Get the note displaye at the bottom of Engagement Info tab
+        public string GetNoteDisplayedOnEngInfoL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgReqInfo, 90);
+            string value = driver.FindElement(msgReqInfo).Text;
+            return value;
+        }
     }
 }
 
