@@ -133,11 +133,11 @@ namespace SF_Automation.TestCases.Engagement
                 //TMTI0072782 - Verify the default note displayed on the Engagement Information tab
                 string noteInSummary = summaryPage.GetNoteDisplayedOnEngInfoL();
                 Assert.AreEqual("*Please fill out the required information in the Engagement and Business Information Section of the Engagement", noteInSummary);
-                extentReports.CreateLog("Message: " + noteInSummary + " is dispalyed on the bottom of Engagement Info tab ");
+                extentReports.CreateLog("Message: " + noteInSummary + " is displayed on the bottom of Engagement Info tab ");
 
                 //TMTI0072784 -Verify that the fields in the engagement info section are all non-editable fields on the screen
                 string editFields = summaryPage.ValidateTransactionTypeIfEditable();
-                Assert.AreEqual("False", editFields);
+                Assert.AreEqual("slds-form-element__static", editFields);
                 extentReports.CreateLog("Fields are non editable on Engagement Info tab ");            
 
                 usersLogin.LightningLogout();

@@ -19,7 +19,7 @@ namespace SF_Automation.Pages.Engagement
         By lblClientDescL = By.XPath("//label[text()='Client Description']");
         By lblReTxnL = By.XPath("//label[text()='Restructuring Transaction Description']");
         By valTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
-        By txtTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field");
+        By txtTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valCompDesc = By.XPath("//label[text()='Company Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2156,7 +2156,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateTransactionTypeIfEditable()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtTxnType, 90);
-            string value = driver.FindElement(txtTxnType).Enabled.ToString();
+            string value = driver.FindElement(txtTxnType).GetAttribute("class");
             return value;
         }
         //Get the value of Transaction Type
