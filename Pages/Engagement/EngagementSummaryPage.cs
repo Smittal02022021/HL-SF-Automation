@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -14,12 +15,24 @@ namespace SF_Automation.Pages.Engagement
     {
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By lblTransTypeL = By.XPath("//label[text()='Transaction Type']");
+        By lblCurrencyFinL = By.XPath("//label[text()='Currency Financials are reported in']");
+        By lblProjectionsL = By.XPath("//label[text()='Projections are as of: ']");
+        By lblLTMProjectionsL = By.XPath("//label[text()='LTM Projections are as of: ']");
+        By lblRevenueL = By.XPath("//label[contains(text(),'Revenue')]");
+        By lblEBITDAL = By.XPath("//label[contains(text(),'EBITDA')]");
+        By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
+    
         By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
         By lblCompDescL = By.XPath("//label[text()='Company Description']");
         By lblClientDescL = By.XPath("//label[text()='Client Description']");
         By lblReTxnL = By.XPath("//label[text()='Restructuring Transaction Description']");
         By valTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By txtTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By txtRevenue = By.XPath("//label[text()='Revenue FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+        By txtEBITDA = By.XPath("//label[text()='EBITDA FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+        By txtCapex = By.XPath("//label[text()='Capex FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+
+
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valCompDesc = By.XPath("//label[text()='Company Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2195,6 +2208,122 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqInfo, 90);
             string value = driver.FindElement(msgReqInfo).Text;
+            return value;
+        }
+
+        public string ValidateFieldCurrencyFinancialsAreReportedInL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCurrencyFinL, 90);
+            string txtCurrency = driver.FindElement(lblCurrencyFinL).Text;
+            return txtCurrency;
+        }
+
+        public string ValidateFieldProjectionsAreAsOfL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblProjectionsL, 90);
+            string txtProj = driver.FindElement(lblProjectionsL).Text;
+            return txtProj;
+        }
+        public string ValidateFieldLTMProjectionsAreAsOfL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblLTMProjectionsL, 90);
+            string txtLTMProj = driver.FindElement(lblLTMProjectionsL).Text;
+            return txtLTMProj;
+        }
+
+        public bool VerifyRevenueFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblRevenueL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Revenue FY-1 (MM)", "Revenue FY (MM)", "Revenue LTM (MM)", "Revenue FY+1 (MM)", "Revenue FY+2 (MM)", "Revenue FY+3 (MM)", "Revenue FY+4 (MM)", "Revenue FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public bool VerifyEBITDAFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblEBITDAL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = {"EBITDA FY-1 (MM)", "EBITDA FY (MM)", "EBITDA LTM (MM)", "EBITDA FY+1 (MM)", "EBITDA FY+2 (MM)", "EBITDA FY+3 (MM)", "EBITDA FY+4 (MM)", "EBITDA FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public bool VerifyCapexFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblCapexL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Capex FY-1 (MM)", "Capex FY (MM)", "Capex LTM (MM)", "Capex FY+1 (MM)", "Capex FY+2 (MM)", "Capex FY+3 (MM)", "Capex FY+4 (MM)", "Capex FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate if Revenue are editable or not
+        public string ValidateIfRevenueFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRevenue, 90);
+            driver.FindElement(txtRevenue).Click();
+            string value = driver.FindElement(txtRevenue).Enabled.ToString();
+            return value;
+        }
+
+        //Validate if EBITDA are editable or not
+        public string ValidateIfEBITDAFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEBITDA, 90);
+            driver.FindElement(txtEBITDA).Click();
+            string value = driver.FindElement(txtEBITDA).Enabled.ToString();
+            return value;
+        }
+
+        //Validate if Capex are editable or not
+        public string ValidateIfCapexFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCapex, 90);
+            driver.FindElement(txtCapex).Click();
+            string value = driver.FindElement(txtCapex).Enabled.ToString();
             return value;
         }
     }

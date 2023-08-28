@@ -31,6 +31,7 @@ namespace SF_Automation.Pages.Engagement
         By btnFREngSummary = By.CssSelector("input[value='FR Engagement Summary']");
         By btnFREngSummaryL = By.XPath("//button[@name='Engagement__c.Engagement_Summary_FR']");
         By tabDefault = By.XPath("//li/a[text()='Engagement Info']");
+        By tabFinancialsL = By.XPath("//li/a[text()='Financials / Projections']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
         By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
@@ -168,7 +169,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
         By valType = By.XPath("//button[contains(@id,'button-16')]");
         By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
-        By valTotalDebtCurrency = By.CssSelector("div[id*='h9j_id0_j_id4_ileinner']");
+        By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]/div[2]/span/slot/lightning-formatted-text");
         By valTotalDebtMM = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
 
         By btnViewCounterparties = By.XPath("//button[@name='Engagement__c.ViewCounterparties']");
@@ -631,6 +632,15 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnFREngSummaryL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabDefault, 90);
             string title = driver.FindElement(tabDefault).Text;
+            return title;
+        }
+
+        public string ValidateFinancialsProjectionsTabL()
+        {
+            Thread.Sleep(4000);            
+            driver.FindElement(tabFinancialsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabFinancialsL, 90);
+            string title = driver.FindElement(tabFinancialsL).Text;
             return title;
         }
 
@@ -1999,11 +2009,11 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
-        //Get Total Debt Currency
-        public string GetTotalDebtCurrency()
+        //Get Currency
+        public string GetCurrencyL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valTotalDebtCurrency);
-            string currency = driver.FindElement(valTotalDebtCurrency).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyL);
+            string currency = driver.FindElement(valCurrencyL).Text;
             return currency;
         }
 
