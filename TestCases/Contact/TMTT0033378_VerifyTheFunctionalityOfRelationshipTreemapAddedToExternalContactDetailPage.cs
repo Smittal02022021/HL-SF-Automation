@@ -134,13 +134,17 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMTI0078951 - Verify that the Engagement Name is linked to the Engagement Detail page.
                 lvContactDetailsPage.CloseTab("Engagement Contacts");
                 Assert.IsTrue(lvEngagementDetailsPage.VerifyClickingOnTheEngagementNameUnderAssociatedEngagementsSectionTakesUserToEngagementDetailsPage());
-                extentReports.CreateStepLogs("Passed", "Clicking on the engagement name takes the user to the engagement detail page. ");
+                extentReports.CreateStepLogs("Passed", "Clicking on the engagement name from associated engagement section takes the user to the engagement detail page. ");
 
                 //TC - TMTI0078953 - Verify that the fields are displayed in the "Referrals" section on the Relationship tree.
                 //TC - TMTI0078957 - If status is Active then field displayed is: Date Engaged
                 //TC - TMTI0078959 - If status is Closed then field displayed is: Closed Date
                 Assert.IsTrue(lvContactDetailsPage.VerifyFieldsDisplayedUnderReferralsSection(excelPath));
                 extentReports.CreateStepLogs("Passed", "All the expected fields are available under Referrals section on the external contact details page. Also if status is Active then field displayed is: Date Engaged and If Status is Closed, then the field displayed is: Closed Date. ");
+
+                //TC - TMTI0078961 - Verify that the Engagement Name under REferrals section is linked to the Engagement Detail page.
+                Assert.IsTrue(lvEngagementDetailsPage.VerifyClickingOnTheEngagementNameUnderReferralsSectionTakesUserToEngagementDetailsPage());
+                extentReports.CreateStepLogs("Passed", "Clicking on the engagement name from referrals section takes the user to the engagement detail page. ");
 
                 //Switch to a different external contact details page
                 lvContactDetailsPage.CloseTab(externalContactName);

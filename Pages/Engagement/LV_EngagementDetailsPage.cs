@@ -1,12 +1,7 @@
-﻿using AventStack.ExtentReports;
-using OpenQA.Selenium;
-using RazorEngine.Compilation.ImpromptuInterface;
-using SF_Automation.TestData;
+﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace SF_Automation.Pages.Companies
 {
@@ -50,6 +45,7 @@ namespace SF_Automation.Pages.Companies
                     {
                         WebDriverWaits.WaitUntilEleVisible(driver, linkEngagementContacts, 120);
                         driver.FindElement(linkEngagementContacts).Click();
+                        Thread.Sleep(3000);
                         WebDriverWaits.WaitUntilEleVisible(driver, linkViewAllEngContacts, 120);
                         driver.FindElement(linkViewAllEngContacts).Click();
 
@@ -111,6 +107,43 @@ namespace SF_Automation.Pages.Companies
             {
                 engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
                 driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Click();
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName, 120);
+
+                if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
+                {
+                    result = true;
+                    Thread.Sleep(3000);
+                    driver.FindElement(By.XPath("(//button[contains(@title,'| Engagement')])[2]")).Click();
+                    Thread.Sleep(3000);
+                    j++;
+                    continue;
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyClickingOnTheEngagementNameUnderReferralsSectionTakesUserToEngagementDetailsPage()
+        {
+            bool result = false;
+
+            //Get the no. of Engagements under Referrals section
+            int noOfEngagements = driver.FindElements(By.XPath("//b[text()='Referrals ']/following::div/dl/dt/p[text()='Name: ']")).Count;
+
+            //Get the name of each Engagement and store in an array
+            String[] engagementNames = new String[noOfEngagements];
+            int j = 1;
+
+            for(int i = 0; i <= noOfEngagements - 1; i++)
+            {
+                engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div)[{j}]/dl/dd/p/button")).Text;
+                driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div)[{j}]/dl/dd/p/button")).Click();
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName, 120);
 

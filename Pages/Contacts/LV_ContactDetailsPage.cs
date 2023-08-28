@@ -914,7 +914,7 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCloseDuplicateCompanyAlertDialogBox, 120);
             driver.FindElement(btnCloseDuplicateCompanyAlertDialogBox).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public bool VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection()
