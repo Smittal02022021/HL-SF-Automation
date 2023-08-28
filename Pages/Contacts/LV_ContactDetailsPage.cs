@@ -1287,5 +1287,58 @@ namespace SF_Automation.Pages.Contact
             return result;
         }
 
+        public bool VerifyFieldsDisplayedUnderReferralsSection(string path)
+        {
+            bool result = false;
+
+            int exlRowCount = ReadExcelData.GetRowCount(path, "Referrals");
+            for(int i = 1; i <= exlRowCount; i++)
+            {
+                string exlFieldName = ReadExcelData.ReadDataMultipleRows(path, "Referrals", i, 1);
+                string sfFieldName = driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div/dl/dt/p)[{i}]")).Text;
+                if(exlFieldName == sfFieldName)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            //Get total referrals count
+            int totalReferrals = driver.FindElements(By.XPath("//b[text()='Referrals ']/following::div/dl/dt/p[text()='Status: ']")).Count;
+
+            //Verify if status is Active then field displayed would be "Date Engaged" and If Status is Closed, then the field displayed would be "Closed Date"
+            for(int j = 1; j <= totalReferrals; j++)
+            {
+                if(driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div/dl/dt/p[text()='Status: '])[{j}]/following::dd/p")).Text != "Closed")
+                {
+                    string fieldName = driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div/dl/dt/p)[{j * 5}]")).Text;
+                    if(fieldName == "Date Engaged:")
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                else
+                {
+                    string fieldName = driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div/dl/dt/p)[{j * 5}]")).Text;
+                    if(fieldName == "Closed Date:")
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
