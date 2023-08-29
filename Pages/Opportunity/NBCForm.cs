@@ -209,16 +209,16 @@ namespace SF_Automation.Pages.Opportunity
         By tabAdmin = By.XPath("//*[@id='flexipage_tab8__item']");
         By tabFairness = By.XPath("//*[@id='flexipage_tab7__item']");
         By btnRestricted = By.XPath("//label[text()='Restricted List']/following::button[1]");
-        By btnYes1 = By.XPath("(//lightning-base-combobox)[19]");
-        By btnYes2 = By.XPath("(//lightning-base-combobox)[20]");
-        By btnYes3 = By.XPath("(//lightning-base-combobox)[21]");
-        By btnYes4 = By.XPath("(//lightning-base-combobox)[22]");
-        By btnYes5 = By.XPath("(//lightning-base-combobox)[23]");
+        By btnYes1 = By.XPath("(//lightning-base-combobox)[18]");
+        By btnYes2 = By.XPath("(//lightning-base-combobox)[19]");
+        By btnYes3 = By.XPath("(//lightning-base-combobox)[20]");
+        By btnYes4 = By.XPath("(//lightning-base-combobox)[21]");
+        By btnYes5 = By.XPath("(//lightning-base-combobox)[22]");
 
         By btnA = By.XPath("//label[text()='A']/following::button[1]");
         By btnB = By.XPath("//label[text()='B']/following::button[1]");
         By btnC = By.XPath("//label[text()='C']/following::button[1]");
-        By btnD = By.XPath("(//lightning-base-combobox)[27]");
+        By btnD = By.XPath("//label[text()='D']/following::button[1]");
         By chkGroupHead = By.XPath("//span[text()='Group Head Approval']/following::input[1]");
 
         By lblRelOpp = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -363,7 +363,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSubmitForReview = By.XPath("//lightning-button/button[text()='Submit for Review']");
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
-        By btnGrade = By.XPath("//label[text()='Grade']/following::lightning-base-combobox[1]/div[1]/div/button");
+        By btnGrade = By.XPath("//button[@aria-label='Grade, --None--']");
         By valGrade = By.XPath("//flexipage-tab2[8]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         By valOppNum = By.XPath("/html/body/p[10]/span");
@@ -434,11 +434,13 @@ namespace SF_Automation.Pages.Opportunity
         By valEstValuation = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lnkEditEstValuation = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordTotal_Debt_MM_cField2']/slot[1]/following::button[2]/span[1]");
         By msgCCStatus = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/records-formula-output/slot/lightning-formatted-text");
-        By msgCC1 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC2 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC3 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC4 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC5 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[12]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
+        
+        By msgCC1 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+                               //flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]
+        By msgCC2 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC3 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC4 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC5 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[12]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
         By valDateSubmitted = By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lblBaseFee = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lbl1stRatchetPercent = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -563,7 +565,9 @@ namespace SF_Automation.Pages.Opportunity
         //Click Opportunity Overview tab
         public string ClickOpportunityOverview()
         {
-
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-250)");
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, OppOverviewTab, 80);
             driver.FindElement(OppOverviewTab).Click();
             string valTab = driver.FindElement(OppOverviewTab).Text;
@@ -1009,7 +1013,7 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,50)");
             Thread.Sleep(5000);
-            js.ExecuteScript("window.scrollTo(0,150)");
+            js.ExecuteScript("window.scrollTo(0,250)");
             Thread.Sleep(5000);
             driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
@@ -1057,7 +1061,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,100)");
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
@@ -1068,7 +1072,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(lnkEditFeedback).Click();
             Thread.Sleep(5000);
             //js.ExecuteScript("window.scrollTo(0,100)");
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             Thread.Sleep(3000);
             //driver.FindElement(btnUpdSubmit).Click();
             //Thread.Sleep(4000);
@@ -1101,24 +1105,24 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,300)");
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnYes1).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[18]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");
             driver.FindElement(btnYes2).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,1600)");
             driver.FindElement(btnYes5).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[23]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnSave).Click();
         }
@@ -2866,7 +2870,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnGrade).Click();
             Console.WriteLine("Clicked Grade");
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//label[text()='Grade']/following::lightning-base-combobox[1]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='A+']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='A+']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             string value = driver.FindElement(valGrade).Text;

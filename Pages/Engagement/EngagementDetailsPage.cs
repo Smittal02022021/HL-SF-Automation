@@ -372,8 +372,8 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
         By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
-        By lblBid = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Bids']");
-        By lblReport = By.XPath("//slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item/a/span[text()='Report']");
+        By lblBid = By.XPath("//span[text()='Bids']");
+        By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
         By tblBids = By.XPath("//div/slot/lightning-tab/slot/lightning-card/article/div[2]/slot/div/lightning-datatable/div[2]/div/div/table");
         By btnNewBid = By.XPath("//button[text()='New Bid Round']");
@@ -393,7 +393,7 @@ namespace SF_Automation.Pages.Engagement
         By btnManage = By.XPath("//button[text()='Manage']");
         By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
         By btnMoreAdmin = By.XPath("//slot/flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/button");
-        By tabBidAdmin = By.XPath("//ul/li[9]/lightning-button-menu/div/div/slot/lightning-menu-item[1]/a/span");
+        By tabBidAdmin = By.XPath("//span[text()='Bids']");
         By lnkEngAR = By.XPath("//span/a[text()='Engagement AR Receipt']");
         By lnkEngExp = By.XPath("//span/a[text()='Engagement Expenses']");
         By lnkEngInvoice = By.XPath("//span/a[text()='Engagement Invoice Details']");
@@ -3757,8 +3757,11 @@ namespace SF_Automation.Pages.Engagement
         //Validate Bid tab
         public string ValidateBidTabForAdmin()
         {
-            Thread.Sleep(5000); 
-             WebDriverWaits.WaitUntilEleVisible(driver, btnMoreAdmin, 200);
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-500)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMoreAdmin, 200);
             driver.FindElement(btnMoreAdmin).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabBidAdmin, 200);
             driver.FindElement(tabBidAdmin).Click();
@@ -3785,7 +3788,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);
             driver.FindElement(btnSelectNewRound).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div[2]/slot/div/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[@data-value='First']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='First']")).Click();
             string tab = driver.FindElement(tabAddedBid).Text;
             driver.Navigate().Refresh();
             return tab;            

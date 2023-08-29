@@ -198,7 +198,7 @@ namespace SF_Automation.Pages.Engagement
         By btn1stDeclined = By.XPath("//tr[1]/td[5]/lightning-primitive-cell-factory/span/button");
         By txtDeclined = By.XPath("//input[@name='dt-inline-edit-dateLocal']");
         By lblDeclined = By.XPath("//a/span[text()='Declined / Passed']");
-        By chkSelectItems = By.XPath("//form/lightning-input/div/span/label/span[1]");
+        By chkSelectItems = By.XPath("//form/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
         By colInitial = By.XPath("//c-s-l-custom-datatable-type/div[2]/div/div/table/tbody/tr[1]/td[6]");
         By btn1stInitial = By.XPath("//tr[1]/td[6]/lightning-primitive-cell-factory/span/button");
         By colSent = By.XPath("//c-s-l-custom-datatable-type/div[2]/div/div/table/tbody/tr[1]/td[7]");
