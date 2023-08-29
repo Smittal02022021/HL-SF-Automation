@@ -401,7 +401,8 @@ namespace SF_Automation.Pages.Engagement
 
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
-        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
+        By btnEditL = By.XPath("//li[contains(@data-target-selection-name,'Engagement__c.Edit')]");
+        //records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By txtAssociatedEngLabelL = By.XPath("//span[text()='Associated Engagement']");
         By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input");
         By txtAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");

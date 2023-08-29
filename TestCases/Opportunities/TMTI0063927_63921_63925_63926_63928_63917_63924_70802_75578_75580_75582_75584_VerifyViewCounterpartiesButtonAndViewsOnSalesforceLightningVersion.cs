@@ -20,7 +20,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOppCounterparty addCounterparty = new AddOppCounterparty();
         LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileTMTI0035056 = "TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion";
+        public static string fileTMTI0063927 = "TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion";
         private string selectedCompany;
         private string appNameExl;
         private string appName;
@@ -47,7 +47,7 @@ namespace SF_Automation.TestCases.Opportunities
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0035056;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0063927;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");               

@@ -683,6 +683,7 @@ namespace SF_Automation.Pages
 
 
             //Select Additional Subject
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddSubjectL));
             driver.FindElement(comboAddSubjectL).SendKeys("No");
             driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
 
@@ -690,12 +691,14 @@ namespace SF_Automation.Pages
 
             //Select Beneficial Owner
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboBenOwnerL));
             driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
             driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
 
 
 
-            //Select Does HL have material            
+            //Select Does HL have material
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboHLMaterialL));
             driver.FindElement(comboHLMaterialL).SendKeys(valBenOwner);
             driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
 
@@ -705,13 +708,15 @@ namespace SF_Automation.Pages
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             Thread.Sleep(4000);
             //driver.FindElement(btnConfAgreeL).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnConfAgreeL));
             driver.FindElement(btnConfAgreeL).SendKeys(valConf);
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
 
 
-            //Click Save button                           
+            //Click Save button
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
             //
