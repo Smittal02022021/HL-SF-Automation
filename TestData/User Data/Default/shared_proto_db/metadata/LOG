@@ -1,5 +1,0 @@
-2023/08/28-10:38:09.856 7d88 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/MANIFEST-000001
-2023/08/28-10:38:09.857 7d88 Recovering log #3
-2023/08/28-10:38:09.858 7d88 (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 24525 bytes; Corruption: checksum mismatch
-2023/08/28-10:38:09.858 7d88 (ignoring error) C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log: dropping 17 bytes; Corruption: missing start of fragmented record(2)
-2023/08/28-10:38:09.860 7d88 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\shared_proto_db\metadata/000003.log 
