@@ -89,7 +89,7 @@ namespace SF_Automation.Pages.Engagement
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
         By lblMilestone = By.XPath("//label[text()='Milestone']");
         By btnMilestone = By.XPath("//button[@aria-label=\"Milestone, Select an Option\"]");
-        By valMilestone = By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valMilestone = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By lblTemplate = By.XPath("//label[text()='Template']");
         By btnTemplate = By.XPath("//button[@aria-label=\"Template, -Select-\"]");
         By valTemplate = By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
@@ -122,7 +122,7 @@ namespace SF_Automation.Pages.Engagement
         By btnViewAllCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[9]/button");
         By titleCounterparty = By.XPath("//h1[@class='slds-page-header__title listViewTitle slds-truncate']");
         By valExistingComp = By.XPath("//table/tbody/tr/td[1]/div/div[2]/div[1]");
-        By txtSearch = By.XPath("//slot/lightning-input/div/div/input");
+        By txtSearch = By.XPath("//input[@placeholder='Search']");
         By btnAddCounterparty = By.XPath("//button[text()='Add Counterparties']");
         By lblCounterparties = By.XPath("//header/div[1]/h2/span[text()='Counterparties']");
         By lblExistingEngagement = By.XPath("//span[@title='Get Companies from existing Engagement']");
@@ -168,7 +168,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkShowMore = By.XPath("//table/tbody/tr/td[4]/span/div/a/span/span[1]");
         By lnkEdit = By.XPath("//a[@data-target-selection-name='sfdc:StandardButton.Engagement_Counterparty__c.Edit']");
         By lnkDelete = By.XPath("//a[@data-target-selection-name='sfdc:StandardButton.Engagement_Counterparty__c.Delete']");
-        By txtSearchBox = By.XPath("//lightning-layout-item[1]/slot/p[1]/lightning-input/div/div/input");
+        By txtSearchBox = By.XPath("//p[1]/lightning-input/lightning-primitive-input-simple/div/div/input");
         By btnSearchContact = By.XPath("//button[@title='Search']");
         By btnEditBids = By.XPath("//button[text()='Edit Bids']");
         By btnNewBidRound = By.XPath("//button[text()='New Bid Round']");
