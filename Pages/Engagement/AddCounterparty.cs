@@ -92,7 +92,7 @@ namespace SF_Automation.Pages.Engagement
         By valMilestone = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By lblTemplate = By.XPath("//label[text()='Template']");
         By btnTemplate = By.XPath("//button[@aria-label=\"Template, -Select-\"]");
-        By valTemplate = By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valTemplate = By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnContactEmail = By.XPath("//span[@title='Skyhive']/ancestor::button");
         By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
         By valComp= By.XPath("//h2/button/span[@title='Skyhive']");
@@ -106,8 +106,8 @@ namespace SF_Automation.Pages.Engagement
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
         By btnEditViewAll = By.XPath("//td[9]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
-        By lnkEditViewAll = By.XPath("//ul/li/a[@title='Edit']");
-        By lnkDeleteViewAll = By.XPath("//ul/li/a[@title='Delete']");
+        By lnkEditViewAll = By.XPath("//a[@title='Edit']");
+        By lnkDeleteViewAll = By.XPath("//a[@title='Delete']");
         
         By btnCancelCounterparty = By.XPath("//lightning-layout-item[1]/slot/div/div[4]/lightning-button-group/div/slot/lightning-button[3]/button");
         By btnDeleteCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[2]/button");
@@ -713,7 +713,7 @@ namespace SF_Automation.Pages.Engagement
         //Select template and get email id
         public string ValidateEmailIdOnEmailTemplate()
         {
-            driver.FindElement(By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
             Thread.Sleep(7000);
             driver.FindElement(btnContactEmail).Click();
             Thread.Sleep(5000);
