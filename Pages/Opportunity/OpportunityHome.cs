@@ -41,7 +41,7 @@ namespace SF_Automation.Pages
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagOpportunities = By.XPath("//div/ul/li[5]/div/a/span[2]/span");
-        By lnkRecentlyViewed = By.XPath("//h1/span[2]");
+        By lnkRecentlyViewed = By.XPath("//h2/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By tblOpportunities = By.XPath("//div[1]/div/div/table");

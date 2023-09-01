@@ -1142,7 +1142,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);
             driver.FindElement(btnSelectNewRound).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div[2]/slot/div/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[@data-value='First']")).Click();
+            driver.FindElement(By.XPath("//div/div[2]/lightning-base-combobox-item[@data-value='First']")).Click();
             string tab = driver.FindElement(tabAddedBid).Text;
             //driver.Navigate().Refresh();
             return tab;           
