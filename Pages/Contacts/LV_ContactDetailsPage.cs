@@ -969,20 +969,13 @@ namespace SF_Automation.Pages.Contact
                     //Navigate to Important Dates tab
                     WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
                     driver.FindElement(linkImportantDates).Click();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(5000);
 
                     //Get the Estimated Close Date for each Active Engagement
-                    try
+                    string abc = driver.FindElement(By.XPath("(//span[text()='Estimated Close Date']/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                    if(abc != "")
                     {
-                        string abc = driver.FindElement(By.XPath("(//span[text()='Estimated Close Date']/following::div/span)[1]/slot/lightning-formatted-text")).Text;
-                        if(abc!="")
-                        {
-                            estCloseDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
-                        }
-                    }
-                    catch(Exception)
-                    {
-
+                        estCloseDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
                     }
 
                     CloseTab(myArray[k]);
@@ -1000,10 +993,9 @@ namespace SF_Automation.Pages.Contact
                         {
                             if(latestDates[m] == estCloseDate[m - 1])
                             {
-                                p = m;
                                 for(int d = 0; d <= noOfEngagements; d++)
                                 {
-                                    if(myArray[p] == engagementNames[d])
+                                    if(myArray[m - 1] == engagementNames[d])
                                     {
                                         result = true;
                                         break;
@@ -1040,11 +1032,6 @@ namespace SF_Automation.Pages.Contact
                                 }
                                 break;
                             }
-                            else
-                            {
-                                continue;
-                            }
-
                         }
                         else
                         {
@@ -1073,7 +1060,6 @@ namespace SF_Automation.Pages.Contact
                         break;
                     }
                 }
-
             }
             else
             {
@@ -1159,20 +1145,14 @@ namespace SF_Automation.Pages.Contact
                     Thread.Sleep(8000);
 
                     //Get the Close Date for each Closed Engagement
-                    try
+                    string abc = driver.FindElement(By.XPath("((//span[text()='Close Date'])[1]/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                    if(abc != "")
                     {
-                        string abc = driver.FindElement(By.XPath("((//span[text()='Close Date'])[1]/following::div/span)[1]/slot/lightning-formatted-text")).Text;
-                        if(abc != "")
-                        {
-                            closeDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
-                        }
-                    }
-                    catch(Exception)
-                    {
-
+                        closeDate[k] = DateTime.ParseExact(abc, "M/d/yyyy", null);
                     }
 
                     CloseTab(myArray[k]);
+                    Thread.Sleep(2000);
                 }
 
                 //Get the latest 5 close dates
@@ -1186,10 +1166,9 @@ namespace SF_Automation.Pages.Contact
                         {
                             if(latestDates[m] == closeDate[m - 1])
                             {
-                                p = m;
                                 for(int d = 0; d <= noOfEngagements; d++)
                                 {
-                                    if(myArray[p] == engagementNames[d])
+                                    if(myArray[m - 1] == engagementNames[d])
                                     {
                                         result = true;
                                         break;
@@ -1226,11 +1205,6 @@ namespace SF_Automation.Pages.Contact
                                 }
                                 break;
                             }
-                            else
-                            {
-                                continue;
-                            }
-
                         }
                         else
                         {
@@ -1256,9 +1230,9 @@ namespace SF_Automation.Pages.Contact
                                 break;
                             }
                         }
+                        break;
                     }
                 }
-
             }
             else
             {

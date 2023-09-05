@@ -113,7 +113,7 @@ namespace SF_Automation.Pages.Companies
                 if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
                 {
                     result = true;
-                    Thread.Sleep(3000);
+                    Thread.Sleep(5000);
                     driver.FindElement(By.XPath("(//button[contains(@title,'| Engagement')])[2]")).Click();
                     Thread.Sleep(3000);
                     j++;
