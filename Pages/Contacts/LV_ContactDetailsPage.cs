@@ -95,7 +95,7 @@ namespace SF_Automation.Pages.Contact
         //Contact Informaction section
         By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../div[2]/span/slot/lightning-formatted-name");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
-        By txtCloseDate = By.XPath("((//span[text()='Close Date'])[1]/following::div/span)[1]/slot/lightning-formatted-text");
+        By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
 
         public void CloseTab(string tabName)
         {
@@ -1143,11 +1143,11 @@ namespace SF_Automation.Pages.Contact
                     //Navigate to Important Dates tab
                     WebDriverWaits.WaitUntilEleVisible(driver, linkImportantDates, 120);
                     driver.FindElement(linkImportantDates).Click();
-                    Thread.Sleep(8000);
+                    Thread.Sleep(3000);
 
                     //Get the Close Date for each Closed Engagement
                     WebDriverWaits.WaitUntilEleVisible(driver, txtCloseDate, 120);
-                    string closedDate = driver.FindElement(By.XPath("((//span[text()='Close Date'])[1]/following::div/span)[1]/slot/lightning-formatted-text")).Text;
+                    string closedDate = driver.FindElement(txtCloseDate).Text;
                     if(closedDate != "")
                     {
                         closeDate[k] = DateTime.ParseExact(closedDate, "M/d/yyyy", null);

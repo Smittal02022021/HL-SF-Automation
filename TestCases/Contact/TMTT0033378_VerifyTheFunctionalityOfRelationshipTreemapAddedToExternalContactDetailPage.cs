@@ -149,6 +149,7 @@ namespace SF_Automation.TestCases.Contact
                 //Switch to a different external contact details page
                 lvContactDetailsPage.CloseTab(externalContactName);
                 lvContactDetailsPage.CloseTab(externalContactName);
+                
                 lvHomePage.SearchContactFromMainSearch(externalContactName1);
                 Assert.IsTrue(lvContactDetailsPage.VerifyUserLandedOnCorrectContactDetailsPage(externalContactName1));
                 extentReports.CreateStepLogs("Passed", "User successfully navigated to an external contact: " + externalContactName1 + " details page. ");
