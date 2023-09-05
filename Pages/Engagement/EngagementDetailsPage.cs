@@ -423,7 +423,8 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
         By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
-      
+        By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']/following::div[1]/textarea");
+
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4715,6 +4716,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         
         public void UpdateJobType(string oldJobType, string newJobType)
         {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
@@ -4722,12 +4724,12 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
             driver.FindElement(btnJobTypeL).Click();
             Thread.Sleep(3000);
-            By eleJobType = By.XPath("//lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + newJobType + "']");
+            By eleJobType = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-base-combobox//div[2]//lightning-base-combobox-item//span[text()='" + newJobType + "']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
             driver.FindElement(eleJobType).Click();
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
     }

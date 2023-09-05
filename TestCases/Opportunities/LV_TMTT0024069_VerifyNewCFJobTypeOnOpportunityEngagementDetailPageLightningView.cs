@@ -92,7 +92,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0055384	Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
 
-                    string opportunityName = addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0055384);//updated move to jobtype
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055384);//updated move to jobtype
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
@@ -117,11 +117,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionLV(fileTMTI0055384);//udated Move to element
+                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055384);//udated Move to element
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055384);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();

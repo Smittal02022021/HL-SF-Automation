@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    string opportunityName = addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0055389);//updated move to jobtype
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055389);//updated move to jobtype
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
@@ -109,11 +109,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionLV(fileTMTI0055389);//udated Move to element
+                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055389);//udated Move to element
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055389);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     //TMTI0055389	Verify user is able to edit any other Job types to new job type for existing opportunity
@@ -121,13 +121,13 @@ namespace SF_Automation.TestCases.Opportunities
                     string existingJobType =opportunityDetails.GetDetailPageJobTypeLV();
 
                     //Get Existing JobType with New JobType
-                    opportunityDetails.UpdateJobType(existingJobType, newJobType);
+                    opportunityDetails.UpdateJobTypeLV(existingJobType, newJobType);
                     string updatedJobType = opportunityDetails.GetDetailPageJobTypeLV();
                     Assert.AreEqual(newJobType, updatedJobType);
                     extentReports.CreateLog("Job Type is updated from Existing Job Type: "+ existingJobType+" to Job Type: "+ updatedJobType+" Opportunity Detail page ");
                     
                     //Reverting Job Type to Actual Job Type
-                    opportunityDetails.UpdateJobType(newJobType,existingJobType);
+                    opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
 
                     login.SwitchToClassicView();
                     extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
@@ -253,7 +253,7 @@ namespace SF_Automation.TestCases.Opportunities
                     engagementDetails.UpdateJobType(existingJobType, newJobType);
                     updatedJobType = engagementDetails.GetDetailPageJobTypeLV();
                     Assert.AreEqual(newJobType, updatedJobType);
-                    extentReports.CreateLog("Job Type is updated from Existing Job Type: " + existingJobType + " to Job Type: " + updatedJobType + " Opportunity Detail page ");
+                    extentReports.CreateLog("Job Type is updated from Existing Job Type: " + existingJobType + " to Job Type: " + updatedJobType + " Engagement Detail page ");
 
                     //Reverting Job Type to Actual Job Type
                     engagementDetails.UpdateJobType(newJobType, existingJobType);

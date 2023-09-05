@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsL(fileTMTI0054719);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();

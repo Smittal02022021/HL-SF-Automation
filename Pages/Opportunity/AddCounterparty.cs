@@ -81,7 +81,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         private By _subFilterEle(string sectionName)
         {
-            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div//input");
+            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input//div//input");
         }
         private By _counterpartyCompanyEle(string companyName)
         {
