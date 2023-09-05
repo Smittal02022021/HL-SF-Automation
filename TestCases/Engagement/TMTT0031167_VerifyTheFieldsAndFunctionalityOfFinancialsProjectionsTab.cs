@@ -110,10 +110,10 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("True", editFieldsCapex);
                 extentReports.CreateLog("Capex Fields are editable on Financials and Projections tab ");
 
-                //TMTI0072820 -Verify that the Capex fields are all editable on the screen
-                //string editFieldsCapex = summaryPage.ValidateIfCapexFieldsAreEditable();
-                //Assert.AreEqual("True", editFieldsCapex);
-                //extentReports.CreateLog("Capex Fields are editable on Financials and Projections tab ");
+                //TMTI0072820 -Verify that default "Engagement Currency" is selected in the "Currency Financials are reported in" field. 
+                string currency = summaryPage.ValidateIfCapexFieldsAreEditable();
+                Assert.AreEqual("True", editFieldsCapex);
+                extentReports.CreateLog("Capex Fields are editable on Financials and Projections tab ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

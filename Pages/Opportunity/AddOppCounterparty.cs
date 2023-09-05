@@ -59,11 +59,11 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddCounterpartiesL = By.XPath("//button[text()='Add Counterparties']");
         By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
         By lblNewOppCounterparty = By.XPath("//h2[text()='New Opportunity Counterparty']");
-        By txtCompanyL = By.XPath("//label[text()='Company']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
+        By txtCompanyL = By.XPath("//input[@placeholder='Search Companies...']");
         By comboType = By.XPath("//button[@aria-label='Type, --None--']");
         By btnSaveCounterpartyL = By.XPath("//button[@name='SaveEdit']");
         By btnNewOppCounterpartyContactL = By.XPath("//button[text()='New Opportunity Counterparty Contact']");
-        By txtSearchBox = By.XPath("//lightning-layout-item[1]/slot/p[1]/lightning-input/div/div/input");
+        By txtSearchBox = By.XPath("//slot/p/lightning-input/lightning-primitive-input-simple/div[1]/div/input[@placeholder='type here...']");
         By btnSearchContact = By.XPath("//div[1]/lightning-layout/slot/lightning-layout-item[1]/slot/p[2]/lightning-button/button");
 
         By chkNameL = By.XPath("//tr/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
@@ -97,7 +97,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtOppAddCounterparty = By.XPath("//input[@placeholder='Search Opportunity here...']");
         By txtCompAddCounterparty = By.XPath("//input[@placeholder='Search Company List here...']");
         By btnSearchOppAddCounterparty = By.XPath("//button[@title='Search']");
-        By btnSearchCompAddCounterparty = By.XPath("//lightning-accordion-section[2]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[2]/lightning-button[1]/button");
+        By btnSearchCompAddCounterparty = By.XPath("//lightning-accordion-section[2]/div/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[2]/lightning-button[1]/button");
         By btnAddCounterparty = By.XPath("//button[@title='counterparty']");
         By msgNoCompany = By.XPath("//span[text()='Please select counterparty record(s) to add']");
         By chkCompany = By.XPath("//table/tbody/tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
@@ -107,7 +107,7 @@ namespace SF_Automation.Pages.Opportunity
         By titleCounterparties = By.XPath("//span[text()='Counterparties']");
         By rowCounterpartiesL = By.XPath("//lightning-layout-item[1]/slot/div/c-s-l-custom-datatable-type/div[2]/div/div/table/tbody/tr[1]");
         By valView = By.XPath("//lightning-base-combobox-item/span[2]/span");
-        By btnView = By.XPath("//label[text()='View']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button");
+        By btnView = By.XPath("//label[text()='View']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[1]/button");
         By msgNoRecords = By.XPath("//div[text()='No records found']");
 
         public bool IsExpectedFilterNameavailable(string expectedSection)
@@ -476,11 +476,11 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyL, 250);
             driver.FindElement(txtCompanyL).SendKeys(name);
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text")).Click();
+            driver.FindElement(By.XPath("//li[1]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text")).Click();
             
             //Select Type            
             driver.FindElement(comboType).SendKeys(type);
-            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + type + "']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + type + "']")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveCounterpartyL).Click();
         }
@@ -690,7 +690,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtOppAddCounterparty).SendKeys("3Pillar");
             driver.FindElement(txtOppAddCounterparty).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//lightning-accordion-section[1]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
+            driver.FindElement(By.XPath("//lightning-accordion-section[1]/div/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
             driver.FindElement(btnSearchOppAddCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 350);
             driver.FindElement(btnAddCounterparty).Click();
@@ -739,7 +739,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(2000);
             driver.FindElement(txtCompAddCounterparty).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//lightning-accordion-section[2]/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
+            driver.FindElement(By.XPath("//lightning-accordion-section[2]/div/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearchCompAddCounterparty, 150);
             driver.FindElement(btnSearchCompAddCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
@@ -770,7 +770,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackAddCounterpartiesL, 150);
             driver.FindElement(btnBackAddCounterpartiesL).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, titleCounterparties, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleCounterparties, 170);
             string title= driver.FindElement(titleCounterparties).Text;
             return title;
         }

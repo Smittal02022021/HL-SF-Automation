@@ -267,7 +267,7 @@ namespace SF_Automation.Pages.Engagement
         By btnDeleteComment = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Comment__c.Delete']");
         By btnConfirmDelete = By.XPath("//span[text()='Delete']");
         By secDocChecklist = By.XPath("//span[@title='Document Checklist']");
-        By tabFees = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
+        By tabFees = By.XPath("//a[@data-label='Fees & Financials']");
         By lnkEditCurrency = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
         By txtEBITDA = By.XPath("//input[@name='EBITDA_MM__c']");
         By valEBITDA = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
@@ -2012,7 +2012,9 @@ namespace SF_Automation.Pages.Engagement
         //Get Currency
         public string GetCurrencyL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyL);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabFees);
+            driver.FindElement(tabFees).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyL,150);
             string currency = driver.FindElement(valCurrencyL).Text;
             return currency;
         }
