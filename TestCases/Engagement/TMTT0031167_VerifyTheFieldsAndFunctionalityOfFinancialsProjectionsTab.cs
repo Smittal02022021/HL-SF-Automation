@@ -1,13 +1,11 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Reflection;
+
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -65,7 +63,7 @@ namespace SF_Automation.TestCases.Engagement
                 engHome.ValidateSearchFunctionalityOfEngagementsByJobType(JobType);
 
                 //Get the value of Currency
-                string txnType = engagementDetails.GetCurrencyL();
+                string valCurrency = engagementDetails.GetCurrencyL();
 
                 //TMTI0072810_Validate the Financials and Projections tab
                 string value = engagementDetails.ClickFREngSummaryButtonL();
@@ -111,9 +109,24 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Capex Fields are editable on Financials and Projections tab ");
 
                 //TMTI0072820 -Verify that default "Engagement Currency" is selected in the "Currency Financials are reported in" field. 
-                string currency = summaryPage.ValidateIfCapexFieldsAreEditable();
-                Assert.AreEqual("True", editFieldsCapex);
-                extentReports.CreateLog("Capex Fields are editable on Financials and Projections tab ");
+                string currency = summaryPage.GetCurrencyValueOfFinancialsTab();
+                Assert.AreEqual(valCurrency, currency);
+                extentReports.CreateLog("Default Currency is selected in the Currency Financials are reported in is same as it is displayed in Engagement details page ");
+
+                //TMTI0072822-Verify that the user is able to select or enter the date in the "Projections are as of" field
+                string projCalendar= summaryPage.ValidateProjectionsCalendar();
+                Assert.AreEqual("Projections Calendar got displayed", projCalendar);
+                extentReports.CreateLog("User can enter value in Projections field ");
+
+                //TMTI0072824- Verify that the user is able to select or enter the date in the "LTM Projections are as of" field
+                string projLTMCalendar = summaryPage.ValidateLTMProjectionsCalendar();
+                Assert.AreEqual("LTM Projections Calendar got displayed", projLTMCalendar);
+                extentReports.CreateLog("User can enter value in LTM Projections field ");
+
+                //TMTI0072828 - Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen
+                string message = summaryPage.ValidateSaveFunctionalityOfFinancialsTab();
+                Assert.AreEqual("Record saved", message);
+                extentReports.CreateLog("Message : " + message +" is displayed when all provided details are saved in Finanacials tab ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

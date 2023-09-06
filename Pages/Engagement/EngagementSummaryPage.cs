@@ -31,7 +31,37 @@ namespace SF_Automation.Pages.Engagement
         By txtRevenue = By.XPath("//label[text()='Revenue FY-1 (MM)']/ancestor::div[@part='input-text']/div");
         By txtEBITDA = By.XPath("//label[text()='EBITDA FY-1 (MM)']/ancestor::div[@part='input-text']/div");
         By txtCapex = By.XPath("//label[text()='Capex FY-1 (MM)']/ancestor::div[@part='input-text']/div");
-
+        By valCurrency = By.XPath("//button[@name='CurrencyIsoCode']");
+        By btnProjections = By.XPath("//input[@name='Projections_Last_Updated__c']");
+        By imgProjCalendar = By.XPath("//label[text()='Projections are as of: ']/ancestor::div[1]/lightning-input-field/lightning-input/lightning-datepicker/div/div/lightning-calendar");
+        By btnLTMProjections = By.XPath("//input[@name='LTM_Projections_Last_Updated__c']");
+        By imgLTMProjCalendar = By.XPath("//label[text()='LTM Projections are as of: ']/ancestor::div[1]/lightning-input-field/lightning-input/lightning-datepicker/div/div/lightning-calendar");
+        By txtRevFYM1 = By.XPath("//input[@name='Revenue_FY_minus1_MM__c']");
+        By txtRevFY = By.XPath("//input[@name='Revenue_FY_MM__c']");
+        By txtRevLTM = By.XPath("//input[@name='Revenue_LTM_MM__c']");
+        By txtRevFYA1 = By.XPath("//input[@name='Revenue_FY_1_MM__c']");
+        By txtRevFYA2= By.XPath("//input[@name='Revenue_FY_2_MM__c']");
+        By txtRevFYA3 = By.XPath("//input[@name='Revenue_FY_3_MM__c']"); 
+        By txtRevFYA4 = By.XPath("//input[@name='Revenue_FY_4_MM__c']");
+        By txtRevFYA5 = By.XPath("//input[@name='Revenue_FY_5_MM__c']");
+        By txtEBITDAFYM1 = By.XPath("//input[@name='EBITDA_FY_minus1_MM__c']");
+        By txtEBITDAFY = By.XPath("//input[@name='EBITDA_FY_MM__c']");
+        By txtEBITDALTM = By.XPath("//input[@name='EBITDA_LTM_MM__c']");
+        By txtEBITDAFYA1 = By.XPath("//input[@name='EBITDA_FY_1_MM__c']");
+        By txtEBITDAFYA2 = By.XPath("//input[@name='EBITDA_FY_2_MM__c']");
+        By txtEBITDAFYA3 = By.XPath("//input[@name='EBITDA_FY_3_MM__c']");
+        By txtEBITDAFYA4 = By.XPath("//input[@name='EBITDA_FY_4_MM__c']");
+        By txtEBITDAFYA5 = By.XPath("//input[@name='EBITDA_FY_5_MM__c']");
+        By txtCapexFYM1 = By.XPath("//input[@name='Capex_FY_minus1_MM__c']");
+        By txtCapexLTM = By.XPath("//input[@name='Capex_LTM_MM__c']");
+        By txtCapexFY = By.XPath("//input[@name='Capex_FY_MM__c']");
+        By txtCapexFYA1 = By.XPath("//input[@name='Capex_FY_1_MM__c']");
+        By txtCapexFYA2 = By.XPath("//input[@name='Capex_FY_2_MM__c']");
+        By txtCapexFYA3 = By.XPath("//input[@name='Capex_FY_3_MM__c']");
+        By txtCapexFYA4 = By.XPath("//input[@name='Capex_FY_4_MM__c']");
+        By txtCapexFYA5 = By.XPath("//input[@name='Capex_FY_5_MM__c']");
+        By btnSaveFinancials = By.XPath("//c-engagement-fr-summary-fin-proj/div/lightning-button/button[text()='Save']");
+        By msgSaveFinancials = By.XPath("//span[text()='Record saved']");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2325,6 +2355,119 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtCapex).Click();
             string value = driver.FindElement(txtCapex).Enabled.ToString();
             return value;
+        }
+
+        //Get the currency
+        public string GetCurrencyValueOfFinancialsTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 90);
+            string value = driver.FindElement(valCurrency).GetAttribute("data-value");
+            return value;
+        }
+
+        //Enter the value in Projections are as of
+        public string ValidateProjectionsCalendar()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,btnProjections, 90);            
+            driver.FindElement(btnProjections).Click();
+            Thread.Sleep(10000);
+            string value = driver.FindElement(imgProjCalendar).Enabled.ToString();
+            Console.WriteLine("value: " + value);
+            if (value.Equals("True")) 
+            {
+                return "Projections Calendar got displayed";
+            }
+            else
+            {
+                return "Projections Calendar did not get displayed";
+            }
+        }
+
+        //Enter the value in LTMvProjections are as of
+        public string ValidateLTMProjectionsCalendar()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLTMProjections, 90);
+            driver.FindElement(btnLTMProjections).Click();
+            Thread.Sleep(10000);
+            string value = driver.FindElement(imgLTMProjCalendar).Enabled.ToString();
+            Console.WriteLine("value: " + value);
+            if (value.Equals("True"))
+            {
+                return "LTM Projections Calendar got displayed";
+            }
+            else
+            {
+                return "LTM Projections Calendar did not get displayed";
+            }
+        }
+
+        //Validate save functionality of Financials tab
+        public string ValidateSaveFunctionalityOfFinancialsTab()
+        {
+            driver.FindElement(txtRevFYM1).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnProjections).Clear();
+            driver.FindElement(btnProjections).SendKeys("Sep 5, 2023");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLTMProjections, 100);
+            driver.FindElement(btnLTMProjections).Clear();
+            driver.FindElement(btnLTMProjections).SendKeys("Sep 5, 2023");
+            driver.FindElement(txtRevFYM1).Clear();
+            driver.FindElement(txtRevFYM1).SendKeys("10");
+            driver.FindElement(txtRevFY).Clear();
+            driver.FindElement(txtRevFY).SendKeys("10");
+            driver.FindElement(txtRevLTM).Clear();
+            driver.FindElement(txtRevLTM).SendKeys("10");
+            driver.FindElement(txtRevFYA1).Clear();
+            driver.FindElement(txtRevFYA1).SendKeys("10");
+            driver.FindElement(txtRevFYA2).Clear();
+            driver.FindElement(txtRevFYA2).SendKeys("10");
+            driver.FindElement(txtRevFYA3).Clear();            
+            driver.FindElement(txtRevFYA3).SendKeys("10");
+            driver.FindElement(txtRevFYA4).Clear();
+            driver.FindElement(txtRevFYA4).SendKeys("10");
+            driver.FindElement(txtRevFYA5).Clear();
+            driver.FindElement(txtRevFYA5).SendKeys("10");
+
+            driver.FindElement(txtEBITDAFYM1).Clear();
+            driver.FindElement(txtEBITDAFYM1).SendKeys("10");
+            driver.FindElement(txtEBITDAFY).Clear();
+            driver.FindElement(txtEBITDAFY).SendKeys("10");
+            driver.FindElement(txtEBITDALTM).Clear();
+            driver.FindElement(txtEBITDALTM).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA1).Clear();
+            driver.FindElement(txtEBITDAFYA1).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA2).Clear();
+            driver.FindElement(txtEBITDAFYA2).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA3).Clear();
+            driver.FindElement(txtEBITDAFYA3).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA4).Clear();
+            driver.FindElement(txtEBITDAFYA4).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA5).Clear();
+            driver.FindElement(txtEBITDAFYA5).SendKeys("10");
+
+            driver.FindElement(txtCapexFYM1).Clear();
+            driver.FindElement(txtCapexFYM1).SendKeys("10");
+            driver.FindElement(txtCapexFY).Clear();
+            driver.FindElement(txtCapexFY).SendKeys("10");
+            driver.FindElement(txtCapexLTM).Clear();
+            driver.FindElement(txtCapexLTM).SendKeys("10");
+            driver.FindElement(txtCapexFYA1).Clear();
+            driver.FindElement(txtCapexFYA1).SendKeys("10");
+            driver.FindElement(txtCapexFYA2).Clear();
+            driver.FindElement(txtCapexFYA2).SendKeys("10");
+            driver.FindElement(txtCapexFYA3).Clear();
+            driver.FindElement(txtCapexFYA3).SendKeys("10");
+            driver.FindElement(txtCapexFYA4).Clear();
+            driver.FindElement(txtCapexFYA4).SendKeys("10");
+            driver.FindElement(txtCapexFYA5).Clear();
+            driver.FindElement(txtCapexFYA5).SendKeys("10");
+
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
+            string message=  driver.FindElement(msgSaveFinancials).Text;
+            return message;
         }
     }
 }
