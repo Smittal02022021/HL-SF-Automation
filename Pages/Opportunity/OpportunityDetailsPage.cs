@@ -434,6 +434,7 @@ namespace SF_Automation.Pages
         By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']/following::div[1]/textarea");        
         By lblFeeNotesDes = By.XPath("//label[text()='Fee Notes & Description']");
         By lblAdditionalClient = By.XPath("//label[text()='Additional Client']");
+        By lblSICCode = By.XPath("//label[text()='SIC Code']");
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -5031,10 +5032,11 @@ namespace SF_Automation.Pages
 
         public void UpdateJobTypeLV(string oldJobType, string newJobType)
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblSICCode));
             By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
             driver.FindElement(btnJobTypeL).Click();

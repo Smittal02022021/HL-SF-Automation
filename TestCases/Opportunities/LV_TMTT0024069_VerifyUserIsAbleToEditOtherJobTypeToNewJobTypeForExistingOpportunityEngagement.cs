@@ -250,13 +250,13 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string existingEngJobType = engagementDetails.GetDetailPageJobTypeLV();
                     //Get Existing JobType with New JobType
-                    engagementDetails.UpdateJobType(existingJobType, newJobType);
+                    engagementDetails.UpdateJobTypeLV(existingJobType, newJobType);
                     updatedJobType = engagementDetails.GetDetailPageJobTypeLV();
                     Assert.AreEqual(newJobType, updatedJobType);
                     extentReports.CreateLog("Job Type is updated from Existing Job Type: " + existingJobType + " to Job Type: " + updatedJobType + " Engagement Detail page ");
 
                     //Reverting Job Type to Actual Job Type
-                    engagementDetails.UpdateJobType(newJobType, existingJobType);
+                    engagementDetails.UpdateJobTypeLV(newJobType, existingJobType);
                     login.SwitchToClassicView();
 
                     //engagementHome.ClickEngagementTab();

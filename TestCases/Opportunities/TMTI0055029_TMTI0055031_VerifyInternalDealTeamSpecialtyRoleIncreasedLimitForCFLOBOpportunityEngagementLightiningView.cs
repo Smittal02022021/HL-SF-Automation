@@ -112,7 +112,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsL(fileTMTI0055029);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     //AddMultiple Staff to Internal Deal Team

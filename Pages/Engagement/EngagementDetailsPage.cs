@@ -423,7 +423,8 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
         By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
-        By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']/following::div[1]/textarea");
+        By txtEngDescL2 = By.XPath("//label[text()='Engagement Description']");
+        By lblSICCode = By.XPath("//label[text()='SIC Code']");
 
         private By _linkQuestionnaireNumer(string caseNumber)
         {
@@ -4714,12 +4715,13 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             catch (Exception) { return "Job Type not found"; }
         }
         
-        public void UpdateJobType(string oldJobType, string newJobType)
+        public void UpdateJobTypeLV(string oldJobType, string newJobType)
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(lblSICCode));
             By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
             driver.FindElement(btnJobTypeL).Click();
