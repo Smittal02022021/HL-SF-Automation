@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string pageTitle = opportunityHome.ClickOppManager();
                     Assert.AreEqual("Opportunity Manager", pageTitle);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed ");
-                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType),"Verify Opportunity with New Job Type is available on Opportunity Manager page ");
+                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType),"Verify Opportunity with New Job Type: "+ valJobType+" is available on Opportunity Manager page ");
                     extentReports.CreateLog("Opportunity with New Job Type: " + valJobType+" is available on Opportunity Manager page ");
 
                     //Clicking on Engagement Manager link and Validate the title of page
@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunity
                     pageTitle = opportunityHome.ClickEngManager();
                     Assert.AreEqual("Engagement Manager", pageTitle);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed ");
-                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType), "Verify Engagement with New Job Type is available on Engagement Manager page ");
+                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType), "Verify Engagement with New Job Type: "+ valJobType+" is available on Engagement Manager page ");
                     extentReports.CreateLog("Engagement with New Job Type: " + valJobType + " is available on Engagement Manager page ");
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + stdUser + " logged Out ");

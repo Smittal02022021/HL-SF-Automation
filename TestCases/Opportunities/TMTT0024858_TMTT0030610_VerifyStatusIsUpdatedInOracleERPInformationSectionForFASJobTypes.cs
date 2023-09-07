@@ -161,7 +161,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityNumber, engName);
                     extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
                     
-                    //TMTI0056869Verify the availability of new Job Types on Edit Engagement page
+                    //TMTI0056869 Verify the availability of new Job Types on Edit Engagement page
                     //TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
                     Assert.IsTrue(engagementDetails.IsJobTypePresentInDropdownOppDetailPage(valJobType));
                     extentReports.CreateLog("Job Type: " + valJobType + " is present on edit Engageent page ");
