@@ -22,6 +22,10 @@ namespace SF_Automation.Pages.Engagement
         By lblRevenueL = By.XPath("//label[contains(text(),'Revenue')]");
         By lblEBITDAL = By.XPath("//label[contains(text(),'EBITDA')]");
         By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
+        By lblDMAFieldsL = By.XPath("//table/thead/tr/th/span");
+        By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
+
+        By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
     
         By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
         By lblCompDescL = By.XPath("//label[text()='Company Description']");
@@ -65,6 +69,8 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveFinancials = By.XPath("//c-engagement-fr-summary-fin-proj/div/lightning-button/button[text()='Save']");
         By msgSaveFinancials = By.XPath("//span[text()='Record saved']");
         By msgCurrencyFinancials = By.XPath("//div[text()='Complete this field.']");
+        By msgAssetSold = By.XPath("//label[text()='Asset Sold']/ancestor::lightning-primitive-input-simple/div[2]");
+        By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2549,6 +2555,66 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, msgCurrencyFinancials, 90);
             string message = driver.FindElement(msgCurrencyFinancials).Text;
             return message;
+        }
+
+        //Validate DM&A Info fields 
+        public bool VerifyDMAndAInfoFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblDMAFieldsL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Asset Sold", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break up fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)", "Total Sales Price (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+
+        //Validate fields on Add Distressed M & A Info
+        public bool VerifyAddDistressedFieldsL()
+        {
+            driver.FindElement(btnAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddDistressedL);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblAddDistressedL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
+            bool isTrue = true;
+            Console.WriteLine(actualNamesAndDesc[0]);
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate mandatory validation for Asset Sold
+        public string ValidateMandatoryMessageForAssetSoldField()
+        {
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAssetSold);
+            string message = driver.FindElement(msgAssetSold).Text;
+            return message;
+
         }
     }
 }

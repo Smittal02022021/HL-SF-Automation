@@ -28,6 +28,7 @@ namespace SF_Automation.Pages.Engagement
         By btnFREngSummaryL = By.XPath("//button[@name='Engagement__c.Engagement_Summary_FR']");
         By tabDefault = By.XPath("//li/a[text()='Engagement Info']");
         By tabFinancialsL = By.XPath("//li/a[text()='Financials / Projections']");
+        By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
         By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
@@ -637,6 +638,15 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabFinancialsL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabFinancialsL, 90);
             string title = driver.FindElement(tabFinancialsL).Text;
+            return title;
+        }
+
+        public string ValidateDMAndInformationTabL()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(tabDMAL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDMAL, 90);
+            string title = driver.FindElement(tabDMAL).Text;
             return title;
         }
 
