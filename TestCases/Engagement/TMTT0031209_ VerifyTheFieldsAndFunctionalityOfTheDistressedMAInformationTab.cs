@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0031167_VerifyTheFieldsAndFunctionalityOfFinancialsProjectionsTab : BaseClass
+    class TMTT0031209_VerifyTheFieldsAndFunctionalityOfTheDistressedAInformationTab : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -29,7 +29,7 @@ namespace SF_Automation.TestCases.Engagement
         }
 
         [Test]
-        public void VerifyTheInformationUnderEngagementInformationTab()
+        public void VerifyTheInformationUnderDistressedAInformationTab()
         {
             try
             {

@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using System.Transactions;
+
+
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -32,6 +33,7 @@ namespace SF_Automation.Pages.Engagement
         By txtEBITDA = By.XPath("//label[text()='EBITDA FY-1 (MM)']/ancestor::div[@part='input-text']/div");
         By txtCapex = By.XPath("//label[text()='Capex FY-1 (MM)']/ancestor::div[@part='input-text']/div");
         By valCurrency = By.XPath("//button[@name='CurrencyIsoCode']");
+        By valCurrencyNone = By.XPath("//lightning-base-combobox-item/span/span[@title='--None--']");
         By btnProjections = By.XPath("//input[@name='Projections_Last_Updated__c']");
         By imgProjCalendar = By.XPath("//label[text()='Projections are as of: ']/ancestor::div[1]/lightning-input-field/lightning-input/lightning-datepicker/div/div/lightning-calendar");
         By btnLTMProjections = By.XPath("//input[@name='LTM_Projections_Last_Updated__c']");
@@ -62,6 +64,7 @@ namespace SF_Automation.Pages.Engagement
         By txtCapexFYA5 = By.XPath("//input[@name='Capex_FY_5_MM__c']");
         By btnSaveFinancials = By.XPath("//c-engagement-fr-summary-fin-proj/div/lightning-button/button[text()='Save']");
         By msgSaveFinancials = By.XPath("//span[text()='Record saved']");
+        By msgCurrencyFinancials = By.XPath("//div[text()='Complete this field.']");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2467,6 +2470,84 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveFinancials).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
             string message=  driver.FindElement(msgSaveFinancials).Text;
+            return message;
+        }
+
+        //Validate save functionality of Financials tab
+        public string ValidateUpdateFunctionalityOfFinancialsTab()
+        {
+            driver.FindElement(txtRevFYM1).Click();
+            Thread.Sleep(4000);           
+            driver.FindElement(txtRevFYM1).Clear();
+            driver.FindElement(txtRevFYM1).SendKeys("20");
+            driver.FindElement(txtRevFY).Clear();
+            driver.FindElement(txtRevFY).SendKeys("20");
+            driver.FindElement(txtRevLTM).Clear();
+            driver.FindElement(txtRevLTM).SendKeys("20");
+            driver.FindElement(txtRevFYA1).Clear();
+            driver.FindElement(txtRevFYA1).SendKeys("20");
+            driver.FindElement(txtRevFYA2).Clear();
+            driver.FindElement(txtRevFYA2).SendKeys("20");
+            driver.FindElement(txtRevFYA3).Clear();
+            driver.FindElement(txtRevFYA3).SendKeys("20");
+            driver.FindElement(txtRevFYA4).Clear();
+            driver.FindElement(txtRevFYA4).SendKeys("20");
+            driver.FindElement(txtRevFYA5).Clear();
+            driver.FindElement(txtRevFYA5).SendKeys("20");
+
+            driver.FindElement(txtEBITDAFYM1).Clear();
+            driver.FindElement(txtEBITDAFYM1).SendKeys("20");
+            driver.FindElement(txtEBITDAFY).Clear();
+            driver.FindElement(txtEBITDAFY).SendKeys("20");
+            driver.FindElement(txtEBITDALTM).Clear();
+            driver.FindElement(txtEBITDALTM).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA1).Clear();
+            driver.FindElement(txtEBITDAFYA1).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA2).Clear();
+            driver.FindElement(txtEBITDAFYA2).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA3).Clear();
+            driver.FindElement(txtEBITDAFYA3).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA4).Clear();
+            driver.FindElement(txtEBITDAFYA4).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA5).Clear();
+            driver.FindElement(txtEBITDAFYA5).SendKeys("20");
+
+            driver.FindElement(txtCapexFYM1).Clear();
+            driver.FindElement(txtCapexFYM1).SendKeys("20");
+            driver.FindElement(txtCapexFY).Clear();
+            driver.FindElement(txtCapexFY).SendKeys("20");
+            driver.FindElement(txtCapexLTM).Clear();
+            driver.FindElement(txtCapexLTM).SendKeys("20");
+            driver.FindElement(txtCapexFYA1).Clear();
+            driver.FindElement(txtCapexFYA1).SendKeys("20");
+            driver.FindElement(txtCapexFYA2).Clear();
+            driver.FindElement(txtCapexFYA2).SendKeys("20");
+            driver.FindElement(txtCapexFYA3).Clear();
+            driver.FindElement(txtCapexFYA3).SendKeys("20");
+            driver.FindElement(txtCapexFYA4).Clear();
+            driver.FindElement(txtCapexFYA4).SendKeys("20");
+            driver.FindElement(txtCapexFYA5).Clear();
+            driver.FindElement(txtCapexFYA5).SendKeys("20");
+
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
+            string message = driver.FindElement(msgSaveFinancials).Text;
+            return message;
+        }
+
+        //Validate Currency validation on Financials tab
+        public string ValidateCurrencyFinancialsValidation()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 90);
+            driver.FindElement(valCurrency).Click();
+            var element = driver.FindElement(valCurrencyNone);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement(valCurrencyNone).Click();
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgCurrencyFinancials, 90);
+            string message = driver.FindElement(msgCurrencyFinancials).Text;
             return message;
         }
     }

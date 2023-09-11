@@ -4217,6 +4217,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
             driver.FindElement(btnSaveComments).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
             string commentType = driver.FindElement(valAddedCommentType).Text;
             return commentType;          
