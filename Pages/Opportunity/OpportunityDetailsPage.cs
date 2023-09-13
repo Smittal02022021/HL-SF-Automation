@@ -435,6 +435,13 @@ namespace SF_Automation.Pages
         By lblFeeNotesDes = By.XPath("//label[text()='Fee Notes & Description']");
         By lblAdditionalClient = By.XPath("//label[text()='Additional Client']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
+        By comboTASServices = By.CssSelector("select[name*='fIA']");
+
+        private By _ActivitySubject(string activitySubject)
+        {
+            return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
+        }
+
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -5151,6 +5158,24 @@ namespace SF_Automation.Pages
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void UpdateTASServices()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(comboTASServices).SendKeys("Buyside AFR");
+            driver.FindElement(btnSave).Click();
+        }
+        public bool IsLinkedActivityDisplayed(string activity)
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _ActivitySubject(activity), 20);
+                return driver.FindElement(_ActivitySubject(activity)).Displayed;
+            }
+            catch { return false; }
         }
     }
 

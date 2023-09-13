@@ -422,6 +422,7 @@ namespace SF_Automation.Pages.Engagement
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
+        By txtSecWomenLedTAS = By.CssSelector("div[id*='Kd_ep_j_id0_j_id4']>h3");
         By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
         By txtEngDescL2 = By.XPath("//label[text()='Engagement Description']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
@@ -472,6 +473,12 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//h2//a//span[contains(@title,'{name}')]");
         }
+
+        private By _ActivitySubject(string activitySubject)
+        {
+            return By.XPath($"//h2//span[text()='Engagement Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");//(//lightning-datatable//table//tbody//td//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}'])[2]
+        }
+
         //Search and select the desired case
         public void SelectCase(string CaseNumber)
         {
@@ -3036,6 +3043,12 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string value = driver.FindElement(txtSecWomenLedCVAS).Text;
                 return value;
             }
+            else if (JobType.Contains("TAS"))
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedTAS, 20);
+                string value = driver.FindElement(txtSecWomenLedTAS).Text;
+                return value;
+            }
             else
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedOther, 120);
@@ -3059,7 +3072,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string value = driver.FindElement(labelWomenLedActivism).Text;
                 return value;
             }
-            else if (JobType.Equals("FA - Portfolio-Advis/Consulting") || JobType.Equals("FA - Portfolio-Auto Loans") || JobType.Equals("FA - Portfolio-Auto Struct Prd") || JobType.Equals("FA - Portfolio-Deriv/Risk Mgmt") || JobType.Equals("FA - Portfolio-Diligence/Assets") || JobType.Equals("FA - Portfolio-Funds Transfer") || JobType.Equals("FA - Portfolio-GP interest") || JobType.Equals("FA - Portfolio-Real Estate") || JobType.Equals("FA - Portfolio-Valuation") || JobType.Equals("FA - Portfolio-Auto Struct Prd/Consulting"))
+            else if (JobType.Equals("FA - Portfolio-Advis/Consulting") || JobType.Equals("FA - Portfolio-Auto Loans") || JobType.Equals("FA - Portfolio-Auto Struct Prd") || JobType.Equals("FA - Portfolio-Deriv/Risk Mgmt") || JobType.Equals("FA - Portfolio-Diligence/Assets") || JobType.Equals("FA - Portfolio-Funds Transfer") || JobType.Equals("FA - Portfolio-GP interest") || JobType.Equals("FA - Portfolio-Real Estate") || JobType.Equals("FA - Portfolio-Valuation") || JobType.Equals("FA - Portfolio-Auto Struct Prd/Consulting") || JobType.Equals("TAS - ESG Due Diligence & Analytics"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFVA, 125);
                 string value = driver.FindElement(labelWomenFVA).Text;
@@ -4716,8 +4729,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         }
         
         public void UpdateJobTypeLV(string oldJobType, string newJobType)
-        {
-            
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
@@ -4733,6 +4745,17 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+        }
+
+        public bool IsLinkedActivityDisplayed(string activity)
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _ActivitySubject(activity), 20);
+                return driver.FindElement(_ActivitySubject(activity)).Displayed;
+            }
+            catch { return false; }
         }
     }
 }

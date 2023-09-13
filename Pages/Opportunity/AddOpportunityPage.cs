@@ -89,6 +89,7 @@ namespace SF_Automation.Pages
         By txtSICL = By.XPath("//input[@placeholder='Search SIC Codes...']");
         By lblIndLangs = By.XPath("//label[text()='Indemnification Language']");
         By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']");
+        
 
         public string AddOpportunities(string type, string file)
         {

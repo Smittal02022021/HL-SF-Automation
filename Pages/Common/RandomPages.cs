@@ -63,7 +63,9 @@ namespace SF_Automation.Pages.Common
         By comboIndustryTypeOptionsEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng'] option");
         By btnApplyFilter = By.CssSelector("input[id*='ApplyFilters']");
         By comboJobTypeOptions = By.CssSelector("select[name*='jobTypeSearch'] option");
-
+        By btnMoreTabs = By.XPath("(//ul[@role='tablist']//button[@title='More Tabs'])[2]");
+        By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
+        By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         private By _elmIGType(string industryType)
         {
             return By.XPath($"//div[contains(@id,'ManagerContainer')]//table//tbody//td[contains(@id,'Industry')]//span[contains(text(),'{industryType}')]");
@@ -86,6 +88,16 @@ namespace SF_Automation.Pages.Common
         {
             return By.XPath($"//div[contains(text(),'{valJobCode}')]");
         }
+
+        private By _TabEle(string value)
+        {
+            return By.XPath($"//button[contains(@title,{value})]");
+        }
+        private By _txtPageHeader(string itemName)
+        {
+            return By.XPath($"//h1//slot//lightning-formatted-text[text()='{itemName}']");
+        }
+
         public string ClickReportsTab()
         {
             try
@@ -653,6 +665,39 @@ namespace SF_Automation.Pages.Common
             }
             return isFound;
 
+        }
+        public void CloseActiveTab(string name)
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _TabEle("'Close " + name + "'"), 30);
+            IWebElement closeTabIcon = driver.FindElement(_TabEle("'Close " + name + "'"));
+            closeTabIcon.Click();
+            Thread.Sleep(2000);
+        }
+        public bool IsPageHeaderDisplayedLV(string item)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _txtPageHeader(item), 20);
+                return driver.FindElement(_txtPageHeader(item)).Displayed;
+            }
+            catch { return false; }
+        }
+        public void ClickActivityTab()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tabActivity, 10);
+                driver.FindElement(tabActivity).Click();
+                Thread.Sleep(5000);
+            }
+            catch (Exception e)
+            {
+                driver.FindElement(btnMoreTabs).Click();
+                Thread.Sleep(2000);
+                driver.FindElement(linkActivity).Click();
+                Thread.Sleep(5000);
+            }
         }
     }
 }
