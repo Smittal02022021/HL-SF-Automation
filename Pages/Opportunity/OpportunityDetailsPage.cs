@@ -436,7 +436,8 @@ namespace SF_Automation.Pages
         By lblAdditionalClient = By.XPath("//label[text()='Additional Client']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
         By comboTASServices = By.CssSelector("select[name*='fIA']");
-
+        By checkCFAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
+        By checkCFAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
@@ -5177,8 +5178,79 @@ namespace SF_Automation.Pages
             }
             catch { return false; }
         }
+       
+        public int AddOppMultipleDealTeamMembers(string RecordType, string role, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(chkInternalTeamPrompt).Click();
+            driver.FindElement(btnSave).Click();
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+                Thread.Sleep(5000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    if (RecordType == "CF")
+                    {
+                        if (role == "Specialty")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        if (role == "Analyst")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAnalyst, 20);
+                            driver.FindElement(checkCFAnalyst).Click();
+                        }
+                        if (role == "Associate")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAssociate, 20);
+                            driver.FindElement(checkCFAssociate).Click();
+                        }
+                    }
+                    else
+                    {
+                        if (role == "Specialty")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        if (role == "Analyst")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        if (role == "Associate")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAnalyst, 20);
+                            driver.FindElement(checkCFAnalyst).Click();
+                        }
+                    }
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
+                    driver.FindElement(btnSaveITTeam).Click();
+                    Thread.Sleep(5000);
+                    totalDealTeamMemberadded = row - 1;
+                }
+                catch (Exception)
+                {
+                    return row - 1;
+                }
+            }
+            return totalDealTeamMemberadded;
+        }
     }
-
 }
 
 

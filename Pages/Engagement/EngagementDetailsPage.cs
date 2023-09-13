@@ -427,6 +427,8 @@ namespace SF_Automation.Pages.Engagement
         By txtEngDescL2 = By.XPath("//label[text()='Engagement Description']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
 
+        By listInternalDealTeam = By.XPath("//span[contains(@id,'internalTeam:team')]//table//tbody//tr[@class='slds-hint-parent']");
+
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -4756,6 +4758,21 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 return driver.FindElement(_ActivitySubject(activity)).Displayed;
             }
             catch { return false; }
+        }
+        public int GetInernalTeamMembersCount()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkHLInternalTeam, 20);
+            driver.FindElement(linkHLInternalTeam).Click();
+            Thread.Sleep(2000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeam));
+            Thread.Sleep(2000);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEngModifyRoles));
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);
+            return driver.FindElements(listInternalDealTeam).Count();
         }
     }
 }
