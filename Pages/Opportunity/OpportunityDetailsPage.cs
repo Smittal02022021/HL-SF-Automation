@@ -333,7 +333,7 @@ namespace SF_Automation.Pages
         By valOppContact = By.CssSelector("div[id*='D7zBE_body'] table th a:nth-child(2)");
         By valOppInternalMember = By.CssSelector("[action*='HL_OpportunityInternalTeamView'] table tbody tr.dataRow.even.first.last label");
         By buttonViewCounterparty = By.XPath("//button[contains(text(),'View Counterparties')]");
-
+        By valOppInternalMemberMulti = By.XPath("//form[contains(@action,'HL_OpportunityInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
         //Lightning
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
@@ -1180,7 +1180,7 @@ namespace SF_Automation.Pages
         public string GetOppDealTeamMember()
         {
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_OpportunityInternalTeamView']")));
-            string value = driver.FindElement(valOppInternalMember).Text.Trim();
+            string value = driver.FindElement(valOppInternalMemberMulti).Text.Trim();
             driver.SwitchTo().DefaultContent();
             return value;
         }

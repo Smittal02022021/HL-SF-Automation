@@ -428,6 +428,9 @@ namespace SF_Automation.Pages.Engagement
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
 
         By listInternalDealTeam = By.XPath("//span[contains(@id,'internalTeam:team')]//table//tbody//tr[@class='slds-hint-parent']");
+        By btnReturnToOpporEng = By.XPath("//input[contains(@value,'Return To')]");
+        By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_ENgagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
+
 
         private By _linkQuestionnaireNumer(string caseNumber)
         {
@@ -2062,7 +2065,7 @@ namespace SF_Automation.Pages.Engagement
             try
             {
                 driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
-                string value = driver.FindElement(valEngInternalMember).Text.Trim();
+                string value = driver.FindElement(valEngInternalMemberMulti).Text.Trim();
                 driver.SwitchTo().DefaultContent();
                 return value;
             }
@@ -2070,7 +2073,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 driver.Navigate().Refresh();
                 driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
-                string value = driver.FindElement(valEngInternalMember).Text.Trim();
+                string value = driver.FindElement(valEngInternalMemberMulti).Text.Trim();
                 driver.SwitchTo().DefaultContent();
                 return value;
             }
@@ -4772,7 +4775,11 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);
-            return driver.FindElements(listInternalDealTeam).Count();
+            int memberCount= driver.FindElements(listInternalDealTeam).Count();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
+            driver.FindElement(btnReturnToOpporEng).Click();
+            return memberCount;
+
         }
     }
 }
