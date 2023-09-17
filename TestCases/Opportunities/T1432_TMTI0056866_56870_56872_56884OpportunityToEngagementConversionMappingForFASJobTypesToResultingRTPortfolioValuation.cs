@@ -118,8 +118,30 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityDetails.UpdateReqFieldsForFVAConversion(fileTC1432);
                 opportunityDetails.UpdateInternalTeamDetails(fileTC1432);
 
-                //Logout of user and validate Admin login
-                usersLogin.UserLogOut();
+                    //AddMultiple Staff 
+                    string memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", row, 1);
+                    string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
+                    
+                    int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTC1432);
+                    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+
+                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 1);
+                    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+
+
+                    //get the line error message from internal staff page.
+                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
+                    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    ////////////////////////////////////////
+                    ///
+
+                    //Logout of user and validate Admin login
+                    usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
@@ -171,47 +193,55 @@ namespace SF_Automation.TestCases.Opportunity
                 //Calling function to convert to Engagement
                   opportunityDetails.ClickConvertToEng();
 
-                    //Validate the Engagement name in Engagement details page
-                    string engName = engagementDetails.GetEngName();
-                    Assert.AreEqual(opportunityNumber, engName);
-                    extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
+                //Validate the Engagement name in Engagement details page
+                string engName = engagementDetails.GetEngName();
+                Assert.AreEqual(opportunityNumber, engName);
+                extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
+                
+                ///////////////////////////////////////////
+                //TMTI0085039	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for CF LOB Engagement
+                int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCount();
+                Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
+                extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
+                //////////////////////////////////////////////////
+                ///
 
-                    //Validate the value of Stage in Engagement details page
-                    string engStage = engagementDetails.GetStage();
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 1), engStage);
-                    extentReports.CreateLog("Value of Stage field is : " + engStage + " for Job Type " + valJobType + " ");
+                //Validate the value of Stage in Engagement details page
+                string engStage = engagementDetails.GetStage();
+                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 1), engStage);
+                extentReports.CreateLog("Value of Stage field is : " + engStage + " for Job Type " + valJobType + " ");
 
-                    //Validate the value of Record Type in Engagement details page
-                    string engRecordType = engagementDetails.GetRecordType();
-                    Console.WriteLine("engRecordType: " + engRecordType);
-                    extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
+                //Validate the value of Record Type in Engagement details page
+                string engRecordType = engagementDetails.GetRecordType();
+                Console.WriteLine("engRecordType: " + engRecordType);
+                extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
-                    //Validate the value of HL Entity in Engagement details page
-                    string engLegalEntity = engagementDetails.GetLegalEntity();
-                    Console.WriteLine("engHLEntity: " + engLegalEntity);
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 3), engLegalEntity);
-                    extentReports.CreateLog("Value of HL Entity is : " + engLegalEntity + " ");
+                //Validate the value of HL Entity in Engagement details page
+                string engLegalEntity = engagementDetails.GetLegalEntity();
+                Console.WriteLine("engHLEntity: " + engLegalEntity);
+                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 3), engLegalEntity);
+                extentReports.CreateLog("Value of HL Entity is : " + engLegalEntity + " ");
 
-                    //Validate the section in which Women led field is displayed
-                    string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
-                    Assert.AreEqual("Women Led", lblWomenLed);
-                    string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
-                    Assert.AreEqual("Closing - Document Checklist", secWomenLed);
-                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
+                //Validate the section in which Women led field is displayed
+                string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
+                Assert.AreEqual("Women Led", lblWomenLed);
+                string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
+                Assert.AreEqual("Closing - Document Checklist", secWomenLed);
+                extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
-                    //Validate the value of Women Led in Engagement details page
-                    string engWomenLed = engagementDetails.GetWomenLed();
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30), engWomenLed);
-                    extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
+                //Validate the value of Women Led in Engagement details page
+                string engWomenLed = engagementDetails.GetWomenLed();
+                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30), engWomenLed);
+                extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
 
-                    string EngContactMember = engagementDetails.GetEngExternalContact();
-                    string EngDealTeamMember = engagementDetails.GetEngDealTeamMember();
-                    Assert.AreEqual(OppContactMember, EngContactMember, " Verify Contact added on Opportunity page is mapped on Engagement page after conversion");
-                    extentReports.CreateLog(EngContactMember + " External Contact added on Opportunity page is mapped on Engagement page after conversion ");
-                    Assert.AreEqual(OppDealTeamMember, EngDealTeamMember, " Verify Deal Team added on Opportunity page is mapped on Engagement page after conversion");
-                    extentReports.CreateLog(EngDealTeamMember + " Deal Team added on Opportunity page is mapped on Engagement page after conversion ");
+                string EngContactMember = engagementDetails.GetEngExternalContact();
+                string EngDealTeamMember = engagementDetails.GetEngDealTeamMember();
+                Assert.AreEqual(OppContactMember, EngContactMember, " Verify Contact added on Opportunity page is mapped on Engagement page after conversion");
+                extentReports.CreateLog(EngContactMember + " External Contact added on Opportunity page is mapped on Engagement page after conversion ");
+                Assert.AreEqual(OppDealTeamMember, EngDealTeamMember, " Verify Deal Team added on Opportunity page is mapped on Engagement page after conversion");
+                extentReports.CreateLog(EngDealTeamMember + " Deal Team added on Opportunity page is mapped on Engagement page after conversion ");
 
-                    usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();                
