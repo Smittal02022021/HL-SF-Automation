@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
+using System.Net.PeerToPeer;
+using System.Security.Cryptography;
 
 namespace SF_Automation.Pages
 {
@@ -299,9 +301,8 @@ namespace SF_Automation.Pages
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "All Active CF Engagements", "All Active Engagements", "All Active FR Engagements", "All Engagements", "FAS Engagements", "My Active Engagements","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements",  "Recently Viewed", "(Pinned list)" };
+            string[] expectedValues = { "All Active Engagements", "All Engagements", "FAS Engagements", "My Active Engagements", "Recently Viewed", "(Pinned list)", "All Active CF Engagements", "All Active Engagements", "All Active FR Engagements","All Engagements", "FAS Engagements","My Active Engagements","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements", "My FY24 Closed Deals"};
             bool isTrue = true;
-
             Console.WriteLine(actualNamesAndDesc[5]);
             Console.WriteLine(actualNamesAndDesc[6]);
 

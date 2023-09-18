@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -81,11 +82,29 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Complete this field.", messageAssetSold);
                 extentReports.CreateLog("Message : " + messageAssetSold + " is displayed when no value is entered into Asset Sold field ");
 
+                //TMTI0073003_Verify that clicking the "Cancel" button will take the user back to the list view of the Distressed M&A Information tab
+                string tabPostCancel = summaryPage.ValidatePageAfterClickingCancelOnAddDistressedMAInfoPage();
+                Assert.AreEqual("DM&A Info", tabPostCancel);
+                extentReports.CreateLog("Page with title : " + tabPostCancel + " is displayed after clicking cancel button on Add Distressed M&A Information page ");
 
+                //TMTI0073005_Verify that the Distressed M&A Information record is created with all the entered information by clicking the "Save" button on Add Distressed M&A Information screen
+                string rowExists = summaryPage.ValidateSaveFunctionalityOfAddDistressedMAInfo();
+                Assert.AreEqual("True", rowExists);
+                extentReports.CreateLog("A row is created after saving details on Add Distressed M&A Information page ");
 
+                //TMTI0073008_ Verify that clicking the "Edit" button of the Distressed M & A Information record allows the user to update data in any of the fields
+                string updValue = summaryPage.ValidateEditFunctionalityOfAddDistressedMAInfo();
+                Assert.AreEqual("20", updValue);
+                extentReports.CreateLog("Updated value is displayed on DM&A Information page ");
 
+                //TMTI0073010_ Verify that clicking the "Delete" button of the Distressed M&A Information record gives a confirmation message before deleting the record
+                string cancelValue = summaryPage.ValidateCancelFunctionalityOfAddDistressedMAInfo();
+                Assert.AreEqual("Record is still displayed", cancelValue);
+                extentReports.CreateLog("Added records is still displayed after clicking on Cancel button ");
 
-
+                string delValue = summaryPage.ValidateDeleteFunctionalityOfAddDistressedMAInfo();
+                Assert.AreEqual("Record is not displayed", delValue);
+                extentReports.CreateLog("Added records have been deleted after clicking on Delete button "); 
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

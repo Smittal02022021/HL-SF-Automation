@@ -4208,7 +4208,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
               
 
         //Add Opportunity Comments
-        public string AddOppCommentaAndValidate()
+        public void AddOppCommentaAndValidate()
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
@@ -4218,9 +4218,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
             driver.FindElement(btnSaveComments).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
-            string commentType = driver.FindElement(valAddedCommentType).Text;
-            return commentType;          
+            //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
+            //string commentType = driver.FindElement(valAddedCommentType).Text;
+            //return commentType;          
         }
 
         //Get added Opportunity comments

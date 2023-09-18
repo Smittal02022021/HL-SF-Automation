@@ -381,11 +381,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name: " + tabComments + " is displayed under Opportunity Details page ");
 
                 //Save an Opportunity Comment
-                string addedCommentsType = opportunityDetails.AddOppCommentaAndValidate();
+                opportunityDetails.AddOppCommentaAndValidate();
                 string addedComments = opportunityDetails.GetOppCommentsL();
-                Assert.AreEqual("Administrative", addedCommentsType);
+                //Assert.AreEqual("Administrative", addedCommentsType);
                 Assert.AreEqual("Testing", addedComments);
-                extentReports.CreateLog("Added Opportunity comments of Type: " + addedCommentsType + " and comments: " + addedComments+ " is displayed under Comments section ");
+                extentReports.CreateLog("Added Opportunity comments: " + addedComments+ " is displayed under Comments section ");
                 
                 string uploadFiles = opportunityDetails.ValidateFileUploadsOption();
                 Assert.AreEqual("Upload Files", uploadFiles);

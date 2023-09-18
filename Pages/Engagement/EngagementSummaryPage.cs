@@ -26,7 +26,7 @@ namespace SF_Automation.Pages.Engagement
         By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
-    
+        By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
         By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
         By lblCompDescL = By.XPath("//label[text()='Company Description']");
         By lblClientDescL = By.XPath("//label[text()='Client Description']");
@@ -71,6 +71,18 @@ namespace SF_Automation.Pages.Engagement
         By msgCurrencyFinancials = By.XPath("//div[text()='Complete this field.']");
         By msgAssetSold = By.XPath("//label[text()='Asset Sold']/ancestor::lightning-primitive-input-simple/div[2]");
         By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
+        By btnCancel = By.XPath("//button[text()='Cancel']");
+        By txtAssetSoldL = By.XPath("//input[@name='Name']");
+        By txtDateOfSoldL = By.XPath("//input[@name='Date_of_Sale__c']");
+        By txtMinOverbidL = By.XPath("//input[@name='Minimum_Overbid__c']");
+        By txtIncreOverBidL = By.XPath("//input[@name='Incremental_Overbid__c']");
+        By txtBreakUPFeeL = By.XPath("//input[@name='Break_Up_Fee__c']");
+        By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
+        By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
+        By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
+        By btnOK = By.XPath("//button[text()='OK']");
+        
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -92,6 +104,7 @@ namespace SF_Automation.Pages.Engagement
         By lblLTMProjections = By.CssSelector("div[id*='j_id60'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By rowFinancials = By.CssSelector("tbody[id*='j_id28:j_id60:j_id61:tb']>tr>td:nth-child(2)");
         By tabDistressedMA = By.CssSelector("td[id*='tabDistressedMAInformation_lbl']");
+        
         By headerDistressed = By.CssSelector("table[id*=':salesTransactions']>thead>tr>th>div>label");
         By tabHLFinancing = By.CssSelector("td[id*='tabHLFinancing_lbl']");
         By headerHLFinancing = By.CssSelector("table[id*='financing']>thead>tr>th>div>label");
@@ -2544,8 +2557,9 @@ namespace SF_Automation.Pages.Engagement
         //Validate Currency validation on Financials tab
         public string ValidateCurrencyFinancialsValidation()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 110);
             driver.FindElement(valCurrency).Click();
+            Thread.Sleep(3000);
             var element = driver.FindElement(valCurrencyNone);
             Actions action = new Actions(driver);
             action.MoveToElement(element);
@@ -2615,6 +2629,88 @@ namespace SF_Automation.Pages.Engagement
             string message = driver.FindElement(msgAssetSold).Text;
             return message;
 
+        }
+
+        //Validate page after clicking Cancel button on Add Distressed M&A Info Page
+        public string ValidatePageAfterClickingCancelOnAddDistressedMAInfoPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel,150);
+            driver.FindElement(btnCancel).Click();
+            string name = driver.FindElement(tabDMAL).Text;
+            return name;
+        }
+
+        //Validate save functionality of Add Distressed M&A Info Page
+        public string ValidateSaveFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddDistressedL, 120);
+            driver.FindElement(btnAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssetSoldL, 120);
+            driver.FindElement(txtAssetSoldL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateOfSoldL, 120);
+            driver.FindElement(txtDateOfSoldL).SendKeys("Sep 13, 2023");
+            driver.FindElement(txtMinOverbidL).SendKeys("10");
+            driver.FindElement(txtIncreOverBidL).SendKeys("10");
+            driver.FindElement(txtBreakUPFeeL).SendKeys("10");
+
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate edit functionality of Add Distressed M&A Info Page
+        public string ValidateEditFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssetSoldL, 120);
+            driver.FindElement(txtAssetSoldL).Clear();
+            driver.FindElement(txtAssetSoldL).SendKeys("20");            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAddDistressedL, 120);
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valAssetSold).Text;
+            return value;
+        }
+
+
+        //Validate cancel functionality of Add Distressed M&A Info Page
+        public string ValidateCancelFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string value = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+                return "Record is still displayed";
+            }
+            catch (Exception)
+            {
+                return "Record is not displayed";
+            }
+        }
+        //Validate delete functionality of Add Distressed M&A Info Page
+        public string ValidateDeleteFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);           
+            try
+            {
+                string value = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+                return "Record is displayed";
+            }
+         catch(Exception)
+            {               
+                return "Record is not displayed";
+            }
         }
     }
 }

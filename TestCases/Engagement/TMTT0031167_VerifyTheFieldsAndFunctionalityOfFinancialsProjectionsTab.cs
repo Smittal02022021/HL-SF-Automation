@@ -137,9 +137,7 @@ namespace SF_Automation.TestCases.Engagement
                 string messageCurrency = summaryPage.ValidateCurrencyFinancialsValidation();
                 Assert.AreEqual("Complete this field.", messageCurrency);
                 extentReports.CreateLog("Message : " + messageCurrency + " is displayed when no Currency is selected ");
-
-                
-                
+                                              
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
