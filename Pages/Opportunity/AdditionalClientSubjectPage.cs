@@ -515,7 +515,7 @@ namespace SF_Automation.Pages
         public string ValidateInternalTeamTitle()
         {
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
+            //driver.SwitchTo().Frame(0);
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLTeam, 40);
             IWebElement titleHLInternalTeam = driver.FindElement(titleHLTeam);
             return titleHLInternalTeam.Text;

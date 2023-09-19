@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    string opportunityName = addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0055389);//updated move to jobtype
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055389);//updated move to jobtype
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);

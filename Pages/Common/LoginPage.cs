@@ -21,8 +21,6 @@ namespace SF_Automation.Pages
 
 
 
-
-
         public void SwitchToLightningExperience()
         {
             try

@@ -429,7 +429,7 @@ namespace SF_Automation.Pages.Engagement
 
         By listInternalDealTeam = By.XPath("//span[contains(@id,'internalTeam:team')]//table//tbody//tr[@class='slds-hint-parent']");
         By btnReturnToOpporEng = By.XPath("//input[contains(@value,'Return To')]");
-        By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_ENgagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
+        By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_EngagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
 
 
         private By _linkQuestionnaireNumer(string caseNumber)
@@ -4779,7 +4779,23 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
             driver.FindElement(btnReturnToOpporEng).Click();
             return memberCount;
-
+        }
+        public void UpdateJobType(string oldJobType, string newJobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(3000);
+            By eleJobType = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-base-combobox//div[2]//lightning-base-combobox-item//span[text()='" + newJobType + "']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            driver.FindElement(eleJobType).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
     }
 }

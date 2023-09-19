@@ -753,6 +753,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
             Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
             string name = driver.FindElement(tabInfo).Text;
             return name;

@@ -4969,6 +4969,7 @@ namespace SF_Automation.Pages
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(5000);
             driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
             Thread.Sleep(10000);
             By internalTeamFrame = By.XPath("//article/div[2]/div/iframe");
             WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
@@ -5249,6 +5250,34 @@ namespace SF_Automation.Pages
                 }
             }
             return totalDealTeamMemberadded;
+        }
+        public void ClickRetutnToOpportunityL()
+        {
+            By btnReturnToOpp = By.XPath("//span[contains(@id,'internalTeam')]//input[@value='Return To Opportunity']");
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            Thread.Sleep(2000);
+            driver.FindElement(btnReturnToOpp).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+        }
+
+        public void UpdateJobType(string oldJobType, string newJobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(3000);
+            By eleJobType = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-base-combobox//div[2]//lightning-base-combobox-item//span[text()='" + newJobType + "']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            driver.FindElement(eleJobType).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
     }
 }

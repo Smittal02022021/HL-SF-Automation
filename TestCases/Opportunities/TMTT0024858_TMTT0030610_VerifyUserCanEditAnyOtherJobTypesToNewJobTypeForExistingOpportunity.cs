@@ -13,7 +13,7 @@ using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity _VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity : BaseClass
+    class TMTT0024858_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
