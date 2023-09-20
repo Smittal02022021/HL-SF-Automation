@@ -68,7 +68,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate if revenue accural for current month exists
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2023 - 07", month);
+                Assert.AreEqual("2023 - 09", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " exists ");
 
                 //Get the value of Revenue Record Id

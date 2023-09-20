@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Stage is updated to Retained in engagement details page ");
                 string monthRev = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2023 - 07", monthRev);
+                Assert.AreEqual("2023 - 09", monthRev);
                 extentReports.CreateLog("Revenue Accrual record with : " + monthRev + " is created in engagement details ");
 
                 //Validate value of Period Accrual Fee matches with Revenue Accrual Fees

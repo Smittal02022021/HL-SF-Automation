@@ -2233,6 +2233,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             driver.SwitchTo().Frame(2);
             WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRoles, 80);
             driver.FindElement(btnModifyRoles).Click();
+            driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 80);
             driver.FindElement(txtStaff).SendKeys(name);
             Thread.Sleep(7000);
