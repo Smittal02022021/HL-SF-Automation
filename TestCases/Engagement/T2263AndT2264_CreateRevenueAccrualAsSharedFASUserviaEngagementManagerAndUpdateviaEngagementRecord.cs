@@ -172,7 +172,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate if revenue accural for current month is created
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2023 - 07", month);
+                Assert.AreEqual("2023 - 09", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
 
                 //Update Total Estimate fee value in engagement details page and validate the change reflected in Revenue Accrual record

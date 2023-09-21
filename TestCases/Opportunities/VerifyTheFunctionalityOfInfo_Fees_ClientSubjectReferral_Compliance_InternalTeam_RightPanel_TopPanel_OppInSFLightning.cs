@@ -365,7 +365,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Internal Team", tabIT);
                 extentReports.CreateLog("Tab with name: " + tabIT + " is displayed under Opportunity Details page ");
                 
-                //Validate Modify Roles button and save funcitonality  
+                //Validate Modify Roles button and save functionality  
                 string addedStaff = opportunityDetails.ValidateModifyRolesButton();
                 Assert.AreEqual("Rob Oudman", addedStaff);
                 extentReports.CreateLog("Team member with name: " + addedStaff + " is displayed upon saving it ");

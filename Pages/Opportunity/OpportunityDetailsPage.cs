@@ -3515,7 +3515,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRoles,170);            
             driver.FindElement(btnModifyRoles).Click();
             Thread.Sleep(6000);
-            //driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div[1]/div/div/article/div[2]/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL,120);
             driver.FindElement(txtStaffL).SendKeys("Rob Oudman");

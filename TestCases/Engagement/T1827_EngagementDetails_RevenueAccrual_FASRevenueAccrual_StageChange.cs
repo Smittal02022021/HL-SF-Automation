@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Engagement
                 engManager.ClickEngageName();
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2023 - 07", month);
+                Assert.AreEqual("2023 - 09", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created in engagement details ");
 
                 //Logout of user and validate value of Period Accrual Fee matches with Revenue Accrual Fees 
