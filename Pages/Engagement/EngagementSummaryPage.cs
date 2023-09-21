@@ -24,9 +24,22 @@ namespace SF_Automation.Pages.Engagement
         By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
         By lblDMAFieldsL = By.XPath("//table/thead/tr/th/span");
         By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
+        By lblHLFinTable = By.XPath("//thead/tr[1]/th/span");
+        By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
+        By lblFinDescL = By.XPath("//label[text()='Financing Description']");
+        By lblFinancingTypeL = By.XPath("//label[text()='Financing Type']");
+        By lblOtherL = By.XPath("//label[text()='Other']");
+        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
+        By lblFinAmountL = By.XPath("//label[text()='Financing Amount (MM)']");
+        By btnFinTypeL = By.XPath("//button[@name='Financing_Type__c']");
+        By valFinTypesL = By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By btnSecTypeL = By.XPath("//button[@name='Security_Type__c']");
+        By valSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
+        By btnAddHLFinL = By.XPath("//button[text()='Add HL Financing']");
         By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
         By lblCompDescL = By.XPath("//label[text()='Company Description']");
         By lblClientDescL = By.XPath("//label[text()='Client Description']");
@@ -2621,6 +2634,42 @@ namespace SF_Automation.Pages.Engagement
             return isTrue;
         }
 
+        //Validate HL Financing fields 
+        public bool VerifyHLFinancingTableFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblHLFinTable);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();            
+            string[] expectedValues = { "Financing Type", "Other", "Security Type", "Financing Amount (MM)"};
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public string ValidateLabelTotalFinancingAmount()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalFinAmt,120);
+            string value = driver.FindElement(lblTotalFinAmt).Text;
+            return value;
+        }
+
+        public string ValidateLabelFinancingDesc()
+        {
+            string value = driver.FindElement(lblFinDescL).Text;
+            return value;
+        }
+
         //Validate mandatory validation for Asset Sold
         public string ValidateMandatoryMessageForAssetSoldField()
         {
@@ -2640,6 +2689,90 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+
+        //Validate Financing Type
+        public string VerifyFinancingTypeFieldL()
+        {
+            driver.FindElement(btnAddHLFinL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblFinancingTypeL, 180);
+            string name = driver.FindElement(lblFinancingTypeL).Text;
+            return name;
+        }
+
+        //Validate Security Type
+        public string VerifySecurityTypeFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSecurityTypeL, 180);
+            string name = driver.FindElement(lblSecurityTypeL).Text;
+            return name;
+        }
+
+        //Validate Financing Amount
+        public string VerifyFinancingAmountFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblFinAmountL, 180);
+            string name = driver.FindElement(lblFinAmountL).Text;
+            return name;
+        }
+
+        //Validate Other
+        public string VerifyOtherFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOtherL, 180);
+            string name = driver.FindElement(lblOtherL).Text;
+            return name;
+        }
+
+        //Validate Financing Type values
+        public bool VerifyFinancingTypeValuesL()
+        {
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valFinTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "--None--", "Acquisition", "Credit Facility", "DIP","Equity","Exit Facility", "Mezzanine", "New Equity Financing","Refinancing", "Revolver","Rollover","Term Loan","Other" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnFinTypeL).Click();
+            return isTrue;
+        }
+
+        //Validate Security Type values
+        public bool VerifySecurityTypeValuesL()
+        {
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();           
+            string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B,", "Bank Debt (First Lien) - Synthetic LC Facility", "Bank Debt (Second Lien)", "Senior Structured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Other Unsecured Debt", "Common Equity", "Preferred Equity" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
         //Validate save functionality of Add Distressed M&A Info Page
         public string ValidateSaveFunctionalityOfAddDistressedMAInfo()
         {
