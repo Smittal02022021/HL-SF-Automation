@@ -689,8 +689,9 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo,190);
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }

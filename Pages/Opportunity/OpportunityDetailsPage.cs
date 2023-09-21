@@ -2783,7 +2783,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         {
             if (jobType.Equals("Creditor Advisors"))
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(8000);
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 200);
                 driver.FindElement(lnkShowMore).Click();
                 Thread.Sleep(7000);
@@ -3023,6 +3023,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
             string name = ReadExcelData.ReadData(excelPath, "Users", 1);
             driver.FindElement(txtStaffL).SendKeys(name);
@@ -3042,7 +3043,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
             driver.FindElement(btnReturnToOppL).Click();
             Thread.Sleep(5000);
-            
+            driver.SwitchTo().DefaultContent();
             //WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 320);
             //driver.FindElement(tabEngTeamL).Click();
         }
@@ -3062,7 +3063,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             //Select Contact
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//div[2]/ul/li[16]/a/div[1]/span/img")).Click();
+            driver.FindElement(By.XPath("//div/div[2]/ul/li[6]/a/div[1]/span/img")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
