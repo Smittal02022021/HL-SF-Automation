@@ -3063,7 +3063,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             //Select Contact
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//div/div[2]/ul/li[6]/a/div[1]/span/img")).Click();
+            driver.FindElement(By.XPath("//div/div[2]/ul/li[5]/a/div[1]/span/img")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();

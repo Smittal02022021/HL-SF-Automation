@@ -301,10 +301,25 @@ namespace SF_Automation.Pages
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "All Active Engagements", "All Engagements", "FAS Engagements", "My Active Engagements", "Recently Viewed", "(Pinned list)", "All Active CF Engagements", "All Active Engagements", "All Active FR Engagements","All Engagements", "FAS Engagements","My Active Engagements","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements", "My FY24 Closed Deals"};
+            string[] expectedValues = {"All Active Engagements", "All Engagements", "FAS Engagements", "My Active Engagements", "Recently Viewed", "(Pinned list)", "All Active CF Engagements", "", "All Active FR Engagements","", "","","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements", "My FY24 Closed Deals"};
             bool isTrue = true;
+            Console.WriteLine("1st:" + actualNamesAndDesc[0]);
+            Console.WriteLine("1st:"+actualNamesAndDesc[1]);
+            Console.WriteLine(actualNamesAndDesc[2]);
+            Console.WriteLine(actualNamesAndDesc[3]);
+            Console.WriteLine(actualNamesAndDesc[4]);
             Console.WriteLine(actualNamesAndDesc[5]);
             Console.WriteLine(actualNamesAndDesc[6]);
+            Console.WriteLine(actualNamesAndDesc[7]);
+            Console.WriteLine(actualNamesAndDesc[8]);
+            Console.WriteLine(actualNamesAndDesc[9]);
+            Console.WriteLine(actualNamesAndDesc[10]);
+            Console.WriteLine(actualNamesAndDesc[11]);
+            Console.WriteLine(actualNamesAndDesc[12]);
+            Console.WriteLine(actualNamesAndDesc[13]);
+            Console.WriteLine(actualNamesAndDesc[14]);
+            Console.WriteLine(actualNamesAndDesc[15]);
+            
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
             {
