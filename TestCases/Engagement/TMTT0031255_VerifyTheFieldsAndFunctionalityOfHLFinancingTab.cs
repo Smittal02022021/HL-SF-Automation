@@ -106,6 +106,45 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifySecurityTypeValuesL(), "Verified that displayed Security Type values are same");
                 extentReports.CreateLog("Security Type values are displayed as expected ");
 
+                //Validate Cancel button
+                string cancel = summaryPage.ValidateCancelButton();
+                Assert.AreEqual("Cancel", cancel);
+                extentReports.CreateLog("Button with name: " + cancel + " is displayed on Add HL Financing window ");
+
+                //Validate Save button
+                string save = summaryPage.ValidateSaveButton();
+                Assert.AreEqual("Save", save);
+                extentReports.CreateLog("Button with name: " + save + " is displayed on Add HL Financing window ");
+
+                //---TMTI0073019_Verify that an error message appears for the required field on clicking the "Save" button of Add HL Financing on leaving fields blank
+                //Validate the error message for Financing Type if blank
+                string msgFin = summaryPage.ValidateErrorMessageForFinancingType();
+                Assert.AreEqual("Complete this field.", msgFin);
+                extentReports.CreateLog("Message: " + msgFin + " is displayed for Financing Type field upon clicking Save button without selecting any value ");
+
+                //Validate the error message for Security Type if blank
+                string msgSec = summaryPage.ValidateErrorMessageForSecurityType();
+                Assert.AreEqual("Complete this field.", msgSec);
+                extentReports.CreateLog("Message: " + msgSec + " is displayed for Security Type field upon clicking Save button without selecting any value ");
+
+                //---TMTI0073021_Verify that clicking the "Cancel" button will take the user back to the list view of the HL Financing tab
+                string cancelPage =summaryPage.ValidateCancelButtonFunctionality();
+                Assert.AreEqual("HL Financing", cancelPage);
+                extentReports.CreateLog("Page with tab: " + cancelPage + " is displayed upon clicking Cancel button on Add HL Financing window ");
+
+                //---TMTI0073023_Verify that the HL Financing record is created with all the entered information by clicking the "Save" button on Add HL Financing screen
+                string rowHLFin = summaryPage.ValidateSaveFunctionalityOfAddHLFinancing();
+                Assert.AreEqual("True", rowHLFin);
+                extentReports.CreateLog("A row is created after saving details on Add HL Financing page ");
+
+                //---TMTI0073025_Verify that if the user enters data in the "Other" field of Add HL Financing screen without selecting Financing Type - Other, the application will give an error message.
+                string msgOther = summaryPage.ValidateErrorMessageOfOtherField();
+                Console.WriteLine(msgOther);
+                Assert.AreEqual("Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.", msgOther);
+                extentReports.CreateLog("Message : " + msgOther + "is displayed when Other field is entered without selecting Financing Type as Other ");
+
+                //---TMTI0073027_Verify that clicking the "Edit" button of the HL Financing record allows the user to update data in any of the fields
+
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
