@@ -144,8 +144,29 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message : " + msgOther + "is displayed when Other field is entered without selecting Financing Type as Other ");
 
                 //---TMTI0073027_Verify that clicking the "Edit" button of the HL Financing record allows the user to update data in any of the fields
+                string finTypeBeforeUpdate = summaryPage.GetFinTypeBeforeUpdate();
+                string finTypePostUpdate = summaryPage.ValidateEditFunctionalityOfAddHLFinancing();
+                Assert.AreNotEqual(finTypeBeforeUpdate, finTypePostUpdate);
+                extentReports.CreateLog("Updated value of Financing Type is displayed upon saving it. ");
 
+                //---TMTI0073029_Verify that if the user enters data in the "Other" field while editing HL Financing without selecting Financing Type - Other, the application will give an error message
+                string msgOtherEdit = summaryPage.ValidateErrorMessageOfOtherFieldWhileEdit();
+                Assert.AreEqual("Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.", msgOtherEdit);
+                extentReports.CreateLog("Message : " + msgOtherEdit + "is displayed when Other field is entered without selecting Financing Type as Other while editing HL Financing ");
 
+                //---TMTI0073031_Verify that if the user enters data in the "Other" field while editing HL Financing with Financing Type - Other, the application will not give any error message
+                string valOther = summaryPage.ValidateFunctionalityOfOtherField();
+                Assert.AreEqual("Testing", valOther);
+                extentReports.CreateLog("Updated value: " +valOther+" of Other field is displayed when Other field is entered after selecting Financing Type as Other while editing HL Financing ");
+
+                //---TMTI0073033_Verify that if the user removes data from required fields while editing HL Financing, the application will give an error message for required fields
+                
+                
+                
+                
+                
+                
+                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

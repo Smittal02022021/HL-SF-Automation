@@ -37,6 +37,8 @@ namespace SF_Automation.Pages.Engagement
         By txtOtherL = By.XPath("//textarea[@name='Notes__c']");
         By txtFinAmtL = By.XPath("//input[@name='Financing_Amount__c']");
         By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
+        By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
+        By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
 
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
@@ -2945,7 +2947,67 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);
             string message = driver.FindElement(msgOtherL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
             return message;
+        }
+
+        //Get the value of Financing Type before update
+        public string GetFinTypeBeforeUpdate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valFinTypeL, 120);
+            string value= driver.FindElement(valFinTypeL).Text;
+            return value;
+        }
+
+        //Validate edit functionality of Add HL Financing Page
+        public string ValidateEditFunctionalityOfAddHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate validation for Other field
+        public string ValidateErrorMessageOfOtherFieldWhileEdit()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
+            driver.FindElement(txtOtherL).SendKeys("Testing");            
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgOtherL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            return message;
+        }
+
+        //Validate functionality for Other field
+        public string ValidateFunctionalityOfOtherField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span")));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span"))).Click();
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
+            driver.FindElement(txtOtherL).SendKeys("Testing");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valOtherL).Text;           
+            return value;
         }
     }
 }
