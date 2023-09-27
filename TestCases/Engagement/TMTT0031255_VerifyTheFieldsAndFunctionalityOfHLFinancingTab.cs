@@ -160,13 +160,21 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Updated value: " +valOther+" of Other field is displayed when Other field is entered after selecting Financing Type as Other while editing HL Financing ");
 
                 //---TMTI0073033_Verify that if the user removes data from required fields while editing HL Financing, the application will give an error message for required fields
-                
-                
-                
-                
-                
-                
-                
+                string msgFinType = summaryPage.ValidateMandatoryFieldValidationForFinType();
+                Assert.AreEqual("Complete this field.", msgFinType);
+                extentReports.CreateLog("Validation: " + msgFinType + " for Financing Type field is displayed when no value is selected ");
+
+                string msgSecType = summaryPage.ValidateMandatoryFieldValidationForSecType();
+                Assert.AreEqual("Complete this field.", msgSecType);
+                extentReports.CreateLog("Validation: " + msgSecType + " for Security Type field is displayed when no value is selected ");
+
+                //---TMTI0073035_Verify that clicking the "Delete" button of the HL Financing record gives a confirmation message before deleting the record
+
+
+
+
+
+
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

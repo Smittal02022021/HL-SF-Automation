@@ -39,6 +39,8 @@ namespace SF_Automation.Pages.Engagement
         By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
         By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
+        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
 
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
@@ -2938,6 +2940,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnAddHLFinL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
             driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSecTypeL, 120);
             driver.FindElement(btnSecTypeL).Click();
@@ -2996,6 +2999,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEditDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
             driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
             var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span")));
             Actions action = new Actions(driver);
             action.MoveToElement(element);
@@ -3007,6 +3011,34 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valOtherL).Text;           
+            return value;
+        }
+
+        //Validate mandatory field validation for Financing Type
+        public string ValidateMandatoryFieldValidationForFinType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
+            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span"))).Click();
+            driver.FindElement(btnSecTypeL).Click();
+            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+           
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgFinType).Text;
+            return value;
+        }
+        //Validate mandatory field validation for Security Type
+        public string ValidateMandatoryFieldValidationForSecType()
+        {            
+            string value = driver.FindElement(msgSecType).Text;
             return value;
         }
     }

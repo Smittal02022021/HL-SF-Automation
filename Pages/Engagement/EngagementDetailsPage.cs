@@ -369,7 +369,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
-        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
+        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
         By lblBid = By.XPath("//span[text()='Bids']");
         By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");

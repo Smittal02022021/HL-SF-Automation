@@ -137,7 +137,7 @@ namespace SF_Automation.TestCases.Opportunity
                         {
                             string additionalClient = opportunityDetails.ValidateAdditionalSubjectFromPopUp(valJobType,valClient);
                             Console.WriteLine(additionalClient);
-                            if (valClient.Equals("Allied Capital Corporation"))
+                            if (valClient.Equals("Allied Universal"))
                             {
                                 Assert.AreEqual("Contra", additionalClient);
                                 extentReports.CreateLog("New company: " + valClient + " for " + additionalClient + " only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
