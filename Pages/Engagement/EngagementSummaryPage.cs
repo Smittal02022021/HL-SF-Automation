@@ -41,7 +41,7 @@ namespace SF_Automation.Pages.Engagement
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
-
+        By valTotalFin = By.XPath("");
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
@@ -107,6 +107,11 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
         By msgFinTypeL = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[2]");
         By msgSecTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
+        By txtTotalFinAmt = By.XPath("//input[@name='Total_Financing_Amount__c']");
+        By btnSaveHLFin = By.XPath("//c-engagement-fr-summary-hl-financing/div/lightning-button/button[text()='Save']");
+        By msgSave = By.XPath("//span[text()='Record saved']");
+        By txtFinDesc = By.XPath("//textarea[@name='Financing_Description__c']");
+
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -2922,15 +2927,43 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnAddHLFinL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
             driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSecTypeL, 120);
             driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
              driver.FindElement(txtFinAmtL).SendKeys("10");
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(6000);
             string row = driver.FindElement(rowAddHLFinL).Displayed.ToString();
             return row;
+        }
+
+        //Update the value of Financing Amount field
+        public string UpdateTotalFinancingAmountValue()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalFinAmt, 120);
+            driver.FindElement(txtTotalFinAmt).SendKeys("15");
+            driver.FindElement(btnSaveHLFin).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSave, 120);
+            string message = driver.FindElement(msgSave).Text;
+            return message;
+        }
+
+        //Update the value of Financing Description field
+        public string UpdateFinancingDescValue()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFinDesc, 120);
+            driver.FindElement(txtFinDesc).Clear();
+            driver.FindElement(txtFinDesc).SendKeys("Testing");
+            driver.FindElement(btnSaveHLFin).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSave, 120);
+            string message = driver.FindElement(msgSave).Text;
+            return message;
         }
 
         //Validate validation for Other field
@@ -2944,6 +2977,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSecTypeL, 120);
             driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             driver.FindElement(txtOtherL).SendKeys("Testing");
             driver.FindElement(txtFinAmtL).SendKeys("10");
@@ -3041,6 +3075,47 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(msgSecType).Text;
             return value;
         }
+
+        //Validate Cancel functionality of Add HL Financing Page
+        public string ValidateCancelFunctionalityOfHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+            //Validate Delete functionality of Add HL Financing Page
+            public string ValidateDeleteFunctionalityOfHLFinancing()
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+                driver.FindElement(btnDeleteDistressed).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+                driver.FindElement(btnOK).Click();
+                 Thread.Sleep(4000);                
+                try 
+                {
+                string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+                return "Record is not deleted";
+                }
+                catch(Exception)
+                {
+                    return "Record is deleted";
+                }
+
+            }
     }
 }
 

@@ -169,11 +169,23 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Validation: " + msgSecType + " for Security Type field is displayed when no value is selected ");
 
                 //---TMTI0073035_Verify that clicking the "Delete" button of the HL Financing record gives a confirmation message before deleting the record
+                string msgCancel = summaryPage.ValidateCancelFunctionalityOfHLFinancing();
+                Assert.AreEqual("Record is not deleted", msgCancel);
+                extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
+                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
+                Assert.AreEqual("Record is deleted", msgDelete);
+                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
 
+                //---TMTI0073037_Verify the "Total Financing Amount" field is a formula field and can be overridden
+                string updMessage = summaryPage.UpdateTotalFinancingAmountValue();
+                Assert.AreEqual("Record saved", updMessage);
+                extentReports.CreateLog("Message :" + updMessage+ " is displayed after updating value of Total Financing Amount ");
 
-
-
+                //---TMTI0073039_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen
+                string updMessageDesc = summaryPage.UpdateFinancingDescValue();
+                Assert.AreEqual("Record saved", updMessageDesc);
+                extentReports.CreateLog("Message :" + updMessageDesc + " is displayed after updating value of Financing Description ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
