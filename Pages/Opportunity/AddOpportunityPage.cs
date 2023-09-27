@@ -879,12 +879,58 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
-
-
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);           
             return valOpportunity;
+        }
+
+        By labelWomenLedLV = By.XPath("///flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        //Get Label WomenLed
+        public string ValidateWomenLedFieldLV(string recType)
+        {
+            if (recType.Equals("CF"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedLV);
+                string fieldName = driver.FindElement(labelWomenLedLV).Text;
+                return fieldName;
+            }
+            else if (recType.Equals("FVA"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedFVA);
+                string fieldName = driver.FindElement(labelWomenLedFVA).Text;
+                return fieldName;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedFR);
+                string fieldName = driver.FindElement(labelWomenLedFR).Text;
+                return fieldName;
+            }
+        }
+        //Get Administration section
+        By labelAdmSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
+        public string GetAdminSectionNameLV(string recType)
+        {
+            if (recType.Equals("CF"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionLV);
+                string secName = driver.FindElement(labelAdmSectionLV).Text;
+                return secName;
+            }
+            else if (recType.Equals("FVA"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionFVA);
+                string secName = driver.FindElement(labelAdmSectionFVA).Text;
+                return secName;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionFR);
+                string secName = driver.FindElement(labelAdmSectionFR).Text;
+                return secName;
+            }
+
         }
     }
 }

@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"),"Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    string opportunityName= addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0055029);
+                    string opportunityName= addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055029);
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
@@ -108,9 +108,9 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionL2(fileTMTI0055029);
+                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055029);
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
-                    opportunityDetails.UpdateInternalTeamDetailsL(fileTMTI0055029);
+                    opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055029);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
