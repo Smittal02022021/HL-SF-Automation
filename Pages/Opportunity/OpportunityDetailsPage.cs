@@ -439,6 +439,7 @@ namespace SF_Automation.Pages
         By checkCFAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
         By checkCFAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
         By txtEBITDAL = By.XPath("//label[text()='EBITDA (MM)']/following::div[1]//input");
+        By txtEDITDA = By.XPath("//td/label[text()='EBITDA (MM)']/parent::td//following-sibling::td/input");
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
@@ -2786,7 +2787,7 @@ namespace SF_Automation.Pages
             alert.Accept();
             return "Opportunity's existing comments are deleted";
         }
-
+        
         //To updated required opportunity fields of CF opp for conversion to engagement
         public void UpdateReqFieldsForCFConversion(string file)
         {
@@ -2799,6 +2800,7 @@ namespace SF_Automation.Pages
             //Thread.Sleep(2000);
             try
             {
+                string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 170);
                 driver.FindElement(btnEdit).Click();
                 Thread.Sleep(2000);
@@ -2811,6 +2813,10 @@ namespace SF_Automation.Pages
 
                 driver.FindElement(txtMarketCap).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
                 Console.WriteLine("txtMarketCap added ");
+                if (valJobType == "Sellside")
+                {
+                    driver.FindElement(txtEDITDA).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
+                }                
                 driver.FindElement(lnkTrialExp).Click();
                 Console.WriteLine("lnkTrialExp added ");
                 driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
@@ -5437,6 +5443,11 @@ namespace SF_Automation.Pages
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+        
+        public void UpdateEBITDAValue()
+        {
+
         }
     }
 }

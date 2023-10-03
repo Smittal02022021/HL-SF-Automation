@@ -131,16 +131,16 @@ namespace SF_Automation.TestCases.Opportunity
                     }
 
                     //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
-                    //EBITDA fieldii now text field on LV
-                    if (valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateClientandSubject("Accupac");
-                        extentReports.CreateLog("Updated Client and Subject fields ");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Not required to update ");
-                    }       
+                    //EBITDA fields are now text field 
+                    //if (valJobType.Equals("Sellside"))
+                    //{
+                    //    opportunityDetails.UpdateClientandSubject("Accupac");
+                    //    extentReports.CreateLog("Updated Client and Subject fields ");
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("Not required to update ");
+                    //}       
                     
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
