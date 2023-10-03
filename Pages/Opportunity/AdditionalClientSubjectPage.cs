@@ -165,7 +165,7 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-325']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
         By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
-        By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
+        //By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkMarketing = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
         By checkSeller = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[4]/input");
         By checkPrincipal = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[5]/input");
