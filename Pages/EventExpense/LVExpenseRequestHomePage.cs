@@ -259,7 +259,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(btnResetFilters).Click();
             Thread.Sleep(3000);
 
-            driver.FindElement(comboSubmissionDate).SendKeys("This Year");
+            driver.FindElement(comboSubmissionDate).SendKeys("Last year");
             driver.FindElement(comboSubmissionDate).SendKeys(Keys.Enter);
             Thread.Sleep(2000);
             driver.FindElement(btnApplyFilters).Click();
@@ -267,11 +267,12 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
-            string currentYear = (DateTime.Now.Year).ToString();
+            string lastYear = (DateTime.Now.Year-1).ToString();
 
             for (int k = 1; k <= maxPages; k++)
             {
@@ -282,7 +283,7 @@ namespace SF_Automation.Pages.EventExpense
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/td[10]")).Text;
 
-                    if (value.Contains(currentYear))
+                    if (value.Contains(lastYear))
                     {
                         if (i < recordCount)
                         {
@@ -324,6 +325,7 @@ namespace SF_Automation.Pages.EventExpense
             js.ExecuteScript("window.scrollTo(0,2500)");
             Thread.Sleep(2000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
             string currentYear = (DateTime.Now.Year).ToString();
@@ -376,8 +378,9 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
             for (int k = 1; k <= maxPages; k++)
@@ -421,6 +424,10 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(btnResetFilters).Click();
             Thread.Sleep(3000);
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             driver.FindElement(comboProductType).SendKeys("CVAS");
             Thread.Sleep(3000);
             driver.FindElement(comboProductType).SendKeys(Keys.Enter);
@@ -428,7 +435,6 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(4000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
             Thread.Sleep(2000);
 
@@ -453,8 +459,9 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,100)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRequestor, 120);
             driver.FindElement(txtRequestor).SendKeys(reqName);
             Thread.Sleep(2000);
             driver.FindElement(txtRequestor).Click();
@@ -528,8 +535,9 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             //Get total pages
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 

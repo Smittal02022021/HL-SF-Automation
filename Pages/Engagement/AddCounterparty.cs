@@ -968,7 +968,7 @@ namespace SF_Automation.Pages.Engagement
                 return name;
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "2nd company does not exist";
             }

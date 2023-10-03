@@ -2350,7 +2350,7 @@ namespace SF_Automation.Pages.Engagement
             return h1Text;
         }
        
-public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string file, string covSectorDependencyName)
+        public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string file, string covSectorDependencyName)
         {
             bool result = false;
 
@@ -2907,7 +2907,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string id = driver.FindElement(rowContract).Text;
                 return id;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Contract does not exist";
             }
@@ -3533,7 +3533,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No validate message is displayed";
             }
@@ -4251,6 +4251,7 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             driver.FindElement(linkEngagementName).Click();
             Thread.Sleep(2000);
         }
+
         public void SaveNewEngagementSectorDetails()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveEngagementSector, 120);
@@ -4271,31 +4272,21 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             driver.FindElement(imgCoverageSectorDependencyLookUp).Click();
             Thread.Sleep(2000);
 
-
-
             // Switch to second window
             CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(2000);
-
-
 
             //Enter search frame
             WebDriverWaits.WaitUntilEleVisible(driver, By.Id("searchFrame"));
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='searchFrame']")));
             Thread.Sleep(2000);
 
-
-
             //Enter dependency name
             driver.FindElement(txtSearchBox).SendKeys(covSectorDependencyName);
             driver.FindElement(btnGo).Click();
             Thread.Sleep(2000);
 
-
-
             driver.SwitchTo().DefaultContent();
-
-
 
             //Enter results frame & click on the result
             WebDriverWaits.WaitUntilEleVisible(driver, By.Id("resultsFrame"));
@@ -4303,8 +4294,6 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
             Thread.Sleep(2000);
             driver.FindElement(linkCoverageSectorDependencyName).Click();
             Thread.Sleep(4000);
-
-
 
             //Switch back to original window
             CustomFunctions.SwitchToWindow(driver, 0);

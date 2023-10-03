@@ -370,7 +370,7 @@ namespace SF_Automation.TestCases.EventExpense
 
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 //usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

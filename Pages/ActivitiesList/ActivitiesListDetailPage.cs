@@ -228,6 +228,7 @@ namespace SF_Automation.Pages.ActivitiesList
 
             for (int i = 2; i <= totalRows; i++)
             {
+                Thread.Sleep(5000);
                 By columnName = By.CssSelector($"div[id*='ext-gen9'] > div > div > table > thead > tr > td:nth-child({i+1}) > div");
                 IWebElement columnNameOfActivityList = driver.FindElement(columnName);
 
