@@ -10,6 +10,8 @@ using SF_Automation.TestData;
 using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
+using static System.Collections.Specialized.BitVector32;
+using System.Reflection;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -61,7 +63,7 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-
+                    extentReports.CreateLog("Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
@@ -89,15 +91,18 @@ namespace SF_Automation.TestCases.Opportunities
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
+                    //TMTT0011215- Verify the Women Led field is available for all LOB:CF Opportunity
+                    //TMTT0011221- Verify the Women-Led field under the administration section on the Opportunity page
 
                     ///////////////////////////////
                     //Validate Women Led field and Calling AddOpportunities function      
-                    //string womenLed = addOpportunity.ValidateWomenLedFieldLV(valRecordType);
-                    //string secName = addOpportunity.GetAdminSectionNameLV(valRecordType);
-                    //Assert.AreEqual("Women Led", womenLed);
-                    //Assert.AreEqual("Administration", secName);
-                    //extentReports.CreateLog("Field with name: " + womenLed + " is displayed under section: " + secName + " ");
+                    string womenLed = addOpportunity.ValidateWomenLedFieldLV(valRecordType);
+                    string secName = addOpportunity.GetAdminSectionNameLV(valRecordType);
+                    Assert.AreEqual("Women Led", womenLed);
+                    Assert.AreEqual("Administration", secName);
+                    extentReports.CreateLog("Field with name: " + womenLed + " is displayed under section: " + secName + " ");
                     /////////////////////////////////////
+                    
 
                     //TMTI0055384 Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
@@ -260,13 +265,13 @@ namespace SF_Automation.TestCases.Opportunities
 
 
 
+                    //TMTT0011220 - Verify the Women Led field under Closing-**section on Engagement page
                     ///////////////////////////////////////////////////
                     //Validate the section in which Women led fiels is displayed
                     string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
-                    Console.WriteLine(lblWomenLed);
                     Assert.AreEqual("Women Led", lblWomenLed);
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
-                    Console.WriteLine(secWomenLed);
+
                     if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed);
@@ -275,16 +280,15 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         Assert.AreEqual("Closing - Document Checklist", secWomenLed);
                     }
-
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
+                    //TMTT0011219- Verify the Women-Led field is mapped to Engagement after conversion
                     //Validate the value of Women Led in Engagement details page
                     string engWomenLed = engagementDetails.GetWomenLed();
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30), engWomenLed);
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6), engWomenLed);
                     extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
 
-                    /////////////////////////////////////////////////
-                    
+                    /////////////////////////////////////////////////                 
 
 
                     engagementDetails.ClickRelatedOpportunityLink();

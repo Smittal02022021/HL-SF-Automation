@@ -430,7 +430,8 @@ namespace SF_Automation.Pages.Engagement
         By listInternalDealTeam = By.XPath("//span[contains(@id,'internalTeam:team')]//table//tbody//tr[@class='slds-hint-parent']");
         By btnReturnToOpporEng = By.XPath("//input[contains(@value,'Return To')]");
         By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_EngagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
-
+        By textWomenLedLE = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(11) > td:nth-child(1)");
+        By txtWomenLedSell = By.CssSelector("div[id*='pBs_ep_j_id0_j_id4']>h3");
 
         private By _linkQuestionnaireNumer(string caseNumber)
         {
@@ -3014,31 +3015,37 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         {
             if (JobType.Equals("Buyside"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenled, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenled, 10);
                 string value = driver.FindElement(txtSecWomenled).Text;
+                return value;
+            }
+            else if (JobType.Equals("Sellside"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtWomenLedSell, 10);
+                string value = driver.FindElement(txtWomenLedSell).Text;
                 return value;
             }
             else if (JobType.Equals("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense") || JobType.Contains("Strategy") || JobType.Contains("Post Merger Integration") || JobType.Contains("Valuation Advisory"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedESOP, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedESOP, 10);
                 string value = driver.FindElement(txtSecWomenLedESOP).Text;
                 return value;
             }
             else if (JobType.Equals("Activism Advisory"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedActivism, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedActivism, 10);
                 string value = driver.FindElement(txtSecWomenLedActivism).Text;
                 return value;
             }
             else if (JobType.Equals("FA - Portfolio-Advis/Consulting") || JobType.Equals("FA - Portfolio-Auto Loans") || JobType.Equals("FA - Portfolio-Auto Struct Prd") || JobType.Equals("FA - Portfolio-Deriv/Risk Mgmt") || JobType.Equals("FA - Portfolio-Diligence/Assets") || JobType.Equals("FA - Portfolio-Funds Transfer") || JobType.Equals("FA - Portfolio-GP interest") || JobType.Equals("FA - Portfolio-Real Estate") || JobType.Equals("FA - Portfolio-Valuation") || JobType.Equals("FA - Portfolio-Auto Struct Prd/Consulting"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedFVA, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedFVA, 10);
                 string value = driver.FindElement(txtSecWomenLedFVA).Text;
                 return value;
             }
             else if (JobType.Equals("Creditor Advisors") || JobType.Equals("Debtor Advisors") || JobType.Equals("DM&A Buyside") || JobType.Equals("DM&A Sellside") || JobType.Equals("Equity Advisors") || JobType.Equals("PBAS") || JobType.Equals("Liability Mgmt") || JobType.Equals("Regulator/Other"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedFR, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedFR, 10);
                 string value = driver.FindElement(txtSecWomenLedFR).Text;
                 return value;
             }
@@ -3067,37 +3074,43 @@ public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string fil
         {
             if (JobType.Contains("ESOP Corporate Finance") || JobType.Contains("General Financial Advisory") || JobType.Contains("Real Estate Brokerage") || JobType.Contains("Special Committee Advisory") || JobType.Contains("Strategic Alternatives Study") || JobType.Contains("Take Over Defense") || JobType.Contains("Strategy") || JobType.Contains("Post Merger Integration") || JobType.Contains("Valuation Advisory"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedJob, 130);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedJob, 20);
                 string value = driver.FindElement(labelWomenLedJob).Text;
                 return value;
             }
             else if (JobType.Equals("Activism Advisory"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedActivism, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedActivism, 20);
                 string value = driver.FindElement(labelWomenLedActivism).Text;
                 return value;
             }
             else if (JobType.Equals("FA - Portfolio-Advis/Consulting") || JobType.Equals("FA - Portfolio-Auto Loans") || JobType.Equals("FA - Portfolio-Auto Struct Prd") || JobType.Equals("FA - Portfolio-Deriv/Risk Mgmt") || JobType.Equals("FA - Portfolio-Diligence/Assets") || JobType.Equals("FA - Portfolio-Funds Transfer") || JobType.Equals("FA - Portfolio-GP interest") || JobType.Equals("FA - Portfolio-Real Estate") || JobType.Equals("FA - Portfolio-Valuation") || JobType.Equals("FA - Portfolio-Auto Struct Prd/Consulting") || JobType.Equals("TAS - ESG Due Diligence & Analytics"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFVA, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFVA, 25);
                 string value = driver.FindElement(labelWomenFVA).Text;
                 return value;
             }
             else if (JobType.Equals("Creditor Advisors") || JobType.Equals("Debtor Advisors") || JobType.Equals("DM&A Buyside") || JobType.Equals("DM&A Sellside") || JobType.Equals("Equity Advisors") || JobType.Equals("PBAS") || JobType.Equals("Liability Mgmt") || JobType.Equals("Regulator/Other"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFR, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenFR, 25);
                 string value = driver.FindElement(labelWomenFR).Text;
                 return value;
             }
             else if (JobType.Contains("CVAS"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedCVAS, 125);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedCVAS, 25);
                 string value = driver.FindElement(labelWomenLedCVAS).Text;
+                return value;
+            }
+            else if (JobType.Equals("Lender Education"))
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, textWomenLedLE, 25);
+                string value = driver.FindElement(textWomenLedLE).Text;
                 return value;
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLed, 130);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLed, 25);
                 string value = driver.FindElement(labelWomenLed).Text;
                 return value;
             }

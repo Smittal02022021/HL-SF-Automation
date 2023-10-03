@@ -885,25 +885,29 @@ namespace SF_Automation.Pages
             return valOpportunity;
         }
 
-        By labelWomenLedLV = By.XPath("///flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         //Get Label WomenLed
         public string ValidateWomenLedFieldLV(string recType)
         {
             if (recType.Equals("CF"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedLV);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
                 string fieldName = driver.FindElement(labelWomenLedLV).Text;
                 return fieldName;
             }
             else if (recType.Equals("FVA"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedFVA);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
                 string fieldName = driver.FindElement(labelWomenLedFVA).Text;
                 return fieldName;
             }
             else
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedFR);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
                 string fieldName = driver.FindElement(labelWomenLedFR).Text;
                 return fieldName;
             }
@@ -915,18 +919,21 @@ namespace SF_Automation.Pages
             if (recType.Equals("CF"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionLV);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
                 string secName = driver.FindElement(labelAdmSectionLV).Text;
                 return secName;
             }
             else if (recType.Equals("FVA"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionFVA);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedFVA));
                 string secName = driver.FindElement(labelAdmSectionFVA).Text;
                 return secName;
             }
             else
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelAdmSectionFR);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedFR));
                 string secName = driver.FindElement(labelAdmSectionFR).Text;
                 return secName;
             }

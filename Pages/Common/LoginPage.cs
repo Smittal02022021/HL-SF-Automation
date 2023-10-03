@@ -66,6 +66,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
                 driver.FindElement(imgProfile).Click();
+                Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 20);
                 driver.FindElement(lnkSwitchToClassic).Click();
                 Thread.Sleep(2000);
