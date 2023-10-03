@@ -101,7 +101,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Click on Request Enagagement button and validate all validations
                 string val = opportunityDetails.ClickRequestEngWithoutDetails();
-                Console.WriteLine("val: " + val);
+                extentReports.CreateLog("val: " + val);
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 9), val);
                 extentReports.CreateLog("Validations: " + val + " are displayed upon clicking Request Engagement button without entering additional details ");
 
