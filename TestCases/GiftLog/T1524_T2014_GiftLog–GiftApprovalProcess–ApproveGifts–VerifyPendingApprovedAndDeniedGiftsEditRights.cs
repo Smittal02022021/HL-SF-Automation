@@ -126,8 +126,8 @@ namespace SF_Automation.TestCases.GiftLog
                 giftApprove.SearchByRecipientLastName(fileTC2014);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                Thread.Sleep(300);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                Thread.Sleep(3000);
                 extentReports.CreateLog("Gift Description link matches with Gift Name and clicked ");
                 
                 //Verify edit button is visible
@@ -183,7 +183,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                 // Compare gift name with gift description available
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 extentReports.CreateLog("Gift Description link matches with Gift Name and checkbox clicked ");
 
                 // Click on approve selected button
@@ -196,7 +196,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Gift List table is displayed with approved status upon search by selecting 'Approved' option in Approved Status ");
 
                 // Compare gift name with gift description available
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 extentReports.CreateLog("Gift Description link matches with Gift Name and checkbox clicked ");
 
                 //Click edit button
@@ -231,7 +231,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Gift List table is displayed with approved status upon search by selecting 'Approved' option in Approved Status ");
 
                 // Compare gift name with gift description available
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 extentReports.CreateLog("Gift Description link matches with Gift Name and checkbox clicked ");
 
                 // Verification of deny selected button
@@ -246,9 +246,9 @@ namespace SF_Automation.TestCases.GiftLog
                 // Search gifts by denied status  
                 giftApprove.SearchByStatus(fileTC2014, "Denied");
                 extentReports.CreateLog("Gift List table is displayed with Denied status upon search by selecting 'Denied' option in Approved Status ");
-                
+
                 // Compare gift name with gift description available
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 extentReports.CreateLog("Gift Description link matches with Gift Name and checkbox clicked ");
 
                 //Click edit button
@@ -306,7 +306,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(ErrorMsgApproveGiftText.Contains("You must select at least one gift to approve."));
                 extentReports.CreateLog("Error message:"+ErrorMsgApproveGiftText+ " is displaying ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                 giftApprove.ClickApproveSelectedButton();
 
                 String ErrorMsgApprovalComment = giftApprove.ErrorMsgApprovalComment();
@@ -315,13 +315,13 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(ErrorMsgApprovalComment.Contains("You MUST enter an Approval Comment to exceed the yearly limit. Recipients exceeding yearly limit"));
                 extentReports.CreateLog("Error message:"+ErrorMsgApprovalComment + " is displaying ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                 giftApprove.SetApprovalDenialComments();
                 giftApprove.ClickApproveSelectedButton();
 
                 giftApprove.SearchByStatus(fileTC2014, "Approved");
                 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
 
                 //Click on deny selected button
                 giftApprove.ClickDenySelectedButton();
@@ -350,7 +350,7 @@ namespace SF_Automation.TestCases.GiftLog
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);               
+                extentReports.CreateExceptionLog(e.Message);               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

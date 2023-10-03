@@ -1,3 +1,9 @@
-2022/12/27-16:41:10.166 2f7c Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/MANIFEST-000001
-2022/12/27-16:41:10.178 2f7c Recovering log #4
-2022/12/27-16:41:10.183 2f7c Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/000004.log 
+<<<<<<< HEAD
+2023/04/03-12:14:16.950 2430 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/MANIFEST-000001
+2023/04/03-12:14:16.951 2430 Recovering log #8
+2023/04/03-12:14:16.952 2430 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/000008.log 
+=======
+2023/03/31-15:41:30.941 5f80 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/MANIFEST-000001
+2023/03/31-15:41:30.944 5f80 Recovering log #19
+2023/03/31-15:41:30.945 5f80 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/000019.log 
+>>>>>>> 811a5a53dfc6a95d6ef5f8c390f170c66e0ca511

@@ -127,7 +127,7 @@ namespace SF_Automation.Pages
             else if (driver.FindElement(comboRecordType).Text.Contains("FVA"))
             {
                 Console.WriteLine("in else if");
-                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 27));
+                driver.FindElement(txtFee).SendKeys("10000");
             }
             else
             {

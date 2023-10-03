@@ -31,7 +31,6 @@ namespace SF_Automation.Pages
         By btnAddSubject = By.Id("newSubject");
         By titleHLTeam = By.CssSelector("h1 b");  //By.CssSelector("h2[class='mainTitle']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id89:0:j_id91']");
         By btnSave = By.CssSelector("input[value='Save']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
@@ -165,7 +164,7 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-325']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
         By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
-        //By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
+        By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkMarketing = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
         By checkSeller = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[4]/input");
         By checkPrincipal = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[5]/input");
@@ -185,12 +184,8 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-
-
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
             string valStaff1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row1, 1);
-
-
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
@@ -202,15 +197,11 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff1);
             Thread.Sleep(5000);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff2, valStaff1);
             Thread.Sleep(2000);
-
-
 
             if (row1 == 3 && recordType == "CF")
             {
@@ -252,8 +243,6 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-
-
             int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
             string valStaff = "";
             for (int row = 2; row <= rowCount; row++)
@@ -263,13 +252,9 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtStaff).SendKeys(valStaff);
                 Thread.Sleep(5000);
 
-
-
                 By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
                 CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
                 Thread.Sleep(2000);
-
-
 
                 switch (row)
                 {
@@ -309,19 +294,16 @@ namespace SF_Automation.Pages
                         break;
                 }
 
-
-
                 driver.FindElement(btnSave).Click();
                 Thread.Sleep(10000);
                 WebDriverWaits.WaitForPageToLoad(driver, 120);
             }
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
             Thread.Sleep(5000);
         }
+
         public void EnterStaffDetailsMultipleRows(string file, int row)
         {
             Thread.Sleep(3000);
@@ -332,17 +314,17 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSave).Click();
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         //To enter team member details
         public void EnterHLAndGCAStaffDetails(string file, int row)
         {
@@ -350,8 +332,6 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-
-
 
             for (int col = 1; col <= 2; col++)
             {
@@ -375,11 +355,10 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitForPageToLoad(driver, 120);
             }
 
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         public void ClickContinue()
         {
             //Calling wait function--Continue button     
@@ -406,6 +385,7 @@ namespace SF_Automation.Pages
             IWebElement titleAdditionalClient = driver.FindElement(winAdditionalClient);
             return titleAdditionalClient.Text;
         }
+
         //To add additional Client
         public void AddAdditionalClient(string file)
         {
@@ -422,12 +402,14 @@ namespace SF_Automation.Pages
             driver.FindElement(checkCompany).Click();
             driver.FindElement(btnAddSelected).Click();
         }
+
         //To validate message while adding additional Client
         public string ValidateMessage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccess);
             return driver.FindElement(msgSuccess).Text;
         }
+
         //To validate additional Client added in Table
         public string ValidateTableDetails()
         {
@@ -511,6 +493,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(btnSaveClose).Click();
         }
+
         //To validate HL Internal Page title
         public string ValidateInternalTeamTitle()
         {
@@ -520,6 +503,7 @@ namespace SF_Automation.Pages
             IWebElement titleHLInternalTeam = driver.FindElement(titleHLTeam);
             return titleHLInternalTeam.Text;
         }
+
         //To enter team member details
         public void EnterStaffDetails(string file, int row)
         {
@@ -530,6 +514,7 @@ namespace SF_Automation.Pages
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
             driver.FindElement(checkInitiator).Click();
@@ -538,6 +523,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         //To enter team member details
         public void EnterStaffDetails(string file)
         {
@@ -552,6 +538,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -561,6 +548,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         //To validate additional added client in Additional Clients/Subjects section
         public string ValidateAddedClient()
         {
@@ -569,6 +557,7 @@ namespace SF_Automation.Pages
             string valCompany = driver.FindElement(linkCompanyName).Text;
             return valCompany;
         }
+
         //To validate additional added subject in additional Clients/Subjects section
         public string ValidateAddedSubject()
         {
@@ -587,7 +576,7 @@ namespace SF_Automation.Pages
                 string valSubject = driver.FindElement(txtComSubjectName).Text;
                 return valSubject;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -621,7 +610,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new type exists";
             }
@@ -637,7 +626,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectRecType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new Rec type exists";
             }
@@ -873,7 +862,7 @@ namespace SF_Automation.Pages
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No validate message is displayed";
             }
@@ -1042,7 +1031,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -1056,7 +1045,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -1070,7 +1059,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -1085,7 +1074,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -1187,7 +1176,7 @@ namespace SF_Automation.Pages
                 string name = driver.FindElement(btnCancelRecords).Text;
                 return name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Cancel button is not displayed";
             }

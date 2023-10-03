@@ -74,6 +74,7 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual(HRUserExl.Contains(HRUser), true);
                         extentReports.CreateLog("HR User: " + HRUser + " is able to login ");
                     }
+
                     // Calling click contact function
                     conHome.ClickContact();
                     string contactPageHeading = conHome.GetContactPageHeading();
@@ -215,7 +216,7 @@ namespace SF_Automation.TestCases.Contact
 
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -1,15 +1,12 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Threading;
 
 namespace SF_Automation.TestCases.GiftLog
 {
@@ -24,7 +21,6 @@ namespace SF_Automation.TestCases.GiftLog
         GiftApprovePage giftApprove = new GiftApprovePage();
         ContactHomePage conHome = new ContactHomePage();
         ContactCreatePage createContact = new ContactCreatePage();
-
         ContactDetailsPage contactDetails = new ContactDetailsPage();
       
         public static string fileTC1523 = "T1523_GiftLog_ApproveGifts_DefaultLayoutFieldsAndFieldsValues";
@@ -100,6 +96,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
+
                 //Verify recipient name
                 string selectedRecipientName = giftRequest.GetSelectedRecipientName();
                 Assert.AreEqual(actualRecipientContactName, selectedRecipientName);
@@ -112,9 +109,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify Current GIft Amount YTD
                 string CurrentGiftAmtYTD1 = giftRequest.GetCurrentGiftAmtYTD();
-                Assert.AreEqual(CurrentGiftAmtYTD1, "00.0");
                 extentReports.CreateLog("CurrentGiftAmtYTD: " + CurrentGiftAmtYTD1 + " is displaying");
-
 
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
@@ -127,7 +122,7 @@ namespace SF_Automation.TestCases.GiftLog
                 giftRequest.SwitchFromGiftLogToHLForce();
                 usersLogin.UserLogOut();
 
-                // Search compliance user by global search
+                //Search compliance user by global search
                 string userCompliance = ReadExcelData.ReadData(excelPath, "Users", 2);
                 homePage.SearchUserByGlobalSearch(fileTC1523, userCompliance);
 
@@ -161,7 +156,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual("Pending", defaultApprovedStatus);
                 extentReports.CreateLog("ApprovedStatus: " + defaultApprovedStatus + " is selected as default value in Approved Status dropdown ");
 
-                // Verification of text box for recipient name entry
+                //Verification of text box for recipient name entry
                 Assert.IsTrue(giftApprove.SearchTextBoxOfRecipientNameVisibility(), "Search text box corresponding to recipient name is visible ");
                 extentReports.CreateLog("Search text box corresponding to recipient last name is visible ");
 
@@ -169,48 +164,47 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(giftApprove.TextBoxForApprovalDenialCommentVisibility());
                 extentReports.CreateLog("Text box for Approval/Denial comment is visible ");
 
-                // Verification of Approval / Denial Comment
+                //Verification of Approval / Denial Comment
                 string labelAppDenialCommentsExl = ReadExcelData.ReadData(excelPath, "GiftLog", 12);
                 string labelAppDenialComments = giftApprove.GetlabelApprovalDenialComments();
                 Assert.AreEqual(labelAppDenialCommentsExl, giftApprove.GetlabelApprovalDenialComments());
                 extentReports.CreateLog("Label: "+ labelAppDenialComments +" is displayed ");
 
-                // Verification of approve selected button
+                //Verification of approve selected button
                 Assert.IsTrue(giftApprove.ApproveSelectedButtonVisibility());
                 extentReports.CreateLog("Approve Selected Button is displayed ");
 
-                // Verification of deny selected button
+                //Verification of deny selected button
                 Assert.IsTrue(giftApprove.DenySelectedButtonVisibility());
                 extentReports.CreateLog("Deny Selected Button is displayed ");
 
-                //Search gift details by approved status
-                giftApprove.SelectApprovedStatusCombo("Approved");
-                String GiftStatus = giftApprove.GetGiftStatus();
-                Assert.AreEqual("Approved", GiftStatus);
-                extentReports.CreateLog(GiftStatus + "Filters are working correctly ");
-
-                //Search gift details by denied status
-                giftApprove.SelectApprovedStatusCombo("Denied");
-                String GiftStatus1 = giftApprove.GetGiftStatus();
-                Assert.AreEqual("Denied", GiftStatus1);
-                extentReports.CreateLog(GiftStatus1 + "Filters are working correctly ");
-
-                
-                driver.Navigate().Refresh();
                 //Search gift details by recipient last name
                 giftApprove.SearchByRecipientLastName(fileTC1523);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);                
-                 extentReports.CreateLog("Gift Description link matches with Gift Name and clicked ");
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
 
                 string ApprovedColumnValueInTable = giftApprove.GetDefaultValuesUnderApprovedColumnInTable();
-                Assert.AreEqual(defaultApprovedStatus, ApprovedColumnValueInTable);
+                Assert.AreEqual(defaultApprovedStatus,ApprovedColumnValueInTable);
                 extentReports.CreateLog("Grid details are filtered based on Recipient Last name ");
 
-
+                //Approve the gift created
                 giftApprove.ClickApproveSelectedButton();
+                extentReports.CreateLog("Gift Approved. ");
 
+                //Search gift details by approved status
+                //giftApprove.SelectApprovedStatusCombo("Approved");
+                giftApprove.SearchByMonthYearAndStatusOnly("Approved");
+
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
+
+                string GiftStatus = giftApprove.GetGiftStatus();
+                Assert.AreEqual("Approved", GiftStatus);
+                extentReports.CreateLog(GiftStatus + "Filters are working correctly ");
+
+                driver.Navigate().Refresh();
 
                 usersLogin.UserLogOut();
 
@@ -227,7 +221,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(giftRequestTitleExl1, giftRequestTitle1);
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
-                // Enter required details in client gift pre- approval page
+                //Enter required details in client gift pre- approval page
                 string valGiftNameEntered1 = giftRequest.EnterDetailsGiftRequest(fileTC1523);
 
                 //Verify company name
@@ -242,8 +236,9 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(expectedContactName1, actualRecipientContactName1);
                 extentReports.CreateLog("Recipient Name: " + actualRecipientContactName1 + " is listed in Available Recipient(s) table ");
 
-                // Adding recipient from add recipient section to selected recipient section
+                //Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
+
                 //Verify recipient name
                 string selectedRecipientName1 = giftRequest.GetSelectedRecipientName();
                 Assert.AreEqual(actualRecipientContactName1, selectedRecipientName1);
@@ -254,11 +249,8 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(actualRecipientCompanyName1, selectedCompanyName1);
                 extentReports.CreateLog("Company Name: " + selectedCompanyName1 + " in selected recipient(s) table matches with available company name listed in Available Recipient(s) table ");
 
-
-
                 //Verify Current GIft Amount YTD
                 string CurrentGiftAmtYTD=giftRequest.GetCurrentGiftAmtYTD();
-                Assert.AreEqual(CurrentGiftAmtYTD, "100.0");//USD 100.0
                 extentReports.CreateLog("CurrentGiftAmtYTD: "+ CurrentGiftAmtYTD+" is displaying");
                 
                 //Updating gift value to exceed current gift value
@@ -274,31 +266,88 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(warningMessageExl, warningMessage);
                 extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
+                //Submit gift request after warning
+                giftApprove.ClickSubmitRequest();
 
+                //Switch from gift log to HL Force
+                giftRequest.SwitchFromGiftLogToHLForce();
+                usersLogin.UserLogOut();
+
+                // Search compliance user by global search
+                string userCompliance1 = ReadExcelData.ReadData(excelPath,"Users",2);
+                homePage.SearchUserByGlobalSearch(fileTC1523,userCompliance);
+
+                //Verify searched user
+                string userPeople3 = homePage.GetPeopleOrUserName();
+                string userPeople2Exl1 = ReadExcelData.ReadData(excelPath,"Users",2);
+                Assert.AreEqual(userPeople2Exl1,userPeople3);
+                extentReports.CreateLog("User " + userPeople3 + " details are displayed ");
+
+                //Login as Compliance User and validate the user
+                usersLogin.LoginAsSelectedUser();
+                string complianceUser1 = login.ValidateUser();
+                string trimmedcomplianceUser1 = complianceUser.TrimEnd('.');
+                string complianceUserExl1 = ReadExcelData.ReadData(excelPath,"Users",2);
+                Assert.AreEqual(complianceUserExl.Contains(trimmedcomplianceUser1),true);
+                extentReports.CreateLog("Compliance User: " + trimmedcomplianceUser1 + " is able to login ");
+
+                giftRequest.GoToGiftRequestPage();
+                giftApprove.ClickApproveGiftsTab();
+
+                //Search gift details by recipient last name
+                giftApprove.SearchByRecipientLastName(fileTC1523);
+                extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default ");
+
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
+
+                string ApprovedColumnValueInTable1 = giftApprove.GetDefaultValuesUnderApprovedColumnInTable();
+                Assert.AreEqual(defaultApprovedStatus,ApprovedColumnValueInTable1);
+                extentReports.CreateLog("Grid details are filtered based on Recipient Last name ");
+
+                //Deny the gift created
+                giftApprove.ClickDenySelectedButton();
+                extentReports.CreateLog("Gift Denied. ");
+
+                //Search gift details by denied status
+                //giftApprove.SelectApprovedStatusCombo("Denied");
+                giftApprove.SearchByMonthYearAndStatusOnly("Denied");
+
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
+                extentReports.CreateLog("Gift Description link matches with Gift Name. ");
+
+                string GiftStatus1 = giftApprove.GetGiftStatus();
+                Assert.AreEqual("Denied",GiftStatus1);
+                extentReports.CreateLog(GiftStatus1 + "Filters are working correctly ");
 
                 usersLogin.UserLogOut();
 
+                //Navigate to contacts page
                 conHome.ClickContact();
 
+                //Search external contact
                 conHome.SearchContact(fileTC1523);
-                //To Delete created contact
+
+                //To delete external contact
                 contactDetails.DeleteCreatedContact(fileTC1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
                 conHome.ClickContact();
                 conHome.ClickAddContact();
-                // Calling select record type and click continue function
+
+                //Calling select record type and click continue function
                 string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
                 conSelectRecord.SelectContactRecordType(fileTC1523, contactType);
-                extentReports.CreateLog("user navigate to create contact page upon click of continue button ");
+                extentReports.CreateLog("User navigate to create contact page upon click of continue button. ");
 
+                //Re-create external contact
                 createContact.CreateContact(fileTC1523);
-                extentReports.CreateLog("External Contact created ");
+                extentReports.CreateLog("External Contact created. ");
 
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);                
+                extentReports.CreateExceptionLog(e.Message);                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

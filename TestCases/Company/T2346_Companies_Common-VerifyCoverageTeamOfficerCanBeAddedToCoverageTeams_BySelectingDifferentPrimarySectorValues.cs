@@ -55,6 +55,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 CustomFunctions.TableauPopUp();
+
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 homePage.SearchUserByGlobalSearch(fileTC2346, user);
@@ -79,7 +80,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
 
                 //Add new coverage team
-                coverageTeam.AddNewCoverageTeam(fileTC2346,8);
+                coverageTeam.AddNewCoverageTeam(fileTC2346,4);
 
                 //Verify Coverage Team Officer
                 string officerName = companyDetail.GetCoverageTeamOfficer();
@@ -112,23 +113,17 @@ namespace SF_Automation.TestCases.Companies
                 }
                 usersLogin.UserLogOut();
 
-                // Cleanup code
+                //Cleanup code
                 companyHome.SearchCompany(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
                 companyDetail.DeleteCoverageTeamRecord(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyDetail.DeleteCoverageSector(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyHome.SearchCompany(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                //companyDetail.DeleteCoverageTeamRecord(fileTC2346, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-
-
                 extentReports.CreateLog("Coverage Team is deleted successfully ");
-
-
+                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

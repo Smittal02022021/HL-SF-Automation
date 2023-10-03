@@ -56,7 +56,7 @@ namespace SF_Automation.TestCases.Companies
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-
+                
                 CustomFunctions.TableauPopUp();
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -97,6 +97,7 @@ namespace SF_Automation.TestCases.Companies
 
                 // Click Add Company button
                 companyHome.ClickAddCompany();
+
                 //string companyRecordTypePage = companySelectRecord.GetCompanyRecordTypePageHeading();
                 Assert.AreEqual("Select Company Record Type", companyRecordTypePage);
                 extentReports.CreateLog("Page with heading: " + companyRecordTypePage + " is displayed upon click add company button ");
@@ -104,6 +105,7 @@ namespace SF_Automation.TestCases.Companies
                 // Select company record type
                 // string recordType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
                 companySelectRecord.SelectCompanyRecordType(fileTC2237, recordType);
+
                 // string createCompanyPage = createCompany.GetCreateCompanyPageHeading();
                 Assert.AreEqual("Company Create", createCompanyPage);
                 extentReports.CreateLog("Page with heading: " + createCompanyPage + " is displayed upon selecting company record type ");
@@ -115,6 +117,7 @@ namespace SF_Automation.TestCases.Companies
                 // Create a  company
                 createCompany.AddCompany(fileTC2237, 2);
                 createCompany.ClickSaveIgnoreAlertButton();
+
                 //Validate company detail heading
                 string companyDetailHeading = companyDetail.GetCompanyDetailsHeading();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 8), companyDetailHeading);
@@ -140,6 +143,7 @@ namespace SF_Automation.TestCases.Companies
 
                 //Logout from standard user
                 usersLogin.UserLogOut();
+                
                 //Click on Reports tab
                 reportsHome.ClickReportsTab();
 
@@ -239,17 +243,18 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Duplicate companies with same name are displayed in Duplicate Rule Account - Dup Record Set report ");
 
                 companyHome.SearchCompany(fileTC2237, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-                
                 companyDetail.DeleteCompany(fileTC2237, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
 
                 companyHome.SearchCompany(fileTC2237, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
                 companyDetail.DeleteCompany(fileTC2237, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
+
+                extentReports.CreateLog("Duplicate companies are deleted successfully. ");
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
 
                 usersLogin.UserLogOut();
                 driver.Quit();

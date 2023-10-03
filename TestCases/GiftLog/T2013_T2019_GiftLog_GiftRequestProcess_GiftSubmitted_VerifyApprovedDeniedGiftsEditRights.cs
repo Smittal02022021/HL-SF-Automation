@@ -134,7 +134,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                 //Approve gift
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 giftApprove.SetApprovalDenialComments();
                 giftApprove.ClickApproveSelectedButton();
                 extentReports.CreateLog("Approve selected button is clicked successfully ");
@@ -231,7 +231,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Denied Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                 //Approve gift
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                 giftApprove.SetApprovalDenialComments();
                 giftApprove.ClickDenySelectedButton();
                 extentReports.CreateLog("Deny selected button is clicked successfully ");
@@ -265,7 +265,7 @@ namespace SF_Automation.TestCases.GiftLog
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

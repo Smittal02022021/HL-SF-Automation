@@ -117,7 +117,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Error message: " + ErrorMsgDenyGiftText + " is displaying. ");
 
                 //Select a gift to Deny
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
 
                 //Click on Deny Selected Button to Deny the gift
                 giftApprove.SetApprovalDenialComments();
@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Error message: " + ErrorMsgApproveGiftText + " is displaying. ");
 
                 //Select a gift to Approve
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 giftApprove.ClickApproveSelectedButton();
                 extentReports.CreateLog("Gift approved from denied list. ");
 
@@ -192,7 +192,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Error message: " + ErrorMsgDenyGiftText1 + " is displaying. ");
 
                 //Select a gift to Deny
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
 
                 //Click on Deny Selected Button to Deny the gift
                 giftApprove.SetApprovalDenialComments();
@@ -211,7 +211,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Error message: " + ErrorMsgApproveGiftText1 + " is displaying. ");
 
                 //Select a gift to Approve
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                 giftApprove.ClickApproveSelectedButton();
                 extentReports.CreateLog("Gift approved from denied list. ");
 
@@ -234,7 +234,7 @@ namespace SF_Automation.TestCases.GiftLog
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

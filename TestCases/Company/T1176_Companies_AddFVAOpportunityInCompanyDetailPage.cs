@@ -135,8 +135,8 @@ namespace SF_Automation.TestCases.Companies
 
                     //Pre -requisite to clear mandatory values on add opportunity page.
                     addOpportunity.ClearMandatoryValuesOnAddOpportunity();
-
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+
                     // Calling add opportunity function
                     string value = addOpportunity.AddOpportunities(valJobType,fileTC1176);
                     Console.WriteLine("value : " + value);
@@ -248,7 +248,7 @@ namespace SF_Automation.TestCases.Companies
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

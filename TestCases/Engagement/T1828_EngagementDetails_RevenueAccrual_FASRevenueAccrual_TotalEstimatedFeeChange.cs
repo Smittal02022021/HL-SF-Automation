@@ -159,7 +159,7 @@ namespace SF_Automation.TestCases.Engagement
 
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

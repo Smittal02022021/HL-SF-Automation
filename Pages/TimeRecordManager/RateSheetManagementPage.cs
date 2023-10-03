@@ -180,7 +180,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 alert.Accept();
                 Thread.Sleep(5000);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 CustomFunctions.PageReload();
                 Thread.Sleep(5000);

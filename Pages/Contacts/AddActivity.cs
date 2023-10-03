@@ -280,7 +280,7 @@ namespace SF_Automation.Pages.Contact
                 Console.WriteLine(driver.FindElement(By.CssSelector("td[id*='j_id84:0:j_id90'] > a")).Text);
                 (driver.FindElement(By.CssSelector("td[id*='j_id84:0:j_id90'] > a")).Text).Equals("Test External");
             }
-           catch(Exception e)
+            catch (Exception)
             {
                 //Add External Attendee
                 WebDriverWaits.WaitUntilEleVisible(driver, txtExternalLookupContact, 120);
@@ -335,8 +335,6 @@ namespace SF_Automation.Pages.Contact
 
             return getDate;
         }
-
-
 
         // Validate mark no external contact error message
         public void ValidateMarkNoExternalContactError(string file)

@@ -57,8 +57,6 @@ namespace SF_Automation.TestCases.GiftLog
                 //Calling Login function                
                 login.LoginApplication();
 
-               
-
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -87,51 +85,47 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC1525);
-              //  giftRequest.EnterGiftValue("110");
 
-              
+                //giftRequest.EnterGiftValue("110");
+
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
 
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
-              //  giftRequest.ClickSubmitRequestButton();
+
+                //giftRequest.ClickSubmitRequestButton();
                 string congratulationMsg2 = giftRequest.GetCongratulationsMsg();
                 string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg2);
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg2+ " in displayed upon successful submission of gift request ");
+                
                 //Click on approve gifts tab
                 giftApprove.ClickApproveGiftsTab();
                 Assert.IsTrue(giftApprove.ApproveSelectedButtonVisibility());
                 extentReports.CreateLog("Approve Selected button is visible on click of approve gifts tab ");
-
                                                           
                 //Search gift details by recipient last name
                 giftApprove.SearchByRecipientLastName(fileTC1525);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
-
                 // Click on approve selected button
                 giftApprove.ClickApproveSelectedButton();
                 extentReports.CreateLog("Approve selected button is clicked successfully ");
-
 
                 String ErrorMsgApproveGiftText1 = giftApprove.ErrorMsgForApproveGift();
                 Assert.IsTrue(ErrorMsgApproveGiftText1.Contains("You must select at least one gift to approve."));
                 extentReports.CreateLog("Error message:" + ErrorMsgApproveGiftText1 + " is displaying ");
 
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
                 giftApprove.ClickDenySelectedButton();
 
                 giftApprove.SearchByStatus(fileTC1525, "Denied");
-               string txtStatus= giftApprove.GetStatusCompareGiftDescWithGiftName(valGiftNameEntered);
+                string txtStatus= giftApprove.GetStatusCompareGiftDescWithGiftName(valGiftNameEntered);
 
                 // Verification of gift status displaying in Denied list
                 Assert.AreEqual("Denied", txtStatus);
                 extentReports.CreateLog(txtStatus+" is displaying in gift status ");
-
-
-                                                                                                                   
 
                 //Navigate to Gift Request page
                 giftRequest.GoToGiftRequestsPage();
@@ -140,8 +134,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 string valGiftNameEntered1 = giftRequest.EnterDetailsGiftRequest(fileTC1525);
-                 giftRequest.EnterGiftValue(ReadExcelData.ReadData(excelPath, "GiftValue", 1));
-
+                giftRequest.EnterGiftValue(ReadExcelData.ReadData(excelPath, "GiftValue", 1));
 
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
@@ -153,35 +146,34 @@ namespace SF_Automation.TestCases.GiftLog
                 
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg2);
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg1 + " in displayed upon successful submission of gift request ");
+                
                 //Click on approve gifts tab
                 giftApprove.ClickApproveGiftsTab();
                 Assert.IsTrue(giftApprove.ApproveSelectedButtonVisibility());
                 extentReports.CreateLog("Approve Selected button is visible on click of approve gifts tab ");
 
-
                 //Search gift details by recipient last name
                 giftApprove.SearchByRecipientLastName(fileTC1525);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
-
-                giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
+                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                 giftApprove.ClickDenySelectedButton();
                 
                 giftApprove.SearchByStatus(fileTC1525, "Denied");
-                // Verification of gift status displaying in Denied list
-                string txtStatus1 = giftApprove.GetStatusCompareGiftDescWithGiftName(valGiftNameEntered);
+                
+                //Verification of gift status displaying in Denied list
+                string txtStatus1 = giftApprove.GetStatusCompareGiftDescWithGiftName(valGiftNameEntered1);
 
                 Assert.AreEqual("Denied", txtStatus1);
                 extentReports.CreateLog(txtStatus1 + " is displaying in gift status ");
                 usersLogin.UserLogOut();
-              
              
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);               
+                extentReports.CreateExceptionLog(e.Message);               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

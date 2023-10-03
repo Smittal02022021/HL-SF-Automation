@@ -24,7 +24,7 @@ namespace SF_Automation.Pages.HomePage
         By linkMonthlyRevenue = By.XPath("//a[@class='listRelatedObject Custom95Block title']");
         By linkSwitchToLightningExperience = By.XPath("//a[@class='switch-to-lightning']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\HL\SF_Automation\TestData\";
 
         public void NavigateToMonthlyRevenueProcessControlsPage()
         {
@@ -208,6 +208,7 @@ namespace SF_Automation.Pages.HomePage
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchToLightningExperience, 120);
             driver.FindElement(linkSwitchToLightningExperience).Click();
+            Thread.Sleep(8000);
         }
     }
 }

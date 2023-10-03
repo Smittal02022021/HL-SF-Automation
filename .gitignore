@@ -367,3 +367,7 @@ Defects_Screenshots/
 TestData/Default/
 TestData/GrShaderCache/
 TestData/ShaderCache/
+TestData/BrowserMetrices/
+TestData/ShaderCache/
+TestData/hyphen-data/
+TestData/User*

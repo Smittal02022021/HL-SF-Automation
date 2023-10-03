@@ -39,6 +39,7 @@ namespace SF_Automation.TestCases.EventExpense
         {
             try
             {
+                //Testing
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC17339;
                 Console.WriteLine(excelPath);
@@ -277,7 +278,7 @@ namespace SF_Automation.TestCases.EventExpense
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 driver.Quit();
             }
         }
