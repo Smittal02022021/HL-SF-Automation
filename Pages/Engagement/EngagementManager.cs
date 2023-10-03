@@ -19,6 +19,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtTotalEstFeeFAS = By.CssSelector("input[name*=':0:j_id183:8:j_id186']");
         By linkFRExtraColEngageName = By.CssSelector("span[id*='181:0:j_id183:1:j_id208']");
         By txtEngageNumber = By.CssSelector("input[name*=':inputTxtEngNum']");
+        By valShowRec = By.XPath("//select[@name='j_id0:pipelineManagerForm:engagementOptions']/option[3]");
         By txtActualMonthlyFee = By.CssSelector("input[name*=':0:j_id183:4:j_id186']");
         By txtActualTxnFee = By.CssSelector("input[name*=':0:j_id183:5:j_id186']");
         By linkFREngageName = By.CssSelector("span[id*='181:0:j_id183:2:j_id208']");
@@ -150,6 +151,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNumber, 60);
             driver.FindElement(txtEngageNumber).SendKeys(number);
+            driver.FindElement(valShowRec).Click();
+            Thread.Sleep(4000);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }

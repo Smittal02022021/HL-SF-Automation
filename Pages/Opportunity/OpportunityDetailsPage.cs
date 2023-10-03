@@ -82,7 +82,7 @@ namespace SF_Automation.Pages
         By valOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr[class*='first']>td:nth-child(3)");
         By linkDel = By.CssSelector("td[class='actionColumn']>a[title='Delete - Record 1 - View']");
         By btnClone = By.CssSelector("input[title='Clone']");
-        By chkUpMgr = By.CssSelector("input[name*='4:j_id43']");
+        By chkUpMgr = By.CssSelector("input[name*='1:j_id43']");
         By chkUpAssociate = By.CssSelector("input[name*=':5:j_id43']");
         By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id43']");
         By lnkReDisplayRec = By.CssSelector(" table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
@@ -1046,7 +1046,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 Thread.Sleep(2000);
                 driver.FindElement(chkUpSeller).Click();
                 driver.FindElement(chkUpManager).Click();
-                //driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpMgr).Click();
                 driver.FindElement(chkUpAssociate).Click();
                 driver.FindElement(chkUpAnalyst).Click();
                 driver.FindElement(btnSaveITTeam).Click();
@@ -1070,7 +1070,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 driver.FindElement(chkUpPrincipal).Click();
                 driver.FindElement(chkUpSeller).Click();
                 driver.FindElement(chkUpManager).Click();
-                //driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpMgr).Click();
                 driver.FindElement(chkUpAssociate).Click();
                 driver.FindElement(chkUpAnalyst).Click();
 
@@ -2537,7 +2537,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 driver.FindElement(txtClientSubject).SendKeys(name);
                 driver.FindElement(btnSave).Click();
 
-                if (name.Equals("Adobe Inc.") || name.Equals("Ad Exchange Group") || name.Equals("Ad Results Media, LLC"))
+                if (name.Equals("Adobe Oil & Gas") || name.Equals("Ad Exchange Group") || name.Equals("Ad Results Media, LLC"))
                 {
                     Thread.Sleep(4000);
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 150);
@@ -2800,10 +2800,15 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 Thread.Sleep(6000);
                 string value = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
                 string type = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr/th/a[text()='" + name + "']/ancestor::th/following-sibling::td[1]")).Text;
+                
                 return type;
             }
         }
-
+        //public void switch frame
+        public void SwitchFrame()
+        {
+            driver.SwitchTo().Frame(0);
+        }
         //Validate additional client added from Additional Client/Subject Pop up
         public string ValidateAdditionalClientFromPopUp(string name)
         {
