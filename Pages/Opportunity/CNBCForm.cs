@@ -556,7 +556,8 @@ namespace SF_Automation.Pages.Opportunity
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForReview, 120);
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForReview, 190);
                 string value = driver.FindElement(btnSubmitForReview).Displayed.ToString();
                 Console.WriteLine(value);
                 if (value.Equals("True"))

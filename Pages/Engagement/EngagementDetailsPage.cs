@@ -283,15 +283,17 @@ namespace SF_Automation.Pages.Engagement
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegal = By.XPath("//a[text()='Legal Matters']");
         By subTabCC = By.XPath("//a[text()='Conflict Check']");
-        By btnAddRevenue = By.XPath("// button[text()='Add Revenue Accrual']");
-        By valRevAccID = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[1]/div[2]/h1/slot[1]/lightning-formatted-text");
-        By btnEditRevenue = By.XPath("//forcegenerated-highlightspanel_revenue_accrual__c___012i0000001ndwiaag___compact___view___recordlayout2/records-highlights2/div[1]/div/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[4]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
-        By txtLegacyDC = By.XPath("//input[@name='Legacy_DC_ID__c']");
-        By valLegacyDC = By.XPath("//records-record-layout-row[7]/slot/records-record-layout-item[1]/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By btnAddRevenue = By.XPath("// button[text()='Add Accrual']");
+        By btnSaveRevenue = By.XPath("//footer/button[2]/span");
+        By valRevAccID = By.XPath("//span[@title='(1)']");
+        By btnShowMoreRev = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-grid/lst-customized-datatable/div[2]/div/div/table/tbody/tr/td[8]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnEditRevenue = By.XPath("/html/body/div[9]/div/ul/li/a");
+        By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
+        By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
         By tabRevProj = By.XPath("//a[text()='Revenue Projection']");
         By titleRevProj = By.XPath("//span[text()='Revenue Projections']");
         By btnEditRevProj = By.XPath("//button[text()='Update Revenue Projection']");
-        By txtProjMonFee = By.XPath("//tr[1]/td[3]/lightning-input/div/div/input");
+        By txtProjMonFee = By.XPath("//tr[1]/td[3]/lightning-input/lightning-primitive-input-simple/div/div/input");
         By btnSaveRevproj = By.XPath("//button[@title='Save']");
         By valRevProj = By.XPath("//tr/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
         By lnkClearRevProj = By.XPath("//table/tbody/tr[1]/td[7]/a");
@@ -369,7 +371,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
-        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
+        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
         By lblBid = By.XPath("//span[text()='Bids']");
         By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
@@ -2664,8 +2666,8 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddRevenue, 150);
             driver.FindElement(btnAddRevenue).Click();
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
-            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveRevenue, 150);
+            driver.FindElement(btnSaveRevenue).Click();
             Thread.Sleep(8000);
             string id = driver.FindElement(valRevAccID).Text;
             return id;
@@ -2675,25 +2677,28 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateEditRevenueFunctionality()
         {
             Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreRev, 150);
+            driver.FindElement(btnShowMoreRev).Click();
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 150);
             driver.FindElement(btnEditRevenue).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtLegacyDC, 250);
-            driver.FindElement(txtLegacyDC).SendKeys("Testing");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPeriodAccural, 250);
+            driver.FindElement(txtPeriodAccural).SendKeys("10");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(7000);
-            string id = driver.FindElement(valLegacyDC).Text;
-            return id;
+            string id = driver.FindElement(valPeriodAccural).Text;
+            return id.Substring(4,5);
         }
 
         //Click Revenue Projection Tab
         public string ValidateAndClickRevenueProjectionTab()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngName, 150);
-            driver.FindElement(lnkEngName).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 150);
-            driver.FindElement(tabRevenue).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkEngName, 150);
+            //driver.FindElement(lnkEngName).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 150);
+            //driver.FindElement(tabRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabRevProj, 250);
             driver.FindElement(tabRevProj).Click();
             Thread.Sleep(3000);
@@ -3014,6 +3019,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnTypeClient).Click();
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnCloseMsg).Click();

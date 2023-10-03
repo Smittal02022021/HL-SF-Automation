@@ -395,11 +395,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate Add functionality of Revenue Accural tab                
                 string RevID = engagementDetails.ValidateAddRevenueFunctionality();
-                extentReports.CreateLog("Revenue Accural with id: " + RevID + " is created after adding Revenue Accural ");
+                Assert.AreEqual("(1)", RevID);
+                extentReports.CreateLog("Revenue Accural is created after adding Revenue Accural ");
 
                 //Validate Edit Functionality of Revenue Accural tab    
                 string Legacy = engagementDetails.ValidateEditRevenueFunctionality();
-                Assert.AreEqual("Testing", Legacy);
+                Assert.AreEqual("10.00", Legacy);
                 extentReports.CreateLog("Legacy DC ID wth value: " + Legacy + " is saved after updating Revenue Accural ");
 
                 //Validate and click Revenue Projection tab
