@@ -30,6 +30,7 @@ namespace SF_Automation.Pages.Engagement
         By tabFinancialsL = By.XPath("//li/a[text()='Financials / Projections']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
+        By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
         By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
@@ -659,6 +660,15 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabHLFinancingL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabHLFinancingL, 90);
             string title = driver.FindElement(tabHLFinancingL).Text;
+            return title;
+        }
+
+        public string ValidatePreTransTabL()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(tabPreTransL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabPreTransL, 90);
+            string title = driver.FindElement(tabPreTransL).Text;
             return title;
         }
 
