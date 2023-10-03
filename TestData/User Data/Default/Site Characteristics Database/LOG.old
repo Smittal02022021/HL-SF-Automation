@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:6154c74f38bada33de3f7c8dc64b0972f91221d09a5a55b88f26820cbf2dee4f
 size 373
+=======
+2023/03/29-17:45:44.112 7a80 Reusing MANIFEST C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Site Characteristics Database/MANIFEST-000001
+2023/03/29-17:45:44.113 7a80 Recovering log #3
+2023/03/29-17:45:44.114 7a80 Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Site Characteristics Database/000003.log 
+>>>>>>> Branch-Vijay

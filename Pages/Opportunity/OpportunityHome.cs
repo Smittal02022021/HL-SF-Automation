@@ -40,6 +40,61 @@ namespace SF_Automation.Pages
 
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
+
+        By linkShowAdvanceSearch = By.CssSelector(".link-options");
+        By comboJobTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
+        By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
+        By comboIndustryTypeOptions = By.CssSelector("select[name*='industryGroupSearch'] option");
+        By linkEngManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
+        By btnOppsearchL = By.XPath("//button[@aria-label='Search']");
+        By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search Opportunities')]");
+        By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
+        By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
+        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+        public void SearchOpportunityInLightning(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppsearchL, 5);
+            driver.FindElement(btnOppsearchL).Click();
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppsearchL, 10);
+            driver.FindElement(txtOppsearchL).SendKeys(value);
+            Thread.Sleep(4000);
+            driver.FindElement(imgOpp).Click();
+            Thread.Sleep(6000);
+
+        }
+        public void ClickOpportunityTabAdvanceSearch()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
+            driver.FindElement(lnkOpportunities).Click();
+            driver.FindElement(linkShowAdvanceSearch).Click();
+        }
+        public bool IsJobTypePresentInDropdownHomePage(string jobType)
+        {
+            bool isFound = false;
+            driver.FindElement(comboJobType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypes);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)          
+            {                
+                if (actualValue[row].Contains(jobType))
+                {
+                    isFound = true;
+                    break;
+                }                
+            }
+            return isFound;
+        }
+        public void SelectOpportunity(String OppNumber)
+        {
+            driver.FindElement(searchOppBox).SendKeys(OppNumber);
+            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
+            Thread.Sleep(4000);
+            driver.FindElement(selectOpp).Click();
+            Thread.Sleep(4000);
+        }
         public void ClickOpportunity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities);
@@ -203,6 +258,17 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(titleOppManager).Text;
             return title;
         }
+        //To click Engagement Manager Link
+        public string ClickEngManager()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, linkEngManager, 60);
+            driver.FindElement(linkEngManager).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, titleOppManager, 60);
+            string title = driver.FindElement(titleOppManager).Text;
+            return title;
+
+        }
 
         //To Search Opportunity with Opportunity Name
         public string SearchMyOpportunities(string oppName)
@@ -269,18 +335,78 @@ namespace SF_Automation.Pages
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
             driver.FindElement(txtOppNumLCAO).SendKeys(value);
-            Thread.Sleep(6000);
-            driver.FindElement(imgOppL).Click();
             Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+            driver.FindElement(imgOppL).Click();
+            Thread.Sleep(8000);
 
         }
-        public void SelectOpportunity(String OppNumber)
+        public bool IsIndustryTypePresentInDropdownHomePage(string industryType)
         {
-            driver.FindElement(searchOppBox).SendKeys(OppNumber);
-            driver.FindElement(searchOppBox).SendKeys(Keys.Enter);
+            bool isFound = false;
+            driver.FindElement(comboIndustryType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public string SearchOpportunityWithIndustryType(string industryType)
+        {
+            By matchedOpportunity = By.XPath($"//table[contains(@id,'myOpportunities')]//tbody//td//span[contains(text(),'{industryType}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
+            driver.FindElement(comboIndustryType).SendKeys(industryType);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
+        public string SearchOpportunityWithJobType(string jobType)
+        {
+            By matchedOpportunity = By.XPath($"//table[contains(@id,'myOpportunities')]//tbody//td//span[contains(text(),'{jobType}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboJobType);
+            driver.FindElement(comboJobType).SendKeys(jobType);
+            driver.FindElement(btnSearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
+        public bool SearchRecentOpportunityLV(string oppName)
+        {
+            driver.FindElement(txtSearchBox).SendKeys(oppName);
+            driver.FindElement(txtSearchBox).SendKeys(Keys.Enter);
             Thread.Sleep(4000);
-            driver.FindElement(selectOpp).Click();
-            Thread.Sleep(4000);
+            try
+            {
+                return driver.FindElement(eleItem).Displayed;
+            }
+            catch (Exception) { return false; }
+        }
+        public string GetSearchedOppJobType()
+        {
+            return driver.FindElement(eleItem).Text;
         }
     }
 }

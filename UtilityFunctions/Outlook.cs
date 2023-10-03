@@ -27,18 +27,19 @@ namespace SF_Automation.UtilityFunctions
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
         By recentEmail = By.CssSelector("div[class='XG5Jd JtO0E'] > div:nth-child(2)");
 
-        By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'CF_Event123')]/..");
+        By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
-        By expenseRequestNumberApprove = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
-        //*[@id="x_topTable"]/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font
+        By expenseRequestNumberApprove1 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
+        By expenseRequestNumberApprove2 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/font");
 
         By btnSearchScope = By.XPath("//span[@id='searchScopeButtonId-option']");
         By lblScopeInbox = By.XPath("//div[@id='searchScopeButtonId-list']/button[2]");
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']");
+        By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void LoginOutlook(string file)
         {
@@ -81,6 +82,32 @@ namespace SF_Automation.UtilityFunctions
             }
           
         }
+        public void SelectExpenseApprovalEmailV()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 10);
+            //Sandbox: Request for Marketing Expense Approval *Action Required*
+            driver.FindElement(searchBox).SendKeys("Sandbox: Request");// 
+
+            ////Request for Marketing Expense Approval *Action Required
+            //Thread.Sleep(2000);
+            ////   driver.FindElement(searchBox).Click();
+            //Thread.Sleep(2000);
+            ////CustomFunctions.MouseOver(driver, btnSearch);
+
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 10);
+            Thread.Sleep(5000);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 20);
+
+            driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            Thread.Sleep(10000);
+        }
 
         public void SelectExpenseApprovalEmail()
         {
@@ -117,6 +144,59 @@ namespace SF_Automation.UtilityFunctions
             Thread.Sleep(10000);
         }
 
+        //select the Email Searched by specific subject text
+        public void SelectEmail(string subject)
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).SendKeys(Keys.Control + "a");
+            driver.FindElement(searchBox).SendKeys(subject);
+            Thread.Sleep(2000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 10);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+        }
+        public string IsCaseLinkPresent()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains("https://hl--test.sandbox.my.salesforce.com"))
+            {
+                return "Case Link is Present";
+            }
+            else
+            {
+                return "Case Link is not Present";
+            }
+        }
+        public string IsSubmitterPresentInEmail(string submitterUser)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains(submitterUser))
+            {
+                return "Submitter name is Present";
+            }
+            else
+            {
+                return "Submitter Link is not Present";
+            }
+        }
+        public bool IsUpdatedCaseEmailFound()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
+            string txtEmail = driver.FindElement(txtMsgbody).Text;
+            if (txtEmail.Contains("review new changes"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public string VerifyExpenseRequestForRejectedEmail(int windowId)
         {
             CustomFunctions.SwitchToWindow(driver, 0);
@@ -153,10 +233,18 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(2000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove, 60);
-            string expRequestNumber = driver.FindElement(expenseRequestNumberApprove).Text.TrimEnd();
-            return expRequestNumber;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove1, 20);
+                string expRequestNumber = driver.FindElement(expenseRequestNumberApprove1).Text.TrimEnd();
+                return expRequestNumber;
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove2, 20);
+                string expRequestNumber = driver.FindElement(expenseRequestNumberApprove2).Text.TrimEnd();
+                return expRequestNumber;
+            }
         }
 
         public string VerifyExpenseRequestForRequestForMoreInfoEmail(int windowId)
@@ -179,18 +267,40 @@ namespace SF_Automation.UtilityFunctions
         }
         public void SelectSecondLevelExpenseApprovalEmail()
         {
-            driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
-            Thread.Sleep(1000);
-            //driver.FindElement(btnSearch).Click();
-            driver.FindElement(searchBox).SendKeys(Keys.Enter);
-            Thread.Sleep(3000);
-            IWebElement element = driver.FindElement(recentEmail);
-            element.Click();
-            Thread.Sleep(10000);
-           driver.FindElement(linkSecondLevelReviewSubmission).Click();
-           CustomFunctions.SwitchToWindow(driver, 1);
-
-            Thread.Sleep(10000);
+            try
+            {
+                driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
+                Thread.Sleep(1000);
+                //driver.FindElement(btnSearch).Click();
+                driver.FindElement(searchBox).SendKeys(Keys.Enter);
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 30);
+                IWebElement element = driver.FindElement(recentEmail);
+                element.Click();
+                Thread.Sleep(10000);
+                driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                CustomFunctions.SwitchToWindow(driver, 1);
+                Thread.Sleep(10000);
+            }
+            catch (Exception ex)
+            {
+                driver.Navigate().Refresh();
+                Thread.Sleep(10000);
+                WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 30);
+                driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
+                Thread.Sleep(1000);
+                //driver.FindElement(btnSearch).Click();
+                driver.FindElement(searchBox).SendKeys(Keys.Enter);
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 30);
+                IWebElement element = driver.FindElement(recentEmail);
+                element.Click();
+                Thread.Sleep(10000);
+                driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                CustomFunctions.SwitchToWindow(driver, 1);
+                Thread.Sleep(10000);
+            }
+            
         }
 
         public string GetLabelOfOutlook()

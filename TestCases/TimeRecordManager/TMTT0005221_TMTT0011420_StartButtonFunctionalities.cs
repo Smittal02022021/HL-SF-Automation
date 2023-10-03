@@ -47,7 +47,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMT5221;
                 Console.WriteLine(excelPath);
 
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -80,7 +79,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Check recorder is reset or not
                 refreshButton.ClickResetButton();
-
 
                 //Click Start Button
                 refreshButton.ClickStartButton();

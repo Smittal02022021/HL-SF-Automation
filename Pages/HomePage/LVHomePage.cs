@@ -68,6 +68,9 @@ namespace SF_Automation.Pages.HomePage
         By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
 
 
+        By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
+
+       
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
@@ -93,6 +96,7 @@ namespace SF_Automation.Pages.HomePage
 
         public void ClickAppLauncher()
         {
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
             driver.FindElement(appLauncher).Click();
             Thread.Sleep(3000);
@@ -180,9 +184,20 @@ namespace SF_Automation.Pages.HomePage
 
         public void UserLogoutFromSFLightningView()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 140);
-            driver.FindElement(linkLogout).Click();
-            Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                driver.FindElement(linkLogout).Click();
+                Thread.Sleep(4000);
+            }
+            catch (Exception ex)
+            {
+                driver.Navigate().Refresh();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                driver.FindElement(linkLogout).Click();
+                Thread.Sleep(4000);
+            }
         }
 
         public void LogoutFromSFLightningAsApprover()
@@ -970,5 +985,9 @@ namespace SF_Automation.Pages.HomePage
             }
         }
 
+        public bool IsModulePageDisplayed(string moduleName)
+        {
+            return (driver.FindElement(pageHeaderEle).Text).Contains(moduleName);
+        }
     }
 }

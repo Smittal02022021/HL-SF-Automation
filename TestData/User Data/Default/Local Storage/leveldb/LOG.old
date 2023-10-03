@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:c59e10006ff8503fca1ee54a525bba1a488cccf5a5041fd73652bd6bd41e1778
 size 362
+=======
+2023/03/29-17:45:44.275 60f4 Reusing MANIFEST C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2023/03/29-17:45:44.277 60f4 Recovering log #4
+2023/03/29-17:45:44.279 60f4 Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000004.log 
+2023/03/29-17:47:09.157 60f4 Level-0 table #8: started
+2023/03/29-17:47:09.179 60f4 Level-0 table #8: 12335 bytes OK
+2023/03/29-17:47:09.258 60f4 Delete type=0 #4
+>>>>>>> Branch-Vijay

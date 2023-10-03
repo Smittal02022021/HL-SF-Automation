@@ -12,6 +12,16 @@ namespace SF_Automation.Pages
     {
         By linkRemoveContact = By.XPath("//a[@title='Remove - Record 1 - Contact']");
         By btnDelete = By.XPath("//input[@title='Delete']");
+        By tabActivity = By.XPath($"//ul[@class='tabs__nav']//li//a[@title='Activity']");
+
+        private By _txtPageHeader(string item)
+        {
+            return By.XPath($"//div[contains(@class,'testonly-outputNameWithHierarchyIcon')]//lightning-formatted-text[text()='{item}']");
+        }
+        private By _txtActivitySubject(string value)
+        {
+            return By.XPath($"//div[contains(@class,'timelineGridItemLeft')]//a[@title='{value}']");
+        }
 
         public void DeleteContactFromCampaignHistory()
         {
@@ -29,6 +39,34 @@ namespace SF_Automation.Pages
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(2000);
+        }
+       
+        public bool IsPageHeaderDisplayedLV(string item)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _txtPageHeader(item), 20);
+                return driver.FindElement(_txtPageHeader(item)).Displayed;
+            }
+            catch { return false; }
+        }
+        
+        public bool IsLinkedActivityDisplayed(string activity)
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _txtActivitySubject(activity), 20);
+                return driver.FindElement(_txtActivitySubject(activity)).Displayed;
+            }
+            catch { return false; }
+        }
+        public void ClickActivityTab()
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabActivity, 20);
+            driver.FindElement(tabActivity).Click();
+            Thread.Sleep(5000);
         }
     }
 }

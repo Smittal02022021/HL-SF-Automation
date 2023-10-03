@@ -87,12 +87,12 @@ namespace SF_Automation.Pages
         //To validate Requestor/Delegate validation
         public string ValidateRequestorMessage(string type)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboEventType, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEventType, 20);
             driver.FindElement(comboEventType).SendKeys(type);
             driver.FindElement(btnCreateNewExpenseForm).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 20);
             driver.FindElement(btnSave).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgRequestor, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgRequestor, 20);
             string message = driver.FindElement(msgRequestor).Text.Replace("\r\n", " ");
             return message;
         }

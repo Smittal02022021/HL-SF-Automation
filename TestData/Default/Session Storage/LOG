@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/04/03-13:41:28.306 8724 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/MANIFEST-000001
 2023/04/03-13:41:28.309 8724 Recovering log #32
 2023/04/03-13:41:28.313 8724 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Session Storage/000032.log 
@@ -16,3 +17,8 @@
 2023/03/31-15:47:13.813 7f2c Delete type=0 #19
 >>>>>>> 811a5a53dfc6a95d6ef5f8c390f170c66e0ca511
 >>>>>>> 5e280b400f601602ea206f54645a67701e72621f
+=======
+2023/03/29-18:16:23.314 6d9c Reusing MANIFEST C:\Users\vkumar0427\source\repos\SF_Automation\TestData\Default\Session Storage/MANIFEST-000001
+2023/03/29-18:16:23.319 6d9c Recovering log #6
+2023/03/29-18:16:23.321 6d9c Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\Default\Session Storage/000006.log 
+>>>>>>> Branch-Vijay

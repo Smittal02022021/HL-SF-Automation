@@ -43,6 +43,7 @@ namespace SF_Automation.Pages.EventExpense
 
         By latestRequestStatus = By.CssSelector("span[id*='j_id71:j_id73']");
         By totalBudgetRequested = By.CssSelector("span[id*='j_id159:j_id163']");
+        By txtRequestNumber = By.CssSelector("span[id*='j_id71:j_id75']");
 
 
 
@@ -208,14 +209,14 @@ namespace SF_Automation.Pages.EventExpense
         public void ApproveExpenseRequest(int windowId)
         {
             CustomFunctions.SwitchToWindow(driver, windowId);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnApprove, 120);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApprove, 30);
             driver.FindElement(btnApprove).Click();
 
             Thread.Sleep(2000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
         }
 
         // Function to reject expense request
@@ -259,12 +260,27 @@ namespace SF_Automation.Pages.EventExpense
             return valExpenseRequestStatus;
 
         }
+        public string GetExpenseRequestNumber()
+        {
+            //CustomFunctions.SwitchToWindow(driver, windowId);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valStatus, 60);
+            string valExpenseRequestNumber = driver.FindElement(txtRequestNumber).Text;
+            return valExpenseRequestNumber;
+        }
 
         // Funtion to validate delete button and approved 
         public string ValidateDeleteAndApproval()
         {
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnDelete, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valApprovedUnderApprovalHistory, 60);
+            string ApprovedValUnderApprovalHistory = driver.FindElement(valApprovedUnderApprovalHistory).Text;
+            return ApprovedValUnderApprovalHistory;
+        }
+        public string ValidateApproval()
+        {
+            Thread.Sleep(2000);            
             WebDriverWaits.WaitUntilEleVisible(driver, valApprovedUnderApprovalHistory, 60);
             string ApprovedValUnderApprovalHistory = driver.FindElement(valApprovedUnderApprovalHistory).Text;
             return ApprovedValUnderApprovalHistory;
