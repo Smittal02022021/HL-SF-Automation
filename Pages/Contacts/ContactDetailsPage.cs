@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Contact
@@ -158,7 +159,20 @@ namespace SF_Automation.Pages.Contact
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
+        By txtContactHLRelationshipContactL = By.XPath("//article//div[contains(@class,'listDisplays')]//table//tr[1]//td[@data-label='HL Contact']//a");
 
+        By btnCancel = By.CssSelector("input[value='Cancel']");
+        By comboIG = By.CssSelector("select[id*='Fl4Bb']");
+        By comboIGOptions = By.CssSelector("select[id*='Fl4Bb'] option");
+        private By _tabContactDetailPageL(string name)
+        {
+            return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
+        }
+
+        private By _tabContactDetailPageHeaderL(string name)
+        {
+            return By.XPath($"//div[contains(@class,'firstHeaderRow')]//h2//a//span[contains(@title,'{name}')]");
+        }
         public bool VerifyIfContactSectorQuickLinkIsDisplayed()
         {
             Thread.Sleep(5000);
@@ -1366,6 +1380,44 @@ namespace SF_Automation.Pages.Contact
                 result = true;
             }
             return result;
+        }
+        public bool ClickContactDetailsPageTabL(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageL(value), 30);
+            driver.FindElement(_tabContactDetailPageL(value)).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageHeaderL(value), 30);
+                return driver.FindElement(_tabContactDetailPageHeaderL(value)).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public string GetContactHLRelationshipCotactL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLRelationshipContactL, 30);
+            return driver.FindElement(txtContactHLRelationshipContactL).GetAttribute("title");
+        }
+        public bool IsIndustryTypePresentInDropdownContactDetailPage(string IndustryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIG, 10);
+            driver.FindElement(comboIG).Click();
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                Console.WriteLine(actualValue[row]);
+                if (actualValue[row].Contains(IndustryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancel).Click();
+            return isFound;
         }
     }
 }

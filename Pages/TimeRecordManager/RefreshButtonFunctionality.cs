@@ -31,8 +31,10 @@ namespace SF_Automation.Pages.TimeRecordManager
         By txtClockTimerHours = By.XPath("//div[@class='clock flip-clock-wrapper']/ul[2]/li[2]/a/div[1]/div[2]");
         By msgErrorStart = By.XPath("//div[@data-aura-class='uiMessage']/div/div[3]/span");
         By btnFinish = By.XPath("//button[text()='Finish']");
+        By comboSelectProjectN = By.XPath("//input[contains(@placeholder,'Type to filter projects')]");
+        By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
 
-        
+
         // Go to TIme CLock Recorder Page
         public void GotoTimeClockRecorderPage()
         {
@@ -55,14 +57,24 @@ namespace SF_Automation.Pages.TimeRecordManager
         //Select Project and Activity Drop Down
         public void SelectDropDownProjectandActivity(string excel)
         {
-         
-            WebDriverWaits.WaitUntilEleVisible(driver, selectPrjctDropDown);
-           
-            CustomFunctions.SelectByText(driver, driver.FindElement(selectPrjctDropDown), ReadExcelData.ReadData(excel, "Project_Title", 1));
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(ReadExcelData.ReadData(excel, "Project_Title", 1));
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, selectPrjctDropDown);
+                CustomFunctions.SelectByText(driver, driver.FindElement(selectPrjctDropDown), ReadExcelData.ReadData(excel, "Project_Title", 1));
+
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, selectActivityDropDown, 80000);
-
-            CustomFunctions.SelectByText(driver, driver.FindElement(selectActivityDropDown),  ReadExcelData.ReadData(excel, "Project_Title", 2));
-
+            CustomFunctions.SelectByText(driver, driver.FindElement(selectActivityDropDown), ReadExcelData.ReadData(excel, "Project_Title", 2));
         }
 
         //Click Start Button

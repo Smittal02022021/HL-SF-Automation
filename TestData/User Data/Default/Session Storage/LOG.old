@@ -1,3 +1,21 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:38bbbc364e76f5a828e5bab2b275a0b663757b5442a0182ae7d27d0b08bf6207
 size 348
+=======
+2023/03/29-17:45:44.300 60f4 Reusing MANIFEST C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/MANIFEST-000001
+2023/03/29-17:45:44.303 60f4 Recovering log #73
+2023/03/29-17:45:44.304 60f4 Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\Default\Session Storage/000073.log 
+2023/03/29-17:46:35.455 60f4 Level-0 table #77: started
+2023/03/29-17:46:35.477 60f4 Level-0 table #77: 45204 bytes OK
+2023/03/29-17:46:35.489 60f4 Delete type=0 #73
+2023/03/29-17:46:35.490 60f4 Compacting 4@0 + 1@1 files
+2023/03/29-17:46:35.507 60f4 Generated table #78@0: 17 keys, 14153 bytes
+2023/03/29-17:46:35.507 60f4 Compacted 4@0 + 1@1 files => 14153 bytes
+2023/03/29-17:46:35.513 60f4 compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/03/29-17:46:35.514 60f4 Delete type=2 #65
+2023/03/29-17:46:35.514 60f4 Delete type=2 #68
+2023/03/29-17:46:35.514 60f4 Delete type=2 #71
+2023/03/29-17:46:35.514 60f4 Delete type=2 #74
+2023/03/29-17:46:35.514 60f4 Delete type=2 #77
+>>>>>>> Branch-Vijay

@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.TestData;
-using SalesForce_Project.UtilityFunctions;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
@@ -31,7 +31,7 @@ namespace SalesForce_Project.Pages
 
                 //driver.FindElement(lnkContacts).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lnkShowAdvanceSearch);
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+               // IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkShowAdvanceSearch));
 
                // driver.FindElement(lnkShowAdvanceSearch).Click();          
@@ -43,7 +43,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearch);
 
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnSearch));
 
                 //driver.FindElement(btnSearch).Click();
@@ -53,7 +53,7 @@ namespace SalesForce_Project.Pages
                 string result = driver.FindElement(matchedResult).Displayed.ToString();
                 Console.WriteLine("Search Results :" + result);
 
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(matchedResult));
 
                // driver.FindElement(matchedResult).Click();

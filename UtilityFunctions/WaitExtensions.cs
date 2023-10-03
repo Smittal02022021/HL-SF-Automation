@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Support.UI; 
 using System;
+using SeleniumExtras.WaitHelpers;
 
 namespace SF_Automation.UtilityFunctions
 {
@@ -56,6 +57,11 @@ namespace SF_Automation.UtilityFunctions
         {
             new WebDriverWait(driver, TimeSpan.FromMinutes(MyDefaultTimeOut)).Until(
                 d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
+        }
+        public static void WaitTillElementVisible(IWebDriver driver, By element)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(element));
         }
     }
 }

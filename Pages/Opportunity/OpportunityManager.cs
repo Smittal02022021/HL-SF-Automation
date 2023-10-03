@@ -3,6 +3,7 @@ using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -14,7 +15,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");
         By comboStage = By.CssSelector("select[name*=':0:j_id132:11']");
         By comboStageFVA = By.CssSelector("select[name*=':0:j_id132:9']");
-        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:5']");
+        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:6']");
         By txtPitchDateFR = By.CssSelector("input[name*=':0:j_id132:3']");
         By txtRetainer = By.CssSelector("input[name*=':0:j_id132:6']");
         By txtRetainerFVA = By.CssSelector("input[name*=':0:j_id132:5']");

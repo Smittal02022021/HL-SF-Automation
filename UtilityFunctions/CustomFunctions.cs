@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -108,11 +109,7 @@ namespace SF_Automation.UtilityFunctions
             return decimal.Parse(Regex.Match(value.Replace(",", "").Trim(), @"-?[0-9]*\.?[0-9]+").Value);
         }
 
-        public static void PageReload()
-        {
-            driver.Navigate().Refresh();
-        }
-        //Enter Text Function
+       //Enter Text Function
         public static void EnterText(IWebDriver driver, IWebElement element, string value)
         {
             element.SendKeys(value);
@@ -183,7 +180,29 @@ namespace SF_Automation.UtilityFunctions
                 }
             }
         }
-
+        public static void MultiSelectValueWithoutSelect(IWebDriver driver, By by, string value)
+        {
+            var dropList = driver.FindElements(by);
+            for (int i = 0; i < dropList.Count; i++)
+            {
+                string text = dropList[i].Text;
+                if (text.Contains(value))
+                {
+                    Thread.Sleep(3000);
+                    dropList[i].Click();
+                    break;
+                }
+            }
+        }
+        //To Upload File in LV
+        public static void FileUpload(IWebDriver driver, string filePath)
+        {
+            By btnUploadFile = By.XPath("//input[@type='file']");
+            By btnDone = By.XPath("//span[contains(text(),'Done')]"); driver.FindElement(btnUploadFile).SendKeys(filePath);
+            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
+            Thread.Sleep(5000);
+            driver.FindElement(btnDone).Click();
+        }
         //Select value from drop down based on entered name without li tag
         public static void SelectValueWithXpath(string Name)
         {
@@ -310,6 +329,55 @@ namespace SF_Automation.UtilityFunctions
         {
             IWebElement element = driver.FindElement(by);
             new Actions(driver).MoveToElement(element).Build().Perform();
+        }
+        //Move/Scrol to Element
+        public static void MoveToElement(IWebDriver driver, IWebElement element)
+        {
+            //Actions builder = new Actions(driver);
+            new Actions(driver).MoveToElement(element).Build().Perform();
+        }
+        
+        public static void CloseWindow(IWebDriver driver, int value)
+        {
+            driver.SwitchTo().Window(driver.WindowHandles[value]).Close();
+        }    
+
+        public static void PageReload(IWebDriver driver)
+        {
+            driver.Navigate().Refresh();
+        }
+        //Validate the file name after download
+        public static string ValidateFileName(string dir, string fileName)
+        {
+            string excelPath = dir + fileName;
+            FileInfo fileInfo = new FileInfo(excelPath);
+            return fileInfo.Name; ;
+        }
+        //Delete the downloaded file 
+        public static void DeleteFile(string dir, string fileName)
+        {
+            Process[] AllProcesses = Process.GetProcessesByName("EXCEL");
+            foreach (Process ExcelProcess in AllProcesses)
+            {
+                ExcelProcess.Kill();
+            }
+            string excelPath = dir + fileName;
+            FileInfo fileInfo = new FileInfo(excelPath);
+            fileInfo.Delete();
+        }
+
+        //Validate the file is present after download
+        public static bool ValidateFileExists(string dir, string fileName)
+        {
+            string excelPath = dir + fileName;
+            if (File.Exists(excelPath))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

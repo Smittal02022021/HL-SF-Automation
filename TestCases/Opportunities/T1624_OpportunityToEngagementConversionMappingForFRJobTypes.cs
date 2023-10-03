@@ -145,7 +145,10 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search for created opportunity
                 opportunityHome.SearchOpportunity(value);
-
+                string OppContactMember = opportunityDetails.GetOppExternalContact();
+                extentReports.CreateLog(OppContactMember + " is added as External Contact on Opportunity page ");
+                string OppDealTeamMember = opportunityDetails.GetOppDealTeamMember();
+                extentReports.CreateLog(OppDealTeamMember + " is added as Deal Team Member on Opportunity page ");
                 //Approve the Opportunity 
                 opportunityDetails.ClickApproveButton();
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
@@ -186,7 +189,14 @@ namespace SF_Automation.TestCases.Opportunity
                     string engWomenLed = engagementDetails.GetWomenLed();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30), engWomenLed);
                     extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
-                    
+
+                    string EngContactMember = engagementDetails.GetEngExternalContact();
+                    string EngDealTeamMember = engagementDetails.GetEngDealTeamMember();
+                    Assert.AreEqual(OppContactMember, EngContactMember, " Verify Contact added on Opportunity page is mapped on Engagement page after conversion");
+                    extentReports.CreateLog(EngContactMember + " External Contact added on Opportunity page is mapped on Engagement page after conversion ");
+                    Assert.AreEqual(OppDealTeamMember, EngDealTeamMember, " Verify Deal Team added on Opportunity page is mapped on Engagement page after conversion");
+                    extentReports.CreateLog(EngDealTeamMember + " Deal Team added on Opportunity page is mapped on Engagement page after conversion ");
+
                     usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();

@@ -24,7 +24,7 @@ namespace SF_Automation.Pages
         By checkboxActive = By.CssSelector("input[id='cpn16']");
         By btnSave = By.XPath("//input[@title='Save']");
 
-        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public string GetCampaignRecordTypeValue()
         {

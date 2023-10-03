@@ -25,7 +25,7 @@ namespace SF_Automation.Pages.Common
         By linkFRAccountingUser = By.XPath("//a[contains(text(),'User, SFFRAccounting')]");
         By linkcompUser = By.XPath("//a[contains(text(),'User, SFCompliance')]");
         By txtSearch = By.CssSelector("input[id*='phSearchInput']");
-        By listUser = By.CssSelector("div[id*='phSearchInput']>div>ul>li");
+        By listUser = By.CssSelector("div[id*='phSearchInput']>div>ul>li>a>span[class='userMru']");//div[id*='phSearchInput']>div>ul>li
         By arrowMenu = By.CssSelector("a[title='User Action Menu']");
         By titleUserDetail = By.CssSelector("a[title='User Detail']");
         By dropDwnForUserDetail = By.CssSelector("a[id='moderatorMutton']");

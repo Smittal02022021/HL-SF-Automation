@@ -107,7 +107,7 @@ namespace SF_Automation.Pages.EventExpense
 
             //WebDriverWaits.WaitUntilEleVisible(driver, comboExpRequestStatus, 120);
             //driver.FindElement(comboExpRequestStatus).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilterStandard, 120);
             driver.FindElement(btnApplyFilterStandard).Click();
             Thread.Sleep(5000);

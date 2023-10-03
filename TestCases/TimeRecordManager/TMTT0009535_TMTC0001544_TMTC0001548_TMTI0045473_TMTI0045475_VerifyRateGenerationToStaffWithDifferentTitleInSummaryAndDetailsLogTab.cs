@@ -35,7 +35,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         private double enteredHoursDetailLogs = 0.00;
         private double enteredHoursSummaryLogs = 0.00;
         private double totalAmountCalculated = 0.00;
-        private double totalAmountDisplayedSummaryLogs = 0.00;
         private double totalAmountDisplayedInDetailLogs = 0.00;
 
         public static string fileTC2286_TC2287 = "TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab" +

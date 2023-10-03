@@ -28,8 +28,21 @@ namespace SF_Automation.TestData
             excelApp.Quit();
             return rowCount;
         }
+        //count the columns of excel file
+        public static int GetColumnCount(string Path, string Sheet)
+        {
+            excel.Application excelApp = new excel.Application();
+            excel.Workbook workBook = excelApp.Workbooks.Open(Path);
+            excel._Worksheet workSheet = workBook.Worksheets.get_Item(Sheet);
+            excel.Range range = workSheet.UsedRange;
+            int columnCount = range.Columns.Count; ;
+            //CloseExcel(); 
+            workBook.Close();
+            excelApp.Quit();
+            return columnCount;
+        }
 
-       public static string ReadData(string path, string sheet, int col)
+        public static string ReadData(string path, string sheet, int col)
         {
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(path);
