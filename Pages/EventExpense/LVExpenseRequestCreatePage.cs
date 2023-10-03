@@ -90,6 +90,60 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
             Thread.Sleep(3000);
+            driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM d, yyyy"));
+            driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 5));
+            driver.FindElement(comboNoOfGuest).SendKeys(Keys.Enter);
+            driver.FindElement(txtExpectedAirFareCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 6));
+            driver.FindElement(txtExpectedRegistrationFeeCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 7));
+            driver.FindElement(txtOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 8));
+            driver.FindElement(txtExpectedLodgingCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 9));
+            driver.FindElement(txtExpectedFnBCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 10));
+            driver.FindElement(txtDescOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 11));
+
+            //Click Save btton
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(10000);
+        }
+
+        public void CreateNewExpenseRequestLWC2(string LOB, string file, int userRow)
+        {
+            Thread.Sleep(3000);
+            string excelPath = dir + file;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(5000);
+
+            //Select LOB
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownLOB, 120);
+            driver.FindElement(dropdownLOB).SendKeys(LOB);
+            Thread.Sleep(10000);
+            driver.FindElement(dropdownLOB).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            //Click on Create New Expense Form button
+            driver.FindElement(buttonCreateNewExpenseForm).Click();
+            Thread.Sleep(5000);
+
+            //Fill all mandatory fields
+            driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 2));
+            Thread.Sleep(5000);
+            driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
+            WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
+            driver.FindElement(selectRequestor).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
+            Thread.Sleep(5000);
+            driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
+            WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
+            driver.FindElement(selectEventContact).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
+            Thread.Sleep(5000);
+            driver.FindElement(txtEventName).SendKeys(Keys.Enter);
+            WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
+            driver.FindElement(selectEventName).Click();
+            Thread.Sleep(3000);
             driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("dd-MMM-yyyy"));
             driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 5));
             driver.FindElement(comboNoOfGuest).SendKeys(Keys.Enter);

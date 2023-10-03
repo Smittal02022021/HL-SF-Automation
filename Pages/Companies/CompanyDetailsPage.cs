@@ -78,8 +78,8 @@ namespace SF_Automation.Pages.Companies
         By valNoRecordsCompanyFinancial = By.XPath("//*[text()='Company Financials']/../../../../../following-sibling::div/table/tbody/tr/th");
         By linkDelCoverageTeam = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr/td[1]/a[2]");
         By linkCoverageTeamOfficer = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr/th/a");
-        By valCoverageLevel = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr[2]/td[5]");
-        By valCoverageType = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr[2]/td[3]");
+        By valCoverageLevel = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr[2]/td[4]");
+        By valCoverageType = By.XPath("//*[text()='Coverage Team']/../../../../../../div[@class='pbBody']/table/tbody/tr[2]/td[6]");
         By btnMergeContacts = By.CssSelector("input[name='merge']");
         By valContactName = By.XPath("//*[text()='Contacts']/../../../../../../div[2]/table/tbody/tr[2]/th/a");
         By valSecondContactName = By.XPath("//*[text()='Contacts']/../../../../../../div[2]/table/tbody/tr[3]/th/a");
@@ -149,10 +149,10 @@ namespace SF_Automation.Pages.Companies
         By btnContinue = By.CssSelector("input[title='Continue']");
         By drpdownOfficeCode = By.CssSelector("select[id*='00Fjq9q']");
 
-        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector']");
+        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector & Investment Preference']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
-        By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
+        By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Sector Categorization Lookup (New Window)']");
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
         By btnSaveCompanySector = By.XPath("(//input[@title='Save'])[1]");
@@ -169,6 +169,8 @@ namespace SF_Automation.Pages.Companies
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
         By txtCompanyType = By.XPath("//p[@title='Company Type']//following::p//span");
+
+        By drpdownInvestmentPref = By.XPath("//label[text()='Investment Preference / Operating Sector']/../../td[2]/div/span/select");
 
         By searchOpportunitiesL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer']//input[contains(@placeholder,'Search')]");
         By searchEngagementsL = By.XPath("//flexipage-component2[@data-component-id='c_sL_HierarchyViewer2']//input[contains(@placeholder,'Search')]");
@@ -229,6 +231,10 @@ namespace SF_Automation.Pages.Companies
 
         public void SelectCoverageSectorDependency(string covSectorDependencyName)
         {
+            WebDriverWaits.WaitUntilEleVisible(driver,drpdownInvestmentPref,120);
+            driver.FindElement(drpdownInvestmentPref).SendKeys("Operating Sector");
+            Thread.Sleep(2000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, imgCompanySectorDependencyLookUp, 120);
             driver.FindElement(imgCompanySectorDependencyLookUp).Click();
             Thread.Sleep(2000);
@@ -901,16 +907,16 @@ namespace SF_Automation.Pages.Companies
 
         public string GetCompanyFinancialYear(int rows)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > th"), 60);
-            string CompanyFinancialYear = driver.FindElement(By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > th")).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(3)"), 60);
+            string CompanyFinancialYear = driver.FindElement(By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(3)")).Text;
             return CompanyFinancialYear;
         }
 
 
         public string GetAsOfYearFinancialYear(int rows)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(3)"), 60);
-            string CompanyFinancialAsOfDate = driver.FindElement(By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(3)")).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(4)"), 60);
+            string CompanyFinancialAsOfDate = driver.FindElement(By.CssSelector($"div[id*='ke_body'] > table > tbody > tr:nth-child({rows}) > td:nth-child(4)")).Text;
             return CompanyFinancialAsOfDate;
 
         }

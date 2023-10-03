@@ -58,40 +58,31 @@ namespace SF_Automation.TestCases.ActivitiesList
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 string text=addActivity1.GetActivityCount();
+
                 //int num = integer.parseInt(text);
                 extentReports.CreateLog("Activity count:"+text+" ");
                 int cnt= int.Parse(text);
 
-                /*while (cnt <= 5) {
-                    string getDateToday = DateTime.Today.ToString("MM/dd/yyyy");
-                    conHome.SearchContact(fileTC1738, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
-                    //addActivity1.AddActivityFromContactDetail(fileTC1503);
-                    contactDetails.CreateAnActivity1(fileTC1738, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1), getDateToday);
-
-                    usersLogin.ClickHomeTab();
-                    cnt++;
-                }*/
-
                 conHome.SearchContact(fileTC1738, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
                 addActivity1.VerifyFilter(fileTC1738);
-
                 extentReports.CreateLog("Verified type filter for admin user ");
-                // Search standard user by global search
+
+                //Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-               homePage.SearchUserByGlobalSearch(fileTC1738, user);
+                homePage.SearchUserByGlobalSearch(fileTC1738, user);
 
-               //Verify searched user
-               string userPeople = homePage.GetPeopleOrUserName();
-               string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-               Assert.AreEqual(userPeopleExl, userPeople);
-               extentReports.CreateLog("User " + userPeople + " details are displayed ");
+                //Verify searched user
+                string userPeople = homePage.GetPeopleOrUserName();
+                string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                Assert.AreEqual(userPeopleExl, userPeople);
+                extentReports.CreateLog("User " + userPeople + " details are displayed ");
 
-               //Login as standard user
-               usersLogin.LoginAsSelectedUser();
-               string standardUser = login.ValidateUser();
-               string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-               Assert.AreEqual(standardUserExl.Contains(standardUser), true);
-               extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
+                //Login as standard user
+                usersLogin.LoginAsSelectedUser();
+                string standardUser = login.ValidateUser();
+                string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                Assert.AreEqual(standardUserExl.Contains(standardUser), true);
+                extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
                 conHome.SearchContact(fileTC1738, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1));
                 addActivity1.VerifyFilter(fileTC1738);
                 extentReports.CreateLog("Verified type filter for standard user ");
@@ -99,13 +90,10 @@ namespace SF_Automation.TestCases.ActivitiesList
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-
-
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
-
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

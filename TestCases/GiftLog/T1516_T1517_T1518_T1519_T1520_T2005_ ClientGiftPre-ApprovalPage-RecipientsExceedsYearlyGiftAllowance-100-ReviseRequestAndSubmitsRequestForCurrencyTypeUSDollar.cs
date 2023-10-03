@@ -3,6 +3,7 @@ using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.Company;
+using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
@@ -17,10 +18,14 @@ namespace SF_Automation.TestCases.GiftLog
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
-        GiftRequestPage giftRequest = new GiftRequestPage();
+		ContactHomePage conHome = new ContactHomePage();
+		GiftRequestPage giftRequest = new GiftRequestPage();
         GiftApprovePage giftApprove = new GiftApprovePage();
+		ContactCreatePage createContact = new ContactCreatePage();
+		ContactDetailsPage contactDetails = new ContactDetailsPage();
+		ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
 
-        public static string fileTC1516 = "T1516_GiftLog_ClientGiftPre_ApprovalPage_RecipientsExceedsYearlyGiftAllowance";
+		public static string fileTC1516 = "T1516_GiftLog_ClientGiftPre_ApprovalPage_RecipientsExceedsYearlyGiftAllowance";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -179,6 +184,7 @@ namespace SF_Automation.TestCases.GiftLog
                     //Click on submit gift request
                     giftRequest.ClickSubmitGiftRequest();
                     string warningMessage1 = giftRequest.GetWarningMessageOnAmountLimitExceed();
+
                     //Verification of error message displaying on submit of gift request exceeds yearly gift allowance for currency type euro(not in france)
                     Assert.AreEqual(warningMessageExl, warningMessage1);
                     extentReports.CreateLog("Warning Message: " + warningMessage1 + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
@@ -193,20 +199,18 @@ namespace SF_Automation.TestCases.GiftLog
                     string congratulationMsgEx1l = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
                     Assert.AreEqual(congratulationMsgEx1l, congratulationMsg1);
                     extentReports.CreateLog("Congratulations message: " + congratulationMsg1 + " in displayed upon successful submission of gift request ");
+                    
                     //Verify currency value
                     string currencyValue1 = giftApprove.GetGiftCurrencyCode();
+                    
                     //Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 4), currencyValue1);
                     extentReports.CreateLog("Currency: " + currencyValue1 + " is listed on gift request submission detail page ");
 
                     string giftValueOnGiftDetail1 = giftApprove.GetGiftValue();
                     // Assert.AreEqual(currencyValue1+" "+ giftval, giftValueOnGiftDetail1);
                     extentReports.CreateLog("Gift Value: " + giftValueOnGiftDetail1 + " is listed on gift request submission detail page ");
-
-
                 }
                     
-               
-
                 //Navigate to Gift Request page
                 giftRequest.GoToGiftRequestsPage();
 
@@ -232,7 +236,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Gift Label: " + labelGiftAmtYTD + " is displayed in Selected Recipient(s) table ");
 
                 //Verify value of gift
-               // Assert.AreEqual(valueOfGiftExl, valueOfGift);
+                //Assert.AreEqual(valueOfGiftExl, valueOfGift);
                 extentReports.CreateLog("Gift Value: " + labelGiftAmtYTD + " is displayed in Selected Recipient(s) table ");
 
                 //Verify currency of gift
@@ -240,7 +244,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Currency Code: " + currencyCode + " is displayed in Selected Recipient(s) table ");
 
                 //Verification of NewGiftAmtYTD Value turn to red to indicate Currency max limit Exceeded for Current Calendar Year
-                 Assert.AreEqual(colorOfGiftValueExl, colorOfGiftValue);
+                Assert.AreEqual(colorOfGiftValueExl, colorOfGiftValue);
                 extentReports.CreateLog("Color Of Gift Value:"+ colorOfGiftValue+ " is displayed in Selected Recipient(s) table ");
 
                 //Click on submit gift request
@@ -269,7 +273,8 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify Gift description 
                 string giftDescriptionGiftRequestDetail = giftRequest.GetGiftDescriptionOnGiftRequestDetail();
-             //   Assert.AreEqual(valGiftNameEntered, giftDescriptionGiftRequestDetail);
+             
+                //Assert.AreEqual(valGiftNameEntered, giftDescriptionGiftRequestDetail);
                 extentReports.CreateLog("Gift Description: " + giftDescriptionGiftRequestDetail + " is listed on gift request submission detail page ");
 
                 //Verify recipient name
@@ -281,12 +286,14 @@ namespace SF_Automation.TestCases.GiftLog
                 //Verify submitted for
                 string submittedForValue = giftApprove.GetvalueSubmittedFor();
                 string submittedForValueExl = ReadExcelData.ReadData(excelPath, "GiftLog", 2);
-               // Assert.AreEqual(submittedForValueExl, submittedForValue);
+
+                //Assert.AreEqual(submittedForValueExl, submittedForValue);
                 extentReports.CreateLog("Submitted For: " + submittedForValue + " is listed on gift request submission detail page ");
 
                 //Verify currency value
                 string currencyValue = giftApprove.GetGiftCurrencyCode();
-               // Assert.AreEqual("USD", currencyValue);
+
+                //Assert.AreEqual("USD", currencyValue);
                 extentReports.CreateLog("Currency: " + currencyValue + " is listed on gift request submission detail page ");
 
                 string giftValueOnGiftDetail = giftApprove.GetGiftValue();
@@ -294,13 +301,34 @@ namespace SF_Automation.TestCases.GiftLog
                 //Assert.AreEqual("USD " + giftValueFromExl + "0", giftValueOnGiftDetail);
                 extentReports.CreateLog("Gift Value: " + giftValueOnGiftDetail + " is listed on gift request submission detail page ");
 
-                usersLogin.UserLogOut();
-                usersLogin.UserLogOut();
-                driver.Quit(); 
-            }
+				usersLogin.UserLogOut();
+
+				//Navigate to contacts page
+				conHome.ClickContact();
+
+				//Search external contact
+				conHome.SearchContact(fileTC1516);
+
+				//To delete external contact
+				contactDetails.DeleteCreatedContact(fileTC1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+				conHome.ClickContact();
+				conHome.ClickAddContact();
+
+				//Calling select record type and click continue function
+				string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
+				conSelectRecord.SelectContactRecordType(fileTC1516, contactType);
+				extentReports.CreateLog("User navigate to create contact page upon click of continue button. ");
+
+				//Re-create external contact
+				createContact.CreateContact(fileTC1516);
+				extentReports.CreateLog("External Contact created. ");
+
+				usersLogin.UserLogOut();
+				driver.Quit();
+			}
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

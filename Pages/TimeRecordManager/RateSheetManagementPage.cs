@@ -183,7 +183,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 alert.Accept();
                 Thread.Sleep(5000);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 driver.FindElement(tabStaffTimeSheet).Click(); 
                 Thread.Sleep(5000);

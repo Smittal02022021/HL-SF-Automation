@@ -189,7 +189,7 @@ namespace SF_Automation.Pages
         //To Click on Add Contact tab
         public void ClickAddContact()
         {
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnAddContact);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddContact);
             driver.FindElement(btnAddContact).Click();
         }
 

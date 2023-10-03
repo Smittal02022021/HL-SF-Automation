@@ -27,7 +27,6 @@ namespace SF_Automation.Pages.ActivitiesList
         By txtFollowUpDate = By.CssSelector("input[id*='followupStartDate']");
         By txtFollowUpComment = By.XPath("//label[contains(text(),'Follow-up Comments')]/following::td/textarea");
 
-
         By lnkContacts = By.CssSelector("a[title*='Contacts Tab']");
         By valDefaultHLAttendee = By.CssSelector("tbody[id*='pbsHLEmployees'] > tr > td:nth-child(3) > span");
         By btnActivitySave = By.CssSelector("td[class='pbButton '] > input:nth-child(1)");
@@ -88,7 +87,6 @@ namespace SF_Automation.Pages.ActivitiesList
             return errmsg;
         }
 
-
         //Add activity from contact detail page
         public string AddActivityFromContactDetail(string file)
         {
@@ -102,14 +100,17 @@ namespace SF_Automation.Pages.ActivitiesList
             WebDriverWaits.WaitUntilEleVisible(driver, txtActivitySubject);
             driver.FindElement(txtActivitySubject).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 2));
 
+            Thread.Sleep(3000);
+
             string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 3);
             driver.FindElement(txtCompaniesDiscussed).SendKeys(valCompaniesDiscussed);
             Thread.Sleep(4000);
             driver.FindElement(selCompaniesDiscussed).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
             string valRelatedOpportunity = ReadExcelData.ReadData(excelPath, "Activity", 4);
             driver.FindElement(txtLookupOpportunity).SendKeys(valRelatedOpportunity);
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, selLookupOpportunity);
             driver.FindElement(selLookupOpportunity).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkBoxScheduleFollowUp);
@@ -129,7 +130,6 @@ namespace SF_Automation.Pages.ActivitiesList
            
             return getDate;
         }
-
 
         public string AddFutureActivityWithNewContact(string file)
         {
@@ -203,15 +203,16 @@ namespace SF_Automation.Pages.ActivitiesList
             WebDriverWaits.WaitUntilEleVisible(driver, valDefaultHLAttendee, 60);
             string HL_Attendee = driver.FindElement(valDefaultHLAttendee).Text;
 
+            Thread.Sleep(5000);
+
             string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 6);
             driver.FindElement(txtCompaniesDiscussed).SendKeys(valCompaniesDiscussed);
-            Thread.Sleep(3000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, chkBoxNoExternalContact);
-            //driver.FindElement(chkBoxNoExternalContact).Click();
+            Thread.Sleep(5000);
+            
             WebDriverWaits.WaitUntilEleVisible(driver, selCompaniesDiscussed);
             driver.FindElement(selCompaniesDiscussed).Click();
             driver.FindElement(txtDate).Clear();
-            string getDate = DateTime.Today.AddDays(3).ToString("MM/dd/yyyy");
+            string getDate = DateTime.Today.AddDays(300).ToString("MM/dd/yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtDate);
             driver.FindElement(txtDate).SendKeys(getDate);
             Thread.Sleep(3000);
@@ -225,6 +226,7 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.FindElement(lnkViewActivity).Click();
 
         }
+
         public void VerifyViewAllLink()
         {
 
@@ -237,6 +239,7 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.SwitchTo().DefaultContent();
 
         }
+
         public void VerifyViewAllLinkOnHomePage() {
 
             
@@ -247,6 +250,7 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.SwitchTo().DefaultContent();
 
         }
+
         public void ClickViewAllLink() {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkActivities);
             driver.FindElement(lnkActivities).Click();
@@ -263,6 +267,7 @@ namespace SF_Automation.Pages.ActivitiesList
           
 
         }
+
         public void VerifyPreviousNextLink() {
 
             driver.SwitchTo().Frame("066i0000004ZLbF");
@@ -296,6 +301,7 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.SwitchTo().DefaultContent();
             
         }
+
         public void VerifyFilter(string file) {
 
             driver.SwitchTo().Frame("066i0000004ZLbF");
@@ -397,7 +403,6 @@ namespace SF_Automation.Pages.ActivitiesList
             CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().DefaultContent();
         }
-
 
         public string GetActivityCount()
         {

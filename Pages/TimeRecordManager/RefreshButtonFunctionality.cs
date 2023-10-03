@@ -191,7 +191,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 //wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[text()='Start']")));
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 return false;
@@ -210,7 +210,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
 
             {
               //  extentReports.CreateLog("Refresh button is hidden when project is not selected ");

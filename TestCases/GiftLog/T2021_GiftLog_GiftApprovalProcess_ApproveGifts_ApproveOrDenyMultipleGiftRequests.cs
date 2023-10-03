@@ -155,8 +155,8 @@ namespace SF_Automation.TestCases.GiftLog
                     extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                     //Click on approve selected button and approve multiple gifts at once
-                    giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                    giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                    Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                    Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                     giftApprove.SetApprovalDenialComments();
 
                     if (i==1)
@@ -176,8 +176,8 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateLog(txtStatus1 + " is displaying in gift status for 2nd gift. ");
 
                         //Click on Deny selected button and deny multiple gifts from approved list at once
-                        giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                        giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                        Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                        Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
 
                         giftApprove.ClickDenySelectedButton();
                         extentReports.CreateLog("Multiple gifts are denied at once by clicking Deny selected button from approved gifts list. ");
@@ -212,8 +212,8 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateLog(txtStatus5 + " is displaying in gift status for 2nd gift. ");
 
                         //Click on Approve selected button and approve multiple gifts from approved list at once
-                        giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered);
-                        giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1);
+                        Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
+                        Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered1));
                         giftApprove.ClickApproveSelectedButton();
                         extentReports.CreateLog("Multiple gifts are approved at once by clicking Approve selected button from denied gifts list. ");
 
@@ -236,7 +236,7 @@ namespace SF_Automation.TestCases.GiftLog
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);               
+                extentReports.CreateExceptionLog(e.Message);               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -297,7 +297,6 @@ namespace SF_Automation.Pages
         By lnkInternalTeam = By.CssSelector("th[class=' dataCell  '] a");
         By btnDeleteInternalTeam = By.CssSelector("td[id='topButtonRow'] > input[value='Delete']");
 
-
         By txtAdditionalClientSubjects = By.CssSelector("h2[class='slds-card__header-title']>span");
         By lnkAdditionalClientSubjects = By.CssSelector("a[id*='DuhQp_link']>span");
         By btnnewAdditionalClientSubject = By.CssSelector("input[name *= 'DuhQp']");
@@ -578,6 +577,7 @@ namespace SF_Automation.Pages
                 return type;
             }
         }
+
         //To Click New Opportunity Client/Subject button
         public string ClickNewOpportunityClientSubjectButton()
         {
@@ -586,6 +586,7 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(titlePage).Text;
             return name;
         }
+
         //Validate the visibility of New Opportunity Client/Subject button
         public string ValidateVisibilityOfNewOpportunityClientSubjectButton()
         {
@@ -593,6 +594,7 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(btnAdditionalClientSubject).GetAttribute("title");
             return name;
         }
+
         //Get the value of Est Txn Size
         public string GetEstTransactionSize()
         {
@@ -601,6 +603,7 @@ namespace SF_Automation.Pages
             string estTxn = value.Substring(0, 8);
             return estTxn;
         }
+
         //Update Est Txn Size
         public string UpdateEstTransactionSize()
         {
@@ -629,6 +632,7 @@ namespace SF_Automation.Pages
             string value = driver.FindElement(valTotalDebtMM).Text;
             return value;
         }
+
         public bool VerifyIfOpportunitySectorQuickLinkIsDisplayed()
         {
             bool result = false;
@@ -799,8 +803,6 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
         }
 
-
-
         public bool ValidateIfTailExpiresFieldIsRequiredWhenRequestingForEngagement()
         {
             driver.FindElement(btnRequestEng).Click();
@@ -864,6 +866,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, buttonViewCounterparty, 60);
             return driver.FindElement(buttonViewCounterparty).Displayed;
         }
+
         public void ClickOnViewCounterpartyButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, buttonViewCounterparty, 60);
@@ -884,6 +887,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnSave).Click();
             }
         }
+
         // To get external disclosure status	
         public string GetExternalDisclosureStatus()
         {
@@ -891,6 +895,7 @@ namespace SF_Automation.Pages
             string extDisclosureStat = driver.FindElement(valExternalDisclosureStat).Text;
             return extDisclosureStat;
         }
+
         //Validate NBC Approved checkbox
         public string ValidateNBCApprovedCheckbox()
         {
@@ -906,6 +911,7 @@ namespace SF_Automation.Pages
             }
 
         }
+
         public void UpdateReqFieldsForConversion(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -1044,15 +1050,17 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnSave).Click();
             }
         }
+
         public void DeleteOpportunity()
         {
             Thread.Sleep(2000);
             CustomFunctions.ActionClicks(driver, btnDeleteOpportunity);
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(2000);
         }
+
         public void DeleteInternalTeamOfOpportunity()
         {
             CustomFunctions.ActionClicks(driver, btnDeleteOpportunity);
@@ -1063,11 +1071,12 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lnkInternalTeam, 60);
             driver.FindElement(lnkInternalTeam).Click();
             CustomFunctions.ActionClicks(driver, btnDeleteInternalTeam);
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
             alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(2000);
         }
+
         //To get staff member	
         public string GetStaffMember()
         {
@@ -1078,6 +1087,7 @@ namespace SF_Automation.Pages
             driver.SwitchTo().DefaultContent();
             return staffMember;
         }
+
         //To get Legal entity	
         public string GetLegalEntity()
         {
@@ -1085,6 +1095,7 @@ namespace SF_Automation.Pages
             string legalEntity = driver.FindElement(valLegalEntity).Text;
             return legalEntity;
         }
+
         //To get additional subject value 	
         public string GetAdditionalSubjectBoolValue()
         {
@@ -1092,6 +1103,7 @@ namespace SF_Automation.Pages
             string addSubject = driver.FindElement(valAdditionalSubject).Text;
             return addSubject;
         }
+
         //To get additional subject value 	
         public string GetReferalTypeValue()
         {
@@ -1115,6 +1127,7 @@ namespace SF_Automation.Pages
             string beneOwner = driver.FindElement(valBeneOwnerAndControlPersonForm).Text;
             return beneOwner;
         }
+
         //To get Bene Owner and Control Person FormValue	
         public string GetPrimaryOffice()
         {
@@ -1122,6 +1135,7 @@ namespace SF_Automation.Pages
             string primaryOffice = driver.FindElement(valPrimaryOffice).Text;
             return primaryOffice;
         }
+
         //To get additional client 	
         public string GetAdditionalClientBoolValue()
         {
@@ -1129,6 +1143,7 @@ namespace SF_Automation.Pages
             string addClient = driver.FindElement(valAdditionalClient).Text;
             return addClient;
         }
+
         //To get Line Of Business	
         public string GetLineOfBusiness()
         {
@@ -1136,6 +1151,7 @@ namespace SF_Automation.Pages
             string LOBvalue = driver.FindElement(valLineOfBusiness).Text;
             return LOBvalue;
         }
+
         //To get Industry group	
         public string GetSector()
         {
@@ -1143,6 +1159,7 @@ namespace SF_Automation.Pages
             string sector = driver.FindElement(valSector).Text;
             return sector;
         }
+
         //Get ICO Contract Name	
         public string GetICOContractName()
         {
@@ -1150,6 +1167,7 @@ namespace SF_Automation.Pages
             string ICOContractName = driver.FindElement(valICOContractName).Text;
             return ICOContractName;
         }
+
         //Get ERP Contract TYpe	
         public string GetERPContractType()
         {
@@ -1157,6 +1175,7 @@ namespace SF_Automation.Pages
             string valueERPContractType = driver.FindElement(valERPContractType).Text;
             return valueERPContractType;
         }
+
         //Get ERP Legal Entity Name	
         public string GetERPLegalEntityName()
         {
@@ -1164,6 +1183,7 @@ namespace SF_Automation.Pages
             string valueERPLegalEntityName = driver.FindElement(valERPLegalEntityName).Text;
             return valueERPLegalEntityName;
         }
+
         //Get Bill To Company	
         public string GetBillTo()
         {
@@ -1171,6 +1191,7 @@ namespace SF_Automation.Pages
             string valueBillTo = driver.FindElement(valBillTo).Text;
             return valueBillTo;
         }
+
         //Get ERP Legal Entity Name	
         public string GetContractStartDate()
         {
@@ -1186,6 +1207,7 @@ namespace SF_Automation.Pages
             driver.SwitchTo().DefaultContent();
             return value;
         }
+
         public string GetOppExternalContact()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppContact, 30);
@@ -1225,6 +1247,7 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(titlePopUpNBC).Text;
             return title;
         }
+
         //Validate radio button M&A	
         public string ValidateMARadioButton()
         {
@@ -1232,6 +1255,7 @@ namespace SF_Automation.Pages
             string button = driver.FindElement(btnMA).Text;
             return button;
         }
+
         //Validate radio button Capital Market	
         public string ValidateCapitalMktRadioButton()
         {
@@ -1239,6 +1263,7 @@ namespace SF_Automation.Pages
             string button = driver.FindElement(btnCapMkt).Text;
             return button;
         }
+
         public string ClickNBCFormLCNBC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormL, 120);
@@ -1258,6 +1283,7 @@ namespace SF_Automation.Pages
             driver.FindElement(linkPitchDate).Click();
             driver.FindElement(btnSave).Click();
         }
+
         //To update Retainer and Monthly Fee 	
         public void UpdateRetainerAndMonthlyFee()
         {
@@ -1268,6 +1294,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtMonthlyFee).SendKeys("15");
             driver.FindElement(btnSave).Click();
         }
+
         //To Enter Request Date	
         public string SaveRequestDate()
         {
@@ -1302,6 +1329,7 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(titleMassEditPage).Text;
             return name;
         }
+
         //To click on Back To Opportunity button
         public string ClickBackToOppButtonAndValidatePage()
         {
@@ -1312,6 +1340,7 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(titleOppDetails).Text;
             return name;
         }
+
         //Validate the visibility of Mass Edit Records button
         public string ValidateVisibilityOfMassEditRecordsButton()
         {
@@ -1327,6 +1356,7 @@ namespace SF_Automation.Pages
             string oppNum = driver.FindElement(valOppNum).Text;
             return oppNum;
         }
+
         //Get LOB
         public string GetLOB()
         {
@@ -1365,6 +1395,7 @@ namespace SF_Automation.Pages
                 return "DND On/Off button is not displayed";
             }
         }
+
         public void ClickDNDButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOff, 80);
@@ -1391,6 +1422,7 @@ namespace SF_Automation.Pages
                 return "Lock Image is not displayed";
             }
         }
+
         //To validate record lock message
         public string ValidateRecordLockMessage()
         {
@@ -1399,6 +1431,7 @@ namespace SF_Automation.Pages
             string lockMessage = driver.FindElement(txtMessage).Text;
             return lockMessage;
         }
+
         //To validate Approver 
         public string ValidateActualApprover()
         {
