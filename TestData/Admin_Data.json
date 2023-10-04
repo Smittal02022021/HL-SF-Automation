@@ -1,10 +1,10 @@
 ﻿{
   "authentication": {
-    "username": "Sahil.Mittal0207@hl.com.test",
-    "password": "Yankee@12345",
-    "loggeduser": "Sahil Mittal"
+    "username": "sgoyal0427@hl.com.test",
+    "password": "testing@1234",
+    "loggeduser": "Sonika Goyal"
   },
   "filePaths": {
-    "testData": "C:\\Users\\vkumar0427\\source\\repos\\SF_Automation\\TestData\\"
+    "testData": "C:\\Users\\SGoyal0427\\source\\repos\\SF_Automation\\TestData\\"
   }
 }

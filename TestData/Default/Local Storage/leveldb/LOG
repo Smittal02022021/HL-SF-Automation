@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/04/03-13:41:28.325 a838 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/MANIFEST-000001
 2023/04/03-13:41:28.327 a838 Recovering log #7
 2023/04/03-13:41:28.341 a838 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/000007.log 
@@ -19,3 +20,8 @@
 2023/03/29-18:16:23.321 61e8 Recovering log #15
 2023/03/29-18:16:23.324 61e8 Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/000015.log 
 >>>>>>> Branch-Vijay
+=======
+2023/02/22-15:24:57.864 5340 Reusing MANIFEST C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/MANIFEST-000001
+2023/02/22-15:24:57.865 5340 Recovering log #59
+2023/02/22-15:24:57.867 5340 Reusing old log C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Local Storage\leveldb/000059.log 
+>>>>>>> Branch-Sonika

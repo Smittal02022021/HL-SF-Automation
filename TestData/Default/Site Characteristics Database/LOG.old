@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 2023/04/03-12:14:16.874 12dc Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/MANIFEST-000001
 2023/04/03-12:14:16.875 12dc Recovering log #6
 2023/04/03-12:14:16.876 12dc Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/000006.log 
@@ -13,3 +14,8 @@
 2023/03/29-17:41:48.839 6f3c Recovering log #6
 2023/03/29-17:41:48.840 6f3c Reusing old log C:\Users\vkumar0427\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/000006.log 
 >>>>>>> Branch-Vijay
+=======
+2023/02/22-15:15:59.812 5ca4 Reusing MANIFEST C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/MANIFEST-000001
+2023/02/22-15:15:59.813 5ca4 Recovering log #6
+2023/02/22-15:15:59.816 5ca4 Reusing old log C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\Default\Site Characteristics Database/000006.log 
+>>>>>>> Branch-Sonika

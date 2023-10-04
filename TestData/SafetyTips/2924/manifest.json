@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+  "name": "safetyTips",
+<<<<<<<< HEAD:TestData/User Data/SafetyTips/2937/manifest.json
+  "version": "2937"
+========
+  "version": "2924"
+>>>>>>>> Branch-Sonika:TestData/SafetyTips/2924/manifest.json
+}

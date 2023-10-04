@@ -205,10 +205,11 @@ namespace SF_Automation.TestCases.Opportunity
                         string additionalClient = opportunityDetails.ValidateAdditionalSubjectFromPopUp(valJobType, ReadExcelData.ReadData(excelPath, "AddOpportunity", 33));
                         Assert.AreEqual("Client", additionalClient);
                         extentReports.CreateLog("New company: " + ReadExcelData.ReadData(excelPath, "AddOpportunity", 33) + " for Client only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
-                    }
-
+                       
+                    }                   
                     usersLogin.UserLogOut();
                 }
+                opportunityDetails.SwitchFrame();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -52,7 +52,7 @@ namespace SF_Automation.Pages.Tableau
             Pattern loginButton = new Pattern(excelPath3);
 
             screen.Wait(username, 10);
-            screen.Type(username, "vkumar0427");
+            screen.Type(username, "SGoyal0427");
             screen.Type(password, "Yankee@1234");
             screen.Click(loginButton);
             Thread.Sleep(5000);

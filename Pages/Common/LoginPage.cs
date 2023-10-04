@@ -18,7 +18,7 @@ namespace SF_Automation.Pages
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
-
+        By valUser = By.XPath("//section/header/div[1]/div/span");
 
 
         public void SwitchToLightningExperience()
@@ -37,6 +37,13 @@ namespace SF_Automation.Pages
             }
         }
 
+        public string ValidateUserLightningCAO()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 10);
+        }
         public void LoginAsExpenseRequestApprover(string file, int row)
         {
 
@@ -165,5 +172,21 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "FirstLevelApprover", 2));
             driver.FindElement(btnLogin).Click();
         }
+
+        public string ValidateUserLightning()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 12);
+        }
+        public string ValidateFRUserLightning()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 13);
+        }
+
     }
 }
