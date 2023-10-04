@@ -1,3 +1,6 @@
-2022/12/27-15:51:48.433 1a5c Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Extension State/MANIFEST-000001
-2022/12/27-15:51:48.435 1a5c Recovering log #3
-2022/12/27-15:51:48.435 1a5c Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Extension State/000003.log 
+<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:7fe92f2d981d1d6b70cf4cb26650bffbb8db6f4fe8094f67cb7385d44ba3a8d4
+size 348
+=======
+>>>>>>> Branch-Vijay

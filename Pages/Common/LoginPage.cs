@@ -23,12 +23,17 @@ namespace SF_Automation.Pages
 
         public void SwitchToLightningExperience()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
-            IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
-
-            if (linkSwitchtoLightning.Displayed)
+            try
             {
-                linkSwitchtoLightning.Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
+                IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
+                if (linkSwitchtoLightning.Displayed)
+                {
+                    linkSwitchtoLightning.Click();
+                }
+            }
+            catch (Exception e)
+            {
             }
         }
 
@@ -61,10 +66,21 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 2));
             driver.FindElement(btnLogin).Click();
         }
-
-        public void LoginApplication()
+        public void SwitchToClassicView()
         {
-           
+            string url = driver.Url;
+            if (url.Contains(".com/lightning")|| url.Contains(".lightning"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
+                driver.FindElement(imgProfile).Click();
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchToClassic, 20);
+                driver.FindElement(lnkSwitchToClassic).Click();
+                Thread.Sleep(2000);
+            }
+        }
+        public void LoginApplication()
+        {           
             driver.FindElement(txtUserName).SendKeys(ReadJSONData.data.authentication.username);
             Console.WriteLine(ReadJSONData.data.authentication.username);
             driver.FindElement(txtPassWord).SendKeys(ReadJSONData.data.authentication.password);
@@ -109,7 +125,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
 
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 140);
+            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 240);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
             if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
             {

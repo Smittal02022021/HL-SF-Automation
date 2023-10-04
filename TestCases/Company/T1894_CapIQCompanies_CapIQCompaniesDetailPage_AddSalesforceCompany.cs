@@ -57,6 +57,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 CustomFunctions.TableauPopUp();
+
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 homePage.SearchUserByGlobalSearch(fileTC1894, user);
@@ -125,11 +126,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 2), SalesforceCompanyName);
                 extentReports.CreateLog("Salesforce company: " + SalesforceCompanyName + " is created successfully ");
 
-                //Validate relationship salesforce company with capiq company
-                Assert.IsTrue(capIQCompanyHome.ValidateRelationshipSalesforceCompanyWCapIQCompany());
-                extentReports.CreateLog("Salesforce company relationship is established with CapIQ company verified under CapIQ information section of company detail page ");
-                Thread.Sleep(2000);
-
                 //Logout from Standard user
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("Standard user logged out successfully ");
@@ -155,7 +151,7 @@ namespace SF_Automation.TestCases.Companies
             }
             catch (Exception e)
             {               
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

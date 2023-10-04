@@ -11,7 +11,7 @@ namespace SF_Automation.Pages.Reports
     class ReportHomePage : BaseClass
     {
         By lnkReports = By.CssSelector("a[title*='Reports Tab']");
-        By txtFindAFolder = By.CssSelector("input[id='ext-comp-1001']");
+        By txtFindAFolder = By.XPath("(//input[@class='x-form-text x-form-field quickfindInput x-form-empty-field'])[1]");
         By matchedFolderResult = By.CssSelector("span[unselectable='on'] > div");
         By txtFindAReportAndDashboard = By.CssSelector("input[id='ext-comp-1017']");
         By matchedReportResult = By.CssSelector("div[class='nameFieldContainer descrContainer'] > a");
@@ -25,7 +25,7 @@ namespace SF_Automation.Pages.Reports
         By btnRunReport = By.CssSelector("span[id='runMuttonLabel']");
         By valDuplicateRecordSetName = By.CssSelector("tr[class*='breakRowClass1'] > td > span[class='groupvalue']");
         By chkboxReportRecord = By.CssSelector("td[class*='drilldown'] >input");
-        By DataHygieneFolderTitle = By.CssSelector("span[id='ext-gen516'] > div");
+        By DataHygieneFolderTitle = By.XPath("//div[@data-qtip='Data Hygiene']");
         By ReportDuplicateRuleAccount = By.CssSelector("h1[class='noSecondHeader pageType']");
         By valCreatedByFullName = By.CssSelector("span[class='groupvalue']");
         By valLabelGroupByDupRecord = By.CssSelector("tr[class='breakRowClass0 breakRowClass0Top'] > td:nth-child(2) > strong:nth-child(1)");
@@ -40,6 +40,7 @@ namespace SF_Automation.Pages.Reports
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkReports);
             driver.FindElement(lnkReports).Click();
+            Thread.Sleep(10000);
         }
 
         //To Click on Company tab
@@ -59,6 +60,7 @@ namespace SF_Automation.Pages.Reports
             if(CustomFunctions.IsElementPresent(driver, btnSavePageSetting))
             {
                 driver.FindElement(btnSavePageSetting).Click();
+                Thread.Sleep(5000);
             }
         }
         public void ClickNeverUpdateOfPageSettings()
@@ -67,6 +69,7 @@ namespace SF_Automation.Pages.Reports
             if (CustomFunctions.IsElementPresent(driver, btnNeverUpdate))
             {
                 driver.FindElement(btnNeverUpdate).Click();
+                Thread.Sleep(5000);
             }
         }
 
@@ -216,7 +219,7 @@ namespace SF_Automation.Pages.Reports
 
         public string GetCompanyValue(int row)
         {
-            return driver.FindElement(By.XPath($"//*[@id='fchArea']/table/tbody/tr[{row}]/td[4]/a")).Text;
+            return driver.FindElement(By.XPath($"//*[@id='fchArea']/table/tbody/tr[{row}]/td[5]/a")).Text;
         }
 
         public string GetContactValue(int row)

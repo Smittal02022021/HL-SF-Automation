@@ -214,8 +214,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateLog("Staff Member Title: " + selectedStaffMember + " is displayed upon click of staff Member link ");
 
                     //Select Project 
-                    string projName = "E - " + oppName + "-" + valRecordType + "-" + engNum;
-                    timeEntry.SelectProjectWeeklyEntryMatrix(projName, fileTMT13748);
+                    //string projName = "E - " + oppName + "-" + valRecordType + "-" + engNum;
+                    timeEntry.SelectProjectWeeklyEntryMatrix(oppNum, fileTMT13748);
 
                     //Enter time under enter weekly time matrix
                     timeEntry.LogCurrentDateHours(fileTMT13748);
@@ -337,7 +337,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

@@ -165,6 +165,7 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
+        By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
         By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
         By listStaff2 = By.XPath("(/html/body/ul/li)[2]/a");        
@@ -177,21 +178,86 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
         By checkAnalyst = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[8]/input");
         By checkSpecialty = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[9]/input");
 
+        public void EnterMultipleStaffDetails(string file, int row, int row1, string recordType)
+        {
+            Thread.Sleep(3000);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
+            string valStaff1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row1, 1);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff1);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff2, valStaff1);
+            Thread.Sleep(2000);
+
+            if (row1 == 3 && recordType == "CF")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern1, 120);
+                driver.FindElement(checkIntern1).Click();
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+            }
+            else if (row1 == 3 && recordType == "FVA")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
+                driver.FindElement(checkIntern).Click();
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+            }
+            else if (row1 == 3 && recordType == "FR")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
+                driver.FindElement(checkIntern).Click();
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 120);
+                driver.FindElement(checkInitiator).Click();
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            Thread.Sleep(2000);
+        }
         public void EnterMembersToDealTeam(string file)
         {
             Thread.Sleep(3000);
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file; int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
+            string excelPath = dir + file;
+
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
             string valStaff = "";
             for (int row = 2; row <= rowCount; row++)
             {
                 valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
                 driver.FindElement(txtStaff).SendKeys(valStaff);
-                Thread.Sleep(5000); By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
+                Thread.Sleep(5000);
+
+                By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
                 CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
-                Thread.Sleep(2000); switch (row)
+                Thread.Sleep(2000);
+
+                switch (row)
                 {
                     case 2:
                         WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -237,6 +303,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             Thread.Sleep(5000);
         }
 
+        public void EnterStaffDetailsMultipleRows(string file, int row)
 
 
         //To enter team member details
@@ -248,6 +315,8 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             string excelPath = dir + file;
             string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
             driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             Thread.Sleep(3000);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
@@ -270,7 +339,9 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             Thread.Sleep(3000);
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file; for (int col = 1; col <= 2; col++)
+            string excelPath = dir + file;
+
+            for (int col = 1; col <= 2; col++)
             {
                 string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, col);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
@@ -295,6 +366,12 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             driver.FindElement(btnReturnToOppor).Click();
         }
 
+        public void ClickContinue()
+        {
+            //Calling wait function--Continue button     
+            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue);
+            driver.FindElement(btnContinue).Submit();
+        }
 
         public string ValidateAdditionalClientSubjectTitle()
         {
@@ -315,6 +392,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             IWebElement titleAdditionalClient = driver.FindElement(winAdditionalClient);
             return titleAdditionalClient.Text;
         }
+
         //To add additional Client
         public void AddAdditionalClient(string file)
         {
@@ -331,12 +409,14 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             driver.FindElement(checkCompany).Click();
             driver.FindElement(btnAddSelected).Click();
         }
+
         //To validate message while adding additional Client
         public string ValidateMessage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccess);
             return driver.FindElement(msgSuccess).Text;
         }
+
         //To validate additional Client added in Table
         public string ValidateTableDetails()
         {
@@ -420,15 +500,37 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveClose).Click();
         }
+
         //To validate HL Internal Page title
         public string ValidateInternalTeamTitle()
         {
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
+            //driver.SwitchTo().Frame(0);
             WebDriverWaits.WaitUntilEleVisible(driver, titleHLTeam, 40);
             IWebElement titleHLInternalTeam = driver.FindElement(titleHLTeam);
             return titleHLInternalTeam.Text;
         }
+
+        //To enter team member details
+        public void EnterStaffDetails(string file, int row)
+        {
+            Thread.Sleep(3000);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSave).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+        }
+
         //To enter team member details
         public void EnterStaffDetails(string file)
         {
@@ -443,6 +545,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -452,6 +555,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
+
         //To validate additional added client in Additional Clients/Subjects section
         public string ValidateAddedClient()
         {
@@ -460,6 +564,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             string valCompany = driver.FindElement(linkCompanyName).Text;
             return valCompany;
         }
+
         //To validate additional added subject in additional Clients/Subjects section
         public string ValidateAddedSubject()
         {
@@ -478,7 +583,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string valSubject = driver.FindElement(txtComSubjectName).Text;
                 return valSubject;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -512,7 +617,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string valType = driver.FindElement(txtSubjectType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new type exists";
             }
@@ -528,7 +633,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string valType = driver.FindElement(txtSubjectRecType).Text;
                 return valType;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new Rec type exists";
             }
@@ -764,7 +869,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No validate message is displayed";
             }
@@ -933,7 +1038,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string value = driver.FindElement(valCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -947,7 +1052,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string value = driver.FindElement(valEngCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "No new client exists";
             }
@@ -961,7 +1066,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string value = driver.FindElement(valTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -976,7 +1081,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string value = driver.FindElement(valEngTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Key Creditor";
             }
@@ -1078,7 +1183,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
                 string name = driver.FindElement(btnCancelRecords).Text;
                 return name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "Cancel button is not displayed";
             }

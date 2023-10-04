@@ -56,7 +56,7 @@ namespace SF_Automation.Pages
         By txtContactHeading = By.CssSelector("h2[class='pageDescription']");
         By valDefaultHLAttendee = By.CssSelector("tbody[id*='pbsHLEmployees'] > tr > td:nth-child(3) > span");
         
-        string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public string SearchContactWithExternalContact(string file)
         {
@@ -189,7 +189,7 @@ namespace SF_Automation.Pages
         //To Click on Add Contact tab
         public void ClickAddContact()
         {
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnAddContact);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddContact);
             driver.FindElement(btnAddContact).Click();
         }
 

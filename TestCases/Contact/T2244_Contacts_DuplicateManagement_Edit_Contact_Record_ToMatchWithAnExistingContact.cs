@@ -145,7 +145,7 @@ namespace SF_Automation.TestCases.Contact
 
                         reportsHome.SearchReportsAndDashboard(fileTC2244, 2);
 
-                        //reportsHome.ClickNeverUpdateOfPageSettings();
+                        reportsHome.ClickNeverUpdateOfPageSettings();
                         string reportTitleCreatedBy = reportsHome.GetReportDuplicateRuleAccountTitle();
                         string reportTitleCreatedByExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 2, 2);
                         Assert.AreEqual(reportTitleCreatedByExl, reportTitleCreatedBy);
@@ -187,6 +187,7 @@ namespace SF_Automation.TestCases.Contact
                         extentReports.CreateLog("Data Hygiene Folder Title: " + dataHygieneFolderTitle + " is displayed upon search of data hygiene folder ");
 
                         reportsHome.SearchReportsAndDashboard(fileTC2244, 3);
+                        reportsHome.ClickNeverUpdateOfPageSettings();
                         string reportTitleDupRecordSet = reportsHome.GetReportDuplicateRuleAccountTitle();
                         string reportTitleDupRecordSetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 3, 2);
                         Assert.AreEqual(reportTitleDupRecordSetExl, reportTitleDupRecordSet);
@@ -247,7 +248,7 @@ namespace SF_Automation.TestCases.Contact
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
 
                 usersLogin.UserLogOut();
                 driver.Quit();

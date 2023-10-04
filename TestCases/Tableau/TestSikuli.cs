@@ -44,7 +44,7 @@ namespace SF_Automation.TestCases.Tableau
             }
             catch (Exception e)
              {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 driver.Quit();
             }
         }

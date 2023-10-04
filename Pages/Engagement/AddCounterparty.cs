@@ -1130,6 +1130,24 @@ namespace SF_Automation.Pages.Engagement
             return message;
         }
 
+        //Validate if 2nd company still exists
+        public string Validate2ndCompanyPostDeletion()
+        {
+            try
+            {
+                Thread.Sleep(5000);
+                string name = driver.FindElement(tblCompanies).Text;
+                return name;
+
+            }
+            catch (Exception)
+            {
+                return "2nd company does not exist";
+            }
+        }
+
+        //Click Edit Bids button
+        public void ClickEditBidsButton()
         //Clik Edit bid button
         public string ClickEditBidAndValidateNewTab()
         {

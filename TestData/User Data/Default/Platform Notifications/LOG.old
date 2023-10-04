@@ -1,3 +1,6 @@
-2022/12/27-15:51:48.334 4218 Reusing MANIFEST C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Platform Notifications/MANIFEST-000001
-2022/12/27-15:51:48.335 4218 Recovering log #3
-2022/12/27-15:51:48.336 4218 Reusing old log C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\Default\Platform Notifications/000003.log 
+<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:f4296186b0ec9f946c167fc9dc538b52d2385e38d4bee666287e0bda31063980
+size 359
+=======
+>>>>>>> Branch-Vijay

@@ -24,6 +24,7 @@ namespace SF_Automation.Pages.Opportunity
         By colRating = By.CssSelector("tr[class*='relationshipRow'] > td:nth-child(4)>select");
         By colName = By.XPath("//th[text() = 'Contact Name']");
 
+        By radioAllContactsLV = By.XPath("//span[@id='j_id0:j_id1']/form/table/tbody/tr[3]//table/tbody/tr/td/input[@checked='checked']");
         public void ClickManageRelationships()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnManageRelationships, 60);
@@ -135,6 +136,11 @@ namespace SF_Automation.Pages.Opportunity
                 resultList = result.ToString();
             }
             return resultList;
+        }
+        public bool ValidateRadiobuttonLV()
+        {
+            bool value = driver.FindElement(radioAllContactsLV).Selected;
+            return value;
         }
     }
 }

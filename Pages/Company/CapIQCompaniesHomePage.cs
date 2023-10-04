@@ -3,7 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace SF_Automation.Pages.Company
 {
@@ -19,7 +21,7 @@ namespace SF_Automation.Pages.Company
         By lnkCapIQCompany = By.CssSelector("div[id*='a036w0000007ZJe'] > a > span");
         By btnAddSalesforceCompany = By.CssSelector("td[id='topButtonRow'] > input[value='Add Salesforce Company']");
         By lblCompanyEditPage = By.XPath("//h2[normalize-space()='Create a New Salesforce Company from CapIQ Data']");
-        By lnkCapIQCompanyName = By.XPath("//a[normalize-space()='!A Test CapIQ Company']");
+        By lnkCapIQCompanyName = By.XPath("//div[@id='a036t000004QZlt_NAME']/a");
         By valCompanyType = By.CssSelector("option[value='012i0000000tEhFAAU']");
         By valCompanyName = By.CssSelector("input[id*='j_id28:j_id36']");
         By valCompanyCity = By.CssSelector("input[id*='j_id28:j_id39']");
@@ -43,7 +45,12 @@ namespace SF_Automation.Pages.Company
         By tblResults = By.CssSelector("div[class='x-panel-bwrap']");
         By txtPotentialMatch = By.CssSelector("div[class='messageText']");
         By btnCancelAndBack = By.CssSelector("td[class*='pbButtonb'] > input[value='Cancel and Back']");
-        
+
+        By btnNewCapIQCompany = By.CssSelector("input[name='new']");
+        By btnSaveCapIQCompany = By.CssSelector("input[name='save']");
+        By comboIndustryType = By.CssSelector("select[id*='GBVBf']");
+        By comboIndustryTypeOptions = By.CssSelector("select[id*='GBVBf'] option");
+
         // To Search for CapIQ Company
         public string SearchCapIQCompany(string companyName)
         {
@@ -81,7 +88,7 @@ namespace SF_Automation.Pages.Company
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 return "No record found";
             }
         }
@@ -142,7 +149,7 @@ namespace SF_Automation.Pages.Company
         // To get company detail page heading
         public string GetCompanyDetailHeading()
         {
-            //WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyDetail, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyDetail, 60);
             string headingCompanyDetail = driver.FindElement(lblCompanyDetail).Text;
             return headingCompanyDetail;
         }
@@ -174,6 +181,40 @@ namespace SF_Automation.Pages.Company
         public bool ValidateCapIQCompanyList()
         {
             return CustomFunctions.IsElementPresent(driver, CapIQList);
-        }        
+        }
+        public void ClickCapIQCompanyModule()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, shwAllTab, 20);
+            driver.FindElement(shwAllTab).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCapIQCompanies, 20);
+            driver.FindElement(lnkCapIQCompanies).Click();
+
+
+
+        }
+
+
+
+        public bool IsIndustryGroupAvailableOnNewCapIQCompanyPage(string industryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCapIQCompany, 10);
+            driver.FindElement(btnNewCapIQCompany).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCapIQCompany, 20);
+
+            bool isFound = false;
+            driver.FindElement(comboIndustryType).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            return isFound;
+        }
     }
 }
