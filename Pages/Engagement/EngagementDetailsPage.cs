@@ -120,7 +120,7 @@ namespace SF_Automation.Pages.Engagement
         By comboJobType = By.CssSelector("select[id*= '65s']");
         By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id4_ileinner'] > a");
         By comboLOB = By.CssSelector("select[id*='LoE']");
-        By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
+      
         By lnkClient = By.XPath("//*[text()='Client']/.. //td[2]//div//a");
         By lnkSecondContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
 
@@ -150,44 +150,35 @@ namespace SF_Automation.Pages.Engagement
         By txtSecWomenLedFR = By.CssSelector("div[id*='PL_ep_j_id0_j_id4']>h3");
        
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
-        By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFNj_id0_j_id4_ileinner'] > img");
-        By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFN']");
-        By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
-        By btnGo = By.XPath("//input[@type='submit']");
-        By btnNewEngagementSector = By.XPath("//input[@value='New Engagement Sector']");
+      
+        By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFN']");       
+       
+       
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
-        By imgCoverageSectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
-        By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
-        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
-        By btnSaveEngagementSector = By.XPath("(//input[@title='Save'])[1]");
-        By btnDeleteEngagementSector = By.XPath("(//input[@title='Delete'])[1]");
-        By valEngagementSectorName = By.XPath("//td[contains(text(),'Engagement Sector')]/following::div[1]");
-        By linkEngagementName = By.XPath("(//td[contains(text(),'Engagement')])[2]/../td[2]/div/a");
-        By linkSectorName = By.XPath("//*/th[contains(text(),'Engagement Sector')]/following::tr/th/a");
+        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']"); 
+             
+        
+        
         By txtCoverageType = By.CssSelector("input[id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
         By txtPrimarySector = By.CssSelector("input[id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
         By txtSecondarySector = By.CssSelector("input[id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
         By txtTertiarySector = By.CssSelector("input[id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By linkShowAllResults = By.XPath("//a[contains(text(),'Show all results')]");
-        By linkEngagementSector = By.XPath("//*/span[contains(text(),'Engagement Sectors')]");
-        By inputCoverageType = By.XPath("//input[@id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
-        By inputPrimarySector = By.XPath("//input[@id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
-        By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
-        By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
-        By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
-        By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");
-        By lblHeaderText = By.XPath("//h1/span[2]");
-        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
+        
+        
+       
+       
+        
+       
+       
+       
+       
         //By btnSendEmail = By.CssSelector("input[value='Send Email']");
-        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
-        By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
-        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
-        By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
+        
         By titlePage = By.CssSelector("h2[class='pageDescription']");
         By titleOppDetails = By.CssSelector("div[id*='j_id55'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
-        By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
+        
 
         By textEngagementDetailEngagementName = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By textEngagementDetailEngagementNumber = By.XPath("//p[@title='Engagement Number']//following-sibling::p//slot//lightning-formatted-text");
@@ -205,10 +196,13 @@ namespace SF_Automation.Pages.Engagement
         By valAddedKeyCred = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) >th>a");
         By valAddedKeyCredType = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) > td:nth-child(3)");
         By lnkShowMore = By.CssSelector("div[id*='DbX_body'] > div > a:nth-child(1)");
-        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
-        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
-        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
+        //By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
+        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");        
+        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");       
+        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");       
+
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
+
         By btnNewEngAdditionalClientSub = By.CssSelector("input[value='New Engagement Client/Subject']");
         By btnAdditionalClientSub = By.XPath("//div[2]/span/lightning-button/button");
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
@@ -220,9 +214,11 @@ namespace SF_Automation.Pages.Engagement
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
         By valType = By.XPath("//button[contains(@id,'button-16')]");
         By valSelectedType = By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
+        //By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
+
         By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]/div[2]/span/slot/lightning-formatted-text");
         By valTotalDebtMM = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
-
+        //By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
         By btnViewCounterparties = By.XPath("//button[@name='Engagement__c.ViewCounterparties']");
         By btnClose = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/div[2]/button");
         By btnDetails = By.XPath("//tr/td[1]/div/div[1]/lightning-formatted-rich-text/span/a");
@@ -238,19 +234,21 @@ namespace SF_Automation.Pages.Engagement
         By valCreatorL = By.XPath("//dt[text()='Creator:']/ancestor::dl/dd[2]/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span");
         By tabInternalTeam = By.XPath("//a[text()='Internal Team']");
         By txtMember = By.XPath("//div[text()='Member']");
-        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
-        By btnSaveEngagementSector = By.XPath("(//input[@title='Save'])[1]");
+        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");  
+        By btnSaveEngagementSector = By.XPath("(//input[@title='Save'])[1]"); 
         By txtERPLegalEntity = By.CssSelector("input[id*='M0eec'][type='text']");
-        By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
-        By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
-        By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");
-        By lblHeaderText = By.XPath("//h1/span[2]");
-        By linkSectorName = By.XPath("//*/th[contains(text(),'Engagement Sector')]/following::tr/th/a");
+        //By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
+        By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFNj_id0_j_id4_ileinner'] > img");
+        //By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
+        By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");       
+        By lblHeaderText = By.XPath("//h1/span[2]");      
+        By linkSectorName = By.XPath("//*/th[contains(text(),'Engagement Sector')]/following::tr/th/a");        
         By btnDeleteEngagementSector = By.XPath("(//input[@title='Delete'])[1]");
-        By linkEngagementName = By.XPath("(//td[contains(text(),'Engagement')])[2]/../td[2]/div/a");
-        By btnNewEngagementSector = By.XPath("//input[@value='New Engagement Sector']");
+        By linkEngagementName = By.XPath("(//td[contains(text(),'Engagement')])[2]/../td[2]/div/a");       
+        By btnNewEngagementSector = By.XPath("//input[@value='New Engagement Sector']");      
         By valEngagementSectorName = By.XPath("//td[contains(text(),'Engagement Sector')]/following::div[1]");
         By imgCoverageSectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
+
         By valNoOfContract = By.CssSelector("div[id*='M0ecq'] > table > tbody > tr");
         By lnkBillTo = By.CssSelector("a[id*='A00000M0ebc']");
         By linkEngagementSector = By.XPath("//*/span[contains(text(),'Engagement Sectors')]");
@@ -258,10 +256,10 @@ namespace SF_Automation.Pages.Engagement
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By valEnggNumberSuffix = By.CssSelector("div[id*='M0eeaj']");
         By inputCoverageType = By.XPath("//input[@id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
-        By inputPrimarySector = By.XPath("//input[@id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
-        By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
-        By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
-        By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
+        By inputPrimarySector = By.XPath("//input[@id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");       
+        By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");    
+        By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");        
+        By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");        
         By btnAddOppContact = By.CssSelector("input[name='new_external_team']");
         By comboRole = By.CssSelector("select[name*='D7Qcn']");
         By comboParty = By.CssSelector("select[name*='M0eMp']");
@@ -279,7 +277,7 @@ namespace SF_Automation.Pages.Engagement
         By subTabCST = By.XPath("//ul/li[@title='CST Questionnaire Details']/a[@data-tab-value='flexipage_tab20']");
         By subTabBilling = By.XPath("//ul/li[@title='Billing Comments']/a[@data-tab-value='flexipage_tab22']");
         By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div[1]/div[1]/div/button");
@@ -390,7 +388,6 @@ namespace SF_Automation.Pages.Engagement
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
             
-        By valEngContact = By.XPath("//h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/div/button/lightning-primitive-icon");
         By btnCloseEngContact = By.XPath("//records-record-edit-error-header/lightning-button-icon");
@@ -566,7 +563,9 @@ namespace SF_Automation.Pages.Engagement
 
 
         By valEngInternalMember = By.CssSelector("[action*='HL_EngagementInternalTeamView'] table tbody tr.dataRow.even.first.last label");
-        By valEngContact = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
+        //By valEngContact = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
+        By valEngContact = By.XPath("//h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+
         By iconExpandMoreButon = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By iconCSTTabInline = By.XPath("(//span[text()='CST Questionnaire']/following::div/button)[1]");
         By DropdownIconCST = By.XPath("//button[contains(@aria-label,'CST Questionnaire')]");
@@ -678,7 +677,7 @@ namespace SF_Automation.Pages.Engagement
         By tabRelated = By.XPath("//li[@class='slds-tabs_default__item']//a[@data-label='Related']");
         By linkNew = By.XPath("//a[@title='New']");
         By textArea = By.XPath("//textarea[@role='textbox']");
-        By btnSaveComments = By.XPath("//button[@title='Save']");
+        //By btnSaveComments = By.XPath("//button[@title='Save']");
 
         By txtNotesTitle = By.XPath("//div[contains(@class,'notesEditPanel')]//input");
         By txtNotes = By.XPath("//div[@aria-label='Compose text']");
@@ -2708,25 +2707,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, titleBillingForm, 70);
             string title = driver.FindElement(titleBillingForm).Text;
             return title;
-        }
-
-        public string NavigateToCFEngagementSummaryPage()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCFEngagementSummary, 120);
-            driver.FindElement(btnCFEngagementSummary).Click();
-
-
-
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(10000);
-
-
-
-            WebDriverWaits.WaitUntilEleVisible(driver, lblHeaderText, 140);
-            string h1Text = driver.FindElement(lblHeaderText).Text;
-            Thread.Sleep(10000);
-            return h1Text;
-        }
+        }       
        
         public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string file, string covSectorDependencyName)
         {
@@ -4305,42 +4286,7 @@ namespace SF_Automation.Pages.Engagement
             return result;
         }
 
-        public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string file, string covSectorDependencyName)
-        {
-            bool result = false;
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;             //Click Edit button on Company Sector detail page 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditCompCoverageSector, 120);
-            driver.FindElement(btnEditCompCoverageSector).Click();
-            Thread.Sleep(2000);             //Click on Coverage Sector Dependency LookUp icon
-            WebDriverWaits.WaitUntilEleVisible(driver, imgCoverageSectorDependencyLookUp, 120);
-            driver.FindElement(imgCoverageSectorDependencyLookUp).Click();
-            Thread.Sleep(2000);             // Switch to second window
-            CustomFunctions.SwitchToWindow(driver, 1);
-            Thread.Sleep(2000);             //Enter search frame
-            WebDriverWaits.WaitUntilEleVisible(driver, By.Id("searchFrame"));
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='searchFrame']")));
-            Thread.Sleep(2000);             //Clear Search box
-            driver.FindElement(txtSearchBox).Clear(); driver.SwitchTo().DefaultContent();             //Enter results frame
-            WebDriverWaits.WaitUntilEleVisible(driver, By.Id("resultsFrame"));
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
-            Thread.Sleep(2000);             //Click on Show Filters link
-            //driver.FindElement(linkShowFilters).Click();             //Enter filter values
-            driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));
-            driver.FindElement(inputPrimarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 2));
-            driver.FindElement(inputSecondarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 3));
-            driver.FindElement(inputTertiarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 4));             //Click on Apply filters button
-            driver.FindElement(btnApplyFilters).Click();
-            Thread.Sleep(2000); if (driver.FindElement(linkCoverageSectorDependencyName).Text == covSectorDependencyName)
-            {
-                //Select the desired dependency name from the result
-                driver.FindElement(linkCoverageSectorDependencyName).Click();
-                Thread.Sleep(4000);                 //Switch back to original window
-                CustomFunctions.SwitchToWindow(driver, 0); result = true;
-            }
-            return result;
-        }
+      
         public void ClickFirstContractLink(int row)
         {
             Thread.Sleep(3000);
@@ -5036,29 +4982,6 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
-        //Validate if Compliance sub tab is editable after clicking pencil icon
-        public string ValidateComplianceSubTabIsEditable()
-        {
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, linkEngagementName, 120);
-            driver.FindElement(linkEngagementName).Click();
-            Thread.Sleep(2000);
-        }
-
-        public void SaveNewEngagementSectorDetails()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveEngagementSector, 120);
-            driver.FindElement(btnSaveEngagementSector).Click();
-            Thread.Sleep(2000);
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditBeneficial, 150);
-            driver.FindElement(lnkEditBeneficial).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
-            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
-            return value;
-        }
-
         //Validate if Legal Matters sub tab is editable after clicking pencil icon
         public string ValidateLegalMattersSubTabIsEditable()
         {
@@ -5156,55 +5079,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(valAddedComment).Text;
             return name;
         }
-
-        //Validate delete functionality of existing comment
-        public string ValidateDeleteFunctionalityOfEngComment()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, imgCoverageSectorDependencyLookUp, 120);
-            driver.FindElement(imgCoverageSectorDependencyLookUp).Click();
-            Thread.Sleep(2000);
-
-            // Switch to second window
-            CustomFunctions.SwitchToWindow(driver, 1);
-            Thread.Sleep(2000);
-
-            //Enter search frame
-            WebDriverWaits.WaitUntilEleVisible(driver, By.Id("searchFrame"));
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='searchFrame']")));
-            Thread.Sleep(2000);
-
-            //Enter dependency name
-            driver.FindElement(txtSearchBox).SendKeys(covSectorDependencyName);
-            driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
-
-            driver.SwitchTo().DefaultContent();
-
-            //Enter results frame & click on the result
-            WebDriverWaits.WaitUntilEleVisible(driver, By.Id("resultsFrame"));
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
-            Thread.Sleep(2000);
-            driver.FindElement(linkCoverageSectorDependencyName).Click();
-            Thread.Sleep(4000);
-
-            //Switch back to original window
-            CustomFunctions.SwitchToWindow(driver, 0);
-            Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,250)");
-            Console.WriteLine("scrolled down");
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewDel, 150);
-            driver.FindElement(btnViewDel).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteComment, 160);
-            driver.FindElement(lnkDeleteComment).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 170);
-            driver.FindElement(btnConfirmDelete).Click();
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteComment, 180);
-            string message = driver.FindElement(msgDeleteComment).Text;
-            return message;
-        }
+  
 
         //Add Engagement Comments
         public string AddEngCommentaAndValidate()
@@ -5223,8 +5098,7 @@ namespace SF_Automation.Pages.Engagement
             string commentType = driver.FindElement(valAddedCommentType).Text;
             return commentType;
         }
-        
-        public bool VerifyIfEngagementSectorQuickLinkIsDisplayed()
+       
 
         //Add Financials.
         public string AddFinancialsAndValidate()
@@ -5814,7 +5688,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 return false;
             }
-
+        }
        
         //Validate displayed reports
         public bool VerifyReportNamesForNonDealMemberClassic()
@@ -5838,17 +5712,7 @@ namespace SF_Automation.Pages.Engagement
             }
             driver.FindElement(btnReturnToEngLightning).Click();            
             return isSame;
-        }
-        //Validate displayed reports for deal team member
-        public bool VerifyReportNamesForDealTeamMemberLightning()
-        {
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
-            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
-            var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF","Potential Counterparty List - Client Copy","Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
-            bool isSame = true;
-
-        }
+        }       
         public bool IsAssociatedEngFieldPresentL()
         {
             try
@@ -5861,8 +5725,37 @@ namespace SF_Automation.Pages.Engagement
                 return false;
             }
 
+        }
 
-
+        //Validate if Compliance sub tab is editable after clicking pencil icon
+        public string ValidateComplianceSubTabIsEditable()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditBeneficial, 150);
+            driver.FindElement(lnkEditBeneficial).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
+            string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
+            return value;
+        }
+        //Validate delete functionality of existing comment
+        public string ValidateDeleteFunctionalityOfEngComment()
+        {
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,250)");
+            Console.WriteLine("scrolled down");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewDel, 150);
+            driver.FindElement(btnViewDel).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteComment, 160);
+            driver.FindElement(lnkDeleteComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 170);
+            driver.FindElement(btnConfirmDelete).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteComment, 180);
+            string message = driver.FindElement(msgDeleteComment).Text;
+            return message;
         }
         public bool IsAssociatedEngFieldEditable()
         {
@@ -6169,6 +6062,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnReturnToOpporEng).Click();
             return memberCount;
         }
+
         public void UpdateJobType(string oldJobType, string newJobType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
@@ -6185,21 +6079,6 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
-            if (expectedValue.Length != actualValue.Length)
-            {
-                return !isSame;
-            }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
-            {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
-                {
-                    isSame = false;
-                    break;
-                }
-            }
-            driver.FindElement(btnReturnToEngLightning).Click();
-            driver.SwitchTo().DefaultContent();
-            return isSame;
         }
 
         //Validate displayed reports for deal team member

@@ -31,7 +31,7 @@ namespace SF_Automation.Pages
         By btnAddSubject = By.Id("newSubject");
         By titleHLTeam = By.CssSelector("h2[class='mainTitle']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+       
         By btnSave = By.CssSelector("input[value='Save']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
@@ -166,6 +166,7 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
         By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
+        //By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
         By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
         By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
         By listStaff2 = By.XPath("(/html/body/ul/li)[2]/a");        
@@ -301,9 +302,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
             Thread.Sleep(5000);
-        }
-
-        public void EnterStaffDetailsMultipleRows(string file, int row)
+        }       
 
 
         //To enter team member details
@@ -366,12 +365,6 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             driver.FindElement(btnReturnToOppor).Click();
         }
 
-        public void ClickContinue()
-        {
-            //Calling wait function--Continue button     
-            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue);
-            driver.FindElement(btnContinue).Submit();
-        }
 
         public string ValidateAdditionalClientSubjectTitle()
         {
@@ -510,26 +503,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             IWebElement titleHLInternalTeam = driver.FindElement(titleHLTeam);
             return titleHLInternalTeam.Text;
         }
-
-        //To enter team member details
-        public void EnterStaffDetails(string file, int row)
-        {
-            Thread.Sleep(3000);
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
-            driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
-            driver.FindElement(checkInitiator).Click();
-            driver.FindElement(btnSave).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
-            driver.FindElement(btnReturnToOppor).Click();
-        }
+       
 
         //To enter team member details
         public void EnterStaffDetails(string file)
@@ -2016,57 +1990,7 @@ By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
             driver.FindElement(btnSave).Click(); WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
-
-        public void EnterMultipleStaffDetails(string file, int row, int row1, string recordType)
-        {
-            Thread.Sleep(3000);
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file; string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
-            string valStaff1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row1, 1); WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
-            driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
-            driver.FindElement(checkInitiator).Click();
-            driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000); WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
-            driver.FindElement(txtStaff).SendKeys(valStaff1);
-            Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff2, valStaff1);
-            Thread.Sleep(2000); if (row1 == 3 && recordType == "CF")
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern1, 120);
-                driver.FindElement(checkIntern1).Click();
-                driver.FindElement(btnSave).Click();
-                Thread.Sleep(4000);
-            }
-            else if (row1 == 3 && recordType == "FVA")
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
-                driver.FindElement(checkIntern).Click();
-                driver.FindElement(btnSave).Click();
-                Thread.Sleep(4000);
-            }
-            else if (row1 == 3 && recordType == "FR")
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
-                driver.FindElement(checkIntern).Click();
-                driver.FindElement(btnSave).Click();
-                Thread.Sleep(4000);
-            }
-            else
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 120);
-                driver.FindElement(checkInitiator).Click();
-                driver.FindElement(btnSave).Click();
-                Thread.Sleep(4000);
-            }
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
-            driver.FindElement(btnReturnToOppor).Click();
-            Thread.Sleep(2000);
-        }
+       
     }
 }
 

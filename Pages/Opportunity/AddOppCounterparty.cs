@@ -50,8 +50,8 @@ namespace SF_Automation.Pages.Opportunity
         By checkRow = By.CssSelector("#dtable > div.fix-column > div.tbody > div > div > div:nth-child(1) > input.targetCheck");
         By btnDelete = By.CssSelector("input[value='Delete']");
         By msgText = By.CssSelector("span[id*=':f']> div");
-        By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']"); 
-        By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
+        //By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']"); 
+        //By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
 
         //Lightning
         By btnViewCounterpartiesL = By.XPath("//button[text()='View Counterparties']");
@@ -91,10 +91,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             return By.XPath($"//button[contains(text(),'{buttonName}')]");
         }
-        private By _subFilterEle(string sectionName)
-        {
-            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input//div//input");
-        }
+        
         private By _counterpartyCompanyEle(string companyName)
         {
             return By.XPath($"//article//table//div//*[@title='{companyName}']");
@@ -108,8 +105,8 @@ namespace SF_Automation.Pages.Opportunity
             return By.XPath($"//button[contains(@title,'{tabText}')]");
         }
         By fitersSectionsCounterparties = By.XPath("//h2[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']");
-        By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");
-        By buttonSearch = By.XPath("//section[@class='slds-accordion__section slds-is-open']//button[@title='Search'][normalize-space()='Search']");
+        //By optionCompanyListElement = By.XPath("(//div[contains(@class,'slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open')]//div[@role='option'])[1]");
+        //By buttonSearch = By.XPath("//section[@class='slds-accordion__section slds-is-open']//button[@title='Search'][normalize-space()='Search']");
         By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
         By checkBoxSelectItem = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/td)[1]");
         By buttonAddCunterpartyToOpportunity = By.XPath("//button[@title='counterparty']");
@@ -234,7 +231,7 @@ namespace SF_Automation.Pages.Opportunity
         By loader = By.XPath("//b[contains(text(),'Loading')]");
         By headerCounterparyPage = By.XPath("//h1//div[text()='Engagement Counterparty']");
         By txtFromList = By.XPath("(//div[contains(@class, 'slds-scrollable_y')]//table/tbody/tr/th)[1]");
-        By titleNewTab = By.XPath("//h1/div");
+        
 
 
 
@@ -644,27 +641,13 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(_counterpartyButtons("Add Counterparties")).Click();
             Thread.Sleep(4000);
         }
-
-        private By _counterpartyButtons(string buttonName)
-        {
-            return By.XPath($"//button[contains(text(),'{buttonName}')]");
-        }
+       
         public Boolean IsCounterpartyButtonsDisplayed(string buttonName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyButtons(buttonName), 60);
             return driver.FindElement(_counterpartyButtons(buttonName)).Displayed;
-        }
-
-        private By _closeCurrentTabEle(string tabText)
-        {
-            return By.XPath($"//button[contains(@title,'{tabText}')]");
-        }
-
-
-        private By _counterpartyCompanyEle(string companyName)
-        {
-            return By.XPath($"//div[@title='{companyName}']");
-        }
+        }    
+                     
 
        
         public int VerifyTabCountOnClickCompanyLink()
@@ -1083,11 +1066,7 @@ namespace SF_Automation.Pages.Opportunity
             catch (Exception ex) { return false; }
         }
 
-        private By _comboTypeCounterpartyOptionEle(string value)
-        {
-            return By.XPath($"//span[@title='{value}']");
-        }
-
+       
         //Validate View Counterparties button
         public string ValidateAddCounterpartiesButtonL()
         {

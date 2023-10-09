@@ -1145,9 +1145,7 @@ namespace SF_Automation.Pages.Engagement
                 return "2nd company does not exist";
             }
         }
-
-        //Click Edit Bids button
-        public void ClickEditBidsButton()
+       
         //Clik Edit bid button
         public string ClickEditBidAndValidateNewTab()
         {
