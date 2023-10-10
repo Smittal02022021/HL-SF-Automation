@@ -45,7 +45,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
-        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
         {

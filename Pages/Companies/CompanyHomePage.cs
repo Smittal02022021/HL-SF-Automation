@@ -33,7 +33,7 @@ namespace SF_Automation.Pages
         By txtNewCompanyName = By.CssSelector("input[name*='AccountName']");
         By btnSave = By.CssSelector("input[value='Save']");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         // To Search Company
         public string SearchCompany(string file, string CompanyType)

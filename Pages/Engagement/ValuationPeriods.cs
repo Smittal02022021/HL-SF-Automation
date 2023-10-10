@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Engagement
         By comboToolUtilized = By.CssSelector("select[name*=':AutomationToolUtilizedId']");
         By txtReportFee = By.CssSelector("input[name*='id68']");
         By btnImportPositions = By.CssSelector("input[value='Import Positions']");
-        By valPeriod = By.CssSelector("td[id*=':j_id182'] > a");
+        By valPeriod = By.CssSelector("td[id*=':j_id181'] > a");
         By btnAddTeamMember = By.CssSelector("input[value='Add New Team Member']");
         By btnSaveTeamMember = By.CssSelector("input[value='Save Team Members']");
         By btnEdit = By.CssSelector("input[value='Edit']");
