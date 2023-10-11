@@ -64,10 +64,10 @@ namespace SF_Automation.Pages
         By chkConvertedtoEng = By.CssSelector("input[name*='FaP8F']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        //By chkUpPrincipal = By.CssSelector("input[name*=':2:j_id43']");
-        //By chkUpSeller = By.CssSelector("input[name*=':1:j_id43']");
-        //By chkUpManager = By.CssSelector("input[name*=':3:j_id43']");
-        //By chkAdmin = By.CssSelector("input[name*='9:j_id65']");
+        By chkUpPrincipal1 = By.CssSelector("input[name*=':2:j_id43']");
+        By chkUpSeller1 = By.CssSelector("input[name*=':1:j_id43']");
+        By chkUpManager1 = By.CssSelector("input[name*=':3:j_id43']");
+        By chkAdmin1 = By.CssSelector("input[name*='9:j_id65']");
         By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id43']");
         By chkUpSeller = By.CssSelector("input[name*=':2:j_id43']");
         By chkUpManager = By.CssSelector("input[name*=':4:j_id43']");
@@ -90,8 +90,8 @@ namespace SF_Automation.Pages
         By linkDel = By.CssSelector("td[class='actionColumn']>a[title='Delete - Record 1 - View']");
         By btnClone = By.CssSelector("input[title='Clone']");
         //By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
-        //By chkUpAssociate = By.CssSelector("input[name*=':4:j_id43']");
-        //By chkUpAnalyst = By.CssSelector("input[name*=':5:j_id43']");
+        By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id43']");
+        By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id43']");
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
         By chkUpMgr = By.CssSelector("input[name*='1:j_id43']");
         By chkUpAssociate = By.CssSelector("input[name*=':5:j_id43']");
@@ -214,7 +214,7 @@ namespace SF_Automation.Pages
         By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
         By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
         By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
         By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
         By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
         By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
@@ -255,7 +255,7 @@ namespace SF_Automation.Pages
         By comboAdditionalSubject = By.CssSelector("select[name*='FmBzb']");
         By valWomenLed = By.CssSelector("div[id*='NgWj_id0_j_id55_ileinner']");
         By txtWomenLed = By.CssSelector("div:nth-child(27)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
-        By txtWomenLedFVA = By.CssSelector("div:nth-child(27)>table>tbody>tr:nth-child(3)>td:nth-child(3)");
+        By txtWomenLedFVA = By.CssSelector("div:nth-child(29)>table>tbody>tr:nth-child(3)>td:nth-child(3)");
         By txtWomenLedFR = By.CssSelector("div:nth-child(23)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
@@ -532,6 +532,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By lnkReqEngL = By.XPath("//button[@class='slds-button slds-button_icon-border-filled']");
         By valOppStatus = By.XPath("//li[1]/article/div/div[2]/ul/li[2]/div/div[2]/span");
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+
+        By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
 
         private By _ActivitySubject(string activitySubject)
         {
@@ -1642,14 +1644,14 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnEdit).Click();
             driver.FindElement(chkInternalTeamPrompt).Click();
             driver.FindElement(btnSave).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 70);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal1, 70);
 
-            driver.FindElement(chkUpPrincipal).Click();
-            driver.FindElement(chkUpSeller).Click();
-            driver.FindElement(chkUpManager).Click();
+            driver.FindElement(chkUpPrincipal1).Click();
+            driver.FindElement(chkUpSeller1).Click();
+            driver.FindElement(chkUpManager1).Click();
             //driver.FindElement(chkUpMgr).Click();
-            driver.FindElement(chkUpAssociate).Click();
-            driver.FindElement(chkUpAnalyst).Click();
+            driver.FindElement(chkUpAssociate1).Click();
+            driver.FindElement(chkUpAnalyst1).Click();
             driver.FindElement(chkCheckedInitiator).Click();
 
             driver.FindElement(txtStaff).SendKeys("Sonika Goyal");
@@ -5714,17 +5716,23 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(comboTASServices).SendKeys("Buyside AFR");
             driver.FindElement(btnSave).Click();
         }
+        
+        
+
         public bool IsLinkedActivityDisplayed(string activity)
         {
             Thread.Sleep(5000);
             try
+
             {
+                WebDriverWaits.WaitUntilEleVisible(driver, tabOppActivity, 20);
+                driver.FindElement(tabOppActivity).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, _ActivitySubject(activity), 20);
                 return driver.FindElement(_ActivitySubject(activity)).Displayed;
             }
             catch { return false; }
         }
-       
+
         public int AddOppMultipleDealTeamMembers(string RecordType, string role, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");

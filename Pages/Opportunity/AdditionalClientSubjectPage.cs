@@ -29,7 +29,7 @@ namespace SF_Automation.Pages
         By btnSaveClose = By.CssSelector("input[value='Save & Close']");
         By btnAddClient = By.Id("newClient");
         By btnAddSubject = By.Id("newSubject");
-        By titleHLTeam = By.CssSelector("h2[class='mainTitle']");
+        By titleHLTeam = By.CssSelector("h1 b");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
        
         By btnSave = By.CssSelector("input[value='Save']");

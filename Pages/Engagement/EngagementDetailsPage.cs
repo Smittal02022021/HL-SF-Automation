@@ -739,6 +739,8 @@ namespace SF_Automation.Pages.Engagement
         By textWomenLedLE = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(11) > td:nth-child(1)");
         By txtWomenLedSell = By.CssSelector("div[id*='pBs_ep_j_id0_j_id4']>h3");
 
+        By tabEngActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab13__item']");
+
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -6034,16 +6036,21 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
 
+
         public bool IsLinkedActivityDisplayed(string activity)
         {
             Thread.Sleep(5000);
             try
             {
+                WebDriverWaits.WaitUntilEleVisible(driver, tabEngActivity, 20);
+                driver.FindElement(tabEngActivity).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, _ActivitySubject(activity), 20);
                 return driver.FindElement(_ActivitySubject(activity)).Displayed;
             }
             catch { return false; }
         }
+
+
         public int GetInernalTeamMembersCount()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
