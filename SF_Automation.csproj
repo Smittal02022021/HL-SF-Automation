@@ -672,6 +672,7 @@
     <Compile Include="TestCases\ERPtoOracle\TS28_TS31_VerifyContractDetailsWithNonUsStaffAndUSLegalEntity_Part2.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity_Part2.cs" />
+    <Compile Include="TestCases\EventExpense\T2279_TMTI0036293_91_92_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTI0075756_75765_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTI0075758_75760_75767_75769_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
@@ -711,7 +712,13 @@
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTI0055401_55390_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
+    <Compile Include="TestCases\Opportunities\T1432_TMTT0024858_TMTT0030610_TMTT0035436_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
