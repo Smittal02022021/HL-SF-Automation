@@ -409,6 +409,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagement, 80);
             driver.FindElement(tabEngagement).Click();
+        }
 
         public string ValidateEngUnderHLBanker()
         {

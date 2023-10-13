@@ -127,7 +127,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User is redirected Opportunities Discussed: " + opportunitiesDiscussed + " Details page");
 
 
-                randomPages.ClickActivityTab();
+                //randomPages.ClickActivityTab();
                 bool isActivityMapped=opportunityDetailsPage.IsLinkedActivityDisplayed(activitySubject);
                 Assert.IsTrue(isActivityMapped, "Verify Activity is mapped with Opportunity Discussed ");
                 extentReports.CreateStepLogs("Passed", "Activity is mapped with Opportunity Discussed: "+ opportunitiesDiscussed+" ");
@@ -142,7 +142,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User is redirected Engagements Discussed: " + engagementsDiscussed + " Details page");
 
 
-                randomPages.ClickActivityTab();
+                //randomPages.ClickActivityTab();
                 isActivityMapped = engagementDetailsPage.IsLinkedActivityDisplayed(activitySubject);
                 Assert.IsTrue(isActivityMapped, "Verify Activity is mapped with Engagements Discussed ");
                 extentReports.CreateStepLogs("Passed", "Activity is mapped with Engagements Discussed: " + engagementsDiscussed + " ");

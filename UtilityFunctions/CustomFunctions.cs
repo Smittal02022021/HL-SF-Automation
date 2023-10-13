@@ -12,10 +12,10 @@ using System.Threading;
 
 namespace SF_Automation.UtilityFunctions
 {
-    class CustomFunctions :BaseClass
+    class CustomFunctions : BaseClass
     {
         //Read Json file
-        public static string ReadJson(string key) 
+        public static string ReadJson(string key)
         {
             StreamReader file = File.OpenText("");
             JsonTextReader reader = new JsonTextReader(file);
@@ -109,7 +109,7 @@ namespace SF_Automation.UtilityFunctions
             return decimal.Parse(Regex.Match(value.Replace(",", "").Trim(), @"-?[0-9]*\.?[0-9]+").Value);
         }
 
-       //Enter Text Function
+        //Enter Text Function
         public static void EnterText(IWebDriver driver, IWebElement element, string value)
         {
             element.SendKeys(value);
@@ -122,7 +122,7 @@ namespace SF_Automation.UtilityFunctions
         }
 
         //Select by Value Function
-        public static void SelectByValue(IWebDriver driver, IWebElement element,string value)
+        public static void SelectByValue(IWebDriver driver, IWebElement element, string value)
         {
             SelectElement select = new SelectElement(element);
             select.SelectByValue(value);
@@ -145,9 +145,9 @@ namespace SF_Automation.UtilityFunctions
         }
 
         //Action Click Function
-        public static void ActionClick(IWebDriver driver, IWebElement element,int timeout=20 )
+        public static void ActionClick(IWebDriver driver, IWebElement element, int timeout = 20)
         {
-           new Actions(driver).MoveToElement(element).Click().Build().Perform();
+            new Actions(driver).MoveToElement(element).Click().Build().Perform();
         }
 
         //Generate random value
@@ -194,15 +194,7 @@ namespace SF_Automation.UtilityFunctions
                 }
             }
         }
-        //To Upload File in LV
-        public static void FileUpload(IWebDriver driver, string filePath)
-        {
-            By btnUploadFile = By.XPath("//input[@type='file']");
-            By btnDone = By.XPath("//span[contains(text(),'Done')]"); driver.FindElement(btnUploadFile).SendKeys(filePath);
-            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
-            Thread.Sleep(5000);
-            driver.FindElement(btnDone).Click();
-        }
+      
         //Select value from drop down based on entered name without li tag
         public static void SelectValueWithXpath(string Name)
         {
@@ -213,7 +205,7 @@ namespace SF_Automation.UtilityFunctions
         {
             return driver.FindElements(by).Count != 0;
         }
-       
+
         public static IWebElement SelectValueFromDropdown(IWebDriver driver, string option)
         {
             return driver.FindElement(By.XPath($"//a[normalize-space()='{option}']"));
@@ -336,11 +328,11 @@ namespace SF_Automation.UtilityFunctions
             //Actions builder = new Actions(driver);
             new Actions(driver).MoveToElement(element).Build().Perform();
         }
-        
+
         public static void CloseWindow(IWebDriver driver, int value)
         {
             driver.SwitchTo().Window(driver.WindowHandles[value]).Close();
-        }    
+        }
 
         public static void PageReload(IWebDriver driver)
         {
@@ -378,16 +370,17 @@ namespace SF_Automation.UtilityFunctions
             {
                 return false;
             }
-
-        //To Upload File in LV
-        public static void FileUpload(IWebDriver driver, string filePath)
-        {
-            By btnUploadFile = By.XPath("//input[@type='file']");
-            By btnDone = By.XPath("//span[contains(text(),'Done')]");
-            driver.FindElement(btnUploadFile).SendKeys(filePath);            
-            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
-            Thread.Sleep(11000);
-            driver.FindElement(btnDone).Click();
+        }
+            //To Upload File in LV
+            public static void FileUpload(IWebDriver driver, string filePath)
+            {
+                By btnUploadFile = By.XPath("//input[@type='file']");
+                By btnDone = By.XPath("//span[contains(text(),'Done')]");
+                driver.FindElement(btnUploadFile).SendKeys(filePath);
+                WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
+                Thread.Sleep(11000);
+                driver.FindElement(btnDone).Click();
+            }
         }
     }
-}
+
