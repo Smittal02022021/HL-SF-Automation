@@ -165,12 +165,15 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
+
         By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         //By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
         By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
         By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
         By listStaff2 = By.XPath("(/html/body/ul/li)[2]/a");        
-By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
+
+        By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
+        //By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkMarketing = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
         By checkSeller = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[4]/input");
         By checkPrincipal = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[5]/input");
