@@ -714,9 +714,12 @@
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
-
+    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTI0055401_55390_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
-    <Compile Include="TestCases\Opportunities\T1232_OpportunityDetails_NBCForm_SubmitforReview.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1432_TMTT0024858_TMTT0030610_TMTT0035436_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
@@ -738,7 +741,6 @@
     <Compile Include="TestCases\Opportunities\TMTI0055018_TMTI0055021_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
-
     <Compile Include="TestCases\Opportunities\TMTI0056868_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056871_27295_27302_71646_55400_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
@@ -1097,10 +1099,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.13.3\build\NUnit.props'))" />
-
     <Error Condition="!Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />
