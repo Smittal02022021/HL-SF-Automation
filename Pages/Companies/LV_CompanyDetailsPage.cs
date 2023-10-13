@@ -68,6 +68,7 @@ namespace SF_Automation.Pages.Companies
 
         By btnNew = By.XPath("//ul[contains(@class,'oneActionsRibbon')]//a[@title='New']");
         By btnNext=By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button//span[text()='Next']");
+
         By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
 
