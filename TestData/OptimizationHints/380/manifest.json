@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Optimization Hints",
+<<<<<<<< HEAD:TestData/OptimizationHints/385/manifest.json
+  "version": "385",
+========
+  "version": "380",
+>>>>>>>> Branch-Sonika:TestData/OptimizationHints/380/manifest.json
+  "ruleset_format": "1.0.0"
+}

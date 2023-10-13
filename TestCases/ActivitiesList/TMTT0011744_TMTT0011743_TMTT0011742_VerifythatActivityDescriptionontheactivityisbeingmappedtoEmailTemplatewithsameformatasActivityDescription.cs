@@ -56,6 +56,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 //Validate user logged in       
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                
                 for (int row = 1; row <= 2; row++)
                 {
                     // Search standard user by global search
@@ -94,7 +95,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                     contactDetails.DeleteCreatedContact(fileTC1744, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, row));
                     extentReports.CreateLog("Contact created during activity creation is deleted successfully. ");
                 }
-
+                
                 // Search standard user by global search
                 string user1 = ReadExcelData.ReadData(excelPath, "Users", 1);
                 homePage.SearchUserByGlobalSearch(fileTC1744, user1);

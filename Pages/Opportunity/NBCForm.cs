@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 
@@ -26,11 +27,12 @@ namespace SF_Automation.Pages.Opportunity
         By valprimaryIG = By.XPath("//records-highlights-details-item[6]/div/p[2]/slot/records-formula-output/slot/lightning-formatted-text");
 
         By valOppName = By.XPath("//div[2]/h1/slot/records-formula-output/slot/lightning-formatted-text");
-        By lnkEditReviewSub = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By lnkEditReviewSub2nd = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditReviewSub = By.XPath("//button[@title='Edit Form Check (required to submit)']");
+        By lnkEditReviewSub2nd = By.XPath("//button[@title='Edit Form Check (required to submit)']");
         By lnkEditFeedback = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By btnSubmit = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
+        By btnSubmit = By.XPath("//span/input[@name='Submit_For_Review__c']");
         By btnUpdSubmit = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[5]");
+        By btnUpdSubmit2nd = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
         By chkNextSchCall = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[3]");
         By btnSave = By.XPath("//li[2]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-lwc-headless/slot[1]/slot/lightning-button/button");
         By btnClose = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
@@ -74,46 +76,46 @@ namespace SF_Automation.Pages.Opportunity
         By msgTransOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::div[3]");
         By msgTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::div[2]");
         By msgEstValuation = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
-        By msgCurrentStatus = By.XPath("//label[text()='Current Status']/following::div[7]");
+        By msgCurrentStatus = By.XPath("//div[text()='Opportunity Overview: Current Status']");
         By msgValuationExp = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
         By msgCompanyDesc = By.XPath("//label[text()='Company Description']/following::div[3]");
-        By msgRealEstate = By.XPath("//label[text()='Real Estate Angle']/following::div[6]");
+        By msgRealEstate = By.XPath("//div[text()='Opportunity Overview: Real Estate Angle']");
         By msgOwnershipStr = By.XPath("//label[text()='Ownership and Capital Structure']/following::div[3]");
-        By msgAsiaAngle = By.XPath("//label[text()='Asia Angle']/following::div[6]");
+        By msgAsiaAngle = By.XPath("//div[text()='Opportunity Overview: Asia Angle']");
         By msgRiskFact = By.XPath("//label[text()='Risk Factors']/following::div[3]");
-        By msgInterAngle = By.XPath("//label[text()='International Angle?']/following::div[6]");
+        By msgInterAngle = By.XPath("//div[text()='Opportunity Overview: Cross-border Angle']");
 
-        By msgCapMkt = By.XPath("//label[text()='Capital Markets Consulted']/following::div[7]");
+        By msgCapMkt = By.XPath("//div[text()='Financing Checklist: Has the Capital Markets Group been consulted regarding financing or capital structure?']");
         By msgExistingFin = By.XPath("//label[text()='Existing Financial Arrangement Notes']/following::div[3]");
-        By msgFinSubject = By.XPath("//label[text()='Financials Subject to Audit']/following::div[6]");
-        By msgNoFin = By.XPath("//label/span[text()='No Financials']/following::div[2]");
+        By msgFinSubject = By.XPath("//div[text()='Financials: Have the financials been subject to an audit?']");
+        By msgNoFin = By.XPath("//div[text()='Financials: Add min 2 Historical or current and future Financial records when submitting the NBC form']");
 
         By msgRetainer = By.XPath("//label[text()='Retainer']/following::div[2]");
         By msgRetainerFee = By.XPath("//label[text()='Retainer Fee Creditable ?']/following::div[3]");
         By msgProgressFee = By.XPath("//label[text()='Progress Fee Creditable ?']/following::div[3]");
-        By msgMinFee = By.XPath("//label[text()='Minimum Fee (MM)']/following::div[3]");
+        By msgMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/following::div[2]");
         By msgTxnFeeType = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgEstTxnValue = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
+        By msgEstTxnValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
 
-        By msgWillThere = By.XPath("//label[text()='Will There Be a Pitch?']/following::div[6]");
+        By msgWillThere = By.XPath("//div[text()='Pre-Pitch: Will there be a pitch?']");
         By msgHLComp = By.XPath("//label[text()='Houlihan Lokey Competition']/following::div[2]");
-        By msgLockups = By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/following::div[6]");
-        By msgExistingRel = By.XPath("//label[text()='Existing Relationships']/following::div[6]");
-        By msgExistingOrRepeat = By.XPath("//label[text()='Existing or Repeat Client?']/following::div[6]");
-        By msgTAS = By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/following::div[7]");
+        By msgLockups = By.XPath("//div[text()='Pre-Pitch: Lockups on Future M&A or Financing Work']");
+        By msgExistingRel = By.XPath("//div[text()='Pre-Pitch: Have you checked Salesforce for existing relationships?']");
+        By msgExistingOrRepeat = By.XPath("//div[text()='Pre-Pitch: Existing or Repeat Client?']");
+        By msgTAS = By.XPath("//div[text()='Pre-Pitch: Would the Opportunity benefit from TAS Assistance?']");
         By msgOutside = By.XPath("//label[text()='Outside Council']/following::div[2]");
 
-        By msgFairnessOpinion = By.XPath("//label[text()='Fairness Opinion Provided']/following::div[7]");
+        By msgFairnessOpinion = By.XPath("//div[text()='Fairness Checklist: Is there a potential Fairness Opinion component to this assignment?']");
 
-        By msgA = By.XPath("//label[text()='A']/following::div[6]");
-        By msgB = By.XPath("//label[text()='B']/following::div[6]");
-        By msgC = By.XPath("//label[text()='C']/following::div[6]");
-        By msgD = By.XPath("//label[text()='D']/following::div[6]");
-        By msgGroupHead = By.XPath("//label/span[text()='Group Head Approval']/following::div[2]");
+        By msgA = By.XPath("//label[text()='A']/ancestor::lightning-combobox/div/div[2]");
+        By msgB = By.XPath("//label[text()='B']/ancestor::lightning-combobox/div/div[2]");
+        By msgC = By.XPath("//label[text()='C']/ancestor::lightning-combobox/div/div[2]");
+        By msgD = By.XPath("//label[text()='D']/ancestor::lightning-combobox/div/div[2]");
+        By msgGroupHead = By.XPath("//div[text()='Opportunity Overview: Please confirm that a group head has approved prior to submitting to the committee.']");
 
         By txtTxnOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::textarea[1]");
         By txtTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::input[1]");
-        By txtEstValuation = By.XPath("//label[text()='Estimated Valuation (MM)']/following::input[1]");
+        By txtEstValuation = By.XPath("//label[text()='Estimated Transaction Value (MM)']/following::input[1]");
         By btnCurrentStatus = By.XPath("//label[text()='Current Status']/following::button[2]");
         By comboCurrentStatus = By.XPath("//label[text()='Current Status']/following::lightning-base-combobox-item/span[2]/span[text()='Pitched']");
         By txtValuationExp = By.XPath("//label[text()='Valuation Expectations']/following::textarea");
@@ -122,15 +124,15 @@ namespace SF_Automation.Pages.Opportunity
         By txtOwnership = By.XPath("//label[text()='Ownership and Capital Structure']/following::textarea[1]");
         By comboAsia = By.XPath("//label[text()='Asia Angle']/following::button[1]");
         By txtRisk = By.XPath("//label[text()='Risk Factors']/following::textarea[1]");
-        By comboInternational = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button");
+        By comboInternational = By.XPath("//button[@aria-label='International Angle?, --None--']");
         By comboSanctions = By.XPath("(//lightning-base-combobox)[6]");
 
         By btnCapMkt = By.XPath("//label[text()='Capital Markets Consulted']/following::button[2]");
         By txtExistingFin = By.XPath("//label[text()='Existing Financial Arrangement Notes']/following::textarea[1]");
         By btnFinSubject = By.XPath("(//lightning-base-combobox)[8]");
         By txtFinAuditNotes = By.XPath("//label[text()='Financials Audit Notes']/following::textarea[1]");
-        By chkNoFin = By.XPath("//span[text()='No Financials']/following::input[1]");
-        By txtNoFinExp = By.XPath("//label[text()='No Financials Explanation']/following::textarea[1]");
+        By chkNoFin = By.XPath("//span[text()='Insufficient Financials']/following::input[1]");
+        By txtNoFinExp = By.XPath("//label[text()='Insufficient Financials Explanation']/following::textarea[1]");
 
         By txtRetainer = By.XPath("//*[@name='Retainer1__c']");
         By txtRetainerFeeCred = By.XPath("//input[@name='Retainer_Creditable__c']");
@@ -140,10 +142,10 @@ namespace SF_Automation.Pages.Opportunity
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By valEstTxnVal = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By btnTxnFeeType = By.XPath("(//lightning-base-combobox)[9]");
-        By valTxnFeeType = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valTxnFeeType = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
-        By lblFlatFee = By.XPath("//flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/label");
-        By lblOtherFee = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-text-area/lightning-textarea/label");
+        By lblFlatFee = By.XPath("//label[text()='Flat Fee (MM)']");
+        By lblOtherFee = By.XPath("//label[contains(text(),'Other Fee Structure')]");
         By txtOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::textarea[1]");
         By msgOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::div[2]");
         By lblIncentiveFeeStr = By.XPath("//span[@title='Incentive Fee structure']");
@@ -164,7 +166,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnExistingClient = By.XPath("//label[text()='Existing or Repeat Client?']/following::button[1]");
         By btnTAS = By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/following::button[2]");
         By txtOutsideCouncil = By.XPath("//label[text()='Outside Council']/following::textarea[1]");
-        By msgEstTransValue = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
+        By msgEstTransValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
 
         By txtBaseFee = By.XPath("//label[text()='Base Fee (MM)']/following::input[1]");
         By valBaseFee = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
@@ -179,15 +181,14 @@ namespace SF_Automation.Pages.Opportunity
         By lnkUpd3rdRatchet = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By lnkUpd4thRatchet = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By lnkUpdFinalRatchet = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[7]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-
-        By msg1stRatchetFromAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg1stRatchetToAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg2ndRatchetFromAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg2ndRatchetToAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg3rdRatchetFromAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg3rdRatchetToAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg4thRatchetFromAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
-        By msg4thRatchetToAmount = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-base-input/lightning-input/div[2]");
+        By msg1stRatchetFromAmount = By.XPath("//label[text()='First Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg1stRatchetToAmount = By.XPath("//label[text()='First Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg2ndRatchetFromAmount = By.XPath("//label[text()='Second Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg2ndRatchetToAmount = By.XPath("//label[text()='Second Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg3rdRatchetFromAmount = By.XPath("//label[text()='Third Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg3rdRatchetToAmount = By.XPath("//label[text()='Third Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg4thRatchetFromAmount = By.XPath("//label[text()='Fourth Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg4thRatchetToAmount = By.XPath("//label[text()='Fourth Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
         By txt1stRatchetFromAmount = By.XPath("//input[@name='First_Ratchet_From_Amount__c']");
         By txt1stRatchetToAmount = By.XPath("//input[@name='First_Ratchet_To_Amount__c']");
         By txt2ndRatchetFromAmount = By.XPath("//input[@name='Second_Ratchet_From_Amount__c']");
@@ -208,16 +209,16 @@ namespace SF_Automation.Pages.Opportunity
         By tabAdmin = By.XPath("//*[@id='flexipage_tab8__item']");
         By tabFairness = By.XPath("//*[@id='flexipage_tab7__item']");
         By btnRestricted = By.XPath("//label[text()='Restricted List']/following::button[1]");
-        By btnYes1 = By.XPath("(//lightning-base-combobox)[19]");
-        By btnYes2 = By.XPath("(//lightning-base-combobox)[20]");
-        By btnYes3 = By.XPath("(//lightning-base-combobox)[21]");
-        By btnYes4 = By.XPath("(//lightning-base-combobox)[22]");
-        By btnYes5 = By.XPath("(//lightning-base-combobox)[23]");
+        By btnYes1 = By.XPath("(//lightning-base-combobox)[18]");
+        By btnYes2 = By.XPath("(//lightning-base-combobox)[19]");
+        By btnYes3 = By.XPath("(//lightning-base-combobox)[20]");
+        By btnYes4 = By.XPath("(//lightning-base-combobox)[21]");
+        By btnYes5 = By.XPath("(//lightning-base-combobox)[22]");
 
         By btnA = By.XPath("//label[text()='A']/following::button[1]");
         By btnB = By.XPath("//label[text()='B']/following::button[1]");
         By btnC = By.XPath("//label[text()='C']/following::button[1]");
-        By btnD = By.XPath("(//lightning-base-combobox)[27]");
+        By btnD = By.XPath("//label[text()='D']/following::button[1]");
         By chkGroupHead = By.XPath("//span[text()='Group Head Approval']/following::input[1]");
 
         By lblRelOpp = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -235,13 +236,14 @@ namespace SF_Automation.Pages.Opportunity
         By lblSanctions = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
 
         By msgCapMarket = By.XPath("//span[@title='Has the Capital Markets Group been Consulted regarding financing or capital structure?']");
-        By lblCapMkt = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By msgAddFin = By.XPath("//strong[contains(text(),'To add financials')]");
+        By lblCapMkt = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Markets_Consulted__c']/div/div[1]/span[1]");
         By lblExistFin = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordCapital_Markets_Consulted_cField2']/slot[1]/following::span[1]");
         By msgAboveFin = By.XPath("//span[text()='Have the above financials been subject to an audit?']");
-        By lblFinSub = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By msgFinAvail = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordFinancials_Subject_to_Audit_cField1']/slot[1]/following::span[1]");
-        By lblNoFin = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblNoFinExp = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordNo_Financials_cField2']/slot[1]/following::span[1]");
+        By lblFinSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Financials_Subject_to_Audit__c']/div[1]/div[1]/span");
+        By msgFinAvail = By.XPath("//span[@title='Financials Unavailable']");
+        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/div[1]/span");
+        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/div[1]/span");
 
         By lblRetainer = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgressFee = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordRetainer1_cField1']/slot[1]/following::span[1]");
@@ -262,9 +264,9 @@ namespace SF_Automation.Pages.Opportunity
         By lblLockups = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By secWould = By.XPath("//span[@title='Would the opportunity benefit from TAS Assistance?']");
         By lblTAS = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/following::span[1]");
-        By secIfKnown = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTAS_Assistance_Benefit_cField1']/slot[1]/following::span[1]");
+        By secIfKnown = By.XPath("//slot/flexipage-tab2[4]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/h3/button/span");
         By lblOutside = By.XPath("//flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[4]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By secReferral = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordOutsideCouncil_cField1']/slot[1]/following::span[1]");
+        By secReferral = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordOutsideCouncil_cField1']/slot[1]/following::span[2]");
         By lblRefType = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblRefSource = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordReferral_Type_cField1']/slot[1]/following::span[1]");
 
@@ -302,12 +304,29 @@ namespace SF_Automation.Pages.Opportunity
         By btnReturnToOpp = By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[2]");
         By btnRoleDef = By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[3]");
 
-        By lblNextSchCall = By.XPath("//*[@class='section-content slds-size_1-of-1 slds-grid slds-section__content slds-wrap']/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblReqFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordNext_Scheduled_Call_cField1']/following::span[1]");
-        By lblRequiresFeedback = By.XPath("//slot/div/slot/flexipage-column2/div/slot/flexipage-field[@data-field-id='RecordReq_feedback_prior_to_normal_sched_call_cField1']/following::span[1]");
-        By lblReviewSub = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An NBC Form:']");
+        By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/div[1]/span[1]");
+        By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]/div[1]/span");
+        By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]/lightning-helptext/div/lightning-button-icon");
+        By btnFormCheck = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Submit_For_Review__c']/div/slot/records-record-layout-checkbox/lightning-input/lightning-primitive-input-checkbox/lightning-helptext/div/lightning-button-icon");
+        By btnInSuffFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnInSuffFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnAsOfDate = By.XPath("//label/div/lightning-icon");
 
-        By lnkAttachments = By.XPath("//a[@data-label='Attachments']");
+        By msgNextSchCall = By.XPath("//lightning-primitive-bubble[@role='tooltip']//div[@class='slds-popover__body']");
+        By lblRequiresFeedback = By.XPath("//span[text()='Requires Feedback Date&Time in GMT']");
+        By lblReviewSub = By.XPath("//label/span[text()='Form Check (required to submit)']");
+        By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div/div[2]/button");
+        By chkReqFeedback = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
+        By msgAsOfDate = By.XPath("//div/label/div/span");
+
+        By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
+        By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+
+        By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
+        By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
         By secFiles = By.XPath("//span[@title='Files']");
         By btnUploadFiles = By.XPath("//*[@class='slds-file-selector__body']/span[1]");
         By secOwnershipDetails = By.XPath("//a[@data-aura-class='uiOutputURL']");
@@ -316,13 +335,13 @@ namespace SF_Automation.Pages.Opportunity
         By valClientOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[1]/div/div[2]/span/span");
         By lblSubOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[2]/div/div[1]/span");
         By valSubOwnership = By.XPath("//*[@class='test-id__section-content slds-section__content section__content slds-p-top--none']/div/div/div[2]/div/div[2]/span/span");
-
+        By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By lnkEditFairnessOpinion = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By lblFairnessOpinionPublicly = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Opinion_Publicly_Disclosed_cField4']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblShareholderVote = By.XPath("//flexipage-field[@data-field-id='RecordShareholder_Vote_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblProposedFee = By.XPath("//flexipage-field[@data-field-id='RecordProposed_Fee_Range_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblFairnessFee = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Fee_Inclusion_cField4']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblFairnessOpinionStaff = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Opinion_Staffing_Notes_cField4']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblFairnessOpinionPublicly = By.XPath("//span[text()='Fairness Opinion Publicly Disclosed']");
+        By lblShareholderVote = By.XPath("//span[text()='Shareholder Vote?']");
+        By lblProposedFee = By.XPath("//span[text()='Proposed Fee Range']");
+        By lblFairnessFee = By.XPath("//span[text()='Fairness Fee Inclusion']");
+        By lblFairnessOpinionStaff = By.XPath("//span[text()='Fairness Opinion Staffing Notes']");
         By lblUnaffiliatedStockHolders = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection8']/slot/flexipage-field-section2/div/div/div/h3/button/span");
         By lblCheck1 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_1_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblCompInTrans = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection13']/slot/flexipage-field-section2/div/div/div/h3/button/span");
@@ -344,10 +363,10 @@ namespace SF_Automation.Pages.Opportunity
         By btnSubmitForReview = By.XPath("//lightning-button/button[text()='Submit for Review']");
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
-        By btnGrade = By.XPath("//label[text()='Grade']/following::lightning-base-combobox[1]/div[1]/div/button");
+        By btnGrade = By.XPath("//button[@aria-label='Grade, --None--']");
         By valGrade = By.XPath("//flexipage-tab2[8]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
-        By valOppNum = By.XPath("/html/body/p[8]/span");
+        By valOppNum = By.XPath("/html/body/p[10]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
 
         By errorList = By.CssSelector("#j_id0\\:NBCForm\\:j_id2\\:j_id3\\:j_id4\\:0\\:j_id5\\:j_id6\\:j_id18 > ul");
@@ -362,12 +381,9 @@ namespace SF_Automation.Pages.Opportunity
         //By txtCompDesc = By.CssSelector("textarea[name*='id82']");
         By comboCrossBorder = By.CssSelector("select[name*='InternationalAngle']");
         By comboAsiaAngle = By.CssSelector("select[name*='AsiaAngle']");
-        //By comboRealEstate = By.CssSelector("select[name*='RealEstateAngle']");
         By txtOwnershipStr = By.CssSelector("textarea[name*='id104']");
-        //By txtTotalDebt = By.CssSelector("input[name*='TotalDebt']");
         By comboAudit = By.CssSelector("select[name*='FinAudit01']");
-        By txtEstVal = By.CssSelector("input[name*='estValu']");
-        //By txtValExp = By.CssSelector("textarea[name *= 'id153']");
+        //By txtEstVal = By.CssSelector("input[name*='estValu']");        
         By txtRiskFactors = By.CssSelector("textarea[name*='id157']");
         By txtEstFee = By.CssSelector("input[name*='estMinFee']");
         By txtFeeStr = By.CssSelector("textarea[name*= 'id247']");
@@ -414,15 +430,17 @@ namespace SF_Automation.Pages.Opportunity
         By lnkEditRetainer = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By valRetainer = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By valProgressFee = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
-        By valEstTotalFee = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/records-formula-output/slot/lightning-formatted-text");
-        By valEstValuation = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valEstTotalFee = By.XPath("//flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/records-formula-output/slot/lightning-formatted-text");
+        By valEstValuation = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[5]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lnkEditEstValuation = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordTotal_Debt_MM_cField2']/slot[1]/following::button[2]/span[1]");
-        By msgCCStatus = By.XPath("//span/slot[1]/records-formula-output/slot/lightning-formatted-text");
-        By msgCC1 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC2 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC3 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC4 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgCC5 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[12]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
+        By msgCCStatus = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/records-formula-output/slot/lightning-formatted-text");
+        
+        By msgCC1 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+                               //flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]
+        By msgCC2 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC3 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC4 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
+        By msgCC5 = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2[12]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
         By valDateSubmitted = By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lblBaseFee = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lbl1stRatchetPercent = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -547,7 +565,9 @@ namespace SF_Automation.Pages.Opportunity
         //Click Opportunity Overview tab
         public string ClickOpportunityOverview()
         {
-
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-250)");
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, OppOverviewTab, 80);
             driver.FindElement(OppOverviewTab).Click();
             string valTab = driver.FindElement(OppOverviewTab).Text;
@@ -689,6 +709,7 @@ namespace SF_Automation.Pages.Opportunity
 
         //Get Interest and Fee Income (MM) label
         public string GetInterestAndFeeIncome()
+
         {
             string valValue = driver.FindElement(lblInterest).Text;
             return valValue;
@@ -770,8 +791,8 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateFlatFeeField()
         {
             //driver.FindElement(btnTxnFeeType).SendKeys("Flat Fee");
-            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            Thread.Sleep(5000);
             string label = driver.FindElement(lblFlatFee).Text;
             return label;
         }
@@ -780,7 +801,7 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateOtherFeeField()
         {
             //driver.FindElement(btnTxnFeeType).SendKeys("Flat Fee");
-            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
             Thread.Sleep(3000);
             string label = driver.FindElement(lblOtherFee).Text;
             return label;
@@ -991,8 +1012,9 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(lnkEditReviewSub).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,50)");
-            Thread.Sleep(6000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnSubmit, 110);
+            Thread.Sleep(5000);
+            js.ExecuteScript("window.scrollTo(0,250)");
+            Thread.Sleep(5000);
             driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
@@ -1019,10 +1041,10 @@ namespace SF_Automation.Pages.Opportunity
         public void UpdateReviewSubmissionOnly()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
-            driver.FindElement(lnkEditReviewSub).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub2nd, 100);
+            driver.FindElement(lnkEditReviewSub2nd).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,50)");
+            js.ExecuteScript("window.scrollTo(0,200)");
             Thread.Sleep(6000);
             driver.FindElement(btnUpdSubmit).Click();
             Thread.Sleep(3000);
@@ -1039,18 +1061,18 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,100)");
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(6000);           
+            Thread.Sleep(6000);
             js.ExecuteScript("window.scrollTo(0,120)");
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub2nd, 100);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
             driver.FindElement(lnkEditFeedback).Click();
             Thread.Sleep(5000);
             //js.ExecuteScript("window.scrollTo(0,100)");
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             Thread.Sleep(3000);
             //driver.FindElement(btnUpdSubmit).Click();
             //Thread.Sleep(4000);
@@ -1083,23 +1105,24 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,300)");
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnYes1).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[18]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");
             driver.FindElement(btnYes2).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,1600)");
             driver.FindElement(btnYes5).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[23]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnSave).Click();
         }
@@ -1479,7 +1502,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(comboInternational).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//button[@aria-label='International Angle?, --None--']/ancestor::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
@@ -1497,7 +1520,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(btnCapMkt).Click();
             string name = ReadExcelData.ReadData(excelPath, "NBCForm", 7);
-            driver.FindElement(By.XPath("//label[text()='Capital Markets Consulted']/following::div[6]/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Capital Markets Consulted']/following::div[7]/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
             driver.FindElement(txtExistingFin).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
@@ -1505,7 +1528,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnFinSubject).Click();
             driver.FindElement(btnFinSubject).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//label[text()='Financials Subject to Audit']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Financials Subject to Audit']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtFinAuditNotes).SendKeys("Testing");
             js.ExecuteScript("window.scrollTo(0,650)");
@@ -1588,19 +1611,21 @@ namespace SF_Automation.Pages.Opportunity
             string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 10);
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnWillThere).Click();
-            driver.FindElement(By.XPath("//label[text()='Will There Be a Pitch?']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + fee + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Will There Be a Pitch?']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + fee + "']")).Click();
             driver.FindElement(txtHLComp).SendKeys(text);
             driver.FindElement(btnLockups).Click();
-            driver.FindElement(By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             js.ExecuteScript("window.scrollTo(0,250)");
             Thread.Sleep(3000);
             driver.FindElement(btnExistingRel).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[12]/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Existing Relationships']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             driver.FindElement(btnExistingClient).Click();
-            driver.FindElement(By.XPath("(//lightning-base-combobox)[13]/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//label[text()='Existing or Repeat Client?']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             js.ExecuteScript("window.scrollTo(0,450)");
             driver.FindElement(btnTAS).Click();
-            driver.FindElement(By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + fee + "']")).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             driver.FindElement(txtOutsideCouncil).SendKeys(text);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
@@ -1619,11 +1644,11 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnFairnessOpinion).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             driver.FindElement(tabAdmin).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnRestricted).Click();
-            driver.FindElement(By.XPath("//label[text()='Restricted List']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Restricted List']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
@@ -1642,19 +1667,19 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnA).Click();
-            driver.FindElement(By.XPath("//label[text()='A']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='A']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             js.ExecuteScript("window.scrollTo(0,280)");
             driver.FindElement(btnB).Click();
-            driver.FindElement(By.XPath("//label[text()='B']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='B']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(2000);
             js.ExecuteScript("window.scrollTo(0,400)");
             driver.FindElement(btnC).Click();
-            driver.FindElement(By.XPath("//label[text()='C']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='C']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");
             Thread.Sleep(2000);
             driver.FindElement(btnD).Click();
-            driver.FindElement(By.XPath("//label[text()='D']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='D']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,800)");
             Thread.Sleep(3000);
@@ -1770,6 +1795,24 @@ namespace SF_Automation.Pages.Opportunity
             string text = driver.FindElement(msgCapMarket).Text;
             return text;
         }
+
+        //Validate newly added message in Financials tab
+        public string GetAddFinancialsText()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 100);
+            string text = driver.FindElement(msgAddFin).Text;
+            Console.WriteLine("text " + text);
+            return text;
+        }
+
+        //Get color of newly added message in Financials tab
+        public string GetColorOfAddFinancialsText()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAddFin, 110);
+            string text = driver.FindElement(msgAddFin).GetAttribute("style");
+            return text;
+        }
+
 
         //Fetch the label of Capital Market Consulted
         public string GetLabelCapMktConsult()
@@ -2285,12 +2328,90 @@ namespace SF_Automation.Pages.Opportunity
             return text;
         }
 
+        //Validate section To submit NBC Form
+        public string ValidateSectionSubmitNBC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secToSubmit, 100);
+            string text = driver.FindElement(secToSubmit).Text;
+            return text;
+        }
+
         //Validate Next Scheduled Call checkbox
         public string ValidateNextScheduledCallCheckbox()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblNextSchCall, 100);
             string text = driver.FindElement(lblNextSchCall).Text;
             return text;
+        }
+
+        //Validate Next Scheduled Call's Tool tip
+        public string ValidateNextScheduledCallToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNextSchCall, 100);
+            var element = driver.FindElement(btnNextSchCall);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
+        //Validate Insufficient Financials's Tool tip
+        public string ValidateInsufficientFinancialsToolTip()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInSuffFin, 100);
+            var element = driver.FindElement(btnInSuffFin);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 120);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
+        //Validate Insufficient Financials's Explanation Tool tip
+        public string ValidateInsufficientFinancialsExpToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInSuffFinExp, 100);
+            var element = driver.FindElement(btnInSuffFinExp);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+        //Validate Form Check's Tool tip
+        public string ValidateFormCheckToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 100);
+            var element = driver.FindElement(btnFormCheck);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNextSchCall, 80);
+            string name = driver.FindElement(msgNextSchCall).Text;
+            return name;
+        }
+
+        //Validate As of Date's Tool tip
+        public string ValidateAsOfDateToolTip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAsOfDate, 100);
+            var element = driver.FindElement(btnAsOfDate);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAsOfDate, 80);
+            string name = driver.FindElement(msgAsOfDate).Text;
+            return name;
         }
 
         //Validate Req feedback prior to normal sched call checkbox
@@ -2301,10 +2422,47 @@ namespace SF_Automation.Pages.Opportunity
             return text;
         }
 
+        //Valdiate additional fields of Req feedback
+        public string ValidateQuestion1OfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqfeedback, 100);
+            driver.FindElement(lnkReqfeedback).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(chkReqFeedback).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblQuestion1, 150);
+            string ques = driver.FindElement(lblQuestion1).Text;
+            return ques;
+        }
+
+        public string Validate2ndQuestionOfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblQuestion2, 150);
+            string ques = driver.FindElement(lblQuestion2).Text;
+            return ques;
+        }
+
+        public string Validate1stMessageOfReqFeedback()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string ques = driver.FindElement(msgQuestion1).Text;
+            return ques;
+        }
+
+        public string Validate2ndMessageOfReqFeedback()
+        {
+            string ques = driver.FindElement(msgQuestion2).Text;
+            driver.FindElement(btnClose).Click();
+            return ques;
+        }
+
         //Validate Review Submission checkbox
         public string ValidateRequiresFeedbackInGMTCheckbox()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblRequiresFeedback, 100);
+            driver.FindElement(chkReqFeedback).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblRequiresFeedback, 130);
             string text = driver.FindElement(lblRequiresFeedback).Text;
             Thread.Sleep(4000);
             return text;
@@ -2315,20 +2473,27 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblReviewSub, 100);
             string text = driver.FindElement(lblReviewSub).Text;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(4000);
             return text;
         }
 
-        //Validate Attachments tab
-        public string ValidateAttachemntsTab()
+        //Validate Supporting Doc question
+        public string ValidateSupportingDocQuestion()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkAttachments, 100);
-            string text = driver.FindElement(lnkAttachments).Text;
-            driver.FindElement(lnkAttachments).Click();
-            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSupportingQues, 110);
+            string text = driver.FindElement(lblSupportingQues).Text;
             return text;
         }
 
+        //Validate Supporting Doc question's tool tip
+        public string ValidateSupportingDocQuestionTooltip()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSupportingQues, 100);
+            string text = driver.FindElement(msgSupportingQues).Text;
+            return text;
+        }
         //Validate Files section
         public string ValidateFilesSection()
         {
@@ -2343,6 +2508,18 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnUploadFiles, 100);
             string text = driver.FindElement(btnUploadFiles).Text;
             return text;
+        }
+
+
+        //Upload a file and validate the same
+        public string UploadFileAndValidate(string path)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,350)");
+            CustomFunctions.FileUpload(driver, path);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 100);
+            return driver.FindElement(toastMsgPopup).Text;
         }
 
         //Validate Ownership Details section
@@ -2395,11 +2572,11 @@ namespace SF_Automation.Pages.Opportunity
         //Update Fairness Opinion Provided option
         public void UpdateFairnessOpinionProvided()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditFairnessOpinion, 100);
-            driver.FindElement(lnkEditFairnessOpinion).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkEditFairnessOpinion, 100);
+            //driver.FindElement(lnkEditFairnessOpinion).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnFairnessOpinion).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='Yes']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='Yes']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
         }
@@ -2693,67 +2870,13 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnGrade).Click();
             Console.WriteLine("Clicked Grade");
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//label[text()='Grade']/following::lightning-base-combobox[1]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='A+']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='A+']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             string value = driver.FindElement(valGrade).Text;
             return value;
         }
-        public void EnterDetailsAndClickSubmit(string file)
-        {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, comboFinancialOpinion, 90);
-            driver.FindElement(comboFinancialOpinion).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 2));
-            driver.FindElement(checkConfirm).Click();
 
-            //Overview and Financials
-            driver.FindElement(txtTranOverview).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
-            //driver.FindElement(txtCurrentStatus).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 4));
-            //driver.FindElement(txtCompDesc).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 5));
-            driver.FindElement(comboCrossBorder).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 6));
-            driver.FindElement(comboAsiaAngle).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 7));
-            driver.FindElement(comboRealEstate).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 7));
-            driver.FindElement(txtOwnershipStr).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 8));
-            driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 9));
-            driver.FindElement(comboAudit).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 10));
-            driver.FindElement(txtEstVal).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 11));
-            // driver.FindElement(txtValExp).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 12));
-            driver.FindElement(txtRiskFactors).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 13));
-
-            //Fees
-            driver.FindElement(txtEstFee).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 14));
-            driver.FindElement(txtFeeStr).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 15));
-            driver.FindElement(comboLockUps).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 16));
-            driver.FindElement(comboReferralFee).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 17));
-
-            //Pre-Pitch
-            driver.FindElement(comboPitch).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 18));
-            driver.FindElement(comboClient).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 19));
-            driver.FindElement(txtHLComp).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 20));
-            driver.FindElement(comboExistingRel).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 21));
-            driver.FindElement(comboTASAssist).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 22));
-            //driver.FindElement(txtOutsideCouncil).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 23));
-
-            //Financing Checklist            
-            //driver.FindElement(comboCapMkt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 24));
-            driver.FindElement(txtSum).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 25));
-
-            //Fairness Checklist
-            driver.FindElement(comboFairness).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 26));
-            Console.WriteLine("comboFairness");
-
-            //Administrative
-            driver.FindElement(comboResList).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 27));
-            //driver.FindElement(comboCCStatus).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 28));
-            driver.FindElement(comboCCStatus1).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 28));
-            driver.FindElement(comboCCStatus2).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 29));
-            driver.FindElement(comboCCStatus3).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 30));
-            driver.FindElement(comboCCStatus4).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 31));
-
-            driver.FindElement(btnSubmit).Click();
-        }
         public string ValidateHeader()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, titleEmailPage, 70);
@@ -3100,8 +3223,8 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,650)");
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valEstTotalFee, 150);
-            string value = (driver.FindElement(valEstTotalFee).Text).Substring(4, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEstValuation, 150);
+            string value = (driver.FindElement(valEstValuation).Text).Substring(0, 8);
             return value;
         }
 
@@ -3112,13 +3235,25 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,650)");
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEstTotalFee, 150);
-            string value = (driver.FindElement(valEstTotalFee).Text).Substring(4, 10);
+            string value = (driver.FindElement(valEstTotalFee).Text).Substring(4, 5);
+            return value;
+        }
+
+        //Get Estimated Total Fee (MM)
+        public string GetEstimatedTotalFeeForIncentiveWithRatchets()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEstTotalFee, 150);
+            string value = (driver.FindElement(valEstTotalFee).Text).Substring(4, 5);
             return value;
         }
 
         //Get value of Estimated Valuation
         public string GetEstimatedValuation()
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEstValuation);
             string value = driver.FindElement(valEstValuation).Text;
             string actual = value.Substring(0, 8);
@@ -3128,8 +3263,8 @@ namespace SF_Automation.Pages.Opportunity
         //Update Estimated Valuation
         public string UpdateEstimatedValuation()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditEstValuation);
-            driver.FindElement(lnkEditEstValuation).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency);
+            driver.FindElement(lnkEditCurrency).Click();
             driver.FindElement(txtEstValuation).Clear();
             driver.FindElement(txtEstValuation).SendKeys("20");
             Thread.Sleep(3000);
@@ -3143,6 +3278,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get CC Status
         public string GetCCStatusMessage()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, msgCCStatus);
             string value = driver.FindElement(msgCCStatus).Text;
             return value;
@@ -3208,7 +3344,6 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(4000);
-            driver.FindElement(btnUpdSubmit).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             driver.FindElement(btnUpdSubmit).Click();
@@ -3275,7 +3410,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
-            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 7)));
+            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 4)));
             Console.WriteLine("estTotalFee: " + estTotalFee.ToString("0.00"));
             return estTotalFee.ToString("0.00");
         }
@@ -3303,10 +3438,11 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(10000);
-            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 10)));
+            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 4)));
             Console.WriteLine("estTotalFee2: " + estTotalFee.ToString("0.00"));
             return estTotalFee.ToString("0.00");
         }
+
         //Fetch Flat Fee 
         public string GetFlatFee()
         {
@@ -3334,7 +3470,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
-            string flatFee = (Convert.ToDouble((driver.FindElement(valFlatFee).Text).Substring(4, 10))).ToString("0.0");
+            string flatFee = (Convert.ToDouble((driver.FindElement(valFlatFee).Text).Substring(4, 6))).ToString("0.0");
             //Console.WriteLine("flatFee: " + flatFee.ToString("0.00"));            
             return flatFee;
         }
@@ -3342,7 +3478,7 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch Estimated Total Fee 
         public string GetEstTotalFee()
         {
-            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 10)));
+            double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 5)));
             Console.WriteLine("estTotalFee2: " + estTotalFee.ToString("0.00"));
             return estTotalFee.ToString("0.00");
         }
@@ -3354,11 +3490,11 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency, 180);
             driver.FindElement(lnkEditCurrency).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtMinFeeMM, 100);
-            driver.FindElement(txtMinFeeMM).SendKeys("230000");
+            driver.FindElement(txtMinFeeMM).SendKeys("230");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 180);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
-            double MinFee = (Convert.ToDouble((driver.FindElement(valMinFee).Text).Substring(4, 10)));
+            Thread.Sleep(7000);
+            double MinFee = (Convert.ToDouble((driver.FindElement(valMinFee).Text).Substring(4, 6)));
             Console.WriteLine("MinFee: " + MinFee.ToString("0.00"));
             return MinFee.ToString("0.00");
         }
@@ -3372,11 +3508,11 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtMinFeeMM, 100);
             driver.FindElement(txtMinFeeMM).Clear();
             Thread.Sleep(3000);
-            driver.FindElement(txtMinFeeMM).SendKeys("230");
+            driver.FindElement(txtMinFeeMM).SendKeys("100");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 180);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             double MinFee = (Convert.ToDouble((driver.FindElement(valMinFee).Text).Substring(4, 3)));
             Console.WriteLine("MinFee: " + MinFee.ToString("0.00"));
             return MinFee.ToString("0.00");
@@ -3408,12 +3544,12 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             //js.ExecuteScript("window.scrollTo(0,100)");            
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,300)");
             driver.FindElement(txtMinFeeMM).Clear();
             driver.FindElement(txtBaseFee).SendKeys("10");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valBaseFee).Text;
             return value;
         }
@@ -3494,30 +3630,30 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt4thRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt4thRatchetToAmount).SendKeys("50");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             driver.FindElement(btnClose).Click();
-            string message = driver.FindElement(msg1stRatchetGreaterToAmount).Text;
+            string message = driver.FindElement(msg1stRatchetToAmount).Text;
             return message;
         }
 
         //Get 2nd Ratchet To Amount validation for greater field
         public string Get2ndRatchetToAmountGreaterValue()
         {
-            string message = driver.FindElement(msg2ndRatchetGreaterToAmount).Text;
+            string message = driver.FindElement(msg2ndRatchetToAmount).Text;
             return message;
         }
 
         //Get 3rd Ratchet To Amount validation for greater field
         public string Get3rdRatchetToAmountGreaterValue()
         {
-            string message = driver.FindElement(msg3rdRatchetGreaterToAmount).Text;
+            string message = driver.FindElement(msg3rdRatchetToAmount).Text;
             return message;
         }
 
         //Get 2nd Ratchet To Amount validation for greater field
         public string Get4thRatchetToAmountGreaterValue()
         {
-            string message = driver.FindElement(msg4thRatchetGreaterToAmount).Text;
+            string message = driver.FindElement(msg4thRatchetToAmount).Text;
             return message;
         }
 
@@ -3565,7 +3701,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEstTxnVal).Clear();
             driver.FindElement(txtEstTxnVal).SendKeys(value);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string estValue = driver.FindElement(valEstTxnVal).Text;
             return estValue.Substring(4, 5);
         }
@@ -3580,11 +3716,11 @@ namespace SF_Automation.Pages.Opportunity
             //js.ExecuteScript("window.scrollTo(0,-100)");          
             Thread.Sleep(3000);
             driver.FindElement(txtMinFee).Clear();
-            driver.FindElement(txtMinFee).SendKeys("300000");
+            driver.FindElement(txtMinFee).SendKeys("300");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string estValue = driver.FindElement(valEstTotalFeeMM).Text.Replace(",", "");
-            return estValue.Substring(4, 6);
+            return estValue.Substring(4, 3);
         }
 
         //Update 2nd Ratchet From and To amount fields
@@ -3725,7 +3861,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valEstTotalFee).Text;
-            return value.Substring(4, 10);
+            return value.Substring(4, 6);
         }
 
         //Update Other Fee Structure
@@ -3771,7 +3907,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             string fee = driver.FindElement(valEstTotalFeeMM).Text;
-            return fee.Substring(4, 10).Replace(",", "");
+            return fee.Substring(4, 6).Replace(",", "");
         }
 
 
@@ -3779,5 +3915,3 @@ namespace SF_Automation.Pages.Opportunity
 
 
 }
-
-

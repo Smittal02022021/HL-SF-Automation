@@ -15,7 +15,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");
         By comboStage = By.CssSelector("select[name*=':0:j_id132:11']");
         By comboStageFVA = By.CssSelector("select[name*=':0:j_id132:9']");
-        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:6']");
+        By txtPitchDate = By.CssSelector("input[name*=':0:j_id132:5']");
         By txtPitchDateFR = By.CssSelector("input[name*=':0:j_id132:3']");
         By txtRetainer = By.CssSelector("input[name*=':0:j_id132:6']");
         By txtRetainerFVA = By.CssSelector("input[name*=':0:j_id132:5']");
@@ -83,6 +83,7 @@ namespace SF_Automation.Pages.Opportunity
             Console.WriteLine(valStage);
             return valStage;
         }
+
         //To fetch the value of Win Probability
         public string GetWinProb()
         {
@@ -90,6 +91,7 @@ namespace SF_Automation.Pages.Opportunity
             string valWinProb = driver.FindElement(valSelectedWin).Text;
             return valWinProb;
         }
+
         //To click on Opportunity Name
         public string ClickOppName()
         {
@@ -120,6 +122,7 @@ namespace SF_Automation.Pages.Opportunity
             string title = driver.FindElement(titleOppDetail).Text;
             return title;
         }
+
         //To select show records as FAS/CF
         public void SelectShowRecords(string Value)
         {
@@ -132,6 +135,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }
+
         //To reset filters with LOB as FAS
         public string ResetFiltersForFAS(string file)
         {
@@ -145,6 +149,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtRetainerFVA).SendKeys(ReadExcelData.ReadData(excelPath, "OppManager", 4));
             return valOppComments;
         }
+
         //To update Stage and fetch the updated value of Stage.
         public string UpdateFieldStage(string file, string name)
         {
@@ -176,6 +181,7 @@ namespace SF_Automation.Pages.Opportunity
                 return valStage;
             }
         }
+
         //To reset filters for LOB FR
         public string ResetFiltersForFR(string file)
         {
@@ -202,10 +208,10 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtMonthlyFeeFR).SendKeys(ReadExcelData.ReadData(excelPath, "OppManager", 4));
             return valOppComments;
         }
+
         //To select show records as FR
         public void SelectShowRecordsFR(string Value)
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnResetFilters, 60);
             driver.FindElement(btnResetFilters).Click();
             Thread.Sleep(3000);
@@ -215,12 +221,14 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }
+
         //Sort the Opportunity Id column
         public void SortOppIdCol()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnOpportunitySort, 120);
             driver.FindElement(btnOpportunitySort).Click();
         }
+
         //Search for opportunity
         public string SearchOpportunity(string Fieldname)
         {
@@ -238,8 +246,6 @@ namespace SF_Automation.Pages.Opportunity
                 return "Opportunity does not exist";
             }
         }
-
-
     }
 }
 

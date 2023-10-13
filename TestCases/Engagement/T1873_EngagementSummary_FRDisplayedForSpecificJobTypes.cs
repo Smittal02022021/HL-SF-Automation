@@ -53,7 +53,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
                 //Search Engagement to by pass Tableau pop up
-                //engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
+               engHome.HandlePopUp(ReadExcelData.ReadData(excelPath, "Engagement", 2));
 
                 //Get row count of with all Job Types              
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "Engagement");

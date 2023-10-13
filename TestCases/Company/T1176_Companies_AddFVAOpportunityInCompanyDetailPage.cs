@@ -2,10 +2,8 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;

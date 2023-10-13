@@ -6,8 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
-//using WindowsInput;
-//using WindowsInput.Native;
+
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -69,7 +68,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Records matches to LOB-FR are found and Engagement Detail page is displayed ");
 
                 //Validate FR Engagement Summary button
-                //custom.ClickTableauPopUp();              
+                 //custom.ClickTableauPopUp();              
                 string btnFREngSum = engagementDetails.ValidateFREngSummaryButton();
                 Assert.AreEqual("True", btnFREngSum);
                 extentReports.CreateLog("FR Engagement Summary button is displayed ");
@@ -130,7 +129,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }
+        }       
     }
 }
 

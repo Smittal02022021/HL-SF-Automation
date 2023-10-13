@@ -1,0 +1,9 @@
+{
+  "manifest_version": 2,
+  "name": "OnDeviceHeadSuggestENUS500000",
+<<<<<<<< HEAD:TestData/OnDeviceHeadSuggestModel/20230319.517781836/manifest.json
+  "version": "20230319.517781836"
+========
+  "version": "20230204.507919928"
+>>>>>>>> Branch-Sonika:TestData/OnDeviceHeadSuggestModel/20230204.507919928/manifest.json
+}

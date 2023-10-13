@@ -17,7 +17,7 @@ namespace SalesForce_Project.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         AddCounterparty counterparty = new AddCounterparty();
-        public static string fileTC7877 = "TMTT0017877_LightningEngagement";
+        public static string fileTC7877 = "TMTT0017877_LightningEngagement2";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -48,61 +48,92 @@ namespace SalesForce_Project.TestCases.Engagement
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                //Login as CAO User and validate the user
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 2);
-                usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUserLightning();
-                Assert.AreEqual(valUser,stdUser);
-                extentReports.CreateLog("User: " + stdUser + " is able to login ");
-               
-                //Search for Engagement on lightning
-                 string message = engHome.SearchEngagementWithNumberOnLightning("111861", "Buyside");                   
-                 extentReports.CreateLog("Engagement details are displayed upon searching required engagement ");
+                int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
+                Console.WriteLine("rowCount " + rowUsers);
 
-                //Validate the View Counterparties button
-                string viewCounterparty = engagementDetails.ValidateViewCounterpartiesButton("Buyside");
-                Assert.AreEqual("View Counterparties", viewCounterparty);
-                extentReports.CreateLog("Button with name : " + viewCounterparty + " is displayed on Engagement Details page for Job Type: "+ "Buyside");
-                
-                //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
-                engagementDetails.ClickViewCounterpartiesButton();
+                for (int row = 2; row <= rowUsers; row++)
+                {
 
-                //Click on Edit Bids button and New Bid Round button
-                counterparty.ClickEditBidsButton();
-                counterparty.ClickNewBidRoundAndSelectFirstRound();
+                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
 
-                //Validate all columns corresponding to selected Bid
-                string compName = counterparty.ValidateCompanyName();
-                Assert.AreEqual("Company Name", compName);
-                extentReports.CreateLog("Column with name : " + compName + " is displayed for Round First ");
 
-                string minBid = counterparty.ValidateMinBid();
-                Assert.AreEqual("Min Bid", minBid);
-                extentReports.CreateLog("Column with name : " + minBid + " is displayed for Round First ");
+                    //Login as CF Financial User and validate the user
+                    if (valUser.Equals("William Peluchiwski"))
+                    {
+                        usersLogin.SearchUserAndLogin(valUser);
+                        string cfUser = login.ValidateUserLightningCF();
+                        Assert.AreEqual(valUser, cfUser);
+                        extentReports.CreateLog("User: " + cfUser + " is able to login ");
+                    }
+                    else
+                    {
+                        usersLogin.SearchUserAndLogin(valUser);
+                        string stdUser = login.ValidateUserLightning();
+                        Assert.AreEqual(valUser, stdUser);
+                        extentReports.CreateLog("User: " + stdUser + " is able to login ");
+                    }
 
-                string maxBid = counterparty.ValidateMaxBid();
-                Assert.AreEqual("Max Bid", maxBid);
-                extentReports.CreateLog("Column with name : " + maxBid + " is displayed for Round First ");
+                    //Search for Engagement on lightning
+                    string message = engHome.SearchEngagementWithNumberOnLightning("111861", "Buyside");
+                    extentReports.CreateLog("Engagement details are displayed upon searching required engagement ");
+                                        
 
-                string equity = counterparty.ValidateEquity();
-                Assert.AreEqual("Equity %", equity);
-                extentReports.CreateLog("Column with name : " + equity + " is displayed for Round First ");
+                    if (valUser.Equals("William Peluchiwski"))
+                    {
 
-                string debt = counterparty.ValidateDebt();
-                Assert.AreEqual("Debt %", debt);
-                extentReports.CreateLog("Column with name : " + debt + " is displayed for Round First ");
+                        //Validate the View Counterparties button
+                        string viewCounterparty = engagementDetails.ValidateVisibilityOfViewCounterpartiesButton();
+                        Assert.AreEqual("View Counterparties button is not displayed", viewCounterparty);
+                        extentReports.CreateLog(viewCounterparty + " for User: " + valUser);
+                    }
+                    else
+                    {
+                        //Validate the View Counterparties button
+                        string viewCounterparty = engagementDetails.ValidateVisibilityOfViewCounterpartiesButton();
+                        Assert.AreEqual("View Counterparties button is displayed", viewCounterparty);
+                        extentReports.CreateLog("Button with name : " + viewCounterparty + " for user: " + valUser);
 
-                string bidDate = counterparty.ValidateBidDate();
-                Assert.AreEqual("Bid Date", bidDate);
-                extentReports.CreateLog("Column with name : " + bidDate + " is displayed for Round First ");
+                        //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
+                        engagementDetails.ClickViewCounterpartiesButton();
 
-                string comments = counterparty.ValidateComments();
-                Assert.AreEqual("Comments", comments);
-                extentReports.CreateLog("Column with name : " + comments + " is displayed for Round First ");
+                        //Click on Edit Bids button and New Bid Round button
+                        counterparty.ClickEditBidsButton();
+                        counterparty.ClickNewBidRoundAndSelectFirstRound();
 
-                counterparty.SaveAllDetailsOfBid();
+                        //Validate all columns corresponding to selected Bid
+                        string compName = counterparty.ValidateCompanyName();
+                        Assert.AreEqual("Company Name", compName);
+                        extentReports.CreateLog("Column with name : " + compName + " is displayed for Round First ");
 
-                usersLogin.DiffLightningLogout();
+                        string minBid = counterparty.ValidateMinBid();
+                        Assert.AreEqual("Min Bid", minBid);
+                        extentReports.CreateLog("Column with name : " + minBid + " is displayed for Round First ");
+
+                        string maxBid = counterparty.ValidateMaxBid();
+                        Assert.AreEqual("Max Bid", maxBid);
+                        extentReports.CreateLog("Column with name : " + maxBid + " is displayed for Round First ");
+
+                        string equity = counterparty.ValidateEquity();
+                        Assert.AreEqual("Equity %", equity);
+                        extentReports.CreateLog("Column with name : " + equity + " is displayed for Round First ");
+
+                        string debt = counterparty.ValidateDebt();
+                        Assert.AreEqual("Debt %", debt);
+                        extentReports.CreateLog("Column with name : " + debt + " is displayed for Round First ");
+
+                        string bidDate = counterparty.ValidateBidDate();
+                        Assert.AreEqual("Bid Date", bidDate);
+                        extentReports.CreateLog("Column with name : " + bidDate + " is displayed for Round First ");
+
+                        string comments = counterparty.ValidateComments();
+                        Assert.AreEqual("Comments", comments);
+                        extentReports.CreateLog("Column with name : " + comments + " is displayed for Round First ");
+
+                        counterparty.SaveAllDetailsOfBid();
+                    }
+
+                    usersLogin.DiffLightningLogout();
+                }               
                 driver.Quit();
 
             }
