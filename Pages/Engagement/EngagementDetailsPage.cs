@@ -150,29 +150,16 @@ namespace SF_Automation.Pages.Engagement
         By txtSecWomenLedFR = By.CssSelector("div[id*='PL_ep_j_id0_j_id4']>h3");
        
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
-      
         By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFN']");       
-       
-       
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']"); 
              
-        
-        
         By txtCoverageType = By.CssSelector("input[id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
         By txtPrimarySector = By.CssSelector("input[id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
         By txtSecondarySector = By.CssSelector("input[id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
         By txtTertiarySector = By.CssSelector("input[id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By linkShowAllResults = By.XPath("//a[contains(text(),'Show all results')]");
-        
-        
-       
-       
-        
-       
-       
-       
        
         //By btnSendEmail = By.CssSelector("input[value='Send Email']");
         
@@ -187,7 +174,7 @@ namespace SF_Automation.Pages.Engagement
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");        
 
         By labelWomenLed = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(9) > td:nth-child(1)");
-        By labelWomenLedJob = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(8) > td:nth-child(1)");
+        By labelWomenLedJob = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(8) > td:nth-child(4)");
         By labelWomenLedActivism = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(7) > td:nth-child(1)");
         By labelWomenFVA = By.CssSelector("div:nth-child(29) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By labelWomenFR = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(13) > td:nth-child(1)");
@@ -484,11 +471,6 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSave).Click();
         }
 
-
-
-
-
-
         public string ClickICOContractsLink(int row)
         {
             Thread.Sleep(3000);
@@ -520,13 +502,13 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
-
         public int numberOfContractCounts()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNoOfContract);
             int countContracts = driver.FindElements(valNoOfContract).Count;
             return countContracts;
         }
+
         public void ClickContractLink(int row)
         {
             Thread.Sleep(3000);
@@ -544,6 +526,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.Navigate().Refresh();
             }
         }
+
         public void ClickBillToForContract(int row)
         {
             Thread.Sleep(3000);
