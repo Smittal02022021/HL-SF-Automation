@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -6,12 +7,117 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using MongoDB.Bson.Serialization.Conventions;
 
 namespace SF_Automation.Pages.Engagement
 {
     class EngagementSummaryPage : BaseClass
     {
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
+        By lblTransTypeL = By.XPath("//label[text()='Transaction Type']");
+        By lblCurrencyFinL = By.XPath("//label[text()='Currency Financials are reported in']");
+        By lblProjectionsL = By.XPath("//label[text()='Projections are as of: ']");
+        By lblLTMProjectionsL = By.XPath("//label[text()='LTM Projections are as of: ']");
+        By lblRevenueL = By.XPath("//label[contains(text(),'Revenue')]");
+        By lblEBITDAL = By.XPath("//label[contains(text(),'EBITDA')]");
+        By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
+        By lblDMAFieldsL = By.XPath("//table/thead/tr/th/span");
+        By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
+        By lblHLFinTable = By.XPath("//thead/tr[1]/th/span");
+        By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
+        By lblFinDescL = By.XPath("//label[text()='Financing Description']");
+        By lblFinancingTypeL = By.XPath("//label[text()='Financing Type']");
+        By lblOtherL = By.XPath("//label[text()='Other']");
+        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
+        By lblFinAmountL = By.XPath("//label[text()='Financing Amount (MM)']");
+        By btnFinTypeL = By.XPath("//button[@name='Financing_Type__c']");
+        By valFinTypesL = By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By btnSecTypeL = By.XPath("//button[@name='Security_Type__c']");
+        By valSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By txtOtherL = By.XPath("//textarea[@name='Notes__c']");
+        By txtFinAmtL = By.XPath("//input[@name='Financing_Amount__c']");
+        By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
+        By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
+        By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
+        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
+        By valTotalFin = By.XPath("");
+
+        By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
+        By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
+        By btnAddHLFinL = By.XPath("//button[text()='Add HL Financing']");
+        By lblPostTxnStatusL = By.XPath("//label[text()='Post Transaction Status']");
+        By lblCompDescL = By.XPath("//label[text()='Company Description']");
+        By lblClientDescL = By.XPath("//label[text()='Client Description']");
+        By lblReTxnL = By.XPath("//label[text()='Restructuring Transaction Description']");
+        By valTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By txtTxnType = By.XPath("//label[text()='Transaction Type']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By txtRevenue = By.XPath("//label[text()='Revenue FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+        By txtEBITDA = By.XPath("//label[text()='EBITDA FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+        By txtCapex = By.XPath("//label[text()='Capex FY-1 (MM)']/ancestor::div[@part='input-text']/div");
+        By valCurrency = By.XPath("//button[@name='CurrencyIsoCode']");
+        By valCurrencyNone = By.XPath("//lightning-base-combobox-item/span/span[@title='--None--']");
+        By btnProjections = By.XPath("//input[@name='Projections_Last_Updated__c']");
+        By imgProjCalendar = By.XPath("//label[text()='Projections are as of: ']/ancestor::div[1]/lightning-input-field/lightning-input/lightning-datepicker/div/div/lightning-calendar");
+        By btnLTMProjections = By.XPath("//input[@name='LTM_Projections_Last_Updated__c']");
+        By imgLTMProjCalendar = By.XPath("//label[text()='LTM Projections are as of: ']/ancestor::div[1]/lightning-input-field/lightning-input/lightning-datepicker/div/div/lightning-calendar");
+        By txtRevFYM1 = By.XPath("//input[@name='Revenue_FY_minus1_MM__c']");
+        By txtRevFY = By.XPath("//input[@name='Revenue_FY_MM__c']");
+        By txtRevLTM = By.XPath("//input[@name='Revenue_LTM_MM__c']");
+        By txtRevFYA1 = By.XPath("//input[@name='Revenue_FY_1_MM__c']");
+        By txtRevFYA2= By.XPath("//input[@name='Revenue_FY_2_MM__c']");
+        By txtRevFYA3 = By.XPath("//input[@name='Revenue_FY_3_MM__c']"); 
+        By txtRevFYA4 = By.XPath("//input[@name='Revenue_FY_4_MM__c']");
+        By txtRevFYA5 = By.XPath("//input[@name='Revenue_FY_5_MM__c']");
+        By txtEBITDAFYM1 = By.XPath("//input[@name='EBITDA_FY_minus1_MM__c']");
+        By txtEBITDAFY = By.XPath("//input[@name='EBITDA_FY_MM__c']");
+        By txtEBITDALTM = By.XPath("//input[@name='EBITDA_LTM_MM__c']");
+        By txtEBITDAFYA1 = By.XPath("//input[@name='EBITDA_FY_1_MM__c']");
+        By txtEBITDAFYA2 = By.XPath("//input[@name='EBITDA_FY_2_MM__c']");
+        By txtEBITDAFYA3 = By.XPath("//input[@name='EBITDA_FY_3_MM__c']");
+        By txtEBITDAFYA4 = By.XPath("//input[@name='EBITDA_FY_4_MM__c']");
+        By txtEBITDAFYA5 = By.XPath("//input[@name='EBITDA_FY_5_MM__c']");
+        By txtCapexFYM1 = By.XPath("//input[@name='Capex_FY_minus1_MM__c']");
+        By txtCapexLTM = By.XPath("//input[@name='Capex_LTM_MM__c']");
+        By txtCapexFY = By.XPath("//input[@name='Capex_FY_MM__c']");
+        By txtCapexFYA1 = By.XPath("//input[@name='Capex_FY_1_MM__c']");
+        By txtCapexFYA2 = By.XPath("//input[@name='Capex_FY_2_MM__c']");
+        By txtCapexFYA3 = By.XPath("//input[@name='Capex_FY_3_MM__c']");
+        By txtCapexFYA4 = By.XPath("//input[@name='Capex_FY_4_MM__c']");
+        By txtCapexFYA5 = By.XPath("//input[@name='Capex_FY_5_MM__c']");
+        By btnSaveFinancials = By.XPath("//c-engagement-fr-summary-fin-proj/div/lightning-button/button[text()='Save']");
+        By msgSaveFinancials = By.XPath("//span[text()='Record saved']");
+        By msgCurrencyFinancials = By.XPath("//div[text()='Complete this field.']");
+        By msgAssetSold = By.XPath("//label[text()='Asset Sold']/ancestor::lightning-primitive-input-simple/div[2]");
+        By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
+        By btnCancel = By.XPath("//button[text()='Cancel']");
+        By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
+
+        By txtAssetSoldL = By.XPath("//input[@name='Name']");
+        By txtDateOfSoldL = By.XPath("//input[@name='Date_of_Sale__c']");
+        By txtMinOverbidL = By.XPath("//input[@name='Minimum_Overbid__c']");
+        By txtIncreOverBidL = By.XPath("//input[@name='Incremental_Overbid__c']");
+        By txtBreakUPFeeL = By.XPath("//input[@name='Break_Up_Fee__c']");
+        By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
+        By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
+        By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
+        By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
+        By btnOK = By.XPath("//button[text()='OK']");
+        By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
+        By msgFinTypeL = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[2]");
+        By msgSecTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
+        By txtTotalFinAmt = By.XPath("//input[@name='Total_Financing_Amount__c']");
+        By btnSaveHLFin = By.XPath("//c-engagement-fr-summary-hl-financing/div/lightning-button/button[text()='Save']");
+        By msgSave = By.XPath("//span[text()='Record saved']");
+        By txtFinDesc = By.XPath("//textarea[@name='Financing_Description__c']");
+
+
+        By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valCompDesc = By.XPath("//label[text()='Company Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By valReTxnDesc = By.XPath("//label[text()='Restructuring Transaction Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
+        By msgReqInfo = By.XPath("//div[text()='*Please fill out the required information in the Engagement and Business Information Section of the Engagement']");
         By comboTxnTypes = By.CssSelector("select[name*='j_id41']>option");
         By lblClientDesc = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(3) > label");
         By lblPostTxnStatus = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(2) > td:nth-child(1) > label");
@@ -27,6 +133,7 @@ namespace SF_Automation.Pages.Engagement
         By lblLTMProjections = By.CssSelector("div[id*='j_id60'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By rowFinancials = By.CssSelector("tbody[id*='j_id28:j_id60:j_id61:tb']>tr>td:nth-child(2)");
         By tabDistressedMA = By.CssSelector("td[id*='tabDistressedMAInformation_lbl']");
+        
         By headerDistressed = By.CssSelector("table[id*=':salesTransactions']>thead>tr>th>div>label");
         By tabHLFinancing = By.CssSelector("td[id*='tabHLFinancing_lbl']");
         By headerHLFinancing = By.CssSelector("table[id*='financing']>thead>tr>th>div>label");
@@ -216,7 +323,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
         public string GetLabelTransactionType()
@@ -353,9 +460,9 @@ namespace SF_Automation.Pages.Engagement
         //Compare values of Currency Financials
         public bool VerifyCurrencyFinancialsValues()
         {
-            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes);
+            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes); 
             var actualValue = valCurTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar","Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -724,7 +831,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(comboDebtCurrency);
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -884,6 +991,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidatePostTransAddDebtTitle()
         {
             driver.FindElement(btnPostTransAddDebt).Click();
+            Thread.Sleep(4000);
             string title = driver.FindElement(titleInsertNewHL).Text;
             return title;
         }
@@ -993,7 +1101,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valClassi = driver.FindElements(comboClassification);
             var actualValue = valClassi.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry" };
+            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry", "FR" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1054,7 +1162,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valContact = driver.FindElements(headerExtContact);
             var actualValue = valContact.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "", "Name", "Relationship" };
+            string[] expectedValue = { "", "Name", "Relationship"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1528,7 +1636,7 @@ namespace SF_Automation.Pages.Engagement
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
+            }           
         }
         public bool ValidateCopiedEquityHolderValues()
         {
@@ -1730,7 +1838,7 @@ namespace SF_Automation.Pages.Engagement
             var actualValue = valRow.Select(x => x.Text).ToArray();
             string value2 = DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
             Console.WriteLine(value2);
-            string[] expectedValue = { "LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
+            string[] expectedValue = {"LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1808,7 +1916,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, rowLender, 100);
             IReadOnlyCollection<IWebElement> valRow = driver.FindElements(rowLender);
             var actualValue = valRow.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "ABC", "10.00" };
+            string[] expectedValue = {"ABC", "10.00"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1849,7 +1957,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valLoanAmt, 90);
             Thread.Sleep(3000);
-            string Amount = driver.FindElement(valLoanAmt).Text;
+            string Amount = driver.FindElement(valLoanAmt).Text;           
             return Amount;
         }
 
@@ -1861,16 +1969,16 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);           
 
             try
             {
                 string rowDisplayed = driver.FindElement(rowLenderPostDel).Displayed.ToString();
-                Console.WriteLine("rowDisplayed :" + rowDisplayed);
+                Console.WriteLine("rowDisplayed :" + rowDisplayed);               
                 return rowDisplayed;
             }
             catch (Exception)
-            {
+            {                
                 return "No row displayed";
             }
         }
@@ -1880,7 +1988,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(8000);
+            Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEquityClose, 300);
             driver.FindElement(btnEquityClose).Click();
         }
@@ -1914,7 +2022,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEquitySave).Click();
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, valPostOwnership, 90);
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);            
             string valOwner = driver.FindElement(valPostOwnership).Text;
             return valOwner;
         }
@@ -2087,15 +2195,928 @@ namespace SF_Automation.Pages.Engagement
             string message = driver.FindElement(msgStaffRoleDel).Text;
             return message;
         }
+
         //Click on Return to Engagement
         public void ClickReturnToEngagement()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement,150);
             driver.FindElement(btnReturnToEngagement).Click();
         }
+        public string ValidateFieldTransactionTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTransTypeL, 90);
+            string txtTransType = driver.FindElement(lblTransTypeL).Text;
+            return txtTransType;
+        }
+
+        public string ValidateFieldPostTransactionStatusL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTxnStatusL, 90);
+            string value = driver.FindElement(lblPostTxnStatusL).Text;
+            return value;
+        }
+
+        public string ValidateFieldCompDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompDescL, 90);
+            string value = driver.FindElement(lblCompDescL).Text;
+            return value;
+        }
+
+        public string ValidateFieldClientDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClientDescL, 90);
+            string value = driver.FindElement(lblClientDescL).Text;
+            return value;
+        }
+
+        public string ValidateFieldRestructuringTxnDescL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblReTxnL, 90);
+            string value = driver.FindElement(lblReTxnL).Text;
+            return value;
+        }
+
+        //Get the value of Transaction Type
+        public string GetValueOfTransactionTypeInFREngL()
+        {            
+           WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
+            string value = driver.FindElement(valTxnType).Text;
+            return value;
+        }
+        
+        //Validate if Transaction Type is editable or not
+        public string ValidateTransactionTypeIfEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTxnType, 90);
+            string value = driver.FindElement(txtTxnType).GetAttribute("class");
+            return value;
+        }
+        //Get the value of Transaction Type
+        public string GetValueOfPostTransactionStatusInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valPostTxnStatus, 90);
+            string value = driver.FindElement(valPostTxnStatus).Text;
+            return value;
+        }
+
+        //Get the value of Client Description
+        public string GetValueOfClientDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientDesc, 90);
+            string value = driver.FindElement(valClientDesc).Text;
+            return value;
+        }
+        //Get the value of Company Description
+        public string GetValueOfCompDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompDesc, 90);
+            string value = driver.FindElement(valCompDesc).Text;
+            return value;
+        }
+
+        //Get the value of Restructuring Transaction Description
+        public string GetValueOfReTxnDescInFREngL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valReTxnDesc, 90);
+            string value = driver.FindElement(valReTxnDesc).Text;
+            return value;
+        }
+
+        //Get the note displaye at the bottom of Engagement Info tab
+        public string GetNoteDisplayedOnEngInfoL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgReqInfo, 90);
+            string value = driver.FindElement(msgReqInfo).Text;
+            return value;
+        }
+
+        public string ValidateFieldCurrencyFinancialsAreReportedInL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCurrencyFinL, 90);
+            string txtCurrency = driver.FindElement(lblCurrencyFinL).Text;
+            return txtCurrency;
+        }
+
+        public string ValidateFieldProjectionsAreAsOfL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblProjectionsL, 90);
+            string txtProj = driver.FindElement(lblProjectionsL).Text;
+            return txtProj;
+        }
+        public string ValidateFieldLTMProjectionsAreAsOfL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblLTMProjectionsL, 90);
+            string txtLTMProj = driver.FindElement(lblLTMProjectionsL).Text;
+            return txtLTMProj;
+        }
+
+        public bool VerifyRevenueFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblRevenueL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Revenue FY-1 (MM)", "Revenue FY (MM)", "Revenue LTM (MM)", "Revenue FY+1 (MM)", "Revenue FY+2 (MM)", "Revenue FY+3 (MM)", "Revenue FY+4 (MM)", "Revenue FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public bool VerifyEBITDAFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblEBITDAL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = {"EBITDA FY-1 (MM)", "EBITDA FY (MM)", "EBITDA LTM (MM)", "EBITDA FY+1 (MM)", "EBITDA FY+2 (MM)", "EBITDA FY+3 (MM)", "EBITDA FY+4 (MM)", "EBITDA FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public bool VerifyCapexFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblCapexL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Capex FY-1 (MM)", "Capex FY (MM)", "Capex LTM (MM)", "Capex FY+1 (MM)", "Capex FY+2 (MM)", "Capex FY+3 (MM)", "Capex FY+4 (MM)", "Capex FY+5 (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate if Revenue are editable or not
+        public string ValidateIfRevenueFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRevenue, 90);
+            driver.FindElement(txtRevenue).Click();
+            string value = driver.FindElement(txtRevenue).Enabled.ToString();
+            return value;
+        }
+
+        //Validate if EBITDA are editable or not
+        public string ValidateIfEBITDAFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEBITDA, 90);
+            driver.FindElement(txtEBITDA).Click();
+            string value = driver.FindElement(txtEBITDA).Enabled.ToString();
+            return value;
+        }
+
+        //Validate if Capex are editable or not
+        public string ValidateIfCapexFieldsAreEditable()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCapex, 90);
+            driver.FindElement(txtCapex).Click();
+            string value = driver.FindElement(txtCapex).Enabled.ToString();
+            return value;
+        }
+
+        //Get the currency
+        public string GetCurrencyValueOfFinancialsTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 90);
+            string value = driver.FindElement(valCurrency).GetAttribute("data-value");
+            return value;
+        }
+
+        //Enter the value in Projections are as of
+        public string ValidateProjectionsCalendar()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver,btnProjections, 90);            
+            driver.FindElement(btnProjections).Click();
+            Thread.Sleep(10000);
+            string value = driver.FindElement(imgProjCalendar).Enabled.ToString();
+            Console.WriteLine("value: " + value);
+            if (value.Equals("True")) 
+            {
+                return "Projections Calendar got displayed";
+            }
+            else
+            {
+                return "Projections Calendar did not get displayed";
+            }
+        }
+
+        //Enter the value in LTMvProjections are as of
+        public string ValidateLTMProjectionsCalendar()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLTMProjections, 90);
+            driver.FindElement(btnLTMProjections).Click();
+            Thread.Sleep(10000);
+            string value = driver.FindElement(imgLTMProjCalendar).Enabled.ToString();
+            Console.WriteLine("value: " + value);
+            if (value.Equals("True"))
+            {
+                return "LTM Projections Calendar got displayed";
+            }
+            else
+            {
+                return "LTM Projections Calendar did not get displayed";
+            }
+        }
+
+        //Validate save functionality of Financials tab
+        public string ValidateSaveFunctionalityOfFinancialsTab()
+        {
+            driver.FindElement(txtRevFYM1).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnProjections).Clear();
+            driver.FindElement(btnProjections).SendKeys("Sep 5, 2023");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLTMProjections, 100);
+            driver.FindElement(btnLTMProjections).Clear();
+            driver.FindElement(btnLTMProjections).SendKeys("Sep 5, 2023");
+            driver.FindElement(txtRevFYM1).Clear();
+            driver.FindElement(txtRevFYM1).SendKeys("10");
+            driver.FindElement(txtRevFY).Clear();
+            driver.FindElement(txtRevFY).SendKeys("10");
+            driver.FindElement(txtRevLTM).Clear();
+            driver.FindElement(txtRevLTM).SendKeys("10");
+            driver.FindElement(txtRevFYA1).Clear();
+            driver.FindElement(txtRevFYA1).SendKeys("10");
+            driver.FindElement(txtRevFYA2).Clear();
+            driver.FindElement(txtRevFYA2).SendKeys("10");
+            driver.FindElement(txtRevFYA3).Clear();            
+            driver.FindElement(txtRevFYA3).SendKeys("10");
+            driver.FindElement(txtRevFYA4).Clear();
+            driver.FindElement(txtRevFYA4).SendKeys("10");
+            driver.FindElement(txtRevFYA5).Clear();
+            driver.FindElement(txtRevFYA5).SendKeys("10");
+
+            driver.FindElement(txtEBITDAFYM1).Clear();
+            driver.FindElement(txtEBITDAFYM1).SendKeys("10");
+            driver.FindElement(txtEBITDAFY).Clear();
+            driver.FindElement(txtEBITDAFY).SendKeys("10");
+            driver.FindElement(txtEBITDALTM).Clear();
+            driver.FindElement(txtEBITDALTM).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA1).Clear();
+            driver.FindElement(txtEBITDAFYA1).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA2).Clear();
+            driver.FindElement(txtEBITDAFYA2).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA3).Clear();
+            driver.FindElement(txtEBITDAFYA3).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA4).Clear();
+            driver.FindElement(txtEBITDAFYA4).SendKeys("10");
+            driver.FindElement(txtEBITDAFYA5).Clear();
+            driver.FindElement(txtEBITDAFYA5).SendKeys("10");
+
+            driver.FindElement(txtCapexFYM1).Clear();
+            driver.FindElement(txtCapexFYM1).SendKeys("10");
+            driver.FindElement(txtCapexFY).Clear();
+            driver.FindElement(txtCapexFY).SendKeys("10");
+            driver.FindElement(txtCapexLTM).Clear();
+            driver.FindElement(txtCapexLTM).SendKeys("10");
+            driver.FindElement(txtCapexFYA1).Clear();
+            driver.FindElement(txtCapexFYA1).SendKeys("10");
+            driver.FindElement(txtCapexFYA2).Clear();
+            driver.FindElement(txtCapexFYA2).SendKeys("10");
+            driver.FindElement(txtCapexFYA3).Clear();
+            driver.FindElement(txtCapexFYA3).SendKeys("10");
+            driver.FindElement(txtCapexFYA4).Clear();
+            driver.FindElement(txtCapexFYA4).SendKeys("10");
+            driver.FindElement(txtCapexFYA5).Clear();
+            driver.FindElement(txtCapexFYA5).SendKeys("10");
+
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
+            string message=  driver.FindElement(msgSaveFinancials).Text;
+            return message;
+        }
+
+        //Validate save functionality of Financials tab
+        public string ValidateUpdateFunctionalityOfFinancialsTab()
+        {
+            driver.FindElement(txtRevFYM1).Click();
+            Thread.Sleep(4000);           
+            driver.FindElement(txtRevFYM1).Clear();
+            driver.FindElement(txtRevFYM1).SendKeys("20");
+            driver.FindElement(txtRevFY).Clear();
+            driver.FindElement(txtRevFY).SendKeys("20");
+            driver.FindElement(txtRevLTM).Clear();
+            driver.FindElement(txtRevLTM).SendKeys("20");
+            driver.FindElement(txtRevFYA1).Clear();
+            driver.FindElement(txtRevFYA1).SendKeys("20");
+            driver.FindElement(txtRevFYA2).Clear();
+            driver.FindElement(txtRevFYA2).SendKeys("20");
+            driver.FindElement(txtRevFYA3).Clear();
+            driver.FindElement(txtRevFYA3).SendKeys("20");
+            driver.FindElement(txtRevFYA4).Clear();
+            driver.FindElement(txtRevFYA4).SendKeys("20");
+            driver.FindElement(txtRevFYA5).Clear();
+            driver.FindElement(txtRevFYA5).SendKeys("20");
+
+            driver.FindElement(txtEBITDAFYM1).Clear();
+            driver.FindElement(txtEBITDAFYM1).SendKeys("20");
+            driver.FindElement(txtEBITDAFY).Clear();
+            driver.FindElement(txtEBITDAFY).SendKeys("20");
+            driver.FindElement(txtEBITDALTM).Clear();
+            driver.FindElement(txtEBITDALTM).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA1).Clear();
+            driver.FindElement(txtEBITDAFYA1).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA2).Clear();
+            driver.FindElement(txtEBITDAFYA2).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA3).Clear();
+            driver.FindElement(txtEBITDAFYA3).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA4).Clear();
+            driver.FindElement(txtEBITDAFYA4).SendKeys("20");
+            driver.FindElement(txtEBITDAFYA5).Clear();
+            driver.FindElement(txtEBITDAFYA5).SendKeys("20");
+
+            driver.FindElement(txtCapexFYM1).Clear();
+            driver.FindElement(txtCapexFYM1).SendKeys("20");
+            driver.FindElement(txtCapexFY).Clear();
+            driver.FindElement(txtCapexFY).SendKeys("20");
+            driver.FindElement(txtCapexLTM).Clear();
+            driver.FindElement(txtCapexLTM).SendKeys("20");
+            driver.FindElement(txtCapexFYA1).Clear();
+            driver.FindElement(txtCapexFYA1).SendKeys("20");
+            driver.FindElement(txtCapexFYA2).Clear();
+            driver.FindElement(txtCapexFYA2).SendKeys("20");
+            driver.FindElement(txtCapexFYA3).Clear();
+            driver.FindElement(txtCapexFYA3).SendKeys("20");
+            driver.FindElement(txtCapexFYA4).Clear();
+            driver.FindElement(txtCapexFYA4).SendKeys("20");
+            driver.FindElement(txtCapexFYA5).Clear();
+            driver.FindElement(txtCapexFYA5).SendKeys("20");
+
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
+            string message = driver.FindElement(msgSaveFinancials).Text;
+            return message;
+        }
+
+        //Validate Currency validation on Financials tab
+        public string ValidateCurrencyFinancialsValidation()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrency, 110);
+            driver.FindElement(valCurrency).Click();
+            Thread.Sleep(3000);
+            var element = driver.FindElement(valCurrencyNone);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement(valCurrencyNone).Click();
+            driver.FindElement(btnSaveFinancials).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgCurrencyFinancials, 90);
+            string message = driver.FindElement(msgCurrencyFinancials).Text;
+            return message;
+        }
+
+        //Validate DM&A Info fields 
+        public bool VerifyDMAndAInfoFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblDMAFieldsL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
+            string[] expectedValues = { "Asset Sold", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break up fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)", "Total Sales Price (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+
+        //Validate fields on Add Distressed M & A Info
+        public bool VerifyAddDistressedFieldsL()
+        {
+            driver.FindElement(btnAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddDistressedL);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblAddDistressedL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
+            bool isTrue = true;
+            Console.WriteLine(actualNamesAndDesc[0]);
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate HL Financing fields 
+        public bool VerifyHLFinancingTableFieldsL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblHLFinTable);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();            
+            string[] expectedValues = { "Financing Type", "Other", "Security Type", "Financing Amount (MM)"};
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public string ValidateLabelTotalFinancingAmount()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalFinAmt,120);
+            string value = driver.FindElement(lblTotalFinAmt).Text;
+            return value;
+        }
+
+        public string ValidateLabelFinancingDesc()
+        {
+            string value = driver.FindElement(lblFinDescL).Text;
+            return value;
+        }
+
+        //Validate mandatory validation for Asset Sold
+        public string ValidateMandatoryMessageForAssetSoldField()
+        {
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgAssetSold);
+            string message = driver.FindElement(msgAssetSold).Text;
+            return message;
+
+        }
+
+        //Validate page after clicking Cancel button on Add Distressed M&A Info Page
+        public string ValidatePageAfterClickingCancelOnAddDistressedMAInfoPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel,150);
+            driver.FindElement(btnCancel).Click();
+            string name = driver.FindElement(tabDMAL).Text;
+            return name;
+        }
+
+
+        //Validate Financing Type
+        public string VerifyFinancingTypeFieldL()
+        {
+            driver.FindElement(btnAddHLFinL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblFinancingTypeL, 180);
+            string name = driver.FindElement(lblFinancingTypeL).Text;
+            return name;
+        }
+
+        //Validate Security Type
+        public string VerifySecurityTypeFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSecurityTypeL, 180);
+            string name = driver.FindElement(lblSecurityTypeL).Text;
+            return name;
+        }
+
+        //Validate Financing Amount
+        public string VerifyFinancingAmountFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblFinAmountL, 180);
+            string name = driver.FindElement(lblFinAmountL).Text;
+            return name;
+        }
+
+        //Validate Other
+        public string VerifyOtherFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOtherL, 180);
+            string name = driver.FindElement(lblOtherL).Text;
+            return name;
+        }
+
+        //Validate Financing Type values
+        public bool VerifyFinancingTypeValuesL()
+        {
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valFinTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "--None--", "Acquisition", "Credit Facility", "DIP","Equity","Exit Facility", "Mezzanine", "New Equity Financing","Refinancing", "Revolver","Rollover","Term Loan","Other" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnFinTypeL).Click();
+            return isTrue;
+        }
+
+        //Validate Security Type values
+        public bool VerifySecurityTypeValuesL()
+        {
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();           
+            string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B", "Bank Debt (First Lien) - Synthetic LC Facility", "Bank Debt (Second Lien)", "Senior Structured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Other Unsecured Debt", "Common Equity", "Preferred Equity" };
+            Console.WriteLine("1st:" + actualNamesAndDesc[0]);
+            Console.WriteLine("1st:" + actualNamesAndDesc[1]);
+            Console.WriteLine(actualNamesAndDesc[2]);
+            Console.WriteLine(actualNamesAndDesc[3]);
+            Console.WriteLine(actualNamesAndDesc[4]);
+            Console.WriteLine(actualNamesAndDesc[5]);
+            Console.WriteLine(actualNamesAndDesc[6]);
+            Console.WriteLine(actualNamesAndDesc[7]);
+            Console.WriteLine(actualNamesAndDesc[8]);
+            Console.WriteLine(actualNamesAndDesc[9]);
+            Console.WriteLine(actualNamesAndDesc[10]);
+            Console.WriteLine(actualNamesAndDesc[11]);
+            Console.WriteLine(actualNamesAndDesc[12]);
+          
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnSecTypeL).Click();
+            return isTrue;
+        }
+        //Validate save functionality of Add Distressed M&A Info Page
+        public string ValidateSaveFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddDistressedL, 120);
+            driver.FindElement(btnAddDistressedL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssetSoldL, 120);
+            driver.FindElement(txtAssetSoldL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateOfSoldL, 120);
+            driver.FindElement(txtDateOfSoldL).SendKeys("Sep 13, 2023");
+            driver.FindElement(txtMinOverbidL).SendKeys("10");
+            driver.FindElement(txtIncreOverBidL).SendKeys("10");
+            driver.FindElement(txtBreakUPFeeL).SendKeys("10");
+
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate edit functionality of Add Distressed M&A Info Page
+        public string ValidateEditFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssetSoldL, 120);
+            driver.FindElement(txtAssetSoldL).Clear();
+            driver.FindElement(txtAssetSoldL).SendKeys("20");            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAddDistressedL, 120);
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            driver.FindElement(btnSaveAddDistressedL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valAssetSold).Text;
+            return value;
+        }
+
+
+        //Validate cancel functionality of Add Distressed M&A Info Page
+        public string ValidateCancelFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string value = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+                return "Record is still displayed";
+            }
+            catch (Exception)
+            {
+                return "Record is not displayed";
+            }
+        }
+        //Validate delete functionality of Add Distressed M&A Info Page
+        public string ValidateDeleteFunctionalityOfAddDistressedMAInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);           
+            try
+            {
+                string value = driver.FindElement(rowAddDistressedL).Displayed.ToString();
+                return "Record is displayed";
+            }
+         catch(Exception)
+            {               
+                return "Record is not displayed";
+            }
+        }
+
+        //Validate cancel button
+        public string ValidateCancelButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            string name = driver.FindElement(btnCancel).Text;
+            return name;
+        }
+
+        //Validate save button
+        public string ValidateSaveButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAddHL, 120);
+            string name = driver.FindElement(btnSaveAddHL).Text;
+            driver.FindElement(btnSaveAddHL).Click();
+            return name;
+        }
+
+        //Validate the error message for Financing type
+        public string ValidateErrorMessageForFinancingType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgFinTypeL, 120);
+            string name = driver.FindElement(msgFinTypeL).Text;
+            return name;
+        }
+
+        //Validate the error message for Security type
+        public string ValidateErrorMessageForSecurityType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSecTypeL, 120);
+            string name = driver.FindElement(msgSecTypeL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionality()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabHLFinancingL, 120);
+            string name = driver.FindElement(tabHLFinancingL).Text;
+            return name;
+        }
+
+        //Validate save functionality of Add HL Financing Page
+        public string ValidateSaveFunctionalityOfAddHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddHLFinL, 120);
+            driver.FindElement(btnAddHLFinL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecTypeL, 120);
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+             driver.FindElement(txtFinAmtL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddHLFinL).Displayed.ToString();
+            return row;
+        }
+
+        //Update the value of Financing Amount field
+        public string UpdateTotalFinancingAmountValue()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalFinAmt, 120);
+            driver.FindElement(txtTotalFinAmt).SendKeys("15");
+            driver.FindElement(btnSaveHLFin).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSave, 120);
+            string message = driver.FindElement(msgSave).Text;
+            return message;
+        }
+
+        //Update the value of Financing Description field
+        public string UpdateFinancingDescValue()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFinDesc, 120);
+            driver.FindElement(txtFinDesc).Clear();
+            driver.FindElement(txtFinDesc).SendKeys("Testing");
+            driver.FindElement(btnSaveHLFin).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSave, 120);
+            string message = driver.FindElement(msgSave).Text;
+            return message;
+        }
+
+        //Validate validation for Other field
+        public string ValidateErrorMessageOfOtherField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddHLFinL, 120);
+            driver.FindElement(btnAddHLFinL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecTypeL, 120);
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtOtherL).SendKeys("Testing");
+            driver.FindElement(txtFinAmtL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgOtherL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            return message;
+        }
+
+        //Get the value of Financing Type before update
+        public string GetFinTypeBeforeUpdate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valFinTypeL, 120);
+            string value= driver.FindElement(valFinTypeL).Text;
+            return value;
+        }
+
+        //Validate edit functionality of Add HL Financing Page
+        public string ValidateEditFunctionalityOfAddHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            driver.FindElement(By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate validation for Other field
+        public string ValidateErrorMessageOfOtherFieldWhileEdit()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
+            driver.FindElement(txtOtherL).SendKeys("Testing");            
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgOtherL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            return message;
+        }
+
+        //Validate functionality for Other field
+        public string ValidateFunctionalityOfOtherField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
+            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span")));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span"))).Click();
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
+            driver.FindElement(txtOtherL).SendKeys("Testing");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valOtherL).Text;           
+            return value;
+        }
+
+        //Validate mandatory field validation for Financing Type
+        public string ValidateMandatoryFieldValidationForFinType()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            driver.FindElement(btnFinTypeL).Click();
+            Thread.Sleep(4000);
+            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")));
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span"))).Click();
+            driver.FindElement(btnSecTypeL).Click();
+            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+           
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgFinType).Text;
+            return value;
+        }
+        //Validate mandatory field validation for Security Type
+        public string ValidateMandatoryFieldValidationForSecType()
+        {            
+            string value = driver.FindElement(msgSecType).Text;
+            return value;
+        }
+
+        //Validate Cancel functionality of Add HL Financing Page
+        public string ValidateCancelFunctionalityOfHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+            //Validate Delete functionality of Add HL Financing Page
+            public string ValidateDeleteFunctionalityOfHLFinancing()
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+                driver.FindElement(btnDeleteDistressed).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+                driver.FindElement(btnOK).Click();
+                 Thread.Sleep(4000);                
+                try 
+                {
+                string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+                return "Record is not deleted";
+                }
+                catch(Exception)
+                {
+                    return "Record is deleted";
+                }
+
+            }
     }
 }
-
 
 

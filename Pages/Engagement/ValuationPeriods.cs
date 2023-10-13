@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Engagement
         By comboToolUtilized = By.CssSelector("select[name*=':AutomationToolUtilizedId']");
         By txtReportFee = By.CssSelector("input[name*='id68']");
         By btnImportPositions = By.CssSelector("input[value='Import Positions']");
-        By valPeriod = By.CssSelector("td[id*=':j_id182'] > a");
+        By valPeriod = By.CssSelector("td[id*=':j_id181'] > a");
         By btnAddTeamMember = By.CssSelector("input[value='Add New Team Member']");
         By btnSaveTeamMember = By.CssSelector("input[value='Save Team Members']");
         By btnEdit = By.CssSelector("input[value='Edit']");
@@ -40,7 +40,7 @@ namespace SF_Automation.Pages.Engagement
         By valCompletedDate = By.CssSelector("span[id*='id86']");
         By valCancelDate = By.CssSelector("span[id*='id87']");
         By btnBackToValuation = By.CssSelector("input[value='Back To Valuation Period']");
-        By valPositionName = By.CssSelector("td[id*='id182']>a");
+        By valPositionName = By.CssSelector("td[id*='id181']>a");
         By txtUpReportFee = By.CssSelector("input[name*='id38']");
         By btnVoidPosition = By.CssSelector("input[value='Void Position']");
         By msgCancel = By.CssSelector("div[id*='_id5']");
@@ -48,7 +48,7 @@ namespace SF_Automation.Pages.Engagement
         By linkDel = By.CssSelector("a[name*='id176']");
         By msgSuccess1 = By.CssSelector("div[id*='id8']");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         //To Click New Engagement Valuation Period button
         public string ClickEngValuationPeriod()

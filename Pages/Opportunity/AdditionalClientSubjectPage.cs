@@ -14,7 +14,7 @@ namespace SF_Automation.Pages
     {
         By btnContinue = By.CssSelector("input[value='Continue']");
         By winAdditionalClientSubject = By.CssSelector("span[class='ui-dialog-title']");
-        By winAdditionalClient = By.Id("ui-id-2");
+        By winAdditionalClient = By.XPath("//span[text()='Add Additional Client(s)']");
         By txtSearch = By.CssSelector("input[name*= 'txtSearch']");
         By btnGo = By.CssSelector("input[name*= 'btnGo']");
         By checkCompany = By.CssSelector("input[name*= 'id50']");
@@ -29,9 +29,9 @@ namespace SF_Automation.Pages
         By btnSaveClose = By.CssSelector("input[value='Save & Close']");
         By btnAddClient = By.Id("newClient");
         By btnAddSubject = By.Id("newSubject");
-        By titleHLTeam = By.CssSelector("h1 b");  //By.CssSelector("h2[class='mainTitle']");
+        By titleHLTeam = By.CssSelector("h1 b");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");// input[name*='internalTeam:j_id88:0:j_id90']");
+       
         By btnSave = By.CssSelector("input[value='Save']");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
@@ -54,116 +54,124 @@ namespace SF_Automation.Pages
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
         By txtAlertMessage = By.XPath("//slot/div/div/h2");
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
-        By checkRecord1 = By.XPath("//tr[1]/td[1]/div/lightning-input/div/span/label/span[1]");
-        By checkRecord = By.XPath("//tr[2]/td[1]/div/lightning-input/div/span/label/span[1]");
+        By checkRecord1 = By.XPath("//tr[1]/td[1]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
+        By checkRecord = By.XPath("//tr[2]/td[1]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
         By btnYes = By.XPath("//footer/lightning-button[1]/button");
         By txtType1 = By.XPath("//tr[1]/td[4]/div/lightning-formatted-text");
         By txtType = By.XPath("//tr[1]/td[4]/div/lightning-formatted-text");
         By titleAdditionalClient = By.CssSelector("h2[class='pageDescription']");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
         By txtClientSubjectEng = By.CssSelector("span>input[id*='D9Dbw']");
-        By valNewClient = By.XPath("//div[@id='box-30']/div[1]/div/lightning-formatted-text");
+        By valNewClient = By.XPath("//div[@id='box-31']/div[1]/div/lightning-formatted-text");
         By valNewClientEng = By.XPath("//table/tbody/tr[5]/th/a");
         By valNewClientEngOther = By.XPath("//table/tbody/tr[4]/th/a");
         By valClientType = By.XPath("//tbody/tr[1]/td[4]/div/lightning-formatted-text");
-        By valEngClientType = By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr[5]/td[2]");
+        By valEngClientType = By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr[5]/td[2]");  //table/tbody/tr[1]/td[4]/div/lightning-formatted-text
         By valClientType1 = By.XPath("//tbody/tr[1]/td[3]/div/lightning-formatted-text");
-        By valCompKeyCreditor = By.XPath("//div[@id='box-43']/div[1]/div/lightning-formatted-text");
+        By valCompKeyCreditor = By.XPath("//div[@id='box-46']/div[1]/div/lightning-formatted-text");
         By valEngCompKeyCreditor = By.XPath("//table/tbody/tr[6]/th/a");
         By valTypeKeyCreditor = By.XPath("//tbody/tr[2]/td[4]/div/lightning-formatted-text");
         By valEngTypeKeyCreditor = By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr[6]/td[2]");
         By btnSaveClientSubject = By.CssSelector("input[value=' Save ']");
         By valType = By.XPath("//button[contains(@id,'button-16')]");
-        By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
+        By valSelectedType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
         By colTableColumns = By.XPath("//table/thead/tr/td/div");
-        By val2ndClient = By.XPath("//div[@id='box-43']/div[1]/div/lightning-formatted-text");
+        By val2ndClient = By.XPath("//div[@id='box-46']/div[1]/div/lightning-formatted-text");
         By valOtherCred = By.XPath("//table/tbody[2]/tr[1]/td[1]/div/span");
         By val2ndType = By.XPath("//table/tbody[1]/tr[2]/td[4]/div/lightning-formatted-text");
         By val2ndTypeKey = By.XPath("//table/tbody[1]/tr[2]/td[3]/div/lightning-formatted-text");
         By btnSaveRecords = By.XPath("//header/div[2]/slot/lightning-button[1]/button");
         By btnCancelRecords = By.XPath("//header/div[2]/slot/lightning-button[2]/button");
-        By txtClientHoldingsMM = By.XPath("//*[@id='input-135']");
-        By txtClientHoldingsPer = By.XPath("//*[@id='input-136']");
-        By txtClientHoldingsMMEng = By.XPath("//*[@id='input-125']");
-        By txtClientHoldingsPerEng = By.XPath("//*[@id='input-126']");
-        By valClientHoldingsPer = By.XPath("//table/tbody[1]/tr/td[7]/div/lightning-formatted-text");
+        By txtClientHoldingsMM = By.XPath("//*[@id='input-147']");
+        By txtClientHoldingsPer = By.XPath("//*[@id='input-149']");
+        By txtClientHoldingsMMEng = By.XPath("//*[@id='input-135']");
+        By txtClientHoldingsPerEng = By.XPath("//*[@id='input-137']");
+        By valClientHoldingsPer = By.XPath("//table/tbody[1]/tr[1]/td[7]/div/lightning-formatted-text");
         By valClientHoldingsPerEng = By.XPath("//table/tbody[1]/tr[1]/td[7]/div/lightning-formatted-text");
         By valClientHoldingsPerUpd = By.XPath("//div[4]/table/tbody[1]/tr[1]/td[7]/div/lightning-formatted-text");
         By msgSuccessSave = By.XPath("//slot/div[2]/div/h2");
         By msgSuccessSaveKey = By.XPath("//div[2]/slot/div[3]/div/h2");
         By msgSuccessSaveKeyEngage = By.XPath("//div[2]/slot/div[2]/div/h2");
-        By txtClientHoldingsMM2nd = By.XPath("//*[@id='input-321']");
-        By txtClientHoldingsPer2nd = By.XPath("//*[@id='input-237']");
-        By txtClientHoldingsPer2ndEngage = By.XPath("//*[@id='input-113']");
-        By txtClientHoldingsPercen2nd = By.XPath("//*[@id='input-322']");
+        By txtClientHoldingsMM2nd = By.XPath("//*[@id='input-336']");
+        By txtClientHoldingsPer2nd = By.XPath("//*[@id='input-239']");
+        By txtClientHoldingsPer2ndEngage = By.XPath("//*[@id='input-122']");
+        By txtClientHoldingsPercen2nd = By.XPath("//*[@id='input-338']");
         By txtClientHoldingsMM2ndEng = By.XPath("//*[@id='input-226']");
-        By txtClientHoldingsMM2ndEngCred = By.XPath("//*[@id='input-191']");
+        By txtClientHoldingsMM2ndEngCred = By.XPath("//*[@id='input-208']");
         By txtClientHoldingsPer2ndEng = By.XPath("//*[@id='input-227']");
-        By txtClientHoldingsPer2ndEngCred = By.XPath("//*[@id='input-192']");
+        By txtClientHoldingsPer2ndEngCred = By.XPath("//*[@id='input-210']");
         By txtClientHoldingsPer3rd = By.XPath("//*[@id='input-322']");
-        By txtRevAllocationContra = By.XPath("//*[@id='input-165']");
+        By txtRevAllocationContra = By.XPath("//*[@id='input-180']");
         By txtRevAllocationCounterparty = By.XPath("//*[@id='input-230']");
-        By txtRevAllocationContraEng = By.XPath("//*[@id='input-142']");
-        By txtRevAllocationCounterpartyEng = By.XPath("//*[@id='input-207']");
-        By txtRevAllocationEquityEng = By.XPath("//*[@id='input-220']");
+        By txtRevAllocationContraEng = By.XPath("//*[@id='input-153']");
+        By txtRevAllocationContraEng2 = By.XPath("//*[@id='input-177']");
+        By txtRevAllocationCounterpartyEng = By.XPath("//*[@id='input-228']");
+        By txtRevAllocationEquityEng = By.XPath("//*[@id='input-243']");
         By valRevAllocationContra = By.XPath("//table/tbody[1]/tr/td[5]/div/lightning-formatted-text");
-        By valRevAllocationContraEng = By.XPath("//table/tbody[2]/tr/td[4]/div/lightning-formatted-text");
-        By txtRevAllocationContra2nd = By.XPath("//*[@id='input-188']");
-        By txtKeyCreditorWeighting = By.XPath("//*[@id='input-176']");
-        By txtKeyCreditorWeightingEng = By.XPath("//*[@id='input-179']");
+        By valRevAllocationContraEng = By.XPath("//table/tbody[2]/tr/td[4]/div/lightning-formatted-text");        
+        By txtRevAllocationContra2nd = By.XPath("//*[@id='input-204']");
+        By txtKeyCreditorWeighting = By.XPath("//*[@id='input-190']");
+        By txtKeyCreditorWeightingEng = By.XPath("//*[@id='input-193']");
         By valKeyCreditorWeighting = By.XPath("//tbody[1]/tr[1]/td[8]/div/lightning-formatted-text");
-        By txtDebtHoldingsMM2nd = By.XPath("//*[@id='input-281']");
+        By txtDebtHoldingsMM2nd = By.XPath("//*[@id='input-299']");
         By txtDebtHoldingsMM2ndEng = By.XPath("//*[@id='input-241']");
-        By txtDebtHoldingsMM2ndEngCred = By.XPath("//*[@id='input-277']");
-        By txtRevAllocationOther = By.XPath("//*[@id='input-178']");
-        By txtRevAllocationOtherEng = By.XPath("//*[@id='input-168']");
-        By txtRevAllocationOther2nd = By.XPath("//*[@id='input-201']");
-        By txtRevAllocationOther2ndEng = By.XPath("//*[@id='input-191']");
-        By txtRevAllocationPEFirm = By.XPath("//*[@id='input-191']");
-        By txtRevAllocationPEFirmEng = By.XPath("//*[@id='input-194']");
-        By txtRevAllocationPEFirm2nd = By.XPath("//*[@id='input-214']");
-        By txtRevAllocationPEFirm2ndEng = By.XPath("//*[@id='input-217']");
-        By txtRevAllocationSub = By.XPath("//*[@id='input-203']");
-        By txtRevAllocationSubEng = By.XPath("//*[@id='input-180']");
-        By txtRevAllocationSub2nd = By.XPath("//*[@id='input-247']");
-        By txtRevAllocationSub2ndEng = By.XPath("//*[@id='input-224']");
-        By txtRevAllocationCounter2ndEng = By.XPath("//*[@id='input-230']");
-        By txtRevAllocationEquity2ndEng = By.XPath("//*[@id='input-243']");
+        By txtDebtHoldingsMM2ndEngCred = By.XPath("//*[@id='input-302']");
+        By txtRevAllocationOther = By.XPath("//*[@id='input-195']");
+        By txtRevAllocationOtherEng = By.XPath("//*[@id='input-183']");
+        By txtRevAllocationOther2nd = By.XPath("//*[@id='input-219']");
+        By txtRevAllocationOther2ndEng = By.XPath("//*[@id='input-207']");
+        By txtRevAllocationPEFirm = By.XPath("//*[@id='input-210']");
+        By txtRevAllocationPEFirmEng = By.XPath("//*[@id='input-213']");
+        By txtRevAllocationPEFirm2nd = By.XPath("//*[@id='input-234']");
+        By txtRevAllocationPEFirm2ndEng = By.XPath("//*[@id='input-237']");
+        By txtRevAllocationSub = By.XPath("//*[@id='input-225']");
+        By txtRevAllocationSubEng = By.XPath("//*[@id='input-198']");
+        By txtRevAllocationSub2nd = By.XPath("//*[@id='input-275']");
+        By txtRevAllocationSub2ndEng = By.XPath("//*[@id='input-248']");
+        By txtRevAllocationCounter2ndEng = By.XPath("//*[@id='input-252']");
+        By txtRevAllocationEquity2ndEng = By.XPath("//*[@id='input-267']");
         By valRevAllocationSub = By.XPath("//table/tbody[1]/tr/td[6]/div/lightning-formatted-text");
         By valRevAllocationSubEng = By.XPath("//table/tbody[2]/tr/td[5]/div/lightning-formatted-text");
-        By comboKeyCreditorImpEng = By.XPath("//div[@id='dropdown-element-176']/lightning-base-combobox-item/span[2]/span");
-        By comboKeyCreditorImp = By.XPath("//div[@id='dropdown-element-173']/lightning-base-combobox-item/span[2]/span");
-        By comboRole = By.XPath("//*[@id='dropdown-element-132']/lightning-base-combobox-item/span[2]/span");
-        By comboRoleEng = By.XPath("//*[@id='dropdown-element-122']/lightning-base-combobox-item/span[2]/span");
-        By valKeyCreditorImpDefault = By.XPath("//div/button[@id='combobox-button-173']/span");
-        By valKeyCreditorImpDefaultEng = By.XPath("//div/button[@id='combobox-button-176']/span");
-        By btnKeyCreditor = By.XPath("//button[@id='combobox-button-173']");
-        By btnKeyCreditorEng = By.XPath("//button[@id='combobox-button-176']");
-        By btnRole = By.XPath("//button[@id='combobox-button-132']");
-        By btnRoleEng = By.XPath("//button[@id='combobox-button-122']");
+        By comboKeyCreditorImpEng = By.XPath("//div[@id='dropdown-element-189']/lightning-base-combobox-item/span[2]/span");
+        By comboKeyCreditorImp = By.XPath("//div[@id='dropdown-element-186']/lightning-base-combobox-item/span[2]/span");
+        By comboRole = By.XPath("//lightning-base-combobox-item/span[2]/span");
+        By comboRoleEng = By.XPath("//*[@id='dropdown-element-131']/lightning-base-combobox-item/span[2]/span");
+        By valKeyCreditorImpDefault = By.XPath("//div/button[@id='combobox-button-186']/span");
+        By valKeyCreditorImpDefaultEng = By.XPath("//div/button[@id='combobox-button-189']/span");
+        By btnKeyCreditor = By.XPath("//button[@id='combobox-button-186']");
+        By btnKeyCreditorEng = By.XPath("//button[@id='combobox-button-189']");
+        By btnRole = By.XPath("//button[@id='combobox-button-16']");
+        By btnRoleEng = By.XPath("//button[@id='combobox-button-131']");
         By valTotalClientHoldings = By.XPath("//table/tbody[2]/tr[2]/td[6]/div/lightning-formatted-text");
-        By txtClientHoldingPerEngage = By.XPath("//*[@id='input-198']");
+        By txtClientHoldingPerEngage = By.XPath("//*[@id='input-215']");
         By btnCloseMessage = By.XPath("//div[2]/div/div/lightning-button-icon/button");
-        By txtRevAllocationClient = By.XPath("//*[@id='input-246']");
-        By txtRevAllocationClientEngage = By.XPath("//*[@id='input-122']");
+        By txtRevAllocationClient = By.XPath("//*[@id='input-251']");
+        By txtRevAllocationClientEngage = By.XPath("//*[@id='input-134']");
         By valRevAllocation = By.XPath("//table/tbody[2]/tr[2]/td[11]/div/lightning-formatted-text");
-        By txtKeyCreditorWeighting2nd = By.XPath("//*[@id='input-383']");
-        By txtKeyCreditorWeighting2ndEngage = By.XPath("//*[@id='input-156']");
+        By txtKeyCreditorWeighting2nd = By.XPath("//*[@id='input-421']");
+        By txtKeyCreditorWeighting2ndEngage = By.XPath("//*[@id='input-168']");
         By valTotalKeyCreditorWeighting = By.XPath("//table/tbody[2]/tr[2]/td[7]/div/lightning-formatted-text");
         By valColumnClientHoldings = By.XPath("//table/thead/tr/td[5]/div/div");
         By valColumnDebtHoldings = By.XPath("//table/thead/tr/td[7]/div/div");
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
-        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-164']");
-        By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-192']");
-        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-185']");
-        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-235']");
-        By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-230']");
-        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-256']");
-        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-304']");
+        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-177']");
+        By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-204']");
+        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-202']");
+        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-256']");
+        By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-246']");
+        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-281']");
+        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-333']");
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
-        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-325']");
+        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
+
+        By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
+        //By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+        By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
+        By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
+        By listStaff2 = By.XPath("(/html/body/ul/li)[2]/a");        
+
         By listGCAMember = By.XPath("//li[@class='ui-menu-item']/a/b/b[text()='Mark']");
         //By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
         By checkMarketing = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
@@ -173,10 +181,6 @@ namespace SF_Automation.Pages
         By checkAssociate = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[7]/input");
         By checkAnalyst = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[8]/input");
         By checkSpecialty = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[9]/input");
-        By checkPEHF = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[10]/input");
-        By checkIntern1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
-        By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[12]/input");
-        By listStaff2 = By.XPath("(/html/body/ul/li)[2]/a");
 
         public void EnterMultipleStaffDetails(string file, int row, int row1, string recordType)
         {
@@ -294,39 +298,44 @@ namespace SF_Automation.Pages
                         driver.FindElement(checkIntern).Click();
                         break;
                 }
-
                 driver.FindElement(btnSave).Click();
                 Thread.Sleep(10000);
                 WebDriverWaits.WaitForPageToLoad(driver, 120);
             }
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
             Thread.Sleep(5000);
-        }
+        }       
 
-        public void EnterStaffDetailsMultipleRows(string file, int row)
+
+        //To enter team member details
+        public void EnterStaffDetails(string file, int row)
         {
             Thread.Sleep(3000);
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
+            Thread.Sleep(3000);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
             driver.FindElement(checkInitiator).Click();
-            driver.FindElement(btnSave).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnSave).Click(); WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
 
-        //To enter team member details
+
+        public void ClickContinue()
+        {
+            //Calling wait function--Continue button     
+            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue);
+            driver.FindElement(btnContinue).Submit();
+        }
+
+//To enter team member details
         public void EnterHLAndGCAStaffDetails(string file, int row)
         {
             Thread.Sleep(3000);
@@ -355,17 +364,10 @@ namespace SF_Automation.Pages
                 Thread.Sleep(10000);
                 WebDriverWaits.WaitForPageToLoad(driver, 120);
             }
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
 
-        public void ClickContinue()
-        {
-            //Calling wait function--Continue button     
-            WebDriverWaits.WaitUntilEleVisible(driver, btnContinue);
-            driver.FindElement(btnContinue).Submit();
-        }
 
         public string ValidateAdditionalClientSubjectTitle()
         {
@@ -504,38 +506,19 @@ namespace SF_Automation.Pages
             IWebElement titleHLInternalTeam = driver.FindElement(titleHLTeam);
             return titleHLInternalTeam.Text;
         }
-
-        //To enter team member details
-        public void EnterStaffDetails(string file, int row)
-        {
-            Thread.Sleep(3000);
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 14);
-            driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver,listStaff,240);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 90);
-            driver.FindElement(checkInitiator).Click();
-            driver.FindElement(btnSave).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
-            driver.FindElement(btnReturnToOppor).Click();
-        }
+       
 
         //To enter team member details
         public void EnterStaffDetails(string file)
         {
-            Thread.Sleep(7000);
+            Thread.Sleep(10000);
             ReadJSONData.Generate("Admin_Data.json");
             Console.WriteLine("Entered staff function");
-            string dir = ReadJSONData.data.filePaths.testData;
+            string dir = ReadJSONData.data.filePaths.testData;            
             string excelPath = dir + file;
             string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
             Console.WriteLine("Before entering Staff");
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
             driver.FindElement(txtStaff).SendKeys(valStaff);
             Thread.Sleep(5000);
@@ -545,7 +528,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSave).Click();
-
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
@@ -874,14 +857,14 @@ namespace SF_Automation.Pages
         {
             Console.WriteLine("Entered into delete function");
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkRecord, 140);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkRecord,140);
             driver.FindElement(checkRecord).Click();
             driver.FindElement(btnDeleteRecords).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnYes, 100);
             driver.FindElement(btnYes).Click();
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtType, 130);
-            Thread.Sleep(6000);
+            Thread.Sleep(6000);              
             string type = driver.FindElement(txtType).Text;
             if (type.Equals("Client"))
             {
@@ -958,7 +941,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubject, 80);
             driver.FindElement(txtClientSubject).SendKeys(name);
             driver.FindElement(btnSaveClientSubject).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);            
             WebDriverWaits.WaitUntilEleVisible(driver, valNewClient, 150);
             string value = driver.FindElement(valNewClient).Text;
             return value;
@@ -1022,7 +1005,7 @@ namespace SF_Automation.Pages
             string value = driver.FindElement(valEngClientType).Text;
             return value;
         }
-
+      
         //Validate the company name of Key Creditors 
         public string GetCompanyNameOfKeyCreditor()
         {
@@ -1097,7 +1080,7 @@ namespace SF_Automation.Pages
             }
         }
 
-
+        
 
         //Select value from Type dropdown and validate the displayed values
         public string SelectValueFromTypeDropdown(string name)
@@ -1105,10 +1088,10 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.FindElement(valType).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
             Thread.Sleep(6000);
             //string value = driver.FindElement(valSelectedType).Text;
-            string value = driver.FindElement(valSelectedType).GetAttribute("data-value");
+            string value = driver.FindElement(valSelectedType).Text;
             return value;
         }
 
@@ -1419,7 +1402,7 @@ namespace SF_Automation.Pages
         //Validate Save Functionalities
         public string ValidateSaveFunctionalityOfMassEditOfEngagement(string value, string type)
         {
-            if (type.Contains("Client") && value.Contains("Creditor Advisors"))
+            if (type.Contains("Client") && value.Contains("Creditor Advisors")) 
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2ndEngCred, 300);
                 driver.FindElement(txtClientHoldingsMM2ndEngCred).Clear();
@@ -1432,9 +1415,9 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Client") && value.Contains("Debtor Advisors"))
+            else if(type.Contains("Client") && value.Contains("Debtor Advisors"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2ndEng, 300);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2ndEng, 300); 
                 driver.FindElement(txtClientHoldingsMM2ndEng).Clear();
                 driver.FindElement(txtClientHoldingsMM2ndEng).SendKeys(value);
                 driver.FindElement(txtClientHoldingsPer2ndEng).Clear();
@@ -1481,7 +1464,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm2ndEng, 140);
                 driver.FindElement(txtRevAllocationPEFirm2ndEng).Clear();
-                Thread.Sleep(4000);
+                Thread.Sleep(5000);
                 driver.FindElement(txtRevAllocationPEFirm2ndEng).SendKeys("10");
                 Thread.Sleep(6000);
                 driver.FindElement(btnSaveRecords).Click();
@@ -1524,9 +1507,9 @@ namespace SF_Automation.Pages
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationContra, 140);
-                driver.FindElement(txtRevAllocationContra).Clear();
-                driver.FindElement(txtRevAllocationContra).SendKeys("10");
+                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationContraEng2, 140);
+                driver.FindElement(txtRevAllocationContraEng2).Clear();
+                driver.FindElement(txtRevAllocationContraEng2).SendKeys("10");
                 Thread.Sleep(43000);
                 driver.FindElement(btnSaveRecords).Click();
                 Thread.Sleep(4000);
@@ -1627,7 +1610,9 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, comboRole, 160);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(comboRole);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "Adverse", "Buyer Contact", "Buyer Financial Advisor", "Buyer Legal Counsel", "Equity Holder", "Financial Advisor", "Financial Advisor to Creditor", "Financial Advisor to Debtor", "Legal Advisor to Creditor", "Legal Advisor to Debtor", "Legal Counsel", "Lender", "Majority Owner", "Management Contact", "Minority Owner", "Other", "Post-Transaction", "Pre-Transaction", "Primary Contact", "Seller Legal Counsel", "Seller Majority Owner", "Seller Management Contact" };
+            string[] expectedValue = { "All", "Client", "Contra", "Key Creditor", "PE Firm",  "Subject", "Other" };
+
+            //string[] expectedValue = { "--None--", "Adverse", "Buyer Contact", "Buyer Financial Advisor", "Buyer Legal Counsel", "Equity Holder", "Financial Advisor", "Financial Advisor to Creditor", "Financial Advisor to Debtor", "Legal Advisor to Creditor", "Legal Advisor to Debtor", "Legal Counsel", "Lender", "Majority Owner", "Management Contact", "Minority Owner", "Other", "Post-Transaction", "Pre-Transaction", "Primary Contact", "Seller Legal Counsel", "Seller Majority Owner", "Seller Management Contact" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1746,7 +1731,7 @@ namespace SF_Automation.Pages
         public string ValidateErrorMessageUponEnteringRevenueAllocationMoreThan100()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer2nd, 160);
-            driver.FindElement(txtClientHoldingsPer2nd).Clear();
+            driver.FindElement(txtClientHoldingsPer2nd).Clear();           
             Thread.Sleep(2000);
             driver.FindElement(txtRevAllocationClient).Clear();
             Thread.Sleep(2000);
@@ -1784,11 +1769,11 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationClient, 160);
             driver.FindElement(txtRevAllocationClient).Clear();
             Thread.Sleep(2000);
-            driver.FindElement(txtRevAllocationClient).SendKeys("10");
+            driver.FindElement(txtRevAllocationClient).SendKeys("10");            
             Thread.Sleep(3000);
-            driver.FindElement(btnSaveRecords).Click();
+            driver.FindElement(btnSaveRecords).Click();            
             Thread.Sleep(6000);
-            string colour = driver.FindElement(valRevAllocation).GetAttribute("class");
+            string colour = driver.FindElement(valRevAllocation).GetAttribute("class");            
             return colour;
         }
 
@@ -1805,7 +1790,7 @@ namespace SF_Automation.Pages
             string colour = driver.FindElement(valRevAllocation).GetAttribute("class");
             return colour;
         }
-
+       
         //Click Edit button
         public void ClickEditButton()
         {
@@ -1830,7 +1815,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnEditMassEdit).Click();
             driver.FindElement(txtKeyCreditorWeighting2nd).Clear();
             Console.WriteLine("220");
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);            
             driver.FindElement(txtKeyCreditorWeighting2nd).SendKeys("235");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveRecords).Click();
@@ -1843,7 +1828,7 @@ namespace SF_Automation.Pages
 
         //Get Key Creditor Weighting % message
         public string ValidateErrorMessageUponEnteringKeyCreditorWeightingMoreThan100InEng()
-        {
+        {            
             Thread.Sleep(3000);
             driver.FindElement(txtKeyCreditorWeighting2ndEngage).Clear();
             driver.FindElement(txtKeyCreditorWeighting2ndEngage).SendKeys("235");
@@ -1966,10 +1951,10 @@ namespace SF_Automation.Pages
         {
             driver.FindElement(btnEditMassEdit).Click();
             Thread.Sleep(3000);
-            driver.FindElement(txtDebtHodlingsKeyCred13rdEditEng).Clear();
+            driver.FindElement(txtDebtHodlingsKeyCred13rdEditEng).Clear();            
             driver.FindElement(btnSaveRecords).Click();
             Thread.Sleep(3000);
-            // driver.SwitchTo().DefaultContent();
+           // driver.SwitchTo().DefaultContent();
         }
 
         //Click to Back To Opportunity button
@@ -1977,7 +1962,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOpp, 150);
-            driver.FindElement(btnBackToOpp).Click();
+            driver.FindElement(btnBackToOpp).Click();            
         }
 
         //Get Help text displayed on Client Holdings%
@@ -1986,9 +1971,29 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnClientHoldingsHelpIcon, 150);
             driver.FindElement(btnClientHoldingsHelpIcon).Click();
             string text = driver.FindElement(btnClientHoldingsHelpIcon).GetAttribute("title");
-            Console.WriteLine("text: " + text);
+            Console.WriteLine("text: "+text);
             //string actualText = text.Replace("\r\n", "").ToString();
             return text;
         }
+
+        public void EnterStaffDetailsMultipleRows(string file, int row)
+        {
+            Thread.Sleep(3000);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, 1);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSave).Click(); WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+        }
+       
     }
 }
+

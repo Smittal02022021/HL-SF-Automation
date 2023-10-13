@@ -93,7 +93,7 @@ namespace SF_Automation.Pages.Contact
         By valLegalEntity = By.CssSelector("div[id*='M0ebMj'] > a");
         By valRevenueAllocation = By.CssSelector("div[id*='GbDqzj']");
         By activitiesList = By.CssSelector("tbody[id*='pbActivityLog:pbtActivities:tb'] > tr");
-        By tabHome = By.CssSelector("a[title='Home Tab']");
+        By tabHome = By.XPath("//a[contains(@title,'Home Tab')]");
      // By btnTodaysActivities = By.CssSelector("#j_id0\\:j_id1\\:j_id2\\:j_id3\\:pbActivityLog\\:j_id9\\:j_id10");//("input[id*='j_id9:j_id10']");
         By btnTodaysActivities = By.CssSelector("#j_id0\\:j_id1\\:j_id2\\:j_id3\\:pbActivityLog\\:j_id9\\:j_id10");
         By valTodayActivityType = By.CssSelector("td[id*='0:j_id37'] > span>label");

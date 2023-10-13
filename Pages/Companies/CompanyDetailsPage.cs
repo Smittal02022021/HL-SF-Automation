@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V107.Browser;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.Pages.Company;
 using SF_Automation.TestData;

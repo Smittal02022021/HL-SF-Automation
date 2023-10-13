@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnCancelEmail = By.CssSelector("input[value='Cancel']");
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
 
-        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         //Validate Opp Name
         public string ValidateOppName()

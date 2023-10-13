@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 ﻿using Microsoft.Office.Interop.Excel;
 using MongoDB.Driver;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V109.Page;
+
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -68,6 +68,8 @@ namespace SF_Automation.Pages.Companies
 
         By btnNew = By.XPath("//ul[contains(@class,'oneActionsRibbon')]//a[@title='New']");
         By btnNext=By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button//span[text()='Next']");
+
+        By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
 
         By _radioRecordType(string recordType)

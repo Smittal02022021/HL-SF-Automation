@@ -282,10 +282,11 @@ namespace SF_Automation.Pages.Companies
         {
             Thread.Sleep(10000);
             CustomFunctions.SwitchToWindow(driver, 1);
-            driver.SwitchTo().Frame(driver.FindElement(iFrameExternal));            
+            driver.SwitchTo().Frame(driver.FindElement(iFrameExternal));
+            Thread.Sleep(2000); // new change
             driver.SwitchTo().Frame(driver.FindElement(iFrameEmailTemplate));
             WebDriverWaits.WaitUntilEleVisible(driver, txtEmailTemplate, 30);
-            string emailTemplate= driver.FindElement(txtEmailTemplate).Text;
+            string emailTemplate = driver.FindElement(txtEmailTemplate).Text;
             driver.SwitchTo().DefaultContent();
             CustomFunctions.CloseWindow(driver, 1);
             CustomFunctions.SwitchToWindow(driver, 0);

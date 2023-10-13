@@ -2,5 +2,9 @@
   "manifest_version": 2,
   "name": "Subresource Filtering Rules",
   "ruleset_format": 1,
+<<<<<<<< HEAD:TestData/Subresource Filter/Unindexed Rules/9.44.0/manifest.json
   "version": "9.44.0"
+========
+  "version": "9.43.0"
+>>>>>>>> Branch-Sonika:TestData/Subresource Filter/Unindexed Rules/9.43.0/manifest.json
 }

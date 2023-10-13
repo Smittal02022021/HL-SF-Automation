@@ -530,7 +530,7 @@
     <Compile Include="Pages\Opportunity\AddOpportunityPage.cs" />
     <Compile Include="Pages\Common\UsersLogin.cs" />
     <Compile Include="Pages\Common\LoginPage.cs" />
-    <Compile Include="Pages\Opportunity\AddCounterparty.cs" />
+    <Compile Include="Pages\Opportunity\AddOppCounterparty.cs" />
     <Compile Include="Pages\Opportunity\AddOpportunityByAdmin.cs" />
     <Compile Include="Pages\Opportunity\AddOpportunityContact.cs" />
     <Compile Include="Pages\Opportunity\CNBCForm.cs" />
@@ -655,6 +655,7 @@
     <Compile Include="TestCases\Engagement\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
@@ -713,6 +714,8 @@
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
+
+    <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1232_OpportunityDetails_NBCForm_SubmitforReview.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1432_TMTT0024858_TMTT0030610_TMTT0035436_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.cs" />
@@ -735,6 +738,7 @@
     <Compile Include="TestCases\Opportunities\TMTI0055018_TMTI0055021_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
+
     <Compile Include="TestCases\Opportunities\TMTI0056868_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056871_27295_27302_71646_55400_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
@@ -759,7 +763,6 @@
     <Compile Include="TestCases\Opportunities\TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0013765_TMTT0014798_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013844_CNBCForm_RequiredFields_SubmitForReview.cs" />
@@ -795,6 +798,7 @@
     <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
     <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
+    <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
     <Compile Include="TestCases\TimeRecordManager\T2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
@@ -1093,7 +1097,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.13.3\build\NUnit.props'))" />
+
+    <Error Condition="!Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />

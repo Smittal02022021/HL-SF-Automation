@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Engagement
                 engManager.ClickEngageName();
                 string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2022 - 10", month);
+                Assert.AreEqual("2023 - 09", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " is created in engagement details ");
 
                 //Logout of user and validate value of Period Accrual Fee matches with Revenue Accrual Fees 
@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Stage is updated to Retained in engagement details page ");
                 string monthRev = engagementDetails.GetMonthFromRevenueAccrualRecord();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2022 - 10", monthRev);
+                Assert.AreEqual("2023 - 09", monthRev);
                 extentReports.CreateLog("Revenue Accrual record with : " + monthRev + " is created in engagement details ");
 
                 //Validate value of Period Accrual Fee matches with Revenue Accrual Fees
@@ -126,13 +126,13 @@ namespace SF_Automation.TestCases.Engagement
                 string periodAccrualFeeEng = engagementDetails.GetPeriodAccrualValue();
                 Assert.AreEqual(periodAccrualFeeNetEng, "USD " + periodAccrualFeeEng);
                 extentReports.CreateLog("Period Accrual Fee in Revenue Accrual record matches with the Period Accrued Fee listed on the Engagement ");
-
+                                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
-                extentReports.CreateExceptionLog(e.Message);
+                extentReports.CreateLog(e.Message);                
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

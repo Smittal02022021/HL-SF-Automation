@@ -25,7 +25,7 @@ namespace SF_Automation.Pages.Tableau
 
         By lblCompanyCountry = By.XPath("//div[@id='00Ni000000DvFsEj_id0_j_id1_ileinner']");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
         Screen screen = new Screen();
 
         public void LoginintoTableau()
@@ -52,7 +52,7 @@ namespace SF_Automation.Pages.Tableau
             Pattern loginButton = new Pattern(excelPath3);
 
             screen.Wait(username, 10);
-            screen.Type(username, "vkumar0427");
+            screen.Type(username, "SGoyal0427");
             screen.Type(password, "Yankee@1234");
             screen.Click(loginButton);
             Thread.Sleep(5000);

@@ -1,5 +1,9 @@
 {
   "manifest_version": 2,
   "name": "hyphens-data",
+<<<<<<<< HEAD:TestData/User Data/hyphen-data/114.0.5682.0/manifest.json
   "version": "114.0.5682.0"
+========
+  "version": "112.0.5611.0"
+>>>>>>>> Branch-Sonika:TestData/hyphen-data/112.0.5611.0/manifest.json
 }

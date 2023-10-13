@@ -109,7 +109,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionLV(fileTMTI0055389);//udated Move to element
+                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055389);//udated Move to element
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055389);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
