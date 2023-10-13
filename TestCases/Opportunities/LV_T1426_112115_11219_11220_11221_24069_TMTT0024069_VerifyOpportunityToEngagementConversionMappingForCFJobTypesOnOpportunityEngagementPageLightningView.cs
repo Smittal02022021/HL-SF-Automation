@@ -10,10 +10,12 @@ using SF_Automation.TestData;
 using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
+using static System.Collections.Specialized.BitVector32;
+using System.Reflection;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_TMTI0055384_55395_55402_55391_55387_VerifyNewCFJobTypeOnOpportunityEngagementDetailPageLightningView : BaseClass
+    class LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -60,7 +62,8 @@ namespace SF_Automation.TestCases.Opportunities
                 for (int row = 2; row <= rowOpp; row++)                
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
-
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                    extentReports.CreateLog("Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
@@ -88,14 +91,24 @@ namespace SF_Automation.TestCases.Opportunities
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
+                    //TMTT0011215- Verify the Women Led field is available for all LOB:CF Opportunity
+                    //TMTT0011221- Verify the Women-Led field under the administration section on the Opportunity page
 
-                    //TMTI0055384	Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
+                    ///////////////////////////////
+                    //Validate Women Led field and Calling AddOpportunities function      
+                    string womenLed = addOpportunity.ValidateWomenLedFieldLV(valRecordType);
+                    string secName = addOpportunity.GetAdminSectionNameLV(valRecordType);
+                    Assert.AreEqual("Women Led", womenLed);
+                    Assert.AreEqual("Administration", secName);
+                    extentReports.CreateLog("Field with name: " + womenLed + " is displayed under section: " + secName + " ");
+                    /////////////////////////////////////
+                    
+
+                    //TMTI0055384 Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
-
+                    extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType);
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055384);//updated move to jobtype
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
-
-                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTI0055384);
@@ -121,7 +134,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055384);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickRetutnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();
@@ -143,18 +156,7 @@ namespace SF_Automation.TestCases.Opportunities
                     else
                     {
                         extentReports.CreateLog("Conflict Check fields are updated ");
-                    }
-
-                    //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
-                    if (valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateClientandSubject("Accupac");
-                        extentReports.CreateLog("Updated Client and Subject fields ");
-                    }
-                    else
-                    {
-                        extentReports.CreateLog("Not required to update NBC Approval ");
-                    }
+                    }                    
 
                     //TMTI0056861 Verify that NBC form is not required for new Job type - Lender education
                     //Get NBC Approved Default Status
@@ -260,6 +262,34 @@ namespace SF_Automation.TestCases.Opportunities
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
                     //Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
+
+
+
+                    //TMTT0011220 - Verify the Women Led field under Closing-**section on Engagement page
+                    ///////////////////////////////////////////////////
+                    //Validate the section in which Women led fiels is displayed
+                    string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
+                    Assert.AreEqual("Women Led", lblWomenLed);
+                    string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
+
+                    if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
+                    {
+                        Assert.AreEqual("Closing - Admin Details", secWomenLed);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Closing - Document Checklist", secWomenLed);
+                    }
+                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
+
+                    //TMTT0011219- Verify the Women-Led field is mapped to Engagement after conversion
+                    //Validate the value of Women Led in Engagement details page
+                    string engWomenLed = engagementDetails.GetWomenLed();
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6), engWomenLed);
+                    extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
+
+                    /////////////////////////////////////////////////                 
+
 
                     engagementDetails.ClickRelatedOpportunityLink();
                     //Validate the ERP status on Opp details page                
