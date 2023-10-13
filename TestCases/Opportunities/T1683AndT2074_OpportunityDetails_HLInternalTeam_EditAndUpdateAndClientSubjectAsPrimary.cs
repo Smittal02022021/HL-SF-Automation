@@ -92,7 +92,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Primary checkbox corresponding to added Subject Company is " + valueSubject+ " ");
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1683);              
+                opportunityDetails.UpdateInternalTeamDetails2(fileTC1683);              
                 extentReports.CreateLog("User is added in the HL Internal Team members ");
 
                 //Validate if user still exists in deal

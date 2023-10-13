@@ -650,12 +650,14 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             }
             return isFound;
         }
+
         //Get Opportunity Number
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateAdditionalSubjectFromPopUp(string jobType, string name)
         {
             if (jobType.Equals("Creditor Advisors"))
             {
+                driver.SwitchTo().DefaultContent();
                 Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 200);
                 driver.FindElement(lnkShowMore).Click();
@@ -667,6 +669,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
 
             else
             {
+                driver.SwitchTo().DefaultContent();
                 Thread.Sleep(6000);
                 string value = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
                 string type = driver.FindElement(By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr/th/a[text()='" + name + "']/ancestor::th/following-sibling::td[1]")).Text;
@@ -6209,6 +6212,59 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 350);
             string value = driver.FindElement(lblEngagement).Text;
             return value;
+        }
+
+        public void UpdateInternalTeamDetails2(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 350);
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(chkInternalTeamPrompt).Click();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 130);
+                //Check required checkboxes         
+                driver.FindElement(chkUpPrincipal).Click();
+                Thread.Sleep(2000);
+                driver.FindElement(chkUpSeller).Click();
+                driver.FindElement(chkUpManager).Click();
+                driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpAssociate).Click();
+                driver.FindElement(btnSaveITTeam).Click();
+                Thread.Sleep(3000);
+
+                //Click to return back to Opportunity details
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
+                driver.FindElement(btnReturnToOpp).Click();
+            }
+            catch(Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                driver.FindElement(lnkReDisplayRec).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(chkInternalTeamPrompt).Click();
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 130);
+
+                //Check required checkboxes         
+                driver.FindElement(chkUpPrincipal).Click();
+                driver.FindElement(chkUpSeller).Click();
+                driver.FindElement(chkUpManager).Click();
+                driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpAssociate).Click();
+
+                driver.FindElement(btnSaveITTeam).Click();
+
+                //Click to return back to Opportunity details
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
+                driver.FindElement(btnReturnToOpp).Click();
+            }
         }
     }
     

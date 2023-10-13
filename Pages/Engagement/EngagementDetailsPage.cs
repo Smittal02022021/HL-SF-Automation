@@ -14,7 +14,7 @@ namespace SF_Automation.Pages.Engagement
 {
     class EngagementDetailsPage : BaseClass
     {
-
+        By valEngContact2 = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         By lnkContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valEngName = By.CssSelector("div[id='Namej_id0_j_id4_ileinner']");
         By valStage = By.CssSelector("td[id*='id0_j_id4_ilecell']>div[id='00Ni000000D7NlWj_id0_j_id4_ileinner']");
@@ -2296,6 +2296,7 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valWomenLed).Text;
             return value;
         }
+
         public bool IsEngExternalContactPresent()
         {
             try
@@ -2352,20 +2353,20 @@ namespace SF_Automation.Pages.Engagement
                 driver.SwitchTo().DefaultContent();
                 return value;
             }
-            
         }
+
         public string GetEngExternalContact()
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
-                return driver.FindElement(valEngContact).Text.Trim();
+                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact2, 30);
+                return driver.FindElement(valEngContact2).Text.Trim();
             }
             catch(Exception e)
             {
                 driver.Navigate().Refresh();
-                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact, 30);
-                return driver.FindElement(valEngContact).Text.Trim();
+                WebDriverWaits.WaitUntilEleVisible(driver, valEngContact2, 30);
+                return driver.FindElement(valEngContact2).Text.Trim();
             }
            
         }
