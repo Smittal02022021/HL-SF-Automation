@@ -50,13 +50,13 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Financial User and validate the user
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);                               
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateFRUserLightning();
                 Console.WriteLine("stdUser: " + stdUser);
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
-                               
+
                 //Search for the required engagement           
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "Engagement");
                 Console.WriteLine("rowCount " + rowJobType);
@@ -65,127 +65,84 @@ namespace SF_Automation.TestCases.Engagement
 
                 //---1.	TMTI0073749_ Verify the availability of the "Pre-Transaction Info" tab on the FR Engagement Summary page
                 string value = engagementDetails.ClickFREngSummaryButtonL();
-                 string PreTrans = engagementDetails.ValidatePreTransTabL();
-                 Assert.AreEqual("Pre-Transaction Info", PreTrans);
-                 extentReports.CreateLog("Tab with name: " + PreTrans + " is displayed on FR Engagement Summary ");
+                string PreTrans = engagementDetails.ValidatePreTransTabL();
+                Assert.AreEqual("Pre-Transaction Info", PreTrans);
+                extentReports.CreateLog("Tab with name: " + PreTrans + " is displayed on FR Engagement Summary ");
 
                 //---2.	TMTI0073751_ Verify the fields and values available under the "Pre-Transaction Info" tab
-                Assert.IsTrue(summaryPage.VerifyHLFinancingTableFieldsL(), "Verified that displayed HL Financing Table fields are same");
-                extentReports.CreateLog("HL Financing Table fields are displayed as expected ");
+                Assert.IsTrue(summaryPage.VerifyPreTransactionHeadersL(), "Verified that displayed headers are same");
+                extentReports.CreateLog("Pre Transaction Info's headers are displayed as expected ");
 
-                string TotalFin =summaryPage.ValidateLabelTotalFinancingAmount();
-                Assert.AreEqual("Total Financing Amount", TotalFin);
-                extentReports.CreateLog("Field with name: " + TotalFin + " is displayed on HL Financing tab ");
+                string PreOrg = summaryPage.ValidateLabelPreReOrg();
+                Assert.AreEqual("Pre Reorganization Constituent Debt", PreOrg);
+                extentReports.CreateLog("Section with name: " + PreOrg + " is displayed on Pre Transaction Info tab ");
 
-                string FinDesc = summaryPage.ValidateLabelFinancingDesc();
-                Assert.AreEqual("Financing Description", FinDesc);
-                extentReports.CreateLog("Field with name: " + FinDesc + " is displayed on HL Financing tab ");
+                string PreOrgTotal = summaryPage.ValidateLabelPreReOrgTotalDebt();
+                Assert.AreEqual("Pre Reorganized Total Debt", PreOrgTotal);
+                extentReports.CreateLog("Section with name: " + PreOrgTotal + " is displayed on Pre Transaction Info tab ");
 
-                //---TMTI0073017_ Verify that clicking the "Add HL Financing" button opens up the screen to enter the details
-                string FinType = summaryPage.VerifyFinancingTypeFieldL();
-                Assert.AreEqual("*Financing Type", FinType);
-                extentReports.CreateLog("Field with name: " + FinType + " is displayed on Add HL Financing window ");
+                Assert.IsTrue(summaryPage.VerifyPreTransactionGridL(), "Verified that displayed grid headers are same");
+                extentReports.CreateLog("Pre Transaction Info's grid headers are displayed as expected ");
 
-                string SecType = summaryPage.VerifySecurityTypeFieldL();
-                Assert.AreEqual("*Security Type", SecType);
-                extentReports.CreateLog("Field with name: " + SecType + " is displayed on Add HL Financing window ");
+                //3.  TMTI0073755_Verify that clicking the "Add Equity Holder" button opens up the screen to enter the details
+                string ClientSub = summaryPage.VerifyClientSubjectFieldL();
+                Assert.AreEqual("*Client/Subject", ClientSub);
+                extentReports.CreateLog("Field with name: " + ClientSub + " is displayed on Add Equity Holder window ");
 
-                string FinAmt = summaryPage.VerifyFinancingAmountFieldL();
-                Assert.AreEqual("Financing Amount (MM)", FinAmt);
-                extentReports.CreateLog("Field with name: " + FinAmt + " is displayed on Add HL Financing window ");
-
-                string Other = summaryPage.VerifyOtherFieldL();
-                Assert.AreEqual("Other", Other);
-                extentReports.CreateLog("Field with name: " + Other + " is displayed on Add HL Financing window ");
-
-                //Validate values of Financing Type
-                Assert.IsTrue(summaryPage.VerifyFinancingTypeValuesL(), "Verified that displayed Financing Type values are same");
-                extentReports.CreateLog("Financing Type values are displayed as expected ");
-
-                //Validate values of Security Type
-                Assert.IsTrue(summaryPage.VerifySecurityTypeValuesL(), "Verified that displayed Security Type values are same");
-                extentReports.CreateLog("Security Type values are displayed as expected ");
+                string PerOwner = summaryPage.VerifyPercentOwnershipFieldL();
+                Assert.AreEqual("Percent Ownership", PerOwner);
+                extentReports.CreateLog("Field with name: " + PerOwner + " is displayed on Add Equity Holder window ");
 
                 //Validate Cancel button
                 string cancel = summaryPage.ValidateCancelButton();
                 Assert.AreEqual("Cancel", cancel);
-                extentReports.CreateLog("Button with name: " + cancel + " is displayed on Add HL Financing window ");
+                extentReports.CreateLog("Button with name: " + cancel + " is displayed on Add Equity Holder window ");
 
                 //Validate Save button
                 string save = summaryPage.ValidateSaveButton();
                 Assert.AreEqual("Save", save);
-                extentReports.CreateLog("Button with name: " + save + " is displayed on Add HL Financing window ");
+                extentReports.CreateLog("Button with name: " + save + " is displayed on Add Equity Holder window ");
 
-                //---TMTI0073019_Verify that an error message appears for the required field on clicking the "Save" button of Add HL Financing on leaving fields blank
-                //Validate the error message for Financing Type if blank
-                string msgFin = summaryPage.ValidateErrorMessageForFinancingType();
-                Assert.AreEqual("Complete this field.", msgFin);
-                extentReports.CreateLog("Message: " + msgFin + " is displayed for Financing Type field upon clicking Save button without selecting any value ");
+                //4.  TMTI0073759_Verify that an error message appears for the required field on clicking the "Save" button of Add Equity Holder screen on leaving fields blank. 
+                string msgClient = summaryPage.ValidateErrorMessageForClientSubject();
+                Assert.AreEqual("Complete this field.", msgClient);
+                extentReports.CreateLog("Message: " + msgClient + " is displayed for Client/Subject field upon clicking Save button without selecting any value ");
 
-                //Validate the error message for Security Type if blank
-                string msgSec = summaryPage.ValidateErrorMessageForSecurityType();
-                Assert.AreEqual("Complete this field.", msgSec);
-                extentReports.CreateLog("Message: " + msgSec + " is displayed for Security Type field upon clicking Save button without selecting any value ");
+                //5.  TMTI0073762_ Verify that clicking the "Cancel" button will take the user back to the list view of the Pre-Transaction Info tab
+                string cancelPage = summaryPage.ValidateCancelButtonFunctionalityOfPreTrans();
+                Assert.AreEqual("Pre-Transaction Info", cancelPage);
+                extentReports.CreateLog("Page with tab: " + cancelPage + " is displayed upon clicking Cancel button on Add Equity Holder window ");
 
-                //---TMTI0073021_Verify that clicking the "Cancel" button will take the user back to the list view of the HL Financing tab
-                string cancelPage =summaryPage.ValidateCancelButtonFunctionality();
-                Assert.AreEqual("HL Financing", cancelPage);
-                extentReports.CreateLog("Page with tab: " + cancelPage + " is displayed upon clicking Cancel button on Add HL Financing window ");
+                //6.  TMTI0073764_ Verify that the "Pre-Transaction Equity Holder" record is created with all the entered information by clicking the "Save" button on Add Equity Holder screen. 
+                string rowEquityHolder = summaryPage.ValidateSaveFunctionalityOfAddEquityHolder();
+                Assert.AreEqual("True", rowEquityHolder);
+                extentReports.CreateLog("A row is created after saving details on Add Equity Holder page ");
 
-                //---TMTI0073023_Verify that the HL Financing record is created with all the entered information by clicking the "Save" button on Add HL Financing screen
-                string rowHLFin = summaryPage.ValidateSaveFunctionalityOfAddHLFinancing();
-                Assert.AreEqual("True", rowHLFin);
-                extentReports.CreateLog("A row is created after saving details on Add HL Financing page ");
+                //7. TMTI0073766_Verify that if the user selects an already added company while adding an Equity holder, the application will give an error message
+                string msgSameClient = summaryPage.ValidateIfSameClientIsSelectedInAddEquityHolder();
+                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgSameClient);
+                extentReports.CreateLog("Message : " + msgSameClient + " is displayed after selecting same client again and clicking on save in Add Equity Holder page ");
 
-                //---TMTI0073025_Verify that if the user enters data in the "Other" field of Add HL Financing screen without selecting Financing Type - Other, the application will give an error message.
-                string msgOther = summaryPage.ValidateErrorMessageOfOtherField();
-                Console.WriteLine(msgOther);
-                Assert.AreEqual("Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.", msgOther);
-                extentReports.CreateLog("Message : " + msgOther + "is displayed when Other field is entered without selecting Financing Type as Other ");
+                //8. TMTI0073768_Verify that clicking the "Edit" button of the Pre-Transaction Equity Holder record allows the user to update the Percent Ownership only of the record.
+                string finTypeBeforeUpdate = summaryPage.GetPerOwnershipBeforeUpdate();
+                string perOwnerPostUpdate = summaryPage.ValidateEditFunctionalityOfAddEquityHolder();
+                Assert.AreNotEqual(finTypeBeforeUpdate, perOwnerPostUpdate);
+                extentReports.CreateLog("Updated value of Percent Ownership is displayed upon saving it. ");
 
-                //---TMTI0073027_Verify that clicking the "Edit" button of the HL Financing record allows the user to update data in any of the fields
-                string finTypeBeforeUpdate = summaryPage.GetFinTypeBeforeUpdate();
-                string finTypePostUpdate = summaryPage.ValidateEditFunctionalityOfAddHLFinancing();
-                Assert.AreNotEqual(finTypeBeforeUpdate, finTypePostUpdate);
-                extentReports.CreateLog("Updated value of Financing Type is displayed upon saving it. ");
+                //9. TMTI0073770_Verify that the Company selected as Equity Holder is hyperlinked in the list view.
+                string hyperlinkEquity = summaryPage.ValidateHyperlinkOfAddedEquityHolder();
+                Assert.AreEqual("_blank", hyperlinkEquity);
+                extentReports.CreateLog("Selected company as Equity Holder is hyperlinked in the list view ");
 
-                //---TMTI0073029_Verify that if the user enters data in the "Other" field while editing HL Financing without selecting Financing Type - Other, the application will give an error message
-                string msgOtherEdit = summaryPage.ValidateErrorMessageOfOtherFieldWhileEdit();
-                Assert.AreEqual("Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.", msgOtherEdit);
-                extentReports.CreateLog("Message : " + msgOtherEdit + "is displayed when Other field is entered without selecting Financing Type as Other while editing HL Financing ");
-
-                //---TMTI0073031_Verify that if the user enters data in the "Other" field while editing HL Financing with Financing Type - Other, the application will not give any error message
-                string valOther = summaryPage.ValidateFunctionalityOfOtherField();
-                Assert.AreEqual("Testing", valOther);
-                extentReports.CreateLog("Updated value: " +valOther+" of Other field is displayed when Other field is entered after selecting Financing Type as Other while editing HL Financing ");
-
-                //---TMTI0073033_Verify that if the user removes data from required fields while editing HL Financing, the application will give an error message for required fields
-                string msgFinType = summaryPage.ValidateMandatoryFieldValidationForFinType();
-                Assert.AreEqual("Complete this field.", msgFinType);
-                extentReports.CreateLog("Validation: " + msgFinType + " for Financing Type field is displayed when no value is selected ");
-
-                string msgSecType = summaryPage.ValidateMandatoryFieldValidationForSecType();
-                Assert.AreEqual("Complete this field.", msgSecType);
-                extentReports.CreateLog("Validation: " + msgSecType + " for Security Type field is displayed when no value is selected ");
-
-                //---TMTI0073035_Verify that clicking the "Delete" button of the HL Financing record gives a confirmation message before deleting the record
-                string msgCancel = summaryPage.ValidateCancelFunctionalityOfHLFinancing();
+                //10. TMTI0073772_Verify that clicking the "Delete" button of the Equity Holder record gives a confirmation message before deleting the record.
+                string msgCancel = summaryPage.ValidateCancelFunctionalityOfEquityHolder();
                 Assert.AreEqual("Record is not deleted", msgCancel);
                 extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
-                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
+                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfEquityHolder();
                 Assert.AreEqual("Record is deleted", msgDelete);
                 extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
 
-                //---TMTI0073037_Verify the "Total Financing Amount" field is a formula field and can be overridden
-                string updMessage = summaryPage.UpdateTotalFinancingAmountValue();
-                Assert.AreEqual("Record saved", updMessage);
-                extentReports.CreateLog("Message :" + updMessage+ " is displayed after updating value of Total Financing Amount ");
-
-                //---TMTI0073039_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen
-                string updMessageDesc = summaryPage.UpdateFinancingDescValue();
-                Assert.AreEqual("Record saved", updMessageDesc);
-                extentReports.CreateLog("Message :" + updMessageDesc + " is displayed after updating value of Financing Description ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

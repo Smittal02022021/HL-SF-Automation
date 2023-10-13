@@ -38,7 +38,19 @@ namespace SF_Automation.Pages.Engagement
         By txtFinAmtL = By.XPath("//input[@name='Financing_Amount__c']");
         By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
         By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
+        By lblPreTransHeaders = By.XPath("//h3/span");
+        By lblPreTransGrid = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/thead/tr/th/span");
+        By lblPreReorg = By.XPath("//label[text()='Pre Reorganization Constituent Debt']");
+        By lblPreReorgTotal = By.XPath("//label[text()='Pre Reorganized Total Debt']");
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
+        By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
+        By txtPerOwnershipL = By.XPath("//input[@name='Percent_Ownership__c']");
+
+        By btnClientSubL = By.XPath("//input[@placeholder='Search Companies...']");
+        By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
+        By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
+        By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By valTotalFin = By.XPath("");
@@ -92,7 +104,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
         By btnCancel = By.XPath("//button[text()='Cancel']");
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
-
+        By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
         By txtAssetSoldL = By.XPath("//input[@name='Name']");
         By txtDateOfSoldL = By.XPath("//input[@name='Date_of_Sale__c']");
         By txtMinOverbidL = By.XPath("//input[@name='Minimum_Overbid__c']");
@@ -103,8 +115,11 @@ namespace SF_Automation.Pages.Engagement
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
         By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
         By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
+        By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
+        By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By btnOK = By.XPath("//button[text()='OK']");
         By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
+        By valPerOwnerL = By.XPath("//table/tbody/tr/td/div/lightning-formatted-number");
         By msgFinTypeL = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[2]");
         By msgSecTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
         By txtTotalFinAmt = By.XPath("//input[@name='Total_Financing_Amount__c']");
@@ -323,7 +338,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
         public string GetLabelTransactionType()
@@ -3116,6 +3131,204 @@ namespace SF_Automation.Pages.Engagement
                 }
 
             }
+
+        //Validate Pre Transaction Headers 
+        public bool VerifyPreTransactionHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Pre-Transaction Equity Holders", "Pre-Transaction Board Members", "Pre-Transaction Debt (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Pre Transaction Grid Headers 
+        public bool VerifyPreTransactionGridL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransGrid);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Security Type", "Key Creditors", "Constituent Debt", "Facility Balance (MM)", "Maturity Date", "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public string ValidateLabelPreReOrg()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPreReorg, 120);
+            string value = driver.FindElement(lblPreReorg).Text;
+            return value;
+        }
+
+        public string ValidateLabelPreReOrgTotalDebt()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPreReorgTotal, 120);
+            string value = driver.FindElement(lblPreReorgTotal).Text;
+            return value;
+        }
+
+        //Validate Client/Subject
+        public string VerifyClientSubjectFieldL()
+        {
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClientSubL, 180);
+            string name = driver.FindElement(lblClientSubL).Text;
+            return name;
+        }
+
+        //Validate Percent Ownership
+        public string VerifyPercentOwnershipFieldL()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPercentOwnershipL, 180);
+            string name = driver.FindElement(lblPercentOwnershipL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfPreTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabPreTransL, 120);
+            string name = driver.FindElement(tabPreTransL).Text;
+            return name;
+        }
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfAddEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@aria-label='Recent Companies']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddEquityHolderL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate when same client is added in Add Equity Holder Page
+        public string ValidateIfSameClientIsSelectedInAddEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@aria-label='Recent Companies']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string message = driver.FindElement(msgDupClientL).Text;
+            return message;
+        }
+
+        //Validate edit functionality of Add Equity Holder Page
+        public string ValidateEditFunctionalityOfAddEquityHolder()
+        {
+            //driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPerOwnershipL, 120);
+            driver.FindElement(txtPerOwnershipL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valPerOwnerL).Text;
+            return value;
+        }
+
+        //Validate hyperlink of Added Equity Holder 
+        public string ValidateHyperlinkOfAddedEquityHolder()
+        {
+            Thread.Sleep(5000);
+            string value = driver.FindElement(lnkEquityHolder).GetAttribute("target");
+            return value;
+        }
+
+        //Get the value of Percent Ownership  before update
+        public string GetPerOwnershipBeforeUpdate()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valPerOwnerL).Text;
+            return value;
+        }
+
+        //Validate the error message for Financing type
+        public string ValidateErrorMessageForClientSubject()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgClientSubL, 130);
+            string name = driver.FindElement(msgClientSubL).Text;
+            return name;
+        }
+
+        //Validate Cancel functionality of Add Equity Holder Page
+        public string ValidateCancelFunctionalityOfEquityHolder()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Delete functionality of Added Equity Holder Page
+        public string ValidateDeleteFunctionalityOfEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(valEquityHolder).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
     }
 }
 

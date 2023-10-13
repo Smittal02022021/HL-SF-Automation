@@ -4595,6 +4595,32 @@ namespace SF_Automation.Pages.Engagement
             return message;
         }
 
+        //Validate displayed reports for deal team member
+        public bool VerifyReportNamesForDealTeamMemberLightning()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
+            var actualValue = valReportNames.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnReturnToEngLightning).Click();
+            driver.SwitchTo().DefaultContent();
+            return isSame;
+        }
+
 
         //Validate Submit functionality of Revenue Projection
         public string ValidateSubmitRevenueProjFunctionality()
