@@ -16,10 +16,10 @@ namespace SF_Automation.UtilityFunctions
 
         public IWebDriver Initialize()
         {
-            //string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData";
-            //ChromeOptions options = new ChromeOptions();
-            //options.AddArguments("user-data-dir=" + path);
-            //options.AddArguments("profile-directory=Default");
+            string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData";
+            ChromeOptions options = new ChromeOptions();
+            options.AddArguments("user-data-dir=" + path);
+            options.AddArguments("profile-directory=Default");
             driver = new ChromeDriver();            
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
