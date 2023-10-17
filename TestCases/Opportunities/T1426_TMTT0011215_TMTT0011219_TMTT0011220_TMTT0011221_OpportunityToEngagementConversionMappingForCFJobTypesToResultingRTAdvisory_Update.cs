@@ -6,6 +6,7 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -201,7 +202,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual("Women Led", lblWomenLed);                    
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
                     Console.WriteLine(secWomenLed);
-                    if (valJobType.Contains("ESOP Corporate Finance")||valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory"))
+                    if (valJobType.Contains("ESOP Corporate Finance")||valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed); 
                     }

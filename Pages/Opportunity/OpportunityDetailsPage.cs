@@ -399,8 +399,9 @@ namespace SF_Automation.Pages
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
         By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
-        By btnConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
-                
+        By btnMoreConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
+        By btnConvertToEngL2 = By.XPath("//button[contains(text(),'Convert to Engagement')]");
+
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
@@ -516,19 +517,37 @@ namespace SF_Automation.Pages
         
         public string ValidateDealTeamMemberOverLimit()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
-            string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
-            driver.FindElement(btnBackPopup).Click();
-            return msgPopup;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
+                string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
+                driver.FindElement(btnBackPopup).Click();
+                return msgPopup;
+            }
+            catch { return "No Pop-up Message Displayed"; }
         }
         public string GetLineErrorMessage()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
-            string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
-            driver.FindElement(btnReturnToOpporEng).Click();
-            return txtLineErroeMsg;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
+                string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);                
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                driver.FindElement(btnReturnToOpporEng).Click();
+                Thread.Sleep(5000);
+                return txtLineErroeMsg;
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                driver.FindElement(btnReturnToOpporEng).Click();
+                Thread.Sleep(5000);
+                return "No Line Error Validation Message";
+            }
         }
         public string GetOppJobType()
         {
@@ -4667,6 +4686,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtRequestMsgL, 20);
             string txtMsg = driver.FindElement(txtRequestMsgL).Text;
             driver.FindElement(btnPopupOKL).Click();
+            Thread.Sleep(5000);
             return txtMsg;
         }
         public void CloseApprovalHistoryTabL()
@@ -4681,15 +4701,36 @@ namespace SF_Automation.Pages
             try
             {
                 js.ExecuteScript("window.scrollTo(0,0)");
-                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 10);
-                driver.FindElement(btnConvertToEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL2, 10);
+                driver.FindElement(btnConvertToEngL2).Click();
             }
             catch (Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
                 driver.FindElement(iconExpandMoreButonL).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 10);
-                driver.FindElement(btnConvertToEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreConvertToEngL, 10);
+                driver.FindElement(btnMoreConvertToEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
+        }
+        public void ClickConvertToEngagementL2()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL2, 10);
+                driver.FindElement(btnConvertToEngL2).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreConvertToEngL, 10);
+                driver.FindElement(btnMoreConvertToEngL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);

@@ -1,24 +1,21 @@
 ﻿using AventStack.ExtentReports;
 using OpenQA.Selenium;
 ﻿using Microsoft.Office.Interop.Excel;
-using MongoDB.Driver;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V109.Page;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading;
-using System.Web;
+
 
 namespace SF_Automation.Pages.Companies
 {
     class LV_CompanyDetailsPage : BaseClass
     {
         //General
-        By txtCompanyName = By.XPath("//div[text()='Company']/following::slot/sfa-output-name-with-hierarchy-icon-account/sfa-output-name-with-hierarchy-icon-wrapper/force-aura-action-wrapper/div/div/lightning-formatted-text");
+        //By txtCompanyName = By.XPath("//div[text()='Company']/following::slot/sfa-output-name-with-hierarchy-icon-account/sfa-output-name-with-hierarchy-icon-wrapper/force-aura-action-wrapper/div/div/lightning-formatted-text");
         
         //Coverage Tab
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");

@@ -7,11 +7,6 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using System.Diagnostics;
-using static System.Collections.Specialized.BitVector32;
-using System.Reflection;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -235,7 +230,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
-                    opportunityDetails.ClickConvertToEngagementL();
+                    opportunityDetails.ClickConvertToEngagementL2();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
@@ -270,15 +265,18 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate the section in which Women led fiels is displayed
                     string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
                     Assert.AreEqual("Women Led", lblWomenLed);
+                    extentReports.CreateLog("Field : " + lblWomenLed + " is found on converted Engagement ");
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
 
                     if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed);
+                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
                     }
                     else
                     {
                         Assert.AreEqual("Closing - Document Checklist", secWomenLed);
+                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
                     }
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 

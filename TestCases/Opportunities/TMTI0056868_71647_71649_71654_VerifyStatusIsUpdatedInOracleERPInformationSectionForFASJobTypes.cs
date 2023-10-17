@@ -102,7 +102,10 @@ namespace SF_Automation.TestCases.Opportunity
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFVAConversion(fileTMTI0056868);////Need to update for TAS Services
                     opportunityDetails.UpdateInternalTeamDetails(fileTMTI0056868);
-
+                    if (valJobType.Contains("TAS"))
+                    {
+                        opportunityDetails.UpdateTASServices();
+                    }
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
                     Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);

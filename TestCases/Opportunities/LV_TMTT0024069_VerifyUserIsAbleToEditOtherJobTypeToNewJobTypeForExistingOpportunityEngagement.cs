@@ -236,7 +236,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
-                    opportunityDetails.ClickConvertToEngagementL();
+                    opportunityDetails.ClickConvertToEngagementL2();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();

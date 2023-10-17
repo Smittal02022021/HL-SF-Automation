@@ -168,7 +168,7 @@ namespace SF_Automation.Pages.Engagement
         By btnBackToOpp = By.XPath("//div[1]/span/lightning-button/button");
         By txtSecWomenled = By.CssSelector("div[id*='Cyy_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedESOP = By.CssSelector("div[id*='Cxi_ep_j_id0_j_id4']>h3");
-        By txtSecWomenLedOther = By.CssSelector("div[id*='Bs_ep_j_id0_j_id4']>h3");
+        By txtSecWomenLedOther = By.CssSelector("div[id*='2G_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedActivism = By.CssSelector("div[id*='X1_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFVA = By.CssSelector("div[id*='9E_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFR = By.CssSelector("div[id*='PL_ep_j_id0_j_id4']>h3");
@@ -2336,14 +2336,8 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCFEngagementSummary, 120);
             driver.FindElement(btnCFEngagementSummary).Click();
-
-
-
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(10000);
-
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, lblHeaderText, 140);
             string h1Text = driver.FindElement(lblHeaderText).Text;
             Thread.Sleep(10000);
