@@ -4194,18 +4194,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 return "CoExist checkbox is not displayed.";
             }
-        }
-
-        public string NavigateToCFEngagementSummaryPage()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCFEngagementSummary, 120);
-            driver.FindElement(btnCFEngagementSummary).Click();
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(10000); WebDriverWaits.WaitUntilEleVisible(driver, lblHeaderText, 140);
-            string h1Text = driver.FindElement(lblHeaderText).Text;
-            Thread.Sleep(10000);
-            return h1Text;
-        }
+        }       
 
         public void DeleteEngagementSector()
         {

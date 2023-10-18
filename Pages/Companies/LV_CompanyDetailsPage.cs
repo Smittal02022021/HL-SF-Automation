@@ -1,8 +1,5 @@
-﻿using AventStack.ExtentReports;
+﻿
 using OpenQA.Selenium;
-﻿using Microsoft.Office.Interop.Excel;
-using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V109.Page;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -66,7 +63,7 @@ namespace SF_Automation.Pages.Companies
 
         By btnNew = By.XPath("//ul[contains(@class,'oneActionsRibbon')]//a[@title='New']");
         By btnNext=By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button//span[text()='Next']");
-
+        By txtCompanyName = By.XPath("//form//input[contains(@name,'AccountName')]");
         By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
 
@@ -87,12 +84,13 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnNext).Click();
             Thread.Sleep(5000);
         }
+
         public string SaveCompany()
         {
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyNameL, 20);
             string nameCompany = CustomFunctions.RandomValue();
-            driver.FindElement(txtCompanyName).SendKeys(nameCompany);
+            driver.FindElement(txtCompanyNameL).SendKeys(nameCompany);
             driver.FindElement(btnSaveCompany).Click();
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(5000);

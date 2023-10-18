@@ -383,7 +383,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboAsiaAngle = By.CssSelector("select[name*='AsiaAngle']");
         By txtOwnershipStr = By.CssSelector("textarea[name*='id104']");
         By comboAudit = By.CssSelector("select[name*='FinAudit01']");
-        //By txtEstVal = By.CssSelector("input[name*='estValu']");        
+        By txtEstVal = By.CssSelector("input[name*='estValu']");           
         By txtRiskFactors = By.CssSelector("textarea[name*='id157']");
         By txtEstFee = By.CssSelector("input[name*='estMinFee']");
         By txtFeeStr = By.CssSelector("textarea[name*= 'id247']");
@@ -3910,7 +3910,55 @@ namespace SF_Automation.Pages.Opportunity
             return fee.Substring(4, 6).Replace(",", "");
         }
 
+        public void EnterDetailsAndClickSubmit(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboFinancialOpinion, 90);
+            driver.FindElement(comboFinancialOpinion).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 2));
+            driver.FindElement(checkConfirm).Click();
+            //Overview and Financials
+            driver.FindElement(txtTranOverview).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
+            //driver.FindElement(txtCurrentStatus).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 4));
+            //driver.FindElement(txtCompDesc).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 5));
+            driver.FindElement(comboCrossBorder).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 6));
+            driver.FindElement(comboAsiaAngle).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 7));
+            driver.FindElement(comboRealEstate).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 7));
+            driver.FindElement(txtOwnershipStr).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 8));
+            driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 9));
+            driver.FindElement(comboAudit).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 10));
+            driver.FindElement(txtEstVal).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 11));
+            // driver.FindElement(txtValExp).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 12));
+            driver.FindElement(txtRiskFactors).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 13));
+            //Fees
+            driver.FindElement(txtEstFee).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 14));
+            driver.FindElement(txtFeeStr).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 15));
+            driver.FindElement(comboLockUps).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 16));
+            driver.FindElement(comboReferralFee).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 17));
+            //Pre-Pitch
+            driver.FindElement(comboPitch).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 18));
+            driver.FindElement(comboClient).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 19));
+            driver.FindElement(txtHLComp).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 20));
+            driver.FindElement(comboExistingRel).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 21));
+            driver.FindElement(comboTASAssist).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 22));
+            //driver.FindElement(txtOutsideCouncil).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 23));
+            //Financing Checklist            
+            //driver.FindElement(comboCapMkt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 24));
+            driver.FindElement(txtSum).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 25));
+            //Fairness Checklist
+            driver.FindElement(comboFairness).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 26));
+            Console.WriteLine("comboFairness");
+            //Administrative
+            driver.FindElement(comboResList).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 27));
+            //driver.FindElement(comboCCStatus).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 28));
+            driver.FindElement(comboCCStatus1).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 28));
+            driver.FindElement(comboCCStatus2).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 29));
+            driver.FindElement(comboCCStatus3).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 30));
+            driver.FindElement(comboCCStatus4).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 31));
 
+            driver.FindElement(btnSubmit).Click();
+        }
     }
 
 

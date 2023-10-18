@@ -4,10 +4,8 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
-using SF_Automation.TestData;
 using System.Linq;
 using System.Threading;
-using System.Security.Policy;
 
 namespace SF_Automation.Pages
 {

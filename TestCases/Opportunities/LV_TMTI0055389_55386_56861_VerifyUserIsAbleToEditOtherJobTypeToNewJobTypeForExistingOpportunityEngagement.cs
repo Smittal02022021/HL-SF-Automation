@@ -267,7 +267,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Assert.AreEqual(recordTypeExpected, engRecordType);
                     //extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
-                    
+                    login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + caoUser + " logged out ");
                 }
