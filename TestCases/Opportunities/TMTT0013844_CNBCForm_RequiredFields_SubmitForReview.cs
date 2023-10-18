@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string valIG = form.ValidateIG();
                 Assert.AreEqual(IG, valIG);
-                extentReports.CreateLog("Job Type: " + valIG + " in CNBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Industry Group: " + valIG + " in CNBC form matches with Opportunity details page ");
 
                 //Select the Review Submission button
                 nform.ClickReviewSubmission();

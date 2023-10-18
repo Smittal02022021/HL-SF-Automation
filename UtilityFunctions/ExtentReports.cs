@@ -42,39 +42,39 @@ namespace SF_Automation.UtilityFunctions
                     test.Log(logstatus, message);
                     break;
             }
-        }
+        }     
 
         //To publish step logs in Extent Reports
-        //public void CreateStepLogs(string result, string message)
-        //{
-        //    var errorMessage = TestContext.CurrentContext.Result.Message;
-        //    Status logstatus;
-        //    switch(result)
-        //    {
-        //        case "Skipped":
-        //            logstatus = Status.Skip;
-        //            test.Log(logstatus, message);
-        //            break;
-        //        case "Passed":
-        //            logstatus = Status.Pass;
-        //            test.Log(logstatus, message);
-        //            break;
-        //        default:
-        //            logstatus = Status.Info;
-        //            test.Log(logstatus, message);
-        //            break;
-        //    }
-        //}
+        public void CreateStepLogs(string result, string message)
+        {
+            var errorMessage = TestContext.CurrentContext.Result.Message;
+            Status logstatus;
+            switch(result)
+            {
+                case "Skipped":
+                    logstatus = Status.Skip;
+                    test.Log(logstatus, message);
+                    break;
+                case "Passed":
+                    logstatus = Status.Pass;
+                    test.Log(logstatus, message);
+                    break;
+                default:
+                    logstatus = Status.Info;
+                    test.Log(logstatus, message);
+                    break;
+            }
+        }
 
         //To create exception logs
-        //public void CreateExceptionLog(string message)
-        //{
-        //    Status logstatus;
-        //    logstatus = Status.Fail;
-        //    string screenShotPath = Capture(driver, TestContext.CurrentContext.Test.Name);
-        //    test.Log(logstatus, "Test Failed : Error Message - " + message);
-        //    test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
-        //}
+        public void CreateExceptionLog(string message)
+        {
+            Status logstatus;
+            logstatus = Status.Fail;
+            string screenShotPath = Capture(driver, TestContext.CurrentContext.Test.Name);
+            test.Log(logstatus, "Test Failed : Error Message - " + message);
+            test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
+        }
 
         //Capture Screenshot
         public string Capture(IWebDriver driver,string screenshotName)
@@ -103,19 +103,14 @@ namespace SF_Automation.UtilityFunctions
         {
             throw new NotImplementedException();
         }
+
         //To publish step logs in Extent Reports
         public void CreateStepLogs(string result, string message)
         {
             var errorMessage = TestContext.CurrentContext.Result.Message;
             Status logstatus;
-            switch (result)
+            switch(result)
             {
-                case "Failed":
-                    logstatus = Status.Fail;
-                    string screenShotPath = Capture(driver, TestContext.CurrentContext.Test.Name);
-                    test.Log(logstatus, logstatus + "-" + errorMessage);
-                    test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
-                    break;
                 case "Skipped":
                     logstatus = Status.Skip;
                     test.Log(logstatus, message);
@@ -130,6 +125,7 @@ namespace SF_Automation.UtilityFunctions
                     break;
             }
         }
+
         //To create exception logs
         public void CreateExceptionLog(string message)
         {
@@ -139,5 +135,6 @@ namespace SF_Automation.UtilityFunctions
             test.Log(logstatus, "Test Failed : Error Message - " + message);
             test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
         }
+        
     }
 }

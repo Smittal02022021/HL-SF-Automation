@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string EstFee = nform.GetEstimatedTotalFee();
                 Console.WriteLine("EstFee: " + EstFee);
-                Assert.AreEqual("EUR 1.00", EstFee);
+                Assert.AreEqual("EUR 20.0", EstFee);
                 extentReports.CreateLog("Estimated Total Fee: " + EstFee + " is displayed in MM ");                                
 
                 form.SwitchFrame();

@@ -11,7 +11,7 @@ namespace SF_Automation.Pages.GiftLog
     class GiftSubmittedPage : BaseClass
     {
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By linkGiftsSubmitted = By.CssSelector("td[class='dataCol Custom38Block'] > a");
+        By linkGiftsSubmitted = By.XPath("//img[@alt='Gifts Submitted']/..");
         By GiftDescColLength = By.CssSelector("table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr");
         By valGiftRequestDetail = By.CssSelector("h2[class='mainTitle']");
         By btnEdit = By.CssSelector("td[class='pbButton'] > input[name='edit']");

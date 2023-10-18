@@ -224,7 +224,8 @@ namespace SF_Automation.Pages.ActivitiesList
         public void ClickViewActivity() {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewActivity);
             driver.FindElement(lnkViewActivity).Click();
-
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
         }
 
         public void VerifyViewAllLink()

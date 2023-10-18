@@ -256,12 +256,12 @@ namespace SF_Automation.TestCases.Opportunity
                 string valBaseFee = form.UpdateReviewSubmissionAndBaseFee();
                 Assert.AreEqual("GBP 10.00", valBaseFee);
                 extentReports.CreateLog("Base Fee with value : " + valBaseFee + " is displayed upon saving ");
-                string actBaseFee = (Convert.ToDouble((valBaseFee).Substring(4, 5))).ToString("0.0");
+                string actBaseFee = (Convert.ToDouble((valBaseFee).Substring(4, 5))).ToString("0.0");               
                 Console.WriteLine("actBaseFee: " + actBaseFee);
 
                 string valEstBaseFee = form.GetEstimatedTotalFeeForIncentive();
-                Console.WriteLine("EstTotalFee: " + valEstBaseFee);
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100))))) + Convert.ToDouble(actBaseFee)).ToString("0.00"), (valEstBaseFee.Replace(",", "")));
+                Console.WriteLine("EstTotalFee: " + valEstBaseFee);           
+                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100))/1000000))) + Convert.ToDouble(actBaseFee)).ToString("0.00"), (valEstBaseFee.Replace(",","")));
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEstBaseFee + " is displayed when Base Fee in saved along with Retainer and Progress fields ");
 
                 //Enter the value for 1st, 2nd, 3rd and 4th Ratchet pecent fields and validare validation for respective from and to amount fields
@@ -318,7 +318,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string msg3rdGreaterToAmount = form.Get3rdRatchetToAmountGreaterValue();
                 Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg3rdGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg3rdGreaterToAmount + " for 3rd Ratchet To Amount field is displayed when greater value for 3rd Ratchet From Amount is entered ");
-
+                
                 //Get 4th Ratchet To Amount greater validation
                 string msg4thGreaterToAmount = form.Get4thRatchetToAmountGreaterValue();
                 Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg4thGreaterToAmount);
@@ -327,29 +327,29 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update 1st Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 1st Ratchet To Amount
                 form.Update1stRatchetFromAndToAmt(fileTC1232);
 
-                string valEst1stRatchetFee = form.GetEstimatedTotalFeeForIncentive();
+                string valEst1stRatchetFee = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("EstTotalFee: " + valEst1stRatchetFee);
                 string fromAmt = ReadExcelData.ReadData(excelPath, "NBCForm", 66);
-                string ToAmt = ReadExcelData.ReadData(excelPath, "NBCForm", 67);
-                double actualFromFee = Convert.ToDouble(fromAmt);
-                double actualToFee = Convert.ToDouble(ToAmt);
+                string ToAmt = ReadExcelData.ReadData(excelPath, "NBCForm", 67);                
+                double actualFromFee = Convert.ToDouble(fromAmt);               
+                double actualToFee = Convert.ToDouble(ToAmt);                
                 double finalRetainer = (actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000;
-                double finalProgress = (actualFee - ((actualFee * actualFeeCred) / 100));
-                double final1stRatchet = (((actualToFee - actualFromFee) * actualFromFee) / 100);
+                double finalProgress = (actualFee - ((actualFee * actualFeeCred) / 100))/1000000;
+                double final1stRatchet = (((actualToFee - actualFromFee )* actualFromFee) / 100);
                 Console.WriteLine("finalRetainer" + finalRetainer);
                 Console.WriteLine("finalProgress" + finalProgress);
                 Console.WriteLine("final1stRatchet" + final1stRatchet);
-                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final1stRatchet)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst1stRatchetFee.Replace(",", ""));
+                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final1stRatchet))+ (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst1stRatchetFee.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEst1stRatchetFee + " is displayed when Estimated Transaction value is >= 1st Ratchet To Amount ");
 
                 //Update Estimated Transaction value to a value which is greater than 1st Ratchet From amount and less than 1st Ratchet To amount
                 string updEstValue = ReadExcelData.ReadData(excelPath, "NBCForm", 68);
-                string updatedEstValue = form.UpdateEstimatedTransactionValue(updEstValue);
+                string updatedEstValue=  form.UpdateEstimatedTransactionValue(updEstValue);
                 Assert.AreEqual(updEstValue, updatedEstValue);
-                extentReports.CreateLog("Estimated Transaction value: " + updatedEstValue + " is displayed post updation ");
+                extentReports.CreateLog("Estimated Transaction value: "+ updatedEstValue + " is displayed post updation ");
 
                 //Validate Estimated Total Fee
-                string valEst1stRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentive();
+                string valEst1stRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst1stRatchetWithUpdEstTxnValue: " + valEst1stRatchetWithUpdEstTxnValue);
                 double final1stRatchetWithUpdEstTxnValue = (((Convert.ToDouble(updatedEstValue) - actualFromFee) * actualFromFee) / 100);
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final1stRatchetWithUpdEstTxnValue)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst1stRatchetWithUpdEstTxnValue.Replace(",", ""));
@@ -357,15 +357,15 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate Estimated Total Fee when Minimum Fee is greater than Estimated Total Fee (calculated from Retainer, Progressm, Base and Ratchet fee)
                 string updatedMinFee = form.UpdateMinFeeValue();
-                Assert.AreEqual("300000", updatedMinFee);
+                Assert.AreEqual("300", updatedMinFee);
                 extentReports.CreateLog("Estimated Total Fee: " + updatedMinFee + " is displayed same as Minimum Fee when Minimum Fee is greater than Estimated Total Fee (calculated from Retainer, Progressm, Base and Ratchet fee) ");
-
+                
                 //Update 2nd Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 2nd Ratchet To Amount
                 form.Update2ndRatchetFromAndToAmt(fileTC1232);
 
-                string valEst2ndRatchetFee = form.GetEstimatedTotalFeeForIncentive();
-                Console.WriteLine("valEst2ndRatchetFee: " + valEst2ndRatchetFee);
-                double final2ndRatchet = (((actualToFee - actualFromFee) * actualFromFee) / 100);
+                string valEst2ndRatchetFee = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
+                Console.WriteLine("valEst2ndRatchetFee: " + valEst2ndRatchetFee);               
+                double final2ndRatchet = (((actualToFee - actualFromFee) * actualFromFee) / 100);                
                 Console.WriteLine("final2ndRatchet" + final2ndRatchet);
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final2ndRatchet)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst2ndRatchetFee.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEst2ndRatchetFee + " is displayed when Estimated Transaction value is >= 2nd Ratchet To Amount ");
@@ -376,7 +376,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Estimated Transaction value: " + updatedEstValueFor2ndRatchet + " is displayed post updation ");
 
                 //Validate Estimated Total Fee
-                string valEst2ndRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentive();
+                string valEst2ndRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst2ndRatchetWithUpdEstTxnValue: " + valEst1stRatchetWithUpdEstTxnValue);
                 double final2ndRatchetWithUpdEstTxnValue = (((Convert.ToDouble(updatedEstValue) - actualFromFee) * actualFromFee) / 100);
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final2ndRatchetWithUpdEstTxnValue)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst2ndRatchetWithUpdEstTxnValue.Replace(",", ""));
@@ -385,7 +385,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update 3rd Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 3rd Ratchet To Amount
                 form.Update3rdRatchetFromAndToAmt(fileTC1232);
 
-                string valEst3rdRatchetFee = form.GetEstimatedTotalFeeForIncentive();
+                string valEst3rdRatchetFee = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst3rdRatchetFee: " + valEst3rdRatchetFee);
                 double final3rdRatchet = (((actualToFee - actualFromFee) * actualFromFee) / 100);
                 Console.WriteLine("final3rdRatchet" + final3rdRatchet);
@@ -398,7 +398,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Estimated Transaction value: " + updatedEstValueFor3rdRatchet + " is displayed post updation ");
 
                 //Validate Estimated Total Fee
-                string valEst3rdRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentive();
+                string valEst3rdRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst3rdRatchetWithUpdEstTxnValue: " + valEst3rdRatchetWithUpdEstTxnValue);
                 double final3rdRatchetWithUpdEstTxnValue = (((Convert.ToDouble(updatedEstValue) - actualFromFee) * actualFromFee) / 100);
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final3rdRatchetWithUpdEstTxnValue)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst3rdRatchetWithUpdEstTxnValue.Replace(",", ""));
@@ -407,7 +407,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update 4th Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 4th Ratchet To Amount
                 form.Update4thRatchetFromAndToAmt(fileTC1232);
 
-                string valEst4thRatchetFee = form.GetEstimatedTotalFeeForIncentive();
+                string valEst4thRatchetFee = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst4thRatchetFee: " + valEst4thRatchetFee);
                 double final4thRatchet = (((actualToFee - actualFromFee) * actualFromFee) / 100);
                 Console.WriteLine("final4thRatchet" + final4thRatchet);
@@ -420,17 +420,17 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Estimated Transaction value: " + updatedEstValueFor4thRatchet + " is displayed post updation ");
 
                 //Validate Estimated Total Fee
-                string valEst4thRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentive();
+                string valEst4thRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEst4thRatchetWithUpdEstTxnValue: " + valEst4thRatchetWithUpdEstTxnValue);
                 double final4thRatchetWithUpdEstTxnValue = (((Convert.ToDouble(updatedEstValue) - actualFromFee) * actualFromFee) / 100);
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final4thRatchetWithUpdEstTxnValue)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEst4thRatchetWithUpdEstTxnValue.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEst4thRatchetWithUpdEstTxnValue + " is displayed when Estimated Transaction value is entered greater than 4th Ratchet From amount and less than 4th Ratchet To amount along with Retainer and Progress fields ");
-
+                
                 //Update Final Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= Final Ratchet Amount
-                string updEstValueForFinalRatchet = form.UpdateFinalRatchetAmt(fileTC1232);
+                string updEstValueForFinalRatchet= form.UpdateFinalRatchetAmt(fileTC1232);
                 double actualEstValueForFinalRatchet = Convert.ToDouble(updEstValueForFinalRatchet);
 
-                string valEstFinalRatchetFee = form.GetEstimatedTotalFeeForIncentive();
+                string valEstFinalRatchetFee = form.GetEstimatedTotalFeeForIncentiveWithRatchets();
                 Console.WriteLine("valEstFinalRatchetFee: " + valEstFinalRatchetFee);
                 double finalFinalRatchet = (((actualEstValueForFinalRatchet - actualFromFee) * actualFromFee) / 100);
                 Console.WriteLine("finalFinalRatchet" + finalFinalRatchet);
@@ -446,7 +446,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string valEstFinalRatchetWithUpdEstTxnValue = form.GetEstimatedTotalFeeForIncentive();
                 Console.WriteLine("valEstFinalRatchetWithUpdEstTxnValue: " + valEstFinalRatchetWithUpdEstTxnValue);
                 //double finalFinalRatchetWithUpdEstTxnValue = (((Convert.ToDouble(updatedEstValueForFinalRatchet) - actualFromFee) * actualFromFee) / 100);
-                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEstFinalRatchetWithUpdEstTxnValue.Replace(",", ""));
+                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress )) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), valEstFinalRatchetWithUpdEstTxnValue.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEstFinalRatchetWithUpdEstTxnValue + " is displayed when Estimated Transaction value is entered less than Final Ratchet amount along with Retainer and Progress fields ");
 
                 //Update all Ratchet values i.e., 1st, 2nd, 3rd and 4th
@@ -454,12 +454,12 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine("updEstAllRatchets: " + updEstAllRatchets);
 
                 //Validate Estimated Total Fee when all Ratchet values are saved               
-                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress + final1stRatchet + final2ndRatchet + final3rdRatchet + final4thRatchet + finalFinalRatchet)) + (Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
+                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress+ final1stRatchet+ final2ndRatchet+final3rdRatchet+final4thRatchet+ finalFinalRatchet))+(Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + updEstAllRatchets + " is displayed when all Ratchet amounts are entered along with Retainer and Progress fields ");
+                
+               
 
-
-
-                form.SwitchFrame();
+                form.SwitchFrame(); 
                 usersLogin.UserLogOut();
 
                 usersLogin.UserLogOut();
@@ -473,10 +473,10 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-
-        }
+                  
     }
 }
+}
 
-
+    
 

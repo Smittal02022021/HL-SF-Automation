@@ -7,7 +7,7 @@ namespace SF_Automation.UtilityFunctions
 {
     public class WebDriverWaits
     {
-        public static bool WaitUntilTitleContains(IWebDriver driver, String Title, int timeout = 10)
+        public static bool WaitUntilEleVisible(IWebDriver driver, String Title, int timeout = 10)
         {
             return driver.Title.Contains(Title);
         }
