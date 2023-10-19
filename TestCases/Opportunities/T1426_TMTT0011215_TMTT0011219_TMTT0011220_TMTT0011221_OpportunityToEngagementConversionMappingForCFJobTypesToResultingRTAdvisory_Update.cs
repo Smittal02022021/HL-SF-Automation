@@ -39,8 +39,7 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1426;
-                Console.WriteLine(excelPath);
-
+                
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -53,7 +52,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                Console.WriteLine("rowCount " + rowJobType);
+                extentReports.CreateLog("Row Count " + rowJobType + " ");
+
 
                 for (int row = 2; row <= rowJobType; row++)
                 {

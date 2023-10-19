@@ -40,9 +40,9 @@ namespace SF_Automation.Pages
         By labelAdmSectionFVA = By.CssSelector("div[id*= 'head_13_ep'] > h3");
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By comboWomenLed = By.CssSelector("select[id*='NgW']>option");
-        By msgFee = By.XPath("//*[@id='ep']/div[2]/div[17]/table/tbody/tr[3]/td[2]/div/div[2]");        
-By comboStage = By.CssSelector("select[id*='00Ni000000D80OA']");       
-By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
+        By msgFee = By.XPath("//*[@id='ep']/div[2]/div[19]/table/tbody/tr[3]/td[2]/div/div[2]");        
+        By comboStage = By.CssSelector("select[id*='00Ni000000D80OA']");       
+        By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
 
 
 
@@ -235,7 +235,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             else if (driver.FindElement(comboRecordType).Text.Contains("FVA"))
             {
                 Console.WriteLine("in else if");
-                driver.FindElement(txtFee).SendKeys("10000");
+                driver.FindElement(txtFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
             }
             else
             {

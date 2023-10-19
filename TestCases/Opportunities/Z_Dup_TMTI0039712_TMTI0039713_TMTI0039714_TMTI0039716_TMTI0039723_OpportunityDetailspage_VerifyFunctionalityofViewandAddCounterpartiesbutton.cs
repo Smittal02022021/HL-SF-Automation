@@ -12,7 +12,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton  : BaseClass
+    class Z_Dup_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton  : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

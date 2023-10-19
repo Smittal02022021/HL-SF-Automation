@@ -714,7 +714,7 @@
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
@@ -728,7 +728,7 @@
     <Compile Include="TestCases\Opportunities\TMTI0027313_27309_27310_27311_27312_27291_27292_27293_27294_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0028216_VerifyNewJobForLOBOtherThanCF.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
+    <Compile Include="TestCases\Opportunities\Z_Dup_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0046461_46462_46459_46464_46463_46460_46465_46458_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0054683_TMTI0054712_VerificationOfNewFieldAssociatedOpportunityAavailabiltyAndFunctionalityOnOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
@@ -846,6 +846,7 @@
     <None Include="TestData\ERPPostCoversionToEngagement1.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
+    <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
     <None Include="TestData\Outlook.xlsx" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
