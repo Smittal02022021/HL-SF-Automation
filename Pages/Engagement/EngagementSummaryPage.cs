@@ -46,14 +46,20 @@ namespace SF_Automation.Pages.Engagement
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
         By txtPerOwnershipL = By.XPath("//input[@name='Percent_Ownership__c']");
+        By btnAddBoardMemberL = By.XPath("//button[text()='Add Board Member']");
 
         By btnClientSubL = By.XPath("//input[@placeholder='Search Companies...']");
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
+        By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
+        By rowAddBoardMember2ndL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
+
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
         By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
-        By valTotalFin = By.XPath("");
+        By lblContacts = By.XPath("//label[text()='Contact (External)']");
+        By chk1stHLRel = By.XPath("//tr[1]/td[2]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
+        By chk2ndHLRel = By.XPath("//tr[2]/td[2]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
@@ -117,6 +123,7 @@ namespace SF_Automation.Pages.Engagement
         By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
         By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
         By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
         By btnOK = By.XPath("//button[text()='OK']");
         By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
         By valPerOwnerL = By.XPath("//table/tbody/tr/td/div/lightning-formatted-number");
@@ -126,7 +133,8 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveHLFin = By.XPath("//c-engagement-fr-summary-hl-financing/div/lightning-button/button[text()='Save']");
         By msgSave = By.XPath("//span[text()='Record saved']");
         By txtFinDesc = By.XPath("//textarea[@name='Financing_Description__c']");
-
+        By txtContactL = By.XPath("//input[@placeholder=\"Search Contacts...\"]");
+        By comboContactL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span/span");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -3329,6 +3337,84 @@ namespace SF_Automation.Pages.Engagement
             }
 
         }
+
+        //Validate Contact field on click of Add Board Member
+        public string VerifyContactsFieldL()
+        {
+            driver.FindElement(btnAddBoardMemberL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContacts, 180);
+            string name = driver.FindElement(lblContacts).Text;
+            return name;
+        }
+
+        //Validate the error message for Contacts
+        public string ValidateErrorMessageForContact()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactsL, 130);
+            string name = driver.FindElement(msgContactsL).Text;
+            return name;
+        }
+
+        //Validate that inactive contact can not be searched
+        public string ValidateSearchWithInactiveContact()
+        {
+            driver.FindElement(btnAddBoardMemberL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 130);
+            driver.FindElement(txtContactL).SendKeys("Sue Chu");
+            Thread.Sleep(6000);
+            string value = driver.FindElement(comboContactL).Text;
+            return value;           
+        }
+
+        //Validate save functionality of Add Board Member Page
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithHLRel()
+        {
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("April Contact");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMemberL).Displayed.ToString();
+            return row;
+        }
+
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRel()
+        {           
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate "Has HL Relationship" checkbox is checked 
+        public string Validate1stHLRelationshipCheckbox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chk1stHLRel, 130);
+            string value =driver.FindElement(chk1stHLRel).Text;
+            return value;
+            
+        }
+
+        //Validate "Has HL Relationship" checkbox is checked 
+        public string Validate2ndHLRelationshipCheckbox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chk2ndHLRel, 130);
+            string value = driver.FindElement(chk2ndHLRel).Text;
+            return value;
+
+        }
+
     }
 }
 

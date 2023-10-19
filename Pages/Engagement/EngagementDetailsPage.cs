@@ -5490,10 +5490,11 @@ namespace SF_Automation.Pages.Engagement
         //Validate Bid tab
         public string ValidateBidTab()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabMore, 200);
             driver.FindElement(tabMore).Click();
-            Thread.Sleep(3000);            
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblBid, 210);
             string name = driver.FindElement(lblBid).Text;
             driver.FindElement(lblBid).Click();
             return name;

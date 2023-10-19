@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate Manage functionality
                 engagementDetails.ValidateBidTab();
                 string minBid=engagementDetails.GetMinBidValue();
-                string updMinBid = engagementDetails.ValidateManageBidFunctionality("5");
+                string updMinBid = engagementDetails.ValidateManageBidFunctionality("15");
                 Assert.AreNotEqual(minBid, updMinBid);
                 extentReports.CreateLog("Min Bid Value: " + updMinBid + " is displayed after updating ");
 

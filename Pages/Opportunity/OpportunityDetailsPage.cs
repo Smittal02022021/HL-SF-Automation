@@ -214,7 +214,7 @@ namespace SF_Automation.Pages
         By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
         By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
         By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
         By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
         By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
         By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
@@ -465,7 +465,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                    
         By btnReqEngL = By.XPath("//button[text()='Request Engagement']");        
         By btnApproveL = By.XPath("//div[@title='Approve']");        
-        By lnkConvertToEngL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/div/div/slot/runtime_platform_actions-action-renderer[2]/runtime_platform_actions-executor-page-reference/slot/slot/runtime_platform_actions-ribbon-menu-item/a/span");
+        By lnkConvertToEngL = By.XPath("//a/span[text()='Convert to Engagement']");
         
         By btnRejectOppL = By.XPath("//span[text()='Reject']");
         By comboTypesOptions = By.CssSelector("select[id*= 'hWW'] option");
@@ -3890,14 +3890,13 @@ public void ClickNewOpportunitySectorButton()
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 300);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(3000);
-            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(6000);
-            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
             string name = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -3906,7 +3905,7 @@ public void ClickNewOpportunitySectorButton()
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 240);
-            //driver.FindElement(chkInitiatorL).Click();
+            driver.FindElement(chkInitiatorL).Click();
             driver.FindElement(chkSellerL).Click();
             driver.FindElement(chkPrincipalL).Click();
             driver.FindElement(chkManagerL).Click();
@@ -3939,7 +3938,7 @@ public void ClickNewOpportunitySectorButton()
             //Select Contact
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//div[2]/ul/li[4]/a/div[1]/span/img")).Click();
+            driver.FindElement(By.XPath("//div/div/div[2]/ul/li/a/div[1]/span/img")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();

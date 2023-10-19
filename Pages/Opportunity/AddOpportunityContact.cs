@@ -148,38 +148,17 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
-            driver.FindElement(txtContactL).SendKeys(name);
-            Thread.Sleep(3000);
-            try
-            {
-                By listContactOption = By.XPath($"//div[@role='listbox']//ul//li//a//div[2]//div[1][@title='{name}']");
-                WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 20);
-                driver.FindElement(listContactOption).Click();
-
-            }
-            catch (Exception ex)
-            {
-                By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
-                WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
-                driver.FindElement(iconContactSearchItem).Click();
-                By txtContact = By.XPath("//div[contains(@class,'gridInScroller')]//table//tbody//tr[1]//td[1]//a");
-                WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
-                driver.FindElement(txtContact).Click();
-            }
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(10000);
             driver.FindElement(imgContactOppL).Click();
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='"+party+"']")).Click();
+            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
-
             driver.FindElement(btnSaveL).Click();
         }
 
@@ -196,10 +175,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
             driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
-            driver.FindElement(chkBillingContactL).Click();
-            driver.FindElement(chkAckBillingContactL).Click();
-            driver.FindElement(chkPrimaryContactL).Click();
-            driver.FindElement(btnSaveL).Click();
+            driver.FindElement(btnCancelContact).Click();
         }
         public void CreateClientContactL(string nameContact, string partyContact, string typeContact)
         {

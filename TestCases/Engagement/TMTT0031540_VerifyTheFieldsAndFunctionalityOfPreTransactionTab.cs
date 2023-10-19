@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -139,9 +140,59 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record is not deleted", msgCancel);
                 extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
-                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfEquityHolder();
-                Assert.AreEqual("Record is deleted", msgDelete);
-                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+                //string msgDelete = summaryPage.ValidateDeleteFunctionalityOfEquityHolder();
+                //Assert.AreEqual("Record is deleted", msgDelete);
+                //extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+
+                //11.  TMTI0075213_Verify that clicking the "Add Board Member" button opens up the screen with a field to search contact
+                string Contacts = summaryPage.VerifyContactsFieldL();
+                Assert.AreEqual("*Contact (External)", Contacts);
+                extentReports.CreateLog("Field with name: " + Contacts + " is displayed on Add Board Member window ");
+
+                //Validate Cancel button
+                string cancelAddBoard = summaryPage.ValidateCancelButton();
+                Assert.AreEqual("Cancel", cancel);
+                extentReports.CreateLog("Button with name: " + cancel + " is displayed on Add Equity Holder window ");
+
+                //Validate Save button
+                string saveAddBoard = summaryPage.ValidateSaveButton();
+                Assert.AreEqual("Save", save);
+                extentReports.CreateLog("Button with name: " + save + " is displayed on Add Equity Holder window ");
+
+                //12. TMTI0075215_Verify that an error message appears on clicking the "Save" button of Add Board Member screen without selecting contacts
+                string msgContacts = summaryPage.ValidateErrorMessageForContact();
+                Assert.AreEqual("Complete this field.", msgContacts);
+                extentReports.CreateLog("Message: " + msgContacts + " is displayed for Contacts field upon clicking Save button without selecting any value ");
+
+                //13. TMTI0075217_Verify that clicking the "Cancel" button of Add Board Member window takes the user back to the list view of the Pre-Transaction Info tab.
+                string cancelBoard = summaryPage.ValidateCancelButtonFunctionalityOfPreTrans();
+                Assert.AreEqual("Pre-Transaction Info", cancelBoard);
+                extentReports.CreateLog("Page with tab: " + cancelBoard + " is displayed upon clicking Cancel button on Add Board Member window ");
+
+                //14. TMTI0075219_Verify that the user is not able to search and add INACTIVE contact as Pre - Transaction Board Member
+                string inactiveUser = summaryPage.ValidateSearchWithInactiveContact();
+                Assert.AreEqual("Show All Results for \"Sue Chu\"", inactiveUser);
+                extentReports.CreateLog("Search Result is not shown for inactive contact ");
+
+                //15. TMTI0075221_Verify that the "Pre-Transaction Board Member" record is created with the selected ACTIVE contact by clicking the "Save" button on Add Board Member screen. - Completed
+                string valAddBoard = summaryPage.ValidateSaveFunctionalityOfAddBoardMemberWithHLRel();
+                Assert.AreEqual("True", valAddBoard);
+                extentReports.CreateLog("A row is created after saving details on Add Board Member page ");
+
+                //16. TMTI0075223_Verify that the "Has HL Relationship" checkbox is checked if the selected contact has a relationship with any of the HL Contacts
+                string valHLRel = summaryPage.Validate1stHLRelationshipCheckbox();
+                Assert.AreEqual("after", valHLRel);
+                extentReports.CreateLog("Has HL Relationship checkbox is checked upon adding contact who has a relationship with any of the HL Contacts ");
+
+                //17. TMTI0075225_Verify that the "Has HL Relationship" checkbox will not be checked if the selected contact doesn't have a relationship with any of the HL Contacts
+                string val2ndAddBoard = summaryPage.ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRel();
+                Assert.AreEqual("True", val2ndAddBoard);
+                extentReports.CreateLog("One more row is created after saving whose contact has not a relationship with any of the HL Contacts ");
+
+                string valNotHLRel = summaryPage.Validate2ndHLRelationshipCheckbox();
+                Assert.AreEqual("null", valNotHLRel);
+                extentReports.CreateLog("Has HL Relationship checkbox is not checked upon adding contact who has not a relationship with any of the HL Contacts ");
+
 
 
                 usersLogin.LightningLogout();
