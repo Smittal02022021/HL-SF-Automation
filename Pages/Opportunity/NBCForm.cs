@@ -1008,9 +1008,10 @@ namespace SF_Automation.Pages.Opportunity
         public void ClickReviewSubmission()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
-            driver.FindElement(lnkEditReviewSub).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,250)");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
+            driver.FindElement(lnkEditReviewSub).Click();           
             js.ExecuteScript("window.scrollTo(0,50)");
             Thread.Sleep(5000);
             js.ExecuteScript("window.scrollTo(0,250)");

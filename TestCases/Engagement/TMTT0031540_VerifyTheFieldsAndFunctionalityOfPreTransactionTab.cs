@@ -181,7 +181,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //16. TMTI0075223_Verify that the "Has HL Relationship" checkbox is checked if the selected contact has a relationship with any of the HL Contacts
                 string valHLRel = summaryPage.Validate1stHLRelationshipCheckbox();
-                Assert.AreEqual("after", valHLRel);
+                Assert.AreEqual("true", valHLRel);
                 extentReports.CreateLog("Has HL Relationship checkbox is checked upon adding contact who has a relationship with any of the HL Contacts ");
 
                 //17. TMTI0075225_Verify that the "Has HL Relationship" checkbox will not be checked if the selected contact doesn't have a relationship with any of the HL Contacts
@@ -190,11 +190,28 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("One more row is created after saving whose contact has not a relationship with any of the HL Contacts ");
 
                 string valNotHLRel = summaryPage.Validate2ndHLRelationshipCheckbox();
-                Assert.AreEqual("null", valNotHLRel);
+                Assert.AreEqual(null, valNotHLRel);
                 extentReports.CreateLog("Has HL Relationship checkbox is not checked upon adding contact who has not a relationship with any of the HL Contacts ");
 
+                //18.  TMTI0075227_ Verify that if the user selects already added Contact while adding Board Member, the application gives an error message
+                string errorMessage = summaryPage.ValidateErrorMessageUponAddingDuplicateContact();
+                Assert.AreEqual("Duplicate record detected.", errorMessage);
+                extentReports.CreateLog("Error message: " +errorMessage + " is displayed upon adding duplicate contact in Add Board Member ");
 
+                //19. TMTI0075229_Verify that clicking the "Delete" button of the Board Member record gives a confirmation message before deleting the record
+                string msgCancelBoard = summaryPage.ValidateCancelFunctionalityOfAddBoardMember();
+                Assert.AreEqual("Record is not deleted", msgCancelBoard);
+                extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
+                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfBoardMember();
+                Assert.AreEqual("Record is deleted", msgDelete);
+                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+
+                //20. TMTI0075231_ Verify that clicking the "Add Debt Structure" button opens up the screen having multiple fields
+                
+                
+                
+                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

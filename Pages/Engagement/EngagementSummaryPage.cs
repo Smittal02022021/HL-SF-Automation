@@ -52,14 +52,15 @@ namespace SF_Automation.Pages.Engagement
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
         By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
         By rowAddBoardMember2ndL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
+        By msgDupContactL = By.XPath("//div[text()='Duplicate record detected.']");
 
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
         By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By lblContacts = By.XPath("//label[text()='Contact (External)']");
-        By chk1stHLRel = By.XPath("//tr[1]/td[2]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
-        By chk2ndHLRel = By.XPath("//tr[2]/td[2]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
+        By chk1stHLRel = By.XPath("//tr[1]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
+        By chk2ndHLRel = By.XPath("//tr[2]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
@@ -121,6 +122,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
         By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
         By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
+        By btnDeleteBoard = By.XPath("//tr[2]/td[3]/span/div/lightning-button-icon/button[@title='Delete']");
         By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
         By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
@@ -3318,6 +3320,24 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
+        //Validate Cancel functionality of Add Board Member Page
+        public string ValidateCancelFunctionalityOfAddBoardMember()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
         //Validate Delete functionality of Added Equity Holder Page
         public string ValidateDeleteFunctionalityOfEquityHolder()
         {
@@ -3329,6 +3349,26 @@ namespace SF_Automation.Pages.Engagement
             try
             {
                 string row = driver.FindElement(valEquityHolder).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Delete functionality of Added Board Member Page
+        public string ValidateDeleteFunctionalityOfBoardMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
                 return "Record is not deleted";
             }
             catch (Exception)
@@ -3401,7 +3441,7 @@ namespace SF_Automation.Pages.Engagement
         public string Validate1stHLRelationshipCheckbox()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, chk1stHLRel, 130);
-            string value =driver.FindElement(chk1stHLRel).Text;
+            string value = driver.FindElement(chk1stHLRel).GetAttribute("checked");
             return value;
             
         }
@@ -3409,10 +3449,25 @@ namespace SF_Automation.Pages.Engagement
         //Validate "Has HL Relationship" checkbox is checked 
         public string Validate2ndHLRelationshipCheckbox()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, chk2ndHLRel, 130);
-            string value = driver.FindElement(chk2ndHLRel).Text;
-            return value;
+                WebDriverWaits.WaitUntilEleVisible(driver, chk2ndHLRel, 130);
+                string value = driver.FindElement(chk2ndHLRel).GetAttribute("checked");
+                return value;           
 
+        }
+        //Validate error message when same contact is added again
+        public string ValidateErrorMessageUponAddingDuplicateContact()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(msgDupContactL).Text;
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            return row;
         }
 
     }

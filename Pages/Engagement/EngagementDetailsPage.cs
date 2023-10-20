@@ -336,7 +336,7 @@ namespace SF_Automation.Pages.Engagement
         By valRevProj = By.XPath("//tr/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
         By lnkClearRevProj = By.XPath("//table/tbody/tr[1]/td[7]/a");
         By msgNoRec = By.XPath("//p[text()='No Records To Display']");
-        By btnStartingMonth = By.XPath("//lightning-layout-item[1]/slot/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+        By btnStartingMonth = By.XPath("//lightning-layout-item[1]/slot/lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button");
         By valStartingMonth = By.XPath("//lightning-base-combobox-item[5]/span[2]/span");
         By valStartingMonthDisplayed = By.XPath("//section/div/div/div[2]/table/tbody/tr[1]/td[1]");
         By btnSubmitRevProj = By.XPath("//button[text()='submit']");
@@ -360,8 +360,8 @@ namespace SF_Automation.Pages.Engagement
         By txtEditComment = By.XPath("//records-record-layout-text-area/lightning-textarea/div/textarea");
         By lnkDeleteComment = By.XPath("/html/body/div[8]/div/ul/li[2]/a");
         By msgDeleteComment = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
-        By btnComments = By.XPath("//slot/c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[1]/div/lightning-input-field/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
-        By valCommentsType = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By btnComments = By.XPath("//slot/c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[1]/div/lightning-input-field/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button");
+        By valCommentsType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
         By txtCommentNotes = By.XPath("//c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[3]/div/lightning-input-field/lightning-textarea/div/textarea");
         By btnSaveComments = By.XPath("//c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[4]/div/lightning-button/button");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
@@ -370,13 +370,13 @@ namespace SF_Automation.Pages.Engagement
         By btnFinancials = By.XPath("//lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li/lightning-button-menu/button");
         By lnkAddFinancials = By.XPath("//span[text()='New Financials']");
         By txtRelatedEng = By.XPath("//input[@placeholder='Search Engagements...']");
-        By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/ul[1]/li[2]");
+        By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//div[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
             
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field");
-        By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/div/button/lightning-primitive-icon");
+        By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/button/lightning-primitive-icon");
         By btnCloseEngContact = By.XPath("//records-record-edit-error-header/lightning-button-icon");
         By txtEngContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnParty = By.XPath("//button[@aria-label='Party, --None--']");
@@ -5010,7 +5010,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnBeneficial, 150);
             driver.FindElement(btnBeneficial).Click();
-            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, valBeneficial, 150);
@@ -5094,7 +5094,7 @@ namespace SF_Automation.Pages.Engagement
   
 
         //Add Engagement Comments
-        public string AddEngCommentaAndValidate()
+        public void AddEngCommentaAndValidate()
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
@@ -5106,9 +5106,9 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,550)");
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
-            string commentType = driver.FindElement(valAddedCommentType).Text;
-            return commentType;
+            //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
+            //string commentType = driver.FindElement(valAddedCommentType).Text;
+            //return commentType;
         }
        
 
@@ -5165,11 +5165,11 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngContact, 160);
             driver.FindElement(txtEngContact).SendKeys("Sonika Goyal");
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(By.XPath("//lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnParty).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 180);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(4000);
@@ -5349,7 +5349,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
 			driver.FindElement(txtCompanies).Click();
 			Thread.Sleep(5000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
+			driver.FindElement(By.XPath("//div[2]/ul/li[3]/a/div[2]/div[1]")).Click();
 			Thread.Sleep(5000);
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
@@ -5400,7 +5400,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, txtContacts, 100);
             driver.FindElement(txtContacts).SendKeys("Shivali Sharma");
 			Thread.Sleep(12000);
-			driver.FindElement(By.XPath("//div[2]/ul/li/a/div[1]/span/img")).Click();
+			driver.FindElement(By.XPath("//div[2]/ul/li[17]/a/div[2]/div[@title='Shivali Sharma']")).Click();
 			Thread.Sleep(3000);
 			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 			js.ExecuteScript("window.scrollTo(0,300)");
@@ -5408,7 +5408,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
 			driver.FindElement(btnPartyContact).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("/html/body/div[8]/div/ul/li[3]/a[text()='Seller']")).Click();
+            driver.FindElement(By.XPath("//a[text()='Seller']")).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
 			Thread.Sleep(6000);

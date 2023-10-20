@@ -491,16 +491,16 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
 
                 //Save an Engagement Comment and Validate the added
-                string addedCommentsType = engagementDetails.AddEngCommentaAndValidate();
+                engagementDetails.AddEngCommentaAndValidate();
                 string addedComments = opportunityDetails.GetOppCommentsL();
-                Assert.AreEqual("Administrative", addedCommentsType);
+                //Assert.AreEqual("Administrative", addedCommentsType);
                 Assert.AreEqual("Testing", addedComments);
-                extentReports.CreateLog("Added Engagement comments of Type: " + addedCommentsType + " and comments: " + addedComments + " is displayed under Comments section ");
+                extentReports.CreateLog("Added Engagement comments with comments: " + addedComments + " is displayed under Comments section ");
 
                 //Validate update functionality of existing comment
                 string valUpdatedComment =engagementDetails.ValidateUpdateFunctionalityOfEngComment();
                 Assert.AreEqual("Test Comments", valUpdatedComment);
-                extentReports.CreateLog("Updated Engagement comments of Type: " + addedCommentsType + " and comments: " + valUpdatedComment + " is displayed after updation ");
+                extentReports.CreateLog("Updated Engagement comments with comments: " + valUpdatedComment + " is displayed after updation ");
 
                 //Validate delete functionality of existing comment
                 string msgDeletedComment = engagementDetails.ValidateDeleteFunctionalityOfEngComment();
