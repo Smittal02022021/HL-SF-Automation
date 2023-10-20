@@ -20,6 +20,8 @@ namespace SF_Automation.TestCases.Opportunity
          TMTI0056870 Verify user is able to create new Opportunity with new Job Type - FA - Portfolio-Auto Struct Prd/Consulting
          TMTI0056872 Verify the availability of Job Types for converted engagement on the Engagement page
          TMTI0056884 Verify the Record Type conversion of Opportunity to Engagement
+         TMTI0028220	Verify the availability of new Job Types in Job Type Picklist while adding new Opportunity
+         TMTI0028213	Verify user is able to create new Opportunity with new  Type 
 
          TMTI0071643 Verify the availability of new Job Type- CVAS - IP Valuation in Job Type Picklist while adding new FVA Opportunity
          TMTI0071652 Verify the availability of Job Types for converted engagement on the Engagement page 

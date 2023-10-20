@@ -1,20 +1,15 @@
-﻿using SF_Automation.Pages.Common;
+﻿using NUnit.Framework;
+using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage:BaseClass
+    class VT_TMTI0054728_TMTI0054730_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -26,7 +21,8 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
-        public static string fileTMTI0054719 = "TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage";
+
+        public static string fileTMTI0054683 = "TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage";
 
         private string valAssociatedEng;
         private string nameAssociatedEng;
@@ -50,12 +46,12 @@ namespace SF_Automation.TestCases.Opportunity
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void NewFieldAssociatedOpportunityAvailabiltyForCF()
+        public void NewFieldAssociatedOpportunityAvailabiltyForFVA()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0054719;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0054683;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -85,7 +81,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
                     valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    extentReports.CreateLog("Record Type: " + valRecordType + " ");
+                    extentReports.CreateLog("Record Type: " + valRecordType+" ");
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                     //Validating Title of New Opportunity Page
@@ -93,11 +89,11 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Page Title: " + driver.Title + " is displayed ");
 
                     //Calling AddOpportunities function                  
-                    opportunityName = addOpportunity.AddOpportunities(valJobType, fileTMTI0054719);
+                    opportunityName = addOpportunity.AddOpportunities(valJobType, fileTMTI0054683);
                     extentReports.CreateLog("Opportunity Name : " + opportunityName);
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(fileTMTI0054719);
+                    clientSubjectsPage.EnterStaffDetails(fileTMTI0054683);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityName + " ~ Salesforce - Unlimited Edition"), true);
                     extentReports.CreateLog("Page Title: " + driver.Title + " is displayed ");
 
@@ -117,13 +113,13 @@ namespace SF_Automation.TestCases.Opportunity
                     //Create External Primary Contact         
                     valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
-                    addOpportunityContact.CreateContact(fileTMTI0054719, valContact, valRecordType, valContactType);
+                    addOpportunityContact.CreateContact(fileTMTI0054683, valContact, valRecordType, valContactType);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityName + " ~ Salesforce - Unlimited Edition", 60), true);
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0054719);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0054719);
+                    opportunityDetails.UpdateReqFieldsForFVAConversion(fileTMTI0054683);
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0054683);
                     extentReports.CreateLog("All Required fields and Deal tam is updated ");
 
                     //Logout of user and validate Admin login
@@ -150,27 +146,8 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog(user + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
                     //update CC and NBC checkboxes 
-                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0054719);
-                    if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateNBCApproval();
-                        extentReports.CreateLog("Conflict Check and NBC fields are updated ");
-                    }
-                    else
-                    {
-                        extentReports.CreateLog("Conflict Check fields are updated ");
-                    }
-
-                    //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
-                    if (valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateClientandSubject("Accupac");
-                        extentReports.CreateLog("Updated Client and Subject fields ");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Not required to update ");
-                    }
+                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0054683);
+                    extentReports.CreateLog("Conflict Check fields are updated ");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
@@ -181,6 +158,8 @@ namespace SF_Automation.TestCases.Opportunity
                     //Search for created opportunity
                     opportunityHome.SearchOpportunity(opportunityName);
 
+                    //Update Total Anticipated Revenue
+                    opportunityDetails.UpdateTotalAnticipatedRevenueForValidations();
                     //Requesting for engagement and validate the success message
                     string msgSuccess = opportunityDetails.ClickRequestEng();
                     Assert.AreEqual(msgSuccess, "Submission successful! Please wait for the approval");
@@ -268,7 +247,7 @@ namespace SF_Automation.TestCases.Opportunity
                     usersLogin.SearchUserAndLogin(valUser);
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in ");
+                    extentReports.CreateLog("Standard User: " + stdUser + " logged in ");
 
                     //Search for created Engagement
                     engagementHome.SearchEngagement(engagementName);
@@ -278,7 +257,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + stdUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
-                    Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditable(), "Verify Associated Engagement should not be editable for Standard User ");
+                    Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditable(), "Verify Associated Engagement should not be editable for Standard stdUser ");
                     extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + stdUser + " ");
                     usersLogin.UserLogOut();
 
@@ -296,5 +275,6 @@ namespace SF_Automation.TestCases.Opportunity
 
             }
         }
+
     }
 }

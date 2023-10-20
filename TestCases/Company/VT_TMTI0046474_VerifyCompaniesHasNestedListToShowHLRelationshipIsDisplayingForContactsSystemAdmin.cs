@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046474_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdmin:BaseClass
+    class VT_TMTI0046474_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdmin:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

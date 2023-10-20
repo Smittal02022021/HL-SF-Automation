@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056868_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes : BaseClass
+    class TMTT0024858_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();
@@ -170,6 +170,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Job Type: " + valJobType + " is present on edit Engageent page ");
 
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
+                    //TMTI0056868 Verify the status is updated in the Oracle ERP Information section
                     //Validate the ERP Last Integration Status on Engagement details page
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
                     Assert.AreEqual("Success", ERPStatusIG);

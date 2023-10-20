@@ -5,12 +5,10 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056880_56878_28219_28203_28208_28214_71655_71651_ValidateNewJobTypesAvailability: BaseClass
+    class TMTT0024858_TMTT0012824_71655_71651_ValidateNewJobTypesAvailability: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -62,6 +60,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to open Opportunity Home Page
                 //TMTI0056880 Verify the availability of new Job Types in Job Type column on Opportunity Search page
                 //TMTI0028219 Verify the availability of new Job Types in Job Type Picklist on Opportunity Search page
+                //TMTI0028203 Verify the search opportunity functionality with new Job Types on the Opportunity Search page
                 //TMTI0071655 Verify the availability of new Job Types in the Job Type column on the Opportunity Search page.
                 opportunityHome.ClickOpportunityTabAdvanceSearch();
                 for (int row = 1; row <rowJobType; row++)

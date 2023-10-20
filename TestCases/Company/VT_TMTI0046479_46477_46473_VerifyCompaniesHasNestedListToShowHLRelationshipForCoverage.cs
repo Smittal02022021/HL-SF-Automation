@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046479_46477_46473_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage:BaseClass
+    class VT_TMTI0046479_46477_46473_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

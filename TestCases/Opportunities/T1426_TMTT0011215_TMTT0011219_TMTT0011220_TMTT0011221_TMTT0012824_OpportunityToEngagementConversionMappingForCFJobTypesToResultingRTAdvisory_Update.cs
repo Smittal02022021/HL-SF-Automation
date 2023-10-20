@@ -10,7 +10,7 @@ using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1426_TMTT00112115_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update : BaseClass
+    class T1426_TMTT00112115_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,7 +23,9 @@ namespace SF_Automation.TestCases.Opportunity
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTC1426 = "T1426_OpportunityToEngagementConversionMappingForCFJobTypes2.xlsx";
-
+        
+        //TMTI0028198	Verify the availability of Job Types for converted engagement on the Engagement page
+        //TMTI0028209	Verify the Record Type conversion of Opportunity to Engagement
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -217,7 +219,9 @@ namespace SF_Automation.TestCases.Opportunity
                     string engWomenLed = engagementDetails.GetWomenLed();                   
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 30), engWomenLed);
                     extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
-                       
+                    //TMTI0028206	Verify the status is updated in Oracle ERP Information section on Engagement page
+                    // *************Issue in ERP Sync**********************//
+
                     usersLogin.UserLogOut();
                 }
                

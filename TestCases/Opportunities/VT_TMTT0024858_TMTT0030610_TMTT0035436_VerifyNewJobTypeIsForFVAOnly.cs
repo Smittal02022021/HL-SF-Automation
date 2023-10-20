@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0024858_71649_TMTT0035436_VerifyNewJobTypeIsForFVAOnly : BaseClass
+    class VT_TMTT0024858_TMTT0030610_TMTT0035436_VerifyNewJobTypeIsForFVAOnly : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

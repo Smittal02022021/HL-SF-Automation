@@ -12,7 +12,7 @@ using SF_Automation.Pages.Company;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0027300_TMTI0027318_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies:BaseClass
+    class VT_TMTT12453_TMTT12465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

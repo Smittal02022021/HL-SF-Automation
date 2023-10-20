@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Contact
 {
-    class TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage: BaseClass
+    class VT_TMTT0012454_VerifyTheIndustryNameIsUpdatedOnContactDetailPage: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

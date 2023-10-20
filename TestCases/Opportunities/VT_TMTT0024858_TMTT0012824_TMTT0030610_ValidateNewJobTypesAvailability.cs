@@ -10,7 +10,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0024858_TMTT0012824_TMTT0030610_ValidateNewJobTypesAvailability: BaseClass
+    class VT_TMTT0024858_TMTT0012824_TMTT0030610_ValidateNewJobTypesAvailability: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

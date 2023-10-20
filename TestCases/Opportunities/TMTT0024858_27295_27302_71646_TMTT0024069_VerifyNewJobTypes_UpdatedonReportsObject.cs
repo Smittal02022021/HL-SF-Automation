@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0024858_27295_27302_TMTT0030610_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
+    class TMTT0024858_27295_27302_71646_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

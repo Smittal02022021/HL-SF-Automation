@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0056875_56876_56877_71640_71641_71644_28215_28199_28200_55397_55398_55403_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage : BaseClass
+    class VT_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -67,11 +67,12 @@ namespace SF_Automation.TestCases.Opportunity
                     //TMTI0056877 Verify the new Job Type in Opportunity Manager page
                     //TMTI0028215 Verify the new Job Type in Opportunity Manager page
                     //TMTI0055397 Verify the new Job Type in Opportunity Manager page
-                    
+                    //TMTI0084212 Verify the new Job Type in Opportunity Manager page
+
                     string pageTitle = opportunityHome.ClickOppManager();
                     Assert.AreEqual("Opportunity Manager", pageTitle);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed ");
-                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType),"Verify Opportunity with New Job Type is available on Opportunity Manager page ");
+                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType),"Verify Opportunity with New Job Type: "+ valJobType+" is available on Opportunity Manager page ");
                     extentReports.CreateLog("Opportunity with New Job Type: " + valJobType+" is available on Opportunity Manager page ");
 
                     //Clicking on Engagement Manager link and Validate the title of page
@@ -79,10 +80,12 @@ namespace SF_Automation.TestCases.Opportunity
                     //TMTI0056875	Verify the new Job Type in Engagement Manager page
                     //TMTI0028199 Verify the new Job Type in Engagement Manager page
                     //TMTI0055403 Verify the new Job Type in Engagement Manager page
+                    //TMTI0084216 Verify the new Job Type in Engagement Manager page
+
                     pageTitle = opportunityHome.ClickEngManager();
                     Assert.AreEqual("Engagement Manager", pageTitle);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed ");
-                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType), "Verify Engagement with New Job Type is available on Engagement Manager page ");
+                    Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType), "Verify Engagement with New Job Type: "+ valJobType+" is available on Engagement Manager page ");
                     extentReports.CreateLog("Engagement with New Job Type: " + valJobType + " is available on Engagement Manager page ");
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + stdUser + " logged Out ");
@@ -92,6 +95,8 @@ namespace SF_Automation.TestCases.Opportunity
                     //TMTI0071641 Verify New / Updated Job type and Job code under Job Type Object/tab.
                     //TMTI0028200 Verify New / updated Job type and Job code under Job type Object/tab
                     //TMTI0055398 Verify New/updated Job type and code under Job type Object/tab
+                    //TMTI0084213 Verify New/updated Job type and code under Job type Object/tab
+
                     extentReports.CreateLog("Verify New Job Type is present on Job Type Object page as System Administrator ");
                     string valView = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 3);
                     pageTitle = randomPages.selectJobTypesObject(valView);

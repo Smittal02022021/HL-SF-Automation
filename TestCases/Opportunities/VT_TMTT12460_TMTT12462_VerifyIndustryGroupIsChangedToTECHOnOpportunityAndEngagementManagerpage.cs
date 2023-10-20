@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTI0027307_27308_27314_27315_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage:BaseClass
+    class VT_TMTT12460_TMTT12462_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage:BaseClass
     {
        ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046472_46478_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdmin : BaseClass
+    class VT_TMTI0046472_46478_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdmin : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
