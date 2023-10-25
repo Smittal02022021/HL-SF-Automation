@@ -249,7 +249,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     addCounterparty.ClickAllCheckboxCounterpartyCompany();
                     addCounterparty.ClickDeleteCounterpartyButton();
-                    addCounterparty.ButtonConfirmDeleteCounterparty();
+                    addCounterparty.ButtonConfirmDeleteCounterparty();//need to change locator on delte popup 
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records deleted successfully", "Verify the Success Message if Counterparty is Deleted ");
                     extentReports.CreateLog(popupMessage + " : Message Displayed and counterparties is deleted from list ");              

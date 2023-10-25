@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -70,6 +71,7 @@ namespace SF_Automation.Pages
         By chkUpSeller = By.CssSelector("input[name*=':2:j_id43']");
         By chkUpManager = By.CssSelector("input[name*=':4:j_id43']");
         By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
+        By chkAdmin2 = By.CssSelector("input[name *= 'j_id63:9:j_id65']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By btnCounterparties = By.CssSelector(".pbButton > input[title = 'Counterparties']");
@@ -136,7 +138,7 @@ namespace SF_Automation.Pages
         By comboCommentType = By.CssSelector("select[id*='00Ni000000FnLSo']");
         By txtCommentDesc = By.CssSelector("textarea[id*='FnLSp']");
         By msgError = By.CssSelector("div[class='errorMsg']");     
-   By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
+        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
         By valComment = By.CssSelector("div[id*='LT7_body'] > table > tbody > tr.dataRow.even.last.first > td:nth-child(3)");
         By lnkDelComment = By.CssSelector("div[id*='LT7_body']> table > tbody > tr.dataRow.even.last.first > td.actionColumn > a:nth-child(2)");
         By txtDateEngagedCF = By.CssSelector("input[name*='FnLTv']");
@@ -1678,7 +1680,7 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(txtStaff).SendKeys("Sonika Goyal");
             Thread.Sleep(3000);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "Sonika Goyal");
-            WebDriverWaits.WaitUntilEleVisible(driver, chkAdmin, 50);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkAdmin2, 50);
             driver.FindElement(chk2ndInitiator).Click();
 
             driver.FindElement(btnSaveITTeam).Click();

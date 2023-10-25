@@ -41,7 +41,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By listStaff = By.XPath("/html/body/ul");
         By chkInitiator = By.CssSelector("input[name*='0:j_id65']");
-        By buttonConfirmDelete = By.XPath("//footer//lightning-button[contains(@class,'confirmButton')]");
+        By buttonConfirmDelete = By.XPath("//section[contains(@role,'alertdialog')]//div[contains(@class,'footer')]//button[text()='OK']");
         By btnReturnToOpp = By.CssSelector("input[value*='Return To Opportunity']");
         By chkInternalTeamPrompt = By.CssSelector("input[name*='FnLTz']");
         By btnSaveRoles = By.CssSelector("input[value='Save']");
@@ -169,7 +169,7 @@ namespace SF_Automation.Pages.Opportunity
 
        private By _subFilterEle(string sectionName)
         {
-            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input/div//input");
+            return By.XPath($"//label[text()='{sectionName}']/following::div[3]/lightning-input//div//input");
         }
         public void SearchCounterparties(string filterSection, string subFilter, string value)
         {
