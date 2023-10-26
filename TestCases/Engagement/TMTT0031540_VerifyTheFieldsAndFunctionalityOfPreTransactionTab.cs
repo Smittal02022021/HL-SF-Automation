@@ -271,13 +271,35 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Debt Structure with Key creditor row is displayed ");
 
                 //25. TMTI0075255_Verify that the user is able to add Key Editors by clicking the "Edit" button of the Pre-Transaction Debt record.
+                bool rowAddKeyCred = summaryPage.ValidateEditFunctionalityOfDebtStruc();
+                Assert.AreEqual(true, rowAddKeyCred);
+                extentReports.CreateLog("Key creditor row is displayed on Add Debt Structure page after editing and entering details of Key Creditor ");
 
+                //26.  Verify that the application gives an error message on the screen on adding duplicate Client/Subject as Key Creditors.
+                string msgDupClientSub = summaryPage.ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred();
+                Assert.AreEqual("Company Name : 'Adobe Oil & Gas' already exists as an Additional Client/Subject", msgDupClientSub);
+                extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
+                //27. TMTI0075263_Verify that the user is able to delete the key creditors by clicking the Edit button of the Pre-Transaction Debt record
+                bool cancelKeyCred = summaryPage.ValidateCancelFunctionalityOfKeyCred();
+                Assert.AreEqual(true, cancelKeyCred);
+                extentReports.CreateLog("Key creditor record is not deleted post clicking cancel button on delete confirmation pop up ");
 
+                string deleteKeyCred = summaryPage.ValidateDeleteFunctionalityOfKeyCred();
+                Assert.AreEqual("Row is deleted", deleteKeyCred);
+                extentReports.CreateLog("Key creditor record is deleted post clicking delete button on delete confirmation pop up ");
 
+                //28.  Verify that the application gives an error message on clicking the Save button of Add Key Creditors window without selecting data in the required fields. 
+                string msgMandatoryKeyCred = summaryPage.ValidateErrorMessageWhileSavingKeyCredWithoutClientSubject();
+                Assert.AreEqual("Complete this field.", msgMandatoryKeyCred);
+                extentReports.CreateLog("Error message " + msgMandatoryKeyCred + " is displayed when Save button is clicked without entering mandatory details for Key Creditors ");
 
-
-
+                //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
+                
+                
+                
+                
+                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

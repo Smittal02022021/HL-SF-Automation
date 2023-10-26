@@ -47,6 +47,7 @@ namespace SF_Automation.Pages.Engagement
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
+        By msgMandatoryKeyCredL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By txtPerOwnershipL = By.XPath("//input[@name='Percent_Ownership__c']");
         By btnAddBoardMemberL = By.XPath("//button[text()='Add Board Member']");
         By btnAddDebtStrL = By.XPath("//button[text()='Add Debt Structure']");
@@ -130,6 +131,7 @@ namespace SF_Automation.Pages.Engagement
         By msgAssetSold = By.XPath("//label[text()='Asset Sold']/ancestor::lightning-primitive-input-simple/div[2]");
         By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
         By btnCancel = By.XPath("//button[text()='Cancel']");
+        By btnCancelKeyCredL = By.XPath("//div[2]/button[text()='Cancel']");
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
         By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
         By txtAssetSoldL = By.XPath("//input[@name='Name']");
@@ -140,6 +142,9 @@ namespace SF_Automation.Pages.Engagement
         By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
         By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
+        By btnKeyCredL = By.XPath("//button[text()='New Key Creditor']");
+        
         By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
         By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
         By btnDeleteBoard = By.XPath("//tr[2]/td[3]/span/div/lightning-button-icon/button[@title='Delete']");
@@ -3444,6 +3449,94 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Validate edit functionality of Add Equity Holder Page
+        public bool ValidateEditFunctionalityOfDebtStruc()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
+            driver.FindElement(btnEditDebtL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            driver.FindElement(btnSaveKeyCredL).Click();
+            return row;
+
+        }
+
+        //Validate duplicate error message while adding same company in Key Creditor
+        public string ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
+            driver.FindElement(btnEditDebtL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupClientL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+
+        }
+
+        //Validate mandatory error message while adding same company in Key Creditor without entering details
+        public string ValidateErrorMessageWhileSavingKeyCredWithoutClientSubject()
+        {           
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();           
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgMandatoryKeyCredL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+
+        //Validate cancel functionality of Key Creditor in Debt Structure
+        public bool ValidateCancelFunctionalityOfKeyCred()
+        {
+            Thread.Sleep(4000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelKeyCredL, 140);
+            driver.FindElement(btnCancelKeyCredL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;           
+            return row;
+
+        }
+
+        //Validate delete functionality of Key Creditor in Debt Structure
+        public string ValidateDeleteFunctionalityOfKeyCred()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 140);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(8000);
+            try
+            {
+                string row = driver.FindElement(rowAddKeyCredL).Displayed.ToString();
+                return row;
+            }
+            catch(Exception e)
+            {
+                return "Row is deleted";
+            }
+
+        }
         //Validate hyperlink of Added Equity Holder 
         public string ValidateHyperlinkOfAddedEquityHolder()
         {
