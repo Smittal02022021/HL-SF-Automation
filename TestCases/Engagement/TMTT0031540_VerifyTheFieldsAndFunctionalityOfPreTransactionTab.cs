@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //7. TMTI0073766_Verify that if the user selects an already added company while adding an Equity holder, the application will give an error message
                 string msgSameClient = summaryPage.ValidateIfSameClientIsSelectedInAddEquityHolder();
-                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgSameClient);
+                Assert.AreEqual("Company Name : 'Adobe Oil & Gas' already exists as an Additional Client/Subject", msgSameClient);
                 extentReports.CreateLog("Message : " + msgSameClient + " is displayed after selecting same client again and clicking on save in Add Equity Holder page ");
 
                 //8. TMTI0073768_Verify that clicking the "Edit" button of the Pre-Transaction Equity Holder record allows the user to update the Percent Ownership only of the record.
@@ -208,10 +208,76 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
 
                 //20. TMTI0075231_ Verify that clicking the "Add Debt Structure" button opens up the screen having multiple fields
-                
-                
-                
-                
+                Assert.IsTrue(summaryPage.VerifyTextFieldsOfAddDebtStructureL(), "Verified that displayed text fields labels are same");
+                extentReports.CreateLog("Text fields of Add Debt Structure are displayed as expected ");
+
+                string MaturityDate = summaryPage.VerifyMaturityDateFieldL();
+                Assert.AreEqual("Maturity Date", MaturityDate);
+                extentReports.CreateLog("Date Picker field with name: " + Contacts + " is displayed on Add Debt Structure window ");
+
+                string SecurityType = summaryPage.VerifySecurityTypeFieldOfAddDebtL();
+                Assert.AreEqual("*Security Type", SecurityType);
+                extentReports.CreateLog("Field with name: " + SecurityType + " is displayed on Add Debt Structure window ");
+
+                string Currency = summaryPage.VerifyCurrencyFieldOfAddDebtL();
+                Assert.AreEqual("Currency", Currency);
+                extentReports.CreateLog("Field with name: " + Currency + " is displayed on Add Debt Structure window ");
+
+                //Validate Security Types 
+                Assert.IsTrue(summaryPage.VerifySecurityTypeDebtValuesL(), "Verified that values are same");
+                extentReports.CreateLog("Values of HL Security Type drop down is displayed as expected ");
+
+                //Verify the values of Debt Currency
+                Assert.IsTrue(summaryPage.VerifyCurrencyValuesL(), "Verified that values are same");
+                extentReports.CreateLog("Values of Debt Currency drop down is displayed as expected ");
+
+                //Validate Cancel button
+                string cancelAddDebt = summaryPage.ValidateCancelButton();
+                Assert.AreEqual("Cancel", cancel);
+                extentReports.CreateLog("Button with name: " + cancel + " is displayed on Add Debt Structure window ");
+
+                //Validate Save button
+                string saveAddDebt = summaryPage.ValidateSaveButton();
+                Assert.AreEqual("Save", save);
+                extentReports.CreateLog("Button with name: " + save + " is displayed on Add Debt Structure window ");
+
+                //Validate Save and Add Key Creditor button
+                string saveAndKeyCred = summaryPage.ValidateSaveAndKeyCreditorButton();
+                Assert.AreEqual("Save and add Key Creditor", saveAndKeyCred);
+                extentReports.CreateLog("Button with name: " + saveAndKeyCred + " is displayed on Add Debt Structure window ");
+
+                //21. TMTI0075233_ Verify that an error message appears on clicking the "Save" button of Add Debt Structure screen without selecting data in the required field
+                string msgSecurityType = summaryPage.ValidateErrorMessageForSecuirtyType();
+                Assert.AreEqual("Complete this field.", msgSecurityType);
+                extentReports.CreateLog("Message: " + msgSecurityType + " is displayed for Security Type field upon clicking Save button without selecting any value ");
+
+                //22. TMTI0075235_ Verify that clicking the "Cancel" button of Add Debt Structure window takes the user back to the list view of the Pre-Transaction Info tab
+                string cancelDebt = summaryPage.ValidateCancelButtonFunctionalityOfPreTrans();
+                Assert.AreEqual("Pre-Transaction Info", cancelDebt);
+                extentReports.CreateLog("Page with tab: " + cancelDebt + " is displayed upon clicking Cancel button on Add Debt Structure window ");
+
+                //23. TMTI0075237_Verify that the "Pre-Transaction Debt" record is created with all the entered data by clicking the "Save" button on Add Debt Structure screen. 
+                string valAddDebt = summaryPage.ValidateSaveFunctionalityOfAddDebtStructure();
+                Assert.AreEqual("True", valAddDebt);
+                extentReports.CreateLog("A row is created after saving details on Add Debt Structure page ");
+
+                //24. TMTI0075239_Verify that the "Pre-Transaction Debt" record is created with all the entered data including "Key Creditors" by clicking the "Save and add Key Creditors" button on Add Debt Structure screen
+                bool rowKeyCred = summaryPage.ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValues();
+                Assert.AreEqual(true, rowKeyCred);
+                extentReports.CreateLog("Key creditor row is displayed on Add Debt Structure page ");
+
+                bool row2ndDebt = summaryPage.ValidateDebtStrcWithKeyCred();
+                Assert.AreEqual(true, row2ndDebt);
+                extentReports.CreateLog("Debt Structure with Key creditor row is displayed ");
+
+                //25. TMTI0075255_Verify that the user is able to add Key Editors by clicking the "Edit" button of the Pre-Transaction Debt record.
+
+
+
+
+
+
+
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

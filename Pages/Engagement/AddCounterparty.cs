@@ -84,6 +84,7 @@ namespace SF_Automation.Pages.Engagement
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
        By tblCounterparty = By.XPath("//lst-customized-datatable/div[2]/div/div/table/tbody");
         By chkCounterparty = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By chkCounterparty2nd = By.XPath("//tr[2]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnEmail = By.XPath("//button[text()='Email']");
         By btnNewViewAll = By.XPath("//button[@name='New']");
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
@@ -493,7 +494,7 @@ namespace SF_Automation.Pages.Engagement
         //Add Contact 
         public string AddContact()
         {
-            Thread.Sleep(12000);
+            Thread.Sleep(17000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkContact, 180);
             driver.FindElement(chkContact).Click();
             string name = driver.FindElement(valContact).Text;
@@ -630,8 +631,8 @@ namespace SF_Automation.Pages.Engagement
         public string SelectCounterpartyAndClickEmailButton()
         {
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 180);
-            driver.FindElement(chkCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty2nd, 180);
+            driver.FindElement(chkCounterparty2nd).Click();
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEmail, 80);
             driver.FindElement(btnEmail).Click();
@@ -713,6 +714,7 @@ namespace SF_Automation.Pages.Engagement
         //Select template and get email id
         public string ValidateEmailIdOnEmailTemplate()
         {
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
             Thread.Sleep(7000);
             driver.FindElement(btnContactEmail).Click();
@@ -856,7 +858,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackCounterparties, 150);
             driver.FindElement(btnBackCounterparties).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCompCounterparty, 180);
             string name = driver.FindElement(lnkCompCounterparty).Text;
             return name;
             
@@ -870,7 +873,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCounterparty, 150);
             driver.FindElement(txtSearchCounterparty).SendKeys("Skyhive");
             driver.FindElement(txtSearchCounterparty).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             string name = driver.FindElement(lnkCompCounterparty).Text;
             return name;
 

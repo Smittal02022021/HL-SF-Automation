@@ -256,7 +256,7 @@ namespace SF_Automation.Pages.Engagement
         By checkPrimaryContact = By.CssSelector("input[name*='D7OP7']");
         By valClientL = By.XPath("//record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[1]/slot/flexipage-component2[1]/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_engagement__c___012i0000000tiw8aam___compact___view___recordlayout2/records-highlights2/div[1]/div[2]/slot/records-highlights-details-item[2]/div/p[2]/slot/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valSubjectL = By.XPath("//record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[1]/slot/flexipage-component2[1]/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_engagement__c___012i0000000tiw8aam___compact___view___recordlayout2/records-highlights2/div[1]/div[2]/slot/records-highlights-details-item[3]/div/p[2]/slot/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
-        By tabInfo = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
+        By tabInfo = By.XPath("//a[text()='Info']");
         By subTabDetails = By.XPath("//ul/li[@title='Details']/a[@data-tab-value='flexipage_tab3']");
         By subTabImpDates = By.XPath("//ul/li[@title='Important Dates']/a[@data-tab-value='flexipage_tab23']");
         By subTabAdmin = By.XPath("//ul/li[@title='Administration']/a[@data-tab-value='flexipage_tab4']");
@@ -4883,7 +4883,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtEstRefFee, 150);
             driver.FindElement(txtEstRefFee).SendKeys("10");
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valEstFee).Text.Substring(0, 8);
             return value;
         }
@@ -5400,7 +5400,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, txtContacts, 100);
             driver.FindElement(txtContacts).SendKeys("Shivali Sharma");
 			Thread.Sleep(12000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[17]/a/div[2]/div[@title='Shivali Sharma']")).Click();
+			driver.FindElement(By.XPath("//div[2]/ul/li[17]/a/div[1]/span/img")).Click();
 			Thread.Sleep(3000);
 			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 			js.ExecuteScript("window.scrollTo(0,300)");

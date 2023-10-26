@@ -27,13 +27,15 @@ namespace SF_Automation.Pages.Engagement
         By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
         By lblFinDescL = By.XPath("//label[text()='Financing Description']");
         By lblFinancingTypeL = By.XPath("//label[text()='Financing Type']");
-        By lblOtherL = By.XPath("//label[text()='Other']");
-        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
+        By lblOtherL = By.XPath("//label[text()='Other']");        
+        By lblCurrencyAddDebtL = By.XPath("//label[text()='Currency']");
+        By btnCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
         By lblFinAmountL = By.XPath("//label[text()='Financing Amount (MM)']");
         By btnFinTypeL = By.XPath("//button[@name='Financing_Type__c']");
         By valFinTypesL = By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnSecTypeL = By.XPath("//button[@name='Security_Type__c']");
         By valSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By txtOtherL = By.XPath("//textarea[@name='Notes__c']");
         By txtFinAmtL = By.XPath("//input[@name='Financing_Amount__c']");
         By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
@@ -47,18 +49,36 @@ namespace SF_Automation.Pages.Engagement
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
         By txtPerOwnershipL = By.XPath("//input[@name='Percent_Ownership__c']");
         By btnAddBoardMemberL = By.XPath("//button[text()='Add Board Member']");
+        By btnAddDebtStrL = By.XPath("//button[text()='Add Debt Structure']");
 
         By btnClientSubL = By.XPath("//input[@placeholder='Search Companies...']");
+        By btnSecurityTypeL = By.XPath("//button[@name='Security_Type__c']");
+        By txtInterestL = By.XPath("//input[@name='Interest__c']");
+        By txtAmoritizationL = By.XPath("//input[@name='Amoritization__c']");
+        By txtMandatoryL  =By.XPath("//input[@name='Mandatory_Prepayments_ECF_Sweep__c']");
+        By txtFeesL = By.XPath("//input[@name='Fees_Expenses__c']");
+        By txtMaturityL = By.XPath("//input[@name='Maturity_Date__c']");
+        By txtOIDL = By.XPath("//input[@name='OID_Percent__c']");
+        By txtCallProvisionsL = By.XPath("//input[@name='Call_Provisions_Prepayment_Premiums__c']");
+        By txtCovenantsL = By.XPath("//input[@name='Covenants__c']");
+        By txtFacilityL = By.XPath("//input[@name='Facility_Balance_MM__c']");
+       
+        By rowAddDebtStructureL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
+        By rowAddDebtStrcutureL2nd = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
+        By rowAddKeyCredL = By.XPath("//input[@placeholder=\"Adobe Oil & Gas\"]");
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
         By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
         By rowAddBoardMember2ndL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
         By msgDupContactL = By.XPath("//div[text()='Duplicate record detected.']");
+        By comboSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
 
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
         By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By lblContacts = By.XPath("//label[text()='Contact (External)']");
+        By lblMaturityDate = By.XPath("//lightning-datepicker/div/label");
+        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
         By chk1stHLRel = By.XPath("//tr[1]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
         By chk2ndHLRel = By.XPath("//tr[2]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
 
@@ -126,8 +146,11 @@ namespace SF_Automation.Pages.Engagement
         By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
         By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgSecurityTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
         By btnOK = By.XPath("//button[text()='OK']");
         By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
+        By btnSaveKeyCredL = By.XPath("//div[3]/lightning-button[2]/button");
+        By btnSaveAndKeyCred = By.XPath("//button[text()='Save and add Key Creditor']");
         By valPerOwnerL = By.XPath("//table/tbody/tr/td/div/lightning-formatted-number");
         By msgFinTypeL = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[2]");
         By msgSecTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
@@ -136,7 +159,9 @@ namespace SF_Automation.Pages.Engagement
         By msgSave = By.XPath("//span[text()='Record saved']");
         By txtFinDesc = By.XPath("//textarea[@name='Financing_Description__c']");
         By txtContactL = By.XPath("//input[@placeholder=\"Search Contacts...\"]");
+        By txtCompaniesL = By.XPath("//input[@placeholder=\"Search Companies...\"]");
         By comboContactL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span/span");
+        By txtLoanAmountL = By.XPath("//input[@name='Loan_Amount__c']");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -186,6 +211,8 @@ namespace SF_Automation.Pages.Engagement
         By lblCurrency = By.CssSelector("div[id*='id1:j_id28'] > div.pbBody > table > tbody > tr:nth-child(12) > td:nth-child(1) > label");
         By comboSecType = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id32']>option");
         By comboDebtCurrency = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id72']>option");
+        By comboDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
+        
         By btnWinClose = By.CssSelector("button[title='Close']");
         By lblPreTransDebtSec = By.CssSelector("div[id*='id162'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By headerPreTransDebt = By.CssSelector("table[id*=':preTransactionDebtStructures']>thead>tr>th>div");
@@ -348,6 +375,8 @@ namespace SF_Automation.Pages.Engagement
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
+        By lblAddDebtTxtFields = By.XPath("//lightning-input-field/lightning-input/lightning-primitive-input-simple/div/label");
+
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
@@ -487,7 +516,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes); 
             var actualValue = valCurTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar","Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
+            string[] expectedValue = { "Australian Dollar","Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc","Twian Dollar", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -842,6 +871,7 @@ namespace SF_Automation.Pages.Engagement
             }
             return isSame;
         }
+       
 
         //Validate label Debt Currency in Add New Pre-Transaction Debt Structure window       
         public string ValidateLabelCurrency()
@@ -856,7 +886,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(comboDebtCurrency);
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "Twian Dollar", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -871,6 +901,36 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
+            return isSame;
+        }
+
+        //To Validate values of Debt Currency combo    
+        public bool VerifyCurrencyValuesL()
+        {
+            Thread.Sleep(7000);
+            driver.FindElement(comboDebtCurrencyL).Click();
+            driver.FindElement(comboDebtCurrencyL).Click();
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(valDebtCurrencyL);
+        
+            var actualValue = valCurrencies.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "NOK - Norwegian Krone", "SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveAddHL).Click();
             return isSame;
         }
 
@@ -2796,8 +2856,48 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSecTypeL).Click();
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
-            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();           
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B", "Bank Debt (First Lien) - Synthetic LC Facility", "Bank Debt (Second Lien)", "Senior Structured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Other Unsecured Debt", "Common Equity", "Preferred Equity" };
+            Console.WriteLine("1st:" + actualNamesAndDesc[0]);
+            Console.WriteLine("1st:" + actualNamesAndDesc[1]);
+            Console.WriteLine(actualNamesAndDesc[2]);
+            Console.WriteLine(actualNamesAndDesc[3]);
+            Console.WriteLine(actualNamesAndDesc[4]);
+            Console.WriteLine(actualNamesAndDesc[5]);
+            Console.WriteLine(actualNamesAndDesc[6]);
+            Console.WriteLine(actualNamesAndDesc[7]);
+            Console.WriteLine(actualNamesAndDesc[8]);
+            Console.WriteLine(actualNamesAndDesc[9]);
+            Console.WriteLine(actualNamesAndDesc[10]);
+            Console.WriteLine(actualNamesAndDesc[11]);
+            Console.WriteLine(actualNamesAndDesc[12]);
+
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            driver.FindElement(btnSecTypeL).Click();
+            return isTrue;
+        }
+
+        //Validate Security Type values
+        public bool VerifySecurityTypeDebtValuesL()
+        {
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B", "Bank Debt (First Lien) - Synthetic LC Facility", "ABL/ABS Facility - First Lien", "LC Facility", "Bank Debt (Second Lien)", "ABL/ABS Facility - Second Lien", "Convertible Notes (Secured)", "Senior Secured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Substantially All Assets", "Convertible Notes (Unsecured)", "Other Unsecured Debt" };
             Console.WriteLine("1st:" + actualNamesAndDesc[0]);
             Console.WriteLine("1st:" + actualNamesAndDesc[1]);
             Console.WriteLine(actualNamesAndDesc[2]);
@@ -2826,6 +2926,7 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
+            Thread.Sleep(4000);
             driver.FindElement(btnSecTypeL).Click();
             return isTrue;
         }
@@ -2918,6 +3019,16 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAddHL).Click();
             return name;
         }
+
+        //Validate save and Key creditor button
+        public string ValidateSaveAndKeyCreditorButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAndKeyCred, 120);
+            string name = driver.FindElement(btnSaveAndKeyCred).Text;           
+            return name;
+        }
+
+        
 
         //Validate the error message for Financing type
         public string ValidateErrorMessageForFinancingType()
@@ -3260,6 +3371,65 @@ namespace SF_Automation.Pages.Engagement
             return message;
         }
 
+        //Validate save functionality of Add Debt Structure  Page
+        public string ValidateSaveFunctionalityOfAddDebtStructure()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+                      
+             driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDebtStructureL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Debt Structure Page by adding all values
+        public bool ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValues()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Testing");
+            driver.FindElement(txtAmoritizationL).SendKeys("10");
+            driver.FindElement(txtMandatoryL).SendKeys("10");
+            driver.FindElement(txtFeesL).SendKeys("10");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+            driver.FindElement(btnSaveAndKeyCred).Click();
+            Thread.Sleep(6000);
+
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return row;
+        }
+
+        //Validate added debt structure 
+        public bool ValidateDebtStrcWithKeyCred()
+        {
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(4000);
+            bool row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed;
+            return row;
+        }
+
+
+
         //Validate edit functionality of Add Equity Holder Page
         public string ValidateEditFunctionalityOfAddEquityHolder()
         {
@@ -3387,12 +3557,48 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate Maturity Date on Add Debt Structure 
+        public string VerifyMaturityDateFieldL()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMaturityDate, 180);
+            string name = driver.FindElement(lblMaturityDate).Text;
+            return name;
+        }
+
+
+        //Validate Security Type on Add Debt Structure 
+        public string VerifySecurityTypeFieldOfAddDebtL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSecurityTypeL, 180);
+            string name = driver.FindElement(lblSecurityTypeL).Text;
+            return name;
+        }
+
+        //Validate Currency on Add Debt Structure 
+        public string VerifyCurrencyFieldOfAddDebtL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCurrencyAddDebtL, 180);
+            string name = driver.FindElement(lblCurrencyAddDebtL).Text;
+            //driver.FindElement(btnCurrencyL).Click();                
+            return name;
+        }
+        
         //Validate the error message for Contacts
         public string ValidateErrorMessageForContact()
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, msgContactsL, 130);
             string name = driver.FindElement(msgContactsL).Text;
+            return name;
+        }
+
+        //Validate the error message for Secutiry Type
+        public string ValidateErrorMessageForSecuirtyType()
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(btnSaveAddHL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSecurityTypeL, 130);
+            string name = driver.FindElement(msgSecurityTypeL).Text;
             return name;
         }
 
@@ -3468,6 +3674,30 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnCancel).Click();
             return row;
+        }
+
+        //Validate Contact field on click of Add Board Member
+        public bool VerifyTextFieldsOfAddDebtStructureL()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            IReadOnlyCollection<IWebElement> valHeader = driver.FindElements(lblAddDebtTxtFields);
+            var actualValue = valHeader.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses", "Facility Balance (MM)"};
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
 
     }
