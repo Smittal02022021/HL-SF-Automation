@@ -444,7 +444,13 @@ namespace SF_Automation.Pages.Engagement
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
 
-
+        By txtEngStageL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Stage')]/div/div/span/slot/lightning-formatted-text");
+        By txtEngRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.RecordTypeId')]//div[contains(@class,'recordType')]/div/span");
+        By tabEngAdministratorL = By.XPath("(//li/a[@data-label='Administration'])[2]");
+        By txtEngLegalEntityL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span");
+        By tabEngImpDate = By.XPath("//li/a[@data-label='Important Dates']");
+        By txtStartDate = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Start_Date')]//span[contains(@class,'field-value')]//lightning-formatted-text");
+        
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -723,6 +729,12 @@ namespace SF_Automation.Pages.Engagement
         By txtWomenLedSell = By.CssSelector("div[id*='pBs_ep_j_id0_j_id4']>h3");
 
         By tabEngActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab13__item']");
+        By txtInternalTeamMemberL = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody/tr[1]/td[1]//label");
+        By tabSidePanelL = By.XPath("//ul[@role='tablist']//li//a[@data-label=\"Eng Contacts\"]");
+        By txtEngContactL = By.XPath("//article[@aria-label=\"Engagement Contacts\"]//h3//span");
+        By tabInternalTeamL = By.XPath("//div[@class='onePanelManagerScoped']//lightning-tab-bar/ul/li/a[text()='Internal Team']");
+        By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
+
 
         private By _linkQuestionnaireNumer(string caseNumber)
         {
@@ -6286,5 +6298,105 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Window(driver.WindowHandles[0]);
             return value;
         }
+       
+        public string GetEngStartDate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngImpDate, 20);
+            driver.FindElement(tabEngImpDate).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStartDate, 20);
+            string txtDate = driver.FindElement(txtStartDate).Text;
+            //Date is in DD/MM/YYY formate converting it into MM/DD/YYYY string originalDateText = "12/09/2023";
+            string[] dateParts = txtDate.Split('/');
+            string newDateText = $"{dateParts[1]}/{dateParts[0]}/{dateParts[2]}";
+            return newDateText;
+        }
+        public string GetStageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngStageL, 20);
+            string stage = driver.FindElement(txtEngStageL).Text;
+            return stage;
+        }
+        public void NavigateToAdministratorTabL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngAdministratorL, 20);
+            driver.FindElement(tabEngAdministratorL).Click();
+        }
+        public string GetRecordTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngRecordTypeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEngRecordTypeL));
+            return driver.FindElement(txtEngRecordTypeL).Text;
+        }
+        public string GetHLEntityL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngLegalEntityL, 20);
+            return driver.FindElement(txtEngLegalEntityL).Text;
+        }
+
+        public string ValidateWomenLedFieldLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblWomenLedL, 20);
+            return driver.FindElement(lblWomenLedL).Text;
+        }
+
+        By txtValueWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div//span[contains(@class,'field-value')]/slot/lightning-formatted-text");////div[contains(@data-target-selection-name,'Engagement__c.Women_Led')]//div//span[contains(@class,'field-value')]");
+        public string GetValueWomenLedLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtValueWomenLedL, 20);
+            return driver.FindElement(txtValueWomenLedL).Text;
+        }
+        
+        public string GetEngDealTeammMemberLV()
+        {
+            //Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(2000);
+            //driver.FindElement(btnModifyRolesL).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtInternalTeamMemberL, 20);
+            string nameInternalTeamMember = driver.FindElement(txtInternalTeamMemberL).Text;
+            driver.SwitchTo().DefaultContent();
+            return nameInternalTeamMember;
+        }
+        
+        public string GetEngExternalContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabSidePanelL, 20);
+            driver.FindElement(tabSidePanelL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngContactL, 20);
+            return driver.FindElement(txtEngContactL).Text;
+        }
+        By labelWomenLedSectionLV = By.XPath("//h3[contains(@data-target-reveals,'Engagement__c.Women_Led')]/button/span");
+        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        By labelAdminSectionLV = By.XPath("//h3/button/span[@title='Administrative Info']");
+        public string GetWomenLedSectionNameLV(string recType)
+        {
+            if (recType.Equals("CF"))
+            {
+                //WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
+                ////CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                //string secName = driver.FindElement(labelWomenLedSectionLV).Text;
+                return "Need toChange"; //secName;
+            }
+            else if (recType.Equals("FVA"))
+            {
+                //WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
+                ////CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                //string secName = driver.FindElement(labelWomenLedSectionLV).Text;
+                return "Need toChange";// secName;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelAdminSectionLV);
+                //CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                string secName = driver.FindElement(labelAdminSectionLV).Text;
+                return secName;
+            }
+        }
+
     }
 }

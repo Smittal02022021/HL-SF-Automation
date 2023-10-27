@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using static System.Collections.Specialized.BitVector32;
 
 namespace SF_Automation.Pages
 {
@@ -478,274 +479,145 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         }
       
 
-public string AddOpportunitiesLightningV2(string type, string file)
-
+        public string AddOpportunitiesLightningV2(string type, string file)
         {
-
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             ReadJSONData.Generate("Admin_Data.json");
-
             string dir = ReadJSONData.data.filePaths.testData;
-
             string excelPath = dir + file;
-
             Console.WriteLine("path:" + excelPath);
-
             Thread.Sleep(5000);
-
+            string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
             //--------------------------Enter Opportunity details-----------------------------
-
             //Information Section           
-
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityNameL, 240);
-
             string valOpportunity = CustomFunctions.RandomValue();
 
-
-
             driver.FindElement(txtOpportunityNameL).SendKeys(valOpportunity);
-
             string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
-
             driver.FindElement(txtClientL).SendKeys(valClient);
-
-            //WebDriverWaits.WaitUntilEleVisible(driver, txtClientL, 20);
-
-            //driver.FindElement(txtClientL).Click();            
-
             Thread.Sleep(5000);
-
             By eleClient = By.XPath($"//label[text()='Client']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valClient}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 20);
-
             driver.FindElement(eleClient).Click();
 
-
-
             string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
-
             driver.FindElement(txtSubjectL).SendKeys(valSubject);
-
-            //WebDriverWaits.WaitUntilEleVisible(driver, txtSubjectL, 20);
-
-            //driver.FindElement(txtSubjectL).Click();
-
             Thread.Sleep(5000);
-
             By eleSubject = By.XPath($"//label[text()='Subject']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSubject}']");
-
             WebDriverWaits.WaitUntilEleVisible(driver, eleSubject, 20);
-
             driver.FindElement(eleSubject).Click();
-
             Thread.Sleep(5000);
-
-
 
             //Select IG
-
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
-
             Thread.Sleep(3000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
-
             driver.FindElement(btnIGL).Click();
-
             Thread.Sleep(3000);
-
-            By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");//flexipage-field[6]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']");
-
+            By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
-
             driver.FindElement(eleIG).Click();
 
-
-
             //Select Job Type
-
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
-
             driver.FindElement(btnJobTypeL).Click();
-
             Thread.Sleep(3000);
-
-            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");//lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + type + "']");
-
+            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
-
             driver.FindElement(eleJobType).Click();
 
-
-
             //Select sector
-
             string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
-
-            driver.FindElement(comboSectorL).Click(); // SendKeys(valSector);
-
-            By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");//flexipage-field[7]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSector + "']");
-
+            driver.FindElement(comboSectorL).Click();
+            By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
-
             WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
-
             driver.FindElement(eleSector).Click();
 
-
-
             //Select Primary Office
-
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLed));
-
-            driver.FindElement(comboPrimaryOfficeL).Click();// SendKeys(valPO);
-
-            By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{valPO}']");//flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valPO + "']");
-
+            driver.FindElement(comboPrimaryOfficeL).Click();
+            By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{valPO}']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
-
             WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
-
             driver.FindElement(elePO).Click();
 
-
-
             //Select Legal Entity
-
             string valEntity = ReadExcelData.ReadData(excelPath, "AddOpportunity", 12);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtLegalEntitiesL));
-
             driver.FindElement(txtLegalEntitiesL).SendKeys(valEntity);
-
             Thread.Sleep(3000);
-
-            By eleLegalEntity = By.XPath($"//label[text()='Legal Entity']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valEntity}']");//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div[2]");
-
+            By eleLegalEntity = By.XPath($"//label[text()='Legal Entity']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valEntity}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleLegalEntity, 80);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleLegalEntity));
-
             driver.FindElement(eleLegalEntity).Click();
 
-
-
-            //Select Referral Type  
-
+            //Select Referral Type //Need to move in UpdteReq function  
             string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
-
-            driver.FindElement(comboRefTypeL).Click();// SendKeys(valRefType);
-
-            By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");////flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valRefType + "']");
-
-            WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 80);
-
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
-
-            driver.FindElement(eleReferralType).Click();
-
-            By txtTotalDebt = By.XPath("//input[@name='Total_Debt_MM__c']");
-
-            try
-
+            if (valRecordType == "CF")
             {
-
-                CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalDebt));
-
-                driver.FindElement(txtTotalDebt).SendKeys("10");
-
-
-
+                driver.FindElement(comboRefTypeL).Click();
+                By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 80);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+                driver.FindElement(eleReferralType).Click();
             }
 
-            catch { }
-
-
-
+            By txtTotalDebt = By.XPath("//input[@name='Total_Debt_MM__c']");
+            if (valRecordType == "FR")
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalDebt));
+                driver.FindElement(txtTotalDebt).SendKeys("10");
+            }
             //Select Additional Client
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboBenOwnerL));
-
-            Thread.Sleep(2000);
-
-            driver.FindElement(comboAddClientL).Click();// SendKeys("No");
-
-            driver.FindElement(By.XPath("//label[text()='Additional Client']/following::lightning-base-combobox-item//span[@title='No']")).Click();//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
-
-
+            //driver.FindElement(comboAddClientL).Click();
+            Thread.Sleep(1000);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboAddClientL));
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Additional Client']/following::lightning-base-combobox-item//span[@title='No']")).Click();
 
             //Select Additional Subject
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddSubjectL));
-
-            driver.FindElement(comboAddSubjectL).Click();// SendKeys("No");
-
-            driver.FindElement(By.XPath("//label[text()='Additional Subject']/following::lightning-base-combobox-item//span[@title='No']")).Click(); //flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
-
-
+            Thread.Sleep(1000);
+            driver.FindElement(comboAddSubjectL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Additional Subject']/following::lightning-base-combobox-item//span[@title='No']")).Click();
 
             //Select Beneficial Owner
-
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblCongAgg));
-
-            driver.FindElement(comboBenOwnerL).Click();// SendKeys(valBenOwner);
-
-            driver.FindElement(By.XPath($"//label[text()='Beneficial Owner & Control Person form?']/following::lightning-base-combobox-item//span[@title='{valBenOwner}']")).Click();//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
-
-
+            Thread.Sleep(1000);
+            driver.FindElement(comboBenOwnerL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath($"//label[text()='Beneficial Owner & Control Person form?']/following::lightning-base-combobox-item//span[@title='{valBenOwner}']")).Click();
 
             //Select Does HL have material
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboHLMaterialL));
+            Thread.Sleep(1000);
+            driver.FindElement(comboHLMaterialL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
 
-            driver.FindElement(comboHLMaterialL).Click();// SendKeys(valBenOwner);
-
-            driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valBenOwner + "']")).Click();
-
-
-
-            //Select Conf Agreement
-
-            string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
-
-            //Thread.Sleep(4000);
-
-            //driver.FindElement(btnConfAgreeL).Click();
-
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(lblIndLangs));//need to change
-
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));//for FR
-
-            driver.FindElement(comboConfAggL).Click();// SendKeys(valConf);
-
-            Thread.Sleep(4000);
-
-            driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
-
-
+            //Select Conf Agreement//Need to move in UpdteReq function  
+            //string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
+            //Thread.Sleep(1000);
+            //driver.FindElement(comboConfAggL).Click();
+            //Thread.Sleep(1000);
+            //driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
             //Click Save button                           
-
             driver.FindElement(btnSaveL).Click();
-
             Thread.Sleep(5000);
-
-            //
-
             return valOpportunity;
 
         }
@@ -1011,7 +883,7 @@ public string AddOpportunitiesLightningV2(string type, string file)
         //To enter team member details
         public string EnterStaffDetailsL(string file)
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             ReadJSONData.Generate("Admin_Data.json");
             Console.WriteLine("Entered staff function");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -1279,9 +1151,9 @@ public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, str
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedFR);
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedLV);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
-                string fieldName = driver.FindElement(labelWomenLedFR).Text;
+                string fieldName = driver.FindElement(labelWomenLedLV).Text;
                 return fieldName;
             }
         }
@@ -1311,6 +1183,32 @@ public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, str
                 return secName;
             }
 
+        }
+        //Get WomenLed section
+        By labelWomenLedSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
+        public string GetWomenLedSectionNameLV(string recType)
+        {
+            if (recType.Equals("CF"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                string secName = driver.FindElement(labelWomenLedSectionLV).Text;
+                return secName;
+            }
+            else if (recType.Equals("FVA"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                string secName = driver.FindElement(labelWomenLedSectionLV).Text;
+                return secName;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
+                string secName = driver.FindElement(labelWomenLedSectionLV).Text;
+                return secName;
+            }
         }
     }
 

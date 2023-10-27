@@ -717,6 +717,9 @@
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatusFrom.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyStartDateGetsUpdatedIflinkedOpportunityHasOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
@@ -846,6 +849,7 @@
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
     <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
+    <None Include="TestData\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.xlsx" />
     <None Include="TestData\Outlook.xlsx" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
@@ -1056,6 +1060,7 @@
     <None Include="TestData\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.xlsx" />
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus.xlsx" />
     <None Include="TestData\TS012_ERPInformationOfContractDetalPage.xlsx" />
     <None Include="TestData\TS013_ERPInformationOfContractDetalPageWithNewCompany.xlsx" />
     <None Include="TestData\TS019_Company_ERPContactUpdateFlagFields.xlsx" />

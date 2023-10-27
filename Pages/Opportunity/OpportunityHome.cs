@@ -32,7 +32,7 @@ namespace SF_Automation.Pages
 
         By btnNew = By.XPath("//div[@title='New']");
         By btnNext = By.XPath("//span[text()='Next']");
-        By valTitle = By.XPath("//h2[text()='New Opportunity: CF']");
+        By valTitle = By.XPath("//h2[contains(text(),'New Opportunity')]");
         By lnkOppL = By.XPath("//table/tbody/tr[1]/th/span/a");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By btnOppNumLCAO = By.XPath("//header/div[2]/div[2]/div/button/text()");
@@ -62,6 +62,10 @@ namespace SF_Automation.Pages
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
         By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+        private By _eleOppRecordType(string type)
+        {
+            return By.XPath($"//div[@class='changeRecordTypeRow']//span[text()='{type}']");
+        }
         public void SearchOpportunityInLightning(string value)
         {
             Thread.Sleep(6000);
@@ -541,6 +545,18 @@ namespace SF_Automation.Pages
         public string GetSearchedOppJobType()
         {
             return driver.FindElement(eleItem).Text;
+        }
+        public string ClickNewButtonAndSelectOppRecordTypeLV(string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 20);
+            driver.FindElement(btnNew).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _eleOppRecordType(type), 20);
+            driver.FindElement(_eleOppRecordType(type)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNext, 20);
+            driver.FindElement(btnNext).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valTitle, 20);
+            string title = driver.FindElement(valTitle).Text;
+            return title;
         }
     }
 }

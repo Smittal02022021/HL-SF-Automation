@@ -44,7 +44,9 @@ namespace SF_Automation.Pages.Opportunity
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
-        By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");        
+        By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
+        
         //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
@@ -288,6 +290,13 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, msgParty, 50);
             string name = driver.FindElement(msgParty).Text;
             return name;
+        }
+
+        //Click on AddFROpportunityContact
+        public void CickAddFROpportunityContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFRContactL, 20);
+            driver.FindElement(btnAddFRContactL).Click();
         }
     }
 }
