@@ -18,7 +18,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tabRateSheetManagement = By.CssSelector("li[id*='ratesheet'] > a");
       
         By comboEngagement = By.CssSelector("select[class*='engagementPicker']");
-        By comboEngagementOptions = By.CssSelector("select[class*='engagementPicker'] > option[value*='13aH7IQAU']");
+        By comboEngagementOptions = By.CssSelector("select[class*='engagementPicker'] > option[value*='16H9zBAAS']");
         By comboSelectRateSheet = By.XPath("//div[contains(text(),'Add Record')]/following::div/div/div/select");
         By txtRateSheetFromDate = By.CssSelector("div[class='slds-card__body'] > div[class='slds-grid'] > div:nth-child(2) > div > input");
         By txtRateSheetToDate = By.CssSelector("div[class='slds-card__body'] > div[class='slds-grid'] > div:nth-child(3) > div > input");

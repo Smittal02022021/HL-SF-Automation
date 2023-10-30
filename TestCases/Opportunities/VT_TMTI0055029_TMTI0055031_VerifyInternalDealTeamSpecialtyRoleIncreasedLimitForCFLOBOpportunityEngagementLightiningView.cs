@@ -22,7 +22,7 @@ namespace SF_Automation.TestCases.Opportunity
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
      
-        public static string fileTMTI0055029 = "TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement";
+        public static string fileTMTI0055029 = "LV_TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

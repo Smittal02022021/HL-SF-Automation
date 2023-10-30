@@ -64,15 +64,15 @@ namespace SF_Automation.Pages
         By chkConvertedtoEng = By.CssSelector("input[name*='FaP8F']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
-        By chkUpPrincipal1 = By.CssSelector("input[name*=':2:j_id43']");
-        By chkUpSeller1 = By.CssSelector("input[name*=':1:j_id43']");
-        By chkUpManager1 = By.CssSelector("input[name*=':3:j_id43']");
+        By chkUpPrincipal1 = By.CssSelector("input[name*=':2:j_id44']");
+        By chkUpSeller1 = By.CssSelector("input[name*=':1:j_id44']");
+        By chkUpManager1 = By.CssSelector("input[name*=':3:j_id44']");
         By chkAdmin1 = By.CssSelector("input[name*='9:j_id65']");
-        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id43']");
-        By chkUpSeller = By.CssSelector("input[name*=':2:j_id43']");
-        By chkUpManager = By.CssSelector("input[name*=':4:j_id43']");
+        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id44']"); //43
+        By chkUpSeller = By.CssSelector("input[name*=':2:j_id44']");
+        By chkUpManager = By.CssSelector("input[name*=':4:j_id44']");//43
         By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
-        By chkAdmin2 = By.CssSelector("input[name *= 'j_id63:9:j_id65']");
+        By chkAdmin2 = By.CssSelector("input[name *= 'j_id64:9:j_id66']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By btnCounterparties = By.CssSelector(".pbButton > input[title = 'Counterparties']");
@@ -91,15 +91,15 @@ namespace SF_Automation.Pages
         By linkDel = By.CssSelector("td[class='actionColumn']>a[title='Delete - Record 1 - View']");
         By btnClone = By.CssSelector("input[title='Clone']");
         //By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
-        By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id43']");
-        By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id43']");
+        By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id44']");
+        By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id44']");
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
-        By chkUpMgr = By.CssSelector("input[name*='1:j_id43']");
-        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id43']");
-        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id43']");      
+        By chkUpMgr = By.CssSelector("input[name*='1:j_id44']");//43
+        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id44']");//43
+        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id44']");  //43    
         By rowUser = By.XPath("//html/body/span[2]/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[1]/div/label");
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
-        By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id41:0:j_id43']");
+        By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id42:0:j_id44']");
         By msgHLIntTeam = By.CssSelector("div[id*='pgfrmId:internalTeam:j']");
         By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id55_ileinner'] > a");
         By comboRecType = By.CssSelector("select[id*='p3']");
@@ -158,7 +158,7 @@ namespace SF_Automation.Pages
         By lnkDateCAExpiresFR = By.CssSelector("div:nth-child(17) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By lnkEstimatedClosedDateFR = By.CssSelector("div:nth-child(21) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By lnkOutcomeDateFR = By.CssSelector("div:nth-child(19) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span > span > a");
-        By chk2ndInitiator = By.CssSelector("input[name*=':0:j_id65']");
+        By chk2ndInitiator = By.CssSelector("input[name*=':0:j_id66']");
         By valHLEntity = By.CssSelector("div[id*='WRj']");
         By valERPHLEntity = By.CssSelector("div[id*='fYj']");
         By valERPLegalEntityId = By.CssSelector("div[id*='fhj']");
@@ -653,6 +653,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             }
             catch { return "No Pop-up Message Displayed"; }
         }
+        By btnHeader = By.XPath("//div[contains(@id,'internalTeam')]/div[@class='pbHeader']");
         public string GetLineErrorMessage()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -661,7 +662,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
                 string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);                
-                CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                //CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnHeader));
                 driver.FindElement(btnReturnToOpporEng).Click();
                 Thread.Sleep(5000);
                 return txtLineErroeMsg;
@@ -6022,7 +6024,7 @@ public void ClickNewOpportunitySectorButton()
 
 
             //WomenLed
-            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
