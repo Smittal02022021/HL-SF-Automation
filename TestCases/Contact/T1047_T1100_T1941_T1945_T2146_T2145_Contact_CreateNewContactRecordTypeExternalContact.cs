@@ -80,7 +80,7 @@ namespace SF_Automation.TestCases.Contact
                 // Calling click add contact function
                 conHome.ClickAddContact();
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
-                extentReports.CreateStepLogs("Passed", "user navigate to create contact page upon click of add contact button ");
+                extentReports.CreateStepLogs("Passed", "User navigate to create contact page upon click of add contact button ");
                                
                 //Validate FirstName, LastName and CompanyName display with red flag as mandatory fields
                 Assert.IsTrue(createContact.ValidateMandatoryFields(), "Validate Mandatory fields");
