@@ -41,10 +41,8 @@ namespace SF_Automation.Pages
         By labelAdmSectionFR = By.CssSelector("div[id = 'head_10_ep'] > h3");
         By comboWomenLed = By.CssSelector("select[id*='NgW']>option");
         By msgFee = By.XPath("//*[@id='ep']/div[2]/div[17]/table/tbody/tr[3]/td[2]/div/div[2]");        
-By comboStage = By.CssSelector("select[id*='00Ni000000D80OA']");       
-By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
-
-
+        By comboStage = By.CssSelector("select[id*='00Ni000000D80OA']");       
+        By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
 
         //Lightning
         By txtOpportunityNameL = By.XPath("//input[@name= 'Name']");
@@ -64,7 +62,6 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By btnNewOppL = By.XPath("//div[contains(@class,'lvmForceActionsContainer')]//a[@title='New']");
         By txtStaff = By.XPath("//input[@placeholder='Begin Typing Name...']");      
         
-       
         By tabInfo = By.XPath("//a[text()='Info']");
 
         By comboConfAggL = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
@@ -114,7 +111,7 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");       
         By comboLegalAdvisor = By.CssSelector("select[id*='00N5A00000M4yQB']");
-By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
+        By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By comboSuccessProb = By.CssSelector("select[id*='00N5A00000M4yXq']");
         By txtEstTranscSize = By.CssSelector("input[id*='00Ni000000D80P4']");
         By txtRetainerFee = By.CssSelector("input[id*='00Ni000000DwTdF']");
@@ -124,6 +121,10 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By comboReferType = By.CssSelector("select[id*='00Ni000000FF5uS']");
         By chkboxNBC = By.CssSelector("input[id*='00Ni000000FmBzh']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
+
+        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
+        By labelAdmSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
 
 
         public string AddOpportunities(string type,string file)
@@ -241,14 +242,18 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             {
                 Console.WriteLine("CF types ");
             }
+
+            
             //Click Save button
             driver.FindElement(btnSave).Click();
+            /*
             WebDriverWaits.WaitUntilEleVisible(driver, msgFee, 80);
             string message = driver.FindElement(msgFee).Text;
             driver.FindElement(txtFee).Clear();
             driver.FindElement(txtFee).SendKeys("10000");
             driver.FindElement(btnSave).Click();
-            return message;
+            */
+            return valOpportunity;
         }
 
         //Validate Women Led field
@@ -298,7 +303,6 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         }
 
         //Validate the values of Women Led field
-
         public bool VerifyWomenLedValues()
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(comboWomenLed);
@@ -322,8 +326,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             return isSame;
         }
 
-       
-//Add Opportunity via Lightning screen
+        //Add Opportunity via Lightning screen
         public string AddOpportunitiesLightning(string type, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -476,10 +479,8 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             //
             return valOpportunity;
         }
-      
 
-public string AddOpportunitiesLightningV2(string type, string file)
-
+        public string AddOpportunitiesLightningV2(string type, string file)
         {
 
             ReadJSONData.Generate("Admin_Data.json");
@@ -749,6 +750,7 @@ public string AddOpportunitiesLightningV2(string type, string file)
             return valOpportunity;
 
         }
+
         //Validate mandatory field validations
         public string ValidateMandatoryFieldsValidations()
         {
@@ -760,6 +762,7 @@ public string AddOpportunitiesLightningV2(string type, string file)
             string validation = driver.FindElement(msgOppName).Text;
             return validation;
         }
+
         //Validate mandatory validation of Client
         public string ValidateMandatoryValidationOfClient ()
         {            
@@ -775,6 +778,7 @@ public string AddOpportunitiesLightningV2(string type, string file)
             string validation = driver.FindElement(msgSubject).Text;
             return validation;
         }
+
         //Validate mandatory validation of Job Type
         public string ValidateMandatoryValidationOfJobType()
         {
@@ -953,7 +957,6 @@ public string AddOpportunitiesLightningV2(string type, string file)
             return title;
         }
 
-
         //Validate Return To Opp button is dislayed if Initiator is selected
         public string ValidateReturnToOppButtonWhenInitiatorIsSelected()
         {           
@@ -1038,53 +1041,62 @@ public string AddOpportunitiesLightningV2(string type, string file)
             return name;
         }
 
-// Clear mandatory values on add opprtunity page
+        // Clear mandatory values on add opprtunity page
         public void ClearMandatoryValuesOnAddOpportunity()
         {
             driver.FindElement(txtOpportunityName).Clear();
             driver.FindElement(txtClient).Clear();
             driver.FindElement(txtSubject).Clear();
         }
+
         // Get edit opportunity page heading
         public string GetEditOpportunityPageHeading()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, labelOpportunityEdit, 60);
             string headingEditOpportunity = driver.FindElement(labelOpportunityEdit).Text;
             return headingEditOpportunity;
-        }         // Get prefilled opportunity name
+        }         
+        
+        // Get prefilled opportunity name
         public string GetPrefilledOpportunityName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityName, 60);
             string prefilledOpportunityName = driver.FindElement(txtOpportunityName).GetAttribute("value");
             return prefilledOpportunityName;
-        }         // Get prefilled client name
+        }         
+        
+        // Get prefilled client name
         public string GetPrefilledClientName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtClient, 60);
             string prefilledClientName = driver.FindElement(txtClient).GetAttribute("value");
             return prefilledClientName;
-        }         // Get prefilled opportunity subject
+        }         
+        
+        // Get prefilled opportunity subject
         public string GetPrefilledOpportunitySubject()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtSubject, 60);
             string prefilledSubject = driver.FindElement(txtSubject).GetAttribute("value");
             return prefilledSubject;
-        }         // Get prefilled line of business
+        }         
+        
+        // Get prefilled line of business
         public string GetPrefilledLineOfBusiness()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, selectedLOBvalue, 60);
             string prefilledLOB = driver.FindElement(selectedLOBvalue).Text;
             return prefilledLOB;
         }
+
         //Click cancel button
         public void ClickCancelButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancel);
             driver.FindElement(btnCancel).Click();
         }
-
    
-public string AddOpportunities(string type, string file, int row)
+        public string AddOpportunities(string type, string file, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -1128,6 +1140,7 @@ public string AddOpportunities(string type, string file, int row)
             driver.FindElement(btnSave).Click();
             return valOpportunity;
         }
+
         public string AddOpportunitiesWithStageVerballyEngaged(string type, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -1190,7 +1203,7 @@ public string AddOpportunities(string type, string file, int row)
             Thread.Sleep(5000);
         }
 
-public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, string file)
+        public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -1236,9 +1249,8 @@ public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, str
             driver.FindElement(btnSave).Click();
             return valOpportunity;
         }
-
        
-     public void UpdateMissingFieldsForOpportunityWithStageVerballyEngagedAndLegalEntityOtherThanHLCapital(string type, string file)
+        public void UpdateMissingFieldsForOpportunityWithStageVerballyEngagedAndLegalEntityOtherThanHLCapital(string type, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -1257,9 +1269,6 @@ public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, str
             driver.FindElement(btnSave).Click();
         }
 
-
-        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
-        By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         //Get Label WomenLed
         public string ValidateWomenLedFieldLV(string recType)
         {
@@ -1285,8 +1294,8 @@ public string AddOpportunitiesWithLegalEntityOtherThanHLCapital(string type, str
                 return fieldName;
             }
         }
+
         //Get Administration section
-        By labelAdmSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
         public string GetAdminSectionNameLV(string recType)
         {
             if (recType.Equals("CF"))

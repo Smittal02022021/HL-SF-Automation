@@ -406,14 +406,14 @@ namespace SF_Automation.Pages
         By valAdditionalClient = By.CssSelector("div[id*='00Ni000000FmBzaj']");
         By valAdditionalSubject = By.CssSelector("div[id*='00Ni000000FmBzbj']");
         By valReferralType = By.CssSelector("div[id*='00Ni000000FF5uSj']");      
-By linkOpportunitySector = By.XPath("//*/span[contains(text(),'Opportunity Sectors')]");
-By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']");
+        By linkOpportunitySector = By.XPath("//*/span[contains(text(),'Opportunity Sectors')]");
+        By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']");
         By valBeneOwnerAndControlPersonForm = By.CssSelector("div[id*='00N5A00000HERR2j']");
         By valNonPublicInfo = By.CssSelector("div[id*='00Ni000000FaBznj']");
         By valLegalEntity = By.CssSelector("div[id*='CF00N5A00000M0eg5j'] a");
         By valStaffMember = By.CssSelector("div[id*='team:0:j_id7'] > label");
         By btnDeleteOpportunity = By.CssSelector("td[id*='topButtonRow'] > input[value='Delete']");
-        By lnkInternalTeam = By.CssSelector("th[class=' dataCell  '] a");
+        By lnkInternalTeam = By.XPath("//th[@class=' dataCell  ']/a");
         By btnDeleteInternalTeam = By.CssSelector("td[id='topButtonRow'] > input[value='Delete']");
 
         By txtAdditionalClientSubjects = By.CssSelector("h2[class='slds-card__header-title']>span");
@@ -424,7 +424,7 @@ By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']"
         By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
         By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
         By txtStagePriority = By.CssSelector("select[id*='D80OA']");
-By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > th > a"); 
+        By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > th > a"); 
         By valERPContractType = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(4)"); 
         By valBillTo = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(8) > a");
         By valContractStartDate = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(9)");

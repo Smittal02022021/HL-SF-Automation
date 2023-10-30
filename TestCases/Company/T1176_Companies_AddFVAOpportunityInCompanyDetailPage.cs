@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.Companies
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
 
                     // Calling add opportunity function
-                    string value = addOpportunity.AddOpportunities(valJobType,fileTC1176);
+                    string value = addOpportunity.AddOpportunitiesForFVA(valJobType,fileTC1176);
                     Console.WriteLine("value : " + value);
                     extentReports.CreateLog("Opportunity is created succcessfully ");
 

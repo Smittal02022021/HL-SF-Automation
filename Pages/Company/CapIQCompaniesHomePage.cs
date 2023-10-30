@@ -21,7 +21,7 @@ namespace SF_Automation.Pages.Company
         By lnkCapIQCompany = By.CssSelector("div[id*='a036w0000007ZJe'] > a > span");
         By btnAddSalesforceCompany = By.CssSelector("td[id='topButtonRow'] > input[value='Add Salesforce Company']");
         By lblCompanyEditPage = By.XPath("//h2[normalize-space()='Create a New Salesforce Company from CapIQ Data']");
-        By lnkCapIQCompanyName = By.XPath("//div[@id='a036t000004QZlt_NAME']/a");
+        By lnkCapIQCompanyName = By.XPath("//div[@id='a03Oy000004CPwT_NAME']/a");
         By valCompanyType = By.CssSelector("option[value='012i0000000tEhFAAU']");
         By valCompanyName = By.CssSelector("input[id*='j_id28:j_id36']");
         By valCompanyCity = By.CssSelector("input[id*='j_id28:j_id39']");
