@@ -126,8 +126,8 @@ namespace SF_Automation.TestCases.Companies
                     //companyDetails.CloseCompanyTabL(companyNameExl);
                     companyDetails.CloseCoverageTeamDetailPageL();
                     extentReports.CreateLog(companyNameExl + ": Coverage Team Tab Closed ");
-                    //companyDetails.CloseCompanyTabL(companyNameExl);
-                    //extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
+                    companyDetails.CloseCompanyTabL(companyNameExl);
+                    extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();

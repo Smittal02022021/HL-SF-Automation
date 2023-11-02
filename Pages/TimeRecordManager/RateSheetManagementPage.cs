@@ -31,7 +31,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 
 
         By sheetInitials = By.CssSelector(".linkBar.brandSecondaryBrd .rolodex a");
-        By rateSheetList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[4]");
+        By rateSheetList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[5]");
         By titleOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[@class='labelCol']");
         By rateOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[contains(@class,'dataCol')]//div");
         By viewGoButton = By.Name("go");
@@ -129,8 +129,8 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(tabRateSheetManagement).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboEngagementOptions, 220);
-
+            //WebDriverWaits.WaitUntilEleVisible(driver, comboEngagementOptions, 220);
+            
             driver.FindElement(comboEngagement).SendKeys(engagement);
             Thread.Sleep(5000);
 

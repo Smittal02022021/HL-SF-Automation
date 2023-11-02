@@ -119,13 +119,13 @@ namespace SF_Automation.TestCases.Opportunity
                     int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
 
-                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1
                     string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
                     Assert.AreEqual(msgActualLimit, exectedLimitMessage);
                     extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
 
                     //Get the line error message from internal staff page.
-                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                     string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
                     Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
@@ -243,16 +243,16 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembersL(valRecordType, fileTMTI0055029);
+                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Engagement after conversion after Conversion ");
 
-                    msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();
+                    msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();
                     exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
                     Assert.AreEqual(msgActualLimit, exectedLimitMessage);
                     extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
 
                     //get the line error message from internal staff page.
-                    txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                     Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
                     

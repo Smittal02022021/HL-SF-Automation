@@ -686,9 +686,9 @@ namespace SF_Automation.Pages.Engagement
         By listStaff = By.XPath("/html/body/ul");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By tabEngInternalTeamL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Internal Team'])[2]");
-        By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
-        By btnSaveITTeam = By.CssSelector("input[name*=':bottom:j_id120']");
+        By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66");
+        By btnSaveITTeam = By.CssSelector("input[name*=':bottom:j_id121']");
         By linkHLInternalTeam = By.XPath("//a//span[@id='internalTeamList_link']");
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
@@ -5602,12 +5602,12 @@ namespace SF_Automation.Pages.Engagement
             }
             return totalDealTeamMemberadded;
         }
-        public int AddEngMultipleDealTeamMembersL(string RecordType, string file)
+        public int AddEngMultipleDealTeamMembersLV(string RecordType, string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Thread.Sleep(7000);
+            Thread.Sleep(7000);            
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngInternalTeamL, 30);
             driver.FindElement(tabEngInternalTeamL).Click();
             Thread.Sleep(8000);
@@ -5619,12 +5619,13 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
 
             int rowCount = ReadExcelData.GetRowCount(excelPath, "EngDealTeamMembers");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
             int totalDealTeamMemberadded = 0;
             for (int row = 2; row <= rowCount; row++)
             {
                 try
                 {
-                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);
+                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);                    
                     Thread.Sleep(5000);
                     WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
                     driver.FindElement(txtStaff).SendKeys(valStaff);

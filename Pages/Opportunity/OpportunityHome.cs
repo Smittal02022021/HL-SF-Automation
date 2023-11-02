@@ -469,11 +469,11 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnOppNumL).Click();
                 Thread.Sleep(4000);
             }
-                WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
-                driver.FindElement(txtOppNumLCAO).SendKeys(value);          
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+            driver.FindElement(txtOppNumLCAO).SendKeys(value);          
             Thread.Sleep(6000);           
-            driver.FindElement(imgOppL).Click();
-            Thread.Sleep(2000);
+            //driver.FindElement(imgOppL).Click();
+            //Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
             driver.FindElement(imgOppL).Click();
             Thread.Sleep(8000);

@@ -215,7 +215,7 @@ namespace SF_Automation.Pages
         By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
         By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
         By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
         By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
         By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
         By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
@@ -294,7 +294,7 @@ namespace SF_Automation.Pages
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By tabOpp = By.XPath("//span[text()='Opportunities']");
-        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout//records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button"); 
+        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout//records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer"); 
         //By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
         By comboSubjectOwnershipL = By.XPath("//button[@aria-label='Subject Ownership, --None--']");
@@ -478,7 +478,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By linkHLInternalTeam = By.XPath("//a//span[@id='internalTeamList_link']");
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
-        By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
+        By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
         By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
@@ -653,6 +653,22 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             }
             catch { return "No Pop-up Message Displayed"; }
         }
+
+        By frameWarningPopup = By.XPath("//iframe[contains(@src,'HL_InternalTeamModifyView')]");
+        public string ValidateDealTeamMemberOverLimitLV()
+        {            
+            try
+            {
+                driver.SwitchTo().Frame(driver.FindElement(frameWarningPopup));
+                WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
+                string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
+                driver.FindElement(btnBackPopup).Click();
+                return msgPopup;
+            }
+            catch { return "No Pop-up Message Displayed"; }
+        }
+
         By btnHeader = By.XPath("//div[contains(@id,'internalTeam')]/div[@class='pbHeader']");
         public string GetLineErrorMessage()
         {
@@ -673,6 +689,31 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 driver.FindElement(btnReturnToOpporEng).Click();
+                Thread.Sleep(5000);
+                return "No Line Error Validation Message";
+            }
+        }
+        public string GetLineErrorMessageLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
+                string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
+                //CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                driver.FindElement(btnReturnToOpporEng).Click();
+                driver.SwitchTo().DefaultContent();
+                Thread.Sleep(5000);
+                return txtLineErroeMsg;
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
+                driver.FindElement(btnReturnToOpporEng).Click();
+                driver.SwitchTo().DefaultContent();
                 Thread.Sleep(5000);
                 return "No Line Error Validation Message";
             }
@@ -5111,7 +5152,7 @@ public void ClickNewOpportunitySectorButton()
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
+            string excelPath = dir + file;            
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
             driver.FindElement(tabInternalTeamL).Click();
@@ -5124,6 +5165,7 @@ public void ClickNewOpportunitySectorButton()
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
 
             int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
             int totalDealTeamMemberadded = 0;
             for (int row = 2; row <= rowCount; row++)
             {
@@ -5179,7 +5221,7 @@ public void ClickNewOpportunitySectorButton()
                     return row - 2;
                 }
             }
-            //driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
         }
         public string GetRequestToEngMsgL()
@@ -5615,8 +5657,8 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnSaveTeamL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 20);
-            driver.FindElement(tabEngTeamL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 20);
+            //driver.FindElement(tabEngTeamL).Click();
         }
         public string ClickManageRelationshipsLV()
         {

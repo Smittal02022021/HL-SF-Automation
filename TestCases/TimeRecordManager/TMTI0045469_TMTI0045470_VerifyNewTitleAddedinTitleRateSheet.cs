@@ -59,8 +59,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateLog("Rate Sheet : " + rowRateSheetname+ " is selected ");
                     rateSheet.SelectAllRateSheets();
                     string initialValue = ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 4);
-                    rateSheet.SelectSheetIntials(initialValue);
-                    extentReports.CreateLog(rowRateSheetname+ " Rate Sheet Initials Selected ");
+                   // rateSheet.SelectSheetIntials(initialValue);
+                    //extentReports.CreateLog(rowRateSheetname+ " Rate Sheet Initials Selected ");
                     //Selecting the desired Rate Sheet 
                     rateSheet.SelectRateSheet(rowRateSheetname);
                     extentReports.CreateLog("User Selected the " + rowRateSheetname);

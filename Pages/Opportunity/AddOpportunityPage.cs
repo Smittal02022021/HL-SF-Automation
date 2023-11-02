@@ -97,9 +97,9 @@ namespace SF_Automation.Pages
         By msgRolesL = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id89:0:j_id91']");
         By checkEditIniatiator = By.CssSelector("input[name*='internalTeam:j_id39:0:j_id41:0']");
-        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id88:1:j_id90']");
+        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id89:1:j_id91']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
        
         By tabOpp = By.XPath("//span[text()='Opportunities']");
