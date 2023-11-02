@@ -163,7 +163,7 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 250);
             driver.FindElement(imgUser).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkLogout, 150);
             driver.FindElement(lnkLogout).Click();
         }

@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //7. TMTI0073766_Verify that if the user selects an already added company while adding an Equity holder, the application will give an error message
                 string msgSameClient = summaryPage.ValidateIfSameClientIsSelectedInAddEquityHolder();
-                Assert.AreEqual("Company Name : 'Adobe Oil & Gas' already exists as an Additional Client/Subject", msgSameClient);
+                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgSameClient);
                 extentReports.CreateLog("Message : " + msgSameClient + " is displayed after selecting same client again and clicking on save in Add Equity Holder page ");
 
                 //8. TMTI0073768_Verify that clicking the "Edit" button of the Pre-Transaction Equity Holder record allows the user to update the Percent Ownership only of the record.
@@ -280,6 +280,11 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Company Name : 'Adobe Oil & Gas' already exists as an Additional Client/Subject", msgDupClientSub);
                 extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
+                //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
+                string updatedSecurity = summaryPage.ValidateEditFunctionalityOfAddedDebtStructure();
+                Assert.AreEqual("Bank Debt (First Lien) - Term Loan B", updatedSecurity);
+                extentReports.CreateLog("Updated values of Debt Structure are dispalyed ");
+
                 //27. TMTI0075263_Verify that the user is able to delete the key creditors by clicking the Edit button of the Pre-Transaction Debt record
                 bool cancelKeyCred = summaryPage.ValidateCancelFunctionalityOfKeyCred();
                 Assert.AreEqual(true, cancelKeyCred);
@@ -294,12 +299,23 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Complete this field.", msgMandatoryKeyCred);
                 extentReports.CreateLog("Error message " + msgMandatoryKeyCred + " is displayed when Save button is clicked without entering mandatory details for Key Creditors ");
 
-                //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
-                
-                
-                
-                
-                
+                //30. TMTI0075271_Verify that if the user removes the data from required fields while editing debt structure, the application gives an error message on the screen for required fields on clicking the "Save" button. 
+                string msgMandatoryDebt = summaryPage.ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructure();
+                Assert.AreEqual("Complete this field.", msgMandatoryDebt);
+                extentReports.CreateLog("Error message " + msgMandatoryDebt + " is displayed when mandatory fields are removed from Debt Strcuture ");
+
+                //31. TMTI0075274_Verify that clicking the "Delete" button of the Pre-Transaction Debt Structure record gives a confirmation message before deleting the record
+                string msgCancelDebt = summaryPage.ValidateCancelFunctionalityOfDebtStructure();
+                Assert.AreEqual("Record is not deleted", msgCancelBoard);
+                extentReports.CreateLog("Debt Structure record is not deleted after clicking cancel on confirmation page ");
+
+                string msgDeleteDebt = summaryPage.ValidateDeleteFunctionalityOfDebtStructure();
+                Assert.AreEqual("Record is deleted", msgDelete);
+                extentReports.CreateLog("Debt Structure record is deleted after clicking Ok on confirmation page ");
+
+                //32. 
+
+
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

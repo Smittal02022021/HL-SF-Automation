@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagOpportunities = By.XPath("//div/ul/li[5]/div/a/span[2]/span");
+        By tagOpportunities = By.XPath("//div/ul/li[6]/div/a/span[2]/span");
         By lnkRecentlyViewed = By.XPath("//h2/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
@@ -346,7 +346,7 @@ namespace SF_Automation.Pages
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = {"All FR Opportunities","CF Opportunity Confidence","GCA Migration Tracy View", "Latest Opportunities", "My Active Opportunities", "My Dead/Hold Opportunities", "My Engaged Opportunities", "Recently Viewed", "(Pinned list)"};
+            string[] expectedValues = {"CF Opportunity Confidence","FR Opportunities - All Active", "FR Opportunities - All Holds", "GCA Migration Tracy View", "Latest Opportunities", "My Active Opportunities", "My Dead Opportunities", "My Engaged Opportunities","My Hold Opportunities", "Recently Viewed", "(Pinned list)"};
             bool isTrue = true;
             
             Console.WriteLine(actualNamesAndDesc[5]);

@@ -2455,6 +2455,7 @@ namespace SF_Automation.Pages.Engagement
         //Get value of Transaction Type
         public string GetValueOfTransactionTypeL()
         {
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabClientL, 150);
             driver.FindElement(tabClientL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);

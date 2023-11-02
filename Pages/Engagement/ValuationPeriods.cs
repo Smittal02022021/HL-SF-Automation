@@ -149,7 +149,8 @@ namespace SF_Automation.Pages.Engagement
         //To get Fee Completed of Position
         public string GetFeeCompleted()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompleted, 120);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompleted, 170);
             string feeCompleted = driver.FindElement(valFeeCompleted).Text;
             return feeCompleted;
         }

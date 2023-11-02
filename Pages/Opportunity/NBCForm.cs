@@ -366,7 +366,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnGrade = By.XPath("//button[@aria-label='Grade, --None--']");
         By valGrade = By.XPath("//flexipage-tab2[8]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
-        By valOppNum = By.XPath("/html/body/p[10]/span");
+        By valOppNum = By.XPath("/html/body/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
 
         By errorList = By.CssSelector("#j_id0\\:NBCForm\\:j_id2\\:j_id3\\:j_id4\\:0\\:j_id5\\:j_id6\\:j_id18 > ul");
@@ -1009,12 +1009,12 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,250)");
+            js.ExecuteScript("window.scrollTo(0,450)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
             driver.FindElement(lnkEditReviewSub).Click();           
             js.ExecuteScript("window.scrollTo(0,50)");
             Thread.Sleep(5000);
-            js.ExecuteScript("window.scrollTo(0,250)");
+            js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(5000);
             driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
@@ -3361,10 +3361,10 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtProgressFeeMM, 150);
             driver.FindElement(txtProgressFeeMM).Clear();
             driver.FindElement(txtProgressFee).Clear();
-            js.ExecuteScript("window.scrollTo(0,750)");
+            js.ExecuteScript("window.scrollTo(0,1100)");
             driver.FindElement(txtMinFeeMM).Clear();
             driver.FindElement(txtEstTxnValueMM).Clear();
-            js.ExecuteScript("window.scrollTo(0,750)");
+            js.ExecuteScript("window.scrollTo(0,1050)");
             driver.FindElement(txtReferralFeeOwnedMM).Clear();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();

@@ -178,7 +178,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //PRJ0019053 - Opportunity Initiator - TC03----
                 //Verify Roles validation
                 string msgRoles = addOpportunity.ValidateRolesValidation(TMTT0017889);
-                Assert.AreEqual("Error:\r\nPlease Select at least one Role for the New Team Member.", msgRoles);
+                Assert.AreEqual("Error:Please Select at least one Role for the New Team Member.", msgRoles);
                 extentReports.CreateLog("Message: " + msgRoles + " is displayed when no role is selected for entered staff on HL Internal Team page ");
 
                 //PRJ0019053 - Opportunity Initiator - TC04----

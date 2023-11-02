@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -57,7 +58,7 @@ namespace SF_Automation.Pages
         By checkRecord1 = By.XPath("//tr[1]/td[1]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
         By checkRecord = By.XPath("//tr[2]/td[1]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
         By btnYes = By.XPath("//footer/lightning-button[1]/button");
-        By txtType1 = By.XPath("//tr[1]/td[4]/div/lightning-formatted-text");
+        By txtType1 = By.XPath("//tr[2]/td[4]/div/lightning-formatted-text");
         By txtType = By.XPath("//tr[1]/td[4]/div/lightning-formatted-text");
         By titleAdditionalClient = By.CssSelector("h2[class='pageDescription']");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
@@ -911,7 +912,10 @@ namespace SF_Automation.Pages
             driver.FindElement(btnDeleteRecords).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnYes, 100);
             driver.FindElement(btnYes).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(12000);
+            //driver.FindElement(valType).Click();
+            //driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='Key Creditor']")).Click();
+            //Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtType1, 150);
             string type = driver.FindElement(txtType1).Text;
             if (type.Equals("Subject"))

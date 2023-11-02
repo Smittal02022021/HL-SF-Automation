@@ -281,7 +281,7 @@ namespace SF_Automation.TestCases.Opportunity
                                 Assert.AreEqual("Client", additionalClient);
                                 extentReports.CreateLog("New company: " + valClient + " for " + additionalClient + " only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
                             }
-                            else if (valClient.Equals("ABC"))
+                            else if (valClient.Equals("ABC Auto Parts Ltd"))
                             {
                                 Assert.AreEqual("Other", additionalClient);
                                 extentReports.CreateLog("New company: " + valClient + " for " + additionalClient + " only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");

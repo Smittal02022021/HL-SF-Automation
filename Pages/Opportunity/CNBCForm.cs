@@ -127,7 +127,7 @@ namespace SF_Automation.Pages.Opportunity
         By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An CNBC Form:']");
         By lnkAttachments = By.XPath("//a[@data-label='Attachment']");
 
-        By valOppNum = By.XPath("//body[@id='j_id0:j_id29:pbSendEmail:j_id47:Body_rta_body']/p[9]/span");
+        By valOppNum = By.XPath("//body[@id='j_id0:j_id29:pbSendEmail:j_id47:Body_rta_body']/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
 
         By clientComp = By.CssSelector("span[id*='id45']");

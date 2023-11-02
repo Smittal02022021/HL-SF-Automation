@@ -391,7 +391,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             //Select Additional Client
             driver.FindElement(comboAddClientL).SendKeys("No");
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
 
             //Select Additional Subject
@@ -402,20 +402,20 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             //Select Beneficial Owner
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
             driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']")).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']")).Click();
 
             //Select Does HL have material            
             driver.FindElement(comboHLMaterialL).SendKeys(valBenOwner);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             //Select Conf Agreement
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             //driver.FindElement(btnConfAgreeL).Click();
             driver.FindElement(btnConfAgreeL).SendKeys(valConf);
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
             //Click Save button                           
@@ -926,7 +926,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[9]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[10]")).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();

@@ -53,7 +53,7 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContact, 70);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContact, 170);
             driver.FindElement(btnAddOppContact).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 80);
 

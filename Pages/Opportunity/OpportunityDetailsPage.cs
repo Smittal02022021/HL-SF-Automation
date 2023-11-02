@@ -68,9 +68,9 @@ namespace SF_Automation.Pages
         By chkUpSeller1 = By.CssSelector("input[name*=':1:j_id43']");
         By chkUpManager1 = By.CssSelector("input[name*=':3:j_id43']");
         By chkAdmin1 = By.CssSelector("input[name*='9:j_id65']");
-        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id43']");
-        By chkUpSeller = By.CssSelector("input[name*=':2:j_id43']");
-        By chkUpManager = By.CssSelector("input[name*=':4:j_id43']");
+        By chkUpPrincipal = By.CssSelector("input[name*=':3:j_id44']");
+        By chkUpSeller = By.CssSelector("input[name*=':2:j_id44']");
+        By chkUpManager = By.CssSelector("input[name*=':4:j_id44']");
         By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
@@ -93,9 +93,9 @@ namespace SF_Automation.Pages
         By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id43']");
         By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id43']");
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
-        By chkUpMgr = By.CssSelector("input[name*='1:j_id43']");
-        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id43']");
-        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id43']");      
+        By chkUpMgr = By.CssSelector("input[name*='1:j_id44']");
+        By chkUpAssociate = By.CssSelector("input[name*=':5:j_id44']");
+        By chkUpAnalyst = By.CssSelector("input[name*=':6:j_id44']");      
         By rowUser = By.XPath("//html/body/span[2]/form/div[1]/div/div/div/div[2]/table/tbody/tr/td[1]/div/label");
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
         By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id41:0:j_id43']");
@@ -208,19 +208,19 @@ namespace SF_Automation.Pages
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
         By txtClientContract = By.CssSelector("span>input[id*='CF00N5A00000M0ebj']");
         By btnModifyRoles = By.CssSelector("td[id*='j_id0:j_id1:j_id2:j_id3:pbHLInternalTeam:j_id4:bottom']>a");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id63:0:j_id65']");
-        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id63:1:j_id65']");
-        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id63:2:j_id65']");
-        By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
-        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
-        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id63:6:j_id65']");
-        By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
-        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
-        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
-        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id63:10:j_id65']");
-        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id63:11:j_id65']");
-        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id63:12:j_id65']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
+        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id64:1:j_id66']");
+        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id64:2:j_id66']");
+        By checkManager = By.CssSelector("input[name*='internalTeam:j_id64:3:j_id66']");
+        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id64:4:j_id66']");
+        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id64:5:j_id66']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
+        By checkPE = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
+        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id64:8:j_id66']");
+        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id64:9:j_id66']");
+        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id64:10:j_id66']");
+        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id64:11:j_id66']");
+        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id64:12:j_id66']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
         By valAddedMember = By.XPath("//div[2]/span[2]/table/tbody/tr[1]/td[1]");
 
@@ -4393,7 +4393,7 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();
             driver.FindElement(btnSaveDealTeam).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedMember, 240);
             string name = driver.FindElement(valAddedMember).Text;           
             return name;
@@ -6098,6 +6098,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
+            Thread.Sleep(4000);
             driver.FindElement(btnSaveComments).Click();
             Thread.Sleep(4000);
             //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
@@ -6108,7 +6109,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Get added Opportunity comments
         public string GetOppCommentsL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 160);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;
             return comment;
         }
