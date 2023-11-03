@@ -5291,7 +5291,7 @@ public void ClickNewOpportunitySectorButton()
             }
 
         }
-        public bool IsAssociatedOppFieldPresentL()
+        public bool IsAssociatedOppFieldPresentLV()
         {
             try
             {
@@ -5324,7 +5324,7 @@ public void ClickNewOpportunitySectorButton()
                 return false;
             }
         }
-        public bool IsAssociatedOppFieldEditableL()
+        public bool IsAssociatedOppFieldEditableLV()
         {
             try
             {
@@ -5332,6 +5332,7 @@ public void ClickNewOpportunitySectorButton()
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, editAssociatedOppFieldL, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(editAssociatedOppFieldL));
                 bool IsDisplayed = driver.FindElement(editAssociatedOppFieldL).Displayed;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditFormL, 10);
                 driver.FindElement(btnCancelEditFormL).Click();
@@ -5362,7 +5363,7 @@ public void ClickNewOpportunitySectorButton()
             }
 
         }
-        public string EnterAssociatedOpportunityL(string name)
+        public string EnterAssociatedOpportunityLV(string name)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             try

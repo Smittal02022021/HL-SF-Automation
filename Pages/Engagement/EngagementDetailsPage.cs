@@ -5616,6 +5616,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
 
             int rowCount = ReadExcelData.GetRowCount(excelPath, "EngDealTeamMembers");
@@ -5668,13 +5669,14 @@ namespace SF_Automation.Pages.Engagement
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
+
                 }
                 catch (Exception)
                 {
                     return row - 2;
                 }
             }
-            //driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
         }
         public bool IsAssociatedEngFieldPresent()

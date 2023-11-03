@@ -105,7 +105,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    string opportunityName = addOpportunity.AddOpportunitiesLightning(valJobType, fileTMTI0054719);
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0054719);
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
@@ -119,11 +119,11 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                     //New Field is Present on Opportunity Detail Page for Standard User
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for Standard User: " + valUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
-                    Assert.IsFalse(opportunityDetails.IsAssociatedOppFieldEditableL(), "Verify Associated Engagement should not be editable for Standard User ");
+                    Assert.IsFalse(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should not be editable for Standard User ");
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is not Editable for Standard User: " + valUser + " ");
 
                     // Create External Primary Contact
@@ -259,16 +259,16 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
 
                     //New Field is Present on Opportunity Detail Page for CAO user
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for CAO User: " + caoUser + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableL(), "Verify Associated Engagement should be editable for CAO User ");
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should be editable for CAO User ");
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for CAO User: " + caoUser + " ");
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 2);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityL(valAssociatedOpp);
+                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 

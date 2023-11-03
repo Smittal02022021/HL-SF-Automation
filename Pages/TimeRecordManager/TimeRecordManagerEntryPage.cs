@@ -916,6 +916,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                Thread.Sleep(2000);
                 driver.FindElement(comboSelectProjectN).Click();
                 driver.FindElement(comboSelectProjectN).SendKeys(ReadExcelData.ReadData(excelPath, "Project_Title", 1));
                 //extracode
