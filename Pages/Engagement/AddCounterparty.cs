@@ -106,7 +106,7 @@ namespace SF_Automation.Pages.Engagement
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
-        By btnEditViewAll = By.XPath("//td[9]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnEditViewAll = By.XPath("//tr[1]/td[5]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By lnkEditViewAll = By.XPath("//a[@title='Edit']");
         By lnkDeleteViewAll = By.XPath("//a[@title='Delete']");
         

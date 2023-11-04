@@ -66,7 +66,7 @@ namespace SF_Automation.Pages.Engagement
        
         By rowAddDebtStructureL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
         By rowAddDebtStrcutureL2nd = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
-        By rowAddKeyCredL = By.XPath("//input[@placeholder=\"Adobe Oil & Gas\"]");
+        By rowAddKeyCredL = By.XPath("//slot/div/div[1]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/div/input");
         By valSecurityTypeL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
         By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
@@ -386,6 +386,22 @@ namespace SF_Automation.Pages.Engagement
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
         By lblAddDebtTxtFields = By.XPath("//lightning-input-field/lightning-input/lightning-primitive-input-simple/div/label");
+        By txtPreReorgConstituentDebt = By.XPath("//input[@name='Pre_Reorgnization_Constituent_Debt__c']");
+        By txtPreReorgTotalDebt = By.XPath("//input[@name='Pre_Reorganized_Total_Debt__c']");
+        By btnSavePreTransInfo = By.XPath("//div[2]/lightning-button/button");
+        By msgSuccessPreReorg = By.XPath("//div[2]/span[text()='Record saved']");
+        By lnkBoardMember = By.XPath("//div[2]/div/div/table/tbody/tr/th/div/a");
+        By lnkBoardCompany = By.XPath("//div[2]/div/div/table/tbody/tr/td/div/a");
+        By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
+        By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[text()='Diamond Sports Group | Engagement']");
+        By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By rowAddedEquityInAdd = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']");
+        By valAddedEquityType = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']/ancestor::tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
+        By valAddedEquityRole = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']/ancestor::tr/td[7]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
+        By tabEngContactsL = By.XPath("//a[text()='Eng Contacts']");
+        By valAddedMemberType = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[1]/lst-template-list-field/lst-formatted-text/span");
+        By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
+        By valAddedMember = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -3488,18 +3504,19 @@ namespace SF_Automation.Pages.Engagement
         //Validate edit functionality of Add Equity Holder Page
         public bool ValidateEditFunctionalityOfDebtStruc()
         {
-            
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
             driver.FindElement(btnEditDebtL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
             driver.FindElement(btnKeyCredL).Click();
-            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
             driver.FindElement(txtLoanAmountL).SendKeys("10");
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(5000);
             bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            Thread.Sleep(5000);
             driver.FindElement(btnSaveKeyCredL).Click();
             return row;
 
@@ -3514,8 +3531,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
             driver.FindElement(btnKeyCredL).Click();
-            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
-            Thread.Sleep(6000);
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(8000);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
             driver.FindElement(txtLoanAmountL).SendKeys("10");
             driver.FindElement(btnSaveAddHL).Click();
@@ -3862,6 +3879,96 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnCancel).Click();
             return row;
+        }
+
+        //Save Pre Reorganization details
+        public string SavePreOrganizedDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPreReorgConstituentDebt, 100);
+            driver.FindElement(txtPreReorgConstituentDebt).Clear();
+            driver.FindElement(txtPreReorgConstituentDebt).SendKeys("5");
+            driver.FindElement(txtPreReorgTotalDebt).Clear();
+            driver.FindElement(txtPreReorgTotalDebt).SendKeys("2");
+            driver.FindElement(btnSavePreTransInfo).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgSuccessPreReorg).Text;
+            return message;
+        }
+
+        //Validate added Board Member is displayed with Hyperlink
+        public string ValidateBoardMemberIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkBoardMember);
+            string value = driver.FindElement(lnkBoardMember).GetAttribute("target");
+            return value;
+        }
+
+        //Validate added Board Member company is displayed with Hyperlink
+        public string ValidateBoardMemberCompanyIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkBoardCompany);
+            string value = driver.FindElement(lnkBoardCompany).GetAttribute("target");
+            return value;
+        }
+        //Validate added Key Creditor is displayed with Hyperlink
+        public string ValidateKeyCredIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkKeyCred);
+            string value = driver.FindElement(lnkKeyCred).GetAttribute("target");
+            return value;
+        }
+
+        //Validate that added Equity Holder company in Pre Transaction is displayed in Additional Client subject section of Engagement
+        public string ValidateAddedEquityHolderIsDisplayedInAdditionalClientSubject()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL,100);
+            driver.FindElement(tabEngDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubL, 140);
+            driver.FindElement(tabClientSubL).Click();
+            Thread.Sleep(5000);
+            string value= driver.FindElement(rowAddedEquityInAdd).Displayed.ToString();
+            return value;
+        }
+
+        //Validate that added Board Member in Pre Transaction is displayed in Engagement Contacts section
+        public string ValidateAddedBoardMemberIsDisplayedInEngagementContacts()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 140);
+            driver.FindElement(tabEngContactsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedMember).Text;
+            return value;
+        }
+
+        //Fetch the type of added board member in Engagement Contacts
+        public string GetTypeOfAddedBoardMemberInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedMemberType).Text;
+            return value;
+        }
+
+        //Fetch the role of added board member in Engagement Contacts
+        public string GetRoleOfAddedBoardMemberInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedMemberRole).Text;
+            return value;
+        }
+
+
+        //Fetch the type of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetTypeOfAddedEquityHolderInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedEquityType).Text;
+            return value;
+        }
+
+        //Fetch the role of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetRoleOfAddedEquityHolderInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedEquityRole).Text;
+            return value;
         }
 
         //Validate Contact field on click of Add Board Member

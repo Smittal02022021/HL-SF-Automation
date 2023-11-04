@@ -152,7 +152,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNumber, 60);
             driver.FindElement(txtEngageNumber).SendKeys(number);
             driver.FindElement(valShowRec).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }

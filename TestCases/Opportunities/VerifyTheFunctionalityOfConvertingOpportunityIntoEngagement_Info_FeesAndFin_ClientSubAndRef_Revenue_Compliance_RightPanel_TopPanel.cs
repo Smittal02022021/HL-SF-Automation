@@ -170,7 +170,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + caoUser1 + " logged in ");
 
                 //Search for created opportunity and approve the Opportunity
-                opportunityHome.SearchMyOpportunitiesInLightning(value, ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2));
+                opportunityHome.SearchMyOpportunitiesInLightning(value, valUser);
                 string status = opportunityDetails.ClickApproveButtonL();
                 Assert.AreEqual("Approved", status);
                 extentReports.CreateLog("Opportunity is approved ");

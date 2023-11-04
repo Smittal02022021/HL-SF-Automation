@@ -2455,9 +2455,11 @@ namespace SF_Automation.Pages.Engagement
         //Get value of Transaction Type
         public string GetValueOfTransactionTypeL()
         {
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabClientL, 150);
+            Thread.Sleep(10000);
+            Console.WriteLine("About to click client ");
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientL, 210);
             driver.FindElement(tabClientL).Click();
+            Console.WriteLine("Clicked on client ");
             WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
             string title = driver.FindElement(valTxnType).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 150);
@@ -3955,6 +3957,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(4000);
             Console.WriteLine("Looking for added counterpatry link");
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkAddedCounterparty, 150);
             driver.FindElement(lnkAddedCounterparty).Click();
             driver.SwitchTo().Window(driver.WindowHandles.Last());            

@@ -293,11 +293,11 @@ namespace SF_Automation.Pages
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By tabOpp = By.XPath("//span[text()='Opportunities']");       
-        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
+        By btnEditL = By.XPath("//ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-delayed-aura-legacy/slot/slot/lightning-button/button");
         By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
         By comboSubjectOwnershipL = By.XPath("//button[@aria-label='Subject Ownership, --None--']");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
-        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
+        By txtRefContactL = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
 
         By comboUpdBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, No']");
@@ -3813,7 +3813,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
             driver.FindElement(tabEngagementNumL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
@@ -3958,7 +3958,7 @@ public void ClickNewOpportunitySectorButton()
         //Click Return to Opportunity button
         public void ClickRequestoEngL()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
             driver.FindElement(btnReqEngL).Click();
         }
@@ -4131,7 +4131,7 @@ public void ClickNewOpportunitySectorButton()
         public void UpdatePrimaryOfficeL()
         {
             driver.FindElement(btnPO).Click();
-            driver.FindElement(By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[5]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(3000);
@@ -4345,7 +4345,7 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(txtEstTxnSizeL).Clear();
             driver.FindElement(txtEstTxnSizeL).SendKeys("100000");
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
             string value = driver.FindElement(valEstTxnSizeL).Text.Substring(4, 7);
             return value;
         }
@@ -6050,7 +6050,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[9]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[11]")).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();
@@ -6098,9 +6098,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             driver.FindElement(btnSaveComments).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
             //string commentType = driver.FindElement(valAddedCommentType).Text;
             //return commentType;          

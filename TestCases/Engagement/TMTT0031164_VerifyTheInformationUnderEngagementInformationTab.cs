@@ -66,6 +66,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Get the value of Transaction type
                 string txnType = engagementDetails.GetValueOfTransactionTypeL();
+                Console.WriteLine("txnType " + txnType);
 
                 //Get the value of Post Transaction Status
                 string txnStatus = engagementDetails.GetValueOfPostTransactionStatusL();

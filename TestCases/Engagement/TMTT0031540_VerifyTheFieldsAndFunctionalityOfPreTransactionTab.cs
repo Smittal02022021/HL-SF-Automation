@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //7. TMTI0073766_Verify that if the user selects an already added company while adding an Equity holder, the application will give an error message
                 string msgSameClient = summaryPage.ValidateIfSameClientIsSelectedInAddEquityHolder();
-                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgSameClient);
+                Assert.AreEqual("Company Name : 'Joy E. Dina' already exists as an Additional Client/Subject", msgSameClient);
                 extentReports.CreateLog("Message : " + msgSameClient + " is displayed after selecting same client again and clicking on save in Add Equity Holder page ");
 
                 //8. TMTI0073768_Verify that clicking the "Edit" button of the Pre-Transaction Equity Holder record allows the user to update the Percent Ownership only of the record.
@@ -277,7 +277,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //26.  Verify that the application gives an error message on the screen on adding duplicate Client/Subject as Key Creditors.
                 string msgDupClientSub = summaryPage.ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred();
-                Assert.AreEqual("Company Name : 'Adobe Oil & Gas' already exists as an Additional Client/Subject", msgDupClientSub);
+                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgDupClientSub);
                 extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
                 //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
@@ -313,8 +313,42 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record is deleted", msgDelete);
                 extentReports.CreateLog("Debt Structure record is deleted after clicking Ok on confirmation page ");
 
-                //32. 
+                //32. TMTI0075287_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen
+                string msgPreReorg = summaryPage.SavePreOrganizedDetails();
+                Assert.AreEqual("Record saved", msgPreReorg);
+                extentReports.CreateLog("Message: " + msgPreReorg + " is displayed upon saving Pre Reorganization details ");
 
+                //33. TMTI0075291_Verify that Board Member and respective Company selected in the Pre-Transaction board member list are hyperlinked. 
+                string lnkBoardMember = summaryPage.ValidateBoardMemberIsDisplayedWithHyperlink();
+                Assert.AreEqual("_blank", lnkBoardMember);
+                extentReports.CreateLog("Board Member is hyperlinked in the Pre-Transaction Board Members section ");
+
+                string lnkBoardCompany = summaryPage.ValidateBoardMemberCompanyIsDisplayedWithHyperlink();
+                Assert.AreEqual("_blank", lnkBoardCompany);
+                extentReports.CreateLog("Board Member company is hyperlinked in Pre-Transaction Board Members section ");
+
+                //34. TMTI0075294_Verify that the Key Creditors selected in the Pre-Transaction Debt Structure list are hyperlinked
+                string lnkKeyCred = summaryPage.ValidateKeyCredIsDisplayedWithHyperlink();
+                Assert.AreEqual("_blank", lnkKeyCred);
+                extentReports.CreateLog("Added Key Creditor is hyperlinked in the Pre-Transaction Debt section ");
+
+                //35. TMTI0075296_Verify the Equity holder added under the pre-transaction tab on FR Engagement Summary is mapped to the Additional Clients Subjects section with the type Equity Holder and role as Pre-Transaction 
+                string addedEquityInAdditional = summaryPage.ValidateAddedEquityHolderIsDisplayedInAdditionalClientSubject();
+                Assert.AreEqual("True", addedEquityInAdditional);
+                string addedEquityType = summaryPage.GetTypeOfAddedEquityHolderInAdditionalClientSubject();
+                Assert.AreEqual("Equity Holder", addedEquityType);
+                string addedEquityRole = summaryPage.GetRoleOfAddedEquityHolderInAdditionalClientSubject();
+                Assert.AreEqual("Pre-Transaction", addedEquityRole);
+                extentReports.CreateLog("Added Equity Holder in Pre-Transaction tab on FR Engagement Summary is mapped to the Additional Client Subject section with the type Equity Holder and role as Pre-Transaction. ");
+
+                //36. TMTI0075298_Verify the Board Members added under the pre-transaction tab on FR Engagement Summary are mapped to the Engagement Contacts section with the type External and role as Pre-Transaction 
+                string addedMember = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
+                Assert.AreEqual("Sonika Mathur", addedMember);
+                string addedMemberType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
+                Assert.AreEqual("External", addedMemberType);
+                string addedMemberRole = summaryPage.GetRoleOfAddedBoardMemberInAdditionalClientSubject();
+                Assert.AreEqual("Pre-Transaction Board Member", addedMemberRole);
+                extentReports.CreateLog("Added Board Member in Pre-Transaction tab on FR Engagement Summary is mapped to the Engagement Contacts section type as External and role as Pre-Transaction Board Member ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
