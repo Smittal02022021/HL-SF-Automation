@@ -142,37 +142,37 @@ namespace SF_Automation.TestCases.Opportunity
                 }
 
 
-                    /////////////////////////////////////////////////
-                    //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
+                /////////////////////////////////////////////////
+                //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
 
-                    if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
+                if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
                 {
                         //AddMultiple Staff for Specific Role
                  if (valJobType == "CVAS - IP Valuation")
                  { 
                     memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 2, 1); 
                  }
-                else
-                {
+                 else
+                 {
                     memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
-                }
-                exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: "+ memberRole+" ");
+                 }
+                    exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: "+ memberRole+" ");
 
-                countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTC1432);
-                Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
-                extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+                    countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTC1432);
+                    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
-                msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1//Function Updated 
-                exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
-                Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
-                extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+                    msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1//Function Updated 
+                    exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
+                    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
 
-                //get the line error message from internal staff page.
-                txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();//Function Updated
-                maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
-                extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    //get the line error message from internal staff page.
+                    txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();//Function Updated
+                    maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
                     
                 }
                 //if (valJobType == "TAS - ESG Due Diligence & Analytics")

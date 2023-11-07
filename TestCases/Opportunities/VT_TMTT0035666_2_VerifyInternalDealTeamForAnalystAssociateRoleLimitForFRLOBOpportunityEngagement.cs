@@ -8,11 +8,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 
 namespace SF_Automation.TestCases.Opportunity
-
 {
-    class VT_TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement : BaseClass
+    class VT_TMTT0035666_2_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement: BaseClass
     {
-
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -22,7 +20,8 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
-        public static string fileTMTI0055029 = "TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement";
+
+        public static string fileTMTT0035666 = "TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -33,13 +32,12 @@ namespace SF_Automation.TestCases.Opportunity
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyDealTeamSpecialtyRoleOnCFOppEngManagerPage()
+        public void VerifyDealTeamAnalystAssociateRoleOnFROppEngPage()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0055029;
-
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0035666;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -51,70 +49,77 @@ namespace SF_Automation.TestCases.Opportunity
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                //extentReports.CreateStepLogs("Info", "Verify Internal Deal Team For Analyst Role Limit For FR LOB Opportunity & Engagement ");
+                int rowRole = ReadExcelData.GetRowCount(excelPath, "Roles");
 
-                int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                for (int row = 2; row <= rowOpp; row++)
+                for (int row = 2; row <= rowRole; row++)
                 {
 
-                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
+                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
 
                     //Login as Standard User profile and validate the user
-                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 29);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
                     string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in ");
+                    Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                    extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
 
                     //Call function to open Add Opportunity Page
                     opportunityHome.ClickOpportunity();
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    Console.WriteLine("Opportunity Record Type:" + valRecordType);
+                    extentReports.CreateStepLogs("Info", "Opportunity Record Type: " + valRecordType + " ");
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                     //Validating Title of New Opportunity Page
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
 
+                    //Calling AddOpportunities function
+                    string opportunityName = addOpportunity.AddOpportunities(valJobType, fileTMTT0035666);
+                    extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
-                    //Calling AddOpportunities function                  
-                    string opportunityName = addOpportunity.AddOpportunities(valJobType, fileTMTI0055029);
-                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
-
-                    //Call function to enter Internal Team details and validate Opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(fileTMTI0055029);
+                    //Call function to enter Internal Team details and validate opportunity detail page
+                    clientSubjectsPage.EnterStaffDetails(fileTMTT0035666);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityName + " ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    extentReports.CreateStepLogs("Info", driver.Title + " is displayed ");
 
                     //Validating Opportunity details  
                     string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
                     Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                    extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
+                    extentReports.CreateStepLogs("Pass", "Opportunity with number : " + opportunityNumber + " is created ");
 
                     //Create External Primary Contact         
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
-                    addOpportunityContact.CreateContact(fileTMTI0055029, valContact, valRecordType, valContactType);
+                    addOpportunityContact.CreateContact(fileTMTT0035666, valContact, valRecordType, valContactType);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
-                    extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
+                    extentReports.CreateStepLogs("Pass", valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0055029);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055029);
+                    opportunityDetails.UpdateReqFieldsForFRConversion(fileTMTT0035666);
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTT0035666);
 
-                    //AddMultiple Staff
-                    int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, fileTMTI0055029);
-                    extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
+                    /////////////////
+                    ///TMTI0085042	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FR LOB Opportunity
+
+                    //AddMultiple Staff 
+                    string memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", row, 1);
+                    string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
+                    extentReports.CreateStepLogs("Info", " Internal Team Members Limit with Role:" + memberRole + " on  Opportunity ");
+                    int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTMTT0035666);
+                    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
                     string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
-                    string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
-                    Assert.AreEqual(msgActualLimit, exectedLimitMessage);
-                    extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
+                    string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 1);
+                    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
 
                     //get the line error message from internal staff page.
                     string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
-                    string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
-                    Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
-                    extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
+                    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    ////////////////////////////////////////                    
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -122,39 +127,20 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchOpportunity(opportunityNumber);
+                    opportunityHome.SearchOpportunity(opportunityName);
 
                     //update CC and NBC checkboxes 
-                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0055029);
-                    if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateNBCApproval();
-                        extentReports.CreateLog("Conflict Check and NBC fields are updated ");
-                    }
-                    else
-                    {
-                        extentReports.CreateLog("Conflict Check fields are updated ");
-                    }
-
-                    //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
-                    if (valJobType.Equals("Sellside"))
-                    {
-                        opportunityDetails.UpdateClientandSubject("Accupac");
-                        extentReports.CreateLog("Updated Client and Subject fields ");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Not required to update ");
-                    }
+                    opportunityDetails.UpdateOutcomeDetails(fileTMTT0035666);
+                    extentReports.CreateLog("Conflict Check fields are updated ");
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    usersLogin.SearchUserAndLogin(stdUser);
                     string stdUser1 = login.ValidateUser();
-                    Assert.AreEqual(stdUser1.Contains(valUser), true);
+                    Assert.AreEqual(stdUser1.Contains(stdUser), true);
                     extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchOpportunity(opportunityNumber);
+                    opportunityHome.SearchOpportunity(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     string msgSuccess = opportunityDetails.ClickRequestEng();
@@ -166,13 +152,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
-                    login.SwitchToClassicView();
                     string caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " logged in ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchOpportunity(opportunityNumber);
+                    opportunityHome.SearchOpportunity(opportunityName);
 
                     //Approve the Opportunity 
                     opportunityDetails.ClickApproveButton();
@@ -187,30 +172,23 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityNumber, engName);
                     extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
 
-                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembers(valRecordType, fileTMTI0055029);
-                    extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Engagement after conversion after Conversion ");
-
-                    msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();
-                    exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
-                    Assert.AreEqual(msgActualLimit, exectedLimitMessage);
-                    extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
-
-                    //get the line error message from internal staff page.
-                    txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
-                    Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
-                    extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
+                    ///////////////////////////////////////////
+                    //TMTI0085041	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FR  LOB Engagement
+                    int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCount();
+                    Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
+                    extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
+                    //////////////////////////////////////////////////
 
                     usersLogin.UserLogOut();
-                    extentReports.CreateLog("User: " + caoUser + " logged out ");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
             }
-
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
 
         }

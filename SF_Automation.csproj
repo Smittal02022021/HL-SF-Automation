@@ -717,7 +717,11 @@
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatusFrom.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyStartDateGetsUpdatedIflinkedOpportunityHasOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
@@ -727,6 +731,9 @@
     <Compile Include="TestCases\Opportunities\T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
     <Compile Include="TestCases\Opportunities\T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0035665_1_VerifyInternalDealTeamForAnalystAssociateRoleLimitForCFLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0035666_2_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\Z_Dup_T1432_VT_TMTT0035667_3_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFVALOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT12460_TMTT12462_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT12461_TMTT0012448_TMTT0012449_TMTT0012458_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF.cs" />
@@ -849,7 +856,10 @@
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
     <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
+    <None Include="TestData\LV_T1592_ValidationsToBeCompleted.xlsx" />
     <None Include="TestData\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.xlsx" />
+    <None Include="TestData\LV_T1683_HLInternalTeam_EditAndUpdate.xlsx" />
+    <None Include="TestData\LV_T1693_ValidationsToBeCompletedBeforeFROpportunityIsApproved.xlsx" />
     <None Include="TestData\Outlook.xlsx" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
@@ -1060,6 +1070,9 @@
     <None Include="TestData\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.xlsx" />
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus.xlsx" />
     <None Include="TestData\TS012_ERPInformationOfContractDetalPage.xlsx" />
     <None Include="TestData\TS013_ERPInformationOfContractDetalPageWithNewCompany.xlsx" />

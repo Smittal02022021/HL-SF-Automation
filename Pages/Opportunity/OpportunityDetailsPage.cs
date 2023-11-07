@@ -525,8 +525,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By lblAdditionalClient = By.XPath("//label[text()='Additional Client']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
         By comboTASServices = By.CssSelector("select[name*='fIA']");
-        By checkCFAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
-        By checkCFAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
+        By checkCFAssociate = By.CssSelector("input[name*='internalTeam:j_id64:4:j_id66']");
+        By checkCFAnalyst = By.CssSelector("input[name*='internalTeam:j_id64:5:j_id66']");
         By txtEBITDAL = By.XPath("//label[text()='EBITDA (MM)']/following::div[1]//input");
         By txtEDITDA = By.XPath("//td/label[text()='EBITDA (MM)']/parent::td//following-sibling::td/input");
         By valERPLegalEntityName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(6)");
@@ -6664,7 +6664,88 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public int AddOppMultipleDealTeamMembersLV(string RecordType, string role, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(6000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
 
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            int totalDealTeamMemberadded = 0;
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+                Thread.Sleep(5000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                    Thread.Sleep(2000);
+                    if (RecordType == "CF")
+                    {
+                        if (role == "Specialty")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        if (role == "Analyst")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAnalyst, 20);
+                            driver.FindElement(checkCFAnalyst).Click();
+                        }
+                        if (role == "Associate")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAssociate, 20);
+                            driver.FindElement(checkCFAssociate).Click();
+                        }
+                    }
+                    else
+                    {
+                        if (role == "Specialty")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
+                            driver.FindElement(checkSpeciality).Click();
+                        }
+                        if (role == "Analyst")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
+                            driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        if (role == "Associate")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkCFAnalyst, 20);
+                            driver.FindElement(checkCFAnalyst).Click();
+                        }
+                    }
+                    //CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
+                    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnSaveITTeam));
+                    driver.FindElement(btnSaveITTeam).Click();
+                    Thread.Sleep(5000);
+                    totalDealTeamMemberadded = row - 1;
+                }
+                catch (Exception)
+                {
+                    return row - 1;
+                }
+            }
+            driver.SwitchTo().DefaultContent();
+            return totalDealTeamMemberadded;
         }
     }
     

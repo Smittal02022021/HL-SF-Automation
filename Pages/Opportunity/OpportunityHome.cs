@@ -62,6 +62,7 @@ namespace SF_Automation.Pages
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
         By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+        By resultTable = By.XPath("//table/tbody//tr//th//a");
         private By _eleOppRecordType(string type)
         {
             return By.XPath($"//div[@class='changeRecordTypeRow']//span[text()='{type}']");
@@ -557,6 +558,34 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, valTitle, 20);
             string title = driver.FindElement(valTitle).Text;
             return title;
+        }
+        
+        //To Search Opportunity with Opportunity Name
+        public string SearchMyOpportunitiesLV(string oppName)
+        {
+            driver.FindElement(txtSearchBox).SendKeys(oppName);
+            driver.FindElement(txtSearchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
+            By expectedResult = By.XPath($"//table/tbody//tr//th//a[text()='{oppName}']");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
+                bool resultDisplayed = driver.FindElement(expectedResult).Displayed;
+                if (resultDisplayed)
+                {
+                    driver.FindElement(expectedResult).Click();
+                    return "Record found";
+                }
+                else
+                {
+                    return "No record found";
+                }
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
         }
     }
 }

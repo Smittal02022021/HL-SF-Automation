@@ -6400,6 +6400,24 @@ namespace SF_Automation.Pages.Engagement
                 return secName;
             }
         }
+        public int GetInernalTeamMembersCountLV()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(6000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);
+            int dealTeamCount = driver.FindElements(listInternalDealTeam).Count();
+            driver.SwitchTo().DefaultContent();
+            return dealTeamCount;
+        }
 
     }
 }
