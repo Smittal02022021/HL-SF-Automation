@@ -27,7 +27,7 @@ namespace SF_Automation.Pages.Engagement
         By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
         By lblFinDescL = By.XPath("//label[text()='Financing Description']");
         By lblFinancingTypeL = By.XPath("//label[text()='Financing Type']");
-        By lblOtherL = By.XPath("//label[text()='Other']");        
+        By lblOtherL = By.XPath("//label[text()='Notes']");        
         By lblCurrencyAddDebtL = By.XPath("//label[text()='Currency']");
         By btnCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
         By lblFinAmountL = By.XPath("//label[text()='Financing Amount (MM)']");
@@ -42,8 +42,12 @@ namespace SF_Automation.Pages.Engagement
         By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
         By lblPreTransHeaders = By.XPath("//h3/span");
         By lblPreTransGrid = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/thead/tr/th/span");
+        By lblPostTransGrid = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/thead/tr/th/span");
         By lblPreReorg = By.XPath("//label[text()='Pre Reorganization Constituent Debt']");
         By lblPreReorgTotal = By.XPath("//label[text()='Pre Reorganized Total Debt']");
+        By lblPostRestr = By.XPath("//label[text()='Post-Restructuring Total Debt (MM)']");
+        By lblPostRestrComp = By.XPath("//label[text()='Net Debt of the Restructured Company (MM)']");
+        By lblClosingStockL = By.XPath("//label[text()='Closing Stock Price (first full closing day post-restructuring)']");
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
@@ -65,13 +69,20 @@ namespace SF_Automation.Pages.Engagement
         By txtFacilityL = By.XPath("//input[@name='Facility_Balance_MM__c']");
        
         By rowAddDebtStructureL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
+        By rowAddDebtStructurePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
+
         By rowAddDebtStrcutureL2nd = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
         By rowAddKeyCredL = By.XPath("//slot/div/div[1]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/div/input");
         By valSecurityTypeL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
+        By rowAddEquityHolderPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr");
+
         By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
+        By rowAddBoardMemberPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
+
         By rowAddBoardMember2ndL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
-        
+        By rowAddBoardMember2ndPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
+
         By msgDupContactL = By.XPath("//div[text()='Duplicate record detected.']");
         By comboSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
 
@@ -136,6 +147,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelKeyCredL = By.XPath("//div[2]/button[text()='Cancel']");
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
         By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
+        By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By txtAssetSoldL = By.XPath("//input[@name='Name']");
         By txtDateOfSoldL = By.XPath("//input[@name='Date_of_Sale__c']");
         By txtMinOverbidL = By.XPath("//input[@name='Minimum_Overbid__c']");
@@ -154,6 +166,8 @@ namespace SF_Automation.Pages.Engagement
         By btnDeleteBoard = By.XPath("//tr[2]/td[3]/span/div/lightning-button-icon/button[@title='Delete']");
         By btnDeleteDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[13]/span/div/lightning-button-icon/button");
         By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
+        By lnkEquityHolderPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
+
         By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
         By msgSecurityTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
@@ -3304,6 +3318,54 @@ namespace SF_Automation.Pages.Engagement
             return isTrue;
         }
 
+        //Validate Post Transaction Headers 
+        public bool VerifyPostTransactionHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Post-Transaction Equity Holders", "Post-Transaction Board Members", "Post-Transaction Debt (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+        
+
+
+        //Validate Post Transaction Grid Headers 
+        public bool VerifyPostTransactionGridL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransGrid);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Security Type", "Key Creditors", "Constituent Debt", "Facility Balance (MM)", "Maturity Date", "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
         //Validate Pre Transaction Grid Headers 
         public bool VerifyPreTransactionGridL()
         {
@@ -3341,6 +3403,27 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateLabelPostReStr()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostRestr, 120);
+            string value = driver.FindElement(lblPostRestr).Text;
+            return value;
+        }
+
+        public string ValidateLabelPostReStrCompany()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostRestrComp, 120);
+            string value = driver.FindElement(lblPostRestrComp).Text;
+            return value;
+        }
+
+        public string ValidateLabelClosingStock()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClosingStockL, 120);
+            string value = driver.FindElement(lblClosingStockL).Text;
+            return value;
+        }
+
         //Validate Client/Subject
         public string VerifyClientSubjectFieldL()
         {
@@ -3369,6 +3452,16 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabPostTransL, 120);
+            string name = driver.FindElement(tabPostTransL).Text;
+            return name;
+        }
+
         //Validate save functionality of Add Equity Holder Page
         public string ValidateSaveFunctionalityOfAddEquityHolder()
         {
@@ -3385,6 +3478,24 @@ namespace SF_Automation.Pages.Engagement
             string row = driver.FindElement(rowAddEquityHolderL).Displayed.ToString();
             return row;
         }
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfAddEquityHolderPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClientSubL).SendKeys("Dina");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@role='group']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddEquityHolderPostL).Displayed.ToString();
+            return row;
+        }
+        
 
         //Validate when same client is added in Add Equity Holder Page
         public string ValidateIfSameClientIsSelectedInAddEquityHolder()
@@ -3414,6 +3525,22 @@ namespace SF_Automation.Pages.Engagement
              driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(6000);
             string row = driver.FindElement(rowAddDebtStructureL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Debt Structure  Page
+        public string ValidateSaveFunctionalityOfAddDebtStructurePostTrans()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDebtStructurePostL).Displayed.ToString();
             return row;
         }
 
@@ -3618,6 +3745,14 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Validate hyperlink of Added Equity Holder in Post Trans
+        public string ValidateHyperlinkOfAddedEquityHolderPost()
+        {
+            Thread.Sleep(5000);
+            string value = driver.FindElement(lnkEquityHolderPost).GetAttribute("target");
+            return value;
+        }
+
         //Get the value of Percent Ownership  before update
         public string GetPerOwnershipBeforeUpdate()
         {
@@ -3665,6 +3800,24 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
             driver.FindElement(btnCancel).Click();
             string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+        //Validate Cancel functionality of Add Board Member Page
+        public string ValidateCancelFunctionalityOfAddBoardMemberPostTrans()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
             if (row.Equals("True"))
             {
                 return "Record is not deleted";
@@ -3733,6 +3886,25 @@ namespace SF_Automation.Pages.Engagement
 
         }
 
+        //Validate Delete functionality of Added Board Member Page
+        public string ValidateDeleteFunctionalityOfBoardMemberPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
         //Validate Delete functionality of Added Debt Structure Page
         public string ValidateDeleteFunctionalityOfDebtStructure()
         {
@@ -3835,6 +4007,23 @@ namespace SF_Automation.Pages.Engagement
             return row;
         }
 
+        //Validate save functionality of Add Board Member Page
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithHLRelPostTrans()
+        {
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("April Contact");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMemberPostL).Displayed.ToString();
+            return row;
+        }
+
         public string ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRel()
         {           
             Thread.Sleep(4000);
@@ -3845,6 +4034,19 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(6000);
             string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            return row;
+        }
+
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRelPostTrans()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
             return row;
         }
 

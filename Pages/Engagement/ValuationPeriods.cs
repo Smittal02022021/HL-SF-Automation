@@ -150,7 +150,7 @@ namespace SF_Automation.Pages.Engagement
         public string GetFeeCompleted()
         {
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompleted, 170);
+            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompleted, 190);
             string feeCompleted = driver.FindElement(valFeeCompleted).Text;
             return feeCompleted;
         }
@@ -218,6 +218,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(comboStatus).SendKeys(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 14));
             driver.FindElement(txtUpReportFee).Clear();
             driver.FindElement(txtUpReportFee).SendKeys(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 11));
+            Thread.Sleep(4000);
             driver.FindElement(btnSave).Click();
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();

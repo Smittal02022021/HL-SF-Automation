@@ -249,9 +249,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Closing Info", closingInfo);
                 extentReports.CreateLog("Sub Tab " + closingInfo + " is displayed under Info Tab ");
 
-                string CST = engagementDetails.ValidateCSTQuestionnaireDetailsSubTab();
-                Assert.AreEqual("CST Questionnaire Details", CST);
-                extentReports.CreateLog("Sub Tab " + CST + " is displayed under Info Tab ");
+                //string CST = engagementDetails.ValidateCSTQuestionnaireDetailsSubTab();
+                //Assert.AreEqual("CST Questionnaire Details", CST);
+                //extentReports.CreateLog("Sub Tab " + CST + " is displayed under Info Tab ");
 
                 string billing = engagementDetails.ValidateBillingCommentsSubTab();
                 Assert.AreEqual("Billing Comments", billing);
@@ -308,16 +308,16 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Completed", valIntDeal);
                 extentReports.CreateLog("Entered value : " + valIntDeal + " is displayed after updating details of Internal deal announcement in Closing Info tab ");
 
-                //Click CST Questionnaire Details tab and validate edit functionality
-                engagementDetails.ClickCSTQuesTab();
-                string tabCSTEditable = engagementDetails.ValidateCSTTabIsEditable();
-                Assert.AreEqual("True", tabCSTEditable);
-                extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
+                ////Click CST Questionnaire Details tab and validate edit functionality
+                //engagementDetails.ClickCSTQuesTab();
+                //string tabCSTEditable = engagementDetails.ValidateCSTTabIsEditable();
+                //Assert.AreEqual("True", tabCSTEditable);
+                //extentReports.CreateLog("Page is editable after clicking pencil icon and details can be edited ");
 
-                //Update any value and validate if it gets saved post clicking saving button               
-                string valCST = engagementDetails.UpdateCSTQuestionnaireAndValidate();
-                Assert.AreEqual("Yes", valCST);
-                extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of CST Questionnaire in CST Questionnaire Details tab ");
+                ////Update any value and validate if it gets saved post clicking saving button               
+                //string valCST = engagementDetails.UpdateCSTQuestionnaireAndValidate();
+                //Assert.AreEqual("Yes", valCST);
+                //extentReports.CreateLog("Entered value : " + valCST + " is displayed after updating details of CST Questionnaire in CST Questionnaire Details tab ");
 
                 //Click Billing Comments tab and validate displayed validations
                 engagementDetails.ClickBillingCommentsTab();

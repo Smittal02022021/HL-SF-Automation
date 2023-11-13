@@ -403,12 +403,12 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
             driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']")).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']")).Click();
 
             //Select Does HL have material            
             driver.FindElement(comboHLMaterialL).SendKeys(valBenOwner);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             //Select Conf Agreement
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);

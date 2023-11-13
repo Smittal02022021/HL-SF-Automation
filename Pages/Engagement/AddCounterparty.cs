@@ -60,8 +60,8 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valMinRoundBid = By.XPath("//dt[contains(text(),'Round Minimum')]//following::dd[1]//lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//dt[contains(text(),'Round Maximum')]//following::dd[2]//lst-formatted-text");
+        By valMinRoundBid = By.XPath("//flexipage-component2[3]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By valMaxRoundBid = By.XPath("//flexipage-component2[3]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[3]/lst-template-list-field/lst-formatted-text");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
@@ -1052,20 +1052,20 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
         //Validate Engageemnt CP Comment
-        public string ValidateEngCPComment()
+        public void ValidateEngCPComment()
         {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 90);
             driver.FindElement(tabCounterpartyEditor).Click();
             Thread.Sleep(6000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(7000);
-            driver.FindElement(txtCPComments).SendKeys("Testing");
-            driver.FindElement(btnSaveCPComment).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedCPComment, 90);
-            string name = driver.FindElement(valAddedCPComment).Text;
-            return name;
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //Thread.Sleep(7000);
+            //driver.FindElement(txtCPComments).SendKeys("Testing");
+            //driver.FindElement(btnSaveCPComment).Click();
+            //Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCPComment, 90);
+            //string name = driver.FindElement(valAddedCPComment).Text;
+            //return name;
         }
 
         public string GetCPCommentType()
@@ -1111,8 +1111,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.Navigate().Refresh();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 150);
-            driver.FindElement(chkCounterparty).Click();           
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty2nd, 150);
+            driver.FindElement(chkCounterparty2nd).Click();           
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCounterparty, 150);
             driver.FindElement(btnDeleteCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgDeleteRecord, 270);

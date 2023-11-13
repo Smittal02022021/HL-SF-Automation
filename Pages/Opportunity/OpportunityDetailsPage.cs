@@ -297,7 +297,7 @@ namespace SF_Automation.Pages
         By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
         By comboSubjectOwnershipL = By.XPath("//button[@aria-label='Subject Ownership, --None--']");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
-        By txtRefContactL = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
+        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
 
         By comboUpdBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, No']");
@@ -381,10 +381,10 @@ namespace SF_Automation.Pages
 
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
-        By lnkEditRefType = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
+        By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valRefTypeAfter = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valRefTypeAfter = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
 
         By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field/div/div[1]/div[2]/span[1]/slot[1]/lightning-formatted-text");
@@ -392,7 +392,7 @@ namespace SF_Automation.Pages
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegalMatters = By.XPath("//a[text()='Legal Matters']");
         By subTabConflictsCheck = By.XPath("//a[text()='Conflicts Check']");
-        By lnkEditBeneficial = By.XPath("//slot/flexipage-tab2[6]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
+        By lnkEditBeneficial = By.XPath("//button[@title='Edit Beneficial Owner & Control Person form?']");
         By lnkEditConfAgreement = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
 
 
@@ -4458,7 +4458,7 @@ public void ClickNewOpportunitySectorButton()
         {
             Thread.Sleep(5000);
             driver.FindElement(secReferralInfo).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditRefType, 150);
             driver.FindElement(lnkEditRefType).Click();
             Thread.Sleep(5000);

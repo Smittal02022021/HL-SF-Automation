@@ -39,7 +39,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboOtherOpinion = By.CssSelector("select[id*='shareholderVote']");
         By comboSpecialCommittee = By.CssSelector("select[id*='id306']");
         By titleEmailPage = By.CssSelector("div.pbSubheader.brandTertiaryBgr.tertiaryPalette > h3");
-        By valEmailOppName = By.CssSelector("body[id*='Body_rta_body'] > span:nth-child(8) > span");
+        By valEmailOppName = By.CssSelector("body[id*='Body_rta_body'] >p:nth-child(6) > span");
         By btnCancelEmail = By.CssSelector("input[value='Cancel']");
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
 

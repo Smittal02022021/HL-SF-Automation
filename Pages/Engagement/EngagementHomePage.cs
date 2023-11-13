@@ -39,16 +39,16 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//div/ul/li[3]/div/a/span[2]/span");        
+        By tagEngagements = By.XPath("//div/ul/li[4]/div/a/span[2]/span");        
         By lnkRecentlyViewed = By.XPath("//h2/span[2]");
         By tblEngagements = By.XPath("//div[1]/div/div/table");
-        By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
+        By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
-        By titleEngDetails = By.XPath("//forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
+        By titleEngDetails = By.XPath("//a[@aria-controls='tab-55']");
         By tabEngL = By.XPath("//table/tbody/tr/th/span/a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
@@ -443,13 +443,14 @@ namespace SF_Automation.Pages
         //Validate Recently Viewed values
         public bool ValidateRecentlyViewedValues()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = {"All Active Engagements", "All Engagements", "FAS Engagements", "My Active Engagements", "Recently Viewed", "(Pinned list)", "All Active CF Engagements", "", "All Active FR Engagements","", "","","My Closed Deal Process to Review", "My Closed Engagements", "My Dead/Hold Engagements", "My FY24 Closed Deals"};
+            string[] expectedValues = { "Recently Viewed", "(Pinned list)","All Engagements", "FAS Engagements", "FR Engagements - All Active", "FR Engagements - All Holds", "FVA Engagements - All Active", "FVA Engagements - All Holds", "My Active Engagements", "My Closed Deal Process to Review", "My Closed Engagements", "My Dead Engagements", "My FY24 Closed Deals","My Hold Engagements"};
             bool isTrue = true;
             Console.WriteLine("1st:" + actualNamesAndDesc[0]);
             Console.WriteLine("1st:"+actualNamesAndDesc[1]);
@@ -463,11 +464,7 @@ namespace SF_Automation.Pages
             Console.WriteLine(actualNamesAndDesc[9]);
             Console.WriteLine(actualNamesAndDesc[10]);
             Console.WriteLine(actualNamesAndDesc[11]);
-            Console.WriteLine(actualNamesAndDesc[12]);
-            Console.WriteLine(actualNamesAndDesc[13]);
-            Console.WriteLine(actualNamesAndDesc[14]);
-            Console.WriteLine(actualNamesAndDesc[15]);
-            
+                      
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
             {

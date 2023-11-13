@@ -470,9 +470,9 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);           
             driver.FindElement(imgOppL).Click();
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 130);
-            driver.FindElement(imgOppL).Click();
-            Thread.Sleep(8000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
+            //driver.FindElement(imgOppL).Click();
+            //Thread.Sleep(8000);
 
         }
         public bool IsIndustryTypePresentInDropdownHomePage(string industryType)
