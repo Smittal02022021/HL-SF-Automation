@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed : BaseClass
+    class Z_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

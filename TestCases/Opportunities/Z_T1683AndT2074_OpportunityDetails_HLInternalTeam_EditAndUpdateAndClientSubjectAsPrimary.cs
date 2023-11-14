@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary : BaseClass
+    class Z_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

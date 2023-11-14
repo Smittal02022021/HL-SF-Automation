@@ -159,7 +159,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for System Administrator: " + user + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Admin login
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditable(), "Verify Associated Engagement should be editable for System Administrator ");
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditable(), "Verify Associated Opportunity should be editable for System Administrator ");
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for System Administrator: " + user + " ");
 
                     //Enter the Associated Opportunity name

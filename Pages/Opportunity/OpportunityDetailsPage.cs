@@ -209,19 +209,19 @@ namespace SF_Automation.Pages
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
         By txtClientContract = By.CssSelector("span>input[id*='CF00N5A00000M0ebj']");
         By btnModifyRoles = By.CssSelector("td[id*='j_id0:j_id1:j_id2:j_id3:pbHLInternalTeam:j_id4:bottom']>a");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id63:0:j_id65']");
-        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id63:1:j_id65']");
-        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id63:2:j_id65']");
-        By checkManager = By.CssSelector("input[name*='internalTeam:j_id63:3:j_id65']");
-        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id63:4:j_id65']");
-        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id63:5:j_id65']");
-        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By checkPE = By.CssSelector("input[name*='internalTeam:j_id63:7:j_id65']");
-        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id63:8:j_id65']");
-        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id63:9:j_id65']");
-        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id63:10:j_id65']");
-        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id63:11:j_id65']");
-        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id63:12:j_id65']");
+        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
+        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id64:1:j_id66']");
+        By checkPrincipal = By.CssSelector("input[name*='internalTeam:j_id64:2:j_id66']");
+        By checkManager = By.CssSelector("input[name*='internalTeam:j_id64:3:j_id66']");
+        By checkAssociate = By.CssSelector("input[name*='internalTeam:j_id64:4:j_id66']");
+        By checkAnalyst = By.CssSelector("input[name*='internalTeam:j_id64:5:j_id66']");
+        By checkSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");//7
+        By checkPE = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
+        By checkPublic = By.CssSelector("input[name*='internalTeam:j_id64:8:j_id66']");
+        By checkAdmin = By.CssSelector("input[name*='internalTeam:j_id64:9:j_id66']");
+        By checkRMS = By.CssSelector("input[name*='internalTeam:j_id64:10:j_id66']");
+        By checkExpenseOnly = By.CssSelector("input[name*='internalTeam:j_id64:11:j_id66']");
+        By checkNonRegistered = By.CssSelector("input[name*='internalTeam:j_id64:12:j_id66']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
         By valAddedMember = By.XPath("//div[2]/span[2]/table/tbody/tr[1]/td[1]");
 
@@ -565,6 +565,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
+        By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
 
         private By _ActivitySubject(string activitySubject)
         {
@@ -604,8 +605,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                         }
                         else
                         {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality1, 20);
+                            driver.FindElement(checkSpeciality1).Click();
                         }
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
@@ -664,9 +665,10 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
                 string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
                 driver.FindElement(btnBackPopup).Click();
+                driver.SwitchTo().DefaultContent();
                 return msgPopup;
             }
-            catch { return "No Pop-up Message Displayed"; }
+            catch { driver.SwitchTo().DefaultContent(); return "No Pop-up Message Displayed"; }
         }
 
         By btnHeader = By.XPath("//div[contains(@id,'internalTeam')]/div[@class='pbHeader']");
@@ -700,6 +702,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
                 string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
+                driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
                 //CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
@@ -710,6 +713,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             }
             catch
             {
+                driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 driver.FindElement(btnReturnToOpporEng).Click();
@@ -3991,7 +3995,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(6000);
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             string name = ReadExcelData.ReadData(excelPath, "Users", 1);
             driver.FindElement(txtStaffL).SendKeys(name);
             Thread.Sleep(5000);
@@ -5115,7 +5119,8 @@ public void ClickNewOpportunitySectorButton()
         }
         
         public void ClickRetutnToOpportunityLV()
-        {            
+        {
+            driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             Thread.Sleep(2000);
             driver.FindElement(btnReturnToOpp).Click();            
@@ -5927,8 +5932,9 @@ public void ClickNewOpportunitySectorButton()
         }
         public void ClickRetutnToOpportunityL()
         {
+            driver.SwitchTo().DefaultContent();
             By btnReturnToOpp = By.XPath("//span[contains(@id,'internalTeam')]//input[@value='Return To Opportunity']");
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//article/div[2]/div/iframe")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
             Thread.Sleep(2000);
             driver.FindElement(btnReturnToOpp).Click();
             driver.SwitchTo().DefaultContent();
@@ -6644,7 +6650,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             //Date Engaged &Estimated Closed Date  
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(2000);
-            driver.FindElement(txtEstCloseDateL).SendKeys("10/22/2023");
+            driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
 
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
@@ -6746,6 +6752,38 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             }
             driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
+        }
+
+        public string ModifyInternalTeamMembersLV(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(5000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(10000);
+
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL, 20);
+            driver.FindElement(txtStaffL).SendKeys(name);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
+            Thread.Sleep(5000);
+            try
+            {
+                if (driver.FindElement(checkInitiator).Displayed.ToString().Equals("True"))
+                    return "True";
+                else
+                    return "False";
+            }
+            catch (Exception)
+            {
+                return "False";
+            }
         }
     }
     

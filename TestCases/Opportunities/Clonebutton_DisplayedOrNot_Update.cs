@@ -208,12 +208,12 @@ namespace SF_Automation.TestCases.Opportunity
                     string coverageClone = opportunityDetails.ValidateCloneButton();
                     if (valUser.Equals("Emre Abale")|| valUser.Equals("Ayati Arvind") || valUser.Equals("Drew Koecher") )
                     {
-                        Assert.AreEqual("Clone button is displayed", coverageClone);//not
+                        Assert.AreEqual("Clone button is not displayed", coverageClone);//not
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is not displayed", coverageClone);//is
+                        Assert.AreEqual("Clone button is displayed", coverageClone);//is
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
 

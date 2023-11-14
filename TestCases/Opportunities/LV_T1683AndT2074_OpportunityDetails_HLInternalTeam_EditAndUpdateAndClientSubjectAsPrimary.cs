@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //opportunityDetails
                     opportunityDetails.NavigaterToClientSubjectTabLV();
-
+                    extentReports.CreateStepLogs("Info", "Navigate To Client Subject Tab ");
                     //Validate if Primary checkbox is checked for added Client and Subject company
                     string valueClient = opportunityDetails.GetPrimaryCheckboxOfClientCompanyLV();
                     Assert.AreEqual("Checked", valueClient);

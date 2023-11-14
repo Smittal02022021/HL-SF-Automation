@@ -119,13 +119,13 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
 
-                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1
                     string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
                     Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
                     extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
 
                     //Get the line error message from internal staff page.
-                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                     string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
                     Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");

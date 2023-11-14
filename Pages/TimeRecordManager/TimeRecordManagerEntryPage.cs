@@ -972,13 +972,13 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
             driver.FindElement(tabSummaryLogs).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
         public void ClickDetailLogsTab()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
             driver.FindElement(tabDetailLogs).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
 
 
@@ -987,7 +987,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtWeeklyOverview);
             driver.FindElement(txtWeeklyOverview).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
         public bool IsProjectSelected(string value)
         {

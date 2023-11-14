@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1624_OpportunityToEngagementConversionMappingForFRJobTypes : BaseClass
+    class Z_T1624_OpportunityToEngagementConversionMappingForFRJobTypes : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

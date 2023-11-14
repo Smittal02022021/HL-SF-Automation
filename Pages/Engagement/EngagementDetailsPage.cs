@@ -721,7 +721,7 @@ namespace SF_Automation.Pages.Engagement
         By comboJobTypeptions = By.CssSelector("select[id*='65s'] option");// By.CssSelector("select[id*= '65s']");
         By txtEngDescL2 = By.XPath("//label[text()='Engagement Description']");
         By lblSICCode = By.XPath("//label[text()='SIC Code']");
-
+        By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
         By listInternalDealTeam = By.XPath("//span[contains(@id,'internalTeam:team')]//table//tbody//tr[@class='slds-hint-parent']");
         By btnReturnToOpporEng = By.XPath("//input[contains(@value,'Return To')]");
         By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_EngagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
@@ -6409,8 +6409,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
-            Thread.Sleep(6000);
-            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            Thread.Sleep(8000);            
             WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
             driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
             WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);

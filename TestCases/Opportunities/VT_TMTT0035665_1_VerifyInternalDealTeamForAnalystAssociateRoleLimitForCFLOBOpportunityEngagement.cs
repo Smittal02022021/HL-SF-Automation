@@ -59,6 +59,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as Standard User profile and validate the user
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                    login.SwitchToClassicView();
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                     extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
@@ -160,6 +161,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(stdUser);
+                    login.SwitchToClassicView();
                     string stdUser1 = login.ValidateUser();
                     Assert.AreEqual(stdUser1.Contains(stdUser), true);
                     extentReports.CreateLog("User: " + stdUser1 + " logged in ");
@@ -177,6 +179,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    login.SwitchToClassicView();
                     string caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " logged in ");
