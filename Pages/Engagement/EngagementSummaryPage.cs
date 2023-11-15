@@ -72,8 +72,12 @@ namespace SF_Automation.Pages.Engagement
         By rowAddDebtStructurePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
 
         By rowAddDebtStrcutureL2nd = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
+        By rowAddDebtStrcutureL2ndPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
+
         By rowAddKeyCredL = By.XPath("//slot/div/div[1]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/div/input");
         By valSecurityTypeL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
+        By valSecurityTypePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
+
         By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
         By rowAddEquityHolderPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr");
 
@@ -158,6 +162,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
         By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
         By btnEdit2ndDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
+        By btnEditDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
 
         By btnKeyCredL = By.XPath("//button[text()='New Key Creditor']");
         
@@ -1227,7 +1232,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valClassi = driver.FindElements(comboClassification);
             var actualValue = valClassi.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry", "FR" };
+            string[] expectedValue = { "--None--", "Financing", "FR","FSG", "FVA", "Industry"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -3602,6 +3607,33 @@ namespace SF_Automation.Pages.Engagement
             string row = driver.FindElement(valSecurityTypeL).Text;
             return row;
         }
+
+        //Validate edit functionality of Debt Structure 
+        public string ValidateEditFunctionalityOfAddedDebtStructurePost()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Updated Value");
+            driver.FindElement(txtAmoritizationL).SendKeys("5");
+            driver.FindElement(txtMandatoryL).SendKeys("5");
+            driver.FindElement(txtFeesL).SendKeys("5");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+
+            driver.FindElement(txtLoanAmountL).Clear();
+            driver.FindElement(txtLoanAmountL).SendKeys("5");
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(valSecurityTypePostL).Text;
+            return row;
+        }
         //Validate added debt structure 
         public bool ValidateDebtStrcWithKeyCred()
         {
@@ -3611,6 +3643,17 @@ namespace SF_Automation.Pages.Engagement
             bool row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed;
             return row;
         }
+
+        //Validate added debt structure 
+        public bool ValidateDebtStrcWithKeyCredPost()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(4000);
+            bool row = driver.FindElement(rowAddDebtStrcutureL2ndPost).Displayed;
+            return row;
+        }
+        
 
 
 
@@ -3648,7 +3691,26 @@ namespace SF_Automation.Pages.Engagement
             return row;
 
         }
+        //Validate edit functionality of Add Equity Holder Page
+        public bool ValidateEditFunctionalityOfDebtStrucPost()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 120);
+            driver.FindElement(btnEditDebtLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            return row;
 
+        }
         //Validate duplicate error message while adding same company in Key Creditor
         public string ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred()
         {
@@ -3657,6 +3719,26 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEditDebtL).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupClientL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+
+        }
+        //Validate duplicate error message while adding same company in Key Creditor
+        public string ValidateErrorMessageWhileAddingSameClientSubjectInKeyCredPost()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 150);
+            driver.FindElement(btnEditDebtLPost).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 140);
             driver.FindElement(btnKeyCredL).Click();
             driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
             Thread.Sleep(8000);
@@ -3714,6 +3796,21 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancelKeyCredL).Click();
             Thread.Sleep(5000);
             bool row = driver.FindElement(rowAddKeyCredL).Displayed;           
+            return row;
+
+        }
+        //Validate cancel functionality of Key Creditor in Debt Structure
+        public bool ValidateCancelFunctionalityOfKeyCredPost()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 120);
+            driver.FindElement(btnEditDebtLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelKeyCredL, 140);
+            driver.FindElement(btnCancelKeyCredL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
             return row;
 
         }

@@ -326,7 +326,7 @@ namespace SF_Automation.Pages.Engagement
         By btnAddRevenue = By.XPath("// button[text()='Add Accrual']");
         By btnSaveRevenue = By.XPath("//footer/button[2]/span");
         By valRevAccID = By.XPath("//span[@title='(1)']");
-        By btnShowMoreRev = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-grid/lst-customized-datatable/div[2]/div/div/table/tbody/tr/td[8]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnShowMoreRev = By.XPath("//table/tbody/tr/td[10]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By btnEditRevenue = By.XPath("/html/body/div[9]/div/ul/li/a");
         By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
         By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
@@ -341,7 +341,7 @@ namespace SF_Automation.Pages.Engagement
         By btnStartingMonth = By.XPath("//lightning-layout-item[1]/slot/lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button");
         By valStartingMonth = By.XPath("//lightning-base-combobox-item[5]/span[2]/span");
         By valStartingMonthDisplayed = By.XPath("//section/div/div/div[2]/table/tbody/tr[1]/td[1]");
-        By btnSubmitRevProj = By.XPath("//button[text()='submit']");
+        By btnSubmitRevProj = By.XPath("//button[text()='Submit']");
         By btnReturnToEng = By.XPath("//button[text()='Return to Engagement']");
         By lnkEditBeneficial = By.XPath("//button[@title='Edit Beneficial Owner & Control Person form?']");
         By btnBeneficial = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, Yes']");
@@ -355,13 +355,13 @@ namespace SF_Automation.Pages.Engagement
         By tabFinancials = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By tabEngContacts = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
-        By btnView = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
-        By btnViewDel = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field/lst-list-view-row-level-action/force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
+        By btnView = By.XPath("//lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
         By lnkEditComments = By.XPath("/html/body/div[8]/div/ul/li[1]/a");
         By btnEditEngComment = By.XPath("//table/tbody/tr/td[8]/span/div/a");
         By txtEditComment = By.XPath("//records-record-layout-text-area/lightning-textarea/div/textarea");
         By lnkDeleteComment = By.XPath("/html/body/div[8]/div/ul/li[2]/a");
-        By msgDeleteComment = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
+        By msgDeleteComment = By.XPath("//lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnComments = By.XPath("//slot/c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[1]/div/lightning-input-field/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button");
         By valCommentsType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
         By txtCommentNotes = By.XPath("//c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[3]/div/lightning-input-field/lightning-textarea/div/textarea");
@@ -374,7 +374,7 @@ namespace SF_Automation.Pages.Engagement
         By txtRelatedEng = By.XPath("//input[@placeholder='Search Engagements...']");
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//div[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
-        By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
             
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field");
@@ -4552,8 +4552,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreRev, 150);
             driver.FindElement(btnShowMoreRev).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 150);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 170);
             driver.FindElement(btnEditRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtPeriodAccural, 250);
             driver.FindElement(txtPeriodAccural).SendKeys("10");
@@ -4648,6 +4648,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, valStartingMonth, 250);
             driver.FindElement(valStartingMonth).Click();
+            Thread.Sleep(5000);
             driver.FindElement(btnSubmitRevProj).Click();
             Thread.Sleep(5000);
             string month = driver.FindElement(valStartingMonthDisplayed).Text;
@@ -5091,7 +5092,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,250)");
+            js.ExecuteScript("window.scrollTo(0,350)");
             Console.WriteLine("scrolled down");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnView, 190);
@@ -5158,7 +5159,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateEngContacts()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 170);
             driver.FindElement(tabEngagementNumL).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngContacts, 150);
