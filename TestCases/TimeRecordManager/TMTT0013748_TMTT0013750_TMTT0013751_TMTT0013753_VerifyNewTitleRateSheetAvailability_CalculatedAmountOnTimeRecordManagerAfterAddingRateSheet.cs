@@ -183,7 +183,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
 
-                for (int row = 9; row <= rowCount; row++)
+                for (int row = 2; row <= rowCount; row++)
                 {
                     //Navigate to Title Rate Sheets page
                     rateSheetMgt.NavigateToTitleRateSheetsPage();
@@ -246,7 +246,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Enter Rate Sheet details
                     string engagement = oppName + " - " + engNum;
                     string rateSheet = ReadExcelData.ReadData(excelPath, "RateSheetManagement", 3);
-                    rateSheetMgt.EnterRateSheet(engagement, rateSheet);
+                    rateSheetMgt.EnterRateSheet1(engagement, rateSheet);
 
                     //Verify selected rate sheet
                     string selectedRateSheet = rateSheetMgt.GetSelectedRateSheet();

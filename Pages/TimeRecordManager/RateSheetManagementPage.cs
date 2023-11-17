@@ -36,7 +36,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         By rateOnSheetDetail = By.XPath("//table[@class='detailList']//tr//td[contains(@class,'dataCol')]//div");
         By viewGoButton = By.Name("go");
         By nameRateSheetDetailPage = By.CssSelector(".content > h2");
-       
+        By comboSelectRateSheet1 = By.XPath("(//div[contains(text(),'Add Record')]/following::div/div/div/select)[3]");
+        By btnAddRateSheet1 = By.XPath("(//span[text()='Add'])[2]");
         By tabStaffTimeSheet = By.CssSelector("li[id*='staff'] > a");
 
         //private By rateSheetName(String rateSheetname)
@@ -351,6 +352,36 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
 
             return result;
+        }
+        public void EnterRateSheet1(string engagement, string rateSheet)
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+            driver.FindElement(tabRateSheetManagement).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+            //WebDriverWaits.WaitUntilEleVisible(driver, comboEngagementOptions, 220);
+
+            driver.FindElement(comboEngagement).SendKeys(engagement);
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet1);
+            driver.FindElement(comboSelectRateSheet1).SendKeys(rateSheet);
+            Thread.Sleep(2000);
+
+            string getFromDate = DateTime.Now.ToString("MMM dd, yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetFromDate);
+            driver.FindElement(txtRateSheetFromDate).Clear();
+            driver.FindElement(txtRateSheetFromDate).SendKeys(getFromDate);
+
+            string getToDate = DateTime.Now.AddDays(+7).ToString("MMM dd, yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetToDate);
+            driver.FindElement(txtRateSheetToDate).Clear();
+            driver.FindElement(txtRateSheetToDate).SendKeys(getToDate);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet1);
+            driver.FindElement(btnAddRateSheet1).Click();
+            Thread.Sleep(5000);
         }
     }
 }

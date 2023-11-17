@@ -964,7 +964,8 @@ public string AddOpportunities(string type, string file, int row)
             Console.WriteLine("path:" + excelPath);             //--------------------------Enter Opportunity details-----------------------------
             //Information Section           
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityName, 40);
-            string valOpportunity = CustomFunctions.RandomValue();// "abc" +CustomFunctions.RandomValue();             driver.FindElement(txtOpportunityName).SendKeys(valOpportunity);
+            string valOpportunity = CustomFunctions.RandomValue();// "abc" +CustomFunctions.RandomValue();            
+            driver.FindElement(txtOpportunityName).SendKeys(valOpportunity);
             //driver.FindElement(txtClient).SendKeys(ReadJSONData.data.addOpportunityDetails.client);            
             driver.FindElement(txtClient).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 1));
             driver.FindElement(txtSubject).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 2));
