@@ -11,10 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SF_Automation.Pages.HomePage;
+using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView:BaseClass
+    class LV_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -118,6 +119,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.IsNotNull(opportunityNumber);
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
+                    //TMTI0054719	Verification of new field named as "Associated Opportunity" availabilty and functionality on CF Opportunity page.
                     //New Field is Present on Opportunity Detail Page for Standard User
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for Standard User: " + valUser + " ");
@@ -290,6 +292,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
+                    //TMTI0054723 Verification of new field named as "Associated Engagement" availabilty and functionality on CF Engagment page.
                     //New Field is Present on Opportunity Detail Page for CAO User
                     Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Engagement Detail Page for CAO User: " + caoUser + " ");

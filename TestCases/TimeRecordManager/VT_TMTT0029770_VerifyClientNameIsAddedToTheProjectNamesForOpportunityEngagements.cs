@@ -10,7 +10,7 @@ using OpenQA.Selenium;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTI0069005_69007_69008_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements: BaseClass
+    class VT_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

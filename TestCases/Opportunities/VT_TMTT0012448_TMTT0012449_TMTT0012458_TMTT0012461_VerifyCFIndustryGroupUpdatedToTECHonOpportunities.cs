@@ -10,7 +10,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT12461_TMTT0012448_TMTT0012449_TMTT0012458_VerifyCFIndustryGroupUpdatedToTECHonOpportunities : BaseClass
+    class VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

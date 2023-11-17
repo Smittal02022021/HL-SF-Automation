@@ -9,7 +9,7 @@ using System;
 using SF_Automation.Pages.HomePage;
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView:BaseClass
+    class LV_VT_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

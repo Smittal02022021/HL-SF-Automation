@@ -12,7 +12,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTI0003744_68979_68980_68982_68984_68986_69003_69010_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour : BaseClass
+    class VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

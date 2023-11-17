@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class TMTI0075756_75765_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover: BaseClass
+    class VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover: BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

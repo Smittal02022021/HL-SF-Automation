@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_TMTI0063927_63921_63925_63926_63928_63917_63924_70802_75578_75580_75582_75584_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion  : BaseClass
+    class TMTT0027430_TMTT0027433_TMTT0027436_TMTT0027437_TMTT0027438_TMTT0027439_TMTT0030273_TMTT0032167_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion  : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();
