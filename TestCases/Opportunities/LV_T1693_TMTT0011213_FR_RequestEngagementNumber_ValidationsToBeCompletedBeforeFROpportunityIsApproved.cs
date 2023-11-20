@@ -32,7 +32,7 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyValidationsToBeCompletedBeforeFROpportunityIsApprovedFRLV()
+        public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForFRLV()
         {
             try
             {
@@ -104,6 +104,7 @@ namespace SF_Automation.TestCases.Opportunities
                     
                 }
                 login.SwitchToClassicView();
+                usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

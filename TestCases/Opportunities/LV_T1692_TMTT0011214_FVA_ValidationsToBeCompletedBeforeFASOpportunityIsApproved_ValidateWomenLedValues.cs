@@ -7,10 +7,14 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed:BaseClass
+    class LV_T1692_TMTT0011214_FVA_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -22,7 +26,9 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
-        public static string fileTC1624 = "LV_T1592_ValidationsToBeCompleted";
+
+        public static string fileTC1692 = "LV_T1692_ValidationsToBeCompletedBeforeFVAOpportunityIsApproved";
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -32,12 +38,12 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForCFLV()
+        public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForFVALV()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1624;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1692;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -60,6 +66,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                     usersLogin.SearchCFUserAndLogin(user);
+                    //login.SwitchToClassicView();
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(user), true);
                     extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
@@ -82,11 +89,11 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB: " + valRecordType);
                     extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
 
-                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTC1624);//updated totalDbt
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTC1692);//updated totalDbt
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1624);
+                    string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1692);
                     Assert.AreEqual(displayedTab, "Info");
                     extentReports.CreateStepLogs("Pass", "User is on Opportunity detail " + displayedTab + " tab ");
 
@@ -98,13 +105,13 @@ namespace SF_Automation.TestCases.Opportunities
                     //Requesting for engagement and validate Error Messages //valRecordType, fileTC1624
                     opportunityDetails.ClickRequestToEngL();
                     string txtActualRequiredFieldsValidation = opportunityDetails.GetActualRequiredFieldsValidationForConversionLV();
-                    string txtExpectedRequiredFieldsValidation = opportunityDetails.GetExpectedRequiredFieldsValidationForConversionLV(fileTC1624);
+                    string txtExpectedRequiredFieldsValidation = opportunityDetails.GetExpectedRequiredFieldsValidationForConversionLV(fileTC1692);
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
 
                 }
                 login.SwitchToClassicView();
-                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
@@ -114,6 +121,7 @@ namespace SF_Automation.TestCases.Opportunities
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
+
         }
     }
 }

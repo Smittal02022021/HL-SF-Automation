@@ -125,6 +125,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By comboReferType = By.CssSelector("select[id*='00Ni000000FF5uS']");
         By chkboxNBC = By.CssSelector("input[id*='00Ni000000FmBzh']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
+        By txtEstFee = By.XPath("//input[@name='Fee__c']");
 
 
         public string AddOpportunities(string type,string file)
@@ -559,10 +560,16 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleLegalEntity));
             driver.FindElement(eleLegalEntity).Click();
 
+            if (valRecordType == "FVA")
+            {
+                string valFee = ReadExcelData.ReadData(excelPath, "AddOpportunity", 28);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboRefTypeL));
+                driver.FindElement(txtEstFee).SendKeys(valFee);
+            }
             //Select Referral Type //Need to move in UpdteReq function  
             string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
-            if (valRecordType == "CF")
+            if (valRecordType == "CF"|| valRecordType == "FVA")
             {
                 driver.FindElement(comboRefTypeL).Click();
                 By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
