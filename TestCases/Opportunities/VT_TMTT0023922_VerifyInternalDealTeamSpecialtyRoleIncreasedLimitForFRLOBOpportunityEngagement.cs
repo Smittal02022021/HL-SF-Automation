@@ -60,6 +60,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 32);
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -125,10 +126,11 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0055018);
-                    extentReports.CreateLog("Conflict Check fields are updated ");
+                    extentReports.CreateLog("Conflict Check fields are updated By Admin");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     string stdUser1 = login.ValidateUser();
                     Assert.AreEqual(stdUser1.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser1 + " logged in ");
@@ -146,6 +148,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    login.SwitchToClassicView();
                     string caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " logged in ");

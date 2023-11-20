@@ -125,12 +125,13 @@ namespace SF_Automation.TestCases.Opportunity
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");                
 
                 //Search for created opportunity
                 opportunityHome.SearchOpportunity(value);
                 opportunityDetails.UpdateOutcomeDetails(fileTMTI0027313);
-                
+                extentReports.CreateLog("Required fields are updated By System Admin ");
+
                 //Login again as Standard User
                 usersLogin.SearchUserAndLogin(stdUser);
                 string stdUser1 = login.ValidateUser();
@@ -150,6 +151,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as CAO user to approve the Opportunity
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                login.SwitchToClassicView();
                 string caoUser = login.ValidateUser();
                 Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");

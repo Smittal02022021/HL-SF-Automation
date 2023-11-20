@@ -48,10 +48,11 @@ namespace SF_Automation.TestCases.Opportunity
 
                 int rowIndustryType = ReadExcelData.GetRowCount(excelPath, "IndustryType");                
                 extentReports.CreateLog("Verify Industry Group Type in updated on On Opportunity & Engagement Manager Page ");
-                extentReports.CreateLog("rowCount " + rowIndustryType);
+                extentReports.CreateLog("Industry Type Count: " + rowIndustryType);
 
                 //Login as Standard User profile and validate the user
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");

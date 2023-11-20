@@ -75,6 +75,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                 
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -153,6 +154,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("Standard User: " + stdUser + " logged in ");
@@ -171,6 +173,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    login.SwitchToClassicView();
                     caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("CAO User: " + caoUser + " logged in ");
@@ -227,7 +230,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //Logout of user and validate Admin login
                     user = login.ValidateUser();
                     extentReports.CreateLog("User " + user + " is able to login ");
-
+                    login.SwitchToClassicView();
                     //Search for created Engagement
                     engagementHome.SearchEngagement(engagementName);
 
@@ -247,6 +250,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Standard User Login 
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");

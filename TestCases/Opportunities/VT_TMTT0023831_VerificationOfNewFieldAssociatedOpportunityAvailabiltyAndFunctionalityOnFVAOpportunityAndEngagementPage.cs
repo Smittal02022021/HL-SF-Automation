@@ -125,6 +125,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
+                    
                     user = login.ValidateUser();
                     Assert.AreEqual(user.Equals(ReadJSONData.data.authentication.loggedUser), true);
                     extentReports.CreateLog("User " + user + " is logged in ");
@@ -152,6 +153,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("Standard User: " + stdUser + " logged in ");
@@ -172,6 +174,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    login.SwitchToClassicView();
                     caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("CAO User: " + caoUser + " logged in ");
@@ -247,6 +250,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Standard User Login 
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("Standard User: " + stdUser + " logged in ");

@@ -61,6 +61,7 @@ namespace SF_Automation.TestCases.Opportunity
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 29);
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -129,11 +130,11 @@ namespace SF_Automation.TestCases.Opportunity
                     if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
                     {
                         opportunityDetails.UpdateNBCApproval();
-                        extentReports.CreateLog("Conflict Check and NBC fields are updated ");
+                        extentReports.CreateLog("Conflict Check and NBC fields are updated By Admin");
                     }
                     else
                     {
-                        extentReports.CreateLog("Conflict Check fields are updated ");
+                        extentReports.CreateLog("Conflict Check fields are updated By Admin");
                     }
 
                     //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
@@ -149,6 +150,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
+                    login.SwitchToClassicView();
                     string stdUser1 = login.ValidateUser();
                     Assert.AreEqual(stdUser1.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser1 + " logged in ");
@@ -211,6 +213,8 @@ namespace SF_Automation.TestCases.Opportunity
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
 
         }

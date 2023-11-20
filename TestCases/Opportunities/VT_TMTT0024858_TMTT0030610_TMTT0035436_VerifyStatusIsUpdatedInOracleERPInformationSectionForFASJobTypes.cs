@@ -64,6 +64,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as Standard User profile and validate the user
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                    login.SwitchToClassicView();
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -110,6 +111,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
+                    login.SwitchToClassicView();
                     Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                     extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
@@ -118,7 +120,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0056868);
-                    extentReports.CreateLog("Conflict Check fields are updated ");
+                    extentReports.CreateLog("Conflict Check fields are updated By Admin");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
@@ -142,6 +144,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Login as CAO user to approve the Opportunity
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    login.SwitchToClassicView();
                     string caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " logged in ");
