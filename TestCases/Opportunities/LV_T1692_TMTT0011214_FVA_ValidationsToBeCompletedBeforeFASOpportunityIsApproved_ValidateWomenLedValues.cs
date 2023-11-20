@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_T1692_TMTT0011214_FVA_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues: BaseClass
     {
