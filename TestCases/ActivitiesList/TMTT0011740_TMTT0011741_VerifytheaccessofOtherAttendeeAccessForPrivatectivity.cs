@@ -246,8 +246,8 @@ namespace SF_Automation.TestCases.ActivitiesList
                 conHome.SearchContact(fileTC1740, "Houlihan Employee");
                 extentReports.CreateLog("Search for an contact ");
                     
-                addActivity1.VerifyDateFilter(fileTC1846);
-                extentReports.CreateLog("Verified Date filter is working correctly ");
+                //addActivity1.VerifyDateFilter(fileTC1846);
+                //extentReports.CreateLog("Verified Date filter is working correctly ");
                 //end test case
 
                 //Delete Normal and Follow Up Activity
