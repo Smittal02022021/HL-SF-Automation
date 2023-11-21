@@ -67,6 +67,7 @@ namespace SF_Automation.Pages.Common
         By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         By iconListViewPicker = By.XPath($"//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         private By _optionListView(string name)
         {
             return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -714,6 +715,11 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
             driver.FindElement(_optionListView(name)).Click();
             Thread.Sleep(10000);
+        }
+        public string GetLVMessagePopup()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
+            return driver.FindElement(msgLVPopup).Text;
         }
     }
 }

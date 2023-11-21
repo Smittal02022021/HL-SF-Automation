@@ -6785,6 +6785,25 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
                 return "False";
             }
         }
+
+        By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
+
+        //Verify Is DND On/Off button displayed
+        public bool IsButtonDNDOnOffDisplayed()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOFF, 20);
+                return driver.FindElement(btnDNDOnOFF).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public void ClickDNDOnOffButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOFF, 20);
+            driver.FindElement(btnDNDOnOFF).Click();
+        }
     }
     
 }
