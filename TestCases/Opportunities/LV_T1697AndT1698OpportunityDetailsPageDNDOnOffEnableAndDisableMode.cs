@@ -185,7 +185,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2));
                     login.SwitchToClassicView();
 
-                    string caoUser = login.ValidateUser();
+                    caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2)), true);
                     extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
 
