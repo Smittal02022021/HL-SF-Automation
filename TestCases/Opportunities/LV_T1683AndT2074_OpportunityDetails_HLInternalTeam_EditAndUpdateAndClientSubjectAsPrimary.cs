@@ -164,6 +164,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "User: "+valUser + " Logged out");
                     usersLogin.UserLogOut();
                     driver.Quit();
+                    extentReports.CreateStepLogs("Info", "Browser Closed");
                 }
             }catch(Exception e)
             {

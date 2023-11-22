@@ -252,6 +252,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
         }
     }

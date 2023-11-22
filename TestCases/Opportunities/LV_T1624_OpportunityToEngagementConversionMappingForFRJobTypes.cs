@@ -154,7 +154,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -192,7 +192,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
@@ -260,7 +260,8 @@ namespace SF_Automation.TestCases.Opportunities
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                driver.Quit();            
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

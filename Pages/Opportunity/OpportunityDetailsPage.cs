@@ -1,6 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -408,8 +406,8 @@ namespace SF_Automation.Pages
         By valAdditionalClient = By.CssSelector("div[id*='00Ni000000FmBzaj']");
         By valAdditionalSubject = By.CssSelector("div[id*='00Ni000000FmBzbj']");
         By valReferralType = By.CssSelector("div[id*='00Ni000000FF5uSj']");      
-By linkOpportunitySector = By.XPath("//*/span[contains(text(),'Opportunity Sectors')]");
-By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']");
+        By linkOpportunitySector = By.XPath("//*/span[contains(text(),'Opportunity Sectors')]");
+        By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']");
         By valBeneOwnerAndControlPersonForm = By.CssSelector("div[id*='00N5A00000HERR2j']");
         By valNonPublicInfo = By.CssSelector("div[id*='00Ni000000FaBznj']");
         By valLegalEntity = By.CssSelector("div[id*='CF00N5A00000M0eg5j'] a");
@@ -426,7 +424,7 @@ By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']"
         By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
         By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
         By txtStagePriority = By.CssSelector("select[id*='D80OA']");
-By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > th > a"); 
+        By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > th > a"); 
         By valERPContractType = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(4)"); 
         By valBillTo = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(8) > a");
         By valContractStartDate = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(9)");
@@ -566,7 +564,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-
+        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
@@ -5383,7 +5382,7 @@ public void ClickNewOpportunitySectorButton()
                 Thread.Sleep(3000);
                 driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
                 return driver.FindElement(txtAssociatedOppL).Text;
             }
@@ -6786,7 +6785,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             }
         }
 
-        By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
+        
 
         //Verify Is DND On/Off button displayed
         public bool IsButtonDNDOnOffDisplayed()
@@ -6803,6 +6802,24 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOFF, 20);
             driver.FindElement(btnDNDOnOFF).Click();
+        }
+
+     
+        public string GetOpportunityNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNameL, 20);
+            return driver.FindElement(txtOppNameL).Text;
+        }
+        public string ValidateOpportunityNameL(string name)
+        {
+            if (name.StartsWith("DND"))
+            {
+                return "Opportunity Name " + name + " is updated with DND - upon approval on DND Submission ";
+            }
+            else
+            {
+                return "Opportunity Name " + name + " is not updated with DND - upon approval on DND Submission ";
+            }
         }
     }
     

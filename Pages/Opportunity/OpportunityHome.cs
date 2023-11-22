@@ -587,6 +587,40 @@ namespace SF_Automation.Pages
                 return "No record found";
             }
         }
+        public string SearchOpportunitiesInLightningView(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 20);
+            driver.FindElement(btnOppNumL).Click();
+            Thread.Sleep(4000);
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 20);
+            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+                driver.FindElement(imgOppL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
+        }
+
+        public string UpdateOppAndSearchL(string oppName)
+        {
+            driver.FindElement(txtOppNumLCAO).Clear();
+            driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+                driver.FindElement(imgOppL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
+        }
     }
 }
 

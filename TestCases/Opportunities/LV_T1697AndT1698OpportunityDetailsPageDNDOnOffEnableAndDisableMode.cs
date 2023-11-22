@@ -1,14 +1,12 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode:BaseClass
     {
@@ -70,10 +68,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
-                    string appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");
+                    homePageLV.SelectApp(appNameExl);                    
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
@@ -115,19 +112,16 @@ namespace SalesForce_Project.TestCases.Opportunities
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
-                    appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Validate he DND On/Off buton 
                     bool isButtonDisplayed =opportunityDetails.IsButtonDNDOnOffDisplayed();
@@ -151,31 +145,32 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                     string userApproverDND = login.ValidateUser();
                     Assert.AreEqual(userApproverDND.Contains(userDNDApproverExl), true);
-                    extentReports.CreateLog("User: " + userApproverDND + " DND Approver User logged in ");
+                    extentReports.CreateStepLogs("Pass","User: " + userApproverDND + " DND Approver User logged in ");
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userApproverDND + " Switched to Lightning View ");
+                    extentReports.CreateStepLogs("Info", "User: " + userApproverDND + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
-                    appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, userApproverDND);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
-                    extentReports.CreateLog("Opportunity " + status + " ");
+                    extentReports.CreateStepLogs("Pass", "Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
+
+                    //Get OppName after DND approved
+                    string approvedOppName = opportunityDetails.GetOpportunityNameL();
+                    extentReports.CreateStepLogs("Pass", opportunityDetails.ValidateOpportunityNameL(approvedOppName));
 
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
@@ -187,33 +182,42 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                     caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2)), true);
-                    extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+                    extentReports.CreateStepLogs("Pass", "User: " + caoUser + " CAO User logged in ");
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
+                    extentReports.CreateStepLogs("Info", "User: " + caoUser + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
-                    appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                   string result= opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                    Assert.AreEqual("No record found", result);
+                    extentReports.CreateStepLogs("Pass", result + " with old opportunity name after DND Approval as expected");
 
+                    //Search for created opportunity
+                    string updatedOpp = opportunityHome.UpdateOppAndSearchL(approvedOppName);
+                    Assert.AreEqual("Record found", updatedOpp);
+                    extentReports.CreateStepLogs("Pass", updatedOpp + " with DND Opportunity Name: " + approvedOppName);
+
+                    login.SwitchToClassicView();
+                    usersLogin.UserLogOut();
+                    usersLogin.UserLogOut();
+                    driver.Quit();
+                    extentReports.CreateStepLogs("Info", "Browser Closed");
                 }
-
             }
                 catch(Exception e)
                 {
                     extentReports.CreateLog(e.Message);
+                    login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     driver.Quit();
                 }

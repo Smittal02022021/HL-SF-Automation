@@ -179,6 +179,7 @@ namespace SF_Automation.TestCases.Opportunities
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

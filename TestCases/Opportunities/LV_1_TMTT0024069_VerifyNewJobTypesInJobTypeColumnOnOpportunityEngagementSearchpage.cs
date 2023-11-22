@@ -93,7 +93,7 @@ namespace SF_Automation.TestCases.Opportunities
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

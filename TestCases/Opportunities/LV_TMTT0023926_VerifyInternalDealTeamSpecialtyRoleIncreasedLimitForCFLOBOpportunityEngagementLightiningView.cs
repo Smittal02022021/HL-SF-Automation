@@ -262,13 +262,14 @@ namespace SF_Automation.TestCases.Opportunities
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
 
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
                 login.SwitchToClassicView();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }
