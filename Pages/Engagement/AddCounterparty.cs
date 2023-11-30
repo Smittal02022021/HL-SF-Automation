@@ -174,7 +174,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditBids = By.XPath("//button[text()='Edit Bids']");
         By btnNewBidRound = By.XPath("//button[text()='New Bid Round']");
         By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
-        By tabAddedBid = By.XPath("//a[text()='Round First']");        
+        By tabAddedBid = By.XPath("//a[text()='Round Second']");        
         By txtMinBid = By.XPath("//input[@name='dt-inline-edit-currency']");
         By txtEquity = By.XPath("//input[@name='dt-inline-edit-number']");
         By txtBidDate = By.XPath("//input[@name='dt-inline-edit-dateLocal']");
@@ -185,8 +185,8 @@ namespace SF_Automation.Pages.Engagement
         By btnDebt= By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[5]/lightning-primitive-cell-factory/span/button");
         By btnDate = By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[6]/lightning-primitive-cell-factory/span/button");
         By btnComments = By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[7]/lightning-primitive-cell-factory/span/button");
-        By valMinBid = By.XPath("//td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
-        By valMaxBid = By.XPath("//td[3]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
+        By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
+        By valMaxBid = By.XPath("//tr[1]/td[3]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
 
         By btnSaveBid = By.XPath("//lightning-primitive-datatable-status-bar/div/div/button[2]");
         By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
@@ -1161,7 +1161,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);
             driver.FindElement(btnSelectNewRound).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div/div[2]/lightning-base-combobox-item[@data-value='First']")).Click();
+            driver.FindElement(By.XPath("//div/div[2]/lightning-base-combobox-item[@data-value='Second']")).Click();
             string tab = driver.FindElement(tabAddedBid).Text;
             //driver.Navigate().Refresh();
             return tab;           
@@ -1229,7 +1229,7 @@ namespace SF_Automation.Pages.Engagement
 
             //Save button
             driver.FindElement(btnSaveBid).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             string bid = driver.FindElement(valMinBid).Text;
             return bid.Substring(1,2);
         }

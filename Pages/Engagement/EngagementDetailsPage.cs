@@ -386,14 +386,14 @@ namespace SF_Automation.Pages.Engagement
         By txtEngNameBacklog = By.XPath("//div[2]/div/div/div/input");
         By btnSaveBacklog = By.XPath("//footer/button[2]/span");
         By msgEngNameBacklog = By.XPath("//section/div/div[2]/div/ul/li");
-        By valEngNameL = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valEngNameL = By.XPath("//span[text()='Engagement Name']/ancestor::record_flexipage-record-field/div[1]/div[1]/div[2]/span/slot[1]/lightning-formatted-text");
         By valEngNumL = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By btnAddClientL = By.XPath("//button[@name='Engagement__c.Add_Client_L']");
         By txtCompanies = By.XPath("//input[@placeholder='Search Companies...']");
         By valCompanyName = By.XPath("//tbody/tr[3]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
 		By btnAddSubjectL = By.XPath("//button[@name='Engagement__c.Add_Subject_L']");
         By valSubjectComp = By.XPath("//tbody/tr[4]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
-        By valSubjectType = By.XPath("//table/tbody/tr[4]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
+        By valSubjectType = By.XPath("//table/tbody/tr[3]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By valClientType = By.XPath("//table/tbody/tr[3]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
 		By btnAddOtherL = By.XPath("//button[@name='Engagement__c.Add_Other_Party_L']");
         By valOtherComp = By.XPath("//tbody/tr[5]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
@@ -5191,7 +5191,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 180);
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
             string id = driver.FindElement(valEngContact).Text;
             return id;
         }
@@ -5311,7 +5311,7 @@ namespace SF_Automation.Pages.Engagement
 			Thread.Sleep(5000);
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(4000);
+			Thread.Sleep(6000);
 			driver.FindElement(tabClientSub).Click();
 			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 			js.ExecuteScript("window.scrollTo(0,450)");

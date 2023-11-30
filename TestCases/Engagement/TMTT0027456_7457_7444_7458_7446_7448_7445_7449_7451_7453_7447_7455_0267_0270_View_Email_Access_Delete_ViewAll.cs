@@ -236,7 +236,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 string val2ndKPI = counterparty.GetNumberOf2ndKPI();
                 string initialContact = counterparty.GetTextOf2ndKPI();
-                Assert.AreEqual("0", val2ndKPI);
+                Assert.AreEqual("1", val2ndKPI);
                 Assert.AreEqual("Initial Contact", initialContact);
                 extentReports.CreateLog("KPI with name :" + initialContact + " is displayed with Count: " + val2ndKPI + " as per its value entered in the displayed Counterparties ");
 
@@ -261,7 +261,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TC11__Validate the Edit Bid functionality on the view counterparty
                 string tabBid = counterparty.ClickEditBidAndValidateNewTab();
-                Assert.AreEqual("Round First", tabBid);
+                Assert.AreEqual("Round Second", tabBid);
                 extentReports.CreateLog("Tab with name: " + tabBid+ " is displayed upon adding bid ");
 
                 //Add all bid details and validate it

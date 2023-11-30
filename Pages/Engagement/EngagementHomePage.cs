@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagEngagements = By.XPath("//div/ul/li[4]/div/a/span[2]/span");        
-        By lnkRecentlyViewed = By.XPath("//h2/span[2]");
+        By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By tblEngagements = By.XPath("//div[1]/div/div/table");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");

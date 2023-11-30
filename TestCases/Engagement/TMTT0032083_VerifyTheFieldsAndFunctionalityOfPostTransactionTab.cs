@@ -303,56 +303,56 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Complete this field.", msgMandatoryKeyCred);
                 extentReports.CreateLog("Error message " + msgMandatoryKeyCred + " is displayed when Save button is clicked without entering mandatory details for Key Creditors ");
 
-               //Needs to review ------//30. TMTI0075271_Verify that if the user removes the data from required fields while editing debt structure, the application gives an error message on the screen for required fields on clicking the "Save" button. 
-                string msgMandatoryDebt = summaryPage.ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructure();
+                //30. TMTI0075866_Verify that if the user removes the data from required fields while editing debt structure, the application gives an error message on the screen for required fields on clicking the "Save" button
+                string msgMandatoryDebt = summaryPage.ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructurePost();
                 Assert.AreEqual("Complete this field.", msgMandatoryDebt);
                 extentReports.CreateLog("Error message " + msgMandatoryDebt + " is displayed when mandatory fields are removed from Debt Strcuture ");
 
-                //31. TMTI0075274_Verify that clicking the "Delete" button of the Pre-Transaction Debt Structure record gives a confirmation message before deleting the record
-                string msgCancelDebt = summaryPage.ValidateCancelFunctionalityOfDebtStructure();
+                //31. TMTI0075868_Verify that clicking the "Delete" button of the Post-Transaction Debt Structure record gives a confirmation message before deleting the record
+                string msgCancelDebt = summaryPage.ValidateCancelFunctionalityOfDebtStructurePost();
                 Assert.AreEqual("Record is not deleted", msgCancelBoard);
                 extentReports.CreateLog("Debt Structure record is not deleted after clicking cancel on confirmation page ");
 
-                string msgDeleteDebt = summaryPage.ValidateDeleteFunctionalityOfDebtStructure();
+                string msgDeleteDebt = summaryPage.ValidateDeleteFunctionalityOfDebtStructurePost();
                 Assert.AreEqual("Record is deleted", msgDeleteDebt);
                 extentReports.CreateLog("Debt Structure record is deleted after clicking Ok on confirmation page ");
 
-                //32. TMTI0075287_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen
-                string msgPreReorg = summaryPage.SavePreOrganizedDetails();
-                Assert.AreEqual("Record saved", msgPreReorg);
-                extentReports.CreateLog("Message: " + msgPreReorg + " is displayed upon saving Pre Reorganization details ");
+                //32. TMTI0075870_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen.
+                string msgPostReorg = summaryPage.SavePostOrganizedDetails();
+                Assert.AreEqual("Record saved", msgPostReorg);
+                extentReports.CreateLog("Message: " + msgPostReorg + " is displayed upon saving Post Reorganization details ");
 
-                //33. TMTI0075291_Verify that Board Member and respective Company selected in the Pre-Transaction board member list are hyperlinked. 
+                //33. TMTI0075872_Verify that Board Member and respective Company selected in the Post-Transaction board member list are hyperlinked. 
                 string lnkBoardMember = summaryPage.ValidateBoardMemberIsDisplayedWithHyperlink();
                 Assert.AreEqual("_blank", lnkBoardMember);
-                extentReports.CreateLog("Board Member is hyperlinked in the Pre-Transaction Board Members section ");
+                extentReports.CreateLog("Board Member is hyperlinked in the Post-Transaction Board Members section ");
 
                 string lnkBoardCompany = summaryPage.ValidateBoardMemberCompanyIsDisplayedWithHyperlink();
                 Assert.AreEqual("_blank", lnkBoardCompany);
-                extentReports.CreateLog("Board Member company is hyperlinked in Pre-Transaction Board Members section ");
+                extentReports.CreateLog("Board Member company is hyperlinked in Post-Transaction Board Members section ");
 
-                //34. TMTI0075294_Verify that the Key Creditors selected in the Pre-Transaction Debt Structure list are hyperlinked
+                //34. TMTI0075874_Verify that the Key Creditors selected in the Post-Transaction Debt Structure list are hyperlinked
                 string lnkKeyCred = summaryPage.ValidateKeyCredIsDisplayedWithHyperlink();
                 Assert.AreEqual("_blank", lnkKeyCred);
-                extentReports.CreateLog("Added Key Creditor is hyperlinked in the Pre-Transaction Debt section ");
+                extentReports.CreateLog("Added Key Creditor is hyperlinked in the Post-Transaction Debt section ");
 
-                //35. TMTI0075296_Verify the Equity holder added under the pre-transaction tab on FR Engagement Summary is mapped to the Additional Clients Subjects section with the type Equity Holder and role as Pre-Transaction 
+                //35. TMTI0075876_Verify the Equity holder added under the post-transaction tab on FR Engagement Summary is mapped to the Additional Clients Subjects section with the type Equity Holder and role as Post-Transaction
                 string addedEquityInAdditional = summaryPage.ValidateAddedEquityHolderIsDisplayedInAdditionalClientSubject();
                 Assert.AreEqual("True", addedEquityInAdditional);
                 string addedEquityType = summaryPage.GetTypeOfAddedEquityHolderInAdditionalClientSubject();
                 Assert.AreEqual("Equity Holder", addedEquityType);
                 string addedEquityRole = summaryPage.GetRoleOfAddedEquityHolderInAdditionalClientSubject();
-                Assert.AreEqual("Pre-Transaction", addedEquityRole);
-                extentReports.CreateLog("Added Equity Holder in Pre-Transaction tab on FR Engagement Summary is mapped to the Additional Client Subject section with the type Equity Holder and role as Pre-Transaction. ");
+                Assert.AreEqual("Post-Transaction", addedEquityRole);
+                extentReports.CreateLog("Added Equity Holder in Post-Transaction tab on FR Engagement Summary is mapped to the Additional Client Subject section with the type Equity Holder and role as Post-Transaction. ");
 
-                //36. TMTI0075298_Verify the Board Members added under the pre-transaction tab on FR Engagement Summary are mapped to the Engagement Contacts section with the type External and role as Pre-Transaction 
+                //36. TMTI0075878_Verify the Board Members added under the post-transaction tab on FR Engagement Summary are mapped to the Engagement Contacts section with the type External and role as Post-Transaction.
                 string addedMember = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
                 Assert.AreEqual("Sonika Mathur", addedMember);
                 string addedMemberType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
                 Assert.AreEqual("External", addedMemberType);
-                string addedMemberRole = summaryPage.GetRoleOfAddedBoardMemberInAdditionalClientSubject();
-                Assert.AreEqual("Pre-Transaction Board Member", addedMemberRole);
-                extentReports.CreateLog("Added Board Member in Pre-Transaction tab on FR Engagement Summary is mapped to the Engagement Contacts section type as External and role as Pre-Transaction Board Member ");
+                string addedMemberRole = summaryPage.GetRoleOfAddedBoardMemberInAdditionalClientSubjectPost();
+                Assert.AreEqual("Post-Transaction Board Member", addedMemberRole);
+                extentReports.CreateLog("Added Board Member in Post-Transaction tab on FR Engagement Summary is mapped to the Engagement Contacts section type as External and role as Post-Transaction Board Member ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

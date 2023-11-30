@@ -357,7 +357,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtProgFee + " is displayed ");
 
                 string txtMinFee = form.GetLabelMinimumFee();
-                Assert.AreEqual("Engagement Letter Minimum Fee", txtMinFee);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)", txtMinFee);
                 extentReports.CreateLog("Field with name: " + txtMinFee + " is displayed ");
 
                 string txtTxnFee = form.GetLabelTxnFeeType();
