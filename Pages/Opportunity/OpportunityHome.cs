@@ -63,6 +63,7 @@ namespace SF_Automation.Pages
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
         By eleItem = By.XPath("//table/tbody//td[4]/span/span");
         By resultTable = By.XPath("//table/tbody//tr//th//a");
+        By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         private By _eleOppRecordType(string type)
         {
             return By.XPath($"//div[@class='changeRecordTypeRow']//span[text()='{type}']");
@@ -599,19 +600,37 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 20);
                 driver.FindElement(imgOppL).Click();
                 Thread.Sleep(8000);
                 return "Record found";
             }
             catch { return "No record found"; }
         }
-
-        public string UpdateOppAndSearchL(string oppName)
+        
+        public string UpdateOppAndSearchLV(string oppName)
         {
-            driver.FindElement(txtOppNumLCAO).Clear();
-            driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
-            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch{ }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 20);
+                //driver.FindElement(btnOppNumL).Clear();
+                driver.FindElement(btnOppNumL).Click();
+                driver.FindElement(txtOppNumLCAO).Clear();
+                driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
+                Thread.Sleep(6000);
+            }
+            catch 
+            {
+                driver.FindElement(txtOppNumLCAO).Clear();
+                driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
+                Thread.Sleep(6000);
+            }
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);

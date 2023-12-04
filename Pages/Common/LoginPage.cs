@@ -30,6 +30,7 @@ namespace SF_Automation.Pages
                 if (linkSwitchtoLightning.Displayed)
                 {
                     linkSwitchtoLightning.Click();
+                    Thread.Sleep(5000);
                 }
             }
             catch (Exception e)

@@ -734,6 +734,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatusFrom.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyStartDateGetsUpdatedIflinkedOpportunityHasOnEngagementDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0036859_VerifyTheFunctionalityOfDNDEngagementSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0027425_TMTT0027427_TMTT0027428_TMTT0027431_TMTT0027434_TMTT0027435_TMTT0030277_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
@@ -824,7 +825,7 @@
     <Compile Include="TestCases\Opportunities\ZObsoleted_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
-    <Compile Include="TestCases\TimeRecordManager\T2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045472_VerifyBetauserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.cs" />

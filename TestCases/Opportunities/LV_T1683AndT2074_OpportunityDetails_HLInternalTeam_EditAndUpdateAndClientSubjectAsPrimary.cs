@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Call fnction to remove the user and it's assigned roles
                     string msgSave = opportunityDetails.RemoveUserFromITTeamLV();
-                    Assert.AreEqual("Success: Staff Roles Updated.", msgSave);
+                    Assert.AreEqual("Success:Staff Roles Updated.", msgSave);
                     extentReports.CreateLog(msgSave + " is displayed upon removing and adding new user from HL Internal Team members ");
 
                     //Validate if user still exists in deal
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "User: "+valUser + " Logged out");
                     usersLogin.UserLogOut();
                     driver.Quit();
-                    extentReports.CreateStepLogs("Info", "Browser Closed");
+                    extentReports.CreateStepLogs("Pass", "Browser Closed");
                 }
             }catch(Exception e)
             {

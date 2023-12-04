@@ -31,9 +31,9 @@ namespace SF_Automation.Pages
         By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
         By lnkEngLightning = By.XPath("//search_dialog-instant-result-item[1]/div[1]/div[2]/div/lightning-formatted-rich-text/span");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
-        By btnOppNumL = By.XPath("//button[@aria-label='Search']");
-        By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
-        By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
+        By btnEngNumL = By.XPath("//button[@aria-label='Search']");
+        By txtEngNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
 
         By searchEngBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
@@ -279,13 +279,13 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);  
             
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
-            driver.FindElement(btnOppNumL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 250);
+            driver.FindElement(btnEngNumL).Click();
              Thread.Sleep(4000);           
-            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
-            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 100);
+            driver.FindElement(txtEngNumLCAO).SendKeys(value);
             Thread.Sleep(6000);
-            driver.FindElement(imgOppL).Click();
+            driver.FindElement(imgEngL).Click();
             Thread.Sleep(2000);
 
         }
@@ -552,6 +552,60 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementL, 180);
             driver.FindElement(tabEngagementL).Click();
             Thread.Sleep(3000);
+        }
+        //By txtEngNumL = By.XPath("//input[@placeholder='Search...']");
+        //By txtEngNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
+        //By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
+        public string SearchEngagementInLightningView(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
+            driver.FindElement(btnEngNumL).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 20);
+            driver.FindElement(txtEngNumLCAO).SendKeys(value);
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgEngL, 20);
+                driver.FindElement(imgEngL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
+        }
+        By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+        public string UpdateEngAndSearchLV(string oppName)
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
+                //driver.FindElement(btnEngNumL).Click();
+                driver.FindElement(txtEngNumLCAO).Clear();
+                driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
+                Thread.Sleep(6000);
+            }
+            catch
+            {
+                driver.FindElement(txtEngNumLCAO).Clear();
+                driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
+                Thread.Sleep(6000);
+            }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgEngL, 20);
+                driver.FindElement(imgEngL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
         }
     }
 }

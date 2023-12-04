@@ -198,12 +198,12 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                   string result= opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                    string result= opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     Assert.AreEqual("No record found", result);
                     extentReports.CreateStepLogs("Pass", result + " with old opportunity name after DND Approval as expected");
 
-                    //Search for created opportunity
-                    string updatedOpp = opportunityHome.UpdateOppAndSearchL(approvedOppName);
+                    //Search for DND Approved opportunity with new name
+                    string updatedOpp = opportunityHome.UpdateOppAndSearchLV(approvedOppName);
                     Assert.AreEqual("Record found", updatedOpp);
                     extentReports.CreateStepLogs("Pass", updatedOpp + " with DND Opportunity Name: " + approvedOppName);
 
@@ -211,7 +211,7 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.UserLogOut();
                     usersLogin.UserLogOut();
                     driver.Quit();
-                    extentReports.CreateStepLogs("Info", "Browser Closed");
+                    extentReports.CreateStepLogs("Pass", "Browser Closed");
                 }
             }
                 catch(Exception e)

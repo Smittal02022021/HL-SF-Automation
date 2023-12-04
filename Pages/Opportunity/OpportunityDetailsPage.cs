@@ -4,6 +4,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.PeerToPeer;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -485,6 +486,9 @@ namespace SF_Automation.Pages
         By btnMoreConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
         By btnConvertToEngL2 = By.XPath("//button[contains(text(),'Convert to Engagement')]");
 
+        By btnSharingL = By.XPath("//button[contains(text(),'Sharing')]");
+        By btnMoreSharingL = By.XPath("//span[contains(text(),'Sharing')]");
+
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
 
@@ -546,7 +550,8 @@ namespace SF_Automation.Pages
         By tabOppaddClientSubjectL = By.XPath("//article[@aria-label='Additional Clients/Subjects']//h2/a");
         By lnkAdditionalClientL = By.XPath("//article//table[@aria-label='Additional Clients/Subjects']//tr[1]//th[contains(@data-label,'Opportunity Client/Subject')]//a//span");
         By lnkAdditionalSubjectL = By.XPath("//article//table[@aria-label='Additional Clients/Subjects']//tr[2]//th[contains(@data-label,'Opportunity Client/Subject')]//a//span");
-        By chkboxPrimaryL = By.XPath("//div[contains(@data-target-selection-name,'Opportunity_Client_Subject__c.Primary__c')]//span[@part='input-checkbox']//span[@part='indicator']");
+        //By chkboxPrimaryL = By.XPath("//div[contains(@data-target-selection-name,'Opportunity_Client_Subject__c.Primary__c')]//span[@part='input-checkbox']//span[@part='indicator']");
+        By chkboxPrimaryL = By.XPath("//article//table[@aria-label='Additional Clients/Subjects']//tr[1]//td//lst-checkbox//span[@part='indicator']");
         By btnTabCloseOppClientSubjectL = By.XPath("//button[contains(@title,'Close')][contains(@title,'Opportunity Client/Subject')]");
         By tabOppInternalTeamL = By.XPath("//li/a[contains(@data-label,'Internal Team')]");
         By txtDealTeamMember = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody/tr[1]//td//div[contains(@id,'HLInternalTeam')]/label");
@@ -566,6 +571,14 @@ namespace SF_Automation.Pages
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
         By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
+        By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
+        By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
+        By tblSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody");
+        
+        By _sharingGroup(string text)
+        {
+            return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
+        }
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
@@ -6457,11 +6470,11 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         }
         public string GetPrimaryCheckboxOfClientCompanyLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkAdditionalClientL, 20);
-            driver.FindElement(lnkAdditionalClientL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkAdditionalClientL, 20);
+            //driver.FindElement(lnkAdditionalClientL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkboxPrimaryL, 20);
             bool Enabled = driver.FindElement(chkboxPrimaryL).Enabled;
-            driver.FindElement(btnTabCloseOppClientSubjectL).Click();
+            //driver.FindElement(btnTabCloseOppClientSubjectL).Click();
             if (Enabled)
             {
                 return "Checked";
@@ -6474,11 +6487,11 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
 
         public string GetPrimaryCheckboxOfSubjectCompanyLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkAdditionalSubjectL, 20);
-            driver.FindElement(lnkAdditionalSubjectL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkAdditionalSubjectL, 20);
+            //driver.FindElement(lnkAdditionalSubjectL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkboxPrimaryL, 20);
             bool Enabled = driver.FindElement(chkboxPrimaryL).Enabled;
-            driver.FindElement(btnTabCloseOppClientSubjectL).Click();
+            //driver.FindElement(btnTabCloseOppClientSubjectL).Click();
             if (Enabled)
             {
                 return "Checked";
@@ -6807,6 +6820,10 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
      
         public string GetOpportunityNameL()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            Thread.Sleep(2000);
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNameL, 20);
             return driver.FindElement(txtOppNameL).Text;
         }
@@ -6820,6 +6837,160 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             {
                 return "Opportunity Name " + name + " is not updated with DND - upon approval on DND Submission ";
             }
+        }
+
+        public bool IsButtonSharingDisplayedL()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSharingL, 10);
+                if (driver.FindElement(btnSharingL).Displayed)
+                {
+                    driver.FindElement(btnSharingL).Click();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                  
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreSharingL, 10);
+                if (driver.FindElement(btnMoreSharingL).Displayed)
+                {
+                    driver.FindElement(btnMoreSharingL).Click();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public void ClickButtonSharingL()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSharingL, 10);
+                driver.FindElement(btnSharingL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreSharingL, 10);
+                driver.FindElement(btnMoreSharingL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreSharingL, 30);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
+        }
+
+        
+
+        public bool IsSharingUserGroupDisplayedLV(string value)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;            
+            try
+            {
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnEditSharingGroup, 10);
+                    driver.FindElement(btnEditSharingGroup).Click();
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tblSharingGroup));
+                    WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                    return driver.FindElement(_sharingGroup(value)).Displayed;
+                }
+                catch
+                {
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tblSharingGroup));
+                    WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                    return driver.FindElement(_sharingGroup(value)).Displayed;
+
+                }
+            }
+            catch { return false; }
+        }
+
+        public void CloseSharingGroupPopupLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSharingGroup, 10);
+            driver.FindElement(btnCancelSharingGroup).Click();
+        }
+
+        
+        public string RemoveUserFromITTeamLV(string userName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(10000);
+            driver.SwitchTo().DefaultContent();
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            Thread.Sleep(5000);
+            By unCheckRole = By.XPath($"//input[contains(@name,':1:j_id44')][contains(@title,'{userName}')]");
+            //driver.FindElement(txtStaff).SendKeys(userName);
+            //Thread.Sleep(3000);
+            //CustomFunctions.SelectValueWithoutSelect(driver, listStaff, userName);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, unCheckRole, 20);
+            driver.FindElement(unCheckRole).Click();  
+            
+            driver.FindElement(btnSaveITTeam).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, msgHLIntTeam, 20);
+            string message = driver.FindElement(msgHLIntTeam).Text.Replace("\r\n", " ");
+
+            //Click to return back to Opportunity details
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
+            driver.FindElement(btnReturnToOpp).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
+            return message;
+        }
+
+        public bool IsSharingUserDisplayedLV(string value)
+        {
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                return driver.FindElement(_sharingGroup(value)).Displayed;
+            }
+
+            catch
+            {
+                string lower = value.ToLower();
+                string[] name = lower.Split(' ');
+                string newName = name[0] + "." + name[1];
+                By txtname = By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[contains(text(),'{newName}')]");
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtname, 10);
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtname));
+                    return driver.FindElement(txtname).Displayed;
+                    //js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtSharingUser));                  
+                    //return driver.FindElement(txtSharingUser).Displayed;                
+                }
+                catch { return false; }
+            }
+            
         }
     }
     

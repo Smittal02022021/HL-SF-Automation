@@ -115,7 +115,7 @@ namespace SF_Automation.Pages
         By btnCancel = By.CssSelector("td[class='pbButton'] > input[value='Cancel']");
         By selectedLOBvalue = By.CssSelector("select[id='00Ni000000D8hW2']");       
         By comboLegalAdvisor = By.CssSelector("select[id*='00N5A00000M4yQB']");
-By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
+        By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By comboSuccessProb = By.CssSelector("select[id*='00N5A00000M4yXq']");
         By txtEstTranscSize = By.CssSelector("input[id*='00Ni000000D80P4']");
         By txtRetainerFee = By.CssSelector("input[id*='00Ni000000DwTdF']");
@@ -126,6 +126,15 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By chkboxNBC = By.CssSelector("input[id*='00Ni000000FmBzh']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
         By txtEstFee = By.XPath("//input[@name='Fee__c']");
+        By checkSeller1 = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[3]/input");
+        By checkPrincipal = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[4]/input");
+        By checkManager = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[5]/input");
+        By checkAssociate = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[6]/input");
+        By checkAnalyst = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[7]/input");
+        By checkSpecialty = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[8]/input");
+        By checkIntern = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[11]/input");
+        By msgHLIntTeam = By.CssSelector("div[id*='pgfrmId:internalTeam:j']");
+        By frameInternalTeamTab = By.XPath("//iframe[@title='accessibility title']");
 
 
         public string AddOpportunities(string type,string file)
@@ -891,12 +900,10 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         public string EnterStaffDetailsL(string file)
         {
             Thread.Sleep(10000);
-            ReadJSONData.Generate("Admin_Data.json");
-            Console.WriteLine("Entered staff function");
+            ReadJSONData.Generate("Admin_Data.json");            
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
-            Console.WriteLine("Before entering Staff");           
+            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);                       
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
             Thread.Sleep(7000); 
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
@@ -916,8 +923,81 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }
+        
+        public string EnterMembersToDealTeamL(string file)
+        {
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, frameInternalTeamTab, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamTab));
+            Thread.Sleep(2000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "InternalTeams");
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));;
+            Thread.Sleep(5000);
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "InternalTeams", row, 1);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 10);
+                driver.FindElement(txtStaff).SendKeys(valStaff);
+                Thread.Sleep(5000);
 
-// Clear mandatory values on add opprtunity page
+                By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
+                CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
+                Thread.Sleep(2000);
+
+                switch (row)
+                {
+                    case 2:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller1 , 20);
+                        driver.FindElement(checkSeller1).Click();
+                        break;                    
+                    case 3:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 20);
+                        driver.FindElement(checkPrincipal).Click();
+                        break;
+                    case 4:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 20);
+                        driver.FindElement(checkManager).Click();
+                        break;
+                    case 5:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 20);
+                        driver.FindElement(checkAssociate).Click();
+                        break;
+                    case 6:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 20);
+                        driver.FindElement(checkAnalyst).Click();
+                        break;
+                   // case 7:
+                   //     WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 240);
+                   ///    driver.FindElement(checkIntern).Click();
+                   //     break;
+                }
+                driver.FindElement(btnSaveDealTeam).Click();
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, msgHLIntTeam, 90);
+                WebDriverWaits.WaitForPageToLoad(driver, 20);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 20);
+            string name = driver.FindElement(tabInfo).Text;
+            return name;
+        }
+
+
+        // Clear mandatory values on add opprtunity page
         public void ClearMandatoryValuesOnAddOpportunity()
         {
             driver.FindElement(txtOpportunityName).Clear();

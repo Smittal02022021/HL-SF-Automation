@@ -6417,6 +6417,108 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             return dealTeamCount;
         }
+        By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
+        By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
+        By tblSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody");
+        By txtSharingUser = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[contains(text(),'james.craven')]");
 
+        By _sharingGroup(string text)
+        {
+            return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
+        }
+
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnSharingL = By.XPath("//button[contains(text(),'Sharing')]");
+        By btnMoreSharingL = By.XPath("//span[contains(text(),'Sharing')]");
+        public bool IsButtonSharingDisplayedL()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSharingL, 10);
+                if (driver.FindElement(btnSharingL).Displayed)
+                {
+                    driver.FindElement(btnSharingL).Click();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreSharingL, 10);
+                if (driver.FindElement(btnMoreSharingL).Displayed)
+                {
+                    driver.FindElement(btnMoreSharingL).Click();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public bool IsSharingUserGroupDisplayedLV(string value)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            try
+            {
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnEditSharingGroup, 10);
+                    driver.FindElement(btnEditSharingGroup).Click();
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tblSharingGroup));
+                    WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                    return driver.FindElement(_sharingGroup(value)).Displayed;
+                }
+                catch
+                {
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tblSharingGroup));
+                    WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                    return driver.FindElement(_sharingGroup(value)).Displayed;
+
+                }
+            }
+            catch { return false; }
+        }
+
+        public void CloseSharingGroupPopupLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSharingGroup, 10);
+            driver.FindElement(btnCancelSharingGroup).Click();
+        }
+
+        public bool IsSharingUserDisplayedLV(string value)
+        {
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tblSharingGroup, 10);
+                return driver.FindElement(_sharingGroup(value)).Displayed;
+            }
+
+            catch
+            {
+                string lower = value.ToLower();
+                string[] name = lower.Split(' ');
+                string newName = name[0] + "." + name[1];
+                By txtname = By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[contains(text(),'{newName}')]");
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtname, 10);
+                    js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtname));
+                    return driver.FindElement(txtname).Displayed;                
+                }
+                catch { return false; }
+            }
+
+        }
     }
 }
