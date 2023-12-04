@@ -7,10 +7,8 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Security.Cryptography;
-using AventStack.ExtentReports.Gherkin.Model;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0036859_VerifyTheFunctionalityOfDNDEngagementSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView:BaseClass
     {
