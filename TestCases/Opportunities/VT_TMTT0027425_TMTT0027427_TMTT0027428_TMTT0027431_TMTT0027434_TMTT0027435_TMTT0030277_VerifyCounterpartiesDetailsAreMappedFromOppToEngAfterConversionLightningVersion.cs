@@ -11,7 +11,7 @@ using System.Diagnostics;
 using OpenQA.Selenium;
 using AventStack.ExtentReports;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class VT_TMTT0027425_TMTT0027427_TMTT0027428_TMTT0027431_TMTT0027434_TMTT0027435_TMTT0030277_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion : BaseClass
     {
