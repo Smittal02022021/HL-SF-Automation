@@ -69,13 +69,13 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
 
         //Selecting the Rate Sheet initials
-        public void SelectSheetIntials(String initialValue)
+        public void SelectSheetIntials(string initialValue)
         {
             Thread.Sleep(4000);
             IList<IWebElement> initials = driver.FindElements(sheetInitials);
             for (int i = 0; i <= initials.Count; i++)
             {
-                String initialsValue = initials[i].Text;
+                string initialsValue = initials[i].Text;
                 if (initialsValue.Equals(initialValue))
                 {
                     initials[i].Click();
@@ -93,7 +93,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             IList<IWebElement> rateSheets = driver.FindElements(rateSheetList);
             for (int i = 0; i <= rateSheets.Count; i++)
             {
-                String rateSheetValue = rateSheets[i].Text;
+                string rateSheetValue = rateSheets[i].Text;
                 if (rateSheetValue.Equals(rateSheetname))
                 {
                     rateSheets[i].Click();
@@ -103,14 +103,14 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
 
         //Get the Title and its respectice Rate on selected Rate sheet
-        public bool IsRateAsPerTitle(String title, String rate)
+        public bool IsRateAsPerTitle(string title, string rate)
         {
             IList<IWebElement> titles = driver.FindElements(titleOnSheetDetail);
             IList<IWebElement> rates = driver.FindElements(rateOnSheetDetail);
             bool IsRateAsPerTitleAvailable = false;
             for (int titleTableRow = 2; titleTableRow <= titles.Count; titleTableRow++)
             {
-                String titleValue = titles[titleTableRow].Text;
+                string titleValue = titles[titleTableRow].Text;
                 if (titleValue.Equals(title))
                 {
                     string rateValue = rates[titleTableRow].Text;

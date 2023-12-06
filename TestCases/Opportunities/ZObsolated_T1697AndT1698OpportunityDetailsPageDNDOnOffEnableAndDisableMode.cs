@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode : BaseClass
+    class ZObsolated_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

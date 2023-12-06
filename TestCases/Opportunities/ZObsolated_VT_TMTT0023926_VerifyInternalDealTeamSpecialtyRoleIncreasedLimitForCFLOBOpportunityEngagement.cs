@@ -10,7 +10,7 @@ using System;
 namespace SF_Automation.TestCases.Opportunity
 
 {
-    class VT_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement : BaseClass
+    class ZObsolated_VT_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

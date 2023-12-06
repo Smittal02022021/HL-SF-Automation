@@ -5130,7 +5130,7 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnSaveDetailsL).Click();
         }
         
-        public void ClickRetutnToOpportunityLV()
+        public void ClickReturnToOpportunityLV()
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
@@ -6839,7 +6839,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             }
         }
 
-        public bool IsButtonSharingDisplayedL()
+        public bool IsButtonSharingDisplayedLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");

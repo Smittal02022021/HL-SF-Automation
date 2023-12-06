@@ -140,7 +140,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0054719);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityLV();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();

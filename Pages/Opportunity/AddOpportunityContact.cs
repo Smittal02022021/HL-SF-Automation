@@ -46,7 +46,9 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");        
         By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
-        
+
+        By btnAddOppContactL = By.XPath("//button[contains(@name,'Opportunity_Contact')]");
+
         //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
@@ -107,6 +109,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContactL, 20);
             driver.FindElement(btnAddCFContactL).Click();
         }
+
         public void CreateContactL2(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -297,6 +300,12 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddFRContactL, 20);
             driver.FindElement(btnAddFRContactL).Click();
+        }
+
+        public void CickAddOpportunityContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContactL, 20);
+            driver.FindElement(btnAddOppContactL).Click();
         }
     }
 }
