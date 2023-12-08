@@ -124,11 +124,11 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Validate he DND On/Off buton 
-                    bool isButtonDisplayed =opportunityDetails.IsButtonDNDOnOffDisplayed();
+                    bool isButtonDisplayed =opportunityDetails.IsButtonDNDOnOffDisplayedLV();
                     Assert.IsTrue(isButtonDisplayed);
                     extentReports.CreateStepLogs("Pass", "DND On/Off button is displayed for user:  with number : " + caoUser );
 
-                    opportunityDetails.ClickDNDOnOffButtonL();
+                    opportunityDetails.ClickDNDOnOffButtonLV();
                     extentReports.CreateStepLogs("Info", "User: " + caoUser + "Clicked on DND On/Off Button ");
 
                     string txtMessage= randomPages.GetLVMessagePopup();

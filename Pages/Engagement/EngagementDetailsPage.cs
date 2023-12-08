@@ -6464,7 +6464,7 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
         }
-        public bool IsSharingUserGroupDisplayedLV(string value)
+        public bool IsSharingGroupDisplayedLV(string value)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             try
