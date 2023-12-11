@@ -91,11 +91,14 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickActivityDetailPageButton(string btnName)
         {
+            //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            //jse.ExecuteScript("arguments[0].scrollIntoView();", _btnActivityDetailPage(btnName));
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityDetailPage(btnName)));
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver,_btnActivityDetailPage(btnName), 20);
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityDetailPage(btnName), 20);
+            driver.FindElement(_btnActivityDetailPage(btnName)).Click();
         }
+
         public bool IsActivityListDisplayed()
         {
             try

@@ -63,7 +63,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
 
                 //Login user
-                usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047480, valUser);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
 
                 string stdUser = login.ValidateUser();

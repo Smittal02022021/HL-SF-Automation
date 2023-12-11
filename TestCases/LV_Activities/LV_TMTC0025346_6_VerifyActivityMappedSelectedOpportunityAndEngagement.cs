@@ -15,6 +15,7 @@ namespace SF_Automation.TestCases.LV_Activities
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
+        HomeMainPage homePage = new HomeMainPage();
         LVHomePage homePageLV = new LVHomePage();
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
         LVCompaniesActivityDetailPage lvCompaniesActivityDetailPage = new LVCompaniesActivityDetailPage();
@@ -63,7 +64,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
 
                 //Login user
-                usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047486, valUser);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
 
                 string stdUser = login.ValidateUser();

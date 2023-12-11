@@ -14,6 +14,7 @@ namespace SF_Automation.TestCases.LV_Activities
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
+        HomeMainPage homePage = new HomeMainPage();
         LVHomePage homePageLV = new LVHomePage();
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
         LVCompaniesActivityDetailPage lvCompaniesActivityDetailPage = new LVCompaniesActivityDetailPage();
@@ -56,7 +57,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
 
                 //Login user
-                usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
 
                 string cfFinancialUser = login.ValidateUser();
@@ -116,8 +118,10 @@ namespace SF_Automation.TestCases.LV_Activities
                 string nonActivityUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
                 //Search CF Financial User Non-Activity user by global search                
                 extentReports.CreateStepLogs("Info", "User " + nonActivityUser + " details are displayed. ");
+
                 //Login user
-                usersLogin.SearchUserAndLogin(nonActivityUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047476, nonActivityUser);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
 
                 cfFinancialUser = login.ValidateUser();
@@ -176,7 +180,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
 
                 //Login user
-                usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser);
+                usersLogin.LoginAsSelectedUser();;
                 login.SwitchToClassicView();
 
                 string CFFinancialUser = login.ValidateUser();
