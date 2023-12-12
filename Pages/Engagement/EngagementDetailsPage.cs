@@ -35,6 +35,7 @@ namespace SF_Automation.Pages.Engagement
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
         By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
         By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
+        By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
         By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
@@ -393,7 +394,7 @@ namespace SF_Automation.Pages.Engagement
         By valCompanyName = By.XPath("//tbody/tr[3]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
 		By btnAddSubjectL = By.XPath("//button[@name='Engagement__c.Add_Subject_L']");
         By valSubjectComp = By.XPath("//tbody/tr[4]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
-        By valSubjectType = By.XPath("//table/tbody/tr[3]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
+        By valSubjectType = By.XPath("//table/tbody/tr[4]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By valClientType = By.XPath("//table/tbody/tr[3]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
 		By btnAddOtherL = By.XPath("//button[@name='Engagement__c.Add_Other_Party_L']");
         By valOtherComp = By.XPath("//tbody/tr[5]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
@@ -2460,6 +2461,15 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabPostTransL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabPostTransL, 90);
             string title = driver.FindElement(tabPostTransL).Text;
+            return title;
+        }
+
+        public string ValidateHLPostTransOppTabL()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(tabHLPostTransL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabHLPostTransL, 90);
+            string title = driver.FindElement(tabHLPostTransL).Text;
             return title;
         }
 
@@ -5043,7 +5053,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtDateSigned, 150);
             driver.FindElement(txtDateSigned).SendKeys("4/11/2023");
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valDateSigned).Text;
             return value;
         }

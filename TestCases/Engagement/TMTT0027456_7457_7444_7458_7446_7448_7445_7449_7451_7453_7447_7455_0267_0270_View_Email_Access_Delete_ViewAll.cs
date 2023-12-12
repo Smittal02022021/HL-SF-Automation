@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate Milestone dropdown and its values
                 string lblMilestone = counterparty.ValidateMilestoneDropdown();
                 Assert.AreEqual("Milestone", lblMilestone);
-                extentReports.CreateLog("Fild with name : " + lblMilestone + " is displayed ");
+                extentReports.CreateLog("File with name : " + lblMilestone + " is displayed ");
 
                 Assert.IsTrue(counterparty.ValidateMilestoneValues(), "Verified that displayed Milestone values are same");
                 extentReports.CreateLog("Displayed Milestone values are correct ");

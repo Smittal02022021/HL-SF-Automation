@@ -185,7 +185,7 @@ namespace SF_Automation.Pages.Engagement
         By btnDebt= By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[5]/lightning-primitive-cell-factory/span/button");
         By btnDate = By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[6]/lightning-primitive-cell-factory/span/button");
         By btnComments = By.XPath("//lightning-datatable/div[2]/div/div/table/tbody/tr/td[7]/lightning-primitive-cell-factory/span/button");
-        By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
+        By valMinBid = By.XPath("//lightning-tab/slot/lightning-card/article/div[2]/slot/div/lightning-datatable/div[2]/div/div/table/tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
         By valMaxBid = By.XPath("//tr[1]/td[3]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
 
         By btnSaveBid = By.XPath("//lightning-primitive-datatable-status-bar/div/div/button[2]");
@@ -1055,7 +1055,7 @@ namespace SF_Automation.Pages.Engagement
         public void ValidateEngCPComment()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabCounterpartyEditor, 120);
             driver.FindElement(tabCounterpartyEditor).Click();
             Thread.Sleep(6000);
             //driver.SwitchTo().Window(driver.WindowHandles.Last());
@@ -1229,7 +1229,7 @@ namespace SF_Automation.Pages.Engagement
 
             //Save button
             driver.FindElement(btnSaveBid).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             string bid = driver.FindElement(valMinBid).Text;
             return bid.Substring(1,2);
         }

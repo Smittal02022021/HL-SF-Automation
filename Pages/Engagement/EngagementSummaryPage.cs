@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Data;
+using System.Transactions;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -49,6 +50,15 @@ namespace SF_Automation.Pages.Engagement
         By lblPostRestr = By.XPath("//label[text()='Post-Restructuring Total Debt (MM)']");
         By lblPostRestrComp = By.XPath("//label[text()='Net Debt of the Restructured Company (MM)']");
         By lblClosingStockL = By.XPath("//label[text()='Closing Stock Price (first full closing day post-restructuring)']");
+        By lblPostTransOppL = By.XPath("//div[text()='Post-Transaction Opportunities']");
+        By lblPostTransOppValuesL = By.XPath("//span[text()='Available']/ancestor::div[1]/div/ul/li/div/span/span");
+        By lblPostTransOppNotesL = By.XPath("//label[text()='Post-Transaction Opportunity Notes']");
+        By lblPostTransStaffRolesL = By.XPath("//span[text()='Post-Transaction Staff Roles']");
+        By lblPostTransKeyExtContactL = By.XPath("//span[text()='Post-Transaction Key External Contact']");
+        By lblPostTransStaffRolesHeaders = By.XPath("//span[text()='Post-Transaction Staff Roles']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
+        By lblPostTransKeyContacts = By.XPath("//span[text()='Post-Transaction Key External Contact']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
+
+
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
@@ -195,6 +205,14 @@ namespace SF_Automation.Pages.Engagement
         By comboContactL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span/span");
         By txtLoanAmountL = By.XPath("//input[@name='Loan_Amount__c']");
 
+        By btnAddStaffRoleL = By.XPath("//button[text()='Add Staff Role']");
+        By lblContactL = By.XPath("//label[text()='Contact (Internal)']");
+        By lblRole = By.XPath("//label[text()='Role']");
+        By msgContactL = By.XPath("//label[text()='Contact (Internal)']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgRoleL = By.XPath("//label[text()='Role']/ancestor::lightning-combobox/div/div[2]");
+
+
+
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valCompDesc = By.XPath("//label[text()='Company Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -244,7 +262,15 @@ namespace SF_Automation.Pages.Engagement
         By comboSecType = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id32']>option");
         By comboDebtCurrency = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id72']>option");
         By comboDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
-        
+
+        By valAvailableL = By.XPath("//span[@title='M&A - Buyside']");
+        By btnChosenL = By.XPath("//button[@title='Move selection to Chosen']");
+        By btnAvailableL = By.XPath("//button[@title='Move selection to Available']");
+        By btnSaveHLPost = By.XPath("//c-engagement-fr-summary-post-tran-opp/div/lightning-button/button");
+        By valChosenL = By.XPath("//span[text()='Chosen']/ancestor::div[1]/div[1]/ul/li/div/span");
+        By txtOppNoteL = By.XPath("//textarea[@name='Post_Transaction_Opportunity_Notes__c']");
+        By msgSuccessHLPost = By.XPath("//div/span[text()='Record saved']");
+
         By btnWinClose = By.CssSelector("button[title='Close']");
         By lblPreTransDebtSec = By.CssSelector("div[id*='id162'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By headerPreTransDebt = By.CssSelector("table[id*=':preTransactionDebtStructures']>thead>tr>th>div");
@@ -3355,8 +3381,128 @@ namespace SF_Automation.Pages.Engagement
             }
             return isTrue;
         }
-        
 
+        //Validate Post Transaction Opportunities label
+        public string ValidateLabelPostTransOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppL, 120);
+            string value = driver.FindElement(lblPostTransOppL).Text;
+            return value;
+        }
+
+
+        //Validate HL Post Transaction Opportunities Values 
+        public bool VerifyHLPostTransactionOppValuesL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransOppValuesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "M&A - Buyside", "M&A - Sellside", "Restructuring", "Valuation", "Financing", "Fairness/Solvency"};
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+
+        //Validate headers of Post Transaction Staff Roles table
+        public bool VerifyPostTransactionStaffRolesHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransStaffRolesHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Name", "Relationship"};
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate headers of Post-Transaction Key External Contact
+
+        public bool VerifyPostTransactionKeyContactL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransKeyContacts);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Name", "Relationship" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Post Transaction Opportunities Notes
+        public string ValidateLabelPostTransOppNotes()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppNotesL, 120);
+            string value = driver.FindElement(lblPostTransOppNotesL).Text;
+            return value;
+        }
+
+        //Validate Post Transaction Staff Roles
+        public string ValidateLabelPostTransStaffRoles()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransStaffRolesL, 120);
+            string value = driver.FindElement(lblPostTransStaffRolesL).Text;
+            return value;
+        }
+
+        //Validate Post-Transaction Key External Contact
+        public string ValidateLabelPostTransKeyExternalContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransKeyExtContactL, 120);
+            string value = driver.FindElement(lblPostTransKeyExtContactL).Text;
+            return value;
+        }
+       
+        //Validate Contact internal field on Add Staff role
+        public string ValidateContactField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactL, 120);
+            string value= driver.FindElement(lblContactL).Text;
+            return value;
+        }
+
+        //Validate Role Field
+        public string ValidateRoleField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblRole, 120);
+            string value = driver.FindElement(lblRole).Text;
+            return value;
+        }
 
         //Validate Post Transaction Grid Headers 
         public bool VerifyPostTransactionGridL()
@@ -3477,6 +3623,35 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfHLPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppL, 120);
+            string name = driver.FindElement(lblPostTransOppL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateSaveFunctionalityOfHLPostTransOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAvailableL, 120);
+            driver.FindElement(valAvailableL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnChosenL, 120);
+            driver.FindElement(btnChosenL).Click();
+            driver.FindElement(btnSaveHLPost).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valChosenL, 120);
+            driver.FindElement(valChosenL).Click();            
+            string value= driver.FindElement(valChosenL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAvailableL, 120);
+            driver.FindElement(btnAvailableL).Click();
+            driver.FindElement(btnSaveHLPost).Click();
+            return value;
+        }        
+
+
         //Validate save functionality of Add Equity Holder Page
         public string ValidateSaveFunctionalityOfAddEquityHolder()
         {
@@ -3510,7 +3685,24 @@ namespace SF_Automation.Pages.Engagement
             string row = driver.FindElement(rowAddEquityHolderPostL).Displayed.ToString();
             return row;
         }
-        
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfPostTransOppNotes()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-400)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNoteL, 120);
+            driver.FindElement(txtOppNoteL).Clear();
+            driver.FindElement(txtOppNoteL).SendKeys("Testing");            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveHLPost, 120);
+            driver.FindElement(btnSaveHLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessHLPost, 100);
+            string message =driver.FindElement(msgSuccessHLPost).Text;
+            return message;
+
+        }
+
 
         //Validate when same client is added in Add Equity Holder Page
         public string ValidateIfSameClientIsSelectedInAddEquityHolder()
@@ -3893,12 +4085,29 @@ namespace SF_Automation.Pages.Engagement
         //Validate the error message for Financing type
         public string ValidateErrorMessageForClientSubject()
         {
-            Thread.Sleep(6000);
+            driver.FindElement(btnSaveAddHL).Click();            
             WebDriverWaits.WaitUntilEleVisible(driver, msgClientSubL, 130);
             string name = driver.FindElement(msgClientSubL).Text;
             return name;
         }
 
+        //Validate the error message for Contact
+        public string ValidateErrorMessageForContactInt()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactL, 130);
+            string name = driver.FindElement(msgContactL).Text;
+            return name;
+        }
+
+        //Validate the error message for Role
+        public string ValidateErrorMessageForRole()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgRoleL, 130);
+            string name = driver.FindElement(msgRoleL).Text;
+            return name;
+        }
         //Validate Cancel functionality of Add Equity Holder Page
         public string ValidateCancelFunctionalityOfEquityHolder()
         {
