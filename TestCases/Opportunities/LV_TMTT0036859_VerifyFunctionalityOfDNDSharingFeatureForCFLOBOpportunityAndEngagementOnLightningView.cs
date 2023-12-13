@@ -24,7 +24,7 @@ namespace SF_Automation.TestCases.Opportunities
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTMTT0036859 = "TMTT0036859_VerifyTheFunctionalityOfDNDSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView";
+        public static string fileTMTT0036859 = "LV_TMTT0036859_VerifyTheFunctionalityOfDNDSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView";
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {

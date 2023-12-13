@@ -174,29 +174,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
                     
-                }
-                //if (valJobType == "TAS - ESG Due Diligence & Analytics")
-                //{                 
-                //    //AddMultiple Staff for Specific Role
-                //    memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
-                //    exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
-                //    extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
-
-                //    countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTC1432);
-                //    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
-                //    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
-
-                //    msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
-                //    exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 1);
-                //    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
-                //    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
-
-                //    //get the line error message from internal staff page.
-                //    txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
-                //    maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
-                //    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
-                //    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");                 
-                //}
+                }                
                 //////////////////////////////////////////////////
 
                 //Logout of user and validate Admin login

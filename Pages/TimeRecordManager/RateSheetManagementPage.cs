@@ -79,6 +79,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 if (initialsValue.Equals(initialValue))
                 {
                     initials[i].Click();
+                    Thread.Sleep(2000);
                     WebDriverWaits.WaitUntilEleVisible(driver, rateSheetList);
                     break;
                 }
@@ -97,6 +98,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 if (rateSheetValue.Equals(rateSheetname))
                 {
                     rateSheets[i].Click();
+                    Thread.Sleep(2000);
                     break;
                 }
             }

@@ -219,12 +219,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Validate the value of Record Type in Engagement details page
                     engagementDetails.NavigateToAdministratorTabL();
-                    string engRecordType = engagementDetails.GetRecordTypeL();
+                    string engRecordType = engagementDetails.GetRecordTypeLV();
                     Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2), engRecordType);
                     extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
                     //Validate the value of HL Entity in Engagement details pages
-                    string engHLEntity = engagementDetails.GetHLEntityL();
+                    string engHLEntity = engagementDetails.GetLegalEntityLV();
                     extentReports.CreateLog("Engagement HL Entity: " + engHLEntity);
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 3), engHLEntity);
                     extentReports.CreateLog("Value of HL Entity is : " + engHLEntity + " ");

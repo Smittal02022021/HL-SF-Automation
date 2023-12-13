@@ -49,14 +49,14 @@ namespace SF_Automation.Pages
 
         //Lightning
         By txtOpportunityNameL = By.XPath("//input[@name= 'Name']");
-        By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input");//label[text()='Client']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
-        By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox//input");//label[text()='Subject']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
+        By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input");
+        By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox//input");
         By btnJobTypeL = By.XPath("//button[@aria-label='Job Type, --None--']");
         By btnIGL = By.XPath("//button[@aria-label='Industry Group, --None--']");
         By comboSectorL = By.XPath("//button[@aria-label='Sector, --None--']");
         By comboPrimaryOfficeL = By.XPath("//button[@aria-label='Primary Office, --None--']");
         By txtLegalEntitiesL = By.XPath("//input[@placeholder='Search Legal Entities...']");
-        By comboRefTypeL = By.XPath("//button[@aria-label='Referral Type, --None--']");
+        By comboRefTypeL = By.XPath("//button[contains(@aria-label,'Referral Type')]");
         By comboAddClientL = By.XPath("//button[@aria-label='Additional Client, --None--']");
         By comboAddSubjectL = By.XPath("//button[@aria-label='Additional Subject, --None--']");
         By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
@@ -1396,12 +1396,23 @@ namespace SF_Automation.Pages
             //Select Referral Type //Need to move in UpdteReq function  
             string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
+            Thread.Sleep(2000);
             if (valRecordType == "CF" || valRecordType == "FVA")
             {
                 driver.FindElement(comboRefTypeL).Click();
                 By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
-                WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 80);
-                CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+                }
+                catch
+                {
+                    driver.FindElement(comboRefTypeL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+                }
+                
                 driver.FindElement(eleReferralType).Click();
             }
             
