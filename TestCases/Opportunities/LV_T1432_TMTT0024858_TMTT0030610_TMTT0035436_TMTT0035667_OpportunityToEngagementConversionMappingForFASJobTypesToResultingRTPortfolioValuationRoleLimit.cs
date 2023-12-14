@@ -7,9 +7,8 @@ using SF_Automation.UtilityFunctions;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using System;
-using AventStack.ExtentReports;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFVAJobTypesToResultingRTPortfolioValuationRoleLimit: BaseClass
     {
@@ -21,12 +20,14 @@ namespace SalesForce_Project.TestCases.Opportunities
          TMTI0056884 Verify the Record Type conversion of Opportunity to Engagement
          TMTI0028220	Verify the availability of new Job Types in Job Type Picklist while adding new Opportunity
          TMTI0028213	Verify user is able to create new Opportunity with new  Type 
-
+        
+        //TMTT0030610 done
          TMTI0071643 Verify the availability of new Job Type- CVAS - IP Valuation in Job Type Picklist while adding new FVA Opportunity
          TMTI0071652 Verify the availability of Job Types for converted engagement on the Engagement page 
          TMTI0071653 Verify that the user is able to create new Opportunity with new  Job Type - CVAS - IP Valuation
          TMTI0071656 Verify the Record Type conversion of Opportunity to Engagement
-
+        
+        //TMTT0035436 done
         TMTI0084227	Verify the availability of new Job Type- TAS - ESG Due Diligence & Analytics in Job Type Picklist while adding new FVA Opportunity
         TMTI0084215	Verify the availability of Job Types for converted engagement on the Engagement page
         TMTI0084219	Verify user is able to create new Opportunity with new  Job Type -TAS - ESG Due Diligence & Analytics        

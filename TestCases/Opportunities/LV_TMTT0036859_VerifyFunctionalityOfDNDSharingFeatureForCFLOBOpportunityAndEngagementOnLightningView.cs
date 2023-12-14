@@ -592,7 +592,7 @@ namespace SF_Automation.TestCases.Opportunities
 
 
                     //Verify Admin user can search the DND opp with DND-name only and check the Sharing button
-                    extentReports.CreateStepLogs("Info", "Verify Admin user can search the DND opportunity with DND-name only and check the Sharing button");
+                    extentReports.CreateStepLogs("Info", "Verify Admin user can search the DND Engagement with DND-name only and check the Sharing button");
                     usersLogin.SearchUserAndLogin(adminUserExl);
                     login.SwitchToClassicView();
                     user = login.ValidateUser();
