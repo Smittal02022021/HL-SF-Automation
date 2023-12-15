@@ -443,7 +443,7 @@ namespace SF_Automation.Pages.Engagement
         By btnMoreEng = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
-        By btnReturnToEngLightning = By.XPath("//input[@value='Return To Engagement']");
+        By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
 
         By txtEngStageL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
         By txtEngRecordTypeL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.RecordTypeId']//div[contains(@class,'recordType')]/div/span");
@@ -6110,7 +6110,7 @@ namespace SF_Automation.Pages.Engagement
             }
             driver.FindElement(btnReturnToEngLightning).Click();           
             return isSame;
-        }        
+        }
 
         //Validate Bid tab
         public string ValidateBidTabForAdmin()
@@ -6409,8 +6409,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
-            Thread.Sleep(8000);
-            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(8000);            
             WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
             driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
             WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);
@@ -6529,17 +6528,6 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtWomenLedL, 10);
             return driver.FindElement(txtWomenLedL).Text;
-        }
-        //Return to Engagement
-        public void ClickReturnToEngagementLV()
-        {
-            driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
-            Thread.Sleep(2000);
-            driver.FindElement(btnReturnToEngLightning).Click();
-            driver.SwitchTo().DefaultContent();
-            Thread.Sleep(8000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
         }
     }
 }
