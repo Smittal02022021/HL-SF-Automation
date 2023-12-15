@@ -14,10 +14,11 @@ namespace SF_Automation.TestCases.Opportunities
     {
         //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
         /*
-         TMTI0056866_TMTI0056870_TMTI0056872_TMTI0056884 Verify the availability of new Job Type- FA - Portfolio-Auto Struct Prd/Consulting in Job Type Picklist while adding new FVA Opportunity
+         TMTI0056866 Verify the availability of new Job Type- FA - Portfolio-Auto Struct Prd/Consulting in Job Type Picklist while adding new FVA Opportunity
          TMTI0056870 Verify user is able to create new Opportunity with new Job Type - FA - Portfolio-Auto Struct Prd/Consulting
          TMTI0056872 Verify the availability of Job Types for converted engagement on the Engagement page
          TMTI0056884 Verify the Record Type conversion of Opportunity to Engagement
+
          TMTI0028220	Verify the availability of new Job Types in Job Type Picklist while adding new Opportunity
          TMTI0028213	Verify user is able to create new Opportunity with new  Type 
         
@@ -32,6 +33,9 @@ namespace SF_Automation.TestCases.Opportunities
         TMTI0084215	Verify the availability of Job Types for converted engagement on the Engagement page
         TMTI0084219	Verify user is able to create new Opportunity with new  Job Type -TAS - ESG Due Diligence & Analytics        
         TMTI0084224	Verify the Record Type conversion of Opportunity to Engagement
+        
+        //TMTT0035667 done
+        //TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity
 
         */
         ExtentReport extentReports = new ExtentReport();
@@ -47,6 +51,7 @@ namespace SF_Automation.TestCases.Opportunities
         RandomPages randomPages = new RandomPages();
 
         public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";
+        string exectedMaxLimit;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -129,40 +134,41 @@ namespace SF_Automation.TestCases.Opportunities
                         opportunityDetails.UpdateTASServicesLV();
                     }
 
-                    //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
-                    /*
-                    if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
-                    {
-                        //AddMultiple Staff for Specific Role
-                        if (valJobType == "CVAS - IP Valuation")
-                        {
-                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 2, 1);
-                        }
-                        else
-                        {
-                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
-                        }
-                        exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                        extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
-
-                        countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, memberRole, fileTC1432);
-                        Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
-                        extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
-
-                        msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1//Function Updated 
-                        exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
-                        Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
-                        extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
-
-                        //get the line error message from internal staff page.
-                        txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();//Function Updated
-                        maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                        Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
-                        extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
-
-                    }
-                    *//////////////////////////////////////////////////
+                    ////TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
                     
+                    //if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
+                    //{
+                    //    string memberRole="";
+                    //    //AddMultiple Staff for Specific Role
+                    //    if (valJobType == "CVAS - IP Valuation")
+                    //    {
+                    //        memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 2, 1);
+                    //    }
+                    //    else
+                    //    {
+                    //        memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
+                    //    }
+                    //    string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    //    extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
+
+                    //    int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileT1432);
+                    //    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                    //    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+
+                    //    string  msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1//Function Updated 
+                    //    string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
+                    //    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    //    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+
+                    //    //get the line error message from internal staff page.
+                    //    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();//Function Updated
+                    //    string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    //    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                    //    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+
+                    //}
+                    //////////////////////////////////////////////////
+
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
@@ -204,6 +210,40 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+                    //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
+                    
+                    if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
+                    {
+                        string memberRole="";
+                        //AddMultiple Staff for Specific Role
+                        if (valJobType == "CVAS - IP Valuation")
+                        {
+                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 2, 1);
+                        }
+                        else
+                        {
+                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
+                        }
+                        exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                        extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
+
+                        int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileT1432);
+                        Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                        extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+
+                        string  msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1//Function Updated 
+                        string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
+                        Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                        extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+
+                        //get the line error message from internal staff page.
+                        string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();//Function Updated
+                        string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                        Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                        extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+
+                    }
+
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     extentReports.CreateStepLogs("Passed", "Standard User: " + appNameExl + "switched to Classic and Loggout ");
@@ -280,18 +320,21 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
 
 
-                    /*//////////////////////////////////////////*
+                    /////////////////////////////////////////
                     /////TMTI0085043   Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Engagement
 
                     if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
                     {
-                        int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCount();
+                        int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                         Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                         extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
                     }
-                    *//////////////////////////////////////////////////
+                    /////////////////////////////////////////////////
                     ///
                     ////////////////////////////////////////
+                    engagementDetails.ClickReturnToEngagementLV();
+                    extentReports.CreateStepLogs("Info", "Return to Engagement Detail page ");
+
                     string engStage = engagementDetails.GetStageL();
                     Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row,1), engStage);
                     extentReports.CreateLog("Value of Stage field is : " + engStage + " for Job Type " + valJobType + " ");
@@ -316,15 +359,15 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
 
-                    //if (valJobType.Contains("CVAS") || valJobType.Contains("TAS"))
-                    //{
-                    //    Assert.AreEqual("Closing - Admin Details", secWomenLed);
-                    //}
-                    //else
-                    //{
-                    //    Assert.AreEqual("Closing - Document Checklist", secWomenLed);
-                    //}
-                    //extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
+                    if (valJobType.Contains("CVAS") || valJobType.Contains("TAS"))
+                    {
+                        Assert.AreEqual("Closing - Admin Details", secWomenLed);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Closing - Document Checklist", secWomenLed);
+                    }
+                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
 
                     //Validate the value of Women Led in Engagement details page
