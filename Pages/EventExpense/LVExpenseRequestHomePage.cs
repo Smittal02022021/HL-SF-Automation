@@ -21,17 +21,17 @@ namespace SF_Automation.Pages.EventExpense
         //Filters
         By txtExpenseRequestNumber = By.XPath("(//label[text()='Expense Request Number']/following::div/input)[1]");
         By txtExpReqNumberApprovalTab = By.XPath("(//label[text()='Expense Request Number']/following::div/input)[6]");
-        By comboCriteria = By.XPath("//label[text()='Criteria']/following::div[3]/button");
-        By comboProductType = By.XPath("//label[text()='Product Type']/following::div[3]/button");
-        By comboSubmissionDate = By.XPath("//label[text()='Submission Date']/following::div[3]/button");
+        By comboCriteria = By.XPath("//label[text()='Criteria']/following::div/button");
+        By comboProductType = By.XPath("//label[text()='Product Type']/following::div/button");
+        By comboSubmissionDate = By.XPath("//label[text()='Submission Date']/following::div/button");
         By txtRequestor = By.XPath("(//label[text()='Requestor']/following::div/input)[1]");
         By selectRequestor = By.XPath("(//div[@role='option'])[1]");
-        By comboCreatedDate = By.XPath("//label[text()='Created Date']/following::div[3]/button");
-        By comboLOB = By.XPath("//label[text()='LOB']/following::div[3]/button");
-        By comboLOB1 = By.XPath("(//label[text()='LOB']/following::div[3]/button)[2]");
+        By comboCreatedDate = By.XPath("//label[text()='Created Date']/following::div/button");
+        By comboLOB = By.XPath("(//label[text()='LOB']/following::div[4]/button)[1]");
+        By comboLOB1 = By.XPath("(//label[text()='LOB']/following::div[4]/button)[2]");
         By txtEventName = By.XPath("(//label[text()='Event Name']/following::div/input)[1]");
-        By comboEventType = By.XPath("(//label[text()='Event Type']/following::div[3]/button)[2]");
-        By comboEventFormat = By.XPath("//label[text()='Event Format']/following::div[3]/button");
+        By comboEventType = By.XPath("(//label[text()='Event Type']/following::div[4]/button)[2]");
+        By comboEventFormat = By.XPath("//label[text()='Event Format']/following::div/button");
 
         By btnApplyFilters = By.XPath("//button[text()='Apply Filter']");
         By btnApplyFiltersApprovalTab = By.XPath("(//button[text()='Apply Filter'])[2]");

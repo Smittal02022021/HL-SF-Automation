@@ -67,7 +67,7 @@ namespace SF_Automation.TestCases.EventExpense
                     Assert.AreEqual(userPeopleExl, userPeople);
                     extentReports.CreateLog("User " + userPeople + " details are displayed. ");
 
-                    //Login as standard user
+                    //Login user
                     usersLogin.LoginAsSelectedUser();
                     Assert.IsTrue(login.ValidateUserLightningView(fileTC17341, row));
 

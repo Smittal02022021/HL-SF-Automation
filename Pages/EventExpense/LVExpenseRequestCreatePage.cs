@@ -8,15 +8,15 @@ namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestCreatePage : BaseClass
     {
-        By dropdownLOB = By.XPath("(//label[text()='LOB'])[1]/following::div[3]/button");
+        By dropdownLOB = By.XPath("(//label[text()='LOB']/following::div[4]/button)[1]");
         By buttonCreateNewExpenseForm = By.XPath("//button[@title='Create New Expense Form']");
 
-        By txtRequestor = By.XPath("//label[text()='Requestor']/following::div[4]/input");
-        By selectRequestor = By.XPath("//thead/tr/th[@title='Name']/following::a[8]");
+        By txtRequestor = By.XPath("(//label[text()='Requestor']/following::div/input)[1]");
+        By selectRequestor = By.XPath("//thead/tr/th[@title='Name']/following::a[10]");
         By lblRequestorErr = By.XPath("(//label[text()='Requestor'])[1]/following::div[7]");
 
-        By txtEventContact = By.XPath("//label[text()='Event Contact']/following::div[5]/input");
-        By selectEventContact = By.XPath("//thead/tr/th[@title='Name']/following::a[8]");
+        By txtEventContact = By.XPath("//label[text()='Event Contact']/following::div[8]/input");
+        By selectEventContact = By.XPath("//thead/tr/th[@title='Name']/following::a[10]");
         By lblEventContactErr = By.XPath("(//label[text()='Event Contact'])[1]/following::div[8]");
 
         By txtEventName = By.XPath("//input[@placeholder='Search Opportunities...']");
@@ -26,7 +26,7 @@ namespace SF_Automation.Pages.EventExpense
         By txtStartDate = By.XPath("//input[@name='Start_Date__c']");
         By lblStartDateErr = By.XPath("(//label[text()='Start Date'])[1]/following::div[2]");
 
-        By comboNoOfGuest = By.XPath("//label[text()='Number of guests']/following::div[3]/button");
+        By comboNoOfGuest = By.XPath("(//label[text()='Number of guests']/following::div/button)[1]");
         By lblNoOfGuestsErr = By.XPath("(//label[text()='Number of guests'])[1]/following::div[6]");
 
         By txtExpectedAirFareCost = By.XPath("//input[@name='Expected_Airfare_Cost__c']");
@@ -63,8 +63,11 @@ namespace SF_Automation.Pages.EventExpense
             //Select LOB
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownLOB, 120);
             driver.FindElement(dropdownLOB).SendKeys(LOB);
-            Thread.Sleep(10000);
+            //Thread.Sleep(2000);
             driver.FindElement(dropdownLOB).SendKeys(Keys.Enter);
+            driver.FindElement(dropdownLOB).SendKeys(Keys.Enter);
+            driver.FindElement(dropdownLOB).SendKeys(Keys.Enter);
+
             Thread.Sleep(5000);
 
             //Click on Create New Expense Form button
@@ -74,25 +77,34 @@ namespace SF_Automation.Pages.EventExpense
             //Fill all mandatory fields
             driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 2));
             Thread.Sleep(5000);
+            driver.FindElement(txtRequestor).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
+
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventContact).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
+
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventName).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
+
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM d, yyyy"));
             driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 5));
+            Thread.Sleep(5000);
+            driver.FindElement(comboNoOfGuest).SendKeys(Keys.ArrowDown);
             driver.FindElement(comboNoOfGuest).SendKeys(Keys.Enter);
+
             driver.FindElement(txtExpectedAirFareCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 6));
             driver.FindElement(txtExpectedRegistrationFeeCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 7));
             driver.FindElement(txtOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 8));
