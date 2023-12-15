@@ -683,8 +683,7 @@ namespace SF_Automation.Pages
                 driver.SwitchTo().DefaultContent();
                 return msgPopup;
             }
-            catch { driver.SwitchTo().DefaultContent(); 
-                    return "No Pop-up Message Displayed"; }
+            catch { driver.SwitchTo().DefaultContent(); return "No Pop-up Message Displayed"; }
         }
 
         By btnHeader = By.XPath("//div[contains(@id,'internalTeam')]/div[@class='pbHeader']");
@@ -716,10 +715,9 @@ namespace SF_Automation.Pages
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, frameInternalTeamModifyPage, 10);
-                driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
-                string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;                
+                string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;
+                driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
                 //CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
