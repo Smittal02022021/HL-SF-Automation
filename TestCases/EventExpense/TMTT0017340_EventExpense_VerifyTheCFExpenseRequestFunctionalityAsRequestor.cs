@@ -86,12 +86,9 @@ namespace SF_Automation.TestCases.EventExpense
                     switch (row)
                     {
                         case 2:
-                            extentReports.CreateLog("Standard User: " + user + " is able to login into lightning view. ");
-                            break;
-                        case 3:
                             extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
                             break;
-                        case 4:
+                        case 3:
                             extentReports.CreateLog("CAO User: " + user + " is able to login into lightning view. ");
                             break;
                     }

@@ -42,10 +42,10 @@ namespace SF_Automation.Pages.EventExpense
         By inputPageNo = By.XPath("//input[@title='Go to a Page']");
         By lblTotalPages = By.XPath("//input[@title='Go to a Page']/following::span/b");
 
-        By lblSelectLOBErrorMsg = By.XPath("(//label[text()='LOB'])[1]/following::div[6]");
+        By lblSelectLOBErrorMsg = By.XPath("(//label[text()='LOB'])[1]/following::div[7]");
         By buttonCreateNewExpenseForm = By.XPath("//button[@title='Create New Expense Form']");
-        By dropdownLOB = By.XPath("(//label[text()='LOB'])[1]/following::div[3]/button");
-        By comboEventTypeNoLOB = By.XPath("(//label[text()='Event Type']/following::div[3]/button)[2]");
+        By dropdownLOB = By.XPath("(//label[text()='LOB']/following::div[4]/button)[1]");
+        By comboEventTypeNoLOB = By.XPath("//button[@id='combobox-button-1116']");
 
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");

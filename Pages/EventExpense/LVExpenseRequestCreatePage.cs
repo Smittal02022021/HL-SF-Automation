@@ -13,36 +13,36 @@ namespace SF_Automation.Pages.EventExpense
 
         By txtRequestor = By.XPath("(//label[text()='Requestor']/following::div/input)[1]");
         By selectRequestor = By.XPath("//thead/tr/th[@title='Name']/following::a[10]");
-        By lblRequestorErr = By.XPath("(//label[text()='Requestor'])[1]/following::div[7]");
+        By lblRequestorErr = By.XPath("(//label[text()='Requestor']/following::div/input)[1]/following::div[3]");
 
         By txtEventContact = By.XPath("//label[text()='Event Contact']/following::div[8]/input");
         By selectEventContact = By.XPath("//thead/tr/th[@title='Name']/following::a[10]");
-        By lblEventContactErr = By.XPath("(//label[text()='Event Contact'])[1]/following::div[8]");
+        By lblEventContactErr = By.XPath("//label[text()='Event Contact']/following::div[8]/input/following::div[3]");
 
         By txtEventName = By.XPath("//input[@placeholder='Search Opportunities...']");
         By selectEventName = By.XPath("//thead/tr/th[@title='Opportunity Name']/following::a[9]");
-        By lblEventErr = By.XPath("(//label[text()='Event'])[1]/following::div[7]");
+        By lblEventErr = By.XPath("//input[@placeholder='Search Opportunities...']/following::div[3]");
 
         By txtStartDate = By.XPath("//input[@name='Start_Date__c']");
-        By lblStartDateErr = By.XPath("(//label[text()='Start Date'])[1]/following::div[2]");
+        By lblStartDateErr = By.XPath("//input[@name='Start_Date__c']/following::div[1]");
 
         By comboNoOfGuest = By.XPath("(//label[text()='Number of guests']/following::div/button)[1]");
-        By lblNoOfGuestsErr = By.XPath("(//label[text()='Number of guests'])[1]/following::div[6]");
+        By lblNoOfGuestsErr = By.XPath("(//label[text()='Number of guests']/following::div/button)[1]/following::div[3]");
 
         By txtExpectedAirFareCost = By.XPath("//input[@name='Expected_Airfare_Cost__c']");
-        By lblExpectedAirFareCostErr = By.XPath("(//label[text()='Expected Airfare Cost'])[1]/following::div[3]");
+        By lblExpectedAirFareCostErr = By.XPath("//input[@name='Expected_Airfare_Cost__c']/following::div[1]");
 
         By txtExpectedRegistrationFeeCost = By.XPath("//input[@name='Expected_Registration_Fee__c']");
-        By lblExpectedRegistrationFeeCostErr = By.XPath("(//label[text()='Expected Registration Fee'])[1]/following::div[3]");
+        By lblExpectedRegistrationFeeCostErr = By.XPath("//input[@name='Expected_Registration_Fee__c']/following::div[1]");
 
         By txtExpectedLodgingCost = By.XPath("//input[@name='Expected_Lodging_Cost__c']");
-        By lblExpectedLodgingCostErr = By.XPath("(//label[text()='Expected Lodging Cost'])[1]/following::div[3]");
+        By lblExpectedLodgingCostErr = By.XPath("//input[@name='Expected_Lodging_Cost__c']/following::div[1]");
 
         By txtExpectedFnBCost = By.XPath("//input[@name='Expected_F_B_cost__c']");
-        By lblExpectedFnBCostErr = By.XPath("(//label[text()='Expected F&B Cost'])[1]/following::div[3]");
+        By lblExpectedFnBCostErr = By.XPath("//input[@name='Expected_F_B_cost__c']/following::div[1]");
 
         By txtOtherCost = By.XPath("//input[@name='Any_additional_cost_Specify__c']");
-        By lblOtherCostErr = By.XPath("(//label[text()='Other Cost'])[1]/following::div[3]");
+        By lblOtherCostErr = By.XPath("//input[@name='Any_additional_cost_Specify__c']/following::div[1]");
 
         By txtDescOtherCost = By.XPath("//input[@name='Specify__c']");
         By btnSave = By.XPath("//button[@type='submit']");
@@ -140,23 +140,29 @@ namespace SF_Automation.Pages.EventExpense
             //Fill all mandatory fields
             driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 2));
             Thread.Sleep(5000);
+            driver.FindElement(txtRequestor).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
             Thread.Sleep(3000);
+
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventContact).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
             Thread.Sleep(3000);
+
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventName).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
             Thread.Sleep(3000);
-            driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("dd-MMM-yyyy"));
+
+            driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM d, yyyy"));
             driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 5));
             driver.FindElement(comboNoOfGuest).SendKeys(Keys.Enter);
             driver.FindElement(txtExpectedAirFareCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 6));
@@ -183,6 +189,10 @@ namespace SF_Automation.Pages.EventExpense
 
             //Click Save button
             driver.FindElement(btnSave).Click();
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 
             //Verify all mandatory fields
@@ -228,23 +238,29 @@ namespace SF_Automation.Pages.EventExpense
             //Fill all mandatory fields
             driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 14));
             Thread.Sleep(5000);
+            driver.FindElement(txtRequestor).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
             Thread.Sleep(3000);
+
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventContact).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
             Thread.Sleep(3000);
+
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
             Thread.Sleep(5000);
+            driver.FindElement(txtEventName).SendKeys(Keys.ArrowDown);
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
             Thread.Sleep(3000);
-            driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("dd-MMM-yyyy"));
+
+            driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM dd, yyyy"));
             driver.FindElement(comboNoOfGuest).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 5));
             driver.FindElement(comboNoOfGuest).SendKeys(Keys.Enter);
             driver.FindElement(txtExpectedAirFareCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 6));
@@ -256,7 +272,6 @@ namespace SF_Automation.Pages.EventExpense
 
             //Click Save btton
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(2000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblErrMsg, 120);
             string err = driver.FindElement(lblErrMsg).Text;
