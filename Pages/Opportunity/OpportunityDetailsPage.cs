@@ -719,17 +719,17 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, frameInternalTeamModifyPage, 10);
                 driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLineErrormsg, 10);
-                string txtLineErroeMsg = driver.FindElement(txtLineErrormsg).Text;                
+                string txtLineErrorMsg = driver.FindElement(txtLineErrormsg).Text;                
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
-                //CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
                 driver.FindElement(btnReturnToOpporEng).Click();
                 driver.SwitchTo().DefaultContent();
                 Thread.Sleep(5000);
-                return txtLineErroeMsg;
+                return txtLineErrorMsg;
             }
             catch
             {
+                driver.SwitchTo().DefaultContent();
                 driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnReturnToOpporEng));
