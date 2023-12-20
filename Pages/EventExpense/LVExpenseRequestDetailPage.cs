@@ -343,6 +343,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtNotes).SendKeys("Test");
             driver.FindElement(btnOK).Click();
 
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblCloneStatus, 120);
             Thread.Sleep(3000);
             if (driver.FindElement(lblCloneStatus).Text == "Deleted")
