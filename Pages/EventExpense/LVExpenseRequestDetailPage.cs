@@ -4,6 +4,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace SF_Automation.Pages.EventExpense
 {
@@ -415,22 +416,19 @@ namespace SF_Automation.Pages.EventExpense
             bool result = false;
 
             Thread.Sleep(3000);
-            //CustomFunctions.SwitchToWindow(driver, 1);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApprovalLWC, 120);
-            driver.FindElement(btnSubmitForApprovalLWC).Click();
+            //driver.FindElement(btnSubmitForApprovalLWC).Click();
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnSubmitForApprovalLWC)); ;
             Thread.Sleep(8000);
 
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
-            //driver.FindElement(btnOK).Click();
-
-            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
             if (driver.FindElement(lblStatus).Text == "Waiting for Approval")
             {
                 result = true;
-                //CustomFunctions.SwitchToWindow(driver, 0);
             }
 
             return result;

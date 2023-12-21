@@ -96,7 +96,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //Click on the Menu button
                 lvHomePage.ClickExpenseRequestMenuButton();
 
-                for (int actionRow = 5; actionRow <= rowCount; actionRow++)
+                for (int actionRow = 2; actionRow <= rowCount; actionRow++)
                 {
                     //Read what action approver needs to perform
                     string action = ReadExcelData.ReadDataMultipleRows(excelPath, "Actions", actionRow, 1);
