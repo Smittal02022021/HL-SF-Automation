@@ -10,6 +10,7 @@ using System.Threading;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Data;
 using System.Transactions;
+using System.Web;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -99,6 +100,7 @@ namespace SF_Automation.Pages.Engagement
         By rowAddBoardMember2ndPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
 
         By msgDupContactL = By.XPath("//div[text()='Duplicate record detected.']");
+        By msgDupKeyContactL = By.XPath("//div[text()='This person has already been added as an Engagement Contact. Please go to their Engagement Contact record and click the “Key External Contact” checkbox to add them to this list.']");
         By comboSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
 
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
@@ -185,6 +187,10 @@ namespace SF_Automation.Pages.Engagement
         By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
         By lnkEquityHolderPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
         By btnDeleteDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[13]/span/div/lightning-button-icon/button");
+        By btnDeleteRole = By.XPath("//tr[1]/td[2]/span/div/lightning-button-icon/button[@title='Delete']");
+        By tabEngSummary = By.XPath("//ul[2]/li[3]/a/span[2]");
+        By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
+
 
         By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
         By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
@@ -206,12 +212,28 @@ namespace SF_Automation.Pages.Engagement
         By txtLoanAmountL = By.XPath("//input[@name='Loan_Amount__c']");
 
         By btnAddStaffRoleL = By.XPath("//button[text()='Add Staff Role']");
+        By btnAddKeyExtExternalL = By.XPath("//button[text()='Add Key External Contact']");
+        By btnPostTransOppReport = By.XPath("//button[text()='Post-Transaction Opportunity Report']");
+        By btnSubmitEngSummary = By.XPath("//button[text()='Submit Engagement Summary']");
+        By btnSendBTPEmail = By.XPath("//button[text()='Send BTP Email']");
+        By lblSendEmailL = By.XPath("//h2[@class='mainTitle']");
+        By lblReport = By.XPath("//div[@class='brandingText']");
         By lblContactL = By.XPath("//label[text()='Contact (Internal)']");
+        By lblContactExtL = By.XPath("//label[text()='Contact (External)']");
         By lblRole = By.XPath("//label[text()='Role']");
         By msgContactL = By.XPath("//label[text()='Contact (Internal)']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgContactExtL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
+
         By msgRoleL = By.XPath("//label[text()='Role']/ancestor::lightning-combobox/div/div[2]");
 
-
+        By txtContactHLPostL = By.XPath("//input[@placeholder='Search Contacts...']");
+        By lnkContactHLPostL = By.XPath("//div[1]/div/lightning-base-combobox/div/div/div[2]/ul/li");
+        By btnRoleL = By.XPath("//button[@aria-label='Role, --None--']");
+        By valRoleL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By rowStaffRoleL = By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[3]/div/div/table/tbody/tr");
+        By rowKeyContactL= By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
+        By rowKeyExtL = By.XPath("//lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
+        By valAddedRoleL = By.XPath("//table/tbody/tr/td[1]/div");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -366,6 +388,7 @@ namespace SF_Automation.Pages.Engagement
         By checkRow = By.CssSelector("input[name*='tblResults:0:j_id50']");
         By btnAddSelected = By.CssSelector("input[value='Add Selected']");
         By msgSuccess = By.CssSelector("div[id*='4:j_id16']");
+        
         By btnEquityClose = By.CssSelector("span[class*='closethick']");
         By valEquityHolder = By.CssSelector("tbody[id*='preTransactionEquityHolders:tb']>tr>td:nth-child(4)");
         By lnkEquityEdit = By.CssSelector("a[id*='editPre']");
@@ -447,6 +470,8 @@ namespace SF_Automation.Pages.Engagement
         By lnkBoardCompany = By.XPath("//div[2]/div/div/table/tbody/tr/td/div/a");
         By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
         By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[text()='Diamond Sports Group | Engagement']");
+        By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
+        By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
         By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
         By rowAddedEquityInAdd = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']");
         By valAddedEquityType = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']/ancestor::tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
@@ -456,7 +481,7 @@ namespace SF_Automation.Pages.Engagement
         By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
         By valAddedMemberRolePost = By.XPath("//span[@title='Post-Transaction Board Member']");
         By valAddedMember = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
-
+        By valAddedStaffRole = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text/span");
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
@@ -3489,10 +3514,63 @@ namespace SF_Automation.Pages.Engagement
         //Validate Contact internal field on Add Staff role
         public string ValidateContactField()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 190);
             driver.FindElement(btnAddStaffRoleL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lblContactL, 120);
             string value= driver.FindElement(lblContactL).Text;
+            return value;
+        }
+
+        //Validate Contact internal field on Add Key External Contact
+        public string ValidateContactFieldOnAddKeyExternalContact()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 190);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactExtL, 120);
+            string value = driver.FindElement(lblContactExtL).Text;
+            return value;
+        }
+
+        //Validate report on clicking Post-Transaction Opportunity Report
+        public string ValidateReportAfterClickingPostTransOppReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPostTransOppReport, 190);
+            driver.FindElement(btnPostTransOppReport).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);                       
+            string value = driver.FindElement(By.XPath("//h1")).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+        //Validate page on clicking Submit Engagement Summary
+        public string ValidatePageAfterClickingSubmitEngSummary()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitEngSummary, 190);
+            driver.FindElement(btnSubmitEngSummary).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            string value = driver.FindElement(lblSendEmailL).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+        //Validate message on clicking Send BTP Email
+        public string ValidateMessageAfterClickingSendBTPEmail()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendBTPEmail, 190);
+            driver.FindElement(btnSendBTPEmail).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(tabEngDetailsL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(tabClosingInfo).Click();
+            string value = driver.FindElement(valSendBTPEmail).Text;
+           
             return value;
         }
 
@@ -3633,6 +3711,89 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate save button's functionality
+        public string ValidateSaveButtonFunctionalityOfHLPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Sonika Goyal");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save button's functionality
+        public string ValidateSaveButtonFunctionalityOfKeyExtContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 120);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Chris so");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(rowKeyExtL).Displayed.ToString();
+            return row;
+        }
+
+        //Get the value of role of added contact
+        public string GetRoleOfAddedContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedRoleL, 160);
+            string value = driver.FindElement(valAddedRoleL).Text;
+            return value;
+        }
+        //Validate error message if user tries to add already-added Contact.
+        public string ValidateErrorMessageWhileAddingExistingStaffContact()
+        { 
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Sonika Goyal");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+        //Validate error message if user tries to add already-added Contact.
+        public string ValidateErrorMessageWhileAddingExistingKeyContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 120);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Chris so");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupKeyContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
         //Validate cancel button's functionality
         public string ValidateSaveFunctionalityOfHLPostTransOpp()
         {
@@ -3649,8 +3810,9 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnAvailableL).Click();
             driver.FindElement(btnSaveHLPost).Click();
             return value;
-        }        
+        }
 
+       
 
         //Validate save functionality of Add Equity Holder Page
         public string ValidateSaveFunctionalityOfAddEquityHolder()
@@ -4100,6 +4262,15 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Validate the error message for Contact
+        public string ValidateErrorMessageForContactExt()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactExtL, 130);
+            string name = driver.FindElement(msgContactExtL).Text;
+            return name;
+        }
+
         //Validate the error message for Role
         public string ValidateErrorMessageForRole()
         {
@@ -4128,6 +4299,51 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Validate Cancel functionality of Add Board Member Page
+        public string ValidateCancelFunctionalityOfAddedStaffRole()
+        {
+            
+            driver.FindElement(tabEngSummary).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabHLPostTransL).Click();
+            //Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Key Contact
+        public string ValidateCancelFunctionalityOfAddedKeyContact()
+        {
+            driver.FindElement(tabEngSummary).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabHLPostTransL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowKeyContactL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Add Staff Role Page
         public string ValidateCancelFunctionalityOfAddBoardMember()
         {
             Thread.Sleep(4000);
@@ -4300,7 +4516,45 @@ namespace SF_Automation.Pages.Engagement
             }
 
         }
+        //Validate Delete functionality of Added Staff Role
+        public string ValidateDeleteFunctionalityOfStaffRole()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
 
+        }
+
+        //Validate Delete functionality of Added Key Contact
+        public string ValidateDeleteFunctionalityOfKeyContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowKeyContactL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
         //Validate Contact field on click of Add Board Member
         public string VerifyContactsFieldL()
         {
@@ -4530,6 +4784,8 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
             driver.FindElement(tabEngDetailsL).Click();
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 140);
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
@@ -4537,7 +4793,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        //Fetch the type of added board member in Engagement Contacts
+        //Fetch the type of added board member in Engagement Contacts  
         public string GetTypeOfAddedBoardMemberInAdditionalClientSubject()
         {
             string value = driver.FindElement(valAddedMemberType).Text;
@@ -4548,6 +4804,13 @@ namespace SF_Automation.Pages.Engagement
         public string GetRoleOfAddedBoardMemberInAdditionalClientSubject()
         {
             string value = driver.FindElement(valAddedMemberRole).Text;
+            return value;
+        }
+
+        //Fetch the role of added staff contact member in Engagement Contacts
+        public string GetRoleOfAddedStaffInEngContacts()
+        {
+            string value = driver.FindElement(valAddedStaffRole).Text;
             return value;
         }
         //Fetch the role of added board member in Engagement Contacts

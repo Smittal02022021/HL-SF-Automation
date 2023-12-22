@@ -172,7 +172,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Validate ERP Last Integration Status
                     string intStatus = opportunityDetails.GetERPIntegrationStatus();
-                    Assert.NotNull(intStatus);
+                    Assert.AreEqual("Success",intStatus);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + intStatus + " is displayed ");
 
                     //Validate ERP Last Integration Response Date

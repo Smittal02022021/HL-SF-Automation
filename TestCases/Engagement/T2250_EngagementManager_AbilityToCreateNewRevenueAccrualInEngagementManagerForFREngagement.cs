@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Engagement
                         engManager.ClickFREngagementName();
                         string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                         Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                        Assert.AreEqual("2023 - 10", month);
+                        Assert.AreEqual("2023 - 12", month);
                         extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
                         usersLogin.UserLogOut();
                     }

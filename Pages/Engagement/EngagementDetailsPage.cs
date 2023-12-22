@@ -5378,7 +5378,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
 			driver.FindElement(txtCompanies).Click();
 			Thread.Sleep(5000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[3]/a/div[2]/div[1]")).Click();
+			driver.FindElement(By.XPath("//div/div/div/div[1]/div[1]/div/div/div[2]/ul/li[1]")).Click();
 			Thread.Sleep(5000);
 			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
 			driver.FindElement(btnSaveBacklog).Click();
@@ -5429,7 +5429,7 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, txtContacts, 100);
             driver.FindElement(txtContacts).SendKeys("Shivali Sharma");
 			Thread.Sleep(12000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[17]/a/div[1]/span/img")).Click();
+			driver.FindElement(By.XPath("//div[2]/ul/li[1]/a/div[1]/span/img")).Click();
 			Thread.Sleep(3000);
 			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 			js.ExecuteScript("window.scrollTo(0,300)");

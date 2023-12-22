@@ -6,6 +6,7 @@ using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
+using Sikuli4Net.sikuli_REST;
 using System;
 
 
@@ -102,6 +103,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Selected value in the Post Transaction Opportunity section displays under the chosen values ");
 
                 //4.  TMTI0075892_Verify that the user is able to save "Post-Transaction Opportunity Notes". 
+                //19.TMTI0075925_Verify that on clicking the "Save" button, provided information gets saved and a success message appears on the screen.
                 string msgNotes = summaryPage.ValidateSaveFunctionalityOfPostTransOppNotes();
                 Assert.AreEqual("Record saved", msgNotes);
                 extentReports.CreateLog("Post-Transaction Opportunity Notes are saved successfully ");
@@ -133,12 +135,114 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + msgRole + " is displayed for Role field upon clicking Save button without selecting any value ");
 
                 //7.  TMTI0075899_Verify that clicking the "Cancel" button will take user back to list view of HL Post-Transaction Opp tab
-                string cancelPage = summaryPage.ValidateCancelButtonFunctionalityOfHLPostTrans();
-                Assert.AreEqual("Post-Transaction Opportunities", cancelPage);
-                extentReports.CreateLog("Page with field: " + cancelPage + " is displayed upon clicking Cancel button on Add Staff Role window ");
+                string cancelStaffRole = summaryPage.ValidateCancelButtonFunctionalityOfHLPostTrans();
+                Assert.AreEqual("Post-Transaction Opportunities", cancelStaffRole);
+                extentReports.CreateLog("Page with field: " + cancelStaffRole + " is displayed upon clicking Cancel button on Add Staff Role window ");
 
                 //8.  TMTI0075901_Verify that the "Post-Transaction Staff Role" record is created with all the entered information by clicking the "Save" button on Add Staff Role screen
+                string saveStaffRole = summaryPage.ValidateSaveButtonFunctionalityOfHLPostTrans();
+                string role = summaryPage.GetRoleOfAddedContact();
+                Assert.AreEqual("True", saveStaffRole);               
+                extentReports.CreateLog("A row is added under Post-Transaction Staff Roles ");
 
+                //9.  TMTI0075903_Verify that if the user selects an already added contact while adding Staff Role, the application will give an error message
+                string msgDupStaffContact = summaryPage.ValidateErrorMessageWhileAddingExistingStaffContact();
+                Assert.AreEqual("Duplicate record detected.", msgDupStaffContact);
+                extentReports.CreateLog("Error message :" +msgDupStaffContact + " is displayed while adding earlier added staff contact ");
+
+                //11. TMTI0075907_Verify the Staff Role added under the HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section with the type External and role as selected
+                string addedMember = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
+                Assert.AreEqual("Sonika Goyal", addedMember);
+                string addedMemberType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
+                Assert.AreEqual("External", addedMemberType);
+                string addedMemberRole = summaryPage.GetRoleOfAddedStaffInEngContacts();
+                Assert.AreEqual("Financing", addedMemberRole);
+                extentReports.CreateLog("Added Board Member in HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section type as " + addedMemberType + " and role as " + addedMemberRole);
+
+                //10. TMTI0075905_ Verify that clicking the "Delete" button of the Post-Transaction Staff Role record gives a confirmation message before deleting the record. 
+                string msgCancelRole = summaryPage.ValidateCancelFunctionalityOfAddedStaffRole();
+                Assert.AreEqual("Record is not deleted", msgCancelRole);
+                extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
+
+                string msgDeleteRole = summaryPage.ValidateDeleteFunctionalityOfStaffRole();
+                Assert.AreEqual("Record is deleted", msgDeleteRole);
+                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+
+                //12. TMTI0075910_ Verify that clicking the "Add Key External Contact" button opens up the screen to enter the details
+                string ContactExt = summaryPage.ValidateContactFieldOnAddKeyExternalContact();
+                Assert.AreEqual("*Contact (External)", ContactExt);
+                extentReports.CreateLog("Field with name: " + ContactExt + " is displayed on Add Key External Contact window ");
+
+                string RoleExt = summaryPage.ValidateRoleField();
+                Assert.AreEqual("*Role", RoleExt);
+                extentReports.CreateLog("Field with name: " + RoleExt + " is displayed on Add Key External Contact window ");
+
+                string CancelExt = summaryPage.ValidateCancelButton();
+                Assert.AreEqual("Cancel", CancelExt);
+                extentReports.CreateLog("Button with name: " + CancelExt + " is displayed on Add Key External Contact window ");
+
+                string SaveExt = summaryPage.ValidateSaveButton();
+                Assert.AreEqual("Save", SaveExt);
+                extentReports.CreateLog("Button with name: " + SaveExt + " is displayed on Add Key External Contact window ");
+
+
+                //13. TMTI0075912_Verify that an error message appears for the required field on clicking the "Save" button of Add Key External Contact screen on leaving fields blank
+                string msgClientExt = summaryPage.ValidateErrorMessageForContactExt();
+                Assert.AreEqual("Complete this field.", msgClientExt);
+                extentReports.CreateLog("Message: " + msgClientExt + " is displayed for Contact External field upon clicking Save button without selecting any value ");
+
+                string msgRoleExt = summaryPage.ValidateErrorMessageForRole();
+                Assert.AreEqual("Complete this field.", msgRoleExt);
+                extentReports.CreateLog("Message: " + msgRoleExt + " is displayed for Role field upon clicking Save button without selecting any value ");
+
+                //14. TMTI0075914_ Verify that clicking the "Cancel" button will take the user back to the list view of the HL Post-Transaction Opp tab
+                string cancelKeyExt = summaryPage.ValidateCancelButtonFunctionalityOfHLPostTrans();
+                Assert.AreEqual("Post-Transaction Opportunities", cancelStaffRole);
+                extentReports.CreateLog("Page with field: " + cancelStaffRole + " is displayed upon clicking Cancel button on Add Key External Contact window ");
+
+                //15. TMTI0075916_Verify that the "Post-Transaction Key External Contact" record is created with all the entered information by clicking the "Save" button on Add Key External Contact screen
+                string saveKeyExt = summaryPage.ValidateSaveButtonFunctionalityOfKeyExtContact();
+                string roleExt = summaryPage.GetRoleOfAddedContact();
+                Assert.AreEqual("True", saveKeyExt);
+                extentReports.CreateLog("A row is added under Post-Transaction Key External Contact ");
+
+                //16.  TMTI0075918_ Verify that if the user tries to add the same contact that is added in engagement while adding Key External Contact, the application will give an appropriate error message
+                string msgDupKeyExt = summaryPage.ValidateErrorMessageWhileAddingExistingKeyContact();
+                Assert.AreEqual("This person has already been added as an Engagement Contact. Please go to their Engagement Contact record and click the “Key External Contact” checkbox to add them to this list.", msgDupKeyExt);
+                extentReports.CreateLog("Error message :" + msgDupKeyExt + " is displayed while adding earlier added Key contact ");
+
+                //18.  TMTI0075922_ Verify the Key External Contact added under the HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section with the type External and role as selected
+                string addedKeyContact = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
+                Assert.AreEqual("Chris Southgate", addedKeyContact);
+                string addedContactType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
+                Assert.AreEqual("External", addedContactType);
+                string addedContactRole = summaryPage.GetRoleOfAddedStaffInEngContacts();
+                Assert.AreEqual("Accountant to Company/Debtor", addedContactRole);
+                extentReports.CreateLog("Added Key Contact in HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section with type as " + addedMemberType + " and role as " + addedMemberRole);
+
+                //17.  TMTI0075920_ Verify that clicking the "Delete" button of the Post-Transaction Key External Contact record gives a confirmation message before deleting the record
+                string msgCancelKeyContact = summaryPage.ValidateCancelFunctionalityOfAddedKeyContact();
+                Assert.AreEqual("Record is not deleted", msgCancelRole);
+                extentReports.CreateLog("Added Key Contact record is not deleted after clicking cancel on confirmation page ");
+
+                string msgDeleteKeyContact = summaryPage.ValidateDeleteFunctionalityOfKeyContact();
+                Assert.AreEqual("Record is deleted", msgDeleteRole);
+                extentReports.CreateLog("Added Key Contact record is deleted after clicking Ok on confirmation page ");
+
+                //20. TMTI0075927_ Verify that clicking "Post-Transaction Opportunity Report" will open up a one-page report with all the details. 
+                string titleReport = summaryPage.ValidateReportAfterClickingPostTransOppReport();
+                Assert.AreEqual("Your connection is not private", titleReport);
+                extentReports.CreateLog("Cognos report page is displayed after clicking Post-Transaction Opportunity Report button ");
+
+                //22. TMTI0075931_Verify that on clicking the "Submit Engagement Summary" button, submits the engagement summary with a success message appears on the screen and the Closing Info section will also get updated 
+                string titleSendEmail = summaryPage.ValidatePageAfterClickingSubmitEngSummary();
+                Assert.AreEqual("Send Email", titleSendEmail);
+                extentReports.CreateLog("Page with title:" +titleSendEmail + " is displayed upon clicking Submit Engagement Summary button ");
+
+                //23.  TMTI0075934_Verify that clicking the "Send BTP Email" button gives a Success message on the screen and the Closing Info section will get updated with the sender's name.
+                string sendEmailUser =summaryPage.ValidateMessageAfterClickingSendBTPEmail();
+                Assert.AreEqual(stdUser, sendEmailUser);
+                extentReports.CreateLog("Closing Info section gets updated with the sender's name.:" + sendEmailUser + " ");
 
 
                 usersLogin.LightningLogout();
