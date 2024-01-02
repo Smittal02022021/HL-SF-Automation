@@ -59,6 +59,8 @@ namespace SF_Automation.Pages.Contact
         By txtExternalLookupContact = By.CssSelector("input[id*='inputContactId'][type='text']");
         By txtCompanyName = By.CssSelector("#j_id0\\:j_id1\\:j_id2\\:formId\\:newAccount\\:newAccountSection\\:j_id143");
 
+        By txtDate = By.XPath("(//*[@id=\"j_id0:frmActivityEvent:activityedit:activitydetails\"]/div[2]/table/tbody/tr[7]/th/label/following::td//div/input)[1]");
+
         //ExtentReport extentReports = new ExtentReport();
         ContactCreatePage createContact = new ContactCreatePage();
 
@@ -268,6 +270,10 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(chkboxPrivate).Click();
             driver.FindElement(txtDescription).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 3));
             driver.FindElement(txtInternalNotes).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 5));
+
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(DateTime.Today.AddDays(1).ToString("MM/dd/yyyy"));
+
             string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 6);
             driver.FindElement(txtCompaniesDiscussed).SendKeys(valCompaniesDiscussed);
             Thread.Sleep(3000);

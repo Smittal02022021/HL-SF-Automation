@@ -69,12 +69,24 @@ namespace SF_Automation.TestCases.ActivitiesList
                     Assert.AreEqual(userPeopleExl, userPeople);
                     extentReports.CreateLog("User " + userPeople + " details are displayed ");
 
-                    //Login as standard user
-                    usersLogin.LoginAsSelectedUser();
-                    string standardUser = login.ValidateUser();
-                    string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", row);
-                    Assert.AreEqual(standardUserExl.Contains(standardUser), true);
-                    extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
+                    if(row == 1)
+                    {
+                        //Login as standard user
+                        usersLogin.LoginAsSelectedUser();
+                        string standardUser = login.ValidateUser();
+                        string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", row);
+                        Assert.AreEqual(standardUserExl.Contains(standardUser), true);
+                        extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
+                    }
+                    else
+                    {
+                        //Login as CAO user
+                        usersLogin.LoginAsSelectedUser();
+                        string caoUser = login.ValidateUser();
+                        string caoUserExl = ReadExcelData.ReadData(excelPath, "Users", row);
+                        Assert.AreEqual(caoUserExl.Contains(caoUser), true);
+                        extentReports.CreateLog("CAO User: " + caoUser + " is able to login ");
+                    }
 
                     //Function to add an activity
                     string HLAttendee = addActivity.AddAnActivityWithNewContact(fileTC1744);

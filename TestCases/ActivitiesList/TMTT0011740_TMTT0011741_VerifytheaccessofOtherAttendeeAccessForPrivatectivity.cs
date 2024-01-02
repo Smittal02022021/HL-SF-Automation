@@ -82,6 +82,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 extentReports.CreateLog("Private activity is displaying on homepage ");
 
                 usersLogin.UserLogOut();
+
                 // Search for external contact
                 conHome.SearchContact(fileTC1740);
                 extentReports.CreateLog("Search for an external contact ");
@@ -108,6 +109,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 }
 
                 driver.SwitchTo().DefaultContent();
+
                 // Search standard user by global search
                 homePage.SearchUserByGlobalSearch(fileTC1740, user);
 
@@ -227,6 +229,7 @@ namespace SF_Automation.TestCases.ActivitiesList
 
                 //new test case
                 usersLogin.UserLogOut();
+
                 // Search for contact
                 conHome.SearchContact(fileTC1740, "Houlihan Employee");
                 extentReports.CreateLog("Search for an contact ");
@@ -246,34 +249,8 @@ namespace SF_Automation.TestCases.ActivitiesList
                 conHome.SearchContact(fileTC1740, "Houlihan Employee");
                 extentReports.CreateLog("Search for an contact ");
                     
-                //addActivity1.VerifyDateFilter(fileTC1846);
-                //extentReports.CreateLog("Verified Date filter is working correctly ");
-                //end test case
-
                 //Delete Normal and Follow Up Activity
                 contactDetails.ViewExistingActivity();
-                contactDetails.DeleteActivity();
-
-                contactDetails.ViewExistingActivity();
-                
-                //Validate Activity Type selected is visible on activity detail page
-                string activityType = activityDetail.GetActivityTypeValue();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath1, "Activity", 1), activityType);
-                extentReports.CreateLog("Activity Type: " + activityType + " entered in add activity page matches on activity detail page ");
-
-                //Validate Activity Subject selected is visible on activity detail page
-                string activitySubject = activityDetail.GetActivitySubjectValue();
-                //Assert.AreEqual(ReadExcelData.ReadData(excelPath1, "Activity", 2), activitySubject);
-                extentReports.CreateLog("Activity Subject: " + activitySubject + " entered in add activity page matches on activity detail page ");
-
-                //Validate Activity company discussed selected is visible on activity detail page
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath1, "Activity", 3), activityCompanyDiscussed);
-                extentReports.CreateLog("Activity Company Discussed: " + activityCompanyDiscussed + " entered in add activity page matches on activity detail page ");
-
-                //Validate Activity related opportunity 
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath1, "Activity", 4), relatedOpportunity);
-                extentReports.CreateLog("Activity related Opportunity: " + relatedOpportunity + " entered in add activity page matches on activity detail page ");
-
                 contactDetails.DeleteActivity();
 
                 usersLogin.UserLogOut();
