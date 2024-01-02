@@ -11,7 +11,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnResetFilters = By.CssSelector("input[value='Reset Filters']");
         By comboShowRec = By.CssSelector("select[name*='engagementOptions']");
         By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");       
-        By linkEngageName = By.CssSelector("td>span[id*=':j_id181:0:j_id183:2:j_id208'] > a");
+        By linkEngageName = By.XPath("//div[1]/table/tbody/tr[1]/td[3]/span/a");
         By titleEngageDetail = By.XPath("//h2[contains(text(),'Engagement Detail')]");       
         By comboRecType = By.CssSelector("select[name*='engagementrecordtype']");
         By comboStage = By.CssSelector("select[name*=':0:j_id183:6:j_id188']");
@@ -70,7 +70,7 @@ namespace SF_Automation.Pages.Opportunity
         //To update stage value of a record
         public void UpdateStageValue(string value)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboStage, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboStage, 90);
             driver.FindElement(comboStage).SendKeys(value);
             driver.FindElement(comboRecType).Click();         
         }

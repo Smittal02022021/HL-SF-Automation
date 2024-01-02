@@ -32,7 +32,7 @@ namespace SF_Automation.Pages
 
         By btnNew = By.XPath("//div[@title='New']");
         By btnNext = By.XPath("//span[text()='Next']");
-        By valTitle = By.XPath("//h2[text()='New Opportunity: CF']");
+        By valTitle = By.XPath("//h2[contains(text(),'New Opportunity')]");
         By lnkOppL = By.XPath("//table/tbody/tr[1]/th/span/a");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By btnOppNumLCAO = By.XPath("//header/div[2]/div[2]/div/button/text()");
@@ -311,10 +311,14 @@ namespace SF_Automation.Pages
         }
         //Validate Opportunity is present under HL Banker
         public string ValidateOppUnderHLBanker()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
+        {            
+          
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 250);
+            Console.WriteLine("about to click navigation");
             driver.FindElement(btnNavigationMenu).Click();
-            Thread.Sleep(4000);
+            Console.WriteLine("Clicked navigation");
+            Thread.Sleep(5000); 
             WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
             string value= driver.FindElement(tagOpportunities).Text;
             return value;
@@ -398,6 +402,22 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnNext, 100);
             driver.FindElement(btnNext).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valTitle, 300);
+            string title = driver.FindElement(valTitle).Text;
+            return title;
+        }
+        private By _eleOppRecordType(string type)
+        {
+            return By.XPath($"//div[@class='changeRecordTypeRow']//span[text()='{type}']");
+        }
+        public string ClickNewButtonAndSelectOppRecordTypeLV(string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 20);
+            driver.FindElement(btnNew).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _eleOppRecordType(type), 20);
+            driver.FindElement(_eleOppRecordType(type)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNext, 20);
+            driver.FindElement(btnNext).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valTitle, 20);
             string title = driver.FindElement(valTitle).Text;
             return title;
         }

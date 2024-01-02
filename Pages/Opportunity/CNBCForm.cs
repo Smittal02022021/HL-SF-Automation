@@ -515,7 +515,9 @@ namespace SF_Automation.Pages.Opportunity
         //Click Submit button
         public string ClickSubmitButton()
         {            
-            Thread.Sleep(7000);
+            Thread.Sleep(6000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-250)");
             driver.FindElement(btnSubmitForReview).Click();
             Thread.Sleep(7000);
             driver.SwitchTo().Frame(0);
@@ -586,7 +588,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//label[text()='Grade']/following::lightning-base-combobox[1]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='A+']")).Click();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             string value = driver.FindElement(valGrade).Text;
             return value;
         }

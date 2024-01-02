@@ -501,7 +501,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string addedContact = addContact.ValidateAddedContact();               
                 Assert.AreEqual(name, addedContact);
                 extentReports.CreateLog("Added Opportunity Contact: " + addedContact + " is displayed after clicking Save button ");
-                                               driver.Quit();
+                 driver.Quit();
             }
             catch (Exception e)
             {

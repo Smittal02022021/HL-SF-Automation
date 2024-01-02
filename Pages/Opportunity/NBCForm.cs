@@ -44,7 +44,7 @@ namespace SF_Automation.Pages.Opportunity
         By PublicTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
         By HLInternalTab = By.XPath("//span[text()='HL Internal Team']");
         By HLInternalTabA = By.XPath("//a[text()='HL Internal Team']");
-        By MoreTab = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[7]/lightning-button-menu/button");
+        By MoreTab = By.XPath("//li[7]/lightning-button-menu/button[@title='More Tabs']");
         By ReviewTab = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By btnAddFin = By.XPath("//button[@name= 'Opportunity_Approval__c.Add_Financials']");
         By titleAddFin = By.XPath("//h2[@class='slds-modal__title']");
@@ -985,6 +985,8 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, PublicTab, 80);
             driver.FindElement(PublicTab).Click();
             string valTab = driver.FindElement(PublicTab).Text;
+            //((IJavaScriptExecuto*/r)driver).ExecuteScript("document.body.style.zoom='80%';");
+            //Thread.Sleep(4000);
             return valTab;
         }
 
@@ -997,11 +999,24 @@ namespace SF_Automation.Pages.Opportunity
         //Click HL Internal Team tab
         public string ClickHLInternalTeamTab()
         {
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, HLInternalTabA, 180);
-            driver.FindElement(HLInternalTabA).Click();
-            string valTab = driver.FindElement(HLInternalTabA).Text;
-            return valTab;
+            try
+            {
+                ClickMoreTab();
+                Thread.Sleep(6000);
+                WebDriverWaits.WaitUntilEleVisible(driver, HLInternalTab, 180);
+                driver.FindElement(HLInternalTab).Click();
+                string valTab = driver.FindElement(HLInternalTab).Text;
+                return valTab;
+            }
+            catch(Exception e)
+            {
+
+                Thread.Sleep(6000);
+                WebDriverWaits.WaitUntilEleVisible(driver, HLInternalTabA, 180);
+                driver.FindElement(HLInternalTabA).Click();
+                string valTab = driver.FindElement(HLInternalTabA).Text;
+                return valTab;
+            }
         }
 
         //Click Review Submission button
@@ -1061,22 +1076,24 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(3000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,100)");
+            js.ExecuteScript("window.scrollTo(0,350)");
             driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(6000);
-            js.ExecuteScript("window.scrollTo(0,120)");
+            js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
             driver.FindElement(lnkEditFeedback).Click();
+            Console.WriteLine("clicked edit feedback");
             Thread.Sleep(5000);
-            //js.ExecuteScript("window.scrollTo(0,100)");
+            js.ExecuteScript("window.scrollTo(0,100)");
             driver.FindElement(btnSubmit).Click();
+            Console.WriteLine("Submit clicked again");
             Thread.Sleep(3000);
-            //driver.FindElement(btnUpdSubmit).Click();
-            //Thread.Sleep(4000);
+            js.ExecuteScript("window.scrollTo(0,-450)");
+            Thread.Sleep(4000);
             driver.FindElement(FeesTab).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,450)");
@@ -1087,9 +1104,9 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
             driver.FindElement(btnClose).Click();
             js.ExecuteScript("window.scrollTo(0,-550)");
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             driver.FindElement(chkNextSchCall).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             driver.FindElement(btnSave).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
             driver.FindElement(btnClose).Click();
@@ -1692,6 +1709,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
             driver.FindElement(btnClose).Click();
             js.ExecuteScript("window.scrollTo(0,-150)");
+            Console.WriteLine("saved all public senstivity details");
         }
 
         //Fetch the label of Related Opportunity
