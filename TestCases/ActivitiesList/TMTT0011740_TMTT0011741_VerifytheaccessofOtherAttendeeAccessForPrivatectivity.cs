@@ -252,10 +252,13 @@ namespace SF_Automation.TestCases.ActivitiesList
                 //Delete Normal and Follow Up Activity
                 contactDetails.ViewExistingActivity();
                 contactDetails.DeleteActivity();
+                extentReports.CreateLog("Activity Deleted. ");
 
                 usersLogin.UserLogOut();
 
                 usersLogin.UserLogOut();
+                extentReports.CreateLog("User logged out. ");
+
                 driver.Quit();
             }
             catch (Exception e)
