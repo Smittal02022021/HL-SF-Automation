@@ -145,6 +145,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
             driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
         }
 
         public void CreateContactL(string file)

@@ -12,7 +12,7 @@ using System.Data;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit : BaseClass
+    class ZObsolated_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit : BaseClass
     {
         //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
         /*

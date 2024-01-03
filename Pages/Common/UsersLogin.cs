@@ -37,7 +37,7 @@ namespace SF_Automation.Pages.Common
         By lnkLogout = By.XPath("//div[2]/div[1]/div[1]/div/div[2]/div/a[2]");
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
         By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
-
+        By linkLogoutLV = By.XPath("//header//div[@data-message-id='loginAsSystemMessage']//a[contains(text(),'Log out')]");
         public void SearchCFUserAndLogin(string name)
         {
             Thread.Sleep(5000);
@@ -173,10 +173,10 @@ namespace SF_Automation.Pages.Common
         public void DiffLightningLogout()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 250);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 20);
             driver.FindElement(imgUser).Click();
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 10);
             driver.FindElement(lnkLogoutL).Click();
         }
 
@@ -186,8 +186,12 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkSwitchTo, 250);
             driver.FindElement(lnkSwitchTo).Click();
+        }        
+        public void ClickLogoutFromLightningView()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkLogoutLV, 10);
+            driver.FindElement(linkLogoutLV).Click();
         }
-
     }
 }
 

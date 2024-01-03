@@ -227,9 +227,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List while searching from Search Box ");
                     addCounterparty.ClearSearchbox();
 
-
                     //TMTI0063924 Verify the functionality of View all button on Counterparties Editor Page
-
                     //GetCount of Added Counterparties 
                     int countCounterparties = addCounterparty.GetCounterpartiesCountFromCounterpartyEditorPage();
                     addCounterparty.ButtonClick("View All");
@@ -239,7 +237,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("All: "+ countOpportunitiesCounterparties+" Opportunity Counterparties are displayed after click on View All button ");
                     addCounterparty.CloseOpportunityCounterpartiesTab();
               
-
                     //TMTI0063917 5_Verify the functionality of the Delete button displayed on the Counterparties editor's Page
                     //addCounterparty.ClickCheckboxCounterpartyCompany(counterpartyCompanyNameExl);
                     addCounterparty.ClickDeleteCounterpartyButton();

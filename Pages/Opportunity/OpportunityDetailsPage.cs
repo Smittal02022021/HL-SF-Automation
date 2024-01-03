@@ -3,6 +3,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.PeerToPeer;
 using System.Text.RegularExpressions;
@@ -293,7 +294,7 @@ namespace SF_Automation.Pages
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
         By tabOpp = By.XPath("//span[text()='Opportunities']");
-        By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout//records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer"); 
+        By btnEditL = By.XPath("//li[contains(@data-target-selection-name,'Opportunity__c.Edit')]"); //records-lwc-highlights-panel/records-lwc-record-layout//records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer"); 
         //By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
         By comboSubjectOwnershipL = By.XPath("//button[@aria-label='Subject Ownership, --None--']");
@@ -320,8 +321,7 @@ namespace SF_Automation.Pages
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");       
         By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
-        By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
-
+        By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");        
         By btnAddCFOppContactL = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
 
         By txtContactL = By.XPath("//input[@placeholder='Search Contacts...']");
@@ -578,6 +578,15 @@ namespace SF_Automation.Pages
         By comboTombstonePermissionL= By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By txtTotalAnticipatedRevenueL = By.XPath("//input[@name='Total_Anticipated_Revenue__c']");
         By comboTASServicesL = By.XPath("//button[contains(@aria-label,'TAS Services')]");
+        By btnMoreTASDNDL = By.XPath("//span[contains(text(),'TAS DND On/Off')]");
+        By btnTASDNDL = By.XPath("//button[contains(text(),'TAS DND On/Off')]");
+        By chkInitiatorL2 = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
+        By chkPrincipalL2 = By.CssSelector("input[name*='internalTeam:j_id64:3:j_id66']");
+        By chkSellerL2= By.CssSelector("input[name*='internalTeam:j_id64:2:j_id66']");
+        By labelTASDNDL = By.XPath("//div//flexipage-field[contains(@data-field-id,'TAS_DND')]");//span[@class='test-id__field-label'][normalize-space()='TAS DND']");
+        By chkTASDNDL = By.XPath("//div//flexipage-field[contains(@data-field-id,'TAS_DND')]//input[@type='checkbox']");//div//flexipage-field[contains(@data-field-id,'TAS_DND')]//span[contains(@part,'indicator')]");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By btnDNDConfirmL = By.XPath("//div[@role='dialog']//button[text()='Yes']");
         By _sharingGroup(string text)
         {
             return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
@@ -4494,7 +4503,7 @@ public void ClickNewOpportunitySectorButton()
         public string ValidateModifyRolesButton()
         {            
             Thread.Sleep(6000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRoles,170);            
             driver.FindElement(btnModifyRoles).Click();
             Thread.Sleep(6000);
@@ -5654,7 +5663,7 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             Thread.Sleep(5000);
             driver.FindElement(btnModifyRolesL).Click();
             driver.SwitchTo().DefaultContent();
@@ -6518,7 +6527,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             string excelPath = dir + file;
             Thread.Sleep(5000);
             string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             WebDriverWaits.WaitUntilEleVisible(driver, txtDealTeamMember, 20);
             string deamMember = driver.FindElement(txtDealTeamMember).Text;
             driver.SwitchTo().DefaultContent();
@@ -6537,7 +6546,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
@@ -6699,7 +6708,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             Thread.Sleep(4000);
             driver.FindElement(btnModifyRolesL).Click();
             driver.SwitchTo().DefaultContent();
@@ -6757,7 +6766,6 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
                             driver.FindElement(checkCFAnalyst).Click();
                         }
                     }
-                    //CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
                     IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
                     js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnSaveITTeam));
                     driver.FindElement(btnSaveITTeam).Click();
@@ -6778,7 +6786,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             Thread.Sleep(5000);
             driver.FindElement(btnModifyRolesL).Click();
             driver.SwitchTo().DefaultContent();
@@ -6942,7 +6950,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             driver.FindElement(btnModifyRolesL).Click();
             Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
@@ -7077,13 +7085,15 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            Thread.Sleep(8000);
         }
         public void UpdateTASServicesLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnWomenLedL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
             Thread.Sleep(1000);
             driver.FindElement(comboTASServicesL).Click();
@@ -7091,6 +7101,266 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(By.XPath("//label[text()='TAS Services']/following::lightning-base-combobox-item//span[@title='Buyside AFR']")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
+        }        
+        public bool IsBtnTASDNDDisplayedLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnTASDNDL, 10);
+                bool btnDisplayed =driver.FindElement(btnTASDNDL).Displayed;                
+                return btnDisplayed;
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 5);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnMoreTASDNDL, 5);
+                    bool btnDisplayed= driver.FindElement(btnMoreTASDNDL).Displayed;                    
+                    return btnDisplayed;
+                }
+                catch { return false; }
+            }
+        }
+        public void UpdateInternalTeamDetailsLV(string name, string role)
+        {            
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, frameInternalTeamDetailPage, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(5000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(10000);
+
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");  //article/div[2]/div/iframe"); 
+            //WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL, 20);
+            driver.FindElement(txtStaffL).SendKeys(name);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 20);
+            if (role=="Principal"|| role == "PRINCIPAL")
+            {
+                driver.FindElement(chkPrincipalL).Click();
+            }
+            else
+            {
+                driver.FindElement(chkSellerL).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 20);
+            driver.FindElement(btnSaveTeamL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
+        public void AddOppMultipleDealTeamMembersLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(6000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
+                string role = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 4);
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                driver.FindElement(txtStaff).SendKeys(valStaff);
+                Thread.Sleep(5000);
+                CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL2, 20);
+                if (role == "Principal" || role == "PRINCIPAL")
+                {
+                    driver.FindElement(chkPrincipalL2).Click();
+                }
+                else
+                {
+                    driver.FindElement(chkSellerL2).Click();
+                }
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 20);
+                driver.FindElement(btnSaveTeamL).Click();
+                Thread.Sleep(5000);                
+            }
+        }        
+        public bool IsTASDNDFieldDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, labelTASDNDL, 20);
+                return driver.FindElement(labelTASDNDL).Displayed;
+            }
+            catch { return false; }
+        }
+        public string GetTASDNDCheckBoxStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkTASDNDL, 10);
+            bool enabled = driver.FindElement(chkTASDNDL).Selected;
+            if (enabled)
+            {
+                return "Checked";
+            }
+            else
+            {
+                return "Not Checked";
+            }
+        }
+        public void ClickBtnTASDNDLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnTASDNDL, 5);
+                driver.FindElement(btnTASDNDL).Click();                
+            }
+            catch{
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnMoreTASDNDL, 5);
+                    driver.FindElement(btnMoreTASDNDL).Click();
+                }
+                catch {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 5);
+                    driver.FindElement(iconExpandMoreButonL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnMoreTASDNDL, 5);
+                    driver.FindElement(btnMoreTASDNDL).Click();                    
+                }
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDNDConfirmL, 10);
+            driver.FindElement(btnDNDConfirmL).Click();
+            Thread.Sleep(10000);
+        }
+        public void AddOppDealTeamMembersLV(string valStaff, string role)
+        {           
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(6000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));                      
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL2, 20);
+            if (role == "Principal" || role == "PRINCIPAL")
+            {
+                driver.FindElement(chkPrincipalL2).Click();
+            }
+            else
+            {
+                driver.FindElement(chkSellerL2).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 20);
+            driver.FindElement(btnSaveTeamL).Click();
+            Thread.Sleep(5000);            
+        }
+        public void AddOppMultipleDealTeamMembersLV2(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(4000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(6000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "NewDealTeamMembers");
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", row, 1);
+                string role = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", row, 4);
+                //Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                driver.FindElement(txtStaff).SendKeys(valStaff);
+                Thread.Sleep(5000);
+                CustomFunctions.MultiSelectValueWithoutSelect(driver, listStaff, valStaff);
+                WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL2, 20);
+                if (role == "Principal" || role == "PRINCIPAL")
+                {
+                    driver.FindElement(chkPrincipalL2).Click();
+                }
+                else
+                {
+                    driver.FindElement(chkSellerL2).Click();
+                }
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 20);
+                driver.FindElement(btnSaveTeamL).Click();
+                Thread.Sleep(8000);
+            }
+        }
+        public string ClickBtnTASDNDAndGetValidationLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnTASDNDL, 5);
+                driver.FindElement(btnTASDNDL).Click();
+            }
+            catch
+            {
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnMoreTASDNDL, 5);
+                    driver.FindElement(btnMoreTASDNDL).Click();
+                }
+                catch
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 5);
+                    driver.FindElement(iconExpandMoreButonL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnMoreTASDNDL, 5);
+                    driver.FindElement(btnMoreTASDNDL).Click();
+                }
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
+            return driver.FindElement(msgLVPopup).Text;
+        }
+        By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
+        public string GetOppStage()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppStage, 30);
+                return driver.FindElement(txtOppStage).Text;
+            }
+            catch { return "Not Engaged"; }         
         }
     }
     

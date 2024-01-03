@@ -61,7 +61,7 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[7]/span/span");
+        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
         
         public void ClickEngagementTabAdvanceSearch()
         {

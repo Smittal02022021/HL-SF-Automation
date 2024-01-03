@@ -637,7 +637,7 @@ namespace SF_Automation.Pages.Engagement
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
-
+        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -6539,6 +6539,12 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+        }
+        public void ClickRelatedOpportunityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkRelatedOppL, 30);
+            driver.FindElement(linkRelatedOppL).Click();
+            Thread.Sleep(10000);
         }
     }
 }

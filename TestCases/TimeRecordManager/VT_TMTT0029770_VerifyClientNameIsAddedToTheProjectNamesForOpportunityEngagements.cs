@@ -125,6 +125,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 }
 
                 usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
             }
             catch (Exception e)
             {
