@@ -474,7 +474,7 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToClassicView();
                     //Log out of Standard User
                     usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "System Admin User: " + stdUserExl + "switched to Classic and Loggout ");
+                    extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + "switched to Classic and Loggout ");
 
                     //Search and Approve the DND Opp
                     usersLogin.SearchUserAndLogin(caoUserExl);

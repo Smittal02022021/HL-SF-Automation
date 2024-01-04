@@ -7,9 +7,6 @@ using SF_Automation.UtilityFunctions;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using System;
-using Microsoft.CodeAnalysis.CSharp;
-using System.Data;
-using System.Security.Policy;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {

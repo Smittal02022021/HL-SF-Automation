@@ -167,7 +167,7 @@ namespace SF_Automation.Pages.Companies
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
-        By txtCompanyType = By.XPath("//p[@title='Company Type']//following::p//span");
+        By txtCompanyType = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Company Type']/parent::div/following-sibling::div/span/slot/records-record-type//div[contains(@class,'recordTypeName')]/span");//p[@title='Company Type']//following::p//span");
 
         By drpdownInvestmentPref = By.XPath("//label[text()='Investment Preference / Operating Sector']/../../td[2]/div/span/select");
 
@@ -1626,9 +1626,6 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{officerName}']");
             // WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationshipL, 20);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationshipL));
-
-
-
         }
 
         public bool IsCoverageTeamDetailsPageDisplayedL(string value)
@@ -1661,13 +1658,13 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
         }
 
         public void ClickCoverageSectorPanelL()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageSector, 20);
             driver.FindElement(panelCoverageSector).Click();
         }
 
         public string GetOfficerCoverageTypeL()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 20);
             return driver.FindElement(panelCoverageTypeL).Text;
         }

@@ -633,7 +633,7 @@ namespace SF_Automation.Pages
             }
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 30);
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 10);
                 driver.FindElement(imgOppL).Click();
                 Thread.Sleep(8000);
                 return "Record found";

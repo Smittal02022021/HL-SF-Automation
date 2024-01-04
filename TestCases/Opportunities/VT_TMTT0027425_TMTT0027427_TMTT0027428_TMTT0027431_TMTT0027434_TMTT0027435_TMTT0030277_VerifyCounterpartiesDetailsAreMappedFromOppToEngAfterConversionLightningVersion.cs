@@ -222,6 +222,7 @@ namespace SF_Automation.TestCases.Opportunities
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
 
                     CustomFunctions.SwitchToWindow(driver, 1);
+                    extentReports.CreateLog("User Switched to new tab ");
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
                     
                     //Verify the ways of add contact and Adding Contacts
@@ -251,7 +252,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //TMTI0063923 Verify the functionality of the Email button on the Counterparties Editor Page
                     string contactEmailExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", row, 2);
-                    addCounterparty.SelectOpportunityCounterpartyAndClickEmailButton();
+                    addCounterparty.SelectOpportunityCounterpartyAndClickEmailButton();//need to update logic of seletion of template
                     string contactEmail = addCounterparty.GetOpportunityCounterpartyContactEmailOnEmailTemplate(counterpartyCompanyNameExl);
                     Assert.AreEqual(contactEmail, contactEmailExl, "Verify Contact Email id is present on Email Template ");
                     extentReports.CreateLog("Contact Email: " + contactEmail + " is present on Email Template ");
