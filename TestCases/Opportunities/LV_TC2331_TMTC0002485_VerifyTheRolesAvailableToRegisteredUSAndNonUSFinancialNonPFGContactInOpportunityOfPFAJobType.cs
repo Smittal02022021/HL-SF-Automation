@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("False", chkNonReg);
                     extentReports.CreateLog("Non Registered role checkbox is not displayed ");
 
-                    if (opportunityName.Equals("Project Tenex III"))
+                    if (opportunityName.Equals("Project Peloton"))
                     {
                         if (teamMemberName.Equals("Kevin Ma"))
                         {
