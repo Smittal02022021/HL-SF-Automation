@@ -60,7 +60,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
         By lblNewOppCounterparty = By.XPath("//h2[text()='New Opportunity Counterparty']");
         By txtCompanyL = By.XPath("//input[@placeholder='Search Companies...']");
-        By comboType = By.XPath("//button[@aria-label='Type, --None--']");
+        By comboType = By.XPath("//label[text()='Type']/parent::div//button");//button[@aria-label='Type, --None--']");
         By btnSaveCounterpartyL = By.XPath("//button[@name='SaveEdit']");
         By btnNewOppCounterpartyContactL = By.XPath("//button[text()='New Opportunity Counterparty Contact']");
         By txtSearchBox = By.XPath("//slot/p/lightning-input/lightning-primitive-input-simple/div[1]/div/input[@placeholder='type here...']");

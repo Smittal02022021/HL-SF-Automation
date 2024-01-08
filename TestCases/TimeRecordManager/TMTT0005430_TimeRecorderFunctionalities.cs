@@ -206,7 +206,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 refreshButton.ClickStartButton();
                 extentReports.CreateLog("User has clicked on Start Button ");
 
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
                 //Click Finish Button
                 refreshButton.ClickFinishButton();
                 extentReports.CreateLog("Clicked the finish button ");

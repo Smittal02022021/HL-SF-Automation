@@ -88,10 +88,10 @@ namespace SF_Automation.Pages.Engagement
         By btnNewViewAll = By.XPath("//button[@name='New']");
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
         By lblMilestone = By.XPath("//label[text()='Milestone']");
-        By btnMilestone = By.XPath("//button[@aria-label=\"Milestone, Select an Option\"]");
+        By btnMilestone = By.XPath("//label[text()='Milestone']/parent::div//button");//button[@aria-label=\"Milestone, Select an Option\"]");
         By valMilestone = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By lblTemplate = By.XPath("//label[text()='Template']");
-        By btnTemplate = By.XPath("//button[@aria-label=\"Template, -Select-\"]");
+        By btnTemplate = By.XPath("//label[text()='Template']/parent::div//button");//button[@aria-label=\"Template, -Select-\"]");
         By valTemplate = By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnContactEmail = By.XPath("//span[@title='Skyhive']/ancestor::button");
         By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
@@ -104,7 +104,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditBidsL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[5]/button");
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
-        By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
+        By valView = By.XPath("//label[text()='View']/parent::div//button");//button[@aria-label='View, Buyside Stages']/span");
         By btnEditViewAll = By.XPath("//td[9]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By lnkEditViewAll = By.XPath("//a[@title='Edit']");
         By lnkDeleteViewAll = By.XPath("//a[@title='Delete']");
@@ -172,7 +172,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSearchContact = By.XPath("//button[@title='Search']");
         By btnEditBids = By.XPath("//button[text()='Edit Bids']");
         By btnNewBidRound = By.XPath("//button[text()='New Bid Round']");
-        By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
+        By btnSelectNewRound = By.XPath("//label[text()='Select New Round']/parent::div//button");//button[@aria-label='Select New Round, Select New Round']");
         By tabAddedBid = By.XPath("//a[text()='Round First']");        
         By txtMinBid = By.XPath("//input[@name='dt-inline-edit-currency']");
         By txtEquity = By.XPath("//input[@name='dt-inline-edit-number']");

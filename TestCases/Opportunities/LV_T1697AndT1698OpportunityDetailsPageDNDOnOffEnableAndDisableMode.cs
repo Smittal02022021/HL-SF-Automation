@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "DND On/Off button is displayed for user:  with number : " + caoUser );
 
                     opportunityDetails.ClickDNDOnOffButtonLV();
-                    extentReports.CreateStepLogs("Info", "User: " + caoUser + "Clicked on DND On/Off Button ");
+                    extentReports.CreateStepLogs("Info", "User: " + caoUser + " Clicked on DND On/Off Button ");
 
                     string txtMessage= randomPages.GetLVMessagePopup();
                     extentReports.CreateStepLogs("Pass", txtMessage);

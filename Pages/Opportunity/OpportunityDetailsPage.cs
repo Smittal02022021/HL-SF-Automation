@@ -296,13 +296,13 @@ namespace SF_Automation.Pages
         By tabOpp = By.XPath("//span[text()='Opportunities']");
         By btnEditL = By.XPath("//li[contains(@data-target-selection-name,'Opportunity__c.Edit')]"); //records-lwc-highlights-panel/records-lwc-record-layout//records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer"); 
         //By btnEditL = By.XPath("//records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
-        By comboClientOwnershipL = By.XPath("//button[@aria-label='Client Ownership, --None--']");
-        By comboSubjectOwnershipL = By.XPath("//button[@aria-label='Subject Ownership, --None--']");
+        By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");//button[@aria-label='Client Ownership, --None--']");
+        By comboSubjectOwnershipL = By.XPath("//label[text()='Subject Ownership']/parent::div//button");//button[@aria-label='Subject Ownership, --None--']");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
 
-        By comboUpdBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, No']");
+        By comboUpdBenOwnerL = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/parent::div//button");//button[@aria-label='Beneficial Owner & Control Person form?, No']");
         By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
 
         By txtEstTxnSizeL = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
@@ -365,7 +365,7 @@ namespace SF_Automation.Pages
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT= By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
-        By btnComments = By.XPath("//button[@aria-label='Comment Type, Internal']");
+        By btnComments = By.XPath("//label[text()='Comment Type']/parent::div//button");//button[@aria-label='Comment Type, Internal']");
         By valCommentsType = By.XPath("//lightning-base-combobox-item[2]/span[2]/span");
         By txtCommentNotes = By.XPath("//textarea[@name='Comment__c']");
         By btnSaveComments = By.XPath("//button[@name='save']");
@@ -458,10 +458,10 @@ namespace SF_Automation.Pages
         By txtMonthlyL = By.XPath("//input[@name= 'ProgressMonthly_Fee__c']");
         By txtContigentL = By.XPath("//input[@name= 'Contingent_Fee__c']");
         By txtTailExpiresL = By.XPath("//input[@name= 'Tail_Expires__c']");
-        By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
-        By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");              
-        By btnFairnessL = By.XPath("//button[@aria-label='Fairness Opinion Component, --None--']");
-        By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
+        By comboBenOwnerL = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/parent::div//button");//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
+        By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
+        By btnFairnessL = By.XPath("//button[contains(@aria-label,'Fairness Opinion Component')]");////button[@aria-label='Fairness Opinion Component, --None--']");
+        By btnConfAgree = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
               
                    
         By btnReqEngL = By.XPath("//button[text()='Request Engagement']");        
@@ -478,7 +478,7 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
@@ -515,7 +515,7 @@ namespace SF_Automation.Pages
         By btnManageRelationship = By.XPath("//span[contains(text(),'Manage Relationship')]");
         By checkboxNBC = By.XPath("//td[text()='NBC Approved']//following-sibling::td//img");
         By txtPreviousJobType = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//slot//lightning-formatted-text");
-        By txtEngHeader = By.XPath("//h1//div[text()='Engagement']");
+        By txtEngHeader = By.XPath("//h1//div//records-entity-label[text()='Engagement']");//h1//div[text()='Engagement']");
 
         By txtRefContactL2 = By.XPath("//label[text()='Referral Contact']/following::div[1]/div/lightning-base-combobox//input");        
 
@@ -540,7 +540,7 @@ namespace SF_Automation.Pages
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
-        By ComboStagePriorityL = By.XPath("//button[@aria-label='Stage/Priority, High']");
+        By ComboStagePriorityL = By.XPath("//label[text()='Stage/Priority']/parent::div//button");//button[@aria-label='Stage/Priority, High']");
         By tabOppAdministratorL = By.XPath("//li/a[@data-label='Administration']");
         By txtDateEngaged = By.XPath("//flexipage-field[contains(@data-field-id,'Date_Engaged_cField')]//span[contains(@class,'field-value')]//lightning-formatted-text");
         By popupError = By.XPath("//div[contains(@class,'OppRequestEngagementAura')]");
@@ -556,10 +556,10 @@ namespace SF_Automation.Pages
         By tabOppInternalTeamL = By.XPath("//li/a[contains(@data-label,'Internal Team')]");
         By txtDealTeamMember = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody/tr[1]//td//div[contains(@id,'HLInternalTeam')]/label");
         By tabInfo = By.XPath("//a[text()='Info']");
-        By comboLegalAdvisorL = By.XPath("//button[@aria-label='Legal Advisor to Company, --None--']");
-        By comboLegalAdvisorHLL = By.XPath("//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
-        By comboRefTypeL = By.XPath("//button[@aria-label='Referral Type, --None--']");
-        By comboConfAggL = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
+        By comboLegalAdvisorL = By.XPath("//label[text()='Legal Advisor to Company']/parent::div//button");//button[@aria-label='Legal Advisor to Company, --None--']");
+        By comboLegalAdvisorHLL = By.XPath("//label[text()='Legal Advisor to HL Client Group']/parent::div//button");//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
+        By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");//button[@aria-label='Referral Type, --None--']");
+        By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
@@ -569,7 +569,7 @@ namespace SF_Automation.Pages
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");

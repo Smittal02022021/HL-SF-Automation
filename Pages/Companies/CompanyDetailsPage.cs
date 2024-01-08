@@ -167,7 +167,7 @@ namespace SF_Automation.Pages.Companies
         By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
-        By txtCompanyType = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Company Type']/parent::div/following-sibling::div/span/slot/records-record-type//div[contains(@class,'recordTypeName')]/span");//p[@title='Company Type']//following::p//span");
+        By txtCompanyType = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Company Type']/ancestor::dl//dd//div[contains(@class,'recordTypeName')]"); //span[@class='test-id__field-label'][normalize-space()='Company Type']/parent::div/following-sibling::div/span/slot/records-record-type//div[contains(@class,'recordTypeName')]/span");//p[@title='Company Type']//following::p//span");
 
         By drpdownInvestmentPref = By.XPath("//label[text()='Investment Preference / Operating Sector']/../../td[2]/div/span/select");
 
@@ -1630,7 +1630,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
         public bool IsCoverageTeamDetailsPageDisplayedL(string value)
         {
-            By titleCoverageteamL = By.XPath($"//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')][contains(text(),'{value}')]");
+            By titleCoverageteamL = By.XPath($"//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')]//records-entity-label[contains(text(),'{value}')]");//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')][contains(text(),'{value}')]");
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, titleCoverageteamL, 20);
