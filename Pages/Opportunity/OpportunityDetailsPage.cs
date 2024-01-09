@@ -556,8 +556,8 @@ namespace SF_Automation.Pages
         By tabOppInternalTeamL = By.XPath("//li/a[contains(@data-label,'Internal Team')]");
         By txtDealTeamMember = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody/tr[1]//td//div[contains(@id,'HLInternalTeam')]/label");
         By tabInfo = By.XPath("//a[text()='Info']");
-        By comboLegalAdvisorL = By.XPath("//label[text()='Legal Advisor to Company']/parent::div//button");//button[@aria-label='Legal Advisor to Company, --None--']");
-        By comboLegalAdvisorHLL = By.XPath("//label[text()='Legal Advisor to HL Client Group']/parent::div//button");//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
+        By comboLegalAdvisorL = By.XPath("//button[contains(@aria-label,'Legal Advisor to Company')]");//button[@aria-label='Legal Advisor to Company, --None--']");
+        By comboLegalAdvisorHLL = By.XPath("//button[contains(@aria-label,'Legal Advisor to HL Client Group')]");//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
         By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");//button[@aria-label='Referral Type, --None--']");
         By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
@@ -565,7 +565,7 @@ namespace SF_Automation.Pages
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
         By chkTotalDebtConfMML = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");
-        By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?, --None--')]");
+        By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");

@@ -255,7 +255,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0055387 Verify the status is updated in Oracle ERP Information section after creating the Opportunity
                     //Validate the ERP status on Engagement details page
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
-                    //Assert.AreEqual("Success", ERPStatusIG);
+                    Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
 
 
