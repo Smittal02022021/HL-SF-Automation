@@ -148,7 +148,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnResetFilters, 60);
             driver.FindElement(btnResetFilters).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNumber, 60);
             driver.FindElement(txtEngageNumber).SendKeys(number);
             driver.FindElement(valShowRec).Click();

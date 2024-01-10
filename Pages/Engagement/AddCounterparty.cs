@@ -60,8 +60,8 @@ namespace SF_Automation.Pages.Engagement
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By tabCounterpartyEditor = By.XPath("//span[text()='Counterparty Editor']");
         By lnk2ndCompCounterparty = By.XPath("//tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
-        By valMinRoundBid = By.XPath("//flexipage-component2[3]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valMaxRoundBid = By.XPath("//flexipage-component2[3]/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/div/div[2]/dl/dd[3]/lst-template-list-field/lst-formatted-text");
+        By valMinRoundBid = By.XPath("//dt[text()='Round Minimum (MM):']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text/span");
+        By valMaxRoundBid = By.XPath("//dt[text()='Round Maximum (MM):']/ancestor::dl/dd[3]/lst-template-list-field/lst-formatted-text/span");
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
@@ -82,17 +82,17 @@ namespace SF_Automation.Pages.Engagement
         By valUpdView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
         By selectedView = By.XPath("//div[2]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
-       By tblCounterparty = By.XPath("//lst-customized-datatable/div[2]/div/div/table/tbody");
+       By tblCounterparty = By.XPath("//lst-bundle_act_core-related-list-desktop_datatable/div[2]/div/div/table/tbody");
         By chkCounterparty = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By chkCounterparty2nd = By.XPath("//tr[2]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnEmail = By.XPath("//button[text()='Email']");
         By btnNewViewAll = By.XPath("//button[@name='New']");
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
         By lblMilestone = By.XPath("//label[text()='Milestone']");
-        By btnMilestone = By.XPath("//button[@aria-label=\"Milestone, Select an Option\"]");
+        By btnMilestone = By.XPath("//label[text()='Milestone']/ancestor::div[1]/div[1]/lightning-base-combobox/div/div/div[1]/button");
         By valMilestone = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By lblTemplate = By.XPath("//label[text()='Template']");
-        By btnTemplate = By.XPath("//button[@aria-label=\"Template, -Select-\"]");
+        By btnTemplate = By.XPath("//label[text()='Template']/ancestor::div[1]/div[1]/lightning-base-combobox/div/div/div[1]/button");
         By valTemplate = By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnContactEmail = By.XPath("//span[@title='Skyhive']/ancestor::button");
         By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
@@ -105,7 +105,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditBidsL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[5]/button");
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
-        By valView = By.XPath("//button[@aria-label='View, Buyside Stages']/span");
+        By valView = By.XPath("//button[@data-value='Buyside Stages']/span");
         By btnEditViewAll = By.XPath("//tr[1]/td[5]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By lnkEditViewAll = By.XPath("//a[@title='Edit']");
         By lnkDeleteViewAll = By.XPath("//a[@title='Delete']");
@@ -173,7 +173,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSearchContact = By.XPath("//button[@title='Search']");
         By btnEditBids = By.XPath("//button[text()='Edit Bids']");
         By btnNewBidRound = By.XPath("//button[text()='New Bid Round']");
-        By btnSelectNewRound = By.XPath("//button[@aria-label='Select New Round, Select New Round']");
+        By btnSelectNewRound = By.XPath("//label[text()='Select New Round']/ancestor::div[1]/div/lightning-base-combobox/div/div/div[1]/button");
         By tabAddedBid = By.XPath("//a[text()='Round Second']");        
         By txtMinBid = By.XPath("//input[@name='dt-inline-edit-currency']");
         By txtEquity = By.XPath("//input[@name='dt-inline-edit-number']");
@@ -589,6 +589,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate the displayed records
         public string ValidateCounterpartyRecords()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tblCounterparty, 180);
             string value = driver.FindElement(tblCounterparty).Displayed.ToString();
             Console.WriteLine(value);
@@ -1155,7 +1156,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditBidsL, 150);
             driver.FindElement(btnEditBidsL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewBidRound, 150);
             driver.FindElement(btnNewBidRound).Click();            
             WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);

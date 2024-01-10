@@ -171,7 +171,7 @@ namespace SF_Automation.Pages.Engagement
         By txtIncreOverBidL = By.XPath("//input[@name='Incremental_Overbid__c']");
         By txtBreakUPFeeL = By.XPath("//input[@name='Break_Up_Fee__c']");
         By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
-        By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[2]/div/div/div/table/tbody/tr");
+        By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
         By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
         By btnEdit2ndDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
@@ -2506,6 +2506,7 @@ namespace SF_Automation.Pages.Engagement
 
         public bool VerifyRevenueFieldsL()
         {
+            Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblRevenueL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};

@@ -1,10 +1,13 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using NUnit.Framework;
+using OpenQA.Selenium.DevTools.V113.Input;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
+       
+
 using System;
 
 namespace SF_Automation.TestCases.Opportunity
@@ -18,6 +21,8 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         FEISForm form = new FEISForm();
+        AddOpportunityContact addContact = new AddOpportunityContact();
+        AddOppCounterparty counterparty = new AddOppCounterparty();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTC1644 = "TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.xlsx";
@@ -72,10 +77,46 @@ namespace SF_Automation.TestCases.Opportunity
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 string value = addOpportunity.AddOpportunitiesLightning(valJobType, fileTC1644);
 
-                //Search Functionality of Opportunities
-                opportunityHome.SearchMyOpportunitiesInLightning("125530", valUser);
-              
-                //Click on NBC page and validate title of page
+                //Call function to enter Internal Team details and validate Opportunity detail page
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1644);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
+                               
+                //Update all required fields for Conversion to Engagement
+                counterparty.ClickViewCounterparties();
+                opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC1644);
+                extentReports.CreateLog("All required details are saved ");
+                opportunityDetails.UpdateInternalTeamDetailsL(fileTC1644);
+                extentReports.CreateLog("Internal Team members details are saved ");
+                opportunityDetails.ClickAddCFOppContact();
+                addContact.CreateContactL(fileTC1644);
+
+                //Logout
+                usersLogin.LightningLogout();
+
+                //Search for Opportunity
+                opportunityHome.SearchOpportunity(value);
+
+                opportunityDetails.UpdateNBCApproval();
+                opportunityDetails.UpdateOutcomeDetails(fileTC1644);
+
+                //Login as Financial User and validate the user                
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser1 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser1.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
+
+                //Open the same opportunity and Click on Request Engagement               
+                opportunityHome.SearchMyOpportunitiesInLightning(value, valUser);
+                opportunityDetails.ClickRequestoEngL();
+                extentReports.CreateLog("No Validation error is displayed and Opportunity is requested for approval ");
+
+                //1. TMTI0088216_Verify the availability of the FEIS Form button availability on all Opportunities of Fairness Job Types
+                string FEISForm = opportunityDetails.ValidateFEISFormButton();
+                Assert.AreEqual("FEIS Form button is displayed", FEISForm);
+                extentReports.CreateLog("FEIS Form Button is displayed ");
+
+                //2. TMTI0088218_Verify that if the FEIS Form is not completed, then Requesting Engagement applications will give an error message to Complete and Submit the FEIS form
                 string title = opportunityDetails.ClickFEISForm();
                 Assert.AreEqual("FEIS (Part I) Form", title);
                 extentReports.CreateLog(title + " is displayed ");
@@ -132,9 +173,9 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User, validate the user and search for created opportunity
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser1 = login.ValidateUser();
+                string stdUser2 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
-                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
+                extentReports.CreateLog("User: " + stdUser2 + " logged in ");
                 //opportunityHome.SearchOpportunity(value);
                 opportunityDetails.ClickFEISForm();
 

@@ -159,9 +159,9 @@ namespace SF_Automation.Pages
         By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-177']");
         By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-204']");
         By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-202']");
-        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-256']");
+        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-226']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-246']");
-        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-281']");
+        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-251']");
         By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-333']");
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
         By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");

@@ -86,34 +86,34 @@ namespace SF_Automation.Pages.Opportunity
         By lblRealEstate = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordAsia_Angle_cField1']/slot[1]/following::span[1]");
         By lblIntAngle = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordReal_Estate_Angle_cField1']/slot[1]/following::span[1]");
         By secHLComp = By.XPath("//span[@title='Houlihan Lokey Competition']");
-        By lblHLComp = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblHLComp = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secDescribeOther = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblUseOfPro = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblUseOfPro = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By lblProDetails = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordUse_of_Proceeds_cField1']/slot[1]/following::span[1]");
         By secOwnership = By.XPath("//slot/flexipage-tab2[1]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblOwnership = By.XPath("//flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblOwnership = By.XPath("//flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secTotalDebt = By.XPath("//span[@title='Total Debt(MM)']");
-        By lblTotalDebt = By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblTotalDebt = By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secPrePitch = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblPrePitch = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblPrePitch = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[6]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
 
         By secStrcuture = By.XPath("//span[@title='Structure and Pricing Expectations (if relevant)']");
-        By lblStrcuture = By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblStrcuture = By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secReferral = By.XPath("//span[@title='Referral']");
-        By lblReferralType = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
-        By lblReferralSource = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblReferralType = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
+        By lblReferralSource = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secPls = By.XPath("//span[@title='Please confirm that a group head has approved prior to submitting to the committee']");
-        By lblGroup = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblGroup = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
 
         By msgFinUnavailable = By.XPath("//span[@title='Financials Unavailable']");
-        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/div[1]/span");
-        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/div[1]/span");
+        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/dl/dt/div[1]/span");
+        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/dl/dt/div[1]/span");
         By msgAboveFin = By.XPath("//span[text()='Have the above Financials been subject to an audit?']");
-        By lblFinSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Financials_Subject_to_Audit__c']/div[1]/div[1]/span");
+        By lblFinSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Financials_Subject_to_Audit__c']/div[1]/dl/dt/div[1]/span");
         By msgCapital = By.XPath("//span[@title='Capital Raise (MM) (Best estimate of capital to be raised expressed as a currency value in millions)']");
-        By lblCapRaise = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Raise__c']/div[1]/div[1]/span");
+        By lblCapRaise = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Raise__c']/div[1]/dl/dt/div[1]/span");
 
-        By lblRetainer = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblRetainer = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By lblFeeStructure = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTotal_Otherfee_cField2']/slot[1]/following::span[1]");
         By lblLockups = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordFee_Structure_cField1']/slot[1]/following::span[1]");
         By lblReferral = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordLockups_on_Future_M_A_or_Financing_Work_cField2']/slot[1]/following::span[1]");
@@ -121,9 +121,9 @@ namespace SF_Automation.Pages.Opportunity
         By lblProgress = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
 
         By msgAdmin = By.XPath("//span[@title='Administrative']");
-        By lblRestrictedList = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblRestrictedList = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By msgCCInfo = By.XPath("//span[@title='Conflicts Check Information']");
-        By lblCCStatus = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblCCStatus = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/dl/dt/div[1]/span[1]");
         By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An CNBC Form:']");
         By lnkAttachments = By.XPath("//a[@data-label='Attachment']");
 

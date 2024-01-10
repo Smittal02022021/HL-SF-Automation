@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagOpportunities = By.XPath("//div/ul/li[6]/div/a/span[2]/span");
+        By tagOpportunities = By.XPath("//div/ul/li[7]/div/a/span[2]/span");
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
@@ -411,7 +411,7 @@ namespace SF_Automation.Pages
         }
         public string ClickNewButtonAndSelectOppRecordTypeLV(string type)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 120);
             driver.FindElement(btnNew).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, _eleOppRecordType(type), 20);
             driver.FindElement(_eleOppRecordType(type)).Click();

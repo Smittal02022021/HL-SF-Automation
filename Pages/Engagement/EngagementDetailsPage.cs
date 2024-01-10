@@ -37,11 +37,11 @@ namespace SF_Automation.Pages.Engagement
         By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
-        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/div[2]/span/slot/lightning-formatted-text");
-        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div/div[2]/span/slot/lightning-formatted-text");
-        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div/div[2]/span/slot/lightning-formatted-text");
-        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div/div[2]/span/slot/lightning-formatted-text");
-        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div/div[2]/span/slot/lightning-formatted-text");
+        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div[1]/dl/dd/div/span/slot/lightning-formatted-text");
+        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr>th:nth-child(1)");
@@ -205,7 +205,7 @@ namespace SF_Automation.Pages.Engagement
         By valSelectedType = By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
         //By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
 
-        By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]/div[2]/span/slot/lightning-formatted-text");
+        By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]/dl/dd/div[1]/span/slot/lightning-formatted-text");
         By valTotalDebtMM = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
         //By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
         By btnViewCounterparties = By.XPath("//button[@name='Engagement__c.ViewCounterparties']");
@@ -411,7 +411,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
-        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
+        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
         By lblBid = By.XPath("//span[text()='Bids']");
         By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");

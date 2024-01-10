@@ -98,19 +98,19 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validating Retainer
                 string retainer = OpportunityDetails.GetRetainer();
-                string expRetainer = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 10) + " (GBP 8.71)");
+                string expRetainer = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 10) + " (GBP 8.69)");
                 Assert.AreEqual(expRetainer, retainer);
                 extentReports.CreateLog("Retainer :" + retainer + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
                 //-----Validating Monthly Fee
                 string fee = OpportunityDetails.GetMonthlyFee();
-                string expMonthlyFee = "EUR" + (ReadExcelData.ReadData(excelPath, "OppManager", 9) + " (GBP 8.71)");
+                string expMonthlyFee = "EUR" + (ReadExcelData.ReadData(excelPath, "OppManager", 9) + " (GBP 8.69)");
                 //Assert.AreEqual(expMonthlyFee, fee);
                 extentReports.CreateLog("Monthly Fee :" + fee + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
                 //-----Validating Contingent Fee
                 string contingentFee = OpportunityDetails.GetContingentFee();
-                string expContingentFee = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 8) + " (GBP 8.71)") ;
+                string expContingentFee = "EUR " + (ReadExcelData.ReadData(excelPath, "OppManager", 8) + " (GBP 8.69)") ;
                 Assert.AreEqual(expContingentFee, contingentFee);
                 extentReports.CreateLog("Contingent Fee :" + contingentFee + " is updated w.r.t change in Opportunity manager in Opportunity details ");
 
