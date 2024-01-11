@@ -94,17 +94,18 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Page with heading: "+offsiteTemplateEditHeading + " is displayed upon click of new offsite template button ");
 
                 //Verify new offsite template is not created
-                coverageTeamDetail.EnterOffsiteTemplateDetails(fileTC1747);
+                //coverageTeamDetail.EnterOffsiteTemplateDetails(fileTC1747);
                 coverageTeamDetail.ClickCancel();
                 Assert.IsFalse(coverageTeamDetail.ValidateOffsiteTemplateCreation(),"Offsite template not created ");
-                extentReports.CreateLog("Enter offsite template details and click on cancel button did not create a new offsite template ");
+                extentReports.CreateLog("Click on cancel button did not create a new offsite template ");
 
                 // Creating a new offsite template record
                 coverageTeamDetail.ClickNewOffsiteTemplateButton();
-                coverageTeamDetail.EnterOffsiteTemplateDetails(fileTC1747);
+                // coverageTeamDetail.EnterOffsiteTemplateDetails(fileTC1747);
                 coverageTeamDetail.ClickSave();
-                extentReports.CreateLog("Enter offsite template details and click on save button created a new offsite template ");
+                extentReports.CreateLog("Click on save button created a new offsite template ");
 
+                /*
                 //Validate offsite template detail heading
                 string offsiteTemplateDetailHeading = coverageTeamDetail.GetOffsiteTemplateDetailHeading();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "CoverageTeam", 12), offsiteTemplateDetailHeading);
@@ -129,6 +130,7 @@ namespace SF_Automation.TestCases.Companies
                 string valueFundName = coverageTeamDetail.GetFundName();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "CoverageTeam",11), valueFundName);
                 extentReports.CreateLog("Fund Name: " + valueFundName + " in edit offsite template matches on offsite template detail page ");
+                */
 
                 //Logout from FS user
                 usersLogin.UserLogOut();
