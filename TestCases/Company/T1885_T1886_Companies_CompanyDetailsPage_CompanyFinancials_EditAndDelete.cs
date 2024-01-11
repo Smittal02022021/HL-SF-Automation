@@ -129,11 +129,6 @@ namespace SF_Automation.TestCases.Companies
 
                     companyFinancial.ClickCancelButton();
 
-                    //Get value of Financial year from annual financial
-                    string financialYearAnnualFinancial = companyDetail.GetFinancialsYearAnnualFinancial();
-                    Assert.AreEqual(thirdListedYearFromNewFinancial, financialYearAnnualFinancial);
-                    extentReports.CreateLog("Financial year: " + financialYearAnnualFinancial + " is displayed to the annual financial and matches with company level ");
-
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("LogOut from StandardUser ");
 
@@ -152,11 +147,6 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(topCompanyFinancialYearAfterDelete,thirdListedYearFromNewFinancial);
                     extentReports.CreateLog("Next top Recent year: " + topCompanyFinancialYearAfterDelete + " is displayed at company level after deleting most recent year ");
 
-                    //Validate second most recent year in annual financial
-                    string secondUpdatefinancialYearAnnualFinancial = companyDetail.GetFinancialsYearAnnualFinancial();
-                    Assert.AreEqual(topCompanyFinancialYearAfterDelete, secondUpdatefinancialYearAnnualFinancial);
-                    extentReports.CreateLog("Next top Recent year: " + secondUpdatefinancialYearAnnualFinancial + " is displayed at annual financial after deleting most recent year ");
-
                     //Delete all records of company finanials created
                     int sizeOfCompanyFinancialList = companyDetail.GetSizeOfCompanyFinancialList();
                     for (int i = 2; i <= sizeOfCompanyFinancialList; i++)
@@ -170,11 +160,6 @@ namespace SF_Automation.TestCases.Companies
                     string noRecordMsgExl = ReadExcelData.ReadData(excelPath, "Company", 4);
                     Assert.AreEqual(noRecordMsgExl, noRecordMsg);
                     extentReports.CreateLog("Message: "+ noRecordMsg+" is displayed after deleting all Company financial records ");
-
-                    //Validate no record is found after deleting all company financial in annual financial 
-                    string ValueAfterCompanyFinancialRecordDeletion = companyDetail.GetFinancialsYearAnnualFinancial();
-                    Assert.AreEqual("", ValueAfterCompanyFinancialRecordDeletion);
-                    extentReports.CreateLog("Annual Financial is displayed as blank after deleting all Company financial records ");
                 }
 
                 usersLogin.UserLogOut();

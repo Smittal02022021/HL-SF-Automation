@@ -12,7 +12,7 @@ namespace SF_Automation.Pages.Reports
     {
         By lnkReports = By.CssSelector("a[title*='Reports Tab']");
         By txtFindAFolder = By.XPath("(//input[@class='x-form-text x-form-field quickfindInput x-form-empty-field'])[1]");
-        By matchedFolderResult = By.CssSelector("span[unselectable='on'] > div");
+        By matchedFolderResult = By.XPath("//div[@data-qtip='Data Hygiene']/../..");
         By txtFindAReportAndDashboard = By.CssSelector("input[id='ext-comp-1017']");
         By matchedReportResult = By.CssSelector("div[class='nameFieldContainer descrContainer'] > a");
         By btnHideDetails = By.CssSelector("input[value='Hide Details']");

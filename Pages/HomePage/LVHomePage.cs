@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.HomePage
         By homePageH1Heading = By.XPath("//div[@class='dash-title']/div/div/h1");
         By activitiesFilter = By.XPath("//span[text()='Activities']");
         By myCoverageTab = By.XPath("//span[text()='My Coverage']");
-        By dropdownStartDateFilter = By.XPath("(//div[@class='selected-values'])[3]");
+        By dropdownStartDateFilter = By.XPath("(//div[@class='selected-values'])[6]");
         By lblNoRecords = By.XPath("//span[text()='No results found']");
 
         By lblKPITotal = By.XPath("//div[text()='Total']");
@@ -338,6 +338,7 @@ namespace SF_Automation.Pages.HomePage
                 {
                     driver.FindElement(linkHome).Click();
                     Thread.Sleep(10000);
+                    driver.SwitchTo().Frame("asset-My_Homepage");
                     WebDriverWaits.WaitUntilEleVisible(driver,homePageH1Heading,120);
                     string heading = driver.FindElement(homePageH1Heading).Text;
                     Assert.IsTrue(heading == "My Homepage");
