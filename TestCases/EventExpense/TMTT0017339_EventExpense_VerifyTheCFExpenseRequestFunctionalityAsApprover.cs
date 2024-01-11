@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateLog("Standard User: " + user + " is able to login into lightning view. ");
 
                 //Click on the Menu button
-                lvHomePage.ClickExpenseRequestMenuButton();
+                lvHomePage.ClickHomePageMenu();
 
                 for (int actionRow = 2; actionRow <= rowCount; actionRow++)
                 {

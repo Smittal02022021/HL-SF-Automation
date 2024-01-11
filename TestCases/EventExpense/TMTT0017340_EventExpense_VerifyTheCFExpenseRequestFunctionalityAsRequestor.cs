@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.EventExpense
                     }
 
                     //Click on the Menu button
-                    lvHomePage.ClickExpenseRequestMenuButton();
+                    lvHomePage.ClickHomePageMenu();
 
                     //Go to Expense Request Page
                     lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");

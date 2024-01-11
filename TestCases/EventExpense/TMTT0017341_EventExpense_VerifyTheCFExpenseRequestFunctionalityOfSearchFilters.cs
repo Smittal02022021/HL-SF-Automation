@@ -81,7 +81,7 @@ namespace SF_Automation.TestCases.EventExpense
                     }
 
                     //Click on the Menu button
-                    lvHomePage.ClickExpenseRequestMenuButton();
+                    lvHomePage.ClickHomePageMenu();
 
                     //Go to Expense Request Page
                     lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
@@ -122,7 +122,7 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("Expense Request(LWC) of LOB: " + lobName + " is created successfully. Expense Preapproval Number: " + expReqpreApprovalNo + " ");
 
                         //Click on the Menu button
-                        lvHomePage.ClickExpenseRequestMenuButton();
+                        lvHomePage.ClickHomePageMenu();
 
                         //Go to Expense Request Page
                         lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
