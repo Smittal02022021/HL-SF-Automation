@@ -7352,7 +7352,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
             return driver.FindElement(msgLVPopup).Text;
         }
-        By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
         public string GetOppStage()
         {
             try
@@ -7361,6 +7361,39 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
                 return driver.FindElement(txtOppStage).Text;
             }
             catch { return "Not Engaged"; }         
+        }
+        By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
+        public void CloseConversionPopup()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconCloseConversionPopup, 30);
+            driver.FindElement(iconCloseConversionPopup).Click();
+        }
+
+        public string RemoveUserFromEngagedOppITTeamLV(string userName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            driver.FindElement(btnModifyRolesL).Click();
+            Thread.Sleep(10000);
+            driver.SwitchTo().DefaultContent();
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            Thread.Sleep(5000);
+            By unCheckRole = By.XPath($"//input[contains(@name,':1:j_id44')][contains(@title,'{userName}')]");
+            WebDriverWaits.WaitUntilEleVisible(driver, unCheckRole, 20);
+            driver.FindElement(unCheckRole).Click();
+            driver.FindElement(btnSaveITTeam).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgHLIntTeam, 20);
+            string message = driver.FindElement(msgHLIntTeam).Text.Replace("\r\n", " ");
+            //Click to return back to Opportunity details
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
+            driver.FindElement(btnReturnToOpp).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
+            return message;
         }
     }
     

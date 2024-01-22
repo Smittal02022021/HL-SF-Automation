@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SF_Automation.TestData;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView:BaseClass
     {
@@ -440,9 +440,10 @@ namespace SalesForce_Project.TestCases.Opportunities
                     //TMTI0090549	Verify the FVA CAO can access engaged TAS DND Opportunity and can release the TAS DND using the TAS DND button. (After Conversion)
                     extentReports.CreateStepLogs("Info", "Verify the FVA CAO User: "+ caoUserExl+" can access Engaged TAS DND Opportunity and can release the TAS DND using the TAS DND button. (After Conversion)");
                     engagementDetails.ClickRelatedOpportunityLV();
+                    opportunityDetails.CloseConversionPopup();
                     Assert.AreEqual("Engaged",opportunityDetails.GetOppStage());
                     extentReports.CreateStepLogs("Passed", "Engaged TAS DND Opportunity : "+ dndOppName+" is accessible for FVA CAO User: "+ caoUserExl);
-                    
+                    //Remove deal team member
                     Assert.IsTrue(opportunityDetails.IsBtnTASDNDDisplayedLV(), "Verify TAS DND button availablity is TRUE for FVA CAO user: " + caoUserExl);
                     opportunityDetails.ClickBtnTASDNDLV();
                     extentReports.CreateStepLogs("Passed", "TAS DND button is Clicked and Confirmed ");
@@ -450,14 +451,20 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual(chkTASDNDStatus, "Not Checked");
                     extentReports.CreateStepLogs("Passed", "TAS DND Checkbox is " + chkTASDNDStatus + " for TAS DND(Off) Confirmed Opportunity");
 
+                    //opportunityDetails.ClickBtnTASDNDLV();
+                    //extentReports.CreateStepLogs("Passed", "TAS DND button is Clicked and Confirmed ");
+                    //chkTASDNDStatus = opportunityDetails.GetTASDNDCheckBoxStatusLV();
+                    //Assert.AreEqual(chkTASDNDStatus, "Checked");
+                    //dndOppName = opportunityDetails.GetOpportunityNameL();
+
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "FVA CAO user: " + caoUserExl + " logged out");
                     ///////////////////////////////////////////////////////////////////
                     //TMTI0090535 Verify that the TAS DND button is accessible to FVA Deal team members having a Principal role in Engaged Opportunity.
-                    dealMemberNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 7, 1);
-                    dealMemberLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 7, 3);
-                    dealMemberRoleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 7, 4);
-                    dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 7, 5);
+                    dealMemberNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 7, 1);
+                    dealMemberLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 7, 3);
+                    dealMemberRoleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 7, 4);
+                    dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 7, 5);
                     extentReports.CreateStepLogs("Info", "Verify TAS DND button is accessible to FVA Deal team Member Name: " + dealMemberNameExl + ", of LOB: " + dealMemberLOBExl + ", with Role: " + dealMemberRoleExl + ", from Group Name: " + dealMemberGroupName+ "On Engaged Opportunity");
                     
                     usersLogin.SearchUserAndLogin(dealMemberNameExl);
@@ -493,11 +500,49 @@ namespace SalesForce_Project.TestCases.Opportunities
                         chkTASDNDStatus = opportunityDetails.GetTASDNDCheckBoxStatusLV();
                         Assert.AreEqual(chkTASDNDStatus, "Checked");
                         extentReports.CreateStepLogs("Passed", "TAS DND Checkbox is " + chkTASDNDStatus + " for TAS DND(On) Confirmed Opportunity");
-
+                        dndOppName = opportunityDetails.GetOpportunityNameL();
                     }
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "FVA user: " + dealMemberNameExl + " logged out");
 
+                    //TMTI0090541	Verify existing deal team members and new deal team members have access to DND Opportunity after adding new deal team members.
+                    extentReports.CreateStepLogs("Info", "Verify existing deal team members and new deal team members have access to DND Opportunity after adding new deal team members.");
+                    if (opportunityName != dndOppName)
+                    {
+                        //extentReports.CreateStepLogs("Info", "TAS DND field is " + chkTASDNDStatus + " and Opportunity name is changed to " + dndOppName);
+                        dealMemberNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 2, 1);
+                        dealMemberLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 2, 3);
+                        dealMemberRoleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 2, 4);
+                        dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 2, 5);
+                        extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl + ", Member Group Name: " + dealMemberGroupName);
+                        extentReports.CreateStepLogs("Info", "Verify that New Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
+                        usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                        try
+                        {
+                            login.SwitchToClassicView();
+                            extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                            login.SwitchToLightningExperience();
+                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                        }
+                        catch
+                        {
+                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                        }
+                        homePageLV.ClickAppLauncher();
+                        //Go to Opportunity module in Lightning View                     
+                        homePageLV.SelectApp(appNameExl);
+                        Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                        extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                        homePageLV.SelectModule(moduleNameExl);
+                        extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                        //Search for opportunity
+                        result = opportunityHome.SearchOpportunitiesInLightningView(dndOppName);
+                        Assert.AreEqual("Record found", result);
+                        extentReports.CreateStepLogs("Passed", "Opp Name: " + dndOppName + " is " + result + " and selected");
+                        randomPages.CloseActiveTab(dndOppName);
+                        usersLogin.ClickLogoutFromLightningView();
+                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");                       
+                    }
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     driver.Quit();                    

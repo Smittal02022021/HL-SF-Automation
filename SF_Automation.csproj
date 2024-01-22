@@ -762,7 +762,7 @@
     <Compile Include="TestCases\Opportunities\Z_Dup_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
     <Compile Include="TestCases\Company\VT_TMTT0020654_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAavailabiltyAndFunctionalityOnOpportunityAndEngagementPage.cs" />
-    <Compile Include="TestCases\Opportunities\VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.cs" />

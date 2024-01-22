@@ -237,7 +237,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Get DateENgaged                  
                     string valEngDateEngaged = engagementDetails.GetEngStartDate();   
-                    extentReports.CreateStepLogs("Info", "Engagement Start Date: " + valEngDateEngaged+" Opportunity Page Date Engaged: "+ valEngDateEngaged);                    
+                    extentReports.CreateStepLogs("Info", " Engagement Start Date: " + valEngDateEngaged+" Opportunity Page Date Engaged: "+ valEngDateEngaged);                    
                     Assert.AreEqual(valEngDateEngaged, valOppDateEngaged);
                     extentReports.CreateStepLogs("Pass", "Date Engaged on Opportunity Page and Start Date on Engagement Page are same after conversion");
 

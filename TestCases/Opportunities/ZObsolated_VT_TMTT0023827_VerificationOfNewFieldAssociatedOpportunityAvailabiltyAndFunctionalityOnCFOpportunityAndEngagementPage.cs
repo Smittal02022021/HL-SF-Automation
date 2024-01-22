@@ -14,7 +14,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage:BaseClass
+    class ZObsolated_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
