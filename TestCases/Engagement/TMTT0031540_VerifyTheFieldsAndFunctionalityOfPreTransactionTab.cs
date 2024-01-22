@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //7. TMTI0073766_Verify that if the user selects an already added company while adding an Equity holder, the application will give an error message
                 string msgSameClient = summaryPage.ValidateIfSameClientIsSelectedInAddEquityHolder();
-                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgSameClient);
+                Assert.AreEqual("Company Name : 'Dina's Test Company 3' already exists as an Additional Client/Subject", msgSameClient);
                 extentReports.CreateLog("Message : " + msgSameClient + " is displayed after selecting same client again and clicking on save in Add Equity Holder page ");
 
                 //8. TMTI0073768_Verify that clicking the "Edit" button of the Pre-Transaction Equity Holder record allows the user to update the Percent Ownership only of the record.
@@ -283,7 +283,7 @@ namespace SF_Automation.TestCases.Engagement
                 //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
                 string updatedSecurity = summaryPage.ValidateEditFunctionalityOfAddedDebtStructure();
                 Assert.AreEqual("Bank Debt (First Lien) - Term Loan B", updatedSecurity);
-                extentReports.CreateLog("Updated values of Debt Structure are dispalyed ");
+                extentReports.CreateLog("Updated values of Debt Structure are displayed ");
 
                 //27. TMTI0075263_Verify that the user is able to delete the key creditors by clicking the Edit button of the Pre-Transaction Debt record
                 bool cancelKeyCred = summaryPage.ValidateCancelFunctionalityOfKeyCred();

@@ -123,7 +123,7 @@ namespace SF_Automation.TestCases.Engagement
                     {
                         opportunityDetails.UpdateReqFieldsForFRConversion(ERP);
                     }
-                    opportunityDetails.UpdateInternalTeamDetails(ERP);
+                    
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -134,6 +134,7 @@ namespace SF_Automation.TestCases.Engagement
                     opportunityHome.SearchOpportunity(value);
 
                     //update CC and NBC checkboxes 
+                    opportunityDetails.UpdateInternalTeamDetails(ERP);
                     opportunityDetails.UpdateOutcomeDetails(ERP);
                     if (valRecordType.Equals("CF"))
                     {

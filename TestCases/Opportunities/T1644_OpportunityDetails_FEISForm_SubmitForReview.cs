@@ -95,7 +95,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine(jobType);
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
+                
 
                 //Click on NBC page and validate title of page
                 string title = opportunityDetails.ClickFEISForm();
@@ -149,6 +149,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Search created opportunity, update conflict check details and open CNBC details page
                 string valSearch = opportunityHome.SearchOpportunity(value);
                 Console.WriteLine("result : " + valSearch);
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
                 opportunityDetails.UpdateCCOnlyFAS();
                 extentReports.CreateLog("Conflict check details are updated ");
 

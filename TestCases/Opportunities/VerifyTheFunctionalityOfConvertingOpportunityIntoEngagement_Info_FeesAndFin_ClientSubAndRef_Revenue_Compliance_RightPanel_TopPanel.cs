@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Open the same opportunity and Click on Request Engagement               
                 opportunityHome.SearchMyOpportunitiesInLightning(value, valUser);
-                opportunityDetails.ClickRequestoEngL();
+                opportunityDetails.ClickRequestoEngL();               
                 extentReports.CreateLog("No Validation error is displayed and Opportunity is requested for approval ");
 
                 //Login as CAO user and Validate the status of Opportunity post Request Engagement

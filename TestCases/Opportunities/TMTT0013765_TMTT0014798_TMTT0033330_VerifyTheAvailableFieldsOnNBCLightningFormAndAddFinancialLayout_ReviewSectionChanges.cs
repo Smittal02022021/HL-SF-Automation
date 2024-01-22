@@ -90,10 +90,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string subjectName = opportunityDetails.GetSubject();
                 string jobType = opportunityDetails.GetJobType();
                 Console.WriteLine(jobType);
-
-                //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
-
+               
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
@@ -102,7 +99,8 @@ namespace SF_Automation.TestCases.Opportunity
                 //Search for created opportunity
                 opportunityHome.SearchOpportunity(value);
 
-                //update CC and NBC checkboxes 
+                //Call function to update HL -Internal Team details,update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1232);
                 opportunityDetails.UpdateCCOnly();
 

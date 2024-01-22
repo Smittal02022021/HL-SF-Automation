@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Call function to update HL -Internal Team details
                 opportunityDetails.UpdateReqFieldsForFVAConversion(fileTC2362);
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);                                             
+                                                            
 
                 //Log out of standard user and validate admin
                 usersLogin.UserLogOut();
@@ -107,6 +107,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Same opportunity is found ");
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
                 opportunityDetails.UpdateOutcomeDetails(fileTC2362);
                 extentReports.CreateLog("Conflict Check fields are updated ");
 

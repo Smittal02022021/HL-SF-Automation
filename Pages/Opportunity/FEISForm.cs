@@ -1,8 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -42,14 +46,40 @@ namespace SF_Automation.Pages.Opportunity
         By valEmailOppName = By.CssSelector("body[id*='Body_rta_body'] > span:nth-child(9) > span");
         By btnCancelEmail = By.CssSelector("input[value='Cancel']");
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
-
-        //string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
+        By lblDefaultTabL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Opportunity Overview']");
+        By msgFEISFormL = By.XPath("//span[@title='Please check this box and press Save to ensure all required fields are completed.']");
+        By valOppNameL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a/slot/slot/span");
+        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
+        By valClientL = By.XPath("//span[text()='Client Company']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
+        By valSubjectL = By.XPath("//span[text()='Subject Company']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
+        By valRefTypeL = By.XPath("//span[text()='Referral Type']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
+        By lnkRelOppL = By.XPath("//button[@title='Edit Related Opportunity']");
+        By btnSaveL = By.XPath("//button[@name='SaveEdit']");
+        By msgMandatoryFields = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li/a");
+        By btnCloseL = By.XPath("//button[@title='Close error dialog']");
+        By tabTransInfoL = By.XPath("//li[@title='Transaction Information']");
+        By btnTransType = By.XPath("//label[text()='Transaction Type']/ancestor::div[1]/div//button");
+        By valTransType = By.XPath("//lightning-base-combobox-item/span/span[text()='Other']");
+        By lblDescribeOther = By.XPath("//label[text()='Describe Other Transaction Type']");
+        By btnLegalStrL = By.XPath("//label[text()='Legal Structure']/ancestor::div[1]/div//button");
+        By lblOtherLegalL = By.XPath("//label[text()='FEIS - Other Legal Structure Desc']");
+        By valFormL = By.XPath("//li[3]/div/span/span");
+        By btnChosenL = By.XPath("//div[4]/lightning-button-icon[1]/button");
+        By lblOtherFormL = By.XPath("//label[text()='FEIS - Other Forms of Consideration Desc']");
 
         //Validate Opp Name
         public string ValidateOppName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, OppName, 50);
             string valOpp = driver.FindElement(OppName).Text;
+            return valOpp;
+        }
+
+        //Validate Opp Name
+        public string ValidateOppNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppNameL, 50);
+            string valOpp = driver.FindElement(valOppNameL).Text;
             return valOpp;
         }
 
@@ -67,12 +97,42 @@ namespace SF_Automation.Pages.Opportunity
             string valSubject = driver.FindElement(subjectComp).Text;
             return valSubject;
         }
+
+        //Validate Client Name
+        public string ValidateClientL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientL);
+            string valclient = driver.FindElement(valClientL).Text;
+            return valclient;
+        }
+        //Validate Subject Name
+        public string ValidateSubjectL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubjectL);
+            string valSubject = driver.FindElement(valSubjectL).Text;
+            return valSubject;
+        }
         //Validate JobType
         public string ValidateJobType()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, jobType);
             string valJobType = driver.FindElement(jobType).Text;
             return valJobType;
+        }
+        //Validate JobType
+        public string ValidateJobTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL);
+            string valJobType = driver.FindElement(valJobTypeL).Text;
+            return valJobType;
+        }
+
+        //Validate Ref Type
+        public string ValidateRefTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRefTypeL);
+            string valRefType = driver.FindElement(valRefTypeL).Text;
+            return valRefType;
         }
 
         //Fetch validations for mandatory fields
@@ -175,6 +235,108 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnReturntoOpp).Click();
             return emailSub;
         }
+
+        //---Lightning
+        //Validate default tab displayed on FEIS form
+        public string ValidateDefaultTabOfFEISForm()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblDefaultTabL, 150);
+            string tab = driver.FindElement(lblDefaultTabL).Text;
+            return tab;
+        }
+     
+        public string ValidateInformativeMessageOnFEISForm()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgFEISFormL, 150);
+            string message = driver.FindElement(msgFEISFormL).Text;
+            return message;
+        }
+
+        ////Validate all required validations
+        //public string GetErrorMessagesOnFEISForm()
+        //{
+        //    WebDriverWaits.WaitUntilEleVisible(driver, lnkRelOppL, 150);
+        //    driver.FindElement(lnkRelOppL).Click();
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+        //    driver.FindElement(btnSaveL).Click();
+        //    Thread.Sleep(5000);
+        //    string message = driver.FindElement(msgMandatoryFields).Text;
+        //    driver.FindElement(btnCloseL).Click();
+        //    return message;
+        //}
+
+
+        public bool GetErrorMessagesOnFEISForm()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRelOppL, 150);
+            driver.FindElement(lnkRelOppL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgMandatoryFields);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = { "Yes/No", "Estimated Transaction Size (MM)", "Fairness Committee or Trustee", "Fairness Fairness or Terms", "Fairness Opinion Publicly Disclosed", "Fairness Relative Fairness", "Fairness Unusual Opinion", "Form of Consideration", "Legal Structure", "Opinion Parties Affiliated", "Opinion Special Committee", "Transaction Type" };
+            bool isSame = true;
+            driver.FindElement(btnCloseL).Click();
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Transaction info tab
+        public string ValidateAdditionalFieldsOnTransInfo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabTransInfoL, 150);
+            driver.FindElement(tabTransInfoL).Click();
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,350)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnTransType, 150);
+            driver.FindElement(btnTransType).Click();
+            Thread.Sleep(4000);          
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valTransType));
+            driver.FindElement(valTransType).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblDescribeOther, 150);
+            string value = driver.FindElement(lblDescribeOther).Text;
+            return value;
+
+        }
+        //Validate Other Legal Structure field
+        public string ValidateAdditionalOtherLegalField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLegalStrL, 150);
+            driver.FindElement(btnLegalStrL).Click();
+            Thread.Sleep(4000);           
+            driver.FindElement(By.XPath("//flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[7]/span[2]/span")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOtherLegalL, 150);
+            string value = driver.FindElement(lblOtherLegalL).Text;
+            return value;
+
+        }
+        //Validate ther *Form of Consideration
+        public string ValidateOtherFormofConsideration()
+        {
+            driver.FindElement(valFormL).Click();
+            driver.FindElement(btnChosenL).Click();            
+            Thread.Sleep(4000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOtherFormL, 150);
+            string value = driver.FindElement(lblOtherFormL).Text;
+            return value;
+
+        }
+
+       
     }
 }
 

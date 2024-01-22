@@ -9,6 +9,7 @@ using SF_Automation.UtilityFunctions;
        
 
 using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -85,10 +86,8 @@ namespace SF_Automation.TestCases.Opportunity
                 //Update all required fields for Conversion to Engagement
                 counterparty.ClickViewCounterparties();
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC1644);
-                extentReports.CreateLog("All required details are saved ");
-                opportunityDetails.UpdateInternalTeamDetailsL(fileTC1644);
-                extentReports.CreateLog("Internal Team members details are saved ");
-                opportunityDetails.ClickAddCFOppContact();
+                extentReports.CreateLog("All required details are saved ");               
+                opportunityDetails.ClickAddFVAOppContact();
                 addContact.CreateContactL(fileTC1644);
 
                 //Logout
@@ -96,8 +95,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(value);
-
-                opportunityDetails.UpdateNBCApproval();
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
+                extentReports.CreateLog("Internal Team members details are saved ");               
                 opportunityDetails.UpdateOutcomeDetails(fileTC1644);
 
                 //Login as Financial User and validate the user                
@@ -106,59 +105,80 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
-                //Open the same opportunity and Click on Request Engagement               
+                //Open the same opportunity               
                 opportunityHome.SearchMyOpportunitiesInLightning(value, valUser);
-                opportunityDetails.ClickRequestoEngL();
-                extentReports.CreateLog("No Validation error is displayed and Opportunity is requested for approval ");
-
+               
                 //1. TMTI0088216_Verify the availability of the FEIS Form button availability on all Opportunities of Fairness Job Types
                 string FEISForm = opportunityDetails.ValidateFEISFormButton();
+                string clientName = opportunityDetails.GetClientCompanyL();
+                string subjectName = opportunityDetails.GetSubjectCompanyL();
+                opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                string valUpdRefType = opportunityDetails.GetRefTypePostUpdate();
+                addOpportunity.ClickInfoTab();
                 Assert.AreEqual("FEIS Form button is displayed", FEISForm);
-                extentReports.CreateLog("FEIS Form Button is displayed ");
+                extentReports.CreateLog("FEIS Form Button is displayed for the Opportunity with Fairness Job type ");
 
                 //2. TMTI0088218_Verify that if the FEIS Form is not completed, then Requesting Engagement applications will give an error message to Complete and Submit the FEIS form
-                string title = opportunityDetails.ClickFEISForm();
+                string validations = opportunityDetails.ClickRequestoEngFVAL();
+                Console.WriteLine("Validations:" + validations);
+                Assert.AreEqual("Items to complete: Info-->Details-->General: Tombstone Permission is required. Info-->Administration: \"Women Led\" is required. Please update this field with the correct value Approved FEIS form - Please complete and submit this form via the FEIS button. Opportunity Contacts - Add at least one Contact with an approrpriate Role - confirm with FVA BUAs. Info-->Administration-->Service & Transaction Type: Transaction Type is required. Fees & Financials-->Estimated Fees: Total Anticipated Revenue is required. It should be Greater Than or Equal to the Fee.", validations);
+                extentReports.CreateLog("Validation: " + validations + " is displayed when Request To Engagement Button is clicked without filling FEIS Form ");
+
+                //3. TMTI0088220_Verify that clicking the FEIS Form button will redirect the user to the FEIS Form page
+                string title = opportunityDetails.ClickFEISFormL();
                 Assert.AreEqual("FEIS (Part I) Form", title);
-                extentReports.CreateLog(title + " is displayed ");
+                extentReports.CreateLog("Page with title:" +title + " is displayed upon clicking FEIS Form button ");
 
-                //Validate pre populated fields on FEIS form
-                //string oppNBC = form.ValidateOppName();
-                //Assert.AreEqual(oppName, oppNBC);
-                //extentReports.CreateLog("Opportunity Name: " + oppNBC + " in FEIS form matches with Opportunity details page ");
+                //4.  TMTI0088234_Verify that clicking the FEIS form redirects the user to the Opportunity Overview tab by default
+                string tabDisplayed = form.ValidateDefaultTabOfFEISForm();
+                Assert.AreEqual("Opportunity Overview", tabDisplayed);
+                extentReports.CreateLog("Tab with name:" + tabDisplayed + " is displayed when FEIS Form is opened ");
 
-                //string clientNBC = form.ValidateClient();
-                //Assert.AreEqual(clientName, clientNBC);
-                //extentReports.CreateLog("Client Company: " + clientNBC + " in FEIS form matches with Opportunity details page ");
+                //5.  TMTI0088236_Verify the informative message given at the top of the FEIS Form
+                 string msgInfo = form.ValidateInformativeMessageOnFEISForm();
+                Assert.AreEqual("Please check this box and press Save to ensure all required fields are completed.", msgInfo);
+                extentReports.CreateLog("Message:" + msgInfo + " is displayed on the top of FEIS Form ");
 
-                //string subjectNBC = form.ValidateSubject();
-                //Assert.AreEqual(subjectName, subjectNBC);
-                //extentReports.CreateLog("Subject Company: " + subjectNBC + " in FEIS form matches with Opportunity details page ");
+                //6. TMTI0088240_Verify that the "Opportunity Overview" section will be pre-filled from the Opportunity detail page. 
+                string oppFEIS = form.ValidateOppNameL();
+                Assert.AreEqual(value, oppFEIS);
+                extentReports.CreateLog("Opportunity Name: " + oppFEIS + " in FEIS form matches with Opportunity details page ");
 
-                //string jobTypeNBC = form.ValidateJobType();
-                //Assert.AreEqual(jobType, jobTypeNBC);
-                //extentReports.CreateLog("Job Type: " + jobTypeNBC + " in FEIS form matches with Opportunity details page ");
+                string clientNBC = form.ValidateClientL();
+                Assert.AreEqual(clientName, clientNBC);
+                extentReports.CreateLog("Client Company: " + clientNBC + " in FEIS form matches with Opportunity details page ");
 
-                //Validate validations displayed for mandatory fields
-                string validationsList = form.GetFieldsValidations();
-                Console.WriteLine(validationsList);
-                string expValidations = ReadExcelData.ReadData(excelPath, "FEISForm", 1);
-                Console.WriteLine(expValidations);
-                Assert.AreEqual(expValidations, validationsList);
-                extentReports.CreateLog("Validations: " + validationsList + " are displayed ");
+                string subjectNBC = form.ValidateSubjectL();
+                Assert.AreEqual(subjectName, subjectNBC);
+                extentReports.CreateLog("Subject Company: " + subjectNBC + " in FEIS form matches with Opportunity details page ");
 
-                //Click cancel button and accept alert
-                form.ClickCancelAndAcceptAlert();
+                string jobTypeFEIS = form.ValidateJobTypeL();
+                Assert.AreEqual(valJobType, jobTypeFEIS);
+                extentReports.CreateLog("Job Type: " + jobTypeFEIS + " in FEIS form matches with Opportunity details page ");
 
-                //Validate visibility of Tabs on checking/unchecking the Toggle Tabs checkbox
-                string actualTabs = form.ClickToggleAndValidateTabs();
-                string expTabs = ReadExcelData.ReadData(excelPath, "FEISForm", 21);
-                Console.WriteLine("Tabs: " + actualTabs);
-                Assert.AreEqual(expTabs, actualTabs);
-                extentReports.CreateLog("Tabs : " + actualTabs + " are displayed on checking the Toggle Tabs checkbox ");
+                string refTypeFEIS = form.ValidateRefTypeL();
+                Assert.AreEqual(valUpdRefType, refTypeFEIS);
+                extentReports.CreateLog("Referral Type: " + refTypeFEIS + " in FEIS form matches with Opportunity details page ");
 
-                string NoTabs = form.ClickToggleAndValidateTabs();
-                Assert.AreEqual("Tabs are not displayed", NoTabs);
-                extentReports.CreateLog(NoTabs + " on unchecking the Toggle Tabs checkbox ");
+                //7. TMTI0088242_Verify that on inline editing and clicking on the Save button, the application will give an error message for all required fields.
+                Assert.IsTrue(form.GetErrorMessagesOnFEISForm(), "Verified all the displayed validations on FEIS form ");
+                extentReports.CreateLog("Displayed Validations on FEIS Form is correct ");
+
+                //8. TMTI0088244_ Verify that on choosing "Other" as "Transaction Type", will open up the field to describe the Other Transaction Type
+                string desOther = form.ValidateAdditionalFieldsOnTransInfo();
+                Assert.AreEqual("*Describe Other Transaction Type", desOther);
+                extentReports.CreateLog("Field: " + desOther + " displayed upon selecting Transaction Type as Other ");
+
+                //9. TMTI0088246_Verify that on choosing "Other" as "Legal Structure", will open up a field to describe Other Legal Structure Desc
+                string desOtherLegal = form.ValidateAdditionalOtherLegalField();
+                Assert.AreEqual("*FEIS - Other Legal Structure Desc", desOtherLegal);
+                extentReports.CreateLog("Field: " + desOtherLegal + " displayed upon selecting Legal Structure as Other ");
+
+                //10. TMTI0088248_Verify that choosing "Other" as "Form of Consideration", will make "FEIS - Other Forms of Consideration Desc" as a required field
+                string desOtherForm = form.ValidateOtherFormofConsideration();
+                Assert.AreEqual("*FEIS - Other Forms of Consideration Desc", desOtherForm);
+                extentReports.CreateLog("Field: " + desOtherForm + " displayed upon selecting Form of Consideration as Other ");
+
 
                 //Log out from standard User and validate admin
                 usersLogin.UserLogOut();

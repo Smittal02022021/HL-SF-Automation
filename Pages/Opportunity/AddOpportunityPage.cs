@@ -979,6 +979,12 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
              return title;
         }
 
+        public void ClickInfoTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 250);
+            driver.FindElement(tabInfo).Click();
+        }           
+
         ////Validate User is redirected to Internal team page if Initiator is not selected
         //public string ValidateUserIsRedirectedToHLInternalPageWhenInitiatorIsSelected()
         //{

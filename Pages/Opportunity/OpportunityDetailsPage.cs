@@ -50,6 +50,7 @@ namespace SF_Automation.Pages
         By btnMA = By.XPath("//fieldset/table/tbody/tr/td[1]/label");
         By btnCapMkt = By.XPath("//fieldset/table/tbody/tr/td[2]/label");
         By titleNBCForm = By.CssSelector(" div.pbBody > table > tbody > tr > td.instructions > p:nth-child(1)");
+        By titleFEISL = By.XPath("//div[@class='slds-rich-text-editor__output uiOutputRichText forceOutputRichText']/p[1]");
         By linkRequestDate = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By linkPitchDate = By.XPath("//div[3]/table/tbody/tr[6]/td[4]/span/span/a");
         By btnSave = By.CssSelector("input[name='save']");
@@ -332,7 +333,7 @@ namespace SF_Automation.Pages
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
         By btnSaveContactL = By.XPath("//footer/button[2]/span");        
         By btnConvertToEngL = By.XPath("//span[text()='Convert to Engagement']");
-        By lblEngagement = By.XPath("//div[text()='Engagement']");
+        By lblEngagement = By.XPath("//records-entity-label[text()='Engagement']");
         By lnkViewAllL = By.XPath("//span[text()='View All']");
         By titleApproveL = By.XPath("//h1[@title='Approval History']");        
         By btnRejectL = By.XPath("//div[@title='Reject']");
@@ -380,7 +381,8 @@ namespace SF_Automation.Pages
         By valOppNameL = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
         By btnAddCFContact = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
-        By titleAddCFOppContact = By.XPath("//h2[text()='Add CF Opportunity Contact']");
+        By titleAddCFOppContact = By.XPath("//h2[contains(text(),'Add ')]");
+        By btnAddFVAContact = By.XPath("//button[@name='Opportunity__c.Add_FVA_Opportunity_Contact']");
 
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
@@ -466,7 +468,9 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
               
                    
-        By btnReqEngL = By.XPath("//button[text()='Request Engagement']");        
+        By btnReqEngL = By.XPath("//button[text()='Request Engagement']");
+        By msgReqEngFVAL = By.XPath("//div[@class='slds-p-around_large cOppRequestEngagementAura']/lightning-formatted-text");
+        By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
         By btnApproveL = By.XPath("//div[@title='Approve']");        
         By lnkConvertToEngL = By.XPath("//a/span[text()='Convert to Engagement']");
         
@@ -537,6 +541,9 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
+        By valClientL = By.XPath("//span[text()='Client']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
+        By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
+
 
         private By _ActivitySubject(string activitySubject)
         {
@@ -1303,6 +1310,17 @@ public void ClickNewOpportunitySectorButton()
             string title = driver.FindElement(titleNBCForm).Text;
             return title;
         }
+
+        //Click FEIS button and get title of page
+        public string ClickFEISFormL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
+            driver.FindElement(btnFEISL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, titleFEISL, 60);
+            string title = driver.FindElement(titleFEISL).Text;
+            return title;
+        }
+
 
         //Enter HL Internal team details
         public void EnterInternalTeamDetails(string file)
@@ -3931,10 +3949,10 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(comboSICL).Click();
 
             //Enter Tombstone Permissions
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,250)");
-            Thread.Sleep(4000);
+            js.ExecuteScript("window.scrollTo(0,850)");
+            Thread.Sleep(5000);
             driver.FindElement(comboTombstoneL).Click();
             driver.FindElement(By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
 
@@ -4050,12 +4068,24 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
         }
 
-        //Click Return to Opportunity button
+        //Click Return to Opportunity button  
         public void ClickRequestoEngL()
         {
             Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
             driver.FindElement(btnReqEngL).Click();
+        }
+
+        //Click Return to Opportunity button  msgReqEngFVAL
+        public string ClickRequestoEngFVAL()
+        {
+            Thread.Sleep(9000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
+            driver.FindElement(btnReqEngL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
+            string validations = driver.FindElement(msgReqEngFVAL).Text;
+            driver.FindElement(btnCloseReqEngFVAL).Click();
+            return validations.Replace("\r\n"," ");
         }
 
         //Reject the submitted Opportunity
@@ -6280,6 +6310,18 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             return title;
         }
 
+        //Click Add FVA Opprotunity Contact 
+        public string ClickAddFVAOppContact()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFVAContact, 150);
+            driver.FindElement(btnAddFVAContact).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
+            string title = driver.FindElement(titleAddCFOppContact).Text;
+            return title;
+        }
+
         //Validate Request Engagement button
         public string ValidateRequestEngButton()
         {
@@ -6360,6 +6402,22 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
                 driver.FindElement(btnReturnToOpp).Click();
             }
+        }
+
+        //Get Client Company
+        public string GetClientCompanyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientL, 90);
+            string clientName = driver.FindElement(valClientL).Text;
+            return clientName;
+        }
+
+        //Get Subject Company
+        public string GetSubjectCompanyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubjectL, 90);
+            string value = driver.FindElement(valSubjectL).Text;
+            return value;
         }
     }
     

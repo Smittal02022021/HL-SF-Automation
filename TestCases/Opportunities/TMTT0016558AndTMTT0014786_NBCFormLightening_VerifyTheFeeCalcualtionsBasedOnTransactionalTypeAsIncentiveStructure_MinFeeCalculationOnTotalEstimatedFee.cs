@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Call function to update HL -Internal Team details
                 opportunityDetails.UpdateRetainerAndMonthlyFee();
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
+               
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
@@ -105,6 +105,7 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityHome.SearchOpportunity(value);
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1232);
                 opportunityDetails.UpdateCCOnly();
 

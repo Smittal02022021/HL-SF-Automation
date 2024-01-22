@@ -228,7 +228,7 @@ namespace SF_Automation.Pages.Engagement
 
         By txtContactHLPostL = By.XPath("//input[@placeholder='Search Contacts...']");
         By lnkContactHLPostL = By.XPath("//div[1]/div/lightning-base-combobox/div/div/div[2]/ul/li");
-        By btnRoleL = By.XPath("//button[@aria-label='Role, --None--']");
+        By btnRoleL = By.XPath("//button[contains(@aria-label,'Role')]");
         By valRoleL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
         By rowStaffRoleL = By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[3]/div/div/table/tbody/tr");
         By rowKeyContactL= By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
@@ -469,13 +469,15 @@ namespace SF_Automation.Pages.Engagement
         By lnkBoardMember = By.XPath("//div[2]/div/div/table/tbody/tr/th/div/a");
         By lnkBoardCompany = By.XPath("//div[2]/div/div/table/tbody/tr/td/div/a");
         By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
-        By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[text()='Diamond Sports Group | Engagement']");
+        By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[2]");
         By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
         By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
         By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
-        By rowAddedEquityInAdd = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']");
-        By valAddedEquityType = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']/ancestor::tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
-        By valAddedEquityRole = By.XPath("//div/table/tbody/tr/th/following::a/slot/slot/span[text()='Joy E. Dina']/ancestor::tr/td[7]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
+        By rowAddedEquityInAdd = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/th[1]//a");
+        By valAddedEquityType = By.XPath("//lst-formatted-text/span[@title='Equity Holder']");
+        By valAddedEquityRole = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span");
+        By valAddedEquityRolePost = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span[text()='Post-Transaction']");
+
         By tabEngContactsL = By.XPath("//a[text()='Eng Contacts']");
         By valAddedMemberType = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[1]/lst-template-list-field/lst-formatted-text/span");
         By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
@@ -3772,6 +3774,10 @@ namespace SF_Automation.Pages.Engagement
             string row = driver.FindElement(msgDupContactL).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
             driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            driver.Navigate().Refresh();
             return row;
         }
 
@@ -3792,6 +3798,10 @@ namespace SF_Automation.Pages.Engagement
             string row = driver.FindElement(msgDupKeyContactL).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
             driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
             return row;
         }
 
@@ -4783,9 +4793,9 @@ namespace SF_Automation.Pages.Engagement
         //Validate that added Board Member in Pre Transaction is displayed in Engagement Contacts section
         public string ValidateAddedBoardMemberIsDisplayedInEngagementContacts()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
-            driver.FindElement(tabEngDetailsL).Click();
-            driver.Navigate().Refresh();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            //driver.FindElement(tabEngDetailsL).Click();
+            //driver.Navigate().Refresh();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 140);
             driver.FindElement(tabEngContactsL).Click();
@@ -4832,6 +4842,13 @@ namespace SF_Automation.Pages.Engagement
         public string GetRoleOfAddedEquityHolderInAdditionalClientSubject()
         {
             string value = driver.FindElement(valAddedEquityRole).Text;
+            return value;
+        }
+
+        //Fetch the role of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetRoleOfAddedEquityHolderInAdditionalClientSubjectPost()
+        {
+            string value = driver.FindElement(valAddedEquityRolePost).Text;
             return value;
         }
 

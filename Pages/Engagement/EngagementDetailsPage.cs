@@ -260,20 +260,20 @@ namespace SF_Automation.Pages.Engagement
         By valSubjectL = By.XPath("//flexipage-component2[1]/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_engagement__c___012i0000000tiw8aam___compact___view___recordlayout2/records-highlights2/div[1]/div[2]/slot/records-highlights-details-item[4]/div/p[2]/slot/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By tabInfo = By.XPath("//a[@aria-controls='tab-40']");
         By tabInfoL = By.XPath("//a[text()='Info']");
-        By subTabDetails = By.XPath("//a[@aria-controls='tab-55']");
-        By subTabImpDates = By.XPath("//a[@aria-controls='tab-56']");
-        By subTabAdmin = By.XPath("//a[@aria-controls='tab-57']");
-        By subTabClosingInfo = By.XPath("//a[@aria-controls='tab-58']");
+        By subTabDetails = By.XPath("//a[text()='Details']");
+        By subTabImpDates = By.XPath("//a[text()='Important Dates']");
+        By subTabAdmin = By.XPath("//a[text()='Administration']");
+        By subTabClosingInfo = By.XPath("//a[text()='Closing Info']");
         By subTabCST = By.XPath("//ul/li[@title='CST Questionnaire Details']/a[@data-tab-value='flexipage_tab20']");
-        By subTabBilling = By.XPath("//a[@aria-controls='tab-59']");
-        By lnkEditEngName = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button");
+        By subTabBilling = By.XPath("//a[text()='Billing Comments']");
+        By lnkEditEngName = By.XPath("//button[@title='Edit Engagement Name']");
         
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div[1]/div[1]/div/button");
-        By valClientOwnershipAfter = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valClientOwnershipAfter = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
         By lnkImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
-        By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
+        By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/button/span[1]");
         By txtEstMktDate = By.XPath("//input[@name='Expected_In_Market_Date__c']");
         By valEstMktDate = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lnkAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
@@ -388,7 +388,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveBacklog = By.XPath("//footer/button[2]/span");
         By msgEngNameBacklog = By.XPath("//section/div/div[2]/div/ul/li");
         By valEngNameL = By.XPath("//span[text()='Engagement Name']/ancestor::record_flexipage-record-field/div[1]/div[1]/div[2]/span/slot[1]/lightning-formatted-text");
-        By valEngNumL = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
+        By valEngNumL = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
         By btnAddClientL = By.XPath("//button[@name='Engagement__c.Add_Client_L']");
         By txtCompanies = By.XPath("//input[@placeholder='Search Companies...']");
         By valCompanyName = By.XPath("//tbody/tr[3]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
@@ -4370,8 +4370,8 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateInfoTab()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(Driver, tabInfo, 100);
-            string value = driver.FindElement(tabInfo).Text;
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabInfoL, 100);
+            string value = driver.FindElement(tabInfoL).Text;
             return value;
 
         }

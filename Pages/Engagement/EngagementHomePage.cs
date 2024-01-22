@@ -39,7 +39,7 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//div/ul/li[4]/div/a/span[2]/span");        
+        By tagEngagements = By.XPath("//div/ul/li[5]/div/a/span[2]/span");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By tblEngagements = By.XPath("//div[1]/div/div/table");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
@@ -48,7 +48,7 @@ namespace SF_Automation.Pages
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
-        By titleEngDetails = By.XPath("//a[@aria-controls='tab-55']");
+        By titleEngDetails = By.XPath("//a[text()='Details']");
         By tabEngL = By.XPath("//table/tbody/tr/th/span/a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
@@ -450,7 +450,7 @@ namespace SF_Automation.Pages
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valRecentlyViewed);
             Thread.Sleep(3000);
             string[] actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Recently Viewed", "(Pinned list)","All Engagements", "FAS Engagements", "FR Engagements - All Active", "FR Engagements - All Holds", "FVA Engagements - All Active", "FVA Engagements - All Holds", "My Active Engagements", "My Closed Deal Process to Review", "My Closed Engagements", "My Dead Engagements", "My FY24 Closed Deals","My Hold Engagements"};
+            string[] expectedValues = { "Recently Viewed", "(Pinned list)","All Engagements", "FAS Engagements", "FR Engagements - All Active", "FR Engagements - All Holds", "FVA Engagements - All Active", "My Active Engagements", "My Closed Deal Process to Review", "My Closed Engagements", "My Dead Engagements", "My FY24 Closed Deals","My Hold Engagements"};
             bool isTrue = true;
             Console.WriteLine("1st:" + actualNamesAndDesc[0]);
             Console.WriteLine("1st:"+actualNamesAndDesc[1]);

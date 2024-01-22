@@ -93,7 +93,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine(jobType);
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileCNBC);
+                
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
@@ -104,6 +104,7 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityHome.SearchOpportunity(value);
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileCNBC);
                 opportunityDetails.UpdateOutcomeDetails(fileCNBC);
                 opportunityDetails.UpdateCCOnly();
                 opportunityDetails.UpdatePitchDate();
