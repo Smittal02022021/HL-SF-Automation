@@ -96,8 +96,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForFVAConversion(fileTC2263);
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2263);
-                extentReports.CreateLog("Internal Team member details are updated ");
+                
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
@@ -108,6 +107,8 @@ namespace SF_Automation.TestCases.Engagement
                 opportunityHome.SearchOpportunity(value);
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC2263);
+                extentReports.CreateLog("Internal Team member details are updated ");
                 opportunityDetails.UpdateOutcomeDetails(fileTC2263);
                 extentReports.CreateLog("Conflict Check fields are updated ");
 
