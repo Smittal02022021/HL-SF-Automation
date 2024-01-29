@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFVAConversion(fileTMTI0056868);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0056868);
+                    //opportunityDetails.UpdateInternalTeamDetails(fileTMTI0056868);
 
                     if (valJobType.Contains("TAS"))
                     {
@@ -121,6 +121,8 @@ namespace SF_Automation.TestCases.Opportunity
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0056868);
                     extentReports.CreateLog("Conflict Check fields are updated By Admin");
+
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0056868);
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));

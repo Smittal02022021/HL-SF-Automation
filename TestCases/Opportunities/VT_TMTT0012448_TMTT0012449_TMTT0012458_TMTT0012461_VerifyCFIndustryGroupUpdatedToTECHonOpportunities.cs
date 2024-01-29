@@ -114,8 +114,8 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0027313);
                 extentReports.CreateLog("Updated required Opportunity fields for conversion ");
 
-                opportunityDetails.UpdateInternalTeamDetails(fileTMTI0027313);
-                extentReports.CreateLog("Update required Internal team details for conversion ");
+                //opportunityDetails.UpdateInternalTeamDetails(fileTMTI0027313);
+                //extentReports.CreateLog("Update required Internal team details for conversion ");
 
                 //Verify the New IF on Edit Opp page
                 //TMTI0027311 Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Editing Opportunity
@@ -131,6 +131,8 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityHome.SearchOpportunity(value);
                 opportunityDetails.UpdateOutcomeDetails(fileTMTI0027313);
                 extentReports.CreateLog("Required fields are updated By System Admin ");
+                opportunityDetails.UpdateInternalTeamDetails(fileTMTI0027313);
+                extentReports.CreateLog("Update required Internal team details for conversion ");
 
                 //Login again as Standard User
                 usersLogin.SearchUserAndLogin(stdUser);

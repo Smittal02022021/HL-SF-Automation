@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement : BaseClass
+    class ZObsolated_VT_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -99,8 +99,36 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversion(fileTMTI0055018);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055018);
+                    //opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055018);
 
+                    ////AddMultiple Staff
+                    //int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, fileTMTI0055018);
+                    //extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
+
+                    //string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    //string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
+                    //Assert.AreEqual(msgActualLimit, exectedLimitMessage);
+                    //extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
+
+                    ////get the line error message from internal staff page.
+                    //string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    //string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
+                    //Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
+                    //extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                   
+                    //Logout of user and validate Admin login
+                    usersLogin.UserLogOut();
+                    Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                    extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+
+                    //Search for created opportunity
+                    opportunityHome.SearchOpportunity(opportunityNumber);
+
+                    //update CC and NBC checkboxes 
+                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0055018);
+                    extentReports.CreateLog("Conflict Check fields are updated By Admin");
+
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055018);
                     //AddMultiple Staff
                     int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, fileTMTI0055018);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
@@ -115,18 +143,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
                     Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
-                   
-                    //Logout of user and validate Admin login
-                    usersLogin.UserLogOut();
-                    Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                    extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                    //Search for created opportunity
-                    opportunityHome.SearchOpportunity(opportunityNumber);
-
-                    //update CC and NBC checkboxes 
-                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0055018);
-                    extentReports.CreateLog("Conflict Check fields are updated By Admin");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);

@@ -92,7 +92,8 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine(oppName);
                
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2081);
+                //commented need to revisit
+                //opportunityDetails.UpdateInternalTeamDetails(fileTC2081);
 
                 //Navigate to Opportunity Manager page and sort the column
                 opportunityHome.ClickOppManager();

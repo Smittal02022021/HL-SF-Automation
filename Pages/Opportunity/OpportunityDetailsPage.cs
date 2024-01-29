@@ -587,6 +587,7 @@ namespace SF_Automation.Pages
         By chkTASDNDL = By.XPath("//div//flexipage-field[contains(@data-field-id,'TAS_DND')]//input[@type='checkbox']");//div//flexipage-field[contains(@data-field-id,'TAS_DND')]//span[contains(@part,'indicator')]");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By btnDNDConfirmL = By.XPath("//div[@role='dialog']//button[text()='Yes']");
+        By checkFRSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
         By _sharingGroup(string text)
         {
             return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
@@ -5216,6 +5217,11 @@ public void ClickNewOpportunitySectorButton()
                         {
                             WebDriverWaits.WaitUntilEleVisible(driver, checkCFSpeciality, 20);
                             driver.FindElement(checkCFSpeciality).Click();
+                        }
+                        else if (RecordType == "FR")
+                        {
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkFRSpeciality, 20);
+                            driver.FindElement(checkFRSpeciality).Click();
                         }
                         else
                         {

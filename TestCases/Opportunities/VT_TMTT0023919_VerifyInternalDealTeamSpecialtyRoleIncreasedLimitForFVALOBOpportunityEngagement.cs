@@ -98,23 +98,23 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFVAConversion(fileTMTI0055011);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055011);
+                    //opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055011);
 
-                    //TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunity
-                    //AddMultiple Staff
-                    int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType,fileTMTI0055011);
-                    extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
+                    ////TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunity
+                    ////AddMultiple Staff
+                    //int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType,fileTMTI0055011);
+                    //extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
 
-                    string msgActualLimit= opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
-                    string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
-                    Assert.AreEqual(msgActualLimit, exectedLimitMessage);
-                    extentReports.CreateLog("Popup with Message: "+ msgActualLimit+" is Displayed ");
+                    //string msgActualLimit= opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    //string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
+                    //Assert.AreEqual(msgActualLimit, exectedLimitMessage);
+                    //extentReports.CreateLog("Popup with Message: "+ msgActualLimit+" is Displayed ");
 
-                    //get the line error message from internal staff page.
-                    string txtLineErrorMessage= opportunityDetails.GetLineErrorMessage();
-                    string maxMemberLimit= ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
-                    Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
-                    extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    ////get the line error message from internal staff page.
+                    //string txtLineErrorMessage= opportunityDetails.GetLineErrorMessage();
+                    //string maxMemberLimit= ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
+                    //Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
+                    //extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -127,6 +127,24 @@ namespace SF_Automation.TestCases.Opportunity
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0055011);
                     extentReports.CreateLog("Conflict Check fields are updated By Admin ");
+
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0055011);
+                    //TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunity
+                    //AddMultiple Staff
+                    int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembers(valRecordType, fileTMTI0055011);
+                    extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
+
+                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
+                    string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
+                    Assert.AreEqual(msgActualLimit, exectedLimitMessage);
+                    extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
+
+                    //get the line error message from internal staff page.
+                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessage();
+                    string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
+                    Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
+                    extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));

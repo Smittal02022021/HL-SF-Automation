@@ -10,7 +10,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage : BaseClass
+    class ZObsolated_VT_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -122,8 +122,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversion(fileTMTI0054683);
-                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0054683);
-                    extentReports.CreateLog("All Required fields and Deal tam is updated ");
+                    //opportunityDetails.UpdateInternalTeamDetails(fileTMTI0054683);
+                    //extentReports.CreateLog("All Required fields and Deal tam is updated ");
                     
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -151,6 +151,9 @@ namespace SF_Automation.TestCases.Opportunity
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0054683);
                     extentReports.CreateLog("Conflict Check fields are updated ");
+
+                    opportunityDetails.UpdateInternalTeamDetails(fileTMTI0054683);
+                    extentReports.CreateLog("All Required fields and Deal tam is updated ");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);

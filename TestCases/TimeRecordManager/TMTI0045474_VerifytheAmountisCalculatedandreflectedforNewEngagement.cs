@@ -112,7 +112,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForConversion(fileTC45474);
-                opportunityDetails.UpdateInternalTeamDetails(fileTC45474);
+                //opportunityDetails.UpdateInternalTeamDetails(fileTC45474);
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
@@ -126,6 +126,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 opportunityDetails.UpdateOutcomeDetails(fileTC45474);
                 //opportunityDetails.UpdateNBCApproval();
                 extentReports.CreateLog("Conflict Check and NBC fields are updated ");
+                opportunityDetails.UpdateInternalTeamDetails(fileTC45474);
 
                 //Login again as Standard User
                 usersLogin.SearchUserAndLogin(valUser);
