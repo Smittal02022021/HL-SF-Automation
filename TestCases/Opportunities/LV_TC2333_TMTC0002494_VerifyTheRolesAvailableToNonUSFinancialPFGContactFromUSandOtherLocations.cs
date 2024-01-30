@@ -160,7 +160,7 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         extentReports.CreateLog("Only Admin checkbox is displayed for Non US Opportunity with PFA Job Type for Registered US Non FIN PFG contact ");
                     }
-                    opportunityDetails.ClickRetutnToOpportunityL();// switched to DefaultView
+                    opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 }
                 login.SwitchToClassicView();

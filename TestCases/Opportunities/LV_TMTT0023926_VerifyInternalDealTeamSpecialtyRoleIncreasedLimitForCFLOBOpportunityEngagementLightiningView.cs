@@ -56,7 +56,7 @@ namespace SF_Automation.TestCases.Opportunities
                 {
 
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
-
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                     usersLogin.SearchUserAndLogin(valUser);
@@ -86,9 +86,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
                     string opportunityName= addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055029);
-                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
-
-                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");                    
                     
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab= addOpportunity.EnterStaffDetailsL(fileTMTI0055029);

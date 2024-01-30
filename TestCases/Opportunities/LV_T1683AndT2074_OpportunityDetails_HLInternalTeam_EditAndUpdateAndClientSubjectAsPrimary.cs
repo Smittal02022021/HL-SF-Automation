@@ -117,7 +117,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Call function to update HL -Internal Team details
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileLV_T1683);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
                     //Validate if user still exists in deal

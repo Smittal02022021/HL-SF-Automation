@@ -5225,8 +5225,8 @@ public void ClickNewOpportunitySectorButton()
                         }
                         else
                         {
-                            WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
-                            driver.FindElement(checkSpeciality).Click();
+                            WebDriverWaits.WaitUntilEleVisible(driver, checkFRSpeciality, 20);
+                            driver.FindElement(checkFRSpeciality).Click();
                         }
 
                         driver.FindElement(btnSaveITTeam).Click();
@@ -5963,7 +5963,7 @@ public void ClickNewOpportunitySectorButton()
             }
             return totalDealTeamMemberadded;
         }
-        public void ClickRetutnToOpportunityL()
+        public void ClickReturnToOpportunityL()
         {
             driver.SwitchTo().DefaultContent();
             By btnReturnToOpp = By.XPath("//span[contains(@id,'internalTeam')]//input[@value='Return To Opportunity']");

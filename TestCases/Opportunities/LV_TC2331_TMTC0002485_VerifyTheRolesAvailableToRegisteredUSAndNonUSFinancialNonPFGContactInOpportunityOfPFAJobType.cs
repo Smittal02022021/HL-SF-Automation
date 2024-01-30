@@ -171,7 +171,7 @@ namespace SF_Automation.TestCases.Opportunities
                             extentReports.CreateLog("Only Initiator, Seller and Specialty role's checkboxes are displayed for Foreign Opportunity with PFA Job Type for Registered Non US FIN Non PFG contact ");
                         }
                     }
-                    opportunityDetails.ClickRetutnToOpportunityL();// switched to DefaultView
+                    opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 }
                 login.SwitchToClassicView();

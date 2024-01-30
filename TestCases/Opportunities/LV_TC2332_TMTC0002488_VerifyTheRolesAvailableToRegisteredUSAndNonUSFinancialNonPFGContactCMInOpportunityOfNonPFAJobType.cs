@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Opportunities
                             extentReports.CreateLog("Except Non-Registered and Admin/Intern role checkbox, all other role's checkboxes are displayed for Non US Opportunity with Registered Non US FIN Non PFG contact(CM) ");
                         }
                     }
-                    opportunityDetails.ClickRetutnToOpportunityL();// switched to DefaultView
+                    opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 }
                 login.SwitchToClassicView();

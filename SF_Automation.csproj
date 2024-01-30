@@ -733,8 +733,10 @@
     <Compile Include="TestCases\Opportunities\LV_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2333_TMTC0002494_VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatusFrom.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyStartDateGetsUpdatedIflinkedOpportunityHasOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0036857_VerifyFunctionalityOfDNDSharingFeatureForFRLOBOpportunityAndEngagementOnLightningView.cs" />
@@ -768,7 +770,7 @@
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.cs" />
-    <Compile Include="TestCases\Opportunities\VT_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
