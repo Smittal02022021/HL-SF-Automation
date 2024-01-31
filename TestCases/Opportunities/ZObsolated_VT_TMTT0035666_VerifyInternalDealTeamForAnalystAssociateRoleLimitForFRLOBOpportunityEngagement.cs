@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0035666_2_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement: BaseClass
+    class ZObsolated_VT_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

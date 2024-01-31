@@ -638,6 +638,24 @@ namespace SF_Automation.Pages.Engagement
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
         By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
+
+        By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
+        By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
+        By tblSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody");
+        By txtSharingUser = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[contains(text(),'james.craven')]");
+        By txtValueWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div//span[contains(@class,'field-value')]/slot/lightning-formatted-text");////div[contains(@data-target-selection-name,'Engagement__c.Women_Led')]//div//span[contains(@class,'field-value')]");
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnSharingL = By.XPath("//button[contains(text(),'Sharing')]");
+        By btnMoreSharingL = By.XPath("//span[contains(text(),'Sharing')]");
+        By linkQuesionnaireNumber = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//th//a");
+        By txtMeetingType = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[2]");
+        By linkCaseNumber = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[3]//a");
+        By txtCaseStatus = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[4]//span[@class='slds-truncate']");
+
+        By _sharingGroup(string text)
+        {
+            return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
+        }
         private By _linkQuestionnaireNumer(string caseNumber)
         {
             return By.XPath($"//a[contains(text(),'{caseNumber}')]/ancestor::tr//th//a");
@@ -2064,11 +2082,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, questionnaireCST, 20);
         }
 
-        By linkQuesionnaireNumber = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//th//a");
-        By txtMeetingType = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[2]");
-        By linkCaseNumber = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[3]//a");
-        By txtCaseStatus = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[4]//span[@class='slds-truncate']");
-        public string GetQuestionnaireListQuestionnaireNumber()
+       public string GetQuestionnaireListQuestionnaireNumber()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkQuesionnaireNumber, 10);
             return driver.FindElement(linkQuesionnaireNumber).Text;
@@ -6342,7 +6356,7 @@ namespace SF_Automation.Pages.Engagement
             return driver.FindElement(lblWomenLedL).Text;
         }
 
-        By txtValueWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div//span[contains(@class,'field-value')]/slot/lightning-formatted-text");////div[contains(@data-target-selection-name,'Engagement__c.Women_Led')]//div//span[contains(@class,'field-value')]");
+       
         public string GetValueWomenLedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtValueWomenLedL, 20);
@@ -6417,19 +6431,6 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             return dealTeamCount;
         }
-        By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
-        By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
-        By tblSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody");
-        By txtSharingUser = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[contains(text(),'james.craven')]");
-
-        By _sharingGroup(string text)
-        {
-            return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
-        }
-
-        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
-        By btnSharingL = By.XPath("//button[contains(text(),'Sharing')]");
-        By btnMoreSharingL = By.XPath("//span[contains(text(),'Sharing')]");
         public bool IsButtonSharingDisplayedL()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;

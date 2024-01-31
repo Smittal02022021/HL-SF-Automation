@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.Opportunities
                 for (int row = 2; row <= rowOpp; row++)
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
-
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
 
@@ -100,9 +100,9 @@ namespace SF_Automation.TestCases.Opportunities
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-                    
+
                     //Validating Title of New Opportunity Page
-                    string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
+                    string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
@@ -218,7 +218,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     extentReports.CreateLog(stdUser+" Standard User Search for Created Opportunity ");
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -258,7 +258,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     extentReports.CreateLog(caoUser + " CAO User Search for Created Opportunity");
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //New Field is Present on Opportunity Detail Page for CAO user
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());

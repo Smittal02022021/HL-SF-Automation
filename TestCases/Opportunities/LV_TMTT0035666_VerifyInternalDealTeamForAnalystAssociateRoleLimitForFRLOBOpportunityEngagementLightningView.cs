@@ -11,7 +11,7 @@ using AventStack.ExtentReports.Gherkin.Model;
 using System.Collections.Generic;
 using System.Data;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagementLightningView:BaseClass
     {
@@ -122,8 +122,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
                     string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1
-                    string exectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
-                    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    string expectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
+                    Assert.AreNotEqual(expectedLimitMessage, msgActualLimit);
                     extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
 
                     //Get the line error message from internal staff page.
@@ -158,19 +158,16 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
-
-                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                    //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -208,7 +205,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
@@ -227,13 +224,11 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    //////////////////Need to above below funstion on eng page 
+                    //////////////////Need to above below function on eng page 
                     int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                     Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                     extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
-                    //////////////////////////////////////////////////
-
-
+                 
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + caoUser + " logged out ");

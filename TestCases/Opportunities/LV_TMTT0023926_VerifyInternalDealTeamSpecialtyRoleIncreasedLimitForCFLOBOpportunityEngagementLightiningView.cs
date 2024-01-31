@@ -81,11 +81,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Validating Title of New Opportunity Page
-                    string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
+                    string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"),"Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
 
-                    string opportunityName= addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055029);
+                    string opportunityName= addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTI0055029);
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");                    
                     
                     //Call function to enter Internal Team details and validate Opportunity detail page
@@ -184,7 +184,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -222,7 +222,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status= opportunityDetails.ClickApproveButtonL();

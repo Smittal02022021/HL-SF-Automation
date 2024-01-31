@@ -187,18 +187,18 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                         homePageLV.ClickAppLauncher();
 
-                        appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                        //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                         homePageLV.SelectApp(appNameExl);
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                        moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                        //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                         homePageLV.SelectModule(moduleNameExl);
                         extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                         //Search for created opportunity
-                        opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                        opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                         //Requesting for engagement and validate the success message
                         opportunityDetails.ClickRequestToEngL();
@@ -225,18 +225,18 @@ namespace SF_Automation.TestCases.Opportunities
                         homePageLV.ClickAppLauncher();
 
                         //Go to Opportunity module in Lightning View 
-                        appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                        //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                         homePageLV.SelectApp(appNameExl);
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                        moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                        //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                         homePageLV.SelectModule(moduleNameExl);
                         extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                         //Search for created opportunity
-                        opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                        opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                         //Approve the Opportunity 
                         string status = opportunityDetails.ClickApproveButtonL();
@@ -247,10 +247,11 @@ namespace SF_Automation.TestCases.Opportunities
                         //Calling function to convert to Engagement
                         opportunityDetails.ClickConvertToEngagementL2();
                         extentReports.CreateLog("Opportunity Converted into Engagement ");
+
                         //Validate the Engagement name in Engagement details page
                         string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                         string engagementName = engagementDetails.GetEngagementNameL();
+
                         //Need to get Name of Opp and Eng
                         Assert.AreEqual(opportunityName, engagementName);
                         extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");

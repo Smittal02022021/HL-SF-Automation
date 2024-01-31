@@ -247,7 +247,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     extentReports.CreateLog(stdUser + " Standard User Search for Created Opportunity ");
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -287,7 +287,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     extentReports.CreateLog(caoUser + " CAO User Search for Created Opportunity");
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //New Field is Present on Opportunity Detail Page for CAO user
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
