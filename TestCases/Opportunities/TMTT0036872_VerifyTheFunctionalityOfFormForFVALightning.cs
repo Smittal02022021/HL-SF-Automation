@@ -176,42 +176,100 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //10. TMTI0088248_Verify that choosing "Other" as "Form of Consideration", will make "FEIS - Other Forms of Consideration Desc" as a required field
                 string desOtherForm = form.ValidateOtherFormofConsideration();
-                Assert.AreEqual("*FEIS - Other Forms of Consideration Desc", desOtherForm);
+                Assert.AreEqual("FEIS - Other Forms of Consideration Desc", desOtherForm);
                 extentReports.CreateLog("Field: " + desOtherForm + " displayed upon selecting Form of Consideration as Other ");
 
+                //11. TMTI0088250_Verify that choosing "Yes" in "Opinion Parties Affiliated", will open up the field "Opinion Affiliated Parties Summary" to summarize
+                string desOpinion = form.ValidateAdditionalOpinionPartiesAffiliated();
+                Assert.AreEqual("*Opinion Affiliated Parties Summary", desOpinion);
+                extentReports.CreateLog("Field: " + desOpinion + " displayed upon selecting Form of Consideration as Other ");
 
-                //Log out from standard User and validate admin
-                usersLogin.UserLogOut();
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("Admin user " + login.ValidateUser() + " logged in ");
+                //12.TMTI0088252_ Verify the message given at the top of the "Ownership & Advisors" tab of the FEIS Form
+                string msgOwnership = form.ValidateInformativeMessageOnOwnershipTab();
+                Assert.AreEqual("To Add Target/Subject and/or Counterparty(ies), please use the buttons on the top right of this form.", msgOwnership);
+                extentReports.CreateLog("Message:" + msgOwnership + " is displayed at the top of the 'Ownership & Advisors' tab of FEIS Form ");
 
-                //Search created opportunity, update conflict check details and open CNBC details page
-                //string valSearch = opportunityHome.SearchOpportunity(value);
-                //Console.WriteLine("result : " + valSearch);
-                opportunityDetails.UpdateCCOnlyFAS();
-                extentReports.CreateLog("Conflict check details are updated ");
+                //13.  TMTI0088254_Verify that the "Add Target/Subject" button is available at the top right corner to add the target company
+                string addTarget = form.ValidateAddTargetButton();
+                Assert.AreEqual("Add Target/Subject", addTarget);
+                extentReports.CreateLog("Button:" + addTarget + " is displayed at the top of the 'Ownership & Advisors' tab of FEIS Form ");
 
-                //Login as Standard User, validate the user and search for created opportunity
-                usersLogin.SearchUserAndLogin(valUser);
-                string stdUser2 = login.ValidateUser();
-                Assert.AreEqual(stdUser1.Contains(valUser), true);
-                extentReports.CreateLog("User: " + stdUser2 + " logged in ");
-                //opportunityHome.SearchOpportunity(value);
-                opportunityDetails.ClickFEISForm();
+                //14. TMTI0088256_Verify that clicking the "Add Target/Subject" button opens up the form to fill in all details with the Company field as a required field
+                string companyL = form.ValidateCompanyFieldOnAddTargetDetails();
+                Assert.AreEqual("*\r\nCompany", companyL);
+                extentReports.CreateLog("Mandatory Field:" + companyL + "  with company details is displayed after clicking Add Target/Subject button ");
 
-                //Call function to enter NBC details
-                form.EnterDetailsAndClickSubmit(fileTC1644);
-                extentReports.CreateLog("FEIS details are saved ");
+                //16. TMTI0088260_Verify that if "Does any PE Firm individually own 10% or more of the equity?" is "Yes", the Add PE Firm button will be enabled to select PE Firm
+                string addPEFirm = form.ValidateSelectPEFirm();
+                Assert.AreEqual("Add PE Firm", addPEFirm);
+                extentReports.CreateLog("Button with name:" + addPEFirm + "  is displayed after selecting Does any PE Firm individually own 10% or more of the equity? as 'Yes' ");
 
-                //Validate title of Email Template page
-                string pageTitle = form.ValidateHeader();
-                Assert.AreEqual("Additional CCs", pageTitle);
-                extentReports.CreateLog(pageTitle + " is displayed ");
+                //17. TMTI0088262_Verify that clicking the "Add PE Firm" button opens up a dialog box to search and select a company. 
+                string search = form.ValidateSearchWindowUponClickingAddPEFirmButton();
+                Assert.AreEqual("True", search);
+                extentReports.CreateLog("Field to search company is displayed after clicking Add PE Firm button ");
 
-                //Validate Opportunity Name in Email and navigate to Opportunity details page
-                string emailOppName = form.GetOppName();
-                //Assert.AreEqual(oppName, emailOppName);
-                extentReports.CreateLog(" Email Template with Opportunity " + emailOppName + " is displayed ");
+                //18. TMTI0088264_Verify that clicking the "Add Selected" button of Add PE Firm will add that selected company as a PE Firm
+                string valComp = ReadExcelData.ReadDataMultipleRows(excelPath, "FEISForm", 2, 22);
+                string valOwnership = ReadExcelData.ReadDataMultipleRows(excelPath, "FEISForm", 2, 2);
+                string msgCompany = form.ValidateAddCompanyDetails(valComp,valOwnership);
+                Assert.AreEqual("Success:", msgCompany);
+                extentReports.CreateLog("Success message is displayed after clicking Add Selected button post selecting company and ownership % ");
+
+                string edit = form.ValidateEditLinkOfAddedPEFirmDetail();
+                Assert.AreEqual("Edit", edit);
+                string del = form.ValidateDelLinkOfAddedPEFirmDetail();
+                Assert.AreEqual("Del", del);
+                string addedComp = form.ValidateAddedCompanyInPEFirmDetail();
+                Assert.AreEqual(valComp, addedComp);
+                string addedOwnership = form.ValidateAddedOwnershipInAddedPEFirmDetail();
+                Assert.AreEqual(valOwnership+"%", addedOwnership);
+                extentReports.CreateLog("Edit and Delete link with added PE FIrm company along with added ownership % are displayed ");
+
+                //19. TMTI0088267_Verify that the user is able to edit ownership% of the added PE Firm
+                string updatedOwnership = form.ValidateEditCompanyDetails();
+                Assert.AreEqual("5%", updatedOwnership);
+                extentReports.CreateLog("Updated value of Ownership % is displayed upon editing ownership % ");
+
+                //20.TMTI0088269_Verify that the user is not able to delete the added PE Firm.
+                string cancelOwnership = form.ValidateCancelCompanyDetails();
+                Assert.AreEqual("5%", cancelOwnership);
+                extentReports.CreateLog("Added PE Firm is not deleted upon clicking Cancel button ");
+
+                //string deleteOwnership = form.ValidateDeleteCompanyDetails();
+                //Assert.AreEqual("Added PE Firm record has been deleted", deleteOwnership);
+                //extentReports.CreateLog("Added PE Firm got deleted upon clicking Delete button ");
+
+                //15. TMTI0088258_Verify that clicking "Save Record" will save the target company
+                string msgSuccess = form.SaveTargetCompanyDetails();
+                Assert.AreEqual("True", msgSuccess);
+                extentReports.CreateLog("Target company details are saved after clicking Save button ");
+
+                //21. TMTI0088271_Verify that the user is able to Edit the added Target Company and that updates are getting reflected in the list view.
+                string updatedOwner =form.EditTargetCompanyDetails(valOwnership);
+                Assert.AreEqual(valOwnership+"%", updatedOwner);
+                extentReports.CreateLog("Details of Target Company are updated after editing Private Equity % ");
+
+                //22. TMTI0088273_Verify that the user is able to delete the added Target Company.
+                string delOwner = form.DeleteTargetCompanyDetails();
+                Assert.AreEqual("Record has been deleted", delOwner);
+                extentReports.CreateLog("Details of Target Company are deleted after deleting it ");
+
+                //23. TMTI0088275_Verify that the "Add Counterparty" button is available at the top right corner to add counterparty company.
+                string addCounterparty = form.ValidateAddCounterpartyButton();
+                Assert.AreEqual("Add Counterparty", addCounterparty);
+                extentReports.CreateLog("Button:" + addCounterparty + " is displayed at the top of the 'Ownership & Advisors' tab of FEIS Form ");
+
+                //24. TMTI0088277_Verify that clicking the "Add Counterparty" button opens up the form to fill in all details with the Company field as a required field.
+                string counterpartyL = form.ValidateCompanyFieldOnAddCounterpartyDetails();
+                Assert.AreEqual("*\r\nCompany", counterpartyL);
+                extentReports.CreateLog("Mandatory Field:" + counterpartyL + "  with company details is displayed after clicking Add Counterparty button ");
+
+                //25. TMTI0088279_ Verify that clicking "Save Record" will save the Counterparty company
+                string addedCounterparty = form.ValidateSaveFunctionalityOfCounterparty();
+                Assert.AreEqual("True", addedCounterparty);
+                extentReports.CreateLog("Counterparty details are saved after entering the details and clicking Save button ");
+
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

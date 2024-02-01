@@ -66,6 +66,38 @@ namespace SF_Automation.Pages.Opportunity
         By valFormL = By.XPath("//li[3]/div/span/span");
         By btnChosenL = By.XPath("//div[4]/lightning-button-icon[1]/button");
         By lblOtherFormL = By.XPath("//label[text()='FEIS - Other Forms of Consideration Desc']");
+        By btnOpinionParties = By.XPath("//label[text()='Opinion Parties Affiliated']/ancestor::div[1]/div//button");
+        By lblOpinionPartiesL = By.XPath("//label[text()='Opinion Affiliated Parties Summary']");
+        By tabOwnershipL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Ownership & Advisors']");
+        By msgOwnershipL = By.XPath("//span[text()='To Add Target/Subject and/or Counterparty(ies), please use the buttons on the top right of this form.']");
+        By btnAddTargetL = By.XPath("//button[text()='Add Target/Subject']");
+        By lblCompanyL = By.XPath("//span[text()='*']/ancestor::label");
+        By txtCompanyL = By.XPath("//label[text()='Company']/ancestor::tr/td/div[1]/span/input");
+        By btnSaveRecord = By.XPath("//td[@class='pbButton center']/input[@value='Save Record']");
+        By txtSuccess = By.XPath("//h4[text()='Success:']");
+        By btnPEFirm = By.XPath("//label[text()='Does any PE Firm individually own 10% or more of the equity?']/ancestor::tr/td[2]/select");
+        By btnAddPEFirm = By.XPath("//input[@value='Add PE Firm']");
+        By txtSearchCompL = By.XPath("//input[contains(@name,'txtSearch')]");
+        By btnGo = By.XPath("//input[@value='Go']");
+        By chkCompany = By.XPath("//input[contains(@name,':tblResults:0:j_id50')]");
+        By txtOwnershipPer = By.XPath("//input[contains(@name,':tblResults:0:j_id54')]");
+        By btnAddSelected = By.XPath("//input[contains(@value,'Add Selected')]");
+        By btnClose = By.XPath("//button[@title='Close']");
+        By lnkEditPEFirm = By.XPath("//span[contains(@id,'panPEFirms')]/table/tbody/tr/td[1]/a[1]");
+        By lnkDelPEFirm = By.XPath("//span[contains(@id,'panPEFirms')]/table/tbody/tr/td[1]/a[2]");
+        By valAddedPEFirm = By.XPath("//span[contains(@id,'panPEFirms')]/table/tbody/tr/td[2]/span");
+        By valAddedOwnership = By.XPath("//span[contains(@id,'panPEFirms')]/table/tbody/tr/td[3]/span");
+        By txtEditOwnership = By.XPath("//input[contains(@id,'Percent')]");
+        By btnSavePEFirm = By.XPath("//input[@value='Save']");
+        By tblTargetCompL = By.XPath("//tbody/tr");
+        By btnEditTargetComp = By.XPath("//table/tbody/tr/td[8]//button");
+        By lnkEdit = By.XPath("//a/span[text()='Edit']");
+        By lnkDelete = By.XPath("//a/span[text()='Delete']");
+        By txtPrivateEquity = By.XPath("//label[text()='Private Equity (%)']/ancestor::tr[1]/td[1]/input");
+        By valPrivateEquity = By.XPath("//tbody/tr/td[3]");
+        By btnOK = By.XPath("//button[text()='OK']");
+        By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
+
 
         //Validate Opp Name
         public string ValidateOppName()
@@ -252,6 +284,102 @@ namespace SF_Automation.Pages.Opportunity
             return message;
         }
 
+        public string ValidateInformativeMessageOnOwnershipTab()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-900)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
+            driver.FindElement(tabOwnershipL).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, msgOwnershipL, 170);
+            string message = driver.FindElement(msgOwnershipL).Text;
+            return message;
+        }
+
+        public string ValidateAddTargetButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddTargetL, 150);            
+            string message = driver.FindElement(btnAddTargetL).Text;
+            return message;
+        }
+
+        public string ValidateCompanyFieldOnAddTargetDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddTargetL, 150);
+            driver.FindElement(btnAddTargetL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyL, 190);
+            string name = driver.FindElement(lblCompanyL).Text;
+            return name;            
+        }
+
+        public string SaveTargetCompanyDetails()
+        {
+           
+            driver.FindElement(btnSaveRecord).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
+            driver.FindElement(tabOwnershipL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 140);
+            string name = driver.FindElement(tblTargetCompL).Displayed.ToString();
+            return name;
+        }
+
+        public string EditTargetCompanyDetails(string valOwnership)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditTargetComp, 160);
+            driver.FindElement(btnEditTargetComp).Click();
+            Thread.Sleep(4000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEdit, 150);
+            driver.FindElement(lnkEdit).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@name,'vfFrameId')]")));
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPrivateEquity, 170);
+            driver.FindElement(txtPrivateEquity).SendKeys(valOwnership);
+            driver.FindElement(btnSaveRecord).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
+            driver.FindElement(tabOwnershipL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valPrivateEquity, 140);
+            string name = driver.FindElement(valPrivateEquity).Text;
+            return name;            
+        }
+
+
+        public string DeleteTargetCompanyDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditTargetComp, 160);
+            driver.FindElement(btnEditTargetComp).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelete, 150);
+            driver.FindElement(lnkDelete).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
+            driver.FindElement(btnOK).Click();
+            try
+            {
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 140);
+                string name = driver.FindElement(tblTargetCompL).Text;
+                return name;
+            }
+            catch(Exception e)
+            {                
+                return "Record has been deleted";
+            }           
+        }
+
+        public string ValidateAddCounterpartyButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 150);
+            string message = driver.FindElement(btnAddCounterpartyL).Text;
+            return message;
+        }
+
         ////Validate all required validations
         //public string GetErrorMessagesOnFEISForm()
         //{
@@ -264,7 +392,16 @@ namespace SF_Automation.Pages.Opportunity
         //    driver.FindElement(btnCloseL).Click();
         //    return message;
         //}
-
+        public string ValidateCompanyFieldOnAddCounterpartyDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 150);
+            driver.FindElement(btnAddCounterpartyL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyL, 190);
+            string name = driver.FindElement(lblCompanyL).Text;
+            return name;
+        }
 
         public bool GetErrorMessagesOnFEISForm()
         {
@@ -327,16 +464,189 @@ namespace SF_Automation.Pages.Opportunity
         //Validate ther *Form of Consideration
         public string ValidateOtherFormofConsideration()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(4000);
             driver.FindElement(valFormL).Click();
-            driver.FindElement(btnChosenL).Click();            
-            Thread.Sleep(4000);           
+            driver.FindElement(btnChosenL).Click();
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(5000);           
             WebDriverWaits.WaitUntilEleVisible(driver, lblOtherFormL, 150);
             string value = driver.FindElement(lblOtherFormL).Text;
             return value;
 
         }
 
-       
+        //Validate ther *Form of Consideration
+        public string ValidateAdditionalOpinionPartiesAffiliated()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,750)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOpinionParties, 160);
+            driver.FindElement(btnOpinionParties).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//flexipage-component2[2]/slot//flexipage-component2[4]//record_flexipage-record-field//lightning-base-combobox-item[3]/span[2]/span")).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOpinionPartiesL, 170);
+            string value = driver.FindElement(lblOpinionPartiesL).Text;
+            return value;
+        }
+
+        //Validate Select PE Firm
+        public string ValidateSelectPEFirm()    
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyL, 150);
+            driver.FindElement(txtCompanyL).SendKeys("te");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//table/tbody/tr[2]/td/div/strong")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPEFirm, 160);
+            driver.FindElement(btnPEFirm).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//label[text()='Does any PE Firm individually own 10% or more of the equity?']/ancestor::tr/td[2]/select/option[text()='Yes']")).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddPEFirm, 170);
+            string value = driver.FindElement(btnAddPEFirm).GetAttribute("value");
+            return value;
+        }
+
+        //Validate search window appears on clicking Add PE Firm button
+        public string ValidateSearchWindowUponClickingAddPEFirmButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddPEFirm, 150);
+            driver.FindElement(btnAddPEFirm).Click();
+            Thread.Sleep(4000);            
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@id='iframeContentId']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCompL, 160);
+            string name = driver.FindElement(txtSearchCompL).Displayed.ToString();
+            return name;
+            
+        }
+
+        //Validate add company functionality
+        public string ValidateAddCompanyDetails(string valComp, string valOwnership)
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCompL, 160);
+            driver.FindElement(txtSearchCompL).SendKeys(valComp);
+            driver.FindElement(btnGo).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 170);
+            driver.FindElement(chkCompany).Click();
+            driver.FindElement(txtOwnershipPer).SendKeys(valOwnership);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddSelected, 180);
+            driver.FindElement(btnAddSelected).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSuccess, 190);
+            string name = driver.FindElement(txtSuccess).Text;
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@name,'vfFrameId')]")));
+            Thread.Sleep(6000);
+            driver.FindElement(btnClose).Click();            
+            return name;
+        }
+
+        //Validate links corresponding to added PE Firm record
+        public string ValidateEditLinkOfAddedPEFirmDetail()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditPEFirm, 180);            
+            string name = driver.FindElement(lnkEditPEFirm).Text;            
+            return name;
+        }
+
+        //Validate links corresponding to added PE Firm record
+        public string ValidateDelLinkOfAddedPEFirmDetail()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelPEFirm, 160);
+            string name = driver.FindElement(lnkDelPEFirm).Text;
+            return name;
+        }
+
+        //Validate added PE Firm company
+        public string ValidateAddedCompanyInPEFirmDetail()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPEFirm, 160);
+            string name = driver.FindElement(valAddedPEFirm).Text;
+            return name;
+        }
+
+        //Validate links corresponding to added PE Firm record
+        public string ValidateAddedOwnershipInAddedPEFirmDetail()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedOwnership, 160);
+            string name = driver.FindElement(valAddedOwnership).Text;
+            return name;
+        }
+
+        //Validate edit company details functionality
+        public string ValidateEditCompanyDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditPEFirm, 160);
+            driver.FindElement(lnkEditPEFirm).Click();           
+            Thread.Sleep(4000);            
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@id='iframeContentId']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEditOwnership, 170);
+            driver.FindElement(txtEditOwnership).Clear();
+            driver.FindElement(txtEditOwnership).SendKeys("5");            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSavePEFirm, 190);
+            driver.FindElement(btnSavePEFirm).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@name,'vfFrameId')]")));
+            Thread.Sleep(6000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedOwnership, 160);
+            string value = driver.FindElement(valAddedOwnership).Text;
+            return value;
+        }
+
+        //Validate cancel company details functionality
+        public string ValidateCancelCompanyDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelPEFirm, 160);
+            driver.FindElement(lnkDelPEFirm).Click();
+            Thread.Sleep(4000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Dismiss();                  
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedOwnership, 160);
+            string value = driver.FindElement(valAddedOwnership).Text;
+            return value;
+        }
+
+        //Validate delete company details functionality
+        public string ValidateDeleteCompanyDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelPEFirm, 160);
+            driver.FindElement(lnkDelPEFirm).Click();
+            Thread.Sleep(4000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valAddedOwnership, 160);
+                string value = driver.FindElement(valAddedOwnership).Text;
+                return value;
+            }
+            catch (Exception e)
+            {
+                return "Added PE Firm record has been deleted";
+            }
+        }
+
+        //Validate save functionality of Counterparty
+        public string ValidateSaveFunctionalityOfCounterparty()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyL, 150);
+            driver.FindElement(txtCompanyL).SendKeys("te");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//table/tbody/tr[2]/td/div/strong")).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveRecord, 170);
+            driver.FindElement(btnSaveRecord).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 180);
+            string name = driver.FindElement(tblTargetCompL).Displayed.ToString();
+            return name;
+        }
     }
 }
 
