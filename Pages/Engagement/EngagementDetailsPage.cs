@@ -636,7 +636,7 @@ namespace SF_Automation.Pages.Engagement
         By tabInternalTeamL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Internal Team']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Internal Team']/a");////div[@class='onePanelManagerScoped']//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
-        By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
+        By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
         By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
@@ -651,7 +651,10 @@ namespace SF_Automation.Pages.Engagement
         By txtMeetingType = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[2]");
         By linkCaseNumber = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[3]//a");
         By txtCaseStatus = By.XPath("//div[@aria-label='Questionnaires|Questionnaires|List View']//tbody//td[4]//span[@class='slds-truncate']");
-
+        By txtPreviousJobType = By.XPath("(//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//slot//lightning-formatted-text)[2]");
+        By labelWomenLedSectionLV = By.XPath("//h3[contains(@data-target-reveals,'Engagement__c.Women_Led')]/button/span");
+        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
+        By labelAdminSectionLV = By.XPath("//h3/button/span[@title='Administrative Info']");
         By _sharingGroup(string text)
         {
             return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
@@ -672,12 +675,10 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//a[@data-label='{tabName}']");
         }
-
         private By _button(string buttonName)
         {
             return By.XPath($"//span[contains(text(),'{buttonName}')]");
         }
-
         private By _optionMeetingType(string meetingType)
         {
             return By.XPath($"//span[contains(text(),'{meetingType}')]/ancestor::span//input");
@@ -702,7 +703,6 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//h2//a//span[contains(@title,'{name}')]");
         }
-
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Engagement Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");//(//lightning-datatable//table//tbody//td//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}'])[2]
@@ -6016,10 +6016,6 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
             return isFound;
         }
-        By txtPreviousJobType = By.XPath("(//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//slot//lightning-formatted-text)[2]");
-
-
-
         public string GetDetailPageJobTypeLV()
         {
             Thread.Sleep(4000);
@@ -6386,9 +6382,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngContactL, 20);
             return driver.FindElement(txtEngContactL).Text;
         }
-        By labelWomenLedSectionLV = By.XPath("//h3[contains(@data-target-reveals,'Engagement__c.Women_Led')]/button/span");
-        By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
-        By labelAdminSectionLV = By.XPath("//h3/button/span[@title='Administrative Info']");
+        
         public string GetWomenLedSectionNameLV(string recType)
         {
             if (recType.Equals("CF"))

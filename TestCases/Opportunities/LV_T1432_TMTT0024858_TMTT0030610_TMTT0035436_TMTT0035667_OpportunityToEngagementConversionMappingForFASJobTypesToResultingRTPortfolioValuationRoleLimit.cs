@@ -292,11 +292,10 @@ namespace SF_Automation.TestCases.Opportunities
                         int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                         Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                         extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
+                        engagementDetails.ClickReturnToEngagementLV();
+                        extentReports.CreateStepLogs("Info", "Return to Engagement Detail page ");
                     }
-                    /////////////////////////////////////////////////
-                    
-                    engagementDetails.ClickReturnToEngagementLV();
-                    extentReports.CreateStepLogs("Info", "Return to Engagement Detail page ");
+                    /////////////////////////////////////////////////   
 
                     string engStage = engagementDetails.GetStageL();
                     Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row,1), engStage);
@@ -326,7 +325,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
-                        Assert.AreEqual("Administrative", secWomenLed);
+                        Assert.AreEqual("Administrative Info", secWomenLed);
                     }
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 

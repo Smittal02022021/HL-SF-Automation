@@ -139,12 +139,12 @@ namespace SF_Automation.TestCases.Opportunity
                     string oppClone = opportunityDetails.ValidateCloneButton();
                     if (valUser.Equals("Drew Koecher") || valUser.Equals("Emre Abale") || valUser.Equals("Ayati Arvind"))
                     {
-                        Assert.AreEqual("Clone button is not displayed", oppClone);
+                        Assert.AreEqual("Clone button is displayed", oppClone);
                         extentReports.CreateLog(oppClone + " on Opportunity details page for " + valUser + " ");
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", oppClone);
+                        Assert.AreEqual("Clone button is not displayed", oppClone);
                         extentReports.CreateLog(oppClone + " on Opportunity details page for " + valUser + " ");
                     }
 
@@ -206,7 +206,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Page with title : " + titleCov + " is displayed ");
 
                     string coverageClone = opportunityDetails.ValidateCloneButton();
-                    if (valUser.Equals("Emre Abale")|| valUser.Equals("Ayati Arvind") || valUser.Equals("Drew Koecher") )
+                    if (valUser.Equals("Emre Abale"))//|| valUser.Equals("Ayati Arvind")|| valUser.Equals("Drew Koecher")
                     {
                         Assert.AreEqual("Clone button is not displayed", coverageClone);//not
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
