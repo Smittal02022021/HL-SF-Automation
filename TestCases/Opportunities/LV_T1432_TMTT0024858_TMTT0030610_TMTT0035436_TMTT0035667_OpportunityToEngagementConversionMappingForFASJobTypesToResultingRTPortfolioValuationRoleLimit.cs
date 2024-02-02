@@ -351,7 +351,7 @@ namespace SF_Automation.TestCases.Opportunities
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();
                 driver.Quit();
             }
