@@ -156,15 +156,15 @@ namespace SF_Automation.Pages
         By valColumnDebtHoldings = By.XPath("//table/thead/tr/td[7]/div/div");
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
-        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-177']");
+        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-162']");
         By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-204']");
-        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-202']");
-        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-226']");
+        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-187']");
+        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-241']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-246']");
-        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-251']");
-        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-333']");
+        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-266']");
+        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-318']");
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
-        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-358']");
+        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-343']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
 
         By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");

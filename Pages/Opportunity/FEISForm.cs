@@ -375,7 +375,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public string ValidateAddCounterpartyButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 250);
             string message = driver.FindElement(btnAddCounterpartyL).Text;
             return message;
         }
@@ -600,6 +600,7 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+       
         //Validate cancel company details functionality
         public string ValidateCancelCompanyDetails()
         {
@@ -643,6 +644,12 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveRecord, 170);
             driver.FindElement(btnSaveRecord).Click();
             Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
+            driver.FindElement(tabOwnershipL).Click();
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,750)");
             WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 180);
             string name = driver.FindElement(tblTargetCompL).Displayed.ToString();
             return name;

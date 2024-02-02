@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversion(file8330);
-                    opportunityDetails.UpdateInternalTeamDetails(file8330);
+                   
 
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
@@ -111,6 +111,7 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityHome.SearchOpportunity(value);
 
                     //update CC and NBC checkboxes 
+                    opportunityDetails.UpdateInternalTeamDetails(file8330);
                     opportunityDetails.UpdateOutcomeDetails(file8330);
                     extentReports.CreateLog("Conflict Check fields are updated ");
 

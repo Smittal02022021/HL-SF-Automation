@@ -39,7 +39,7 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//div/ul/li[5]/div/a/span[2]/span");        
+        By tagEngagements = By.XPath("//div/ul/li[4]/div/a/span[2]/span");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By tblEngagements = By.XPath("//div[1]/div/div/table");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
