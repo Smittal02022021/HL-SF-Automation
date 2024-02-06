@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Pass", "User: " + caoUser + "switched to Classic and Loggout ");
+                    extentReports.CreateStepLogs("Pass", "User: " + caoUser + " switched to Classic and Loggout ");
 
                     //Login as user from group DND Approval Q
                     string userDNDApproverExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
-                    extentReports.CreateStepLogs("Pass", "Opportunity " + status + " ");
+                    extentReports.CreateStepLogs("Pass", "Opportunity DND Request: " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Get OppName after DND approved

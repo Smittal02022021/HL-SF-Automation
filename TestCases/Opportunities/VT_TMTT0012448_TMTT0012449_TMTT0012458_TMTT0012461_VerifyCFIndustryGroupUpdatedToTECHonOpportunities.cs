@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.Contact;
+using OpenQA.Selenium;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -42,6 +43,7 @@ namespace SF_Automation.TestCases.Opportunity
         {
             try
             {
+                
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0027313;
 
@@ -55,7 +57,7 @@ namespace SF_Automation.TestCases.Opportunity
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-
+                //((IJavaScriptExecutor)driver).ExecuteScript("document.body.style.zoom='80%';");
                 int rowIndustryType = ReadExcelData.GetRowCount(excelPath, "IndustryType");
                
                 //Login as Standard User profile and validate the user
@@ -217,9 +219,9 @@ namespace SF_Automation.TestCases.Opportunity
                 driver.Quit();
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                extentReports.CreateLog(ex.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

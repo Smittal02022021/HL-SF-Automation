@@ -60,7 +60,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By option = By.XPath("//div//label[text()='Select Project']//following::div//input");
         By txtTimeClockRecorder = By.XPath("//*[contains(@title,'Time Clock Recorder')]");
         By txtWeeklyOverview = By.XPath("//div[contains(@class,'StaffTimeSheet')]//span[text()='Weekly Overview']");
-
+        By imgSpinningLoader = By.XPath("//div[@class='loading']");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -1061,6 +1061,403 @@ namespace SF_Automation.Pages.TimeRecordManager
                 return driver.FindElement(comboSelectActivity).Displayed;
             }
             catch (Exception e) { return false; }
+        }
+
+        By txtTimeRecordUserName = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@class='timeSheet']/div[1]");
+        By frameTimeRecordPage=By.XPath("//iframe[@title='accessibility title']");
+
+        public string GetTimeRecordUserNameLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTimeRecordUserName, 30);
+            string name=  driver.FindElement(txtTimeRecordUserName).Text;
+            driver.SwitchTo().DefaultContent();
+            return name;
+        }
+        By txtdefaultTimeRecordPeriod = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select/option[1]");
+        public void GetDefaultTimeRecordPeriodLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtdefaultTimeRecordPeriod, 30);
+            string defaultPeriod = driver.FindElement(txtdefaultTimeRecordPeriod).Text;
+            driver.SwitchTo().DefaultContent();
+        }
+
+        /// <summary>
+        /// ///////
+        /// </summary>
+
+        public void DeleteTimeEntryLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            Thread.Sleep(5000);
+            IList<IWebElement> elements = driver.FindElements(btnCross);
+            for (int i = 0; i < elements.Count; i++)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCross);
+                driver.FindElement(btnCross).Click();
+                Thread.Sleep(5000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+            driver.SwitchTo().DefaultContent();
+        }
+        public void GoToWeeklyEntryMatrixLV()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
+            //driver.FindElement(tabStaffTimeSheet).Click();
+            //Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
+        public void GoToSummaryLogLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
+            driver.FindElement(tabSummaryLogs).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
+        public void GoToDetailLogsLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
+            driver.FindElement(tabDetailLogs).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
+
+        public void EnterWeeklyEntryMatrixLV(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            Thread.Sleep(6000);
+            string excelPath = dir + file;
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
+            //driver.FindElement(tabStaffTimeSheet).Click();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            //Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(10000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSundayTime);
+            driver.FindElement(txtEnterSundayTime).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 2));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity);
+            driver.FindElement(comboSelectActivity).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 3));
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(6000);
+        }
+        public string EnterSummaryLogsHoursLV(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
+            //driver.FindElement(tabStaffTimeSheet).Click();
+            //Thread.Sleep(2000);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
+            driver.FindElement(tabSummaryLogs).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(10000);
+
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+            driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 3));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "SummaryLogs", 2));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            driver.FindElement(btnAdd).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
+            string txtMsg = driver.FindElement(textSuccessMsg).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            return txtMsg;
+        }
+        By textSuccessMsg = By.XPath("//div[contains(@class,'uiMessage')]//h4//following-sibling::span");
+        public string EnterDetailLogsHoursLV(string selectProject, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
+            //driver.FindElement(tabStaffTimeSheet).Click();
+            //Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
+            driver.FindElement(tabDetailLogs).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(10000);
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();                
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+            driver.FindElement(comboLogActivity).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 3));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(ReadExcelData.ReadData(excelPath, "DetailLogs", 2));
+                        
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            driver.FindElement(btnAdd).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog);
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
+            string txtMsg= driver.FindElement(textSuccessMsg).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            return txtMsg;
+        }
+        By comboLogActivity1= By.XPath("(//div[@id='tab-view']//select[contains(@class,'uiInput--select')])[1]");
+        By txtEnterSummaryLogEntryTime1 = By.XPath("(//input[contains(@class,'uiInput--input')])[1]");
+
+        public void UpdateDetailLogsHoursLV(string newActivity, string newHours)
+        {            
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));            
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity1);
+            driver.FindElement(comboLogActivity1).SendKeys(newActivity);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime1);
+            driver.FindElement(txtEnterSummaryLogEntryTime1).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime1).SendKeys(newHours);
+            Thread.Sleep(2000);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(2000);
+            driver.FindElement(tabDetailLogs).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+        }
+        By comboValueLogActivity = By.XPath("(//div[@id='tab-view']//select[contains(@class,'uiInput--select')])[1]//option[@selected='selected']");
+        public string GetDetailLogsActivity()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboValueLogActivity);
+            string Activity = driver.FindElement(comboValueLogActivity).Text;
+            driver.SwitchTo().DefaultContent();
+            return Activity;
+        }
+        public string GetDetailLogsHours()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime1);
+            string hours= driver.FindElement(txtEnterSummaryLogEntryTime1).GetAttribute("value");
+            driver.SwitchTo().DefaultContent();
+            return hours;
+        }
+        public void SelectProjectWeeklyEntryMatrixLV(string selectProject)
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);  
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+                //
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(3000);
+        }
+        //Log Current Date Hours
+        public string LogCurrentDateHoursLV(string file)
+        {
+            DateTime Time = DateTime.Now.AddDays(0);
+            string format = "ddd";
+            string week = Time.ToString(format);
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            //Thread.Sleep(6000);
+            string excelPath = dir + file;
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+            switch (Time.ToString(format))
+            {
+                case "Mon":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent();
+                    Thread.Sleep(5000);
+                    break;
+
+                case "Tue":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+
+                case "Wed":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+
+
+                case "Thu":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+
+                case "Fri":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+
+
+                case "Sat":
+                    //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+
+                case "Sun":
+
+                    //driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(2000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div[2]/div/select")), 1);//2
+                    //driver.SwitchTo().DefaultContent(); 
+                    Thread.Sleep(5000);
+                    break;
+            }
+            driver.SwitchTo().DefaultContent();
+            return week;
+        }
+
+        
+        public void GetWeekStartDay()
+        {
+            string todayDate = DateTime.Today.ToString("yyyy MM dd");
+            string[] date = todayDate.Split(' ');
+            int a = date.Length;
+            var value = Convert.ToInt32(date[a]);
+            //default locale
+            //string getDay = System.DateTime.Now.DayOfWeek.ToString();
+            //localized version
+            string weekday = System.DateTime.Now.ToString("ddd");
+            driver.SwitchTo().DefaultContent();
+            int WeekStartDate;
+            switch (weekday)
+            {
+                case "Mon":
+
+                    WeekStartDate = value - 1;
+                    break;
+                case "Tue":
+
+                    WeekStartDate = value - 2;
+                    break;
+                case "Wed":
+
+                    WeekStartDate = value - 3;
+                    break;
+
+                case "Thu":
+
+                    WeekStartDate = value - 4;
+                    break;
+                case "Fri":
+
+                    WeekStartDate = value - 5;
+                    break;
+
+                case "Sat":
+
+                    WeekStartDate = value - 6;
+                    break;
+                case "Sun":
+
+                    WeekStartDate = value - 0;
+                    break;
+            }
         }
 
     }

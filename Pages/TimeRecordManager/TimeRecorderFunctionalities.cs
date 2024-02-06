@@ -152,7 +152,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
             driver.FindElement(tabDetailLogs).Click();
             Thread.Sleep(1000);
-
         }
 
         //Get the hours from Summary Log Tab

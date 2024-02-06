@@ -745,6 +745,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0027425_TMTT0027427_TMTT0027428_TMTT0027431_TMTT0027434_TMTT0027435_TMTT0030277_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
