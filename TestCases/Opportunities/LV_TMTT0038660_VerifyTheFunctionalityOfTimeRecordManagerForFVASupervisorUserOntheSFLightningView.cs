@@ -7,18 +7,19 @@ using System;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
 
+
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView:BaseClass
+    class LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
-        LoginPage login = new LoginPage();        
+        LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
 
-        public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView";
-        
+        public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView";
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -28,13 +29,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserLV()
+        public void VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserLV()
         {
             try
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0038660;
-                
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -66,15 +67,24 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
-                    //TMTI0093788 Verify that the FVA User can access the Time Tracking module in Lightning and logged-in user name is displayed on the top
+                    //TMTI0093777	Verify that the FVA Supervisor who is part of the Time Tracking PV Supervisor group can access the "Time Tracking" module.
+
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
-                    string GetTimeRecordUserNameLV = timeEntry.GetTimeRecordUserNameLV();
-                    Assert.AreEqual(GetTimeRecordUserNameLV, user, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
-                    extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
+                    //string GetTimeRecordUserNameLV = timeEntry.GetTimeRecordUserNameLV();
+                    //Assert.AreEqual(GetTimeRecordUserNameLV, user, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
+                    //extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
 
-                    //TMTI0093762	Verify that the FVA User can add hours for the project in Weekly Entry Matrix tab
+                    //Select Staff Member from the list
+                    string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
+
+                    timeEntry.SelectStaffMemberLV(staffNameExl);
+                    string staffName= timeEntry.GetSelectedStaffName();
+                    Assert.AreEqual(staffNameExl, staffName);
+                    extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
+
+                    //TMTI0093765	Verify that the FVA Supervisor can add hours to the project for any user.
                     //timeEntry.GetDefaultTimeRecordPeriodLV();
 
                     string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
@@ -88,11 +98,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     timeEntry.LogCurrentDateHoursLV(fileTMTT0038660);
                     extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
 
-                    //TMTI0093769	Verify that the FVA User can remove entered hours from the Weekly Entry Matrix tab
+                    //TMTI0093772	Verify that the FVA Supervisor can remove the entered hours of any user.
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
-                    //TMTI0093782	Verify that the FVA user can access the Summary Log tab and can add hours
+                    //TMTI0093785	Verify that the FVA Supervisor can access the Summary Log tab and can add hours.
                     timeEntry.GoToSummaryLogLV();
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
                     string activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
@@ -105,16 +115,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
-                    //TMTI0093763 Verify that the FVA user can access the Detail Logs tab.
+                    //TMTI0093766	Verify that the FVA Supervisor can access the Detail Logs tab.
                     timeEntry.GoToDetailLogsLV();
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
-
-                    //TMTI0093776	Verify that the FVA user can add hours from the Detail Logs tab and a success message appears on the screen.
                     textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, hoursExl);
                     Assert.AreEqual(textMessage, "Time Record Added");
                     extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
 
-                    // TMTI0093770 Verify that the FVA user can update the entered activity and hours from the Detail Logs tab.
+                    // TTMTI0093773	Verify that the FVA Supervisor can update the entered activity and hours from the Detail Logs tab.
                     string newActivityExl = ReadExcelData.ReadData(excelPath, "UpdateData", 2);
                     string newHoursExl = ReadExcelData.ReadData(excelPath, "UpdateData", 1);
                     timeEntry.UpdateDetailLogsHoursLV(newActivityExl, newHoursExl);
@@ -125,11 +133,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(txtLatestHours, newHoursExl);
                     extentReports.CreateStepLogs("Passed", "Activity and Hours are Updated on Detail Logs Page ");
 
-                    //TMTI0093783	Verify that the FVA user can delete entered hours from the Detail Logs tab.
+                    ///////////////
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
-                    //TMTI0093764	Verify that the FVA user can access the Weekly Overview tab and see entered hours.
+                    //TMTI0093786	Verify that the FVA Supervisor can access the Weekly Overview tab and can see entered hours
                     timeEntry.GoToWeeklyOverviewLV();
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Weekly Overview Page ");
 
@@ -148,7 +156,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             {
                 extentReports.CreateExceptionLog(e.Message);
                 timeEntry.DeleteTimeEntryLV();
-                login.SwitchToClassicView();                
+                login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

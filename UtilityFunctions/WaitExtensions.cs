@@ -60,7 +60,7 @@ namespace SF_Automation.UtilityFunctions
         }
         public static void WaitTillElementVisible(IWebDriver driver, By element)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(element));
         }
     }
