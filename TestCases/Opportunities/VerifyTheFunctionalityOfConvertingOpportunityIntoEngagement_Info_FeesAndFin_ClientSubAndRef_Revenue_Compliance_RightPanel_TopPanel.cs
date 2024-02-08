@@ -416,7 +416,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate Clear functionality of Revenue Projection
                 string msgRevProjPostClear = engagementDetails.ValidateClearRevenueProjFunctionality();
                 Assert.AreEqual("No Records To Display", msgRevProjPostClear);
-                extentReports.CreateLog("Message: " + msgRevProjPostClear + " is displayed after clicking clear on Revenue Projection ");
+                extentReports.CreateLog("RecordsMessage: " + msgRevProjPostClear + " is displayed after clicking clear on Revenue Projection ");
 
                 //Validate Submit functionality of Revenue Projection
                 string valMonth = engagementDetails.ValidateSubmitRevenueProjFunctionality();
@@ -487,7 +487,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate CST tab                
                 string tabCST = engagementDetails.ValidateCSTTab();
-                Assert.AreEqual("CST", tabCST);
+                Assert.AreEqual("FS Engagements", tabCST);
                 extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
 
                 //Save an Engagement Comment and Validate the added
