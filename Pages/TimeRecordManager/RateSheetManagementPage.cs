@@ -39,6 +39,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         By comboSelectRateSheet1 = By.XPath("(//div[contains(text(),'Add Record')]/following::div/div/div/select)[3]");
         By btnAddRateSheet1 = By.XPath("(//span[text()='Add'])[2]");
         By tabStaffTimeSheet = By.CssSelector("li[id*='staff'] > a");
+        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
+        By rowRateSheet = By.CssSelector("div[class*='slds-table'] > tr");
 
         //private By rateSheetName(String rateSheetname)
         //{
@@ -208,7 +210,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
 
         }
-
         public string GetBillingAmountFromBillingPreparationTab()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
@@ -254,7 +255,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             return rate;
         }
-
         public string GetDefaultRateForOutsourcedContractorAsPerRateSheet(string rateSheet)
         {
             driver.FindElement(shwAllTab).Click();
@@ -290,7 +290,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             return rate;
         }
-
         public string GetDefaultRateForInternAndFinancialAnalyst(string rateSheet)
         {
             string rate = "";
@@ -308,7 +307,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             double rate = Convert.ToDouble(ratePerHour.Split(' ')[1].Trim());
             return rate;
         }
-
         public void ClickNewTitleRateSheet(string rateSheet)
         {
             //Get Row Count
@@ -327,7 +325,6 @@ namespace SF_Automation.Pages.TimeRecordManager
                 }
             }
         }
-
         public void NavigateToTitleRateSheetsPage()
         {
             driver.FindElement(shwAllTab).Click();
@@ -337,7 +334,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(btnGo).Click();
             Thread.Sleep(3000);
         }
-
         public bool VerifyNewTitle(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -384,6 +380,94 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet1);
             driver.FindElement(btnAddRateSheet1).Click();
             Thread.Sleep(5000);
+        }
+        
+        public void EnterRateSheetLV(string engagement, string rateSheet)
+        {
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+            driver.FindElement(tabRateSheetManagement).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+            driver.FindElement(comboEngagement).SendKeys(engagement);
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet);
+            driver.FindElement(comboSelectRateSheet).SendKeys(rateSheet);
+            Thread.Sleep(2000);
+
+            string getFromDate = DateTime.Now.ToString("MMM dd, yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetFromDate);
+            driver.FindElement(txtRateSheetFromDate).Clear();
+            driver.FindElement(txtRateSheetFromDate).SendKeys(getFromDate);
+
+            string getToDate = DateTime.Now.AddDays(+7).ToString("MMM dd, yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetToDate);
+            driver.FindElement(txtRateSheetToDate).Clear();
+            driver.FindElement(txtRateSheetToDate).SendKeys(getToDate);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet);
+            driver.FindElement(btnAddRateSheet).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, rowRateSheet);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+        }
+        public void DeleteRateSheetLV(string engagementName)
+        {
+            try
+            {
+                Thread.Sleep(5000);
+                driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+                WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+                driver.FindElement(tabRateSheetManagement).Click();
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+                driver.FindElement(comboEngagement).SendKeys(engagementName);
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                driver.FindElement(btnCrossDeleteRecord).Click();
+                Thread.Sleep(5000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+            catch (Exception)
+            {
+                driver.FindElement(tabStaffTimeSheet).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+                driver.FindElement(tabRateSheetManagement).Click();
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
+                driver.FindElement(comboEngagement).SendKeys(engagementName);
+                Thread.Sleep(10000);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                driver.FindElement(btnCrossDeleteRecord).Click();
+                Thread.Sleep(5000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+            driver.SwitchTo().DefaultContent();
+        }
+
+        public string GetBillingAmountFromBillingPreparationTabLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
+            driver.FindElement(tabBillingPreparation).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtBillingAmt, 120);
+            string BillingAmt = driver.FindElement(txtBillingAmt).Text;
+            driver.SwitchTo().DefaultContent();
+            return BillingAmt;
         }
     }
 }

@@ -1114,6 +1114,66 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             driver.SwitchTo().DefaultContent();
         }
+        public bool ClickDeleteAndCancel()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            bool entryStatus=true;
+            IList<IWebElement> elements = driver.FindElements(btnCross);
+            for (int i = 0; i < elements.Count; i++)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCross);
+                driver.FindElement(btnCross).Click();
+                Thread.Sleep(3000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Dismiss();
+                Thread.Sleep(5000);
+                IList<IWebElement> btnCross1 = driver.FindElements(btnCross);
+                if (elements.Count == btnCross1.Count)
+                {
+                    entryStatus= false;
+                    break;
+                }
+                else
+                {
+                    entryStatus= true;
+                    break;
+                }
+            }
+            driver.SwitchTo().DefaultContent();
+            return entryStatus;
+        }
+        public bool ClickDeleteAndOK()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            bool entryStatus = true;
+            IList<IWebElement> elements = driver.FindElements(btnCross);
+            for (int i = 0; i < elements.Count; i++)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCross);
+                driver.FindElement(btnCross).Click();
+                Thread.Sleep(3000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+                IList<IWebElement> btnCross1 = driver.FindElements(btnCross);
+                if (elements.Count == btnCross1.Count)
+                {
+                    entryStatus = false;
+                    break;
+                }
+                else
+                {
+                    entryStatus = true;
+                    break;
+                }
+            }
+            driver.SwitchTo().DefaultContent();
+            return entryStatus;
+        }
         public void GoToWeeklyEntryMatrixLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -1396,6 +1456,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             Thread.Sleep(8000);
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//a[text()='{name}']")).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             driver.SwitchTo().DefaultContent();

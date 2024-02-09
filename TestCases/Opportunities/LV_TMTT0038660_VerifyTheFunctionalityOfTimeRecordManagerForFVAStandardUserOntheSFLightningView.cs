@@ -75,12 +75,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
 
                     //TMTI0093762	Verify that the FVA User can add hours for the project in Weekly Entry Matrix tab
-                    //timeEntry.GetDefaultTimeRecordPeriodLV();
-
                     string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
                     timeEntry.GoToWeeklyEntryMatrixLV();
-                    extentReports.CreateStepLogs("Info", "User is on Weekly Entry Matrix Page");
-
+                    extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
 
@@ -125,7 +122,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(txtLatestHours, newHoursExl);
                     extentReports.CreateStepLogs("Passed", "Activity and Hours are Updated on Detail Logs Page ");
 
-                    //TMTI0093783	Verify that the FVA user can delete entered hours from the Detail Logs tab.
+                    //TMTI0093783	Verify that the FVA user can delete entered hours from the Detail Logs tab..
                     timeEntry.RemoveRecordFromDetailLogsLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
