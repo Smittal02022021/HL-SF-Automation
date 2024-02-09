@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "Activity and Hours are Updated on Detail Logs Page ");
 
                     //TMTI0093783	Verify that the FVA user can delete entered hours from the Detail Logs tab.
-                    timeEntry.DeleteTimeEntryLV();
+                    timeEntry.RemoveRecordFromDetailLogsLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     //TMTI0093764	Verify that the FVA user can access the Weekly Overview tab and see entered hours.

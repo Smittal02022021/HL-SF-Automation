@@ -1097,6 +1097,23 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             driver.SwitchTo().DefaultContent();
         }
+        public void RemoveRecordFromDetailLogsLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            IList<IWebElement> elements = driver.FindElements(btnCrossDeleteRecord);
+            for (int i = 0; i < elements.Count; i++)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                driver.FindElement(btnCrossDeleteRecord).Click();
+                Thread.Sleep(3000);
+
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(5000);
+            }
+            driver.SwitchTo().DefaultContent();
+        }
         public void GoToWeeklyEntryMatrixLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
