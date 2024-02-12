@@ -83,6 +83,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                 Assert.AreEqual(standardUserExl.Contains(standardUser), true);
                 extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
+
                 conHome.SearchContact(fileTC1738, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1));
                 addActivity1.VerifyFilter(fileTC1738);
                 extentReports.CreateLog("Verified type filter for standard user ");
