@@ -457,17 +457,28 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             driver.SwitchTo().DefaultContent();
         }
+        public string GetSelectedRateSheetLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, valRateSheetRecord, 80);
+            string selectedRateSheet = driver.FindElement(valRateSheetRecord).Text;
+            driver.SwitchTo().DefaultContent();
+            return selectedRateSheet;
+        }
 
-        public string GetBillingAmountFromBillingPreparationTabLV()
+        public double GetBillingAmountFromBillingPreparationTabLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
             driver.FindElement(tabBillingPreparation).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtBillingAmt, 120);
-            string BillingAmt = driver.FindElement(txtBillingAmt).Text;
+            string billingAmt = driver.FindElement(txtBillingAmt).Text;
+            double billedAmount = Convert.ToDouble(billingAmt);
+            //double titleRate = Convert.ToDouble(BillingAmt.Split('$')[1].Trim());
             driver.SwitchTo().DefaultContent();
-            return BillingAmt;
+            return billedAmount; 
         }
     }
 }

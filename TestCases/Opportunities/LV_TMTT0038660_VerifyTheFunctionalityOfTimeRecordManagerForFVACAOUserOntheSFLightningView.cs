@@ -20,7 +20,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
 
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView";
-
+        string engagementExl;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -59,6 +59,26 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(userExl), true);
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " logged in ");
+
+                    // select the Rate from rate sheet
+                    rateSheetMgt.NavigateToTitleRateSheetsPage();
+                    extentReports.CreateLog(driver.Title + " page is displayed ");
+
+                    //Click on the new title rate sheet name
+                    string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
+                    rateSheetMgt.ClickNewTitleRateSheet(rateSheetExl);
+                    extentReports.CreateStepLogs("Info", "Rate sheet: " + rateSheetExl + " is selected. ");
+
+                    //Verify the correct title rate sheet is opened
+                    //Assert.AreEqual(WebDriverWaits.TitleContains(driver, rateSheet), true);
+                    //extentReports.CreateLog(driver.Title + " page is displayed ");
+
+                    //Get the default rate of user as per role
+                    string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 2);
+                    double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
+                    extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
+
+
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
@@ -72,7 +92,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
-
+                    
                     //Select Staff Member from the list
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
 
@@ -81,30 +101,47 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(staffNameExl, staffName);
                     extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
 
-                    //TMTI0093780	Verify that the FVA CAO can check, add, and remove hours of the selected staff users
+                    // Select the rate sheet
                     string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
+                    //Enter Rate Sheet details
+                    //TMTI0093787	Verify that the FVA CAO can access the Rate Sheet Management and can add Rate Sheet for the selected Engagement for the selected period.
+                    rateSheetMgt.EnterRateSheetLV(selectProject, rateSheetExl);
+
+                    //Verify selected rate sheet
+                    string selectedRateSheet = rateSheetMgt.GetSelectedRateSheetLV();
+                    //string selectedRateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 1);
+                    Assert.AreEqual(rateSheetExl, selectedRateSheet);
+                    timeEntry.GoToStaffTimeSheetTabLV();
+
+                    //TMTI0093780	Verify that the FVA CAO can check, add, and remove hours of the selected staff users
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     extentReports.CreateStepLogs("Info", "User is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
-
+                    string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
                     //Enter time under weekly time matrix
-                    timeEntry.LogCurrentDateHoursLV(fileTMTT0038660);
+                    timeEntry.LogCurrentDateHoursLV(txtHours);
                     extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
 
-                    bool IsEntryDeleted= timeEntry.ClickDeleteAndCancel();
+                    //get amount on Billing Prepration tag 
+                    double billedAmount = rateSheetMgt.GetBillingAmountFromBillingPreparationTabLV();
+                    double expectedAmount = Convert.ToDouble(txtHours) *Convert.ToDouble(defaultRate);
+                    Assert.AreEqual(expectedAmount, billedAmount);
+                    timeEntry.GoToStaffTimeSheetTabLV();
+                    timeEntry.GoToWeeklyEntryMatrixLV();
+                    bool IsEntryDeleted= timeEntry.ClickDeleteAndCancel();                    
                     Assert.IsFalse(IsEntryDeleted, "Verify that on clicking the Cancel button from confirmation message will not remove the entry");
                     extentReports.CreateStepLogs("Passed", "Clicking the Cancel button from confirmation message will not remove the entry");
 
                     IsEntryDeleted = timeEntry.ClickDeleteAndOK();
                     Assert.IsTrue(IsEntryDeleted, "Verify that on clicking the OK button from confirmation message will remove the entry");
                     extentReports.CreateStepLogs("Passed", "Clicking the OK button from confirmation message will remove the entry");
-                    string engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
-                    string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
+                    engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
+                    //string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
 
                     //TMTI0093787	Verify that the FVA CAO can access the Rate Sheet Management and can add Rate Sheet for the selected Engagement for the selected period.
-                    rateSheetMgt.EnterRateSheetLV(engagementExl, rateSheetExl);
-                    extentReports.CreateStepLogs("Passed", "Ratesheet: "+ rateSheetExl+" Added for Engagement: "+ engagementExl+" on Ratesheet Manageement page ");
+                    //rateSheetMgt.EnterRateSheetLV(engagementExl, rateSheetExl);
+                    //extentReports.CreateStepLogs("Passed", "Ratesheet: "+ rateSheetExl+" Added for Engagement: "+ engagementExl+" on Ratesheet Manageement page ");
 
                     rateSheetMgt.DeleteRateSheetLV(engagementExl);
                     extentReports.CreateStepLogs("Passed", "Ratesheet: "+ rateSheetExl+ " deleted from Ratesheet Manageement page");
@@ -117,6 +154,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             {
                 extentReports.CreateExceptionLog(e.Message);
                 timeEntry.DeleteTimeEntryLV();
+                rateSheetMgt.DeleteRateSheetLV(engagementExl);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

@@ -80,9 +80,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
-
+                    string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
                     //Enter time under weekly time matrix
-                    timeEntry.LogCurrentDateHoursLV(fileTMTT0038660);
+                    timeEntry.LogCurrentDateHoursLV(txtHours);
                     extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
 
                     //TMTI0093769	Verify that the FVA User can remove entered hours from the Weekly Entry Matrix tab

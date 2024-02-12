@@ -1119,6 +1119,9 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             bool entryStatus=true;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             IList<IWebElement> elements = driver.FindElements(btnCross);
             for (int i = 0; i < elements.Count; i++)
             {
@@ -1149,6 +1152,9 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             bool entryStatus = true;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             IList<IWebElement> elements = driver.FindElements(btnCross);
             for (int i = 0; i < elements.Count; i++)
             {
@@ -1386,17 +1392,17 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(3000);
         }
         //Log Current Date Hours
-        public string LogCurrentDateHoursLV(string file)
+        public string LogCurrentDateHoursLV(string txtHours)
         {
             DateTime Time = DateTime.Now.AddDays(0);
             string format = "ddd";
             string week = Time.ToString(format);
 
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
+            //ReadJSONData.Generate("Admin_Data.json");
+            //string dir = ReadJSONData.data.filePaths.testData;
+            //string excelPath = dir + file;
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+            
             switch (Time.ToString(format))
             {
                 case "Mon":
@@ -1471,6 +1477,15 @@ namespace SF_Automation.Pages.TimeRecordManager
             string name= driver.FindElement(txtSelectedStaffName).Text.Trim();
             driver.SwitchTo().DefaultContent();
             return name;
+        }
+        public void GoToStaffTimeSheetTabLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
+            driver.FindElement(tabStaffTimeSheet).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //Thread.Sleep(8000);
+            driver.SwitchTo().DefaultContent();
         }
         public void GetWeekStartDay()
         {
