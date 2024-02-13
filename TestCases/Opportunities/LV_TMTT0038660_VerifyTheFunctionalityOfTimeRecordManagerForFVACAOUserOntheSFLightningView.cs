@@ -40,7 +40,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
-
                 //Calling Login function                
                 login.LoginApplication();
 

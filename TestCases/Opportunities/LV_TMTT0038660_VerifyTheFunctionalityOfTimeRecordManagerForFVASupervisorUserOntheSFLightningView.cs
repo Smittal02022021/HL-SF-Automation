@@ -35,7 +35,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0038660;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
