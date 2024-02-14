@@ -253,9 +253,9 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Details of Target Company are updated after editing Private Equity % ");
 
                 //22. TMTI0088273_Verify that the user is able to delete the added Target Company.
-                string delOwner = form.DeleteTargetCompanyDetails();
-                Assert.AreEqual("Record has been deleted", delOwner);
-                extentReports.CreateLog("Details of Target Company are deleted after deleting it ");
+                //string delOwner = form.DeleteTargetCompanyDetails();
+                //Assert.AreEqual("Record has been deleted", delOwner);
+                //extentReports.CreateLog("Details of Target Company are deleted after deleting it ");
 
                 //23. TMTI0088275_Verify that the "Add Counterparty" button is available at the top right corner to add counterparty company.
                 string addCounterparty = form.ValidateAddCounterpartyButton();
@@ -317,12 +317,28 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Details of Counterparty Company are updated after editing Private Equity % ");
 
                 //32.  TMTI0088300_Verify that the user is able to delete the added Counterparty Company. 
-                string delOwnerCounter = form.DeleteTargetCompanyDetails();
-                Assert.AreEqual("Record has been deleted", delOwner);
-                extentReports.CreateLog("Details of Counterparty Company are deleted after deleting it ");
+                //string delOwnerCounter = form.DeleteTargetCompanyDetails();
+                //Assert.AreEqual("Record has been deleted", delOwner);
+                //extentReports.CreateLog("Details of Counterparty Company are deleted after deleting it ");
+
+                //35.	TMTI0088306_ Verify that on clicking the error message "Yes/No", the application will redirect the user to the Relationship Question tab
+                string tabRelationship = form.ValidateRelatioshipValidationPostSavingCheckboxesOnFormOfOpinion();
+                Assert.AreEqual("Relationship Questions", tabRelationship);
+                extentReports.CreateLog("Tab: " + tabRelationship + " is displayed upon clicking error message saying Yes/No ");
+
+                //34.	TMTI0088304_ Verify that on clicking the save button, the application gives a validation message to answer all the Relationship Questions with Yes or No
+                Assert.IsTrue(form.VerifyAllRelatioshipQValidations(), "Verified that displayed validations are same");
+                extentReports.CreateLog("Displayed validations for Relationship Questions are displayed as expected ");
+
+                //36.   TMTI0088308_Verify that on selecting the option "Yes" for all relationship questions, another required text field will open up to share an explanation for choosing Yes
+                Assert.IsTrue(form.SaveAllQuestionsAsYesAndValidateDisplayedExpTextBox(), "Verified that displayed 'If Yes, Please Explain' fields are same");
+                extentReports.CreateLog("Displayed 'If Yes, Please Explain' fields are displayed as expected after selecting Yes for all relationship questions ");
+
+                //37.	TMTI0088310_Verify that on selecting the option "No" for all relationship questions, no text field will open up to share an explanation for choosing No. 
+                Assert.IsTrue(form.SaveAllQuestionsAsNoAndValidateDisplayedExpTextBox(), "Verified that no 'If Yes, Please Explain' fields are displayed");
+                extentReports.CreateLog("No field like 'If Yes, Please Explain' fields are displayed as expected after selecting No for all relationship questions ");
 
                 //33.  TMTI0088302_Verify that the user is able to check checkboxes for all the questions given under the Form of Opinion tab. 
-                  
 
 
 

@@ -97,6 +97,22 @@ namespace SF_Automation.Pages.Opportunity
         By valPrivateEquity = By.XPath("//tbody/tr/td[3]");
         By btnOK = By.XPath("//button[text()='OK']");
         By btnAddCounterpartyL = By.XPath("//button[text()='Add Counterparty']");
+        By tabForm = By.XPath("//lightning-tab-bar/ul/li/a[text()='Form of Opinion']");
+        By lnk1stCheck = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2//div/div/dl/dd/div/button/span[1]");
+        By chk1stCheck = By.XPath("//span[text()='﻿The consideration to be received by the Unaffiliated Stockholders in the Transaction is fair to them from a financial point of view.']/ancestor::div[1]/laf-progressive-container//input");
+        By chk2ndCheck = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-checkbox/lightning-input/lightning-primitive-input-checkbox/div/span/input");
+        By chk3rdCheck = By.XPath("//flexipage-component2[4]/slot/flexipage-field-section2//div/slot/records-record-layout-checkbox/lightning-input/lightning-primitive-input-checkbox/div/span/input");
+        By chk4thCheck = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_4_cField']//following::input[@name='FEIS_Opine_Option_4__c']");
+        By chk5thCheck = By.XPath("//flexipage-component2[6]/slot/flexipage-field-section2//div/slot/records-record-layout-checkbox/lightning-input/lightning-primitive-input-checkbox/div/span/input");
+        By chk6thCheck = By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2//div/slot/records-record-layout-checkbox/lightning-input/lightning-primitive-input-checkbox/div/span/input");
+        By lnkRelValidation = By.XPath("//li/a[text()='Yes/No']");
+        By msgRelationshipQ = By.XPath("//div[text()='Complete this field.']");
+        By tabRelationship = By.XPath("//li/a[text()='Relationship Questions']");
+        By btn1stQues = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div//div[1]/button");
+        By btn2ndQues = By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div//div[1]/button");
+        By btn3rdQues = By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div//div[1]/button");
+        By btn4thQues = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div//div[1]/button");
+        By lblYes = By.XPath("//label[text()='If Yes, please explain']");
 
 
         //Validate Opp Name
@@ -653,6 +669,156 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 180);
             string name = driver.FindElement(tblTargetCompL).Displayed.ToString();
             return name;
+        }
+        //Check all questions on Form Of Opinion tab and validate tab on clicking Save button
+        public string ValidateRelatioshipValidationPostSavingCheckboxesOnFormOfOpinion()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabForm, 160);
+            driver.FindElement(tabForm).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnk1stCheck, 150);
+            driver.FindElement(lnk1stCheck).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk1stCheck, 170);
+            driver.FindElement(chk1stCheck).Click();
+            //driver.FindElement(chk1stCheck).Click();
+            Thread.Sleep(6000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,550)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk2ndCheck, 180);
+            driver.FindElement(chk2ndCheck).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk3rdCheck, 190);
+            driver.FindElement(chk3rdCheck).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk4thCheck, 150);
+            driver.FindElement(chk4thCheck).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk5thCheck, 150);
+            driver.FindElement(chk5thCheck).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chk6thCheck, 150);
+            driver.FindElement(chk6thCheck).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRelValidation, 170);
+            driver.FindElement(lnkRelValidation).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRelationship, 190);
+            string message = driver.FindElement(tabRelationship).Text;
+            return message;            
+        }
+
+        //Validate displayed validation on Relationship Tab
+        public bool VerifyAllRelatioshipQValidations()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgRelationshipQ);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field."};
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Select all questions
+        public bool SaveAllQuestionsAsYesAndValidateDisplayedExpTextBox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btn1stQues, 150);
+            driver.FindElement(btn1stQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn2ndQues, 150);
+            driver.FindElement(btn2ndQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn3rdQues, 150);
+            driver.FindElement(btn3rdQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn4thQues, 150);
+            driver.FindElement(btn4thQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblYes);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "If Yes, please explain", "If Yes, please explain", "If Yes, please explain", "If Yes, please explain" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Select all questions
+        public bool SaveAllQuestionsAsNoAndValidateDisplayedExpTextBox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btn1stQues, 150);
+            driver.FindElement(btn1stQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn2ndQues, 150);
+            driver.FindElement(btn2ndQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn3rdQues, 150);
+            driver.FindElement(btn3rdQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            js.ExecuteScript("window.scrollTo(0,400)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btn4thQues, 150);
+            driver.FindElement(btn4thQues).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblYes);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "If Yes, please explain", "If Yes, please explain", "If Yes, please explain", "If Yes, please explain" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
         }
     }
 }

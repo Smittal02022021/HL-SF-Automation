@@ -379,7 +379,7 @@ namespace SF_Automation.Pages.Engagement
         By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
             
-        By btnEngContact = By.XPath("//ul/li/div/div/div/div/a");
+        By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal//lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/button/lightning-primitive-icon");
         By btnCloseEngContact = By.XPath("//records-record-edit-error-header/lightning-button-icon");
         By txtEngContact = By.XPath("//input[@placeholder='Search Contacts...']");
