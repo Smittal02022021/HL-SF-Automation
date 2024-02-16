@@ -20,7 +20,6 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTMTI0055389 = "TMTI0055389_EditExistingOppEngToNewCFJobType";
@@ -130,10 +129,10 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
 
                     login.SwitchToClassicView();
-                    extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
+                    extentReports.CreateLog(stdUser + " User Switched to Classic View ");
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
-                    extentReports.CreateLog(stdUser + " Standard User logged out ");
+                    extentReports.CreateLog(stdUser + " User logged out ");
 
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);

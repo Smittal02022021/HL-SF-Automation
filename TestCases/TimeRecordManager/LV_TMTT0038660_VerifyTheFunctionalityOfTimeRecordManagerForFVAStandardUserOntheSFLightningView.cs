@@ -51,11 +51,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 {
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
+                    string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
                     login.SwitchToClassicView();
                     string user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
+                    extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " from Time Tracking Group: "+ userGrpNameExl+"  logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
@@ -79,7 +80,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
-                    string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+                    string txtHours = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2); ;
                     //Enter time under weekly time matrix
                     timeEntry.LogCurrentDateHoursLV(txtHours);
                     extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
@@ -111,8 +112,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
 
                     // TMTI0093770 Verify that the FVA user can update the entered activity and hours from the Detail Logs tab.
-                    string newActivityExl = ReadExcelData.ReadData(excelPath, "UpdateData", 2);
-                    string newHoursExl = ReadExcelData.ReadData(excelPath, "UpdateData", 1);
+                    string newHoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateData", row, 1);
+                    string newActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateData", row,2);                    
                     timeEntry.UpdateDetailLogsHoursLV(newActivityExl, newHoursExl);
                     extentReports.CreateStepLogs("Passed", "Activity and Hours Updated on Detail Logs Page ");
                     string txtLatestActivity = timeEntry.GetDetailLogsActivity();
@@ -136,9 +137,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
+
                     usersLogin.ClickLogoutFromLightningView();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
+                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");                    
                 }
+                usersLogin.UserLogOut();
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

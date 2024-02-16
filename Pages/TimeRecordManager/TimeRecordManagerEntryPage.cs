@@ -70,6 +70,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By txtTimeRecordUserName = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@class='timeSheet']/div[1]");
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
         By txtdefaultTimeRecordPeriod = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select/option[1]");
+        By txtSelectedStaffName = By.XPath("//div[@class='timeSheet']/div[contains(@class,'heading')]");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -1160,11 +1161,13 @@ namespace SF_Automation.Pages.TimeRecordManager
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnCross);
                 driver.FindElement(btnCross).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
 
                 IAlert alert = driver.SwitchTo().Alert();
                 alert.Accept();
                 Thread.Sleep(5000);
+                driver.FindElement(tabWeeklyEntryMatrix).Click();
+                WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
                 IList<IWebElement> btnCross1 = driver.FindElements(btnCross);
                 if (elements.Count == btnCross1.Count)
                 {
@@ -1469,7 +1472,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
         }
-        By txtSelectedStaffName = By.XPath("//div[@class='timeSheet']/div[contains(@class,'heading')]");
+       
         public string GetSelectedStaffName()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -1486,6 +1489,23 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             //Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
+        }
+
+        public double GetTotalAmountLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, valTotalAmount, 20);
+            double billedAmount = double.Parse(driver.FindElement(valTotalAmount).Text);
+            driver.SwitchTo().DefaultContent();
+            return billedAmount;
+        }
+        public double GetEnteredHoursInSummaryLogValueLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHours, 80);
+            double billedAmount= double.Parse(driver.FindElement(valEnteredHours).Text);
+            driver.SwitchTo().DefaultContent();
+            return billedAmount;
         }
         public void GetWeekStartDay()
         {

@@ -41,6 +41,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By tabStaffTimeSheet = By.CssSelector("li[id*='staff'] > a");
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
         By rowRateSheet = By.CssSelector("div[class*='slds-table'] > tr");
+        By rateSheetNameList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[5]//a");
 
         //private By rateSheetName(String rateSheetname)
         //{
@@ -93,7 +94,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void SelectRateSheet(string rateSheetname)
         {
 
-            IList<IWebElement> rateSheets = driver.FindElements(rateSheetList);
+            IList<IWebElement> rateSheets = driver.FindElements(rateSheetNameList);
             for (int i = 0; i <= rateSheets.Count; i++)
             {
                 string rateSheetValue = rateSheets[i].Text;
@@ -479,6 +480,34 @@ namespace SF_Automation.Pages.TimeRecordManager
             //double titleRate = Convert.ToDouble(BillingAmt.Split('$')[1].Trim());
             driver.SwitchTo().DefaultContent();
             return billedAmount; 
+        }
+        By chkboxBilling = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id='tab-billing']//tr[1]//input");
+        By btnSendNotification = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id=\"tab-billing\"]//button");
+        public void GoToBillingPreparationTabLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
+            driver.FindElement(tabBillingPreparation).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkboxBilling, 20);
+            driver.SwitchTo().DefaultContent();
+
+        }
+        public bool GetSendNotificatioButtonStatusLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendNotification, 20);
+            bool btnStatus = driver.FindElement(btnSendNotification).Enabled;
+            driver.SwitchTo().DefaultContent();
+            return btnStatus;
+        }
+        public void SelectBillingPreparationRecordLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, chkboxBilling);
+            driver.FindElement(chkboxBilling).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
         }
     }
 }

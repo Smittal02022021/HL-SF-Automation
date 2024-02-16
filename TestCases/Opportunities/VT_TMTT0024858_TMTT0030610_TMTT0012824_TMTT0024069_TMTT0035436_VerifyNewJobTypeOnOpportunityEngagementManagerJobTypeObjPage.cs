@@ -49,8 +49,6 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
-                extentReports.CreateLog("rowCount " + rowJobType+ " ");
-
                 for (int row = 2; row <= rowJobType; row++)
                 {
                     extentReports.CreateLog("Verify New JobType On Opportunity & Engagement Manager Page For FVA RecordTypes ");
