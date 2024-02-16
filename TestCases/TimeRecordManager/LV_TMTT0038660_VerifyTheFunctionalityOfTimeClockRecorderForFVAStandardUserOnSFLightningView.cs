@@ -112,6 +112,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Add minutes 
                     string additionalMinutes = ReadExcelData.ReadDataMultipleRows(excelPath, "TimeClockRecorder", row, 5);
                     refreshButton.AddMinutesToTimer(additionalMinutes);
+                    extentReports.CreateStepLogs("Passed", additionalMinutes+" Minutes Added Clock Recorder Timer ");
 
                     //Click Finish Button
                     refreshButton.ClickFinishButtonLV();
