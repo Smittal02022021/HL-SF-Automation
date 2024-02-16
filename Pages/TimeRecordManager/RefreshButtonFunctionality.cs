@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
         By imgSpinningLoader = By.XPath("//div[@class='loading']");
-
+        By txtAddMinutes = By.XPath("//div[contains(@class,'TimeClockRecorder')]//p[contains(text(),'Add Minutes')]//input");
 
         private By _btnTimeClockRecorder(string button)
         {
@@ -310,9 +310,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(btnStart).Click();
             Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
-        }
-
-        By txtAddMinutes = By.XPath("//div[contains(@class,'TimeClockRecorder')]//p[contains(text(),'Add Minutes')]//input");
+        }        
         public void AddMinutesToTimer(string minutes)
         {
             driver.SwitchTo().DefaultContent();
@@ -320,7 +318,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, txtAddMinutes, 20);
             driver.FindElement(txtAddMinutes).SendKeys(minutes);
             driver.FindElement(_btnTimeClockRecorder("Update")).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
         public void ClickFinishButtonLV()
