@@ -7,11 +7,6 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using System.Diagnostics;
-using static System.Collections.Specialized.BitVector32;
-using System.Reflection;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -28,7 +23,7 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileTMTI0055384 = "TMTI0055384_NewCFOpportunityWithNewJobType";
+        public static string fileTMTI0055384 = "LV_T1426_OpportunityToEngagementConversionMappingForCF";
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -38,7 +33,7 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void NewCFOpportunityWithNewJobTypeLV()
+        public void OpportunityToEngagementConversionMappingForCFLightningView()
         {
             try
             {
@@ -134,7 +129,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055384);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityLV();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();
@@ -186,7 +181,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -226,7 +221,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0055402 Verify the availability of Job Types for converted engagement on the Engagement page
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
@@ -235,7 +230,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
-                    opportunityDetails.ClickConvertToEngagementL();
+                    opportunityDetails.ClickConvertToEngagementL2();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
@@ -260,7 +255,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0055387 Verify the status is updated in Oracle ERP Information section after creating the Opportunity
                     //Validate the ERP status on Engagement details page
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
-                    //Assert.AreEqual("Success", ERPStatusIG);
+                    Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
 
 
@@ -270,15 +265,18 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate the section in which Women led fiels is displayed
                     string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
                     Assert.AreEqual("Women Led", lblWomenLed);
+                    extentReports.CreateLog("Field : " + lblWomenLed + " is found on converted Engagement ");
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
 
                     if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed);
+                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
                     }
                     else
                     {
                         Assert.AreEqual("Closing - Document Checklist", secWomenLed);
+                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
                     }
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
@@ -303,11 +301,11 @@ namespace SF_Automation.TestCases.Opportunities
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();
                 driver.Quit();
             }

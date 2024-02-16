@@ -535,6 +535,9 @@ namespace SF_Automation.Pages
 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
 
+        By btnConvertToEngL2 = By.XPath("//button[contains(text(),'Convert to Engagement')]");
+        By btnMoreConvertToEngL = By.XPath("//span[contains(text(),'Convert to Engagement')]");
+
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
@@ -5140,6 +5143,18 @@ public void ClickNewOpportunitySectorButton()
         {
             driver.FindElement(tabApprovalHistoryL).Click();
         }
+
+        public void ClickReturnToOpportunityLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
+            Thread.Sleep(2000);
+            driver.FindElement(btnReturnToOpp).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+        }
+
         public void ClickConvertToEngagementL()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -5161,6 +5176,33 @@ public void ClickNewOpportunitySectorButton()
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
         }
+
+        public void ClickConvertToEngagementL2()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL2, 10);
+                driver.FindElement(btnConvertToEngL2).Click();
+            }
+            catch(Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreConvertToEngL, 10);
+                driver.FindElement(btnMoreConvertToEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 30);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
+        }
+
+
+
+
+
         public bool IsAssociatedOppFieldPresent()
         {
             try

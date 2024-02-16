@@ -62,6 +62,27 @@ namespace SF_Automation.Pages
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
         By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+
+        public string SearchOpportunitiesInLightningView(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 20);
+            driver.FindElement(btnOppNumL).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 20);
+            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 20);
+                driver.FindElement(imgOppL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
+        }
+
         public void SearchOpportunityInLightning(string value)
         {
             Thread.Sleep(6000);
