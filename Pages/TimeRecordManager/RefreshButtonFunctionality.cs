@@ -30,7 +30,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By btnUpdate = By.XPath("//div[@disabled='disabled']/p/button");
         By txtClockTimerHours = By.XPath("//div[@class='clock flip-clock-wrapper']/ul[2]/li[2]/a/div[1]/div[2]");
         By msgErrorStart = By.XPath("//div[@data-aura-class='uiMessage']/div/div[3]/span");
-        By btnFinish = By.XPath("//button[text()='Finish']");
+        By btnFinish = By.XPath("//button[text()='Finish']");        
         By comboSelectProjectN = By.XPath("//input[contains(@placeholder,'Type to filter projects')]");
         By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
@@ -311,14 +311,28 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
+
+        By txtAddMinutes = By.XPath("//div[contains(@class,'TimeClockRecorder')]//p[contains(text(),'Add Minutes')]//input");
+        public void AddMinutesToTimer(string minutes)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAddMinutes, 20);
+            driver.FindElement(txtAddMinutes).SendKeys(minutes);
+            driver.FindElement(_btnTimeClockRecorder("Update")).Click();
+            Thread.Sleep(2000);
+            driver.SwitchTo().DefaultContent();
+        }
         public void ClickFinishButtonLV()
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, txtClockTimerHours, 20);
             //Thread.Sleep(20000);
-            driver.FindElement(btnFinish).Click();
-            Thread.Sleep(2000);
+            //driver.FindElement(btnFinish).Click();
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnFinish));            
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
     } 

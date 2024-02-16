@@ -109,6 +109,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.IsTrue(btnStatus);
                     extentReports.CreateStepLogs("Passed", "Finish Button is Enabled After starting the Clock Recorder");
 
+                    //Add minutes 
+                    string additionalMinutes = ReadExcelData.ReadDataMultipleRows(excelPath, "TimeClockRecorder", row, 5);
+                    refreshButton.AddMinutesToTimer(additionalMinutes);
 
                     //Click Finish Button
                     refreshButton.ClickFinishButtonLV();
