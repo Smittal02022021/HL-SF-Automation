@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                    // TMTI0093778 Verify that the FVA Supervisor can access the Time Clock Recorder tab and can start the time clock.
 
                     //Click on Time Clock Recorder Tab
-                    refreshButton.GotoTimeClockRecorderPageLV();
+                    refreshButton.GoToTimeClockRecorderPageLV();
 
                     //Validate Time Record Period Page Title
                     string TimeClockRecorderPageTitle = refreshButton.GetTitleTimeClockRecorderPageLV();

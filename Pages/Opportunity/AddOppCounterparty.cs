@@ -248,7 +248,7 @@ namespace SF_Automation.Pages.Opportunity
         By titleConfirmEmails = By.XPath("//h2[text()='Confirm emails']");
         By chkCounterparty = By.XPath("//tr/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnCancelConfirm = By.XPath("//button[text()='Cancel']");
-        By dropdownTemplate = By.XPath("//button[@name=\"progress\"]");
+        By dropdownTemplate = By.XPath("//button[@name='progress']");
         By optiontemplate = By.XPath("//label[text()='Template']/ancestor::lightning-combobox/div[1]/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
         By btnExportData = By.XPath("//button[text()='Export Data']");
         By listCounterparties = By.XPath("//table//tr//th[@data-label='Company']//a");
@@ -971,12 +971,13 @@ namespace SF_Automation.Pages.Opportunity
         }
         //Select template and get email id
 
+        By emailTemplateCounterparty = By.XPath("//div[@aria-label='Template']//lightning-base-combobox-item");
         public string GetOpportunityCounterpartyContactEmailOnEmailTemplate(string companyName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownTemplate, 20);
             driver.FindElement(dropdownTemplate).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, chkCounterparty, 10);
-            driver.FindElement(optiontemplate).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, emailTemplateCounterparty, 10);
+            driver.FindElement(emailTemplateCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, _btnContactEmail(companyName), 10);
             driver.FindElement(_btnContactEmail(companyName)).Click();
             Thread.Sleep(2000);

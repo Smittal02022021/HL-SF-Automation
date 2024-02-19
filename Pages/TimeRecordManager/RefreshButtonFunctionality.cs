@@ -232,7 +232,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
         }
         // Go to TIme Clock Recorder Page
-        public void GotoTimeClockRecorderPageLV()
+        public void GoToTimeClockRecorderPageLV()
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));

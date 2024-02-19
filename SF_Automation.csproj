@@ -834,6 +834,8 @@
     <Compile Include="TestCases\Opportunities\ZObsoleted_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyActivityTypeIsRemovedForCVASTeamTFRTimeTrackingGrupLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagementsLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeClockRecorderForFVAStandardUserOnSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView.cs" />
@@ -843,8 +845,8 @@
     <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045472_VerifyBetauserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045474_VerifytheAmountisCalculatedandreflectedforNewEngagement.cs" />
-    <Compile Include="TestCases\TimeRecordManager\VT_TMTT0029770_VerifyUserCanSearchProjectWithNameLOBNumberOnTimeRecordManager.cs" />
-    <Compile Include="TestCases\TimeRecordManager\VT_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTT0029770_VerifyUserCanSearchProjectWithNameLOBNumberOnTimeRecordManager.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005211_RefreshButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005221_TMTT0011420_StartButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />

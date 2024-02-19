@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class VT_TMTT0029770_VerifyUserCanSearchProjectWithNameLOBNumberOnTimeRecordManager:BaseClass
+    class ZObsolated_VT_TMTT0029770_VerifyUserCanSearchProjectWithNameLOBNumberOnTimeRecordManager:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
