@@ -926,19 +926,21 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(6000);
             driver.FindElement(btnFairness3).Click();       
             driver.FindElement(By.XPath("//label[text()='Fairness Fairness or Terms']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,550)");
+            js.ExecuteScript("window.scrollTo(0,2350)");
             Thread.Sleep(5000);
             driver.FindElement(btnFairness4).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Committee or Trustee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,450)");
+            js.ExecuteScript("window.scrollTo(0,2550)");
             Thread.Sleep(5000);
             driver.FindElement(btnFairness5).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Unusual Opinion']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
-            driver.FindElement(btnCloseL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
+            //driver.FindElement(btnCloseL).Click();
+            Thread.Sleep(5000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgRelationshipQ);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field." };
@@ -962,12 +964,12 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Other Opinion Information tab after clicking error message
         public string ValidateOtherOpinionInfoTabUponClickingOpinionSpecialQuestion()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
-            driver.FindElement(btnSaveL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpinionSpec, 150);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            //driver.FindElement(btnSaveL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpinionSpec, 170);
             driver.FindElement(lnkOpinionSpec).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabOtherOpinion, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOtherOpinion, 180);
             string name = driver.FindElement(tabOtherOpinion).Text;
             return name;
         }
