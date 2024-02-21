@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.TimeRecordManager
+namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView : BaseClass
     {
@@ -44,8 +44,6 @@ namespace SalesForce_Project.TestCases.TimeRecordManager
 
                 //Calling Login function                
                 login.LoginApplication();
-                string TimeRecordManagerUser = login.ValidateUser();
-
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
@@ -144,6 +142,7 @@ namespace SalesForce_Project.TestCases.TimeRecordManager
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                timeEntry.DeleteTimeEntryLV();
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

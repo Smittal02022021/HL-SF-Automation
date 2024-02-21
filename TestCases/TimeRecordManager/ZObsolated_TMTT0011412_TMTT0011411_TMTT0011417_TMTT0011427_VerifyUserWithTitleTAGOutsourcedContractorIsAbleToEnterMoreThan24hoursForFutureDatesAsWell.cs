@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell : BaseClass
+    class ZObsolated_TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -61,7 +61,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
 
-                //Verify user with Title :TAG Outsourced Contractor is able to enter more than 24 hours for future dates as well
+                extentReports.CreateLog("Verify user with Title :TAG Outsourced Contractor is able to enter more than 24 hours for future dates as well");
 
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
@@ -105,7 +105,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
 
-                //Verify the maximum hours of time entries for Title: TAG Outsourced Contractor(limit technically is 1000 hours) Weekly Time Entries, Summary Log, Detail Log
+                extentReports.CreateLog("Verify the maximum hours of time entries for Title: TAG Outsourced Contractor(limit technically is 1000 hours) Weekly Time Entries, Summary Log, Detail Log");
 
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
 
-                //Verify the User with Title :TAG Outsourced Contractor is able to enter own hours more than 24 hours ( Weekly Sheet, Summary Log and Detail Log tabs)
+                extentReports.CreateLog("Verify the User with Title: TAG Outsourced Contractor is able to enter own hours more than 24 hours(Weekly Sheet, Summary Log and Detail Log tabs");
 
                 //Go to Summary Logs
                 timeEntry.GoToSummaryLog();
@@ -196,7 +196,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
 
-                // Verify the Only Forecast option should be available in  Activity List for future dates
+                extentReports.CreateLog("Verify the Only Forecast option should be available in  Activity List for future dates");
 
                 // Go to Weekly Entry Matrix
 

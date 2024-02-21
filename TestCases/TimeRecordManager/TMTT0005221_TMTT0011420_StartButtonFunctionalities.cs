@@ -19,7 +19,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
-        RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
 

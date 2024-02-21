@@ -1405,9 +1405,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             string format = "ddd";
             string week = Time.ToString(format);
             driver.SwitchTo().DefaultContent();
-            //ReadJSONData.Generate("Admin_Data.json");
-            //string dir = ReadJSONData.data.filePaths.testData;
-            //string excelPath = dir + file;
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             
             switch (Time.ToString(format))
@@ -1459,7 +1456,79 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return week;
         }
+        //Log Future Date Hours
+        public string LogFutureDateHoursLV(string txtHours)
+        {
 
+            DateTime Time = DateTime.Now.AddDays(1);
+            string format = "ddd";
+            string week = Time.ToString(format);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            switch (Time.ToString(format))
+            {
+                case "Mon":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+
+                case "Tue":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+
+                case "Wed":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div[2]/div/select")), 2);
+                    break;
+
+
+                case "Thu":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+
+                case "Fri":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+
+
+                case "Sat":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+
+                case "Sun":
+
+                    driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
+                    Thread.Sleep(1000);
+                    CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div[2]/div/select")), 2);
+
+                    break;
+            }
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            return week;
+
+        }
         public void SelectStaffMemberLV(string name)
         {
             Thread.Sleep(8000);
@@ -1675,7 +1744,38 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return DetailLogEntryTime;
         }
+        public void SelectFutureTimePeriodLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            driver.FindElement(txtCurrentTimePeriod).Click();
+            driver.FindElement(drpdownFuturePeriod).Click();
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            Thread.Sleep(2000);
+            driver.SwitchTo().DefaultContent();
+        }
+        public void VerifyActivityDropDownForFuturePeriodLV(string file)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
 
+            WebDriverWaits.WaitUntilEleVisible(driver, drpdwnSelectPreSetTemplate);
+            IWebElement recordDropdown = driver.FindElement(drpdwnSelectPreSetTemplate);
+            SelectElement select = new SelectElement(recordDropdown);
+            int RowPreSetTemplateList = ReadExcelData.GetRowCount(excelPath, "Activity_List");
+
+            for (int i = 2; i <= RowPreSetTemplateList; i++)
+            {
+                IList<IWebElement> options = select.Options;
+                IWebElement PReSetTemplateOption = options[i - 2];
+                string preSetListExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity_List", i, 1);
+                Assert.AreEqual(PReSetTemplateOption.Text, preSetListExl);
+            }
+            driver.SwitchTo().DefaultContent();
+        }        
         public void GetWeekStartDay()
         {
             string todayDate = DateTime.Today.ToString("yyyy MM dd");

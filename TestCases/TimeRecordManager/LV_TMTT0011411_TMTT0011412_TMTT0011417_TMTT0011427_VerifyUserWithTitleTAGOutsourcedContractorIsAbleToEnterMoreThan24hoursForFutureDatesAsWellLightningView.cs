@@ -1,0 +1,246 @@
+﻿using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.Pages.TimeRecordManager;
+using SF_Automation.Pages;
+using SF_Automation.UtilityFunctions;
+using System;
+using NUnit.Framework;
+using SF_Automation.TestData;
+using System.Threading;
+
+namespace SF_Automation.TestCases.TimeRecordManager
+{
+    class LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView:BaseClass
+    {
+        ExtentReport extentReports = new ExtentReport();
+        LoginPage login = new LoginPage();
+        UsersLogin usersLogin = new UsersLogin();
+        TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
+        LVHomePage homePageLV = new LVHomePage();
+
+        public static string fileTMT1411 = "LV_TMTT0011411VerifyUserWithTitleTAGOutsourcedContractor";
+
+        private string DetailLogTime;
+        private Double DetailLogTimedb;
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            Initialize();
+            ExtentReportHelper();
+            ReadJSONData.Generate("Admin_Data.json");
+            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
+        }
+        [Test]
+        public void VerifyTAGOutsourcedContractorFunctionalitiesLV()
+        {
+            try
+            {
+                //Get path of Test data file
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMT1411;
+                //Validating Title of Login Page
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
+                extentReports.CreateLog(driver.Title + " is displayed ");
+                //Calling Login function                
+                login.LoginApplication();
+                //Validate user logged in          
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
+
+                //Login as Standard User and validate the user
+                string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                usersLogin.SearchUserAndLogin(userExl);
+                login.SwitchToClassicView();
+                string user = login.ValidateUser();
+                Assert.AreEqual(user.Contains(userExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + user + " logged in ");
+                login.SwitchToLightningExperience();
+                extentReports.CreateStepLogs("Info", "User: " + user + " Switched to Lightning View ");
+                homePageLV.ClickAppLauncher();
+                string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectApp(appNameExl);
+                string appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+
+                //Click time record manager                
+                string timeRecordManagerTitle = timeEntry.GetTimeRecordManagerTitleLV();
+                string timeRecordManagerTitleExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 2);
+                Assert.AreEqual(timeRecordManagerTitleExl, timeRecordManagerTitle);
+                extentReports.CreateStepLogs("Passed", "Time Record Manager Title: " + timeRecordManagerTitle + " is displayed upon click of Time Record Manager tab ");
+                extentReports.CreateStepLogs("Info", "Verify user with Title :TAG Outsourced Contractor is able to enter more than 24 hours for future dates as well");
+
+                //Click Time Record Manager Tab
+                timeEntry.GoToWeeklyEntryMatrixLV();
+                extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+
+                string selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
+                string txtHours = ReadExcelData.ReadData(excelPath, "Update_Hours", 1);
+                timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
+
+                //Enter hours for future dates on Weekly Entry Matrix
+                string weekDay = timeEntry.LogFutureDateHoursLV(txtHours);
+                //string weeklyEntryTime = timeEntry.GetSundayTimeEntryLV();
+                //Assert.AreEqual(txtHours.ToString(), weeklyEntryTime);
+                timeEntry.GoToWeeklyEntryMatrixLV();
+                //driver.Navigate().Refresh();
+                //Thread.Sleep(30000);
+                ////string weekDay = timeRecorder.EditWeeklyEntryMatrix();
+                //extentReports.CreateLog("User has edited the Weekly Entry Matrix: " + weekDay + " ");
+
+                //Go to Summary Logs
+                timeEntry.GoToSummaryLogLV();
+                extentReports.CreateLog("User has navigated to Summary logs ");
+
+                //Get Summary Log Time Entry
+                string summaryLogTime = timeEntry.GetSummaryLogsTimeEntryLV();
+                Assert.AreEqual(txtHours.ToString(), summaryLogTime);
+                extentReports.CreateLog("Hours: " + summaryLogTime + " is logged in Sumamry logs ");
+
+                //Go to Details log
+                timeEntry.GoToDetailLogsLV();
+                extentReports.CreateLog("User has navigated to Detail logs ");
+
+                //Verify detail logged hours
+                string DetailLogTIme3 = timeEntry.GetDetailLogsTimeEntryLV(); 
+                Double DetailLogTIme3db = Convert.ToDouble(DetailLogTIme3);
+
+                Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTIme3db);
+                extentReports.CreateLog("Time displaying in detail log: " + DetailLogTIme3db + " Hours ");
+
+                // Go to Weekly Entry Matrix
+                //homePage.ClickTimeRecordManagerTab();
+                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
+
+                //Delete Time Entry Matrix
+                timeEntry.DeleteTimeEntryLV();
+                extentReports.CreateLog("User has deleted the record ");
+
+                extentReports.CreateStepLogs("Info", "Verify the maximum hours of time entries for Title: TAG Outsourced Contractor(limit technically is 1000 hours) Weekly Time Entries, Summary Log, Detail Log");
+
+                // Go to Weekly Entry Matrix
+                //refreshButton.GoToTimeClockRecorderPageLV();
+                //Thread.Sleep(3000);
+
+                timeEntry.GoToWeeklyEntryMatrixLV();
+                extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+
+                selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
+                string activityExl = ReadExcelData.ReadData(excelPath, "Activity_List", 1);
+                timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
+                txtHours = ReadExcelData.ReadData(excelPath, "Update_Timer", 1);
+                extentReports.CreateStepLogs("Passed", "Selected Project and Activity from Drop down");
+                //Log 1000 hours
+                timeEntry.LogCurrentDateHoursLV(txtHours);
+
+                //Go to Summary Logs
+                timeEntry.GoToSummaryLogLV();
+                extentReports.CreateLog("User has navigated to Summary logs ");
+
+                //Get Summary Log Time Entry
+                string summaryLogTime1 = timeEntry.GetSummaryLogsTimeEntryLV();
+                //string summaryhours = ReadExcelData.ReadData(excelPath, "Update_Timer", 1);
+
+                Assert.AreEqual(summaryLogTime1, txtHours);
+                extentReports.CreateLog("Hours: " + txtHours + " is logged in Sumamry logs ");
+
+                //Go to Details log
+                timeEntry.GoToDetailLogsLV();
+                extentReports.CreateLog("User has naigated to details log ");
+                //Verify detail logged hours
+                DetailLogTime = timeEntry.GetDetailLogsTimeEntryLV();
+                DetailLogTimedb = Convert.ToDouble(DetailLogTime);   
+
+                Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTimedb);
+                extentReports.CreateLog("Time displaying in detail log: " + DetailLogTimedb + " Hours ");
+
+                //// Go to Weekly Entry Matrix
+                //homePage.ClickTimeRecordManagerTab();
+                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
+
+                //Delete Time Entry Matrix
+                timeEntry.DeleteTimeEntryLV();
+                extentReports.CreateLog("User has deleted the record ");
+
+                extentReports.CreateStepLogs("Info", "Verify the User with Title :TAG Outsourced Contractor is able to enter own hours more than 24 hours ( Weekly Sheet, Summary Log and Detail Log tabs");
+                txtHours= ReadExcelData.ReadData(excelPath, "Update_Hours", 2);
+                activityExl= ReadExcelData.ReadData(excelPath, "Project_Title", 2);
+                //Go to Summary Logs
+                timeEntry.GoToSummaryLogLV();
+                extentReports.CreateLog("User has navigated to Summary logs ");
+                timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl,txtHours);
+
+                //Go to Details log
+                timeEntry.GoToDetailLogsLV();
+                extentReports.CreateLog("User has naigated to details log ");
+                //Verify detail logged hours
+                DetailLogTime = timeEntry.GetDetailLogsTimeEntryLV();
+                DetailLogTimedb = Convert.ToDouble(DetailLogTime);
+
+                Assert.AreEqual(DetailLogTimedb, Convert.ToDouble(txtHours));
+                extentReports.CreateLog("Time displaying in detail log: " + DetailLogTime + " Hours ");
+
+                //// Go to Weekly Entry Matrix
+                //homePage.ClickTimeRecordManagerTab();
+                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
+
+                //Delete Time Entry Matrix
+                timeEntry.DeleteTimeEntryLV();
+                extentReports.CreateLog("User has deleted the record ");
+
+                //Go to Details log
+                timeEntry.GoToDetailLogsLV();
+                extentReports.CreateLog("User has naigated to details log ");
+
+                timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, txtHours);
+                //Go to Summary Logs
+                timeEntry.GoToSummaryLogLV();
+                extentReports.CreateLog("User has navigated to Summary logs ");
+
+                //Get Summary Log Time Entry
+                string summaryLogTime2 = timeEntry.GetSummaryLogsTimeEntryLV();
+                string summaryhours1 = txtHours;
+
+                Assert.AreEqual(summaryLogTime2, txtHours);
+                extentReports.CreateLog("Hours: " + summaryLogTime2 + " is logged in Sumamry logs ");
+
+                //// Go to Weekly Entry Matrix
+                //homePage.ClickTimeRecordManagerTab();
+                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
+
+                Thread.Sleep(2000);
+                //Delete Time Entry Matrix
+                timeEntry.DeleteTimeEntryLV();
+                extentReports.CreateStepLogs("Info", "User has deleted the record ");
+
+                extentReports.CreateStepLogs("Info", "Verify the Only Forecast option should be available in Activity List for future dates");
+                                
+                //Go to Summary Logs
+                timeEntry.GoToWeeklyEntryMatrixLV();
+                timeEntry.SelectFutureTimePeriodLV();
+                extentReports.CreateStepLogs("Info", "Future Dates are selected from Time Record Period Drop-down");
+                timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
+                extentReports.CreateStepLogs("Info", "Project is selected for Future date dates");
+                timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
+                extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");
+
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
+                usersLogin.UserLogOut();
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
+            }
+            catch (Exception e)
+            {
+                extentReports.CreateExceptionLog(e.Message);
+                timeEntry.DeleteTimeEntryLV();
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
+            }
+        }
+    }
+}
