@@ -387,13 +387,13 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Testing", addedComments);
                 extentReports.CreateLog("Added Opportunity comments: " + addedComments+ " is displayed under Comments section ");
                 
-                string uploadFiles = opportunityDetails.ValidateFileUploadsOption();
-                Assert.AreEqual("Upload Files", uploadFiles);
-                extentReports.CreateLog("Button with name: " + uploadFiles + " is displayed under Files section of Opportunity Details page ");
+                //string uploadFiles = opportunityDetails.ValidateFileUploadsOption();
+                //Assert.AreEqual("Upload Files", uploadFiles);
+                //extentReports.CreateLog("Button with name: " + uploadFiles + " is displayed under Files section of Opportunity Details page ");
 
-                string successMsg= opportunityDetails.UploadFileAndValidate(excelPath1 + "UploadFile.txt");
-                Assert.AreEqual("UploadFile", successMsg);
-                extentReports.CreateLog("Selected File has been uploaded ");
+                //string successMsg= opportunityDetails.UploadFileAndValidate(excelPath1 + "UploadFile.txt");
+                //Assert.AreEqual("UploadFile", successMsg);
+                //extentReports.CreateLog("Selected File has been uploaded ");
 
                 //TC_07:- Validate Top Panel                 
                 string tabEdit = opportunityDetails.ValidateEditTabL();

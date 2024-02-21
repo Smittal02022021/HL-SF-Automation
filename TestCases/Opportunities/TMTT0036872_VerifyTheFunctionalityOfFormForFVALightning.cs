@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using OpenQA.Selenium.DevTools.V113.Input;
 using SF_Automation.Pages;
@@ -335,8 +336,44 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Displayed 'If Yes, Please Explain' fields are displayed as expected after selecting Yes for all relationship questions ");
 
                 //37.	TMTI0088310_Verify that on selecting the option "No" for all relationship questions, no text field will open up to share an explanation for choosing No. 
-                Assert.IsTrue(form.SaveAllQuestionsAsNoAndValidateDisplayedExpTextBox(), "Verified that no 'If Yes, Please Explain' fields are displayed");
+                Assert.IsFalse(form.SaveAllQuestionsAsNoAndValidateDisplayedExpTextBox(), "Verified that no 'If Yes, Please Explain' fields are displayed");
                 extentReports.CreateLog("No field like 'If Yes, Please Explain' fields are displayed as expected after selecting No for all relationship questions ");
+
+                //38.   TMTI0088312_Verify that on clicking the Save button all the selected options of the Relationship Questions tab will saved and no error message will appear on the screen
+                Assert.IsFalse(form.VerifyNoRelatioshipQValidationsUponSelectingNo(), "Verified that no valdiations are displayed upon selecting No in Relatioship questions ");
+                extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Relatioship questions ");
+
+                //40.   TMTI0088316_Verify that on clicking the "Fairness" error message, the application will redirect the user to the Legal Review Criteria tab on the respective questions.
+                 string legal= form.ValidateLegalReviewCriteriaTabUponClickingFairnessQuestions();
+                 Assert.AreEqual("Legal Review Criteria", legal);
+                 extentReports.CreateLog("Tab: " + legal + " is displayed upon clicking Fairness error message ");
+
+                //39.	TMTI0088314_Verify that on clicking the save button, the application gives validation messages to answer the required questions of the Legal Review Criteria tab
+                Assert.IsTrue(form.VerifyAllLegalReviewValidations(), "Verified that displayed validations are same");
+                extentReports.CreateLog("Displayed validations for Legal Review Criteria tab are displayed as expected ");
+
+                //41.   TMTI0088318_Verify that on clicking the Save button, all the selected options of the Legal Review Criteria tab will get saved and no error message will appear on the screen.
+                Assert.IsFalse(form.VerifyNoFairnessValidationIsDisplayedUponSelectingValue(), "Verified that no valdiations are displayed upon selecting No in Fairness questions ");
+                extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Fairness questions ");
+
+                //43.	TMTI0088322_Verify that on clicking the "Opinion Special Committee" error message, the application will redirect the user to the Other Opinion Information tab on the respective questions
+                string otherOpinion = form.ValidateOtherOpinionInfoTabUponClickingOpinionSpecialQuestion();
+                Assert.AreEqual("Other Opinion Information", otherOpinion);
+                extentReports.CreateLog("Tab: " + otherOpinion + " is displayed upon clicking Opinion Special Committee message ");
+
+                //42.   TMTI0088320_Verify that on clicking the save button, the application gives validation messages to answer the required questions of the Other Opinion Information tab
+                string messageOpinion = form.VerifyAllOtherOpinionInfoValidations();
+                Assert.AreEqual("Complete this field.", messageOpinion);
+                extentReports.CreateLog("Mandatory field validation: " + messageOpinion + " is displayed upon clicking save button on Other Opinion Information tab ");
+
+                //44.	TMTI0088324_Verify that on clicking the Save button, the selected options of the Opinion Special Committee question will get saved and no error message will appear on the screen
+                string noMessage = form.VerifyNoValidationIsDisplayedUponSelectingValueOnOtherOpinionInfoTab();
+                Assert.AreEqual("No validation is displayed", noMessage);
+                extentReports.CreateLog("No mandatory field validation is displayed upon saving value for mandatory field on Other Opinion Information tab ");
+
+                //45.	TMTI0088326_ Verify that on clicking the Form check checkbox (Required to Submit) and clicking on Save, the application will give validation for fields that are required to Submit the FEIS form. 
+
+
 
                 //33.  TMTI0088302_Verify that the user is able to check checkboxes for all the questions given under the Form of Opinion tab. 
 
