@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager : BaseClass
+    class ZObsolated_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -22,24 +22,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
         private string valueActivityExl;
         private string valueEnteredHours;
         private string valueEnteredHoursExl;
-        private string valueDefaultDollarBasedOnTitle;
         private string valueActivityInDetailLogs;
         private string valueActivityInExlDetailLogs;
         private string valueEnteredHoursInDetailLogs;
         private string valueEnteredHoursInExl;
-        private string valueDefaultDollarDetailLogs;
-        private string valueDefaultDollarDetailLogsExl;
         private string valueProjectOrEngagmentInDetailLogs;
         private string TimeRecordManagerUser;
-        private double defaultRateForStaffDetailLogs = 0.00;
-        private double enteredHoursDetailLogs = 0.00;
-        private double enteredHoursSummaryLogs = 0.00;
-        private double totalAmountCalculated = 0.00;
-        private double totalAmountDisplayedSummaryLogs = 0.00;
-        private double totalAmountDisplayedInDetailLogs = 0.00;
 
-        public static string fileTC2286_TC2287 = "TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager" +
-            "";
+        public static string fileTC2286_TC2287 = "TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -50,7 +40,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyRateGenerationToStaffMemberAreDeterminedThroughTheirTitles()
+        public void VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager()
         {
             try
             {
@@ -162,11 +152,5 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 driver.Quit();
             }
         }
-
-
-
-
-
-
     }
 }

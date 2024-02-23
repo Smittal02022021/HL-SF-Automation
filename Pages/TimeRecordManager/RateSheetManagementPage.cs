@@ -386,6 +386,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void EnterRateSheetLV(string engagement, string rateSheet)
         {
             Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
             driver.FindElement(tabRateSheetManagement).Click();

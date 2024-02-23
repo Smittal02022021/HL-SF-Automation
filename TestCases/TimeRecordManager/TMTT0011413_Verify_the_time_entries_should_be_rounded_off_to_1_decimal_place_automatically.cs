@@ -42,8 +42,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         {
             try
             {
-
-
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMT1413;
                 Console.WriteLine(excelPath);
@@ -53,8 +51,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog(driver.Title + " is displayed ");
 
                 // Calling Login function                
-                login.LoginApplication();
-
+                login.LoginApplication();                
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -62,17 +59,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
+                login.SwitchToClassicView();
                 string stdUser1 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");
-
-
 
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
 
                 //Select Staff Member from the list
-
                 string name = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 1);
 
                 timeEntry.SelectStaffMember(name);
@@ -98,7 +93,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 ///Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
-
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

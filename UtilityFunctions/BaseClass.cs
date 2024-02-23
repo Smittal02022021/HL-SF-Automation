@@ -15,12 +15,15 @@ namespace SF_Automation.UtilityFunctions
         public static Actions builder;
 
         public IWebDriver Initialize()
-        {            
+        {
             //string path = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\";
             //ChromeOptions options = new ChromeOptions();
             //options.AddArguments("user-data-dir=" + path);
             //options.AddArguments("profile-directory=Default");
-            driver = new ChromeDriver();       //options     
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--force-device-scale-factor=80/100");
+            driver = new ChromeDriver(options);       //options
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
             builder = new Actions(driver);
@@ -74,7 +77,10 @@ namespace SF_Automation.UtilityFunctions
             //ChromeOptions options = new ChromeOptions();
             //options.AddArguments("user-data-dir=" + path);
             //options.AddArguments("profile-directory=Default");
-            driver = new ChromeDriver();//options
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--force-device-scale-factor=80/100");
+            driver = new ChromeDriver(options);       //options
             driver.Navigate().GoToUrl("https://outlook.office.com/");
             driver.Manage().Window.Maximize();
 

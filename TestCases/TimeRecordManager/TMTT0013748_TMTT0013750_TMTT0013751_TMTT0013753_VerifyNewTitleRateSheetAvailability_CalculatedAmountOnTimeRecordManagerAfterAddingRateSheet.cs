@@ -64,6 +64,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
+                login.SwitchToClassicView();
                 string stdUser1 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser1 + " is able to login ");

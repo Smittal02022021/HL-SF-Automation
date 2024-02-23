@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
         private string DetailLogTime;
         private Double DetailLogTimedb;
+        private string summaryLogTime;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -82,20 +83,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Enter hours for future dates on Weekly Entry Matrix
                 string weekDay = timeEntry.LogFutureDateHoursLV(txtHours);
-                //string weeklyEntryTime = timeEntry.GetSundayTimeEntryLV();
-                //Assert.AreEqual(txtHours.ToString(), weeklyEntryTime);
                 timeEntry.GoToWeeklyEntryMatrixLV();
-                //driver.Navigate().Refresh();
-                //Thread.Sleep(30000);
-                ////string weekDay = timeRecorder.EditWeeklyEntryMatrix();
-                //extentReports.CreateLog("User has edited the Weekly Entry Matrix: " + weekDay + " ");
-
                 //Go to Summary Logs
                 timeEntry.GoToSummaryLogLV();
                 extentReports.CreateLog("User has navigated to Summary logs ");
 
                 //Get Summary Log Time Entry
-                string summaryLogTime = timeEntry.GetSummaryLogsTimeEntryLV();
+                summaryLogTime = timeEntry.GetSummaryLogsTimeEntryLV();
                 Assert.AreEqual(txtHours.ToString(), summaryLogTime);
                 extentReports.CreateLog("Hours: " + summaryLogTime + " is logged in Sumamry logs ");
 
@@ -104,15 +98,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User has navigated to Detail logs ");
 
                 //Verify detail logged hours
-                string DetailLogTIme3 = timeEntry.GetDetailLogsTimeEntryLV(); 
-                Double DetailLogTIme3db = Convert.ToDouble(DetailLogTIme3);
+                DetailLogTime = timeEntry.GetDetailLogsTimeEntryLV(); 
+                DetailLogTimedb = Convert.ToDouble(DetailLogTime);
 
-                Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTIme3db);
-                extentReports.CreateLog("Time displaying in detail log: " + DetailLogTIme3db + " Hours ");
-
-                // Go to Weekly Entry Matrix
-                //homePage.ClickTimeRecordManagerTab();
-                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
+                Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTimedb);
+                extentReports.CreateLog("Time displaying in detail log: " + DetailLogTimedb + " Hours ");
 
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntryLV();
@@ -121,9 +111,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "Verify the maximum hours of time entries for Title: TAG Outsourced Contractor(limit technically is 1000 hours) Weekly Time Entries, Summary Log, Detail Log");
 
                 // Go to Weekly Entry Matrix
-                //refreshButton.GoToTimeClockRecorderPageLV();
-                //Thread.Sleep(3000);
-
                 timeEntry.GoToWeeklyEntryMatrixLV();
                 extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
 
@@ -140,10 +127,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User has navigated to Summary logs ");
 
                 //Get Summary Log Time Entry
-                string summaryLogTime1 = timeEntry.GetSummaryLogsTimeEntryLV();
-                //string summaryhours = ReadExcelData.ReadData(excelPath, "Update_Timer", 1);
-
-                Assert.AreEqual(summaryLogTime1, txtHours);
+                summaryLogTime = timeEntry.GetSummaryLogsTimeEntryLV();
+                Assert.AreEqual(summaryLogTime, txtHours);
                 extentReports.CreateLog("Hours: " + txtHours + " is logged in Sumamry logs ");
 
                 //Go to Details log
@@ -155,10 +140,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTimedb);
                 extentReports.CreateLog("Time displaying in detail log: " + DetailLogTimedb + " Hours ");
-
-                //// Go to Weekly Entry Matrix
-                //homePage.ClickTimeRecordManagerTab();
-                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
 
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntryLV();
@@ -182,10 +163,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(DetailLogTimedb, Convert.ToDouble(txtHours));
                 extentReports.CreateLog("Time displaying in detail log: " + DetailLogTime + " Hours ");
 
-                //// Go to Weekly Entry Matrix
-                //homePage.ClickTimeRecordManagerTab();
-                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
-
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateLog("User has deleted the record ");
@@ -200,17 +177,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User has navigated to Summary logs ");
 
                 //Get Summary Log Time Entry
-                string summaryLogTime2 = timeEntry.GetSummaryLogsTimeEntryLV();
-                string summaryhours1 = txtHours;
+                summaryLogTime = timeEntry.GetSummaryLogsTimeEntryLV();
+                //string summaryhours1 = txtHours;
 
-                Assert.AreEqual(summaryLogTime2, txtHours);
-                extentReports.CreateLog("Hours: " + summaryLogTime2 + " is logged in Sumamry logs ");
+                Assert.AreEqual(summaryLogTime, txtHours);
+                extentReports.CreateLog("Hours: " + summaryLogTime + " is logged in Sumamry logs ");
 
-                //// Go to Weekly Entry Matrix
-                //homePage.ClickTimeRecordManagerTab();
-                //extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
-
-                Thread.Sleep(2000);
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "User has deleted the record ");

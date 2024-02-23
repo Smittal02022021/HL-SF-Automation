@@ -10,6 +10,7 @@ using Microsoft.Office.Interop.Excel;
 using AventStack.ExtentReports.Gherkin.Model;
 using OpenQA.Selenium;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
@@ -24,7 +25,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
 
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView";
-        string engagementExl;
+        private string engagementExl;
+        private string textMessage;
+        private string selectProject;
+        private string hoursExl;
+        private string activityExl;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -50,36 +55,54 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                // select the Rate from rate sheet
-                rateSheetMgt.NavigateToTitleRateSheetsPage();
-                extentReports.CreateLog(driver.Title + " page is displayed ");
+                //// select the Rate from rate sheet
+                //rateSheetMgt.NavigateToTitleRateSheetsPage();
+                //extentReports.CreateLog(driver.Title + " page is displayed ");
 
-                //Click on the new title rate sheet name
-                string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 2);
+                ////Click on the new title rate sheet name
+                //string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 2);
+                //string initialValue = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 3);
+                //rateSheetMgt.SelectSheetIntials(initialValue);
+                //extentReports.CreateLog(rateSheetExl + " Rate Sheet Initials Selected ");
+                ////Selecting the desired Rate Sheet 
+                //rateSheetMgt.SelectRateSheet(rateSheetExl);
+                //extentReports.CreateLog("User Selected the " + rateSheetExl);
 
-                string initialValue = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 3);
-                rateSheetMgt.SelectSheetIntials(initialValue);
-                extentReports.CreateLog(rateSheetExl + " Rate Sheet Initials Selected ");
-                //Selecting the desired Rate Sheet 
-                rateSheetMgt.SelectRateSheet(rateSheetExl);
-                extentReports.CreateLog("User Selected the " + rateSheetExl);
-
-                //Get the default rate of user as per role
-                string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 2);
-                double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
-                extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
+                ////Get the default rate of user as per role
+                //string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 2);
+                //double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
+                //extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
 
                 for (int row = 2; row <= rowCount; row++)
                 {
+                    // select the Rate from rate sheet
+                    rateSheetMgt.NavigateToTitleRateSheetsPage();
+                    extentReports.CreateLog(driver.Title + " page is displayed ");
+
+                    //Click on the new title rate sheet name
+                    string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
+                    string initialValue = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 3);
+                    rateSheetMgt.SelectSheetIntials(initialValue);
+                    extentReports.CreateLog(rateSheetExl + " Rate Sheet Initials Selected ");
+                    //Selecting the desired Rate Sheet 
+                    rateSheetMgt.SelectRateSheet(rateSheetExl);
+                    extentReports.CreateLog("User Selected the " + rateSheetExl);
+
+                    //Get the default rate of user as per role
+                    string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 2);
+                    double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
+                    extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
+
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
+                    string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
                     login.SwitchToClassicView();
                     string user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " logged in ");
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
@@ -102,11 +125,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(staffNameExl, staffName);
                     extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
 
-                    // Select the rate sheet
-                    string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
                     //Enter Rate Sheet details
                     //TMTI0093787	Verify that the FVA CAO can access the Rate Sheet Management and can add Rate Sheet for the selected Engagement for the selected period.
-                    rateSheetMgt.EnterRateSheetLV(selectProject, rateSheetExl);
+                    engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
+                    rateSheetMgt.EnterRateSheetLV(engagementExl, rateSheetExl);
 
                     //Verify selected rate sheet
                     string selectedRateSheet = rateSheetMgt.GetSelectedRateSheetLV();
@@ -117,16 +139,26 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //TMTI0093780	Verify that the FVA CAO can check, add, and remove hours of the selected staff users
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     extentReports.CreateStepLogs("Info", "User is on Weekly Entry Matrix Page");
+                    selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyEntryMatrix", row, 1);
+                    hoursExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 2);
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
-                    string txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+                    
                     //Enter time under weekly time matrix
-                    timeEntry.LogCurrentDateHoursLV(txtHours);
-                    extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
-                                    
+                    if (userGrpNameExl == "Time Tracking TFR Supervisor")
+                    {
+                        extentReports.CreateStepLogs("Info", "Activity List is not available for TFR group");
+                        timeEntry.LogCurrentDateHoursTFRGroupLV(hoursExl);
+                        extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
+                    }
+                    else
+                    {
+                        timeEntry.LogCurrentDateHoursLV(hoursExl);
+                        extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
+                    }            
                     //double billedAmount = rateSheetMgt.GetBillingAmountFromBillingPreparationTabLV();
                     
-                    double expectedBilledAmount = Convert.ToDouble(txtHours) *Convert.ToDouble(defaultRate);
+                    double expectedBilledAmount = Convert.ToDouble(hoursExl) *Convert.ToDouble(defaultRate);
                     extentReports.CreateStepLogs("Passed", "Expected Calculated Amount for the Selected sheet should be:: "+ expectedBilledAmount);
 
                     //TMTI0093768 Verify that the FVA CAO can access the Billing Preparation tab and see Send Notification Button is only enabled if any record is selected from list.
@@ -153,38 +185,61 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     IsEntryDeleted = timeEntry.ClickDeleteAndOK();
                     Assert.IsTrue(IsEntryDeleted, "Verify that on clicking the OK button from confirmation message will remove the entry");
                     extentReports.CreateStepLogs("Passed", "Clicking the OK button from confirmation message will remove the entry");
-                    engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
+                    //engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
                     
                     //timeEntry.GoToStaffTimeSheetTabLV();
                     timeEntry.GoToSummaryLogLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
-                    string activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
-                    string hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2);
-                    
-                    //Enter time under Summary Logs
-                    string textMessage = timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl, hoursExl);
-                    Assert.AreEqual(textMessage, "Time Record Added");
-                    extentReports.CreateStepLogs("Passed", " Hours entered on Summary Logs Page with Success Message: " + textMessage);
+                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");                    
+                    selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
+                    hoursExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+                    activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
 
+                    //Enter time under Summary Logs
+                    if (userGrpNameExl == "Time Tracking TFR Supervisor")
+                    {
+                        extentReports.CreateStepLogs("Info", "Activity List is not available for TFR group");
+                        textMessage = timeEntry.EnterSummaryLogsHoursTFRGroupLV(selectProject, hoursExl);
+                        Assert.AreEqual(textMessage, "Time Record Added");
+                        extentReports.CreateStepLogs("Passed", " Hours entered on Summary Logs Page with Success Message: " + textMessage);
+                    }
+                    else
+                    {
+                        textMessage = timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl, hoursExl);
+                        Assert.AreEqual(textMessage, "Time Record Added");
+                        extentReports.CreateStepLogs("Passed", " Hours entered on Summary Logs Page with Success Message: " + textMessage);
+                    }
                     //S3	Verify that the FVA CAO can see the calculated on Summay logs amount as per the rate sheet
                     double actualSummaryLogsBilledAmount = timeEntry.GetTotalAmountLV();
                     Assert.AreEqual(expectedBilledAmount, actualSummaryLogsBilledAmount,"Verify the Amount is calculaton as per the selected Rate sheet on Summary Logs page ");
+                    extentReports.CreateStepLogs("Passed", "Amount is calculaton as per the selected Rate sheet on Summary Logs page");
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     //Verify that the FVA user can access the Detail Logs tab.
                     timeEntry.GoToDetailLogsLV();
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
-
+                    selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 1);
+                    hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs",row, 2);
+                    activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 3);
                     //Verify that the FVA user can add hours from the Detail Logs tab and a success message appears on the screen.
-                    textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, hoursExl);
-                    Assert.AreEqual(textMessage, "Time Record Added");
-                    extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
+                    if (userGrpNameExl == "Time Tracking TFR Supervisor")
+                    {
+                        extentReports.CreateStepLogs("Info", "Activity List is not available for TFR group");
+                        textMessage = timeEntry.EnterDetailLogsHoursTFRGroupLV(selectProject, hoursExl);
+                        Assert.AreEqual(textMessage, "Time Record Added");
+                        extentReports.CreateStepLogs("Passed", " Hours entered on Summary Logs Page with Success Message: " + textMessage);
+                    }
+                    else
+                    {
+                        textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, hoursExl);
+                        Assert.AreEqual(textMessage, "Time Record Added");
+                        extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
+                    }
+
                     //S4	Verify that the FVA CAO can see the calculated on Detail Logs logs amount as per the rate sheet
-                    
                     double actualDetailLogsBilledAmount = timeEntry.GetTotalAmountLV();
                     Assert.AreEqual(expectedBilledAmount, actualDetailLogsBilledAmount, "Verify the Amount is calculaton as per the selected Rate sheet on Detail Logs page ");
-                    
+                    extentReports.CreateStepLogs("Passed", "Amount is calculaton as per the selected Rate sheet on Detail Logs page");
                     timeEntry.RemoveRecordFromDetailLogsLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted from Detail Logs Page");
 
@@ -194,7 +249,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
-                    
+                    login.SwitchToClassicView();
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
