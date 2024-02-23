@@ -60,8 +60,11 @@ namespace SF_Automation.Pages.Opportunity
         By tabTransInfoL = By.XPath("//li[@title='Transaction Information']");
         By btnTransType = By.XPath("//label[text()='Transaction Type']/ancestor::div[1]/div//button");
         By valTransType = By.XPath("//lightning-base-combobox-item/span/span[text()='Other']");
+        By txtEstTxnSize = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By lblDescribeOther = By.XPath("//label[text()='Describe Other Transaction Type']");
         By btnLegalStrL = By.XPath("//label[text()='Legal Structure']/ancestor::div[1]/div//button");
+        By valAvailable = By.XPath("//span[text()='Cash']");
+        By btnMove = By.XPath("//button[@title='Move selection to Chosen']");
         By lblOtherLegalL = By.XPath("//label[text()='FEIS - Other Legal Structure Desc']");
         By valFormL = By.XPath("//li[3]/div/span/span");
         By btnChosenL = By.XPath("//div[4]/lightning-button-icon[1]/button");
@@ -120,10 +123,16 @@ namespace SF_Automation.Pages.Opportunity
         By btnFairness3 = By.XPath("//label[text()='Fairness Fairness or Terms']/ancestor::lightning-combobox//button");
         By btnFairness4 = By.XPath("//label[text()='Fairness Committee or Trustee']/ancestor::lightning-combobox//button");
         By btnFairness5 = By.XPath("//label[text()='Fairness Unusual Opinion']/ancestor::lightning-combobox//button");
+        By btnFairness6 = By.XPath("//label[text()='Fairness Multiple Conclusions']/ancestor::lightning-combobox//button");
         By lnkOpinionSpec = By.XPath("//a[text()='Opinion Special Committee']");
         By tabOtherOpinion = By.XPath("//a[text()='Other Opinion Information']");
         By msgOtherOpinion = By.XPath("//label[text()='Opinion Special Committee']/ancestor::div[1]//div[text()='Complete this field.']");
         By btnOpinionSpec = By.XPath("//label[text()='Opinion Special Committee']/ancestor::lightning-combobox//button");
+        By btnShareholder = By.XPath("//label[text()='Will there be a shareholder vote in connection with the transaction?']/ancestor::div[1]//select");
+        By btnSaveOpinion = By.XPath("//input[@value='Save']");
+        By msgMandatory = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li/a");
+        By lnkTxnType = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li[1]/a");
+        By btnFormCheck = By.XPath("//input[@name='Submit_For_Review__c']");
 
 
         //Validate Opp Name
@@ -928,9 +937,13 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//label[text()='Fairness Fairness or Terms']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             js.ExecuteScript("window.scrollTo(0,2350)");
             Thread.Sleep(5000);
+            driver.FindElement(btnFairness6).Click();
+            driver.FindElement(By.XPath("//label[text()='Fairness Multiple Conclusions']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            js.ExecuteScript("window.scrollTo(0,2550)");
+            Thread.Sleep(5000);
             driver.FindElement(btnFairness4).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Committee or Trustee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2550)");
+            js.ExecuteScript("window.scrollTo(0,2750)");
             Thread.Sleep(5000);
             driver.FindElement(btnFairness5).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Unusual Opinion']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
@@ -989,8 +1002,15 @@ namespace SF_Automation.Pages.Opportunity
         public string VerifyNoValidationIsDisplayedUponSelectingValueOnOtherOpinionInfoTab()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            driver.FindElement(btnShareholder).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Will there be a shareholder vote in connection with the transaction?']/ancestor::div[1]//select/option[3]")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//input[contains(@name,'pbtShareholderCompanies:0')]")).Click();
+            driver.FindElement(btnSaveOpinion).Click();
+
             js.ExecuteScript("window.scrollTo(0,500)");
-            driver.FindElement(btnOpinionSpec).Click();
+            //driver.FindElement(btnOpinionSpec).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Opinion Special Committee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
@@ -1007,6 +1027,77 @@ namespace SF_Automation.Pages.Opportunity
             {
                 return "No validation is displayed";
             }
+        }
+
+        //Validate displayed validation on Legal Review Tab
+        public bool VerifyAllPendingValidations()
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-800)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 150);
+            driver.FindElement(btnFormCheck).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
+
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgMandatory);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Transaction Type", "Legal Structure", "Estimated Transaction Size (MM)", "Form of Consideration" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Enter all mandatory fields and Validate if any validations are displayed
+        public bool SaveAllMandatoryFieldsAndValidateAnyValidations()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
+            driver.FindElement(lnkTxnType).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnTransType).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Transaction Type']/ancestor::div[1]/div//lightning-base-combobox-item/span[2]/span[text()='Buy Side']")).Click();
+            driver.FindElement(txtEstTxnSize).SendKeys("10");
+            driver.FindElement(btnLegalStrL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Legal Structure']/ancestor::div[1]/div//lightning-base-combobox-item/span[2]/span[text()='Merger']")).Click();
+
+            driver.FindElement(valAvailable).Click();
+            driver.FindElement(btnMove).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
+
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgMandatory);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Transaction Type", "Legal Structure", "Estimated Transaction Size (MM)", "Form of Consideration" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return !isTrue;
         }
     }
 }

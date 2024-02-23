@@ -372,9 +372,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("No mandatory field validation is displayed upon saving value for mandatory field on Other Opinion Information tab ");
 
                 //45.	TMTI0088326_ Verify that on clicking the Form check checkbox (Required to Submit) and clicking on Save, the application will give validation for fields that are required to Submit the FEIS form. 
+                Assert.IsFalse(form.VerifyAllPendingValidations(), "Verified that all valdiations are displayed upon selecting No in Fairness questions ");
+                extentReports.CreateLog("Verified that validations are displayed as expected ");
 
+                //46.    TMTI0088328_Verify that the user is able to fix validation error messages that appear on submitting the FEIS form
+                Assert.IsFalse(form.SaveAllMandatoryFieldsAndValidateAnyValidations(), "Verified that no valdiations are displayed upon saving all mandatory fields ");
+                extentReports.CreateLog("Verified that no validations are displayed upon saving all mandatory fields ");
 
-
+                //47.   TMTI0088330_Verify that the "Submit FEIS Form" button will be enabled at the top right corner once all validation messages are fixed
                 //33.  TMTI0088302_Verify that the user is able to check checkboxes for all the questions given under the Form of Opinion tab. 
 
 
