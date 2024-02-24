@@ -108,6 +108,7 @@ namespace SF_Automation.Pages.Opportunity
         By chk4thCheck = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_4_cField']//following::input[@name='FEIS_Opine_Option_4__c']");
         By chk5thCheck = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_5_cField']//following::input[@name='FEIS_Opine_Option_5__c']");
         By chk6thCheck = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_6_cField']//following::input[@name='FEIS_Opine_Option_6__c']");
+        By txtOpinionNotes = By.XPath("//label[text()='Form of Opinion Notes']/ancestor::lightning-textarea//textarea");
         By lnkRelValidation = By.XPath("//li/a[text()='Yes/No']");
         By msgRelationshipQ = By.XPath("//div[text()='Complete this field.']");
         By tabRelationship = By.XPath("//li/a[text()='Relationship Questions']");
@@ -128,12 +129,12 @@ namespace SF_Automation.Pages.Opportunity
         By tabOtherOpinion = By.XPath("//a[text()='Other Opinion Information']");
         By msgOtherOpinion = By.XPath("//label[text()='Opinion Special Committee']/ancestor::div[1]//div[text()='Complete this field.']");
         By btnOpinionSpec = By.XPath("//label[text()='Opinion Special Committee']/ancestor::lightning-combobox//button");
-        By btnShareholder = By.XPath("//label[text()='Will there be a shareholder vote in connection with the transaction?']/ancestor::div[1]//select");
+        By btnShareholder = By.XPath("//label[contains(@id,'shareholderVoteTXT')]");
         By btnSaveOpinion = By.XPath("//input[@value='Save']");
         By msgMandatory = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li/a");
         By lnkTxnType = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li[1]/a");
         By btnFormCheck = By.XPath("//input[@name='Submit_For_Review__c']");
-
+        By btnSubmitFEIS = By.XPath("//button[text()='Submit FEIS (Part I) Form']");
 
         //Validate Opp Name
         public string ValidateOppName()
@@ -716,6 +717,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(chk6thCheck).Click();
             Thread.Sleep(4000);
+            driver.FindElement(txtOpinionNotes).SendKeys("Testing");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(4000);
@@ -1004,13 +1006,14 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             driver.FindElement(btnShareholder).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Will there be a shareholder vote in connection with the transaction?']/ancestor::div[1]//select/option[3]")).Click();
+            driver.FindElement(By.XPath("//label[contains(@id,'shareholderVoteTXT')]/ancestor::div[1]//select/option[3]")).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//input[contains(@name,'pbtShareholderCompanies:0')]")).Click();
             driver.FindElement(btnSaveOpinion).Click();
 
-            js.ExecuteScript("window.scrollTo(0,500)");
-            //driver.FindElement(btnOpinionSpec).Click();
+            js.ExecuteScript("window.scrollTo(0,550)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnOpinionSpec).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Opinion Special Committee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
@@ -1043,7 +1046,7 @@ namespace SF_Automation.Pages.Opportunity
 
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgMandatory);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Transaction Type", "Legal Structure", "Estimated Transaction Size (MM)", "Form of Consideration" };
+            string[] expectedValues = { "Estimated Transaction Size (MM)", "Form of Consideration", "Legal Structure", "Opinion Parties Affiliated", "Transaction Type" };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -1098,6 +1101,15 @@ namespace SF_Automation.Pages.Opportunity
                 }
             }
             return !isTrue;
+        }
+
+        //Validate Submit FEIS Form button
+        public string ValidateSubmitFEISFormButton()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitFEIS, 100);
+            string value = driver.FindElement(btnSubmitFEIS).Text;
+            return value;
         }
     }
 }
