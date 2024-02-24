@@ -254,9 +254,9 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Details of Target Company are updated after editing Private Equity % ");
 
                 //22. TMTI0088273_Verify that the user is able to delete the added Target Company.
-                //string delOwner = form.DeleteTargetCompanyDetails();
-                //Assert.AreEqual("Record has been deleted", delOwner);
-                //extentReports.CreateLog("Details of Target Company are deleted after deleting it ");
+                string delOwner = form.DeleteTargetCompanyDetails();
+                Assert.AreEqual("Record has been deleted", delOwner);
+                extentReports.CreateLog("Details of Target Company are deleted after deleting it ");
 
                 //23. TMTI0088275_Verify that the "Add Counterparty" button is available at the top right corner to add counterparty company.
                 string addCounterparty = form.ValidateAddCounterpartyButton();
@@ -318,14 +318,15 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Details of Counterparty Company are updated after editing Private Equity % ");
 
                 //32.  TMTI0088300_Verify that the user is able to delete the added Counterparty Company. 
-                //string delOwnerCounter = form.DeleteTargetCompanyDetails();
-                //Assert.AreEqual("Record has been deleted", delOwner);
-                //extentReports.CreateLog("Details of Counterparty Company are deleted after deleting it ");
+                string delOwnerCounter = form.DeleteTargetCompanyDetails();
+                Assert.AreEqual("Record has been deleted", delOwner);
+                extentReports.CreateLog("Details of Counterparty Company are deleted after deleting it ");
 
-                //35.	TMTI0088306_ Verify that on clicking the error message "Yes/No", the application will redirect the user to the Relationship Question tab
+                //35.   TMTI0088306_ Verify that on clicking the error message "Yes/No", the application will redirect the user to the Relationship Question tab
+                //33.  TMTI0088302_Verify that the user is able to check checkboxes for all the questions given under the Form of Opinion tab. 
                 string tabRelationship = form.ValidateRelatioshipValidationPostSavingCheckboxesOnFormOfOpinion();
                 Assert.AreEqual("Relationship Questions", tabRelationship);
-                extentReports.CreateLog("Tab: " + tabRelationship + " is displayed upon clicking error message saying Yes/No ");
+                extentReports.CreateLog("Tab: " + tabRelationship + " is displayed upon clicking error message saying Yes/No and saving all questions under Form of Opinion tab ");
 
                 //34.	TMTI0088304_ Verify that on clicking the save button, the application gives a validation message to answer all the Relationship Questions with Yes or No
                 Assert.IsTrue(form.VerifyAllRelatioshipQValidations(), "Verified that displayed validations are same");
@@ -340,8 +341,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("No field like 'If Yes, Please Explain' fields are displayed as expected after selecting No for all relationship questions ");
 
                 //38.   TMTI0088312_Verify that on clicking the Save button all the selected options of the Relationship Questions tab will saved and no error message will appear on the screen
-                Assert.IsFalse(form.VerifyNoRelatioshipQValidationsUponSelectingNo(), "Verified that no valdiations are displayed upon selecting No in Relatioship questions ");
-                extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Relatioship questions ");
+                Assert.IsFalse(form.VerifyNoRelatioshipQValidationsUponSelectingNo(), "Verified that no validations are displayed upon selecting No in Relatioship questions ");
+                extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Relationship questions ");
 
                 //40.   TMTI0088316_Verify that on clicking the "Fairness" error message, the application will redirect the user to the Legal Review Criteria tab on the respective questions.
                  string legal= form.ValidateLegalReviewCriteriaTabUponClickingFairnessQuestions();
@@ -353,7 +354,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Displayed validations for Legal Review Criteria tab are displayed as expected ");
 
                 //41.   TMTI0088318_Verify that on clicking the Save button, all the selected options of the Legal Review Criteria tab will get saved and no error message will appear on the screen.
-                Assert.IsFalse(form.VerifyNoFairnessValidationIsDisplayedUponSelectingValue(), "Verified that no valdiations are displayed upon selecting No in Fairness questions ");
+                Assert.IsFalse(form.VerifyNoFairnessValidationIsDisplayedUponSelectingValue(), "Verified that no validations are displayed upon selecting No in Fairness questions ");
                 extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Fairness questions ");
 
                 //43.	TMTI0088322_Verify that on clicking the "Opinion Special Committee" error message, the application will redirect the user to the Other Opinion Information tab on the respective questions
@@ -384,9 +385,20 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Submit FEIS (Part I) Form", submitFEIS);
                 extentReports.CreateLog("Button: "+ submitFEIS+ " is displayed after fixing all mandatory validations ");
 
-                //48.
+                //48.   TMTI0088332_Verify that the user will redirected to the Email format with all the FEIS form details by clicking the "Submit FEIS Form" button
+                string pageTitle = form.ValidateEmailFormatAfterClickingFEISFormButton();
+                Assert.AreEqual("Send Email", pageTitle);
+                extentReports.CreateLog(pageTitle + " is displayed after clicking 'Submit FEIS Form' button");
 
-                //33.  TMTI0088302_Verify that the user is able to check checkboxes for all the questions given under the Form of Opinion tab. 
+                //Validate Opportunity Name in Email and navigate to Opportunity details page
+                string emailOppName = form.GetOppName();
+                Assert.AreEqual(value, emailOppName);
+                extentReports.CreateLog("Email Template with Opportunity " + emailOppName + " is displayed ");
+
+                //49.      
+
+
+
 
 
 

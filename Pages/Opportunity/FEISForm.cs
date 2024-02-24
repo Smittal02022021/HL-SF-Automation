@@ -135,6 +135,8 @@ namespace SF_Automation.Pages.Opportunity
         By lnkTxnType = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li[1]/a");
         By btnFormCheck = By.XPath("//input[@name='Submit_For_Review__c']");
         By btnSubmitFEIS = By.XPath("//button[text()='Submit FEIS (Part I) Form']");
+        By lblSendEmail = By.XPath("//h2[text()='Send Email']");
+
 
         //Validate Opp Name
         public string ValidateOppName()
@@ -400,7 +402,7 @@ namespace SF_Automation.Pages.Opportunity
             try
             {
                 Thread.Sleep(4000);
-                WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 140);
+                WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 40);
                 string name = driver.FindElement(tblTargetCompL).Text;
                 return name;
             }
@@ -717,6 +719,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(chk6thCheck).Click();
             Thread.Sleep(4000);
+            js.ExecuteScript("window.scrollTo(0,750)");
+            Thread.Sleep(4000);
             driver.FindElement(txtOpinionNotes).SendKeys("Testing");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
@@ -1004,13 +1008,18 @@ namespace SF_Automation.Pages.Opportunity
         public string VerifyNoValidationIsDisplayedUponSelectingValueOnOtherOpinionInfoTab()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//flexipage-component2[1]/slot//iframe")));
+            Thread.Sleep(5000);
             driver.FindElement(btnShareholder).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[contains(@id,'shareholderVoteTXT')]/ancestor::div[1]//select/option[3]")).Click();
+            driver.FindElement(By.XPath("//label[contains(@id,'shareholderVoteTXT')]/ancestor::div[1]//select/option[2]")).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//input[contains(@name,'pbtShareholderCompanies:0')]")).Click();
-            driver.FindElement(btnSaveOpinion).Click();
-
+            //driver.FindElement(By.XPath("//input[contains(@name,'pbtShareholderCompanies:0')]")).Click();
+            //driver.FindElement(btnSaveOpinion).Click();
+            //Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             js.ExecuteScript("window.scrollTo(0,550)");
             Thread.Sleep(5000);
             driver.FindElement(btnOpinionSpec).Click();
@@ -1039,7 +1048,7 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,-800)");
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 150);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 170);
             driver.FindElement(btnFormCheck).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
@@ -1109,6 +1118,16 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitFEIS, 100);
             string value = driver.FindElement(btnSubmitFEIS).Text;
+            return value;
+        }
+
+        //Validate email format after clicking FEIS Form button
+        public string ValidateEmailFormatAfterClickingFEISFormButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitFEIS, 100);
+            driver.FindElement(btnSubmitFEIS).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSendEmail, 150);
+            string value = driver.FindElement(lblSendEmail).Text;
             return value;
         }
     }
