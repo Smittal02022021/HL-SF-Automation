@@ -1451,14 +1451,15 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void UpdateDetailLogsHoursLV(string newActivity, string newHours)
         {
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));            
-            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity1);
-            driver.FindElement(comboLogActivity1).SendKeys(newActivity);
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime1);
             driver.FindElement(txtEnterSummaryLogEntryTime1).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime1).SendKeys(newHours);
             Thread.Sleep(2000);
-            driver.FindElement(tabWeeklyEntryMatrix).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity1);
+            driver.FindElement(comboLogActivity1).SendKeys(newActivity);
+            Thread.Sleep(2000);                                    
+            driver.FindElement(tabSummaryLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(2000);
             driver.FindElement(tabDetailLogs).Click();

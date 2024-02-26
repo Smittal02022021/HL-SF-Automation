@@ -843,6 +843,7 @@
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserFromFVATimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
@@ -855,7 +856,7 @@
     <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011418_TMTT0011410_VerifyTheTASSupervisorCanOnlyEnterHoursMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011419_TMTT0011424_TMTT0011414_TMTT0011415_VerifytheTASSupervisorcanonlyenterhourslessthan24hoursforonedayforAssociates .cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.cs" />

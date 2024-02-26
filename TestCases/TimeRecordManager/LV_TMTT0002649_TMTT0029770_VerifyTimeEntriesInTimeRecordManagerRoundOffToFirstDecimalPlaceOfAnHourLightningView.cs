@@ -18,9 +18,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LVHomePage homePageLV = new LVHomePage();
       
         public static string TMTT0002649 = "LV_TMTT0002649_TimeRecordManager_VerifyTimeEntriesareRoundOffToFirstDecimalPlace";
-        private string txtHours;
-        private string txtActivity;
-        private string selectProject;
+        private string hoursExl;
+        private string activityExl;
+        private string selectProjectExl;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -31,7 +31,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour()
+        public void VerifyTimeEntriesInTimeRecordManagerRoundOffForCFFinancialUserLV()
         {
             try
             {
@@ -80,15 +80,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 
                 timeEntry.GoToWeeklyEntryMatrixLV();
                 extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
-                selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
-                txtHours = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 2);
-                txtActivity = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 3);                
-                timeEntry.EnterWeeklyEntryMatrixLV(selectProject, txtHours, txtActivity);
+                selectProjectExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
+                hoursExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 2);
+                activityExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 3);                
+                timeEntry.EnterWeeklyEntryMatrixLV(selectProjectExl, hoursExl, activityExl);
                 
                 string sundayTimeRoundOff = timeEntry.GetSundayTimeEntryLV();
                 string sundayTimeRoundOffExl = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 4);
                 Assert.AreEqual(sundayTimeRoundOffExl, sundayTimeRoundOff);
-                extentReports.CreateStepLogs("Passed", "Time Entry Value:: "+ txtHours+" is rounded off to Value: " + sundayTimeRoundOff + " is updated from more than one decimal value to one decimal value ");
+                extentReports.CreateStepLogs("Passed", "Time Entry Value:: "+ hoursExl+" is rounded off to Value: " + sundayTimeRoundOff + " is updated from more than one decimal value to one decimal value ");
                 
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "Time Entry Deleted");
@@ -102,16 +102,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 // Enter summary logs entry
                 timeEntry.GoToSummaryLogLV();
                 extentReports.CreateStepLogs("Info", "User: " + user + " is on Summary Log Page ");
-                selectProject = ReadExcelData.ReadData(excelPath, "SummaryLogs", 1);
-                txtHours = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
-                txtActivity = ReadExcelData.ReadData(excelPath, "SummaryLogs",3);                
+                selectProjectExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 1);
+                hoursExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
+                activityExl = ReadExcelData.ReadData(excelPath, "SummaryLogs",3);                
                 //Enter time under Summary Logs
-                timeEntry.EnterSummaryLogsHoursLV(selectProject, txtActivity, txtHours);
+                timeEntry.EnterSummaryLogsHoursLV(selectProjectExl, activityExl, hoursExl);
 
                 string summaryLogTimeEntryRoundOff = timeEntry.GetSummaryLogsTimeEntryLV();
                 string summaryLogTimeEntryRoundOffExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 4);
                 Assert.AreEqual(summaryLogTimeEntryRoundOffExl, summaryLogTimeEntryRoundOff);
-                extentReports.CreateStepLogs("Passed", "Summary Log Value:: "+ txtHours + " is Rounded Off to Value: " + summaryLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
+                extentReports.CreateStepLogs("Passed", "Summary Log Value:: "+ hoursExl + " is Rounded Off to Value: " + summaryLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
                 
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "Time Entry Deleted");
@@ -119,16 +119,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Enter detail logs entry
                 timeEntry.GoToDetailLogsLV();
                 extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
-                selectProject = ReadExcelData.ReadData(excelPath, "DetailLogs", 1);
-                txtHours = ReadExcelData.ReadData(excelPath, "DetailLogs", 2);
-                txtActivity = ReadExcelData.ReadData(excelPath, "DetailLogs", 3);                
+                selectProjectExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 1);
+                hoursExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 2);
+                activityExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 3);                
                 //Enter time under Detail Logs
-                timeEntry.EnterDetailLogsHoursLV(selectProject, txtActivity, txtHours);
+                timeEntry.EnterDetailLogsHoursLV(selectProjectExl, activityExl, hoursExl);
 
                 string detailLogTimeEntryRoundOff = timeEntry.GetDetailLogsTimeEntryLV();
                 string detailLogTimeEntryRoundOffExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 4);
                 Assert.AreEqual(detailLogTimeEntryRoundOff, detailLogTimeEntryRoundOffExl);
-                extentReports.CreateStepLogs("Passed", "Detail Log Value:: "+ detailLogTimeEntryRoundOff + "is Rounded Off to Value: " + detailLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
+                extentReports.CreateStepLogs("Passed", "Detail Log Value:: "+ hoursExl + "is Rounded Off to Value: " + detailLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
                 
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "Time Entry Deleted");

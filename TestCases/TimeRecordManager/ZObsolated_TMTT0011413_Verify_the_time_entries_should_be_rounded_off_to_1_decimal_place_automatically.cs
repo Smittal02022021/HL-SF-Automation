@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically : BaseClass
+    class ZObsolated_TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

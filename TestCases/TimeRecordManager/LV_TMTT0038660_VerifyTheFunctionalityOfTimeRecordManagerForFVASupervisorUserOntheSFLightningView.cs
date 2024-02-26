@@ -12,6 +12,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView:BaseClass
     {
+        /*
+            Time Tracking PV Supervisor
+            Time Tracking Litigation Supervisor 
+            Time Tracking Beta Supervisor 
+         */
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
