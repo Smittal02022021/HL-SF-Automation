@@ -20,6 +20,7 @@ namespace SF_Automation.UtilityFunctions
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("user-data-dir=" + path);
             options.AddArguments("profile-directory=Default");
+            options.AddArguments("--force-device-scale-factor=80/100");// set the zoom level % 
             driver = new ChromeDriver();            
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
