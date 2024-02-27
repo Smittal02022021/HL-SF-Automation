@@ -69,8 +69,11 @@ namespace SF_Automation.Pages.Opportunity
         By valFormL = By.XPath("//li[3]/div/span/span");
         By btnChosenL = By.XPath("//div[4]/lightning-button-icon[1]/button");
         By lblOtherFormL = By.XPath("//label[text()='FEIS - Other Forms of Consideration Desc']");
+        By txtOtherFormL = By.XPath("//label[text()='FEIS - Other Forms of Consideration Desc']/ancestor::lightning-textarea//textarea");
         By btnOpinionParties = By.XPath("//label[text()='Opinion Parties Affiliated']/ancestor::div[1]/div//button");
         By lblOpinionPartiesL = By.XPath("//label[text()='Opinion Affiliated Parties Summary']");
+        By txtOpinionParties = By.XPath("//label[text()='Opinion Affiliated Parties Summary']/ancestor::lightning-textarea//textarea");
+        
         By tabOwnershipL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Ownership & Advisors']");
         By msgOwnershipL = By.XPath("//span[text()='To Add Target/Subject and/or Counterparty(ies), please use the buttons on the top right of this form.']");
         By btnAddTargetL = By.XPath("//button[text()='Add Target/Subject']");
@@ -532,6 +535,35 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        public void SaveAllMandatoryFieldsOfTransactionInfoTab()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;            
+            Thread.Sleep(5000);
+
+            driver.FindElement(btnTransType).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//label[text()='Transaction Type']/ancestor::div[1]/div//lightning-base-combobox-item/span[2]/span[text()='Buy Side']")).Click();
+            driver.FindElement(txtEstTxnSize).SendKeys("10");
+            js.ExecuteScript("window.scrollTo(0,250)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnLegalStrL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Legal Structure']/ancestor::div[1]/div//lightning-base-combobox-item/span[2]/span[text()='Merger']")).Click();
+
+            driver.FindElement(txtOtherFormL).SendKeys("Testing");
+            Thread.Sleep(5000);
+            js.ExecuteScript("window.scrollTo(0,700)");
+            Thread.Sleep(6000);
+            // WebDriverWaits.WaitUntilEleVisible(driver, btnOpinionParties, 160);
+            driver.FindElement(txtOpinionParties).SendKeys("Testing");
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
+            driver.FindElement(btnCloseL).Click();
+
+        }
+
         //Validate Select PE Firm
         public string ValidateSelectPEFirm()    
         {
@@ -833,7 +865,9 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btn4thQues, 150);
             driver.FindElement(btn4thQues).Click();
             driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            driver.FindElement(btnSaveL).Click();
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblYes);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             string[] expectedValues = { "If Yes, please explain", "If Yes, please explain", "If Yes, please explain", "If Yes, please explain" };
@@ -863,8 +897,8 @@ namespace SF_Automation.Pages.Opportunity
         //Validate that no validation on Relationship Tab after saving No
         public bool VerifyNoRelatioshipQValidationsUponSelectingNo()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
-            driver.FindElement(btnSaveL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
+            //driver.FindElement(btnSaveL).Click();
             //bDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
             //driver.FindElement(btnCloseL).Click();
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgRelationshipQ);
@@ -944,17 +978,17 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//label[text()='Fairness Fairness or Terms']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             js.ExecuteScript("window.scrollTo(0,2350)");
             Thread.Sleep(5000);
-            driver.FindElement(btnFairness6).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Multiple Conclusions']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2550)");
-            Thread.Sleep(5000);
+            //driver.FindElement(btnFairness6).Click();
+            //driver.FindElement(By.XPath("//label[text()='Fairness Multiple Conclusions']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            //js.ExecuteScript("window.scrollTo(0,2550)");
+            //Thread.Sleep(5000);
             driver.FindElement(btnFairness4).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Committee or Trustee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2750)");
+            js.ExecuteScript("window.scrollTo(0,2550)");
             Thread.Sleep(5000);
             driver.FindElement(btnFairness5).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Unusual Opinion']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
 
@@ -1028,9 +1062,9 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//label[text()='Opinion Special Committee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
-            driver.FindElement(btnCloseL).Click();
+            Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 150);
+            //driver.FindElement(btnCloseL).Click();
             try
             {
                 string message = driver.FindElement(msgOtherOpinion).Text;
@@ -1080,36 +1114,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
-            driver.FindElement(lnkTxnType).Click();
-            Thread.Sleep(5000);
-
-            driver.FindElement(btnFairness1).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Publicly Disclosed']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,1550)");
-            driver.FindElement(btnFairness2).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Relative Fairness']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,1700)");
-            Thread.Sleep(6000);
-            driver.FindElement(btnFairness3).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Fairness or Terms']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2350)");
-            Thread.Sleep(5000);
-            driver.FindElement(btnFairness6).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Multiple Conclusions']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2550)");
-            Thread.Sleep(5000);
-            driver.FindElement(btnFairness4).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Committee or Trustee']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,2750)");
-            Thread.Sleep(5000);
-            driver.FindElement(btnFairness5).Click();
-            driver.FindElement(By.XPath("//label[text()='Fairness Unusual Opinion']/ancestor::lightning-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
-            driver.FindElement(btnSaveL).Click();
-
+                       
             WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
             driver.FindElement(lnkTxnType).Click();
             driver.FindElement(btnTransType).Click();
@@ -1122,11 +1127,7 @@ namespace SF_Automation.Pages.Opportunity
 
             driver.FindElement(valAvailable).Click();
             driver.FindElement(btnMove).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
-            driver.FindElement(btnSaveL).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
-            driver.FindElement(lnkTxnType).Click();
+            
             js.ExecuteScript("window.scrollTo(0,750)");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnOpinionParties, 160);
@@ -1139,29 +1140,7 @@ namespace SF_Automation.Pages.Opportunity
 
             WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
             driver.FindElement(lnkTxnType).Click();
-            Thread.Sleep(5000);
-
-            //Relationship questions
-            WebDriverWaits.WaitUntilEleVisible(driver, btn1stQues, 150);
-            driver.FindElement(btn1stQues).Click();
-            driver.FindElement(By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-
-            js.ExecuteScript("window.scrollTo(0,400)");
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btn2ndQues, 150);
-            driver.FindElement(btn2ndQues).Click();
-            driver.FindElement(By.XPath("//flexipage-component2[5]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,600)");
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btn3rdQues, 150);
-            driver.FindElement(btn3rdQues).Click();
-            driver.FindElement(By.XPath("//flexipage-component2[7]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            js.ExecuteScript("window.scrollTo(0,900)");
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btn4thQues, 150);
-            driver.FindElement(btn4thQues).Click();
-            driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);           
 
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgMandatory);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
