@@ -22,8 +22,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
 
-
-
         public static string fileTMT5211 = "TMTT0005211_RefreshButtonFunctionalities";
 
         [OneTimeSetUp]
@@ -34,7 +32,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-
 
         [Test]
         public void VerifyRefreshFfunctionality()

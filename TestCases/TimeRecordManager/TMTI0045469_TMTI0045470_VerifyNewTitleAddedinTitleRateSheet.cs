@@ -14,8 +14,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
-        HomeMainPage homePage = new HomeMainPage();
-        TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RateSheetManagementPage rateSheet = new RateSheetManagementPage();
 
         public static string fileTMTI0006173 = "TMTI0045469_VerifyNewTitleAddedinTitleRateSheet";

@@ -90,6 +90,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //Time Clock Recorder
                     refreshButton.GoToTimeClockRecorderPageLV();
+                    //Check recorder is reset or not
+                    refreshButton.ClickResetButtonLV();
                     Assert.IsTrue(timeEntry.IsProjectSelectedLV(selectProject), "Verify that the user is able to search with " + selectProject + " on the Time Clock Recorder ");
                     extentReports.CreateStepLogs("Passed", "User is able to search and select the Project with value:" + selectProject + " on Time Clock Recorder ");
 

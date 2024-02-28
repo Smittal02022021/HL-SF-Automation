@@ -212,7 +212,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-
         }
     }
 }

@@ -111,6 +111,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
                     string activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
                     string hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2);
+                    
                     //Enter time under Summary Logs
                     string textMessage = timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl, hoursExl);
                     Assert.AreEqual(textMessage, "Time Record Added");

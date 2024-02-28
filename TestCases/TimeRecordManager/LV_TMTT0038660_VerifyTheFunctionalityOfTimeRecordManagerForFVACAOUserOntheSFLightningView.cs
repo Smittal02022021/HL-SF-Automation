@@ -54,24 +54,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                //// select the Rate from rate sheet
-                //rateSheetMgt.NavigateToTitleRateSheetsPage();
-                //extentReports.CreateLog(driver.Title + " page is displayed ");
-
-                ////Click on the new title rate sheet name
-                //string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 2);
-                //string initialValue = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 2, 3);
-                //rateSheetMgt.SelectSheetIntials(initialValue);
-                //extentReports.CreateLog(rateSheetExl + " Rate Sheet Initials Selected ");
-                ////Selecting the desired Rate Sheet 
-                //rateSheetMgt.SelectRateSheet(rateSheetExl);
-                //extentReports.CreateLog("User Selected the " + rateSheetExl);
-
-                ////Get the default rate of user as per role
-                //string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 2);
-                //double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
-                //extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");               
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
 
@@ -91,7 +74,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateLog("User Selected the " + rateSheetExl);
 
                     //Get the default rate of user as per role
-                    string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 2);
+                    string staffRole = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 2);
                     double defaultRate = rateSheetMgt.GetDefaultRateAsPerRole(staffRole);
                     extentReports.CreateLog(staffRole + " is : USD " + defaultRate + " ");
 
@@ -134,6 +117,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string selectedRateSheet = rateSheetMgt.GetSelectedRateSheetLV();
                     //string selectedRateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", 1);
                     Assert.AreEqual(rateSheetExl, selectedRateSheet);
+                    extentReports.CreateStepLogs("Passed", "Rate Sheet added for Project: "+ engagementExl);
                     timeEntry.GoToStaffTimeSheetTabLV();
 
                     //TMTI0093780	Verify that the FVA CAO can check, add, and remove hours of the selected staff users

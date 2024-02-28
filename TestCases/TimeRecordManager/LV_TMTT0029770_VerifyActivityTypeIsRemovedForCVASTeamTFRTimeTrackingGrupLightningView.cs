@@ -79,7 +79,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string projectFullname = timeEntry.SearchProjectandGetFullNameLV(valueProjectExl);
                     string clientNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ProjectActivity", row, 2);
                     Assert.IsTrue(projectFullname.Contains(clientNameExl), "Verify that the Client Name is added to the project full name on Time Record Manger");
-                    extentReports.CreateLog("Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Weekly Entry Matrix ");
+                    extentReports.CreateStepLogs("Passed", "Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Weekly Entry Matrix ");
 
                     //TMTI0069008	Verify that the activity type is removed for the CVAS team(TFR time tracking).
 
@@ -90,43 +90,43 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     refreshButton.GoToTimeClockRecorderPageLV();
                     projectFullname = timeEntry.SearchProjectandGetFullNameLV(valueProjectExl);
                     Assert.IsTrue(projectFullname.Contains(clientNameExl), "Verify that the Client Name is added to the project full name on Time Record Manger");
-                    extentReports.CreateLog("Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Time Clock Recorder ");
+                    extentReports.CreateStepLogs("Passed", "Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Time Clock Recorder ");
 
                     //TMTI0069008	Verify that the activity type is removed for the CVAS team(TFR time tracking).
                     Assert.IsFalse(timeEntry.IsActivityListDisplayedLV(projectFullname), "Verify Activity List is not displayed for logged in user");
-                    extentReports.CreateLog("Activity List is not displayed for logged in user on Time Clock Recorder ");
+                    extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Time Clock Recorder ");
 
                     //Summary Logs
                     timeEntry.GoToSummaryLogLV();
                     projectFullname = timeEntry.SearchProjectandGetFullNameLV(valueProjectExl);
                     Assert.IsTrue(projectFullname.Contains(clientNameExl), "Verify that the Client Name is added to the project full name on Time Record Manger");
-                    extentReports.CreateLog("Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Summary Logs ");
+                    extentReports.CreateStepLogs("Passed", "Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Summary Logs ");
 
                     //TMTI0069008	Verify that the activity type is removed for the CVAS team(TFR time tracking).
                     Assert.IsFalse(timeEntry.IsActivityListDisplayedLV(projectFullname), "Verify Activity List is not displayed for logged in user");
-                    extentReports.CreateLog("Activity List is not displayed for logged in user on Summary Logs ");
+                    extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Summary Logs ");
 
                     //Detail Logs
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     timeEntry.GoToDetailLogsLV();
                     projectFullname = timeEntry.SearchProjectandGetFullNameLV(valueProjectExl);
                     Assert.IsTrue(projectFullname.Contains(clientNameExl), "Verify that the Client Name is added to the project full name on Time Record Manger");
-                    extentReports.CreateLog("Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Detail Logs ");
+                    extentReports.CreateStepLogs("Passed", "Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Detail Logs ");
 
                     //TMTI0069008	Verify that the activity type is removed for the CVAS team(TFR time tracking).
                     Assert.IsFalse(timeEntry.IsActivityListDisplayedLV(projectFullname), "Verify Activity List is not displayed for logged in user");
-                    extentReports.CreateLog("Activity List is not displayed for logged in user on Detail Logs ");
+                    extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Detail Logs ");
 
                     //Weekly Overview
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     timeEntry.GoToWeeklyOverviewLV();
                     projectFullname = timeEntry.SearchProjectandGetFullNameLV(valueProjectExl);
                     Assert.IsTrue(projectFullname.Contains(clientNameExl), "Verify that the Client Name is added to the project full name on Time Record Manger");
-                    extentReports.CreateLog("Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Weekly Overview ");
+                    extentReports.CreateStepLogs("Passed", "Client Name: " + clientNameExl + " is added to the Project full name: " + projectFullname + " on Time Record Manger on Weekly Overview ");
 
                     //TMTI0069008	Verify that the activity type is removed for the CVAS team(TFR time tracking).
                     Assert.IsFalse(timeEntry.IsActivityListDisplayedLV(projectFullname), "Verify Activity List is not displayed for logged in user");
-                    extentReports.CreateLog("Activity List is not displayed for logged in user on Weekly Overview ");
+                    extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Weekly Overview ");
                 }
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
@@ -134,6 +134,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                timeEntry.DeleteTimeEntryLV();
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

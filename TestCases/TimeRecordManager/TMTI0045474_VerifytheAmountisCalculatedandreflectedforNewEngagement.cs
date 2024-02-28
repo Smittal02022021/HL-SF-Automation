@@ -147,6 +147,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Login as CAO user to approve the Opportunity
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                login.SwitchToClassicView();
                 string caoUser = login.ValidateUser();
                 Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");

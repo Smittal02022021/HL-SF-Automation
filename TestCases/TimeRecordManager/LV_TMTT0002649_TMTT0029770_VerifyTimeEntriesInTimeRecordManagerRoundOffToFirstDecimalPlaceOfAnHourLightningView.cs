@@ -128,7 +128,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string detailLogTimeEntryRoundOff = timeEntry.GetDetailLogsTimeEntryLV();
                 string detailLogTimeEntryRoundOffExl = ReadExcelData.ReadData(excelPath, "DetailLogs", 4);
                 Assert.AreEqual(detailLogTimeEntryRoundOff, detailLogTimeEntryRoundOffExl);
-                extentReports.CreateStepLogs("Passed", "Detail Log Value:: "+ hoursExl + "is Rounded Off to Value: " + detailLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
+                extentReports.CreateStepLogs("Passed", "Detail Log Value:: "+ hoursExl + " is Rounded Off to Value: " + detailLogTimeEntryRoundOff + " is updated from more than one decimal value to one decimal value ");
                 
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "Time Entry Deleted");

@@ -6,6 +6,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using OpenQA.Selenium.Interactions;
 
 namespace SF_Automation.Pages.TimeRecordManager
 {
@@ -73,7 +74,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By txtSelectedStaffName = By.XPath("//div[@class='timeSheet']/div[contains(@class,'heading')]");
         By txtDetailLogsActualHours = By.CssSelector("tr[class*='parent'] > td:nth-child(4) > div > input");
         By txtSummaryLogsActualHours = By.CssSelector("tr[class*='parent'] > td:nth-child(4) > span:nth-child(1)");
-
+        By txtTimeClockRecorderComments = By.XPath("//textarea[@placeholder='Enter Comments']");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -1300,6 +1301,51 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
             return txtMsg;
         }
+        public bool EnterSummaryLogsHoursValidateActivityListLV(string selectProject, string hours)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            bool IsActivityDisplayed = false;
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                //extracode
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity, 5);
+                IsActivityDisplayed = driver.FindElement(comboSelectActivity).Displayed;                            
+            }
+            catch (Exception e)
+            {
+                IsActivityDisplayed = false;
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            driver.FindElement(btnAdd).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));            
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            return IsActivityDisplayed;
+        }
         public string EnterDetailLogsHoursLV(string selectProject, string activity, string hours)
         {
             driver.SwitchTo().DefaultContent();
@@ -1337,6 +1383,49 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
             return txtMsg;
+        }
+        public bool EnterDetailLogsHoursValidateActivityListLV(string selectProject, string hours)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            bool IsActivityDisplayed = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity, 5);
+                IsActivityDisplayed = driver.FindElement(comboSelectActivity).Displayed;                
+            }
+            catch (Exception e)
+            {                
+                IsActivityDisplayed = false;
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            driver.FindElement(btnAdd).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            return IsActivityDisplayed;
         }
         public string EnterDetailLogsHoursTFRGroupLV(string selectProject, string hours)
         {
@@ -1411,6 +1500,50 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
             return txtMsg;
+        }
+        public bool EnterWeeklyOverviewHoursValidateActivityListLV(string selectProject, string hours)
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            string getDate = DateTime.Today.AddDays(0).ToString("dd MMM yyyy");
+            bool IsActivityDisplayed = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsAddRecordDate);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSummaryLogsAddRecordDate));
+            driver.FindElement(txtSummaryLogsAddRecordDate).Clear();
+            driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                driver.FindElement(comboSelectProject).SendKeys(selectProject);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
+            driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity, 5);
+                IsActivityDisplayed = driver.FindElement(comboSelectActivity).Displayed;                
+            }
+            catch (Exception e)
+            {
+                IsActivityDisplayed = false;
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            driver.FindElement(btnAdd).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableWeeklyOverview);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tableWeeklyOverview));
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            return IsActivityDisplayed;
         }
         public string EnterWeeklyOverviewHoursTFRGroupLV(string selectProject, string hours)
         {
@@ -1574,6 +1707,62 @@ namespace SF_Automation.Pages.TimeRecordManager
                     driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
                     Thread.Sleep(2000);
                     CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div[2]/div/select")), 1);//2
+                    break;
+            }
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            return week;
+        }
+        public string LogCurrentDateHoursforSpecialProjectLV(string hours)
+        {
+            DateTime Time = DateTime.Now.AddDays(0);
+            string format = "ddd";
+            string week = Time.ToString(format);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+
+            switch (Time.ToString(format))
+            {
+                case "Mon":
+                    By comboOptionMon = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionMon).SendKeys(hours);
+                    driver.FindElement(comboOptionMon).SendKeys(Keys.Enter);
+                    break;
+
+                case "Tue":
+                    By comboOptionTue = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionTue).SendKeys(hours);
+                    driver.FindElement(comboOptionTue).SendKeys(Keys.Enter);
+                    break;
+
+                case "Wed":
+                    By comboOptionWed = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionWed).SendKeys(hours);
+                    driver.FindElement(comboOptionWed).SendKeys(Keys.Enter);
+                    break;
+
+                case "Thu":
+                    By comboOptionThu = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionThu).SendKeys(hours);
+                    driver.FindElement(comboOptionThu).SendKeys(Keys.Enter);
+                    break;
+
+                case "Fri":
+                    By comboOptionFri = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionFri).SendKeys(hours);
+                    driver.FindElement(comboOptionFri).SendKeys(Keys.Enter);
+                    break;
+
+                case "Sat":
+                    By comboOptionSat = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionSat).SendKeys(hours);
+                    driver.FindElement(comboOptionSat).SendKeys(Keys.Enter);
+                    break;
+
+                case "Sun":
+                    By comboOptionSun = By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div/div[1]/input[1]");
+                    driver.FindElement(comboOptionSun).SendKeys(hours);
+                    driver.FindElement(comboOptionSun).SendKeys(Keys.Enter);
                     break;
             }
             Thread.Sleep(5000);
@@ -1794,6 +1983,41 @@ namespace SF_Automation.Pages.TimeRecordManager
             {
                 driver.SwitchTo().DefaultContent(); 
                 return false; 
+            }
+        }
+        public bool IsActivityListDisplayedLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));   
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectActivity, 5);
+                bool IsActivityDisplayed = driver.FindElement(comboSelectActivity).Displayed;
+                driver.SwitchTo().DefaultContent();
+                return IsActivityDisplayed;
+            }
+            catch (Exception e)
+            {
+                driver.SwitchTo().DefaultContent();
+                return false;
+            }
+        }
+        
+        public bool IsTimeClockRecorderCommentBoxDisplayedLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtTimeClockRecorderComments, 5);
+                bool IsActivityDisplayed = driver.FindElement(txtTimeClockRecorderComments).Displayed;
+                driver.SwitchTo().DefaultContent();
+                return IsActivityDisplayed;
+            }
+            catch (Exception e)
+            {
+                driver.SwitchTo().DefaultContent();
+                return false;
             }
         }
         public string GetTimeRecordManagerTitleLV()

@@ -36,7 +36,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
         By imgSpinningLoader = By.XPath("//div[@class='loading']");
         By txtAddMinutes = By.XPath("//div[contains(@class,'TimeClockRecorder')]//p[contains(text(),'Add Minutes')]//input");
-
+        By imgSpinner = By.XPath("//div[contains(@class,'spinner_container')]//div[@role='alert']");
         private By _btnTimeClockRecorder(string button)
         {
             return By.XPath($"//button[text()='{button}']");
@@ -136,23 +136,17 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         //Click Resume Button
         public void ClickResumeButton()
-        {
-           
+        {           
             WebDriverWaits.WaitUntilEleVisible(driver, btnResume, 60000);
             driver.FindElement(btnResume).Click();
             Thread.Sleep(5000);
-
-
         }
 
         //Click Pause Button
         public void ClickPauseButton()
         {
-            Thread.Sleep(8000);
-          
-            driver.FindElement(btnPause).Click();
-          
-
+            Thread.Sleep(8000);          
+            driver.FindElement(btnPause).Click(); 
         }
 
         //Update Timer
@@ -236,7 +230,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(txtTimeClockRecorder).Click();
             //Thread.Sleep(500);
             //WebDriverWaits.WaitUntilEleVisible(driver, imgSpinningLoader);
@@ -293,14 +287,19 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
         }
 
-        public bool GetButtonStatus(string button)
+        public bool GetButtonStatusLV(string button)
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnTimeClockRecorder(button));
-            bool btnstatus=driver.FindElement(_btnTimeClockRecorder(button)).Enabled;
-            driver.SwitchTo().DefaultContent();
-            return btnstatus;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _btnTimeClockRecorder(button),20);
+                bool btnstatus = driver.FindElement(_btnTimeClockRecorder(button)).Enabled;
+                driver.SwitchTo().DefaultContent();
+                return btnstatus;
+            }
+            catch { return false; }
+            
         }
         public void ClickStartButtonLV()
         {
@@ -311,7 +310,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }        
-        public void AddMinutesToTimer(string minutes)
+        public void AddMinutesToTimerLV(string minutes)
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -332,6 +331,61 @@ namespace SF_Automation.Pages.TimeRecordManager
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnFinish));            
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
+        }
+        public void ClickRefreshButtonLV()
+        {
+            Thread.Sleep(3000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRefresh);
+            driver.FindElement(btnRefresh).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, imgSpinner, 60);
+            Thread.Sleep(10000);
+            driver.SwitchTo().DefaultContent();
+        }
+        //Get seconds from Timer
+        public string GetSecondsTimerLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClockTimerSecond);
+            string GetSecondsTimer = driver.FindElement(txtClockTimerSecond).Text;
+            driver.SwitchTo().DefaultContent();
+            return GetSecondsTimer;
+        }
+        //Get Hours from Timer
+        public string GetHoursTimerLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClockTimerHours);
+            string GetHoursTimer = driver.FindElement(txtClockTimerHours).Text;
+            driver.SwitchTo().DefaultContent();
+            return GetHoursTimer;
+        }
+        //Click Resume Button
+        public void ClickResumeButtonLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnResume, 60);
+            driver.FindElement(btnResume).Click();
+            Thread.Sleep(10000);
+            driver.SwitchTo().DefaultContent();
+        }
+        
+        //Click Pause Button
+        public void ClickPauseButtonLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            driver.FindElement(btnPause).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, imgSpinner, 60);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
         }
     } 
 }
