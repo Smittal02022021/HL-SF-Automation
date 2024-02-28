@@ -5394,7 +5394,9 @@ namespace SF_Automation.Pages.Engagement
 		//Get type of added Other company
 		public string GetTypeOfOtherCompany()
 		{
-			WebDriverWaits.WaitUntilEleVisible(driver, valOtherType, 200);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-350)");
+            WebDriverWaits.WaitUntilEleVisible(driver, valOtherType, 200);
 			string name = driver.FindElement(valOtherType).Text;
 			return name;
 		}
