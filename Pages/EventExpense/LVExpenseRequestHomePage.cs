@@ -114,10 +114,11 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
 
             driver.FindElement(txtExpenseRequestNumber).SendKeys(expReqNo);
+
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(2000);
 
-            if(driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
+            if (driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
             {
                 result = true;
             }
