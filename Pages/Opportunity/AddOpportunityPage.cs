@@ -48,23 +48,26 @@ namespace SF_Automation.Pages
         By txtOpportunityNameL = By.XPath("//input[@name= 'Name']");
         By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input");//label[text()='Client']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
         By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox//input");//label[text()='Subject']/following::div[1]/div/lightning-base-combobox/div[1]/div/input");
-        By btnJobTypeL = By.XPath("//button[@aria-label='Job Type, --None--']");
-        By btnIGL = By.XPath("//button[@aria-label='Industry Group, --None--']");
-        By comboSectorL = By.XPath("//button[@aria-label='Sector, --None--']");
-        By comboPrimaryOfficeL = By.XPath("//button[@aria-label='Primary Office, --None--']");
+        By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button"); //button[@aria-label='Job Type, --None--']");
+        By btnIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");//button[@aria-label='Industry Group, --None--']");
+        By comboSectorL = By.XPath("//label[text()='Sector']/parent::div//button");//button[@aria-label='Sector, --None--']");
+        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
         By txtLegalEntitiesL = By.XPath("//input[@placeholder='Search Legal Entities...']");
-        By comboRefTypeL = By.XPath("//button[@aria-label='Referral Type, --None--']");
-        By comboAddClientL = By.XPath("//button[@aria-label='Additional Client, --None--']");
-        By comboAddSubjectL = By.XPath("//button[@aria-label='Additional Subject, --None--']");
-        By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
-        By comboHLMaterialL = By.XPath("//button[@aria-label='Does HL Have Material Non-Public Info?, --None--']");
+        By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");
+
+        By comboAddClientL = By.XPath("//button[contains(@aria-label,'Additional Client')]");//button[@aria-label='Additional Client, --None--']");
+        By comboAddSubjectL = By.XPath("//button[contains(@aria-label,'Additional Subject')]");//button[@aria-label='Additional Subject, --None--']");
+        By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By btnConfAgreeL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+
+        By comboBenOwnerL = By.XPath("(//label[text()='Beneficial Owner & Control Person form?']/parent::div//button)[2]");
+        By comboHLMaterialL = By.XPath("(//label[text()='Does HL Have Material Non-Public Info?']/parent::div//button)[2]");
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnNewOppL = By.XPath("//div[contains(@class,'lvmForceActionsContainer')]//a[@title='New']");
         By txtStaff = By.XPath("//input[@placeholder='Begin Typing Name...']");      
         
         By tabInfo = By.XPath("//a[text()='Info']");
 
-        By comboConfAggL = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
         By lblWomenLed = By.XPath("//label[text()='Women Led']");
         By lblCongAgg = By.XPath("//label[text()='Confidentiality Agreement']");
@@ -72,7 +75,6 @@ namespace SF_Automation.Pages
         By lblIndLangs = By.XPath("//label[text()='Indemnification Language']");
         By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']");
         
-        By btnConfAgreeL = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
         By txtObjective = By.XPath("//label[text()='Objective']/ancestor::lightning-textarea/div[1]/textarea");
         By btnClose = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgOppName = By.XPath("//label[text()='Opportunity Name']/ancestor::lightning-primitive-input-simple/div[2]");
@@ -93,9 +95,9 @@ namespace SF_Automation.Pages
         By msgRolesL = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
-        By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id88:0:j_id90']");
-        By checkEditIniatiator = By.CssSelector("input[name*='internalTeam:j_id39:0:j_id41:0']");
-        By checkSeller = By.CssSelector("input[name*='internalTeam:j_id88:1:j_id90']");
+        By checkInitiator = By.XPath("//tr[2]/td[2]/input");
+        By checkEditIniatiator = By.XPath("//tr[1]/td[5]/input");
+        By checkSeller = By.XPath("//tr[2]/td[3]/input");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
        
         By tabOpp = By.XPath("//span[text()='Opportunities']");

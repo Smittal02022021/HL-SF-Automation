@@ -16,12 +16,12 @@ namespace SF_Automation.UtilityFunctions
 
         public IWebDriver Initialize()
         {
-            string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData";
+            //string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData";
             ChromeOptions options = new ChromeOptions();
-            options.AddArguments("user-data-dir=" + path);
-            options.AddArguments("profile-directory=Default");
-            options.AddArguments("--force-device-scale-factor=80/100");// set the zoom level % 
-            driver = new ChromeDriver();            
+            //options.AddArguments("user-data-dir=" + path);
+            //options.AddArguments("profile-directory=Default");
+            options.AddArguments("--force-device-scale-factor=70/100");// set the zoom level % 
+            driver = new ChromeDriver(options);            
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
             builder = new Actions(driver);
