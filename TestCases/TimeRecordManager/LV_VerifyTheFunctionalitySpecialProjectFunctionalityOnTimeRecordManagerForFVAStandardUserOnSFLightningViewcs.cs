@@ -96,6 +96,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     
                     //Time Clock Recorder
                     refreshButton.GoToTimeClockRecorderPageLV();
+                    refreshButton.ClickResetButtonLV();
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(projectNameExl);
                     extentReports.CreateStepLogs("Info", "Special Project: " + projectNameExl + " on Time Clock Recorder Page");
                     

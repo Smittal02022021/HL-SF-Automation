@@ -844,6 +844,8 @@
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_G1_VerifyTheActivityListForTimeTrackingBetaGroupUseronLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_G2_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningViewcs.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />

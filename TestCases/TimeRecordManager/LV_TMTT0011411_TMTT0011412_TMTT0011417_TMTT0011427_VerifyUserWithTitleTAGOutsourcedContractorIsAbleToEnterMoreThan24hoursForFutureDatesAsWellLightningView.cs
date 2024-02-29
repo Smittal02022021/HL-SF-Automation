@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
+        RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTMT1411 = "LV_TMTT0011411VerifyUserWithTitleTAGOutsourcedContractor";
@@ -197,6 +198,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "Project is selected for Future date dates");
                 timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
                 extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");
+
+                //Time Clock Recorder
+                refreshButton.GoToTimeClockRecorderPageLV();
+                timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
+                extentReports.CreateStepLogs("Info", "Project is selected for Future date dates");
+                timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
+                extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");
+
 
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + user + " logged out");

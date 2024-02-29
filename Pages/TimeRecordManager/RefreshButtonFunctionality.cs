@@ -6,6 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace SF_Automation.Pages.TimeRecordManager
@@ -285,8 +286,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, selectActivityDropDown, 20);
             CustomFunctions.SelectByText(driver, driver.FindElement(selectActivityDropDown), activity);
             driver.SwitchTo().DefaultContent();
-        }
-
+        }   
         public bool GetButtonStatusLV(string button)
         {
             driver.SwitchTo().DefaultContent();
@@ -386,6 +386,27 @@ namespace SF_Automation.Pages.TimeRecordManager
             //WebDriverWaits.WaitUntilEleVisible(driver, imgSpinner, 60);
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(5000);
+        }
+        public void SelectDropDownProjectAndActivityOptionsLV(string project)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                driver.FindElement(comboSelectProjectN).Click();
+                driver.FindElement(comboSelectProjectN).SendKeys(project);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                driver.FindElement(comboSelectProjectName).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, selectPrjctDropDown);
+                CustomFunctions.SelectByText(driver, driver.FindElement(selectPrjctDropDown), project);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, selectActivityDropDown, 20);
+            driver.FindElement(selectActivityDropDown).Click();
+            driver.SwitchTo().DefaultContent();
         }
     } 
 }
