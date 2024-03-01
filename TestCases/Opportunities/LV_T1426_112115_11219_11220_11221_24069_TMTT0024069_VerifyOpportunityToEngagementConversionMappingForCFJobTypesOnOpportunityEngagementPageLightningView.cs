@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0055384 = "LV_T1426_OpportunityToEngagementConversionMappingForCF";
         [OneTimeSetUp]
@@ -196,7 +197,9 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.UserLogOut();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
+                    homePage.SearchUserByGlobalSearch(fileTMTI0055384, ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
+                    usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToClassicView();
 
                     string caoUser = login.ValidateUser();
