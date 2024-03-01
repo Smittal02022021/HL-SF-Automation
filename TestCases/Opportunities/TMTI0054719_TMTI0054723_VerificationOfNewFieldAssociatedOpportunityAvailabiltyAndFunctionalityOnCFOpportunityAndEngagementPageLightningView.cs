@@ -119,11 +119,11 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                     //New Field is Present on Opportunity Detail Page for Standard User
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for Standard User: " + valUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
-                    Assert.IsFalse(opportunityDetails.IsAssociatedOppFieldEditableL(), "Verify Associated Engagement should not be editable for Standard User ");
+                    Assert.IsFalse(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should not be editable for Standard User ");
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is not Editable for Standard User: " + valUser + " ");
 
                     // Create External Primary Contact
@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsL(fileTMTI0054719);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityLV();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     login.SwitchToClassicView();
@@ -259,16 +259,16 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
 
                     //New Field is Present on Opportunity Detail Page for CAO user
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentL());
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for CAO User: " + caoUser + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
-                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableL(), "Verify Associated Engagement should be editable for CAO User ");
+                    Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should be editable for CAO User ");
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for CAO User: " + caoUser + " ");
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 2);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityL(valAssociatedOpp);
+                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
@@ -295,7 +295,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Engagement Detail Page for CAO User: " + caoUser + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
-                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldEditableL(), "Verify Associated Engagement should be editable for CAO User ");
+                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldEditableLV(), "Verify Associated Engagement should be editable for CAO User ");
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Editable for CAO User: " + caoUser + " ");
 
                     //Enter the Associated Opportunity name
@@ -361,7 +361,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + stdUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
-                    Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditableL(), "Verify Associated Engagement should not be editable for Standard User ");
+                    Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditableLV(), "Verify Associated Engagement should not be editable for Standard User ");
                     extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + stdUser + " ");
                     login.SwitchToClassicView(); 
                     usersLogin.UserLogOut();

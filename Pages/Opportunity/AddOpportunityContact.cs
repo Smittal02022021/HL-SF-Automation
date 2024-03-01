@@ -19,12 +19,12 @@ namespace SF_Automation.Pages.Opportunity
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");      
-        
+        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
+
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
         By txtContactL = By.XPath("//input[@title='Search Contacts']");
-        
+
         By imgContactOppL = By.XPath("//div[@title='Chris Lord']");
         By btnSaveL = By.XPath("//div/footer/button[2]/span");
         By tabRelated = By.XPath("//a[text()='Related']");
@@ -34,9 +34,9 @@ namespace SF_Automation.Pages.Opportunity
         By btnCancelContact = By.XPath("//footer/button[1]/span");
 
         //Lightning--
-        
+
         By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
-             
+
         //By imgContactL = By.XPath("//div[2]/ul/li[26]/a/div[1]/span/img");
         By imgContactL = By.XPath("//div[2]/ul/li[9]/a/div[1]/span/img");
         By msgContact = By.XPath("//section/div/div/div/div/div/div[1]/div[1]/div/div/ul/li");
@@ -45,7 +45,11 @@ namespace SF_Automation.Pages.Opportunity
 
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
-        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
+        By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
+        By btnAddOppContactL = By.XPath("//button[contains(@name,'Opportunity_Contact')]");
+
+        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         public void CreateContact(string file, string contact, string valRecType, string valType)
         {
@@ -105,6 +109,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContactL, 20);
             driver.FindElement(btnAddCFContactL).Click();
         }
+
         public void CreateContactL2(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -140,6 +145,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
             driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
         }
 
         public void CreateContactL(string file)
@@ -174,7 +180,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='"+party+"']")).Click();
+            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
 
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
@@ -238,7 +244,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
             driver.FindElement(btnSaveL).Click();
-        
+
             driver.FindElement(btnCancelContact).Click();
         }
 
@@ -251,11 +257,11 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(8000);
             //driver.Navigate().Refresh();            
             try
-            { 
-            string name = driver.FindElement(valAddedContact).Text;
-            return name;
-        }
-            catch(Exception e)
+            {
+                string name = driver.FindElement(valAddedContact).Text;
+                return name;
+            }
+            catch (Exception e)
             {
                 return "No contact is added";
             }
@@ -277,7 +283,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, msgContact, 50);           
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContact, 50);
             string name = driver.FindElement(msgContact).Text;
             return name;
         }
@@ -289,6 +295,26 @@ namespace SF_Automation.Pages.Opportunity
             string name = driver.FindElement(msgParty).Text;
             return name;
         }
+
+        //Click on AddFROpportunityContact
+        public void CickAddFROpportunityContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFRContactL, 20);
+            driver.FindElement(btnAddFRContactL).Click();
+        }
+
+        public void CickAddOpportunityContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContactL, 20);
+            driver.FindElement(btnAddOppContactL).Click();
+        }
+
+        public void CickAddFVAOpportunityContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFVAContactL, 20);
+            driver.FindElement(btnAddFVAContactL).Click();
+        }
+
     }
 }
 

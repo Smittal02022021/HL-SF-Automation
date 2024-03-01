@@ -112,11 +112,11 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055029);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityLV();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     //AddMultiple Staff to Internal Deal Team
-                    int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersL(valRecordType, fileTMTI0055029);
+                    int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
 
                     string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();//extra +1
@@ -243,7 +243,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembersL(valRecordType, fileTMTI0055029);
+                    countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Engagement after conversion after Conversion ");
 
                     msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimit();
