@@ -47,7 +47,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboSpecialCommittee = By.CssSelector("select[id*='id306']");
         By titleEmailPage = By.CssSelector("div.pbSubheader.brandTertiaryBgr.tertiaryPalette > h3");
         By valEmailOppName = By.CssSelector("body[id*='Body_rta_body'] > span:nth-child(9) > span");
-        By valEmailOppNameL = By.CssSelector("body[id*='Body_rta_body'] > p:nth-child(6) > span");
+        By valEmailOppNameL = By.XPath("//body/p[6]/span");
 
         By btnCancelEmail = By.CssSelector("input[value='Cancel']");
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
@@ -144,7 +144,7 @@ namespace SF_Automation.Pages.Opportunity
         By lnkFormCheck = By.XPath("//button[@title='Edit Form Check (required to submit)']");
         By btnFormCheck = By.XPath("//input[@name='Submit_For_Review__c']");
         By btnSubmitFEIS = By.XPath("//button[text()='Submit FEIS (Part I) Form']");
-        By lblSendEmail = By.XPath("//h2[text()='Send Email']");
+        By lblSendEmail = By.XPath("//table/tbody/tr/td/h2[text()='Send Email']");
         By txtTo = By.XPath("//label[text()='To']/ancestor::tr[1]/td/div/span/input[1]");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
@@ -320,8 +320,10 @@ namespace SF_Automation.Pages.Opportunity
 
         public string GetOppNameL()
         {
-
-            WebDriverWaits.WaitUntilEleVisible(driver, valEmailOppNameL, 90);
+            Thread.Sleep(6000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, valEmailOppNameL, 90);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@title,'Rich Text Editor')]")));
+            Thread.Sleep(4000);
             string emailSub = driver.FindElement(valEmailOppNameL).Text;
             return emailSub;
         }
@@ -1208,7 +1210,9 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitFEIS, 100);
             driver.FindElement(btnSubmitFEIS).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lblSendEmail, 150);
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(6000);
             string value = driver.FindElement(lblSendEmail).Text;
             return value;
         }
@@ -1216,13 +1220,17 @@ namespace SF_Automation.Pages.Opportunity
         //Validate that the user is able to send an email
         public string ValidateSendEmailFunctionality()
         {
+            driver.SwitchTo().ParentFrame();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtTo, 100);
             driver.FindElement(txtTo).Clear();
+            Thread.Sleep(5000);
             driver.FindElement(txtTo).SendKeys("Sonika Goyal");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSendEmail, 150);
             driver.FindElement(btnSendEmail).Click();
             Thread.Sleep(8000);
+            driver.SwitchTo().DefaultContent();
             try
             {
                 string button = driver.FindElement(btnSubmitFEIS).Displayed.ToString();
