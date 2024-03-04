@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using AventStack.ExtentReports;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -49,7 +50,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
                 //TMTI0055384	Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                 //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
 
@@ -58,25 +59,24 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    extentReports.CreateLog("Creating Opportunity for : " + valJobType + " ");
+                    extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
-                    login.SwitchToClassicView();
+                    //login.SwitchToClassicView();
 
-                    string stdUser = login.ValidateUser();
+                    login.SwitchToLightningExperience();   
+                    string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in ");
-
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+                    
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validating Title of New Opportunity Page
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                     //TMTT0011215- Verify the Women Led field is available for all LOB:CF Opportunity
                     //TMTT0011221- Verify the Women-Led field under the administration section on the Opportunity page
 
@@ -95,7 +95,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string secName = addOpportunity.GetAdminSectionNameLV(valRecordType);
                     Assert.AreEqual("Women Led", womenLed);
                     Assert.AreEqual("Administration", secName);
-                    extentReports.CreateLog("Field with name: " + womenLed + " is displayed under section: " + secName + " ");
+                    extentReports.CreateStepLogs("Passed", "Field with name: " + womenLed + " is displayed under section: " + secName + " ");
                     /////////////////////////////////////
                     
 
@@ -103,17 +103,17 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType);
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055384);//updated move to jobtype
-                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
+                    extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTI0055384);
                     Assert.AreEqual(displayedTab, "Info");
-                    extentReports.CreateLog("User is on Opportunity detail " + displayedTab + " tab ");
+                    extentReports.CreateStepLogs("Passed", "User is on Opportunity detail " + displayedTab + " tab ");
 
                     //Validating Opportunity details  
                     string opportunityNumber = opportunityDetails.GetOpportunityNumberL();
                     Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
-                    extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity with number : " + opportunityNumber + " is created ");
 
                     //Create External Primary Contact      
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
@@ -122,23 +122,25 @@ namespace SF_Automation.TestCases.Opportunities
 
                     addOpportunityContact.CickAddCFOpportunityContact();
                     addOpportunityContact.CreateContactL2(fileTMTI0055384);
-                    extentReports.CreateLog(valContact + " is added as " + valContactType + " opportunity contact is saved ");
+                    extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055384);//udated Move to element
-                    extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
+                    extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055384);
-                    extentReports.CreateLog("Opportunity Internal Team Details are provided ");
+                    extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityLV();
-                    extentReports.CreateLog("Return to Opportunity Detail page ");
+                    extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                    login.SwitchToClassicView();
-                    extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
-                    //Logout of user and validate Admin login
-                    usersLogin.UserLogOut();
-                    extentReports.CreateLog(stdUser + " Standard User logged out ");
+                    //login.SwitchToClassicView();
+                    //extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
+                    ////Logout of user and validate Admin login
+                    //usersLogin.UserLogOut();
 
-                    extentReports.CreateLog("Admin is Performing Required Actions ");
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
+
+                    extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
                     //update CC and NBC checkboxes 
@@ -146,39 +148,45 @@ namespace SF_Automation.TestCases.Opportunities
                     if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
                     {
                         opportunityDetails.UpdateNBCApproval();
-                        extentReports.CreateLog("Conflict Check and NBC fields are updated ");
+                        extentReports.CreateStepLogs("Info", "Conflict Check and NBC fields are updated ");
                     }
                     else
                     {
-                        extentReports.CreateLog("Conflict Check fields are updated ");
+                        extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
                     }                    
 
                     //TMTI0056861 Verify that NBC form is not required for new Job type - Lender education
                     //Get NBC Approved Default Status
                     Assert.AreEqual(opportunityDetails.GetNBCApprovedStatus(),"Checked");
-                    extentReports.CreateLog("NBC Approved Checkbox is already Checked ");
+                    extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
-                    login.SwitchToClassicView();
 
-                    stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
+                    //login.SwitchToClassicView();
+
+                    //stdUser = login.ValidateUser();
+                    //Assert.AreEqual(stdUser.Contains(valUser), true);
+                    //extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
+
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                    homePageLV.ClickAppLauncher();
+                    
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
@@ -189,56 +197,62 @@ namespace SF_Automation.TestCases.Opportunities
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
-                    extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
+                    extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
 
-                    login.SwitchToClassicView();
-                    //Log out of Standard User
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    ////Log out of Standard User
+                    //usersLogin.UserLogOut();
+
+                    usersLogin.ClickLogoutFromLightningView();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
-                    login.SwitchToClassicView();
+                    string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    usersLogin.SearchUserAndLogin(userCAOExl);
+                    //login.SwitchToClassicView();
 
-                    string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "CAOUsers", 1)), true);
-                    extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+                    //string caoUser = login.ValidateUser();
+                    //Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "CAOUsers", 1)), true);
+                    //extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
+                    string userCAO = login.ValidateUserLightningView();
+                    Assert.AreEqual(userCAO.Contains(userCAOExl), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
+
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
                     //TMTI0055402 Verify the availability of Job Types for converted engagement on the Engagement page
-
-                    //Search for created opportunity
+                    //Search for created opportunity &Approve the Opportunity 
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
-                    //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
-                    extentReports.CreateLog("Opportunity " + status + " ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL2();
-                    extentReports.CreateLog("Opportunity Converted into Engagement ");
+                    extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
 
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
-                    extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                    extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     login.SwitchToClassicView();
 
@@ -250,33 +264,31 @@ namespace SF_Automation.TestCases.Opportunities
                     string engRecordType = engagementDetails.GetRecordType();
                     string recordTypeExpected =ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2);
                     Assert.AreEqual(recordTypeExpected, engRecordType);
-                    extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
+                    extentReports.CreateStepLogs("Passed", "Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
                     //TMTI0055387 Verify the status is updated in Oracle ERP Information section after creating the Opportunity
                     //Validate the ERP status on Engagement details page
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
                     Assert.AreEqual("Success", ERPStatusIG);
-                    extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
-
-
+                    extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
 
                     //TMTT0011220 - Verify the Women Led field under Closing-**section on Engagement page
                     ///////////////////////////////////////////////////
                     //Validate the section in which Women led fiels is displayed
                     string lblWomenLed = engagementDetails.ValidateWomenLedField(valJobType);
                     Assert.AreEqual("Women Led", lblWomenLed);
-                    extentReports.CreateLog("Field : " + lblWomenLed + " is found on converted Engagement ");
+                    extentReports.CreateStepLogs("Passed", "Field : " + lblWomenLed + " is found on converted Engagement ");
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
 
                     if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed);
-                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
+                        extentReports.CreateStepLogs("Passed", "Section for Women Led is : " + secWomenLed + " ");
                     }
                     else
                     {
                         Assert.AreEqual("Closing - Document Checklist", secWomenLed);
-                        extentReports.CreateLog("Section for Women Led is : " + secWomenLed + " ");
+                        extentReports.CreateStepLogs("Passed", "Section for Women Led is : " + secWomenLed + " ");
                     }
                     extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
 
@@ -284,20 +296,18 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate the value of Women Led in Engagement details page
                     string engWomenLed = engagementDetails.GetWomenLed();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6), engWomenLed);
-                    extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
+                    extentReports.CreateStepLogs("Passed", "Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
 
-                    /////////////////////////////////////////////////                 
-
+                    /////////////////////////////////////////////////    
 
                     engagementDetails.ClickRelatedOpportunityLink();
                     //Validate the ERP status on Opp details page                
                     ERPStatusIG = opportunityDetails.GetERPIntegrationStatus();
                     Assert.AreEqual("Success", ERPStatusIG);
-                    extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Opportunity Detail page ");
-
+                    extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Opportunity Detail page ");
 
                     usersLogin.UserLogOut();
-                    extentReports.CreateLog("User: " + caoUser + " logged out ");
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out ");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();

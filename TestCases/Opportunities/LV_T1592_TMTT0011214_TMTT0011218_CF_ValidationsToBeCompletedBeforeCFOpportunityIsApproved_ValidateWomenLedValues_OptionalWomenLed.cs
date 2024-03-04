@@ -58,13 +58,20 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     extentReports.CreateStepLogs("Info", "Creating Opportunity with Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
-                    string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                    usersLogin.SearchCFUserAndLogin(user);
-                    string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(user), true);
-                    extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
+                    string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+
+                    //usersLogin.SearchCFUserAndLogin(user);
+                    usersLogin.SearchUserAndLogin(userExl);
+
+                    //string stdUser = login.ValidateUser();
+                    //Assert.AreEqual(stdUser.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
+                    //login.SwitchToLightningExperience();
+
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(userExl), true);
+                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -103,8 +110,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
 
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
+                //login.SwitchToClassicView();
+                //usersLogin.UserLogOut();
+                usersLogin.ClickLogoutFromLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

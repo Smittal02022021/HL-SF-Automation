@@ -46,8 +46,8 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void GotoTimeClockRecorderPage()
         {
             Thread.Sleep(4000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(12000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(12000);
 
             driver.FindElement(txtTimeClockRecorder).Click();
             Thread.Sleep(10000);

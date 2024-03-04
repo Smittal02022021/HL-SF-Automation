@@ -188,6 +188,15 @@ namespace SF_Automation.Pages
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 13);
         }
+        public string ValidateUserLightningView()
+        {         
+
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 20);
+            string loggedUserName = driver.FindElement(loggedUserLightningView).Text;
+            return loggedUserName;
+            
+        }
 
     }
 }

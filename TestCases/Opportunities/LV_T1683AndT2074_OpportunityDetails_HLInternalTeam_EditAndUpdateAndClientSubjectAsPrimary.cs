@@ -66,16 +66,23 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
-                    string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
-                    login.SwitchToClassicView();
+                    string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                    usersLogin.SearchUserAndLogin(userExl);
 
-                    string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
+                    //login.SwitchToClassicView();
+
+                    //string stdUser = login.ValidateUser();
+                    //Assert.AreEqual(stdUser.Contains(valUser), true);
+                    //extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
+
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(userExl), true);
+                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -134,7 +141,7 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.SelectListView("My Active Opportunities");                    
                     string recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("Record found", recFound);
-                    extentReports.CreateStepLogs("Pass", "Opportunity is displayed in My Opportunities for user:"+ valUser);
+                    extentReports.CreateStepLogs("Pass", "Opportunity is displayed in My Opportunities for user:"+ userExl);
 
                     //Call fnction to remove the user and it's assigned roles
                     string msgSave = opportunityDetails.RemoveUserFromITTeamLV();
@@ -157,11 +164,12 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.SelectListView("My Active Opportunities");
                     recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("No record found", recFound);
-                    extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Opportunities for user:" + valUser);
+                    extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Opportunities for user:" + userExl);
 
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Pass", "User: "+valUser + " Logged out");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Pass", "User: "+ userExl + " Logged out");
                     usersLogin.UserLogOut();
                     driver.Quit();
                     extentReports.CreateStepLogs("Pass", "Browser Closed");

@@ -58,14 +58,21 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
-                    login.SwitchToClassicView();
 
-                    string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in ");
+                    //login.SwitchToClassicView();
+
+                    //string stdUser = login.ValidateUser();
+                    //Assert.AreEqual(stdUser.Contains(valUser), true);
+                    //extentReports.CreateLog("User: " + stdUser + " logged in ");
+
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateLog("User: " + stdUser + " logged in on Lightning View");
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -128,11 +135,13 @@ namespace SF_Automation.TestCases.Opportunities
                     //Reverting Job Type to Actual Job Type
                     opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
 
-                    login.SwitchToClassicView();
-                    extentReports.CreateLog(stdUser + " User Switched to Classic View ");
-                    //Logout of user and validate Admin login
-                    usersLogin.UserLogOut();
-                    extentReports.CreateLog(stdUser + " User logged out ");
+                    //login.SwitchToClassicView();
+                    //extentReports.CreateLog(stdUser + " User Switched to Classic View ");
+                    ////Logout of user and validate Admin login
+                    //usersLogin.UserLogOut();
+
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateLog(valUser + " User logged out ");
 
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
@@ -167,14 +176,21 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
-                    login.SwitchToClassicView();
 
-                    stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
+                    //login.SwitchToClassicView();
+
+                    //stdUser = login.ValidateUser();
+                    //Assert.AreEqual(stdUser.Contains(valUser), true);
+                    //extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
+
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + valUser + " Standard User Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(valUser), true);
+
                     homePageLV.ClickAppLauncher();
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -188,7 +204,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
@@ -203,18 +219,22 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.UserLogOut();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
-                    login.SwitchToClassicView();
+                    string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    usersLogin.SearchUserAndLogin(userCAOExl);
 
-                    string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "CAOUsers", 1)), true);
-                    extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+                    //login.SwitchToClassicView();
+                    //string caoUser = login.ValidateUser();
+                    //Assert.AreEqual(caoUser.Contains(userCAOExl), true);
+                    //extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userCAOExl), true);
 
-                    //Go to Opportunity module in Lightning View 
+                    homePageLV.ClickAppLauncher();
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
@@ -226,7 +246,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
@@ -256,7 +276,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Reverting Job Type to Actual Job Type
                     engagementDetails.UpdateJobTypeLV(newJobType, existingJobType);
-                    login.SwitchToClassicView();
+                    //login.SwitchToClassicView();
 
                     //engagementHome.ClickEngagementTab();
                     //engagementHome.SearchEngagementWithNumber(engagementNumber);
@@ -267,8 +287,11 @@ namespace SF_Automation.TestCases.Opportunities
                     //extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
                     
-                    usersLogin.UserLogOut();
-                    extentReports.CreateLog("User: " + caoUser + " logged out ");
+                    //usersLogin.UserLogOut();
+                    //extentReports.CreateLog("User: " + userCAOExl + " logged out ");
+
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
