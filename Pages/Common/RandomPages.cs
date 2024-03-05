@@ -66,7 +66,7 @@ namespace SF_Automation.Pages.Common
         By btnMoreTabs = By.XPath("(//ul[@role='tablist']//button[@title='More Tabs'])[2]");
         By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
-        By iconListViewPicker = By.XPath($"//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
+        By iconListViewPicker = By.XPath("//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         private By _optionListView(string name)
         {

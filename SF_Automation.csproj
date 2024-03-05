@@ -834,7 +834,9 @@
     <Compile Include="TestCases\Opportunities\ZObsoleted_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_2_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRCAOdUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0009535_TMTT0020334_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyActivityTypeIsRemovedForCVASTeamTFRTimeTrackingGrupLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagementsLightningView.cs" />
@@ -844,9 +846,9 @@
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_G1_VerifyTheActivityListForTimeTrackingBetaGroupUseronLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_G2_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningViewcs.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_S5_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_S10_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningViewcs.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_1_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
@@ -857,7 +859,7 @@
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0005211_RefreshButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005221_TMTT0011420_StartButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
     <Compile Include="TestCases\TimeRecordManager\TMTT0011418_TMTT0011410_VerifyTheTASSupervisorCanOnlyEnterHoursMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.cs" />

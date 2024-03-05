@@ -52,16 +52,13 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Standard User profile and validate the user
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
-                login.SwitchToClassicView();
-
-                string stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
+                string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                usersLogin.SearchUserAndLogin(userExl);
                 login.SwitchToLightningExperience();
-                extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(userExl), true);
+                extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+
                 int teamMember = ReadExcelData.GetRowCount(excelPath, "Users");
 
                 for (int row = 2; row <= teamMember; row++)
@@ -164,8 +161,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
+                homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");

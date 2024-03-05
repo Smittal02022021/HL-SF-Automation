@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningView:BaseClass
+    class LV_S10_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -59,13 +59,21 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 {
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
+                   
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
+
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userExl), true);
+                    extentReports.CreateLog("User: " + userExl + " logged in on Lightning View");
                     homePageLV.ClickAppLauncher();
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -73,12 +81,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
 
                     //Existing Engagement with Deal team member of Logged in user
                     projectNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyEntryMatrix", row, 1);
                     hoursExl= ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyEntryMatrix", row, 2);
-                    extentReports.CreateLog("Project Searching with Number: " + projectNameExl + " ");
+                    extentReports.CreateLog("Project Searching with Name: " + projectNameExl + " ");
 
                     //S9	Verify the Functionalty of Time Record manager for Special Project(Only Comment box opens instead of Activity list) of Weekly Entry Metrix 
                     timeEntry.GoToWeeklyEntryMatrixLV();
@@ -111,6 +119,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     bool isActivityDisplayed= timeEntry.EnterSummaryLogsHoursValidateActivityListLV(projectNameExl, hoursExl);
                     Assert.IsFalse(isActivityDisplayed, "Verify Activity List is not displayed on Summary Logs");
                     extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Summary Logs ");
+                    //bool IsCommentsBoxDisplayed = timeEntry.IsLogsCommentBoxDisplayedLV();
+                    //Assert.IsTrue(IsCommentsBoxDisplayed, "Verify Comments Box Displayed on Summary Logs for Special Project");
+                    //extentReports.CreateStepLogs("Passed", "A Comments Box is Displayed instead on Summary Logs for Special Project");
+
 
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");
@@ -121,7 +133,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "Special Project: " + projectNameExl + "on Detail Logs");
                     Assert.IsFalse(isActivityDisplayed, "Verify Activity List is not displayed on Detail Logs");
                     extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Detail Logs ");
-                    
+                    //IsCommentsBoxDisplayed = timeEntry.IsLogsCommentBoxDisplayedLV();
+                    //Assert.IsTrue(IsCommentsBoxDisplayed, "Verify Comments Box Displayed on Detail Logs Logs for Special Project");
+                    //extentReports.CreateStepLogs("Passed", "A Comments Box is Displayed instead on Detail Logs Logs for Special Project");
+
+
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");
 
@@ -131,6 +147,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "Special Project: " + projectNameExl + "on Weekly Overview");
                     Assert.IsFalse(isActivityDisplayed, "Verify Activity List is not displayed on Weekly Overview");
                     extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Weekly Overview ");
+                    //IsCommentsBoxDisplayed = timeEntry.IsLogsCommentBoxDisplayedLV();
+                    //Assert.IsTrue(IsCommentsBoxDisplayed, "Verify Comments Box Displayed on Weekly Overview for Special Project");
+                    //extentReports.CreateStepLogs("Passed", "A Comments Box is Displayed instead on Activity List on Weekly Overview for Special Project");
 
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");                    

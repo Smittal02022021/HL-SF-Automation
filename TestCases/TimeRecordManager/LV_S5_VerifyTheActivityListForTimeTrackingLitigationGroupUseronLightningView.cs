@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_G2_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView:BaseClass
+    class LV_S5_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -55,12 +55,20 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "CF User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
+
+                    login.SwitchToLightningExperience();
+                    string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
                     extentReports.CreateStepLogs("Passed", "CF User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+
                     homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
@@ -69,15 +77,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
                     string GetTimeRecordUserNameLV = timeEntry.GetTimeRecordUserNameLV();
-                    Assert.AreEqual(GetTimeRecordUserNameLV, user, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
+                    Assert.AreEqual(GetTimeRecordUserNameLV, userExl, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
                     extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
 
                     //******************
                     selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
                     timeEntry.GoToWeeklyEntryMatrixLV();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
                     txtHours = ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyEntryMatrix", row, 2);
@@ -86,7 +94,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     bool IsActivityListCorrect= timeEntry.ValidateActiviyListDropdownOptionsLV(fileTMT111, userGrpNameExl);
                     Assert.IsTrue(IsActivityListCorrect,"Verify Activty List for logged in user is correct ");
-                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Weekly Entry Matrix Page for logged in user:" + user);
+                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Weekly Entry Matrix Page for logged in user:" + userExl);
 
                     //********************
                     //Click on Time Clock Recorder Tab
@@ -99,11 +107,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     IsActivityListCorrect = timeEntry.ValidateActiviyListDropdownOptionsLogsPageLV(fileTMT111, userGrpNameExl);
                     Assert.IsTrue(IsActivityListCorrect, "Verify Activty List for logged in user is correct ");
-                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Time Clock Recorder Page for logged in user:" + user);
+                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Time Clock Recorder Page for logged in user:" + userExl);
 
                     //******************
                     timeEntry.GoToSummaryLogLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Summary Log Page ");
                     
                     hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2);                   
                     timeEntry.EnterHoursLogsActivityOptionsLV(selectProject,hoursExl);
@@ -115,7 +123,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //******************
                     timeEntry.GoToDetailLogsLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Detail Logs Page ");
                     selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 1);
                     hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 2);
 
@@ -128,7 +136,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //*******************
                     timeEntry.GoToWeeklyOverviewLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Weekly Overview Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Weekly Overview Page ");
                     selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyOverview", row, 1);
                     hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "WeeklyOverview", row, 2);                   
                     timeEntry.EnterHoursLogsActivityOptionsLV(selectProject, hoursExl);
@@ -140,7 +148,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     usersLogin.ClickLogoutFromLightningView();
                     login.SwitchToClassicView();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();

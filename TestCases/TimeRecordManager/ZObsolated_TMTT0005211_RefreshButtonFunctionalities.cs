@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0005211_RefreshButtonfunctionalities : BaseClass
+    class ZObsolated_TMTT0005211_RefreshButtonfunctionalities : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

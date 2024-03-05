@@ -81,7 +81,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Select Staff Member from the list
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
                     timeEntry.SelectStaffMemberLV(staffNameExl);
-                    string staffName= timeEntry.GetSelectedStaffName();
+                    string staffName= timeEntry.GetSelectedStaffNameLV();
                     Assert.AreEqual(staffNameExl, staffName);
                     extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
                     // Select the rate sheet

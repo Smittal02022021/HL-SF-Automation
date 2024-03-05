@@ -65,13 +65,20 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userGrpNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     string userTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     usersLogin.SearchUserAndLogin(userNameExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(userNameExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + userNameExl + " from Time Tracking Group: " + userGrpNameExl + " with Title: "+ userTitleExl+" logged in ");
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userNameExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userNameExl + " from Time Tracking Group: " + userGrpNameExl + " with Title: "+ userTitleExl+" logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + userNameExl + " Switched to Lightning View ");
+
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userNameExl + " Switched to Lightning View ");
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userNameExl), true);
+                    extentReports.CreateStepLogs("Passed", "Standard User: " + userNameExl + " from Time Tracking Group: " + userGrpNameExl + " with Title: " + userTitleExl + " logged in ");
                     homePageLV.ClickAppLauncher();
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -80,7 +87,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userNameExl);
 
                     string timeRecordManagerTitle = timeEntry.GetTimeRecordManagerTitleLV();
                     string timeRecordManagerTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs",row, 4);
@@ -119,7 +126,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //Enter on Summary Logs
                     timeEntry.GoToSummaryLogLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userNameExl + " is on Summary Log Page ");
                     activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
                     hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2);
 
@@ -150,7 +157,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     // Enter Detail logs
                     timeEntry.GoToDetailLogsLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userNameExl + " is on Detail Logs Page ");
                     selectProjectExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 1);
                     hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 2);
                     activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DetailLogs", row, 3);
@@ -180,8 +187,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //--------------------------------------------------------
 
                     usersLogin.ClickLogoutFromLightningView();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
-                    login.SwitchToClassicView();
+                    extentReports.CreateStepLogs("Info", "User: " + userNameExl + " logged out");
                 }
 
                 usersLogin.UserLogOut();

@@ -6,11 +6,6 @@ using SF_Automation.TestData;
 using System;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
-using Microsoft.Office.Interop.Excel;
-using AventStack.ExtentReports.Gherkin.Model;
-using OpenQA.Selenium;
-using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
@@ -82,13 +77,21 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
+
+                    login.SwitchToLightningExperience();
+                    string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -104,7 +107,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
 
                     timeEntry.SelectStaffMemberLV(staffNameExl);
-                    string staffName = timeEntry.GetSelectedStaffName();
+                    string staffName = timeEntry.GetSelectedStaffNameLV();
                     Assert.AreEqual(staffNameExl, staffName);
                     extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
 

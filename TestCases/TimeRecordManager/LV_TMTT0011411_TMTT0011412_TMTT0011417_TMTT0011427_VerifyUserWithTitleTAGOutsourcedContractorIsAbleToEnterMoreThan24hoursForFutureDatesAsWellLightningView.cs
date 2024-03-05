@@ -51,13 +51,21 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(userExl);
-                login.SwitchToClassicView();
-                string user = login.ValidateUser();
-                Assert.AreEqual(user.Contains(userExl), true);
-                extentReports.CreateStepLogs("Passed", "User: " + user + " logged in ");
+
+                //login.SwitchToClassicView();
+                //string user = login.ValidateUser();
+                //Assert.AreEqual(user.Contains(userExl), true);
+                //extentReports.CreateStepLogs("Passed", "User: " + user + " logged in ");
+                //login.SwitchToLightningExperience();
+                //extentReports.CreateStepLogs("Info", "User: " + user + " Switched to Lightning View ");
+                //homePageLV.ClickAppLauncher();
+
                 login.SwitchToLightningExperience();
-                extentReports.CreateStepLogs("Info", "User: " + user + " Switched to Lightning View ");
+                string user = login.ValidateUserLightningView();
+                Assert.AreEqual(user.Contains(userExl), true);
+                extentReports.CreateStepLogs("Passed", " User: " + userExl + " logged in ");
                 homePageLV.ClickAppLauncher();
+
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectApp(appNameExl);
                 string appName = homePageLV.GetAppName();
@@ -65,7 +73,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+                extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
 
                 //Click time record manager                
                 string timeRecordManagerTitle = timeEntry.GetTimeRecordManagerTitleLV();
@@ -76,7 +84,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Click Time Record Manager Tab
                 timeEntry.GoToWeeklyEntryMatrixLV();
-                extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " is on Weekly Entry Matrix Page");
 
                 string selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
                 string txtHours = ReadExcelData.ReadData(excelPath, "Update_Hours", 1);
@@ -113,7 +121,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 // Go to Weekly Entry Matrix
                 timeEntry.GoToWeeklyEntryMatrixLV();
-                extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " is on Weekly Entry Matrix Page");
 
                 selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
                 string activityExl = ReadExcelData.ReadData(excelPath, "Activity_List", 1);
@@ -208,7 +216,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
 
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

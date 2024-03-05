@@ -59,13 +59,21 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Login as Standard User and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    //homePageLV.ClickAppLauncher();
+
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userExl), true);
+                    extentReports.CreateStepLogs("Passed", " User: " + userExl + " logged in ");
                     homePageLV.ClickAppLauncher();
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -73,7 +81,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
+                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
 
                     //TMTT0038660
                     //TMTI0093775 Verify that the FVA user can access the Time Clock Recorder tab and can start the time clock

@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in on Lightning View");
+                    extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
                     homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);

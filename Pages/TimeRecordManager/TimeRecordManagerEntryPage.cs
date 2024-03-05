@@ -1196,42 +1196,50 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToWeeklyEntryMatrixLV()
         {
+            Thread.Sleep(2000);                       
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            Thread.Sleep(2000);
             driver.FindElement(tabWeeklyEntryMatrix).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
         public void GoToSummaryLogLV()
         {
+            Thread.Sleep(2000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
+            Thread.Sleep(2000);
             driver.FindElement(tabSummaryLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
         public void GoToDetailLogsLV()
         {
+            Thread.Sleep(2000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
+            Thread.Sleep(2000);
             driver.FindElement(tabDetailLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
         public void GoToWeeklyOverviewLV()
         {
+            Thread.Sleep(2000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyOverview);
+            Thread.Sleep(2000);
             driver.FindElement(tabWeeklyOverview).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
         public string EnterSummaryLogsHoursLV(string selectProject, string activity, string hours)
@@ -2017,18 +2025,18 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void SelectStaffMemberLV(string name)
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//a[text()='{name}']")).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
         }
        
-        public string GetSelectedStaffName()
+        public string GetSelectedStaffNameLV()
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
