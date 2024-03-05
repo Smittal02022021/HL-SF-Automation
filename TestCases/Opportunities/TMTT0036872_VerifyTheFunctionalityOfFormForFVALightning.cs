@@ -408,11 +408,29 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Since this form has previously been sent to the Fairness Engagement Committee, you dont have necessary permission to update", subMessage);
                 extentReports.CreateLog("Message: "+ subMessage + " is displayed while udpating FEIS form post submiting it ");
 
+                //51. TMTI0088338_Verify that the FVA User is not able to access the Review tab.
+                string tabReview = form.ValidateReviewTabPostSubmission();
+                Assert.AreEqual("Review tab is not accessible", tabReview);
+                extentReports.CreateLog("Review tab is not accessible to FVA user ");
+                usersLogin.DiffLightningLogout();
 
+                //52. TMTI0088340_Verify that the FVA CAO is able the Review tab where the Reviewed checkbox is checked by default.
+                string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
+                usersLogin.SearchUserAndLogin(valCAOUser);
+                string caoUser = login.ValidateUserLightningCAO();
+                Console.WriteLine("caoUser:" + caoUser);
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(1, 10));
+                Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1,10)), true);
+                extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
+                opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
+                opportunityDetails.ClickFEISFormL();
 
+                string tabReviewCAO = form.ValidateReviewTabPostSubmission();
+                Assert.AreEqual("Reviewed", tabReviewCAO);
+                extentReports.CreateLog("Review tab along with Review section details is displayed ");
 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

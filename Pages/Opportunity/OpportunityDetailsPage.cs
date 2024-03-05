@@ -1316,7 +1316,7 @@ public void ClickNewOpportunitySectorButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
             driver.FindElement(btnFEISL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, titleFEISL, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleFEISL, 160);
             string title = driver.FindElement(titleFEISL).Text;
             return title;
         }
@@ -3951,7 +3951,7 @@ public void ClickNewOpportunitySectorButton()
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,850)");
+            js.ExecuteScript("window.scrollTo(0,1050)");
             Thread.Sleep(5000);
             driver.FindElement(comboTombstoneL).Click();
             driver.FindElement(By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
