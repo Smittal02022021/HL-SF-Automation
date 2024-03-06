@@ -272,7 +272,7 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(txtInternalNotes).SendKeys(ReadExcelData.ReadData(excelPath, "Activity", 5));
 
             driver.FindElement(txtDate).Clear();
-            driver.FindElement(txtDate).SendKeys(DateTime.Today.AddDays(1).ToString("MM/dd/yyyy"));
+            driver.FindElement(txtDate).SendKeys(DateTime.Today.ToString("MM/dd/yyyy"));
 
             string valCompaniesDiscussed = ReadExcelData.ReadData(excelPath, "Activity", 6);
             driver.FindElement(txtCompaniesDiscussed).SendKeys(valCompaniesDiscussed);
