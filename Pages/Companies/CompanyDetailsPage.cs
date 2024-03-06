@@ -21,7 +21,7 @@ namespace SF_Automation.Pages.Companies
         By linkCompanyList = By.CssSelector("a[id*='13ee_link']>span");
         By linkCompanyMember = By.CssSelector("div[id*='13ee_body'] > table > tbody > tr.dataRow.even.last.first > th > a");
         By linkCampaign = By.CssSelector("a[title='Campaigns Tab']");
-        By btnGo = By.CssSelector("input[title='Go!']");
+        By btnGo = By.XPath("//input[@value=' Go! ']");
         By linkCampaignName = By.CssSelector("div[id*='nYp_CAMPAIGN_NAME']");
         By comboFlagReason = By.XPath("//label[text()='Flag Reason']/following::td/span/select");
         By txtFlagReasonComment = By.XPath("(//label[text()='Flag Reason Comment']/following::td/textarea)[1]");
@@ -250,8 +250,12 @@ namespace SF_Automation.Pages.Companies
             //Enter dependency name
             driver.FindElement(txtSearchBox).Clear();
             driver.FindElement(txtSearchBox).SendKeys(covSectorDependencyName);
-            driver.FindElement(btnGo).Click();
             Thread.Sleep(2000);
+
+            driver.FindElement(btnGo).Click();
+            driver.FindElement(btnGo).Click();
+
+            Thread.Sleep(4000);
 
             driver.SwitchTo().DefaultContent();
 
@@ -304,7 +308,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
 
             //Click on Show Filters link
-            //driver.FindElement(linkShowFilters).Click();
+            driver.FindElement(linkShowFilters).Click();
 
             //Enter filter values
             driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));

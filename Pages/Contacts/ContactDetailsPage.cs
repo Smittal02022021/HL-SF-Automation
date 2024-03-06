@@ -131,7 +131,7 @@ namespace SF_Automation.Pages.Contact
 
         By btnAddToCampaignHistory = By.XPath("//input[@name='addCampaign']");
         By txtSearchCampaign = By.XPath("//input[@id='lksrch']");
-        By btnGo = By.XPath("//input[@type='submit']");
+        By btnGo = By.XPath("//input[@value=' Go! ']");
         By linkCampaignResult = By.XPath("//tr[@class='dataRow even last first']/th/a");
 
 

@@ -414,7 +414,7 @@ namespace SF_Automation.Pages
         By valLegalEntity = By.CssSelector("div[id*='CF00N5A00000M0eg5j'] a");
         By valStaffMember = By.CssSelector("div[id*='team:0:j_id7'] > label");
         By btnDeleteOpportunity = By.CssSelector("td[id*='topButtonRow'] > input[value='Delete']");
-        By lnkInternalTeam = By.CssSelector("th[class=' dataCell  '] a");
+        By lnkInternalTeam = By.XPath("//th[@class=' dataCell  ']/a");
         By btnDeleteInternalTeam = By.CssSelector("td[id='topButtonRow'] > input[value='Delete']");
 
         By txtAdditionalClientSubjects = By.CssSelector("h2[class='slds-card__header-title']>span");
