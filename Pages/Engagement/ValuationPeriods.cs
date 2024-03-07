@@ -34,11 +34,11 @@ namespace SF_Automation.Pages.Engagement
         By valFeeCompleted = By.CssSelector("span[id*='id66']");
         By valRevenueMonth = By.CssSelector("span[id*='id82']");
         By valCancelMonth = By.CssSelector("span[id*='id83']");
-        By valRevenueYear = By.CssSelector("span[id*='id84']");
+        By valRevenueYear = By.CssSelector("span[id*='id85']");
         By valCancelYear = By.CssSelector("span[id*='id85']");
-        By valCancelYear1 = By.CssSelector("span[id*='id85']");
-        By valCompletedDate = By.CssSelector("span[id*='id86']");
-        By valCancelDate = By.CssSelector("span[id*='id87']");
+        By valCancelYear1 = By.CssSelector("span[id*='id86']");
+        By valCompletedDate = By.CssSelector("span[id*='id87']");
+        By valCancelDate = By.CssSelector("span[id*='id88']");
         By btnBackToValuation = By.CssSelector("input[value='Back To Valuation Period']");
         By valPositionName = By.CssSelector("td[id*='id167']>a");
         By txtUpReportFee = By.CssSelector("input[name*='id38']");
@@ -171,7 +171,7 @@ namespace SF_Automation.Pages.Engagement
         //To get Revenue Year of Position
         public string GetRevenueYear()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valRevenueYear, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRevenueYear, 190);
             string revenueYear = driver.FindElement(valRevenueYear).Text;
             return revenueYear;
         }

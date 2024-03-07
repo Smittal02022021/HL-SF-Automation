@@ -172,7 +172,7 @@ namespace SF_Automation.Pages.Common
         public void DiffLightningLogout()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 250);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 220);
             driver.FindElement(imgUser).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 150);

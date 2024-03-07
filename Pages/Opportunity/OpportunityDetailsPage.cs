@@ -543,6 +543,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         By valClientL = By.XPath("//span[text()='Client']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
+        By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
+        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//span//lightning-formatted-text");
 
 
         private By _ActivitySubject(string activitySubject)
@@ -1299,6 +1301,21 @@ public void ClickNewOpportunitySectorButton()
                 {
                 return "FEIS Form button is not displayed";
             } 
+        }
+
+        //Validate FEIS Form button
+        public string ValidatePortfolioValuationButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+            try
+            {
+                string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();               
+                return "Portfolio Valuation button is displayed";
+            }
+            catch(Exception )
+            {
+                return "Portfolio Valuation button is not displayed";
+            }
         }
 
         //Click FEIS button and get title of page
@@ -6314,7 +6331,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         public string ClickAddFVAOppContact()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFVAContact, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddFVAContact, 350);
             driver.FindElement(btnAddFVAContact).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
@@ -6410,6 +6427,13 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, valClientL, 90);
             string clientName = driver.FindElement(valClientL).Text;
             return clientName;
+        }
+        //Get Job Type
+        public string GetJobTypeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL, 90);
+            string jobType = driver.FindElement(valJobTypeL).Text;
+            return jobType;
         }
 
         //Get Subject Company

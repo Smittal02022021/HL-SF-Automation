@@ -150,8 +150,9 @@ namespace SF_Automation.Pages.Opportunity
         By txtTo = By.XPath("//label[text()='To']/ancestor::tr[1]/td/div/span/input[1]");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
-        By btnMore = By.XPath("//button[@title='More Tabs']");
+        By btnMore = By.XPath("//lightning-button-menu/button[@title='More Tabs']");
         By tabReview = By.XPath("//span[text()='Review']");
+        By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
 
         //Validate Opp Name
@@ -436,6 +437,7 @@ namespace SF_Automation.Pages.Opportunity
             {
                 return "Record has been deleted";
             }
+            
         }
 
         public string ValidateAddCounterpartyButton()
@@ -1275,7 +1277,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 100);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 80);
                 driver.FindElement(btnCancelL).Click();
                 return "Review tab is not accessible";
             }
