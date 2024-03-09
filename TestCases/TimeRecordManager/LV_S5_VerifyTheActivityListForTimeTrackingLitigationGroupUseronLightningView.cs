@@ -56,14 +56,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
 
-                    //login.SwitchToClassicView();
-                    //string user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Passed", "CF User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
@@ -119,7 +111,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     IsActivityListCorrect = timeEntry.ValidateActiviyListDropdownOptionsLogsPageLV(fileTMT111, userGrpNameExl);
                     Assert.IsTrue(IsActivityListCorrect, "Verify Activty List for logged in user is correct ");
-                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Summary Logs Page for logged in user:" + user);
+                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Summary Logs Page for logged in user:" + userExl);
 
                     //******************
                     timeEntry.GoToDetailLogsLV();
@@ -132,7 +124,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     IsActivityListCorrect = timeEntry.ValidateActiviyListDropdownOptionsLogsPageLV(fileTMT111, userGrpNameExl);
                     Assert.IsTrue(IsActivityListCorrect, "Verify Activty List for logged in user is correct ");
-                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Detail Logs for logged in user:" + user);
+                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Detail Logs for logged in user:" + userExl);
 
                     //*******************
                     timeEntry.GoToWeeklyOverviewLV();
@@ -144,7 +136,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     IsActivityListCorrect = timeEntry.ValidateActiviyListDropdownOptionsLogsPageLV(fileTMT111, userGrpNameExl);
                     Assert.IsTrue(IsActivityListCorrect, "Verify Activty List for logged in user is correct ");
-                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Weekly Overview Page for logged in user:" + user);
+                    extentReports.CreateStepLogs("Passed", "Activty List is correct on Weekly Overview Page for logged in user:" + userExl);
 
                     usersLogin.ClickLogoutFromLightningView();
                     login.SwitchToClassicView();

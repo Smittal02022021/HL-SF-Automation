@@ -69,16 +69,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                     usersLogin.SearchUserAndLogin(userExl);
 
-                    //login.SwitchToClassicView();
-
-                    //string stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -155,19 +145,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                     randomPages.CloseActiveTab(opportunityName);
                     extentReports.CreateStepLogs("Info", opportunityName+" : Tab is closed ");
-
-                    //Select List View and Validate if Opportunity exists under My Active Opportunities 
-                    //driver.Navigate().Refresh();
-                    //Thread.Sleep(5000);
                     extentReports.CreateStepLogs("Info", "Selecing My Active Opportunities View from List to Verify Opportunity " + opportunityName + " is present in selected List after changing the user from Internal Team");
                     //Select List View
                     randomPages.SelectListView("My Active Opportunities");
                     recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("No record found", recFound);
                     extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Opportunities for user:" + userExl);
-
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Pass", "User: "+ userExl + " Logged out");
                     usersLogin.UserLogOut();

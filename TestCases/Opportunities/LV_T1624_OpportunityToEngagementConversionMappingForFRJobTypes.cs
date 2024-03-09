@@ -130,8 +130,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", " Required Outcome Details are provided ");
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(userExl);
-                    //login.SwitchToClassicView();
-
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);

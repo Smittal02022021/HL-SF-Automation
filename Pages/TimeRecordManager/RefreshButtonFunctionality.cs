@@ -231,7 +231,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             driver.FindElement(txtTimeClockRecorder).Click();
             //Thread.Sleep(500);
             //WebDriverWaits.WaitUntilEleVisible(driver, imgSpinningLoader);

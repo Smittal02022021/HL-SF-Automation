@@ -53,14 +53,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                //usersLogin.SearchUserAndLogin(valUser);
-                //login.SwitchToClassicView();
-
-                //string stdUser = login.ValidateUser();
-                //Assert.AreEqual(stdUser.Contains(valUser), true);
-                //extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
-                //login.SwitchToLightningExperience();
                 usersLogin.SearchUserAndLogin(userExl);
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();

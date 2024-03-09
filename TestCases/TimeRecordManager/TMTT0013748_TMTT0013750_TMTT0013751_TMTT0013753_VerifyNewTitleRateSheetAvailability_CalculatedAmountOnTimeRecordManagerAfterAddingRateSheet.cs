@@ -27,8 +27,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
-        ContactHomePage conHome = new ContactHomePage();
-        ContactDetailsPage contactDetails = new ContactDetailsPage();
 
         public static string fileTMT13748= "TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet";
 

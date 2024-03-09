@@ -721,5 +721,17 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
             return driver.FindElement(msgLVPopup).Text;
         }
+        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
+        By imgSpinningLoader = By.XPath("//div[@class='loading']");
+        public void WaitForPageLoaderLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
     }
 }

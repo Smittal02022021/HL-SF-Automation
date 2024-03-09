@@ -60,14 +60,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     usersLogin.SearchUserAndLogin(userExl);
 
-                    //login.SwitchToClassicView();
-                    //string user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
@@ -151,7 +143,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(btnStatus = refreshButton.GetButtonStatusLV("Reset"), false, "Verify Refresh button is not displaying before project selection ");
                     extentReports.CreateStepLogs("Passed", "Refresh button is not Active before project selection");
 
-
                     //Select Project and Activity from Drop Down
                     refreshButton.SelectDropDownProjectandActivityLV(projectExl, activityExl);
                     extentReports.CreateStepLogs("Info", "Selected Project and Activity from Drop down");
@@ -224,7 +215,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     usersLogin.ClickLogoutFromLightningView();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");                    
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");                    
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();

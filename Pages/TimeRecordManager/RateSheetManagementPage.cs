@@ -42,6 +42,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
         By rowRateSheet = By.CssSelector("div[class*='slds-table'] > tr");
         By rateSheetNameList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[5]//a");
+        By comboSelectRateSheet3 = By.XPath("//div[contains(text(),'Add Record')]/following::div/div/div/select");
 
         //private By rateSheetName(String rateSheetname)
         //{
@@ -394,10 +395,19 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
             driver.FindElement(comboEngagement).SendKeys(engagement);
             Thread.Sleep(5000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet);
-            driver.FindElement(comboSelectRateSheet).SendKeys(rateSheet);
-            Thread.Sleep(2000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet,20);
+                driver.FindElement(comboSelectRateSheet).SendKeys(rateSheet);
+                Thread.Sleep(2000);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet1,10);
+                driver.FindElement(comboSelectRateSheet1).SendKeys(rateSheet);
+                Thread.Sleep(2000);
+            }
+            
 
             string getFromDate = DateTime.Now.ToString("MMM dd, yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetFromDate);
@@ -408,9 +418,16 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetToDate);
             driver.FindElement(txtRateSheetToDate).Clear();
             driver.FindElement(txtRateSheetToDate).SendKeys(getToDate);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet);
-            driver.FindElement(btnAddRateSheet).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet, 5);
+                driver.FindElement(btnAddRateSheet).Click();
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddRateSheet1, 5);
+                driver.FindElement(btnAddRateSheet1).Click();
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, rowRateSheet);
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);

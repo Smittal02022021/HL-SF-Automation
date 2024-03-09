@@ -53,14 +53,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users",1);
-                usersLogin.SearchUserAndLogin(userExl);
-
-                //login.SwitchToClassicView();
-                //string user = login.ValidateUser();
-                //Assert.AreEqual(user.Contains(userExl), true);
-                //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
-                //login.SwitchToLightningExperience();
-                //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                usersLogin.SearchUserAndLogin(userExl);               
 
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();

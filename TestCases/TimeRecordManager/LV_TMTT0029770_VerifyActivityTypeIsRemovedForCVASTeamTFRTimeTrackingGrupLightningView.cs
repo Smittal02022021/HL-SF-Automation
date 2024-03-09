@@ -53,14 +53,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3,1);
                 usersLogin.SearchUserAndLogin(userExl);
 
-                //login.SwitchToClassicView();
-                //string user = login.ValidateUser();
-                //Assert.AreEqual(user.Contains(userExl), true);
-                //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
-                //login.SwitchToLightningExperience();
-                //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                //homePageLV.ClickAppLauncher();
-
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(userExl), true);

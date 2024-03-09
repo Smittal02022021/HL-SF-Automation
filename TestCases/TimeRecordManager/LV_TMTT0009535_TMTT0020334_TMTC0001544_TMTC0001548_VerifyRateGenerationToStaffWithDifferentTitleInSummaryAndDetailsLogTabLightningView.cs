@@ -6,9 +6,8 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
-namespace SalesForce_Project.TestCases.TimeRecordManager
+namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTT0009535_TMTT0020334_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView:BaseClass
     {

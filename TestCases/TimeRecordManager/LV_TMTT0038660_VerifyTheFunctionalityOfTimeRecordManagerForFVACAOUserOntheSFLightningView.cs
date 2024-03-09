@@ -78,14 +78,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
 
-                    //login.SwitchToClassicView();
-                    //string user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
@@ -143,8 +135,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                         timeEntry.LogCurrentDateHoursLV(hoursExl);
                         extentReports.CreateStepLogs("Passed", "Hours entered on Weekly Entry Matrix Page");
                     }            
-                    //double billedAmount = rateSheetMgt.GetBillingAmountFromBillingPreparationTabLV();
-                    
+                                        
                     double expectedBilledAmount = Convert.ToDouble(hoursExl) *Convert.ToDouble(defaultRate);
                     extentReports.CreateStepLogs("Passed", "Expected Calculated Amount for the Selected sheet should be:: "+ expectedBilledAmount);
 
@@ -162,7 +153,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.IsTrue(btnStatus, "Verify Send Notification Button is default Disabled ");
                     extentReports.CreateStepLogs("Passed", "Send Notification Button is Enabled after selecting any record from list on Billing Preparation tab");
 
-                    //Assert.AreEqual(expectedAmount, billedAmount);
                     timeEntry.GoToStaffTimeSheetTabLV();
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     bool IsEntryDeleted= timeEntry.ClickDeleteAndCancel();                    
@@ -172,9 +162,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     IsEntryDeleted = timeEntry.ClickDeleteAndOK();
                     Assert.IsTrue(IsEntryDeleted, "Verify that on clicking the OK button from confirmation message will remove the entry");
                     extentReports.CreateStepLogs("Passed", "Clicking the OK button from confirmation message will remove the entry");
-                    //engagementExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
                     
-                    //timeEntry.GoToStaffTimeSheetTabLV();
                     timeEntry.GoToSummaryLogLV();
                     extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");                    
                     selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);

@@ -58,17 +58,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
-
-                    //login.SwitchToClassicView();
-
-                    //string stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //extentReports.CreateLog("User: " + stdUser + " logged in ");
-
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
@@ -135,11 +124,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Reverting Job Type to Actual Job Type
                     opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
 
-                    //login.SwitchToClassicView();
-                    //extentReports.CreateLog(stdUser + " User Switched to Classic View ");
-                    ////Logout of user and validate Admin login
-                    //usersLogin.UserLogOut();
-
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateLog(valUser + " User logged out ");
 
@@ -177,16 +161,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
 
-                    //login.SwitchToClassicView();
-
-                    //stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
-
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + valUser + " Standard User Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valUser), true);
@@ -221,14 +195,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
                     usersLogin.SearchUserAndLogin(userCAOExl);
-
-                    //login.SwitchToClassicView();
-                    //string caoUser = login.ValidateUser();
-                    //Assert.AreEqual(caoUser.Contains(userCAOExl), true);
-                    //extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
@@ -276,19 +242,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Reverting Job Type to Actual Job Type
                     engagementDetails.UpdateJobTypeLV(newJobType, existingJobType);
-                    //login.SwitchToClassicView();
-
-                    //engagementHome.ClickEngagementTab();
-                    //engagementHome.SearchEngagementWithNumber(engagementNumber);
-                    //Validate the value of Record Type in Engagement details page
-                    //string engRecordType = engagementDetails.GetRecordType();
-                    //string recordTypeExpected = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2);
-                    //Assert.AreEqual(recordTypeExpected, engRecordType);
-                    //extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
-
-                    
-                    //usersLogin.UserLogOut();
-                    //extentReports.CreateLog("User: " + userCAOExl + " logged out ");
 
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out");

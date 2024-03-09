@@ -12,7 +12,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTI0045474_VerifytheAmountisCalculatedandreflectedforNewEngagement : BaseClass
+    class ZObsolated_TMTI0045474_VerifytheAmountisCalculatedandreflectedforNewEngagement : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -57,11 +57,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
-                    //extentReports.CreateStepLogs("Passed", "FR User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
+                    
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);

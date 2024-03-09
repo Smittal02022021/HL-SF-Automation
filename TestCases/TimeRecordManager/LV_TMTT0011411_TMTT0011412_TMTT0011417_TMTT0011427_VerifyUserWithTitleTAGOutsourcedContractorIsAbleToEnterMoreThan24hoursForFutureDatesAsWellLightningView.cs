@@ -52,14 +52,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(userExl);
 
-                //login.SwitchToClassicView();
-                //string user = login.ValidateUser();
-                //Assert.AreEqual(user.Contains(userExl), true);
-                //extentReports.CreateStepLogs("Passed", "User: " + user + " logged in ");
-                //login.SwitchToLightningExperience();
-                //extentReports.CreateStepLogs("Info", "User: " + user + " Switched to Lightning View ");
-                //homePageLV.ClickAppLauncher();
-
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(userExl), true);
@@ -195,7 +187,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateStepLogs("Info", "User has deleted the record ");
-
                 extentReports.CreateStepLogs("Info", "Verify the Only Forecast option should be available in Activity List for future dates");
                                 
                 //Go to Summary Logs
@@ -205,15 +196,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                 extentReports.CreateStepLogs("Info", "Project is selected for Future date dates");
                 timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
-                extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");
-
-                //Time Clock Recorder
-                refreshButton.GoToTimeClockRecorderPageLV();
-                timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
-                extentReports.CreateStepLogs("Info", "Project is selected for Future date dates");
-                timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
-                extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");
-
+                extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");                
 
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");

@@ -59,15 +59,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity with Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-
-                    //usersLogin.SearchCFUserAndLogin(user);
                     usersLogin.SearchUserAndLogin(userExl);
-
-                    //string stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
-                    //login.SwitchToLightningExperience();
-
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -109,9 +101,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
 
-                }
-                //login.SwitchToClassicView();
-                //usersLogin.UserLogOut();
+                }                
                 usersLogin.ClickLogoutFromLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();

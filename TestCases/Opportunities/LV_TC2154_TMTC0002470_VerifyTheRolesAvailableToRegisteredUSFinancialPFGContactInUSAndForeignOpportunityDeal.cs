@@ -54,20 +54,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                //usersLogin.SearchUserAndLogin(userExl);
-                //login.SwitchToClassicView();
-
-                //string stdUser = login.ValidateUser();
-                //Assert.AreEqual(stdUser.Contains(valUser), true);
-                //extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
-                //login.SwitchToLightningExperience();
                 usersLogin.SearchUserAndLogin(userExl);
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
                 extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                //homePageLV.ClickAppLauncher();
 
                 extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
                 int teamMember = ReadExcelData.GetRowCount(excelPath, "Users");
@@ -78,7 +69,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
 
                     homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -177,8 +167,6 @@ namespace SF_Automation.TestCases.Opportunities
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
-
-
             }
             catch (Exception e)
             {

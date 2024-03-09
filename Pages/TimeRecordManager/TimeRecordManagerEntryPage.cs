@@ -1196,11 +1196,11 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToWeeklyEntryMatrixLV()
         {
-            Thread.Sleep(2000);                       
+            Thread.Sleep(5000);                       
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(tabWeeklyEntryMatrix).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(10000);
@@ -1208,11 +1208,11 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToSummaryLogLV()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(tabSummaryLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(10000);
@@ -1220,11 +1220,11 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToDetailLogsLV()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(tabDetailLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(10000);
@@ -1232,11 +1232,11 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToWeeklyOverviewLV()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyOverview);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(tabWeeklyOverview).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(10000);
@@ -1416,7 +1416,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
             WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
             CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
@@ -1462,7 +1462,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
             WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
             CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));            
@@ -1545,7 +1545,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
             WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
             driver.SwitchTo().DefaultContent();
@@ -1795,7 +1795,6 @@ namespace SF_Automation.Pages.TimeRecordManager
                     driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div/div[1]/input[1]")).SendKeys(txtHours);
                     Thread.Sleep(2000);
                     CustomFunctions.SelectByIndex(driver, driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div[2]/div/select")), 1);//2
-                    
                     break;
 
                 case "Tue":
@@ -2029,7 +2028,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             driver.FindElement(By.XPath($"//a[text()='{name}']")).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             driver.SwitchTo().DefaultContent();
@@ -2047,12 +2046,13 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToStaffTimeSheetTabLV()
         {
+            Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
             driver.FindElement(tabStaffTimeSheet).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            //Thread.Sleep(8000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
 
@@ -2069,12 +2069,11 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHours, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHours, 20);
             double enteredHours= double.Parse(driver.FindElement(valEnteredHours).Text);
             driver.SwitchTo().DefaultContent();
             return enteredHours;
         }
-
         public bool IsProjectSelectedLV(string value)
         {
             driver.SwitchTo().DefaultContent();
@@ -2182,8 +2181,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 driver.SwitchTo().DefaultContent();
                 return false;
             }
-        }
-        
+        }        
         public bool IsTimeClockRecorderCommentBoxDisplayedLV()
         {
             driver.SwitchTo().DefaultContent();
@@ -2279,8 +2277,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             string SummaryLogEntryTime = driver.FindElement(txtSummaryLogsActualHours).Text;
             driver.SwitchTo().DefaultContent();
             return SummaryLogEntryTime;
-        }
-        
+        }        
         public string GetDetailLogsTimeEntryLV()
         {
             driver.SwitchTo().DefaultContent();
@@ -2441,7 +2438,75 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
             return txtMsg;
         }
+        public string GetDefaultRateForStaffLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, valDefaultDollar, 80);
+            string DefaultDollar = driver.FindElement(valDefaultDollar).Text;
+            driver.SwitchTo().DefaultContent();
+            return DefaultDollar;
+        }
+        public string GetBorderColorTimeEntryLV(string weekday)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            string borderColor="";
 
+            switch (weekday)
+            {
+                case "Mon":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[3]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color);
+                    //Assert.AreEqual(color, "rgb(194, 57, 52)");
+                    break;
+                case "Tue":
+
+                     borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[4]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color1);
+                    //Assert.AreEqual(color1, "rgb(194, 57, 52)");
+                    break;
+                case "Wed":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[5]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color2);
+                    //Assert.AreEqual(color2, "rgb(194, 57, 52)");
+                    break;
+
+
+                case "Thu":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[6]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color3);
+                    //Assert.AreEqual(color3, "rgb(194, 57, 52)");
+                    break;
+                case "Fri":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[7]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color4);
+                    //Assert.AreEqual(color4, "rgb(194, 57, 52)");
+                    break;
+
+                case "Sat":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[8]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color5);
+                    //Assert.AreEqual(color5, "rgb(194, 57, 52)");
+                    break;
+                case "Sun":
+
+                    borderColor = driver.FindElement(By.XPath("//*[@class='staffTimeSheetWeeklyMassEdit']/div/table/tr[2]/td/div/div/table/tr[1]/td[2]/div[1]/div/div/div[1]/input[1]")).GetCssValue("border-color");
+                    //Console.WriteLine(color6);
+                    //Assert.AreEqual(color6, "rgb(194, 57, 52)");
+                    break;
+            }
+            driver.SwitchTo().DefaultContent();
+            if (borderColor == "rgb(194, 57, 52)")
+                return "Red";
+            else 
+            return "Black";
+        }
         public void GetWeekStartDay()
         {
             string todayDate = DateTime.Today.ToString("yyyy MM dd");

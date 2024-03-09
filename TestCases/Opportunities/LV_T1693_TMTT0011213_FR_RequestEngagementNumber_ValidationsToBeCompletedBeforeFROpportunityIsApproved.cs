@@ -60,14 +60,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
 
-                    //usersLogin.SearchCFUserAndLogin(user);
-                    //string stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(user), true);
-                    //extentReports.CreateStepLogs("Pass", "User: " + stdUser + " logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     usersLogin.SearchUserAndLogin(userExl);
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
@@ -111,8 +103,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::"+ txtExpectedRequiredFieldsValidation);
                     
                 }
-                //login.SwitchToClassicView();
-                //usersLogin.UserLogOut();
                 homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();

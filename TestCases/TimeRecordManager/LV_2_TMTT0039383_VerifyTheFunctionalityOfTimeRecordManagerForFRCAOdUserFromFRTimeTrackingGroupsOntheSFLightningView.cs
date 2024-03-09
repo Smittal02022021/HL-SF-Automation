@@ -59,14 +59,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     usersLogin.SearchUserAndLogin(userExl);
 
-                    //login.SwitchToClassicView();
-                    //string user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Passed", "CAO User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
@@ -83,7 +75,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //TMTI0097554	Verify that the CAO who is part of the Time Tracking FR Supervisor group is able to access the "Time Tracking" module
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
+                    extentReports.CreateStepLogs("Passed", "Module:: " + moduleNameExl + " is available for Logged-in user: " + userExl);
 
                     //TMTI0097558	Verify that the CAO is able to add hours to the project for any user.
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMembers", row, 1);

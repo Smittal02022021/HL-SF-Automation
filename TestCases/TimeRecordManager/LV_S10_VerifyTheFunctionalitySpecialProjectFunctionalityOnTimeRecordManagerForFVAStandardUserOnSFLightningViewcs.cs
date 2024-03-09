@@ -23,6 +23,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         private string hoursExl;
         private string projectNameExl;
         private string user;
+        private string userExl;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -57,17 +58,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 for (int row = 2; row <= rowUser; row++)
                 {
-                    string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
+                    userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     usersLogin.SearchUserAndLogin(userExl);
                    
-                    //login.SwitchToClassicView();
-                    //user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(userExl), true);
-                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
@@ -155,7 +148,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");                    
                 }
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Info", "User: " + user + " logged out");
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
             }
             catch (Exception e)
             {
