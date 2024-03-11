@@ -122,9 +122,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             string excelPath = dir + file;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(5000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownLOB));
 
             //Select LOB
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownLOB, 120);
@@ -187,16 +185,16 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(buttonCreateNewExpenseForm).Click();
             Thread.Sleep(5000);
 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+
             //Click Save button
             driver.FindElement(btnSave).Click();
             Thread.Sleep(2000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblRequestorErr));
 
             //Verify all mandatory fields
-            if(driver.FindElement(lblRequestorErr).Text==err && driver.FindElement(lblEventContactErr).Text == err && driver.FindElement(lblEventErr).Text == err && driver.FindElement(lblStartDateErr).Text == err && driver.FindElement(lblNoOfGuestsErr).Text == err)
+            if (driver.FindElement(lblRequestorErr).Text==err && driver.FindElement(lblEventContactErr).Text == err && driver.FindElement(lblEventErr).Text == err && driver.FindElement(lblStartDateErr).Text == err && driver.FindElement(lblNoOfGuestsErr).Text == err)
             {
                 if (driver.FindElement(lblExpectedAirFareCostErr).Text == err && driver.FindElement(lblExpectedFnBCostErr).Text == err && driver.FindElement(lblExpectedLodgingCostErr).Text == err && driver.FindElement(lblExpectedRegistrationFeeCostErr).Text == err && driver.FindElement(lblOtherCostErr).Text == err)
                 {
@@ -231,9 +229,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             string excelPath = dir + file;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtRequestor));
 
             //Fill all mandatory fields
             driver.FindElement(txtRequestor).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 14));
@@ -244,6 +240,8 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(selectRequestor).Click();
             Thread.Sleep(3000);
 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEventContact));
+
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
             Thread.Sleep(5000);
             driver.FindElement(txtEventContact).SendKeys(Keys.ArrowDown);
@@ -251,6 +249,8 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
             Thread.Sleep(3000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEventName));
 
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
             Thread.Sleep(5000);

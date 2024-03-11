@@ -159,9 +159,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(5000);
             string excelPath = dir + file;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
-            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditEventInfo));
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditEventInfo, 120);
             driver.FindElement(btnEditEventInfo).Click();
@@ -178,9 +176,8 @@ namespace SF_Automation.Pages.EventExpense
         public string GetUpdatedDescriptionOfOtherCost()
         {
             Thread.Sleep(3000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
-            Thread.Sleep(4000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblDescriptionOfOtherCost));
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblDescriptionOfOtherCost, 120);
             string updatedDescOfOtherCost = driver.FindElement(lblDescriptionOfOtherCost).Text;
@@ -195,9 +192,7 @@ namespace SF_Automation.Pages.EventExpense
 
             Thread.Sleep(3000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
-            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditEventInfo));
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditEventInfo, 120);
             driver.FindElement(btnEditEventInfo).Click();
@@ -208,7 +203,10 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblMandatoryFieldWarningMsg, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblMandatoryFieldWarningMsg));
             bool result = CustomFunctions.IsElementPresent(driver, lblMandatoryFieldWarningMsg);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDescriptOfOtherCost));
 
             driver.FindElement(txtDescriptOfOtherCost).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 15));
             driver.FindElement(btnSave).Click();
@@ -221,9 +219,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             bool result = false;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkRequestor));
 
             //Get Expense Request details from the details page
             string requestor = driver.FindElement(linkRequestor).Text;
@@ -247,8 +243,7 @@ namespace SF_Automation.Pages.EventExpense
             string eventLoc = driver.FindElement(lblEventLocation).Text;
             string numOfGuests = driver.FindElement(lblNumberOfGuests).Text;
 
-            js.ExecuteScript("window.scrollTo(0,2000)");
-            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblExpectedAirfareCost));
 
             string expAirfareCost = driver.FindElement(lblExpectedAirfareCost).Text;
             string expRegFee = driver.FindElement(lblExpectedRegistrationFee).Text;
@@ -258,8 +253,7 @@ namespace SF_Automation.Pages.EventExpense
             string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
             string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
 
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnClone));
 
             driver.FindElement(btnClone).Click();
             Thread.Sleep(3000);
@@ -369,9 +363,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetApproverResponseFromApprovalHistorySectionForApprover()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,2000)");
-            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
@@ -396,9 +388,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetNotesFromApprovalHistorySectionForApprover()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,2000)");
-            Thread.Sleep(5000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
