@@ -160,9 +160,11 @@ namespace SF_Automation.Pages.Reports
             driver.FindElement(btnDrillDown).Click();
 
             string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy");
+            string fromD = DateTime.Today.AddDays(-1).ToString("MM/dd/yyyy").Replace('-', '/');
+
             WebDriverWaits.WaitUntilEleVisible(driver, fromDate);
             driver.FindElement(fromDate).Clear();
-            driver.FindElement(fromDate).SendKeys(getDate);
+            driver.FindElement(fromDate).SendKeys(fromD);
             Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, toDate);
             driver.FindElement(toDate).Clear();
