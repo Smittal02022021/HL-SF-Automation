@@ -263,7 +263,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtFee).Clear();
             driver.FindElement(txtFee).SendKeys("10000");
             driver.FindElement(btnSave).Click();
-            return message;
+            return valOpportunity;
         }
 
         //Validate Women Led field
