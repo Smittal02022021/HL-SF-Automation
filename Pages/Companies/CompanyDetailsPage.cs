@@ -252,7 +252,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(txtSearchBox).SendKeys(covSectorDependencyName);
             Thread.Sleep(2000);
 
-            driver.FindElement(btnGo).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnGo));
             driver.FindElement(btnGo).Click();
 
             Thread.Sleep(4000);

@@ -241,8 +241,10 @@ namespace SF_Automation.Pages.Contact
 
             //Enter dependency name
             driver.FindElement(txtSearchBox).SendKeys(covSectorDependencyName);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnGo));
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             driver.SwitchTo().DefaultContent();
 

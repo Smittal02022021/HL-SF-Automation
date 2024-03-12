@@ -363,7 +363,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetApproverResponseFromApprovalHistorySectionForApprover()
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
@@ -388,7 +388,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetNotesFromApprovalHistorySectionForApprover()
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
