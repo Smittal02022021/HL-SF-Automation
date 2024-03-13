@@ -2,7 +2,6 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.TimeRecordManager;
 using SF_Automation.TestData;
@@ -12,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet : BaseClass
+    class ZObsolated_TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

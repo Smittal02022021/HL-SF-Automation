@@ -66,8 +66,7 @@ namespace SF_Automation.Pages.HomePage
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
         By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
         By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
-
-
+        By imgSpinningLoader = By.XPath("//div[@class='loading']");
         By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
        
@@ -76,7 +75,7 @@ namespace SF_Automation.Pages.HomePage
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
 
         }
-
+        
         public void SelectModule(string moduleName)
         {
             Thread.Sleep(2000);
@@ -88,6 +87,11 @@ namespace SF_Automation.Pages.HomePage
                 if (moduleValue.Equals(moduleName))
                 {
                     modules[module].Click();
+                    try
+                    {
+                        WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+                    }
+                    catch { Thread.Sleep(10000); }
                     Thread.Sleep(4000);
                     break;
                 }

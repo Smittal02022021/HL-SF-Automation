@@ -2024,11 +2024,17 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void SelectStaffMemberLV(string name)
         {
-            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            Thread.Sleep(2000);
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
+            //try
+            //{
+            //    WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            //}
+            //catch { Thread.Sleep(4000); }
+            //Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//a[text()='{name}']")).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             driver.SwitchTo().DefaultContent();
@@ -2046,13 +2052,13 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public void GoToStaffTimeSheetTabLV()
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(20000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
             driver.FindElement(tabStaffTimeSheet).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
         }
 
@@ -2388,6 +2394,16 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return ActivityValueInDetail;
         }
+        public string GetEnteredHoursInSummaryLogsLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHours, 20);
+            string enteredHours = driver.FindElement(valEnteredHours).Text;
+            driver.SwitchTo().DefaultContent();
+            return enteredHours;
+        }
+
         public string GetEnteredHoursInDetailLogsLV()
         {
             driver.SwitchTo().DefaultContent();

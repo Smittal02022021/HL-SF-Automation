@@ -72,6 +72,7 @@ namespace SF_Automation.Pages
             string url = driver.Url;
             if (url.Contains(".com/lightning")|| url.Contains(".lightning"))
             {
+                Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
                 driver.FindElement(imgProfile).Click();
                 Thread.Sleep(5000);

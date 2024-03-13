@@ -4,6 +4,8 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Threading;
 
 namespace SF_Automation.Pages.TimeRecordManager
@@ -316,7 +318,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             int rowCount = element.Count;
             for (int p = 1; p <= rowCount; p++)
             {
-                By titleRateSheetName = By.CssSelector($"div[class='x-grid3-body'] > div:nth-child({p}) > table > tbody > tr > td:nth-child(4) > div > a > span");
+                By titleRateSheetName = By.CssSelector($"div[class='x-grid3-body'] > div:nth-child({p}) > table > tbody > tr > td:nth-child(5) > div > a > span");
                 IWebElement rateSheetName = driver.FindElement(titleRateSheetName);
 
                 string sheet = rateSheetName.Text;
@@ -397,18 +399,15 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(5000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet,20);
-                driver.FindElement(comboSelectRateSheet).SendKeys(rateSheet);
-                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet,10);
+                driver.FindElement(comboSelectRateSheet).SendKeys(rateSheet);                
             }
             catch
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, comboSelectRateSheet1,10);
-                driver.FindElement(comboSelectRateSheet1).SendKeys(rateSheet);
-                Thread.Sleep(2000);
+                driver.FindElement(comboSelectRateSheet1).SendKeys(rateSheet);                
             }
-            
-
+            //Thread.Sleep(2000);
             string getFromDate = DateTime.Now.ToString("MMM dd, yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetFromDate);
             driver.FindElement(txtRateSheetFromDate).Clear();
@@ -527,5 +526,40 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
         }
+
+        private By nameRole(string role)
+        {
+            return By.XPath($"//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
+        }
+        public double GetDefaultRateAsPerRoleLV(string role)
+        {
+            //driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, nameRole(role),20);
+            string ratePerHour = driver.FindElement(nameRole(role)).Text;
+            double rate = Convert.ToDouble(ratePerHour.Split(' ')[1].Trim());
+            driver.SwitchTo().DefaultContent();
+            return rate;
+        }
+        private By nameRateSheet(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewConten')]//table//tbody//td//a[@title='{name}']");
+        }
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+
+        public string SelectTitleRateSheetLV(string name)
+        {
+            //driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, nameRateSheet(name), 20);
+            driver.FindElement(nameRateSheet(name)).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
+            string pageheader= driver.FindElement(txtPageHeader).Text;
+            //driver.SwitchTo().DefaultContent();
+            return pageheader;
+        }
+
     }
 }

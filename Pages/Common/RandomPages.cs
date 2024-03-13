@@ -733,5 +733,23 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
+        public void SelectListViewLV(string name)
+        {
+            Thread.Sleep(8000);
+            //driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(iconListViewPicker).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(_optionListView(name)).Click();
+            try
+            {
+                WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            }
+            catch { Thread.Sleep(4000); }
+            //driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+        }
     }
 }

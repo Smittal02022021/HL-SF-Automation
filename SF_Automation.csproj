@@ -841,6 +841,7 @@
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011418_TMTT0011410_VerifyTASSupervisorCanMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractorLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011419_TMTT0011424_TMTT0011414_TMTT0011415_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheetLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyActivityTypeIsRemovedForCVASTeamTFRTimeTrackingGrupLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagementsLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005211_TMTT0038660_VerifyTheTimeClockRecorderStartAndRefreshButtonsfunctionalityOnSFLightningView.cs" />
@@ -867,7 +868,7 @@
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011418_TMTT0011410_VerifyTheTASSupervisorCanOnlyEnterHoursMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011419_TMTT0011424_TMTT0011414_TMTT0011415_VerifytheTASSupervisorcanonlyenterhourslessthan24hoursforonedayforAssociates .cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.cs" />
     <Compile Include="TestData\ReadExcelData.cs" />
     <Compile Include="TestData\ReadJSONData.cs" />
     <Compile Include="UtilityFunctions\BaseClass.cs" />
