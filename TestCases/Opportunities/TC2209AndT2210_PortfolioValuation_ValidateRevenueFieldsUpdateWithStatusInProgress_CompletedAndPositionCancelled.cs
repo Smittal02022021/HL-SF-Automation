@@ -148,8 +148,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validate Completed Date
                 string compDate = valuationPeriods.GetCompletedDate();
-                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), compDate.Substring(0,8));
-                extentReports.CreateLog("Completed Date: " + compDate.Substring(0,8) + " same as today's date is displayed ");
+                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), compDate.Substring(0,9));
+                extentReports.CreateLog("Completed Date: " + compDate.Substring(0,9) + " same as today's date is displayed ");
 
                 //-----Validate Cancel Month, Cancel Year
                 string canMonth = valuationPeriods.GetCancelMonth();
@@ -186,8 +186,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validate Cancel Date
                 string can_Date = valuationPeriods.GetCancelDate();
-                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), can_Date.Substring(0,8));
-                extentReports.CreateLog("Cancel Date: " + can_Date.Substring(0,8) + " same as today's date is displayed after position is cancelled ");
+                Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), can_Date.Substring(0,9));
+                extentReports.CreateLog("Cancel Date: " + can_Date.Substring(0,9) + " same as today's date is displayed after position is cancelled ");
 
                 //Logout of standard user 
                 usersLogin.UserLogOut();

@@ -2,6 +2,8 @@
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -62,6 +64,19 @@ namespace SF_Automation.Pages.Opportunity
         By txtVPName = By.CssSelector("td[id *= 'id82'] > a");
         By valVPDate = By.CssSelector("td[id*='id87']>span");
         By valVPName = By.CssSelector("td[id *= 'id82']");
+        By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
+
+        By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
+        By lblValuationFieldsL = By.XPath("//tbody/tr/th/label");
+        By lblValuationButtonsL = By.XPath("//tbody/tr/td/input");
+        By btnSaveL = By.XPath("//input[@value='Save']");
+        By msgMandatoryValL = By.XPath("//tbody/tr/td//li");
+        By btnCancelL = By.XPath("//input[@value='Cancel']");
+        By tabDetails = By.XPath("//a[text()='Details']");
+        By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
+        By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
+        By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
+        By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
 
         public string ClickOppValuationPeriod()
         {
@@ -457,6 +472,129 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnBack).Click();
             return message;
         }
+
+        //Lightning
+
+        //Click New Opp Valuation Period and validate the fields
+        public bool ClickOppValuationAndValidateFields()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+            driver.FindElement(btnPortfolioVL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(0);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);
+            driver.FindElement(btnNewOppValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblValuationFieldsL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine(actualValue[0]);
+
+            string[] expectedValue = { "*\r\nName", "Frequency", "Summary", "Month/Quarter", "*\r\nValuation Date" };
+           // string[] expectedValue = { "Name", "Summary", "Valuation Date" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        
+
+        //Click New Opp Valuation Period and validate button
+        public bool ValidateButtonsOnValuationPeriod()
+        {           
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblValuationButtonsL);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            string[] expectedValue = {"Save", "Cancel"};
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Click on Save on Valuation Period page
+        public bool ValidateMandatoryFieldValidationsOnClickOfSaveButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 120);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgMandatoryValL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Name: You must enter a value", "Valuation Date: You must enter a value" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Opportunity details page is displayed upon clicking cancel button
+        public string ValidateOppDetailsPageUponClickingCancelButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 120);
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(msgNoValL).Text;
+            driver.FindElement(btnNewOppValPeriodL).Click();
+            return tab;
+        }
+
+        //Enter all details and save it.
+        public string EnterAndSaveOppValuationPeriodDetailsL(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(txtNameL).SendKeys(name);            
+            driver.FindElement(lnkValDateL).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valNameL).Text;
+            return value;
+        }
+
+
     }
 }
 

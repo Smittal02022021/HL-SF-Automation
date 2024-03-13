@@ -1105,7 +1105,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get success message when a company is added
         public string GetSuccessMessageWhenACompanyIsAdded()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);           
             WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 250);
             driver.FindElement(chkCompany).Click();
             Thread.Sleep(3000);
@@ -1120,6 +1120,13 @@ namespace SF_Automation.Pages.Opportunity
         public string GetSuccessMessageWhenMultipleCompaniesAreAdded()
         {
             Thread.Sleep(3000);
+            driver.FindElement(txtOppAddCounterparty).Clear();
+            Thread.Sleep(5000);
+            driver.FindElement(txtOppAddCounterparty).SendKeys("3Pillar");
+            //driver.FindElement(txtOppAddCounterparty).Click();
+            Thread.Sleep(5000);
+            //driver.FindElement(By.XPath("//lightning-accordion-section[1]//p[1]/c-custom-search-component/div/div/div/div[2]/ul/li[2]/div/span[2]/span")).Click();
+            driver.FindElement(btnSearchOppAddCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
             driver.FindElement(chkCompany).Click();
             driver.FindElement(chkCompany2).Click();

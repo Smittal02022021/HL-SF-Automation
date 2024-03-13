@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,9 @@ namespace SF_Automation.Pages
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
-
+        By tabOpportunityL = By.XPath("//a/span[text()='Opportunities']");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By tab1stOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
         By comboJobTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
@@ -381,6 +384,19 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(txtSearchOpp).Displayed.ToString();
             return name;            
         }
+       
+        public void ClickOpportunityTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpportunityL, 150);
+            driver.FindElement(tabOpportunityL).Click();            
+        }
+
+        public void Click1stOpportunityTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tab1stOpportunityL, 150);
+            driver.FindElement(tab1stOpportunityL).Click();
+        }
+        
 
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfOpportunities(string name)
@@ -391,7 +407,16 @@ namespace SF_Automation.Pages
             driver.FindElement(btnRefresh).Click();
             Thread.Sleep(4000);
             string opp = driver.FindElement(valSearchedOpp).Text;
-            return opp;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+                driver.FindElement(valRec1st).Click();
+                return opp;
+            }
+            catch (Exception)
+            {
+                return opp;
+            }
         }
 
         //Click on New button
@@ -494,8 +519,36 @@ namespace SF_Automation.Pages
             //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
             //driver.FindElement(imgOppL).Click();
             //Thread.Sleep(8000);
-
         }
+
+        
+
+       public void SearchMyOpportunitiesInLightningFinUser(string value, string user)
+        {
+            Thread.Sleep(6000);
+            if (user.Equals("James Craven"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                driver.FindElement(btnOppNumL).Click();
+                Thread.Sleep(4000);
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                driver.FindElement(btnOppNumL).Click();
+                Thread.Sleep(4000);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumL, 100);
+            driver.FindElement(txtOppNumL).SendKeys(value);
+            Thread.Sleep(6000);
+            driver.FindElement(imgOppL).Click();
+            Thread.Sleep(7000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
+            //driver.FindElement(imgOppL).Click();
+            //Thread.Sleep(8000);
+        }
+
+
         public bool IsIndustryTypePresentInDropdownHomePage(string industryType)
         {
             bool isFound = false;

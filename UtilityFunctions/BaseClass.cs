@@ -20,7 +20,15 @@ namespace SF_Automation.UtilityFunctions
             //ChromeOptions options = new ChromeOptions();
             //options.AddArguments("user-data-dir=" + path);
             //options.AddArguments("profile-directory=Default");
-            driver = new ChromeDriver();            
+                    //driver = new ChromeDriver();            
+                    //driver.Navigate().GoToUrl("https://test.salesforce.com/");
+                    //driver.Manage().Window.Maximize();
+                    //builder = new Actions(driver);
+                    //return driver;
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--force-device-scale-factor=80/100");// set the zoom level % 
+            driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
             builder = new Actions(driver);

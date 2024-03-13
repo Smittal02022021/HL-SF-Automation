@@ -60,7 +60,7 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By comboAddSubjectL = By.XPath("//button[contains(@aria-label,'Additional Subject')]");
         By comboBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial Owner & Control Person form?')]");
         By comboHLMaterialL = By.XPath("//button[contains(@aria-label,'Does HL Have Material Non-Public Info?')]");
-        By btnSaveL = By.XPath("//button[text()='Save']");
+        By btnSaveL = By.XPath("//li[3]//runtime_platform_actions-executor-lwc-headless//button");
         By btnNewOppL = By.XPath("//div[contains(@class,'lvmForceActionsContainer')]//a[@title='New']");
         By txtStaff = By.XPath("//input[@placeholder='Begin Typing Name...']");
         By txtEstFee = By.XPath("//input[@name='Fee__c']");
@@ -740,7 +740,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         //Validate mandatory field validations
         public string ValidateMandatoryFieldsValidations()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 100);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);

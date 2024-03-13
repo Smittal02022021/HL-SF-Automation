@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Security.Policy;
 using System.Linq.Expressions;
+using System.Web;
 
 namespace SF_Automation.Pages
 {
@@ -545,7 +546,10 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//span//lightning-formatted-text");
-
+        By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
+        By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
+        By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
+        By val2ndJobTypeL = By.XPath("//section/div[1]/div/div[2]/div[2]/section[2]//flexipage-column2[1]/div/slot/flexipage-field[5]//lightning-formatted-text");
 
         private By _ActivitySubject(string activitySubject)
         {
@@ -1305,10 +1309,10 @@ public void ClickNewOpportunitySectorButton()
 
         //Validate FEIS Form button
         public string ValidatePortfolioValuationButton()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+        {            
             try
             {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 40);
                 string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();               
                 return "Portfolio Valuation button is displayed";
             }
@@ -1338,7 +1342,62 @@ public void ClickNewOpportunitySectorButton()
             return title;
         }
 
+        //Click Portfolio valuation button and get title of page
+        public string ClickPortfolioValuationL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+            driver.FindElement(btnPortfolioVL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(0);
+            //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgNoValL, 160);
+            string title = driver.FindElement(msgNoValL).Text;
+            return title;
+        }
+       
 
+        //Validate Back To Opportunity button
+        public string ValidateReturnToOppButton()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOppL, 60);
+                string valImage = driver.FindElement(btnBackToOppL).Displayed.ToString();
+                return "Back To Opportunity button is displayed";
+            }
+            catch (Exception)
+            {
+                return "Back To Opportunity button is not displayed";
+            }
+        }
+
+
+        //Validate New Opp Valuation Period button
+        public string ValidateNewOppValuationPeriodButton()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);
+                string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
+                return "New Opportunity Valuation Period button is displayed";
+            }
+            catch (Exception)
+            {
+                return "New Opportunity Valuation Period button is not displayed";
+            }
+        }
+
+        //Validate Opportunity details page upon clicking Back to opportunity button
+        public string ValidateOppDetailsPageUponClickOfBackToOppButton()
+        {            
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOppL, 120);
+            driver.FindElement(btnBackToOppL).Click();
+            driver.SwitchTo().DefaultContent();
+            string tab = driver.FindElement(tabDetails).Text;
+                return tab;
+           
+        }
         //Enter HL Internal team details
         public void EnterInternalTeamDetails(string file)
         {
@@ -6431,11 +6490,17 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Get Job Type
         public string GetJobTypeL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL, 190);
             string jobType = driver.FindElement(valJobTypeL).Text;
             return jobType;
         }
-
+        //Get Job Type
+        public string Get2ndJobTypeL()
+        {
+            Thread.Sleep(5000);
+            string jobType = driver.FindElement(val2ndJobTypeL).Text;
+            return jobType;
+        }
         //Get Subject Company
         public string GetSubjectCompanyL()
         {
