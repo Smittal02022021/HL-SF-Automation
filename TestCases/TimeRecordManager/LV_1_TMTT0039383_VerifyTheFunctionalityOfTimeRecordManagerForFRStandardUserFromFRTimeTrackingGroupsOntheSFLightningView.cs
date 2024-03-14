@@ -19,11 +19,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
         public static string fileTMTT0039383 = "LV_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView";
 
-        private string textMessage;
-        private string hoursExl;
-        private string activityExl;
+        private string msgSuccess;
         private string selectProject;
-        private string txtHours;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -83,7 +80,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string weakDayExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2); 
                     string weakEndExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
 
-                    string msgSuccess= timeEntry.EnterFRUserHoursLV(selectProject, weakDayExl, weakEndExl);
+                    msgSuccess= timeEntry.EnterFRUserHoursLV(selectProject, weakDayExl, weakEndExl);
                     Assert.AreEqual("-Time Record Added",msgSuccess);
                     extentReports.CreateStepLogs("Passed", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
                     extentReports.CreateStepLogs("Passed", " Hours entered for FR User with Success Message: " + msgSuccess);

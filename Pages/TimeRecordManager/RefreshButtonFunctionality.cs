@@ -408,5 +408,16 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(selectActivityDropDown).Click();
             driver.SwitchTo().DefaultContent();
         }
+        //Get Error Message when project is not Selected
+        public string GetErrorMessageStartLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, msgErrorStart,20);
+            var errormsg = driver.FindElement(msgErrorStart);
+            var errmsg = errormsg.Text;
+            driver.SwitchTo().DefaultContent();
+            return errmsg;
+        }
     } 
 }

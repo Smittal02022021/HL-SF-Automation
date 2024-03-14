@@ -1252,33 +1252,39 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN,20);
                 driver.FindElement(comboSelectProjectN).Click();
                 driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
                 //extracode
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName,20);
                 driver.FindElement(comboSelectProjectName).Click();                
             }
             catch (Exception e)
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject,20);
                 driver.FindElement(comboSelectProject).SendKeys(selectProject);
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity,20);
             driver.FindElement(comboLogActivity).SendKeys(activity);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime,20);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdd,20);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
-            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
-            string txtMsg = driver.FindElement(textSuccessMsg).Text.Trim();
-            driver.SwitchTo().DefaultContent();
-            Thread.Sleep(2000);
-            return txtMsg;
+            
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog, 20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
+                WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
+                string txtMsg = driver.FindElement(textSuccessMsg).Text.Trim();
+                driver.SwitchTo().DefaultContent();
+                Thread.Sleep(2000);
+                return txtMsg;
+            }
+            catch{ return "Records is Not Added"; }
+            
         }
         public void EnterHoursLogsActivityOptionsLV(string selectProject, string hours)
         {
@@ -1290,11 +1296,11 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN,20);
                 driver.FindElement(comboSelectProjectN).Click();
                 driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
                 //extracode
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName,20);
                 driver.FindElement(comboSelectProjectName).Click();
             }
             catch (Exception e)
@@ -1302,7 +1308,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProject);
                 driver.FindElement(comboSelectProject).SendKeys(selectProject);
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEnterSummaryLogEntryTime,20);
             driver.FindElement(txtEnterSummaryLogEntryTime).Clear();
             driver.FindElement(txtEnterSummaryLogEntryTime).SendKeys(hours);
             WebDriverWaits.WaitUntilEleVisible(driver, comboLogActivity,10);
@@ -1480,10 +1486,10 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(txtSummaryLogsAddRecordDate).SendKeys(getDate);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectN,20);
                 driver.FindElement(comboSelectProjectN).Click();
                 driver.FindElement(comboSelectProjectN).SendKeys(selectProject);
-                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSelectProjectName,20);
                 driver.FindElement(comboSelectProjectName).Click();                
             }
             catch (Exception e)
@@ -1499,14 +1505,19 @@ namespace SF_Automation.Pages.TimeRecordManager
                         
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
-            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
-            string txtMsg= driver.FindElement(textSuccessMsg).Text.Trim();
-            driver.SwitchTo().DefaultContent();
-            Thread.Sleep(2000);
-            return txtMsg;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog,20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(tableSummaryLog));
+                WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg,20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
+                string txtMsg = driver.FindElement(textSuccessMsg).Text.Trim();
+                driver.SwitchTo().DefaultContent();
+                Thread.Sleep(2000);
+                return txtMsg;
+            }
+            catch { return "Records is Not Added"; }
+            
         }        
 
         public bool EnterDetailLogsHoursValidateActivityListLV(string selectProject, string hours)
@@ -2028,7 +2039,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             Thread.Sleep(2000);
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             //try
             //{
             //    WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);

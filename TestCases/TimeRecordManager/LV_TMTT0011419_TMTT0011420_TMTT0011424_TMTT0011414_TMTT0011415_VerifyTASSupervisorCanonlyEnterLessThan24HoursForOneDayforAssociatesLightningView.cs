@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTT0011419_TMTT0011424_TMTT0011414_TMTT0011415_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView:BaseClass
+    class LV_TMTT0011419_TMTT0011420_TMTT0011424_TMTT0011414_TMTT0011415_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -105,25 +105,34 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User has deleted the record ");
                 
                 //Add the Weekly Entry Matrix more than 24 hrs
-                //Go to Weekly Entry Matrix
                 selectProject = ReadExcelData.ReadData(excelPath, "Project_Title", 1);
                 txtHours = ReadExcelData.ReadData(excelPath, "Update_Hours", 1);
                 timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
-                string weekDay = timeEntry.LogFutureDateHoursLV(txtHours);
-                extentReports.CreateStepLogs("Info", "Trying to add " + txtHours + " hours on Weekly Matrix Entry Page ");
-
+                string weekDay = timeEntry.LogCurrentDateHoursLV(txtHours); //timeEntry.LogFutureDateHoursLV(txtHours);
+                extentReports.CreateStepLogs("Info", "Trying to add " + txtHours + " hours on Weekly Matrix Entry Page ");                
                 string boarderColor = timeEntry.GetBorderColorTimeEntryLV(weekDay);
                 Assert.AreEqual(boarderColor, "Red");
                 extentReports.CreateStepLogs("Passed", "Hour's Input has color: " + boarderColor+" for hours: "+ txtHours);
 
-                //Delete Time Entry Matrix
-                timeEntry.DeleteTimeEntryLV();
-                extentReports.CreateStepLogs("Passed", "User has deleted the record ");
+                //TMTT0011420 Verify User other than Title TAG Outsourced Contractor cannot enter more than 24 hours on Summay Logs Page
+                string activityExl = ReadExcelData.ReadData(excelPath, "Project_Title", 2);
+                timeEntry.GoToSummaryLogLV();
+                extentReports.CreateStepLogs("Info", "User has navigated to Summary logs ");
+                string textMessage = timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl, txtHours);
+                Assert.AreNotEqual(textMessage, "Time Record Added");
+                extentReports.CreateStepLogs("Passed", "User other than Title TAG Outsourced Contractor cannot enter more than 24 hours on Summay Logs Page");
+
+                ////TMTT0011420 Verify User other than Title TAG Outsourced Contractor cannot enter more than 24 hours on Detail Logs Page
+                timeEntry.GoToWeeklyEntryMatrixLV();
+                timeEntry.GoToDetailLogsLV();
+                extentReports.CreateStepLogs("Info", "User has naigated to details log ");
+                textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, txtHours);
+                Assert.AreNotEqual(textMessage, "Time Record Added");
+                extentReports.CreateStepLogs("Passed", "User other than Title TAG Outsourced Contractor cannot enter more than 24 hours on Summay Logs Page");
 
                 //Verify the TAS Supervisor can only enter hours less than 24 hours for one day for Associates
                 //Select Staff Member from the list
                 string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", 2, 1);
-
                 timeEntry.SelectStaffMemberLV(staffNameExl);
                 string selectedStaffMember = timeEntry.GetSelectedStaffNameLV();
                 Assert.AreEqual(staffNameExl, selectedStaffMember);
@@ -131,8 +140,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Go to Weekly Entry Matrix
                 timeEntry.GoToWeeklyEntryMatrixLV();
-                selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);
-                txtHours = ReadExcelData.ReadData(excelPath, "Update_Hours", 1);
+                selectProject = ReadExcelData.ReadData(excelPath, "WeeklyEntryMatrix", 1);                
                 timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
 
                 //Add the Weekly Entry Matrix more than 24 hrs
@@ -142,12 +150,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Get border color of weekly entry
                 boarderColor = timeEntry.GetBorderColorTimeEntryLV(weekDay);
                 Assert.AreEqual(boarderColor, "Red");//Red
-                extentReports.CreateStepLogs("Passed", "Hour's Input has color: " + boarderColor + " for hours: " + txtHours);
+                extentReports.CreateStepLogs("Passed", "Hour's Input has color: " + boarderColor + " for hours: " + txtHours);                
 
                 //Verify Time Entires provided on Weekly time sheet by TAS Supervisor user is reflecting on Summary and Detail Log tabs for selected associate
                 txtHours = ReadExcelData.ReadData(excelPath, "Update_Timer", 1);                 
                 timeEntry.LogCurrentDateHoursLV(txtHours);
-
                 driver.Navigate().Refresh();
                 randomPages.WaitForPageLoaderLV();
                 timeEntry.SelectStaffMemberLV(staffNameExl);
@@ -171,7 +178,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Verify detail logged hours
                 DetailLogsTime = timeEntry.GetDetailLogsTimeEntryLV();
                 DetailLogTime = Convert.ToDouble(DetailLogsTime);
-
                 Assert.AreEqual(Convert.ToDouble(txtHours), DetailLogTime);
                 extentReports.CreateStepLogs("Passed", "Added Hours: " + DetailLogTime + " are available on Detail logs Page");
 
@@ -202,10 +208,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Get total amount calculated with default rate and entered hours
                 double totalAmountCalculated = DefaultRateForStaff * enteredHours;
 
-                //Get total amount displayed
+                //Verify calculated and displayed amount should matches with Actual total amount displayed
                 double totalAmountDisplayed = timeEntry.GetTotalAmountLV();
-
-                //Verify calculated and displayed amount should matches
                 Assert.AreEqual(totalAmountCalculated, totalAmountDisplayed);
                 extentReports.CreateStepLogs("Passed", "Total Amount: " + totalAmountDisplayed + " displayed is matching with the calculation based on total hours entered and the default rate based for staff title on Summary Log");
 
@@ -213,10 +217,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.GoToDetailLogsLV();
                 extentReports.CreateStepLogs("Info", "User has naigated to details log ");
 
-                //Get total amount displayed
-                double totalAmountDisplayedInDetailLog = timeEntry.GetTotalAmountLV();
-
-                //Verify calculated and displayed amount should matches
+                //Verify calculated and displayed amount should matches with Actual total amount displayed
+                double totalAmountDisplayedInDetailLog = timeEntry.GetTotalAmountLV();                
                 Assert.AreEqual(totalAmountCalculated, totalAmountDisplayed);
                 extentReports.CreateStepLogs("Passed", "Total Amount: " + totalAmountDisplayedInDetailLog + " displayed is matching with the calculation based on total hours entered and the default rate based on staff title on Detail Log");
 
@@ -226,7 +228,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Delete rate sheet
                 rateSheetMgt.DeleteRateSheetLV(engagementExl);
-                extentReports.CreateLog("Deleted rate sheet entry successfully after verification ");
+                extentReports.CreateStepLogs("Info", "Deleted rate sheet entry successfully after verification ");
 
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");

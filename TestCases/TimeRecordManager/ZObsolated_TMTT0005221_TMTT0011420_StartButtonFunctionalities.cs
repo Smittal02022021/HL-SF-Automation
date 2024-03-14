@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
@@ -7,13 +6,11 @@ using SF_Automation.Pages.TimeRecordManager;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Threading;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0005221_TMTT0011420_StartButtonFunctionalities : BaseClass
+    class ZObsolated_TMTT0005221_TMTT0011420_StartButtonFunctionalities : BaseClass
     {
-
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
@@ -21,8 +18,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
-
-
 
         public static string fileTMT5221 = "TMTT0005221_StartButtonFunctionalities";
 
@@ -34,7 +29,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-
 
         [Test]
         //camel case,change verify startbutton functionalities and understandable
@@ -89,17 +83,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.IsTrue(errMsg.Contains(ReadExcelData.ReadData(excelPath, "Error_Message", 1)), "Error message is dispalying correctly");
                 extentReports.CreateLog(" Error message: " + errMsg + " is displaying upon clicking Start Button ");
 
-
                 //Select Project and Activity from Drop Down
                 refreshButton.SelectDropDownProjectandActivity(excelPath);
                 extentReports.CreateLog("Selected Project and Activity from Drop down");
 
-
                 //Verify Start button is enabled when project and activity is selected
-
                 Assert.AreEqual(RefreshButtonFunctionality.ButtonStartClickable(), true);
                 extentReports.CreateLog("Start button is enabled after selecting Project and Activity Drop down ");
-
 
                 //Click Time Record Manager Tab
                 homePage.ClickTimeRecordManagerTab();
@@ -108,13 +98,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
 
-
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
 
                 string selectProject1 = ReadExcelData.ReadData(excelPath, "Project_Title", 1);
                 timeEntry.SelectProjectWeeklyEntryMatrix(selectProject1, fileTMT5221);
-
 
                 string weekDay1 = timeEntry.LogFutureDateHours(fileTMT5221);
                 //Get border color of weekly entry
@@ -128,14 +116,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.GoToSummaryLog();
                 extentReports.CreateLog("User has navigated to Summary logs ");
                 timeEntry.EnterSummaryLogHours(fileTMT5221);
-
                 Assert.IsFalse(timeEntry.VerifySuccessMsgDisplay());
 
                 extentReports.CreateLog("TAG outsourced Contractor is not able to enter more than 24 hours in Summary Log ");
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
                 extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
-
 
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntry();
@@ -144,24 +130,17 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Go to Details log
                 timeRecorder.GoToDetailLogs();
                 extentReports.CreateLog("User has navigated to details log ");
-
                 timeEntry.EnterSummaryLogHours(fileTMT5221);
-
                 Assert.IsFalse(timeEntry.VerifySuccessMsgDisplay());
-
                 extentReports.CreateLog("TAG outsourced Contractor is not able to enter more than 24 hours in Details Log ");
-
-
 
                 // Go to Weekly Entry Matrix
                 homePage.ClickTimeRecordManagerTab();
                 extentReports.CreateLog("User is navigated to Weekly Entry Matrix ");
 
-
                 //Delete Time Entry Matrix
                 timeEntry.DeleteTimeEntry();
                 extentReports.CreateLog("User has deleted the record ");
-
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

@@ -462,16 +462,21 @@ namespace SF_Automation.Pages.TimeRecordManager
                 Thread.Sleep(10000);
 
                 WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
-                driver.FindElement(comboEngagement).SendKeys(engagementName);
-                Thread.Sleep(10000);
-
-                WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
-                driver.FindElement(btnCrossDeleteRecord).Click();
-                Thread.Sleep(5000);
-
-                IAlert alert = driver.SwitchTo().Alert();
-                alert.Accept();
-                Thread.Sleep(5000);
+                try
+                {
+                    driver.FindElement(comboEngagement).SendKeys(engagementName);
+                    Thread.Sleep(10000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnCrossDeleteRecord);
+                    driver.FindElement(btnCrossDeleteRecord).Click();
+                    Thread.Sleep(5000);
+                    IAlert alert = driver.SwitchTo().Alert();
+                    alert.Accept();
+                    Thread.Sleep(5000);
+                }
+                catch 
+                {
+                    //Do Nothing as there is no Rate sheet added
+                }                
             }
             driver.SwitchTo().DefaultContent();
         }

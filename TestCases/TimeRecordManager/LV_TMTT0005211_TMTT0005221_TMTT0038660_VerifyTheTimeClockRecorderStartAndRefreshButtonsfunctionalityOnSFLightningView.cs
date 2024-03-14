@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
@@ -10,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTT0005211_TMTT0038660_VerifyTheTimeClockRecorderStartAndRefreshButtonsfunctionalityOnSFLightningView:BaseClass
+    class LV_TMTT0005211_TMTT0005221_TMTT0038660_VerifyTheTimeClockRecorderStartAndRefreshButtonsfunctionalityOnSFLightningView:BaseClass
     {
         //Time Tracking Litigation
         //Time Tracking Litigation Supervisor
@@ -21,7 +20,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         LVHomePage homePageLV = new LVHomePage();
-
+        RandomPages randomPages = new RandomPages();
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeClockRecorderForFVAStandardUserOnSFLightningView";
         
         private int GetSecondsTimer;
@@ -44,13 +43,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0038660;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
 
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
 
@@ -74,7 +73,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
-
+                    randomPages.WaitForPageLoaderLV();
                     //TMTT0038660
                     //TMTI0093775 Verify that the FVA user can access the Time Clock Recorder tab and can start the time clock
                     // TMTI0093778 Verify that the FVA Supervisor can access the Time Clock Recorder tab and can start the time clock.
@@ -94,6 +93,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Select Project and Activity from Drop Down
                     string projectExl= ReadExcelData.ReadDataMultipleRows(excelPath, "TimeClockRecorder", row, 1);
                     string activityExl= ReadExcelData.ReadDataMultipleRows(excelPath, "TimeClockRecorder", row, 3);
+
+                    //TMTT0005221- Start button functionalities
+                    refreshButton.ClickStartButtonLV();
+                    string txtErrorMesageExl= ReadExcelData.ReadData(excelPath, "Error_Message", 1);
+                    string errMsg = refreshButton.GetErrorMessageStartLV();
+                    Assert.IsTrue(errMsg.Contains(txtErrorMesageExl), "Error message is dispalying correct");
+                    extentReports.CreateStepLogs("Passed", " Error Message: " + errMsg + " is displaying upon clicking Start Button without Selecting the Project ");
+                    //----
 
                     refreshButton.SelectDropDownProjectandActivityLV(projectExl, activityExl);
                     extentReports.CreateStepLogs("Passed", "Selected Project and Activity from Drop down");

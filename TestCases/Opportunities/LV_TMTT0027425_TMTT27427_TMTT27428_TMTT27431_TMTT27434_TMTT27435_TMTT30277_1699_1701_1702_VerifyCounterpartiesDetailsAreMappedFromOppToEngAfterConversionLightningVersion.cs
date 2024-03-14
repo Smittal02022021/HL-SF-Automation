@@ -7,13 +7,11 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using System.Diagnostics;
 using OpenQA.Selenium;
-using AventStack.ExtentReports;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class VT_TMTT0027425_TMTT0027427_TMTT0027428_TMTT0027431_TMTT0027434_TMTT0027435_TMTT0030277_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion : BaseClass
+    class LV_TMTT0027425_TMTT27427_TMTT27428_TMTT27431_TMTT27434_TMTT27435_TMTT30277_1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -28,7 +26,6 @@ namespace SF_Automation.TestCases.Opportunities
         MassRelationshipCreatorPage creatorPage = new MassRelationshipCreatorPage();
 
         public static string TMTI0063910 = "TMTI0063910_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion";
-
         private string popupMessage;
 
         [OneTimeSetUp]
@@ -61,11 +58,11 @@ namespace SF_Automation.TestCases.Opportunities
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
                 for (int row = 2; row <= rowOpp; row++)
                 {
-
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
 
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     usersLogin.SearchCFUserAndLogin(valUser);
                     login.SwitchToClassicView();
 
@@ -82,7 +79,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
@@ -91,11 +87,8 @@ namespace SF_Automation.TestCases.Opportunities
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
-
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, TMTI0063910);
-                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
-
-                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                    extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");                    
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab = addOpportunity.EnterStaffDetailsL(TMTI0063910);
@@ -111,7 +104,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-
                     addOpportunityContact.CickAddCFOpportunityContact();
                     addOpportunityContact.CreateContactL2(TMTI0063910);
                     extentReports.CreateLog(valContactType + " is added as " + valContactType+"opportunity contact is saved ");
@@ -126,7 +118,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(stdUser + " Standard User logged out ");
-
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
@@ -141,7 +132,6 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         extentReports.CreateLog("Conflict Check fields are updated ");
                     }
-
                     //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
                     if (valJobType.Equals("Sellside"))
                     {
@@ -152,7 +142,6 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         Console.WriteLine("Not required to update ");
                     }
-
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
@@ -166,13 +155,13 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadData(excelPath, "ModuleName", 1);
+                    //moduleNameExl = ReadExcelData.ReadData(excelPath, "ModuleName", 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -188,7 +177,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 1);
                     string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 2);
-
                     addCounterparty.ClickAddCounterpartiesButton();
                     addCounterparty.ButtonClick("Add Counterparty");
                     extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
@@ -197,7 +185,6 @@ namespace SF_Automation.TestCases.Opportunities
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
                     extentReports.CreateLog(popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
-
                     addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
                     addCounterparty.ButtonClick("Back");
                     extentReports.CreateLog("Clicked on Back button");
@@ -206,8 +193,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User returned to Counterparties List Page");
                     extentReports.CreateLog(counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
 
-                    //TMTI0063910 Verify that the user is able to edit and save the multiple entries with Comments
-                    
+                    //TMTI0063910 Verify that the user is able to edit and save the multiple entries with Comments                    
                     string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 3);
                     addCounterparty.EditCoutnerpartyDetails(commentsExl);
                     addCounterparty.SaveCounterpartyChanges();
@@ -220,7 +206,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string counterpartyContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", row, 1);
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
-
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateLog("User Switched to new tab ");
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
@@ -256,7 +241,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string contactEmail = addCounterparty.GetOpportunityCounterpartyContactEmailOnEmailTemplate(counterpartyCompanyNameExl);
                     Assert.AreEqual(contactEmail, contactEmailExl, "Verify Contact Email id is present on Email Template ");
                     extentReports.CreateLog("Contact Email: " + contactEmail + " is present on Email Template ");
-
                     Assert.IsTrue(addCounterparty.IsAddedCounterpartyCompanyDisplayedOnEmailTemplate(counterpartyCompanyNameExl), "Verify Company Counterparty name is present on Email Template ");
                     extentReports.CreateLog("Company Counterparty name:" + counterpartyCompanyNameExl + " is present on Email Template ");
 
@@ -277,10 +261,8 @@ namespace SF_Automation.TestCases.Opportunities
                         string CompanyNameExportedExl = ReadExcelData.ReadDataMultipleRows(exportedFile, "Counter-Party-List", rows, 2);
                         Assert.AreEqual(CompanyNameExportedExl, counterpartyCompanyNameExl);
                     }
-
                     CustomFunctions.DeleteFile(pathExportedFile, exportedFileName);
                     extentReports.CreateLog("File name:" + exportedFileName + " is deleted from location:" + pathExportedFile + " ");
-
                     opportunityDetails.CloseOpprtunityTabL("Counterparty Editor");
 
                     //Add Client Contact on Opportunity     
@@ -308,17 +290,16 @@ namespace SF_Automation.TestCases.Opportunities
 
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                    //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                     //user = "Indrajeet Singh";
-
                     //Search for created opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, user);
 
@@ -402,13 +383,13 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
 
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                    //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -430,17 +411,12 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-
-                    //TMTI0063913 Verify the case when an opportunity is converted into the engagement and counterparties are already added 
-                    
+                    //TMTI0063913 Verify the case when an opportunity is converted into the engagement and counterparties are already added                     
                     Assert.IsTrue(engagementDetails.IsViewCounterpartyButtonEngagementPageL(), "Verify View Counterparty Button is displayed on Engagement Detail Page ");
                     extentReports.CreateLog("View Counterparty Button is displayed on Engagement Detail Page");
-
                     engagementDetails.ClickViewCounterpartyButtonEngagementPageL();
                     Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page ");
-                    extentReports.CreateLog("User is redirected to Counterparties List page");
-                    
-                    
+                    extentReports.CreateLog("User is redirected to Counterparties List page");                       
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List");
                     extentReports.CreateLog("Opportunity Counterparties Company: " + counterpartyCompanyNameExl + " is Mapped on Engagement under Counterparties List after conversion ");
 
@@ -449,12 +425,10 @@ namespace SF_Automation.TestCases.Opportunities
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateLog("User Clicked on Company name from Counterparties List and switched to New Tab ");
-
                     engagementDetails.ClickPanelRightEngagementPage("Comments");
                     Assert.IsTrue(addCounterparty.IsCommentDisplayedInQuickLinkList(commentsExl));
                     extentReports.CreateLog("Opportunity Counterparties Comments are mapped on Engagement page after conversion ");
                     addCounterparty.CloseEngCounterpartiesCommentsTab();
-
                     engagementDetails.ClickPanelRightEngagementPage("Contacts");
                     Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));                    
                     extentReports.CreateLog("Opportunity Counterparties Contact: " + valCPContact + " is mapped on Engagement page after conversion ");
