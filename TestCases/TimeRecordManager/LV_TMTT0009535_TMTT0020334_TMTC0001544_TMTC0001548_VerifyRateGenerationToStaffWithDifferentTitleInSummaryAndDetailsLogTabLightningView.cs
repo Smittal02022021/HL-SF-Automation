@@ -38,7 +38,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserLV()
+        public void VerifyNewTitleAddedinTitleRateSheetLV()
         {
             try
             {

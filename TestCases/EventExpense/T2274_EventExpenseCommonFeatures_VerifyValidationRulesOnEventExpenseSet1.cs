@@ -18,7 +18,7 @@ namespace SF_Automation.TestCases.EventExpense
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Initialize();
+            OutLookInitializeEdge();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);            

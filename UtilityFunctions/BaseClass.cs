@@ -3,6 +3,7 @@ using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Interactions;
 using System;
 
@@ -83,6 +84,23 @@ namespace SF_Automation.UtilityFunctions
             driver = new ChromeDriver(options);       //options
             driver.Navigate().GoToUrl("https://outlook.office.com/");
             driver.Manage().Window.Maximize();
+
+            return driver;
+        }
+        public IWebDriver OutLookInitializeEdge()
+        {
+            //string path = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\User Data\";
+            //ChromeOptions options = new ChromeOptions();
+            //options.AddArguments("user-data-dir=" + path);
+            //options.AddArguments("profile-directory=Default");
+
+            //EdgeOptions options = new EdgeOptions();
+            //options.AddArgument("--force-device-scale-factor=80/100");
+            driver = new EdgeDriver();       //options
+            //driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://test.salesforce.com/");
+            
+            //driver.Manage().Window.Maximize();
 
             return driver;
         }

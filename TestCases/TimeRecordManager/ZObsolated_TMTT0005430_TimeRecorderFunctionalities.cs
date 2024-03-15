@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTT0005430_TimeRecorderFunctionalities : BaseClass
+    class ZObsolated_TMTT0005430_TimeRecorderFunctionalities : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -178,7 +178,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Get Summary Log Time Entry
                 string summaryLogTime = timeRecorder.GetSummaryLogsTimeHour();
-                //Assert.AreEqual("0.1", summaryLogTime);
+                Assert.AreEqual("0.1", summaryLogTime);
                 extentReports.CreateLog("Hours are round up to " + summaryLogTime + " even when only a few seconds has been recorded ");
 
                 //Go to Weekly Entry Matrix

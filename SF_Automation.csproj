@@ -835,8 +835,10 @@
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_2_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRCAOdUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005430_TimeRecorderFunctionalitiesLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0009535_TMTT0020334_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011418_TMTT0011410_VerifyTASSupervisorCanMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractorLightningView.cs" />
@@ -862,7 +864,7 @@
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0005211_RefreshButtonFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0005221_TMTT0011420_StartButtonFunctionalities.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />
+    <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0005430_TimeRecorderFunctionalities.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
@@ -1177,6 +1179,7 @@
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.121.0.6167.8500\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.121.0.6167.8500\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets'))" />
     <!--<Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets'))" />-->
     <!--<Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" /> -->
   </Target>
@@ -1191,6 +1194,7 @@
   <Import Project="packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.121.0.6167.8500\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.121.0.6167.8500\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>

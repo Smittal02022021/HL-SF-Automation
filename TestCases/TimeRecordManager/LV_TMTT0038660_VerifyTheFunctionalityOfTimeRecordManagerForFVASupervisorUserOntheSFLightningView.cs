@@ -22,7 +22,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
-        RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
 
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView";
         string engagementExl;
@@ -43,12 +42,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0038660;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");                
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");                
                 ////Click on the new title rate sheet name               
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
 
