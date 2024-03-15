@@ -1,19 +1,13 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.TimeRecordManager;
 using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesForce_Project.TestCases.TimeRecordManager
+namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView: BaseClass
     {

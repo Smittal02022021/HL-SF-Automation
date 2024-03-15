@@ -6,10 +6,8 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using System.Threading;
-using AventStack.ExtentReports;
 
-namespace SalesForce_Project.TestCases.TimeRecordManager
+namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTT0005430_TimeRecorderFunctionalitiesLightningView:BaseClass
     {
