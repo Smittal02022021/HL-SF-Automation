@@ -374,24 +374,26 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             }
 
             //Select IG
-            Thread.Sleep(3000);
-            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            //js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));            
-            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
-            driver.FindElement(btnIGL).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']")).Click();
+            //Thread.Sleep(3000);
+            ////IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            ////js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));            
+            //string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            //Thread.Sleep(4000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
+            //driver.FindElement(btnIGL).Click();
+            //Thread.Sleep(3000);
+            //driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']")).Click();
 
 
-            //Select sector
-            string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
-            driver.FindElement(comboSectorL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 5));
-            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valSector + "']")).Click();
+            ////Select sector
+            //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
+            //driver.FindElement(comboSectorL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 5));
+            //driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valSector + "']")).Click();
 
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(comboPrimaryOfficeL)); 
             driver.FindElement(comboPrimaryOfficeL).SendKeys(valPO);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valPO + "']")).Click();
 

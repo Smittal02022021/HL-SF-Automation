@@ -6508,6 +6508,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             string value = driver.FindElement(valSubjectL).Text;
             return value;
         }
+
+
     }
     
 }

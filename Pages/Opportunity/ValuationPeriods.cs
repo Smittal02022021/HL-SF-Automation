@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -77,6 +78,28 @@ namespace SF_Automation.Pages.Opportunity
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
         By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
         By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
+        By secPeriodDetailL = By.XPath("//div[contains(@title,'Hide Section')]");
+        By btnPeriodDetailL = By.XPath("//td//input[@type='submit']");
+        By mainSecPeriodDetailL = By.XPath("//td/h2");
+        By btnBackValPeriodListL = By.XPath("//input[@value='Back To Opp Valuation Period List']");
+        By titleValPeriodsL = By.XPath("//div[1]/font/b");
+        By lnkEditL = By.XPath("//a[text()='Edit']");
+        By valUpdatedPeriodL = By.XPath("//tr/td[2]/a");
+        By titlePeriodDetailL = By.XPath("//h2[text()='Opportunity Valuation Period Detail']");
+        By titleOppValPeriodL = By.XPath("//h1[text()='Opportunity Valuation Period']");
+        By btnImportPositionL = By.XPath("//input[@value='Import Positions']");
+        By msgImportPositionL = By.XPath("//div[text()='There is no valuation period available to import position.']");
+        By btnBackL = By.XPath("//input[@value='Back']");
+        By btnNewPeriodPositionL = By.XPath("//input[@value='New Opp Valuation Period Position']");
+        By titlePeriodPositionL = By.XPath("//h2[text()=' New Opp Valuation Period Position']");
+        By lblPeriodPositionL = By.XPath("//tr/th/label");
+        By txtCompanyL = By.XPath("//span/input[contains(@id,'AccountSectionItem:CompanyField')]");
+        By lnkCompanyL = By.XPath("//div[4]//tr[2]/td/div/strong");
+        By btnAssetClassL = By.XPath("//select[contains(@id,'id79')]");
+        By btnIGL = By.XPath("//select[contains(@id,'PositionIG')]");
+        By btnPositonSectorL = By.XPath("//select[contains(@id,'PositionS')]");
+        By valAddedPositionL = By.XPath("//span/table/tbody/tr/td[2]/a");
+
 
         public string ClickOppValuationPeriod()
         {
@@ -591,6 +614,249 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(5000);
             string value = driver.FindElement(valNameL).Text;
+            return value;
+        }
+
+        //Validate sections of Opportunity Valuation Period Detail
+        public bool ValidateSectionsOfOppValuationPeriodDetail()
+        {
+                        Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(secPeriodDetailL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Opportunity Information", "Valuation Information", "System Information" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate buttons of Opportunity Valuation Period Detail
+        public bool ValidateButtonsOfOppValuationPeriodDetail()
+        {
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnPeriodDetailL);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            string[] expectedValue = { "Edit", "Import Positions", "Back To Opp Valuation Period List", "New Opp Valuation Period Position" };
+            Console.WriteLine(actualValue[0]);      
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        
+        //Validate main sections of Opportunity Valuation Period Detail
+        public bool ValidateMainSectionsOfOppValuationPeriodDetail()
+        {
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(mainSecPeriodDetailL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Opportunity Valuation Period Detail", "Opp Valuation Period Positions" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Opportunity details page upon clicking Back To Opp Valuation Period List button
+        public string ValidateOppDetailsPageUponClickOfBackToOppButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackValPeriodListL, 120);
+            driver.FindElement(btnBackValPeriodListL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(titleValPeriodsL).Text;
+            return tab;
+        }
+
+        //Validate edit functionality of Valuation Period
+        public string EditFunctionalityOfValuationPeriod()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditL, 120);
+            driver.FindElement(lnkEditL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            driver.FindElement(txtNameL).Clear();
+            driver.FindElement(txtNameL).SendKeys("Testing");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valUpdatedPeriodL).Text;
+            return value;
+        }
+
+        //Validate Opportunity Valuation Period Detail page is displayed upon clicking Valuation Period Name button
+        public string ValidateOppValPeriodDetailPageUponClickOfValPeriodNameLink()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(valUpdatedPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(7000);
+            string page = driver.FindElement(titleOppValPeriodL).Text;
+            return page;
+        }
+
+        //Validate error message after clicking on Import Position button
+        public string ValidateMessageWhileClickingOnImportButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnImportPositionL, 120);
+            driver.FindElement(btnImportPositionL).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgImportPositionL).Text;
+            return value;
+        }
+
+
+        //Validate error message after clicking on Import Position button
+        public string ValidatePeriodPositionPageWhileClickingNewOppValPeriodPositionButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackL, 120);
+            driver.FindElement(btnBackL).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            driver.FindElement(btnNewPeriodPositionL).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string value = driver.FindElement(titlePeriodPositionL).Text;
+            return value;
+        }
+
+        //Validate fields of Opportunity Valuation Period Position
+        public bool ValidateFieldsOfOppValuationPeriodPositionL()
+        {
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblPeriodPositionL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Company", "*\r\nAsset Classes", "Company Industry Group", "Company Sector","Position Notes" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            Console.WriteLine(actualValue[2]);
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Click on Save on Valuation Period page
+        public bool ValidateMessageWhileClickingSaveButtonOnPeriodPosition()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 120);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgMandatoryValL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Company: You must enter a value", "Asset Classes: You must enter a value" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Opportunity Valuation Period details page is displayed upon clicking cancel button
+        public string ValidateOppValPeriodDetailsPageUponClickingCancelButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 120);
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(titlePeriodDetailL).Text;           
+            driver.FindElement(btnNewPeriodPositionL).Click();
+            return tab;
+        }
+
+        //Enter all details and save it.
+        public string EnterAndSaveOppValuationPeriodPositionDetailsL()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.FindElement(txtCompanyL).SendKeys("Techno Alpha");
+            Thread.Sleep(4000);
+            driver.FindElement(lnkCompanyL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAssetClassL).SendKeys("ABL");
+            Thread.Sleep(4000);
+            driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
+            Thread.Sleep(4000);
+            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");            
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedPositionL).Text;
             return value;
         }
 
