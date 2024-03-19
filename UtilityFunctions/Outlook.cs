@@ -226,7 +226,7 @@ namespace SF_Automation.UtilityFunctions
             CustomFunctions.SwitchToWindow(driver, 0);
             driver.FindElement(searchBox).Clear();
             driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense APPROVED");
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             //driver.FindElement(btnSearch).Click();
             Thread.Sleep(4000);
