@@ -197,6 +197,22 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Techno Alpha", addedPosition);
                 extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position ");
 
+                //18.  TMTI0092045_Verify that clicking "Opp Valuation Period Position Name" opens up the Opp Valuation Period Position details page
+                string oppValPositionDetail = period.ValidateOppValPeriodPositionPageUponClickingAddedPeriodPosition();
+                Assert.AreEqual("Opportunity Valuation Position Detail", oppValPositionDetail);
+                extentReports.CreateLog("Page: " + oppValPositionDetail + " is displayed upon clicking on added Period Position Name ");
+
+                //19.  TMTI0092047_Verify that clicking the "Back to Valuation Period" button given on the "Opp Valuation Period Position" page takes the user back to the Opportunity Valuation Period detail page
+                string oppValPeriodDetailsUponBack = period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
+                Assert.AreEqual("Opportunity Valuation Period Detail", oppValPeriodDetailsUponBack);
+                extentReports.CreateLog("Page: " + oppValPeriodDetailsUponBack + " is displayed upon clicking Back to Valuation Period button on Opp Valuation Period Position page ");
+
+                //20.  TMTI0092049_Verify that clicking the "Edit" button given on "Opp Valuation Period Position" allows the user to update Opp Valuation Period position details and updates get reflected on the position
+                string updatedPosition = period.EditFunctionalityOfPeriodPosition();
+                Assert.AreEqual("ABC", updatedPosition);
+                extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name ");
+
+                //21. 
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

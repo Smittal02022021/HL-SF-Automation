@@ -76,6 +76,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabDetails = By.XPath("//a[text()='Details']");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
+        By txtEditNameL = By.XPath("//input[contains(@id,'j_id28')]");
         By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
         By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
         By secPeriodDetailL = By.XPath("//div[contains(@title,'Hide Section')]");
@@ -92,13 +93,18 @@ namespace SF_Automation.Pages.Opportunity
         By btnBackL = By.XPath("//input[@value='Back']");
         By btnNewPeriodPositionL = By.XPath("//input[@value='New Opp Valuation Period Position']");
         By titlePeriodPositionL = By.XPath("//h2[text()=' New Opp Valuation Period Position']");
+        By titlePositionDetailL = By.XPath("//h2[text()='Opportunity Valuation Position Detail']");
         By lblPeriodPositionL = By.XPath("//tr/th/label");
         By txtCompanyL = By.XPath("//span/input[contains(@id,'AccountSectionItem:CompanyField')]");
-        By lnkCompanyL = By.XPath("//div[4]//tr[2]/td/div/strong");
+        By lnkCompanyL = By.XPath("//div[3]//tr[2]/td/div/strong");
         By btnAssetClassL = By.XPath("//select[contains(@id,'id79')]");
         By btnIGL = By.XPath("//select[contains(@id,'PositionIG')]");
         By btnPositonSectorL = By.XPath("//select[contains(@id,'PositionS')]");
         By valAddedPositionL = By.XPath("//span/table/tbody/tr/td[2]/a");
+        By btnBackToValPeriodL = By.XPath("//input[@value='Back To Valuation Period']");
+        By btnEditL = By.XPath("//input[@value='Back To Valuation Period']/ancestor::td/input[@value='Edit']");
+        By valUpdPositionL = By.XPath("//th[text()='Position Name']/ancestor::tr/td/span[1]/span");
+
 
 
         public string ClickOppValuationPeriod()
@@ -843,13 +849,11 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
             driver.FindElement(txtCompanyL).SendKeys("Techno Alpha");
-            Thread.Sleep(4000);
-            driver.FindElement(lnkCompanyL).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(btnAssetClassL).SendKeys("ABL");
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
             Thread.Sleep(4000);
+            driver.FindElement(btnAssetClassL).SendKeys("ABL");
+            Thread.Sleep(4000);            
             driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");            
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
@@ -860,7 +864,55 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        //Validate  Opp Valuation Period Position details page is displayed upon clicking added Opp Valuation Period Position  
+        public string ValidateOppValPeriodPositionPageUponClickingAddedPeriodPosition()
+        {
+            
+            driver.FindElement(valAddedPositionL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(titlePositionDetailL).Text;
+            driver.FindElement(titlePositionDetailL).Click();
+            return tab;
+        }
 
+        //Validate Opportunity Valuation Period detail page is displayed upon clicking Back to Valuation button on Opp Valuation Period Position
+        public string ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToValPeriodL, 120);
+            driver.FindElement(btnBackToValPeriodL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(titlePeriodDetailL).Text;
+            driver.FindElement(btnNewPeriodPositionL).Click();
+            return tab;
+        }
+
+        //Validate edit functionality of Period Position
+        public string EditFunctionalityOfPeriodPosition()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 120);
+            driver.FindElement(valAddedPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(txtEditNameL).Clear();
+            driver.FindElement(txtEditNameL).SendKeys("ABC");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valUpdPositionL).Text;
+            return value;
+        }
     }
 }
 
