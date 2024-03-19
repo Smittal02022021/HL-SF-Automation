@@ -88,7 +88,7 @@ namespace SF_Automation.UtilityFunctions
             WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 10);
             //Sandbox: Request for Marketing Expense Approval *Action Required*
             driver.FindElement(searchBox).SendKeys("Sandbox: Request");// 
-
+            Thread.Sleep(2000);
             ////Request for Marketing Expense Approval *Action Required
             //Thread.Sleep(2000);
             ////   driver.FindElement(searchBox).Click();
