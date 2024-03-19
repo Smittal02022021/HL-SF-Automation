@@ -253,7 +253,7 @@ namespace SF_Automation.UtilityFunctions
             driver.FindElement(searchBox).Clear();
             driver.FindElement(searchBox).SendKeys("Sandbox: Marketing Expense request was returned for more information");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             //driver.FindElement(btnSearch).Click();
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             Thread.Sleep(4000);
