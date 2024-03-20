@@ -363,7 +363,9 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetApproverResponseFromApprovalHistorySectionForApprover()
         {
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(2000);
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;

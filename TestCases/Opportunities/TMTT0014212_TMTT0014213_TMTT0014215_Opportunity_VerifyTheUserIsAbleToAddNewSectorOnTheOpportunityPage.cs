@@ -77,7 +77,7 @@ namespace SF_Automation.TestCases.Opportunity
                     newCoverageSectorDependencies.CreateNewCoverageSectorDependency(fileTC14212);
 
                     //Fetch the Coverage Sector Dependency Name from its detail page
-                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorDependencyName();
+                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorID();
                     extentReports.CreateLog("Coverage Sector Dependency Name is: " + coverageSectorDependencyName + " ");
 
                     //Search user by global search

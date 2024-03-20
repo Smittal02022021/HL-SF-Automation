@@ -148,7 +148,7 @@ namespace SF_Automation.Pages.Companies
         By btnContinue = By.CssSelector("input[title='Continue']");
         By drpdownOfficeCode = By.CssSelector("select[id*='00Fjq9q']");
 
-        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector & Investment Preference']");
+        By btnNewCompanySector = By.XPath("//input[@value='New Company Sector']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
         By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Sector Categorization Lookup (New Window)']");
@@ -156,7 +156,7 @@ namespace SF_Automation.Pages.Companies
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
         By btnSaveCompanySector = By.XPath("(//input[@title='Save'])[1]");
         By btnDeleteCompanySector = By.XPath("(//input[@title='Delete'])[1]");
-        By valCompanySectorName = By.XPath("//td[contains(text(),'Company Sector')]/following::div[1]");
+        By valCompanySectorName = By.XPath("//div[@id='Name_ileinner']");
         By linkCompanyName = By.XPath("(//td[contains(text(),'Company')])[2]/../td[2]/div/a");
         By linkSectorName = By.XPath("//table/tbody/tr[2]/th/a");
         By linkCompanySector = By.XPath("//span[@class='count'][contains(text(),'0')]/preceding::span[contains(text(),'Company Sectors')]");
@@ -230,9 +230,9 @@ namespace SF_Automation.Pages.Companies
 
         public void SelectCoverageSectorDependency(string covSectorDependencyName)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,drpdownInvestmentPref,120);
-            driver.FindElement(drpdownInvestmentPref).SendKeys("Operating Sector");
-            Thread.Sleep(2000);
+            //WebDriverWaits.WaitUntilEleVisible(driver,drpdownInvestmentPref,120);
+            //driver.FindElement(drpdownInvestmentPref).SendKeys("Operating Sector");
+            //Thread.Sleep(2000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, imgCompanySectorDependencyLookUp, 120);
             driver.FindElement(imgCompanySectorDependencyLookUp).Click();
@@ -308,7 +308,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
 
             //Click on Show Filters link
-            driver.FindElement(linkShowFilters).Click();
+            //driver.FindElement(linkShowFilters).Click();
 
             //Enter filter values
             driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));

@@ -11,7 +11,7 @@ namespace SF_Automation.Pages
     class CoverageSectorDependenciesDetailPage : BaseClass
     {
         By btnDelete = By.XPath("//input[@title='Delete']");
-        By valCoverageSectorDependencyName = By.XPath("//td[contains(text(),'Coverage Sector Dependency Name')]/following::div");
+        By hlSectorID = By.XPath("//div[@id='Name_ileinner']");
 
         public void DeleteCoverageSectorDependency()
         {
@@ -22,10 +22,10 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
         }
 
-        public string GetCoverageSectorDependencyName()
+        public string GetCoverageSectorID()
         {
-            string name = driver.FindElement(valCoverageSectorDependencyName).Text;
-            return name;
+            string sectorID = driver.FindElement(hlSectorID).Text;
+            return sectorID;
         }
     }
 }
