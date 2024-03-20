@@ -326,6 +326,8 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(comboCreatedDate).SendKeys("This Year");
             driver.FindElement(comboCreatedDate).SendKeys(Keys.Enter);
             Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilters));
+
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(4000);
 
@@ -381,6 +383,8 @@ namespace SF_Automation.Pages.EventExpense
 
             driver.FindElement(txtEventName).SendKeys(eventName);
             Thread.Sleep(3000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilters));
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(4000);
 
@@ -478,6 +482,8 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor);
             driver.FindElement(selectRequestor).Click();
             Thread.Sleep(3000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilters));
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(4000);
 
