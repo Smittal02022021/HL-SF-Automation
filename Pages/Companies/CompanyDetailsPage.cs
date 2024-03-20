@@ -257,6 +257,11 @@ namespace SF_Automation.Pages.Companies
 
             Thread.Sleep(4000);
 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnGo));
+            driver.FindElement(btnGo).Click();
+
+            Thread.Sleep(4000);
+
             driver.SwitchTo().DefaultContent();
 
             //Enter results frame & click on the result
@@ -308,7 +313,10 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
 
             //Click on Show Filters link
-            //driver.FindElement(linkShowFilters).Click();
+            if(driver.FindElement(linkShowFilters).Displayed)
+            {
+                driver.FindElement(linkShowFilters).Click();
+            }
 
             //Enter filter values
             driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));

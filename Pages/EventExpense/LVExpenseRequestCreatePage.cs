@@ -113,6 +113,8 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtDescOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 11));
 
             //Click Save btton
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+
             driver.FindElement(btnSave).Click();
             Thread.Sleep(10000);
         }
@@ -171,6 +173,8 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtDescOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 11));
 
             //Click Save btton
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+
             driver.FindElement(btnSave).Click();
             Thread.Sleep(10000);
         }
@@ -188,6 +192,8 @@ namespace SF_Automation.Pages.EventExpense
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
 
             //Click Save button
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+
             driver.FindElement(btnSave).Click();
             Thread.Sleep(2000);
 
@@ -271,6 +277,8 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtDescOtherCost).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 11));
 
             //Click Save btton
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+
             driver.FindElement(btnSave).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblErrMsg, 120);
