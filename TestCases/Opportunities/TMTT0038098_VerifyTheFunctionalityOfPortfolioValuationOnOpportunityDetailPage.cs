@@ -17,6 +17,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading;
+using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -212,7 +213,50 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("ABC", updatedPosition);
                 extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name ");
 
-                //21. 
+                //21.  TMTI0092051_Verify that the "Opp Valuation Period Team Members" section is available at the bottom of the Opp Valuation Period Position detail page. 
+                string secTeamMember = period.ValidateSecOppValTeamMember();
+                Assert.AreEqual("Opp Valuation Period Team Members", secTeamMember);
+                extentReports.CreateLog("Section: "+ secTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+
+                string msgTeamMember = period.ValidateAddTeamMemberMessage();
+                Assert.AreEqual("Please add new team members to this position by selecting the 'Add New Team Member' button.", msgTeamMember);
+                extentReports.CreateLog("Message: " + msgTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+
+                string buttonTeamMember = period.ValidateAddNewTeamMemberButton();
+                Assert.AreEqual("Add New Team Member", buttonTeamMember);
+                extentReports.CreateLog("Button with name: " + buttonTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+
+                //22. TMTI0092053_Verify that on clicking "Add New Team Member" opens up fields like a staff member and with Save Team Member and Delete action buttons
+                Assert.IsTrue(period.ValidateTeamMemberColumns(), "Verified that displayed Team members table columns are same");
+                extentReports.CreateLog("Displayed Team members table columns on Opportunity Valuation Period Position are as expected ");
+
+                string saveTeam = period.ValidateSaveTeamMemberButton();
+                Assert.AreEqual("Save Team Members", saveTeam);
+                extentReports.CreateLog("Button with name: " + saveTeam + " is displayed in "+ secTeamMember + " ");
+
+                string deleteTeam = period.ValidateDeleteLinkTeamMember();
+                Assert.AreEqual("Delete", deleteTeam);
+                extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + deleteTeam + " ");
+
+                //23. TMTI0092055_Verify that clicking "Save Team Member" adds the user as a Team Member on the selected role with Status
+                string addedStaff = period.SaveTeamMembersAndValidate();
+                string addedRole = period.GetSavedRoleOfStaff();
+                Assert.AreEqual("Associate", addedRole);
+                Assert.AreEqual("Karan Chopra", addedStaff);
+                extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: "+ addedRole + " is displayed after saving details ");
+
+                //24.  TMTI0092057_Verify the functionality of the "Delete" action button that appears while adding a new team member on the Opportunity Valuation Position Detail
+                string cancelTeam = period.ValidateCancelFunctionalityOfTeamMembers();
+                Assert.AreEqual("Delete", cancelTeam);
+                extentReports.CreateLog("Team Member is not deleted after clicking Cancel button post clicking Delete link ");
+
+                string delTeam = period.ValidateDeleteFunctionalityOfTeamMembers();
+                Assert.AreEqual("Team member is deleted", delTeam);
+                extentReports.CreateLog("Team Member got deleted after clicking Ok button post clicking Delete link ");
+
+                //25. TMTI0092059_Verify that clicking the "Import Positions" button opens up a screen that shows the "Existing Valuation Period" listing with the following buttons
+
+
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

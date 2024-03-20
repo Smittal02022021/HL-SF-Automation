@@ -5,6 +5,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -76,7 +77,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabDetails = By.XPath("//a[text()='Details']");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
-        By txtEditNameL = By.XPath("//input[contains(@id,'j_id28')]");
+        By txtEditNameL = By.XPath("//label[text()='Position Name']/ancestor::tr/td[1]//input");
         By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
         By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
         By secPeriodDetailL = By.XPath("//div[contains(@title,'Hide Section')]");
@@ -104,6 +105,15 @@ namespace SF_Automation.Pages.Opportunity
         By btnBackToValPeriodL = By.XPath("//input[@value='Back To Valuation Period']");
         By btnEditL = By.XPath("//input[@value='Back To Valuation Period']/ancestor::td/input[@value='Edit']");
         By valUpdPositionL = By.XPath("//th[text()='Position Name']/ancestor::tr/td/span[1]/span");
+        By secOppValTeamMemL = By.XPath("//b[text()='Opp Valuation Period Team Members']");
+        By msgTeamMemL = By.XPath("//tr[1]/td[2]/div");
+        By btnAddTeamMemL = By.XPath("//input[@value='Add New Team Member']");
+        By colTeamMemL = By.XPath("//span/div[2]/div//tr/th/div");
+        By btnSaveTeamMemL = By.XPath("//input[@value='Save Team Members']");
+        By lnkDeleteTeamL = By.XPath("//a[text()='Delete']");
+        By btnRoleL = By.XPath("//select[contains(@name,'id180')]");
+        By valStaffL = By.XPath("//span/div[2]/div//td[2]");
+        By valRoleL = By.XPath("//span/div[2]//td[3]/div/select/option[2]");
 
 
 
@@ -887,8 +897,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(4000);
-            string tab = driver.FindElement(titlePeriodDetailL).Text;
-            driver.FindElement(btnNewPeriodPositionL).Click();
+            string tab = driver.FindElement(titlePeriodDetailL).Text;            
             return tab;
         }
 
@@ -899,21 +908,139 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(valAddedPositionL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(1);
-            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditL).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);
             driver.FindElement(txtEditNameL).Clear();
             driver.FindElement(txtEditNameL).SendKeys("ABC");
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(1);
-            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valUpdPositionL).Text;
             return value;
         }
+
+        //Validate Opp Valuation Team member
+        public string ValidateSecOppValTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secOppValTeamMemL, 60);
+            string section = driver.FindElement(secOppValTeamMemL).Text;
+            return section;
+        }
+
+        //Validate add Team member message
+        public string ValidateAddTeamMemberMessage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgTeamMemL, 60);
+            string section = driver.FindElement(msgTeamMemL).Text;
+            return section;
+        }
+
+        //Validate button Add New Team member
+        public string ValidateAddNewTeamMemberButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddTeamMemL, 60);
+            string section = driver.FindElement(btnAddTeamMemL).GetAttribute("value");            
+            return section;
+        }
+
+
+        //Validate button Add New Team member
+        public bool ValidateTeamMemberColumns()
+        {            
+            driver.FindElement(btnAddTeamMemL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(colTeamMemL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "#", "STAFF", "ROLE", "STATUS", "ACTION" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            Console.WriteLine(actualValue[2]);
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate button Save New Team member
+        public string ValidateSaveTeamMemberButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamMemL, 60);
+            string section = driver.FindElement(btnSaveTeamMemL).GetAttribute("value");
+            return section;
+        }
+
+        //Validate Delete link corresponding to added Team member
+        public string ValidateDeleteLinkTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteTeamL, 60);
+            string section = driver.FindElement(lnkDeleteTeamL).Text;
+            return section;
+        }
+        //Save Team members and validate it
+        public string SaveTeamMembersAndValidate()
+        {
+            driver.FindElement(btnRoleL).SendKeys("Associate");
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveTeamMemL).Click();
+            Thread.Sleep(5000);
+            string name = driver.FindElement(valStaffL).Text;
+            return name;            
+        }
+
+        //Get the value of Role
+        public string GetSavedRoleOfStaff()
+        {           
+            string name = driver.FindElement(valRoleL).Text;
+            return name;
+        }
+
+        //Validate cancel functionality of Team members
+        public string ValidateCancelFunctionalityOfTeamMembers()
+        {
+            driver.FindElement(btnAddTeamMemL).Click();
+            Thread.Sleep(5000);            
+            driver.FindElement(lnkDeleteTeamL).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().Alert().Dismiss();
+            string name = driver.FindElement(lnkDeleteTeamL).Text;
+            return name;
+        }
+
+        //Validate delete functionality of Team members
+        public string ValidateDeleteFunctionalityOfTeamMembers()
+        {            
+            driver.FindElement(lnkDeleteTeamL).Click();
+            Thread.Sleep(3000);
+            driver.SwitchTo().Alert().Accept();
+            Thread.Sleep(5000);
+            try
+            {
+                string name = driver.FindElement(lnkDeleteTeamL).Displayed.ToString();
+                return name;
+            }
+            catch(Exception )
+            {
+                return "Team member is deleted";
+            }
+        }
     }
 }
-
 
