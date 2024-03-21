@@ -140,6 +140,8 @@ namespace SF_Automation.Pages
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By labelAdmSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
         By labelWomenLedSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
 
         public string AddOpportunities(string type,string file)
         {
@@ -538,8 +540,8 @@ namespace SF_Automation.Pages
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
             driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboHLSectorL, 20);
-            driver.FindElement(comboHLSectorL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
             //////////////////////////////////
             ///
             //Select Job Type
@@ -1314,10 +1316,7 @@ namespace SF_Automation.Pages
                 string secName = driver.FindElement(labelWomenLedSectionLV).Text;
                 return secName;
             }
-        }
-        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
-        By comboHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//div[@role='listbox']/ul[contains(@aria-label,'Sector Dependencies')]/li[2]");
-
+        }        
         public string AddOpportunitiesLightningV3(string valRecordType, string type, string file)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -1363,8 +1362,8 @@ namespace SF_Automation.Pages
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
             driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboHLSectorL, 20);
-            driver.FindElement(comboHLSectorL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
             //////////////////////////////////            
 
             //Select Job Type
