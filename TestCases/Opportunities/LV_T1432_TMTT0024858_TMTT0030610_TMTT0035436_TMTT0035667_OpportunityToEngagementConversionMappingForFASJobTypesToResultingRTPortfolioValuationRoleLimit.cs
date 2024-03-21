@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
                     extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
 
-                    //login.SwitchToClassicView();
+                    login.SwitchToClassicView();
                     opportunityHome.SearchOpportunity(opportunityName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     //update CC 
