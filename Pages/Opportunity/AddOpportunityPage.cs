@@ -534,6 +534,14 @@ namespace SF_Automation.Pages
             //CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
             //driver.FindElement(eleIG).Click();
 
+            ////////Filling Req HL sector field Instead of IG ///////////////
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
+            driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboHLSectorL, 20);
+            driver.FindElement(comboHLSectorL).Click();
+            //////////////////////////////////
+            ///
             //Select Job Type
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
@@ -1307,6 +1315,8 @@ namespace SF_Automation.Pages
                 return secName;
             }
         }
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By comboHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//div[@role='listbox']/ul[contains(@aria-label,'Sector Dependencies')]/li[2]");
 
         public string AddOpportunitiesLightningV3(string valRecordType, string type, string file)
         {
@@ -1347,6 +1357,15 @@ namespace SF_Automation.Pages
             //WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
             //driver.FindElement(eleIG).Click();
+
+
+            ////////Filling Req HL sector field Instead of IG ///////////////
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
+            driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboHLSectorL, 20);
+            driver.FindElement(comboHLSectorL).Click();
+            //////////////////////////////////            
 
             //Select Job Type
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));

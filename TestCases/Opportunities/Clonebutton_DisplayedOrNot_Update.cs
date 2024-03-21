@@ -44,7 +44,6 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -60,7 +59,6 @@ namespace SF_Automation.TestCases.Opportunity
                 //Calling functions to validate Clone operation
 
                 int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
-                Console.WriteLine("rowUsers " + rowUsers);
 
                 for (int row = 2; row <= rowUsers; row++)
                 {
@@ -69,6 +67,7 @@ namespace SF_Automation.TestCases.Opportunity
                     {
                         //Login as Standard User and validate the user
                         usersLogin.SearchUserAndLogin(valUser);
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
