@@ -263,8 +263,20 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Displayed buttons on Existing Valuation Period are as expected ");
 
                 //26.  TMTI0092061_Verify that the list of related positions opens from the existing valuation period on clicking the "Search Valuation Period for Positions" button. 
-                  
-                 
+                Assert.IsTrue(period.ValidateDisplayedImportButtonsUponClickingSearchValPeriod(), "Verified that displayed Import Position buttons are same");
+                extentReports.CreateLog("Displayed Import Position buttons are as expected ");
+
+                Assert.IsTrue(period.ValidateDisplayedBottomButtonsUponClickingSearchValPeriod(), "Verified that displayed buttons at the bottom of Related Positions page are same");
+                extentReports.CreateLog("Displayed buttons at the bottom of Related Positions page are as expected ");
+
+                //27.  TMTI0092063_ Verify that the user can Import Positions with Team Members from the existing valuation period and all the details are imported successfully
+                string importWithTeam = period.ValidateImportWithTeamMembers();
+                Assert.AreEqual("ABC", importWithTeam);
+                extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully ");
+
+                //28. TMTI0092065_Verify that the user can Import Positions without a Team Member from the existing valuation period and all the details are imported successfully except the Team Member
+
+
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

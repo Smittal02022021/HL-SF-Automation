@@ -114,12 +114,16 @@ namespace SF_Automation.Pages.Opportunity
         By btnRoleL = By.XPath("//select[contains(@name,'id180')]");
         By valStaffL = By.XPath("//span/div[2]/div//td[2]");
         By valRoleL = By.XPath("//span/div[2]//td[3]/div/select/option[2]");
-        By tabHLRelatedL = By.XPath("//span/span[text()='HL_Related_PortfolioValuations']");
+        By tabHLRelatedL = By.XPath("//span[@title='HL_Related_PortfolioValuations']");
         By btnExistingImports = By.XPath("//td[1]/span/input[contains(@value,'Valuation Period')]");
         By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
         By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
-
-
+        By lblImportL = By.XPath("//label[contains(text(),'Positions')]");
+        By btnImportBottomL = By.XPath("//span[contains(@id,'RelatedRecordPanelId')]/input[contains(@name,'RelatedRecordPanelId')]");
+        By chkPositionNameL = By.XPath("//input[contains(@name,'myCheckbox')]");
+        By btnSaveAndBackL = By.XPath("//input[contains(@value,'Save & Back ')]");
+        By valAddedPositionWithTeam = By.XPath("//table[contains(@id,'pbtableId2')]//tbody/tr/td[2]/a");
+       
 
       
 
@@ -776,9 +780,9 @@ namespace SF_Automation.Pages.Opportunity
            {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnImportPositionL, 120);
                 driver.FindElement(btnImportPositionL).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
                 driver.SwitchTo().DefaultContent();
-                driver.SwitchTo().Frame(1);
+                driver.SwitchTo().Frame(0);
                 Thread.Sleep(4000);
             }
 
@@ -1060,10 +1064,13 @@ namespace SF_Automation.Pages.Opportunity
 
         public void ClickHLRelatedTab()
         {
+            driver.SwitchTo().DefaultContent();            
+            Thread.Sleep(5000);
             driver.FindElement(tabHLRelatedL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
             driver.FindElement(btnNewOppValPeriodL).Click();
         }
 
@@ -1072,7 +1079,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnExistingImports);
-            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
             string[] expectedValue = { "Search Valuation Period for Positions", "Back To Valuation Period" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
@@ -1094,12 +1101,78 @@ namespace SF_Automation.Pages.Opportunity
             return isSame;
         }
 
-        ////Validate the displayed positions after clicking on Search Valuation Period for Positions
-        //public string ValidateDisplayedPositionUponClickingSearchValPeriod()
-        //{
-        //    driver.FindElement(btnExistingValPeriodL).Click();            
-        //    driver.FindElement(btnSearchValPeriodPosL).Click();
-        //}
+        //Validate the displayed buttons after clicking on Search Valuation Period for Positions
+        public bool ValidateDisplayedImportButtonsUponClickingSearchValPeriod()
+        {
+            driver.FindElement(btnExistingValPeriodL).Click();
+            driver.FindElement(btnSearchValPeriodPosL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Import Positions Without Team Members", "Import Positions With Team Members" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate the displayed buttons after clicking on Search Valuation Period for Positions
+        public bool ValidateDisplayedBottomButtonsUponClickingSearchValPeriod()
+        {           
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnImportBottomL);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            string[] expectedValue = { "Save", "Save & Back To Valuation Period", "Back", "Cancel" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate import with team members
+        public string ValidateImportWithTeamMembers()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkPositionNameL, 120);
+            driver.FindElement(chkPositionNameL).Click();            
+            driver.FindElement(btnSaveAndBackL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            string row = driver.FindElement(valAddedPositionWithTeam).Text;
+            return row;
+        }
     }
 }
 
