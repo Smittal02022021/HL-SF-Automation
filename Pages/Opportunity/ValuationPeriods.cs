@@ -114,7 +114,14 @@ namespace SF_Automation.Pages.Opportunity
         By btnRoleL = By.XPath("//select[contains(@name,'id180')]");
         By valStaffL = By.XPath("//span/div[2]/div//td[2]");
         By valRoleL = By.XPath("//span/div[2]//td[3]/div/select/option[2]");
+        By tabHLRelatedL = By.XPath("//span/span[text()='HL_Related_PortfolioValuations']");
+        By btnExistingImports = By.XPath("//td[1]/span/input[contains(@value,'Valuation Period')]");
+        By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
+        By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
 
+
+
+      
 
 
         public string ClickOppValuationPeriod()
@@ -765,6 +772,15 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        public void ClickImportButton()
+           {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnImportPositionL, 120);
+                driver.FindElement(btnImportPositionL).Click();
+                Thread.Sleep(3000);
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Frame(1);
+                Thread.Sleep(4000);
+            }
 
         //Validate error message after clicking on Import Position button
         public string ValidatePeriodPositionPageWhileClickingNewOppValPeriodPositionButton()
@@ -1041,6 +1057,49 @@ namespace SF_Automation.Pages.Opportunity
                 return "Team member is deleted";
             }
         }
+
+        public void ClickHLRelatedTab()
+        {
+            driver.FindElement(tabHLRelatedL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            driver.FindElement(btnNewOppValPeriodL).Click();
+        }
+
+        //Validate buttons of existing Valuation Period 
+        public bool ValidateButtonsOfExistingValPeriodL()
+        {
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnExistingImports);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Search Valuation Period for Positions", "Back To Valuation Period" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        ////Validate the displayed positions after clicking on Search Valuation Period for Positions
+        //public string ValidateDisplayedPositionUponClickingSearchValPeriod()
+        //{
+        //    driver.FindElement(btnExistingValPeriodL).Click();            
+        //    driver.FindElement(btnSearchValPeriodPosL).Click();
+        //}
     }
 }
 

@@ -255,9 +255,16 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Team Member got deleted after clicking Ok button post clicking Delete link ");
 
                 //25. TMTI0092059_Verify that clicking the "Import Positions" button opens up a screen that shows the "Existing Valuation Period" listing with the following buttons
+                period.ClickHLRelatedTab();
+                string name1 = CustomFunctions.RandomValue();
+                string addedValuation2nd = period.EnterAndSaveOppValuationPeriodDetailsL(name1);
+                period.ClickImportButton();
+                Assert.IsTrue(period.ValidateButtonsOfExistingValPeriodL(), "Verified that displayed buttons are same");
+                extentReports.CreateLog("Displayed buttons on Existing Valuation Period are as expected ");
 
-
-
+                //26.  TMTI0092061_Verify that the list of related positions opens from the existing valuation period on clicking the "Search Valuation Period for Positions" button. 
+                  
+                 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

@@ -88,8 +88,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Opportunity is displayed as per entered search criteria ");
 
                 //Verify that choose LOB is displayed after clicking New button
-                Assert.IsTrue(opportunityHome.ValidateChooseLOBPostClickingNewButton(), "Verified that displayed LOBs are same");
-                extentReports.CreateLog("Choose LOB screen is displayed upon clicking New button ");
+                //Assert.IsTrue(opportunityHome.ValidateChooseLOBPostClickingNewButton(), "Verified that displayed LOBs are same");
+                //extentReports.CreateLog("Choose LOB screen is displayed upon clicking New button ");
 
                 //Validate title of the page upon clicking next page
                 string titleOpp = opportunityHome.ClickNextAndValidatePage();

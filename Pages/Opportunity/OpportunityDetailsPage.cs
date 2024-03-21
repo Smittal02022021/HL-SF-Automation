@@ -335,7 +335,7 @@ namespace SF_Automation.Pages
         By btnSaveContactL = By.XPath("//footer/button[2]/span");        
         By btnConvertToEngL = By.XPath("//span[text()='Convert to Engagement']");
         By lblEngagement = By.XPath("//records-entity-label[text()='Engagement']");
-        By lnkViewAllL = By.XPath("//span[text()='View All']");
+        By lnkViewAllL = By.XPath("//article[@aria-label='Approval History']//span[text()='View All']");
         By titleApproveL = By.XPath("//h1[@title='Approval History']");        
         By btnRejectL = By.XPath("//div[@title='Reject']");
         By btnApproveOppL = By.XPath("//span[text()='Approve']");       
