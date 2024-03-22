@@ -272,10 +272,24 @@ namespace SF_Automation.TestCases.Opportunity
                 //27.  TMTI0092063_ Verify that the user can Import Positions with Team Members from the existing valuation period and all the details are imported successfully
                 string importWithTeam = period.ValidateImportWithTeamMembers();
                 Assert.AreEqual("ABC", importWithTeam);
-                extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully ");
+                extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully with team member ");
 
                 //28. TMTI0092065_Verify that the user can Import Positions without a Team Member from the existing valuation period and all the details are imported successfully except the Team Member
+                period.ClickBackToOppValPeriodList();
+                string name2 = CustomFunctions.RandomValue();
+                string addedValuation3rd = period.EnterAndSaveOppValuationPeriodDetailsL(name2);
+                period.ClickImportButton();
 
+                string importWithoutTeam = period.ValidateImportWithoutTeamMembers();
+                Assert.AreEqual("ABC", importWithoutTeam);
+                extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully without team member ");
+
+                //29.  TMTI0092067_Verify that the Deal Team Member is not allowed to update the status from In-Progress to Completed on the Opportunity Valuation. 
+                string statusPeriodPosition = period.ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember();
+                Assert.AreEqual("In Progress", statusPeriodPosition);
+                extentReports.CreateLog("Status of Period position : " + importWithTeam + " is  displayed with no option to deal team member to update it ");
+
+                //30.  TMTI0092069_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period Positions" as a deal team member.
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

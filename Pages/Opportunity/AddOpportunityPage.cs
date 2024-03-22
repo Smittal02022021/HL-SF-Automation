@@ -407,7 +407,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             //Select Legal Entity
             string valEntity = ReadExcelData.ReadData(excelPath, "AddOpportunity", 12);
             driver.FindElement(txtLegalEntitiesL).SendKeys(valEntity);
-            Thread.Sleep(6000);
+            Thread.Sleep(7000);
             driver.FindElement(By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
                        
             if (valRecordType == "FVA")

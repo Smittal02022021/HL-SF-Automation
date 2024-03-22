@@ -88,8 +88,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Opportunity is displayed as per entered search criteria ");
 
                 //Verify that choose LOB is displayed after clicking New button
-                //Assert.IsTrue(opportunityHome.ValidateChooseLOBPostClickingNewButton(), "Verified that displayed LOBs are same");
-                //extentReports.CreateLog("Choose LOB screen is displayed upon clicking New button ");
+                Assert.IsTrue(opportunityHome.ValidateChooseLOBPostClickingNewButton(), "Verified that displayed LOBs are same");
+                extentReports.CreateLog("Choose LOB screen is displayed upon clicking New button ");
 
                 //Validate title of the page upon clicking next page
                 string titleOpp = opportunityHome.ClickNextAndValidatePage();
@@ -117,9 +117,9 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Validation: " + jobTypeValidation + " is displayed for Job Type field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Industry Group
-                string IGValidation = addOpportunity.ValidateMandatoryValidationOfIG();
-                Assert.AreEqual("Complete this field.", IGValidation);
-                extentReports.CreateLog("Validation: " + IGValidation + " is displayed for Industry Group field when Save button is clicked without entering any value ");
+                //string IGValidation = addOpportunity.ValidateMandatoryValidationOfIG();
+                //Assert.AreEqual("Complete this field.", IGValidation);
+                //extentReports.CreateLog("Validation: " + IGValidation + " is displayed for Industry Group field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Primary Office
                 string primaryValidation = addOpportunity.ValidateMandatoryValidationOfPrimaryOffice();

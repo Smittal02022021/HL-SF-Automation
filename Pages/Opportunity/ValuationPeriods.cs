@@ -117,13 +117,17 @@ namespace SF_Automation.Pages.Opportunity
         By tabHLRelatedL = By.XPath("//span[@title='HL_Related_PortfolioValuations']");
         By btnExistingImports = By.XPath("//td[1]/span/input[contains(@value,'Valuation Period')]");
         By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
+        By btnExistingValPeriod2ndL = By.XPath("//tr[2]/td[1]/input");
         By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
         By lblImportL = By.XPath("//label[contains(text(),'Positions')]");
         By btnImportBottomL = By.XPath("//span[contains(@id,'RelatedRecordPanelId')]/input[contains(@name,'RelatedRecordPanelId')]");
         By chkPositionNameL = By.XPath("//input[contains(@name,'myCheckbox')]");
         By btnSaveAndBackL = By.XPath("//input[contains(@value,'Save & Back ')]");
         By valAddedPositionWithTeam = By.XPath("//table[contains(@id,'pbtableId2')]//tbody/tr/td[2]/a");
-       
+        By chkImportWithoutTeamL = By.XPath("//input[@value='Import Positions Without Team Members']");
+        By lnkEditPeriodPositionL = By.XPath("//table[contains(@id,'pbtableId2')]//tbody/tr/td[1]//font");
+        By valStatusPeriodPosL = By.XPath("//th[text()='Status']/ancestor::tr[1]/td[2]/span");
+
 
       
 
@@ -633,6 +637,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
             Thread.Sleep(5000);
+              
             driver.FindElement(txtNameL).SendKeys(name);            
             driver.FindElement(lnkValDateL).Click();
             driver.FindElement(btnSaveL).Click();
@@ -1074,6 +1079,17 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnNewOppValPeriodL).Click();
         }
 
+        public void ClickBackToOppValPeriodList()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnBackToOppValPeriodList).Click();
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(btnNewOppValPeriodL).Click();          
+            
+        }
+
         //Validate buttons of existing Valuation Period 
         public bool ValidateButtonsOfExistingValPeriodL()
         {
@@ -1172,6 +1188,44 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             string row = driver.FindElement(valAddedPositionWithTeam).Text;
             return row;
+        }
+      
+        //Validate import without team members
+        public string ValidateImportWithoutTeamMembers()
+        {
+            driver.FindElement(btnExistingValPeriod2ndL).Click();
+            driver.FindElement(btnSearchValPeriodPosL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, chkImportWithoutTeamL, 120);
+            driver.FindElement(chkImportWithoutTeamL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkPositionNameL, 120);
+            driver.FindElement(chkPositionNameL).Click();
+            driver.FindElement(btnSaveAndBackL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            string row = driver.FindElement(valAddedPositionWithTeam).Text;
+            return row;
+        }
+
+        //Validate edit functionality of Period Position for deal team member
+        public string ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditPeriodPositionL, 120);
+            driver.FindElement(lnkEditPeriodPositionL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            string row = driver.FindElement(valStatusPeriodPosL).Text;
+            return row;           
+
         }
     }
 }

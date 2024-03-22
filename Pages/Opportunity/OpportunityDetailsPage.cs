@@ -1337,6 +1337,7 @@ public void ClickNewOpportunitySectorButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
             driver.FindElement(btnFEISL).Click();
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleFEISL, 160);
             string title = driver.FindElement(titleFEISL).Text;
             return title;
@@ -6294,6 +6295,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         public void AddOppCommentaAndValidate()
         {
             Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
+            driver.FindElement(tabComments).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
@@ -6310,6 +6313,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Get added Opportunity comments
         public string GetOppCommentsL()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
+            driver.FindElement(tabComments).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;
             return comment;

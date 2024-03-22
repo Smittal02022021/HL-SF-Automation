@@ -315,6 +315,9 @@
     <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\SikuliIntegrator.1.1.0\lib\System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -446,11 +449,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Selenium.WebDriver.4.8.0\lib\net47\WebDriver.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Selenium.WebDriver.4.11.0\lib\net47\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Selenium.Support.4.8.0\lib\net47\WebDriver.Support.dll</HintPath>
+      <HintPath>packages\Selenium.Support.4.11.0\lib\net47\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -648,14 +650,26 @@
     <Compile Include="TestCases\Engagement\T2296_TMTC0001641_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFREngagementFromEngagementManager.cs" />
     <Compile Include="TestCases\Engagement\T2358AndT2359_AddPrimaryAndBillingContactWithoutEmailAndTitledetailsAndVerifyBillingRequestOnCFAndFASEngagement.cs" />
     <Compile Include="TestCases\Engagement\TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0019676_TMTI0019677_TMTI0071581_TMTI0071584_TMTI0071586_VerifyNondealUserAndUserPartOfAccessToEngOfAllLOBsAccessToEngReports_VerifyEngagementReportLinksInClassicAndLightning.cs" />
     <Compile Include="TestCases\Engagement\TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0046430_TMTI0046429_TMTI0046434_TMTI0046433_TMTI0046432_TMTI0046431_ValidateBidTrackingComponent.cs" />
     <Compile Include="TestCases\Engagement\TMTI0046858_Verify_Functionality_Of_Outlook_Invitation_Tab_on_CST_Questionnaire_Page.cs" />
     <Compile Include="TestCases\Engagement\TMTI0048263_0048282_45498_45523_48654_48269_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.cs" />
     <Compile Include="TestCases\Engagement\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.cs" />
     <Compile Include="TestCases\Engagement\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027453_ViewCounterparties_MassCheckbox.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031164_VerifyTheInformationUnderEngagementInformationTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031167_VerifyTheFieldsAndFunctionalityOfFinancialsProjectionsTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031209_ VerifyTheFieldsAndFunctionalityOfTheDistressedMAInformationTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031255_VerifyTheFieldsAndFunctionalityOfHLFinancingTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
@@ -717,6 +731,9 @@
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.cs" />
     <Compile Include="TestCases\Opportunities\T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
     <Compile Include="TestCases\Opportunities\T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
@@ -734,7 +751,6 @@
     <Compile Include="TestCases\Opportunities\TMTI0055018_TMTI0055021_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
-
     <Compile Include="TestCases\Opportunities\TMTI0056868_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056871_27295_27302_71646_55400_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
@@ -759,6 +775,7 @@
     <Compile Include="TestCases\Opportunities\TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013844_CNBCForm_RequiredFields_SubmitForReview.cs" />
@@ -794,6 +811,7 @@
     <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
     <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
+    <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel.cs" />
     <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
@@ -1093,10 +1111,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.13.3\build\NUnit.props'))" />
-
     <Error Condition="!Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />
@@ -1104,7 +1119,7 @@
     <Error Condition="!Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets'))" />
   </Target>
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
@@ -1117,5 +1132,6 @@
   <Import Project="packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.114.0.5735.9000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.114.0.5735.9000\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>
