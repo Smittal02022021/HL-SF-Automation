@@ -287,9 +287,21 @@ namespace SF_Automation.TestCases.Opportunity
                 //29.  TMTI0092067_Verify that the Deal Team Member is not allowed to update the status from In-Progress to Completed on the Opportunity Valuation. 
                 string statusPeriodPosition = period.ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember();
                 Assert.AreEqual("In Progress", statusPeriodPosition);
-                extentReports.CreateLog("Status of Period position : " + importWithTeam + " is  displayed with no option to deal team member to update it ");
+                extentReports.CreateLog("Status of Period position : " + statusPeriodPosition + " is  displayed with no option to deal team member to update it ");
+
+                //31. TMTI0092071_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period" as a deal team member.
+                string deleteValPeriod = period.ValidateDeleteFunctionalityOfValPeriodWithDealTeamMember();
+                Assert.AreEqual("Delete button is not displayed", deleteValPeriod);
+                extentReports.CreateLog(deleteValPeriod + " for deal team member to delete Opportunity Valuation Period ");
 
                 //30.  TMTI0092069_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period Positions" as a deal team member.
+                string deletePeriodPosition = period.ValidateDeleteFunctionalityOfPeriodPositionWithDealTeamMember();
+                Assert.AreEqual("Delete button is not displayed", deletePeriodPosition);
+                extentReports.CreateLog( deletePeriodPosition + " for deal team member to delete Period Position ");
+
+                //32. TMTI0092074_ Verify that the CAO can add Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
+
+
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

@@ -74,6 +74,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSaveL = By.XPath("//input[@value='Save']");
         By msgMandatoryValL = By.XPath("//tbody/tr/td//li");
         By btnCancelL = By.XPath("//input[@value='Cancel']");
+        By btnDeleteL = By.XPath("//input[@value='Delete']");
         By tabDetails = By.XPath("//a[text()='Details']");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
@@ -1223,8 +1224,55 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
             Thread.Sleep(4000);
+            driver.FindElement(valAddedPositionWithTeam).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
             string row = driver.FindElement(valStatusPeriodPosL).Text;
             return row;           
+
+        }
+
+        //Validate delete functionality of Valuation Period for deal team member
+        public string ValidateDeleteFunctionalityOfValPeriodWithDealTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 120);
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);           
+            try
+            {
+                string value = driver.FindElement(btnDeleteL).Text;
+                return value;
+            }
+            catch (Exception)
+            {
+                return "Delete button is not displayed";
+            }
+
+        }
+
+        //Validate delete functionality of Period Position for deal team member
+        public string ValidateDeleteFunctionalityOfPeriodPositionWithDealTeamMember()
+        {         
+            Thread.Sleep(4000);
+            driver.FindElement(valAddedPositionWithTeam).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            try
+            {
+                string value = driver.FindElement(btnDeleteL).Text;
+                return value;
+            }
+            catch(Exception)
+            {
+                return "Delete button is not displayed";
+            }
 
         }
     }
