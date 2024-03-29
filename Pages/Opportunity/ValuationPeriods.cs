@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
@@ -128,7 +129,7 @@ namespace SF_Automation.Pages.Opportunity
         By chkImportWithoutTeamL = By.XPath("//input[@value='Import Positions Without Team Members']");
         By lnkEditPeriodPositionL = By.XPath("//table[contains(@id,'pbtableId2')]//tbody/tr/td[1]//font");
         By valStatusPeriodPosL = By.XPath("//th[text()='Status']/ancestor::tr[1]/td[2]/span");
-
+        By tabPeriodPositionL = By.XPath("//ul[2]/li[4]/a/span[2]");
 
       
 
@@ -810,6 +811,13 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        public void ClickNewPeriodPositionButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewPeriodPositionL, 120);
+
+            driver.FindElement(btnNewPeriodPositionL).Click();
+        }
+
         //Validate fields of Opportunity Valuation Period Position
         public bool ValidateFieldsOfOppValuationPeriodPositionL()
         {
@@ -1223,12 +1231,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(4000);
-            driver.FindElement(valAddedPositionWithTeam).Click();
-            Thread.Sleep(4000);
-            driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
-            Thread.Sleep(4000);
+            Thread.Sleep(4000);           
             string row = driver.FindElement(valStatusPeriodPosL).Text;
             return row;           
 
@@ -1259,7 +1262,9 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateDeleteFunctionalityOfPeriodPositionWithDealTeamMember()
         {         
             Thread.Sleep(4000);
-            driver.FindElement(valAddedPositionWithTeam).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.FindElement(tabPeriodPositionL).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
@@ -1267,10 +1272,16 @@ namespace SF_Automation.Pages.Opportunity
             try
             {
                 string value = driver.FindElement(btnDeleteL).Text;
+                Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();                
+                Thread.Sleep(4000);
                 return value;
             }
             catch(Exception)
             {
+                Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();
+                Thread.Sleep(4000);
                 return "Delete button is not displayed";
             }
 

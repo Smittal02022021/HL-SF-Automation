@@ -1,23 +1,11 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using MongoDB.Driver;
+﻿
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V113.Input;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;
-       
-
+using SF_Automation.UtilityFunctions;     
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Threading;
-using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -300,7 +288,27 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog( deletePeriodPosition + " for deal team member to delete Period Position ");
 
                 //32. TMTI0092074_ Verify that the CAO can add Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
+                usersLogin.DiffLightningLogout();
+                string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
+                usersLogin.SearchUserAndLogin(valCAOUser);
+                string caoUser = login.ValidateUserLightningCAO();
+                Console.WriteLine("caoUser:" + caoUser);
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(1, 10));
+                Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
+                extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
+                opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
+                opportunityDetails.ClickPortfolioValuationCAOL();
+
+                string nameCAO = CustomFunctions.RandomValue();
+                string addedValuationCAO = period.EnterAndSaveOppValuationPeriodDetailsL(name);
+                Assert.AreEqual(name, addedValuationCAO);
+                extentReports.CreateLog("Added valuation: " + addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details by "+ caoUser + " ");
+
+                period.ClickNewPeriodPositionButtonL();
+                string addedPositionCAO = period.EnterAndSaveOppValuationPeriodPositionDetailsL();
+                Assert.AreEqual("Techno Alpha", addedPositionCAO);
+                extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
 
 
                 usersLogin.DiffLightningLogout();

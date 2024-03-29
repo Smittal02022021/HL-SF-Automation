@@ -545,11 +545,15 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valClientL = By.XPath("//span[text()='Client']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
+        By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//span//lightning-formatted-text");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By val2ndJobTypeL = By.XPath("//section/div[1]/div/div[2]/div[2]/section[2]//flexipage-column2[1]/div/slot/flexipage-field[5]//lightning-formatted-text");
+        By btnMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
+
+
 
         private By _ActivitySubject(string activitySubject)
         {
@@ -1356,7 +1360,19 @@ public void ClickNewOpportunitySectorButton()
             string title = driver.FindElement(msgNoValL).Text;
             return title;
         }
-       
+
+        //Click Portfolio valuation button for CAO
+        public void ClickPortfolioValuationCAOL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMoreL, 120);
+            driver.FindElement(btnMoreL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
+            driver.FindElement(btnPortfolioVCAOL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(0);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);
+            driver.FindElement(btnNewOppValPeriodL).Click();            
+        }
 
         //Validate Back To Opportunity button
         public string ValidateReturnToOppButton()
