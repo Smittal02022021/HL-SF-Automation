@@ -1694,6 +1694,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             js.ExecuteScript("window.scrollTo(0,400)");
             driver.FindElement(btnC).Click();
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//label[text()='C']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");

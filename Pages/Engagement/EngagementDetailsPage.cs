@@ -389,7 +389,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveBacklog = By.XPath("//footer/button[2]/span");
         By msgEngNameBacklog = By.XPath("//section/div/div[2]/div/ul/li");
         By valEngNameL = By.XPath("//span[text()='Engagement Name']/ancestor::record_flexipage-record-field/div[1]/div[1]//div[1]/span/slot[1]/lightning-formatted-text");
-        By valEngNumL = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valEngNumL = By.XPath("//div/span[text()='Engagement Name']/ancestor::dl/dd//slot/lightning-formatted-text");
         By btnAddClientL = By.XPath("//button[@name='Engagement__c.Add_Client_L']");
         By txtCompanies = By.XPath("//input[@placeholder='Search Companies...']");
         By valCompanyName = By.XPath("//tbody/tr[3]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
