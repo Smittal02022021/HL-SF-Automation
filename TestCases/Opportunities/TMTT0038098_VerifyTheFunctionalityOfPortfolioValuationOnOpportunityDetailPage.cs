@@ -288,6 +288,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog( deletePeriodPosition + " for deal team member to delete Period Position ");
 
                 //32. TMTI0092074_ Verify that the CAO can add Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
+                //33.  TMTI0092076_Verify that the CAO can edit the Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
+
                 usersLogin.DiffLightningLogout();
                 string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
@@ -305,11 +307,20 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(name, addedValuationCAO);
                 extentReports.CreateLog("Added valuation: " + addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details by "+ caoUser + " ");
 
+                period.ValidateOppDetailsPageUponClickOfBackToOppButton();
+                string updValuationCAO= period.EditFunctionalityOfValuationPeriod();
+                Assert.AreEqual("Testing", updValuationCAO);
+                extentReports.CreateLog("Updated valuation Period name is displayed on Valuation period listing page after updating the name by " + caoUser + " ");
+
                 period.ClickNewPeriodPositionButtonL();
                 string addedPositionCAO = period.EnterAndSaveOppValuationPeriodPositionDetailsL();
                 Assert.AreEqual("Techno Alpha", addedPositionCAO);
                 extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
 
+                period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
+                string updPositionCAO =period.EditFunctionalityOfPeriodPosition();
+                Assert.AreEqual("In Progress", statusPeriodPosition);
+                extentReports.CreateLog("Status of Period position : " + statusPeriodPosition + " is  displayed with no option to deal team member to update it ");
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

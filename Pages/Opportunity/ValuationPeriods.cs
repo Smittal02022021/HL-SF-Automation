@@ -813,8 +813,11 @@ namespace SF_Automation.Pages.Opportunity
 
         public void ClickNewPeriodPositionButtonL()
         {
+            Thread.Sleep(3000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewPeriodPositionL, 120);
-
             driver.FindElement(btnNewPeriodPositionL).Click();
         }
 
