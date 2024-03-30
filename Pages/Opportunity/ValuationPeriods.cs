@@ -76,6 +76,8 @@ namespace SF_Automation.Pages.Opportunity
         By msgMandatoryValL = By.XPath("//tbody/tr/td//li");
         By btnCancelL = By.XPath("//input[@value='Cancel']");
         By btnDeleteL = By.XPath("//input[@value='Delete']");
+        By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
+
         By tabDetails = By.XPath("//a[text()='Details']");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
@@ -939,7 +941,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Validate edit functionality of Period Position
-        public string EditFunctionalityOfPeriodPosition()
+        public string EditFunctionalityOfPeriodPosition(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 120);
             driver.FindElement(valAddedPositionL).Click();
@@ -953,7 +955,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().Frame(2);
             Thread.Sleep(5000);
             driver.FindElement(txtEditNameL).Clear();
-            driver.FindElement(txtEditNameL).SendKeys("ABC");
+            driver.FindElement(txtEditNameL).SendKeys(name);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
@@ -1271,8 +1273,23 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 160);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 190);
             string value = driver.FindElement(valAddedPositionL).Text;
+            return value;
+        }
+
+        //Validate delete functionality of Opp Valuation Period 
+        public string ValidateDeleteFunctionalityOfOppValPeriod()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteL, 160);
+            driver.FindElement(btnDeleteL).Click();            
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOppL, 190);
+            string value = driver.FindElement(btnBackToOppL).GetAttribute("value");
             return value;
         }
 

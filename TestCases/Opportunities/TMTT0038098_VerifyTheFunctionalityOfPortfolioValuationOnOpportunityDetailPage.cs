@@ -197,8 +197,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page: " + oppValPeriodDetailsUponBack + " is displayed upon clicking Back to Valuation Period button on Opp Valuation Period Position page ");
 
                 //20.  TMTI0092049_Verify that clicking the "Edit" button given on "Opp Valuation Period Position" allows the user to update Opp Valuation Period position details and updates get reflected on the position
-                string updatedPosition = period.EditFunctionalityOfPeriodPosition();
-                Assert.AreEqual("ABC", updatedPosition);
+                string updatedPosition = period.EditFunctionalityOfPeriodPosition("XYZ");
+                Assert.AreEqual("XYZ", updatedPosition);
                 extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name ");
 
                 //21.  TMTI0092051_Verify that the "Opp Valuation Period Team Members" section is available at the bottom of the Opp Valuation Period Position detail page. 
@@ -259,7 +259,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //27.  TMTI0092063_ Verify that the user can Import Positions with Team Members from the existing valuation period and all the details are imported successfully
                 string importWithTeam = period.ValidateImportWithTeamMembers();
-                Assert.AreEqual("ABC", importWithTeam);
+                Assert.AreEqual("XYZ", importWithTeam);
                 extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully with team member ");
 
                 //28. TMTI0092065_Verify that the user can Import Positions without a Team Member from the existing valuation period and all the details are imported successfully except the Team Member
@@ -269,7 +269,7 @@ namespace SF_Automation.TestCases.Opportunity
                 period.ClickImportButton();
 
                 string importWithoutTeam = period.ValidateImportWithoutTeamMembers();
-                Assert.AreEqual("ABC", importWithoutTeam);
+                Assert.AreEqual("XYZ", importWithoutTeam);
                 extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully without team member ");
 
                 //29.  TMTI0092067_Verify that the Deal Team Member is not allowed to update the status from In-Progress to Completed on the Opportunity Valuation. 
@@ -322,23 +322,26 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Position: " + addedPositionCAO + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
                 
                 //Edit Period Position
-                string updPositionCAO = period.EditFunctionalityOfPeriodPosition();
+                string updPositionCAO = period.EditFunctionalityOfPeriodPosition("ABC");
                 Assert.AreEqual("ABC", updPositionCAO);
                 extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name by " + caoUser + " ");
 
-                //Cancel and Delete Period Position
+                //34. TMTI0092078_Verify that the CAO can "Delete" the "Opportunity Valuation Period Position". 
                 string cancelPositionCAO = period.ValidateWhenNoIsSelectedUponClickingDeleteButton();
-                Assert.AreEqual("ABC", cancelPositionCAO);
+                Assert.AreEqual("AB Enterprises", cancelPositionCAO);
                 extentReports.CreateLog("Position name is not deleted on Opportunity Valuation Period Detail page after clicking No on Delete confirmation pop up for " + caoUser + " ");
 
                 string delPositionCAO = period.ValidateWhenYesIsSelectedUponClickingDeleteButton();
-                Assert.AreNotEqual("ABC", delPositionCAO);
+                Assert.AreNotEqual("AB Enterprises", delPositionCAO);
                 extentReports.CreateLog("Position name is deleted on Opportunity Valuation Period Detail page after clicking Ok on Delete confirmation pop up " + caoUser + " ");
 
-                //Validate when no is selected after clicking Delete button
-                string deleteValPeriodCAO = period.ValidateDeleteFunctionalityOfValPeriodWithDealTeamMember();
-                Assert.AreEqual("Delete button is not displayed", deleteValPeriodCAO);
-                extentReports.CreateLog(deleteValPeriodCAO + " for deal team member to delete Opportunity Valuation Period ");
+                //35.  TMTI0092081_Verify that the CAO can "Delete" the "Opportunity Valuation Period".                
+                string delPeriodCAO= period.ValidateDeleteFunctionalityOfOppValPeriod();
+                Assert.AreNotEqual("Back To Opportunity", delPositionCAO);
+                extentReports.CreateLog("Opp Valuation Period is deleted on Opportunity Valuation Period Detail page after clicking Delete button by " + caoUser + " ");
+
+                //36.  TMTI0092079_Verify that the CAO is not allowed to update the status from In-Progress to Completed of the Opportunity Valuation. 
+                 
 
                 period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
                 
