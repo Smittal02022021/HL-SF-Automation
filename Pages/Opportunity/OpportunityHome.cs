@@ -513,7 +513,7 @@ namespace SF_Automation.Pages
             }
                 WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
                 driver.FindElement(txtOppNumLCAO).SendKeys(value);          
-            Thread.Sleep(6000);           
+            Thread.Sleep(8000);           
             driver.FindElement(imgOppL).Click();
             Thread.Sleep(7000);
             //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);

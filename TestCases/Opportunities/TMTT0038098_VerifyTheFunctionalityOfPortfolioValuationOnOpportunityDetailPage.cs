@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user               
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);           
+                usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -63,8 +63,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);                
-                Assert.AreEqual("New Opportunity: "+valRecordType, titleOpp);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
                 extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
                 //Add FVA Opportunity
@@ -79,20 +79,20 @@ namespace SF_Automation.TestCases.Opportunity
                 //1.  TMTI0092012_Verify that the "Portfolio Valuation" button is available on the portfolio opportunities. – Completed
                 string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButton();
                 string jobTypePV = opportunityDetails.GetJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);               
-                extentReports.CreateLog("Portfolio Valuation Button is displayed for the Opportunity with Job type: " +jobTypePV +" ");
+                Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
+                extentReports.CreateLog("Portfolio Valuation Button is displayed for the Opportunity with Job type: " + jobTypePV + " ");
 
                 //2.  TMTI0092014_Verify that the "Portfolio Valuation" button is not available on opportunities other than portfolio job types. – Completed
                 opportunityHome.ClickOpportunityTab();
                 opportunityHome.ValidateSearchFunctionalityOfOpportunities("119337");
                 string portfolioValuationNo = opportunityDetails.ValidatePortfolioValuationButton();
                 string jobType = opportunityDetails.Get2ndJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is not displayed", portfolioValuationNo);                
+                Assert.AreEqual("Portfolio Valuation button is not displayed", portfolioValuationNo);
                 extentReports.CreateLog("Portfolio Valuation Button is not displayed for the Opportunity with Job type: " + jobType + " ");
 
                 //3.  TMTI0092016_Verify that clicking the "Portfolio Valuation" button opens up a new tab to add the valuation period with buttons and messages on the screen
                 opportunityHome.Click1stOpportunityTab();
-                string message= opportunityDetails.ClickPortfolioValuationL();
+                string message = opportunityDetails.ClickPortfolioValuationL();
                 Assert.AreEqual("Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.", message);
                 extentReports.CreateLog("Message : " + message + " ");
 
@@ -105,7 +105,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Button : " + newOppVal + " ");
 
                 //4.  TMTI0092018_ Verify that clicking "Back to Opportunity" takes the user back to the Opportunity detail page
-                string oppDetails= opportunityDetails.ValidateOppDetailsPageUponClickOfBackToOppButton();
+                string oppDetails = opportunityDetails.ValidateOppDetailsPageUponClickOfBackToOppButton();
                 Assert.AreEqual("Details", oppDetails);
                 extentReports.CreateLog("Opportunity details page is displayed upon clicking Back To Opportunity button ");
 
@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string name = CustomFunctions.RandomValue();
                 string addedValuation = period.EnterAndSaveOppValuationPeriodDetailsL(name);
                 Assert.AreEqual(name, addedValuation);
-                extentReports.CreateLog("Added valuation: "+ addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details ");
+                extentReports.CreateLog("Added valuation: " + addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details ");
 
                 //9.  TMTI0092027_Verify the sections, fields, and buttons available on the Opportunity Valuation Period Detail page
                 Assert.IsTrue(period.ValidateMainSectionsOfOppValuationPeriodDetail(), "Verified that displayed main sections of Opportunity Valuation Period Detail page are same");
@@ -143,18 +143,18 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //10. TMTI0092029_Verify that clicking the "Back to Opp Valuation Period List" button takes the user to the valuation period listing page.
                 string valPeriods = period.ValidateOppDetailsPageUponClickOfBackToOppButton();
-                Assert.AreEqual(value+" - Valuation Periods", valPeriods);
+                Assert.AreEqual(value + " - Valuation Periods", valPeriods);
                 extentReports.CreateLog("Valuation period listing page is displayed upon clicking Back to Opp Valuation Period List button ");
 
                 //11.  TMTI0092031_Verify that the "Edit" action button given corresponds to each valuation period and allows the user to edit the Valuation Period name and valuation date.
-                string updatedPeriod = period.EditFunctionalityOfValuationPeriod();
+                string updatedPeriod = period.EditFunctionalityOfValuationPeriod("Testing");
                 Assert.AreEqual("Testing", updatedPeriod);
                 extentReports.CreateLog("Updated valuation Period name is displayed on Valuation period listing page after updating the name ");
 
                 //12.  TMTI0092033_Verify that clicking "Valuation Period Name" from the valuation period listing page will take the user to the Opportunity Valuation Period Detail page
                 string titlePeriodDetail = period.ValidateOppValPeriodDetailPageUponClickOfValPeriodNameLink();
                 Assert.AreEqual("Opportunity Valuation Period", titlePeriodDetail);
-                extentReports.CreateLog("Page : " + titlePeriodDetail +" is displayed on clicking the Valuation Period Name link on valuation period listing page ");
+                extentReports.CreateLog("Page : " + titlePeriodDetail + " is displayed on clicking the Valuation Period Name link on valuation period listing page ");
 
                 //13.  TMTI0092035_Verify that if there is no existing valuation period to import positions, a message will display on the screen on clicking the "Import Positions" button
                 string msgImport = period.ValidateMessageWhileClickingOnImportButton();
@@ -182,7 +182,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page: " + oppValPeriodDetailsUponCancel + " is displayed upon clicking cancel button on New Opp Valuation Period Position page ");
 
                 //17.  TMTI0092043_Verify that the user can add positions by clicking the "New Opp Valuation Period Position" button with all the required details 
-                 string addedPosition = period.EnterAndSaveOppValuationPeriodPositionDetailsL();
+                string addedPosition = period.EnterAndSaveOppValuationPeriodPositionDetailsL("Techno Alpha");
                 Assert.AreEqual("Techno Alpha", addedPosition);
                 extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position ");
 
@@ -204,7 +204,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //21.  TMTI0092051_Verify that the "Opp Valuation Period Team Members" section is available at the bottom of the Opp Valuation Period Position detail page. 
                 string secTeamMember = period.ValidateSecOppValTeamMember();
                 Assert.AreEqual("Opp Valuation Period Team Members", secTeamMember);
-                extentReports.CreateLog("Section: "+ secTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+                extentReports.CreateLog("Section: " + secTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
 
                 string msgTeamMember = period.ValidateAddTeamMemberMessage();
                 Assert.AreEqual("Please add new team members to this position by selecting the 'Add New Team Member' button.", msgTeamMember);
@@ -220,7 +220,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string saveTeam = period.ValidateSaveTeamMemberButton();
                 Assert.AreEqual("Save Team Members", saveTeam);
-                extentReports.CreateLog("Button with name: " + saveTeam + " is displayed in "+ secTeamMember + " ");
+                extentReports.CreateLog("Button with name: " + saveTeam + " is displayed in " + secTeamMember + " ");
 
                 string deleteTeam = period.ValidateDeleteLinkTeamMember();
                 Assert.AreEqual("Delete", deleteTeam);
@@ -231,7 +231,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string addedRole = period.GetSavedRoleOfStaff();
                 Assert.AreEqual("Associate", addedRole);
                 Assert.AreEqual("Karan Chopra", addedStaff);
-                extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: "+ addedRole + " is displayed after saving details ");
+                extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: " + addedRole + " is displayed after saving details ");
 
                 //24.  TMTI0092057_Verify the functionality of the "Delete" action button that appears while adding a new team member on the Opportunity Valuation Position Detail
                 string cancelTeam = period.ValidateCancelFunctionalityOfTeamMembers();
@@ -285,7 +285,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //30.  TMTI0092069_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period Positions" as a deal team member.
                 string deletePeriodPosition = period.ValidateDeleteFunctionalityOfPeriodPositionWithDealTeamMember();
                 Assert.AreEqual("Delete button is not displayed", deletePeriodPosition);
-                extentReports.CreateLog( deletePeriodPosition + " for deal team member to delete Period Position ");
+                extentReports.CreateLog(deletePeriodPosition + " for deal team member to delete Period Position ");
 
                 //32. TMTI0092074_ Verify that the CAO can add Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
                 //33.  TMTI0092076_Verify that the CAO can edit the Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
@@ -299,28 +299,52 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
+               // string name = "30552024095507";
+
                 opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
                 opportunityDetails.ClickPortfolioValuationCAOL();
 
                 string nameCAO = CustomFunctions.RandomValue();
                 string addedValuationCAO = period.EnterAndSaveOppValuationPeriodDetailsL(name);
                 Assert.AreEqual(name, addedValuationCAO);
-                extentReports.CreateLog("Added valuation: " + addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details by "+ caoUser + " ");
+                extentReports.CreateLog("Added valuation: " + addedValuationCAO + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details by "+ caoUser + " ");
 
                 period.ValidateOppDetailsPageUponClickOfBackToOppButton();
-                string updValuationCAO= period.EditFunctionalityOfValuationPeriod();
-                Assert.AreEqual("Testing", updValuationCAO);
-                extentReports.CreateLog("Updated valuation Period name is displayed on Valuation period listing page after updating the name by " + caoUser + " ");
+                string updValuationCAO= period.EditFunctionalityOfValuationPeriod("Testing CAO");
+                Assert.AreEqual("Testing CAO", updValuationCAO);
+                extentReports.CreateLog("Updated valuation Period name "+ updValuationCAO + " is displayed on Valuation period listing page after updating the name by " + caoUser + " ");
 
+                //Add Period Position
+                period.ValidateOppValPeriodDetailPageUponClickOfValPeriodNameLink();
                 period.ClickNewPeriodPositionButtonL();
-                string addedPositionCAO = period.EnterAndSaveOppValuationPeriodPositionDetailsL();
-                Assert.AreEqual("Techno Alpha", addedPositionCAO);
-                extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
+                string addedPositionCAO = period.EnterAndSaveOppValuationPeriodPositionDetailsL("AB Enterprises");
+                Assert.AreEqual("AB Enterprises", addedPositionCAO);
+                extentReports.CreateLog("Position: " + addedPositionCAO + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
+                
+                //Edit Period Position
+                string updPositionCAO = period.EditFunctionalityOfPeriodPosition();
+                Assert.AreEqual("ABC", updPositionCAO);
+                extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name by " + caoUser + " ");
+
+                //Cancel and Delete Period Position
+                string cancelPositionCAO = period.ValidateWhenNoIsSelectedUponClickingDeleteButton();
+                Assert.AreEqual("ABC", cancelPositionCAO);
+                extentReports.CreateLog("Position name is not deleted on Opportunity Valuation Period Detail page after clicking No on Delete confirmation pop up for " + caoUser + " ");
+
+                string delPositionCAO = period.ValidateWhenYesIsSelectedUponClickingDeleteButton();
+                Assert.AreNotEqual("ABC", delPositionCAO);
+                extentReports.CreateLog("Position name is deleted on Opportunity Valuation Period Detail page after clicking Ok on Delete confirmation pop up " + caoUser + " ");
+
+                //Validate when no is selected after clicking Delete button
+                string deleteValPeriodCAO = period.ValidateDeleteFunctionalityOfValPeriodWithDealTeamMember();
+                Assert.AreEqual("Delete button is not displayed", deleteValPeriodCAO);
+                extentReports.CreateLog(deleteValPeriodCAO + " for deal team member to delete Opportunity Valuation Period ");
 
                 period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
-                string updPositionCAO =period.EditFunctionalityOfPeriodPosition();
-                Assert.AreEqual("In Progress", statusPeriodPosition);
-                extentReports.CreateLog("Status of Period position : " + statusPeriodPosition + " is  displayed with no option to deal team member to update it ");
+                
+                string statusPeriodPositionCAO = period.ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember();
+                Assert.AreEqual("In Progress", statusPeriodPositionCAO);
+                extentReports.CreateLog("Status of Period position : " + statusPeriodPositionCAO + " is  displayed with no option to CAO to update it ");
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

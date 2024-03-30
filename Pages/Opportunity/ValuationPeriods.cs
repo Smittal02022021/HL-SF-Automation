@@ -87,8 +87,8 @@ namespace SF_Automation.Pages.Opportunity
         By mainSecPeriodDetailL = By.XPath("//td/h2");
         By btnBackValPeriodListL = By.XPath("//input[@value='Back To Opp Valuation Period List']");
         By titleValPeriodsL = By.XPath("//div[1]/font/b");
-        By lnkEditL = By.XPath("//a[text()='Edit']");
-        By valUpdatedPeriodL = By.XPath("//tr/td[2]/a");
+        By lnkEditL = By.XPath("//tr[1]/td[1]/a");
+        By valUpdatedPeriodL = By.XPath("//tr/td[2]/a[1]");
         By titlePeriodDetailL = By.XPath("//h2[text()='Opportunity Valuation Period Detail']");
         By titleOppValPeriodL = By.XPath("//h1[text()='Opportunity Valuation Period']");
         By btnImportPositionL = By.XPath("//input[@value='Import Positions']");
@@ -103,7 +103,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnAssetClassL = By.XPath("//select[contains(@id,'id79')]");
         By btnIGL = By.XPath("//select[contains(@id,'PositionIG')]");
         By btnPositonSectorL = By.XPath("//select[contains(@id,'PositionS')]");
-        By valAddedPositionL = By.XPath("//span/table/tbody/tr/td[2]/a");
+        By valAddedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
         By btnBackToValPeriodL = By.XPath("//input[@value='Back To Valuation Period']");
         By btnEditL = By.XPath("//input[@value='Back To Valuation Period']/ancestor::td/input[@value='Edit']");
         By valUpdPositionL = By.XPath("//th[text()='Position Name']/ancestor::tr/td/span[1]/span");
@@ -130,7 +130,7 @@ namespace SF_Automation.Pages.Opportunity
         By lnkEditPeriodPositionL = By.XPath("//table[contains(@id,'pbtableId2')]//tbody/tr/td[1]//font");
         By valStatusPeriodPosL = By.XPath("//th[text()='Status']/ancestor::tr[1]/td[2]/span");
         By tabPeriodPositionL = By.XPath("//ul[2]/li[4]/a/span[2]");
-
+        By lnkDelPositionL = By.XPath("//tr[1]/td[1]/span/a/font");
       
 
 
@@ -738,7 +738,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Validate edit functionality of Valuation Period
-        public string EditFunctionalityOfValuationPeriod()
+        public string EditFunctionalityOfValuationPeriod(String name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditL, 120);
             driver.FindElement(lnkEditL).Click();
@@ -747,7 +747,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().Frame(0);
             Thread.Sleep(4000);
             driver.FindElement(txtNameL).Clear();
-            driver.FindElement(txtNameL).SendKeys("Testing");
+            driver.FindElement(txtNameL).SendKeys(name);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().DefaultContent();
@@ -889,13 +889,13 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Enter all details and save it.
-        public string EnterAndSaveOppValuationPeriodPositionDetailsL()
+        public string EnterAndSaveOppValuationPeriodPositionDetailsL(string name)
         {
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
-            driver.FindElement(txtCompanyL).SendKeys("Techno Alpha");
+            driver.FindElement(txtCompanyL).SendKeys(name);
             Thread.Sleep(6000);
             driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
             Thread.Sleep(4000);
@@ -1238,6 +1238,42 @@ namespace SF_Automation.Pages.Opportunity
             string row = driver.FindElement(valStatusPeriodPosL).Text;
             return row;           
 
+        }
+
+        //Validate cancel functionality of Period Position
+        public string ValidateWhenNoIsSelectedUponClickingDeleteButton()
+        {
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver,tabPeriodPositionL, 160);
+            driver.FindElement(tabPeriodPositionL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelPositionL, 170);
+            driver.FindElement(lnkDelPositionL).Click();
+            Thread.Sleep(4000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Dismiss();
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 180);
+            string value = driver.FindElement(valAddedPositionL).Text;
+            return value;
+        }
+
+        //Validate delete functionality of Period Position
+        public string ValidateWhenYesIsSelectedUponClickingDeleteButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelPositionL, 160);
+            driver.FindElement(lnkDelPositionL).Click();
+            Thread.Sleep(4000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 160);
+            string value = driver.FindElement(valAddedPositionL).Text;
+            return value;
         }
 
         //Validate delete functionality of Valuation Period for deal team member
