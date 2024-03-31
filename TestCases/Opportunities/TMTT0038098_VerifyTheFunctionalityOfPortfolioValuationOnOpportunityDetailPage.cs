@@ -18,7 +18,7 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         ValuationPeriods period = new ValuationPeriods();
-
+        EngagementHomePage engHome = new EngagementHomePage();
         public static string fileTC1644 = "TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx";
 
         [OneTimeSetUp]
@@ -326,6 +326,11 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("ABC", updPositionCAO);
                 extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name by " + caoUser + " ");
 
+                //36.  TMTI0092079_Verify that the CAO is not allowed to update the status from In-Progress to Completed of the Opportunity Valuation. 
+                string statusPeriodPositionCAO = period.ValidateStatusOfPeriodPositionWithCAO();
+                Assert.AreEqual("In Progress", statusPeriodPositionCAO);
+                extentReports.CreateLog("Status of Period position : " + statusPeriodPositionCAO + " is  displayed with no option to CAO to update it ");
+
                 //34. TMTI0092078_Verify that the CAO can "Delete" the "Opportunity Valuation Period Position". 
                 string cancelPositionCAO = period.ValidateWhenNoIsSelectedUponClickingDeleteButton();
                 Assert.AreEqual("AB Enterprises", cancelPositionCAO);
@@ -340,14 +345,20 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreNotEqual("Back To Opportunity", delPositionCAO);
                 extentReports.CreateLog("Opp Valuation Period is deleted on Opportunity Valuation Period Detail page after clicking Delete button by " + caoUser + " ");
 
-                //36.  TMTI0092079_Verify that the CAO is not allowed to update the status from In-Progress to Completed of the Opportunity Valuation. 
-                 
+                //38. Verify that the reports are available on the Opp Valuation Period detail page for CAO.
+                Assert.IsTrue(period.ValidateReportSectionOfOppValPeriod(), "Verified that displayed reports are same");
+                extentReports.CreateLog("Displayed reports are as expected for CAO: " + caoUser + " ");
 
-                period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
-                
-                string statusPeriodPositionCAO = period.ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember();
-                Assert.AreEqual("In Progress", statusPeriodPositionCAO);
-                extentReports.CreateLog("Status of Period position : " + statusPeriodPositionCAO + " is  displayed with no option to CAO to update it ");
+                //37.  TMTI0092383_Verify that once the opportunity gets converted into engagement, the CAO is not able to perform any action or add a new opp valuation period
+                //39.  TMTI0092387_Verify that once the opportunity gets converted into engagement, the FVA User is not able to perform any action or add a new opp valuation period. 
+                engHome.SelectEngUnderHLBanker();
+                engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
+                engHome.ClickEngNumber();
+
+
+
+
+
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

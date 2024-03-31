@@ -6344,5 +6344,20 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Window(driver.WindowHandles[0]);
             return value;
         }
+
+        ////Click Portfolio valuation button and get title of page
+        //public string ClickPortfolioValuationL()
+        //{
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+        //    driver.FindElement(btnPortfolioVL).Click();
+        //    Thread.Sleep(5000);
+        //    driver.SwitchTo().Frame(0);
+        //    //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
+        //    Thread.Sleep(4000);
+        //    WebDriverWaits.WaitUntilEleVisible(driver, msgNoValL, 160);
+        //    string title = driver.FindElement(msgNoValL).Text;
+        //    return title;
+        //}
+
     }
 }

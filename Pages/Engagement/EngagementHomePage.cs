@@ -421,6 +421,14 @@ namespace SF_Automation.Pages
             return value;
         }
 
+        public void SelectEngUnderHLBanker()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
+            driver.FindElement(btnNavigationMenu).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 350);
+            driver.FindElement(tagEngagements).Click();            
+        }
         //Validate Recently Viewed is displayed upon selecting Engagements
         public string ValidateRecentViewedUponSelectingEngagements()
         {

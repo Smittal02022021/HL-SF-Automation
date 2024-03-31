@@ -15,9 +15,7 @@ namespace SF_Automation.Pages.Opportunity
     {
         By btnNewOppValPeriod = By.CssSelector("input[value='New Opportunity Valuation Period']");
         By lblNewOppValPeriod = By.CssSelector("h2[class='pageDescription']");
-        By txtName = By.CssSelector("input[name*='id30']");
-        By comboFrequency = By.CssSelector("select[name*='id31']");
-        By txtSummary = By.CssSelector("textarea[name*='id32']");
+        By txtName = By.CssSelector("input[name*='id30']");        
         By lnkValDate = By.CssSelector("tbody > tr:nth-child(3) > td:nth-child(2) > div > span > span > a");
         By btnSave = By.CssSelector("input[value='Save']");
         By lblOppValPeriodDetail1 = By.CssSelector("h2[class='pageDescription']");
@@ -25,10 +23,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnNewOppValPeriodPosition = By.CssSelector("input[value='New Opp Valuation Period Position']");
         By btnCompany = By.CssSelector("span[class='lookupInput']>input[id*='CompanyField']");
         By comboAssetClasses = By.CssSelector("select[name*='id79']");
-        By comboUpdAssetClasses = By.CssSelector("select[name*='id38']");
-        By txtNotes = By.CssSelector("textarea[name*='id86']");
-        By txtReportFee = By.CssSelector("input[name*='id85']");
-        By txtUpdReportFee = By.CssSelector("input[name*='id40']");
+        By comboUpdAssetClasses = By.CssSelector("select[name*='id38']");        
         By comboPositionIG = By.CssSelector("select[name*='PositionIG']");
         By comboPositionSector = By.CssSelector("select[name*='PositionS']");
         By btnCancel = By.CssSelector("input[value='Cancel']");
@@ -65,8 +60,7 @@ namespace SF_Automation.Pages.Opportunity
         By titleOppDetails = By.CssSelector("div[id*='id55'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
         By titleValPeriods = By.CssSelector("div>font>b");
         By txtVPName = By.CssSelector("td[id *= 'id82'] > a");
-        By valVPDate = By.CssSelector("td[id*='id87']>span");
-        By valVPName = By.CssSelector("td[id *= 'id82']");
+        By valVPDate = By.CssSelector("td[id*='id87']>span");       
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
 
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
@@ -78,7 +72,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnDeleteL = By.XPath("//input[@value='Delete']");
         By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
 
-        By tabDetails = By.XPath("//a[text()='Details']");
+       
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
         By txtEditNameL = By.XPath("//label[text()='Position Name']/ancestor::tr/td[1]//input");
@@ -90,6 +84,9 @@ namespace SF_Automation.Pages.Opportunity
         By btnBackValPeriodListL = By.XPath("//input[@value='Back To Opp Valuation Period List']");
         By titleValPeriodsL = By.XPath("//div[1]/font/b");
         By lnkEditL = By.XPath("//tr[1]/td[1]/a");
+        By valAddedValPeriodL = By.XPath("//div[1]/table/tbody/tr[2]/td[2]/a");
+        By btnCloseTabL = By.XPath("//ul[2]/li[4]/div[2]/button");
+        By valReportsL = By.XPath("//div[1]/following::h3[text()='Report Section']/ancestor::div//div[2]/table/tbody/tr/td/a");
         By valUpdatedPeriodL = By.XPath("//tr/td[2]/a[1]");
         By titlePeriodDetailL = By.XPath("//h2[text()='Opportunity Valuation Period Detail']");
         By titleOppValPeriodL = By.XPath("//h1[text()='Opportunity Valuation Period']");
@@ -101,7 +98,6 @@ namespace SF_Automation.Pages.Opportunity
         By titlePositionDetailL = By.XPath("//h2[text()='Opportunity Valuation Position Detail']");
         By lblPeriodPositionL = By.XPath("//tr/th/label");
         By txtCompanyL = By.XPath("//span/input[contains(@id,'AccountSectionItem:CompanyField')]");
-        By lnkCompanyL = By.XPath("//div[3]//tr[2]/td/div/strong");
         By btnAssetClassL = By.XPath("//select[contains(@id,'id79')]");
         By btnIGL = By.XPath("//select[contains(@id,'PositionIG')]");
         By btnPositonSectorL = By.XPath("//select[contains(@id,'PositionS')]");
@@ -965,6 +961,19 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        //Validate edit functionality of Period Position
+        public string ValidateStatusOfPeriodPositionWithCAO()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 120);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);            
+            string value = driver.FindElement(valStatusPeriodPosL).Text;
+            return value;
+        }
+
         //Validate Opp Valuation Team member
         public string ValidateSecOppValTeamMember()
         {
@@ -1287,10 +1296,46 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOppL, 190);
             string value = driver.FindElement(btnBackToOppL).GetAttribute("value");
             return value;
+        }
+
+        //Validate report section of Opp Valuation Period 
+        public bool ValidateReportSectionOfOppValPeriod()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedValPeriodL, 160);
+            driver.FindElement(valAddedValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.FindElement(btnCloseTabL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(6000);            
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valReportsL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = {"All Positions and Team Members", "All Positions by Team Members", "Valuation Portfolio Report Fees" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
 
         //Validate delete functionality of Valuation Period for deal team member
