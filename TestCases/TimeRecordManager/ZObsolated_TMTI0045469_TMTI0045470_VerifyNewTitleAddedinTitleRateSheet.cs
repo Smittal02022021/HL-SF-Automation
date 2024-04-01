@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet : BaseClass
+    class ZObsolated_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

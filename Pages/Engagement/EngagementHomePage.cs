@@ -61,8 +61,23 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
-        
+        By eleItem = By.XPath("//table/tbody//td[4]/span/span");              
+
+        public void SearchEngagementInLightning(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 5);
+            driver.FindElement(btnEngsearchL).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngsearchL, 10);
+            driver.FindElement(txtEngsearchL).SendKeys(value);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgEng, 10);
+            Thread.Sleep(2000);
+            driver.FindElement(imgEng).Click();
+            Thread.Sleep(6000);
+
+        }
+
         public void ClickEngagementTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements);

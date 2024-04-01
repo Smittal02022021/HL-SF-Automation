@@ -46,12 +46,12 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0009535;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 //Login as supervisor
                 userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);

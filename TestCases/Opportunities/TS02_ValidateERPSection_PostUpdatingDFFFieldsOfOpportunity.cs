@@ -58,6 +58,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");

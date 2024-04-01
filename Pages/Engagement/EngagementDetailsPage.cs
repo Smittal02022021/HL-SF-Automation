@@ -5419,7 +5419,7 @@ namespace SF_Automation.Pages.Engagement
 			return name;
 		}
 
-        public string GetEngNumL()
+        public string GetEngNumberL()
         {
             Thread.Sleep(5000);   
             WebDriverWaits.WaitUntilEleVisible(driver, valEngNumL, 200);            
@@ -6540,6 +6540,143 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, linkRelatedOppL, 30);
             driver.FindElement(linkRelatedOppL).Click();
             Thread.Sleep(10000);
+        }
+        By headerEditBox = By.XPath("//h2[contains(text(),'Edit')]");
+        //By lblWomenLedL = By.XPath("//label[text()='Women Led']");
+        By lblExpense = By.XPath("//span[text()='Expense']");
+        By btnSaveL = By.XPath("//button[text()='Save']");
+        By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
+        By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
+        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
+        By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
+        By txtEstFee = By.XPath("//input[@name='Fee__c']");
+        By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
+        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
+        By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
+        By txtSICL = By.XPath("//input[@placeholder='Search SIC Codes...']");
+        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
+        By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
+        By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
+        By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
+        By _elmRecordType(string text)
+        {
+            return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
+        }
+
+        public void UpdatePrimaryOfficeInlineLV(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconInlinePrimaryOfficeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlinePrimaryOfficeL));
+            driver.FindElement(iconInlinePrimaryOfficeL).Click();
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblExpense));
+            driver.FindElement(comboPrimaryOfficeL).Click();
+            By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{value}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+            WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+            driver.FindElement(elePO).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
+        }
+
+        public void UpdateHLSectionIDLV(string sector)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            driver.FindElement(btnClearHLSectionL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
+            driver.FindElement(inputHLSectorIDL).Click();
+            driver.FindElement(inputHLSectorIDL).SendKeys(sector);
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
+        }
+        public void UpdateJobTypeLV(string jobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnJobTypeL));
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(2000);
+            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{jobType}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            driver.FindElement(eleJobType).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(12000);
+        }
+        public void UpdateClientOwnershipLV(string client)
+        {
+            //Thread.Sleep(70000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            driver.FindElement(comboClientOwnershipL).Click();
+            Thread.Sleep(2000);
+            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{client}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleClientOwnership, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+            driver.FindElement(eleClientOwnership).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
+        }
+        public void UpdateRecordTypeLV(string recordType, string jobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
+            driver.FindElement(btnChangeRecordTypeL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerChangeRT, 20);
+            driver.FindElement(_elmRecordType(recordType)).Click();
+            driver.FindElement(btnChangeRTNextL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            driver.FindElement(btnLOBL).Click();
+            By eleLOB = By.XPath($"//label[text()='Line of Business']/following::lightning-base-combobox-item//span[@title='{recordType}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleLOB, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleLOB));
+            driver.FindElement(eleLOB).Click();
+            driver.FindElement(btnJobTypeL).Click();
+            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{jobType}']");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            }
+            catch
+            {
+                driver.FindElement(btnJobTypeL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            }
+            driver.FindElement(eleJobType).Click();
+
+            if (recordType == "FVA")
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(txtEstFee));
+                driver.FindElement(txtEstFee).SendKeys("10000");
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(8000);
         }
     }
 }

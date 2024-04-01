@@ -2065,8 +2065,8 @@ namespace SF_Automation.Pages
                         break;
                 }
                 driver.FindElement(btnSave).Click();
-                Thread.Sleep(10000);
-                WebDriverWaits.WaitForPageToLoad(driver, 20);
+                WebDriverWaits.WaitForPageToLoad(driver, 20); 
+                Thread.Sleep(10000);                
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
