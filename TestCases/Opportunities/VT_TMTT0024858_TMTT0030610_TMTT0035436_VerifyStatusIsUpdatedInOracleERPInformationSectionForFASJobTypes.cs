@@ -181,7 +181,6 @@ namespace SF_Automation.TestCases.Opportunity
                     string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
                     Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed ");
-
                     usersLogin.UserLogOut();
                 }
                 usersLogin.UserLogOut();

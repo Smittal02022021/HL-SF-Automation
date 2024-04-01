@@ -2297,7 +2297,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsActualHours, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSummaryLogsActualHours, 20);
             string SummaryLogEntryTime = driver.FindElement(txtSummaryLogsActualHours).Text;
             driver.SwitchTo().DefaultContent();
             return SummaryLogEntryTime;
@@ -2306,7 +2306,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtDetailLogsActualHours, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDetailLogsActualHours, 20);
             string DetailLogEntryTime = driver.FindElement(txtDetailLogsActualHours).GetAttribute("value");
             driver.SwitchTo().DefaultContent();
             return DetailLogEntryTime;
@@ -2389,7 +2389,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, valProjectOrEngagement, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valProjectOrEngagement, 20);
             string ProjectOrEngagement = driver.FindElement(valProjectOrEngagement).Text;
             driver.SwitchTo().DefaultContent();
             return ProjectOrEngagement;
@@ -2398,7 +2398,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, valActivity, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valActivity, 20);
             string ActivityValue = driver.FindElement(valActivity).Text;
             driver.SwitchTo().DefaultContent();
             return ActivityValue;
@@ -2407,7 +2407,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, valActivityInDetailLogs, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valActivityInDetailLogs, 20);
             string ActivityValueInDetail = driver.FindElement(valActivityInDetailLogs).Text;
             driver.SwitchTo().DefaultContent();
             return ActivityValueInDetail;
@@ -2426,7 +2426,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHoursInDetailLogs, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEnteredHoursInDetailLogs, 20);
             string enteredHours = driver.FindElement(valEnteredHoursInDetailLogs).GetAttribute("value");
             driver.SwitchTo().DefaultContent();
             return enteredHours;
@@ -2463,9 +2463,9 @@ namespace SF_Automation.Pages.TimeRecordManager
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tableAddedProject);
+            WebDriverWaits.WaitUntilEleVisible(driver, tableAddedProject,20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tableAddedProject));
-            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg);
+            WebDriverWaits.WaitUntilEleVisible(driver, textSuccessMsg,20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(textSuccessMsg));
             string txtMsg = driver.FindElement(textSuccessMsg).Text.Trim();
             driver.SwitchTo().DefaultContent();

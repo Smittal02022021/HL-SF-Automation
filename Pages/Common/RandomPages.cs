@@ -122,6 +122,7 @@ namespace SF_Automation.Pages.Common
         {
             try
             {
+                Thread.Sleep(4000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnNewReport, 20);
                 driver.FindElement(btnNewReport).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 20);
@@ -131,6 +132,7 @@ namespace SF_Automation.Pages.Common
                 CustomFunctions.MoveToElement(driver, optionReport);
                 optionReport.Click();
                 driver.FindElement(btnCreateReport).Click();
+                Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportHeader, 20);
                 return driver.FindElement(txtReportHeader).Text;
             }
@@ -144,7 +146,7 @@ namespace SF_Automation.Pages.Common
         {
             try
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(4000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnAddFilter, 20);
                 driver.FindElement(btnAddFilter).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, sectionFilter, 20);
@@ -751,5 +753,105 @@ namespace SF_Automation.Pages.Common
             //driver.SwitchTo().DefaultContent();
             Thread.Sleep(4000);
         }
+
+        private By _namejobType(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//th//a[@title='{name}']");
+        }
+
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        public string SelectJobTypesL(string name)
+        {    
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _namejobType(name), 20);
+            driver.FindElement(_namejobType(name)).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
+            string pageheader = driver.FindElement(txtPageHeader).Text;
+            return pageheader;
+        }
+
+        By txtProductLineL = By.XPath("//div[contains(@data-target-selection-name,'Product_Line__c')]//dd//lightning-formatted-text");
+        By txtProductTypeCodeL = By.XPath("//div[contains(@data-target-selection-name,'Product_Type_Code__c')]//dd//lightning-formatted-text");
+        public string GetJobTypeProductLineLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtProductLineL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtProductLineL));
+            return driver.FindElement(txtProductLineL).Text;
+        }
+        public string GetJobTypeProductTypeCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtProductTypeCodeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtProductTypeCodeL));
+            return driver.FindElement(txtProductTypeCodeL).Text;
+        }
+        By checkERPUpdateDFFL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
+        By valERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
+        By valERPLastIntStatusL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");
+        By valERPLastIntegrationResponseDateL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");
+        By btnSaveL = By.XPath("//button[text()='Save']");
+
+        By iconInlineEditERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//button");
+        By textDatePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-datepicker//input");
+        By txtTimePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-timepicker//input");
+
+        
+        public void UpdateERPSyncManuallyInlineLV()
+        {
+            DateTime Time = DateTime.Now;
+            string syncDate = Time.ToString("MM/dd/yyyy");
+            string syncTime = Time.ToString("hh:mm:ss tt");
+            WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditERPSubmittedToSyncL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditERPSubmittedToSyncL));
+            driver.FindElement(iconInlineEditERPSubmittedToSyncL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, textDatePickerL, 20);
+            driver.FindElement(textDatePickerL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(textDatePickerL).Clear();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(textDatePickerL));
+            driver.FindElement(textDatePickerL).SendKeys(syncDate);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtTimePickerL));
+            driver.FindElement(txtTimePickerL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(txtTimePickerL).Clear();
+            driver.FindElement(txtTimePickerL).SendKeys(syncTime);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
+        }
+        public string GetERPSubmittedToSyncLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPSubmittedToSyncL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPSubmittedToSyncL));
+            string syncDate = driver.FindElement(valERPSubmittedToSyncL).Text;
+            return syncDate;
+        }
+        public string GetERPLastIntegrationResponseDateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntegrationResponseDateL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntegrationResponseDateL));
+            string date = driver.FindElement(valERPLastIntegrationResponseDateL).Text;
+            return date;
+        }
+        public string GetERPLastIntegrationStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntStatusL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntStatusL));
+            string status = driver.FindElement(valERPLastIntStatusL).Text;
+            return status;
+        }       
+        public string GetERPUpdateDFFCheckboxStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, checkERPUpdateDFFL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(checkERPUpdateDFFL));
+            bool Enabled = driver.FindElement(checkERPUpdateDFFL).Selected;
+            if (Enabled)
+            {
+                return "Checkbox is checked";
+            }
+            else
+            {
+                return "Checkbox is not checked";
+            }
+        }       
     }
 }

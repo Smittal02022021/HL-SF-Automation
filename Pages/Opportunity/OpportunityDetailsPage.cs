@@ -593,17 +593,14 @@ namespace SF_Automation.Pages
         By txtSubjectNameL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSubject')]//records-hoverable-link//a//span");
         By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
-        By checkERPUpdateDFFL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
-        By valERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
-        By valERPLastIntStatusL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");
-        By valERPLastIntegrationResponseDateL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");
         By valOppNumL = By.XPath("//flexipage-field[contains(@data-field-id,'Opportunity_Number__cField')]//dd//lightning-formatted-text");
-        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label=\"Primary Office\"]//dd//lightning-formatted-text");
+        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//dd//lightning-formatted-text");
         By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
         By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
         By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
         By headerEditBox = By.XPath("//h2[contains(text(),'Edit')]");
         By lblWomenLedL = By.XPath("//label[text()='Women Led']");
+        By lblExpense= By.XPath("//span[text()='Expense']");
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
         By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
@@ -611,6 +608,14 @@ namespace SF_Automation.Pages
         By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
         By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
+        By txtEstFee = By.XPath("//input[@name='Fee__c']");
+        By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
+        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
+        By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
+
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -7443,35 +7448,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtJobTypeL));
             return driver.FindElement(txtJobTypeL).Text;            
         }
-
-        public string GetERPSubmittedToSyncLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPSubmittedToSyncL, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPSubmittedToSyncL));
-            string syncDate = driver.FindElement(valERPSubmittedToSyncL).Text;
-            return syncDate;
-        }
-        public string GetERPUpdateDFFCheckboxStatusLV()
-        {                       
-            WebDriverWaits.WaitUntilEleVisible(driver, checkERPUpdateDFFL, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(checkERPUpdateDFFL));
-            bool Enabled = driver.FindElement(checkERPUpdateDFFL).Selected;
-            if (Enabled)
-            {
-                return "Checkbox is checked";
-            }
-            else
-            {
-                return "Checkbox is not checked";
-            }
-        }
-        public string GetERPLastIntegrationResponseDateLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntegrationResponseDateL, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntegrationResponseDateL));
-            string date = driver.FindElement(valERPLastIntegrationResponseDateL).Text;
-            return date;
-        }
+        
         public void UpdatePrimaryOfficeLV(string value)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
@@ -7488,8 +7465,10 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(elePO).Click();
             
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(5000);            
+            Thread.Sleep(10000);            
         }
+        
+        
         public string GetPrimaryOfficeLV()
         {
             Thread.Sleep(5000);
@@ -7498,22 +7477,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             string value = driver.FindElement(valAdminPrimaryOfficeL).Text;
             return value;
         }
-
-        //Get ERP Last Integration Status
-        public string GetERPLastIntegrationStatusLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntStatusL, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntStatusL));
-            string status = driver.FindElement(valERPLastIntStatusL).Text;
-            return status;
-        }
-        public string GetERPIntegrationResponseDateLV()
-        {            
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntegrationResponseDateL, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntegrationResponseDateL));
-            string date = driver.FindElement(valERPLastIntegrationResponseDateL).Text;
-            return date;
-        }
+        
         public void UpdateJobTypeLV(string jobType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
@@ -7551,14 +7515,14 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         }
         public string GetClientOwnershipLV()
         {
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valClientOwnershipL));
             string clientOwnership = driver.FindElement(valClientOwnershipL).Text;
             return clientOwnership;
         }
-        By txtEstFee = By.XPath("//input[@name='Fee__c']");
+        
         public void UpdateRecordTypeLV(string recordType, string jobType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
@@ -7619,8 +7583,39 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             string code = driver.FindElement(valERPProductTypCodeL).Text;
             return code;
         }
-    }
-    
+        
+        public void UpdateHLSectionIDLV(string sector)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            driver.FindElement(btnClearHLSectionL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
+            driver.FindElement(inputHLSectorIDL).Click();
+            driver.FindElement(inputHLSectorIDL).SendKeys(sector);
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
+        }
+        public string GetHLSectionIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorIDL, 10);
+            return driver.FindElement(txtHLSectorIDL).Text;             
+        }
+
+        public string GetHLSectorComboLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorComboL, 10);
+            return driver.FindElement(txtHLSectorComboL).Text;
+        }
+
+       
+    }    
 }
 
 

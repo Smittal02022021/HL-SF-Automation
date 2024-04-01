@@ -62,7 +62,9 @@ namespace SF_Automation.TestCases.Opportunity
                
                 //Login as Standard User profile and validate the user
                 usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
+                login.SwitchToClassicView();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
@@ -138,6 +140,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login again as Standard User
                 usersLogin.SearchUserAndLogin(stdUser);
+                login.SwitchToClassicView();
                 string stdUser1 = login.ValidateUser();
                 Assert.AreEqual(stdUser1.Contains(stdUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
