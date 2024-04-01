@@ -173,10 +173,11 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-                    homePageLV.UserLogoutFromSFLightningView();
+                    //homePageLV.UserLogoutFromSFLightningView();
                 }
-                
-                usersLogin.UserLogOut();
+
+                homePageLV.UserLogoutFromSFLightningView();
+                //usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
             }
