@@ -42,8 +42,7 @@ namespace SalesForce_Project.TestCases.Engagement
                 string excelPath = ReadJSONData.data.filePaths.testData + fileERPTS05;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
-                // Calling Login function                
+                extentReports.CreateLog(driver.Title + " is displayed ");               
                 login.LoginApplication();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");

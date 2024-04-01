@@ -655,6 +655,31 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenLedSectionLV = By.XPath("//h3[contains(@data-target-reveals,'Engagement__c.Women_Led')]/button/span");
         By labelWomenLedLV = By.XPath("//flexipage-field[@data-field-id='RecordWomen_Led__cField']//label");
         By labelAdminSectionLV = By.XPath("//h3/button/span[@title='Administrative Info']");
+        By headerEditBox = By.XPath("//h2[contains(text(),'Edit')]");
+        By lblExpense = By.XPath("//span[text()='Expense']");
+        By btnSaveL = By.XPath("//button[text()='Save']");
+        By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
+        By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
+        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
+        By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
+        By txtEstFee = By.XPath("//input[@name='Fee__c']");
+        By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
+        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
+        By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
+        By txtSICL = By.XPath("//input[@placeholder='Search SIC Codes...']");
+        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
+        By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
+        By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
+        By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
+        By _elmRecordType(string text)
+        {
+            return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
+        }
         By _sharingGroup(string text)
         {
             return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
@@ -6541,32 +6566,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(linkRelatedOppL).Click();
             Thread.Sleep(10000);
         }
-        By headerEditBox = By.XPath("//h2[contains(text(),'Edit')]");
-        //By lblWomenLedL = By.XPath("//label[text()='Women Led']");
-        By lblExpense = By.XPath("//span[text()='Expense']");
-        By btnSaveL = By.XPath("//button[text()='Save']");
-        By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
-        By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
-        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
-        By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
-        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
-        By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
-        By txtEstFee = By.XPath("//input[@name='Fee__c']");
-        By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
-        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
-        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
-        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
-        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
-        By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
-        By txtSICL = By.XPath("//input[@placeholder='Search SIC Codes...']");
-        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
-        By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
-        By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
-        By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
-        By _elmRecordType(string text)
-        {
-            return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
-        }
+        
 
         public void UpdatePrimaryOfficeInlineLV(string value)
         {
