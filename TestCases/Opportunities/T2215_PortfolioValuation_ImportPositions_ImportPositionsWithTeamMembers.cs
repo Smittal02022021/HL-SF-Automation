@@ -81,9 +81,6 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
                 extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
 
-                //Call function to update HL -Internal Team details
-                //opportunityDetails.UpdateInternalTeamDetails(fileTC2215);
-
                 //Validate Portfolio Valuation button, click and validate Valuation periods title
                 string titleVP = opportunityDetails.ClickPortfolioValuation();
                 Assert.AreEqual(value + " - Valuation Periods", titleVP);

@@ -112,7 +112,7 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.UserLogOut();
                 opportunityHome.SearchOpportunity(opportunityNumber);
                 opportunityDetails.UpdateInternalTeamDetails(ERP);
-                                string valcaoUser = ReadExcelData.ReadData(excelPath, "Users", 2);
+                string valcaoUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valcaoUser);
                 string caoUser = login.ValidateUser();
                 Assert.AreEqual(caoUser.Contains(valcaoUser), true);

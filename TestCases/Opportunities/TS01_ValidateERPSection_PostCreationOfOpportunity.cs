@@ -99,10 +99,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string oppNumber = opportunityDetails.GetOppNumber();
                     string jobType = opportunityDetails.GetJobType();
                     Console.WriteLine(jobType);
-
-                    //Call function to update HL -Internal Team details
-                   // opportunityDetails.UpdateInternalTeamDetails(ERP);
-
+                   
                     //Create External Primary Contact         
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
