@@ -113,7 +113,7 @@ namespace SF_Automation.Pages.Opportunity
         By listViewCounterparties = By.XPath("//label[contains(text(),'View')]");
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
-        By comboTypeCounterparty = By.XPath("(//button[contains(@aria-label,'Type')])[2]");
+        By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[1]");
         By buttonSaveCounterparty = By.XPath("//button[@name='SaveEdit']");
         By secAddCounterparty1 = By.XPath("//span[@title='Get Companies from existing Opportunity']");
         By secAddCounterparty2 = By.XPath("//span[@title='Get Companies from existing Company List']");
