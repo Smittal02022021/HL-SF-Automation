@@ -78,6 +78,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Login as standard user
                     usersLogin.LoginAsSelectedUser();
+                    login.SwitchToClassicView();
                     standardUser = login.ValidateUser();
                     standardUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     Assert.AreEqual(standardUserExl.Contains(standardUser), true);
@@ -232,6 +233,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Login as standard user
                     usersLogin.LoginAsSelectedUser();
+                    login.SwitchToClassicView();
                     standardUser = login.ValidateUser();
                     standardUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     Assert.AreEqual(standardUserExl.Contains(standardUser), true);

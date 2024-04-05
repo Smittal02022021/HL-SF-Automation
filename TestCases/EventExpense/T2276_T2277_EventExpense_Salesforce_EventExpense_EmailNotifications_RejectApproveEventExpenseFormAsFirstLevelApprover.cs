@@ -51,7 +51,6 @@ namespace SF_Automation.TestCases.EventExpense
                 {
                     //Get path of Test data file
                     
-                    Console.WriteLine(excelPath);
                     Initialize();
                     //Validating Title of Login Page
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -75,7 +74,7 @@ namespace SF_Automation.TestCases.EventExpense
                      */
                     string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                     homePage.SearchUserByGlobalSearch(fileTC2276_T2277, user);
-
+                    login.SwitchToClassicView();
                     //Verify searched user
                     string userPeople = homePage.GetPeopleOrUserName();
                     string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);

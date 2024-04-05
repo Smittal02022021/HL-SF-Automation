@@ -49,8 +49,6 @@ namespace SF_Automation.TestCases.EventExpense
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC2279;
-                Console.WriteLine(excelPath);
-
                 int rowExpenseRequest = ReadExcelData.GetRowCount(excelPath, "ExpenseRequest");
                 for (int row = 2; row <= rowExpenseRequest; row++)
                 {
