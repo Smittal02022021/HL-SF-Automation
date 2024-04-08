@@ -29,7 +29,7 @@ namespace SF_Automation.Pages.Contact
         By valPotentialRevenue = By.CssSelector("div[id*='GbCSD']");
         By valRelationshipMetricsComments = By.CssSelector("div[id*='GbCSE']");
         By valFundName = By.CssSelector("div[id*='GbCS8']");
-        By lnkDelete = By.CssSelector("td[class='actionColumn'] > a:nth-child(2)");
+        By lnkDelete = By.XPath("(//input[@title='Delete'])[1]");
 
      
         //Get heading of coverage team details page
@@ -156,10 +156,10 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDelete);
             driver.FindElement(lnkDelete).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
     }
 }
