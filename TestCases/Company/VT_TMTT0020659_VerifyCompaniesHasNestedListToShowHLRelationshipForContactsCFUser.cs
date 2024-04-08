@@ -56,13 +56,19 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 //Login again as CF Financial User
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchCFUserAndLogin(valUser);
-                string cfUser = login.ValidateUser();
-                Assert.AreEqual(cfUser.Contains(valUser), true);
-                extentReports.CreateLog("CF User: " + cfUser + " logged in ");
-
-                //Switching to LightningView
+                usersLogin.SearchUserAndLogin(valUser);
                 login.SwitchToLightningExperience();
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
+
+                //usersLogin.SearchCFUserAndLogin(valUser);
+                //string cfUser = login.ValidateUser();
+                //Assert.AreEqual(cfUser.Contains(valUser), true);
+                //extentReports.CreateLog("CF User: " + cfUser + " logged in ");
+
+                ////Switching to LightningView
+                //login.SwitchToLightningExperience();
                 homePageLV.ClickAppLauncher();
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectApp(appNameExl);
@@ -122,11 +128,9 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
 
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged out ");
+                homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception ex)
             {

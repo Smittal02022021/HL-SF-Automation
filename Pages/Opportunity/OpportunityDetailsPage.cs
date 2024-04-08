@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -594,7 +596,6 @@ namespace SF_Automation.Pages
         By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
         By valOppNumL = By.XPath("//flexipage-field[contains(@data-field-id,'Opportunity_Number__cField')]//dd//lightning-formatted-text");
-        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//dd//lightning-formatted-text");
         By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
         By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
         By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
@@ -612,8 +613,6 @@ namespace SF_Automation.Pages
         By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
         By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
         By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
-        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
-        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
         By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
 
         By _elmRecordType(string text)
@@ -3004,6 +3003,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(2000);
             driver.Navigate().Refresh();
             WebDriverWaits.WaitUntilEleVisible(driver, valERPLastIntStatus, 80);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLastIntStatus));
             string status = driver.FindElement(valERPLastIntStatus).Text;
             return status;        
         }
@@ -3151,7 +3151,7 @@ public void ClickNewOpportunitySectorButton()
         //To update ERP Record Type
         public string UpdateRecordTypeAndLOBERP()
         {
-            Thread.Sleep(6000);
+            Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkRecordTypeChange, 90);
             driver.FindElement(lnkRecordTypeChange).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, comboRecType, 90);
@@ -7448,9 +7448,34 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtJobTypeL));
             return driver.FindElement(txtJobTypeL).Text;            
         }
+
+        public void UpdateField(string fieldName, string fieldValue)
+        {
+            switch (fieldName)
+            {
+                case "Primary Office":
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+                    driver.FindElement(btnEditL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLedL));
+                    driver.FindElement(comboPrimaryOfficeL).Click();
+                    By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{fieldValue}']");
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+                    WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+                    driver.FindElement(elePO).Click();
+                    driver.FindElement(btnSaveL).Click();
+                    Thread.Sleep(10000);
+                    break;
+            }
+
+        }
         
         public void UpdatePrimaryOfficeLV(string value)
         {
+            Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -7465,26 +7490,18 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(elePO).Click();
             
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(10000);            
-        }
-        
-        
-        public string GetPrimaryOfficeLV()
-        {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAdminPrimaryOfficeL, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdminPrimaryOfficeL));
-            string value = driver.FindElement(valAdminPrimaryOfficeL).Text;
-            return value;
-        }
+            Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
+        }          
         
         public void UpdateJobTypeLV(string jobType)
         {
+            Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnJobTypeL));
             driver.FindElement(btnJobTypeL).Click();
@@ -7494,11 +7511,13 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(12000);
+            Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public void UpdateClientOwnershipLV(string client)
         {
-            //Thread.Sleep(70000);
+            Thread.Sleep(70000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -7511,12 +7530,12 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
             driver.FindElement(eleClientOwnership).Click();
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(10000);            
+            Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public string GetClientOwnershipLV()
-        {
-            //driver.Navigate().Refresh();
-            //Thread.Sleep(10000);
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valClientOwnershipL));
             string clientOwnership = driver.FindElement(valClientOwnershipL).Text;
@@ -7525,6 +7544,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         
         public void UpdateRecordTypeLV(string recordType, string jobType)
         {
+            Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
             driver.FindElement(btnChangeRecordTypeL).Click();
@@ -7563,29 +7583,19 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(8000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public string GetRecordTypeLV()
         {            
             WebDriverWaits.WaitUntilEleVisible(driver, valRecordTypeL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valRecordTypeL));
             return driver.FindElement(valRecordTypeL).Text;
-        }
-
-        public string GetERPProductTypeLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPProductTypeL, 10);
-            string type = driver.FindElement(valERPProductTypeL).Text;
-            return type;
-        }
-        public string GetERPProductTypeCodeLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, valERPProductTypCodeL, 10);
-            string code = driver.FindElement(valERPProductTypCodeL).Text;
-            return code;
-        }
+        }        
         
-        public void UpdateHLSectionIDLV(string sector)
+        public void UpdateHLSectorIDLV(string sector)
         {
+            Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -7601,20 +7611,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-        }
-        public string GetHLSectionIDLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorIDL, 10);
-            return driver.FindElement(txtHLSectorIDL).Text;             
-        }
-
-        public string GetHLSectorComboLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorComboL, 10);
-            return driver.FindElement(txtHLSectorComboL).Text;
-        }
-
-       
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
+        }               
     }    
 }
 

@@ -239,9 +239,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
 
-
-                    homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Pass", "Browser Closed");
+                    homePageLV.UserLogoutFromSFLightningView();                    
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();

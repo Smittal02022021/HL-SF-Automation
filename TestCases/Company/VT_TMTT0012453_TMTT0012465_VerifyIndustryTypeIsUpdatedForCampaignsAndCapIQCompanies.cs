@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using SF_Automation.Pages.Company;
+using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Companies
 {
@@ -20,6 +21,7 @@ namespace SF_Automation.TestCases.Companies
         CampaignHomePage campaignHome = new CampaignHomePage();
         RandomPages randomPages = new RandomPages();
         CapIQCompaniesHomePage capIQCompaniesHome = new CapIQCompaniesHomePage();
+        LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTMTI0027300 = "TMTI0027300_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies";
 
@@ -64,8 +66,9 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(capIQCompaniesHome.IsIndustryGroupAvailableOnNewCapIQCompanyPage(IndustryTypeExl), "Verify Industry Group Type is updated on CapIQ Company page");
                 extentReports.CreateLog("Industry Group Type: " + IndustryTypeExl + " is updated on CapIQ Company Page ");
 
-                usersLogin.UserLogOut();
+                homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception ex)
             {

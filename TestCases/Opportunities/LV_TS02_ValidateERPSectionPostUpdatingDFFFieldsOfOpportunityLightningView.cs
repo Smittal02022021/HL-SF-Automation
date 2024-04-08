@@ -6,8 +6,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Diagnostics;
-using Microsoft.Extensions.ObjectPool;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
@@ -142,7 +140,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //-----Update Primary office, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status -----
                 string newOffice = ReadExcelData.ReadData(excelPath, "DFFUpdates", 1);
                 opportunityDetails.UpdatePrimaryOfficeLV(newOffice);
-                string primaryOffice = opportunityDetails.GetPrimaryOfficeLV();
+                string primaryOffice = randomPages.GetPrimaryOfficeLV();
                 Assert.AreEqual(newOffice, primaryOffice);
                 extentReports.CreateStepLogs("Passed", "Primary Office is updated to " + primaryOffice + " ");
 
@@ -156,11 +154,11 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusOffice);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
 
                 string ERPResOffice = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResDate, ERPResOffice);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Response Date in ERP section: " + ERPResOffice + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New : " + ERPResOffice + " is displayed Old: "+ ERPResDate);
 
                 ////-----Update Industry Group, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
@@ -190,29 +188,29 @@ namespace SalesForce_Project.TestCases.Opportunities
                 ////-----Update Sector, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
                 
                 string updSector = ReadExcelData.ReadData(excelPath, "DFFUpdates", 8);                
-                opportunityDetails.UpdateHLSectionIDLV(updSector);
-                string sector = opportunityDetails.GetHLSectionIDLV();
-                string sectorCombo = opportunityDetails.GetHLSectorComboLV();
+                opportunityDetails.UpdateHLSectorIDLV(updSector);
+                string sector = randomPages.GetHLSectorIDLV();
+                string sectorCombo = randomPages.GetHLSectorComboLV();
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
                 extentReports.CreateStepLogs("Passed", "Sector is updated to and sector combo contains " + updSector + " ");
 
                 string valDFFSector = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 Assert.AreEqual("Checkbox is checked", valDFFSector);
-                extentReports.CreateStepLogs("Passed", "**ERP Update DFF " + valDFFSector + " after updating Sector ");
+                extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valDFFSector + " after updating Sector ");
 
                 string ERPSubmittedSector = randomPages.GetERPSubmittedToSyncLV();
                 //Assert.AreNotEqual(ERPSubmittedIG, ERPSubmittedSector);// need to uncomment
                 Assert.AreNotEqual(ERPSubmittedOffice, ERPSubmittedSector);
-                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync: " + ERPSubmittedSector + " ");
+                extentReports.CreateStepLogs("Passed", " ERP Submitted to Sync New : " + ERPSubmittedSector + " Old: "+ ERPSubmittedOffice);
 
                 string ERPStatusSector = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusSector);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
 
                 string ERPResSector = randomPages.GetERPLastIntegrationResponseDateLV();
                 //Assert.AreNotEqual(ERPResIG, ERPResSector);// need to uncomment
                 Assert.AreNotEqual(ERPResOffice, ERPResSector);
-                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section: " + ERPResSector + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResSector + " is displayed Old: "+ ERPResOffice);
                 
                 ////-----Update Job Type, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
@@ -224,19 +222,19 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 string valDFFJobType = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 Assert.AreEqual("Checkbox is checked", valDFFJobType);// Not checked
-                extentReports.CreateStepLogs("Passed", "**ERP Update DFF " + valDFFJobType + " after updating Job Type ");
+                extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valDFFJobType + " after updating Job Type ");
 
                 string ERPSubmittedJobType = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedSector, ERPSubmittedJobType);
-                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync: " + ERPSubmittedJobType + " ");
+                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedJobType + " Old: "+ ERPSubmittedSector);
 
                 string ERPStatusJobType = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusJobType);// need to uncomment
-                extentReports.CreateStepLogs("Passed", " Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
+                extentReports.CreateStepLogs("Passed", " **Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
 
                 string ERPResJobType = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResSector, ERPResJobType);//Realted to updateSector 
-                extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResJobType + " is displayed ");
+                extentReports.CreateLog("ERP Last Integration Response Date in ERP section New: " + ERPResJobType + " is displayed Old: "+ ERPResSector);
 
                 randomPages.CloseActiveTab(oppName);//Close Active opp Tab
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
@@ -264,11 +262,11 @@ namespace SalesForce_Project.TestCases.Opportunities
                 opportunityHome.SearchOpportunityInLightning(oppName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
-                string productLine = opportunityDetails.GetERPProductTypeLV();
+                string productLine = randomPages.GetERPProductTypeLV();
                 Assert.AreEqual(prodLine, productLine);
                 extentReports.CreateStepLogs("Passed", "Product Type in ERP section: " + productLine + " matches with Product Line in Job Type Detail as per updated Job Type ");
 
-                string productCode = opportunityDetails.GetERPProductTypeCodeLV();
+                string productCode = randomPages.GetERPProductTypeCodeLV();
                 Assert.AreEqual(prodCode, productCode);
                 extentReports.CreateStepLogs("Passed", "Updated ERP Product Type Code in ERP section: " + productCode + " matches with Product Type Code in Job Type Detail as per updated Job Type ");
 
@@ -282,19 +280,19 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 string valDFFClient = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 Assert.AreEqual("Checkbox is checked", valDFFClient); //Not checked
-                extentReports.CreateStepLogs("Passed", "**ERP Update DFF " + valDFFClient + " after updating Client Ownership ");
+                extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valDFFClient + " after updating Client Ownership ");
 
                 string ERPSubmittedClient = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedJobType, ERPSubmittedClient);
-                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync: " + ERPSubmittedClient + " ");
+                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedClient + " Old: "+ ERPResSector);
 
                 string ERPStatusClient = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusClient);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
 
                 string ERPResClient = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResJobType, ERPResClient);
-                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section: " + ERPResClient + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResClient + " is displayed Old: "+ ERPResJobType);
 
                 string newLOBExl = ReadExcelData.ReadData(excelPath, "DFFUpdates", 6);
                 string newJobTypeExl= ReadExcelData.ReadData(excelPath, "DFFUpdates", 7);
@@ -305,19 +303,19 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 string valDFFLOB = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
-                extentReports.CreateStepLogs("Passed", "**ERP Update DFF " + valDFFLOB + " after updating LOB ");
+                extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valDFFLOB + " after updating LOB ");
 
                 string ERPSubmittedLOB = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedClient, ERPSubmittedLOB);
-                extentReports.CreateStepLogs("Passed", "Assersion Pending ERP Submitted to Sync: " + ERPSubmittedLOB + " ");
+                extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedLOB + " Old: "+ ERPSubmittedClient);
 
                 string ERPStatusLOB = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusLOB); // need to uncomment
-                extentReports.CreateStepLogs("Passed", "Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResClient, ERPResLOB);
-                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section: " + ERPResLOB + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResLOB + " is displayed OLd: "+ ERPResClient);
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
                 usersLogin.ClickLogoutFromLightningView();

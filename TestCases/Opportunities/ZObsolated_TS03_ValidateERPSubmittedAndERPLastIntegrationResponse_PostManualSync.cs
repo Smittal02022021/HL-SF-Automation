@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync : BaseClass
+    class ZObsolated_TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

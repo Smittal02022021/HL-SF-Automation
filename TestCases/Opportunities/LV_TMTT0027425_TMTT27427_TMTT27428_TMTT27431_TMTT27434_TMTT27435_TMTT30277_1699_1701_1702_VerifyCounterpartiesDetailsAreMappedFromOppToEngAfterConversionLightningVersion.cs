@@ -439,11 +439,15 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(valUser + " logged out ");
                     driver.Quit();
+                    extentReports.CreateStepLogs("Info", "Browser Closed");
                 }
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
         }
     }

@@ -6,7 +6,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Web.UI.DataVisualization.Charting;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
@@ -15,10 +14,8 @@ namespace SalesForce_Project.TestCases.Opportunities
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
-        AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
 
@@ -77,19 +74,19 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //Get ERP Submitted to Sync, Status, ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
-                extentReports.CreateLog("ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
+                extentReports.CreateLog(" Opportunity ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
 
                 string ERPResDate = randomPages.GetERPLastIntegrationResponseDateLV();
-                extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
+                extentReports.CreateLog("Opportunity ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
 
                 string ERPStatus = randomPages.GetERPLastIntegrationStatusLV();
-                extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
+                extentReports.CreateLog("Opportunity ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
 
                 //-----Schedule ERP Submitted to Sync manually, validate ERP Update DFF checkbox, ERP Sync Date, Status and Last Integration Status -----
                 randomPages.UpdateERPSyncManuallyInlineLV();
                 string ERPSubmittedPostSync = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmitted, ERPSubmittedPostSync);
-                extentReports.CreateLog("ERP Submitted to Sync : " + ERPSubmittedPostSync + " is updated post scheduling ERP sync ");
+                extentReports.CreateLog("Opportunity ERP Submitted to Sync : " + ERPSubmittedPostSync + " is updated post scheduling ERP sync ");
 
                 string ERPResDatePostSync = randomPages.GetERPLastIntegrationResponseDateLV();
                 //Assert.AreNotEqual(ERPResDate, ERPResDatePostSync); ERP not working
@@ -97,7 +94,7 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 string ERPStatusPostSync = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusPostSync); ERP not working
-                extentReports.CreateLog("Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
+                extentReports.CreateLog("Opportunity Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
 
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity is closed");

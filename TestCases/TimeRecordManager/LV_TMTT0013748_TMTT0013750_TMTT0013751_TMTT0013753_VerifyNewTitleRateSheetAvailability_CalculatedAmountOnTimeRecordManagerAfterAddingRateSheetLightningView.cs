@@ -268,7 +268,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //Select Staff Member from the list
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
-                    //Select Staff Member from the list                    
                     timeEntry.GoToStaffTimeSheetTabLV();
                     timeEntry.SelectStaffMemberLV(staffNameExl);
                     string staffName = timeEntry.GetSelectedStaffNameLV();

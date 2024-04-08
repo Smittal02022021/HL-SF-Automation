@@ -660,7 +660,7 @@
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
     <Compile Include="TestCases\Engagement\LV_TS06_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncEngagementLightningView.cs" />
-    <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
+    <Compile Include="TestCases\Engagement\ZObsolated_TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS08_VerifyMultipleContractsCreationByMultipleBillingContactsInEngagement.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS09_TS11_TS29_VerifyICOContractBasedOnLOBOfLegalEntity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS09_TS11_TS29_VerifyICOContractBasedOnLOBOfLegalEntity_Part2.cs" />
@@ -811,8 +811,8 @@
     <Compile Include="TestCases\Opportunities\ValidateAllJobType.cs" />
     <Compile Include="TestCases\Opportunities\T1197andT1198AddOpportunityInOpportunityHome.cs" />
     <Compile Include="TestCases\Opportunities\TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
     <Compile Include="TestCases\Opportunities\T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />

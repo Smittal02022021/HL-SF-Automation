@@ -4,12 +4,7 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SF_Automation.Pages.HomePage;
-using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Opportunities
 {

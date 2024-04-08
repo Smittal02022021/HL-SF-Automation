@@ -68,6 +68,26 @@ namespace SF_Automation.Pages.Common
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         By iconListViewPicker = By.XPath("//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By dropdownCompaign = By.CssSelector("select[id='fcf']");
+        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
+        By imgSpinningLoader = By.XPath("//div[@class='loading']");
+        By txtProductLineL = By.XPath("//div[contains(@data-target-selection-name,'Product_Line__c')]//dd//lightning-formatted-text");
+        By txtProductTypeCodeL = By.XPath("//div[contains(@data-target-selection-name,'Product_Type_Code__c')]//dd//lightning-formatted-text");
+        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
+        By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
+        By checkERPUpdateDFFL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
+        By valERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
+        By valERPLastIntStatusL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");
+        By valERPLastIntegrationResponseDateL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");
+        By btnSaveL = By.XPath("//button[text()='Save']");
+
+        By iconInlineEditERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//button");
+        By textDatePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-datepicker//input");
+        By txtTimePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-timepicker//input");
+        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//dd//lightning-formatted-text");
+        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
+
         private By _optionListView(string name)
         {
             return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -397,10 +417,6 @@ namespace SF_Automation.Pages.Common
             return title;
         }
 
-
-
-
-
         //To get Job Types 
         public void GetJobTypes()
         {
@@ -437,16 +453,11 @@ namespace SF_Automation.Pages.Common
             }
         }
 
-
-
         public string GetBlankValue()
         {
             string value = driver.FindElement(valBlank).Text;
             return value;
         }
-
-
-
 
         //Get the value of Product Line
         public string GetProductLine()
@@ -557,8 +568,6 @@ namespace SF_Automation.Pages.Common
             return isFound;
         }
 
-
-
         public bool IsIndustryTypePresentInDropdownEngManager(string valIndustryGroup)
         {
             bool isFound = false;
@@ -613,11 +622,7 @@ namespace SF_Automation.Pages.Common
                 }
             }
             return isFound;
-        }
-
-
-
-        By dropdownCompaign = By.CssSelector("select[id='fcf']");
+        }        
 
         //Verify Industry Group in list 
         public bool IsIndustryGroupAvailableOnCampaignPage(string valCampaign, string valIndustryGroup)
@@ -723,8 +728,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
             return driver.FindElement(msgLVPopup).Text;
         }
-        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
-        By imgSpinningLoader = By.XPath("//div[@class='loading']");
+        
         public void WaitForPageLoaderLV()
         {
             Thread.Sleep(5000);
@@ -771,13 +775,24 @@ namespace SF_Automation.Pages.Common
             return pageheader;
         }
 
-        By txtProductLineL = By.XPath("//div[contains(@data-target-selection-name,'Product_Line__c')]//dd//lightning-formatted-text");
-        By txtProductTypeCodeL = By.XPath("//div[contains(@data-target-selection-name,'Product_Type_Code__c')]//dd//lightning-formatted-text");
+       
         public string GetJobTypeProductLineLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtProductLineL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtProductLineL));
             return driver.FindElement(txtProductLineL).Text;
+        }
+        public string GetERPProductTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPProductTypeL, 10);
+            string type = driver.FindElement(valERPProductTypeL).Text;
+            return type;
+        }
+        public string GetERPProductTypeCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPProductTypCodeL, 10);
+            string code = driver.FindElement(valERPProductTypCodeL).Text;
+            return code;
         }
         public string GetJobTypeProductTypeCodeLV()
         {
@@ -785,16 +800,6 @@ namespace SF_Automation.Pages.Common
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtProductTypeCodeL));
             return driver.FindElement(txtProductTypeCodeL).Text;
         }
-        By checkERPUpdateDFFL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
-        By valERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
-        By valERPLastIntStatusL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");
-        By valERPLastIntegrationResponseDateL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");
-        By btnSaveL = By.XPath("//button[text()='Save']");
-
-        By iconInlineEditERPSubmittedToSyncL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//button");
-        By textDatePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-datepicker//input");
-        By txtTimePickerL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-timepicker//input");
-
         
         public void UpdateERPSyncManuallyInlineLV()
         {
@@ -852,6 +857,41 @@ namespace SF_Automation.Pages.Common
             {
                 return "Checkbox is not checked";
             }
-        }       
+        }
+        public string GetPrimaryOfficeLV()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAdminPrimaryOfficeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdminPrimaryOfficeL));
+            string value = driver.FindElement(valAdminPrimaryOfficeL).Text;
+            return value;
+        }
+        public string GetHLSectorIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLSectorIDL));
+            return driver.FindElement(txtHLSectorIDL).Text;
+        }
+
+        public string GetHLSectorComboLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorComboL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLSectorComboL));
+            return driver.FindElement(txtHLSectorComboL).Text;
+        }
+        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        public string GetJobTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtJobTypeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtJobTypeL));
+            return driver.FindElement(txtJobTypeL).Text;
+        }
+        public string GetRecordTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRecordTypeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valRecordTypeL));
+            return driver.FindElement(valRecordTypeL).Text;
+        }
     }
 }

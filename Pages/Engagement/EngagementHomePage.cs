@@ -65,16 +65,34 @@ namespace SF_Automation.Pages
 
         public void SearchEngagementInLightning(string value)
         {
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 5);
-            driver.FindElement(btnEngsearchL).Click();
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngsearchL, 10);
-            driver.FindElement(txtEngsearchL).SendKeys(value);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgEng, 10);
-            Thread.Sleep(2000);
-            driver.FindElement(imgEng).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(10000);                        
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 5);
+                driver.FindElement(btnEngsearchL).Click();
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngsearchL, 10);
+                driver.FindElement(txtEngsearchL).SendKeys(value);
+                WebDriverWaits.WaitUntilEleVisible(driver, imgEng, 10);
+                Thread.Sleep(2000);
+                driver.FindElement(imgEng).Click();
+                Thread.Sleep(6000);
+            }
+            catch(Exception ex)
+            {
+                driver.Navigate().Refresh();
+                Thread.Sleep(10000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 5);
+                driver.FindElement(btnEngsearchL).Click();
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngsearchL, 10);
+                driver.FindElement(txtEngsearchL).SendKeys(value);
+                WebDriverWaits.WaitUntilEleVisible(driver, imgEng, 10);
+                Thread.Sleep(2000);
+                driver.FindElement(imgEng).Click();
+                Thread.Sleep(6000);
+            }
+            
 
         }
 
