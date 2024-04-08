@@ -16,7 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        ValuationPeriods valPeriods = new ValuationPeriods();
+        OppValuationPeriods valPeriods = new OppValuationPeriods();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTC2214 = "T2214_ImportPositionsWithoutTeamMembers";

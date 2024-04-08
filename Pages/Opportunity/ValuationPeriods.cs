@@ -1,17 +1,14 @@
-﻿using Microsoft.Office.Interop.Excel;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
 {
-    class ValuationPeriods : BaseClass
+    class OppValuationPeriods : BaseClass
     {
         By btnNewOppValPeriod = By.CssSelector("input[value='New Opportunity Valuation Period']");
         By lblNewOppValPeriod = By.CssSelector("h2[class='pageDescription']");

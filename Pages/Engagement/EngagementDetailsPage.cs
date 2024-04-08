@@ -447,7 +447,9 @@ namespace SF_Automation.Pages.Engagement
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
-
+        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span");
+        By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li[10]/runtime_platform_actions-action-renderer//lightning-button/button");
+        By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -6345,19 +6347,26 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        ////Click Portfolio valuation button and get title of page
-        //public string ClickPortfolioValuationL()
-        //{
-        //    WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
-        //    driver.FindElement(btnPortfolioVL).Click();
-        //    Thread.Sleep(5000);
-        //    driver.SwitchTo().Frame(0);
-        //    //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
-        //    Thread.Sleep(4000);
-        //    WebDriverWaits.WaitUntilEleVisible(driver, msgNoValL, 160);
-        //    string title = driver.FindElement(msgNoValL).Text;
-        //    return title;
-        //}
+        //Validate New Opp Valuation Period button of an Opportunity converted to Engagement
+        public string ValidateNewOppValPeriodButtonOfRelatedOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 120);
+            driver.FindElement(valRelatedOppL).Click();
+            Thread.Sleep(5000);            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
+            driver.FindElement(btnPortfolioValL).Click();            
+            driver.SwitchTo().Frame(0);
+            try
+            {
+                string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
+                     return "New Opportunity Valuation Period button is displayed";
+            }
+            catch (Exception)
+            {
+                return "New Opportunity Valuation Period button is not displayed";
+            }
+            driver.SwitchTo().DefaultContent();
+        }
 
     }
 }

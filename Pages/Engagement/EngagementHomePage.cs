@@ -39,7 +39,7 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//div/ul/li[5]/div/a/span[2]/span");        
+        By tagEngagements = By.XPath("//ul/li/div/a/span[2]/span[text()='Engagements']");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By tblEngagements = By.XPath("//div[1]/div/div/table");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
@@ -423,10 +423,12 @@ namespace SF_Automation.Pages
 
         public void SelectEngUnderHLBanker()
         {
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
             driver.FindElement(btnNavigationMenu).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 350);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
             driver.FindElement(tagEngagements).Click();            
         }
         //Validate Recently Viewed is displayed upon selecting Engagements

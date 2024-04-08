@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;     
@@ -17,8 +18,10 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        ValuationPeriods period = new ValuationPeriods();
+        OppValuationPeriods period = new OppValuationPeriods();
         EngagementHomePage engHome = new EngagementHomePage();
+        EngagementDetailsPage engDetails = new EngagementDetailsPage();
+        
         public static string fileTC1644 = "TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx";
 
         [OneTimeSetUp]
@@ -354,13 +357,21 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SelectEngUnderHLBanker();
                 engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
                 engHome.ClickEngNumber();
+               string newOppValPeriodCAO= engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
+                Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodCAO);
+                extentReports.CreateLog(caoUser + " is not allowed to add New Opportunity Valuation Period " );
 
-
-
-
-
-
-
+                usersLogin.DiffLightningLogout();
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser2 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser2.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                extentReports.CreateLog("User: " + stdUser2 + " logged in ");
+                engHome.SelectEngUnderHLBanker();
+                engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
+                engHome.ClickEngNumber();
+                string newOppValPeriodFVAUser = engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
+                Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodFVAUser);
+                extentReports.CreateLog(stdUser2 + " is not allowed to add New Opportunity Valuation Period ");
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

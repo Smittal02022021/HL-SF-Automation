@@ -537,7 +537,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnEditTopPanelL = By.XPath("//button[@name='Edit']");
         By btnViewCounterpartiesL = By.XPath("//button[@name='Opportunity__c.ViewCounterparties']");
 
-        By lnkReqEngL = By.XPath("//button[@class='slds-button slds-button_icon-border-filled']");
+        By lnkReqEngL = By.XPath("//ul/li[11]/lightning-button-menu/button");
         By valOppStatus = By.XPath("//li[1]/article/div/div[2]/ul/li[2]/div/div[2]/span");
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
