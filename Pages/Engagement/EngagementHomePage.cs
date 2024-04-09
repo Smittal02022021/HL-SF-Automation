@@ -46,7 +46,7 @@ namespace SF_Automation.Pages
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedEng = By.XPath("//table/tbody/tr/td[2]/span/span");
+        By valSearchedEng = By.XPath("//table/tbody/tr/th/span/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
         By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span/a");

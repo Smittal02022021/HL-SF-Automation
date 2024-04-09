@@ -353,9 +353,9 @@ namespace SF_Automation.Pages.Engagement
         By lnkEditConfAgree = By.XPath("//button[@title='Edit Confidentiality Agreement']");
         By txtDateSigned = By.XPath("//input[@name='Date_CA_Signed__c']");
         By valDateSigned = By.XPath("//flexipage-tab2[6]/slot//flexipage-tab2[2]/slot/flexipage-component2//flexipage-column2[2]/div/slot/flexipage-field[1]/slot//div/div//div[1]/span/slot[1]/lightning-formatted-text");
-        By tabComments = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
-        By tabFinancials = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
-        By tabEngContacts = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
+        By tabComments = By.XPath("//ul/li/a[text()='Comments']");
+        By tabFinancials = By.XPath("//ul/li/a[text()='Financials']");
+        By tabEngContacts = By.XPath("//ul/li/a[text()='Eng Contacts']");
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
         By btnView = By.XPath("//lst-list-view-row-level-action/lightning-button-menu/button");
         By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
@@ -448,7 +448,9 @@ namespace SF_Automation.Pages.Engagement
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span");
-        By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li[10]/runtime_platform_actions-action-renderer//lightning-button/button");
+        By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']" +
+            "" +
+            "++");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
@@ -6354,18 +6356,21 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(valRelatedOppL).Click();
             Thread.Sleep(5000);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
-            driver.FindElement(btnPortfolioValL).Click();            
+            driver.FindElement(btnPortfolioValL).Click();
+            Thread.Sleep(4000);
             driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
             try
             {
                 string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
-                     return "New Opportunity Valuation Period button is displayed";
+                driver.SwitchTo().DefaultContent();
+                return "New Opportunity Valuation Period button is displayed";
             }
             catch (Exception)
             {
+                driver.SwitchTo().DefaultContent();
                 return "New Opportunity Valuation Period button is not displayed";
-            }
-            driver.SwitchTo().DefaultContent();
+            }            
         }
 
     }

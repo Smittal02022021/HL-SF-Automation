@@ -150,7 +150,8 @@ namespace SF_Automation.Pages.Opportunity
         By txtTo = By.XPath("//label[text()='To']/ancestor::tr[1]/td/div/span/input[1]");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
-        By btnMore = By.XPath("//div/lightning-tab-bar/ul/li[9]/lightning-button-menu/button");
+        By btnMore = By.XPath("//div/lightning-tab-bar/ul/li/lightning-button-menu/button[text()='More']");
+
         By tabReview = By.XPath("//span[text()='Review']");
         By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
