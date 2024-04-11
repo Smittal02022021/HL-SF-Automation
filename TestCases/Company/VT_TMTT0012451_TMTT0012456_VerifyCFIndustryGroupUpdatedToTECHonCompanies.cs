@@ -53,15 +53,11 @@ namespace SF_Automation.TestCases.Companies
 
                 //Login as Standard User profile and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);                
-                login.SwitchToLightningExperience();
-                string stdUser = login.ValidateUserLightningView();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-                //login.SwitchToClassicView();
-                //string stdUser = login.ValidateUser();
-                //Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
-                //extentReports.CreateLog("User: " + stdUser + " logged in ");
+                usersLogin.SearchUserAndLogin(valUser);
+                login.SwitchToClassicView();
+                string stdUser = login.ValidateUser();
+                Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
+                extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 extentReports.CreateLog("Verify the Industry Type is present on Opportunity Home Page ");
                 companyHome.ClickCompaniesTabAdvanceSearch();
@@ -101,8 +97,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog("Industry Group: "+ industryGroupExl+" is updated on Company's Coverage Team Type DropDown ");
                 }
 
-
-                homePageLV.UserLogoutFromSFLightningView();
+                usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
 
