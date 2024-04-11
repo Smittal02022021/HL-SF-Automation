@@ -337,6 +337,8 @@ namespace SF_Automation.Pages
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
         By btnSaveContactL = By.XPath("//footer/button[2]/span");        
         By btnConvertToEngL = By.XPath("//span[text()='Convert to Engagement']");
+        By btnConvertToEngPVL = By.XPath("//button[text()='Convert to Engagement']");
+
         By lblEngagement = By.XPath("//records-entity-label[text()='Engagement']");
         By lnkViewAllL = By.XPath("//article[@aria-label='Approval History']//span[text()='View All']");
         By titleApproveL = By.XPath("//h1[@title='Approval History']");        
@@ -4156,6 +4158,7 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(6000);
             driver.FindElement(btnWomenLedL).Click();
+            driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='Women Led']/ancestor::div/div/lightning-base-combobox//span[2]/span[text()='" + valWomen + "']")).Click();
 
@@ -6519,6 +6522,23 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             driver.FindElement(btnConvertToEngL).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 350);
+            string value = driver.FindElement(lblEngagement).Text;
+            return value;
+        }
+
+        public string ClickReqToEngagementPV()
+        {
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-500)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+            driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
+            driver.FindElement(btnConvertToEngPVL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;
             return value;
         }

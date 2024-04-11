@@ -1,4 +1,5 @@
 ﻿
+using AventStack.ExtentReports.Gherkin.Model;
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -124,42 +125,39 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Convert the Opportunity to Engagement by clicking Convert To Engagement
                 opportunityDetails.ClickOppName();
-                string engDetails = opportunityDetails.ClickReqToEngagement();
-                Assert.AreEqual("Engagement", engDetails);
+                string engagement = opportunityDetails.ClickReqToEngagementPV();
+                Assert.AreEqual("Engagement", engagement);
                 extentReports.CreateLog("Opportunity is converted to Engagement after clicking Request To Engagement button ");
-                         
-                //1.  TMTI0092012_Verify that the "Portfolio Valuation" button is available on the portfolio opportunities. – Completed
+
+                //1.  TMTI0092391_Verify that the "Portfolio Valuation" button is available on the portfolio Engagement
                 string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButton();
-                string jobTypePV = opportunityDetails.GetJobTypeL();
+                string jobTypePV = engDetails.GetJobTypeL();
                 Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
-                extentReports.CreateLog("Portfolio Valuation Button is displayed for the Opportunity with Job type: " + jobTypePV + " ");
+                extentReports.CreateLog("Portfolio Valuation Button is displayed for the Engagement with Job type: " + jobTypePV + " ");
 
-                //2.  TMTI0092014_Verify that the "Portfolio Valuation" button is not available on opportunities other than portfolio job types. – Completed
-                opportunityHome.ClickOpportunityTab();
-                opportunityHome.ValidateSearchFunctionalityOfOpportunities("119337");
-                string portfolioValuationNo = opportunityDetails.ValidatePortfolioValuationButton();
-                string jobType = opportunityDetails.Get2ndJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is not displayed", portfolioValuationNo);
-                extentReports.CreateLog("Portfolio Valuation Button is not displayed for the Opportunity with Job type: " + jobType + " ");
-
-                //3.  TMTI0092016_Verify that clicking the "Portfolio Valuation" button opens up a new tab to add the valuation period with buttons and messages on the screen
-                opportunityHome.Click1stOpportunityTab();
-                string message = opportunityDetails.ClickPortfolioValuationL();
-                Assert.AreEqual("Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.", message);
+                //2.  TMTI0092393_Verify that clicking the "Portfolio Valuation" button opens up a new tab with the added list of valuations on the screen
+                string message = engDetails.ClickPortfolioValuationL();
+                Assert.AreEqual("Currently there are no valuation periods for this Engagement. To proceed, please create a new valuation period.", message);
                 extentReports.CreateLog("Message : " + message + " ");
 
-                string backToOpp = opportunityDetails.ValidateReturnToOppButton();
-                Assert.AreEqual("Back To Opportunity button is displayed", backToOpp);
-                extentReports.CreateLog("Button : " + backToOpp + " ");
+                string backToEng = engDetails.ValidateReturnToEngButton();
+                Assert.AreEqual("Back To Engagement button is displayed", backToEng);
+                extentReports.CreateLog("Button : " + backToEng + " ");
 
-                string newOppVal = opportunityDetails.ValidateNewOppValuationPeriodButton();
-                Assert.AreEqual("New Opportunity Valuation Period button is displayed", newOppVal);
-                extentReports.CreateLog("Button : " + newOppVal + " ");
+                string newEngVal = engDetails.ValidateNewEngValuationPeriodButton();
+                Assert.AreEqual("New Engagement Valuation Period button is displayed", newEngVal);
+                extentReports.CreateLog("Button : " + newEngVal + " ");
 
-                //4.  TMTI0092018_ Verify that clicking "Back to Opportunity" takes the user back to the Opportunity detail page
-                string oppDetails = opportunityDetails.ValidateOppDetailsPageUponClickOfBackToOppButton();
-                Assert.AreEqual("Details", oppDetails);
-                extentReports.CreateLog("Opportunity details page is displayed upon clicking Back To Opportunity button ");
+                //3.  TMTI0092395_Verify that clicking "Back to Engagement" takes the user back to the Engagement detail page
+                string details = engDetails.ValidateEngDetailsPageUponClickOfBackToEngButton();
+                Assert.AreEqual("Details", details);
+                extentReports.CreateLog("Engagement details page is displayed upon clicking Back To Engagement button ");
+
+                //4.  TMTI0092397_Verify Portfolio Valuation and all the associated details that are imported from Opportunity on conversion
+
+
+
+
 
                 //5.  TMTI0092020_Verify that clicking "New Opportunity Valuation Period" opens up the Opportunity Valuation period edit page has required fields with Save and Cancel buttons
                 Assert.IsTrue(period.ClickOppValuationAndValidateFields(), "Verified that displayed fields are same");
