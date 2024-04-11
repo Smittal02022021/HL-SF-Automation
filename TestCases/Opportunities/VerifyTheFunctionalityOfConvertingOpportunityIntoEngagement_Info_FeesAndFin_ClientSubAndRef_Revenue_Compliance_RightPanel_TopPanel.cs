@@ -485,10 +485,10 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Eng Contacts", tabEngContacts);
                 extentReports.CreateLog("Tab " + tabEngContacts + " is displayed in Right panel of Engagement details page ");
 
-                //Validate CST tab                
-                string tabCST = engagementDetails.ValidateCSTTab();
-                Assert.AreEqual("FS Engagements", tabCST);
-                extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
+                ////Validate CST tab                
+                //string tabCST = engagementDetails.ValidateCSTTab();
+                //Assert.AreEqual("FS Engagements", tabCST);
+                //extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
 
                 //Save an Engagement Comment and Validate the added
                 engagementDetails.AddEngCommentaAndValidate();

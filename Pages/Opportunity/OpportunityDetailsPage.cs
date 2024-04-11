@@ -307,12 +307,15 @@ namespace SF_Automation.Pages
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
         By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
+        By valValuationDateL = By.XPath("//input[@name='Valuation_Date__c']");
+
 
         By txtEstTxnSizeL = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By btnWomenLedL = By.XPath("//button[contains(@aria-label,'Women Led')]");
         By txtDateEngL = By.XPath("//input[@name='Date_Engaged__c']");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");     
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
+        By txtTotalAntiRevL = By.XPath("//input[@name='Total_Anticipated_Revenue__c']");
 
         By txtStaffL = By.XPath("//input[@placeholder='Begin Typing Name...']");
         By chkInitiatorL = By.XPath("//table/tbody/tr[3]/td[2]/input");
@@ -4087,6 +4090,77 @@ public void ClickNewOpportunitySectorButton()
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(4000);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+
+
+        public void UpdateReqFieldsForFVAConversionLForPV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+            Thread.Sleep(4000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 100);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).SendKeys(valClient);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valClient + "']")).Click();
+
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
+
+            //Enter SIC
+            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            Thread.Sleep(3000);
+            driver.FindElement(comboSICL).Click();
+
+            //Enter Tombstone Permissions
+            Thread.Sleep(7000);
+            driver.FindElement(valValuationDateL).SendKeys("3/4/2024");
+            Thread.Sleep(4000);
+            driver.FindElement(comboTombstoneL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//flexipage-field[10]//lightning-base-combobox//lightning-base-combobox-item[2]/span[2]/span")).Click();
+           
+
+            //Opp Desc
+            driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Estimated Fees
+            driver.FindElement(txtRetainerL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //Ref Contact
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            driver.FindElement(txtRefContactFVAL).SendKeys(valRef);
+            Thread.Sleep(5000);
+            driver.FindElement(comboRefContactL).Click();
+
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+
+            //Select Beneficial Owner
+            string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            driver.FindElement(comboUpdBenOwnerL).SendKeys(valBenOwner);
+            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+
+
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            Thread.Sleep(4000);            
+            
+            //Date Engaged            
+            driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
+            Thread.Sleep(6000);
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//label[text()='Women Led']/ancestor::div/div/lightning-base-combobox//span[2]/span[text()='" + valWomen + "']")).Click();
+
+            driver.FindElement(txtTotalAntiRevL).SendKeys("100001");
+
             driver.FindElement(btnSaveDetailsL).Click();
         }
         //Update Internal Team members details

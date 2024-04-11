@@ -409,7 +409,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message: "+ subMessage + " is displayed while udpating FEIS form post submiting it ");
 
                 //51. TMTI0088338_Verify that the FVA User is not able to access the Review tab.
-                string tabReview = form.ValidateReviewTabPostSubmission();
+                string tabReview = form.ValidateReviewTabPostSubmissionFVA();
                 Assert.AreEqual("Review tab is not accessible", tabReview);
                 extentReports.CreateLog("Review tab is not accessible to FVA user ");
                 usersLogin.DiffLightningLogout();
@@ -426,7 +426,7 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
                 opportunityDetails.ClickFEISFormL();
 
-                string tabReviewCAO = form.ValidateReviewTabPostSubmission();
+                string tabReviewCAO = form.ValidateReviewTabPostSubmissionCAO();
                 Assert.AreEqual("Reviewed", tabReviewCAO);
                 extentReports.CreateLog("Review tab along with Review section details is displayed ");
 

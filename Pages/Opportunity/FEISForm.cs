@@ -151,7 +151,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
         By btnMore = By.XPath("//div/lightning-tab-bar/ul/li/lightning-button-menu/button[text()='More']");
-
+        By btnMoreCAO = By.XPath("//ul/li[7]/lightning-button-menu/button");
         By tabReview = By.XPath("//span[text()='Review']");
         By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
@@ -1268,12 +1268,12 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Validate Review tab post submission of form
-        public string ValidateReviewTabPostSubmission()
+        public string ValidateReviewTabPostSubmissionFVA()
         {
             Thread.Sleep(4000);
             driver.FindElement(btnMore).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabReview, 100);
-            driver.FindElement(tabReview).Click();            
+            driver.FindElement(tabReview).Click();
 
             Thread.Sleep(5000);
             try
@@ -1282,16 +1282,37 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(btnCancelL).Click();
                 return "Review tab is not accessible";
             }
-            catch(Exception )
-            {                
+            catch (Exception)
+            {
                 string value = driver.FindElement(lblReviewed).Text;
                 return value;
             }
+        }
+            //Validate Review tab post submission of form
+            public string ValidateReviewTabPostSubmissionCAO()
+            {
+                Thread.Sleep(4000);
+                driver.FindElement(btnMoreCAO).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabReview, 100);
+                driver.FindElement(tabReview).Click();
 
+                Thread.Sleep(5000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 80);
+                    driver.FindElement(btnCancelL).Click();
+                    return "Review tab is not accessible";
+                }
+                catch (Exception)
+                {
+                    string value = driver.FindElement(lblReviewed).Text;
+                    return value;
+                }
+
+
+            }
 
         }
-
-    }
 }
 
 
