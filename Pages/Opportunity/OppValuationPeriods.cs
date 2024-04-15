@@ -529,6 +529,7 @@ namespace SF_Automation.Pages.Opportunity
         //Click New Opp Valuation Period and validate the fields
         public bool ClickOppValuationAndValidateFields()
         {
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
             driver.FindElement(btnPortfolioVL).Click();
             Thread.Sleep(5000);
@@ -816,6 +817,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnNewPeriodPositionL).Click();
         }
 
+        public void ClickNewPeriodPositionButtonWithoutFrameL()
+        {
+            Thread.Sleep(3000);                       
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewPeriodPositionL, 120);
+            driver.FindElement(btnNewPeriodPositionL).Click();
+        }
         //Validate fields of Opportunity Valuation Period Position
         public bool ValidateFieldsOfOppValuationPeriodPositionL()
         {
@@ -895,8 +902,8 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
             Thread.Sleep(4000);
             driver.FindElement(btnAssetClassL).SendKeys("ABL");
-            Thread.Sleep(4000);            
-            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");            
+            Thread.Sleep(4000);
+            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
@@ -904,6 +911,32 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             string value = driver.FindElement(valAddedPositionL).Text;
             return value;
+                   
+        }
+
+        //Enter all details and save it.
+        public string EnterAndSaveOppValuationPeriodPositionDetailsLWithDiffFrame(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(txtCompanyL).SendKeys(name);
+            Thread.Sleep(6000);
+            driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
+            Thread.Sleep(4000);
+            driver.FindElement(btnAssetClassL).SendKeys("ABL");
+            Thread.Sleep(4000);
+            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedPositionL).Text;
+            driver.SwitchTo().DefaultContent();
+            return value;
+
         }
 
         //Validate  Opp Valuation Period Position details page is displayed upon clicking added Opp Valuation Period Position  

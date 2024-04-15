@@ -107,9 +107,11 @@ namespace SF_Automation.Pages.Engagement
         By valJobTypeL = By.XPath("//flexipage-field[@data-field-id='RecordJob_Type_cField1']/slot/record_flexipage-record-field//lightning-formatted-text");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Engagement. To proceed, please create a new valuation period.']");
-        By btnBackToEngL = By.XPath("//input[@value='Back To Engagement']");
+        By btnBackToEngL = By.XPath("//input[@type='submit']");
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
+        By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
+        By valImportedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
 
         By valERPProductType = By.CssSelector("div[id*='eej']");
         By valERPProductTypeCode = By.CssSelector("div[id*='eHj']");
@@ -3119,32 +3121,42 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Click Portfolio valuation button and get title of page
-        public string ClickPortfolioValuationL()
+        public void ClickPortfolioValuationL()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
             driver.FindElement(btnPortfolioVL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             driver.SwitchTo().Frame(0);
-            //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, msgNoValL, 160);
-            string title = driver.FindElement(msgNoValL).Text;
-            return title;
+            Thread.Sleep(6000);            
+        }
+        
+        //Fetch Validate imported valuation period upon conversion
+        public string ValidateImportedValPeriod()
+        {
+           
+            WebDriverWaits.WaitUntilEleVisible(driver, valImportedValPeriod, 190);
+            string addedPeriod = driver.FindElement(valImportedValPeriod).Text;
+            return addedPeriod;
+        }
+
+        //Fetch Validate imported period position upon conversion
+        public string ValidateImportedPeriodPosition()
+        {
+            driver.FindElement(valImportedValPeriod).Click();
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valImportedPositionL, 190);
+            string addedPosition = driver.FindElement(valImportedPositionL).Text;
+            return addedPosition;
         }
 
         //Validate Back To Engagement button
         public string ValidateReturnToEngButton()
         {
-            try
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngL, 60);
-                string valImage = driver.FindElement(btnBackToEngL).Displayed.ToString();
-                return "Back To Engagement button is displayed";
-            }
-            catch (Exception)
-            {
-                return "Back To Engagement button is not displayed";
-            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngL, 250);
+            string value = driver.FindElement(btnBackToEngL).GetAttribute("value");
+                return value;           
         }
 
         //Validate Engagement details page upon clicking Back to Engagement button
@@ -3155,24 +3167,18 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(4000);
             string tab = driver.FindElement(tabDetails).Text;
-            driver.FindElement(tabOpportunityL).Click();
+            driver.FindElement(tabDetails).Click();
             return tab;
 
         }
 
         //Validate New Eng Valuation Period button
         public string ValidateNewEngValuationPeriodButton()
-        {
-            try
-            {
+        {           
                 WebDriverWaits.WaitUntilEleVisible(driver, btnNewEngValPeriodL, 120);
-                string valImage = driver.FindElement(btnNewEngValPeriodL).Displayed.ToString();
-                return "New Engagement Valuation Period button is displayed";
-            }
-            catch (Exception)
-            {
-                return "New Engagement Valuation Period button is not displayed";
-            }
+                string value = driver.FindElement(btnNewEngValPeriodL).GetAttribute("value");
+            return value;
+           
         }
         //Get ERP Product Type
         public string GetERPProductType()

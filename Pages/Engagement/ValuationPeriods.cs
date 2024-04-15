@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
+using System;
 using System.Threading;
 
 namespace SF_Automation.Pages.Engagement
@@ -47,6 +48,14 @@ namespace SF_Automation.Pages.Engagement
         By btnYes = By.CssSelector("input[value=' Yes ']");
         By linkDel = By.CssSelector("a[name*='id176']");
         By msgSuccess1 = By.CssSelector("div[id*='id8']");
+
+
+        By btnEditL = By.XPath("//input[@value='Edit']");
+        By txtNameL = By.XPath("//label[text()='Name']/ancestor::tr/td//input");
+        By btnSaveL = By.XPath("//input[@value='Save']");
+        By msgMandatoryFieldL = By.XPath("//div[contains(@class,'messageText')]");
+        By btnCancelL = By.XPath("//input[@value='Cancel']");
+        By titleEngValPeriodL = By.XPath("//h1[contains(text(),' Valuation Period')]");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -248,6 +257,34 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(linkDel).Click();
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
+        }
+
+        //Validate FVA use can edit Valuation Period
+        public string EditFunctionalityOfValuationPeriod()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 120);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);                       
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(4000);           
+            string value = driver.FindElement(msgMandatoryFieldL).Text;
+            return value;
+        }
+
+        //Validate Opportunity details page is displayed upon clicking cancel button
+        public string ValidateEngValDetailsPageUponClickingCancelButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 120);
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string tab = driver.FindElement(titleEngValPeriodL).Text;            
+            return tab;
         }
     }
 }

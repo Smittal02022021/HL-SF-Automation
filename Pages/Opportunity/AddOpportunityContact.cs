@@ -151,7 +151,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(4000);
             driver.FindElement(txtContactL).Clear();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(8000);
             driver.FindElement(imgContactOppL).Click();
