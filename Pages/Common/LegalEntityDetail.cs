@@ -1,11 +1,5 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SF_Automation.Pages.Common
 {
@@ -18,7 +12,12 @@ namespace SF_Automation.Pages.Common
         By valERPBusinessUnit = By.CssSelector("div[id*='ef5']");
         By valERPEntityCode = By.CssSelector("div[id*='ef6']");
         By valERPLegislationCode = By.CssSelector("div[id*='efA']");
-        
+        By valTemplateNumberL = By.XPath("//div[@class='slds-form']//records-record-layout-item[contains(@field-label,'Template number')]//dd//lightning-formatted-text");
+        By valERPBusinessUnitIdL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit Id']//dd//lightning-formatted-text");
+        By valERPBusinessUnitL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit']//dd//lightning-formatted-text");
+        By valERPLegalEntityIdL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity Id']//dd//lightning-formatted-text");
+        By valERPEntityCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Entity Code']//dd//lightning-formatted-text");
+        By valERPLegislationCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legislation Code']//dd//lightning-formatted-text");
 
         //Get ERP Legal Entity ID 
         public string GetERPLegalEntityID()
@@ -66,8 +65,48 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, valERPLegislationCode, 80);
             string code = driver.FindElement(valERPLegislationCode).Text;
             return code;
+        }        
+        public string GetERPTemplateNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTemplateNumberL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valTemplateNumberL));
+            string number = driver.FindElement(valTemplateNumberL).Text;
+            return number;
         }
-     
-
+        public string GetERPBusinessUnitIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPBusinessUnitIdL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPBusinessUnitIdL));
+            string id = driver.FindElement(valERPBusinessUnitIdL).Text;
+            return id;
+        }
+        public string GetERPBusinessUnitLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPBusinessUnitL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPBusinessUnitL));
+            string unit = driver.FindElement(valERPBusinessUnitL).Text;
+            return unit;
+        }
+        public string GetERPLegalEntityIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegalEntityIdL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLegalEntityIdL));
+            string id = driver.FindElement(valERPLegalEntityIdL).Text;
+            return id;
+        }
+        public string GetERPEntityCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPEntityCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPEntityCodeL));
+            string code = driver.FindElement(valERPEntityCodeL).Text;
+            return code;
+        }
+        public string GetERPLegislationCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegislationCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLegislationCodeL));
+            string code = driver.FindElement(valERPLegislationCodeL).Text;
+            return code;
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
-        RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTMT1411 = "LV_TMTT0011411VerifyUserWithTitleTAGOutsourcedContractor";

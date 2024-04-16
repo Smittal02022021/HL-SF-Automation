@@ -677,6 +677,7 @@ namespace SF_Automation.Pages.Engagement
         By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
         By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
+        By optionsJobTypeL= By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -6586,8 +6587,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(2000);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
         }
 
         public void UpdateHLSectorIDLV(string sector)
@@ -6608,8 +6609,8 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
         }
         public void UpdateJobTypeLV(string jobType)
         {
@@ -6629,8 +6630,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(eleJobType).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
         }
         public void UpdateClientOwnershipLV(string client)
         {
@@ -6648,8 +6649,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(eleClientOwnership).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
         }
         public void UpdateRecordTypeLV(string JobType, string newLOBExl)
         {
@@ -6690,8 +6691,8 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(15000);
-            driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            //driver.Navigate().Refresh();
+            //Thread.Sleep(10000);
         }        
 
         public string GetClientOwnershipLV()
@@ -6700,6 +6701,30 @@ namespace SF_Automation.Pages.Engagement
             CustomFunctions.MoveToElement(driver, driver.FindElement(valClientOwnershipL));
             string clientOwnership = driver.FindElement(valClientOwnershipL).Text;
             return clientOwnership;
+        }
+
+
+        public bool IsJobTypePresentInDropdownOppDetailPageLV(string JobType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 10);
+            driver.FindElement(btnJobTypeL).Click();
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(optionsJobTypeL);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(JobType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            return isFound;
         }
     }
 }

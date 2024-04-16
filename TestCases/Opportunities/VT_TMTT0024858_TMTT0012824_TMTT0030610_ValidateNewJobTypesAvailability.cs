@@ -16,7 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         EngagementHomePage engagementHome = new EngagementHomePage();
         RandomPages randomPages = new RandomPages();
 
-
+        //NA for LV 
         public static string fileTMTI0056880 = "TMTI0056880_ValidateNewJobTypesAvailability";
         string valJobType;
         [OneTimeSetUp]

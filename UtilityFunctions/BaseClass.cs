@@ -30,6 +30,16 @@ namespace SF_Automation.UtilityFunctions
             builder = new Actions(driver);
             return driver;
         }
+        public IWebDriver InitializeZoom()
+        {           
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--force-device-scale-factor=70/100");
+            driver = new ChromeDriver(options);       //options
+            driver.Navigate().GoToUrl("https://test.salesforce.com/");
+            driver.Manage().Window.Maximize();
+            builder = new Actions(driver);
+            return driver;
+        }
 
         public IWebDriver Initialize1()
         {

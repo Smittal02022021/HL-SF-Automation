@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView:BaseClass
     {

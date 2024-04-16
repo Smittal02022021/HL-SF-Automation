@@ -23,7 +23,6 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTMTT0036857 = "LV_TMTT0036857_VerifyTheFunctionalityOfDNDSharingFeatureForFRLOBOpportunityAndEngagementOnLightningView";
         [OneTimeSetUp]
@@ -61,12 +60,17 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string stdUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUser", row, 1);
                     usersLogin.SearchUserAndLogin(stdUserExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(stdUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("Standard User: " + stdUserExl + " Switched to Lightning View ");
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(stdUserExl), true);
+                    extentReports.CreateLog("User: " + stdUserExl + " logged in on Lightning View");
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(stdUserExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateLog("Standard User: " + stdUserExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
@@ -120,8 +124,11 @@ namespace SF_Automation.TestCases.Opportunities
                     bool isButtonDisplayed = opportunityDetails.IsButtonDNDOnOffDisplayedLV();
                     Assert.IsFalse(isButtonDisplayed);
                     extentReports.CreateStepLogs("Passed", "DND On/Off button is not displayed for Standard User: " + stdUserExl);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    //extentReports.CreateLog(valUser + " Standard User logged out ");
+
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
                     extentReports.CreateStepLogs("Passed", "User: " + stdUserExl + "switched to Classic and Loggout ");
 
                     //////////////////Verify Sharing Button button is not availalbe for CAO User but visible for Admin////////////////////// 
@@ -131,11 +138,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                     usersLogin.SearchUserAndLogin(adminUserExl);
                     login.SwitchToClassicView();
-                    user = login.ValidateUser();
+                    string user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(adminUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
+                    extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged in ");
 
-                    login.SwitchToClassicView();
+                    //login.SwitchToClassicView();
                     opportunityHome.SearchOpportunity(opportunityName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     //update CC 
@@ -179,21 +186,27 @@ namespace SF_Automation.TestCases.Opportunities
                     //Close Sharing Group Popup 
                     opportunityDetails.CloseSharingGroupPopupLV();
                     extentReports.CreateStepLogs("Info", "Sharing Group Popup Closed");
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "System Admin Logged Out");
+                    homePageLV.UserLogoutFromSFLightningView();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    extentReports.CreateStepLogs("Info", "System Admin:: "+ adminUserExl+" Logged Out");
 
                     extentReports.CreateStepLogs("Info", "Verify DND On/Off button with CAO User ");
                     //Validate the DND On/Off buton with CAO User
                     //Login as CAO user
-                    string caoUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", row, 1);
-                    usersLogin.SearchUserAndLogin(caoUserExl);
-                    login.SwitchToClassicView();
+                    string userCAOUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", row, 1);
+                    usersLogin.SearchUserAndLogin(userCAOUserExl);
 
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(caoUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
                     login.SwitchToLightningExperience();
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userCAOUserExl), true);
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " logged in on Lightning View");
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(caoUserExl), true);
+                    //extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
+                    //login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "CAO User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
@@ -207,30 +220,35 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     isButtonDisplayed = opportunityDetails.IsButtonDNDOnOffDisplayedLV();
                     Assert.IsTrue(isButtonDisplayed);
-                    extentReports.CreateStepLogs("Passed", "DND On/Off button is displayed for CAO user:  : " + caoUserExl);
+                    extentReports.CreateStepLogs("Passed", "DND On/Off button is displayed for CAO user:  : " + userCAOUserExl);
                     opportunityDetails.ClickDNDOnOffButtonLV();
-                    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + "Clicked on DND On/Off Button ");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + "Clicked on DND On/Off Button ");
 
                     //DND Submit Success message
                     string txtMessage = randomPages.GetLVMessagePopup();
                     extentReports.CreateStepLogs("Pass", txtMessage);
 
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "User: " + caoUserExl + "switched to Classic and Loggout ");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOUserExl + "switched to Classic and Loggout ");
 
                     /////////////////////////////////////////////////////////////////////////////
                     extentReports.CreateStepLogs("Info", "Login and Approve the DND Request with DND Approval Q user ");
                     //Login as user from group DND Approval Q
                     string userDNDApproverExl = ReadExcelData.ReadDataMultipleRows(excelPath, "DNDApprover", 2, 1);//row
-                    usersLogin.SearchUserAndLogin(userDNDApproverExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
+                    usersLogin.SearchUserAndLogin(userDNDApproverExl);                    
+                    login.SwitchToLightningExperience();
+                    user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userDNDApproverExl), true);
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userDNDApproverExl), true);
                     extentReports.CreateStepLogs("Passed", "DND Approver User: " + userDNDApproverExl + "  logged in ");
 
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "DND Approver User: " + userDNDApproverExl + " Switched to Lightning View ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "DND Approver User: " + userDNDApproverExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectApp(appNameExl);
@@ -255,22 +273,27 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", result + " with DND Opportunity Name: " + dndOppName);
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "DND Approver User:: " + userDNDApproverExl + "switched to Classic and Loggout ");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "DND Approver User:: " + userDNDApproverExl + " Loggout ");
 
                     /////////////////////////////////////////////////////////////////////////////////
                     //Verify Admin user can search the DND opp with DND-name only and check the Sharing button
                     extentReports.CreateStepLogs("Pass", "Verify Admin user can search the DND opportunity with DND-name only and check the Sharing button");
                     usersLogin.SearchUserAndLogin(adminUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
+                    login.SwitchToLightningExperience();
+                    user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(adminUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  logged in ");
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(adminUserExl), true);
+                    //extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  logged in ");
 
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "System Admin Switched to Lightning View ");
+                   // login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "System Admin Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectApp(appNameExl);
@@ -303,19 +326,25 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseSharingGroupPopupLV();
                     extentReports.CreateStepLogs("Info", "Sharing Group Popup Closed");
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "System Admin:: " + adminUserExl + " Loggout ");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
 
                     //Verify Deal Team Member have access to DND opp
                     //16. Again, login as added deal user and verify that these users has access to DND opportunity.
                     extentReports.CreateStepLogs("Info", "Verify Deal Team Member have access to DND opp with DND-name only");
                     //string dealTeamMemberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "InternalTeams", 2, 1);
                     usersLogin.SearchUserAndLogin(dealTeamMemberExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(dealTeamMemberExl), true);
-                    extentReports.CreateStepLogs("Passed", "Deal Team Member: " + dealTeamMemberExl + " logged in ");
                     login.SwitchToLightningExperience();
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(dealTeamMemberExl), true);
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(dealTeamMemberExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Deal Team Member: " + dealTeamMemberExl + " logged in ");
+                    //login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Deal Team Member: " + dealTeamMemberExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
@@ -331,18 +360,25 @@ namespace SF_Automation.TestCases.Opportunities
                     result = opportunityHome.UpdateOppAndSearchLV(dndOppName);
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", " Opportunity found with DND Opportunity Name: " + dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "Deal Team Member:: " + dealTeamMemberExl + " Loggout ");
+
                     //8. Now login as any other deal user and verify that deal user has access to DND opportunity.
                     //Verify Login as CAO user can search the DND opp with DND-name only 
                     extentReports.CreateStepLogs("Info", "Verify CAO user can search the DND opp with DND-name only");
-                    usersLogin.SearchUserAndLogin(caoUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(caoUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
+                    usersLogin.SearchUserAndLogin(userCAOUserExl);
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userCAOUserExl), true);
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userCAOUserExl), true);
+                    //extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + " Logged in on Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -369,19 +405,25 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(msg, "Success:Staff Roles Updated.");
                     extentReports.CreateStepLogs("Passed", removedDealTeamMemberExl + " Removed from Internal Deal Team ");
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " Logged Out");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
 
                     //////////////////////////////////////////////////////////////////////////////
                     //13.Login as removed deal user and check that removed user is no longer access to DND opportunity.
                     extentReports.CreateStepLogs("Info", "Verify Login as removed deal user and check that user is no longer access to DND opportunity ");
                     usersLogin.SearchUserAndLogin(removedDealTeamMemberExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
-                    extentReports.CreateStepLogs("Passed", "Deal Team Member: " + user + " Internal Deal Team User logged in ");
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "Deal Team Member: " + user + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
+
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
+                    extentReports.CreateStepLogs("Passed", "Removed Deal Team Member: " + removedDealTeamMemberExl + " from Internal Deal Team logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "Deal Team Member: " + removedDealTeamMemberExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -397,20 +439,23 @@ namespace SF_Automation.TestCases.Opportunities
                     result = opportunityHome.UpdateOppAndSearchLV(dndOppName);
                     Assert.AreEqual("No record found", result);
                     extentReports.CreateStepLogs("Passed", result + " with DND opportunity name after DND Approval");
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Passed", "Non- Deal Team member: " + removedDealTeamMemberExl + " Logged Out");
 
                     //15.Now navigate to internal team section and add removed deal users once again. (This time change the role of these users compared to last role)
                     //17. Again, login as CAO/SA and verify that readded deal users are appearing in the Sharing section.//
                     //Verify Admin user can search the DND opp with DND-name only and check the Sharing button
                     extentReports.CreateStepLogs("Info", "Verify Admin user can search the DND opp with DND-name only and check the Sharing button and removed Deal Team Member ");
                     usersLogin.SearchUserAndLogin(adminUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(adminUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  User logged in ");
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "System Admin Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(adminUserExl), true);
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(adminUserExl), true);
+                    //extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  User logged in ");
+                    //login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Info", "System Admin:: "+ adminUserExl+" Logged in and Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectApp(appNameExl);
@@ -443,19 +488,23 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseSharingGroupPopupLV();
                     extentReports.CreateStepLogs("Info", "Sharing Group Popup Closed");
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + "switched to Classic and Loggout ");
 
                     //7. Convert the DND opportunity into Engagement.
                     extentReports.CreateStepLogs("Info", "Verify Standard user can search the DND opp with DND-name and Request the DND opportunity for Engagement");
                     usersLogin.SearchUserAndLogin(stdUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(stdUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(stdUserExl), true);
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(stdUserExl), true);
+                    extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -472,19 +521,21 @@ namespace SF_Automation.TestCases.Opportunities
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
-                    login.SwitchToClassicView();
-                    //Log out of Standard User
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + "switched to Classic and Loggout ");
+                    //login.SwitchToClassicView();
+                    ////Log out of Standard User
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + "Logged out ");
 
                     //Search and Approve the DND Opp
-                    usersLogin.SearchUserAndLogin(caoUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(caoUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
+                    usersLogin.SearchUserAndLogin(userCAOUserExl);
+                    //login.SwitchToClassicView();
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userCAOUserExl), true);
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectApp(appNameExl);
@@ -512,9 +563,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Number of Engagement : " + engNumber + " is Same as DND Opportunity name ");
                     Assert.AreEqual(dndOppName, dndEngName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + dndEngName + " is Same as Opportunity Name : " + dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + "switched to Classic and Loggout ");
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + "switched to Classic and Loggout ");
 
                     ///////////////////////Actions of Engagement page////////////////////////
                     //TMTI0088198 Verify the functionality of internal sharing for DND FR Engagements
@@ -523,12 +575,15 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify Deal Team Member have access to DND Eng with DND-name only");
                     string engDealTeamMember = ReadExcelData.ReadDataMultipleRows(excelPath, "InternalTeams", 3, 1);
                     usersLogin.SearchUserAndLogin(engDealTeamMember);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(engDealTeamMember), true);
-                    extentReports.CreateStepLogs("Passed", "Deal Team Member: " + user + " logged in ");
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "Deal Team Member: " + user + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(engDealTeamMember), true);
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(engDealTeamMember), true);
+                    extentReports.CreateStepLogs("Passed", "Deal Team Member: " + engDealTeamMember + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "Deal Team Member: " + engDealTeamMember + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -545,20 +600,24 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", " Engagement found with DND Opportunity Name: " + dndEngName);
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", "Engagement Deal Team Member User: " + engDealTeamMember + "switched to Classic and Loggout ");
 
                     //Verify Non-Deal Team Member can access the DND Eng
                     extentReports.CreateStepLogs("Info", "Verify Non-Deal Team Member don't have access to DND Eng with DND-name");
                     //string removedDealTeamMemberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "InternalTeams", 2, 1);
                     usersLogin.SearchUserAndLogin(removedDealTeamMemberExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
-                    extentReports.CreateStepLogs("Passed", "Non-Deal Team Member: " + user + " logged in ");
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "Non-Deal Team Member: " + user + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
+                    extentReports.CreateStepLogs("Passed", "Non-Deal Team Member: " + removedDealTeamMemberExl + " logged in ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Info", "Non-Deal Team Member: " + removedDealTeamMemberExl + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -572,21 +631,25 @@ namespace SF_Automation.TestCases.Opportunities
                     result = engagementHome.UpdateEngAndSearchLV(dndEngName);
                     Assert.AreEqual("No record found", result);
                     extentReports.CreateStepLogs("Passed", " Engagement Not found with DND Opportunity Name: " + dndEngName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", "Non- Deal Team Member User: " + removedDealTeamMemberExl + "switched to Classic and Loggout ");
 
                     //Verify Admin user can search the DND opp with DND-name only and check the Sharing button
                     extentReports.CreateStepLogs("Info", "Verify Admin user can search the DND opportunity with DND-name only and check the Sharing button");
                     usersLogin.SearchUserAndLogin(adminUserExl);
-                    login.SwitchToClassicView();
-                    user = login.ValidateUser();
+                    //login.SwitchToClassicView();
+                    //user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(adminUserExl), true);
+                    login.SwitchToLightningExperience();
+                    user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(adminUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  logged in ");
+                    extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + "  logged in ");
 
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
+                    //login.SwitchToLightningExperience();
+                    //extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectApp(appNameExl);
@@ -623,8 +686,9 @@ namespace SF_Automation.TestCases.Opportunities
                     engagementDetails.CloseSharingGroupPopupLV();
                     extentReports.CreateStepLogs("Info", "Sharing Group Popup Closed");
                     randomPages.CloseActiveTab(dndOppName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
+                    //login.SwitchToClassicView();
+                    //usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + ": Logged out");
                 }
             }

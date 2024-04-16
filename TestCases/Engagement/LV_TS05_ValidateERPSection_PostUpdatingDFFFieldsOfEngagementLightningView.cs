@@ -218,7 +218,7 @@ namespace SalesForce_Project.TestCases.Engagement
 
                 string valDFFPrimaryOffice = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                // Assert.AreEqual("Checkbox is checked", valDFFPrimaryOffice);
-                extentReports.CreateStepLogs("Passed", "**Asserssion Pending Field not updated Engagement ERP Update DFF " + valDFFPrimaryOffice + " after updating Primary office ");
+                extentReports.CreateStepLogs("Passed", "**Asserssion Pending Field not updated Engagement ERP Update DFF:: " + valDFFPrimaryOffice + " after updating Primary office ");
 
                 string ERPSubmittedOfficeDate = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedDate, ERPSubmittedOfficeDate);
@@ -267,9 +267,9 @@ namespace SalesForce_Project.TestCases.Engagement
                 extentReports.CreateStepLogs("Passed", "Engagement Sector is updated to and sector combo contains " + updSector + " ");
 
                 string statusDFFSectorChk = randomPages.GetERPUpdateDFFCheckboxStatusLV();
-                //Assert.AreEqual("Checkbox is checked", valDFFSector);//not updating
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending Engagement ERP Update DFF " + statusDFFSectorChk + " after updating Sector ");
-
+                Assert.AreEqual("Checkbox is checked", statusDFFSectorChk);//not updating
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending Engagement ERP Update DFF:: " + statusDFFSectorChk + " after updating Sector ");
+                randomPages.ReloadPage();
                 string ERPSubmittedSector = randomPages.GetERPSubmittedToSyncLV();
                 //Assert.AreNotEqual(ERPSubmittedIG, ERPSubmittedSector);// need to uncomment
                 Assert.AreNotEqual(ERPSubmittedOfficeDate, ERPSubmittedSector);
@@ -292,9 +292,9 @@ namespace SalesForce_Project.TestCases.Engagement
                 extentReports.CreateStepLogs("Passed", "Engagement Job Type is updated to " + updJobType + " ");
 
                 string valDFFJobType = randomPages.GetERPUpdateDFFCheckboxStatusLV();
-                //Assert.AreEqual("Checkbox is checked", valDFFJobType);// not updating
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending Engagement ERP Update DFF " + valDFFJobType + " after updating Job Type ");
-
+                Assert.AreEqual("Checkbox is checked", valDFFJobType);// not updating
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending Engagement ERP Update DFF:: " + valDFFJobType + " after updating Job Type ");
+                randomPages.ReloadPage();
                 string ERPSubmittedJobType = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedSector, ERPSubmittedJobType);
                 extentReports.CreateStepLogs("Passed", "Engagement ERP Submitted to Sync New: " + ERPSubmittedJobType + " Old: "+ ERPSubmittedSector);
@@ -350,9 +350,9 @@ namespace SalesForce_Project.TestCases.Engagement
                 extentReports.CreateStepLogs("Passed", "Client Ownership is updated to " + clientOwnership + " ");
 
                 string valDFFClient = randomPages.GetERPUpdateDFFCheckboxStatusLV();
-                //Assert.AreEqual("Checkbox is checked", valDFFClient);  checked for Ownership
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Update DFF " + valDFFClient + " after updating Client Ownership ");
-
+                Assert.AreEqual("Checkbox is checked", valDFFClient);  //checked for Ownership
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Update DFF:: " + valDFFClient + " after updating Client Ownership ");
+                randomPages.ReloadPage();
                 string ERPSubmittedClient = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedJobType, ERPSubmittedClient);
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedClient + " Old: "+ ERPSubmittedJobType);
@@ -365,7 +365,6 @@ namespace SalesForce_Project.TestCases.Engagement
                 Assert.AreNotEqual(ERPResJobType, ERPResClient);
                 extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResClient + " is displayed Old: "+ ERPResJobType);
                 
-                ///-----------------------------In Progress-------------------//////////
                 string newRecordTypeExl = ReadExcelData.ReadData(excelPath, "DFFUpdates", 6);
                 string newLOBExl = ReadExcelData.ReadData(excelPath, "DFFUpdates", 7);
                 engagementDetails.UpdateRecordTypeLV(newRecordTypeExl, newLOBExl);
@@ -374,9 +373,9 @@ namespace SalesForce_Project.TestCases.Engagement
                 extentReports.CreateStepLogs("Passed", "LOB is updated to " + newRecordType + " ");
 
                 string valDFFLOB = randomPages.GetERPUpdateDFFCheckboxStatusLV();
-                //Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Update DFF " + valDFFLOB + " after updating LOB ");
-
+                Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
+                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Update DFF:: " + valDFFLOB + " after updating LOB ");
+                randomPages.ReloadPage();
                 string ERPSubmittedLOB = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmittedClient, ERPSubmittedLOB);
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedLOB + " Old: "+ ERPSubmittedClient);

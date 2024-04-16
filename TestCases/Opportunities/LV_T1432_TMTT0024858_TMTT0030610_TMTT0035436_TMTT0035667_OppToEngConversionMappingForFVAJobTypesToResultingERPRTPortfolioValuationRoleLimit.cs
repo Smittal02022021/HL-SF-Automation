@@ -7,11 +7,10 @@ using SF_Automation.UtilityFunctions;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using System;
-using OpenQA.Selenium;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFVAJobTypesToResultingRTPortfolioValuationRoleLimit: BaseClass
+    class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit : BaseClass
     {
         //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
         /*done
@@ -36,6 +35,17 @@ namespace SF_Automation.TestCases.Opportunities
         
         //TMTT0035667 done
         //TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity
+
+        TMTT0024858 done
+        TMTI0056869 Verify the availability of new Job Types on the Edit Engagement page
+
+        TMTT0030610 done
+        TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
+        TMTI0071647 Verify the status is updated in the Oracle ERP Information section
+
+        TMTT0035436 done
+        TMTI0084220 Verify the availability of new Job Types on Edit Engagement page
+        TMTI0084221 Verify the status is updated in Oracle ERP Information section
 
         */
         ExtentReport extentReports = new ExtentReport();
@@ -282,6 +292,11 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
 
+                    //TMTI0056869 Verify the availability of new Job Types on Edit Engagement page
+                    //TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
+                    //TMTI0084220 Verify the availability of new Job Types on Edit Engagement page
+                    Assert.IsTrue(engagementDetails.IsJobTypePresentInDropdownOppDetailPageLV(valJobType));
+                    extentReports.CreateLog("Job Type: " + valJobType + " is present on edit Engageent page ");
 
                     /////////////////////////////////////////
                     /////TMTI0085043   Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Engagement
@@ -345,12 +360,44 @@ namespace SF_Automation.TestCases.Opportunities
 
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
-                }                
+
+                    //---------------------------------------------------------//
+                    //Login Via System Admin to verify Last Integration the ERP Status
+                    usersLogin.SearchUserAndLogin(adminUserExl);
+                    login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Passed", "System Admin Loggin to Lightning View ");
+                    homePageLV.ClickAppLauncher();
+                    //Go to Opportunity module in Lightning View 
+                    homePageLV.SelectApp(appNameExl);
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                    //Search for created opportunity
+                    engagementHome.SearchEngagementInLightningView(engName);
+                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+
+                    //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
+                    //TMTI0084221 Verify the status is updated in Oracle ERP Information section
+                    //Validate the ERP Last Integration Status on Engagement details page
+                    string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
+                    Assert.AreEqual("Success", ERPStatusOffice);
+                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
+                    randomPages.CloseActiveTab(engName);
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
+                }
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully ");
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }

@@ -4,6 +4,7 @@ using SF_Automation.UtilityFunctions;
 using System.Threading;
 using System;
 using NUnit.Framework;
+using RazorEngine.Compilation.ImpromptuInterface;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -43,14 +44,22 @@ namespace SF_Automation.Pages.Opportunity
 
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
+        
+        By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
-        By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");        
         By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
         By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
         By btnAddOppContactL = By.XPath("//button[contains(@name,'Opportunity_Contact')]");
 
-        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
-
+        private By _eleCreateOppContact(string RecordType)
+        {
+            return By.XPath($"//button[contains(@name,'Add_{RecordType}_Opportunity_Contact')]");
+        }
+        public void CickAddOpportunityContact(string RecordType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _eleCreateOppContact(RecordType), 20);
+            driver.FindElement(_eleCreateOppContact(RecordType)).Click();
+        }
         public void CreateContact(string file, string contact, string valRecType, string valType)
         {
             ReadJSONData.Generate("Admin_Data.json");

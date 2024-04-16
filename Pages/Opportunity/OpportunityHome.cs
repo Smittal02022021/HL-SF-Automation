@@ -77,6 +77,7 @@ namespace SF_Automation.Pages
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppsearchL, 10);
             driver.FindElement(txtOppsearchL).SendKeys(value);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgOpp);
             Thread.Sleep(4000);
             driver.FindElement(imgOpp).Click();
             Thread.Sleep(6000);

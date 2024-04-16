@@ -55,8 +55,37 @@ namespace SF_Automation.Pages
         By lnkEditActivity = By.CssSelector("td[class='dataCell top '] > span[id*='pbtActivities:0:j_id18'] a:nth-child(2)");
         By txtContactHeading = By.CssSelector("h2[class='pageDescription']");
         By valDefaultHLAttendee = By.CssSelector("tbody[id*='pbsHLEmployees'] > tr > td:nth-child(3) > span");
-        
+
+        By btnContactSearchL = By.XPath("//button[@aria-label='Search']");
+        By txtContactSearchL = By.XPath("//input[contains(@placeholder,'Search Contacts')]");
+        By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
+        By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//dd//a");
+
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+
+
+        public void SearchContactInLightning(string value)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnContactSearchL, 5);
+            driver.FindElement(btnContactSearchL).Click();
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL, 10);
+            driver.FindElement(txtContactSearchL).SendKeys(value);
+            WebDriverWaits.WaitUntilEleVisible(driver, imgContact);
+            Thread.Sleep(4000);
+            driver.FindElement(imgContact).Click();
+            Thread.Sleep(6000);
+
+        }
+        public string GetEmailIDOfContactLV()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, valEmailL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valEmailL));
+            string id = driver.FindElement(valEmailL).Text;
+            return id;  
+        }
 
         public string SearchContactWithExternalContact(string file)
         {

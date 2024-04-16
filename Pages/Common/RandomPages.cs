@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,25 @@ namespace SF_Automation.Pages.Common
         By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//dd//lightning-formatted-text");
         By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
         By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
+        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        By valERPIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP ID']//dd//lightning-formatted-text");
+        By valERPProjStatusCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Status Code']//dd//lightning-formatted-text");
+        By valERPProjectNumberL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Number']//dd//lightning-formatted-text");
+        By valERPProjectNameL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Name']//dd//lightning-formatted-text");
+        By valERPLOBL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP LOB']//dd//lightning-formatted-text");
+        By valERPTemplateL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Template']//dd//lightning-formatted-text");
+        By valERPUnitL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit']//dd//lightning-formatted-text");
+        By valERPUnitIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit Id']//dd//lightning-formatted-text");
+        By valERPLegalEntityIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity Id']//dd//lightning-formatted-text");
+        By valERPEntityCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Entity Code']//dd//lightning-formatted-text");
+        By valERPLegCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legislation Code']//dd//lightning-formatted-text");
+        By valERPIGL = By.XPath("//div[@class='slds-form']//records-record-layout-item[contains(@field-label,'ERP Industry Group')]//dd//lightning-formatted-text");
+        By valHLEntityL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='HL Entity']//dd//lightning-formatted-text");
+        By valERPHLEntity = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP HL Entity']//dd//lightning-formatted-text");
+        By valERPLegalEntityL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity']//dd//lightning-formatted-text");
+        By valERPErrorL = By.XPath("//div[@class='slds-form']//records-record-layout-item[contains(@field-label,'Error Description')]//dd//lightning-formatted-text");
+        By valERPEmailIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Principal Manager']//dd//lightning-formatted-text");
 
         private By _optionListView(string name)
         {
@@ -742,8 +762,6 @@ namespace SF_Automation.Pages.Common
         public void SelectListViewLV(string name)
         {
             Thread.Sleep(8000);
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
             driver.FindElement(iconListViewPicker).Click();
             Thread.Sleep(5000);
@@ -758,18 +776,55 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(4000);
         }
 
-        private By _namejobType(string name)
+        private By _eleJobType(string name)
         {
             return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//th//a[@title='{name}']");
+        }
+        private By _eleLegalEntity(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//td//a[@title='{name}']");
         }
 
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
         public string SelectJobTypesL(string name)
-        {    
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _namejobType(name), 20);
-            driver.FindElement(_namejobType(name)).Click();
+            
+            ReTry: try
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(_eleJobType(name)));
+            }
+            catch
+            {
+                js.ExecuteScript("window.scrollTo(0,400)");
+                Thread.Sleep(2000);
+                goto ReTry;
+            }
+            driver.FindElement(_eleJobType(name)).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
+            string pageheader = driver.FindElement(txtPageHeader).Text;
+            return pageheader;
+        }
+        public string SelectLegalEntityL(string name)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(5000);
+            ReTry:  try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _eleLegalEntity(name), 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(_eleLegalEntity(name)));
+            }
+            catch 
+            {                
+                js.ExecuteScript("window.scrollTo(0,800)");
+                Thread.Sleep(2000);
+                goto ReTry;
+            }               
+            driver.FindElement(_eleLegalEntity(name)).Click();
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader = driver.FindElement(txtPageHeader).Text;
             return pageheader;
@@ -803,6 +858,7 @@ namespace SF_Automation.Pages.Common
         
         public void UpdateERPSyncManuallyInlineLV()
         {
+            //Thread.Sleep(60000);
             DateTime Time = DateTime.Now;
             string syncDate = Time.ToString("MM/dd/yyyy");
             string syncTime = Time.ToString("hh:mm:ss tt");
@@ -879,8 +935,6 @@ namespace SF_Automation.Pages.Common
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLSectorComboL));
             return driver.FindElement(txtHLSectorComboL).Text;
         }
-        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
-        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
         public string GetJobTypeLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtJobTypeL, 10);
@@ -892,6 +946,161 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, valRecordTypeL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valRecordTypeL));
             return driver.FindElement(valRecordTypeL).Text;
+        }        
+        
+        //Get ERP Principal Manager ID
+        public string GetERPEmailIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPEmailIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPEmailIDL));
+            string id = driver.FindElement(valERPEmailIDL).Text;
+            return id;
+        }
+        public string GetERPIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPIDL));
+            string id = driver.FindElement(valERPIDL).Text;
+            return id;
+        }
+
+        //Get ERP Project Status Code in ERP section
+        public string GetERPProjStatusCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPProjStatusCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPProjStatusCodeL));
+            string code = driver.FindElement(valERPProjStatusCodeL).Text;
+            return code;
+        }
+
+        //Get ERP Project Number in ERP section
+        public string GetERPProjectNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPProjectNumberL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPProjectNumberL));
+            string Number = driver.FindElement(valERPProjectNumberL).Text;
+            return Number;
+        }
+
+        //Get ERP Project Name in ERP section
+        public string GetERPProjectNameLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPProjectNameL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPProjectNameL));
+            string Number = driver.FindElement(valERPProjectNameL).Text;
+            return Number;
+        }
+
+        //Get ERP LOB in ERP section
+        public string GetERPLOBLV()
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLOBL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLOBL));
+            string Number = driver.FindElement(valERPLOBL).Text;
+            return Number;
+        }
+
+        //Get ERP Template
+        public string GetERPTemplateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPTemplateL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPTemplateL));
+            string number = driver.FindElement(valERPTemplateL).Text;
+            return number;
+        }
+
+        //Get ERP Business Unit ID
+        public string GetERPBusinessUnitIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPUnitIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPUnitIDL));
+            string number = driver.FindElement(valERPUnitIDL).Text;
+            return number;
+        }
+
+        //Get ERP Business Unit
+        public string GetERPBusinessUnitLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPUnitL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPUnitL));
+            string unit = driver.FindElement(valERPUnitL).Text;
+            return unit;
+        }
+
+        //Get ERP Legal Entity ID
+        public string GetERPLegalEntityIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegalEntityIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLegalEntityIDL));
+            string id = driver.FindElement(valERPLegalEntityIDL).Text;
+            return id;
+        }
+
+        //Get ERP Entity Code
+        public string GetERPEntityCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPEntityCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPEntityCodeL));
+            string code = driver.FindElement(valERPEntityCodeL).Text;
+            return code;
+        }
+
+        //Get ERP Legislation Code
+        public string GetERPLegCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLegCodeL));
+            string code = driver.FindElement(valERPLegCodeL).Text;
+            return code;
+        }
+
+        //Get ERP Industry Group
+        public string GetERPIndustryGroupLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPIGL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPIGL));
+            string IG = driver.FindElement(valERPIGL).Text;
+            return IG;
+        }
+        //Get HL Entity in ERP section
+        public string GetHLEntityLV()
+        {
+            //driver.Navigate().Refresh();
+            WebDriverWaits.WaitUntilEleVisible(driver, valHLEntityL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valHLEntityL));
+            string entity = driver.FindElement(valHLEntityL).Text;
+            return entity;
+        }
+
+        //Get ERP HL Entity in ERP section
+        public string GetERPHLEntityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPHLEntity, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPHLEntity));
+            string ERPEntity = driver.FindElement(valERPHLEntity).Text;
+            return ERPEntity;
+        }
+
+        //Get ERP Legal Entity in ERP section
+        public string GetERPLegalEntityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegalEntityL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPHLEntity));
+            string ERPEntity = driver.FindElement(valERPLegalEntityL).Text;
+            return ERPEntity;
+        }
+        public string GetERPIntegrationErrorLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPErrorL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPErrorL));
+            string error = driver.FindElement(valERPErrorL).Text;
+            return error;
+        }
+        public void ReloadPage()
+        {
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
     }
 }
