@@ -1,5 +1,6 @@
 ﻿
 using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -8,6 +9,7 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;     
 using System;
+using System.Collections.Generic;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -77,6 +79,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Add FVA Opportunity
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 string value = addOpportunity.AddOpportunitiesLightning(valJobType, fileTC1644);
+                extentReports.CreateLog("Opportunity with name: " + value + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
                 string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1644);
@@ -97,7 +100,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Added valuation: " + addedValuation + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details ");
 
                 period.ClickNewPeriodPositionButtonWithoutFrameL();
-                string addedPeriod = period.EnterAndSaveOppValuationPeriodPositionDetailsLWithDiffFrame("Techno Alpha");
+                string addedPeriod1st = period.EnterAndSave1stOppValuationPeriodPositionDetailsLWithDiffFrame("Techno Aide");
+
+                period.ClickBackToOppValPeriodList();
+                string name2 = CustomFunctions.RandomValue();
+                string addedValuation3rd = period.EnterAndSaveOppValuationPeriodDetailsL(name2);
+
+                period.ClickNewPeriodPositionButtonWithoutFrameL();
+                string addedPeriod2nd = period.EnterAndSaveOppValuationPeriodPositionDetailsLWithDiffFrame("Techno Alpha");
 
                 //Logout
                 usersLogin.LightningLogout();
@@ -148,8 +158,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + stdUser2 + " logged in ");
 
                 engHome.SelectEngUnderHLBanker();
-                engHome.ValidateSearchFunctionalityOfEngagements(value);
-                engHome.ClickEngNumber();
+                engHome.SearchEngagementWithNumberOnLightning(value, valJobType);               
 
                 //1.  TMTI0092391_Verify that the "Portfolio Valuation" button is available on the portfolio Engagement
                 string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButton();
@@ -179,15 +188,15 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(addedValuation, importedValPeriod);
                 extentReports.CreateLog("Valuation Period added in Opportunity is imported to Engagement post conversion successfully ");
 
-                string importedValPosition = engDetails.ValidateImportedPeriodPosition();
-                Assert.AreEqual(addedPeriod, importedValPosition);
+                string importedValPosition = engDetails.ValidateImportedPeriodPosition(name2);
+                Assert.AreEqual(addedPeriod2nd, importedValPosition);
                 extentReports.CreateLog("Added Period position in Opportunity is imported to Engagement post conversion successfully ");
 
                 //5.   TMTI0092399_Verify that the FVA User can edit the Engagement Valuation Period
                 //6.   TMTI0093015_Verify that the validation message appears for required fields on clicking the Save button of the Engagement Valuation Period Edit page
-                string messageEngPeriod = engValPeriod.EditFunctionalityOfValuationPeriod();
-                Assert.AreEqual(addedPeriod, importedValPosition);
-                Assert.AreEqual("Error: Client Final Deadline: You must enter a value", messageEngPeriod);
+                string messageEngPeriod = engValPeriod.ValidateMandatoryMessageOfValuationPeriod();
+                Assert.AreEqual(addedPeriod2nd, importedValPosition);
+                Assert.AreEqual("Error:\r\nClient Final Deadline: You must enter a value", messageEngPeriod);
                 extentReports.CreateLog("FVA user can edit imported Valuation Period and mandatory validation: " + messageEngPeriod + " is displayed when all mandatory fields are not filled ");
 
                 //7.    TMTI0093017-Verify that clicking the Cancel button of the Engagement Valuation Period Edit page takes the user back to the Valuation Periods detail page
@@ -195,62 +204,32 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Engagement Valuation Period", engValPeriodUponCancel);
                 extentReports.CreateLog("Page " + engValPeriodUponCancel + " is displayed upon clicking cancel button on Engagement Valuation Period edit page ");
 
-                //8.  TMTI0093019_ Verify that the user can update the required fields on the Engagement Valuation Period Edit page and can save the valuation period
-                  
+                //8.  TMTI0093019_Verify that the user can update the required fields on the Engagement Valuation Period Edit page and can save the valuation period
+                string updatedClientFinal = engValPeriod.EditFunctionalityOfValuationPeriod();
+                Assert.NotNull(updatedClientFinal);
+                extentReports.CreateLog("Updated value of Client Final Deadline : " + updatedClientFinal + " is displayed upon clicking save button on Engagement Valuation Period detail page ");
+
+                //9.  TMTI0093021_Verify that on selecting "Client's Final Deadline" on the Engagement Valuation Period Detail page, the Engagement Valuation Period Allocation record will be created
+                string periodAllocation = engValPeriod.ValidatePeriodAllocationRecordAfterUpdatingClientFinalDeadline();
+                Assert.AreEqual("True", periodAllocation);
+                extentReports.CreateLog("Period Allocation record is created after saving Client Final Deadline on Engagement Valuation Period Edit page ");
+
+                //10.  TMTI0093023_ Verify that clicking the "Import Positions" button opens up a screen that shows the "Existing Valuation Period" listing with the following buttons
+                Assert.IsTrue(engValPeriod.ValidateButtonsOnImportPositions(), "Verified that displayed buttons are same");
+                extentReports.CreateLog("Displayed buttons are as expected after clicking Import Position button ");
+
+                //11.  TMTI0093025_Verify that the list of related positions opens from the existing valuation period by clicking the "Search Valuation Period for Positions" button. 
+                Assert.IsTrue(period.ValidateDisplayedImportButtonsUponClickingSearchValPeriod(), "Verified that displayed Import Position buttons are same");
+                extentReports.CreateLog("Displayed Import Position buttons are as expected ");
+
+                Assert.IsTrue(period.ValidateDisplayedBottomButtonsUponClickingSearchValPeriod(), "Verified that displayed buttons at the bottom of Related Positions page are same");
+                extentReports.CreateLog("Displayed buttons at the bottom of Related Positions page are as expected ");
+
+                //12.  TMTI0093027_Verify that if the "Automation Tool Usage" field is blank in the position that the user selected to Import, the application gives an error message on the screen. 
 
 
 
 
-
-                // //12.  TMTI0092033_Verify that clicking "Valuation Period Name" from the valuation period listing page will take the user to the Opportunity Valuation Period Detail page
-                // string titlePeriodDetail = period.ValidateOppValPeriodDetailPageUponClickOfValPeriodNameLink();
-                // Assert.AreEqual("Opportunity Valuation Period", titlePeriodDetail);
-                // extentReports.CreateLog("Page : " + titlePeriodDetail + " is displayed on clicking the Valuation Period Name link on valuation period listing page ");
-
-                // //13.  TMTI0092035_Verify that if there is no existing valuation period to import positions, a message will display on the screen on clicking the "Import Positions" button
-                // string msgImport = period.ValidateMessageWhileClickingOnImportButton();
-                // Assert.AreEqual("There is no valuation period available to import position.", msgImport);
-                // extentReports.CreateLog("Message : " + msgImport + " is displayed on clicking Import Positions button when there is no existing valuation period ");
-
-                // //14.  TMTI0092037_Verify that clicking the "New Opp Valuation Period Position" button to add positions opens up the form
-                // string titlePeriodPosition = period.ValidatePeriodPositionPageWhileClickingNewOppValPeriodPositionButton();
-                // Assert.AreEqual("New Opp Valuation Period Position", titlePeriodPosition);
-                // extentReports.CreateLog("Page : " + titlePeriodPosition + " is displayed on clicking New Opp Valuation Period Position button ");
-
-                // Assert.IsTrue(period.ValidateFieldsOfOppValuationPeriodPositionL(), "Verified that displayed fields on Opportunity Valuation Period Position page are same");
-                // extentReports.CreateLog("Displayed fields on Opportunity Valuation Period Position page are as expected ");
-
-                // Assert.IsTrue(period.ValidateButtonsOnValuationPeriod(), "Verified that displayed buttons on Opportunity Valuation Period Position page are same");
-                // extentReports.CreateLog("Displayed buttons on Opportunity Valuation Period Position page are as expected ");
-
-                // //15.  TMTI0092039_Verify that the validation message appears for the required fields on clicking the "Save" button on the "New Opp Valuation Period Position" detail page
-                // Assert.IsTrue(period.ValidateMessageWhileClickingSaveButtonOnPeriodPosition(), "Verified that displayed mandatory field validations are same");
-                // extentReports.CreateLog("Displayed mandatory field validations on Opportunity Valuation Period Position are as expected ");
-
-                // //16.  TMTI0092041_Verify that clicking the "Cancel" button given on the New Opp Valuation Period Position takes the user back to the Opportunity Valuation Period Detail page.
-                // string oppValPeriodDetailsUponCancel = period.ValidateOppValPeriodDetailsPageUponClickingCancelButton();
-                // Assert.AreEqual("Opportunity Valuation Period Detail", oppValPeriodDetailsUponCancel);
-                // extentReports.CreateLog("Page: " + oppValPeriodDetailsUponCancel + " is displayed upon clicking cancel button on New Opp Valuation Period Position page ");
-
-                // //17.  TMTI0092043_Verify that the user can add positions by clicking the "New Opp Valuation Period Position" button with all the required details 
-                // string addedPosition = period.EnterAndSaveOppValuationPeriodPositionDetailsL("Techno Alpha");
-                // Assert.AreEqual("Techno Alpha", addedPosition);
-                // extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position ");
-
-                // //18.  TMTI0092045_Verify that clicking "Opp Valuation Period Position Name" opens up the Opp Valuation Period Position details page
-                // string oppValPositionDetail = period.ValidateOppValPeriodPositionPageUponClickingAddedPeriodPosition();
-                // Assert.AreEqual("Opportunity Valuation Position Detail", oppValPositionDetail);
-                // extentReports.CreateLog("Page: " + oppValPositionDetail + " is displayed upon clicking on added Period Position Name ");
-
-                // //19.  TMTI0092047_Verify that clicking the "Back to Valuation Period" button given on the "Opp Valuation Period Position" page takes the user back to the Opportunity Valuation Period detail page
-                // string oppValPeriodDetailsUponBack = period.ValidateOppValPeriodDetailsPageUponClickingBackToValuationButton();
-                // Assert.AreEqual("Opportunity Valuation Period Detail", oppValPeriodDetailsUponBack);
-                // extentReports.CreateLog("Page: " + oppValPeriodDetailsUponBack + " is displayed upon clicking Back to Valuation Period button on Opp Valuation Period Position page ");
-
-                // //20.  TMTI0092049_Verify that clicking the "Edit" button given on "Opp Valuation Period Position" allows the user to update Opp Valuation Period position details and updates get reflected on the position
-                // string updatedPosition = period.EditFunctionalityOfPeriodPosition("XYZ");
-                // Assert.AreEqual("XYZ", updatedPosition);
-                // extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name ");
 
                 // //21.  TMTI0092051_Verify that the "Opp Valuation Period Team Members" section is available at the bottom of the Opp Valuation Period Position detail page. 
                 // string secTeamMember = period.ValidateSecOppValTeamMember();

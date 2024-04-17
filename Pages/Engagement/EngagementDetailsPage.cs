@@ -111,6 +111,7 @@ namespace SF_Automation.Pages.Engagement
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
         By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
+        
         By valImportedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
 
         By valERPProductType = By.CssSelector("div[id*='eej']");
@@ -3125,9 +3126,9 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
             driver.FindElement(btnPortfolioVL).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(9000);
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(6000);            
+            Thread.Sleep(9000);            
         }
         
         //Fetch Validate imported valuation period upon conversion
@@ -3140,9 +3141,9 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Fetch Validate imported period position upon conversion
-        public string ValidateImportedPeriodPosition()
+        public string ValidateImportedPeriodPosition(string name)
         {
-            driver.FindElement(valImportedValPeriod).Click();
+            driver.FindElement(By.XPath("//a[text()='" + name + "']")).Click();
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
@@ -3154,7 +3155,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate Back To Engagement button
         public string ValidateReturnToEngButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngL, 250);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngL, 250);
             string value = driver.FindElement(btnBackToEngL).GetAttribute("value");
                 return value;           
         }

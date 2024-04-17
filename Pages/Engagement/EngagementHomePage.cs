@@ -29,7 +29,7 @@ namespace SF_Automation.Pages
         By btnEngNum = By.XPath("//button[@aria-label='Search']");
         By btnEngNumNotBlank = By.XPath("//section/header/div[2]/div[2]/div/button");
         By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
-        By lnkEngLightning = By.XPath("//search_dialog-instant-result-item[1]/div[1]/div[2]/div/lightning-formatted-rich-text/span");
+        By lnkEngLightning = By.XPath("//img[@title='Engagement']");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
@@ -244,7 +244,7 @@ namespace SF_Automation.Pages
         public string SearchEngagementWithNumberOnLightning(string name, string jobType)
         {
             Thread.Sleep(6000);
-            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets"))
+            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("FA - Portfolio-Valuation"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                 driver.FindElement(btnEngNum).Click();
@@ -252,8 +252,8 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
                 driver.FindElement(txtEngNumLightning).Clear();
                 driver.FindElement(txtEngNumLightning).SendKeys(name);
-                Thread.Sleep(4000);
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 480);
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 510);
                 driver.FindElement(lnkEngLightning).Click();
             }
             else

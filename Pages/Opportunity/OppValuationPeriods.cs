@@ -914,6 +914,30 @@ namespace SF_Automation.Pages.Opportunity
                    
         }
 
+        //Enter all details and save 1st Period Position.
+        public string EnterAndSave1stOppValuationPeriodPositionDetailsLWithDiffFrame(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(txtCompanyL).SendKeys(name);
+            Thread.Sleep(6000);
+            driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
+            Thread.Sleep(4000);
+            driver.FindElement(btnAssetClassL).SendKeys("ABL");
+            Thread.Sleep(4000);
+            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedPositionL).Text;           
+            return value;
+
+        }
+
         //Enter all details and save it.
         public string EnterAndSaveOppValuationPeriodPositionDetailsLWithDiffFrame(string name)
         {

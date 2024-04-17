@@ -2,6 +2,8 @@
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Engagement
@@ -56,6 +58,14 @@ namespace SF_Automation.Pages.Engagement
         By msgMandatoryFieldL = By.XPath("//div[contains(@class,'messageText')]");
         By btnCancelL = By.XPath("//input[@value='Cancel']");
         By titleEngValPeriodL = By.XPath("//h1[contains(text(),' Valuation Period')]");
+        By valClientFinalL = By.XPath("//tr[9]/td[1]//a");
+        By updClientFinalL = By.XPath("//th[text()='Client Final Deadline']/ancestor::tr/td[2]/span/span/span");
+        By recPeriodAllocationL = By.XPath("//form/div[2]//tr[2]");
+        By btnImportPositionsL = By.XPath("//input[@value='Import Positions']");
+        By btnExistingImports = By.XPath("//td[1]/span[1]/input[contains(@value,'Valuation Period')]");
+        By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
+        By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
+        By lblImportL = By.XPath("//label[contains(text(),'Positions')]");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -259,8 +269,8 @@ namespace SF_Automation.Pages.Engagement
             alert.Accept();
         }
 
-        //Validate FVA use can edit Valuation Period
-        public string EditFunctionalityOfValuationPeriod()
+        //Validate mandatory validation of Valuation Period
+        public string ValidateMandatoryMessageOfValuationPeriod()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 120);
             driver.FindElement(btnEditL).Click();
@@ -285,6 +295,97 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             string tab = driver.FindElement(titleEngValPeriodL).Text;            
             return tab;
+        }
+
+        //Validate FVA use can edit Valuation Period
+        public string EditFunctionalityOfValuationPeriod()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 120);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            driver.FindElement(valClientFinalL).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string value = driver.FindElement(updClientFinalL).Text;
+            return value;
+        }
+
+        //Validate added Period allocation record after updating Client Final Deadline
+        public string ValidatePeriodAllocationRecordAfterUpdatingClientFinalDeadline()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, recPeriodAllocationL, 140);           
+            string value = driver.FindElement(recPeriodAllocationL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate Import Positions page buttons
+        public bool ValidateButtonsOnImportPositions()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnImportPositionsL, 140);
+            driver.FindElement(btnImportPositionsL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnExistingImports);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            string[] expectedValue = { "Search Valuation Period for Positions", "Back To Valuation Period" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+       
+        //Validate the displayed buttons after clicking on Search Valuation Period for Positions
+        public bool ValidateDisplayedImportButtonsUponClickingSearchValPeriod()
+        {
+            driver.FindElement(btnExistingValPeriodL).Click();
+            driver.FindElement(btnSearchValPeriodPosL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Import Positions Without Team Members", "Import Positions With Team Members" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
     }
 }
