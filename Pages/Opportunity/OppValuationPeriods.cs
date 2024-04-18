@@ -116,7 +116,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
         By btnExistingValPeriod2ndL = By.XPath("//tr[2]/td[1]/input");
         By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
-        By lblImportL = By.XPath("//label[contains(text(),'Positions')]");
+        By lblImportL = By.XPath("//label[contains(text(),'Import Positions')]");
         By btnImportBottomL = By.XPath("//span[contains(@id,'RelatedRecordPanelId')]/input[contains(@name,'RelatedRecordPanelId')]");
         By chkPositionNameL = By.XPath("//input[contains(@name,'myCheckbox')]");
         By btnSaveAndBackL = By.XPath("//input[contains(@value,'Save & Back ')]");
@@ -1199,15 +1199,15 @@ namespace SF_Automation.Pages.Opportunity
         {
             driver.FindElement(btnExistingValPeriodL).Click();
             driver.FindElement(btnSearchValPeriodPosL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Import Positions Without Team Members", "Import Positions With Team Members" };
+            string[] expectedValue = {"Import Positions Without Team Members", "Import Positions With Team Members" };
             Console.WriteLine(actualValue[0]);
-            Console.WriteLine(actualValue[1]);
+            //Console.WriteLine(actualValue[1]);
 
             bool isSame = true;
 

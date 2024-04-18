@@ -66,6 +66,15 @@ namespace SF_Automation.Pages.Engagement
         By btnExistingValPeriodL = By.XPath("//input[@type='radio']");
         By btnSearchValPeriodPosL = By.XPath("//input[@value='Search Valuation Period for Positions']");
         By lblImportL = By.XPath("//label[contains(text(),'Positions')]");
+        By chkPositionNameL = By.XPath("//input[contains(@name,'myCheckbox')]");
+        By btnSaveImportL = By.XPath("//input[@value='Save']");
+        By msgAutomationToolL = By.XPath("//div[@class='messageText']");
+        By btnAutomationToolL = By.XPath("//input[@value='Update Automation Tool Usage']");
+        By lblColumnsL = By.XPath("//td[1]/table//th/div");
+        By comboUtilizedL = By.XPath("//select[contains(@name,'AutomationToolUtilizedId')]");
+        By comboReasonL = By.XPath("//select[contains(@name,'ReasonFieldId')]");
+        By btnSaveAutomation = By.XPath("//div[3]/table//td[2]/input[1]");
+        By titleRelatedPositionsL = By.XPath("//h3[text()='Related Positions']");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -355,19 +364,33 @@ namespace SF_Automation.Pages.Engagement
             }
             return isSame;
         }
-       
-        //Validate the displayed buttons after clicking on Search Valuation Period for Positions
-        public bool ValidateDisplayedImportButtonsUponClickingSearchValPeriod()
+
+        //Validate Automation Tool Usage mandatory field validation
+        public string ValidateAutomationToolMandatoryFieldMessage()
         {
-            driver.FindElement(btnExistingValPeriodL).Click();
-            driver.FindElement(btnSearchValPeriodPosL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkPositionNameL, 120);
+            driver.FindElement(chkPositionNameL).Click();
+            driver.FindElement(btnSaveImportL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgAutomationToolL).Text;
+            return row;
+        }
+
+        //Validate Automation tool fields
+        public bool ValidateColumnsOnAutomationToolPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAutomationToolL, 140);
+            driver.FindElement(btnAutomationToolL).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(4000);
-            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblColumnsL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Import Positions Without Team Members", "Import Positions With Team Members" };
+            string[] expectedValue = { "Position Name", "Automation Tool Utilized", "Reason", "Comments" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
 
@@ -386,6 +409,22 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
             return isSame;
+        }
+
+
+        //Validate that clicking the save button, the user is redirected to the related positions list to import positions.
+        public string ValidatePositionsListPageUponClickingSaveButtonOnAutomationToolPage()
+        {            
+            Thread.Sleep(5000);
+            driver.FindElement(comboUtilizedL).SendKeys("Yes");
+            //driver.FindElement(comboReasonL).SendKeys("Historical");
+            driver.FindElement(btnSaveAutomation).Click();
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            string row = driver.FindElement(titleRelatedPositionsL).Text;
+            return row;
         }
     }
 }

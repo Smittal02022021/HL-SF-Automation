@@ -226,8 +226,17 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Displayed buttons at the bottom of Related Positions page are as expected ");
 
                 //12.  TMTI0093027_Verify that if the "Automation Tool Usage" field is blank in the position that the user selected to Import, the application gives an error message on the screen. 
+                string messageTool = engValPeriod.ValidateAutomationToolMandatoryFieldMessage();
+                Assert.AreEqual("Please update Automation Tool usage information for selected position(s).", messageTool);
+                extentReports.CreateLog("Message: "+ messageTool + " is displayed when Automation Tool Usage field is blank in the position that the user selected to Import ");
 
+                //13.  TMTI0093029_Verify that the user can update "Automation Team Utilized" by clicking "Update Automation Tool Usage". 
+                Assert.IsTrue(engValPeriod.ValidateColumnsOnAutomationToolPage(), "Verified that displayed columns are same");
+                extentReports.CreateLog("Displayed columns for Automation tool are as expected ");
 
+                string pageRelated = engValPeriod.ValidatePositionsListPageUponClickingSaveButtonOnAutomationToolPage();
+                Assert.AreEqual("Related Positions", pageRelated);
+                extentReports.CreateLog("Page: " + pageRelated + " is displayed upin clicking Save button on Automation Tool page after filling all the details ");
 
 
 
