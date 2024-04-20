@@ -1,1 +1,145 @@
-<Playlist Version="1.0"><Add Test="SalesForce_Project.TestCases.Opportunity.T1832_OpportunityCounterpartiesPage_AddCounterparties.AddCounterparties" /><Add Test="SalesForce_Project.TestCases.Opportunity.T2189_PortfolioValuationCreationAndValidationOfValuationPeriodDetailsPage.AddCounterparties" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.UpdateFieldsOfLOB_FR" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1426_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory.OpportunityToEngagementConversionMappingForCF" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.DNDOnOffEnableAndDisableMode" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.UpdateFieldsOfLOB_FAS" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1197andT1198AddOpportunityInOpportunityHome.OpportunityHome" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1644_OpportunityDetails_FEISForm_SubmitForReview.FEISFormSubmitforReview" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1432_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuation.OpportunityToEngagementConversionMappingForFAS" /><Add Test="SalesForce_Project.TestCases.Opportunity.Clonebutton_DisplayedOrNot.ValidateClonebutton" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1649AdditionalClientSubjectRequiredDefaultPopUp.AdditionalClientSubjectPopUp" /><Add Test="SalesForce_Project.TestCases.Opportunity.T2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers.ImportPositionsWithTeamMembers" /><Add Test="SalesForce_Project.TestCases.Opportunity.T2214_PortfolioValuation_ImportPositions_ImportPositionsWithoutTeamMembers.ImportPositionsWithoutTeamMembers" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1642_OpportunityDetailsPage_CNBCForm_SubmitForReview.CNBCFormSubmitforReview" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1559_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager.UpdateFieldsOfLOB_CF" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1232_OpportunityDetails_NBCForm_SubmitforReview.NBCFormSubmitforReview" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1624_OpportunityToEngagementConversionMappingForFRJobTypes.OpportunityToEngagementConversionMappingForFR" /><Add Test="SalesForce_Project.TestCases.Opportunity.T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.ManageRelationshipsMassRelationshipCreator" /><Add Test="SalesForce_Project.TestCases.Engagement.T1828_EngagementDetails_RevenueAccrual_FASRevenueAccrual_TotalEstimatedFeeChange.FASRevenueAccrual_TotalEstimatedFeeChange" /><Add Test="SalesForce_Project.TestCases.Engagement.T1891_FREngagementSummary_PreTransactionInformation_DebtStructure_AddEditDel.DebtStructure_AddEditDel" /><Add Test="SalesForce_Project.TestCases.Engagement.T2250_EngagementManager_AbilityToCreateNewRevenueAccrualInEngagementManagerForFREngagement.CreateNewRevenueAccrual_FREngagement" /><Add Test="SalesForce_Project.TestCases.Engagement.T1878_FREngagementSummary_PreTransactionInformation_FieldsAndValues.PreTransactionInformation_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T1880_FREngagementSummary_HLPostTransactionOpportunities_FieldsAndValues.HLPostTransactionOpp_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.ValidateRevenueFieldsUpdate" /><Add Test="SalesForce_Project.TestCases.Engagement.T1900_FREngagementSummary_HLPostTransactionOpportunities_CreateDel.HLPostTransactionOpp_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T1875_FREngagementSummary_FinancialsProjections_FieldsAndValues.FinancialsProjections_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T2186_PortfolioValuation_AccrualNotMadeUntilEngagementNumberIsAssigned.AccrualNotMadeUntilEngagementNumberIsAssigned" /><Add Test="SalesForce_Project.TestCases.Engagement.T1898_FREngagementSummary_PostTransactionInformation_DebtStructure_AddEditDel.DebtStructure_AddEditDel" /><Add Test="SalesForce_Project.TestCases.Engagement.T1889_FREngagementSummary_PreTransactionInformation_BoardMember_AddDelCopy.BoardMember_AddDelCopy" /><Add Test="SalesForce_Project.TestCases.Engagement.T1879_FREngagementSummary_PostTransactionInformation_FieldsAndValues.PostTransactionInformation_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T1888_FREngagementSummary_PreTransactionInformation_EquityHolder_AddEditDelAndCopy.EquityHolder_AddEditDelAndCopy" /><Add Test="SalesForce_Project.TestCases.Engagement.T1876_FREngagementSummary_DistressedMAInformation_FieldsAndValues.DistressedMAInformation_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T1887_FREngagementSummary_FinancialsProjections_AddFinancials.FinancialsProjections_AddFinancials" /><Add Test="SalesForce_Project.TestCases.Engagement.T1899_FREngagementSummary_PostTransactionInformation_Lender_AddEditDel.Lender_AddEditDel" /><Add Test="SalesForce_Project.TestCases.Engagement.T1873_EngagementSummary_FRDisplayedForSpecificJobTypes.FRDisplayedForSpecificJobTypes" /><Add Test="SalesForce_Project.TestCases.Engagement.T1884_FREngagementSummary_HLFinancing_CreateEditAndDelete.HLFinancing_CreateEditAndDelete" /><Add Test="SalesForce_Project.TestCases.Engagement.T1882_FREngagementSummary_DistressedMAInformation_CreateEditAndDelete.DistressedMAInformation_CreateEditAndDelete" /><Add Test="SalesForce_Project.TestCases.Engagement.T2263AndT2264_CreateRevenueAccrualAsSharedFASUserviaEngagementManagerAndUpdateviaEngagementRecord.FASRevenueAccrual_TotalEstimatedFeeChange" /><Add Test="SalesForce_Project.TestCases.Engagement.T1897_FREngagementSummary_PostTransactionInformation_BoardMember_AddDel.BoardMember_AddDelCopy" /><Add Test="SalesForce_Project.TestCases.Engagement.T1895_FREngagementSummary_PreTransactionInformation_Lender_AddEditDel.Lender_AddEditDel" /><Add Test="SalesForce_Project.TestCases.Engagement.T1896_FREngagementSummary_PostTransactionInformation_EquityHolder_AddEditDel.EquityHolder_AddEditDelAndCopy" /><Add Test="SalesForce_Project.TestCases.Engagement.T1827_EngagementDetails_RevenueAccrual_FASRevenueAccrual_StageChange.RevenueAccrual_FASRevenueAccrual_StageChange" /><Add Test="SalesForce_Project.TestCases.Engagement.T1877_FREngagementSummary_HLFinancing_FieldsAndValues.HLFinancing_FieldsAndValues" /><Add Test="SalesForce_Project.TestCases.Engagement.T1829_EngagementDetails_RevenueAccrual_CFRevenueAccrual_TotalEstimatedFeeChange.CFRevenueAccrual_TotalEstimatedFeeChange" /><Add Test="SalesForce_Project.TestCases.Engagement.T1874_FREngagementSummary_EngagementInformation_FieldsAndValues.FREngagementSummary_FieldsAndValues" /></Playlist>
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="SF_Automation" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="SF_Automation.TestCases.Engagement" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="T2263AndT2264_CreateRevenueAccrualAsSharedFASUserviaEngagementManagerAndUpdateviaEngagementRecord" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.T2263AndT2264_CreateRevenueAccrualAsSharedFASUserviaEngagementManagerAndUpdateviaEngagementRecord.FASRevenueAccrual_TotalEstimatedFeeChange" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="FASRevenueAccrual_TotalEstimatedFeeChange" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll.ViewCounterparties_EmailButton" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="ViewCounterparties_EmailButton" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity.CommentsAndContactsMappingToEngUponConversion" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="CommentsAndContactsMappingToEngUponConversion" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab.VerifyTheFieldsAndFunctionalityOfPreTransTab" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="VerifyTheFieldsAndFunctionalityOfPreTransTab" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTI0019676_TMTI0019677_TMTI0071581_TMTI0071584_TMTI0071586_VerifyNondealUserAndUserPartOfAccessToEngOfAllLOBsAccessToEngReports_VerifyEngagementReportLinksInClassicAndLightning" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTI0019676_TMTI0019677_TMTI0071581_TMTI0071584_TMTI0071586_VerifyNondealUserAndUserPartOfAccessToEngOfAllLOBsAccessToEngReports_VerifyEngagementReportLinksInClassicAndLightning.VerifyEngagementReportLinks" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="VerifyEngagementReportLinks" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab.VerifyTheFieldsAndFunctionalityOfPostTransTab" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="VerifyTheFieldsAndFunctionalityOfPostTransTab" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Engagement.TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab.VerifyTheFieldsAndFunctionalityOfPostTransTab" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="VerifyTheFieldsAndFunctionalityOfPostTransTab" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+            <Rule Match="All">
+              <Property Name="Namespace" Value="SF_Automation.TestCases.Opportunity" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Opportunity.VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.FunctionalityOfOpportunity" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="FunctionalityOfOpportunity" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Opportunity.VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel.FunctionalityOfOpportunity" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="FunctionalityOfOpportunity" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Opportunity.TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.FEISFormSubmitforReview" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="FEISFormSubmitforReview" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+                <Rule Match="All">
+                  <Property Name="Class" Value="TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="SF_Automation.TestCases.Opportunity.TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2.FEISFormSubmitforReview" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="FEISFormSubmitforReview" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>

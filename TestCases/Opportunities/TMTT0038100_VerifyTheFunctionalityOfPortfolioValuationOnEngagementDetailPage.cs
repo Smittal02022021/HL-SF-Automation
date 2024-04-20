@@ -239,7 +239,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string pageRelated = engValPeriod.ValidatePositionsListPageUponClickingSaveButtonOnAutomationToolPage();
                 Assert.AreEqual("Related Positions", pageRelated);
-                extentReports.CreateLog("Page: " + pageRelated + " is displayed upin clicking Save button on Automation Tool page after filling all the details ");
+                extentReports.CreateLog("Page: " + pageRelated + " is displayed upon clicking Save button on Automation Tool page after filling all the details ");
 
                 //14.  TMTI0093031_Verify that the user can Import Positions with Team Members from the existing valuation period and all the details are imported successfully
                 string importedPosition = engValPeriod.ValidateImportWithTeamMember();
@@ -254,176 +254,28 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(addedPeriod2nd, importedPositionWithoutTeam);
                 extentReports.CreateLog("Position with name: " + importedPositionWithoutTeam + " is displayed after importing position without team member  from the existing valuation period ");
 
-                //16.  
+                //16.  TMTI0093035_Verify that clicking "New Engagement Valuation Period" opens up the Engagement Valuation Period Edit page with has required fields with Save and Cancel buttons
+                string pageEngValPeriodEdit = engValPeriod.ValidatePageAfterClickingNewEngValPeriodButton();
+                Assert.AreEqual("Engagement Valuation Period Edit", pageEngValPeriodEdit);
+                extentReports.CreateLog("Page with title: " + pageEngValPeriodEdit + " is displayed after clicking New Engagement Valuation Period button ");
 
-                // //21.  TMTI0092051_Verify that the "Opp Valuation Period Team Members" section is available at the bottom of the Opp Valuation Period Position detail page. 
-                // string secTeamMember = period.ValidateSecOppValTeamMember();
-                // Assert.AreEqual("Opp Valuation Period Team Members", secTeamMember);
-                // extentReports.CreateLog("Section: " + secTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+                Assert.IsTrue(engValPeriod.ValidateMandatoryFieldsOnEngValPeriodEdit(), "Verified that displayed mandatory fields are same");
+                extentReports.CreateLog("Displayed mandatory fields on Engagement Valuation Period Edit page are as expected ");
 
-                // string msgTeamMember = period.ValidateAddTeamMemberMessage();
-                // Assert.AreEqual("Please add new team members to this position by selecting the 'Add New Team Member' button.", msgTeamMember);
-                // extentReports.CreateLog("Message: " + msgTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+                Assert.IsTrue(engValPeriod.ValidateButtonsOnEngValPeriodEdit(), "Verified that displayed buttons are same");
+                extentReports.CreateLog("Displayed buttons on Engagement Valuation Period Edit page are as expected ");
 
-                // string buttonTeamMember = period.ValidateAddNewTeamMemberButton();
-                // Assert.AreEqual("Add New Team Member", buttonTeamMember);
-                // extentReports.CreateLog("Button with name: " + buttonTeamMember + " is displayed at the bottom of the Opp Valuation Period Position detail page ");
+                //17.  TMTI0093037_Verify that the validation message appears for required fields on clicking the Save button of the Engagement Valuation Period Edit page
+                Assert.IsTrue(engValPeriod.ValidateMandatoryValidationsUponClickingSaveOnEngValPeriodEdit(), "Verified that displayed mandatory validations are same");
+                extentReports.CreateLog("Displayed mandatory validations on Engagement Valuation Period Edit page are as expected upon clicking Save button without entering mandatory fields ");
 
-                // //22. TMTI0092053_Verify that on clicking "Add New Team Member" opens up fields like a staff member and with Save Team Member and Delete action buttons
-                // Assert.IsTrue(period.ValidateTeamMemberColumns(), "Verified that displayed Team members table columns are same");
-                // extentReports.CreateLog("Displayed Team members table columns on Opportunity Valuation Period Position are as expected ");
+                //18.  TMTI0093039_Verify that clicking the Cancel button of the Engagement Valuation Period edit page takes the user back to the Valuation Periods Listing View
+                string pageValPeriods = engValPeriod.ValidatePageAfterClickingCancelButtonOnEngValPeriodEditPage();
+                Assert.AreEqual("New Engagement Valuation Period", pageValPeriods);
+                extentReports.CreateLog("Page with title: " + pageValPeriods + " is displayed after clicking cancel on Engagement Valuation Period Edit page ");
 
-                // string saveTeam = period.ValidateSaveTeamMemberButton();
-                // Assert.AreEqual("Save Team Members", saveTeam);
-                // extentReports.CreateLog("Button with name: " + saveTeam + " is displayed in " + secTeamMember + " ");
-
-                // string deleteTeam = period.ValidateDeleteLinkTeamMember();
-                // Assert.AreEqual("Delete", deleteTeam);
-                // extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + deleteTeam + " ");
-
-                // //23. TMTI0092055_Verify that clicking "Save Team Member" adds the user as a Team Member on the selected role with Status
-                // string addedStaff = period.SaveTeamMembersAndValidate();
-                // string addedRole = period.GetSavedRoleOfStaff();
-                // Assert.AreEqual("Associate", addedRole);
-                // Assert.AreEqual("Karan Chopra", addedStaff);
-                // extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: " + addedRole + " is displayed after saving details ");
-
-                // //24.  TMTI0092057_Verify the functionality of the "Delete" action button that appears while adding a new team member on the Opportunity Valuation Position Detail
-                // string cancelTeam = period.ValidateCancelFunctionalityOfTeamMembers();
-                // Assert.AreEqual("Delete", cancelTeam);
-                // extentReports.CreateLog("Team Member is not deleted after clicking Cancel button post clicking Delete link ");
-
-                // string delTeam = period.ValidateDeleteFunctionalityOfTeamMembers();
-                // Assert.AreEqual("Team member is deleted", delTeam);
-                // extentReports.CreateLog("Team Member got deleted after clicking Ok button post clicking Delete link ");
-
-                // //25. TMTI0092059_Verify that clicking the "Import Positions" button opens up a screen that shows the "Existing Valuation Period" listing with the following buttons
-                // period.ClickHLRelatedTab();
-                // string name1 = CustomFunctions.RandomValue();
-                // string addedValuation2nd = period.EnterAndSaveOppValuationPeriodDetailsL(name1);
-                // period.ClickImportButton();
-                // Assert.IsTrue(period.ValidateButtonsOfExistingValPeriodL(), "Verified that displayed buttons are same");
-                // extentReports.CreateLog("Displayed buttons on Existing Valuation Period are as expected ");
-
-                // //26.  TMTI0092061_Verify that the list of related positions opens from the existing valuation period on clicking the "Search Valuation Period for Positions" button. 
-                // Assert.IsTrue(period.ValidateDisplayedImportButtonsUponClickingSearchValPeriod(), "Verified that displayed Import Position buttons are same");
-                // extentReports.CreateLog("Displayed Import Position buttons are as expected ");
-
-                // Assert.IsTrue(period.ValidateDisplayedBottomButtonsUponClickingSearchValPeriod(), "Verified that displayed buttons at the bottom of Related Positions page are same");
-                // extentReports.CreateLog("Displayed buttons at the bottom of Related Positions page are as expected ");
-
-                // //27.  TMTI0092063_ Verify that the user can Import Positions with Team Members from the existing valuation period and all the details are imported successfully
-                // string importWithTeam = period.ValidateImportWithTeamMembers();
-                // Assert.AreEqual("XYZ", importWithTeam);
-                // extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully with team member ");
-
-                // //28. TMTI0092065_Verify that the user can Import Positions without a Team Member from the existing valuation period and all the details are imported successfully except the Team Member
-                // period.ClickBackToOppValPeriodList();
-                // string name2 = CustomFunctions.RandomValue();
-                // string addedValuation3rd = period.EnterAndSaveOppValuationPeriodDetailsL(name2);
-                // period.ClickImportButton();
-
-                // string importWithoutTeam = period.ValidateImportWithoutTeamMembers();
-                // Assert.AreEqual("XYZ", importWithoutTeam);
-                // extentReports.CreateLog("Period position with name: " + importWithTeam + " has been added successfully without team member ");
-
-                // //29.  TMTI0092067_Verify that the Deal Team Member is not allowed to update the status from In-Progress to Completed on the Opportunity Valuation. 
-                // string statusPeriodPosition = period.ValidateEditFunctionalityOfPeriodPositionWithDealTeamMember();
-                // Assert.AreEqual("In Progress", statusPeriodPosition);
-                // extentReports.CreateLog("Status of Period position : " + statusPeriodPosition + " is  displayed with no option to deal team member to update it ");
-
-                // //31. TMTI0092071_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period" as a deal team member.
-                // string deleteValPeriod = period.ValidateDeleteFunctionalityOfValPeriodWithDealTeamMember();
-                // Assert.AreEqual("Delete button is not displayed", deleteValPeriod);
-                // extentReports.CreateLog(deleteValPeriod + " for deal team member to delete Opportunity Valuation Period ");
-
-                // //30.  TMTI0092069_Verify that the "Delete" button is not available and allowed to delete "Opp Valuation Period Positions" as a deal team member.
-                // string deletePeriodPosition = period.ValidateDeleteFunctionalityOfPeriodPositionWithDealTeamMember();
-                // Assert.AreEqual("Delete button is not displayed", deletePeriodPosition);
-                // extentReports.CreateLog(deletePeriodPosition + " for deal team member to delete Period Position ");
-
-                // //32. TMTI0092074_ Verify that the CAO can add Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
-                // //33.  TMTI0092076_Verify that the CAO can edit the Portfolio Valuation period and position including Report Fees on the Opportunity Valuation
-
-                // //usersLogin.DiffLightningLogout();
-                // //string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                // //usersLogin.SearchUserAndLogin(valCAOUser);
-                // //string caoUser = login.ValidateUserLightningCAO();
-                // //Console.WriteLine("caoUser:" + caoUser);
-                // //Console.WriteLine("valCAOUser:" + valCAOUser.Substring(1, 10));
-                // //Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
-                // //extentReports.CreateLog("User: " + valCAOUser + " logged in ");
-
-                //// string name = "30552024095507";
-
-                // opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
-                // opportunityDetails.ClickPortfolioValuationCAOL();
-
-                // string nameCAO = CustomFunctions.RandomValue();
-                // string addedValuationCAO = period.EnterAndSaveOppValuationPeriodDetailsL(name);
-                // Assert.AreEqual(name, addedValuationCAO);
-                // extentReports.CreateLog("Added valuation: " + addedValuationCAO + " is displayed upon clicking Save button on Opportunity Valuation Period edit page after entering all mandatory details by "+ caoUser + " ");
-
-                // period.ValidateOppDetailsPageUponClickOfBackToOppButton();
-                // string updValuationCAO= period.EditFunctionalityOfValuationPeriod("Testing CAO");
-                // Assert.AreEqual("Testing CAO", updValuationCAO);
-                // extentReports.CreateLog("Updated valuation Period name "+ updValuationCAO + " is displayed on Valuation period listing page after updating the name by " + caoUser + " ");
-
-                // //Add Period Position
-                // period.ValidateOppValPeriodDetailPageUponClickOfValPeriodNameLink();
-                // period.ClickNewPeriodPositionButtonL();
-                // string addedPositionCAO = period.EnterAndSaveOppValuationPeriodPositionDetailsL("AB Enterprises");
-                // Assert.AreEqual("AB Enterprises", addedPositionCAO);
-                // extentReports.CreateLog("Position: " + addedPositionCAO + " is displayed upon clicking Save button after entering all mandatory details of Period Position by "+ caoUser + " ");
-
-                // //Edit Period Position
-                // string updPositionCAO = period.EditFunctionalityOfPeriodPosition("ABC");
-                // Assert.AreEqual("ABC", updPositionCAO);
-                // extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name by " + caoUser + " ");
-
-                // //36.  TMTI0092079_Verify that the CAO is not allowed to update the status from In-Progress to Completed of the Opportunity Valuation. 
-                // string statusPeriodPositionCAO = period.ValidateStatusOfPeriodPositionWithCAO();
-                // Assert.AreEqual("In Progress", statusPeriodPositionCAO);
-                // extentReports.CreateLog("Status of Period position : " + statusPeriodPositionCAO + " is  displayed with no option to CAO to update it ");
-
-                // //34. TMTI0092078_Verify that the CAO can "Delete" the "Opportunity Valuation Period Position". 
-                // string cancelPositionCAO = period.ValidateWhenNoIsSelectedUponClickingDeleteButton();
-                // Assert.AreEqual("AB Enterprises", cancelPositionCAO);
-                // extentReports.CreateLog("Position name is not deleted on Opportunity Valuation Period Detail page after clicking No on Delete confirmation pop up for " + caoUser + " ");
-
-                // string delPositionCAO = period.ValidateWhenYesIsSelectedUponClickingDeleteButton();
-                // Assert.AreNotEqual("AB Enterprises", delPositionCAO);
-                // extentReports.CreateLog("Position name is deleted on Opportunity Valuation Period Detail page after clicking Ok on Delete confirmation pop up " + caoUser + " ");
-
-                // //35.  TMTI0092081_Verify that the CAO can "Delete" the "Opportunity Valuation Period".                
-                // string delPeriodCAO= period.ValidateDeleteFunctionalityOfOppValPeriod();
-                // Assert.AreNotEqual("Back To Opportunity", delPositionCAO);
-                // extentReports.CreateLog("Opp Valuation Period is deleted on Opportunity Valuation Period Detail page after clicking Delete button by " + caoUser + " ");
-
-                // //38. Verify that the reports are available on the Opp Valuation Period detail page for CAO.
-                // Assert.IsTrue(period.ValidateReportSectionOfOppValPeriod(), "Verified that displayed reports are same");
-                // extentReports.CreateLog("Displayed reports are as expected for CAO: " + caoUser + " ");
-
-                // //37.  TMTI0092383_Verify that once the opportunity gets converted into engagement, the CAO is not able to perform any action or add a new opp valuation period
-                // //39.  TMTI0092387_Verify that once the opportunity gets converted into engagement, the FVA User is not able to perform any action or add a new opp valuation period. 
-                // engHome.SelectEngUnderHLBanker();
-                // engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
-                // engHome.ClickEngNumber();
-                ////string newOppValPeriodCAO= engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
-                //// Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodCAO);
-                // extentReports.CreateLog(caoUser + " is not allowed to add New Opportunity Valuation Period " );
-
-                // usersLogin.DiffLightningLogout();
-                // usersLogin.SearchUserAndLogin(valUser);
-                // string stdUser3 = login.ValidateUserLightning();
-                // Assert.AreEqual(stdUser2.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
-                // extentReports.CreateLog("User: " + stdUser2 + " logged in ");
-                // engHome.SelectEngUnderHLBanker();
-                // engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
-                // engHome.ClickEngNumber();
-                // //string newOppValPeriodFVAUser = engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
-                // //Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodFVAUser);
-                // extentReports.CreateLog(stdUser2 + " is not allowed to add New Opportunity Valuation Period ");
+                //19.  TMTI0093041_ Verify that the "New Engagement Valuation Period" is created by clicking the Save button on the Engagement Valuation Period Edit page and redirecting the user to the Valuation Period detail page
+                  
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

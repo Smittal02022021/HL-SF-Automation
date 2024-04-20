@@ -79,7 +79,11 @@ namespace SF_Automation.Pages.Engagement
         By valImportedPositionL = By.XPath("//div[2]//tr[2]/td[2]/a");
         By btnCloseTabL = By.XPath("//li[4]/div[2]/button");
         By radioImportWithoutL = By.XPath("//input[@value='Import Positions Without Team Members']");
-
+        By titleEngValPeriodEditL = By.XPath("//h1[text()='Engagement Valuation Period Edit']");
+        By lblEngValPeriodEditL = By.XPath("//span[text()='*']/ancestor::label");
+        By btnEngValPeriodEditL = By.XPath("//td[@class='pbButton ']/input");
+        By msgEngValPeriodEditL = By.XPath("//tr[2]//li");
+        By titleValPeriodsL = By.XPath("//b[contains(text(),' Valuation Period')]");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -509,10 +513,118 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
-            
-            string row = driver.FindElement(valImportedPositionL).Text;           
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
+            string row = driver.FindElement(valImportedPositionL).Text;
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.FindElement(btnCloseTabL).Click();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);                      
             return row;
+        }
+
+        public string ValidatePageAfterClickingNewEngValPeriodButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewEngValPeriod, 140);
+            driver.FindElement(btnNewEngValPeriod).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string title = driver.FindElement(titleEngValPeriodEditL).Text;
+            return title;
+        }
+
+        public bool ValidateMandatoryFieldsOnEngValPeriodEdit()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblEngValPeriodEditL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Name", "Valuation Date", "Client Final Deadline" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public bool ValidateButtonsOnEngValPeriodEdit()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnEngValPeriodEditL);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            string[] expectedValue = { "Save", "Cancel" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public bool ValidateMandatoryValidationsUponClickingSaveOnEngValPeriodEdit()
+        {
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgEngValPeriodEditL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Name: You must enter a value", "Valuation Date: You must enter a value", "Client Final Deadline: You must enter a value" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidatePageAfterClickingCancelButtonOnEngValPeriodEditPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 140);
+            driver.FindElement(btnCancelL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string title = driver.FindElement(btnNewEngValPeriod).GetAttribute("value");
+            return title;
         }
     }
 }
