@@ -75,6 +75,11 @@ namespace SF_Automation.Pages.Engagement
         By comboReasonL = By.XPath("//select[contains(@name,'ReasonFieldId')]");
         By btnSaveAutomation = By.XPath("//div[3]/table//td[2]/input[1]");
         By titleRelatedPositionsL = By.XPath("//h3[text()='Related Positions']");
+        By btnSaveAndBackL = By.XPath("//input[@value='Save & Back To Valuation Period']");
+        By valImportedPositionL = By.XPath("//div[2]//tr[2]/td[2]/a");
+        By btnCloseTabL = By.XPath("//li[4]/div[2]/button");
+        By radioImportWithoutL = By.XPath("//input[@value='Import Positions Without Team Members']");
+
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -365,6 +370,37 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
 
+        //Validate the displayed buttons after clicking on Search Valuation Period for Positions
+        public bool ValidateDisplayedImportButtonsUponClickingSearchValPeriod()
+        {
+            driver.FindElement(btnExistingValPeriodL).Click();
+            driver.FindElement(btnSearchValPeriodPosL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Import Positions Without Team Members", "Import Positions With Team Members" };
+            Console.WriteLine(actualValue[0]);
+            //Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
         //Validate Automation Tool Usage mandatory field validation
         public string ValidateAutomationToolMandatoryFieldMessage()
         {
@@ -390,7 +426,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblColumnsL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Position Name", "Automation Tool Utilized", "Reason", "Comments" };
+            string[] expectedValue = { "POSITION NAME", "AUTOMATION TOOL UTILIZED", "REASON", "COMMENTS" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
 
@@ -411,7 +447,6 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
 
-
         //Validate that clicking the save button, the user is redirected to the related positions list to import positions.
         public string ValidatePositionsListPageUponClickingSaveButtonOnAutomationToolPage()
         {            
@@ -424,6 +459,59 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(1);
             Thread.Sleep(4000);
             string row = driver.FindElement(titleRelatedPositionsL).Text;
+            return row;
+        }
+
+        //Validate that Import with team member 
+        public string ValidateImportWithTeamMember()
+        {
+            Thread.Sleep(5000);           
+            driver.FindElement(btnSaveAndBackL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string row = driver.FindElement(valImportedPositionL).Text;
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            driver.FindElement(btnCloseTabL).Click();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            return row;
+        }
+
+        //Validate that Import without team member 
+        public string ValidateImportWithoutTeamMember()
+        {
+            driver.FindElement(btnExistingValPeriodL).Click();
+            driver.FindElement(btnSearchValPeriodPosL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(6000);
+            driver.FindElement(radioImportWithoutL).Click();
+            driver.FindElement(chkPositionNameL).Click();            
+            driver.FindElement(btnSaveAndBackL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            driver.FindElement(btnAutomationToolL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(4000);
+            driver.FindElement(comboUtilizedL).SendKeys("Yes");            
+            driver.FindElement(btnSaveAutomation).Click();
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            driver.FindElement(btnSaveAndBackL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            
+            string row = driver.FindElement(valImportedPositionL).Text;           
+            Thread.Sleep(4000);            
             return row;
         }
     }

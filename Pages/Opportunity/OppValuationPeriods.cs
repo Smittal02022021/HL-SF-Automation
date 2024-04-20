@@ -1202,7 +1202,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblImportL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             string[] expectedValue = {"Import Positions Without Team Members", "Import Positions With Team Members" };

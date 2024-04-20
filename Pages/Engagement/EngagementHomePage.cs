@@ -252,7 +252,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
                 driver.FindElement(txtEngNumLightning).Clear();
                 driver.FindElement(txtEngNumLightning).SendKeys(name);
-                Thread.Sleep(8000);
+                Thread.Sleep(9000);
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 510);
                 driver.FindElement(lnkEngLightning).Click();
             }
