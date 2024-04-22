@@ -474,7 +474,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             string row = driver.FindElement(valImportedPositionL).Text;
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(4000);
@@ -539,7 +539,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblEngValPeriodEditL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Name", "Valuation Date", "Client Final Deadline" };
+            string[] expectedValue = { "*\r\nName", "*\r\nValuation Date", "*\r\nClient Final Deadline" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
 

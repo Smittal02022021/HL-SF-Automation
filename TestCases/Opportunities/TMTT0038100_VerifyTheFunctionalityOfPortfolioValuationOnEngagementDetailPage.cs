@@ -275,7 +275,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page with title: " + pageValPeriods + " is displayed after clicking cancel on Engagement Valuation Period Edit page ");
 
                 //19.  TMTI0093041_ Verify that the "New Engagement Valuation Period" is created by clicking the Save button on the Engagement Valuation Period Edit page and redirecting the user to the Valuation Period detail page
-                  
+                engValPeriod.ClickEngValuationPeriod();
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
