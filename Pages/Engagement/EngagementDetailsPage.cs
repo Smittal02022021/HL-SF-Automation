@@ -6726,5 +6726,143 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             return isFound;
         }
+
+        By rowContractL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/th//a//span");
+        By valERPContractTypeL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[4]//lst-formatted-text/span");
+        By valERPBusUnitL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[5]//lst-formatted-text/span");
+        By valERPLegalEntityL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[6]//lst-formatted-text/span");
+        By valERPBillPlanL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[7]//lst-formatted-text/span");
+        By valBillToL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[8]//a");
+        By valStartDateL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[9]//div//lightning-formatted-date-time");
+        By valIsMainL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[11]//input[@type='checkbox']");
+        By valCompNameL = By.XPath("//table[@aria-label='Engagement Contacts']//tbody//tr//td[10]//a");
+        By tableContractsL= By.XPath("//table[@aria-label='Contract']");
+        private By _quickLink(string linkText)
+        {
+            return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//ul//li//a//span[contains(text(),'{linkText}')]");
+        }
+
+        public void ClickQuickLink(string linkName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _quickLink(linkName), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_quickLink(linkName)));
+            driver.FindElement(_quickLink(linkName)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tableContractsL, 10);
+            Thread.Sleep(10000);
+        }
+        public string ValidateContractExistsLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, rowContractL, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(rowContractL));
+                string id = driver.FindElement(rowContractL).Text;
+                return id;
+            }
+            catch (Exception)
+            {
+                return "Contract does not exist";
+            }
+        }
+
+        //Get the type of Contract
+        public string GetERPContractTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPContractTypeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPContractTypeL));
+            string type = driver.FindElement(valERPContractTypeL).Text;
+            return type;
+        }
+
+        //Get Contract ERP Business Unit
+        public string GetContractERPBusinessUnitLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPBusUnitL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPBusUnitL));
+            string unit = driver.FindElement(valERPBusUnitL).Text;
+            return unit;
+        }
+
+        //Get Contract ERP Legal Entity Name
+        public string GetContractERPLegalEntityNameLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPLegalEntityL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPLegalEntityL));
+            string entity = driver.FindElement(valERPLegalEntityL).Text;
+            return entity;
+        }
+
+        //Get Contract ERP Bill Plan
+        public string GetContractERPBillPlanLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPBillPlanL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valERPBillPlanL));
+            string plan = driver.FindElement(valERPBillPlanL).Text;
+            return plan;
+        }
+
+        //Get Contract Bill To
+        public string GetContractBillToLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valBillToL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valBillToL));
+            string bill = driver.FindElement(valBillToL).GetAttribute("title");
+            return bill;
+        }       
+
+        //Get Contract Start Date
+        public string GetContractStartDateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valStartDateL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valStartDateL));
+            string date = driver.FindElement(valStartDateL).Text;
+            return date;
+        }
+
+        //Get if Main Contract checkbox is checked
+        public string GetIfIsMainContractCheckedLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valIsMainL, 10);
+            //string main = driver.FindElement(valIsMainL).GetAttribute("title");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valIsMainL));
+            bool Enabled = driver.FindElement(valIsMainL).Selected;
+            if (Enabled)
+            {
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                return "Is Main Contract checkbox is not checked";
+            }
+        }
+
+        By lnkViewAllContactsL = By.XPath("//article[@aria-label='Engagement Contacts']//span[text()='View All']//parent::a");
+        By tableContactsL = By.XPath("//table[@aria-label='Engagement Contacts']");
+
+        public void ClickEngagementContactList()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabSidePanelL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabSidePanelL));
+            driver.FindElement(tabSidePanelL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllContactsL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lnkViewAllContactsL));
+            //driver.FindElement(lnkViewAllContactsL).Click();
+            IWebElement ViewAllContacts = driver.FindElement(lnkViewAllContactsL);
+            js.ExecuteScript("arguments[0].click();", ViewAllContacts);
+            WebDriverWaits.WaitUntilEleVisible(driver, tableContactsL, 10);
+            Thread.Sleep(5000);
+        }
+
+        //Get Company name of contact
+        public string GetCompanyNameOfContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompNameL, 10);
+            string name = driver.FindElement(valCompNameL).GetAttribute("title");
+            return name;
+        }
+        
+
     }
 }

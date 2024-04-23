@@ -566,7 +566,7 @@ namespace SF_Automation.Pages
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
-        By chkTotalDebtConfMML = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");//[2]
+        By chkTotalDebtConfMML = By.XPath("//input[@name='TotalDebtMMConfirmed__c']\");");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
         By chkTotalDebtConfMML2 = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[2]");
         By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
@@ -616,13 +616,13 @@ namespace SF_Automation.Pages
         By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
         By iconInlinePrimaryOfficeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Primary Office']//dd//button");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
-        By optionsJobTypeL = By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
-        By valLOBL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Line of Business']//dd//lightning-formatted-text");
+        By optionsJobTypeL = By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");        
         By frameWarningPopup = By.XPath("//iframe[contains(@src,'HL_InternalTeamModifyView')]");
         By btnHeader = By.XPath("//div[contains(@id,'internalTeam')]/div[@class='pbHeader']");
         By lblConflictTypeL= By.XPath("//label[text()='Conflicts Type']/parent::div//button");
         By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
+        By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
 
         By _elmRecordType(string text)
         {
@@ -5690,6 +5690,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabInternalTeamL));
             driver.FindElement(tabInternalTeamL).Click();
             Thread.Sleep(8000);
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
@@ -6014,6 +6015,22 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+        }
+        By iconInlineEditNBCCheckBox = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='NBC Approved']//dd//button");
+        By chkNBCApprovedL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='NBC Approved']//input");
+        
+        public void UpdateNBCApprovalLV()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditNBCCheckBox, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblAssociatedAddL));
+            driver.FindElement(iconInlineEditNBCCheckBox).Click();
+            Thread.Sleep(5000);
+            //driver.FindElement(chkNBCApprovedL).Click();
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(chkNBCApprovedL));//Need to move 
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(10000);
         }
         public void UpdateReqFieldsForCFConversionLV2(string file)
         {
@@ -6640,8 +6657,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboLegalAdvisorL));
             driver.FindElement(txtTotalDebtRepMML).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 5);
-            driver.FindElement(chkTotalDebtConfMML).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtClientDescL)); 
+            //driver.FindElement(chkTotalDebtConfMML).Click();
 
             //Clien Desc      
             driver.FindElement(txtClientDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
@@ -7073,7 +7091,6 @@ namespace SF_Automation.Pages
             driver.FindElement(refContactL).Click();
 
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-
             //Date Engaged
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
@@ -7629,30 +7646,27 @@ namespace SF_Automation.Pages
         }
 
         //Get LOB
-        public string GetLOBLV()
+       
+        By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
+        public void UpdateCCOutcomeDetailsLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valLOBL);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(valLOBL));
-            string LOB = driver.FindElement(valLOBL).Text;
-            return LOB;
-        }
-
-        public void UpdateOutcomeDetailsLV()
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             DateTime Time = DateTime.Now;
             string dateToday = Time.ToString("MM/dd/yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
-            driver.FindElement(btnEditL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictTypeL));
-            js.ExecuteScript("window.scrollTo(0,20)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditCCOutComeL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnInlineEditCCOutComeL));
+            driver.FindElement(btnInlineEditCCOutComeL).Click();            
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboPrimaryOfficeL));
             driver.FindElement(dateOutcomeDateL).Click();
             driver.FindElement(dateOutcomeDateL).Clear();
             driver.FindElement(dateOutcomeDateL).SendKeys(dateToday);
-            driver.FindElement(comboOutcomeL).Click(); 
-            By eleOptOutcome= By.XPath("//label[text()='Outcome']/following::lightning-base-combobox-item//span[@title='Cleared']");
-            driver.FindElement(eleOptOutcome).Click();
+            Thread.Sleep(1000);
+            //driver.FindElement(comboOutcomeL).Click();
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboOutcomeL));
+            Thread.Sleep(1000);
+            By eleOptOutcome = By.XPath("//label[text()='Outcome']/following::lightning-base-combobox-item//span[@title='Cleared']");
+            driver.FindElement(eleOptOutcome).Click();                        
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
         }

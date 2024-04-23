@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Engagement;
 
-namespace SalesForce_Project.TestCases.Engagement
+namespace SF_Automation.TestCases.Engagements
 {
     class LV_TS06_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncEngagementLightningView:BaseClass
     {

@@ -243,9 +243,9 @@ namespace SF_Automation.TestCases.Opportunities
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                randomPages.SelectListViewLV("All");
+                //randomPages.SelectListViewLV("All");
 
-                pageTitle = randomPages.SelectJobTypesL(updType);
+                pageTitle = randomPages.SelectJobTypesLV(updType);
                 Assert.AreEqual(updType, pageTitle);
                 extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
 

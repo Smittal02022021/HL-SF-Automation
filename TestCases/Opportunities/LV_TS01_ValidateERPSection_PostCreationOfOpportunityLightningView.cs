@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.HomePage;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView: BaseClass
     {
@@ -17,8 +17,6 @@ namespace SalesForce_Project.TestCases.Opportunities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
-        RandomPages pages = new RandomPages();
         LegalEntityDetail entityDetails = new LegalEntityDetail();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         ContactHomePage contactHome = new ContactHomePage();
@@ -30,7 +28,7 @@ namespace SalesForce_Project.TestCases.Opportunities
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Initialize();
+            InitializeZoom70();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
@@ -106,19 +104,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     string clientName = opportunityDetails.GetClientLV();
                     string subjectName = opportunityDetails.GetSubjectLV();                    
                     string jobType = opportunityDetails.GetJobTypeLV();
-
-                    if (valRecordType == "CF")
-                    {
-                        opportunityDetails.UpdateReqFieldsForCFConversionLV2(ERPTS01);
-                    }
-                    if (valRecordType == "FR")
-                    {
-                        opportunityDetails.UpdateReqFieldsForFRConversionLV(ERPTS01);
-                    }
-                    if (valRecordType == "FVA")
-                    {
-                        opportunityDetails.UpdateReqFieldsForFVAConversionLV(ERPTS01);
-                    }
+                    
                     extentReports.CreateStepLogs("Info", "Required fields are entered for LOB: "+ valRecordType);
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
@@ -191,7 +177,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "ERP Project Name in ERP section: " + ERPProjectName + " is combination of both Opportunity name and number ");
 
                     //Validate ERP LOB
-                    string LOB = opportunityDetails.GetLOBLV();
+                    string LOB = randomPages.GetLOBLV();
                     string ERPLOB = randomPages.GetERPLOBLV();
                     if (LOB.Equals("CF") || LOB.Equals("FR"))
                     {
@@ -228,8 +214,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 4, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    randomPages.SelectListViewLV("All");
-                    pageTitle = randomPages.SelectJobTypesL(jobType);
+                    //randomPages.SelectListViewLV("All");
+                    pageTitle = randomPages.SelectJobTypesLV(jobType);
                     Assert.AreEqual(jobType, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
 
@@ -261,9 +247,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 5, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    randomPages.SelectListViewLV("All Legal Entities");
+                    //randomPages.SelectListViewLV("All Legal Entities");
                     extentReports.CreateStepLogs("Info", "List View is set to All Legal Entities");
-                    pageTitle = randomPages.SelectLegalEntityL(entity);
+                    pageTitle = randomPages.SelectLegalEntityLV(entity);
                     Assert.AreEqual(entity, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Legal Entiry link ");
 

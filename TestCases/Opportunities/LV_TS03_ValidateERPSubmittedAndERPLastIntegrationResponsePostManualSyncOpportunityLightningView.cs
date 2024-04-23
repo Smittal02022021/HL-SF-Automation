@@ -106,6 +106,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                usersLogin.ClickLogoutFromLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
