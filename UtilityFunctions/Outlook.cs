@@ -23,9 +23,9 @@ namespace SF_Automation.UtilityFunctions
         By searchBox = By.XPath("(//div[@class='rclHC']/input)[1]");
         By btnSearch = By.XPath("//*[@id='searchBoxColumnContainerId']/div[1]/button");
         //By btnSearch = By.CssSelector("i[data-icon-name='Search']");
-        
+
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
-        By recentEmail = By.CssSelector("div[class='XG5Jd JtO0E'] > div:nth-child(2)");
+        By recentEmail = By.CssSelector("div[class='EeHm8'] > div:nth-child(2)");// div[class='XG5Jd JtO0E'] > div:nth-child(2)");
 
         By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
