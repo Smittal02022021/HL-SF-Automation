@@ -108,6 +108,9 @@ namespace SF_Automation.Pages.Common
         By valERPErrorL = By.XPath("//div[@class='slds-form']//records-record-layout-item[contains(@field-label,'Error Description')]//dd//lightning-formatted-text");
         By valERPEmailIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Principal Manager']//dd//lightning-formatted-text");
         By valLOBL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Line of Business']//dd//lightning-formatted-text");
+        By valJobCodeL = By.XPath("//records-record-layout-item[@field-label='Job Code']//dd//lightning-formatted-text");
+
+        
         private By _optionListView(string name)
         {
             return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -1135,6 +1138,13 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(10000);
         }
 
+        public string GetJobCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobCodeL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valJobCodeL));
+            string jobCode = driver.FindElement(valJobCodeL).Text;
+            return jobCode;
+        }
 
     }
 }

@@ -36,14 +36,11 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056877;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
-
                 // Calling Login function                
                 login.LoginApplication();
-
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -88,6 +85,7 @@ namespace SF_Automation.TestCases.Opportunity
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + stdUser + " logged Out ");
 
+                    /*
                     //System Admin: Verify New Job Type is present on Job Type Object page
                     //TMTI0056876 Verify New / Updated Job Type And Job Code Under Job Type Object/tab
                     //TMTI0071641 Verify New / Updated Job type and Job code under Job Type Object/tab.
@@ -95,21 +93,19 @@ namespace SF_Automation.TestCases.Opportunity
                     //TMTI0055398 Verify New/updated Job type and code under Job type Object/tab
                     //TMTI0084213 Verify New/updated Job type and code under Job type Object/tab
 
+                    /*******Converted into LightningView*********
                     extentReports.CreateLog("Verify New Job Type is present on Job Type Object page as System Administrator ");
                     string valView = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 3);
                     pageTitle = randomPages.selectJobTypesObject(valView);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed with View: " + valView + " ");
-                    
                     string valJobCode = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 2);
                     extentReports.CreateLog("Page with title: " + pageTitle + " is displayed ");
                     Assert.IsTrue(randomPages.IsJobTypeVailableOnPage(pageTitle, valJobType), "Verify New Job Type is available in Job Type Object List ");
                     extentReports.CreateLog("New Job Type: " + valJobType + " is available in Job Type Object List ");
-
                     Assert.IsTrue(randomPages.IsJobCodeAvailable(valJobCode), "Verify New Job Type Code is available in Job Type Object List ");
                     extentReports.CreateLog("New Job Code: " + valJobCode + " is available in Job Type Object List for Jon Type: "+ valJobType+" ");
-
+                    */
                 }
-
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User logged Out ");
                 driver.Quit();

@@ -738,6 +738,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnJobTypeObjPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0024858_TMTT0030610_TMTT0035436_VerifyNewJobTypeIsForFVAOnlyLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagementLightningView.cs" />
