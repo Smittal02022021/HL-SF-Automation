@@ -7,7 +7,7 @@ using SF_Automation.Pages.Common;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1197andT1198AddOpportunityInOpportunityHome:BaseClass
+    class ZObsolated_T1197andT1198AddOpportunityInOpportunityHome:BaseClass
     {
        ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

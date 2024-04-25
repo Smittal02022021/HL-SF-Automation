@@ -222,8 +222,51 @@ namespace SF_Automation.Pages
                 return "No record found";
             }
         }
+        By lblRecordTypeL = By.XPath("//div[contains(@class,'RecordTypeTopDownOneColumn')]//label//span[contains(@class,'radio--label')]");
+        By descRecordTypeL = By.XPath("//div[contains(@class,'RecordTypeTopDownOneColumn')]//label//div[contains(@class,'ItemDescription')]");
+        public bool VerifyRecordTypesLV()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblRecordTypeL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();            
+            string[] expectedValue = { "CF", "FR", "FVA", "SC" };
+            bool isSame = true;
 
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
 
+        public bool VerifyNamesAndDescLV()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(descRecordTypeL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();            
+            string[] expectedValues = { "Corporate Finance", "Financial Restructuring", "Financial and Valuation Advisory", "Strategic Consulting" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
         public bool VerifyRecordTypes()
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(comboRecordTypes);
@@ -395,8 +438,18 @@ namespace SF_Automation.Pages
             string opp = driver.FindElement(valSearchedOpp).Text;
             return opp;
         }
+        By txtTitle = By.XPath("//div[@class='forceChangeRecordType']//h2");
 
         //Click on New button
+        public string ClickNewOppButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 20);
+            driver.FindElement(btnNew).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTitle, 20);
+            string title = driver.FindElement(txtTitle).Text;
+            return title;
+        }
+
         public string ClickNewButtonAndSelectCFOpp()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew,350);
