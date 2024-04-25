@@ -1200,6 +1200,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabWeeklyEntryMatrix));
             Thread.Sleep(5000);
             driver.FindElement(tabWeeklyEntryMatrix).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
@@ -1212,6 +1213,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabSummaryLogs);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabSummaryLogs));
             Thread.Sleep(5000);
             driver.FindElement(tabSummaryLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
@@ -1224,6 +1226,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabDetailLogs));
             Thread.Sleep(5000);
             driver.FindElement(tabDetailLogs).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
@@ -1236,6 +1239,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyOverview);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabWeeklyOverview));
             Thread.Sleep(5000);
             driver.FindElement(tabWeeklyOverview).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);

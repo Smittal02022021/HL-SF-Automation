@@ -59,11 +59,11 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
-                //Validate Record Types                        
+                //Validate Record Types 
                 Assert.IsTrue(opportunityHome.VerifyRecordTypesLV(), "Verify that displayed record types are same");
                 extentReports.CreateStepLogs("Passed", "Displayed Record Types are correct ");
 
-                //Validating Record Type Names and Description          
+                //Validating Record Type Names and Description
                 Assert.IsTrue(opportunityHome.VerifyNamesAndDescLV(), "Verify that displayed Names and Descriptions are same");
                 extentReports.CreateStepLogs("Passed", "Names & Description is displayed as expected ");
                 homePageLV.UserLogoutFromSFLightningView();
