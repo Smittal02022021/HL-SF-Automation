@@ -84,6 +84,26 @@ namespace SF_Automation.Pages.Engagement
         By btnEngValPeriodEditL = By.XPath("//td[@class='pbButton ']/input");
         By msgEngValPeriodEditL = By.XPath("//tr[2]//li");
         By titleValPeriodsL = By.XPath("//b[contains(text(),' Valuation Period')]");
+        By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
+        By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
+        By lnkClientDeadlineL = By.XPath("//tr[7]/td[1]/div//a");
+        By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
+        By btnNewEngPeriodPositionL = By.XPath("//input[@value='New Eng Valuation Period Position']");
+        By msgMandatoryValL = By.XPath("//tbody/tr/td//li");
+        By txtCompanyL = By.XPath("//span/input[contains(@id,'AccountSectionItem:CompanyField')]");
+        By btnAssetClassL = By.XPath("//select[contains(@id,'id66')]");
+        By btnIGL = By.XPath("//select[contains(@id,'PositionIG')]");
+        By btnPositonSectorL = By.XPath("//select[contains(@id,'PositionS')]");
+        By btnAutomationToolPositionL = By.XPath("//select[contains(@id,'AutomationToolUtilizedId')]");
+        By valAddedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
+        By btnEditPositionL = By.XPath("//input[@value='Back To Valuation Period']/ancestor::td/input[@value='Edit']");
+        By txtEditNameL = By.XPath("//label[text()='Position Name']/ancestor::tr/td[1]//input");
+        By valUpdPositionL = By.XPath("//th[text()='Position Name']/ancestor::tr/td[1]/span[1]/span/span");
+        By secEngValTeamMemL = By.XPath("//b[text()='Eng Valuation Period Team Members']");
+        By btnAddTeamMemL = By.XPath("//input[@value='Add New Team Member']");
+        By colTeamMemL = By.XPath("//span/div[2]/div//tr/th/div");
+        By btnSaveTeamMemL = By.XPath("//input[@value='Save Team Members']");
+        By lnkDeleteTeamL = By.XPath("//a[text()='Delete']");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -295,9 +315,9 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
-            Thread.Sleep(4000);                       
+            Thread.Sleep(4000);
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(4000);           
+            Thread.Sleep(4000);
             string value = driver.FindElement(msgMandatoryFieldL).Text;
             return value;
         }
@@ -311,7 +331,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(4000);
-            string tab = driver.FindElement(titleEngValPeriodL).Text;            
+            string tab = driver.FindElement(titleEngValPeriodL).Text;
             return tab;
         }
 
@@ -337,7 +357,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate added Period allocation record after updating Client Final Deadline
         public string ValidatePeriodAllocationRecordAfterUpdatingClientFinalDeadline()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, recPeriodAllocationL, 140);           
+            WebDriverWaits.WaitUntilEleVisible(driver, recPeriodAllocationL, 140);
             string value = driver.FindElement(recPeriodAllocationL).Displayed.ToString();
             return value;
         }
@@ -453,7 +473,7 @@ namespace SF_Automation.Pages.Engagement
 
         //Validate that clicking the save button, the user is redirected to the related positions list to import positions.
         public string ValidatePositionsListPageUponClickingSaveButtonOnAutomationToolPage()
-        {            
+        {
             Thread.Sleep(5000);
             driver.FindElement(comboUtilizedL).SendKeys("Yes");
             //driver.FindElement(comboReasonL).SendKeys("Historical");
@@ -469,7 +489,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate that Import with team member 
         public string ValidateImportWithTeamMember()
         {
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
             driver.FindElement(btnSaveAndBackL).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
@@ -494,7 +514,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(1);
             Thread.Sleep(6000);
             driver.FindElement(radioImportWithoutL).Click();
-            driver.FindElement(chkPositionNameL).Click();            
+            driver.FindElement(chkPositionNameL).Click();
             driver.FindElement(btnSaveAndBackL).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
@@ -504,7 +524,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(4000);
-            driver.FindElement(comboUtilizedL).SendKeys("Yes");            
+            driver.FindElement(comboUtilizedL).SendKeys("Yes");
             driver.FindElement(btnSaveAutomation).Click();
             Thread.Sleep(7000);
             driver.SwitchTo().DefaultContent();
@@ -519,7 +539,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnCloseTabL).Click();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(5000);                      
+            Thread.Sleep(5000);
             return row;
         }
 
@@ -623,10 +643,175 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
             Thread.Sleep(5000);
-            string title = driver.FindElement(btnNewEngValPeriod).GetAttribute("value");
+            string title = driver.FindElement(btnNewEngValPeriodL).GetAttribute("value");
+            driver.FindElement(btnNewEngValPeriodL).Click();
             return title;
         }
+
+        //Enter all details and save it.
+        public string EnterAndSaveEngValuationPeriodDetailsL(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(txtNameL).SendKeys(name);
+            driver.FindElement(lnkValDateL).Click();
+            driver.FindElement(lnkClientDeadlineL).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valNameL).Text;
+            return value;
+        }
+
+        //Click on Save on Valuation Period page
+        public bool ValidateMessageWhileClickingSaveButtonOnPeriodPosition()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewEngPeriodPositionL, 120);
+            driver.FindElement(btnNewEngPeriodPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 120);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgMandatoryValL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Company: You must enter a value", "Asset Classes: You must enter a value", "Automation Tool Utilized: You must enter a value" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+
+        //Enter all details and save it.
+        public string EnterAndSaveEngValuationPeriodPositionDetailsL(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            driver.FindElement(txtCompanyL).SendKeys(name);
+            Thread.Sleep(6000);
+            driver.FindElement(btnIGL).SendKeys("BUS - Business Services");
+            Thread.Sleep(4000);
+            driver.FindElement(btnAssetClassL).SendKeys("ABL");
+            Thread.Sleep(4000);
+            driver.FindElement(btnPositonSectorL).SendKeys("Cloud & Enterprise Consulting");
+            Thread.Sleep(4000);
+            driver.FindElement(btnAutomationToolPositionL).SendKeys("Yes");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedPositionL).Text;
+            return value;
+        }
+
+        //Validate edit functionality of Period Position
+        public string EditFunctionalityOfPeriodPosition(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 120);
+            driver.FindElement(valAddedPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.FindElement(txtEditNameL).Clear();
+            driver.FindElement(txtEditNameL).SendKeys(name);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valUpdPositionL).Text;
+            return value;
+        }
+
+        //Validate Eng Valuation Team member
+        public string ValidateSecEngValTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, secEngValTeamMemL, 60);
+            string section = driver.FindElement(secEngValTeamMemL).Text;
+            return section;
+        }
+
+        //Validate button Add New Team member
+        public string ValidateAddNewTeamMemberButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddTeamMemL, 60);
+            string section = driver.FindElement(btnAddTeamMemL).GetAttribute("value");
+            return section;
+        }
+
+        //Validate button Add New Team member
+        public bool ValidateTeamMemberColumns()
+        {
+            driver.FindElement(btnAddTeamMemL).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(colTeamMemL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "#", "STAFF", "ROLE", "STATUS", "ACTION" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            Console.WriteLine(actualValue[2]);
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        //Validate button Save New Team member
+        public string ValidateSaveTeamMemberButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamMemL, 60);
+            string section = driver.FindElement(btnSaveTeamMemL).GetAttribute("value");
+            return section;
+        }
+
+        //Validate Delete link corresponding to added Team member
+        public string ValidateDeleteLinkTeamMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteTeamL, 60);
+            string section = driver.FindElement(lnkDeleteTeamL).Text;
+            return section;
+        }
+
     }
+
+
 }
 
 

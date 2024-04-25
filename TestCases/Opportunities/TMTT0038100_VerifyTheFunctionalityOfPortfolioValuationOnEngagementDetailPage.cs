@@ -275,7 +275,54 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Page with title: " + pageValPeriods + " is displayed after clicking cancel on Engagement Valuation Period Edit page ");
 
                 //19.  TMTI0093041_ Verify that the "New Engagement Valuation Period" is created by clicking the Save button on the Engagement Valuation Period Edit page and redirecting the user to the Valuation Period detail page
-                engValPeriod.ClickEngValuationPeriod();
+                string engName = CustomFunctions.RandomValue();
+                string addedEngValuation = engValPeriod.EnterAndSaveEngValuationPeriodDetailsL(engName);
+                Assert.AreEqual(engName, addedEngValuation);
+                extentReports.CreateLog("Added valuation: " + addedEngValuation + " is displayed upon clicking Save button on Engagement Valuation Period Detail page after entering all mandatory details ");
+
+                //20. TMTI0093043_Verify that a validation message appears for required fields on clicking the Save button of the "New Eng Valuation Period Position" button
+                Assert.IsTrue(engValPeriod.ValidateMessageWhileClickingSaveButtonOnPeriodPosition(), "Verified that displayed mandatory field validations are same");
+                extentReports.CreateLog("Displayed mandatory field validations on Engagement Valuation Period Position are as expected ");
+
+                //21.  TMTI0093045_Verify that the user can add positions by clicking the "New Eng Valuation Period Position" button with all the required details
+                string addedPosition = engValPeriod.EnterAndSaveEngValuationPeriodPositionDetailsL("BE Networks");
+                Assert.AreEqual("BE Networks", addedPosition);
+                extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position ");
+
+                //22.   TMTI0093047_ Verify that clicking the "Edit" button given on "Eng Valuation Period Position" allows the user to update Eng Valuation Period position details and updates get reflected on the position
+                string updatedPosition = engValPeriod.EditFunctionalityOfPeriodPosition("XYZ");
+                Assert.AreEqual("XYZ", updatedPosition);
+                extentReports.CreateLog("Updated Position name is displayed on Valuation Position Detail page after updating the name ");
+
+                //23.  TMTI0093049_Verify that the "Eng Valuation Period Team Members" section is available at the bottom of the Eng Valuation Period Position detail page
+                string secTeamMember = engValPeriod.ValidateSecEngValTeamMember();
+                Assert.AreEqual("Eng Valuation Period Team Members", secTeamMember);
+                extentReports.CreateLog("Section: " + secTeamMember + " is displayed at the bottom of the Eng Valuation Period Position detail page ");
+
+                string buttonTeamMember = engValPeriod.ValidateAddNewTeamMemberButton();
+                Assert.AreEqual("Add New Team Member", buttonTeamMember);
+                extentReports.CreateLog("Button with name: " + buttonTeamMember + " is displayed at the bottom of the Eng Valuation Period Position detail page ");
+
+                //24.  TMTI0093051_Verify that on clicking "Add New Team Member" opens up fields like a staff member and with Save Team Member and Delete action buttons
+                Assert.IsTrue(engValPeriod.ValidateTeamMemberColumns(), "Verified that displayed Team members table columns are same");
+                extentReports.CreateLog("Displayed Team members table columns on Engagement Valuation Period Position are as expected ");
+
+                string saveTeam = engValPeriod.ValidateSaveTeamMemberButton();
+                Assert.AreEqual("Save Team Members", saveTeam);
+                extentReports.CreateLog("Button with name: " + saveTeam + " is displayed in " + secTeamMember + " ");
+
+                string deleteTeam = engValPeriod.ValidateDeleteLinkTeamMember();
+                Assert.AreEqual("Delete", deleteTeam);
+                extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + deleteTeam + " ");
+
+                //25.  TMTI0093053_Verify that clicking "Save Team Member" adds the user as a Team Member on the selected role with Status
+                string addedStaff = period.SaveTeamMembersAndValidate();
+                string addedRole = period.GetSavedRoleOfStaff();
+                Assert.AreEqual("Associate", addedRole);
+                Assert.AreEqual("Karan Chopra", addedStaff);
+                extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: " + addedRole + " is displayed after saving details ");
+
+
 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
