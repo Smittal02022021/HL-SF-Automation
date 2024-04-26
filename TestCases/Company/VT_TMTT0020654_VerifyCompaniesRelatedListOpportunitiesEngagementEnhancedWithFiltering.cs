@@ -14,8 +14,6 @@ namespace SF_Automation.TestCases.Companies
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        EngagementHomePage engagementHome = new EngagementHomePage();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         CompanyHomePage companyhome = new CompanyHomePage();
@@ -93,12 +91,12 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
-                    string valueCompanyType= companyDetails.GetCompanyTypeL();
+                    string valueCompanyType= companyDetails.GetCompanyTypeLV();
                     Assert.AreEqual(companyTypeExl, valueCompanyType);
                     extentReports.CreateLog("Selected Company Type is " +valueCompanyType+ " ");
 
                     tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 1);
-                    tabDetailPageDisplayed= companyDetails.ClickCompanyDetailPageTabL(tabNameExl);
+                    tabDetailPageDisplayed= companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Detail Page Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Detail Page Displayed after clicking on "+ tabNameExl+" Tab ");
 
@@ -136,7 +134,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog("View All Pop-Up is closed ");
 
                     tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 3, 1);
-                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Detail Page Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Detail Page Displayed after clicking on "+ tabNameExl+" Tab ");
 
@@ -176,7 +174,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog("View All Pop-Up is closed ");
 
 
-                    companyDetails.CloseCompanyTabL(companyNameExl);
+                    companyDetails.CloseCompanyTabLV(companyNameExl);
                     extentReports.CreateLog(companyNameExl+": Company Tab Closed ");
                 }
 
