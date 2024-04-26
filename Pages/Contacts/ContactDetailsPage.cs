@@ -1419,5 +1419,35 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnCancel).Click();
             return isFound;
         }
+
+        By btnEditContactL = By.XPath("//div[contains(@class,'region-header')]//li//button[@name='Edit']");
+        By btnCancelDetailsL = By.XPath("//button[@name='CancelEdit']");
+        By comboIGL = By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'RecordIndustry_Group')]//lightning-base-combobox//button");
+        By comboSTL = By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'Staff_Type')]//lightning-base-combobox//button");
+        By comboIGOptionsL= By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'RecordIndustry_Group')]//lightning-base-combobox//lightning-base-combobox-item//span[2]//span");
+        public bool IsIndustryTypePresentInDropdownContactDetailPageLV(string IndustryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditContactL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditContactL));
+            driver.FindElement(btnEditContactL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIGL, 30);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboSTL));
+            driver.FindElement(comboIGL).Click();
+            Thread.Sleep(1000);
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptionsL);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row < actualValue.Length; row++)
+            {
+                Console.WriteLine(actualValue[row]);
+                if (actualValue[row].Contains(IndustryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancelDetailsL).Click();
+            return isFound;
+        }
     }
 }

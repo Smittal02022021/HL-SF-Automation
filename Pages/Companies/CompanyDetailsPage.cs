@@ -1299,7 +1299,7 @@ namespace SF_Automation.Pages.Companies
 
         }
 
-        public string GetCompanyTypeL()
+        public string GetCompanyTypeLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyType, 30);
             return driver.FindElement(txtCompanyType).Text;
@@ -1307,7 +1307,7 @@ namespace SF_Automation.Pages.Companies
         
         // Click on tab from Company Detail page 
 
-        public bool ClickCompanyDetailPageTabL(string value)
+        public bool ClickCompanyDetailPageTabLV(string value)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _homePageTab(value), 30);
             driver.FindElement(_homePageTab(value)).Click();
@@ -1427,7 +1427,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public void CloseCompanyTabL(string name)
+        public void CloseCompanyTabLV(string name)
          {
             By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");            
 
@@ -1537,7 +1537,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
         }      
 
-        public void CloseCoverageTeamDetailPageL()
+        public void CloseCoverageTeamDetailPageLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, buttonCloseCoverageTab, 20);
             driver.FindElement(buttonCloseCoverageTab).Click();
@@ -1555,7 +1555,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             }
             catch { return false; }
         }
-        public bool IsCoverageNestedListOfficerL(string contactName)
+        public bool IsCoverageNestedListOfficerLV(string contactName)
         {
             try
             {
@@ -1579,7 +1579,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
 
 
-        public string ClickCoverageNestedList(string contactName)
+        public string ClickCoverageNestedListLV(string contactName)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{contactName}']//ancestor::td//preceding-sibling::td//button");
@@ -1620,7 +1620,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
 
         }
-        public void ClickNestedCoverageTeamOfficerL(string officerName)
+        public void ClickNestedCoverageTeamOfficerLV(string officerName)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{officerName}']");
@@ -1628,7 +1628,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationshipL));
         }
 
-        public bool IsCoverageTeamDetailsPageDisplayedL(string value)
+        public bool IsCoverageTeamDetailsPageDisplayedLV(string value)
         {
             By titleCoverageteamL = By.XPath($"//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')]//records-entity-label[contains(text(),'{value}')]");//div[contains(@class,'page-header')]//h1//div[contains(@class,'NameTitle')][contains(text(),'{value}')]");
             try
@@ -1639,31 +1639,31 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             catch { return false; }
         }
 
-        public string GetCoverageTeamCompanyNameL()
+        public string GetCoverageTeamCompanyNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCoverageTeamCompanyNameL, 20);
             return driver.FindElement(txtCoverageTeamCompanyNameL).Text;
         }
 
-        public string GetCoverageOfficerNameL()
+        public string GetCoverageOfficerNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCoverageTeamOfficerNameL, 20);
             return driver.FindElement(txtCoverageTeamOfficerNameL).Text;
         }
 
-        public string GetCompanyOfficeNameCoverageTypeL()
+        public string GetCompanyOfficeNameCoverageTypeLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyDetailCoverageTypeL, 20);
             return driver.FindElement(txtCompanyDetailCoverageTypeL).Text;
         }
 
-        public void ClickCoverageSectorPanelL()
+        public void ClickCoverageSectorPanelLV()
         {            
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageSector, 20);
             driver.FindElement(panelCoverageSector).Click();
         }
 
-        public string GetOfficerCoverageTypeL()
+        public string GetOfficerCoverageTypeLV()
         {            
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 20);
             return driver.FindElement(panelCoverageTypeL).Text;

@@ -77,13 +77,13 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
-                    string valueCompanyType = companyDetails.GetCompanyTypeL();
+                    string valueCompanyType = companyDetails.GetCompanyTypeLV();
                     Assert.AreEqual(companyTypeExl, valueCompanyType);
                     extentReports.CreateLog("Selected Company Type is " + valueCompanyType + " ");
 
                     //Go to Contacts tab from Company detail page
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
-                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Contacts Detail section Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Detail section Displayed after clicking on " + tabNameExl + " Tab ");
 
@@ -109,8 +109,7 @@ namespace SF_Automation.TestCases.Companies
 
                     Assert.AreEqual(companyHLRelationContact, contactHLRelationshipContact);
 
-
-                    companyDetails.CloseCompanyTabL(companyNameExl);
+                    companyDetails.CloseCompanyTabLV(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
 
                 }

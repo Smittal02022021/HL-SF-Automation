@@ -246,7 +246,7 @@ namespace SF_Automation.Pages
             return isSame;
         }
 
-        public bool VerifyNamesAndDescLV()
+        public bool VerifyRecordTypesDescLV()
         {
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(descRecordTypeL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();            

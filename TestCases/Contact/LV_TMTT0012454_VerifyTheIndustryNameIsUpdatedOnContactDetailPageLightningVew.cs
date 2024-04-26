@@ -5,18 +5,22 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using SF_Automation.Pages.Contact;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Contacts
 {
-    class LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView: BaseClass
+    class LV_TMTT0012454_VerifyTheIndustryNameIsUpdatedOnContactDetailPageLightningVew:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
+        ContactHomePage contactHome = new ContactHomePage();
+        RandomPages randomPages = new RandomPages();
+        ContactDetailsPage contactDetail = new ContactDetailsPage();
 
-        public static string fileTC1197 = "LV_TC1197andTC1198AddOpportunityInOpportunityHome";
+        public static string fileTC1197 = "LV_TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -27,9 +31,9 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void OpportunityHomeLV()
+        public void VerifyTheIndustryNameIsUpdatedOnContactDetailPageLV()
         {
-            try 
+            try
             {
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
@@ -54,18 +58,17 @@ namespace SF_Automation.TestCases.Opportunities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on Module: " + moduleNameExl + " Page ");
 
-                //Click on New Button from Opportunity Module
-                string pageTitle = opportunityHome.ClickNewOppButtonLV();
-                Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
-                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Info", "Verify the Industry Type is present on Contact Detail Page");
+                string industryType= ReadExcelData.ReadDataMultipleRows(excelPath, "IndustryType", 2, 1);
+                string contact = moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 2);
+                contactHome.SearchContactInLightning(contact);
+                extentReports.CreateStepLogs("Info", "Contact found and selected");
 
-                //Validate Record Types 
-                Assert.IsTrue(opportunityHome.VerifyRecordTypesLV(), "Verify that displayed record types are same");
-                extentReports.CreateStepLogs("Passed", "Displayed Record Types are correct ");
+                Assert.IsTrue(contactDetail.IsIndustryTypePresentInDropdownContactDetailPageLV(industryType), "Verify the Desired Industry Group is available in IG List");
+                extentReports.CreateStepLogs("Info", "Industry Group:: "+ industryType + " is available in IG List");
+                randomPages.CloseActiveTab(contact);
+                extentReports.CreateStepLogs("Info", "Contact tab is closed");
 
-                //Validating Record Type Names and Description
-                Assert.IsTrue(opportunityHome.VerifyRecordTypesDescLV(), "Verify that displayed Names and Descriptions are same");
-                extentReports.CreateStepLogs("Passed", "Record Type Description is displayed as expected ");
                 homePageLV.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Pass", "User: " + userExl + " logged out ");
                 driver.Quit();
