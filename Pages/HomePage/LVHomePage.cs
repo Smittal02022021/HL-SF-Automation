@@ -36,29 +36,29 @@ namespace SF_Automation.Pages.HomePage
         By activitiesFilter = By.XPath("//span[text()='Activities']");
         By myCoverageTab = By.XPath("//span[text()='My Coverage']");
         By dropdownStartDateFilter = By.XPath("(//div[@class='selected-values'])[6]");
-        By lblNoRecords = By.XPath("//span[text()='No results found']");
+        By lblNoRecords = By.XPath("(//span[text()='No results found'])[2]");
 
-        By lblKPITotal = By.XPath("//div[text()='Total']");
-        By lblTotalRecords = By.XPath("//div[text()='Total']/../../div/div/div");
+        By lblKPITotal = By.XPath("//dd[text()='Total']");
+        By lblTotalRecords = By.XPath("(//dd[text()='Total']/../../div/dt)[1]");
 
-        By lblKPIMeetings = By.XPath("//div[text()='Meetings']");
-        By lblMeetingRecords = By.XPath("//div[text()='Meetings']/../../div/div/div");
+        By lblKPIMeetings = By.XPath("//dd[text()='Meetings']");
+        By lblMeetingRecords = By.XPath("(//dd[text()='Meetings']/../../div/dt)[1]");
         By linkKPIMeetingsViewDetails = By.XPath("(//span[text()='View Details'])[1]/..");
 
-        By lblKPICalls = By.XPath("//div[text()='Calls']");
-        By lblCallRecords = By.XPath("//div[text()='Calls']/../../div/div/div");
+        By lblKPICalls = By.XPath("//dd[text()='Calls']");
+        By lblCallRecords = By.XPath("(//dd[text()='Calls']/../../div/dt)[1]");
         By linkKPICallsViewDetails = By.XPath("(//span[text()='View Details'])[2]/..");
 
-        By lblKPIEmailsTasks = By.XPath("//div[text()='Emails/Tasks ']");
-        By lblEmailRecords = By.XPath("//div[text()='Emails/Tasks ']/../../div/div/div");
+        By lblKPIEmailsTasks = By.XPath("//dd[text()='Emails/Tasks ']");
+        By lblEmailRecords = By.XPath("(//dd[text()='Emails/Tasks ']/../../div/dt)[1]");
         By linkKPIEmailsViewDetails = By.XPath("(//span[text()='View Details'])[3]/..");
 
-        By lblKPIOthers = By.XPath("//div[text()='Others']");
-        By lblOtherRecords = By.XPath("//div[text()='Others']/../../div/div/div");
+        By lblKPIOthers = By.XPath("//dd[text()='Others']");
+        By lblOtherRecords = By.XPath("(//dd[text()='Others']/../../div/dt)[1]");
         By linkKPIOthersViewDetails = By.XPath("(//span[text()='View Details'])[4]/..");
 
-        By lblKPIMissingNotes = By.XPath("//div[text()='Missing Notes']");
-        By lblMissingNoteRecords = By.XPath("//div[text()='Missing Notes']/../../div/div/div");
+        By lblKPIMissingNotes = By.XPath("//dd[text()='Missing Notes']");
+        By lblMissingNoteRecords = By.XPath("(//dd[text()='Missing Notes']/../../div/dt)[1]");
         By linkKPIMissingNotesViewDetails = By.XPath("(//span[text()='View Details'])[5]/..");
 
         //General
@@ -384,7 +384,7 @@ namespace SF_Automation.Pages.HomePage
             {
                 driver.FindElement(dropdownStartDateFilter).Click();
                 Thread.Sleep(3000);
-                int recordCount = driver.FindElements(By.XPath("//div[@class='css-12liw54']/div/div[3]/div/div")).Count;
+                int recordCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
                 int excelCount = ReadExcelData.GetRowCount(excelPath,"StartDateFilterOptions");
 
                 for(int i = 2;i <= excelCount;i++)
@@ -393,7 +393,7 @@ namespace SF_Automation.Pages.HomePage
 
                     for(int j = 1;j <= recordCount;j++)
                     {
-                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-12liw54']/div/div[3]/div/div[{j}]/div[2]/div/div")).Text;
+                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{j}]/div[2]/div/div")).Text;
                         if(exlListViewValue == sfListViewValue)
                         {
                             result = true;
@@ -433,12 +433,12 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-12liw54']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
             DateTime currentDate = DateTime.Today;
 
             for(int i = 1;i <= filterCount;i++)
             {
-                driver.FindElement(By.XPath($"//div[@class='css-12liw54']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
+                driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
                 Thread.Sleep(3000);
 
                 //Get selected Filter value
@@ -749,11 +749,11 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-12liw54']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
 
             for(int i = 1; i <= filterCount; i++)
             {
-                driver.FindElement(By.XPath($"//div[@class='css-12liw54']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
+                driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
                 Thread.Sleep(3000);
 
                 //Get selected Filter value
@@ -848,7 +848,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath("//div[@class='css-12liw54']/div/div[3]/div/div[3]/div[1]/div/input")).Click();
+            driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[3]/div[1]/div/input")).Click();
             Thread.Sleep(3000);
 
             //Get total no. of KPI
