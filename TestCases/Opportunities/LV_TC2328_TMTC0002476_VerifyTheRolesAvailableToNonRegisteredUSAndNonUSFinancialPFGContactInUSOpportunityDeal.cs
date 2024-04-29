@@ -5,10 +5,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -85,7 +81,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //------Validate all the roles checkbox
                     //Verify Initiator role
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer"))//Alexander Odysseos
                     {
                         Assert.AreEqual("True", chkInitiator);
                         extentReports.CreateStepLogs("Pass", "Initiator role checkbox is displayed ");
@@ -98,7 +94,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Seller role
                     string chkSeller = opportunityDetails.VerifySellerRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer"))// Alexander Odysseos
                     {
                         Assert.AreEqual("True", chkSeller);
                         extentReports.CreateStepLogs("Pass", "Seller role checkbox is displayed ");
@@ -111,7 +107,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Principal role
                     string chkPrin = opportunityDetails.VerifyPrincipalRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer"))//teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkPrin);
                         extentReports.CreateStepLogs("Pass", "Principal role checkbox is displayed ");
@@ -123,7 +119,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     //Verify Manager role
                     string chkMgr = opportunityDetails.VerifyManagerRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkMgr);
                         extentReports.CreateStepLogs("Pass", "Manager role checkbox is displayed ");
@@ -136,7 +132,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Associate role
                     string chkAssociate = opportunityDetails.VerifyAssociateRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkAssociate);
                         extentReports.CreateStepLogs("Pass", "Associate role checkbox is displayed ");
@@ -149,7 +145,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Analyst role
                     string chkAnalyst = opportunityDetails.VerifyAnalystRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkAnalyst);
                         extentReports.CreateStepLogs("Pass", "Analyst role checkbox is displayed ");
@@ -162,7 +158,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Specialty role
                     string chkSpecialty = opportunityDetails.VerifySpecialtyRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkSpecialty);
                         extentReports.CreateStepLogs("Pass", "Specialty role checkbox is displayed ");
@@ -176,7 +172,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify PE/HF role
                     string chkPE = opportunityDetails.VerifyPERole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkPE);
                         extentReports.CreateStepLogs("Pass", "PE role checkbox is displayed ");
@@ -189,7 +185,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Public role
                     string chkPublic = opportunityDetails.VerifyPublicRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkPublic);
                         extentReports.CreateStepLogs("Pass", "Public role checkbox is displayed ");
@@ -202,7 +198,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Admin role
                     string chkAdmin = opportunityDetails.VerifyAdminRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkAdmin);
                         extentReports.CreateStepLogs("Pass", "Admin role checkbox is displayed ");
@@ -215,7 +211,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify RMS role
                     string chkRMS = opportunityDetails.VerifyRMSRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkRMS);
                         extentReports.CreateStepLogs("Pass", "RMS role checkbox is displayed ");
@@ -228,7 +224,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Expense role
                     string chkExpense = opportunityDetails.VerifyExpenseOnlyRole();
-                    if (teamMemberName.Equals("Alexander Odysseos"))
+                    if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                     {
                         Assert.AreEqual("True", chkExpense);
                         extentReports.CreateStepLogs("Pass", "Expense role checkbox is displayed ");
@@ -241,11 +237,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify Non Registered role
                     string chkNonReg = opportunityDetails.VerifyNonRegisteredRole();
-                    if (teamMemberName.Equals("Alexander Odysseos") || teamMemberName.Equals("Faisal Roukbi"))
+                    if (teamMemberName.Equals("Eli Meyer") || teamMemberName.Equals("Ryan Carey")) //(teamMemberName.Equals("Alexander Odysseos") || teamMemberName.Equals("Faisal Roukbi"))
                     {
                         Assert.AreEqual("True", chkNonReg);
                         extentReports.CreateLog("Non Registered role checkbox is displayed ");
-                        if (teamMemberName.Equals("Alexander Odysseos"))
+                        if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
                             extentReports.CreateStepLogs("Pass", "All role checkboxes are displayed for non registered Non US FIN PFG contact in US Opportunity ");
                         else
                             extentReports.CreateStepLogs("Pass", "Only Non Registered role checkbox is displayed for non registered US FIN PFG contact in US Opportunity ");

@@ -4,10 +4,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunities
@@ -21,7 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileT2333 = "LV_TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx";
+        public static string fileT2333 = "LV_TC2333_TMTC0002494_VerifyTheRolesAvailable";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -66,13 +62,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
                 extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-
-                extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
                 int users = ReadExcelData.GetRowCount(excelPath, "Users");
-                Console.WriteLine("rowCount " + users);
 
                 for (int row = 2; row <= users; row++)
-
                 {
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
@@ -158,10 +150,9 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("False", chkNonReg);
                     extentReports.CreateLog("Non Registered role checkbox is not displayed ");
 
-                    if (opportunityName.Equals("Project Tenex III"))
+                    if (opportunityName.Equals("Project Peloton"))//Project Tenex III"))
                     {
                         extentReports.CreateLog("Only Admin checkbox is displayed for US Opportunity with PFA Job Type for Registered US Non FIN PFG contact ");
-
                     }
                     else
                     {

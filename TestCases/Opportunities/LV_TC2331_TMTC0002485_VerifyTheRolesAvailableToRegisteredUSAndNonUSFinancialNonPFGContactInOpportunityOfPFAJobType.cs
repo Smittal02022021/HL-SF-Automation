@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     if (opportunityName.Equals("Project Peloton"))
                     {
-                        if (teamMemberName.Equals("Kevin Ma"))
+                        if (teamMemberName.Equals("Philip Keffer"))//Kevin Ma"))
                         {
                             extentReports.CreateLog("Only Initiator, Seller and Specialty role's checkboxes are displayed for US Opportunity with PFA Job Type for Registered US FIN Non PFG contact ");
                         }
@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
-                        if (teamMemberName.Equals("Kevin Ma"))
+                        if (teamMemberName.Equals("Philip Keffer"))//Kevin Ma"))
                         {
                             extentReports.CreateLog("Only Initiator, Seller and Specialty role's checkboxes are displayed for Foreign Opportunity with PFA Job Type for Registered US FIN Non PFG contact ");
                         }

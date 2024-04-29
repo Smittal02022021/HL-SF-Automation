@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
@@ -18,7 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileT2330 = "LV_T2330_TMTC0002482_VerifyTheRolesAvailable.xlsx";
+        public static string fileT2330 = "LV_T2330_TMTC0002482_VerifyTheRolesAvailable";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

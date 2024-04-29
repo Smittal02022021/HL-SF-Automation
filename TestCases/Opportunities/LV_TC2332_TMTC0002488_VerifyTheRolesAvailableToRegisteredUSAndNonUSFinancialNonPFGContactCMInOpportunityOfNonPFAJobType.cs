@@ -4,10 +4,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunities
@@ -21,7 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileT2332 = "LV_TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx";
+        public static string fileT2332 = "LV_TC2332_TMTC0002488_VerifyTheRolesAvailable";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -151,7 +147,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     if (opportunityName.Equals("Project Neon"))
                     {
-                        if (teamMemberName.Equals("Peter Wu"))
+                        if (teamMemberName.Equals("Emilee Masters"))//Peter Wu"))
                         {
                             extentReports.CreateLog("Except Non-Registered and Admin/Intern role checkbox, all other role's checkboxes are displayed for US Opportunity with Registered US FIN Non PFG contact(CM) ");
                         }
@@ -162,7 +158,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
-                        if (teamMemberName.Equals("Peter Wu"))
+                        if (teamMemberName.Equals("Emilee Masters"))//Peter Wu"))
                         {
                             extentReports.CreateLog("Except Non-Registered and Admin/Intern role checkbox, all other role's checkboxes are displayed for Non US Opportunity with Registered US FIN Non PFG contact(CM) ");
                         }
