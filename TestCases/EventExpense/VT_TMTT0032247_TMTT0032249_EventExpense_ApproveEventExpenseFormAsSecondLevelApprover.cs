@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.EventExpense;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
@@ -14,12 +11,10 @@ namespace SF_Automation.TestCases.EventExpense
 {
     class VT_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover: BaseClass
     {
+        //TMTI0075765 TMTI0075767 TMTI0075769
+        //TMTI0075756 TMTI0075758 TMTI0075760
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        CompanyHomePage companyHome = new CompanyHomePage();
-        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
-        CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
         ExpenseRequestCreatePage expReqCreate = new ExpenseRequestCreatePage();
         ExpenseRequestDetailPage expReqDetail = new ExpenseRequestDetailPage();
         ExpenseRequestHomePage expRequest = new ExpenseRequestHomePage();

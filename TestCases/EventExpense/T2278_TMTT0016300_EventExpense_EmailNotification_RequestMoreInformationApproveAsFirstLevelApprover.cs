@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.EventExpense;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
@@ -12,14 +9,10 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class T2278_TMTI0036294_36296_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover : BaseClass
+    class T2278_TMTT0016300_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        CompanyHomePage companyHome = new CompanyHomePage();
-        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
-        CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
         ExpenseRequestCreatePage expReqCreate = new ExpenseRequestCreatePage();
         ExpenseRequestDetailPage expReqDetail = new ExpenseRequestDetailPage();
         ExpenseRequestHomePage expRequest = new ExpenseRequestHomePage();
