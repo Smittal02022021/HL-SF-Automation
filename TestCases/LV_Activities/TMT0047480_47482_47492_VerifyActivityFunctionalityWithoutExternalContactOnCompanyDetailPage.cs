@@ -13,7 +13,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class LV_TMTC0025346_4_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage: BaseClass
+    class TMT0047480_47482_47492_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

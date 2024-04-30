@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class LV_TMTC0025346_1_VerifyActivityFunctionalityOnCompanyDetailPage:BaseClass
+    class TMT0047429_47431_47433_47435_47439_47441_47443_47445_47447_47449_47451_47453_47455_47459_47461_47467_47469_47471_47474_VerifyActivityFunctionalityOnCompanyDetailPage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -79,7 +79,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
-                
                 CompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
                 lvCompanyDetailsPage.SearchCompanyInLightning(CompanyNameExl);
                 extentReports.CreateStepLogs("Info"," Company: "+ CompanyNameExl+" found and selected ");

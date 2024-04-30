@@ -10,7 +10,7 @@ using SF_Automation.Pages.Engagement;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityEngagementCampaign : BaseClass
+    class TMT0047486_47488_47490_VerifyActivityMappedSelectedOpportunityEngagementCampaign : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

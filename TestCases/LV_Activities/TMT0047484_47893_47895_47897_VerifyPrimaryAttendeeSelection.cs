@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class LV_TMTC0025346_3_VerifyPrimaryAttendeeSelection : BaseClass
+    class TMT0047484_47893_47895_47897_VerifyPrimaryAttendeeSelection : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -11,7 +11,7 @@ using NUnit.Framework.Internal;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class LV_TMTC0025346_2_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage : BaseClass
+    class TMT0047463_47465_47476_47478_47494_47498_47502_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
