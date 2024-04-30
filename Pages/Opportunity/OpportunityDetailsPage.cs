@@ -623,7 +623,7 @@ namespace SF_Automation.Pages
         By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
-
+        By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -705,7 +705,7 @@ namespace SF_Automation.Pages
             }
             return totalDealTeamMemberadded;
         }
-
+        
 
         public string ValidateDealTeamMemberOverLimit()
         {
@@ -7645,9 +7645,7 @@ namespace SF_Automation.Pages
             return isFound;
         }
 
-        //Get LOB
-       
-        By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
+        
         public void UpdateCCOutcomeDetailsLV()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -7670,6 +7668,8 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
         }
+
+        
     }
 }
 

@@ -103,22 +103,22 @@ namespace SF_Automation.TestCases.Companies
 
                     //Verify that there will be Nested List to show HL Relationship displaying for Contacts.
                     contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contacts", row, 1);
-                    Assert.IsTrue(companyDetails.IsContactNestedListHLRelationshipL(contactNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
+                    Assert.IsTrue(companyDetails.IsContactNestedListHLRelationshipLV(contactNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
                     extentReports.CreateLog("Nested List is Displayed to show HL Relationship for Contact:  " + contactNameExl + " for "+ valueCompanyType+" Company ");
 
                     //TMTI0046475,TMTI0046476- Verify that Contact is showing same nested HL Relationship that exists in Contacts detail page.
-                    string txtHeaderNestedList = companyDetails.ClickContactNestedListHLRelationshipL(contactNameExl);
+                    string txtHeaderNestedList = companyDetails.ClickContactNestedListHLRelationshipLV(contactNameExl);
                     Assert.IsTrue(txtHeaderNestedList.Contains("Relationship"));
-                    string companyHLRelationContact= companyDetails.GetCompanyHLRelationshipContactL();
+                    string companyHLRelationContact= companyDetails.GetCompanyHLRelationshipContactLV();
                     extentReports.CreateLog("HL Relationship Contact from Nested List on Company Detail Page :  " + companyHLRelationContact + " ");
                     
-                    companyDetails.ClickCompanyNestedContactL(contactNameExl);                  
+                    companyDetails.ClickCompanyNestedContactLV(contactNameExl);                  
                     // On Contact Detail page click Relationship
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName",2);
-                    tabDetailPageDisplayed = contactDetails.ClickContactDetailsPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = contactDetails.ClickContactDetailsPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Contacts Detail section Displayed after clicking on Opportunities Tab ");
 
-                    string contactHLRelationshipContact = contactDetails.GetContactHLRelationshipCotactL();
+                    string contactHLRelationshipContact = contactDetails.GetContactHLRelationshipCotactLV();
                     extentReports.CreateLog("HL Relationship Contact from Nested List on Contact Detail Page :  " + contactHLRelationshipContact + " ");
                     
                     Assert.AreEqual(companyHLRelationContact, contactHLRelationshipContact);

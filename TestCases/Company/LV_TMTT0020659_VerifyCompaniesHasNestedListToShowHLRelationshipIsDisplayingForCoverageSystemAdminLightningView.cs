@@ -125,8 +125,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetails.CloseCompanyTabLV(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
+                homePageLV.UserLogoutFromSFLightningView();
                 extentReports.CreateLog("User Logged out ");
                 driver.Quit();
                 extentReports.CreateLog("Browser Closed ");
@@ -136,8 +135,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(ex.Message);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                driver.Quit();                
             }
         }
     }

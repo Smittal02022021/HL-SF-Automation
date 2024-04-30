@@ -109,8 +109,11 @@ namespace SF_Automation.Pages.Common
         By valERPEmailIDL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Principal Manager']//dd//lightning-formatted-text");
         By valLOBL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Line of Business']//dd//lightning-formatted-text");
         By valJobCodeL = By.XPath("//records-record-layout-item[@field-label='Job Code']//dd//lightning-formatted-text");
-
+        By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
+        By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
+        By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
         
+
         private By _optionListView(string name)
         {
             return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -1145,6 +1148,25 @@ namespace SF_Automation.Pages.Common
             string jobCode = driver.FindElement(valJobCodeL).Text;
             return jobCode;
         }
-
+        public void DetailPageFullViewLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, tabFullViewL, 10);
+                driver.FindElement(tabFullViewL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
+                driver.FindElement(iconHeaderMoreTabsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabMoreFullViewL, 10);
+                driver.FindElement(tabMoreFullViewL).Click();
+            }
+            Thread.Sleep(10000);
+        }
     }
 }

@@ -1381,7 +1381,7 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
-        public bool ClickContactDetailsPageTabL(string value)
+        public bool ClickContactDetailsPageTabLV(string value)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageL(value), 30);
             driver.FindElement(_tabContactDetailPageL(value)).Click();
@@ -1393,7 +1393,7 @@ namespace SF_Automation.Pages.Contact
             catch { return false; }
         }
 
-        public string GetContactHLRelationshipCotactL()
+        public string GetContactHLRelationshipCotactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLRelationshipContactL, 30);
             return driver.FindElement(txtContactHLRelationshipContactL).GetAttribute("title");

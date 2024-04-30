@@ -71,6 +71,10 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
                 extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is displayed ");
 
+                //Full View
+                randomPages.DetailPageFullViewLV();
+                extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+
                 //Get ERP Submitted to Sync, Status, ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
                 extentReports.CreateLog(" Opportunity ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
@@ -83,17 +87,22 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //-----Schedule ERP Submitted to Sync manually, validate ERP Update DFF checkbox, ERP Sync Date, Status and Last Integration Status -----
                 randomPages.UpdateERPSyncManuallyInlineLV();
+                extentReports.CreateStepLogs("Info", "Manually Submitted to Sync updated ");
+                //Full View
+                randomPages.DetailPageFullViewLV();
+                extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+
                 string ERPSubmittedPostSync = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmitted, ERPSubmittedPostSync);
                 extentReports.CreateLog("Opportunity ERP Submitted to Sync : " + ERPSubmittedPostSync + " is updated post scheduling ERP sync ");
 
                 string ERPResDatePostSync = randomPages.GetERPLastIntegrationResponseDateLV();
                 //Assert.AreNotEqual(ERPResDate, ERPResDatePostSync); ERP not working
-                extentReports.CreateLog("Assersion Pending:: ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
+                extentReports.CreateLog("****Assersion Pending:: ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
 
                 string ERPStatusPostSync = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusPostSync); ERP not working
-                extentReports.CreateLog("Opportunity Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
+                extentReports.CreateLog("****Opportunity Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
 
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity is closed");

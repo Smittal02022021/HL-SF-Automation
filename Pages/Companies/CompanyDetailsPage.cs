@@ -1545,7 +1545,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             driver.Navigate().Refresh();
             Thread.Sleep(5000);
         }
-        public bool IsContactNestedListHLRelationshipL(string contactName)
+        public bool IsContactNestedListHLRelationshipLV(string contactName)
         {
             try
             {
@@ -1565,7 +1565,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             }
             catch { return false; }
         }
-        public string ClickContactNestedListHLRelationshipL(string contactName)
+        public string ClickContactNestedListHLRelationshipLV(string contactName)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             By btnNestedHLRelationship = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
@@ -1596,7 +1596,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
 
 
 
-        public string GetCompanyHLRelationshipContactL()
+        public string GetCompanyHLRelationshipContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyHLRelationshipContactL, 20);
             return driver.FindElement(txtCompanyHLRelationshipContactL).Text;
@@ -1609,7 +1609,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyHLRelationshipCoverageOfficerL, 20);
             return driver.FindElement(txtCompanyHLRelationshipCoverageOfficerL).Text;
         }
-        public void ClickCompanyNestedContactL(string contactName)
+        public void ClickCompanyNestedContactLV(string contactName)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             By linkNestedHLRelationshipL = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']");
