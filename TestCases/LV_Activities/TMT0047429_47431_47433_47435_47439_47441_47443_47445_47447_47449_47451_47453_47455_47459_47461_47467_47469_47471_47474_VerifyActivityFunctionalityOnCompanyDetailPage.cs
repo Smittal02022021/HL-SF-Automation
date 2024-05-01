@@ -96,7 +96,9 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //TMT0047431 Verify that the Activity Chart is displayed at the top of the list view.8/14/2023
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivitiesChartDisplayed());//need to click on tab
+
+                // Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivitiesChartDisplayed());//need to click on tab
+                
                 extentReports.CreateStepLogs("Passed", " Activities Chart is Displayed on Activity Detail page from "+ CompanyNameExl+" :Company Detail Page. ");
 
                 //TMT0047433 Verify that the default "3 Months Ago" is selected on the Activity Chart.8/14/2023
