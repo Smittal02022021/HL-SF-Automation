@@ -107,9 +107,6 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices is working as expected. ");
 
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
-                lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");
-                extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");
-
                 string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
                 lvHomePage.SearchCompanyFromMainSearch(companyName);
                 extentReports.CreateStepLogs("Info", "Company : " + companyName + " detail page is opened. ");
