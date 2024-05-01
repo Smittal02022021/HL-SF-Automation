@@ -1,17 +1,10 @@
-﻿using AventStack.ExtentReports;
-using OpenQA.Selenium;
-﻿using Microsoft.Office.Interop.Excel;
-using MongoDB.Driver;
-using OpenQA.Selenium;
-
+﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading;
-using System.Web;
 
 namespace SF_Automation.Pages.Companies
 {
@@ -26,12 +19,12 @@ namespace SF_Automation.Pages.Companies
         //Activity Tab
         By lblAddNewActivity = By.XPath("//h2/span[text()='Add New Activity']");
         By btnAddActivity = By.XPath("//button[text()='Add Activity']");
-        By txtSubject = By.XPath("//input[@name='Subject']");
-        By txtDate = By.XPath("//input[@name='Date']");
-        By drpdownIndustryGroup = By.XPath("//button[@name='IndustryGroup']");
-        By drpdownProductType = By.XPath("//button[@name='ProductType']");
-        By txtareaDescription = By.XPath("//textarea[@name='Description']");
-        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='HLInternalNotes']");
+        By txtSubject = By.XPath("//input[@name='subject']");
+        By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
+        By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
+        By drpdownProductType = By.XPath("//button[@name='productType']");
+        By txtareaDescription = By.XPath("//textarea[@name='description']");
+        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='hlCallNotes']");
         By txtExternalAttendee = By.XPath("//input[@placeholder='Lookup Contact...']");
         By txtHLAttendee = By.XPath("//input[@placeholder='Lookup Employees...']");
         By txtCompanyDiscussed = By.XPath("//input[@placeholder='Lookup Company...']");
@@ -39,7 +32,7 @@ namespace SF_Automation.Pages.Companies
         By txtEngagementsDiscussed = By.XPath("//input[@placeholder='Lookup Engagements...']");
         By txtCampaignsDiscussed = By.XPath("//input[@placeholder='Lookup Campaigns...']");
 
-        By btnSave = By.XPath("(//button[@title='Save'])[2]");
+        By btnSave = By.XPath("(//button[@title='Save'])[1]");
         By btnCancel = By.XPath("(//button[@title='Cancel'])[2]");
 
         By btnsearchL = By.XPath("//button[@aria-label='Search']");
@@ -284,7 +277,7 @@ namespace SF_Automation.Pages.Companies
             DateTime currentDate = DateTime.Today;
             DateTime setDate = currentDate.AddDays(-3);
             driver.FindElement(txtDate).Clear();
-            driver.FindElement(txtDate).SendKeys(setDate.ToString("dd-MMM-yyyy"));
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
@@ -304,6 +297,8 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
 
             //Click Save
+            Thread.Sleep(3000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
         }
