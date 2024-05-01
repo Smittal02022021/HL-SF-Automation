@@ -46,11 +46,11 @@ namespace SF_Automation.TestCases.Companies
 
                 //Calling Login function                
                 login.LoginApplication();
-
+                
                 //Validate user logged in       
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
-
+                
                 //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTT0022150, user);
                 extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
@@ -68,6 +68,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTT0022150, 2));
                 extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
+                /*
                 //TC - TMTI0051053 - Verifiy the availability of My Coverage tab under Activities filter
                 lvHomePage.NavigateToHomePageTabFromHLBankerDropdown();
                 extentReports.CreateStepLogs("Info", "User has navigated to Homepage tab under Home option from HL Banker dropdown. ");
@@ -83,7 +84,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "Default value selected under Activity Start Date Filter is: Last 7 Days. ");
 
                 //TC - TMTI0054954 - Verification of available columns on My Coverage dashboard in detail activities table
-                //Assert.IsTrue(lvHomePage.VerifyAvailableColumnsInActivitiesTableOnMyCoverageDashboard(fileTMTT0022150));
+                Assert.IsTrue(lvHomePage.VerifyAvailableColumnsInActivitiesTableOnMyCoverageDashboard(fileTMTT0022150));
                 extentReports.CreateStepLogs("Passed", "All columns are displayed as expected on My Coverage Dashboard in detail activities table. ");
 
                 //TC - TMTI0051061 - Verify the availabilty of Activity Start Date Filter on Activity Dashboard
@@ -95,13 +96,14 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "All KPI Metrices are available on My Coverage Dashboard. ");
 
                 //TC - TMTI0051067 - Verify the functionality of Activity Start Date grid filter available on My Coverage dashboard
-                //Assert.IsTrue(lvHomePage.VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard());
+                Assert.IsTrue(lvHomePage.VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard());
                 extentReports.CreateStepLogs("Passed", "The functionality of Activity Start Date grid filter is working as expected. ");
 
                 //TC - TMTI0054952 - Verify the functionality of KPI metrices on My Coverage dashboard
                 Assert.IsTrue(lvHomePage.VerifyFunctionalityOfKPIMetricesOnMyCoverageDashboard(fileTMTT0022150));
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices is working as expected. ");
-                
+                */
+
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");
                 extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");

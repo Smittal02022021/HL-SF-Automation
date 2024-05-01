@@ -24,7 +24,7 @@ namespace SF_Automation.Pages.Companies
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");
 
         //Activity Tab
-        By lblAddNewActivity = By.XPath("//h1[text()='Add New Activity']");
+        By lblAddNewActivity = By.XPath("//h2/span[text()='Add New Activity']");
         By btnAddActivity = By.XPath("//button[text()='Add Activity']");
         By txtSubject = By.XPath("//input[@name='Subject']");
         By txtDate = By.XPath("//input[@name='Date']");

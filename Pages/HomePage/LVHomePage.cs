@@ -878,15 +878,15 @@ namespace SF_Automation.Pages.HomePage
             }
 
             int excelCount = ReadExcelData.GetRowCount(excelPath,"ActivityColumns");
-            int recordCount = driver.FindElements(By.XPath("(//table[@role='grid'])[2]/tbody/tr[1]/th")).Count;
+            int columnCount = driver.FindElements(By.XPath("(//table[@role='grid'])[5]/tbody/tr[1]/th")).Count;
 
             for(int i = 2;i <= excelCount;i++)
             {
                 string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath,"ActivityColumns",i,1);
 
-                for(int j = 1;j <= recordCount;j++)
+                for(int j = 1;j <= columnCount; j++)
                 {
-                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[2]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
+                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[5]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
                     if(exlColValue == sfColValue)
                     {
                         result = true;
@@ -934,14 +934,27 @@ namespace SF_Automation.Pages.HomePage
                     case "Total":
                         string lblKPI1Count = driver.FindElement(lblTotalRecords).Text;
 
-                        //Get the no. of rows in table
-                        string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
-                        int rowCount = Convert.ToInt32(noOfRows)-1;
-                        string totalRows = Convert.ToString(rowCount);
-                        if(lblKPI1Count == totalRows)
+                        if (lblKPI1Count == "0")
                         {
-                            result1 = true;
+                            Thread.Sleep(2000);
+                            bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
+                            if (recPresent == true)
+                            {
+                                result1 = true;
+                            }
                         }
+                        else
+                        {
+                            //Get the no. of rows in table
+                            string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                            int rowCount = Convert.ToInt32(noOfRows) - 1;
+                            string totalRows = Convert.ToString(rowCount);
+                            if (lblKPI1Count == totalRows)
+                            {
+                                result1 = true;
+                            }
+                        }
+                        
                         break;
                     case "Meetings":
                         string lblKPI2Count = driver.FindElement(lblMeetingRecords).Text;
@@ -1153,14 +1166,14 @@ namespace SF_Automation.Pages.HomePage
 
             for(int items = 1;items <= size;items++)
             {
-                By linkHome = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
+                By itemLink = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
 
-                WebDriverWaits.WaitUntilEleVisible(driver,linkHome,120);
-                string itemName = driver.FindElement(linkHome).GetAttribute("data-label");
+                WebDriverWaits.WaitUntilEleVisible(driver, itemLink, 120);
+                string itemName = driver.FindElement(itemLink).GetAttribute("data-label");
 
                 if(itemName == item)
                 {
-                    driver.FindElement(linkHome).Click();
+                    driver.FindElement(itemLink).Click();
                     Thread.Sleep(10000);
                     break;
                 }
