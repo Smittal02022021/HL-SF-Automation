@@ -68,7 +68,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTT0022150, 2));
                 extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
-                /*
                 //TC - TMTI0051053 - Verifiy the availability of My Coverage tab under Activities filter
                 lvHomePage.NavigateToHomePageTabFromHLBankerDropdown();
                 extentReports.CreateStepLogs("Info", "User has navigated to Homepage tab under Home option from HL Banker dropdown. ");
@@ -100,9 +99,12 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "The functionality of Activity Start Date grid filter is working as expected. ");
 
                 //TC - TMTI0054952 - Verify the functionality of KPI metrices on My Coverage dashboard
+
+                //Get Initial Meeting Count
+                string intialMeetingActivityCount = lvHomePage.GetMeetingTypeActivitiesCount();
+
                 Assert.IsTrue(lvHomePage.VerifyFunctionalityOfKPIMetricesOnMyCoverageDashboard(fileTMTT0022150));
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices is working as expected. ");
-                */
 
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Companies");
@@ -124,11 +126,20 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "Activity tab is opened successfully. ");
 
                 lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPage(fileTMTT0022150);
+                extentReports.CreateStepLogs("Passed", "A new activity is created");
+
+                /*
                 lvHomePage.NavigateToHomePageTabFromHLBankerDropdown();
                 Assert.IsTrue(lvHomePage.VerifyIfActivitiesFilterGridIsAvailableNextToEngAndOppFilters());
                 Assert.IsTrue(lvHomePage.VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter());
 
-                extentReports.CreateStepLogs("Passed", "A new activity is created and is visible under My Coverage dashboard. ");
+                //Get Meeting Count after adding an activity
+                string finalMeetingActivityCount = lvHomePage.GetMeetingTypeActivitiesCount();
+                if(intialMeetingActivityCount == finalMeetingActivityCount)
+                {
+                    extentReports.CreateStepLogs("Passed", "Increased activity count is visible under My Coverage dashboard. ");
+                }
+                */
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

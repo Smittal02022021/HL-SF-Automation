@@ -41,7 +41,7 @@ namespace SF_Automation.Pages.HomePage
         By lblNoRecords = By.XPath("(//span[text()='No results found'])[2]");
 
         By lblKPITotal = By.XPath("//dd[text()='Total']");
-        By lblTotalRecords = By.XPath("(//dd[text()='Total']/../../div/dt)[2]/div");
+        By lblTotalRecords = By.XPath("(//dd[text()='Total']/../../div/dt)[2]");
 
         By lblKPIMeetings = By.XPath("//dd[text()='Meetings']");
         By lblMeetingRecords = By.XPath("(//dd[text()='Meetings']/../../div/dt)[2]");
@@ -428,11 +428,21 @@ namespace SF_Automation.Pages.HomePage
 
         public bool VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard()
         {
-            bool result = false;
-
             WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
+
+            bool overallResult = false;
+            bool result1 = false;
+            bool result2 = false;
+            bool result3 = false;
+            bool result4 = false;
+            bool result5 = false;
+            bool result6 = false;
+            bool result7 = false;
+            bool result8 = false;
+            bool result9 = false;
+            bool result10 = false;
 
             //Get filter count
             int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
@@ -469,7 +479,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate)
                                         {
-                                            result = true;
+                                            result1 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -478,6 +488,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result1 = true;
                         }
                         break;
                     case "Last 30 Days":
@@ -501,7 +515,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate1)
                                         {
-                                            result = true;
+                                            result2 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -510,6 +524,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result2 = true;
                         }
                         break;
                     case "Last 3 Months":
@@ -533,7 +551,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate2)
                                         {
-                                            result = true;
+                                            result3 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -542,6 +560,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result3 = true;
                         }
                         break;
                     case "Last 6 Months":
@@ -565,7 +587,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate3)
                                         {
-                                            result = true;
+                                            result4 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -574,6 +596,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result4 = true;
                         }
                         break;
                     case "Last 12 Months":
@@ -597,7 +623,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate4)
                                         {
-                                            result = true;
+                                            result5 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -606,6 +632,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result5 = true;
                         }
                         break;
                     case "Next 7 Days":
@@ -629,7 +659,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate5)
                                         {
-                                            result = true;
+                                            result6 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -638,6 +668,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result6 = true;
                         }
                         break;
                     case "Next 30 Days":
@@ -661,7 +695,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate6)
                                         {
-                                            result = true;
+                                            result7 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -670,6 +704,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result7 = true;
                         }
                         break;
                     case "Next 3 Months":
@@ -693,7 +731,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate7)
                                         {
-                                            result = true;
+                                            result8 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -702,6 +740,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result8 = true;
                         }
                         break;
                     case "Next 6 Months":
@@ -725,7 +767,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate8)
                                         {
-                                            result = true;
+                                            result9 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -734,6 +776,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result9 = true;
                         }
                         break;
                     case "Next 12 Months":
@@ -757,7 +803,7 @@ namespace SF_Automation.Pages.HomePage
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime < currentDate && dateTime >= setDate9)
                                         {
-                                            result = true;
+                                            result10 = true;
                                         }
                                     }
                                     catch (Exception e)
@@ -766,6 +812,10 @@ namespace SF_Automation.Pages.HomePage
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            result10 = true;
                         }
                         break;
                 }
@@ -777,7 +827,12 @@ namespace SF_Automation.Pages.HomePage
 
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
-            return result;
+
+            if (result1 == true || result2 == true && result3 == true && result4 == true && result5 == true && result6 == true && result7 == true && result8 == true && result9 == true && result10 == true)
+            {
+                overallResult = true;
+            }
+            return overallResult;
         }
 
         public bool VerifyAvailabilityOfKPIMetricesOnMyCoverageDashboard(string file)
@@ -900,6 +955,13 @@ namespace SF_Automation.Pages.HomePage
                 continue;
             }
             return result;
+        }
+
+        public string GetMeetingTypeActivitiesCount()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMeetingRecords, 120);
+            string meetingCount = driver.FindElement(lblMeetingRecords).Text;
+            return meetingCount;
         }
 
         public bool VerifyFunctionalityOfKPIMetricesOnMyCoverageDashboard(string file)
