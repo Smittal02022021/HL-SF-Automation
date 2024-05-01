@@ -380,11 +380,12 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
 
+            //Unselecting both IG and Sector till 399
             //Select IG
             //Thread.Sleep(3000);
-            ////IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            ////js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));            
-            //string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));
+            ////string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             //Thread.Sleep(4000);
             //WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 180);
             //driver.FindElement(btnIGL).Click();
@@ -399,7 +400,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].click();", driver.FindElement(comboPrimaryOfficeL)); 
             driver.FindElement(comboPrimaryOfficeL).SendKeys(valPO);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valPO + "']")).Click();

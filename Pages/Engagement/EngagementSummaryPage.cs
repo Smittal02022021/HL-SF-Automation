@@ -1021,7 +1021,7 @@ namespace SF_Automation.Pages.Engagement
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(valDebtCurrencyL);
         
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "NOK - Norwegian Krone", "SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
+            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "NOK - Norwegian Krone", "QAR - Qatar Rial","SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

@@ -137,7 +137,7 @@ namespace SF_Automation.Pages.Engagement
         By txtCompanyList = By.XPath("//label[text()='Company List']/following::input[1]");
         By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
         By titleCompanyList = By.XPath("//h2[text()='Company List']");
-        By radioCompName = By.XPath("//table/tbody/tr[1]/td[1]/div/input");
+        By radioCompName = By.XPath("//table/tbody/tr[13]/td[1]/div/input");
         By btnOK = By.XPath("//button[@title='OK']");
         By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");

@@ -44,7 +44,8 @@ namespace SF_Automation.Pages.Engagement
         By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
-        By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr>th:nth-child(1)");
+    
+        By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
         By lnkDeleteAccurals = By.CssSelector("div[id*='saB_body']>table>tbody>tr>td>a[title*='Delete']");
         By btnAddRevenueAccurals = By.CssSelector("input[title='Add Revenue Accrual']");
         By txtPeriodAccuredFees = By.CssSelector("input[name*='Ehsau']");
