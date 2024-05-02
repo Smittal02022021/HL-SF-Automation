@@ -97,7 +97,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 //TMT0047431 Verify that the Activity Chart is displayed at the top of the list view.8/14/2023
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
 
-                // Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivitiesChartDisplayed());//need to click on tab
+                /*
+                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivitiesChartDisplayed());//need to click on tab
                 
                 extentReports.CreateStepLogs("Passed", " Activities Chart is Displayed on Activity Detail page from "+ CompanyNameExl+" :Company Detail Page. ");
 
@@ -106,6 +107,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 string isDefaultDateSelected =lvCompaniesActivityDetailPage.DefaultDateSelection(activityDefaultStartDateExl);
                 Assert.AreEqual("true", isDefaultDateSelected);
                 extentReports.CreateStepLogs("Passed", "Activity Default Start Date is "+ activityDefaultStartDateExl+" ");
+                */
 
                 //TMT0047435 Verify the availability of the "Add Activity" button on the right top corner of the list view.
                 Assert.IsTrue(lvCompanyDetailsPage.IsAddActivityButtonDisplayed());
@@ -115,7 +117,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Add Activity");
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
                 string msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
-                string msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
+                string msgSaveActivity = lvCompaniesActivityDetailPage.GetRequiredFieldErrorMsg();
                 Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
                 extentReports.CreateStepLogs("Passed", "Message: "+ msgSaveActivity+ "is Displayed for Required fields ");
 

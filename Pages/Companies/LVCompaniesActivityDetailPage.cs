@@ -21,6 +21,7 @@ namespace SF_Automation.Pages.Companies
         By btnAddActivity = By.XPath("//header//button[text()='Add Activity']");
         By btnSaveActivity = By.XPath("//button[text()='Save']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By reqFieldErrMsg = By.XPath("//label[text()='Subject']/following::div[2]");
         By btnLVPopupClose = By.XPath("//button[contains(@class,'toastClose')]");
         By tableActivities = By.XPath("//div[contains(@class,'table_header')]//table");
         By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
@@ -52,7 +53,7 @@ namespace SF_Automation.Pages.Companies
         }
         private By _btnActivityDetailPage(string btnName)
         {
-            return By.XPath($"//header//button[text()='{btnName}']");
+            return By.XPath($"//button[text()='{btnName}']");
         }
         private By _comboDropdown(string value)
         {
@@ -82,13 +83,22 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
             return driver.FindElement(msgLVPopup).Text;
         }
+        public string GetRequiredFieldErrorMsg()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, reqFieldErrMsg, 20);
+            string toastMsg= driver.FindElement(reqFieldErrMsg).Text;
+            return toastMsg;
+        }
+
         public string GetLVMessagePopup()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
-            string toastMsg= driver.FindElement(msgLVPopup).Text;
-            driver.FindElement(btnLVPopupClose).Click();
+            string toastMsg = driver.FindElement(msgLVPopup).Text;
             return toastMsg;
         }
+
+
+
         public void ClickActivityDetailPageButton(string btnName)
         {
             //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;

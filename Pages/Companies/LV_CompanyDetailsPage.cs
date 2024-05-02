@@ -39,7 +39,7 @@ namespace SF_Automation.Pages.Companies
         By txtsearchL = By.XPath("//input[contains(@placeholder,'Search Companies ')]");
         By imgCompany = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By chart = By.CssSelector("canvas[class='chart']");
-        By btnAddActivity1 = By.XPath($"//header//button[text()='Add Activity']");
+        By btnAddActivity1 = By.XPath("//button[text()='Add Activity']");
         By btnCreateNewTask = By.XPath("//button[text()='Create New Task']");
         By txtFollowupDate = By.XPath("//input[contains(@name,'Followup_Start_Date')]");
         By dropdownFollowupType = By.XPath("//button[contains(@aria-label,'Follow-up Type')]");
@@ -357,7 +357,7 @@ namespace SF_Automation.Pages.Companies
             IWebElement txtDateField = driver.FindElement(txtDate);
             CustomFunctions.MoveToElement(driver, txtDateField);
             txtDateField.Clear();
-            txtDateField.SendKeys(setDate.ToString("dd-MMM-yyyy"));
+            txtDateField.SendKeys(setDate.ToString("MMM dd, yyyy"));
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
