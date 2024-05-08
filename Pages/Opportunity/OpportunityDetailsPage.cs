@@ -500,7 +500,7 @@ namespace SF_Automation.Pages
         By iconClearAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
         By txtAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
-        By linkReqEngL = By.XPath("//a[contains(@name,'Request_Engagement')]");
+        By linkReqEngL = By.XPath("//a/span[contains(text(),'Request Engagement')]");//a[contains(@name,'Request_Engagement')]");
         By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
         By editAssociatedOppField = By.XPath("//input[@name='CF00N6e00000MfcTx']");
         By txtAssociatedOpp = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']//following::td//a[contains(@id,'MfcTx')]");

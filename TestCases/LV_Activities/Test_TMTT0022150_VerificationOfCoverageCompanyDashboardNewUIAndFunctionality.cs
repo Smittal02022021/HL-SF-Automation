@@ -7,9 +7,9 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Companies
+namespace SalesForce_Project.TestCases.LV_Activities
 {
-    class Test_TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality: BaseClass
+    class Test_TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -30,7 +30,7 @@ namespace SF_Automation.TestCases.Companies
         }
 
         [Test]
-        public void VerificationOfCoverageCompanyDashboardNewUIAndFunctionality()
+        public void VerificationOfCoverageCompanyDashboardNewUIAndFunctionalityLV()
         {
             try
             {
@@ -79,7 +79,8 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "My Coverage tab is available on Activities dashboard for CF users. ");
 
                 //TC - TMTI0051068 - Verify that Activity Start Date Filter cell is by default selected 7 days ago
-                Assert.IsTrue(lvHomePage.VerifyDefaultValueSelectedInActivityStartDateFilter());
+
+                Assert.IsTrue(lvHomePage.VerifyDefaultValueSelectedInActivityStartDateFilter());//changed locator
                 extentReports.CreateStepLogs("Passed", "Default value selected under Activity Start Date Filter is: Last 7 Days. ");
 
                 //TC - TMTI0054954 - Verification of available columns on My Coverage dashboard in detail activities table

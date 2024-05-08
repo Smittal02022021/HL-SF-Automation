@@ -575,10 +575,10 @@
     <Compile Include="TestCases\Company\T2346_Companies_Common-VerifyCoverageTeamOfficerCanBeAddedToCoverageTeams_BySelectingDifferentPrimarySectorValues.cs" />
     <Compile Include="TestCases\Company\VT_TMTT0012451_TMTT0012456_VerifyCFIndustryGroupUpdatedToTECHonCompanies.cs" />
     <Compile Include="TestCases\Company\VT_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.cs" />
-    <Compile Include="TestCases\Company\VT_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUser.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUserLightningView.cs" />
     <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdminLightningView.cs" />
-    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdmin.cs" />
-    <Compile Include="TestCases\Company\VT_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdminLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLightningView.cs" />
     <Compile Include="TestCases\Company\TMTT0014212_TMTT0014213_TMTT0014215_Company_VerifyTheUserIsAbleToAddNewSectorOnTheCompanyPage.cs" />
     <Compile Include="TestCases\Company\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.cs" />
     <Compile Include="TestCases\Company\TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.cs" />
@@ -711,12 +711,14 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\LV_TMTT0022009_22011_22015_22017_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_1_VerifyActivityFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_2_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_3_VerifyPrimaryAttendeeSelection.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_4_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
+    <Compile Include="TestCases\LV_Activities\Test_TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
@@ -775,7 +777,7 @@
     <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0024858_TMTT0030610_TMTT0035436_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\Z_Dup_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
-    <Compile Include="TestCases\Company\VT_TMTT0020654_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020654_VerifyCompaniesRelatedListOppEngEnhancedWithFilteringLightningView.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAavailabiltyAndFunctionalityOnOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
@@ -1130,6 +1132,8 @@
     <None Include="TestData\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.xlsx" />
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0022009_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard.xlsx" />
+    <None Include="TestData\TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.xlsx" />
     <None Include="TestData\TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement.xlsx" />

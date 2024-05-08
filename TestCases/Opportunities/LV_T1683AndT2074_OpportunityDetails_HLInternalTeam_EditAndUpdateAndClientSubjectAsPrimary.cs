@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-
+                    randomPages.CloseActiveTab("Internal Team");
                     //Validate if user still exists in deal
                     string userExist = opportunityDetails.ValidateUserIfExistsLV(fileLV_T1683);                    
                     Assert.AreEqual("User exists", userExist);
@@ -127,7 +127,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", opportunityName + " : Tab is closed ");
 
                     //Select List View and Validate if Opportunity exists under My Active Opportunities
-                    extentReports.CreateStepLogs("Info", "Selecing My Active Opportunities View from List to Verify Opportunity "+ opportunityName+" is present in selected List before changing the user from Internal Team");
+                    extentReports.CreateStepLogs("Info", "Selecting My Active Opportunities View from List to Verify Opportunity "+ opportunityName+" is present in selected List before changing the user from Internal Team");
                     randomPages.SelectListView("My Active Opportunities");                    
                     string recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("Record found", recFound);
@@ -135,6 +135,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Call fnction to remove the user and it's assigned roles
                     string msgSave = opportunityDetails.RemoveUserFromITTeamLV();
+                    randomPages.CloseActiveTab("Internal Team");
                     Assert.AreEqual("Success:Staff Roles Updated.", msgSave);
                     extentReports.CreateLog(msgSave + " is displayed upon removing and adding new user from HL Internal Team members ");
 

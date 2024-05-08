@@ -1333,7 +1333,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsOppoortunitiesFoundByNameL(string name)
+        public bool IsOppoortunitiesFoundByNameLV(string name)
         {
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
@@ -1346,7 +1346,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsOppoortunitiesFoundByNumberL(string number)
+        public bool IsOppoortunitiesFoundByNumberLV(string number)
         {
             By recordByNumber = By.XPath($"//lightning-datatable//table//tbody//tr//td[@data-label='Opportunity Number']//lightning-base-formatted-text[text()='{number}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
@@ -1360,7 +1360,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsOppoortunitiesFoundByStageL(string stage)
+        public bool IsOppoortunitiesFoundByStageLV(string stage)
         {
             By recordByStage = By.XPath($"//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Priority')]//lightning-base-formatted-text[text()='{stage}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
@@ -1374,7 +1374,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsEngagementSearchBoxL()
+        public bool IsEngagementSearchBoxLV()
         {
             try
             {
@@ -1384,7 +1384,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsEngagementFoundByNameL(string name)
+        public bool IsEngagementFoundByNameLV(string name)
         {
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
@@ -1397,7 +1397,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsEngagementFoundByNumberL(string number)
+        public bool IsEngagementFoundByNumberLV(string number)
         {
             By recordByNumber = By.XPath($"//lightning-datatable//table//tbody//tr//td[@data-label='Engagement Number']//lightning-base-formatted-text[text()='{number}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchEngagementsL, 10);
@@ -1412,7 +1412,7 @@ namespace SF_Automation.Pages.Companies
         }
 
 
-        public bool IsEngagementFoundByStageL(string stage)
+        public bool IsEngagementFoundByStageLV(string stage)
 
         {
             By recordByStage = By.XPath($"//lightning-datatable//table//tbody//tr//td[contains(@data-label,'Stage')]//lightning-base-formatted-text[text()='{stage}']");
@@ -1466,7 +1466,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnCloseViewAllPopup).Click();
         }
        
-        public bool IsOppEngFoundByNameOnViewAllL(string name)
+        public bool IsOppEngFoundByNameOnViewAllLV(string name)
         {
             try
             {
@@ -1482,31 +1482,21 @@ namespace SF_Automation.Pages.Companies
 
         }
 
-public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
+        public bool IsOpportunitiesFoundByNumberOnViewAllLV(string number)
         {
             try
-
             {
-
                 By recordByNumber = By.XPath($"//div[contains(@class,'slds-modal__content')]//lightning-datatable//table//tbody//tr//td[@data-label='Opportunity Number']//lightning-base-formatted-text[text()='{number}']");
-
                 WebDriverWaits.WaitUntilEleVisible(driver, searchViewAllOppEngL, 10);
-
                 driver.FindElement(searchViewAllOppEngL).Clear();
-
                 driver.FindElement(searchViewAllOppEngL).SendKeys(number);
-
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByNumber, 10);
-
                 return driver.FindElement(recordByNumber).Displayed;
-
             }
-
             catch { return false; }
-
         }
 
-        public bool IsEngagementsFoundByNumberOnViewAllL(string number)
+        public bool IsEngagementsFoundByNumberOnViewAllLV(string number)
         {
             try
             {
@@ -1520,7 +1510,7 @@ public bool IsOpportunitiesFoundByNumberOnViewAllL(string number)
             catch { return false; }
         }
 
-        public bool IsOppEngFoundByStageOnViewAllL(string stage)
+        public bool IsOppEngFoundByStageOnViewAllLV(string stage)
         {
             try
             {
