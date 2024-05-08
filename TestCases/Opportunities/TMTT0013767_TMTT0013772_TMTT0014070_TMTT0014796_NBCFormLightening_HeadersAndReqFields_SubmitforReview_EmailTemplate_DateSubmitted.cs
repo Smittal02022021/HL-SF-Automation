@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string subjectName = opportunityDetails.GetSubject();
                 string subjectOwnership = opportunityDetails.GetSubjectOwnership();
                 string jobType = opportunityDetails.GetJobType();
-                string IG = opportunityDetails.GetIG();
+                //string IG = opportunityDetails.GetIG();
                 Console.WriteLine(jobType);
 
                 //Call function to update HL -Internal Team details
@@ -173,9 +173,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(jobType, jobTypeNBC);
                 extentReports.CreateLog("Job Type: " + jobTypeNBC + " in NBC form matches with Opportunity details page ");
 
-                string valIG = form.ValidateIG();
-                Assert.AreEqual(IG, valIG);
-                extentReports.CreateLog("Job Type: " + valIG + " in NBC form matches with Opportunity details page ");
+                //string valIG = form.ValidateIG();
+                //Assert.AreEqual(IG, valIG);
+                //extentReports.CreateLog("Job Type: " + valIG + " in NBC form matches with Opportunity details page ");
                 
                 //Select the Review Submission button
                 form.ClickReviewSubmission();

@@ -1129,11 +1129,11 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnYes2).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
             Thread.Sleep(4000);

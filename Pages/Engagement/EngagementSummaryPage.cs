@@ -479,10 +479,10 @@ namespace SF_Automation.Pages.Engagement
         By valAddedEquityRolePost = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span[text()='Post-Transaction']");
 
         By tabEngContactsL = By.XPath("//a[text()='Eng Contacts']");
-        By valAddedMemberType = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[1]/lst-template-list-field/lst-formatted-text/span");
+        By valAddedMemberType = By.XPath("//tr[1]/td[3]/lightning-primitive-cell-factory/span");
         By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
         By valAddedMemberRolePost = By.XPath("//span[@title='Post-Transaction Board Member']");
-        By valAddedMember = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+        By valAddedMember = By.XPath("//tr[1]/th/lightning-primitive-cell-factory//span/a[2]");
         By valAddedStaffRole = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text/span");
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 

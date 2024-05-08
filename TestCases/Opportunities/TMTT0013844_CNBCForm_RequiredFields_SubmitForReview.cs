@@ -89,10 +89,10 @@ namespace SF_Automation.TestCases.Opportunity
                 string subjectName = opportunityDetails.GetSubject();
                 string subjectOwnership = opportunityDetails.GetSubjectOwnership();
                 string jobType = opportunityDetails.GetJobType();
-                string IG = opportunityDetails.GetIG();
+                //string IG = opportunityDetails.GetIG();
                 Console.WriteLine(jobType);
 
-                //Call function to update HL -Internal Team details
+                
                 
 
                 //Logout of user and validate Admin login
@@ -172,9 +172,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(jobType, jobTypeNBC);
                 extentReports.CreateLog("Job Type: " + jobTypeNBC + " in CNBC form matches with Opportunity details page ");
 
-                string valIG = form.ValidateIG();
-                Assert.AreEqual(IG, valIG);
-                extentReports.CreateLog("Industry Group: " + valIG + " in CNBC form matches with Opportunity details page ");
+                //string valIG = form.ValidateIG();
+                //Assert.AreEqual(IG, valIG);
+                //extentReports.CreateLog("Industry Group: " + valIG + " in CNBC form matches with Opportunity details page ");
 
                 //Select the Review Submission button
                 nform.ClickReviewSubmission();

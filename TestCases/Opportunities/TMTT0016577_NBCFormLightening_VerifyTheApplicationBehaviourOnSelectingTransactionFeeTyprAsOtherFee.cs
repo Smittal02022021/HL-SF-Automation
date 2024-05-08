@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string subjectName = opportunityDetails.GetSubject();
                 string subjectOwnership = opportunityDetails.GetSubjectOwnership();
                 string jobType = opportunityDetails.GetJobType();
-                string IG = opportunityDetails.GetIG();
+                //string IG = opportunityDetails.GetIG();
                 Console.WriteLine(jobType);
 
                 //Call function to update HL -Internal Team details
