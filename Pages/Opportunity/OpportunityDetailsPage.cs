@@ -566,7 +566,7 @@ namespace SF_Automation.Pages
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
-        By chkTotalDebtConfMML = By.XPath("//input[@name='TotalDebtMMConfirmed__c']\");");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
+        By chkTotalDebtConfMML = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[2]");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
         By chkTotalDebtConfMML2 = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[2]");
         By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
@@ -6657,9 +6657,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboLegalAdvisorL));
             driver.FindElement(txtTotalDebtRepMML).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            //WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtClientDescL)); 
-            //driver.FindElement(chkTotalDebtConfMML).Click();
+            driver.FindElement(chkTotalDebtConfMML).Click();
 
             //Clien Desc      
             driver.FindElement(txtClientDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));

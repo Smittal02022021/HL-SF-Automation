@@ -9,7 +9,7 @@ using System;
 
 namespace SalesForce_Project.TestCases.LV_Activities
 {
-    class LV_TMTT0022009_22011_22015_22017_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
+    class LV_TMTT0022009_22011_22015_22017_22025_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -93,14 +93,12 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 Assert.IsTrue(homePageLV.IsActivityListSortedWithSelectedActivityStartDateFilterOnMyActivityDashboard(),"Verify the functionality of Activity Start Date grid cells av ailable on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of Activity Start Date grid filter is working as expected. ");
 
-
-
-
-                /////////////////////////////////////////////Below are not updated yet////////////////
-                //TC - TMTI0054952 - Verify the functionality of KPI metrices on My Coverage dashboard
+                //TC - TMTI0050237	Verify the functionality of KPI metrices on My Activity Dashboard
                 Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336));
-                extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices is working as expected. ");
-
+                extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices Lable Count is correct for each KPI details page. ");
+                
+                
+                /////////////////////////////////////////////Below are not updated yet////////////////
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
                 homePageLV.NavigateToAnItemFromHLBankerDropdown("Companies");
                 extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");

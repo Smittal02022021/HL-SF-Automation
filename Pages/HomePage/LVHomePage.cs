@@ -537,7 +537,7 @@ namespace SF_Automation.Pages.HomePage
 
         By lblActivityKPIEmailsTasks = By.XPath("//dd[text()='Emails/Tasks ']");
         By lblActivityEmailRecords = By.XPath("//dd[text()='Emails/Tasks ']/../../div/dt/div");
-        By linkActivityKPIEmailsViewDetails = By.XPath("(//dd[text()='Emails/Tasks']/following::div/following::div[5][@class='link']/span)[1]");
+        By linkActivityKPIEmailsViewDetails = By.XPath("(//dd[text()='Emails/Tasks ']/following::div/following::div[5][@class='link']/span)[1]");
 
         By lblActivityKPIOthers = By.XPath("//dd[text()='Other']");//Others
         By lblActivityOtherRecords = By.XPath("//dd[text()='Other']/../../div/dt/div");
@@ -2707,7 +2707,7 @@ namespace SF_Automation.Pages.HomePage
                                 result4 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Emails/Tasks, Close tab]/../../button")).Click();
+                        driver.FindElement(By.XPath("//span[text()='My Activity - Emails/Tasks, Close tab']/../../button")).Click();
                         Thread.Sleep(2000);
                         break;
 
@@ -2750,7 +2750,7 @@ namespace SF_Automation.Pages.HomePage
                                 result5 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Others, Close tab]/../../button")).Click();
+                        driver.FindElement(By.XPath("//span[text()='My Activity - Others, Close tab']/../../button")).Click();
                         Thread.Sleep(2000);
                         break;
 
