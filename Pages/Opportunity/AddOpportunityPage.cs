@@ -554,6 +554,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
 
+            ////////////////////////
             //Select sector
             //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
@@ -562,7 +563,8 @@ namespace SF_Automation.Pages
             //CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
             //WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
             //driver.FindElement(eleSector).Click();
-
+            ////////////////////////
+            
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLed));
@@ -1364,8 +1366,7 @@ namespace SF_Automation.Pages
             driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
-            //////////////////////////////////            
-
+            ////////////////////////////////// 
             //Select Job Type
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
@@ -1376,6 +1377,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
 
+            ////////////////////////////
             //Select sector
             //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
@@ -1385,6 +1387,7 @@ namespace SF_Automation.Pages
             //WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
             //driver.FindElement(eleSector).Click();
 
+            /////////////////////////////////////
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLed));

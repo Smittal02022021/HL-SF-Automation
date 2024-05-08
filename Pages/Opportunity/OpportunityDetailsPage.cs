@@ -138,7 +138,7 @@ namespace SF_Automation.Pages
         By comboRecordType = By.CssSelector("select[name='00Ni000000D8hW2']");
         By valRecType = By.CssSelector("div[id*='RecordTypej']");
         By valOppNum = By.CssSelector("div[id*='VbIj_id0_j_id55_ileinner']");
-        By btnNewComment = By.CssSelector("input[value='New Comment']");
+        By btnNewComment = By.CssSelector("input[value='New Opportunity Comment']");// input[value='New Comment']");
         By comboCommentType = By.CssSelector("select[id*='00Ni000000FnLSo']");
         By txtCommentDesc = By.CssSelector("textarea[id*='FnLSp']");
         By msgError = By.CssSelector("div[class='errorMsg']");
@@ -2632,7 +2632,7 @@ namespace SF_Automation.Pages
         //Add Opportunity Comments
         public void AddOppComments(string Type)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewComment, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewComment, 10);
             driver.FindElement(btnNewComment).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentType);
             driver.FindElement(comboCommentType).SendKeys(Type);
@@ -3976,9 +3976,9 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
             //Enter SIC
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
@@ -5124,9 +5124,9 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
             //Enter SIC
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
@@ -5563,9 +5563,9 @@ namespace SF_Automation.Pages
 
 
             //Enter SIC
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
 
 
@@ -5774,7 +5774,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblSICCode));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));// lblSICCode))
             By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
             driver.FindElement(btnJobTypeL).Click();
@@ -6059,13 +6059,13 @@ namespace SF_Automation.Pages
             driver.FindElement(eleSubjectOwnership).Click();//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
             //Enter SIC
-            string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
-            driver.FindElement(txtSICL).SendKeys(valSICCode);
-            Thread.Sleep(3000);
-            By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
-            driver.FindElement(eleSICCode).Click();
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
 
             //Opp Desc
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
@@ -6636,13 +6636,13 @@ namespace SF_Automation.Pages
             driver.FindElement(eleSubjectOwnership).Click();
 
             //Enter SIC
-            string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
-            driver.FindElement(txtSICL).SendKeys(valSICCode);
-            Thread.Sleep(3000);
-            By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
-            driver.FindElement(eleSICCode).Click();
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
 
             //Opp Desc
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
@@ -7051,13 +7051,13 @@ namespace SF_Automation.Pages
             driver.FindElement(eleSubjectOwnership).Click();
 
             //Enter SIC
-            string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
-            driver.FindElement(txtSICL).SendKeys(valSICCode);
-            Thread.Sleep(3000);
-            By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
-            driver.FindElement(eleSICCode).Click();
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
 
             //Opp Desc
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
@@ -7599,7 +7599,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
             driver.FindElement(btnClearHLSectionL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
             driver.FindElement(inputHLSectorIDL).Click();
