@@ -347,7 +347,7 @@ namespace SF_Automation.Pages
         By txtCommentsL = By.XPath("//textarea[@class='inputTextArea cuf-messageTextArea textarea']");
         By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
 
-        By lnkMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
+        By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabAdmin = By.XPath("//a[text()='Administration']");
         By lnkEditOppName = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/button/span[1]");
@@ -395,7 +395,7 @@ namespace SF_Automation.Pages
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valRefTypeAfter = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[1]/following::dd[1]//lightning-formatted-text");
         By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot/record_flexipage-record-field/div/div[1]/dl/dd/div[1]/span[1]/slot[1]/lightning-formatted-text");
 
         By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field/div/div[1]/dl/dd/div[1]/span[1]/slot[1]/lightning-formatted-text");
@@ -404,7 +404,7 @@ namespace SF_Automation.Pages
         By subTabLegalMatters = By.XPath("//a[text()='Legal Matters']");
         By subTabConflictsCheck = By.XPath("//a[text()='Conflicts Check']");
         By lnkEditBeneficial = By.XPath("//button[@title='Edit Beneficial Owner & Control Person form?']");
-        By lnkEditConfAgreement = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div/button/span[1]");
+        By lnkEditConfAgreement = By.XPath("//button[@title='Edit Confidentiality Agreement']");
 
 
         By valBenOwnerBefore = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
@@ -474,7 +474,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
               
                    
-        By btnReqEngL = By.XPath("//button[text()='Request Engagement']");
+        By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
+        By btnReqEng1L = By.XPath("//button[text()='Request Engagement']");
         By msgReqEngFVAL = By.XPath("//div[@class='slds-p-around_large cOppRequestEngagementAura']/lightning-formatted-text");
         By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
         By btnApproveL = By.XPath("//div[@title='Approve']");        
@@ -3962,10 +3963,10 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject+"']")).Click();
 
-            //Enter SIC
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            ////Enter SIC
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
@@ -4042,9 +4043,9 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
             //Enter SIC
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
@@ -4118,9 +4119,9 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
             //Enter SIC (for 38100)
-            driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            Thread.Sleep(3000);
-            driver.FindElement(comboSICL).Click();
+            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
+            //Thread.Sleep(3000);
+            //driver.FindElement(comboSICL).Click();
 
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
@@ -4128,7 +4129,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             driver.FindElement(comboTombstoneL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//flexipage-field[10]//lightning-base-combobox//lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//flexipage-field[8]//lightning-base-combobox//lightning-base-combobox-item[2]/span[2]/span")).Click();
            
 
             //Opp Desc
@@ -4241,15 +4242,28 @@ public void ClickNewOpportunitySectorButton()
         //Click Return to Opportunity button  
         public void ClickRequestoEngL()
         {
-            Thread.Sleep(9000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
-            driver.FindElement(btnReqEngL).Click();
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 20);
+                driver.FindElement(btnReqEng1L).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 20);
+                driver.FindElement(btnReqEngL).Click();
+            }
         }
 
         //Click Return to Opportunity button  msgReqEngFVAL
         public string ClickRequestoEngFVAL()
         {
             Thread.Sleep(9000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+            driver.FindElement(lnkMoreL).Click();
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
             driver.FindElement(btnReqEngL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
@@ -4268,7 +4282,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             driver.FindElement(txtCommentsL).SendKeys("Rejected");
             driver.FindElement(btnRejectOppL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
             string status = driver.FindElement(valStatusL).Text;
             return status;
         }
@@ -4340,8 +4354,8 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(5000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,-500)");
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 180);
             driver.FindElement(lnkMoreL).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkConvertToEngL, 100);
@@ -4501,8 +4515,8 @@ public void ClickNewOpportunitySectorButton()
         //Get default value of Currency
         public string GetCurrencyL()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyBefore, 150);
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyBefore, 160);
             string value = driver.FindElement(valCurrencyBefore).Text;
             return value;
         }
@@ -6345,7 +6359,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[11]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[8]")).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();
@@ -6488,7 +6502,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Click Add FVA Opprotunity Contact 
         public string ClickAddFVAOppContact()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddFVAContact, 350);
             driver.FindElement(btnAddFVAContact).Click();
             Thread.Sleep(6000);

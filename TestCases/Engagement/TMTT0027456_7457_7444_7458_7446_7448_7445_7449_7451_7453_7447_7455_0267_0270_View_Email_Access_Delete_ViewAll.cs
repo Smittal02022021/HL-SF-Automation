@@ -77,7 +77,7 @@ namespace SF_Automation.TestCases.Engagement
                 }
 
                 //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
-                engagementDetails.ClickViewCounterpartiesButton();
+                engagementDetails.ClickViewCounterpartiesButtonL();
 
                 //TC_03_Validate the value in View dropdown is same as Job Type of Engagement
                 string view = counterparty.GetViewValue();

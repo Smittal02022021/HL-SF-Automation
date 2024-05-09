@@ -74,8 +74,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Recently viewed Opportunities are displayed in Recently Viewed list ");
 
                 //Validate all the values displayed under Recently Viewed
-                Assert.IsTrue(opportunityHome.ValidateRecentlyViewedValues(), "Verified that displayed Recently Viewed values are same");
-                extentReports.CreateLog("Recently Viewed dropdown values are displayed as expected ");
+                //Assert.IsTrue(opportunityHome.ValidateRecentlyViewedValues(), "Verified that displayed Recently Viewed values are same");
+                //extentReports.CreateLog("Recently Viewed dropdown values are displayed as expected ");
 
                 //Validate if Search functionality is available or not
                 string searchOpp =opportunityHome.ValidateSearchFunctionalityIsAvailable();

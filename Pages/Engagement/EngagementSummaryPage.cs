@@ -478,7 +478,7 @@ namespace SF_Automation.Pages.Engagement
         By valAddedEquityRole = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span");
         By valAddedEquityRolePost = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span[text()='Post-Transaction']");
 
-        By tabEngContactsL = By.XPath("//a[text()='Eng Contacts']");
+        By tabEngContactsL = By.XPath("//a[text()='Contacts']");
         By valAddedMemberType = By.XPath("//tr[1]/td[3]/lightning-primitive-cell-factory/span");
         By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
         By valAddedMemberRolePost = By.XPath("//span[@title='Post-Transaction Board Member']");

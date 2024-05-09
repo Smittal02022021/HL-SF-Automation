@@ -350,8 +350,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             driver.FindElement(txtSubjectL).Click();
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
-            //Thread.Sleep(7000);            
-            //((IJavaScriptExecutor)driver).ExecuteScript("document.body.style.zoom='80%';");
+            
             Thread.Sleep(6000);
             //Select Job Type
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
@@ -391,7 +390,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             //driver.FindElement(btnIGL).Click();
             //Thread.Sleep(3000);
             //driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valIG + "']")).Click();
-
+                      
 
             ////Select sector
             //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
@@ -977,7 +976,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[11]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[8]")).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();
