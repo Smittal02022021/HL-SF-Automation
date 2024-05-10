@@ -77,6 +77,7 @@ namespace SF_Automation.Pages.Engagement
         By titleRelatedPositionsL = By.XPath("//h3[text()='Related Positions']");
         By btnSaveAndBackL = By.XPath("//input[@value='Save & Back To Valuation Period']");
         By valImportedPositionL = By.XPath("//div[2]//tr[2]/td[2]/a");
+        By valImportedPosition2L = By.XPath("//div[2]//tr[1]/td[2]/a");
         By btnCloseTabL = By.XPath("//li[4]/div[2]/button");
         By radioImportWithoutL = By.XPath("//input[@value='Import Positions Without Team Members']");
         By titleEngValPeriodEditL = By.XPath("//h1[text()='Engagement Valuation Period Edit']");

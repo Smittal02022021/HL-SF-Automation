@@ -213,7 +213,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //18.  TMTI0075922_ Verify the Key External Contact added under the HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section with the type External and role as selected
                 string addedKeyContact = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
-                Assert.AreEqual("Chris Somerville", addedKeyContact);
+                Assert.AreEqual("Chris Soccio", addedKeyContact);
                 string addedContactType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
                 Assert.AreEqual("External", addedContactType);
                 string addedContactRole = summaryPage.GetRoleOfAddedStaffInEngContacts();

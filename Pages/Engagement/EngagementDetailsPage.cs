@@ -222,7 +222,7 @@ namespace SF_Automation.Pages.Engagement
         By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button slds-button_icon-border-filled')])[3]");
         By btnViewCounterpartiesL = By.XPath("//span[text()='View Counterparties']");
 
-        By btnViewCounterparties = By.XPath("//lightning-menu-item[contains(@data-target-selection-name,'Engagement__c.ViewCounterparties')]");
+        By btnViewCounterparties = By.XPath("//button[contains(@name,'Engagement__c.ViewCounterparties')]");
         By btnClose = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/div[2]/button");
         By btnDetails = By.XPath("//tr/td[1]/div/div[1]/lightning-formatted-rich-text/span/a");
         By lnkAddedCounterparty = By.XPath("//tbody/tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");

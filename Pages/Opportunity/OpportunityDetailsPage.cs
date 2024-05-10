@@ -6549,8 +6549,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
             driver.FindElement(lnkReqEngL).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
-            driver.FindElement(btnConvertToEngPVL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 360);
+            driver.FindElement(btnConvertToEngL).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;

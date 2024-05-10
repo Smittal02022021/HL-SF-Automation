@@ -483,7 +483,8 @@ namespace SF_Automation.Pages.Engagement
         By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
         By valAddedMemberRolePost = By.XPath("//span[@title='Post-Transaction Board Member']");
         By valAddedMember = By.XPath("//tr[1]/th/lightning-primitive-cell-factory//span/a[2]");
-        By valAddedStaffRole = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[2]/dl/dd[2]/lst-template-list-field/lst-formatted-text/span");
+        By valAddedStaffRole = By.XPath("//tr[1]/td[4]/lightning-primitive-cell-factory/span");
+
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
@@ -4639,7 +4640,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancel).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnAddBoardMemberL).Click();
-            driver.FindElement(txtContactL).SendKeys("April Contact");
+            driver.FindElement(txtContactL).SendKeys("Anne Poetschke");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
             driver.FindElement(btnSaveAddHL).Click();
@@ -4656,7 +4657,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancel).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnAddBoardMemberL).Click();
-            driver.FindElement(txtContactL).SendKeys("April Contact");
+            driver.FindElement(txtContactL).SendKeys("Anne Poetschke");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
             driver.FindElement(btnSaveAddHL).Click();
