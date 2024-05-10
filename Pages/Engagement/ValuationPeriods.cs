@@ -721,7 +721,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valAddedPositionL).Text;
             return value;
         }

@@ -313,7 +313,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string deleteTeam = engValPeriod.ValidateDeleteLinkTeamMember();
                 Assert.AreEqual("Delete", deleteTeam);
-                extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + deleteTeam + " ");
+                extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + secTeamMember + " ");
 
                 //25.  TMTI0093053_Verify that clicking "Save Team Member" adds the user as a Team Member on the selected role with Status
                 string addedStaff = period.SaveTeamMembersAndValidate();
