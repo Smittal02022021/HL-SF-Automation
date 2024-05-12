@@ -105,6 +105,16 @@ namespace SF_Automation.Pages.Engagement
         By colTeamMemL = By.XPath("//span/div[2]/div//tr/th/div");
         By btnSaveTeamMemL = By.XPath("//input[@value='Save Team Members']");
         By lnkDeleteTeamL = By.XPath("//a[text()='Delete']");
+        By btnVoidPositionL = By.XPath("//input[@value='Void Position']");
+        By msgConfirmationVoidL = By.XPath("//tbody//div[contains(text(),'Are you')]");
+        By btnVoidPositionsL = By.XPath("//tbody/tr[2]/td/input[@type='submit']");
+        By btnNoVoidL = By.XPath("//input[@value=' No ']");
+        By btnYesVoidL = By.XPath("//input[@value=' Yes ']");
+        By valStatusPeriodPositionL = By.XPath("//th[text()='Status']/ancestor::tr/td[2]/span");
+        By valEngValPeriodL = By.XPath("//th[text()='Engagement Valuation Period']/ancestor::tr/td[1]/span");
+        By btnUpdateAutoToolUsageL = By.XPath("//input[@value='Update Automation Tool Usage']");
+        By btnCancelAutoToolL = By.XPath("//div[@class='pbBottomButtons']//input[@value='Cancel']");
+        By titleEngValPeriodDetailL = By.XPath("//h2[text()='Engagement Valuation Period Detail']");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -810,6 +820,134 @@ namespace SF_Automation.Pages.Engagement
             return section;
         }
 
+        //Validate Void Position functionality 
+        public string ValidateConfirmationMessageoAfterClickingVoidPositionOnPeriodPosition()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnVoidPositionL, 120);
+            driver.FindElement(btnVoidPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);            
+            string value = driver.FindElement(msgConfirmationVoidL).Text;
+            return value;
+        }
+
+        //Validate button on Void Position
+        public bool ValidateVoidPositionButtons()
+        {
+            
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnVoidPositionsL);
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("value")).ToArray();
+            string[] expectedValue = { " Yes ", " No " };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);            
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Void Position functionality after clicking No
+        public string ValidateVoidPositionByClickingNo()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNoVoidL, 120);
+            driver.FindElement(btnNoVoidL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valStatusPeriodPositionL).Text;
+            return value;
+        }
+
+        //Validate Void Position functionality after clicking Yes
+        public string ValidateVoidPositionByClickingYes()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedPositionL, 120);
+            driver.FindElement(valAddedPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnVoidPositionL, 130);
+            driver.FindElement(btnVoidPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnYesVoidL, 130);
+            driver.FindElement(btnYesVoidL).Click();
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valStatusPeriodPositionL).Text;
+            return value;
+        }
+
+        //Validate cancel functionality of Update Automation Tool Usage button
+        public string ValidateCancelFunctionalityOfUpdateAutomationToolUsage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEngValPeriodL, 120);
+            driver.FindElement(valEngValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnUpdateAutoToolUsageL, 130);
+            driver.FindElement(btnUpdateAutoToolUsageL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000); 
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelAutoToolL, 130);
+            driver.FindElement(btnCancelAutoToolL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(titleEngValPeriodDetailL).Text;
+            return value;
+        }
+
+        //Validate accept functionality of Update Automation Tool Usage button
+        public string ValidateAcceptFunctionalityOfUpdateAutomationToolUsage()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, valEngValPeriodL, 120);
+            //driver.FindElement(valEngValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnUpdateAutoToolUsageL, 130);
+            driver.FindElement(btnUpdateAutoToolUsageL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+
+            driver.FindElement(comboUtilizedL).SendKeys("Yes");           
+            driver.FindElement(btnSaveAutomation).Click();
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);            
+            string value = driver.FindElement(titleEngValPeriodDetailL).Text;
+            return value;
+        }
     }
 
 

@@ -379,9 +379,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
 
-            //Unselecting both IG and Sector till 399
-            //Select IG
-            //Thread.Sleep(3000);
+            
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             //js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));
             ////string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
@@ -436,6 +434,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             //Select Beneficial Owner
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(comboBenOwnerL));
             driver.FindElement(comboBenOwnerL).SendKeys(valBenOwner);
             Thread.Sleep(7000);
             if (valRecordType == "CF")
@@ -444,12 +443,12 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             }
             else
             {
-                driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             }
             //Select Does HL have material            
             driver.FindElement(comboHLMaterialL).SendKeys(valBenOwner);
-            Thread.Sleep(7000);           
+            Thread.Sleep(9000);           
             if (valRecordType == "CF")
             {
                 driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
@@ -457,8 +456,8 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
 
             else
             {
-                driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
-
+                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]/div/slot/flexipage-field[1]/slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+                                             //flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/dl/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div[2]/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span
             }
             //Select Conf Agreement
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);

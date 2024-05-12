@@ -322,6 +322,34 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Karan Chopra", addedStaff);
                 extentReports.CreateLog("Staff with name: " + addedStaff + " and Role: " + addedRole + " is displayed after saving details ");
 
+                //26-1st part. TMTI0093055 _Verify that the user can "Void Position" from the Engagement Valuation Position Detail page.
+                string confirmMessage = engValPeriod.ValidateConfirmationMessageoAfterClickingVoidPositionOnPeriodPosition();
+                Assert.AreEqual("Are you sure you want to cancel this position? This process will reverse any accruals from this position.", confirmMessage);
+                extentReports.CreateLog("Confirmation Message: " + confirmMessage + " is displayed after clicking Void Position button ");
+
+                Assert.IsTrue(engValPeriod.ValidateVoidPositionButtons(), "Verified that displayed buttons after clicking Void Position button are same");
+                extentReports.CreateLog("Displayed buttons after clicking Void Position button are as expected ");
+
+                string valPosition = engValPeriod.ValidateVoidPositionByClickingNo();
+                Assert.AreEqual("In Progress", valPosition);
+                extentReports.CreateLog("Period Position's status: " + valPosition + " and is not cancelled after clicking No on confirmation page ");
+
+                //27- 1st part. TMTI0093057_Verify the functionality of the "Update Automation Tool" button given on the Engagement Valuation Period Detail page 
+                string cancelTool = engValPeriod.ValidateCancelFunctionalityOfUpdateAutomationToolUsage();
+                Assert.AreEqual("Engagement Valuation Period Detail", cancelTool);
+                extentReports.CreateLog("Page with title: " + cancelTool + " is displayed after clicking cancel on Update Automation Tool Usage page ");
+
+                string AcceptTool = engValPeriod.ValidateAcceptFunctionalityOfUpdateAutomationToolUsage();
+                Assert.AreEqual("Engagement Valuation Period Detail", cancelTool);
+                extentReports.CreateLog("Page with title: " + cancelTool + " is displayed after updating and clicking Save on Update Automation Tool Usage page ");
+
+                //26-2nd Part
+                string statusPosition = engValPeriod.ValidateVoidPositionByClickingYes();
+                Assert.AreEqual("Cancelled", statusPosition);
+                extentReports.CreateLog("Period Position: " + statusPosition + " is cancelled after clicking Yes on confirmation page ");
+
+                //
+
 
 
                 usersLogin.DiffLightningLogout();

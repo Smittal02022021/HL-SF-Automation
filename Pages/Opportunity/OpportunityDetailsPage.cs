@@ -302,7 +302,7 @@ namespace SF_Automation.Pages
         By comboSubjectOwnershipL = By.XPath("//button[contains(@aria-label,'Subject Ownership')]");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
-        By txtRefContactFVAL = By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
+        By txtRefContactFVAL = By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
@@ -543,7 +543,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnEditTopPanelL = By.XPath("//button[@name='Edit']");
         By btnViewCounterpartiesL = By.XPath("//button[@name='Opportunity__c.ViewCounterparties']");
 
-        By lnkReqEngL = By.XPath("//ul/li[11]/lightning-button-menu/button");
+        By lnkReqEngL = By.XPath("//runtime_platform_actions-actions-ribbon//li[11]/lightning-button-menu/button");
         By valOppStatus = By.XPath("//li[1]/article/div/div[2]/ul/li[2]/div/div[2]/span");
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
@@ -4290,7 +4290,7 @@ public void ClickNewOpportunitySectorButton()
         //Approve in Lightning
         public string ClickApproveButtonL()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,520)");
             Thread.Sleep(4000);
