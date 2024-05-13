@@ -6872,6 +6872,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOFF, 20);
             driver.FindElement(btnDNDOnOFF).Click();
+            Thread.Sleep(8000);
         }
 
 

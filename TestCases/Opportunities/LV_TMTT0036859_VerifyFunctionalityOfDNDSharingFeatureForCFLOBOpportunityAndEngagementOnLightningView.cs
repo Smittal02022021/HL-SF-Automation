@@ -267,7 +267,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string dndOppName = opportunityDetails.GetOpportunityNameL();
                     extentReports.CreateStepLogs("Info", opportunityDetails.ValidateOpportunityNameL(dndOppName));
                     randomPages.CloseActiveTab(dndOppName);
-                    //Search for DND Approved opportunity with new name
+                    //Search for DND Approved opportunity with new name ISSUE here in SEARCH
                     string result = opportunityHome.UpdateOppAndSearchLV(dndOppName);
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", result + " with DND Opportunity Name: " + dndOppName);
@@ -454,7 +454,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsFalse(isGroupTypeDisplayed);
                     extentReports.CreateStepLogs("Passed", "Sharing User group Type not Found for search Opportunity");
                     //Verify Removed Deal Team is not found on Sharing Pop-Up
-                    isUserDisplayed = opportunityDetails.IsSharingUserDisplayedLV("James Craven");
+                    isUserDisplayed = opportunityDetails.IsSharingUserDisplayedLV("William Peluchiwski");
                     Assert.IsFalse(isUserDisplayed);
                     extentReports.CreateStepLogs("Passed", "Removed Deal Team Member is not Found for search Opportunity");
                     //Close Sharing Group Popup 
