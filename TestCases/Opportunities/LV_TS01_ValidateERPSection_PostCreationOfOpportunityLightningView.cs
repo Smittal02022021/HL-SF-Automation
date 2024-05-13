@@ -132,10 +132,13 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ClickReturnToOpportunityL();
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");                    
-                    extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
+                    //extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
 
                     //Validate ERP section details------
-                    
+                    //Full View
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+
                     //Validate ERP Submitted To Sync
                     string ERPSubmittedDate = randomPages.GetERPSubmittedToSyncLV();
                     extentReports.CreateStepLogs("Info", "ERP Submitted To Sync in ERP section:: " + ERPSubmittedDate);                    

@@ -445,10 +445,10 @@ namespace SF_Automation.Pages.Engagement
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return To Engagement']");
 
-        By txtEngStageL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/dl//dd/div/span/slot/lightning-formatted-text");//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
+        By txtEngStageL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div//dd/div/span/slot/lightning-formatted-text");//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
         By txtEngRecordTypeL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.RecordTypeId']//div[contains(@class,'recordType')]/div/span");
         By tabEngAdministratorL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Administration']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Administration']/a");// (//li/a[@data-label='Administration'])[2]");
-        By txtEngLegalEntityL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span");
+        By txtEngLegalEntityL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span/slot/span/slot");//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span");
         By tabEngImpDate = By.XPath("//li/a[@data-label='Important Dates']");
         By txtStartDate = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Start_Date')]//span[contains(@class,'field-value')]//lightning-formatted-text");
 
@@ -582,8 +582,8 @@ namespace SF_Automation.Pages.Engagement
         By venueLocation = By.XPath("//flexipage-field[contains(@data-field-id,'Location')]//lightning-formatted-text");
         By Phone = By.XPath("//flexipage-field[contains(@data-field-id,'Phone')]//lightning-formatted-text");
         By Website = By.XPath("//flexipage-field[contains(@data-field-id,'Website')]//a");
-        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
-        By txtEngNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/ancestor::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By listStaff = By.XPath("/html/body/ul");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By tabEngInternalTeamL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Internal Team'])[2]");
@@ -601,7 +601,7 @@ namespace SF_Automation.Pages.Engagement
         //records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By txtAssociatedEngLabelL = By.XPath("//span[text()='Associated Engagement']");
         By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input");
-        By txtAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");
+        By txtAssociatedEngL = By.XPath("(//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span/slot)[2]");//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnEditEngL = By.XPath("//ul//li[contains(@data-target-selection-name,'Button.Engagement')]//button[@name='Edit']");
@@ -636,8 +636,8 @@ namespace SF_Automation.Pages.Engagement
         By tabInternalTeamL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Internal Team']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Internal Team']/a");////div[@class='onePanelManagerScoped']//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
-        By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
-        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
+        By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
+        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");

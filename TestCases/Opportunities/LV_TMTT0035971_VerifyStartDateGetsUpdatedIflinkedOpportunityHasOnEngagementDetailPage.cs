@@ -169,11 +169,8 @@ namespace SF_Automation.TestCases.Opportunities
                     //Search for created opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
 
-
-
                     //TMTI0085985	Verify that if the linked opportunity has a Start Date, then the "Start Date" field on the engagement detail page gets populated with the date from the Start Date field.
-                                        
-                    extentReports.CreateStepLogs("Info", "Verify that if the linked opportunity has a Start Date, then the \"Start Date\" field on the engagement detail page gets populated with the date from the Start Date field");
+                    extentReports.CreateStepLogs("Info", "Verify that if the linked opportunity has a Start Date, then the Start Date field on the engagement detail page gets populated with the date from the Start Date field");
 
                     //Opp Stage/Priority is Updted to Verbally Engaged 
                     string dateStageChange = opportunityDetails.UpdateStagePriorityL(fileTMTT0035971, row);

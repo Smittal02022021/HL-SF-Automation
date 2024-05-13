@@ -182,10 +182,11 @@ namespace SF_Automation.Pages.Companies
         By headerNestedListL = By.XPath("//article[contains(@class,'NestedTables_CardChild')]//h2[contains(@class,'container')]//span");
         By txtCompanyHLRelationshipContactL = By.XPath("//article//div[contains(@class,'otherBrowser')]//table//tr[1]//td[@data-label='HL Contact']//a");
         By txtCompanyHLRelationshipCoverageOfficerL = By.XPath("//flexipage-component2[contains(@data-component-id,'NestedTables2')]//table//tr[1]//td[@data-label='Officer Name']//a");//div[contains(@class,'NestedTables')]//table//tr[1]//td[@data-label='Officer Name']//a
-        By txtCoverageTeamCompanyNameL = By.XPath("//div[contains(@class,'page-header')]//h1//slot[@name='primaryField']//a//span");
+        By txtCoverageTeamCompanyNameL = By.XPath("(//div[contains(@class,'page-header')]//h1//slot[@name='primaryField']//a//span//slot)[2]"); //div[contains(@class,'page-header')]//h1//slot[@name='primaryField']//a//span");
         By txtCoverageTeamOfficerNameL = By.XPath("//p[@title='Officer Name']//following::p//span//a");
         By txtCompanyDetailCoverageTypeL = By.XPath("//article//div[contains(@class,'otherBrowser')]//table//tbody/tr[1]//td[1]//span");
         By panelCoverageTypeL = By.XPath("//dt[text()='Coverage Type:']//following-sibling::dd[1]//span");
+        By panelTabCoverageSectors = By.XPath("//flexipage-component2[@slot='sidebar']//ul[@role='tablist']//li/a[@data-label='Coverage Sectors']");
         By panelCoverageSector = By.XPath("//ul[@role='tablist']//li[contains(@title,'Coverage Sectors')]//a");
         By buttonCloseCoverageTab = By.XPath("//button[contains(@title,'Close C-')]");
         By alertDuplicate = By.XPath("//div[@role='alertdialog']//button[@title='Close']");
@@ -1654,8 +1655,10 @@ namespace SF_Automation.Pages.Companies
         }
 
         public string GetOfficerCoverageTypeLV()
-        {            
-            WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 20);
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, panelTabCoverageSectors, 20);
+            driver.FindElement(panelTabCoverageSectors).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 10);
             return driver.FindElement(panelCoverageTypeL).Text;
         }
         

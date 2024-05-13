@@ -125,6 +125,9 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityHome.SearchOpportunityInLightning(oppName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
+                //Full View
+                randomPages.DetailPageFullViewLV();
+                extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
 
                 //Get ERP Submitted to Sync and get ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();

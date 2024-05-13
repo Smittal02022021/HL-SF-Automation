@@ -534,7 +534,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         private By nameRole(string role)
         {
-            return By.XPath($"//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
+            return By.XPath($"//div/span[text()='{role}']//ancestor::dt/following-sibling::dd//lightning-formatted-text");//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
         }
         public double GetDefaultRateAsPerRoleLV(string role)
         {

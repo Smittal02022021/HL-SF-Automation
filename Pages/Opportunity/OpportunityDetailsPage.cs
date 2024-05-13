@@ -481,7 +481,7 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
@@ -498,7 +498,7 @@ namespace SF_Automation.Pages
         By txtAssociatedOppLabelL = By.XPath("//span[text()='Associated Opportunity']");
         By editAssociatedOppFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//input");
         By iconClearAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
-        By txtAssociatedOppL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//span");
+        By txtAssociatedOppL = By.XPath("(//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//slot)[2]");//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//a//span");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By linkReqEngL = By.XPath("//a/span[contains(text(),'Request Engagement')]");//a[contains(@name,'Request_Engagement')]");
         By txtAssociatedOppLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Opportunity']");
@@ -566,13 +566,12 @@ namespace SF_Automation.Pages
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
-        By chkTotalDebtConfMML = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[2]");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
-        By chkTotalDebtConfMML2 = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[2]");
+        By chkTotalDebtConfMML = By.XPath("//span//input[@name='TotalDebtMMConfirmed__c']");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
         By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -1905,7 +1904,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtDateEngagedCF).SendKeys("02/09/2021");
                 driver.FindElement(lnkEstimatedClosedDateFR).Click();
             }
-            driver.FindElement(txtSICCode).SendKeys("9999");
+            //driver.FindElement(txtSICCode).SendKeys("9999");
             driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
             driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -2744,7 +2743,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -2769,7 +2768,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -2801,7 +2800,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -2836,7 +2835,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -4744,7 +4743,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 170);
                 driver.FindElement(btnEdit).Click();
                 Thread.Sleep(2000);
-                driver.FindElement(txtSICCode).SendKeys("9999");
+               // driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4769,7 +4768,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4797,7 +4796,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(txtSICCode).SendKeys("9999");
+               // driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4828,7 +4827,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4863,7 +4862,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4888,7 +4887,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+               // driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -4936,7 +4935,7 @@ namespace SF_Automation.Pages
             {
             }
             driver.FindElement(txtSICCode).Clear();
-            driver.FindElement(txtSICCode).SendKeys("9999");
+            //driver.FindElement(txtSICCode).SendKeys("9999");
             driver.FindElement(txtOppDesc).Clear();
             driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
             driver.FindElement(txtRetainer).Clear();
@@ -4998,7 +4997,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(lnkReDisplayRec).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
                 driver.FindElement(btnEdit).Click();
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -5079,7 +5078,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 22));
@@ -6608,7 +6607,20 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
             return message;
         }
-
+        By iconInlineEditTDConfirmed = By.XPath("//button[@title='Edit Total Debt (MM) Confirmed']");
+        By chkTDConfirmed = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");
+        public void UpdateTotalDebtConfirmedLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditTDConfirmed, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
+            driver.FindElement(iconInlineEditTDConfirmed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(chkTotalDebtConfMML));
+            //driver.FindElement(chkTotalDebtConfMML).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+        }
         public void UpdateReqFieldsForFRConversionLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -6657,9 +6669,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboLegalAdvisorL));
             driver.FindElement(txtTotalDebtRepMML).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
+            //WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtClientDescL)); 
-            driver.FindElement(chkTotalDebtConfMML).Click();
+            //driver.FindElement(chkTotalDebtConfMML).Click();
 
             //Clien Desc      
             driver.FindElement(txtClientDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));

@@ -113,6 +113,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);//Ref Contact updated
+                    opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTC1624);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");

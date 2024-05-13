@@ -116,6 +116,7 @@ namespace SF_Automation.TestCases.Engagements
                     if (valRecordType == "FR")
                     {
                        opportunityDetails.UpdateReqFieldsForFRConversionLV(ERPTS04);
+                        opportunityDetails.UpdateTotalDebtConfirmedLV();
                     }
                     if (valRecordType == "FVA")
                     {

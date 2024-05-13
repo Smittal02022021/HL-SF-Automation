@@ -107,7 +107,8 @@ namespace SF_Automation.TestCases.Opportunities
                     addOpportunityContact.CreateContactL2(fileTMTT0036857);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
-                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0036857);     
+                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0036857);
+                    opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
 
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0036857);
