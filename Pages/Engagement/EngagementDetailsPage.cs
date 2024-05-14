@@ -216,7 +216,8 @@ namespace SF_Automation.Pages.Engagement
         By valSelectedType = By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
         //By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
 
-        By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]//lightning-formatted-text");
+
         By valTotalDebtMM = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
         //By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
         By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button slds-button_icon-border-filled')])[3]");

@@ -51,7 +51,7 @@ namespace SF_Automation.Pages
         By btnAdditionalClientSub = By.XPath("//div[2]/span/lightning-button/button");
         By btnEditMassEdit = By.XPath("//header/div[2]/slot/lightning-button/button");
         By txtRefresh = By.XPath("//div[2]/div[2]/span/p");
-        By comboTypeMassEdit = By.XPath("//lightning-base-combobox-item[contains(@id,'button-16')]");
+        By comboTypeMassEdit = By.XPath("//lightning-base-combobox-item[contains(@id,'button-17')]");
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
         By txtAlertMessage = By.XPath("//slot/div/div/h2");
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
@@ -63,7 +63,7 @@ namespace SF_Automation.Pages
         By titleAdditionalClient = By.CssSelector("h2[class='pageDescription']");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
         By txtClientSubjectEng = By.CssSelector("span>input[id*='D9Dbw']");
-        By valNewClient = By.XPath("//div[@id='box-31']/div[1]/div/lightning-formatted-text");
+        By valNewClient = By.XPath("//div[@id='box-32']/div[1]/div/lightning-formatted-text");
         By valNewClientEng = By.XPath("//table/tbody/tr[5]/th/a");
         By valNewClientEngOther = By.XPath("//table/tbody/tr[4]/th/a");
         By valClientType = By.XPath("//tbody/tr[1]/td[4]/div/lightning-formatted-text");
@@ -74,7 +74,7 @@ namespace SF_Automation.Pages
         By valTypeKeyCreditor = By.XPath("//tbody/tr[2]/td[4]/div/lightning-formatted-text");
         By valEngTypeKeyCreditor = By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr[6]/td[2]");
         By btnSaveClientSubject = By.CssSelector("input[value=' Save ']");
-        By valType = By.XPath("//button[contains(@id,'button-16')]");
+        By valType = By.XPath("//button[contains(@id,'button-17')]");
         By valSelectedType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
         By colTableColumns = By.XPath("//table/thead/tr/td/div");
         By val2ndClient = By.XPath("//div[@id='box-46']/div[1]/div/lightning-formatted-text");
@@ -156,15 +156,15 @@ namespace SF_Automation.Pages
         By valColumnDebtHoldings = By.XPath("//table/thead/tr/td[7]/div/div");
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
-        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-147']");
+        By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-148']");
         By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-204']");
-        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-172']");
-        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-226']");
+        By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-173']");
+        By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-227']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-246']");
-        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-251']");
-        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-303']");
+        By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-252']");
+        By txtDebtHodlingsKeyCred13rdEdit = By.XPath("//*[@id='input-304']");
         By txtDebtHodlingsKeyCred13rdEditEng = By.XPath("//*[@id='input-268']");
-        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-328']");
+        By txtDebtHodlingsKeyCred23rdEdit = By.XPath("//*[@id='input-329']");
         By btnClientHoldingsHelpIcon = By.XPath("//div[2]/slot/div[3]/table/thead/tr/td[6]/div/div/a");
 
         By checkInitiator = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[2]/input");
@@ -654,7 +654,7 @@ namespace SF_Automation.Pages
         public bool VerifyTypes()
         {
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//button[contains(@id,'button-16')]")).Click();
+            driver.FindElement(By.XPath("//button[contains(@id,'button-17')]")).Click();
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(comboTypeMassEdit);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();

@@ -263,7 +263,7 @@ namespace SF_Automation.Pages
         By txtWomenLedFR = By.CssSelector("div:nth-child(23)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
-        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
+        By titleMassEditPage = By.XPath("//div[2]/h2]/span");
         By btnBackToOpp = By.XPath("//div[1]/span/lightning-button/button");
         By titleOppDetails = By.CssSelector("div[id*='j_id55'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
         By btnAdditionalClientSub = By.XPath("//div[2]/span/lightning-button/button");
