@@ -20,7 +20,6 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
 
@@ -185,16 +184,17 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl+ ", Member Group Name: "+ dealMemberGroupName);
                         extentReports.CreateStepLogs("Info", "Verify the TAS DND button availablility Deal team members: " + dealMemberNameExl + " of LOB: " + dealMemberLOBExl+ " with "+ dealMemberRoleExl+" role on Opportunity Detail page");
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                        try
-                        {
-                            login.SwitchToClassicView();
-                            extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
-                            login.SwitchToLightningExperience();
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
-                        }catch 
-                        {
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
-                        }
+                        //try
+                        //{
+                        //    login.SwitchToClassicView();
+                        //    extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                        //    login.SwitchToLightningExperience();
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                        //}catch 
+                        //{
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                        //}
+                        login.SwitchToLightningExperience();
                         homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View                     
                         homePageLV.SelectApp(appNameExl);
@@ -268,17 +268,18 @@ namespace SF_Automation.TestCases.Opportunities
                             extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl + ", Member Group Name: " + dealMemberGroupName);
                             extentReports.CreateStepLogs("Info", "Verify that Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
                             usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                            try
-                            {
-                                login.SwitchToClassicView();
-                                extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
-                                login.SwitchToLightningExperience();
-                                extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
-                            }
-                            catch
-                            {
-                                extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
-                            }
+                            //try
+                            //{
+                            //    login.SwitchToClassicView();
+                            //    extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                            //    login.SwitchToLightningExperience();
+                            //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                            //}
+                            //catch
+                            //{
+                            //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                            //}
+                            login.SwitchToLightningExperience();
                             homePageLV.ClickAppLauncher();
                             //Go to Opportunity module in Lightning View                     
                             homePageLV.SelectApp(appNameExl);
@@ -302,17 +303,18 @@ namespace SF_Automation.TestCases.Opportunities
                     string caoUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 2, 1);
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
                     usersLogin.SearchUserAndLogin(caoUserExl);
-                    try
-                    {
-                        login.SwitchToClassicView();
-                        extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
-                        login.SwitchToLightningExperience();
-                        extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
-                    }
-                    catch
-                    {
-                        extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " is already on Lightning View ");
-                    }
+                    //try
+                    //{
+                    //    login.SwitchToClassicView();
+                    //    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
+                    //    login.SwitchToLightningExperience();
+                    //    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
+                    //}
+                    //catch
+                    //{
+                    //    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " is already on Lightning View ");
+                    //}
+                    login.SwitchToLightningExperience();
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -347,17 +349,18 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Info", "Verify the Access to DND opportunity and TAS DND button for Deal Team Member Name: " + dealMemberNameExl + ", of LOB: " + dealMemberLOBExl + ", with Role: " + dealMemberRoleExl + ", from Group Name: " + dealMemberGroupName);
 
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                        try
-                        {
-                            login.SwitchToClassicView();
-                            extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
-                            login.SwitchToLightningExperience();
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
-                        }
-                        catch
-                        {
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
-                        }
+                        //try
+                        //{
+                        //    login.SwitchToClassicView();
+                        //    extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                        //    login.SwitchToLightningExperience();
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                        //}
+                        //catch
+                        //{
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                        //}
+                        login.SwitchToLightningExperience();
                         homePageLV.ClickAppLauncher();                     
                         homePageLV.SelectApp(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
@@ -397,17 +400,18 @@ namespace SF_Automation.TestCases.Opportunities
                     
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
                     usersLogin.SearchUserAndLogin(caoUserExl);
-                    try
-                    {
-                        login.SwitchToClassicView();
-                        extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
-                        login.SwitchToLightningExperience();
-                        extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
-                    }
-                    catch
-                    {
-                        extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " is already on Lightning View ");
-                    }
+                    //try
+                    //{
+                    //    login.SwitchToClassicView();
+                    //    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
+                    //    login.SwitchToLightningExperience();
+                    //    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
+                    //}
+                    //catch
+                    //{
+                    //    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " is already on Lightning View ");
+                    //}
+                    login.SwitchToLightningExperience();
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -469,17 +473,18 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify TAS DND button is accessible to FVA Deal team Member Name: " + dealMemberNameExl + ", of LOB: " + dealMemberLOBExl + ", with Role: " + dealMemberRoleExl + ", from Group Name: " + dealMemberGroupName+ "On Engaged Opportunity");
                     
                     usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                    try
-                    {
-                        login.SwitchToClassicView();
-                        extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
-                        login.SwitchToLightningExperience();
-                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
-                    }
-                    catch
-                    {
-                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
-                    }
+                    //try
+                    //{
+                    //    login.SwitchToClassicView();
+                    //    extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                    //    login.SwitchToLightningExperience();
+                    //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                    //}
+                    //catch
+                    //{
+                    //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                    //}
+                    login.SwitchToLightningExperience();
                     homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectApp(appNameExl);
@@ -518,17 +523,18 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl + ", Member Group Name: " + dealMemberGroupName);
                         extentReports.CreateStepLogs("Info", "Verify that New Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                        try
-                        {
-                            login.SwitchToClassicView();
-                            extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
-                            login.SwitchToLightningExperience();
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
-                        }
-                        catch
-                        {
-                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
-                        }
+                        //try
+                        //{
+                        //    login.SwitchToClassicView();
+                        //    extentReports.CreateStepLogs("Passed", "User: " + dealMemberNameExl + " logged in ");
+                        //    login.SwitchToLightningExperience();
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " Switched to Lightning View ");
+                        //}
+                        //catch
+                        //{
+                        //    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " is already on Lightning View ");
+                        //}
+                        login.SwitchToLightningExperience();
                         homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View                     
                         homePageLV.SelectApp(appNameExl);
@@ -546,7 +552,8 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
-                    driver.Quit();                    
+                    driver.Quit();
+                    extentReports.CreateStepLogs("Info", "Browser Closed");
                 }
             }
             catch(Exception ex)
