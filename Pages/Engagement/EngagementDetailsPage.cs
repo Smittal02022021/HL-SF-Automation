@@ -5879,7 +5879,7 @@ namespace SF_Automation.Pages.Engagement
 
 
         }
-        public string EnterAssociatedEngagementL(string name)
+        public void EnterAssociatedEngagementL(string name)
         {
             Thread.Sleep(2000);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -5907,17 +5907,22 @@ namespace SF_Automation.Pages.Engagement
                 }
 
                 driver.FindElement(btnSaveDetailsL).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
-                return driver.FindElement(txtAssociatedEngL).Text;
+                Thread.Sleep(8000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
+                //return driver.FindElement(txtAssociatedEngL).Text;
 
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
-                return e.Message;
+                //return e.Message;
             }
         }
-     
+            public string GetAssociatedEngagementLV()
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
+                return driver.FindElement(txtAssociatedEngL).Text;
+            }
         public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);

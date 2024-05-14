@@ -566,7 +566,7 @@ namespace SF_Automation.Pages
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
-        By chkTotalDebtConfMML = By.XPath("//span//input[@name='TotalDebtMMConfirmed__c']");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
+        By chkTotalDebtConfMML = By.XPath("//flexipage-field//span//input[@name='TotalDebtMMConfirmed__c']/parent::span/span");//span//input[@name='TotalDebtMMConfirmed__c']");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
         By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
@@ -725,6 +725,7 @@ namespace SF_Automation.Pages
             {
                 driver.SwitchTo().Frame(driver.FindElement(frameWarningPopup));
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(txtMsgOverlimit));
                 string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
                 driver.FindElement(btnBackPopup).Click();
@@ -2681,7 +2682,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 170);
                 driver.FindElement(btnEdit).Click();
                 Thread.Sleep(2000);
-                driver.FindElement(txtSICCode).SendKeys("9999");
+                //driver.FindElement(txtSICCode).SendKeys("9999");
                 driver.FindElement(txtOppDesc).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
                 driver.FindElement(txtRetainer).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 driver.FindElement(txtReferralContact).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 22));
@@ -5423,7 +5424,7 @@ namespace SF_Automation.Pages
             }
 
         }
-        public string EnterAssociatedOpportunityLV(string name)
+        public void EnterAssociatedOpportunityLV(string name)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             try
@@ -5438,15 +5439,20 @@ namespace SF_Automation.Pages
                 Thread.Sleep(3000);
                 driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
-                return driver.FindElement(txtAssociatedOppL).Text;
+                Thread.Sleep(8000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
+                //return driver.FindElement(txtAssociatedOppL).Text;
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
-                return e.Message;
+                //return e.Message;
             }
+        }
+        public string GetAssociatedOpportunityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
+            return driver.FindElement(txtAssociatedOppL).Text;
         }
         public bool IsGetIndustryGroupSaved(string value)
         {
@@ -6608,18 +6614,26 @@ namespace SF_Automation.Pages
             return message;
         }
         By iconInlineEditTDConfirmed = By.XPath("//button[@title='Edit Total Debt (MM) Confirmed']");
-        By chkTDConfirmed = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");
+        By chkTDConfirmed1 = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");
         public void UpdateTotalDebtConfirmedLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditTDConfirmed, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
             driver.FindElement(iconInlineEditTDConfirmed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
-            js.ExecuteScript("arguments[0].click();", driver.FindElement(chkTotalDebtConfMML));
-            //driver.FindElement(chkTotalDebtConfMML).Click();
+            //js.ExecuteScript("arguments[0].click();", driver.FindElement(chkTotalDebtConfMML));
+            try
+            {
+                driver.FindElement(chkTDConfirmed1).Click();
+            }
+            catch
+            {
+                driver.FindElement(chkTDConfirmed1).Click();
+            }
             driver.FindElement(btnSaveDetailsL).Click();
-            Thread.Sleep(5000);
+           Thread.Sleep(5000);            
         }
         public void UpdateReqFieldsForFRConversionLV(string file)
         {
@@ -6872,7 +6886,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDNDOnOFF, 20);
             driver.FindElement(btnDNDOnOFF).Click();
-            Thread.Sleep(8000);
+            //Thread.Sleep(8000);
         }
 
 
@@ -7139,7 +7153,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(1000);
             driver.FindElement(comboTASServicesL).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath("//label[text()='TAS Services']/following::lightning-base-combobox-item//span[@title='Buyside AFR']")).Click();
+            driver.FindElement(By.XPath("//label[text()='TAS Services']/following::lightning-base-combobox-item//span[@title='AFR - ESG']")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }

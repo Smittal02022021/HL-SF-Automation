@@ -251,7 +251,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    extentReports.CreateLog(stdUser + " Standard User Search for Created Opportunity ");
+                    extentReports.CreateLog(valUser + " Standard User Search for Created Opportunity ");
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Requesting for engagement and validate the success message
@@ -266,7 +266,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //usersLogin.UserLogOut();
 
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateLog("Standard User: " + stdUser + " logged out ");
+                    extentReports.CreateLog("Standard User: " + valUser + " logged out ");
 
                     //Login as CAO user to approve the Opportunity
                     extentReports.CreateLog("login as CAO  User switched to Lightning View ");
@@ -311,7 +311,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 3, 1);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
+                    opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
+                    nameAssociatedOpp = opportunityDetails.GetAssociatedOpportunityLV();
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
@@ -345,7 +346,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Enter the Associated Opportunity name
                     valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 1);
-                    nameAssociatedEng = engagementDetails.EnterAssociatedEngagementL(valAssociatedEng);
+                    engagementDetails.EnterAssociatedEngagementL(valAssociatedEng);
+                    nameAssociatedEng = engagementDetails.GetAssociatedEngagementLV();
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
 
@@ -408,11 +410,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //New Field is Present on Opportunity Detail Page for Standard User
                     Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
-                    extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + stdUser + " ");
+                    extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + valUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User
                     Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditableLV(), "Verify Associated Engagement should not be editable for Standard User ");
-                    extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + stdUser + " ");
+                    extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + valUser + " ");
 
                     //login.SwitchToClassicView();
                     //usersLogin.UserLogOut();

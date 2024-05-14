@@ -224,11 +224,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "DND On/Off button is displayed for CAO user:  : " + caoUserExl);
                     opportunityDetails.ClickDNDOnOffButtonLV();
                     extentReports.CreateStepLogs("Info", "CAO User: "+ caoUserExl + "Clicked on DND On/Off Button ");
-                    
+
                     /////////////////////////////
                     //no message for FR Opp 
-                            //string txtMessage = randomPages.GetLVMessagePopup();
-                            //extentReports.CreateStepLogs("Pass", txtMessage);
+                    string txtMessage = randomPages.GetLVMessagePopup();
+                    extentReports.CreateStepLogs("Pass", txtMessage);
                     ///////////////////////////////
 
                     login.SwitchToClassicView();

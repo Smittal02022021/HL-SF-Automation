@@ -12,12 +12,12 @@ namespace SF_Automation.Pages.Common
         By valERPBusinessUnit = By.CssSelector("div[id*='ef5']");
         By valERPEntityCode = By.CssSelector("div[id*='ef6']");
         By valERPLegislationCode = By.CssSelector("div[id*='efA']");
-        By valTemplateNumberL = By.XPath("//div[@class='slds-form']//records-record-layout-item[contains(@field-label,'Template number')]//dd//lightning-formatted-text");
-        By valERPBusinessUnitIdL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit Id']//dd//lightning-formatted-text");
-        By valERPBusinessUnitL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit']//dd//lightning-formatted-text");
-        By valERPLegalEntityIdL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity Id']//dd//lightning-formatted-text");
-        By valERPEntityCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Entity Code']//dd//lightning-formatted-text");
-        By valERPLegislationCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legislation Code']//dd//lightning-formatted-text");
+        By valTemplateNumberL = By.XPath("//records-record-layout-item[contains(@field-label,'Template number')]//lightning-formatted-text");
+        By valERPBusinessUnitIdL = By.XPath("//records-record-layout-item[@field-label='ERP Business Unit Id']//lightning-formatted-text");
+        By valERPBusinessUnitL = By.XPath("//records-record-layout-item[@field-label='ERP Business Unit']//lightning-formatted-text");
+        By valERPLegalEntityIdL = By.XPath("//records-record-layout-item[@field-label='ERP Legal Entity Id']//lightning-formatted-text");
+        By valERPEntityCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Entity Code']//lightning-formatted-text");
+        By valERPLegislationCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Legislation Code']//lightning-formatted-text");
 
         //Get ERP Legal Entity ID 
         public string GetERPLegalEntityID()

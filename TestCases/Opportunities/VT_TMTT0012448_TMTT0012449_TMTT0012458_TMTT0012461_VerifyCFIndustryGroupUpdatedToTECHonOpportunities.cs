@@ -110,9 +110,13 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                 //Get IG after save opp
+                /*
+                 ****************** IG Removed from UI *******************
                 //TMTI0027310 Verify the User is able to create new opportunity with Industry Group Changes TECH
                 Assert.IsTrue(opportunityDetails.IsGetIndustryGroupSaved(industryGroupExl),"Verify Opportunity with Industry Type: TECH is saved ");
                 extentReports.CreateLog("Opportunity with Industry Type: "+ industryGroupExl+" is saved ");
+
+                */
 
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForCFConversion(fileTMTI0027313);
@@ -122,10 +126,11 @@ namespace SF_Automation.TestCases.Opportunity
                 //extentReports.CreateLog("Update required Internal team details for conversion ");
 
                 //Verify the New IF on Edit Opp page
+                // ****************** IG Removed from UI *******************
                 //TMTI0027311 Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Editing Opportunity
-                Assert.IsTrue(opportunityDetails.IsIndustryTypePresentInDropdownOppDetailPage(industryGroupExl), "Verify the New Industry Type: TECH is availanle on Edit Opportunity page");
-                extentReports.CreateLog("Opportunity with Industry Type: " + industryGroupExl + " is available while Editing Opportunity ");
-                
+                //Assert.IsTrue(opportunityDetails.IsIndustryTypePresentInDropdownOppDetailPage(industryGroupExl), "Verify the New Industry Type: TECH is availanle on Edit Opportunity page");
+                //extentReports.CreateLog("Opportunity with Industry Type: " + industryGroupExl + " is available while Editing Opportunity ");
+
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
@@ -180,13 +185,15 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateLog("Name of Engagement : " + engagementName + " is similar to Opportunity name ");
 
-                //Verify Engagement with Industry Type: TECH is converted from Opportunity
-                Assert.IsTrue(opportunityDetails.IsGetIndustryGroupSaved(industryGroupExl), "Verify Engagement with Industry Type: TECH is converted from Opportunity ");
-                extentReports.CreateLog("Opportunity with Industry Type: " + industryGroupExl + " is converted into Engagement ");
 
-                //TMTI0027294	Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Editing Engagement detail Page 
-                Assert.IsTrue(engagementDetails.IsIndustryTypePresentInDropdownOppDetailPage(industryGroupExl), "Verify the New Industry Type: TECH is availanle on Edit Engagement page "); ;
-                extentReports.CreateLog("New Industry Type: TECH is available on Edit Engagement page ");
+                // ****************** IG Removed from UI *******************
+                ////Verify Engagement with Industry Type: TECH is converted from Opportunity
+                //Assert.IsTrue(opportunityDetails.IsGetIndustryGroupSaved(industryGroupExl), "Verify Engagement with Industry Type: TECH is converted from Opportunity ");
+                //extentReports.CreateLog("Opportunity with Industry Type: " + industryGroupExl + " is converted into Engagement ");
+
+                ////TMTI0027294	Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Editing Engagement detail Page 
+                //Assert.IsTrue(engagementDetails.IsIndustryTypePresentInDropdownOppDetailPage(industryGroupExl), "Verify the New Industry Type: TECH is availanle on Edit Engagement page "); ;
+                //extentReports.CreateLog("New Industry Type: TECH is available on Edit Engagement page ");
 
                 //TMTI0027305 Validate the ERP Last Integration Status on Engagement details page
                 string ERPStatusIG = engagementDetails.GetEngERPIntegrationStatus();
@@ -215,7 +222,6 @@ namespace SF_Automation.TestCases.Opportunity
 
                 Assert.AreEqual("Record found", engagementHome.SearchEngagementsWithIndustryType(industryGroupExl));
                 extentReports.CreateLog("Engagement Found with Industry Group: " + industryGroupExl+ " on Engagement Home Page ");
-
 
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User: " + stdUser + " logged Out ");

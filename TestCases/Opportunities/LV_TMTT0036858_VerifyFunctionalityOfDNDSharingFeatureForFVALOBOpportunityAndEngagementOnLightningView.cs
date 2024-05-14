@@ -212,8 +212,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     /////////////////////////////
                     //no message for FR Opp 
-                    //string txtMessage = randomPages.GetLVMessagePopup();
-                    //extentReports.CreateStepLogs("Pass", txtMessage);
+                    string txtMessage = randomPages.GetLVMessagePopup();
+                    extentReports.CreateStepLogs("Pass", txtMessage);
                     ///////////////////////////////
                     homePageLV.UserLogoutFromSFLightningView(); ;
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + "switched to Classic and Loggout ");

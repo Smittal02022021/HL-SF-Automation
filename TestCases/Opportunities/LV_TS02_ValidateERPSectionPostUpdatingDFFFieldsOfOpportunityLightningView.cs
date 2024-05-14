@@ -157,7 +157,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusOffice);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "******PENDING********** ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
 
                 string ERPResOffice = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResDate, ERPResOffice);// need to uncomment
@@ -208,12 +208,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusSector = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusSector);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "******PENDING********** ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
 
                 string ERPResSector = randomPages.GetERPLastIntegrationResponseDateLV();
                 //Assert.AreNotEqual(ERPResIG, ERPResSector);// need to uncomment
                 Assert.AreNotEqual(ERPResOffice, ERPResSector);
-                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResSector + " is displayed Old: "+ ERPResOffice);
+                extentReports.CreateStepLogs("Passed", "****PENDING********** ERP Last Integration Response Date in ERP section New: " + ERPResSector + " is displayed Old: "+ ERPResOffice);
                 
                 ////-----Update Job Type, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
@@ -233,7 +233,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusJobType = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusJobType);// need to uncomment
-                extentReports.CreateStepLogs("Passed", " **Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
+                extentReports.CreateStepLogs("Passed", " ******PENDING********** ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
 
                 string ERPResJobType = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResSector, ERPResJobType);//Realted to updateSector 
@@ -291,7 +291,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusClient = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusClient);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "******PENDING********** ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
 
                 string ERPResClient = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResJobType, ERPResClient);
@@ -314,7 +314,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusLOB = randomPages.GetERPLastIntegrationStatusLV();
                 //Assert.AreEqual("Success", ERPStatusLOB); // need to uncomment
-                extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "******PENDING********** ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResClient, ERPResLOB);
