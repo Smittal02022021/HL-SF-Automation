@@ -115,6 +115,9 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //TMT0047439 Verify that the error message appears on clicking the Save button without filling in data in the required fields
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Add Activity");
+
+                lvCompaniesActivityDetailPage.ClickEditButton();
+
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
                 string msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
                 string msgSaveActivity = lvCompaniesActivityDetailPage.GetRequiredFieldErrorMsg();

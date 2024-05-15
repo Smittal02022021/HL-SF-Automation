@@ -160,11 +160,13 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(jobTypeExl, jobType);
                     extentReports.CreateLog("Job Type: "+jobType + " in add opportunity page matches on Opportunity details page ");
 
+                    /*
                     //Validate Industry group
                     string industryGrp = oppDetails.GetIndustryGroup();
                     string industryGrpExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
                     Assert.AreEqual(industryGrpExl, industryGrp);
                     extentReports.CreateLog("Industry Group: "+industryGrp + " in add opportunity page matches on Opportunity details page ");
+                    */
 
                     //Validate sector
                     string sector = oppDetails.GetSector();

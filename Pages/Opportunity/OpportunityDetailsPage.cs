@@ -188,7 +188,7 @@ namespace SF_Automation.Pages
         By comboIG = By.CssSelector("select[id*='VT3']");
         By valIGCF = By.CssSelector("div[id*='VT3']");
         By comboSector = By.CssSelector("select[id*='PI']");
-        By valSector = By.CssSelector("div[id*='PI']");
+        By valSector = By.XPath("//span[text()='HL Sector ID']/following::div[1]/a");
         By comboClientOwnership = By.CssSelector("select[id*='d2T']");
         //By valClientOwnership = By.CssSelector("div[id*='d2Tj']");
         By comboSubjectOwnership = By.CssSelector("select[id*='d2U']");

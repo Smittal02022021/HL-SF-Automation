@@ -41,6 +41,8 @@ namespace SF_Automation.Pages.Companies
         By headerFollowup= By.XPath("//h2//span[@title='Schedule Followup']");
         By chkPrivate = By.XPath("//span[text()='Private']//parent::label");
 
+        By btnEdit = By.XPath("(//button[text()='Edit'])[2]");
+
         //By btnDialogDone = By.XPath("//div[@role='dialog']//div[contains(@class,'modal-footer')]//button");
         By txtUploadedFile = By.XPath("//lightning-file-upload//following-sibling::lightning-datatable//table//td[@data-label='File Name']//a");
         By iFrameExternal = By.XPath("//iframe[@title='External Web Page']");
@@ -107,6 +109,12 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityDetailPage(btnName), 20);
             driver.FindElement(_btnActivityDetailPage(btnName)).Click();
+        }
+
+        public void ClickEditButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
+            driver.FindElement(btnEdit).Click();
         }
 
         public bool IsActivityListDisplayed()

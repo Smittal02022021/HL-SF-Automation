@@ -17,7 +17,7 @@ namespace SF_Automation.Pages
         By txtSubject = By.XPath("//span[@class='lookupInput']/input[@name='CF00Ni000000D80OZ']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
         By comboIndustryGroup = By.CssSelector("select[name*= 'VT3']");
-        By comboSector = By.CssSelector("select[name*='PI']");
+        By comboSector = By.XPath("//input[@name='CF00NOy000002RB7z']");
         By comboAdditionalClient = By.CssSelector("select[name*='FmBza']");
         By comboAdditionalSubject = By.CssSelector("select[name*='Bzb']");
         By comboReferralType = By.CssSelector("select[name*='uS']");
@@ -159,7 +159,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtSubject).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2));
             WebDriverWaits.WaitUntilEleVisible(driver, comboJobType, 80);
             driver.FindElement(comboJobType).SendKeys(type);
-            driver.FindElement(comboIndustryGroup).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 4));
+            //driver.FindElement(comboIndustryGroup).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 4));
             driver.FindElement(comboSector).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 5));
             driver.FindElement(comboClientOwnership).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 18));
             driver.FindElement(comboSubjectOwnership).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 19));
