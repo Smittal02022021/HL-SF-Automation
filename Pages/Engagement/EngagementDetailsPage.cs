@@ -6408,7 +6408,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
-        By txtContactName = By.XPath("//article[@aria-label='Opportunity Contacts']//table//tbody/tr//th[@data-label='Opportunity Contact: Name']//a[2]");
+        By txtContactName = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
 
         public string GetEngExternalContactLV()
         {
