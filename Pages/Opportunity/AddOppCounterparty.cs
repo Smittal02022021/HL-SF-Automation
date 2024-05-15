@@ -836,7 +836,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tableCompanyList, 20);
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath($"//table[contains(@aria-describedby,'Company-list')]//div[text()='{companyName}']//preceding::div//input[@type='radio']")).Click();
+            driver.FindElement(By.XPath($"//table[contains(@aria-describedby,'Company-list')]//div[text()='{companyName}']//ancestor::tr//input[@type='radio']")).Click();
             driver.FindElement(btnOKCompanyList).Click();
         }
         

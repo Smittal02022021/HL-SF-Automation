@@ -240,9 +240,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
 
-                    /////////////////////////
-
-                    extentReports.CreateStepLogs("Pass", "***PENDING  Opportunity Contact not mapped on Engagement detail page after conversion************* ");
                     homePageLV.UserLogoutFromSFLightningView();                    
                 }
                 login.SwitchToClassicView();

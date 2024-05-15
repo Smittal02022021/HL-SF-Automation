@@ -196,9 +196,9 @@ namespace SF_Automation.TestCases.Opportunities
                     addCounterparty.ClickAddCounterpartiesButton();
                     addCounterparty.SelectFilter(filterSection, subFilterSection);// parameters values are same as from previous iteration.
                     addCounterparty.ButtonClick("View All Company List");
-
-                    addCounterparty.SelectCompanyFromAllCompanyList(filterValue);
-                    extentReports.CreateLog(filterValue + " Company is Selected from Companies List ");
+                    string filterValue1 = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", 4, 3);
+                    addCounterparty.SelectCompanyFromAllCompanyList(filterValue1);
+                    extentReports.CreateLog(filterValue1 + " Company is Selected from Companies List ");
                    // selectedCompany = addCounterparty.GetItemNameFromList();
 
                     //Get Company name from Company List 

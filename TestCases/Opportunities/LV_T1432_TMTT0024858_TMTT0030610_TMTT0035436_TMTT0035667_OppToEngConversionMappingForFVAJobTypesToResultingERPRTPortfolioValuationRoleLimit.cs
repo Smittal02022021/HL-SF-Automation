@@ -385,7 +385,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
 
                     string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
-                    //Assert.AreEqual("Success", ERPStatusOffice);
+                    Assert.AreEqual("Success", ERPStatusOffice);
                     extentReports.CreateStepLogs("Passed", "********PENDING***** Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
                     randomPages.CloseActiveTab(engName);
                     usersLogin.ClickLogoutFromLightningView();
