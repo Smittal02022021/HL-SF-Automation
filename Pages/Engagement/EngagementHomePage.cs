@@ -27,7 +27,7 @@ namespace SF_Automation.Pages
 
         //Lightning  
         By btnEngNum = By.XPath("//button[@aria-label='Search']");
-        By btnEngNumNotBlank = By.XPath("//section/header/div[2]/div[2]/div/button");
+        By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
         By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
         By lnkEngLightning = By.XPath("//img[@title='Engagement']");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");

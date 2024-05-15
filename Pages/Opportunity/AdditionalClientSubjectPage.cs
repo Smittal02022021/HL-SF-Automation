@@ -77,7 +77,7 @@ namespace SF_Automation.Pages
         By valType = By.XPath("//button[contains(@id,'button-17')]");
         By valSelectedType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
         By colTableColumns = By.XPath("//table/thead/tr/td/div");
-        By val2ndClient = By.XPath("//div[@id='box-46']/div[1]/div/lightning-formatted-text");
+        By val2ndClient = By.XPath("//tr[2]/td[2]/div//lightning-formatted-text");
         By valOtherCred = By.XPath("//table/tbody[2]/tr[1]/td[1]/div/span");
         By val2ndType = By.XPath("//table/tbody[1]/tr[2]/td[4]/div/lightning-formatted-text");
         By val2ndTypeKey = By.XPath("//table/tbody[1]/tr[2]/td[3]/div/lightning-formatted-text");

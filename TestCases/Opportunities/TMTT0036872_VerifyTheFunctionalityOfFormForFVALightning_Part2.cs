@@ -65,7 +65,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Verify the availablity of Opportunity under HL Banker list
-                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                string tagOpp = opportunityHome.ClickOppUnderHLBanker();
                 Assert.AreEqual("Opportunities", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 

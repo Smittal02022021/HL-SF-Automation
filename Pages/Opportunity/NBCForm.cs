@@ -29,7 +29,7 @@ namespace SF_Automation.Pages.Opportunity
         By valOppName = By.XPath("//div[2]/h1/slot/records-formula-output/slot/lightning-formatted-text");
         By lnkEditReviewSub = By.XPath("//button[@title='Edit Form Check (required to submit)']");
         By lnkEditReviewSub2nd = By.XPath("//button[@title='Edit Form Check (required to submit)']");
-        By lnkEditFeedback = By.XPath("//div[2]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/button/span[1]");
+        By lnkEditFeedback = By.XPath("//button[@title='Edit Feedback required before next call?']");
         By btnSubmit = By.XPath("//span/input[@name='Submit_For_Review__c']");
         By btnUpdSubmit = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[5]");
         By btnUpdSubmit2nd = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
@@ -308,7 +308,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//dt/div[1]/span[1]");
         By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]//dt/div[1]/span");
         By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//dt/lightning-helptext/div/lightning-button-icon");
-        By btnFormCheck = By.XPath("//flexipage-component2[4]//lightning-helptext/div/lightning-button-icon");
+        By btnFormCheck = By.XPath("//div[2]/slot//flexipage-component2[4]/slot//lightning-button-icon");
         By btnInSuffFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div/dt/lightning-helptext/div/lightning-button-icon");
         By btnInSuffFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div/dt/lightning-helptext/div/lightning-button-icon");
         By btnAsOfDate = By.XPath("//label/div/lightning-icon");
@@ -364,7 +364,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
         By btnGrade = By.XPath("//label[text()='Grade']/ancestor::div/div/lightning-base-combobox/div/div/div[1]/button");
-        By valGrade = By.XPath("//flexipage-tab2[8]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]//dd//lightning-formatted-text");
 
         By valOppNum = By.XPath("/html/body/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
@@ -441,7 +441,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgCC3 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[8]//lightning-combobox/div/div[2]");
         By msgCC4 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[10]//lightning-combobox/div/div[2]");
         By msgCC5 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[12]//lightning-combobox/div/div[2]");
-        By valDateSubmitted = By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valDateSubmitted = By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div//dd/div[1]/span/slot[1]/lightning-formatted-text");
         By lblBaseFee = By.XPath("//span[text()='Base Fee (MM)']");
         By lbl1stRatchetPercent = By.XPath("//span[text()='First Ratchet Percent']");
         By lbl1stRatchetFromAmt = By.XPath("//span[text()='First Ratchet From Amount (MM)']");

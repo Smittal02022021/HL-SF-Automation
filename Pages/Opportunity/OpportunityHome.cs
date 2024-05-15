@@ -54,6 +54,7 @@ namespace SF_Automation.Pages
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By tabOpportunityL = By.XPath("//a/span[text()='Opportunities']");
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By btnCloseOpp = By.XPath("//ul[2]/li[2]/div[2]/button");
         By tab1stOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
         By comboJobTypes = By.CssSelector("select[name*='jobTypeSearch'] option");
@@ -327,7 +328,21 @@ namespace SF_Automation.Pages
             return value;
         }
 
-       
+        //Select Opportunity is present under HL Banker
+        public string ClickOppUnderHLBanker()
+        {
+
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 250);
+            Console.WriteLine("about to click navigation");
+            driver.FindElement(btnNavigationMenu).Click();
+            Console.WriteLine("Clicked navigation");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
+            string value = driver.FindElement(tagOpportunities).Text;
+            driver.FindElement(tagOpportunities).Click();
+            return value;
+        }
 
         //Validate Recently Viewed is displayed upon selecting Opportunities
         public string ValidateRecentViewedUponSelectingOpportunities()
@@ -413,6 +428,8 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
                 driver.FindElement(valRec1st).Click();
+                driver.FindElement(btnCloseOpp).Click();
+
                 return opp;
             }
             catch (Exception)

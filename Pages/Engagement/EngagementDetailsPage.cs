@@ -198,7 +198,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkShowMore = By.CssSelector("div[id*='DbX_body'] > div > a:nth-child(1)");
         //By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");        
-        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");       
+        By titleMassEditPage = By.XPath("//span[@class='slds-truncate']");       
         By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");       
 
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
@@ -212,8 +212,8 @@ namespace SF_Automation.Pages.Engagement
         By colTableColumns = By.XPath("//table/thead/tr/td/div");
         By txtAlertMessage = By.XPath("//slot/div/div/h2");
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
-        By valType = By.XPath("//button[contains(@id,'button-16')]");
-        By valSelectedType = By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
+        By valType = By.XPath("//button[contains(@id,'button-17')]");
+        By valSelectedType = By.XPath("//div[@id='dropdown-element-17']/lightning-base-combobox-item[@aria-checked='true']");
         //By valSelectedType = By.XPath("//lightning-base-combobox/div/div[@id='dropdown-element-16']/lightning-base-combobox-item[@aria-checked='true']");
 
         By valCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.CurrencyIsoCode']/div[1]//lightning-formatted-text");
@@ -4010,12 +4010,12 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             if (name.Equals("PE Firm") || name.Equals("Subject"))
             {
-                var element = driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']"));
+                var element = driver.FindElement(By.XPath("//div[@id='dropdown-element-17']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']"));
                 Actions action = new Actions(driver);
                 action.MoveToElement(element);
                 action.Perform();
                 Thread.Sleep(3000);
-                driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+                driver.FindElement(By.XPath("//div[@id='dropdown-element-17']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
                 Thread.Sleep(6000);
                 //string value = driver.FindElement(valSelectedType).Text;
                 string value = driver.FindElement(valSelectedType).GetAttribute("data-value");
@@ -4024,7 +4024,7 @@ namespace SF_Automation.Pages.Engagement
             else
             {
                 Thread.Sleep(4000);
-                driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+                driver.FindElement(By.XPath("//div[@id='dropdown-element-17']/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
                 Thread.Sleep(6000);
                 //string value = driver.FindElement(valSelectedType).Text;
                 string value = driver.FindElement(valSelectedType).GetAttribute("data-value");

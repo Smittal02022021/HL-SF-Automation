@@ -82,7 +82,7 @@ namespace SF_Automation.Pages.Engagement
         By valUpdView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[1]/span[2]/span");
         By selectedView = By.XPath("//div[2]/lightning-combobox/div/lightning-base-combobox/div/div[1]/button/span");
         By valBuysideView = By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[4]/span[2]/span");
-       By tblCounterparty = By.XPath("//lst-bundle_act_core-related-list-desktop_datatable/div[2]/div/div/table/tbody");
+       By tblCounterparty = By.XPath("//lightning-datatable//div/table/tbody");
         By chkCounterparty = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By chkCounterparty2nd = By.XPath("//tr[2]/td[2]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnEmail = By.XPath("//button[text()='Email']");

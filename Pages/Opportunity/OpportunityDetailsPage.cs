@@ -350,14 +350,15 @@ namespace SF_Automation.Pages
         By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabAdmin = By.XPath("//a[text()='Administration']");
-        By lnkEditOppName = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/button/span[1]");
+        By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Opportunity Name']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valClientOwnershipAfter = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valClientOwnershipAfter = By.XPath("//flexipage-tab2[1]//flexipage-component2[1]/slot/flexipage-field-section2//flexipage-field[3]//slot[1]/lightning-formatted-text");
+        
         By lnkEditPrimaryOffice = By.XPath("//button[@title='Edit Primary Office']");
-        By valPrimaryOfficeBefore = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
+        By valPrimaryOfficeBefore = By.XPath("//label[text()='Primary Office']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
         By btnPO = By.XPath("//label[text()='Primary Office']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valPOAfter = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Primary_Office__c']/div[1]/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valPOAfter = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Primary_Office__c']/div[1]//slot/lightning-formatted-text");
         By tabFees = By.XPath("//a[text()='Fees & Financials']");
         By secEstimatedFees = By.XPath("//span[text()='Estimated Fees']");
         By secFeeNotes = By.XPath("//span[text()='Fees Notes & Description']");
@@ -368,8 +369,8 @@ namespace SF_Automation.Pages
         By valCurrencyAfter = By.XPath("//lightning-formatted-text[text()='CHF - Swiss Franc']");
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
-        By valEstTxnSizeL = By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
-        By lnkEditRetainer = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/button/span[1]");
+        By valEstTxnSizeL = By.XPath("//span[text()='Fee Notes & Description']/ancestor::div[2]/following::dd[1]//slot/lightning-formatted-text");
+        By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT= By.XPath("//a[text()='Internal Team']");
@@ -396,9 +397,9 @@ namespace SF_Automation.Pages
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
         By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[1]/following::dd[1]//lightning-formatted-text");
-        By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot/record_flexipage-record-field/div/div[1]/dl/dd/div[1]/span[1]/slot[1]/lightning-formatted-text");
+        By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot//slot[1]/lightning-formatted-text");
 
-        By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field/div/div[1]/dl/dd/div[1]/span[1]/slot[1]/lightning-formatted-text");
+        By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field//slot[1]/lightning-formatted-text");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegalMatters = By.XPath("//a[text()='Legal Matters']");
@@ -410,7 +411,7 @@ namespace SF_Automation.Pages
         By valBenOwnerBefore = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
         By valConfAgreeBefore = By.XPath("//label[text()='Confidentiality Agreement']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
 
-        By btnBenOwner = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button");
+        By btnBenOwner = By.XPath("//flexipage-component2//flexipage-tab2[6]//flexipage-tab2[1]//flexipage-column2[1]//div/button");
         By btnConfAgreement = By.XPath("//label[text()='Confidentiality Agreement']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
 
         By valLineOfBusiness = By.CssSelector("div[id*='00Ni000000D8hW2j']");
@@ -4049,6 +4050,7 @@ public void ClickNewOpportunitySectorButton()
 
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
+            driver.FindElement(valValuationDateL).SendKeys("20/5/2024");
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,1050)");
             Thread.Sleep(5000);
@@ -4382,7 +4384,7 @@ public void ClickNewOpportunitySectorButton()
         //Validate if Details tab is editable after clicking pencil icon
         public string ValidateDetailsTabIsEditable()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditOppName, 150);
             driver.FindElement(lnkEditOppName).Click();
             Thread.Sleep(3000);
@@ -4633,7 +4635,7 @@ public void ClickNewOpportunitySectorButton()
 
         public string GetValidationOfEstTxnSizeWhenItExceeds100000()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditRetainer, 150);
             driver.FindElement(lnkEditRetainer).Click();
             Thread.Sleep(3000);
