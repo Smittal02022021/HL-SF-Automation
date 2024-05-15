@@ -234,8 +234,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string engInternalTeamMember = engagementDetails.GetEngDealTeammMemberLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 14), engInternalTeamMember);
                     extentReports.CreateStepLogs("Pass", "Internal Deal Team member: " + engInternalTeamMember + " is mapped on Engagement detail page after conversion ");
-
-                    ///////////Contacts Tab is missing
+                                        
                     //Contact on eng page in smapped fom Opportunity
                     string engContactName = engagementDetails.GetEngExternalContactLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);

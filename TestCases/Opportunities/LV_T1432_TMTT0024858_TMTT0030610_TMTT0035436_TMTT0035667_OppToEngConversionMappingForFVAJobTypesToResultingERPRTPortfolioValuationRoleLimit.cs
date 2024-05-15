@@ -353,16 +353,11 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 14), engInternalTeamMember);
                     extentReports.CreateStepLogs("Pass", "Internal Deal Team member: " + engInternalTeamMember + " is mapped on Engagement detail page after conversion ");
 
-
-                    ////Need to Revisit waiting for confirmation
-                    
                     //Contact on eng page in mapped fom Opportunity
                     string engContactName = engagementDetails.GetEngExternalContactLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
-                    extentReports.CreateStepLogs("Pass", "***Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
+                    extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
                     /////////
-                    
-                    extentReports.CreateStepLogs("Pass", "***PENDING  Opportunity Contact not mapped on Engagement detail page after conversion************* ");
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
 

@@ -259,7 +259,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnCloseEngCounterpartiesCommentsTab = By.XPath("//button[contains(@title,'Close Engagement Counterpart Comments')]");
 
         By iconEditTier = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Tier']//button");
-        By optionsTier = By.XPath("//button[@name='picklist'][@aria-label='Choose Type']");
+        By optionsTier = By.XPath("//button[@name='picklist'][@role='combobox']");//button[@name='picklist'][@aria-label='Choose Type']");
         By optionTier = By.XPath("//div[@role='listbox']//span[@title='A']");
         By iconEditDeclinePass = By.XPath("//table//lightning-primitive-cell-factory[@data-label='Declined / Passed']//button");
         By txtDeclinePass = By.XPath("//section[@aria-label='Edit Declined / Passed']//input");
