@@ -314,6 +314,7 @@ namespace SF_Automation.Pages
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
 
+        
         By txtStaffL = By.XPath("//input[@placeholder='Begin Typing Name...']");
         By chkInitiatorL = By.XPath("//table/tbody/tr[3]/td[2]/input");
         By chkSellerL = By.XPath("//table/tbody/tr[3]/td[3]/input");

@@ -6406,14 +6406,17 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             return nameInternalTeamMember;
         }
-        
+
+        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
+        By txtContactName = By.XPath("//article[@aria-label='Opportunity Contacts']//table//tbody/tr//th[@data-label='Opportunity Contact: Name']//a[2]");
+
         public string GetEngExternalContactLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabSidePanelL, 20);
-            driver.FindElement(tabSidePanelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
+            driver.FindElement(tabContactsL).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngContactL, 20);
-            return driver.FindElement(txtEngContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 20);
+            return driver.FindElement(txtContactName).Text;
         }
         
         public string GetWomenLedSectionNameLV(string recType)

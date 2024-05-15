@@ -355,13 +355,13 @@ namespace SF_Automation.TestCases.Opportunities
 
 
                     ////Need to Revisit waiting for confirmation
-                    ///
+                    
                     //Contact on eng page in mapped fom Opportunity
-                    //string engContactName = engagementDetails.GetEngExternalContactLV();
-                    //Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
-                    //extentReports.CreateStepLogs("Pass", "***Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
-                    ///////////
-                    ///
+                    string engContactName = engagementDetails.GetEngExternalContactLV();
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
+                    extentReports.CreateStepLogs("Pass", "***Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
+                    /////////
+                    
                     extentReports.CreateStepLogs("Pass", "***PENDING  Opportunity Contact not mapped on Engagement detail page after conversion************* ");
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
@@ -388,6 +388,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate the ERP Last Integration Status on Engagement details page
                     randomPages.DetailPageFullViewLV();
                     extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+
                     string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
                     //Assert.AreEqual("Success", ERPStatusOffice);
                     extentReports.CreateStepLogs("Passed", "********PENDING***** Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");

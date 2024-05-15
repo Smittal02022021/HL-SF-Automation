@@ -236,10 +236,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "Internal Deal Team member: " + engInternalTeamMember + " is mapped on Engagement detail page after conversion ");
 
                     ///////////Contacts Tab is missing
-                    ////Contact on eng page in smapped fom Opportunity
-                    //string engContactName = engagementDetails.GetEngExternalContactLV();
-                    //Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
-                    //extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
+                    //Contact on eng page in smapped fom Opportunity
+                    string engContactName = engagementDetails.GetEngExternalContactLV();
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
+                    extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
 
                     /////////////////////////
 
