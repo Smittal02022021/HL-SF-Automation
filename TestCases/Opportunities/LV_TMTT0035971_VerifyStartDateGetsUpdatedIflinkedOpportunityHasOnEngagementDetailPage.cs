@@ -183,6 +183,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity with Stage updated to Verbally Engaged, Requesting for Engagement conversion : ");
                     opportunityDetails.ClickRequestToEngL();
 
+                    /*
+                     * **************************************************************
+                     ******************FOR Stage Verbally Engaged we don't have Request Engagement Button **********
+                     * ***************************************************************
+                     */
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");

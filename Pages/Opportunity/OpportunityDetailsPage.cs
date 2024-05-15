@@ -6475,6 +6475,8 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
             driver.FindElement(eleClientOwnership).Click();
             Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEBITDAL));
+            driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(btnSaveDetailsL).Click();
             DateTime currentDate = DateTime.Today;
             string dateStageChange = currentDate.ToString("MM/dd/yyyy");
