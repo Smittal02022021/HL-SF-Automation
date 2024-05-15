@@ -175,7 +175,7 @@ namespace SF_Automation.TestCases.Opportunities
                     userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateLog("User: " + userCAOExl + " logged in on Lightning View");
-
+                    homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);

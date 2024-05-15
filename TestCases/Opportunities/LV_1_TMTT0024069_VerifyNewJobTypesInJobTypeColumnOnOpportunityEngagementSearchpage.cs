@@ -37,14 +37,14 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 // Calling Login function                
                 login.LoginApplication();
 
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "JobType");
                 for (int row = 2; row <= rowOpp; row++)                {
@@ -57,25 +57,24 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
                     homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
                     //TMTI0055401 Verify the availability of new Job Types in Job Type column on Opportunity Search page
                     // Existing Opportunity with desired Job Type
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");                    
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");                    
                     string valOppName = ReadExcelData.ReadDataMultipleRows(excelPath, "Opportunities", row, 1);
                     Assert.IsTrue(opportunityHome.SearchRecentOpportunityLV(valOppName),"Verify searched Opportunity is found ");
                     Assert.AreEqual(valJobType, opportunityHome.GetSearchedOppJobType(), "Verify searched Opportunity have the newly added Job Type ");
-                    extentReports.CreateLog("Opportunity: "+valOppName+" is found with Job Type: " + valJobType + " on Opportunity Home Page ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity: " +valOppName+" is found with Job Type: " + valJobType + " on Opportunity Home Page ");
 
 
                     //TMTI0055390 Verify the availability of new Job Types in Job Type column on Engagement Search page
@@ -86,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valEngName = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagements", row, 1);
                     Assert.IsTrue(engagementHome.SearchRecentEngagementLV(valEngName), "Verify searched Engagement is found ");
                     Assert.AreEqual(valJobType, engagementHome.GetSearchedEngJobType(), "Verify searched Engagement have the newly added Job Type ");
-                    extentReports.CreateLog("Engagement: " + valEngName + " is found with Job Type: " + valJobType + " on Engagement Home Page ");
+                    extentReports.CreateStepLogs("Passed", "Engagement: " + valEngName + " is found with Job Type: " + valJobType + " on Engagement Home Page ");
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
