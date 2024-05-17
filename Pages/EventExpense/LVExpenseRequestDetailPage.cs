@@ -22,20 +22,20 @@ namespace SF_Automation.Pages.EventExpense
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
         //Requestor/Host Information
-        By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/slot/slot/span)[1]");
+        By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/span/slot/span/slot)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblCloneStatus = By.XPath("((//span[text()='Status'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By lblTitle = By.XPath("(//span[text()='Title']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblCloneExpPreAppNum = By.XPath("((//span[text()='Expense Preapproval Number'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By linkPrimaryEmail = By.XPath("(//span[text()='Primary Email']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text/a)[1]");
-        By linkEventContact = By.XPath("(//span[text()='Event Contact']/following::div/a/slot/slot/span)[1]");
+        By linkEventContact = By.XPath("(//span[text()='Event Contact']/following::div/a/span/slot/span/slot)[1]");
         By lblIndustryGroup = By.XPath("(//span[text()='Industry Group']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblPrimaryPhoneNumber = By.XPath("(//span[text()='Primary phone number']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblOffice = By.XPath("(//span[text()='Office']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
 
         //Event Information
-        By linkEvent = By.XPath("(//span[text()='Event']/following::records-hoverable-link/div/a/slot/slot/span)[1]");
+        By linkEvent = By.XPath("(//span[text()='Event']/following::records-hoverable-link/div/a/span/slot/span/slot)[1]");
         By lblLOB = By.XPath("(//span[text()='LOB']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblEventType = By.XPath("(//span[text()='Event Type']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblEventFormat = By.XPath("(//span[text()='Event Format']/following::div/span/slot/lightning-formatted-text)[1]");
@@ -219,7 +219,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             bool result = false;
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(linkRequestor));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblTitle));
 
             //Get Expense Request details from the details page
             string requestor = driver.FindElement(linkRequestor).Text;
