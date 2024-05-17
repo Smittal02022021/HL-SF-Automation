@@ -20,7 +20,6 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTMTT0035665 = "TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement";
@@ -161,7 +160,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
-                        Console.WriteLine("Not required to update ");
+                        extentReports.CreateLog("Not required to update ");
                     }
 
                     //Login again as Standard User
@@ -175,7 +174,6 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
-
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
@@ -209,7 +207,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string caoUser = login.ValidateUser();
                     Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3,2)), true);
                     extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
-
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
@@ -220,7 +217,6 @@ namespace SF_Automation.TestCases.Opportunities
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
@@ -239,7 +235,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
@@ -249,8 +244,7 @@ namespace SF_Automation.TestCases.Opportunities
                     int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                     Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                     extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
-                    //////////////////////////////////////////////////
-                   
+                    //////////////////////////////////////////////////                   
 
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();

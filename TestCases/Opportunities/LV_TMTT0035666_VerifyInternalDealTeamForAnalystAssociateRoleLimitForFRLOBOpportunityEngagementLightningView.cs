@@ -57,7 +57,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 25);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                    //usersLogin.SearchCFUserAndLogin(valUser);
                     usersLogin.SearchUserAndLogin(valUser);
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
@@ -130,15 +129,8 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
                     extentReports.CreateLog("User returned to Opportunity Detail page ");
-                    //opportunityDetails.ClickRetutnToOpportunityL();
-
-                    //login.SwitchToClassicView();
-                    //extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
-                    ////Logout of user and validate Admin login
-                    //usersLogin.UserLogOut();
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(valUser + " Standard User logged out ");
-
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
@@ -151,16 +143,6 @@ namespace SF_Automation.TestCases.Opportunities
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-
-                    //usersLogin.SearchUserAndLogin(stdUser);
-                    //login.SwitchToClassicView();
-
-                    //string stdUser1 = login.ValidateUser();
-                    //Assert.AreEqual(stdUser1.Contains(stdUser), true);
-                    //extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
-
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     homePageLV.SelectApp(appNameExl);
@@ -181,10 +163,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
-
-                    //login.SwitchToClassicView();
-                    ////Log out of Standard User
-                    //usersLogin.UserLogOut();
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(valUser + " Standard User logged out ");
 
@@ -195,26 +173,13 @@ namespace SF_Automation.TestCases.Opportunities
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
                     extentReports.CreateLog("User: " + userCAO + " logged in on Lightning View");
-
-                    //usersLogin.SearchUserAndLogin(userCAO);
-                    //login.SwitchToClassicView();
-
-                    //string caoUser = login.ValidateUser();
-                    //Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2)), true);
-                    //extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
-
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectApp(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
-                    //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -241,9 +206,6 @@ namespace SF_Automation.TestCases.Opportunities
                     int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                     Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                     extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
-
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog("CAO User: " + userCAO + " logged out ");
                 }

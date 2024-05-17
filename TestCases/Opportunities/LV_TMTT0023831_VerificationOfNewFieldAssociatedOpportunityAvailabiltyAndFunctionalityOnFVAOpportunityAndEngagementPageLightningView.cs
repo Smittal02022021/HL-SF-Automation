@@ -336,7 +336,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //TMTI0054723 Verification of new field named as "Associated Engagement" availabilty and functionality on CF Engagment page.
                     //New Field is Present on Opportunity Detail Page for CAO User
-                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
+                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Engagement Detail Page for CAO User: " + userCAO + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
@@ -408,7 +408,7 @@ namespace SF_Automation.TestCases.Opportunities
                     engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);
 
                     //New Field is Present on Opportunity Detail Page for Standard User
-                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
+                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + stdUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User

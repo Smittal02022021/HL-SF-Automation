@@ -144,6 +144,7 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     opportunityHome.SearchOpportunityInLightning(oppName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+                    randomPages.DetailPageFullViewLV();
                     opportunityDetails.UpdateCCOutcomeDetailsLV();
                     extentReports.CreateStepLogs("Info", "Conflict Check Details Provided ");
                     if (jobType == "Debt Capital Markets" || jobType == "Buyside" || jobType == "Sellside")

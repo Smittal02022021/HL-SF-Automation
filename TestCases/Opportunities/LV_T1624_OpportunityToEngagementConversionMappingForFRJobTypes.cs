@@ -20,7 +20,6 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
@@ -112,7 +111,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);//Ref Contact updated
+                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTC1624);
@@ -230,7 +229,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
 
                     //Internal Deal Tea member on eng page 
-                    //string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
                     string engInternalTeamMember = engagementDetails.GetEngDealTeammMemberLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 14), engInternalTeamMember);
                     extentReports.CreateStepLogs("Pass", "Internal Deal Team member: " + engInternalTeamMember + " is mapped on Engagement detail page after conversion ");

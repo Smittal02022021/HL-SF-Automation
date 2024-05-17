@@ -637,7 +637,7 @@ namespace SF_Automation.Pages.Engagement
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
-        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
+        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//a/span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -5756,7 +5756,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnReturnToEngLightning).Click();            
             return isSame;
         }       
-        public bool IsAssociatedEngFieldPresentL()
+        public bool IsAssociatedEngFieldPresentLV()
         {
             try
             {
@@ -5879,6 +5879,7 @@ namespace SF_Automation.Pages.Engagement
 
 
         }
+        By lblEngDesc = By.XPath("//div/span[text()='Engagement Description']");
         public void EnterAssociatedEngagementL(string name)
         {
             Thread.Sleep(2000);
@@ -5887,7 +5888,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
                 driver.FindElement(btnEditEngL).Click();
-
+                CustomFunctions.MoveToElement(driver,driver.FindElement(lblEngDesc));
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedEngL, 10);
