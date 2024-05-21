@@ -96,7 +96,7 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 //TC - TMTI0050237	Verify the functionality of KPI metrices on My Activity Dashboard
                 Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336), "Verify the functionality of KPI metrices on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices Lable Count is correct for each KPI details page. ");
-
+                
 
                 /////////////////////////////////////////////Below are not updated yet////////////////
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
