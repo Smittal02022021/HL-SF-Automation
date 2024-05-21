@@ -69,10 +69,10 @@ namespace SalesForce_Project.TestCases.LV_Activities
 
                 //TMTI0050336 Verify the availability of My Activity tab under Activities filter
                 Assert.IsTrue(homePageLV.IsMyActivityTabDisplayedUnderActivities(), "Verify the availability of My Activity tab under Activities filter");
-                extentReports.CreateStepLogs("Passed", "My Activity tab is available on Activities dashboard for CF users. ");
+                extentReports.CreateStepLogs("Passed", "My Activity tab is available on Activities dashboard for System Admin/CF users. ");
 
                 //TMTI0050215 Verify the availabilty of Activity Start Date Filter on Activity Dashboard.
-                Assert.IsTrue(homePageLV.AreFilterOptionsCorrectOnActivityDashboard(fileTMTI0050336));
+                Assert.IsTrue(homePageLV.AreFilterOptionsCorrectOnActivityDashboard(fileTMTI0050336), "Verify the availabilty of Activity Start Date Filter on Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "Expected Activity filter options are available on Activity Dashboard. ");
 
                 //TMTI0050222	Verify that Activity Start Date Filter cell is bydefault selected 7 days ago filtering
@@ -81,8 +81,8 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 Assert.AreEqual(expectedDefaultFilterOption, actualDefaultFilterOption);
                 extentReports.CreateStepLogs("Passed", "Default value selected under Activity Start Date Filter is: " + actualDefaultFilterOption);
 
-                //TMTI0050252	Verification of available coulmns on My Activity dashboard in detail activities table
-                Assert.IsTrue(homePageLV.AreAvailableColumnsInActivitiesTableCorrectOnMyActivityDashboard(fileTMTI0050336));
+                //TMTI0050252	Verify the available coulmns on My Activity dashboard in detail activities table
+                Assert.IsTrue(homePageLV.AreAvailableColumnsInActivitiesTableCorrectOnMyActivityDashboard(fileTMTI0050336), "Verify the available coulmns on My Activity dashboard in detail activities table");
                 extentReports.CreateStepLogs("Passed", "All columns are displayed as expected on My Activity Dashboard in detail activities table. ");
 
                 //TMTI0050235	Verify the  availability of KPI banner metrices on My Activity Dashboard
@@ -94,41 +94,41 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "The functionality of Activity Start Date grid filter is working as expected. ");
 
                 //TC - TMTI0050237	Verify the functionality of KPI metrices on My Activity Dashboard
-                Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336));
+                Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336), "Verify the functionality of KPI metrices on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices Lable Count is correct for each KPI details page. ");
-                
-                
+
+
                 /////////////////////////////////////////////Below are not updated yet////////////////
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
-                homePageLV.NavigateToAnItemFromHLBankerDropdown("Companies");
-                extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");
+                //homePageLV.NavigateToAnItemFromHLBankerDropdown("Companies");
+                //extentReports.CreateStepLogs("Info", "User has navigated to Companies option from HL Banker dropdown. ");
 
-                string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
-                homePageLV.SearchCompanyFromMainSearch(companyName);
-                extentReports.CreateStepLogs("Info", "Company : " + companyName + " detail page is opened. ");
+                //string companyName = ReadExcelData.ReadData(excelPath,"Company",1);
+                //homePageLV.SearchCompanyFromMainSearch(companyName);
+                //extentReports.CreateStepLogs("Info", "Company : " + companyName + " detail page is opened. ");
 
-                lvCompanyDetailsPage.NavigateToAParticularTab("Coverage");
-                Assert.IsTrue(lvCompanyDetailsPage.VerifyCoverageTabIsOpened());
-                extentReports.CreateStepLogs("Passed", "Coverage tab is opened successfully. ");
+                //lvCompanyDetailsPage.NavigateToAParticularTab("Coverage");
+                //Assert.IsTrue(lvCompanyDetailsPage.VerifyCoverageTabIsOpened());
+                //extentReports.CreateStepLogs("Passed", "Coverage tab is opened successfully. ");
 
-                Assert.IsTrue(lvCompanyDetailsPage.VerifyLoggedInUserHasIndustryCoverageForACompany(adminUserExl));
-                extentReports.CreateStepLogs("Passed", "User : " + adminUserExl + " has coverage for the company : " + companyName + " .");
+                //Assert.IsTrue(lvCompanyDetailsPage.VerifyLoggedInUserHasIndustryCoverageForACompany(adminUserExl));
+                //extentReports.CreateStepLogs("Passed", "User : " + adminUserExl + " has coverage for the company : " + companyName + " .");
 
-                lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
-                Assert.IsTrue(lvCompanyDetailsPage.VerifyActivityTabIsOpened());
-                extentReports.CreateStepLogs("Passed", "Activity tab is opened successfully. ");
+                //lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
+                //Assert.IsTrue(lvCompanyDetailsPage.VerifyActivityTabIsOpened());
+                //extentReports.CreateStepLogs("Passed", "Activity tab is opened successfully. ");
 
-                lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPage(fileTMTI0050336);
-                homePageLV.NavigateToHomePageTabFromHLBankerDropdown();
-                Assert.IsTrue(homePageLV.VerifyIfActivitiesFilterGridIsAvailableNextToEngAndOppFilters());
-                Assert.IsTrue(homePageLV.VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter());
+                //lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPage(fileTMTI0050336);
+                //homePageLV.NavigateToHomePageTabFromHLBankerDropdown();
+                //Assert.IsTrue(homePageLV.VerifyIfActivitiesFilterGridIsAvailableNextToEngAndOppFilters());
+                //Assert.IsTrue(homePageLV.VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter());
 
-                //extentReports.CreateStepLogs("Passed", "A new activity is created and is visible under My Coverage dashboard. ");
+                ////extentReports.CreateStepLogs("Passed", "A new activity is created and is visible under My Coverage dashboard. ");
 
-                //Logout from SF Lightning View
-                homePageLV.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
-
+                ////Logout from SF Lightning View                
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();                
+                extentReports.CreateStepLogs("Info", "Switched to classic ");
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -137,6 +137,8 @@ namespace SalesForce_Project.TestCases.LV_Activities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }

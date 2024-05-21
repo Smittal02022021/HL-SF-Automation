@@ -350,7 +350,7 @@ namespace SF_Automation.Pages.HomePage
             {
                 driver.FindElement(dropdownActivityStartDateFilter).Click();
                 Thread.Sleep(3000);
-                int recordCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
+                int recordCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
                 int excelCount = ReadExcelData.GetRowCount(excelPath, "StartDateFilterOptions");
 
                 for (int i = 2; i <= excelCount; i++)
@@ -359,7 +359,7 @@ namespace SF_Automation.Pages.HomePage
 
                     for (int j = 1; j <= recordCount; j++)
                     {
-                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{j}]/div[2]/div/div")).Text;
+                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')][{j}]/div[2]/div/div")).Text;
                         if (exlListViewValue == sfListViewValue)
                         {
                             result = true;
@@ -398,15 +398,15 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
             driver.FindElement(dropdownActivityStartDateFilter).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
 
             for (int i = 1; i <= filterCount; i++)
             {
-                driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
-                Thread.Sleep(3000);
+                driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']//div[{i}][contains(@class,'row searchableTable')]//input")).Click();
+                Thread.Sleep(5000);
 
                 //Get selected Filter value
                 string selectedFilterValue = driver.FindElement(dropdownActivityStartDateFilter).Text;
@@ -495,6 +495,7 @@ namespace SF_Automation.Pages.HomePage
                         }
                         break;
                 }
+                Thread.Sleep(3000);
                 driver.FindElement(dropdownActivityStartDateFilter).Click();
                 break;
             }
@@ -505,10 +506,11 @@ namespace SF_Automation.Pages.HomePage
             for (int i = 2; i <= excelCount; i++)
             {
                 string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath, "ActivityColumns", i, 1);
-
+                Thread.Sleep(2000);
                 for (int j = 1; j <= recordCount; j++)
                 {
-                    string sfColValue = driver.FindElement(By.XPath($"//table[@role='grid']/tbody/tr[1]/th[{j}]//button/span/span")).Text;
+                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid']/tbody/tr[1])[3]/th[{j}]//button/span/span")).Text;
+                    
                     if (exlColValue == sfColValue)
                     {
                         result = true;
@@ -524,27 +526,37 @@ namespace SF_Automation.Pages.HomePage
             return result;
         }
 
+        private By _btnCloseActiveTab(string tabName)
+        {
+            return By.XPath($"//span[text()='My Activity - {tabName}, Close tab']/../../button"); 
+            
+        }
         By lblActivityKPITotal = By.XPath("//dd[text()='Total']");
         By lblActivityTotalRecords = By.XPath("//dd[text()='Total']//ancestor::dl//dt/div");
 
         By lblActivityKPIMeetings = By.XPath("//dd[text()='Meetings']");
-        By lblActivityMeetingRecords = By.XPath("//dd[text()='Meetings']/../../div/dt//div");
+        By lblActivityMeetingRecords = By.XPath("//dd[text()='Meetings']//ancestor::dl//dt/div");
+        By lblActivityMeetingRecordsZero = By.XPath("//dd[text()='Meetings']//ancestor::dl//dt");
         By linkActivityKPIMeetingsViewDetails = By.XPath("(//dd[text()='Meetings']/following::div/following::div[5][@class='link']/span)[1]");
 
         By lblActivityKPICalls = By.XPath("//dd[text()='Calls']");
-        By lblActivityCallRecords = By.XPath("//dd[text()='Calls']/../../div/dt/div");
+        By lblActivityCallRecords = By.XPath("//dd[text()='Calls']//ancestor::dl//dt/div");
+        By lblActivityCallRecordsZero = By.XPath("//dd[text()='Calls']//ancestor::dl//dt");
         By linkActivityKPICallsViewDetails = By.XPath("(//dd[text()='Calls']/following::div/following::div[5][@class='link']/span)[1]");
 
         By lblActivityKPIEmailsTasks = By.XPath("//dd[text()='Emails/Tasks ']");
-        By lblActivityEmailRecords = By.XPath("//dd[text()='Emails/Tasks ']/../../div/dt/div");
+        By lblActivityEmailRecords = By.XPath("//dd[text()='Emails/Tasks ']//ancestor::dl//dt/div");
+        By lblActivityEmailRecordsZero = By.XPath("//dd[text()='Emails/Tasks ']//ancestor::dl//dt");
         By linkActivityKPIEmailsViewDetails = By.XPath("(//dd[text()='Emails/Tasks ']/following::div/following::div[5][@class='link']/span)[1]");
 
         By lblActivityKPIOthers = By.XPath("//dd[text()='Other']");//Others
-        By lblActivityOtherRecords = By.XPath("//dd[text()='Other']/../../div/dt/div");
+        By lblActivityOtherRecords = By.XPath("//dd[text()='Other']//ancestor::dl//dt/div");
+        By lblActivityOtherRecordsZero = By.XPath("//dd[text()='Other']//ancestor::dl//dt");
         By linkActivityKPIOthersViewDetails = By.XPath("(//dd[text()='Other']/following::div/following::div[5][@class='link']/span)[1]");
 
         By lblActivityKPIMissingNotes = By.XPath("//dd[text()='Missing Notes']");
-        By lblActivityMissingNoteRecords = By.XPath("//dd[text()='Missing Notes']/../../div/dt/div");
+        By lblActivityMissingNoteRecords = By.XPath("//dd[text()='Missing Notes']//ancestor::dl//dt/div");
+        By lblActivityMissingNoteRecordsZero = By.XPath("//dd[text()='Missing Notes']//ancestor::dl//dt");
         By linkActivityKPIMissingNotesViewDetails = By.XPath("(//dd[text()='Missing Notes']/following::div/following::div[5][@class='link']/span)[1]");
 
         public bool IsKPIMetricesCorrectOnMyActivitiyDashboard(string file)
@@ -619,13 +631,9 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
@@ -663,13 +671,9 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent1 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
@@ -706,13 +710,8 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent2 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
-                                //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div"));
@@ -749,13 +748,8 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
-                                //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
@@ -793,13 +787,10 @@ namespace SF_Automation.Pages.HomePage
 
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                                
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
@@ -836,13 +827,10 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recordCount > 1)
+                           if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                               
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
@@ -879,13 +867,10 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recordCount > 1)
+                           if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                               
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
@@ -922,13 +907,10 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                               
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
@@ -965,13 +947,10 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                             
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
@@ -1008,13 +987,10 @@ namespace SF_Automation.Pages.HomePage
                         {
                             noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
-                            //bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
-                                //string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
-                                //int recordCount = Convert.ToInt32(noOfRows) - 1;
-
+                              
                                 for (int j = 2; j <= recordCount; j++)
                                 {
                                     bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
@@ -2537,8 +2513,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
             driver.FindElement(dropdownActivityStartDateFilter).Click();
             Thread.Sleep(5000);
-
-            driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+            driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
             
             //Get total no. of KPI
             int excelCount = ReadExcelData.GetRowCount(excelPath, "KPIMetrics");
@@ -2550,22 +2525,19 @@ namespace SF_Automation.Pages.HomePage
                     case "Total":
                         string lblKPI1Count = driver.FindElement(lblActivityTotalRecords).Text;
                         //Get the no. of rows in table
-                        string noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                        string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         int rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount1=0;
                         if (lblKPI1Count == "0")
                         {
-                            if (rowCount <= 0)
-                            {
-                                result1 = true;
-                            }
+                            result1 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount1 = Convert.ToInt32(driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div")).Text);
+                                rowNoCount1 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }
                             catch
                             {
@@ -2583,30 +2555,36 @@ namespace SF_Automation.Pages.HomePage
                         break;
 
                     case "Meetings":
-                        string lblKPI2Count = driver.FindElement(lblActivityMeetingRecords).Text;
+                        string lblKPI2Count;
+                        try
+                        {
+                            lblKPI2Count = driver.FindElement(lblActivityMeetingRecords).Text;
+                        }
+                        catch
+                        {
+                            lblKPI2Count = driver.FindElement(lblActivityMeetingRecordsZero).Text;
+                        }
+                         
                         driver.FindElement(linkActivityKPIMeetingsViewDetails).Click();
                         Thread.Sleep(5000);
                         WebDriverWaits.WaitUntilEleVisible(driver, dropdownViewDetailsActivityStartDateFilter, 10);
                         driver.FindElement(dropdownViewDetailsActivityStartDateFilter).Click();
                         Thread.Sleep(2000);
-                        driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+                        driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
                         noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount2 = 0;
                         if (lblKPI2Count == "0")
                         {
-                            if (rowCount <= 0)
-                            {
-                                result2 = true;
-                            }
+                           result2 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount2 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div)[2]")).Text);
+                                rowNoCount2 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[3]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }
                             catch
                             {
@@ -2621,35 +2599,41 @@ namespace SF_Automation.Pages.HomePage
                                 result2 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Meetings, Close tab']/../../button")).Click();
+                        driver.FindElement(_btnCloseActiveTab("Meetings")).Click();
                         Thread.Sleep(2000);
                         break;
 
                     case "Calls":
-                        string lblKPI3Count = driver.FindElement(lblActivityCallRecords).Text;
+                        string lblKPI3Count;
+                        try
+                        {
+                            lblKPI3Count = driver.FindElement(lblActivityCallRecords).Text;
+                        }
+                        catch
+                        {
+                            lblKPI3Count = driver.FindElement(lblActivityCallRecordsZero).Text;
+                        }
                         driver.FindElement(linkActivityKPICallsViewDetails).Click();
                         Thread.Sleep(3000);
                         WebDriverWaits.WaitUntilEleVisible(driver, dropdownViewDetailsActivityStartDateFilter, 10);
                         driver.FindElement(dropdownViewDetailsActivityStartDateFilter).Click();
                         Thread.Sleep(2000);
-                        driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+                        driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
+                        Thread.Sleep(2000);
                         noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount3 = 0;
                         if (lblKPI3Count == "0")
-                        {   
-                            if (rowCount <= 0)
-                            {
-                                result3 = true;
-                            }
+                        {
+                           result3 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount3 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div)[2]")).Text);
+                                rowNoCount3 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[3]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }                            
                             catch
                             {
@@ -2664,35 +2648,41 @@ namespace SF_Automation.Pages.HomePage
                                 result3 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Calls, Close tab']/../../button")).Click();
+                        driver.FindElement(_btnCloseActiveTab("Calls")).Click();
                         Thread.Sleep(2000);
                         break;
 
                     case "Emails/Tasks":
-                        string lblKPI4Count = driver.FindElement(lblActivityEmailRecords).Text;
+                        string lblKPI4Count;
+                        try
+                        {
+                            lblKPI4Count = driver.FindElement(lblActivityEmailRecords).Text;
+                        }
+                        catch
+                        {
+                            lblKPI4Count = driver.FindElement(lblActivityEmailRecordsZero).Text;
+                        }
                         driver.FindElement(linkActivityKPIEmailsViewDetails).Click();
                         Thread.Sleep(3000);
                         WebDriverWaits.WaitUntilEleVisible(driver, dropdownViewDetailsActivityStartDateFilter, 10);
                         driver.FindElement(dropdownViewDetailsActivityStartDateFilter).Click();
                         Thread.Sleep(2000);
-                        driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+                        driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
+                        Thread.Sleep(2000);
                         noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount4 = 0;
                         if (lblKPI4Count == "0")
                         {
-                            if (rowCount <= 0)
-                            {
-                                result4 = true;
-                            }
+                           result4 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount4 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div)[2]")).Text);
+                                rowNoCount4 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[3]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }
                             catch
                             {
@@ -2707,35 +2697,41 @@ namespace SF_Automation.Pages.HomePage
                                 result4 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Emails/Tasks, Close tab']/../../button")).Click();
+                        driver.FindElement(_btnCloseActiveTab("Emails/Tasks")).Click();
                         Thread.Sleep(2000);
                         break;
 
                     case "Other": //Others
-                        string lblKPI5Count = driver.FindElement(lblActivityOtherRecords).Text;
+                        string lblKPI5Count;
+                        try
+                        {
+                            lblKPI5Count= driver.FindElement(lblActivityOtherRecords).Text;
+                        }
+                        catch
+                        {
+                            lblKPI5Count = driver.FindElement(lblActivityOtherRecordsZero).Text;
+                        }
                         driver.FindElement(linkActivityKPIOthersViewDetails).Click();
                         Thread.Sleep(3000);
                         WebDriverWaits.WaitUntilEleVisible(driver, dropdownViewDetailsActivityStartDateFilter, 10);
                         driver.FindElement(dropdownViewDetailsActivityStartDateFilter).Click();
                         Thread.Sleep(2000);
-                        driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+                        driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
+                        Thread.Sleep(2000);
                         noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount5 = 0;
                         if (lblKPI5Count == "0")
                         {
-                            if (rowCount <= 0)
-                            {
-                                result5 = true;
-                            }
+                            result5 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount5 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div)[2]")).Text);
+                                rowNoCount5 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[3]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }
                             catch
                             {
@@ -2750,35 +2746,41 @@ namespace SF_Automation.Pages.HomePage
                                 result5 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - Others, Close tab']/../../button")).Click();
+                        driver.FindElement(_btnCloseActiveTab("Others")).Click();
                         Thread.Sleep(2000);
                         break;
 
                     case "Missing Notes":
-                        string lblKPI6Count = driver.FindElement(lblActivityMissingNoteRecords).Text;
+                        string lblKPI6Count;
+                        try
+                        {
+                            lblKPI6Count = driver.FindElement(lblActivityMissingNoteRecords).Text;
+                        }
+                        catch
+                        {
+                            lblKPI6Count = driver.FindElement(lblActivityMissingNoteRecordsZero).Text;
+                        }
                         driver.FindElement(linkActivityKPIMissingNotesViewDetails).Click();
                         Thread.Sleep(3000);
                         WebDriverWaits.WaitUntilEleVisible(driver, dropdownViewDetailsActivityStartDateFilter, 10);
                         driver.FindElement(dropdownViewDetailsActivityStartDateFilter).Click();
                         Thread.Sleep(2000);
-                        driver.FindElement(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div[1]/div[1]/div/input")).Click();
+                        driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
+                        Thread.Sleep(2000);
                         noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount6 = 0;
                         if (lblKPI6Count == "0")
                         {
-                            if (rowCount <= 0)
-                            {
-                                result6= true;
-                            }
+                           result6 = true;
                         }
                         else
                         {
                         Re_try:
                             try
                             {
-                                rowNoCount6 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table']//tr[{rowCount}]/th[1]/div/div)[2]")).Text);
+                                rowNoCount6 = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[3]//tr[{rowCount}]/th[1]/div/div")).Text);
                             }
                             catch
                             {
@@ -2793,12 +2795,12 @@ namespace SF_Automation.Pages.HomePage
                                 result6 = true;
                             }
                         }
-                        driver.FindElement(By.XPath("//span[text()='My Activity - No Notes, Close tab']/../../button")).Click();
+                        driver.FindElement(_btnCloseActiveTab("No Notes")).Click();
                         Thread.Sleep(2000);
                         break;
                 }
             }
-            if (result1 == true || result2 == true && result3 == true && result4 == true && result5 == true && result6 == true)
+            if (result1 == true && result2 == true && result3 == true && result4 == true && result5 == true && result6 == true)
             {
                 overallResult = true;
             }

@@ -5440,14 +5440,11 @@ namespace SF_Automation.Pages
                 Thread.Sleep(3000);
                 driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(8000);
-                //WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
-                //return driver.FindElement(txtAssociatedOppL).Text;
+                Thread.Sleep(10000);
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
-                //return e.Message;
             }
         }
         public string GetAssociatedOpportunityLV()
