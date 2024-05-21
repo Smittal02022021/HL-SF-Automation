@@ -60,12 +60,12 @@ namespace SF_Automation.TestCases.Companies
 
                 //Navigate to Coverage Sector Dependencies home page
                 companyDetail.NavigateToCoverageSectorDependenciesPage();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Available Sector Options: Home ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog(driver.Title + " page is displayed ");
 
                 //Click New Coverage Sector Dependencies Button
                 coverageSectorDependenciesHome.ClickNewCoverageDependenciesButton();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependency Edit: New Coverage Sector Dependency ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Available Sector Option Edit: New Available Sector Option ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog(driver.Title + " page is displayed ");
 
                 //Create New coverage Sector Dependency
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Companies
                 companyDetail.NavigateToCoverageSectorDependenciesPage();
                 coverageSectorDependenciesHome.NavigateToCoverageSectorDependencyDetailPage(coverageSectorDependencyName);
                 coverageSectorDependenciesDetail.DeleteCoverageSectorDependency();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver,"Coverage Sector Dependencies: Home ~ Salesforce - Unlimited Edition"),true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Available Sector Options: Home ~ Salesforce - Unlimited Edition"),true);
                 extentReports.CreateLog("Coverage sector dependency deleted successfully. ");
 
                 //Delete company

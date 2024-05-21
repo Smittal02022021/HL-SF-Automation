@@ -137,7 +137,7 @@ namespace SF_Automation.Pages.Contact
 
         By btnNewContactSector = By.XPath("//input[@value='New Contact Sector']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
+        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Available Sector Options']");
         By imgCoverageSectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");

@@ -150,7 +150,7 @@ namespace SF_Automation.Pages.Companies
 
         By btnNewCompanySector = By.XPath("//input[@value='New Company Sector']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sectors']");
+        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Available Sector Options']");
         By imgCompanySectorDependencyLookUp = By.XPath("//img[@alt='Sector Categorization Lookup (New Window)']");
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
