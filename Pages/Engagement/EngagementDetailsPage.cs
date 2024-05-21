@@ -637,7 +637,7 @@ namespace SF_Automation.Pages.Engagement
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
-        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//a/span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
+        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//a/span/slot//slot");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -678,6 +678,7 @@ namespace SF_Automation.Pages.Engagement
         By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
         By optionsJobTypeL= By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
+        By lblEngDesc = By.XPath("//div//label[text()='Engagement Description']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -5875,12 +5876,8 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(btnCancelEditForm).Click();
                 return e.Message;
             }
-
-
-
-        }
-        By lblEngDesc = By.XPath("//div/span[text()='Engagement Description']");
-        public void EnterAssociatedEngagementL(string name)
+        }        
+        public void EnterAssociatedEngagementLV(string name)
         {
             Thread.Sleep(2000);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -5904,19 +5901,14 @@ namespace SF_Automation.Pages.Engagement
                     driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
                     Thread.Sleep(2000);
                     driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
-                    //CustomFunctions.SelectValueWithoutSelect(driver, editAssociatedEngFieldL, name);
-                }
+                }
 
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(8000);
-                //WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
-                //return driver.FindElement(txtAssociatedEngL).Text;
-
+                Thread.Sleep(10000); 
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
-                //return e.Message;
             }
         }
             public string GetAssociatedEngagementLV()
