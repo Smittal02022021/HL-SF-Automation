@@ -2806,6 +2806,91 @@ namespace SF_Automation.Pages.HomePage
             }
             return overallResult;
         }
+
+        By txtActionMenu = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a//span[2]");// (//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button//span");
+        By btnOpenRecord= By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button[contains(@class,'actions-icon')]");
+        By linkOpenRecord = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a[@role='menuitem']");
+        By eleHomepageActivitySubject = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button[1]");
+        By eleDetailPageActivitySubject = By.XPath("//span[text()='Subject']//parent::div/div/div");
+        By eleHomepageMeetingCallNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[9]//button[1]");
+        By btnDetailPageActivityViewUpdateNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[9]//button[contains(@class,'actions-icon')]");
+        By txtboxNotes = By.XPath("//div[contains(@class,'container EDIT')]//section//textarea[@role='textbox']");
+        By btnSaveNotes = By.XPath("//div[contains(@class,'modal-footer')]//button[contains(@class,'ShareButton')]");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        public string UpdateActivityMeetingCallNotes()
+        {
+            CustomFunctions.MouseOver(driver, eleHomepageMeetingCallNotes);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDetailPageActivityViewUpdateNotes, 10);
+            driver.FindElement(btnDetailPageActivityViewUpdateNotes).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkOpenRecord, 10);
+            driver.FindElement(linkOpenRecord).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtboxNotes, 10);
+            string comments= driver.FindElement(linkOpenRecord).GetAttribute("value");
+            driver.FindElement(linkOpenRecord).Clear();
+            driver.FindElement(linkOpenRecord).SendKeys("New Comments");
+            driver.FindElement(btnSaveNotes).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
+            return driver.FindElement(msgLVPopup).Text;
+
+        }
+        public bool IsActivityOpenNewWindow()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, eleHomepageActivitySubject, 10);
+            string homePageactivitySubject= driver.FindElement(eleHomepageActivitySubject).Text;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, linkOpenRecord, 10);
+            driver.FindElement(linkOpenRecord).Click();
+
+            // Switch to second window
+            CustomFunctions.SwitchToWindow(driver, 1);
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, eleDetailPageActivitySubject, 10);
+            string detailPageactivitySubject = driver.FindElement(eleDetailPageActivitySubject).Text;
+            CustomFunctions.CloseWindow(driver, 1);
+            CustomFunctions.SwitchToWindow(driver, 0);
+            if (detailPageactivitySubject == homePageactivitySubject)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public string GetActionMenuText()
+        {
+            string actionMenu="";
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
+            driver.FindElement(dropdownActivityStartDateFilter).Click();
+            Thread.Sleep(3000);
+
+            //Get filter count
+            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
+
+            for (int i = 1; i <= filterCount; i++)
+            {
+                driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']//div[{i}][contains(@class,'row searchableTable')]//input")).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lblActivityTotalRecords, 10);
+                string lblTotalKPICount = driver.FindElement(lblActivityTotalRecords).Text;
+                if (lblTotalKPICount != "0")
+                {
+                    CustomFunctions.MouseOver(driver,eleHomepageActivitySubject);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOpenRecord, 10);
+                    driver.FindElement(btnOpenRecord).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtActionMenu, 10);
+                    actionMenu = driver.FindElement(txtActionMenu).Text;
+                    break;
+                }
+                else
+                {
+                    driver.FindElement(dropdownActivityStartDateFilter).Click();
+                    Thread.Sleep(3000);
+                }
+            }
+            return actionMenu;
+        }
         public bool IsModulePageDisplayed(string moduleName)
         {
             return (driver.FindElement(pageHeaderEle).Text).Contains(moduleName);
