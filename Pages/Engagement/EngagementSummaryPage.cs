@@ -286,8 +286,8 @@ namespace SF_Automation.Pages.Engagement
         By comboDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
 
         By valAvailableL = By.XPath("//span[@title='M&A - Buyside']");
-        By btnChosenL = By.XPath("//button[@title='Move selection to Chosen']");
-        By btnAvailableL = By.XPath("//button[@title='Move selection to Available']");
+        By btnChosenL = By.XPath("//button[@title='Move to Chosen']");
+        By btnAvailableL = By.XPath("//button[@title='Move to Available']");
         By btnSaveHLPost = By.XPath("//c-engagement-fr-summary-post-tran-opp/div/lightning-button/button");
         By valChosenL = By.XPath("//span[text()='Chosen']/ancestor::div[1]/div[1]/ul/li/div/span");
         By txtOppNoteL = By.XPath("//textarea[@name='Post_Transaction_Opportunity_Notes__c']");

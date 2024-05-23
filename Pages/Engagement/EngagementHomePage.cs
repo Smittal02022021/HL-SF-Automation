@@ -41,15 +41,15 @@ namespace SF_Automation.Pages
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagEngagements = By.XPath("//ul/li/div/a/span[2]/span[text()='Engagements']");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
-        By tblEngagements = By.XPath("//div[1]/div/div/table");
+        By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
-        By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedEng = By.XPath("//table/tbody/tr/th/span/a");
+        By btnRefresh = By.XPath("//div[3]/force-list-view-manager-button-bar/div/div[1]//button");
+        By valSearchedEng = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']/tbody/tr/th/span/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
         By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
-        By tabEngL = By.XPath("//table/tbody/tr/th/span/a");
+        By tabEngL = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']/tbody/tr/th/span/a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
         
@@ -248,11 +248,14 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                 driver.FindElement(btnEngNum).Click();
-                Thread.Sleep(5000);
+                Thread.Sleep(7000);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
                 driver.FindElement(txtEngNumLightning).Clear();
                 driver.FindElement(txtEngNumLightning).SendKeys(name);
-                Thread.Sleep(9000);
+                Thread.Sleep(5000);
+                driver.FindElement(txtEngNumLightning).Clear();
+                driver.FindElement(txtEngNumLightning).SendKeys(name);
+                Thread.Sleep(10000);
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 510);
                 driver.FindElement(lnkEngLightning).Click();
             }

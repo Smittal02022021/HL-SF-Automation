@@ -201,13 +201,14 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //PRJ0019053 - Opportunity Initiator - TC09----
                 //Validate Return to Opportunity button is displayed if Initiator is  selected
+
                 string btnReturnToOpp = addOpportunity.ValidateReturnToOppButtonWhenInitiatorIsSelected();
                 Assert.AreEqual("Return To Opportunity", btnReturnToOpp);
                 extentReports.CreateLog("Button with name: " + btnReturnToOpp + " is displayed when Initiator role is selected ");
 
                 //PRJ0019053 - Opportunity Initiator - TC10----
                 //Validate User is not redirected to Internal team page if Initiator is selected
-
+                //opportunityHome.ClickOppUnderHLBanker();
                 string titlePage = addOpportunity.ValidatePageWhenInitiatorRoleIsSelected();
                 Assert.AreEqual("Info", titlePage);
                 extentReports.CreateLog("Page with tab: " + titlePage + " is displayed when Initiator role is selected and Opportunity is opened again ");

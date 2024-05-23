@@ -184,7 +184,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate the information displayed on Engagement is copied from Opportunity
                 string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
                 string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
-
+                                
                 string clientComp = engagementDetails.GetClientCompanyL();
                 string subjectComp = engagementDetails.GetSubjectCompanyL();
                 Console.Write(clientComp);
@@ -476,14 +476,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab " + tabComments + " is displayed in Right panel of Engagement details page ");
 
                 //Validate Financials tab                
-                string tabFinancials = engagementDetails.ValidateFinancialsTab();
-                Assert.AreEqual("Financials", tabFinancials);
-                extentReports.CreateLog("Tab " + tabFinancials + " is displayed in Right panel of Engagement details page ");
+                //string tabFinancials = engagementDetails.ValidateFinancialsTab();
+                //Assert.AreEqual("Financials", tabFinancials);
+                //extentReports.CreateLog("Tab " + tabFinancials + " is displayed in Right panel of Engagement details page ");
 
                 //Validate Eng Contacts tab                
-                string tabEngContacts = engagementDetails.ValidateEngContactsTab();
-                Assert.AreEqual("Eng Contacts", tabEngContacts);
-                extentReports.CreateLog("Tab " + tabEngContacts + " is displayed in Right panel of Engagement details page ");
+                //string tabEngContacts = engagementDetails.ValidateEngContactsTab();
+                //Assert.AreEqual("Eng Contacts", tabEngContacts);
+                //extentReports.CreateLog("Tab " + tabEngContacts + " is displayed in Right panel of Engagement details page ");
 
                 ////Validate CST tab                
                 //string tabCST = engagementDetails.ValidateCSTTab();

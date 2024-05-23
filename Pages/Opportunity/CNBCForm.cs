@@ -518,6 +518,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(6000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,-250)");
+            Thread.Sleep(5000);
             driver.FindElement(btnSubmitForReview).Click();
             Thread.Sleep(7000);
             driver.SwitchTo().Frame(0);

@@ -349,7 +349,39 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Period Position: " + statusPosition + " is cancelled after clicking Yes on confirmation page ");
 
                 //28. TMTI0093794_Verify the functionality of the "New Eng Valuation Period Allocation" button given in the Eng Valuation Period Allocation section
-                 
+                string titleAllocation = engValPeriod.ValidateNewEngValPeriodAllocation();
+                Assert.AreEqual("New Eng Valuation Period Allocation", titleAllocation);
+                extentReports.CreateLog("Page with title: " + titleAllocation + " is displayed after clicking New Eng Valuation Period Allocation button ");
+                
+                string cancelAllocation = engValPeriod.ValidateCancelFunctionalityOfEngValPeriodAllocation();
+                Assert.AreEqual("Engagement Valuation Period Detail", cancelAllocation);
+                extentReports.CreateLog("Page with title: " + cancelAllocation + " is displayed after clicking cancel on New Eng Valuation Period Allocation page ");
+
+                string addedAllocation = engValPeriod.ValidateSaveFunctionalityOfValuationPeriodAllocation();
+                Assert.AreEqual("True", addedAllocation);
+                extentReports.CreateLog("Record is added after clicking Save on Engagement Valuation Period Allocation on Engagement Valuation Period Detail ");
+
+                //29.  TMTI0099310_Verify that if the user selects the same dates of already existing records while adding or editing "New Eng Valuation Period Allocation", the application gives validation on clicking the Save button
+                string duplicateAllocation = engValPeriod.ValidateDuplicateValidationOfValuationPeriodAllocation();
+                Assert.AreEqual("Duplicate Record/s Exists", duplicateAllocation);
+                extentReports.CreateLog("Message: " + duplicateAllocation + " is displayed while adding same dates of already added engagement valuation period allocation ");
+
+                //31.  TMTI0099314_Verify that the user can edit the "Eng Valuation Period Allocations" by clicking the "Edit" button given with the individual records.Verify that the user can edit the "Eng Valuation Period Allocations" by clicking the "Edit" button given with the individual records.
+                string updAllocation = engValPeriod.ValidateEditFunctionalityOfValuationPeriodAllocation();
+                Assert.AreEqual("10", updAllocation);
+                extentReports.CreateLog("Updated value: " + updAllocation + " is displayed for Analyst Allocation after updating it ");
+
+                //30.  TMTI0099312_Verify the functionality of "Mass Edit" button given on the Eng Valuation Period Allocation section.
+                Assert.IsTrue(engValPeriod.ValidateMassEditButtons(), "Verified that displayed buttons after clicking Masss Edit button are same");
+                extentReports.CreateLog("Displayed buttons after clicking Masss Edit button are as expected ");
+
+                string totalAllocation = engValPeriod.ValidateInLineEditFunctionalityOfPeriodAllocations();
+                Assert.AreEqual(" 30% ", totalAllocation);
+                extentReports.CreateLog("Value for saved allocation is  ");
+
+
+
+
 
 
                 usersLogin.DiffLightningLogout();

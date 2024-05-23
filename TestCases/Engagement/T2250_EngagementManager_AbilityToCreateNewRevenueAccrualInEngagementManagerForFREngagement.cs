@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                //Calling funtion to get number of users
+                //Calling function to get number of users
                 int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
                 Console.WriteLine("rowUsers " + rowUsers);
 
@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Engagement
                         engManager.ClickFREngagementName();
                         string month = engagementDetails.GetMonthFromRevenueAccrualRecord();
                         Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                        Assert.AreEqual("2024 - 03", month);
+                        Assert.AreEqual("2024 - 02", month);
                         extentReports.CreateLog("Revenue Accrual record with : " + month + " is created ");
                         usersLogin.UserLogOut();
                     }

@@ -280,7 +280,7 @@ namespace SF_Automation.Pages
         By valTotalDebtCurrency = By.XPath("//div[7]/table/tbody/tr[5]/td[2]");
         By valTotalDebtMM = By.XPath("//div[3]/div[2]/div[7]/table/tbody/tr[4]/td[2]");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
-        By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[@aria-controls='tab-1']");
+        By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
         By btnReturnToOppL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[2]");
@@ -301,7 +301,7 @@ namespace SF_Automation.Pages
         By comboClientOwnershipL = By.XPath("//button[contains(@aria-label,'Client Ownership')]");
         By comboSubjectOwnershipL = By.XPath("//button[contains(@aria-label,'Subject Ownership')]");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
-        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div[1]/div/input");
+        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot//flexipage-column2[2]//div/input");
         By txtRefContactFVAL = By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
@@ -380,7 +380,7 @@ namespace SF_Automation.Pages
         By txtCommentNotes = By.XPath("//textarea[@name='Comment__c']");
         By btnSaveComments = By.XPath("//button[@name='save']");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
+        By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By txtClearOppName = By.XPath("//input[@name='Name']");
@@ -549,8 +549,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
-        By valClientL = By.XPath("//span[text()='Client']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
-        By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::dl//records-hoverable-link/div/a/slot/slot/span");
+        By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
+        By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
         By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//span//lightning-formatted-text");
@@ -4303,7 +4303,8 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             driver.FindElement(txtCommentsL).SendKeys("Approved");
             driver.FindElement(btnApproveOppL).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valStatusL, 100);
             string status = driver.FindElement(valStatusL).Text;
             return status;
         }
@@ -6422,8 +6423,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Get added Opportunity comments
         public string GetOppCommentsL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
-            driver.FindElement(tabComments).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
+            //driver.FindElement(tabComments).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;

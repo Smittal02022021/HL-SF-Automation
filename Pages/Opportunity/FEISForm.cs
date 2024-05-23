@@ -54,11 +54,11 @@ namespace SF_Automation.Pages.Opportunity
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
         By lblDefaultTabL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Opportunity Overview']");
         By msgFEISFormL = By.XPath("//span[@title='Please check this box and press Save to ensure all required fields are completed.']");
-        By valOppNameL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a/slot/slot/span");
-        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
-        By valClientL = By.XPath("//span[text()='Client Company']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
-        By valSubjectL = By.XPath("//span[text()='Subject Company']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
-        By valRefTypeL = By.XPath("//span[text()='Referral Type']/ancestor::dl/dd//records-formula-output/slot/lightning-formatted-text");
+        By valOppNameL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//slot/span/slot");
+        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
+        By valClientL = By.XPath("//span[text()='Client Company']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
+        By valSubjectL = By.XPath("//span[text()='Subject Company']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
+        By valRefTypeL = By.XPath("//span[text()='Referral Type']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
         By lnkRelOppL = By.XPath("//button[@title='Edit Related Opportunity']");
         By btnSaveL = By.XPath("//button[@name='SaveEdit']");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
@@ -152,7 +152,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
         By btnMore = By.XPath("//div/lightning-tab-bar/ul/li/lightning-button-menu/button[text()='More']");
         By btnMoreCAO = By.XPath("//ul/li[7]/lightning-button-menu/button");
-        By tabReview = By.XPath("//span[text()='Review']");
+        By tabReview = By.XPath("//span[text()='Legal Review Criteria']");
         By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
 
@@ -167,7 +167,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Opp Name
         public string ValidateOppNameL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valOppNameL, 50);
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppNameL, 150);
             string valOpp = driver.FindElement(valOppNameL).Text;
             return valOpp;
         }

@@ -1,10 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using static SF_Automation.TestData.ReadJSONData;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -115,6 +117,30 @@ namespace SF_Automation.Pages.Engagement
         By btnUpdateAutoToolUsageL = By.XPath("//input[@value='Update Automation Tool Usage']");
         By btnCancelAutoToolL = By.XPath("//div[@class='pbBottomButtons']//input[@value='Cancel']");
         By titleEngValPeriodDetailL = By.XPath("//h2[text()='Engagement Valuation Period Detail']");
+        By tabEngValPeriodL = By.XPath("//ul[2]/li[3]/a/span[2]");
+        By btnEngValPeriodAllocationL = By.XPath("//input[@value='New Eng Valuation Period Allocation']");
+        By titleEngValPeriodAllocationL = By.XPath("//h2[text()='New Eng Valuation Period Allocation']");
+        By txtWeekStartingL = By.XPath("//label[text()='Week Starting']/ancestor::tr/td[1]//span/input");
+        By txtWeekEndingL = By.XPath("//label[text()='Week Ending']/ancestor::tr/td[1]//span/input");
+        By btnSaveAllocationL = By.XPath("//div[3]/table/tbody/tr/td[2]/input[1]");
+        By btnCancelAllocationL = By.XPath("//div[3]/table/tbody/tr/td[2]/input[2]");
+        By addedAllocationL = By.XPath("//tbody/tr[3]/th/a[contains(text(),'VPA-')]");
+        By lnkWeekStartingL = By.XPath("//label[text()='Week Starting']/ancestor::tr/td[1]//span/a");
+        By lnkWeekEndingL = By.XPath("//label[text()='Week Ending']/ancestor::tr/td[1]//span/a");
+        By msgDupAllocationL = By.XPath("//div[text()='Duplicate Record/s Exists']");
+        By lnkEditAllocationL = By.XPath("//tbody/tr[3]/td[1]/a");
+        By txtAnalystAllocationL = By.XPath("//input[@name='Analyst_Allocation__c']");
+        By btnSaveUpdAllL = By.XPath("//button[@name='SaveEdit']");
+        By valAnalystAllocationL = By.XPath("//div/form//tr[3]/td[4]");
+        By btnMassEditL = By.XPath("//input[@title='Mass Edit']");
+        By btnMassEditButtonsL = By.XPath("//span[text()='Eng Valuations Period Allocations ']/ancestor::div[3]//following::div//button[contains(text(),'Eng')]");
+        By btnSelectAllL = By.XPath("//span[text()='Select All']/ancestor::label[1]/span[1]");
+        By btnInlineEditL = By.XPath("//tr[1]/td[5]//span//button[@data-navigation='enable']");
+        By btnUpdateL = By.XPath("//lightning-primitive-input-checkbox/div/span/label/span[1]");
+        By btnApplyL = By.XPath("//button[text()='Apply']");
+        By txtAnalystL = By.XPath("//input[@name='dt-inline-edit-text']");
+        By btnSaveMassEditL = By.XPath("//button[text()='Save']");
+        By valTotalAllocationL = By.XPath("//div[2]/span/b");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -948,6 +974,168 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(titleEngValPeriodDetailL).Text;
             return value;
         }
+
+        //Validate functionality of New Eng Val Period Allocation button
+        public string ValidateNewEngValPeriodAllocation()
+        {
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngValPeriodL, 120);
+            driver.FindElement(tabEngValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngValPeriodAllocationL, 130);
+            driver.FindElement(btnEngValPeriodAllocationL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);            
+            string value = driver.FindElement(titleEngValPeriodAllocationL).Text;
+            return value;
+        }
+
+        //Validate cancel functionality of Valuation Period Allocation button
+        public string ValidateCancelFunctionalityOfEngValPeriodAllocation()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelAutoToolL, 130);
+            driver.FindElement(btnCancelAutoToolL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();            
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngValPeriodL, 120);
+            driver.FindElement(tabEngValPeriodL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(titleEngValPeriodDetailL).Text;
+            return value;
+        }
+
+        //Validate save functionality of Valuation Period Allocation button
+        public string ValidateSaveFunctionalityOfValuationPeriodAllocation()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngValPeriodAllocationL, 130);
+            driver.FindElement(btnEngValPeriodAllocationL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);
+            driver.FindElement(txtWeekStartingL).SendKeys("21/4/2024");
+            driver.FindElement(txtWeekEndingL).SendKeys("28/4/2024");
+            Thread.Sleep(7000);
+            driver.FindElement(btnSaveAllocationL).Click();
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(6000);
+            string value = driver.FindElement(addedAllocationL).Displayed.ToString();
+            return value;
+        }
+
+        //Validate mandatory field validation of Valuation Period Allocation button
+        public string ValidateDuplicateValidationOfValuationPeriodAllocation()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngValPeriodAllocationL, 130);
+            driver.FindElement(btnEngValPeriodAllocationL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(3);
+            Thread.Sleep(5000);
+            driver.FindElement(lnkWeekStartingL).Click();
+            driver.FindElement(lnkWeekEndingL).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(btnSaveAllocationL).Click();           
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgDupAllocationL).Text;
+            driver.FindElement(btnCancelAllocationL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();         
+            driver.SwitchTo().Frame(2);
+            Thread.Sleep(5000);
+            return value;
+        }
+        //Validate edit functionality of Valuation Period Allocation button
+        public string ValidateEditFunctionalityOfValuationPeriodAllocation()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditAllocationL, 130);
+            driver.FindElement(lnkEditAllocationL).Click();
+            Thread.Sleep(6000);            
+            driver.FindElement(txtAnalystAllocationL).SendKeys("10");            
+            driver.FindElement(btnSaveUpdAllL).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngValPeriodL, 130);
+            driver.FindElement(tabEngValPeriodL).Click();
+            driver.Navigate().Refresh();            
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAnalystAllocationL).Text;
+            return value;
+        }
+
+        //Validate button on Mass Edit window
+        public bool ValidateMassEditButtons()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMassEditL, 130);
+            driver.FindElement(btnMassEditL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);            
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnMassEditButtonsL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Back to Engagement", "Back to Engagement Valuation Period", "New Eng Valuation Period Allocation" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Inline edit functionality
+        public string ValidateInLineEditFunctionalityOfPeriodAllocations()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSelectAllL, 130);
+            driver.FindElement(btnSelectAllL).Click();
+            Thread.Sleep(6000);
+            Thread.Sleep(5000);
+            Actions actions = new Actions(driver);                       
+            var analyst = driver.FindElement(btnInlineEditL);
+            actions.MoveToElement(analyst);
+            actions.Perform();
+            driver.FindElement(btnInlineEditL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtAnalystL).SendKeys("10");
+            driver.FindElement(btnUpdateL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnApplyL).Click();
+            driver.FindElement(btnSaveMassEditL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string totalAnalyst = driver.FindElement(valTotalAllocationL).Text;
+            return totalAnalyst;
+        }
+
     }
 
 

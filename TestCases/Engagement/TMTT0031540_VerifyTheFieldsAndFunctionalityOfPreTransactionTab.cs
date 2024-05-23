@@ -171,7 +171,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //14. TMTI0075219_Verify that the user is not able to search and add INACTIVE contact as Pre - Transaction Board Member
                 string inactiveUser = summaryPage.ValidateSearchWithInactiveContact();
-                Assert.AreEqual("Show All Results for \"Sue Chu\"", inactiveUser);
+                Assert.AreEqual("Show more results for \"Sue Chu\"", inactiveUser);
                 extentReports.CreateLog("Search Result is not shown for inactive contact ");
 
                 //15. TMTI0075221_Verify that the "Pre-Transaction Board Member" record is created with the selected ACTIVE contact by clicking the "Save" button on Add Board Member screen. - Completed

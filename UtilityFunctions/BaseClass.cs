@@ -27,7 +27,7 @@ namespace SF_Automation.UtilityFunctions
                     //return driver;
 
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--force-device-scale-factor=80/100");// set the zoom level % 
+            options.AddArgument("--force-device-scale-factor=60/100");// set the zoom level % 
             driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
