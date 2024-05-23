@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
@@ -9,7 +10,7 @@ using System;
 
 namespace SalesForce_Project.TestCases.LV_Activities
 {
-    class LV_TMTT0022009_22011_22015_22017_22025_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
+    class LV_TMTT0022009_22011_22015_22017_22025_22027_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -96,8 +97,20 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 //TC - TMTI0050237	Verify the functionality of KPI metrices on My Activity Dashboard
                 Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336), "Verify the functionality of KPI metrices on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices Lable Count is correct for each KPI details page. ");
-                
 
+                // TMTI0050263 Verify that Subject of each activity should be clickable and should redirect user to the activity in a new tab when clicked
+                string actionMenu = homePageLV.GetActionMenuText();
+                Assert.AreEqual("Open Record", actionMenu, "Verify Subject name field having small arrow 'Open Record' ");
+                extentReports.CreateStepLogs("Passed", "Subject name field have Arrow with Menu "+ actionMenu);
+
+                //Verify after clicking Open Record Activity detail page opens in a new tab.
+                Assert.IsTrue(homePageLV.IsActivityOpenNewWindow(), "Verify after clicking Open Record Activity detail page opens in a new tab");
+                extentReports.CreateStepLogs("Passed", "After clicking Open Record Activity detail page opens in a new tab");
+
+                //TMTI0050268	Verify that Meeting/Call notes coulmn in Activity detail table should have a small arrow and while click it will give the user the ability to update those notes in real time
+                string msgSuccess = homePageLV.UpdateActivityMeetingCallNotes();
+                Assert.IsTrue(msgSuccess.Contains("saved"));
+                extentReports.CreateStepLogs("Passed", "Activity Meeting Call Notes saved with Success Message: "+ msgSuccess);
                 /////////////////////////////////////////////Below are not updated yet////////////////
                 //TC - TMTI0054960 - Check the functionality for adding new activities and verify added activity in My Coverage dashboard
                 //homePageLV.NavigateToAnItemFromHLBankerDropdown("Companies");
