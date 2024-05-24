@@ -118,6 +118,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelAutoToolL = By.XPath("//div[@class='pbBottomButtons']//input[@value='Cancel']");
         By titleEngValPeriodDetailL = By.XPath("//h2[text()='Engagement Valuation Period Detail']");
         By tabEngValPeriodL = By.XPath("//ul[2]/li[3]/a/span[2]");
+        By tabEngValAllocationL = By.XPath("//th[text()='Engagement Valuation Period']/ancestor::tr[1]/td[1]/span/a");
         By btnEngValPeriodAllocationL = By.XPath("//input[@value='New Eng Valuation Period Allocation']");
         By titleEngValPeriodAllocationL = By.XPath("//h2[text()='New Eng Valuation Period Allocation']");
         By txtWeekStartingL = By.XPath("//label[text()='Week Starting']/ancestor::tr/td[1]//span/input");
@@ -129,18 +130,19 @@ namespace SF_Automation.Pages.Engagement
         By lnkWeekEndingL = By.XPath("//label[text()='Week Ending']/ancestor::tr/td[1]//span/a");
         By msgDupAllocationL = By.XPath("//div[text()='Duplicate Record/s Exists']");
         By lnkEditAllocationL = By.XPath("//tbody/tr[3]/td[1]/a");
-        By txtAnalystAllocationL = By.XPath("//input[@name='Analyst_Allocation__c']");
+        By txtAnalystAllocationL = By.XPath("//slot/records-record-layout-row[2]//lightning-primitive-input-simple//input");
         By btnSaveUpdAllL = By.XPath("//button[@name='SaveEdit']");
         By valAnalystAllocationL = By.XPath("//div/form//tr[3]/td[4]");
         By btnMassEditL = By.XPath("//input[@title='Mass Edit']");
         By btnMassEditButtonsL = By.XPath("//span[text()='Eng Valuations Period Allocations ']/ancestor::div[3]//following::div//button[contains(text(),'Eng')]");
         By btnSelectAllL = By.XPath("//span[text()='Select All']/ancestor::label[1]/span[1]");
         By btnInlineEditL = By.XPath("//tr[1]/td[5]//span//button[@data-navigation='enable']");
-        By btnUpdateL = By.XPath("//lightning-primitive-input-checkbox/div/span/label/span[1]");
+        By btnUpdateL = By.XPath("//form/lightning-input/lightning-primitive-input-checkbox/div/span/input");
         By btnApplyL = By.XPath("//button[text()='Apply']");
         By txtAnalystL = By.XPath("//input[@name='dt-inline-edit-text']");
         By btnSaveMassEditL = By.XPath("//button[text()='Save']");
         By valTotalAllocationL = By.XPath("//div[2]/span/b");
+        By btnBackToEngValPeriodL = By.XPath("//button[text()='Back to Engagement Valuation Period']");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -1061,19 +1063,23 @@ namespace SF_Automation.Pages.Engagement
         }
         //Validate edit functionality of Valuation Period Allocation button
         public string ValidateEditFunctionalityOfValuationPeriodAllocation()
-        {            
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditAllocationL, 130);
             driver.FindElement(lnkEditAllocationL).Click();
-            Thread.Sleep(6000);            
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();           
+            Thread.Sleep(5000);
+            driver.FindElement(txtAnalystAllocationL).Clear();
             driver.FindElement(txtAnalystAllocationL).SendKeys("10");            
             driver.FindElement(btnSaveUpdAllL).Click();
-            driver.SwitchTo().DefaultContent();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngValPeriodL, 130);
-            driver.FindElement(tabEngValPeriodL).Click();
-            driver.Navigate().Refresh();            
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngValAllocationL, 130);
+            driver.FindElement(tabEngValAllocationL).Click();                      
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
+            driver.SwitchTo().Frame(2);
             Thread.Sleep(5000);
             string value = driver.FindElement(valAnalystAllocationL).Text;
             return value;
@@ -1086,7 +1092,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnMassEditL).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
+            driver.SwitchTo().Frame(2);
             Thread.Sleep(5000);            
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnMassEditButtonsL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
@@ -1130,10 +1136,22 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveMassEditL).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(0);
+            driver.SwitchTo().Frame(2);
             Thread.Sleep(5000);
             string totalAnalyst = driver.FindElement(valTotalAllocationL).Text;
             return totalAnalyst;
+        }
+
+        //Validate Back To Engagement functionality
+        public string ValidateBackToEngagementFunctionality()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngValPeriodL, 130);
+            driver.FindElement(btnBackToEngValPeriodL).Click();            
+            Thread.Sleep(5000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(8000);
+            string title = driver.FindElement(titleEngValPeriodDetailL).Text;
+            return title;
         }
 
     }

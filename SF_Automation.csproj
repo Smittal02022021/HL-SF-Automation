@@ -542,7 +542,7 @@
     <Compile Include="Pages\Opportunity\OpportunityDetailsPage.cs" />
     <Compile Include="Pages\Opportunity\OpportunityHome.cs" />
     <Compile Include="Pages\Opportunity\OpportunityManager.cs" />
-    <Compile Include="Pages\Opportunity\ValuationPeriods.cs" />
+    <Compile Include="Pages\Opportunity\OppValuationPeriods.cs" />
     <Compile Include="Pages\Reports\ReportHomePage.cs" />
     <Compile Include="Pages\Tableau\TableauPage.cs" />
     <Compile Include="Pages\TimeRecordManager\RateSheetManagementPage.cs" />
@@ -731,7 +731,6 @@
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0038100_VerifyTheFunctionalityOfPortfolioValuationOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.cs" />
@@ -788,6 +787,7 @@
     <Compile Include="TestCases\Opportunities\TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016558AndTMTT0014786_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsIncentiveStructure_MinFeeCalculationOnTotalEstimatedFee.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038100_VerifyTheFunctionalityOfPortfolioValuationOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\ValidateAllJobType.cs" />
     <Compile Include="TestCases\Opportunities\T1197andT1198AddOpportunityInOpportunityHome.cs" />
     <Compile Include="TestCases\Opportunities\TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />

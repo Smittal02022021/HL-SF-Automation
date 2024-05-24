@@ -377,11 +377,13 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string totalAllocation = engValPeriod.ValidateInLineEditFunctionalityOfPeriodAllocations();
                 Assert.AreEqual(" 30% ", totalAllocation);
-                extentReports.CreateLog("Value for saved allocation is  ");
+                extentReports.CreateLog("Saved value of allocation is displayed ");
 
+                string title = engValPeriod.ValidateBackToEngagementFunctionality();
+                Assert.AreEqual("Engagement Valuation Period Detail", title);
+                extentReports.CreateLog("Page with title: " + title + " is displayed when Back to Engagement Valuation Period button is clicked ");
 
-
-
+                //32.  
 
 
                 usersLogin.DiffLightningLogout();
@@ -401,3 +403,4 @@ namespace SF_Automation.TestCases.Opportunity
 }
 
 
+ 
