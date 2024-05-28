@@ -78,11 +78,40 @@ namespace SF_Automation.Pages.HomePage
         By myActivityTab = By.XPath("//span[text()='My Activity']");
         By dropdownActivityStartDateFilter = By.XPath("(//div[@class='selected-values'])[3]");
         By dropdownViewDetailsActivityStartDateFilter = By.XPath("(//div[@class='selected-values'])[6]");
+
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
 
         }
+
+        //Activity Homepage
+        By txtActionMenu = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a//span[2]");
+        By btnOpenRecord = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[contains(@class,'actions-icon')]");//tr[2] 
+        By linkOpenRecord = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a[@role='menuitem']");
+        By eleHomepageActivitySubject = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[1]");//tr[2] 
+        By eleDetailPageActivitySubject = By.XPath("//span[text()='Subject']//parent::div/div/div");
+        By eleHomepageMeetingCallNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]");//tr[2]     
+        By btnHomePageActivityViewUpdateNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]//button[contains(@class,'actions-icon')]");
+        By txtboxNotes = By.XPath("//div[contains(@class,'container EDIT')]//section//textarea[@role='textbox']");
+        By btnSaveNotes = By.XPath("//div[contains(@class,'modal-footer')]//button[contains(@class,'ShareButton')]");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By frameActvityDashboard = By.XPath("//iframe[@title='Analytics']");
+        By optionsActivityFilter = By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div");
+        By elmTableColumns = By.XPath("//table[@role='grid']/tbody/tr[1]/th");
+        private By _optionsActiveFilter(int index)
+        {
+            return By.XPath($"//div[@class='css-1mvcrrm']//div[{index}][contains(@class,'row searchableTable')]//input");
+        }
+        private By _columnActivityTable(int index)
+        {
+            return By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[1]/th[{index}]//button/span/span");
+        }
+        private By _listViewActivityFilter(int index)
+        {
+            return By.XPath($"//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')][{index}]/div[2]/div/div");
+        }
+        
         
         public void SelectModule(string moduleName)
         {
@@ -341,20 +370,7 @@ namespace SF_Automation.Pages.HomePage
             }
             return result;
         }
-        By optionsActivityFilter = By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div");
-        By elmTableColumns = By.XPath("//table[@role='grid']/tbody/tr[1]/th");
-        private By _optionsActiveFilter(int index)
-        {
-            return By.XPath($"//div[@class='css-1mvcrrm']//div[{index}][contains(@class,'row searchableTable')]//input");
-        }
-        private By _columnActivityTable(int index)
-        {
-            return By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[1]/th[{index}]//button/span/span");
-        }
-        By _listViewActivityFilter(int index)
-        {
-            return By.XPath($"//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')][{index}]/div[2]/div/div");
-        }
+        
         public bool AreFilterOptionsCorrectOnActivityDashboard(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -2839,17 +2855,7 @@ namespace SF_Automation.Pages.HomePage
             return overallResult;
         }
 
-        By txtActionMenu = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a//span[2]");// (//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button//span");
-        By btnOpenRecord= By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[contains(@class,'actions-icon')]");//tr[2] 
-        By linkOpenRecord = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a[@role='menuitem']");
-        By eleHomepageActivitySubject = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[1]");//tr[2] 
-        By eleDetailPageActivitySubject = By.XPath("//span[text()='Subject']//parent::div/div/div");
-        By eleHomepageMeetingCallNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]");//tr[2]     //button[1]");// ("(//span[text()='Show Record Actions Menu'])[3]/../../button[1]");// ;
-        By btnHomePageActivityViewUpdateNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]//button[contains(@class,'actions-icon')]");
-        By txtboxNotes = By.XPath("//div[contains(@class,'container EDIT')]//section//textarea[@role='textbox']");
-        By btnSaveNotes = By.XPath("//div[contains(@class,'modal-footer')]//button[contains(@class,'ShareButton')]");
-        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
-        By frameActvityDashboard = By.XPath("//iframe[@title='Analytics']");
+        
         public string UpdateActivityMeetingCallNotes()
         {
             CustomFunctions.SwitchToWindow(driver, 0);
@@ -3118,7 +3124,7 @@ namespace SF_Automation.Pages.HomePage
                             {
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate2;
@@ -3187,7 +3193,7 @@ namespace SF_Automation.Pages.HomePage
                             {
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate3;
@@ -3258,7 +3264,7 @@ namespace SF_Automation.Pages.HomePage
 
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate4;
@@ -3330,7 +3336,7 @@ namespace SF_Automation.Pages.HomePage
 
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate5;
@@ -3402,7 +3408,7 @@ namespace SF_Automation.Pages.HomePage
 
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate6;
@@ -3474,7 +3480,7 @@ namespace SF_Automation.Pages.HomePage
 
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
                                         DateTime dateTime1, dateTime2 = setDate7;
