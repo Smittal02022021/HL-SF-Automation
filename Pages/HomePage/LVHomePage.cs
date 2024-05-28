@@ -1,11 +1,14 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using OpenQA.Selenium;
 using RazorEngine.Compilation.ImpromptuInterface.Optimization;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using static MongoDB.Driver.WriteConcern;
 
 namespace SF_Automation.Pages.HomePage
 {
@@ -338,19 +341,33 @@ namespace SF_Automation.Pages.HomePage
             }
             return result;
         }
+        By optionsActivityFilter = By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div");
+        By elmTableColumns = By.XPath("//table[@role='grid']/tbody/tr[1]/th");
+        private By _optionsActiveFilter(int index)
+        {
+            return By.XPath($"//div[@class='css-1mvcrrm']//div[{index}][contains(@class,'row searchableTable')]//input");
+        }
+        private By _columnActivityTable(int index)
+        {
+            return By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[1]/th[{index}]//button/span/span");
+        }
+        By _listViewActivityFilter(int index)
+        {
+            return By.XPath($"//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')][{index}]/div[2]/div/div");
+        }
         public bool AreFilterOptionsCorrectOnActivityDashboard(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
             bool result = false;
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 20);
             if (driver.FindElement(dropdownActivityStartDateFilter).Displayed)
             {
                 driver.FindElement(dropdownActivityStartDateFilter).Click();
-                Thread.Sleep(3000);
-                int recordCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
+                Thread.Sleep(2000);
+                int recordCount = driver.FindElements(optionsActivityFilter).Count;
                 int excelCount = ReadExcelData.GetRowCount(excelPath, "StartDateFilterOptions");
 
                 for (int i = 2; i <= excelCount; i++)
@@ -359,7 +376,7 @@ namespace SF_Automation.Pages.HomePage
 
                     for (int j = 1; j <= recordCount; j++)
                     {
-                        string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')][{j}]/div[2]/div/div")).Text;
+                        string sfListViewValue = driver.FindElement(_listViewActivityFilter(j)).Text;
                         if (exlListViewValue == sfListViewValue)
                         {
                             result = true;
@@ -374,7 +391,7 @@ namespace SF_Automation.Pages.HomePage
                 }
             }
             driver.FindElement(dropdownActivityStartDateFilter).Click();
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
             return result;
         }
         public bool IsMyActivityTabDisplayedUnderActivities()
@@ -389,23 +406,24 @@ namespace SF_Automation.Pages.HomePage
             }
             catch (Exception ex) { return false; }
         }
+        
         public bool AreAvailableColumnsInActivitiesTableCorrectOnMyActivityDashboard(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             bool result = false;
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
             driver.FindElement(dropdownActivityStartDateFilter).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
 
             for (int i = 1; i <= filterCount; i++)
             {
-                driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']//div[{i}][contains(@class,'row searchableTable')]//input")).Click();
+                driver.FindElement(_optionsActiveFilter(i)).Click();
                 Thread.Sleep(5000);
 
                 //Get selected Filter value
@@ -501,16 +519,15 @@ namespace SF_Automation.Pages.HomePage
             }
             driver.FindElement(dropdownActivityStartDateFilter).Click();
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ActivityColumns");
-            int recordCount = driver.FindElements(By.XPath("//table[@role='grid']/tbody/tr[1]/th")).Count;
+            int recordCount = driver.FindElements(elmTableColumns).Count;
 
             for (int i = 2; i <= excelCount; i++)
             {
                 string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath, "ActivityColumns", i, 1);
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
                 for (int j = 1; j <= recordCount; j++)
                 {
-                    string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid']/tbody/tr[1])[3]/th[{j}]//button/span/span")).Text;
-                    
+                    string sfColValue = driver.FindElement(_columnActivityTable(j)).Text;                    
                     if (exlColValue == sfColValue)
                     {
                         result = true;
@@ -559,6 +576,16 @@ namespace SF_Automation.Pages.HomePage
         By lblActivityMissingNoteRecordsZero = By.XPath("//dd[text()='Missing Notes']//ancestor::dl//dt");
         By linkActivityKPIMissingNotesViewDetails = By.XPath("(//dd[text()='Missing Notes']/following::div/following::div[5][@class='link']/span)[1]");
 
+        private By _eleActivityFilterOption(int index)
+        {
+            return By.XPath($"//div[@class='css-1mvcrrm']/div/div/div[3]/div/div[{index}]/div[1]//input");
+
+        }
+        By tableActivities = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]");
+        private By _elmActivityStartDate(int rowIndex)
+        {
+            return By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{rowIndex}]/th[4]/div/div");
+        }
         public bool IsKPIMetricesCorrectOnMyActivitiyDashboard(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -585,13 +612,6 @@ namespace SF_Automation.Pages.HomePage
             return result;
         }
 
-
-        private By _eleActivityInList(int index)
-        {
-            return By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{index}]/th[4]/div/div");
-
-        }
-        By tableActivities = By.XPath("//table[@class='data-grid-table data-grid-full-table']");
         public bool IsActivityListSortedWithSelectedActivityStartDateFilterOnMyActivityDashboard()
         {
             bool overallResult = false;
@@ -608,19 +628,21 @@ namespace SF_Automation.Pages.HomePage
 
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 20);
             driver.FindElement(dropdownActivityStartDateFilter).Click();
-            Thread.Sleep(5000);
+            //Thread.Sleep(2000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']/div/div/div[3]/div/div")).Count;
+            WebDriverWaits.WaitUntilEleVisible(driver, optionsActivityFilter, 10);
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
             DateTime currentDate = DateTime.Today;
             string noOfRows;
             int recordCount;
             for (int i = 1; i <= filterCount; i++)
             {
-                driver.FindElement(By.XPath($"//div[@class='css-1mvcrrm']/div/div/div[3]/div/div[{i}]/div[1]//input")).Click();
-                Thread.Sleep(3000);
+                driver.FindElement(_eleActivityFilterOption(i)).Click();
+                Thread.Sleep(5000);
 
                 //Get selected Filter value
+                WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
                 string selectedFilterValue = driver.FindElement(dropdownActivityStartDateFilter).Text;
 
                 switch (selectedFilterValue)
@@ -629,18 +651,19 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate = currentDate.AddDays(-7);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
 
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime <= currentDate && dateTime >= setDate)
                                         {
@@ -669,17 +692,18 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate1 = currentDate.AddDays(-30);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
                                 //Get the no. of record in table
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime <= currentDate && dateTime >= setDate1)
                                         {
@@ -708,16 +732,17 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate2 = currentDate.AddMonths(-3);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime <= currentDate && dateTime >= setDate2)
                                         {
@@ -746,16 +771,17 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate3 = currentDate.AddMonths(-6);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime <= currentDate && dateTime >= setDate3)
                                         {
@@ -785,7 +811,7 @@ namespace SF_Automation.Pages.HomePage
                         try
                         {
 
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
@@ -793,10 +819,11 @@ namespace SF_Automation.Pages.HomePage
                                 
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
                                         if (dateTime <= currentDate && dateTime >= setDate4)
                                         {
@@ -825,7 +852,7 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate5 = currentDate.AddDays(7);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                            if (recordCount > 1)
                             {
@@ -833,12 +860,13 @@ namespace SF_Automation.Pages.HomePage
                                
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime > currentDate && dateTime <= setDate5)
+                                        if (dateTime >= currentDate && dateTime <= setDate5)
                                         {
                                             result6 = true;
                                         }
@@ -865,7 +893,7 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate6 = currentDate.AddDays(30);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                            if (recordCount > 1)
                             {
@@ -873,12 +901,13 @@ namespace SF_Automation.Pages.HomePage
                                
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime > currentDate && dateTime <= setDate6)
+                                        if (dateTime >= currentDate && dateTime <= setDate6)
                                         {
                                             result7 = true;
                                         }
@@ -905,7 +934,7 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate7 = currentDate.AddMonths(3);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
@@ -913,12 +942,13 @@ namespace SF_Automation.Pages.HomePage
                                
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div")).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime > currentDate && dateTime <= setDate7)
+                                        if (dateTime >= currentDate && dateTime <= setDate7)
                                         {
                                             result8 = true;
                                         }
@@ -945,7 +975,7 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate8 = currentDate.AddMonths(6);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
@@ -953,12 +983,13 @@ namespace SF_Automation.Pages.HomePage
                              
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime > currentDate && dateTime <= setDate8)
+                                        if (dateTime >= currentDate && dateTime <= setDate8)
                                         {
                                             result9 = true;
                                         }
@@ -985,7 +1016,7 @@ namespace SF_Automation.Pages.HomePage
                         DateTime setDate9 = currentDate.AddMonths(12);
                         try
                         {
-                            noOfRows = driver.FindElement(By.XPath("//table[@class='data-grid-table data-grid-full-table']")).GetAttribute("aria-rowcount");
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                             recordCount = Convert.ToInt32(noOfRows);
                             if (recordCount > 1)
                             {
@@ -993,12 +1024,13 @@ namespace SF_Automation.Pages.HomePage
                               
                                 for (int j = 2; j <= recordCount; j++)
                                 {
-                                    bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div"));
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
                                     if (elePresent == true)
                                     {
-                                        string activityDate = driver.FindElement(By.XPath($"//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[4]/div/div")).Text;
+                                        WebDriverWaits.WaitUntilEleVisible(driver, _elmActivityStartDate(j), 10);
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime > currentDate && dateTime <= setDate9)
+                                        if (dateTime >= currentDate && dateTime <= setDate9)
                                         {
                                             result10 = true;
                                         }
@@ -1024,7 +1056,7 @@ namespace SF_Automation.Pages.HomePage
                 }
                 WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
                 driver.FindElement(dropdownActivityStartDateFilter).Click();
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
             }
             driver.FindElement(dropdownActivityStartDateFilter).Click();
             //Thread.Sleep(5000);
@@ -1142,7 +1174,7 @@ namespace SF_Automation.Pages.HomePage
 
         public string GetDefaultSelectedValueInActivityStartDateFilter()
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
             return driver.FindElement(dropdownActivityStartDateFilter).Text;            
         }
@@ -1166,7 +1198,7 @@ namespace SF_Automation.Pages.HomePage
             bool result10 = false;
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
             DateTime currentDate = DateTime.Today;
 
             for (int i = 1; i <= filterCount; i++)
@@ -1597,7 +1629,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
 
             for (int i = 1; i <= filterCount; i++)
             {
@@ -1972,7 +2004,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
             DateTime currentDate = DateTime.Today;
 
             for (int i = 1; i <= filterCount; i++)
@@ -2525,7 +2557,7 @@ namespace SF_Automation.Pages.HomePage
                     case "Total":
                         string lblKPI1Count = driver.FindElement(lblActivityTotalRecords).Text;
                         //Get the no. of rows in table
-                        string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        string noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         int rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount1=0;
                         if (lblKPI1Count == "0")
@@ -2572,7 +2604,7 @@ namespace SF_Automation.Pages.HomePage
                         Thread.Sleep(2000);
                         driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
-                        noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount2 = 0;
                         if (lblKPI2Count == "0")
@@ -2621,7 +2653,7 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
                         Thread.Sleep(2000);
-                        noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount3 = 0;
                         if (lblKPI3Count == "0")
@@ -2670,7 +2702,7 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
                         Thread.Sleep(2000);
-                        noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount4 = 0;
                         if (lblKPI4Count == "0")
@@ -2719,7 +2751,7 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
                         Thread.Sleep(2000);
-                        noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount5 = 0;
                         if (lblKPI5Count == "0")
@@ -2768,7 +2800,7 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(By.XPath("//div[@class='css-1mvcrrm']/div//div[3]/div/div[1]/div[1]/div/input")).Click();
                         //Get the no. of rows in table
                         Thread.Sleep(2000);
-                        noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                        noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
                         rowCount = Convert.ToInt32(noOfRows);
                         int rowNoCount6 = 0;
                         if (lblKPI6Count == "0")
@@ -2808,28 +2840,37 @@ namespace SF_Automation.Pages.HomePage
         }
 
         By txtActionMenu = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a//span[2]");// (//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button//span");
-        By btnOpenRecord= By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button[contains(@class,'actions-icon')]");
+        By btnOpenRecord= By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[contains(@class,'actions-icon')]");//tr[2] 
         By linkOpenRecord = By.XPath("//div[contains(@class,'actions-menu-dropdown')]//ul//li//a[@role='menuitem']");
-        By eleHomepageActivitySubject = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[7]//button[1]");
+        By eleHomepageActivitySubject = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[7]//button[1]");//tr[2] 
         By eleDetailPageActivitySubject = By.XPath("//span[text()='Subject']//parent::div/div/div");
-        By eleHomepageMeetingCallNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[9]//button[1]");
-        By btnDetailPageActivityViewUpdateNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[2]//th[9]//button[contains(@class,'actions-icon')]");
+        By eleHomepageMeetingCallNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]");//tr[2]     //button[1]");// ("(//span[text()='Show Record Actions Menu'])[3]/../../button[1]");// ;
+        By btnHomePageActivityViewUpdateNotes = By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[5]//th[9]//button[contains(@class,'actions-icon')]");
         By txtboxNotes = By.XPath("//div[contains(@class,'container EDIT')]//section//textarea[@role='textbox']");
         By btnSaveNotes = By.XPath("//div[contains(@class,'modal-footer')]//button[contains(@class,'ShareButton')]");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        By frameActvityDashboard = By.XPath("//iframe[@title='Analytics']");
         public string UpdateActivityMeetingCallNotes()
         {
+            CustomFunctions.SwitchToWindow(driver, 0);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameActvityDashboard));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, eleHomepageMeetingCallNotes, 10);
             CustomFunctions.MouseOver(driver, eleHomepageMeetingCallNotes);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDetailPageActivityViewUpdateNotes, 10);
-            driver.FindElement(btnDetailPageActivityViewUpdateNotes).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnHomePageActivityViewUpdateNotes, 10);
+            driver.FindElement(btnHomePageActivityViewUpdateNotes).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkOpenRecord, 10);
             driver.FindElement(linkOpenRecord).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, txtboxNotes, 10);
-            string comments= driver.FindElement(linkOpenRecord).GetAttribute("value");
-            driver.FindElement(linkOpenRecord).Clear();
-            driver.FindElement(linkOpenRecord).SendKeys("New Comments");
+            string comments= driver.FindElement(txtboxNotes).GetAttribute("value");
+            driver.FindElement(txtboxNotes).Clear();
+            driver.FindElement(txtboxNotes).SendKeys("Automation New Test Comments");
             driver.FindElement(btnSaveNotes).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
+            //driver.SwitchTo().DefaultContent();
             return driver.FindElement(msgLVPopup).Text;
 
         }
@@ -2840,14 +2881,15 @@ namespace SF_Automation.Pages.HomePage
 
             WebDriverWaits.WaitUntilEleVisible(driver, linkOpenRecord, 10);
             driver.FindElement(linkOpenRecord).Click();
-
-            // Switch to second window
-            CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(8000);
+            // Switch to second window
+            //CustomFunctions.SwitchToWindow(driver, 1);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, eleDetailPageActivitySubject, 10);
             string detailPageactivitySubject = driver.FindElement(eleDetailPageActivitySubject).Text;
+            driver.SwitchTo().Window(driver.WindowHandles.First());
             CustomFunctions.CloseWindow(driver, 1);
-            CustomFunctions.SwitchToWindow(driver, 0);
             if (detailPageactivitySubject == homePageactivitySubject)
             {
                 return true;
@@ -2855,8 +2897,7 @@ namespace SF_Automation.Pages.HomePage
             else
             {
                 return false;
-            }
-
+            }            
         }
         public string GetActionMenuText()
         {
@@ -2866,7 +2907,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(3000);
 
             //Get filter count
-            int filterCount = driver.FindElements(By.XPath("//div[@class='css-1mvcrrm']//div[contains(@class,'row searchableTable')]/div[2]/div/div")).Count;
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
 
             for (int i = 1; i <= filterCount; i++)
             {
@@ -2888,8 +2929,764 @@ namespace SF_Automation.Pages.HomePage
                     driver.FindElement(dropdownActivityStartDateFilter).Click();
                     Thread.Sleep(3000);
                 }
-            }
+            }            
             return actionMenu;
+        }
+        public bool IsActivityListSortedChronologicalOnMyActivityDashboard()
+        {
+            bool overallResult = false;
+            bool result1 = false;
+            bool result2 = false;
+            bool result3 = false;
+            bool result4 = false;
+            bool result5 = false;
+            bool result6 = false;
+            bool result7 = false;
+            bool result8 = false;
+            bool result9 = false;
+            bool result10 = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
+            driver.FindElement(dropdownActivityStartDateFilter).Click();
+            //Thread.Sleep(5000);
+
+            //Get filter count
+            WebDriverWaits.WaitUntilEleVisible(driver, optionsActivityFilter, 10);
+            int filterCount = driver.FindElements(optionsActivityFilter).Count;
+            DateTime currentDate = DateTime.Today;
+            string noOfRows;
+            int recordCount;
+            for (int i = 1; i <= filterCount; i++)
+            {
+                driver.FindElement(_eleActivityFilterOption(i)).Click();
+                //Thread.Sleep(3000);
+
+                //Get selected Filter value
+                WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
+                string selectedFilterValue = driver.FindElement(dropdownActivityStartDateFilter).Text;
+
+                switch (selectedFilterValue)
+                {
+                    case "Last 7 Days":
+                        DateTime setDate = currentDate.AddDays(-7);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
+
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2= setDate;
+                                        int rowNoCount;
+                                        try 
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }                                        
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j+1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);                                            
+                                        }
+                                        catch(NoSuchElementException)
+                                        {                                            
+                                            //Next Records not available                                            
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result1 = true;
+                                        }
+                                        else
+                                        {
+                                            result1 = false;
+                                            break;
+                                        }
+                                    }                                    
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result1 = true;
+                                }
+                            }                            
+                            else
+                            {
+                                result1 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result1 = true;
+                        }
+                        break;
+                    case "Last 30 Days":
+                        DateTime setDate1 = currentDate.AddDays(-30);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate1;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j+1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result2 = true;
+                                        }
+                                        else
+                                        {
+                                            result2 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result2 = true;
+                                }
+                            }
+                            else
+                            {
+                                result2 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result2 = true;
+                        }
+                        break;
+                    case "Last 3 Months":
+                        DateTime setDate2 = currentDate.AddMonths(-3);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/td[4]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate2;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j + 1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j + 1}]/th[4]/div/div")).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result3 = true;
+                                        }
+                                        else
+                                        {
+                                            result3 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result3 = true;
+                                }
+                            }
+                            else
+                            {
+                                result3 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found for the selected filter
+                            result3 = true;
+                        }
+                        break;
+                    case "Last 6 Months":
+                        DateTime setDate3 = currentDate.AddMonths(-6);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate3;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j+1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result4 = true;
+                                        }
+                                        else
+                                        {
+                                            result4 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result4 = true;
+                                }
+                            }
+                            else
+                            {
+                                result4 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result4 = true;
+                        }
+                        break;
+                    case "Last 12 Months":
+                        DateTime setDate4 = currentDate.AddMonths(-12);
+                        try
+                        {
+                            noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate4;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j + 1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result5 = true;
+                                        }
+                                        else
+                                        {
+                                            result5 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result5 = true;
+                                }
+                            }
+                            
+                            else
+                            {
+                                result5 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result5 = true;
+                        }
+                        break;
+                    case "Next 7 Days":
+                        DateTime setDate5 = currentDate.AddDays(7);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate5;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j + 1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result6 = true;
+                                        }
+                                        else
+                                        {
+                                            result6 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result6 = true;
+                                }
+                            }
+                            
+                            else
+                            {
+                                result6 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result6 = true;
+                        }
+                        break;
+                    case "Next 30 Days":
+                        DateTime setDate6 = currentDate.AddDays(30);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate6;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j+1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result7 = true;
+                                        }
+                                        else
+                                        {
+                                            result7 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result7 = true;
+                                }
+                            }
+                            
+                            else
+                            {
+                                result7 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result7 = true;
+                        }
+                        break;
+                    case "Next 3 Months":
+                        DateTime setDate7 = currentDate.AddMonths(3);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));//table[@class='data-grid-table data-grid-full-table']/tbody/tr[{j}]/th[2]/div/div"));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate7;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j + 1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result8 = true;
+                                        }
+                                        else
+                                        {
+                                            result8 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result8 = true;
+                                }
+                            }
+                            
+                            else
+                            {
+                                result8 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result8 = true;
+                        }
+                        break;
+                    case "Next 6 Months":
+                        DateTime setDate8 = currentDate.AddMonths(6);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate8;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j + 1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2|| recordCount==2)
+                                        {
+                                            result9 = true;
+                                        }
+                                        else
+                                        {
+                                            result9 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result9 = true;
+                                }
+                            }                            
+                            else
+                            {
+                                result9 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result9 = true;
+                        }
+                        break;
+                    case "Next 12 Months":
+                        DateTime setDate9 = currentDate.AddMonths(12);
+                        try
+                        {
+                            noOfRows = driver.FindElement(tableActivities).GetAttribute("aria-rowcount");
+                            recordCount = Convert.ToInt32(noOfRows);
+                            if (recordCount > 1)
+                            {
+                                //Get the no. of record in table
+
+                                for (int j = 2; j <= recordCount; j++)
+                                {
+                                    bool elePresent = CustomFunctions.IsElementPresent(driver, _elmActivityStartDate(j));
+                                    if (elePresent == true)
+                                    {
+                                        DateTime dateTime1, dateTime2 = setDate9;
+                                        int rowNoCount;
+                                        try
+                                        {
+                                            rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j}]/th[1]/div/div")).Text);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        string activityDate = driver.FindElement(_elmActivityStartDate(j)).Text;
+                                        dateTime1 = DateTime.Parse(activityDate);
+                                        try
+                                        {
+                                            try
+                                            {
+                                                rowNoCount = Convert.ToInt32(driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]//tr[{j+1}]/th[1]/div/div")).Text);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            activityDate = driver.FindElement(_elmActivityStartDate(j+1)).Text;
+                                            dateTime2 = DateTime.Parse(activityDate);
+                                        }
+                                        catch (NoSuchElementException)
+                                        {
+                                            //Next Records not available 
+                                        }
+                                        if (dateTime1 >= dateTime2)
+                                        {
+                                            result10 = true;
+                                        }
+                                        else
+                                        {
+                                            result10 = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (recordCount == 2)
+                                {
+                                    result10 = true;
+                                }
+                            }                            
+                            else
+                            {
+                                result10 = true;
+                            }
+                        }
+                        catch
+                        {
+                            //No Record found fr the selected filter
+                            result10 = true;
+                        }
+                        break;
+                }
+                WebDriverWaits.WaitUntilEleVisible(driver, dropdownActivityStartDateFilter, 10);
+                driver.FindElement(dropdownActivityStartDateFilter).Click();
+                Thread.Sleep(3000);
+            }
+            driver.FindElement(dropdownActivityStartDateFilter).Click();
+            if (result1 == true && result2 == true && result3 == true && result4 == true && result5 == true && result6 == true && result7 == true && result8 == true && result9 == true && result10 == true)
+            {
+                overallResult = true;
+            }
+            return overallResult;
         }
         public bool IsModulePageDisplayed(string moduleName)
         {

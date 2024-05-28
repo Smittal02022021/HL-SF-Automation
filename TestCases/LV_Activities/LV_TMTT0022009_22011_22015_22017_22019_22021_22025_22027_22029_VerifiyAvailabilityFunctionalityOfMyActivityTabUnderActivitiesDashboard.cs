@@ -10,7 +10,7 @@ using System;
 
 namespace SalesForce_Project.TestCases.LV_Activities
 {
-    class LV_TMTT0022009_22011_22015_22017_22025_22027_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
+    class LV_TMTT0022009_22011_22015_22017_22019_22021_22025_22027_22029_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -53,7 +53,7 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);
-                extentReports.CreateStepLogs("Passed", "**Need to change with CF Financial User System Administrator User: " + adminUserExl + " logged in on Lightning View");
+                extentReports.CreateStepLogs("Passed", "****Need to change with CF Financial User System Administrator User: " + adminUserExl + " logged in on Lightning View");
                 homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectApp(appNameExl);
@@ -63,7 +63,7 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-                extentReports.CreateStepLogs("Info", "User has navigated to Homepage tab under Home option from HL Banker dropdown. ");
+                extentReports.CreateStepLogs("Info", "User is navigated to Homepage tab under Home option from HL Banker dropdown. ");
 
                 Assert.IsTrue(homePageLV.IsActivitiesTabAvailable(), "Verify If Activities Tab Is Available Next To Eng And Opp Filters");
                 extentReports.CreateStepLogs("Passed", "Activities filter grid is available next to Engagement & Opportunity filters. ");
@@ -94,6 +94,10 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 Assert.IsTrue(homePageLV.IsActivityListSortedWithSelectedActivityStartDateFilterOnMyActivityDashboard(),"Verify the functionality of Activity Start Date grid cells av ailable on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of Activity Start Date grid filter is working as expected. ");
 
+                //TMTI0050246 Verify that Activities should be listed by chronological order of their Start Date by default
+                Assert.IsTrue(homePageLV.IsActivityListSortedChronologicalOnMyActivityDashboard(), "Verify Activities are listed by chronological order(latest on top) of their Start Date by default");
+                extentReports.CreateStepLogs("Passed", "Activities are be listed by chronological order(latest on top) of their Start Date");
+
                 //TC - TMTI0050237	Verify the functionality of KPI metrices on My Activity Dashboard
                 Assert.IsTrue(homePageLV.AreKPIMetricesCorrectOnMyActivityDashboard(fileTMTI0050336), "Verify the functionality of KPI metrices on My Activity Dashboard");
                 extentReports.CreateStepLogs("Passed", "The functionality of KPI Metrices Lable Count is correct for each KPI details page. ");
@@ -101,11 +105,11 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 // TMTI0050263 Verify that Subject of each activity should be clickable and should redirect user to the activity in a new tab when clicked
                 string actionMenu = homePageLV.GetActionMenuText();
                 Assert.AreEqual("Open Record", actionMenu, "Verify Subject name field having small arrow 'Open Record' ");
-                extentReports.CreateStepLogs("Passed", "Subject name field have Arrow with Menu "+ actionMenu);
+                extentReports.CreateStepLogs("Passed", "Subject name field have Arrow with Menu " + actionMenu);
 
                 //Verify after clicking Open Record Activity detail page opens in a new tab.
                 Assert.IsTrue(homePageLV.IsActivityOpenNewWindow(), "Verify after clicking Open Record Activity detail page opens in a new tab");
-                extentReports.CreateStepLogs("Passed", "After clicking Open Record Activity detail page opens in a new tab");
+                extentReports.CreateStepLogs("Passed", "**Need to change the Row Index** After clicking Open Record Activity detail page opens in a new tab");
 
                 //TMTI0050268	Verify that Meeting/Call notes coulmn in Activity detail table should have a small arrow and while click it will give the user the ability to update those notes in real time
                 string msgSuccess = homePageLV.UpdateActivityMeetingCallNotes();
@@ -139,10 +143,10 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 ////extentReports.CreateStepLogs("Passed", "A new activity is created and is visible under My Coverage dashboard. ");
 
                 ////Logout from SF Lightning View                
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();                
-                extentReports.CreateStepLogs("Info", "Switched to classic ");
-                //Logout from SF Classic View
+                //login.SwitchToClassicView();
+                //usersLogin.UserLogOut();
+                homePageLV.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User: "+ adminUserExl+" logged out ");
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

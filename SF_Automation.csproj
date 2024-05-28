@@ -711,7 +711,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTT0022009_22011_22015_22017_22025_22027_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard.cs" />
+    <Compile Include="TestCases\LV_Activities\LV_TMTT0022009_22011_22015_22017_22019_22021_22025_22027_22029_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_1_VerifyActivityFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_2_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_3_VerifyPrimaryAttendeeSelection.cs" />

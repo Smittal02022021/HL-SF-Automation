@@ -139,41 +139,9 @@ namespace SF_Automation.TestCases.Opportunities
                     //opportunityDetails.ClickReturnToOpportunityLV();
                     //extentReports.CreateLog("Return to Opportunity Detail page ");
 
-                    //login.SwitchToClassicView();
-                    //extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
-                    ////Logout of user and validate Admin login
-                    //usersLogin.UserLogOut();
-
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(stdUser + " Standard User Logged Out ");
-                    //user = login.ValidateUser();
-                    //Assert.AreEqual(user.Equals(ReadJSONData.data.authentication.loggedUser), true);
-                    //extentReports.CreateLog("User " + user + " is logged in ");
-
-                    ////System Administrator Search for created opportunity
-                    //extentReports.CreateLog("System Administrator Search for Created Opportunity");
-                    //opportunityHome.SearchOpportunity(opportunityName);
-
-                    ////New Field is Present on Opportunity Detail Page for Admin login
-                    //Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresent());
-                    //extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for System Administrator: " + user + " ");
-
-                    //// New Field on Opportunity Detail Page is not editable for Admin login
-                    //Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditable(), "Verify Associated Opportunity should be editable for System Administrator ");
-                    //extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for System Administrator: " + user + " ");
-
-                    ////Enter the Associated Opportunity name
-                    //valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 1);
-                    //nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunity(valAssociatedOpp);
-                    //Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
-                    //extentReports.CreateLog(user + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
-
-                    ////update CC and NBC checkboxes 
-                    //opportunityDetails.UpdateOutcomeDetails(fileTMTI0054728);
-                    //opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0054728);
-                    //extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    //opportunityDetails.ClickReturnToOpportunityLV();
-                    //Login as System Admin user 
+                     
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
                     usersLogin.SearchUserAndLogin(adminUserExl);
@@ -229,13 +197,7 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.SearchUserAndLogin(valUser);
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //login.SwitchToClassicView();
-
-                    //stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //extentReports.CreateLog("Standard User: " + stdUser + " logged in ");
-                    //login.SwitchToLightningExperience();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);                    
 
                     extentReports.CreateLog("User: " + valUser + " Standard User Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
@@ -261,10 +223,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
 
-                    //Log out of Standard User
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
-
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog("Standard User: " + valUser + " logged out ");
 
@@ -276,13 +234,6 @@ namespace SF_Automation.TestCases.Opportunities
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
 
-                    //login.SwitchToClassicView();
-
-                    //caoUser = login.ValidateUser();
-                    //Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 2)), true);
-                    //extentReports.CreateLog("CAO User: " + caoUser + " logged in ");
-
-                    //login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
@@ -351,10 +302,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
 
-                    //CAO Logged Out
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
-
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog("CAO User " + caoUser + "Logged Out");
 
@@ -385,12 +332,7 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valUser), true);
-                    //login.SwitchToClassicView();
-
-                    //stdUser = login.ValidateUser();
-                    //Assert.AreEqual(stdUser.Contains(valUser), true);
-                    //extentReports.CreateLog("User: " + stdUser + " logged in ");
-                    //login.SwitchToLightningExperience();
+                    
                     extentReports.CreateLog("User: " + valUser + " Switched to Lightning View ");
                     homePageLV.ClickAppLauncher();
 
@@ -402,9 +344,7 @@ namespace SF_Automation.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 2);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-
                     extentReports.CreateLog("Standard User Search for converted Engagement ");
-
                     //Search for created Engagement
                     engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);
 
@@ -416,8 +356,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsFalse(engagementDetails.IsAssociatedEngFieldEditableLV(), "Verify Associated Engagement should not be editable for Standard User ");
                     extentReports.CreateLog("New Field i.e. Associated Engagement is not Editable for Standard User " + valUser + " ");
 
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
                     homePageLV.UserLogoutFromSFLightningView();
                     driver.Quit();
                     extentReports.CreateStepLogs("Info", "Browser Closed");
