@@ -5885,10 +5885,11 @@ namespace SF_Automation.Pages.Engagement
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
                 driver.FindElement(btnEditEngL).Click();
-                CustomFunctions.MoveToElement(driver,driver.FindElement(lblEngDesc));
+                
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedEngL, 10);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(lblEngDesc));
                     jse.ExecuteScript("arguments[0].click();", driver.FindElement(iconClearAssociatedEngL));
                     driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
                     driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
