@@ -50,9 +50,9 @@ namespace SF_Automation.Pages.Companies
         {
             return By.XPath($"//div[contains(text(),'{btnName}')]//ancestor::button");
         }
-        private By _btnActivityDetailPage(string btnName)
+        private By _btnActivityListPage(string btnName)
         {
-            return By.XPath($"//header//button[text()='{btnName}']");
+            return By.XPath($"//button[text()='{btnName}']");
         }
         private By _comboDropdown(string value)
         {
@@ -78,7 +78,7 @@ namespace SF_Automation.Pages.Companies
         }
         public string ClickSaveButton(string btnName)
         {
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();
+            driver.FindElement(_btnActivityListPage(btnName)).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
             return driver.FindElement(msgLVPopup).Text;
         }
@@ -93,12 +93,12 @@ namespace SF_Automation.Pages.Companies
         {
             //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             //jse.ExecuteScript("arguments[0].scrollIntoView();", _btnActivityDetailPage(btnName));
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityDetailPage(btnName)));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityListPage(btnName)));
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver,_btnActivityDetailPage(btnName), 20);
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityListPage(btnName), 20);
+            driver.FindElement(_btnActivityListPage(btnName)).Click();            
         }
-        public bool IsActivityListDisplayed()
+        public bool IsActivityListDisplayedLV()
         {
             try
             {
