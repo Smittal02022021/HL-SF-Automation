@@ -130,7 +130,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //TMT0047445 Verify that the user redirects to list view on clicking "Cancel" button of Add New Activity page.
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
+                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayedLV(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Add New Activity page ");
 
                 //TMT0047447 Verify that the activity of type "Meeting" is created by clicking the "Save" button and redirecting the user to the list view with a success message.
@@ -150,12 +150,12 @@ namespace SF_Automation.TestCases.LV_Activities
                     string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
                     string extAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 7);
 
-                    lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPage(type, subject, industryGroup, productType, description, meetingNotes, extAttendee);
+                    lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPageLV(type, subject, industryGroup, productType, description, meetingNotes, extAttendee);
                     msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
                     msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 2);
                     Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
                     extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Activity Type: " + type + " ");
-                    Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
+                    Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayedLV(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
                     extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Add New Activity page ");
                     lvCompanyDetailsPage.RefreshActivitiesList();
                     //Deleting Created Activity
@@ -217,7 +217,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 // TMT0047467 Verify that clicking the "Cancel" button on the activity detail page redirects the user to the activity list view.
 
                 lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
+                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayedLV(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Activity Detail page ");
 
 
@@ -244,7 +244,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for updated Activity ");
                 lvCompanyDetailsPage.RefreshActivitiesList();
 
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Save button from Activity Detail page ");
+                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayedLV(), "Verify user redirects to list view on clicking Save button from Activity Detail page ");
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Save button from Activity Detail page ");
                 lvCompanyDetailsPage.RefreshActivitiesList();
 

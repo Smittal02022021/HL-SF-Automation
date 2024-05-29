@@ -19,14 +19,14 @@ namespace SF_Automation.Pages.Companies
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");
 
         //Activity Tab
-        By lblAddNewActivity = By.XPath("//h1[text()='Add New Activity']");
+        By lblAddNewActivity = By.XPath("//h2/span[text()='Add New Activity']");
         By btnAddActivity = By.XPath("//button[text()='Add Activity']");
-        By txtSubject = By.XPath("//input[@name='Subject']");
-        By txtDate = By.XPath("//input[@name='Date']");
-        By drpdownIndustryGroup = By.XPath("//button[@name='IndustryGroup']");
-        By drpdownProductType = By.XPath("//button[@name='ProductType']");
-        By txtareaDescription = By.XPath("//textarea[@name='Description']");
-        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='HLInternalNotes']");
+        By txtSubject = By.XPath("//input[@name='subject']");
+        By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
+        By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
+        By drpdownProductType = By.XPath("//button[@name='productType']");
+        By txtareaDescription = By.XPath("//textarea[@name='description']");
+        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='hlCallNotes']");
         By txtExternalAttendee = By.XPath("//input[@placeholder='Lookup Contact...']");
         By txtHLAttendee = By.XPath("//input[@placeholder='Lookup Employees...']");
         By txtCompanyDiscussed = By.XPath("//input[@placeholder='Lookup Company...']");
@@ -34,14 +34,14 @@ namespace SF_Automation.Pages.Companies
         By txtEngagementsDiscussed = By.XPath("//input[@placeholder='Lookup Engagements...']");
         By txtCampaignsDiscussed = By.XPath("//input[@placeholder='Lookup Campaigns...']");
 
-        By btnSave = By.XPath("(//button[@title='Save'])[2]");
-        By btnCancel = By.XPath("(//button[@title='Cancel'])[2]");
+        By btnSave = By.XPath("//button[@title='Save']");
+        By btnCancel = By.XPath("//button[@title='Cancel']");
 
         By btnsearchL = By.XPath("//button[@aria-label='Search']");
         By txtsearchL = By.XPath("//input[contains(@placeholder,'Search Companies ')]");
         By imgCompany = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By chart = By.CssSelector("canvas[class='chart']");
-        By btnAddActivity1 = By.XPath($"//header//button[text()='Add Activity']");
+        By btnAddActivity1 = By.XPath("//header//button[text()='Add Activity']");
         By btnCreateNewTask = By.XPath("//button[text()='Create New Task']");
         By txtFollowupDate = By.XPath("//input[contains(@name,'Followup_Start_Date')]");
         By dropdownFollowupType = By.XPath("//button[contains(@aria-label,'Follow-up Type')]");
@@ -340,44 +340,58 @@ namespace SF_Automation.Pages.Companies
 
             return result;
         }
-        public void CreateNewActivityFromCompanyDetailPage(string type, string subject, string industryGroup, string productType, string description, string meetingNotes, string extAttendee)
+        private By _elmActivityType(string type)
+        {
+            return By.XPath($"//input[@value='{type}']/../label");
+        }
+        private By _comboActivityDetailPage(string option)
+        {
+            return By.XPath($"//span[@title='{option}']");
+        }
+        public void CreateNewActivityFromCompanyDetailPageLV(string type, string subject, string industryGroup, string productType, string description, string meetingNotes, string extAttendee)
         {
             //Click on Add Activity button
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity1, 20);
-            driver.FindElement(btnAddActivity1).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
+            driver.FindElement(btnAddActivity).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
 
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            //driver.FindElement(_elmActivityType(type)).Click();
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
-            DateTime setDate = currentDate.AddDays(3);
+            DateTime setDate = currentDate.AddDays(-3);
             IWebElement txtDateField = driver.FindElement(txtDate);
             CustomFunctions.MoveToElement(driver, txtDateField);
             txtDateField.Clear();
-            txtDateField.SendKeys(setDate.ToString("dd-MMM-yyyy"));
+            txtDateField.SendKeys(setDate.ToString("MMM d, yyyy"));
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(2000);
-
+            //Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _comboActivityDetailPage(industryGroup), 20);
+            driver.FindElement(_comboActivityDetailPage(industryGroup)).Click();
+            //Thread.Sleep(2000);
+            
             driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _comboActivityDetailPage(productType), 20);
+            driver.FindElement(_comboActivityDetailPage(productType)).Click();
+            //Thread.Sleep(1000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaDescription));
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             //Enter External Attendee
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
             driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
+            //Thread.Sleep(5000);
+            By optionAttendee = By.XPath($"//div[@data-name='{extAttendee}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionAttendee, 20);
+            driver.FindElement(optionAttendee).Click();
 
             //Click Save
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));

@@ -718,6 +718,7 @@
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_4_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
+    <Compile Include="TestCases\LV_Activities\LV_TMTT0022031_VerifyFunctionalityAddNewActivitiesAndVerifyTheSameOnMyActivityDashboardLightningView.cs" />
     <Compile Include="TestCases\LV_Activities\Test_TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />

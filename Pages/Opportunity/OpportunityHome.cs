@@ -621,7 +621,6 @@ namespace SF_Automation.Pages
             driver.FindElement(txtSearchBox).SendKeys(oppName);
             driver.FindElement(txtSearchBox).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
             By expectedResult = By.XPath($"//table/tbody//tr//th//a[text()='{oppName}']");
             try
             {
