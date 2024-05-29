@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage : BaseClass
+    class TMTT0038098_T2189andT2170_T2212_T2214_T2215_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

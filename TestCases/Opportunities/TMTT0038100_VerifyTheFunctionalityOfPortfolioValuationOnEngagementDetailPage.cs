@@ -66,7 +66,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Verify the availability of Opportunity under HL Banker list
-                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                string tagOpp = opportunityHome.ClickOppUnderHLBanker();
                 Assert.AreEqual("Opportunities", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 
@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Opportunity with name: " + value + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1644);
+                string displayedTab = addOpportunity.EnterMultipleStaffDetailsL(fileTC1644);
                 Assert.AreEqual("Info", displayedTab);
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
@@ -143,6 +143,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
                 //Search for created opportunity and validate the status
+                opportunityHome.ClickOppUnderHLBankerCAO();
                 opportunityHome.SearchMyOpportunitiesInLightning(value, valCAOUser);
                 string status = opportunityDetails.ClickApproveButtonL();
                 Assert.AreEqual("Approved", status);
@@ -373,17 +374,77 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //30.  TMTI0099312_Verify the functionality of "Mass Edit" button given on the Eng Valuation Period Allocation section.
                 Assert.IsTrue(engValPeriod.ValidateMassEditButtons(), "Verified that displayed buttons after clicking Masss Edit button are same");
-                extentReports.CreateLog("Displayed buttons after clicking Masss Edit button are as expected ");
+                extentReports.CreateLog("Displayed buttons after clicking Mass Edit button are as expected ");
 
                 string totalAllocation = engValPeriod.ValidateInLineEditFunctionalityOfPeriodAllocations();
-                Assert.AreEqual(" 30% ", totalAllocation);
+                Assert.AreEqual("30%", totalAllocation);
                 extentReports.CreateLog("Saved value of allocation is displayed ");
 
                 string title = engValPeriod.ValidateBackToEngagementFunctionality();
                 Assert.AreEqual("Engagement Valuation Period Detail", title);
                 extentReports.CreateLog("Page with title: " + title + " is displayed when Back to Engagement Valuation Period button is clicked ");
 
-                //32.  
+                //32.  TMTI0099316_Verify the functionality of "Billing Request" given in the "Eng Valuation Period Positions" section
+                Assert.IsTrue(engValPeriod.ValidateBillingRequestButtons(), "Verified that displayed radio buttons after clicking Billing Request button are same");
+                extentReports.CreateLog("Displayed radio buttons after clicking Billing Request button are as expected ");
+
+                string titleSendEmail = engValPeriod.ValidateSendEmailPageUponSavingTotalReportFee();
+                Assert.AreEqual("Send Email", titleSendEmail);
+                extentReports.CreateLog("Page : " +titleSendEmail + " is displayed upon saving Total Report Fee ");
+
+                string pageSendEmail = engValPeriod.ValidateSendEmailFunctionality();
+                Assert.AreEqual("Engagement Valuation Period Detail", pageSendEmail);
+                extentReports.CreateLog("Page with title: " +pageSendEmail +" is displayed upon clicking Send Email button ");
+
+                engValPeriod.ValidateBillingRequestButtons();
+                string titleIndivSendEmail = engValPeriod.ValidateSendEmailPageUponSavingIndivReportFee();
+                Assert.AreEqual("Send Email", titleIndivSendEmail);
+                extentReports.CreateLog("Page : " + titleIndivSendEmail + " is displayed upon saving Individual Report Fee ");
+
+                string pageIndivSendEmail = engValPeriod.ValidateSendEmailFunctionality();
+                Assert.AreEqual("Engagement Valuation Period Detail", pageIndivSendEmail);
+                extentReports.CreateLog("Page with title: " + pageIndivSendEmail + " is displayed upon clicking Send Email button ");
+
+                //33.	TMTI0099318_Verify that the CAO can "Delete" the "Eng Valuation Period Allocation
+                //Login as CAO user 
+                engValPeriod.SwitchFrame();
+                usersLogin.DiffLightningLogout();                
+                usersLogin.SearchUserAndLogin(valCAOUser);
+                string caoUser1 = login.ValidateUserLightningCAO();
+                Console.WriteLine("caoUser:" + caoUser1);
+                Assert.AreEqual(caoUser1.Contains(valCAOUser.Substring(1, 10)), true);
+                extentReports.CreateLog("User: " + valCAOUser + " logged in ");
+
+                engHome.SelectEngUnderHLBanker();
+                engHome.SearchEngagementWithNumberOnLightning(value, valJobType);
+                engDetails.ClickPortfolioValuationL();
+
+                string allocation = engValPeriod.GetAllocation(engName);
+
+                string cancelDelete = engValPeriod.ValidateDeleteFunctionalityOfPeriodAllocationAfterSelectingNo();
+                Assert.AreEqual(allocation, cancelDelete);
+                extentReports.CreateLog("Eng Valuation Period Allocation is not deleted after clicking cancel on delete confirmation pop up ");
+
+                string acceptDelete = engValPeriod.ValidateDeleteFunctionalityOfPeriodAllocationAfterAccepting();
+                Assert.AreNotEqual(allocation, acceptDelete);
+                extentReports.CreateLog("Eng Valuation Period Allocation is deleted after clicking OK on delete confirmation pop up ");
+
+                //34.  TMTI0099321_Verify that the CAO is able to "Delete" the "Engagement Valuation Period Positions" 
+                string cancelPeriodPosition = engValPeriod.ValidateDeleteFunctionalityOfPeriodPositionAfterSelectingNo();
+                Assert.AreEqual("True", cancelPeriodPosition);
+                extentReports.CreateLog("Eng Valuation Period Position is not deleted after clicking cancel on delete confirmation pop up ");
+
+
+                //36.	TMTI0099326_Verify that if the added team member in the Eng Valuation Period Position is removed from Engagement, then the end date should get populated for that user in the Eng Valuation Period Position with the status inactive
+
+
+
+
+                //string acceptPeriodPosition = engValPeriod.ValidateDeleteFunctionalityOfPeriodPositionAfterAccepting();
+                //Assert.AreEqual("False", acceptPeriodPosition);
+                //extentReports.CreateLog("Eng Valuation Period Position is deleted after clicking OK on delete confirmation pop up ");
+
+
 
 
                 usersLogin.DiffLightningLogout();

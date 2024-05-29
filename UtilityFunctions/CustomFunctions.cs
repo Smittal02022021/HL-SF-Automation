@@ -174,7 +174,7 @@ namespace SF_Automation.UtilityFunctions
                 }
                 else if (value.Contains(text))
                 {
-                    Thread.Sleep(3000);
+                    Thread.Sleep(5000);
                     dropList[i].Click();
                     break;
                 }

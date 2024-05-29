@@ -67,6 +67,7 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
 
 
         By tabInfo = By.XPath("//a[text()='Info']");
+        By tabInternal = By.XPath("//a[text()='Internal Team']");
 
         By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
@@ -97,8 +98,11 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By msgInitiator = By.XPath("//label[@class='warning']");
         By msgRolesL = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By listStaff = By.XPath("/html/body/ul");
+        By listStaff2nd = By.XPath("/html/body/ul/li/a");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id89:0:j_id91']");
+        By checkInitiator2nd = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
+
         By checkEditIniatiator = By.CssSelector("input[name*='internalTeam:j_id40:0:j_id42:0']");
         By checkSeller = By.CssSelector("input[name*='internalTeam:j_id89:1:j_id91']");
         By btnSaveDealTeam = By.CssSelector("input[value='Save']");
@@ -1042,8 +1046,49 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }
+        //To enter team member details
+        public string EnterMultipleStaffDetailsL(string file)
+        {
+            Thread.Sleep(10000);
+            ReadJSONData.Generate("Admin_Data.json");
+            Console.WriteLine("Entered staff function");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
+            Console.WriteLine("Before entering Staff");
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+            driver.FindElement(txtStaff).SendKeys(valStaff);
+            Thread.Sleep(5000);
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
+            driver.FindElement(checkInitiator).Click();
+            driver.FindElement(btnSaveDealTeam).Click();            
 
-// Clear mandatory values on add opprtunity page
+            Thread.Sleep(5000);            
+
+            string valStaff2nd = ReadExcelData.ReadData(excelPath, "AddOpportunity", 29);
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 220);
+            driver.FindElement(txtStaff).SendKeys(valStaff2nd);
+            Thread.Sleep(6000);           
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff2nd, valStaff2nd);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator2nd, 240);
+            driver.FindElement(checkInitiator2nd).Click();
+            driver.FindElement(btnSaveDealTeam).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 190);
+            string name = driver.FindElement(tabInfo).Text;
+            return name;
+        }
+        // Clear mandatory values on add opprtunity page
         public void ClearMandatoryValuesOnAddOpportunity()
         {
             driver.FindElement(txtOpportunityName).Clear();

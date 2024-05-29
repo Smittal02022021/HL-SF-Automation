@@ -1,12 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using static SF_Automation.TestData.ReadJSONData;
+using Actions = OpenQA.Selenium.Interactions.Actions;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -118,7 +121,8 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelAutoToolL = By.XPath("//div[@class='pbBottomButtons']//input[@value='Cancel']");
         By titleEngValPeriodDetailL = By.XPath("//h2[text()='Engagement Valuation Period Detail']");
         By tabEngValPeriodL = By.XPath("//ul[2]/li[3]/a/span[2]");
-        By tabEngValAllocationL = By.XPath("//th[text()='Engagement Valuation Period']/ancestor::tr[1]/td[1]/span/a");
+        By btnCloseEngValPeriodL = By.XPath("//ul[2]/li[3]/div[2]/button");
+        By valEngValAllocationL = By.XPath("//th[text()='Engagement Valuation Period']/ancestor::tr[1]/td[1]/span/a");
         By btnEngValPeriodAllocationL = By.XPath("//input[@value='New Eng Valuation Period Allocation']");
         By titleEngValPeriodAllocationL = By.XPath("//h2[text()='New Eng Valuation Period Allocation']");
         By txtWeekStartingL = By.XPath("//label[text()='Week Starting']/ancestor::tr/td[1]//span/input");
@@ -132,17 +136,29 @@ namespace SF_Automation.Pages.Engagement
         By lnkEditAllocationL = By.XPath("//tbody/tr[3]/td[1]/a");
         By txtAnalystAllocationL = By.XPath("//slot/records-record-layout-row[2]//lightning-primitive-input-simple//input");
         By btnSaveUpdAllL = By.XPath("//button[@name='SaveEdit']");
+        By tabPeriodPositionL = By.XPath("//a/span[text()='XYZ']");
         By valAnalystAllocationL = By.XPath("//div/form//tr[3]/td[4]");
         By btnMassEditL = By.XPath("//input[@title='Mass Edit']");
         By btnMassEditButtonsL = By.XPath("//span[text()='Eng Valuations Period Allocations ']/ancestor::div[3]//following::div//button[contains(text(),'Eng')]");
         By btnSelectAllL = By.XPath("//span[text()='Select All']/ancestor::label[1]/span[1]");
         By btnInlineEditL = By.XPath("//tr[1]/td[5]//span//button[@data-navigation='enable']");
-        By btnUpdateL = By.XPath("//form/lightning-input/lightning-primitive-input-checkbox/div/span/input");
+        By btnUpdateL = By.XPath("//form//div/span/label/span[1]");
         By btnApplyL = By.XPath("//button[text()='Apply']");
         By txtAnalystL = By.XPath("//input[@name='dt-inline-edit-text']");
         By btnSaveMassEditL = By.XPath("//button[text()='Save']");
         By valTotalAllocationL = By.XPath("//div[2]/span/b");
         By btnBackToEngValPeriodL = By.XPath("//button[text()='Back to Engagement Valuation Period']");
+        By btnBillingReqL = By.XPath("//input[@value='Billing Request']");
+        By btnBillingReqButtonsL = By.XPath("//div[@class='ui-dialog-content ui-widget-content']//label");
+        By btnTotalReportFeeL = By.XPath("//input[@value='TotalReportFee']");
+        By btnIndivReportFeeL = By.XPath("//input[@value='IndividualReportFee']");
+        By btnSaveBillingL = By.XPath("//div[4]/div[2]/input[1]");
+        By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
+        By txtTo = By.XPath("//div[1]/div/table/tbody/tr/td/span/input[2]");
+        By valTo = By.XPath("/html/body/ul[1]/li/a");
+        By delAllocationL= By.XPath("//a[contains(@title,'Delete - Record 1 - VPA-')]");
+        By valAllocationL = By.XPath("//a[contains(@title,'Delete - Record 1 - VPA-')]/ancestor::tr[1]/th/a");
+        By delPositionL = By.XPath("//tr/td[1]/span/a/font");
 
         string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
@@ -1071,15 +1087,24 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(lnkEditAllocationL).Click();
             Thread.Sleep(7000);
             driver.SwitchTo().DefaultContent();           
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
             driver.FindElement(txtAnalystAllocationL).Clear();
             driver.FindElement(txtAnalystAllocationL).SendKeys("10");            
             driver.FindElement(btnSaveUpdAllL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngValAllocationL, 130);
-            driver.FindElement(tabEngValAllocationL).Click();                      
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
+            driver.FindElement(tabPeriodPositionL).Click();
+            //driver.Navigate().Refresh();
+            //Console.WriteLine("browser refreshed ");
+
+            driver.FindElement(btnCloseEngValPeriodL).Click();
+            Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(2);
+            driver.SwitchTo().Frame(0);
+            driver.FindElement(valEngValAllocationL).Click();                   
+                     
+            Thread.Sleep(7000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
             string value = driver.FindElement(valAnalystAllocationL).Text;
             return value;
@@ -1092,7 +1117,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnMassEditL).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(2);
+            driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);            
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnMassEditButtonsL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
@@ -1129,14 +1154,15 @@ namespace SF_Automation.Pages.Engagement
             actions.Perform();
             driver.FindElement(btnInlineEditL).Click();
             Thread.Sleep(4000);
+            driver.FindElement(txtAnalystL).Clear();
             driver.FindElement(txtAnalystL).SendKeys("10");
             driver.FindElement(btnUpdateL).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnApplyL).Click();
             driver.FindElement(btnSaveMassEditL).Click();
             Thread.Sleep(6000);
-            driver.SwitchTo().DefaultContent();
-            driver.SwitchTo().Frame(2);
+            //driver.SwitchTo().DefaultContent(); 
+            //driver.SwitchTo().Frame(0);
             Thread.Sleep(5000);
             string totalAnalyst = driver.FindElement(valTotalAllocationL).Text;
             return totalAnalyst;
@@ -1149,11 +1175,179 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnBackToEngValPeriodL).Click();            
             Thread.Sleep(5000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(8000);
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent(); 
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
             string title = driver.FindElement(titleEngValPeriodDetailL).Text;
             return title;
         }
 
+        //Validate button on Billing Request window
+        public bool ValidateBillingRequestButtons()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingReqL, 130);
+            driver.FindElement(btnBillingReqL).Click();
+            Thread.Sleep(6000);            
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnBillingReqButtonsL);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Total Report Fee", "Individual Report Fee" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate Send Email Page upon saving Total Report Fee 
+        public string ValidateSendEmailPageUponSavingTotalReportFee()
+        {           
+            driver.FindElement(btnTotalReportFeeL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveBillingL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(6000);
+            string title = driver.FindElement(btnSendEmailL).GetAttribute("value");
+            return title;
+        }
+
+        //Validate Send Email Page upon saving Indiv Report Fee 
+        public string ValidateSendEmailPageUponSavingIndivReportFee()
+        {
+            driver.FindElement(btnIndivReportFeeL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveBillingL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
+            Thread.Sleep(6000);
+            string title = driver.FindElement(btnSendEmailL).GetAttribute("value");
+            return title;
+        }
+
+
+        //Validate that the user is able to send an email
+        public string ValidateSendEmailFunctionality()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTo, 100);
+            driver.FindElement(txtTo).Clear();
+            Thread.Sleep(5000);
+            driver.FindElement(txtTo).SendKeys("Sonika Goyal");
+            Thread.Sleep(4000);
+            driver.FindElement(valTo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendEmailL, 150);
+            driver.FindElement(btnSendEmailL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+
+            try
+            {
+                string button = driver.FindElement(titleEngValPeriodDetailL).Text;
+                return button;
+            }
+            catch (Exception)
+            {
+                return "Button is not displayed";
+            }
+        }
+
+        public void SwitchFrame()
+        {
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();           
+            Thread.Sleep(5000);
+        }
+
+        //Get Allocation
+        public string GetAllocation(string name)
+        {
+            driver.FindElement(By.XPath("//a[text()='" + name + "']")).Click();
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAllocationL).Text;
+            return value;
+        }
+
+            //Validate delete functionality of allocation after clicking No on confirmation pop up
+            public string ValidateDeleteFunctionalityOfPeriodAllocationAfterSelectingNo()
+            {               
+                driver.FindElement(delAllocationL).Click();
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Dismiss();
+                Thread.Sleep(6000);                
+                string allocation = driver.FindElement(valAllocationL).Text;
+                return allocation;
+            }
+
+        //Validate delete functionality of allocation after accepting confirmation pop up
+        public string ValidateDeleteFunctionalityOfPeriodAllocationAfterAccepting()
+        {           
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAllocationL).Text;
+            driver.FindElement(delAllocationL).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);            
+            string allocation = driver.FindElement(valAllocationL).Displayed.ToString();
+            return allocation;
+        }
+
+        //Validate delete functionality of Period Position after clicking No on confirmation pop up
+        public string ValidateDeleteFunctionalityOfPeriodPositionAfterSelectingNo()
+        {           
+            Thread.Sleep(5000);
+            driver.FindElement(delPositionL).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Dismiss();
+            WebDriverWaits.WaitUntilEleVisible(driver, delPositionL, 190);
+            string period = driver.FindElement(delPositionL).Displayed.ToString();
+            return period;
+        }
+
+        //Validate delete functionality of Period Position after accepting on confirmation pop up
+        public string ValidateDeleteFunctionalityOfPeriodPositionAfterAccepting()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.FindElement(delPositionL).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);            
+            string period = driver.FindElement(delPositionL).Displayed.ToString();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
+            return period;
+        }
     }
 
 
