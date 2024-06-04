@@ -40,7 +40,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -51,9 +51,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);
                 extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                homePageLV.ClickAppLauncher();
+                //homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

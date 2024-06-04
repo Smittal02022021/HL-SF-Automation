@@ -134,19 +134,12 @@ namespace SF_Automation.Pages
             driver.FindElement(imgCompany).Click();
             Thread.Sleep(6000);
         }
-    public void ClickCompaniesTabAdvanceSearch()
-
+         public void ClickCompaniesTabAdvanceSearch()
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanies);
-
             driver.FindElement(lnkCompanies).Click();
-
             driver.FindElement(linkShowAdvanceSearch).Click();
-
         }
-
-
 
         public string SearchCompanyWithIndustryType(string industryType)
 
@@ -191,43 +184,94 @@ namespace SF_Automation.Pages
 
 
         public void CreateCompany(string recordType)
-
         {
-
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanies);
-
-            //driver.FindElement(lnkCompanies).Click();
-
             Thread.Sleep(3000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnContinue, 10);
-
             driver.FindElement(comboRecordType).SendKeys(recordType);
-
             driver.FindElement(btnContinue).Submit();
-
             string valCompanyName = "TestCompany_" + (CustomFunctions.RandomValue());
-
             WebDriverWaits.WaitUntilEleVisible(driver, txtNewCompanyName, 10);
-
             driver.FindElement(txtNewCompanyName).SendKeys(valCompanyName);
-
             driver.FindElement(btnSave).Click();
-
         }
 
         public void ClickSaveCompany()
-
         {
-
             string valCompanyName = "TestCompany_" + (CustomFunctions.RandomValue());
-
             WebDriverWaits.WaitUntilEleVisible(driver, txtNewCompanyName, 10);
-
             driver.FindElement(txtNewCompanyName).SendKeys(valCompanyName);
-
             driver.FindElement(btnSave).Click();
+        }
+        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
+        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
+        
+        private By _btnRadioRecordType(string type)
+        {
+           return By.XPath($"//h2[text()='New Company']/..//label//span[text()='{type}']");
+        }
+        
+        public void ClickNewCompanyButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCompanyL, 10);
+            driver.FindElement(btnNewCompanyL).Click();
+        }
+        public void SelectCompanyTypeLV(string recordType)
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnRadioRecordType(recordType), 10);
+            driver.FindElement(_btnRadioRecordType(recordType)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNextL, 10);
+            driver.FindElement(btnNextL).Click();
+        }
 
+        By btnDeleteL = By.XPath("//button[contains(text(),'Delete')]");
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnMoreDeleteL = By.XPath("//span[contains(text(),'Delete')]");
+        By btnConfirmDelete = By.XPath("//div[@role='dialog']//button[@title='Delete']");
+
+        public string SearchCompanyNew(string companyName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanies, 20);
+            driver.FindElement(lnkCompanies).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
+            driver.FindElement(txtCompanyName).SendKeys(companyName);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCompanySearch);
+            Thread.Sleep(2000);
+            driver.FindElement(btnCompanySearch).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+            Thread.Sleep(6000);
+            try
+            {
+                string result = driver.FindElement(matchedResult).Displayed.ToString();                
+                driver.FindElement(matchedResult).Click();
+                return "Record found";
+            }
+            catch (Exception)
+            {
+                return "No record found";
+            }
+        }
+
+        public void DeleteCompanyLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteL, 10);
+                driver.FindElement(btnDeleteL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreDeleteL, 10);
+                driver.FindElement(btnMoreDeleteL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 10);
+                driver.FindElement(btnConfirmDelete).Click();                
+            }
+            
         }
     }
 }

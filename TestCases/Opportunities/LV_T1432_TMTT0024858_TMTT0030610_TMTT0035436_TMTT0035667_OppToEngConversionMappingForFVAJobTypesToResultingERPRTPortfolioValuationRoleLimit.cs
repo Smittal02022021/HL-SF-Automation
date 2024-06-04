@@ -44,8 +44,8 @@ namespace SF_Automation.TestCases.Opportunities
         TMTI0071647 Verify the status is updated in the Oracle ERP Information section
 
         TMTT0035436 done
-        TMTI0084220 Verify the availability of new Job Types on Edit Engagement page
-        TMTI0084221 Verify the status is updated in Oracle ERP Information section
+        TMTI0084220 Verify the availability of new Job Types on the Edit Engagement page
+        TMTI0084221 Verify the status is updated in the Oracle ERP Information section
 
         */
         ExtentReport extentReports = new ExtentReport();
@@ -84,6 +84,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
@@ -102,10 +103,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(stdUserExl), true);
                     extentReports.CreateLog("User: " + stdUserExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -169,9 +170,9 @@ namespace SF_Automation.TestCases.Opportunities
                     /////////////////////////////////////////////////////////////////////
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -231,10 +232,10 @@ namespace SF_Automation.TestCases.Opportunities
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(stdUserExl), true);
                     extentReports.CreateLog("User: " + stdUserExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -263,10 +264,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(caoUserExl), true);                    
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -366,9 +367,9 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.SearchUserAndLogin(adminUserExl);
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Loggin to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);

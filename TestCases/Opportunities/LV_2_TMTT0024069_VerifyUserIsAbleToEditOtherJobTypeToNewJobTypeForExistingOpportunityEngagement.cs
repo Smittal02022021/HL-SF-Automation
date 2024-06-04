@@ -45,7 +45,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -62,10 +62,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -165,10 +165,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valUser), true);
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -200,9 +200,9 @@ namespace SF_Automation.TestCases.Opportunities
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAOExl), true);
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -225,7 +225,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
@@ -242,7 +241,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Reverting Job Type to Actual Job Type
                     engagementDetails.UpdateJobTypeLV(newJobType, existingJobType);
-
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out");
                 }

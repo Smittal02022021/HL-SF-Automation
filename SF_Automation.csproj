@@ -555,6 +555,8 @@
     <Compile Include="TestCases\ActivitiesList\TMTT0011738_VerifytheTypeFiltersearchwhenthedesiredactivityisnotpresentoncurrentorselectedpage.cs" />
     <Compile Include="TestCases\ActivitiesList\TMTT0011740_TMTT0011741_VerifytheaccessofOtherAttendeeAccessForPrivatectivity.cs" />
     <Compile Include="TestCases\ActivitiesList\TMTT0011744_TMTT0011743_TMTT0011742_VerifythatActivityDescriptionontheactivityisbeingmappedtoEmailTemplatewithsameformatasActivityDescription.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0012451_TMTT0012456_VerifyCFIndustryGroupUpdatedToTECHonCompaniesLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompaniesLightningView.cs" />
     <Compile Include="TestCases\Company\T1140_T1141_T1151_T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Company\T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Company\T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation.cs" />
@@ -573,8 +575,8 @@
     <Compile Include="TestCases\Company\T2041_Companies_FSCoverageTeam_VerifyRequiredFieldsHelpText.cs" />
     <Compile Include="TestCases\Company\T2237_Companies_VerifyDuplicateRuleAccountCreatedByAnd.cs" />
     <Compile Include="TestCases\Company\T2346_Companies_Common-VerifyCoverageTeamOfficerCanBeAddedToCoverageTeams_BySelectingDifferentPrimarySectorValues.cs" />
-    <Compile Include="TestCases\Company\VT_TMTT0012451_TMTT0012456_VerifyCFIndustryGroupUpdatedToTECHonCompanies.cs" />
-    <Compile Include="TestCases\Company\VT_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.cs" />
+    <Compile Include="TestCases\Company\VT_TMTT0012451_VerifyCFIndustryGroupUpdatedToTECHonCompanies.cs" />
+    <Compile Include="TestCases\Company\ZObsolated_VT_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.cs" />
     <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUserLightningView.cs" />
     <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdminLightningView.cs" />
     <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdminLightningView.cs" />
@@ -1193,9 +1195,9 @@
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets'))" />
     <!--<Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.122.0.6261.11100\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.122.0.6261.11100\build\Selenium.WebDriver.ChromeDriver.targets'))" />-->
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.123.0.6312.5800\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.123.0.6312.5800\build\Selenium.WebDriver.ChromeDriver.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.3.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.125.0.6422.7800\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.125.0.6422.7800\build\Selenium.WebDriver.ChromeDriver.targets'))" />
     <!--<Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets'))" />-->
     <!--<Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" /> -->
   </Target>
@@ -1209,8 +1211,8 @@
   <Import Project="packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <Import Project="packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.MSEdgeDriver.122.0.2365.63\build\Selenium.WebDriver.MSEdgeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.125.0.6422.7800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.125.0.6422.7800\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.122.0.6261.11100\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.122.0.6261.11100\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.123.0.6312.5800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.123.0.6312.5800\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.9200\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
   <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
 </Project>

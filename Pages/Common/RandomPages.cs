@@ -1167,6 +1167,6 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(tabMoreFullViewL).Click();
             }
             Thread.Sleep(10000);
-        }
+        }        
     }
 }

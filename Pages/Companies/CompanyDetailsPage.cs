@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.Pages.Company;
 using SF_Automation.TestData;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace SF_Automation.Pages.Companies
 {
@@ -1323,7 +1325,6 @@ namespace SF_Automation.Pages.Companies
             }
         }
 
-
         public bool IsOpportunitiesSearchBoxL()
         {
             try
@@ -1584,16 +1585,11 @@ namespace SF_Automation.Pages.Companies
             return driver.FindElement(headerNestedListL).Text;
         }
 
-
-
-
         public string GetCompanyHLRelationshipContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyHLRelationshipContactL, 20);
             return driver.FindElement(txtCompanyHLRelationshipContactL).Text;
         }
-
-
 
         public string GetCompanyHLRelationshipOfficerNameL()
         {
@@ -1607,9 +1603,6 @@ namespace SF_Automation.Pages.Companies
             //driver.FindElement(linkNestedHLRelationship ).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkNestedHLRelationshipL, 20);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(linkNestedHLRelationshipL));
-
-
-
         }
         public void ClickNestedCoverageTeamOfficerLV(string officerName)
         {
@@ -1667,100 +1660,167 @@ namespace SF_Automation.Pages.Companies
             bool isFound = false;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit);
             driver.FindElement(btnEdit).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
             driver.FindElement(comboIndustryType).Click();
-
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
                  var actualValue = valTypes.Select(x => x.Text).ToArray();
-
             for (int row = 0; row <= actualValue.Length; row++)
-
             {
-
                 if (actualValue[row].Contains(industryType))
-
                 {
-
                     isFound = true;
-
                     driver.FindElement(btnCancel).Click();
-
                     break;
-
                 }
-
             }
-
-
             return isFound;
-
         }
 
         public void ClickDetailPageQuickLink(string linkName)
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, _DetailPageQuickLink(linkName));
-
             driver.FindElement(_DetailPageQuickLink(linkName)).Click();
-
         }
-
 
         public void ClickNewCoverageTeamButton()
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeam);
-
             driver.FindElement(btnNewCoverageTeam).Click();
-
         }
-
-
-
-
 
         public bool IsIndustryTypePresentonCoverageTeam(string industryType)
-
         {
-
             bool isFound = false;
-
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboType);
-
             driver.FindElement(comboType).Click();
-
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypeOption);
-
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-
             for (int row = 0; row <= actualValue.Length; row++)
-
             {
-
                 if (actualValue[row].Contains(industryType))
-
                 {
-
                     isFound = true;
-
                     driver.FindElement(btnCancel).Click();
-
                     break;
-
                 }
-
             }
-
             return isFound;
-
         }
 
+        By txtNewCompanyName = By.CssSelector("input[name*='AccountName']");
+        By btnSaveL = By.XPath("//div[@class='pbBottomButtons']//input[@value='Save']");
+        By txtCompanyNameL = By.XPath("//span[text()='Company Name']/../../..//dd//lightning-formatted-text");
+        By btnEditL = By.XPath("//button[@name='Edit']");
+        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
+        By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
+        By btnDialogNextL= By.XPath("//div[@role='dialog']//button[text()='Next']");
+        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
+        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
+        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
+        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
 
+        private By _btnRadioRecordType(string type)
+        {
+            return By.XPath($"//h2[text()='New Company']/..//label//span[text()='{type}']");
+        }        
+
+        public string CreateCompanyLV(string recordType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCompanyL, 10);
+            driver.FindElement(btnNewCompanyL).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnRadioRecordType(recordType), 10);
+            driver.FindElement(_btnRadioRecordType(recordType)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNextL, 10);
+            driver.FindElement(btnNextL).Click();
+
+            string valCompanyName = recordType+"_" + (CustomFunctions.RandomValue());
+            WebDriverWaits.WaitUntilEleVisible(driver, iframeCompanyForm, 20);
+            driver.SwitchTo().Frame(driver.FindElement(iframeCompanyForm));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtNewCompanyName, 10);
+            driver.FindElement(txtNewCompanyName).SendKeys(valCompanyName);
+            driver.FindElement(btnSaveL).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyNameL, 10);
+            return driver.FindElement(txtCompanyNameL).Text;
+        }
+        public bool IsIndustryTypePresentonCoverageTeamLV(string industryType)
+        {
+            bool isFound = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTypeL);
+            driver.FindElement(comboTypeL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypeOptionsL);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                //Thread.Sleep(1000);
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    //driver.FindElement(comboTypeL).Click();
+                    //driver.FindElement(btnCancelL).Click();
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public bool IsIndustryTypePresentLV(string industryType)
+        {
+            bool isFound = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL);
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryTypeL,20);
+            driver.FindElement(comboIndustryTypeL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsL);
+            if (valTypes.Count == 0)
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(comboIndustryTypeL).Click();
+                valTypes = driver.FindElements(comboIndustryTypeOptionsL);
+            }
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                //CustomFunctions.MoveToElement(actualValue[row])
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    driver.FindElement(comboIndustryTypeL).Click();
+                    driver.FindElement(btnCancelL).Click();
+                    break;
+                }
+            }
+            return isFound;
+        }
+        public void ClickNewCoverageTeamButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeamL, 20);
+            driver.FindElement(btnNewCoverageTeamL).Click();
+        }
+        public void ClickNewCoverageTeamDefaultRTButtonLV()
+        {
+            Actions actions = new Actions(driver);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeamL, 20);             
+            actions.MoveToElement(driver.FindElement(btnNewCoverageTeamL)).Click().Perform();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDialogNextL, 10);
+            Thread.Sleep(2000);
+            actions.MoveToElement(driver.FindElement(btnDialogNextL)).Click().Perform();
+        }
+        public void DeleteCompanyNew(string CompanyType)
+        {
+            companyHome.SearchCompanyNew(CompanyType);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCompany, 20);
+            driver.FindElement(btnDeleteCompany).Click();
+            Thread.Sleep(2000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(2000);
+        }
     }
 }
 

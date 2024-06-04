@@ -36,7 +36,8 @@ namespace SF_Automation.TestCases.Opportunities
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Info", driver.Title + " is displayed ");               
-                login.LoginApplication();                  
+                login.LoginApplication();
+                login.SwitchToClassicView();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
                 
@@ -47,9 +48,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-                homePageLV.ClickAppLauncher();
+                //homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

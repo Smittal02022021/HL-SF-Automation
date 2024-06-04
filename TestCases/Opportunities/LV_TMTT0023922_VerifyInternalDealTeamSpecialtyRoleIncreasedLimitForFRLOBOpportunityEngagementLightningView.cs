@@ -47,7 +47,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     // Calling Login function                
                     login.LoginApplication();
-
+                    login.SwitchToClassicView();
                     // Validate user logged in                   
                     Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                     extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -65,9 +65,9 @@ namespace SF_Automation.TestCases.Opportunities
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
 
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
                         string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         string appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -169,11 +169,11 @@ namespace SF_Automation.TestCases.Opportunities
                         string user = login.ValidateUserLightningView();
                         Assert.AreEqual(user.Contains(userCAO), true);
                         extentReports.CreateLog("CAO User: " + userCAO + " logged in on Lightning View");
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
 
                         //Go to Opportunity module in Lightning View 
                         appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -222,7 +222,6 @@ namespace SF_Automation.TestCases.Opportunities
                     driver.Quit();
                     extentReports.CreateStepLogs("Info", "Browser Closed");
                 }
-
                 catch (Exception e)
                 {
                     extentReports.CreateExceptionLog(e.Message);

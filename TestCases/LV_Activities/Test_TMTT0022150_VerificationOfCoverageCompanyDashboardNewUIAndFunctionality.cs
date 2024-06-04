@@ -46,7 +46,7 @@ namespace SalesForce_Project.TestCases.LV_Activities
 
                 //Calling Login function                
                 login.LoginApplication();
-                
+                login.SwitchToClassicView();
                 //Validate user logged in       
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");

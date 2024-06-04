@@ -51,6 +51,12 @@ namespace SF_Automation.Pages.Company
         By comboIndustryType = By.CssSelector("select[id*='GBVBf']");
         By comboIndustryTypeOptions = By.CssSelector("select[id*='GBVBf'] option");
 
+
+        By btnNewCapIQCompanyL = By.XPath("//ul//li//a[@title='New']");
+        By txtHeaderL = By.XPath("//h2[text()='New CapIQ Company']");
+        By comboIndustryTypeL = By.XPath("//label[text()='HL Industry Group']/..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='HL Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+
         // To Search for CapIQ Company
         public string SearchCapIQCompany(string companyName)
         {
@@ -66,7 +72,6 @@ namespace SF_Automation.Pages.Company
             if (selectedCapIQOption.Equals(CapIQCompaniesViewOption))
             {
                 IWebElement GoSearchBtn = driver.FindElement(btnGoSearchCapIQCompanies);
-
                 IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
                 js.ExecuteScript("arguments[0].click();", GoSearchBtn);
                 Thread.Sleep(5000);
@@ -189,19 +194,13 @@ namespace SF_Automation.Pages.Company
             driver.FindElement(shwAllTab).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCapIQCompanies, 20);
             driver.FindElement(lnkCapIQCompanies).Click();
-
-
-
         }
-
-
 
         public bool IsIndustryGroupAvailableOnNewCapIQCompanyPage(string industryType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewCapIQCompany, 10);
             driver.FindElement(btnNewCapIQCompany).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCapIQCompany, 20);
-
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCapIQCompany, 20);            
             bool isFound = false;
             driver.FindElement(comboIndustryType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
@@ -214,6 +213,33 @@ namespace SF_Automation.Pages.Company
                     break;
                 }
             }
+            return isFound;
+        }
+        public bool IsIndustryGroupAvailableOnNewCapIQCompanyPageLV(string industryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCapIQCompanyL, 10);
+            driver.FindElement(btnNewCapIQCompanyL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHeaderL, 20);
+            
+            bool isFound = false;
+            driver.FindElement(comboIndustryTypeL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsL);
+            if(valTypes.Count == 0)
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(comboIndustryTypeL).Click();
+                valTypes = driver.FindElements(comboIndustryTypeOptionsL);
+            }
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for (int row = 0; row <= actualValue.Length; row++)
+            {
+                if (actualValue[row].Contains(industryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(comboIndustryTypeL).Click();
             return isFound;
         }
     }

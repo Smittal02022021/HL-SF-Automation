@@ -1203,7 +1203,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valView);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            //
+            //expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
             //string[] expectedValue = {"All", "Sellside Stages", "Buyside Stages", "Capital Markets Stages" };
             string[] expectedValue = { "All", "Buyside Stages" };
             bool isSame = true;

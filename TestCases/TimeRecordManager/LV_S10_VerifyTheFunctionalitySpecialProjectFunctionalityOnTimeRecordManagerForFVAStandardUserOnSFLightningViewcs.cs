@@ -47,6 +47,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 string TimeRecordManagerUser = login.ValidateUser();
 
                 //Validate user logged in          
@@ -65,10 +66,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

@@ -41,6 +41,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 // Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
 
                 ////////////////Login as Supervisor  User////////////////
@@ -54,10 +55,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string userSupervisor = login.ValidateUserLightningView();
                 Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);
                 extentReports.CreateStepLogs("Passed", "Supervosor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                homePageLV.ClickAppLauncher();
+                //homePageLV.ClickAppLauncher();
 
                 //Go to Opportunity module in Lightning View                 
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                 extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                 //Navigate to Title Rate Sheets page
