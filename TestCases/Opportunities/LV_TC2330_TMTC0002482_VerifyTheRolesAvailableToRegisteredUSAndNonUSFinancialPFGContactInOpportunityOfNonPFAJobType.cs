@@ -42,7 +42,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
@@ -56,16 +56,15 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
 
                 int teamMember = ReadExcelData.GetRowCount(excelPath, "Users");
-
                 for (int row = 2; row <= teamMember; row++)
                 {
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);                   
                     
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");

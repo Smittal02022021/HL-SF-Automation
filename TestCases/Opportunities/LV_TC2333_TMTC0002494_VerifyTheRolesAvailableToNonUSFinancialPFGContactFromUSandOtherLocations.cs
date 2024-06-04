@@ -41,22 +41,13 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                //usersLogin.SearchUserAndLogin(valUser);
-                //login.SwitchToClassicView();
-
-                //string stdUser = login.ValidateUser();
-                //Assert.AreEqual(stdUser.Contains(valUser), true);
-                //extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
-                //login.SwitchToLightningExperience();
-
                 usersLogin.SearchUserAndLogin(userExl);
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
@@ -68,10 +59,10 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");

@@ -43,6 +43,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
@@ -55,10 +56,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(userExl), true);
                 extentReports.CreateStepLogs("Passed", " User: " + userExl + " logged in ");
-                homePageLV.ClickAppLauncher();
+                //homePageLV.ClickAppLauncher();
 
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

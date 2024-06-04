@@ -65,9 +65,9 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(stdUser.Contains(stdUserExl), true);
                     extentReports.CreateLog("User: " + stdUserExl + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -144,9 +144,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -191,9 +191,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " logged in on Lightning View");
 
                     extentReports.CreateStepLogs("Info", "CAO User Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -224,9 +224,9 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(user.Contains(userDNDApproverExl), true);
 
                     extentReports.CreateStepLogs("Passed", "DND Approver User: " + userDNDApproverExl + "  logged in ");
-                     homePageLV.ClickAppLauncher();
+                     //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -261,9 +261,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
                    
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -305,9 +305,9 @@ namespace SF_Automation.TestCases.Opportunities
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(dealTeamMemberExl), true);
                     extentReports.CreateStepLogs("Info", "Deal Team Member: " + dealTeamMemberExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -332,9 +332,9 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(user.Contains(userCAOUserExl), true);
 
                     extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + " Logged in on Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -360,8 +360,6 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(dndOppName);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOUserExl + " Logged Out");
-                    //login.SwitchToClassicView();
-                    //usersLogin.UserLogOut();
 
                     //////////////////////////////////////////////////////////////////////////////
                     //13.Login as removed deal user and check that removed user is no longer access to DND opportunity.
@@ -370,16 +368,11 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
-
-                    //login.SwitchToClassicView();
-                    //user = login.ValidateUser();
-                    //Assert.AreEqual(user.Contains(removedDealTeamMemberExl), true);
                     extentReports.CreateStepLogs("Passed", "Removed Deal Team Member: " + removedDealTeamMemberExl + " from Internal Deal Team logged in ");
-                    //login.SwitchToLightningExperience();
-                    //extentReports.CreateStepLogs("Info", "Deal Team Member: " + removedDealTeamMemberExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);

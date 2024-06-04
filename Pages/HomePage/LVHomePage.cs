@@ -152,6 +152,28 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(_appInAppLauncher(appName)).Click();
             Thread.Sleep(3000);
         }
+        public void SelectAppLV(string appName)
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, appHeader, 30);
+            string defaultApp = driver.FindElement(appHeader).Text;
+            if(defaultApp==appName)
+            {
+                //No need to select app again as desired aap is already selected
+            }
+            else
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
+                driver.FindElement(appLauncher).Click();
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSearchItems, 30);
+                driver.FindElement(txtSearchItems).SendKeys(appName);
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, _appInAppLauncher(appName), 60);
+                driver.FindElement(_appInAppLauncher(appName)).Click();
+                Thread.Sleep(3000);
+            } 
+        }
 
         public string GetAppName()
         {

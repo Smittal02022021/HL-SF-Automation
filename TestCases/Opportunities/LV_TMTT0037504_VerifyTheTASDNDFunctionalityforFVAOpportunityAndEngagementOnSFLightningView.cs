@@ -82,9 +82,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUserExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -146,9 +146,9 @@ namespace SF_Automation.TestCases.Opportunities
                     /////////////////////////////////////////////////////////////////////
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -185,9 +185,9 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Info", "Verify the TAS DND button availablility Deal team members: " + dealMemberNameExl + " of LOB: " + dealMemberLOBExl+ " with "+ dealMemberRoleExl+" role on Opportunity Detail page");
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
                         login.SwitchToLightningExperience();
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View                     
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                         extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                         homePageLV.SelectModule(moduleNameExl);
@@ -259,9 +259,9 @@ namespace SF_Automation.TestCases.Opportunities
                             extentReports.CreateStepLogs("Info", "Verify that Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
                             usersLogin.SearchUserAndLogin(dealMemberNameExl);
                             login.SwitchToLightningExperience();
-                            homePageLV.ClickAppLauncher();
+                            //homePageLV.ClickAppLauncher();
                             //Go to Opportunity module in Lightning View                     
-                            homePageLV.SelectApp(appNameExl);
+                            homePageLV.SelectAppLV(appNameExl);
                             Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                             extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                             homePageLV.SelectModule(moduleNameExl);
@@ -283,9 +283,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
                     usersLogin.SearchUserAndLogin(caoUserExl);
                     login.SwitchToLightningExperience();
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -318,8 +318,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
                         login.SwitchToLightningExperience();
-                        homePageLV.ClickAppLauncher();                     
-                        homePageLV.SelectApp(appNameExl);
+                        //homePageLV.ClickAppLauncher();                     
+                        homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                         extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                         homePageLV.SelectModule(moduleNameExl);
@@ -356,9 +356,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
                     usersLogin.SearchUserAndLogin(caoUserExl);
                     login.SwitchToLightningExperience();
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -418,9 +418,9 @@ namespace SF_Automation.TestCases.Opportunities
                     
                     usersLogin.SearchUserAndLogin(dealMemberNameExl);
                     login.SwitchToLightningExperience();
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -457,9 +457,9 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Info", "Verify that New Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
                         usersLogin.SearchUserAndLogin(dealMemberNameExl);
                         login.SwitchToLightningExperience();
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View                     
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                         extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                         homePageLV.SelectModule(moduleNameExl);

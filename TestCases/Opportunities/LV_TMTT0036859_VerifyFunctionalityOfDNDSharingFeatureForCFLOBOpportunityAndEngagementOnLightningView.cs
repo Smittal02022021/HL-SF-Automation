@@ -68,9 +68,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUserExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -158,9 +158,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -208,9 +208,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "CAO User Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -247,9 +247,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "DND Approver User: " + userDNDApproverExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -288,9 +288,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -335,9 +335,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Deal Team Member: " + dealTeamMemberExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Deal Team Member: " + dealTeamMemberExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -361,9 +361,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -400,9 +400,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Deal Team Member: " + user + " Internal Deal Team User logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Deal Team Member: " + user + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -429,9 +429,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "System Admin User: " + user + "  User logged in ");                    
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -474,9 +474,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Standard User: " + stdUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -503,9 +503,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "CAO User: " + caoUserExl + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "CAO User: " +caoUserExl+" Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -546,9 +546,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Deal Team Member: " + user + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Deal Team Member: " + user + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
@@ -575,9 +575,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Non-Deal Team Member: " + user + " logged in ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "Non-Deal Team Member: " + user + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
@@ -603,9 +603,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);

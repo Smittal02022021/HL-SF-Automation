@@ -41,7 +41,7 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 extentReports.CreateLog(driver.Title + " is displayed. ");
                 //Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 //Validate user logged in       
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
@@ -54,9 +54,10 @@ namespace SalesForce_Project.TestCases.LV_Activities
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);
                 extentReports.CreateStepLogs("Passed", "****Need to change with CF Financial User System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                homePageLV.ClickAppLauncher();
+                
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                //homePageLV.ClickAppLauncher();
+                homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateLog(appName + " App is selected from App Launcher ");

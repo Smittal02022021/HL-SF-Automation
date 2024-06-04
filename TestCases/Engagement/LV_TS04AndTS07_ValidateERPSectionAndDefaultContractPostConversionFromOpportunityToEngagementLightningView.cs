@@ -49,6 +49,7 @@ namespace SF_Automation.TestCases.Engagements
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
@@ -66,9 +67,9 @@ namespace SF_Automation.TestCases.Engagements
                     Assert.AreEqual(stdUser.Contains(valUserExl), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUserExl + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -135,8 +136,8 @@ namespace SF_Automation.TestCases.Engagements
                     string userName = login.ValidateUserLightningView();
                     Assert.AreEqual(userName.Contains(adminUserExl), true);
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
-                    homePageLV.SelectApp(appNameExl);
+                    //homePageLV.ClickAppLauncher();
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -168,8 +169,8 @@ namespace SF_Automation.TestCases.Engagements
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUserExl), true);
                     extentReports.CreateLog("Standard User: " + valUserExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
-                    homePageLV.SelectApp(appNameExl);
+                    //homePageLV.ClickAppLauncher();
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");
@@ -190,8 +191,8 @@ namespace SF_Automation.TestCases.Engagements
                     string userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateStepLogs("Info", "CAO User:" + userCAOExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
-                    homePageLV.SelectApp(appNameExl);
+                    //homePageLV.ClickAppLauncher();
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -221,8 +222,8 @@ namespace SF_Automation.TestCases.Engagements
                     userName = login.ValidateUserLightningView();
                     Assert.AreEqual(userName.Contains(adminUserExl), true);
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View for ERP related Activities");
-                    homePageLV.ClickAppLauncher();
-                    homePageLV.SelectApp(appNameExl);
+                    //homePageLV.ClickAppLauncher();
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

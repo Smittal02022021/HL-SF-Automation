@@ -8,7 +8,7 @@ using SF_Automation.Pages.Company;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class VT_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies:BaseClass
+    class ZObsolated_VT_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

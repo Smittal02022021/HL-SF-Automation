@@ -47,7 +47,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     // Calling Login function                
                     login.LoginApplication();
-
+                    login.SwitchToClassicView();
                     // Validate user logged in                   
                     Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                     extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -68,10 +68,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                         login.SwitchToLightningExperience();
                         extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
 
                         string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         string appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -131,9 +131,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                         login.SwitchToLightningExperience();
                         extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View 
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                         extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                         homePageLV.SelectModule(moduleNameExl);
@@ -184,10 +184,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                         login.SwitchToLightningExperience();
                         extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
 
                         //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");
@@ -221,11 +221,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                         login.SwitchToLightningExperience();
                         extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                        homePageLV.ClickAppLauncher();
+                        //homePageLV.ClickAppLauncher();
 
                         //Go to Opportunity module in Lightning View 
                         //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                        homePageLV.SelectApp(appNameExl);
+                        homePageLV.SelectAppLV(appNameExl);
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateLog(appName + " App is selected from App Launcher ");

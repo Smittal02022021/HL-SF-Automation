@@ -45,12 +45,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");                
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login "); 
+                
                 ////Click on the new title rate sheet name               
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
-
                 for (int row = 2; row <= rowCount; row++)
                 {
                     //Login as Standard User profile and validate the user
@@ -65,9 +66,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

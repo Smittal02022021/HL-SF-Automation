@@ -44,7 +44,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 //Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Info", login.ValidateUser() + " is able to login ");
@@ -65,10 +65,10 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(stdUser.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);                    
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
@@ -107,10 +107,10 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateLog("User: " + userCAOExl + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
@@ -142,10 +142,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string userDND = login.ValidateUserLightningView();
                     Assert.AreEqual(userDND.Contains(userDNDApproverExl), true);
                     extentReports.CreateLog("User: " + userDNDApproverExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    // homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 
@@ -175,10 +175,10 @@ namespace SF_Automation.TestCases.Opportunities
                     userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateLog("User: " + userCAOExl + " logged in on Lightning View");
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                     extentReports.CreateStepLogs("Pass", appNameExl + " App is selected from App Launcher ");
 

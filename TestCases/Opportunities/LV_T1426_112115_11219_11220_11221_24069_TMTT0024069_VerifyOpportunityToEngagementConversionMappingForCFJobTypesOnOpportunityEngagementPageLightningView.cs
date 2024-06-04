@@ -7,7 +7,6 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using AventStack.ExtentReports;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -47,11 +46,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 // Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
-                //TMTI0055384	Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
+                //TMTI0055384 Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                 //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
 
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
@@ -63,17 +62,13 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
                     usersLogin.SearchUserAndLogin(valUser);
-                    //login.SwitchToClassicView();
-
                     login.SwitchToLightningExperience();   
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-                    
-                    homePageLV.ClickAppLauncher();
-
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");                    
+                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
@@ -96,8 +91,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Women Led", womenLed);
                     Assert.AreEqual("Administration", secName);
                     extentReports.CreateStepLogs("Passed", "Field with name: " + womenLed + " is displayed under section: " + secName + " ");
-                    /////////////////////////////////////
-                    
+                    /////////////////////////////////////                    
 
                     //TMTI0055384 Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
@@ -131,13 +125,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
 
                     extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
-
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0055384);
                     if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
@@ -148,8 +140,7 @@ namespace SF_Automation.TestCases.Opportunities
                     else
                     {
                         extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
-                    }                    
-
+                    }  
                     //TMTI0056861 Verify that NBC form is not required for new Job type - Lender education
                     //Get NBC Approved Default Status
                     Assert.AreEqual(opportunityDetails.GetNBCApprovedStatus(),"Checked");
@@ -157,19 +148,16 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login again as Standard User
                     usersLogin.SearchUserAndLogin(valUser);
-
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
-                    
-                    homePageLV.SelectApp(appNameExl);
+                   // homePageLV.ClickAppLauncher();                    
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
@@ -194,10 +182,9 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
 
-                    homePageLV.ClickAppLauncher();
-
+                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectApp(appNameExl);
+                    homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");

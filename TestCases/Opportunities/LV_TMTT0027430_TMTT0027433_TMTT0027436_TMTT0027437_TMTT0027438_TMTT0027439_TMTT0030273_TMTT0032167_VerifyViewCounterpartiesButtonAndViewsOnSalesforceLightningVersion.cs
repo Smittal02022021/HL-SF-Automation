@@ -68,10 +68,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Switching to LightningView
                     login.SwitchToLightningExperience();
-                    homePageLV.ClickAppLauncher();
+                    //homePageLV.ClickAppLauncher();
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName",1);
-                    homePageLV.SelectApp(appNameExl);
-                    appName= homePageLV.GetAppName();
+                    homePageLV.SelectAppLV(appNameExl);
+                    appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
                     //Go to Opportunities Module and Search for opportunity
@@ -261,8 +261,8 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateExceptionLog(e.Message);
                 homePageLV.UserLogoutFromSFLightningView();
                 login.SwitchToLightningExperience();
-                homePageLV.ClickAppLauncher();
-                homePageLV.SelectApp(appNameExl);
+                //homePageLV.ClickAppLauncher();
+                homePageLV.SelectAppLV(appNameExl);
                 homePageLV.SelectModule(moduleNameExl);
                 opportunityHome.SearchOpportunityInLightning(nameOpportunityExl);
                 opportunityDetails.ClickViewCounterpartyButtonOpportunityPageL();

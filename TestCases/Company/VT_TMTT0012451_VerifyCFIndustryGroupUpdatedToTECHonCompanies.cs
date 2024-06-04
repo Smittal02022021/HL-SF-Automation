@@ -9,7 +9,7 @@ using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class VT_TMTT0012451_TMTT0012456_VerifyCFIndustryGroupUpdatedToTECHonCompanies : BaseClass
+    class VT_TMTT0012451_VerifyCFIndustryGroupUpdatedToTECHonCompanies : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -70,9 +70,11 @@ namespace SF_Automation.TestCases.Companies
                 
                 //Search via New Industry Group Type
                 //TMTI0027298 Verify User is able to search Companies with Industry Group TECH is on Companies Home page
+                
                 Assert.AreEqual("Record found", companyHome.SearchCompanyWithIndustryType(industryGroupExl));
                 extentReports.CreateLog("Company is displayed on Companies Home Page with Industry Group: " + industryGroupExl+" ");
-
+                
+                /* Implemented into Lightning View
                 //Add New Company
                 //TMTI0027296 Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Creating Companies 
                 int countCompanyRecordTypeExl = ReadExcelData.GetRowCount(excelPath, "CompanyType");
@@ -96,7 +98,7 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetails.IsIndustryTypePresentonCoverageTeam(industryGroupExl),"Verify Industry Group is updated on Company's Coverage Team Type DropDown ");
                     extentReports.CreateLog("Industry Group: "+ industryGroupExl+" is updated on Company's Coverage Team Type DropDown ");
                 }
-
+                */
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
