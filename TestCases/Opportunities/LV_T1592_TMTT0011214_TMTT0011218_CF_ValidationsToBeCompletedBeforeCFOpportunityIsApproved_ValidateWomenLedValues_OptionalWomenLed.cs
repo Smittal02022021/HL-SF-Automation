@@ -18,9 +18,6 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
         public static string fileTC1624 = "LV_T1592_ValidationsToBeCompleted";
         [OneTimeSetUp]

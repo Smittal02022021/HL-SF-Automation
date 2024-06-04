@@ -1,18 +1,10 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using Newtonsoft.Json.Linq;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -24,9 +16,6 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
 

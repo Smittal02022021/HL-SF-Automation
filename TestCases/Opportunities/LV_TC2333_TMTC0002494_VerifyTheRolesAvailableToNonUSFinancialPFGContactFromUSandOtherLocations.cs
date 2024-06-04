@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileT2333 = "LV_TC2333_TMTC0002494_VerifyTheRolesAvailable";
 
@@ -150,7 +151,9 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateLog("Only Admin checkbox is displayed for Non US Opportunity with PFA Job Type for Registered US Non FIN PFG contact ");
                     }
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
+                    randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+                    randomPages.CloseActiveTab(opportunityName);
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();

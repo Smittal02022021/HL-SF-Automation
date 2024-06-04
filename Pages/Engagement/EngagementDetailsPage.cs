@@ -637,7 +637,7 @@ namespace SF_Automation.Pages.Engagement
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
         By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
-        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//a/span/slot//slot");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
+        By linkRelatedOppL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//a");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -6378,7 +6378,6 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lblWomenLedL, 20);
             return driver.FindElement(lblWomenLedL).Text;
         }
-
        
         public string GetValueWomenLedLV()
         {
@@ -6411,8 +6410,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 20);
             return driver.FindElement(txtContactName).Text;
-        }
-        
+        }        
         public string GetWomenLedSectionNameLV(string recType)
         {
             if (recType.Equals("CF"))
@@ -6512,13 +6510,11 @@ namespace SF_Automation.Pages.Engagement
             }
             catch { return false; }
         }
-
         public void CloseSharingGroupPopupLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelSharingGroup, 10);
             driver.FindElement(btnCancelSharingGroup).Click();
         }
-
         public bool IsSharingUserDisplayedLV(string value)
         {
             try
@@ -6547,7 +6543,6 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngLegalEntityL, 10);
             return driver.FindElement(txtEngLegalEntityL).Text;
         }
-
         
         public string GetWomenLedLV()
         {

@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileT2331 = "LV_TC2331_TMTC0002485_VerifyTheRolesAvailable";
 
@@ -164,8 +165,9 @@ namespace SF_Automation.TestCases.Opportunities
                         }
                     }
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
+                    randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-                    //homePageLV.UserLogoutFromSFLightningView();
+                    randomPages.CloseActiveTab(opportunityName);
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 //usersLogin.UserLogOut();

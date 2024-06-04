@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileT2329 = "LV_T2329_TMTC0002479_VerifyTheRoles";
 
@@ -145,7 +146,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("All role checkboxes are displayed ");
 
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
+                    randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+                    randomPages.CloseActiveTab(opportunityName);
                 }
 
                 homePageLV.UserLogoutFromSFLightningView();

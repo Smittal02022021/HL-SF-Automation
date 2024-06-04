@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileT2328 = "LV_TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUS";
 
@@ -254,7 +255,9 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Pass", "All role checkboxes are displayed for registered Non US PFG contact in Non - US Opportunity ");
                     }
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
+                    randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+                    randomPages.CloseActiveTab(opportunityName);
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();
