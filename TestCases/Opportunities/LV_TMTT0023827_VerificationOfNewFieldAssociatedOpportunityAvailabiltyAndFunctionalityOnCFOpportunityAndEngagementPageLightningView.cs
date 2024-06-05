@@ -290,7 +290,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", "CAO User " + userCAOExl + "Logged Out");
-
+                    login.SwitchToClassicView();
                     //Logout of user and validate Admin login
                     user = login.ValidateUser();
                     extentReports.CreateStepLogs("Info", "User " + user + " is able to login ");

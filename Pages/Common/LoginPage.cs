@@ -42,14 +42,13 @@ namespace SF_Automation.Pages
         public string ValidateUserLightningCAO()
         {
             Thread.Sleep(7000);
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 10);
         }
         public void LoginAsExpenseRequestApprover(string file, int row)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -57,11 +56,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
             driver.FindElement(btnLogin).Click();
-
         }
         public void LoginAsFirstLevelExpenseRequest(string file, int row)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -115,7 +112,7 @@ namespace SF_Automation.Pages
         public string ValidateUser()
         {
             Thread.Sleep(2000);
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
             WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,140);
             IWebElement loggedUserName = driver.FindElement(loggedUser);
             return loggedUserName.Text;
@@ -124,11 +121,10 @@ namespace SF_Automation.Pages
         public bool ValidateUserLightningView(string file, int userRow)
         {
             bool result = false;
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 240);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
@@ -157,19 +153,16 @@ namespace SF_Automation.Pages
 
         public void LoginAsExpenseRequestApprover(string file)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();
-            Thread.Sleep(10000);
-        }
+            Thread.Sleep(10000);        }
 
         public void LoginAsFirstLevelExpenseRequest(string file)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -181,7 +174,7 @@ namespace SF_Automation.Pages
         public string ValidateUserLightning()
         {
             Thread.Sleep(7000);
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
@@ -195,13 +188,11 @@ namespace SF_Automation.Pages
         }
         public string ValidateUserLightningView()
         {
-
             //Thread.Sleep(5000);
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            driver.SwitchTo().Window(driver.WindowHandles[1]);
             WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 20);
             string loggedUserName = driver.FindElement(loggedUserLightningView).Text;
-            return loggedUserName;
-            
+            return loggedUserName;            
         }
 
     }

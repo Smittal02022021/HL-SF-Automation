@@ -94,6 +94,7 @@ namespace SF_Automation.TestCases.Opportunity
                     {
                         //Login as Standard FAS User and validate the user
                         usersLogin.SearchUserAndLogin(valUser);
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
@@ -122,6 +123,7 @@ namespace SF_Automation.TestCases.Opportunity
                     {
                         //Login as Standard FR User and validate the user
                         usersLogin.SearchUserAndLogin(valUser);
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");

@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.Companies
                 }
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Pass", "User: " + userExl + " Logged out");
-
+                login.SwitchToClassicView();
                 //Deleting ceated compnay as garbage collection 
                 for (int i = 0; i < index; i++)
                 {
@@ -120,6 +120,7 @@ namespace SF_Automation.TestCases.Companies
                 if (companyName != null)
                 {
                     usersLogin.ClickLogoutFromLightningView();
+                    login.SwitchToClassicView();
                     for (int i = 0; i < index; i++)
                     {
                         companyDetails.DeleteCompanyNew(arrayCompany[i]);
