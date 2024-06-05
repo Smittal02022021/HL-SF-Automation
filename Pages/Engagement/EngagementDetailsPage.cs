@@ -6,6 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading;
@@ -110,9 +111,13 @@ namespace SF_Automation.Pages.Engagement
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Engagement. To proceed, please create a new valuation period.']");
         By btnBackToEngL = By.XPath("//input[@value='Back To Engagement']");
         By tabDetails = By.XPath("//a[text()='Details']");
+        By lnkStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//button");
+        By btnStageL = By.XPath("//flexipage-field[5]//div[2]/slot//button/span");
+        By valStageL = By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
         By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
-        
+        By valSavedStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//slot[1]/lightning-formatted-text");
+
         By valImportedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
 
         By valERPProductType = By.CssSelector("div[id*='eej']");
@@ -283,7 +288,12 @@ namespace SF_Automation.Pages.Engagement
         By subTabCST = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
         By subTabBilling = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
         By lnkEditEngName = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
-        
+        By tabImpDates = By.XPath("//a[text()='Important Dates']");
+        By tabInfo2ndL = By.XPath("//a[text()='Info']");
+        By valFinalReportL = By.XPath("//flexipage-tab2[2]//flexipage-column2[1]/div/slot/flexipage-field[4]//lightning-formatted-text");
+
+
+
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox//button");
@@ -319,6 +329,12 @@ namespace SF_Automation.Pages.Engagement
         By lnkAddedComment = By.XPath("//lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valEditComment = By.XPath("//records-record-layout-section[2]//slot/records-record-layout-item//lightning-formatted-text");
         By tabEng = By.XPath("//ul[2]/li[4]/a/span[2]");
+        By tabExistingEng = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        //By valRevAccrualL = By.XPath("//flexipage-tab2[6]//flexipage-tab2[1]/slot//span[2]");
+        By valRevAccrualL = By.XPath("//tr/td[1]//lst-formatted-text/span");
+        By tabPositionL = By.XPath("//a[@title='BE Networks']");
+
+
         By btnDeleteComment = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Comment__c.Delete']");
         By btnConfirmDelete = By.XPath("//span[text()='Delete']");
         By secDocChecklist = By.XPath("//span[@title='Document Checklist']");
@@ -335,7 +351,7 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-        By tabRevenue = By.XPath("//a[text()='Revenue']");
+        By tabRevenue = By.XPath("//li[6]/a[@data-label='Revenue']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegal = By.XPath("//a[text()='Legal Matters']");
@@ -3377,6 +3393,56 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, valERPContractType, 100);
             string type = driver.FindElement(valERPContractType).Text;
             return type;
+        }
+
+        //Get the type of Contract
+        public string GetFinalReportSentDate()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();            
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabExistingEng, 100);
+            driver.FindElement(tabExistingEng).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 130);
+            driver.FindElement(tabInfo2ndL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabImpDates, 120);
+            driver.FindElement(tabImpDates).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valFinalReportL, 140);
+            string value = driver.FindElement(valFinalReportL).Text;          
+            return value;
+        }
+
+        //Update stage in Details tab
+        public string UpdateStageInDetailsTab()
+        {
+            Thread.Sleep(5000);        
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDetails, 120);
+            driver.FindElement(tabDetails).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkStageL, 140);
+            driver.FindElement(lnkStageL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnStageL).Click();            
+            Thread.Sleep(5000);
+            driver.FindElement(valStageL).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkStageL, 240);
+            string value = driver.FindElement(valSavedStageL).Text;
+            return value;
+        }
+        //Get the Revenue Accrual
+        public string GetRevenueAccrual()
+        {         
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRevAccrualL, 140);
+            string value = driver.FindElement(valRevAccrualL).Text;
+            driver.FindElement(tabPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(6000);
+            return value;
         }
 
         //Get Contract ERP Business Unit

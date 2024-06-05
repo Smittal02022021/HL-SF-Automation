@@ -34,19 +34,34 @@ namespace SF_Automation.Pages.Engagement
         By btnAddTeamMember = By.CssSelector("input[value='Add New Team Member']");
         By btnSaveTeamMember = By.CssSelector("input[value='Save Team Members']");
         By btnEdit = By.CssSelector("input[value='Edit']");
+        //By btnEditPositionL = By.XPath("//input[@name='pgid:frmId:pbid:BtnsId:OnEdit']");
         By comboStatus = By.CssSelector("select[name*='PositionStatusID']");
         By msgErrorBox = By.CssSelector("div[class='message errorM3']");
         By msgError1 = By.CssSelector("span[id *= 'j_id18'] > ul > li:nth-child(1)");
         By msgError2 = By.CssSelector("span[id *= 'j_id18'] > ul > li:nth-child(2)");
         By valStatus = By.CssSelector("span[id*='StatusId']");
         By valFeeCompleted = By.CssSelector("span[id*='id66']");
+        By valFeeCompletedInProgressL = By.XPath("//th[contains(text(),' Report')]/ancestor::tr/td[1]/span/span");
+        By valFeeCompletedL = By.XPath("//th[contains(text(),' Report')]/ancestor::tr/td[1]/span//input");
+
         By valRevenueMonth = By.CssSelector("span[id*='id82']");
+        By valRevenueMonthL = By.XPath("//span[contains(text(),'Revenue Month')]/ancestor::tr/td[1]/span");
+
         By valCancelMonth = By.CssSelector("span[id*='id83']");
+        By valCancelMonthL = By.XPath("//th[contains(text(),'Cancel Month')]/ancestor::tr/td[2]/span");
         By valRevenueYear = By.CssSelector("span[id*='id85']");
+        By valRevenueYearL = By.XPath("//span[contains(text(),'Revenue Year')]/ancestor::tr/td[1]/span");
         By valCancelYear = By.CssSelector("span[id*='id85']");
+        By valCancelYearL = By.XPath("//th[contains(text(),'Cancel Year')]/ancestor::tr/td[2]/span");
         By valCancelYear1 = By.CssSelector("span[id*='id86']");
+        By valCancelYear1L = By.CssSelector("//th[contains(text(),'Cancel Date')]/ancestor::tr/td[2]/span");
+
         By valCompletedDate = By.CssSelector("span[id*='id87']");
+        By valCompletedDateL = By.XPath("//th[contains(text(),'Completed Date')]/ancestor::tr/td[1]/span");
+
         By valCancelDate = By.CssSelector("span[id*='id88']");
+        By valCancelDateL = By.XPath("//th[contains(text(),'Cancel Date')]/ancestor::tr/td[2]/span");
+
         By btnBackToValuation = By.CssSelector("input[value='Back To Valuation Period']");
         By valPositionName = By.CssSelector("td[id*='id167']>a");
         By txtUpReportFee = By.CssSelector("input[name*='id38']");
@@ -254,6 +269,19 @@ namespace SF_Automation.Pages.Engagement
         //To get Status of Position
         public string GetPositionStatus()
         {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, valStatus, 90);
+            string status = driver.FindElement(valStatus).Text;
+            return status;
+        }
+
+        //To get Status of Position
+        public string GetPositionStatusL()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valStatus, 90);
             string status = driver.FindElement(valStatus).Text;
             return status;
@@ -266,11 +294,37 @@ namespace SF_Automation.Pages.Engagement
             string feeCompleted = driver.FindElement(valFeeCompleted).Text;
             return feeCompleted;
         }
+
+        //To get Fee Completed of Position
+        public string GetFeeCompletedInProgressL()
+        {
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompletedInProgressL, 190);
+            string feeCompleted = driver.FindElement(valFeeCompletedInProgressL).Text;
+            return feeCompleted;
+        }
+
+        //To get Fee Completed of Position
+        public string GetFeeCompletedL()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valFeeCompletedL, 190);
+            string feeCompleted = driver.FindElement(valFeeCompletedL).GetAttribute("value");
+            return feeCompleted;
+        }
         //To get Revenue Month of Position
         public string GetRevenueMonth()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valRevenueMonth, 90);
             string revenueMonth = driver.FindElement(valRevenueMonth).Text;
+            return revenueMonth;
+        }
+
+        //To get Revenue Month of Position
+        public string GetRevenueMonthL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRevenueMonthL, 90);
+            string revenueMonth = driver.FindElement(valRevenueMonthL).Text;
             return revenueMonth;
         }
         //To get Cancel Month of Position
@@ -280,11 +334,26 @@ namespace SF_Automation.Pages.Engagement
             string cancelMonth = driver.FindElement(valCancelMonth).Text;
             return cancelMonth;
         }
+
+        //To get Cancel Month of Position
+        public string GetCancelMonthL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCancelMonthL, 90);
+            string cancelMonth = driver.FindElement(valCancelMonthL).Text;
+            return cancelMonth;
+        }
         //To get Revenue Year of Position
         public string GetRevenueYear()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valRevenueYear, 190);
             string revenueYear = driver.FindElement(valRevenueYear).Text;
+            return revenueYear;
+        }
+        //To get Revenue Year of Position
+        public string GetRevenueYearL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRevenueYearL, 190);
+            string revenueYear = driver.FindElement(valRevenueYearL).Text;
             return revenueYear;
         }
         //To get Cancel Year of Position
@@ -294,8 +363,24 @@ namespace SF_Automation.Pages.Engagement
             string cancelYear = driver.FindElement(valCancelYear).Text;
             return cancelYear;
         }
+
+        //To get Cancel Year of Position
+        public string GetCancelYearL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCancelYearL, 90);
+            string cancelYear = driver.FindElement(valCancelYearL).Text;
+            return cancelYear;
+        }
         //To get Cancel Year of Position
         public string GetCancelYearWithDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCancelYear1, 90);
+            string cancelYear = driver.FindElement(valCancelYear1).Text;
+            return cancelYear;
+        }
+
+        //To get Cancel Year of Position
+        public string GetCancelYearWithDetailsL()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCancelYear1, 90);
             string cancelYear = driver.FindElement(valCancelYear1).Text;
@@ -309,6 +394,15 @@ namespace SF_Automation.Pages.Engagement
             string compDate = driver.FindElement(valCompletedDate).Text;
             return compDate;
         }
+
+        //To get Completed Date of Position
+        public string GetCompletedDateL()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompletedDateL, 90);
+            string compDate = driver.FindElement(valCompletedDateL).Text;
+            return compDate;
+        }
         //To get Cancel Date of Position
         public string GetCancelDate()
         {
@@ -316,6 +410,15 @@ namespace SF_Automation.Pages.Engagement
             string cancelDate = driver.FindElement(valCancelDate).Text;
             return cancelDate;
         }
+
+        //To get Cancel Date of Position
+        public string GetCancelDateL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCancelDateL, 90);
+            string cancelDate = driver.FindElement(valCancelDateL).Text;            
+            return cancelDate;
+        }
+      
         //To  update Status and Report Fee of existing Position
         public string UpdateStatusAndReportFee(string file)
         {
@@ -340,12 +443,69 @@ namespace SF_Automation.Pages.Engagement
 
         }
 
+        //To  update Status and Report Fee of existing Position
+        public string UpdateStatusAndReportFeeL(string file)
+        {
+            string excelPath = dir + file;           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditPositionL, 60);
+            driver.FindElement(btnEditPositionL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboStatus, 60);
+            driver.FindElement(comboStatus).SendKeys(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 14));
+            driver.FindElement(txtUpReportFee).Clear();
+            driver.FindElement(txtUpReportFee).SendKeys(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 11));
+            Thread.Sleep(4000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+                Thread.Sleep(6000);
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Frame(1);
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, valStatus, 110);
+                string msg = driver.FindElement(valStatus).Text;
+                return msg;
+            }
+            catch (Exception)
+            {               
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Frame(1);
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, valStatus, 110);
+                string msg = driver.FindElement(valStatus).Text;
+                return msg;
+            }
+
+        }
         //Click Void Position and fetch cancellation message
         public string ClickVoidPositionAndGetMessage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnVoidPosition);
             driver.FindElement(btnVoidPosition).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgCancel, 70);
+            Thread.Sleep(6000);
+            //driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Frame(1);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgCancel, 90);
+            string message = driver.FindElement(msgCancel).Text;
+            driver.FindElement(btnYes).Click();
+            return message;
+        }
+
+        //Click Void Position and fetch cancellation message
+        public string ClickVoidPositionAndGetMessageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnVoidPosition);
+            driver.FindElement(btnVoidPosition).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);            
+            WebDriverWaits.WaitUntilEleVisible(driver, msgCancel, 90);
             string message = driver.FindElement(msgCancel).Text;
             driver.FindElement(btnYes).Click();
             return message;
@@ -717,7 +877,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string value = driver.FindElement(valNameL).Text;
             return value;
         }
@@ -777,6 +937,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(0);
             Thread.Sleep(7000);
             string value = driver.FindElement(valAddedPositionL).Text;
+            driver.FindElement(valAddedPositionL).Click();
             return value;
         }
 

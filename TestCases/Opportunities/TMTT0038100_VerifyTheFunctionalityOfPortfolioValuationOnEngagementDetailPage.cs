@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Opportunity with name: " + value + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab = addOpportunity.EnterMultipleStaffDetailsL(fileTC1644);
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1644);
                 Assert.AreEqual("Info", displayedTab);
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(value);
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
+                opportunityDetails.UpdateMultipleInternalTeamDetails(fileTC1644);
                 extentReports.CreateLog("Internal Team members details are saved ");
                 opportunityDetails.UpdateOutcomeDetails(fileTC1644);
 

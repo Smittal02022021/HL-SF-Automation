@@ -1046,49 +1046,9 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }
-        //To enter team member details
-        public string EnterMultipleStaffDetailsL(string file)
-        {
-            Thread.Sleep(10000);
-            ReadJSONData.Generate("Admin_Data.json");
-            Console.WriteLine("Entered staff function");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
-            Console.WriteLine("Before entering Staff");
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
-            driver.FindElement(txtStaff).SendKeys(valStaff);
-            Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
-            driver.FindElement(checkInitiator).Click();
-            driver.FindElement(btnSaveDealTeam).Click();            
+      
 
-            Thread.Sleep(5000);            
-
-            string valStaff2nd = ReadExcelData.ReadData(excelPath, "AddOpportunity", 29);
-            
-            WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 220);
-            driver.FindElement(txtStaff).SendKeys(valStaff2nd);
-            Thread.Sleep(6000);           
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff2nd, valStaff2nd);
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator2nd, 240);
-            driver.FindElement(checkInitiator2nd).Click();
-            driver.FindElement(btnSaveDealTeam).Click();
-
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
-            driver.FindElement(btnReturnToOppor).Click();
-            driver.SwitchTo().DefaultContent();
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 190);
-            string name = driver.FindElement(tabInfo).Text;
-            return name;
-        }
-        // Clear mandatory values on add opprtunity page
+        // Clear mandatory values on add opportunity page
         public void ClearMandatoryValuesOnAddOpportunity()
         {
             driver.FindElement(txtOpportunityName).Clear();

@@ -10,16 +10,16 @@ using System.Globalization;
 namespace SF_Automation.TestCases.Opportunity
 
 {
-    class TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled : BaseClass
+    class TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         EngagementHomePage engHome = new EngagementHomePage();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        EngagementDetailsPage engDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         ValuationPeriods valuationPeriods = new ValuationPeriods();
         SendEmailNotification notification = new SendEmailNotification();
-        public static string fileTC2209 = "T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdate";
+        public static string fileTC2209 = "T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdate_Lightning";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -53,144 +53,163 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
-                //Clicking on Engagement Tab and search for Engagement by entering Job type         
-                string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
-                Assert.AreEqual("Record found", message);
-                extentReports.CreateLog("Records matching with selected Job Type are displayed ");
+                //Clicking on Engagement Tab and search for Engagement by entering Job type
+                engHome.SelectEngUnderHLBanker();
+                string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", 2, 1);
+                engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2), valJobType);
 
                 //Validate title of Engagement Details page
-                string title = engagementDetails.GetTitle();
-                Assert.AreEqual("Engagement", title);
-                extentReports.CreateLog("Page with title: " + title + " is displayed ");
+                string titleEngDetails = engHome.ValidateEngDetailsPage();
+                Assert.AreEqual("Details", titleEngDetails);
+                extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
 
                 //Click on Portfolio Valuation,click Engagement Valuation Period and validate Engagement Valuation Period page
-                engagementDetails.ClickPortfolioValuation();
-                string titleValPeriod = valuationPeriods.ClickEngValuationPeriod();
-                Assert.AreEqual("New Engagement Valuation Period", titleValPeriod);
-                extentReports.CreateLog("Page with title: " + titleValPeriod + " is displayed upon clicking New Engagement Valuation Period button ");
+                engDetails.ClickPortfolioValuationL();
+                string pageEngValPeriodEdit = valuationPeriods.ValidatePageAfterClickingNewEngValPeriodButton();
+                Assert.AreEqual("Engagement Valuation Period Edit", pageEngValPeriodEdit);
+                extentReports.CreateLog("Page with title: " + pageEngValPeriodEdit + " is displayed after clicking New Engagement Valuation Period button ");
 
                 //Enter Engagement Valuation Period details, save it and Validate Engagement Valuation Period Detail page
-                string name = valuationPeriods.EnterAndSaveEngValuationDetails();
-                extentReports.CreateLog("Engagement Valuation Period with name: " + name + " is created ");
-
-                string titleValPeriodDetail = valuationPeriods.GetEngValPeriodDetailTitle();
-                Assert.AreEqual("Engagement Valuation Period Detail", titleValPeriodDetail);
-                extentReports.CreateLog("Page with title: " + titleValPeriodDetail + " is displayed upon saving Engagement Valuation Period details ");
+                string engName = CustomFunctions.RandomValue();
+                string addedEngValuation = valuationPeriods.EnterAndSaveEngValuationPeriodDetailsL(engName);
+                Assert.AreEqual(engName, addedEngValuation);
+                extentReports.CreateLog("Added valuation: " + addedEngValuation + " is displayed upon clicking Save button on Engagement Valuation Period Detail page after entering all mandatory details ");
 
                 //Enter Eng Valuation Period Position details and validate entered Valuation Period Position
-                string valPeriodPosition = valuationPeriods.EnterPeriodPositionDetails(fileTC2209);
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 4), valPeriodPosition);
-                extentReports.CreateLog("Engagement Valuation Period Position with name: " + valPeriodPosition + " is added successfully ");
+                valuationPeriods.ValidateMessageWhileClickingSaveButtonOnPeriodPosition();
+                string addedPosition = valuationPeriods.EnterAndSaveEngValuationPeriodPositionDetailsL("BE Networks");
+                Assert.AreEqual("BE Networks", addedPosition);
+                extentReports.CreateLog("Position: " + addedPosition + " is displayed upon clicking Save button after entering all mandatory details of Period Position ");
 
-                //Click on added Period Position and Validate value of Status,Fee Completed,Revenue Month,Cancel Month,Revenue Year,Cancel Year, Completed Date and Cancel Date
-                string titlePage = valuationPeriods.ClickAddedValPeriod();
-                Assert.AreEqual("Engagement Valuation Position Detail", titlePage);
-                extentReports.CreateLog("Page with title: " + titlePage + " is displayed upon clicking on added Valuation Position ");
-
+                //Validate value of Status,Fee Completed,Revenue Month,Cancel Month,Revenue Year,Cancel Year, Completed Date and Cancel Date
                 //-----Validate Status
-                string Status = valuationPeriods.GetPositionStatus();
+                string Status = valuationPeriods.GetPositionStatusL();
                 Assert.AreEqual("In Progress", Status);
                 extentReports.CreateLog("Status: " + Status + " is displayed as expected ");
 
                 //-----Validate Fee Completed
-                string FeeCompleted = valuationPeriods.GetFeeCompleted();
-                Assert.AreEqual("USD 0.00", FeeCompleted);
+                string FeeCompleted = valuationPeriods.GetFeeCompletedInProgressL();
+                Assert.AreEqual("USD ", FeeCompleted);
                 extentReports.CreateLog("Fee Completed: " + FeeCompleted + " is displayed as expected ");
 
                 //-----Validate Revenue Month and Revenue Year
-                string revenueMonth = valuationPeriods.GetRevenueMonth();
+                string revenueMonth = valuationPeriods.GetRevenueMonthL();
                 Assert.AreEqual(" ", revenueMonth);
 
-                string revenueYear = valuationPeriods.GetRevenueYear();
+                string revenueYear = valuationPeriods.GetRevenueYearL();
                 Assert.AreEqual(" ", revenueYear);
                 extentReports.CreateLog("No value is displayed in Revenue Month and Revenue Year ");
 
                 //-----Validate Cancel Month and Cancel Year
-                string cancelMonth = valuationPeriods.GetCancelMonth();
+                string cancelMonth = valuationPeriods.GetCancelMonthL();
                 Assert.AreEqual(" ", cancelMonth);
 
-                string cancelYear = valuationPeriods.GetCancelYear();
+                string cancelYear = valuationPeriods.GetCancelYearL();
                 Assert.AreEqual(" ", cancelYear);
                 extentReports.CreateLog("No value is displayed in Cancel Month and Cancel Year ");
 
                 //-----Validate Completed Date
-                string completedDate = valuationPeriods.GetCompletedDate();
+                string completedDate = valuationPeriods.GetCompletedDateL();
                 Assert.AreEqual(" ", completedDate);
 
-                string cancelDate = valuationPeriods.GetCancelDate();
+                string cancelDate = valuationPeriods.GetCancelDateL();
                 Assert.AreEqual(" ", cancelDate);
                 extentReports.CreateLog("No value is displayed in Completed Date and Cancel Date ");
 
+                //Get Final Report Details
+                string valSentDate = engDetails.GetFinalReportSentDate();
+                string stage =engDetails.UpdateStageInDetailsTab();
+                Assert.AreEqual("Bill/File", stage);
+                extentReports.CreateLog("Stage is updated to: " +stage + " " );
+
+                engDetails.ValidateRevenueTab();
+                string revAccrual = engDetails.GetRevenueAccrual();
+                Console.WriteLine("Rev: " + (revAccrual));
+                Console.WriteLine("Rev: " + (revAccrual.Substring(4,10)));
+                //Console.WriteLine("Rev: "+Convert.ToInt32(revAccrual));
+                extentReports.CreateLog("Final Report Sent Date : " +valSentDate + " Revenue Accrual: " +revAccrual + " is displayed when Status of Position is In Progress ");
+
                 //Update Status and Report Fee of existing position and validate details of Position
-                string message1 =valuationPeriods.UpdateStatusAndReportFee(fileTC2209);
-                //Assert.AreEqual("System Information\r\nCreated By "+valUser+ " "+ DateTime.Now.ToString("MM/dd/yyyy HH:MM "), message1);
-                extentReports.CreateLog("Status and Report Fee of position is updated ");
+                string message1 =valuationPeriods.UpdateStatusAndReportFeeL(fileTC2209);                
+                string reportFee = valuationPeriods.GetFeeCompletedL();
+                Assert.AreEqual("100,000.00", reportFee);
+                extentReports.CreateLog("Status of Position " +message1+" and Report Fee :" + reportFee+ " has been updated ");
 
                 //-----Validate Fee Completed
-                string feeCompleted = valuationPeriods.GetFeeCompleted();
-                Assert.AreEqual("USD " + ReadExcelData.ReadData(excelPath, "ValuationPeriod", 11), feeCompleted);
+                string feeCompleted = valuationPeriods.GetFeeCompletedL();
+                Assert.AreEqual("100,000.00", feeCompleted);
                 extentReports.CreateLog("Fee Completed: " + feeCompleted + " is displayed as updated ");
 
                 //-----Validate Revenue Month
-                string revMonth = valuationPeriods.GetRevenueMonth();
+                string revMonth = valuationPeriods.GetRevenueMonthL();
                 Console.WriteLine(DateTime.Now.ToString("MM"));
                 //Assert.AreEqual(DateTime.Now.ToString("MM"), revMonth);
                 extentReports.CreateLog("Revenue Month: " + revMonth + " same as current month is displayed ");
 
                 //-----Validate Revenue Year
-                string revYear = valuationPeriods.GetRevenueYear();
+                string revYear = valuationPeriods.GetRevenueYearL();
                 Assert.AreEqual(DateTime.Now.ToString("yyyy"), revYear);
                 extentReports.CreateLog("Revenue Year: " + revYear + " same as current year is displayed ");
 
                 //-----Validate Completed Date
-                string compDate = valuationPeriods.GetCompletedDate();
+                string compDate = valuationPeriods.GetCompletedDateL();
                 Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), compDate.Substring(0,8));
                 extentReports.CreateLog("Completed Date: " + compDate.Substring(0,8) + " same as today's date is displayed ");
 
                 //-----Validate Cancel Month, Cancel Year
-                string canMonth = valuationPeriods.GetCancelMonth();
+                string canMonth = valuationPeriods.GetCancelMonthL();
                 Assert.AreEqual(" ", cancelMonth);
 
-                string canYear = valuationPeriods.GetCancelYear();
+                string canYear = valuationPeriods.GetCancelYearL();
                 Assert.AreEqual(" ", cancelYear);
 
-                string canDate = valuationPeriods.GetCancelDate();
+                string canDate = valuationPeriods.GetCancelDateL();
                 Assert.AreEqual(" ", cancelDate);
                 extentReports.CreateLog("The fields Cancel Month, Cancel Year, Cancel Date are blank when status is changed to Completed-Generate Accrual ");
 
+                //Get Final Report Details
+                string valSentDateCompleted = engDetails.GetFinalReportSentDate();
+                engDetails.ValidateRevenueTab();
+                string revAccrualCompleted = engDetails.GetRevenueAccrual();
+
+                string totalRevAccrual = (revAccrual.Substring(4, 10)) + (reportFee);
+                Assert.AreEqual(totalRevAccrual, revAccrualCompleted);
+                extentReports.CreateLog("Final Report Sent Date : " + valSentDateCompleted + " Revenue Accrual: " + revAccrualCompleted + " is displayed when Status of Position is Completed ");
+
                 //Validate cancel message on clicking Void Position
-                string messageCancel = valuationPeriods.ClickVoidPositionAndGetMessage();
+                string messageCancel = valuationPeriods.ClickVoidPositionAndGetMessageL();
                 Assert.AreEqual("Are you sure you want to cancel this position? This process will reverse any accruals from this position.", messageCancel);
                 extentReports.CreateLog("Message: " + messageCancel + " is displayed on clicking Void Position button ");
 
                 //Validate details after cancelling the position
                 //-----Status of Position 
-                string statusCancel = valuationPeriods.GetPositionStatus();
+                string statusCancel = valuationPeriods.GetPositionStatusL();
                 Assert.AreEqual("Cancelled", statusCancel);
                 extentReports.CreateLog("Status: " + statusCancel + " is displayed after position is cancelled by clicking Void Position button ");
 
                 //-----Validate Cancel Month
-                string cancelMon = valuationPeriods.GetCancelMonth();
+                string cancelMon = valuationPeriods.GetCancelMonthL();
                 Console.WriteLine(DateTime.Now.ToString("MM"));
                 //Assert.AreEqual(DateTime.Now.ToString("MM"), revMonth);
                 extentReports.CreateLog("Cancel Month: " + cancelMon + " same as current month is displayed after position is cancelled ");
 
                 //-----Validate Cancel Year
-                string cancelYr = valuationPeriods.GetCancelYearWithDetails();
+                string cancelYr = valuationPeriods.GetCancelYearWithDetailsL();
                 Assert.AreEqual(DateTime.Now.ToString("yyyy"), cancelYr);
                 extentReports.CreateLog("Cancel Year: " + cancelYr + " same as current year is displayed after position is cancelled ");
 
                 //-----Validate Cancel Date
-                string can_Date = valuationPeriods.GetCancelDate();
+                string can_Date = valuationPeriods.GetCancelDateL();
                 Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), can_Date.Substring(0,8));
                 extentReports.CreateLog("Cancel Date: " + can_Date.Substring(0,8) + " same as today's date is displayed after position is cancelled ");
+                valuationPeriods.SwitchFrame();
 
                 //Logout of standard user 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 
                 //Calling function to delete Position
                 //valuationPeriods.DeletePosition();

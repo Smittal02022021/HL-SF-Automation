@@ -53,7 +53,7 @@ namespace SF_Automation.Pages
         By titleNBCForm = By.CssSelector(" div.pbBody > table > tbody > tr > td.instructions > p:nth-child(1)");
         By titleFEISL = By.XPath("//div[@class='slds-rich-text-editor__output uiOutputRichText forceOutputRichText']/p[1]");
         By linkRequestDate = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
-        By linkPitchDate = By.XPath("//div[3]/table/tbody/tr[6]/td[4]/span/span/a");
+        By linkPitchDate = By.XPath("//div[3]/table/tbody//td[4]/span/span/a");
         By btnSave = By.CssSelector("input[name='save']");
         By chkInternalTeamPrompt = By.CssSelector("input[name*='FnLTz']");
         By chkInitiator = By.CssSelector("input[name*='internalTeam:j_id73:0:j_id75']");
@@ -61,6 +61,9 @@ namespace SF_Automation.Pages
         By chkManager = By.CssSelector("input[name*='internalTeam:j_id73:3:j_id75']");
         By btnSaveITTeam = By.XPath("//div[3]/table/tbody/tr/td[2]/span/input[1]");
         By listStaff = By.XPath("/html/body/ul");
+        By listStaff2nd = By.XPath("/html/body/ul/li/a");
+        By checkInitiator2nd = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
+
         By btnReturnToOpp = By.CssSelector("input[value*='Return To Opportunity']");
         By tabAfterReturnToOpp = By.XPath("//a[text()='Details']");
         By btnConverttoEng = By.CssSelector("input[value='Convert to Engagement']");
@@ -375,9 +378,14 @@ namespace SF_Automation.Pages
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT= By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
-        By btnComments = By.XPath("//button[@name='Comment_Type__c']");
+        By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
+        By lnkNewComment = By.XPath("//span[text()='New']");
+        By btnComments = By.XPath("//button[@data-value='Internal']");
+        
         By valCommentsType = By.XPath("//lightning-base-combobox-item[2]/span[2]/span");
-        By txtCommentNotes = By.XPath("//textarea[@name='Comment__c']");
+        By txtCommentNotes = By.XPath("//textarea");
+        By btnSaveCSTQuestionnaire = By.XPath("//button[@name='SaveEdit']");
+
         By btnSaveComments = By.XPath("//button[@name='save']");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
@@ -1548,6 +1556,77 @@ public void ClickNewOpportunitySectorButton()
                 driver.FindElement(btnSaveITTeam).Click();
                 Thread.Sleep(3000);
 
+                //Click to return back to Opportunity details
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
+                driver.FindElement(btnReturnToOpp).Click();
+            }
+            catch (Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                driver.FindElement(lnkReDisplayRec).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(chkInternalTeamPrompt).Click();
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 130);
+
+                //Check required checkboxes         
+                driver.FindElement(chkUpPrincipal).Click();
+                driver.FindElement(chkUpSeller).Click();
+                driver.FindElement(chkUpManager).Click();
+                driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpAssociate).Click();
+                driver.FindElement(chkUpAnalyst).Click();
+
+                ////Enter logged in user and assign admin role
+                //driver.FindElement(txtStaff).SendKeys(valUser);
+                //Thread.Sleep(3000);
+                //CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valUser);
+                //WebDriverWaits.WaitUntilEleVisible(driver, chkAdmin, 50);
+                //driver.FindElement(chkAdmin).Click();
+                driver.FindElement(btnSaveITTeam).Click();
+
+                //Click to return back to Opportunity details
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
+                driver.FindElement(btnReturnToOpp).Click();
+            }
+        }
+        //To update HL Internal team details
+        public void UpdateMultipleInternalTeamDetails(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 350);
+            driver.FindElement(btnEdit).Click();
+            driver.FindElement(chkInternalTeamPrompt).Click();
+            driver.FindElement(btnSave).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 130);
+                //Check required checkboxes         
+                driver.FindElement(chkUpPrincipal).Click();
+                Thread.Sleep(2000);
+                driver.FindElement(chkUpSeller).Click();
+                driver.FindElement(chkUpManager).Click();
+                driver.FindElement(chkUpMgr).Click();
+                driver.FindElement(chkUpAssociate).Click();
+                driver.FindElement(chkUpAnalyst).Click();
+                driver.FindElement(btnSaveITTeam).Click();               
+                Thread.Sleep(5000);
+
+                string valStaff2nd = ReadExcelData.ReadData(excelPath, "AddOpportunity", 29);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 220);
+                driver.FindElement(txtStaff).SendKeys(valStaff2nd);
+                Thread.Sleep(6000);
+                CustomFunctions.SelectValueWithoutSelect(driver, listStaff2nd, valStaff2nd);
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator2nd, 240);
+                driver.FindElement(checkInitiator2nd).Click();
+                driver.FindElement(btnSaveDealTeam).Click();
                 //Click to return back to Opportunity details
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
                 driver.FindElement(btnReturnToOpp).Click();
@@ -6376,8 +6455,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Validate Edit tab
         public string ValidateEditTabL()
         {
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditTopPanelL);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditTopPanelL,150);
             string name = driver.FindElement(btnEditTopPanelL).Text;
             driver.FindElement(btnEditTopPanelL).Click();
             return name;
@@ -6407,14 +6486,22 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
             driver.FindElement(tabComments).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 150);
+            driver.FindElement(lnkComments).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkNewComment, 150);
+            driver.FindElement(lnkNewComment).Click();
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
-            Thread.Sleep(6000);
-            driver.FindElement(btnSaveComments).Click();
-            Thread.Sleep(7000);
+            driver.FindElement(btnSaveCSTQuestionnaire).Click();
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,550)");
             //WebDriverWaits.WaitUntilEleVisible(driver, valAddedCommentType, 170);
             //string commentType = driver.FindElement(valAddedCommentType).Text;
             //return commentType;          

@@ -52,7 +52,8 @@ namespace SF_Automation.Pages
         By tabEngL = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']/tbody/tr/th/span/a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
-        
+        By titleEngDetailsL = By.XPath("//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
+
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
         By btnEngsearchL = By.XPath("//button[@aria-label='Search']");
@@ -545,6 +546,14 @@ namespace SF_Automation.Pages
         {            
             WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetails, 170);
             string title = driver.FindElement(titleEngDetails).Text;
+            return title;
+        }
+
+        //Validate Engagement details page upon clicking Engagement Name
+        public string ValidateEngDetailsPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetailsL, 170);
+            string title = driver.FindElement(titleEngDetailsL).Text;
             return title;
         }
 
