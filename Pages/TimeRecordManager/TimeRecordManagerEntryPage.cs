@@ -72,7 +72,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By imgSpinningLoader = By.XPath("//div[@class='loading']");
         By textSuccessMsg = By.XPath("//div[contains(@class,'uiMessage')]//h4//following-sibling::span");
         By txtTimeRecordUserName = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@class='timeSheet']/div[1]");
-        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
+        By frameTimeRecordPage = By.XPath("//iframe[@title='Salesforce - Unlimited Edition']");//iframe[@title='accessibility title']");
         By txtdefaultTimeRecordPeriod = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select/option[1]");
         By txtSelectedStaffName = By.XPath("//div[@class='timeSheet']/div[contains(@class,'heading')]");
         By txtDetailLogsActualHours = By.CssSelector("tr[class*='parent'] > td:nth-child(4) > div > input");
@@ -81,6 +81,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By txtLogsComments = By.XPath("//div[contains(@class,'AddTimeRecordRow')]//textarea");
         By comboOptionActivity = By.CssSelector("table > tr > td:nth-child(2) > div[class='activityRecordEntry'] > div > div:nth-child(2) > div > select > option");
         By comboOptionsLogsActivity = By.CssSelector("div[class*='medium'] > select[class*='uiInput--select'] > option");
+        By txtTotalForcastedHoursL = By.XPath("//div[@class='staffTimeSheetWeeklyMassEdit']/table[2]//tr/td/div[contains(text(),'Forecasted')]/../..//td[2]/div");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -2590,6 +2591,15 @@ namespace SF_Automation.Pages.TimeRecordManager
                     WeekStartDate = value - 0;
                     break;
             }
+        }        
+        public string GetTotalForcastedHoursLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalForcastedHoursL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalForcastedHoursL));
+            string hours=  driver.FindElement(txtTotalForcastedHoursL).Text;
+            driver.SwitchTo().DefaultContent();
+            return hours;
         }
 
     }
