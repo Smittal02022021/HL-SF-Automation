@@ -2,6 +2,7 @@
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages
@@ -40,6 +41,7 @@ namespace SF_Automation.Pages
         public string ValidateUserLightningCAO()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 10);
@@ -110,7 +112,8 @@ namespace SF_Automation.Pages
         }
         public string ValidateUser()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,140);
             IWebElement loggedUserName = driver.FindElement(loggedUser);
             return loggedUserName.Text;
@@ -123,8 +126,8 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-
             Thread.Sleep(5000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 240);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
             if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
@@ -176,6 +179,7 @@ namespace SF_Automation.Pages
         public string ValidateUserLightning()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
@@ -183,6 +187,7 @@ namespace SF_Automation.Pages
         public string ValidateFRUserLightning()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 13);

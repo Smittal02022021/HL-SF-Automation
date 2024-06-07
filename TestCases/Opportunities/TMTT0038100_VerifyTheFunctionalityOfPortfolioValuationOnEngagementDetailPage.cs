@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(value);
-                opportunityDetails.UpdateMultipleInternalTeamDetails(fileTC1644);
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
                 extentReports.CreateLog("Internal Team members details are saved ");
                 opportunityDetails.UpdateOutcomeDetails(fileTC1644);
 
@@ -433,20 +433,8 @@ namespace SF_Automation.TestCases.Opportunity
                 string cancelPeriodPosition = engValPeriod.ValidateDeleteFunctionalityOfPeriodPositionAfterSelectingNo();
                 Assert.AreEqual("True", cancelPeriodPosition);
                 extentReports.CreateLog("Eng Valuation Period Position is not deleted after clicking cancel on delete confirmation pop up ");
-
-
-                //36.	TMTI0099326_Verify that if the added team member in the Eng Valuation Period Position is removed from Engagement, then the end date should get populated for that user in the Eng Valuation Period Position with the status inactive
-
-
-
-
-                //string acceptPeriodPosition = engValPeriod.ValidateDeleteFunctionalityOfPeriodPositionAfterAccepting();
-                //Assert.AreEqual("False", acceptPeriodPosition);
-                //extentReports.CreateLog("Eng Valuation Period Position is deleted after clicking OK on delete confirmation pop up ");
-
-
-
-
+                engValPeriod.SwitchFrame();         
+                
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();

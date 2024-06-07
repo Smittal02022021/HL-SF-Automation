@@ -1093,7 +1093,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtOppAddCounterparty).SendKeys("3Pillar");
             driver.FindElement(txtOppAddCounterparty).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//lightning-accordion-section[1]/div/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
+            driver.FindElement(By.XPath("//lightning-accordion-section[1]//div[2]/ul/li[2]/div")).Click();
             driver.FindElement(btnSearchOppAddCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 350);
             driver.FindElement(btnAddCounterparty).Click();

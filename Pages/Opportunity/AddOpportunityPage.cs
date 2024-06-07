@@ -1042,7 +1042,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             driver.FindElement(btnReturnToOppor).Click();
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo,190);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo,210);
             string name = driver.FindElement(tabInfo).Text;
             return name;
         }

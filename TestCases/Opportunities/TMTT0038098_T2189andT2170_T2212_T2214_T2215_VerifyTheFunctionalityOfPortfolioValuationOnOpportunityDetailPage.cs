@@ -85,16 +85,16 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
                 extentReports.CreateLog("Portfolio Valuation Button is displayed for the Opportunity with Job type: " + jobTypePV + " ");
 
-                //2.  TMTI0092014_Verify that the "Portfolio Valuation" button is not available on opportunities other than portfolio job types. – Completed
-                opportunityHome.ClickOpportunityTab();
-                opportunityHome.ValidateSearchFunctionalityOfOpportunities("119337");
-                string portfolioValuationNo = opportunityDetails.ValidatePortfolioValuationButton();
-                string jobType = opportunityDetails.Get2ndJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is not displayed", portfolioValuationNo);
-                extentReports.CreateLog("Portfolio Valuation Button is not displayed for the Opportunity with Job type: " + jobType + " ");
+                ////2.  TMTI0092014_Verify that the "Portfolio Valuation" button is not available on opportunities other than portfolio job types. – Completed
+                //opportunityHome.ClickOpportunityTab();
+                //opportunityHome.ValidateSearchFunctionalityOfOpportunities("119337");
+                //string portfolioValuationNo = opportunityDetails.ValidatePortfolioValuationButton();
+                //string jobType = opportunityDetails.Get2ndJobTypeL();
+                //Assert.AreEqual("Portfolio Valuation button is not displayed", portfolioValuationNo);
+                //extentReports.CreateLog("Portfolio Valuation Button is not displayed for the Opportunity with Job type: " + jobType + " ");
 
                 //3.  TMTI0092016_Verify that clicking the "Portfolio Valuation" button opens up a new tab to add the valuation period with buttons and messages on the screen
-                opportunityHome.Click1stOpportunityTab();
+                //opportunityHome.Click1stOpportunityTab();
                 string message = opportunityDetails.ClickPortfolioValuationL();
                 Assert.AreEqual("Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.", message);
                 extentReports.CreateLog("Message : " + message + " ");

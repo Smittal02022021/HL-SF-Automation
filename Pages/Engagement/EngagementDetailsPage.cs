@@ -331,7 +331,7 @@ namespace SF_Automation.Pages.Engagement
         By tabEng = By.XPath("//ul[2]/li[4]/a/span[2]");
         By tabExistingEng = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         //By valRevAccrualL = By.XPath("//flexipage-tab2[6]//flexipage-tab2[1]/slot//span[2]");
-        By valRevAccrualL = By.XPath("//tr/td[1]//lst-formatted-text/span");
+        By valRevAccrualL = By.XPath("//tr[1]/td[1]//lst-formatted-text/span");
         By tabPositionL = By.XPath("//a[@title='BE Networks']");
 
 
@@ -3427,7 +3427,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.FindElement(valStageL).Click();
             driver.FindElement(btnSaveDetailsL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkStageL, 240);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSavedStageL, 240);
             string value = driver.FindElement(valSavedStageL).Text;
             return value;
         }

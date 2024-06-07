@@ -127,15 +127,21 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Stage is updated to: " +stage + " " );
 
                 engDetails.ValidateRevenueTab();
-                string revAccrual = engDetails.GetRevenueAccrual();
-                Console.WriteLine("Rev: " + (revAccrual));
-                Console.WriteLine("Rev: " + (revAccrual.Substring(4,10)));
-                //Console.WriteLine("Rev: "+Convert.ToInt32(revAccrual));
+                string revAccrual = engDetails.GetRevenueAccrual();              
+                string revenue = (revAccrual.Substring(4, 10));
+                Console.WriteLine("revenue: " + revenue);                
+                Console.WriteLine("revenueD: " + Convert.ToDouble(revenue));
+                Console.WriteLine("revenueI: " + Convert.ToInt32(Convert.ToDouble(revenue)));
+
+                int finalRevAccrual = Convert.ToInt32(Convert.ToDouble(revenue));
+                Console.WriteLine("finalRevAccrual: " + finalRevAccrual);
                 extentReports.CreateLog("Final Report Sent Date : " +valSentDate + " Revenue Accrual: " +revAccrual + " is displayed when Status of Position is In Progress ");
 
                 //Update Status and Report Fee of existing position and validate details of Position
                 string message1 =valuationPeriods.UpdateStatusAndReportFeeL(fileTC2209);                
                 string reportFee = valuationPeriods.GetFeeCompletedL();
+                int finalReportFee = Convert.ToInt32(Convert.ToDouble(reportFee));
+                Console.WriteLine("finalReportFee" + finalReportFee);
                 Assert.AreEqual("100,000.00", reportFee);
                 extentReports.CreateLog("Status of Position " +message1+" and Report Fee :" + reportFee+ " has been updated ");
 
@@ -175,10 +181,13 @@ namespace SF_Automation.TestCases.Opportunity
                 string valSentDateCompleted = engDetails.GetFinalReportSentDate();
                 engDetails.ValidateRevenueTab();
                 string revAccrualCompleted = engDetails.GetRevenueAccrual();
+                Console.WriteLine("revAccrualCompleted: " + revAccrualCompleted);
 
-                string totalRevAccrual = (revAccrual.Substring(4, 10)) + (reportFee);
-                Assert.AreEqual(totalRevAccrual, revAccrualCompleted);
-                extentReports.CreateLog("Final Report Sent Date : " + valSentDateCompleted + " Revenue Accrual: " + revAccrualCompleted + " is displayed when Status of Position is Completed ");
+                int finalrevAccrualCompleted = Convert.ToInt32(Convert.ToDouble(revAccrualCompleted.Substring(4, 10)));
+                Console.WriteLine("finalrevAccrualCompleted:" + finalrevAccrualCompleted);
+               
+                Assert.AreEqual((finalRevAccrual+ finalReportFee), finalrevAccrualCompleted);
+                extentReports.CreateLog("Final Report Sent Date : " + valSentDateCompleted + " Revenue Accrual: " + finalrevAccrualCompleted + " is displayed when Status of Position is Completed ");
 
                 //Validate cancel message on clicking Void Position
                 string messageCancel = valuationPeriods.ClickVoidPositionAndGetMessageL();

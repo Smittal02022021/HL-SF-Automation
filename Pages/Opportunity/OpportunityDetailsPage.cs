@@ -389,11 +389,12 @@ namespace SF_Automation.Pages
         By btnSaveComments = By.XPath("//button[@name='save']");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
+        By tabOpportunityL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By txtClearOppName = By.XPath("//input[@name='Name']");
         By msgOppName = By.XPath("//div[text()='Complete this field.']");
-        By valOppNameL = By.XPath("//flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/dl/dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valOppNameL = By.XPath("//div/span[text()='Opportunity Name']/ancestor::div[2]/dd/div/span//lightning-formatted-text");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
         By btnAddCFContact = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
         By titleAddCFOppContact = By.XPath("//h2[contains(text(),'Add ')]");
@@ -549,7 +550,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By txtEBITDAL = By.XPath("//label[text()='EBITDA (MM)']/following::div[1]//input");
         By txtEDITDA = By.XPath("//td/label[text()='EBITDA (MM)']/parent::td//following-sibling::td/input");
         By valERPLegalEntityName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > tr:nth-child(2) > td:nth-child(6)");
-        By btnEditTopPanelL = By.XPath("//button[@name='Edit']");
+        By btnEditTopPanelL = By.XPath("//div[3]/div/div/runtime_platform_actions-actions-ribbon/ul/li[1]//button");
         By btnViewCounterpartiesL = By.XPath("//button[@name='Opportunity__c.ViewCounterparties']");
 
         By lnkReqEngL = By.XPath("//runtime_platform_actions-actions-ribbon//li[11]/lightning-button-menu/button");
@@ -561,13 +562,12 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
         By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
-        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::dl/dd//span//lightning-formatted-text");
+        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]//span//lightning-formatted-text");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
-        By val2ndJobTypeL = By.XPath("//section/div[1]/div/div[2]/div[2]/section[2]//flexipage-column2[1]/div/slot/flexipage-field[5]//lightning-formatted-text");
+        By val2ndJobTypeL = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[5]//lightning-formatted-text");
         By btnMoreL = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
-
 
 
         private By _ActivitySubject(string activitySubject)
@@ -1331,7 +1331,7 @@ public void ClickNewOpportunitySectorButton()
         {            
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 40);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
                 string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();               
                 return "Portfolio Valuation button is displayed";
             }
@@ -1631,7 +1631,7 @@ public void ClickNewOpportunitySectorButton()
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
                 driver.FindElement(btnReturnToOpp).Click();
             }
-            catch (Exception)
+            catch(Exception)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
                 driver.FindElement(lnkReDisplayRec).Click();
@@ -6515,6 +6515,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOpportunityL, 180);
+            driver.FindElement(tabOpportunityL).Click();
+            Thread.Sleep(5000);
             return comment;
         }
 
