@@ -41,7 +41,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -50,11 +50,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users",1);
-                usersLogin.SearchUserAndLogin(userExl);               
+                //usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();

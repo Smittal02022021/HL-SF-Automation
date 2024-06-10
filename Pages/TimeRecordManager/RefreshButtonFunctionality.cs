@@ -34,7 +34,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By btnFinish = By.XPath("//button[text()='Finish']");        
         By comboSelectProjectN = By.XPath("//input[contains(@placeholder,'Type to filter projects')]");
         By comboSelectProjectName = By.XPath("(//div[@role='listbox']//li)[1]//span//span");
-        By frameTimeRecordPage = By.XPath("//iframe[@title='Salesforce - Unlimited Edition']");//iframe[@title='accessibility title']");
+        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");//iframe[@title='Salesforce - Unlimited Edition']");
         By imgSpinningLoader = By.XPath("//div[@class='loading']");
         By txtAddMinutes = By.XPath("//div[contains(@class,'TimeClockRecorder')]//p[contains(text(),'Add Minutes')]//input");
         By imgSpinner = By.XPath("//div[contains(@class,'spinner_container')]//div[@role='alert']");

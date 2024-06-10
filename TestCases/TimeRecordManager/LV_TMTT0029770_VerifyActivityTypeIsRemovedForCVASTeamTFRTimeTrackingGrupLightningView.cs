@@ -52,7 +52,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3,1);
-                usersLogin.SearchUserAndLogin(userExl);
+                //usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();

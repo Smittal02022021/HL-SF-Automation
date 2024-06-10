@@ -18,9 +18,6 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTC1692 = "LV_T1692_ValidationsToBeCompletedBeforeFVAOpportunityIsApproved";
@@ -82,6 +79,11 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB: " + valRecordType);
                     extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
 
+                    /*need to update
+                    //Validate Yes/No values of Women Led field
+                    Assert.IsTrue(addOpportunity.VerifyWomenLedValues(), "Verified that displayed Women Led values are same");
+                    extentReports.CreateLog("Displayed Women Led values are correct ");
+                    */
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTC1692);//updated totalDbt
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
