@@ -132,6 +132,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
         By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
         By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
+        By txtTotalDebtL = By.XPath("//input[@name='Total_Debt_MM__c']");
 
         public string AddOpportunities(string type,string file)
         {
@@ -383,7 +384,9 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
 
-            
+            driver.FindElement(txtTotalDebtL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));          
+
+
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             //js.ExecuteScript("arguments[0].click();", driver.FindElement(btnIGL));
             ////string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
@@ -446,6 +449,10 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
                 driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
                 //flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']
             }
+            else if(valRecordType == "FR")
+            {
+                driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+            }
             else
             {
                 driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
@@ -458,7 +465,10 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             {
                 driver.FindElement(By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             }
-
+            else if (valRecordType == "FR")
+            {
+                driver.FindElement(By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+            }
             else
             {
                 driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]/div/slot/flexipage-field[1]/slot//lightning-base-combobox-item[3]/span[2]/span")).Click();

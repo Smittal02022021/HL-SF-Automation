@@ -254,10 +254,13 @@ namespace SF_Automation.Pages
         By valPrimarySubject = By.CssSelector("div[id*='DuhQp_body']>table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valCompFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>th>a");
         By valCompKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>th>a");
+        By valCompKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
         By valTypeFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>td:nth-child(3)");
         By valTypeKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>td:nth-child(3)");
+        By valTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']");
         By valRecTypeFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>td:nth-child(4)");
         By valRecTypeKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>td:nth-child(4)");
+        By valRecTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr/td[4]//a/slot");
         By comboAdditionalClient = By.CssSelector("select[name*='FmBza']");
         By comboAdditionalSubject = By.CssSelector("select[name*='FmBzb']");
         By valWomenLed = By.CssSelector("div[id*='NgWj_id0_j_id55_ileinner']");
@@ -3855,6 +3858,20 @@ public void ClickNewOpportunitySectorButton()
                 return "No new client exists";
             }
         }
+        //Validate the company name of Key Creditors 
+        public string GetCompanyNameOfKeyCreditorL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valCompKeyCreditorL, 40);
+                string value = driver.FindElement(valCompKeyCreditorL).Text;
+                return value;
+            }
+            catch (Exception e)
+            {
+                return "No new client exists";
+            }
+        }
 
         //Validate the type of Fee Attribution Party 
         public string GetTypeOfFeeAttributionParty()
@@ -3871,6 +3888,20 @@ public void ClickNewOpportunitySectorButton()
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valTypeKeyCreditor, 40);
                 string value = driver.FindElement(valTypeKeyCreditor).Text;
+                return value;
+            }
+            catch (Exception)
+            {
+                return "Key Creditor";
+            }
+        }
+        //Validate the type of Key Creditors 
+        public string GetTypeOfKeyCreditorL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valTypeKeyCreditorL, 40);
+                string value = driver.FindElement(valTypeKeyCreditorL).Text;
                 return value;
             }
             catch (Exception e)
@@ -3894,6 +3925,20 @@ public void ClickNewOpportunitySectorButton()
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valRecTypeKeyCreditor, 40);
                 string value = driver.FindElement(valRecTypeKeyCreditor).Text;
+                return value;
+            }
+            catch (Exception e)
+            {
+                return "Key Creditor";
+            }
+        }
+        //Validate the type of Key Creditors 
+        public string GetRecTypeOfKeyCreditorL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valRecTypeKeyCreditorL, 40);
+                string value = driver.FindElement(valRecTypeKeyCreditorL).Text;
                 return value;
             }
             catch (Exception e)

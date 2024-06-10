@@ -37,12 +37,19 @@ namespace SF_Automation.Pages
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By linkCompanyName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/th/a");
+        By lnkCompanyNameL = By.XPath("//span[@title='Client']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
         By linkSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[3]/th/a");
         By txtCompanyType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[2]");
+        By valClientTypeL = By.XPath("//span[@title='Client']");
+        By valSubjectTypeL = By.XPath("//span[@title='Subject']");
         By txtCompanyRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[3]");
+        By txtCompanyRecTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[4]//a/slot");
         By txtSubjectType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/td[2]");
         By txtSubjectRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/td[3]");
+        By txtSubjectRecTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[4]");
+
         By txtComSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/th/a");
+        By txtComSubjectNameL = By.XPath("//span[@title='Subject']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
         By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
@@ -543,6 +550,15 @@ namespace SF_Automation.Pages
             return valCompany;
         }
 
+        //To validate additional added client in Additional Clients/Subjects section
+        public string ValidateAddedClientL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanyNameL, 50);
+            Thread.Sleep(2000);
+            string valCompany = driver.FindElement(lnkCompanyNameL).Text;
+            return valCompany;
+        }
+
         //To validate additional added subject in additional Clients/Subjects section
         public string ValidateAddedSubject()
         {
@@ -567,7 +583,23 @@ namespace SF_Automation.Pages
             }
         }
 
-        //To validate type of additional added client in Additional Clients/Subjects section
+        public string ValidateAddedSubjectWithKeyCreditorL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtComSubjectNameL, 50);
+                Thread.Sleep(2000);
+                string valSubject = driver.FindElement(txtComSubjectNameL).Text;
+                return valSubject;
+            }
+            catch (Exception)
+            {
+                return "No new client exists";
+            }
+
+        }
+
+        //To validate type of additional added client in Additional Clients/Subjects sectionvalClientTypeL
         public string ValidateTypeOfAddedClient()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyType, 50);
@@ -576,12 +608,28 @@ namespace SF_Automation.Pages
             return valCompany;
         }
 
+        //To validate type of additional added client in Additional Clients/Subjects section
+        public string ValidateTypeOfAddedClientL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientTypeL, 50);
+            Thread.Sleep(3000);
+            string valCompany = driver.FindElement(valClientTypeL).Text;
+            return valCompany;
+        }
         //To validate rec type of additional added client in Additional Clients/Subjects section
         public string ValidateRecTypeOfAddedClient()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyRecType, 50);
             Thread.Sleep(2000);
             string valCompany = driver.FindElement(txtCompanyRecType).Text;
+            return valCompany;
+        }
+        //To validate rec type of additional added client in Additional Clients/Subjects section
+        public string ValidateRecTypeOfAddedClientL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyRecTypeL, 50);
+            Thread.Sleep(2000);
+            string valCompany = driver.FindElement(txtCompanyRecTypeL).Text;
             return valCompany;
         }
 
@@ -601,6 +649,22 @@ namespace SF_Automation.Pages
             }
         }
 
+        //To validate type of additional added subject in Additional Clients/Subjects section
+        public string ValidateTypeOfAddedSubjectL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, valSubjectTypeL, 40);
+                Thread.Sleep(2000);
+                string valType = driver.FindElement(valSubjectTypeL).Text;
+                return valType;
+            }
+            catch (Exception)
+            {
+                return "No new type exists";
+            }
+        }
+
         //To validate rec type of additional added subject in Additional Clients/Subjects section
         public string ValidateRecTypeOfAddedSubject()
         {
@@ -609,6 +673,21 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSubjectRecType, 40);
                 Thread.Sleep(2000);
                 string valType = driver.FindElement(txtSubjectRecType).Text;
+                return valType;
+            }
+            catch (Exception)
+            {
+                return "No new Rec type exists";
+            }
+        }
+        //To validate rec type of additional added subject in Additional Clients/Subjects section
+        public string ValidateRecTypeOfAddedSubjectL()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSubjectRecTypeL, 40);
+                Thread.Sleep(2000);
+                string valType = driver.FindElement(txtSubjectRecTypeL).Text;
                 return valType;
             }
             catch (Exception)

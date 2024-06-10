@@ -62,51 +62,48 @@ namespace SF_Automation.TestCases.Opportunity
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 32);
                     usersLogin.SearchUserAndLogin(valUser);
-                    string stdUser = login.ValidateUser();
+                    string stdUser = login.ValidateFRUserLightning();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                    //Call function to open Add Opportunity Page
-                    opportunityHome.ClickOpportunity();
+                    //Verify the availablity of Opportunity under HL Banker list
+                    string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                    Assert.AreEqual("Opportunities", tagOpp);
+                    extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
+
+                    //Verify that choose LOB is displayed after clicking New button
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    Console.WriteLine("valRecordType:" + valRecordType);
-                    opportunityHome.SelectLOBAndClickContinue(valRecordType);
-
-                    //Validating Title of New Opportunity Page
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
-
+                    string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                    Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                    extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
+                                       
                     //Calling AddOpportunities function                  
-                    string value = addOpportunity.AddOpportunities(valJobType, file7935);
+                    string value = addOpportunity.AddOpportunitiesLightning(valJobType, file7935);
                     Console.WriteLine("value : " + value);
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(file7935);
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
-
-                    //Validating Opportunity details  
-                    string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                    Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                    extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
+                    string displayedTab = addOpportunity.EnterStaffDetailsL(file7935);
+                    Assert.AreEqual("Info", displayedTab);
+                    extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
                     //Validate added client with new types of Fee Attribution Party and Key Creditor along with additional Client and Subject
                     //--Validate Additional Client and Subject
                     //--Validate added client in Additional Clients/Subjects section
-                    string addedCompany = clientSubjectsPage.ValidateAddedClient();
+                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    string addedCompany = clientSubjectsPage.ValidateAddedClientL();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1), addedCompany);
-                    string addedCompanyType = clientSubjectsPage.ValidateTypeOfAddedClient();
+                    string addedCompanyType = clientSubjectsPage.ValidateTypeOfAddedClientL();
                     Assert.AreEqual("Client", addedCompanyType);
-                    string addedCompanyRecType = clientSubjectsPage.ValidateRecTypeOfAddedClient();
+                    string addedCompanyRecType = clientSubjectsPage.ValidateRecTypeOfAddedClientL();
                     Assert.AreEqual("Operating Company", addedCompanyRecType);
                     extentReports.CreateLog(addedCompany + " with Type: " + addedCompanyType + " and Record Type: " + addedCompanyRecType + " is added in Additional Client/Subject section ");
 
                     //--Validate added subject in Additional Clients/Subjects section               
                     if (valJobType.Equals("Creditor Advisors"))
                     {
-                        string addedSubject = opportunityDetails.GetCompanyNameOfKeyCreditor();
-                        string addedSubjectType = opportunityDetails.GetTypeOfKeyCreditor();
-                        string addedSubjectRecType = opportunityDetails.GetRecTypeOfKeyCreditor();
+                        string addedSubject = clientSubjectsPage.ValidateAddedSubjectWithKeyCreditorL();
+                        string addedSubjectType = clientSubjectsPage.ValidateTypeOfAddedSubjectL();
+                        string addedSubjectRecType = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
                         Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2), addedSubject);
                         Assert.AreEqual("Subject", addedSubjectType);
                         Assert.AreEqual("Operating Company", addedSubjectRecType);
@@ -124,10 +121,10 @@ namespace SF_Automation.TestCases.Opportunity
                     }
 
                     //---Validate added client for Key Creditors
-                    string addedKey = clientSubjectsPage.ValidateAddedSubjectWithKeyCreditor();
-                    string typeKey = clientSubjectsPage.ValidateTypeOfAddedSubject();
+                    string addedKey = opportunityDetails.GetCompanyNameOfKeyCreditorL();
+                    string typeKey = opportunityDetails.GetTypeOfKeyCreditorL();
                     Console.WriteLine("typeKey: " + typeKey);
-                    string recTypeKey = clientSubjectsPage.ValidateRecTypeOfAddedSubject();
+                    string recTypeKey = opportunityDetails.GetRecTypeOfKeyCreditorL();
                     Console.WriteLine("recTypeKey: " + recTypeKey);
                     if (valJobType.Equals("Creditor Advisors"))
                     {
