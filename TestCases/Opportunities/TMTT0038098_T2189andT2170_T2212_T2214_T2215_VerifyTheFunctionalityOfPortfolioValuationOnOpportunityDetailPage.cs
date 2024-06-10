@@ -357,7 +357,7 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SelectEngUnderHLBanker();
                 engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
                 engHome.ClickEngNumber();
-               string newOppValPeriodCAO= engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
+               string newOppValPeriodCAO= engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp(caoUser);
                 Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodCAO);
                 extentReports.CreateLog(caoUser + " is not allowed to add New Opportunity Valuation Period " );
 
@@ -369,7 +369,7 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SelectEngUnderHLBanker();
                 engHome.ValidateSearchFunctionalityOfEngagements("25512024235114");
                 engHome.ClickEngNumber();
-                string newOppValPeriodFVAUser = engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp();
+                string newOppValPeriodFVAUser = engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp(stdUser2);
                 Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodFVAUser);
                 extentReports.CreateLog(stdUser2 + " is not allowed to add New Opportunity Valuation Period ");
 

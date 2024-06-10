@@ -27,7 +27,7 @@ namespace SF_Automation.Pages.Opportunity
         
         By imgContactOppL = By.XPath("//div[@title='Chris Lord']");
         By btnSaveL = By.XPath("//div/footer/button[2]/span");
-        By tabRelated = By.XPath("//a[text()='Related']");
+        By tabRelated = By.XPath("//a[text()='Comments']");
         By valAddedContact = By.XPath("//formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
         By msgParty = By.XPath("//section/div/section/div/div/div/div/div/div[4]/div[1]/div/div/ul/li");
 

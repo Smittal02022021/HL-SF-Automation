@@ -3352,6 +3352,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(6000);
             driver.SwitchTo().Window(driver.WindowHandles[0]);
         }
+        
 
         public void NavigateToNextWindow()
         {

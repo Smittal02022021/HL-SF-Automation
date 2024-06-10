@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1644_OpportunityDetails_FEISForm_SubmitForReview : BaseClass
+    class zT1644_OpportunityDetails_FEISForm_SubmitForReview : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

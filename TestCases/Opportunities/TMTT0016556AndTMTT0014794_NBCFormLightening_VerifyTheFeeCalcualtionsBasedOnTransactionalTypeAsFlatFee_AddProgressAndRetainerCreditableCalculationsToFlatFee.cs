@@ -162,7 +162,7 @@ namespace SF_Automation.TestCases.Opportunity
                 form.SaveAllReqFieldsInFees(fileTC1232);
 
                 //Navigate to previous window and validate Retainer and Monthly Fee
-                form.NavigateToPreviousWindow();
+                form.NavigateToPreviousWindow();                
                 string latestRetainer = opportunityDetails.GetRetainer();
                 Assert.AreEqual(retainer, latestRetainer);
                 extentReports.CreateLog("Retainer value in Opportunity details: " + latestRetainer + " matches with earlier value of Retainer ");

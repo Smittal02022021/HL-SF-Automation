@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage : BaseClass
+    class zT2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

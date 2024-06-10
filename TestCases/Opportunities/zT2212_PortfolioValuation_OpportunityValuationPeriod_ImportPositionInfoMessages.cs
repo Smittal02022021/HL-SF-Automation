@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages : BaseClass
+    class zT2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers : BaseClass
+    class zT2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
