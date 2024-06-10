@@ -442,6 +442,9 @@ namespace SF_Automation.Pages.TimeRecordManager
                 driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
                 WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
                 driver.FindElement(tabRateSheetManagement).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, tabRateSheetManagement);
+                driver.FindElement(tabRateSheetManagement).Click();
                 Thread.Sleep(10000);
 
                 WebDriverWaits.WaitUntilEleVisible(driver, comboEngagement);
