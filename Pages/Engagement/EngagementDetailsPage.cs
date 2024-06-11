@@ -6522,7 +6522,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             if (user.Equals("Karan Chopra"))
             {
-                driver.SwitchTo().Frame(1);
+                driver.SwitchTo().Frame(0);
                 Thread.Sleep(5000);
                 try
                 {

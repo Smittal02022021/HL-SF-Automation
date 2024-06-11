@@ -171,6 +171,7 @@ namespace SF_Automation.TestCases.Opportunity
                     }
                     usersLogin.UserLogOut();
                 }
+
                 usersLogin.UserLogOut();
                 driver.Quit();                
             }

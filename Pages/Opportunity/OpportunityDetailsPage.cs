@@ -21,6 +21,15 @@ namespace SF_Automation.Pages
         By btnGo = By.XPath("//input[@type='submit']");
         By buttonViewCounterparty = By.XPath("//button[contains(text(),'View Counterparties')]");
         By btnEdit = By.CssSelector("input[value=' Edit ']");
+        By btnEditClientL = By.XPath("//button[@title='Edit Additional Client']");
+        By btnEditSubjectL = By.XPath("//button[@title='Edit Additional Subject']");
+        By btnAdditionalClientL = By.XPath("//button[@aria-label='Additional Client']");
+        By btnAdditionalSubjectL = By.XPath("//button[@aria-label='Additional Subject']");
+
+        By valAdditionalClientL = By.XPath("//flexipage-tab2[5]//flexipage-column2[1]//lightning-base-combobox-item[2]/span[2]/span");
+        By valAdditionalSubjectL = By.XPath("//flexipage-tab2[5]//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span");
+
+
         By valOpportunity = By.XPath("//div[contains(@id,'Name')]");
         By btnDNDOnOff = By.CssSelector("input[name='dnd_on_off']");
         By imgLock = By.CssSelector("img[title='Locked']");
@@ -260,7 +269,7 @@ namespace SF_Automation.Pages
         By valTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']");
         By valRecTypeFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>td:nth-child(4)");
         By valRecTypeKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>td:nth-child(4)");
-        By valRecTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr/td[4]//a/slot");
+        By valRecTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr/td[4]//a");
         By comboAdditionalClient = By.CssSelector("select[name*='FmBza']");
         By comboAdditionalSubject = By.CssSelector("select[name*='FmBzb']");
         By valWomenLed = By.CssSelector("div[id*='NgWj_id0_j_id55_ileinner']");
@@ -3904,9 +3913,9 @@ public void ClickNewOpportunitySectorButton()
                 string value = driver.FindElement(valTypeKeyCreditorL).Text;
                 return value;
             }
-            catch (Exception e)
+            catch(Exception)
             {
-                return "Key Creditor";
+                return "No new client exists";
             }
         }
 
@@ -3927,7 +3936,7 @@ public void ClickNewOpportunitySectorButton()
                 string value = driver.FindElement(valRecTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception e)
+            catch(Exception)
             {
                 return "Key Creditor";
             }
@@ -3938,13 +3947,27 @@ public void ClickNewOpportunitySectorButton()
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valRecTypeKeyCreditorL, 40);
-                string value = driver.FindElement(valRecTypeKeyCreditorL).Text;
+                string value = driver.FindElement(valRecTypeKeyCreditorL).GetAttribute("title");
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return "Key Creditor";
+                return "No new client exists";
             }
+        }
+
+        //To update Additional Client and Additional Subject 
+        public void UpdateAdditionalClientAndSubjectL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditClientL, 80);
+            driver.FindElement(btnEditClientL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnAdditionalClientL).Click();
+            driver.FindElement(valAdditionalClientL).Click();
+            Thread.Sleep(5000);           
+            driver.FindElement(btnAdditionalSubjectL).Click();
+            driver.FindElement(valAdditionalClientL).Click();           
+            driver.FindElement(btnSaveDetailsL).Click();
         }
 
         //To update Additional Client and Additional Subject 
@@ -3956,7 +3979,6 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(comboAdditionalSubject).SendKeys("Yes");
             driver.FindElement(btnSave).Click();
         }
-
         //Get the value of Women Led
         public string GetWomenLedValue()
         {
@@ -4795,7 +4817,8 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubject);
             string name = driver.FindElement(tabClientSubject).Text;
             Thread.Sleep(3000);
-                        driver.FindElement(tabClientSubject).Click();
+             driver.FindElement(tabClientSubject).Click();
+            Thread.Sleep(5000);
             return name;
         }
 

@@ -40,13 +40,13 @@ namespace SF_Automation.Pages
         By lnkCompanyNameL = By.XPath("//span[@title='Client']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
         By linkSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[3]/th/a");
         By txtCompanyType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[2]");
-        By valClientTypeL = By.XPath("//span[@title='Client']");
-        By valSubjectTypeL = By.XPath("//span[@title='Subject']");
+        By valClientTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[3]");
+        By valSubjectTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[3]");
         By txtCompanyRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[3]");
-        By txtCompanyRecTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[4]//a/slot");
+        By txtCompanyRecTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[4]//a");
         By txtSubjectType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/td[2]");
         By txtSubjectRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/td[3]");
-        By txtSubjectRecTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[4]");
+        By txtSubjectRecTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[4]//a");
 
         By txtComSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/th/a");
         By txtComSubjectNameL = By.XPath("//span[@title='Subject']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
@@ -627,9 +627,9 @@ namespace SF_Automation.Pages
         //To validate rec type of additional added client in Additional Clients/Subjects section
         public string ValidateRecTypeOfAddedClientL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyRecTypeL, 50);
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyRecTypeL, 50);
             Thread.Sleep(2000);
-            string valCompany = driver.FindElement(txtCompanyRecTypeL).Text;
+            string valCompany = driver.FindElement(txtCompanyRecTypeL).GetAttribute("title");
             return valCompany;
         }
 
@@ -687,7 +687,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSubjectRecTypeL, 40);
                 Thread.Sleep(2000);
-                string valType = driver.FindElement(txtSubjectRecTypeL).Text;
+                string valType = driver.FindElement(txtSubjectRecTypeL).GetAttribute("title");
                 return valType;
             }
             catch (Exception)

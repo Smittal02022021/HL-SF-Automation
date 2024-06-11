@@ -64,7 +64,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Verify the availablity of Opportunity under HL Banker list
+                //Verify the availability of Opportunity under HL Banker list
                 string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
                 Assert.AreEqual("Opportunities", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");

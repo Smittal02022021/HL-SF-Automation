@@ -66,7 +66,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                    //Verify the availablity of Opportunity under HL Banker list
+                    //Verify the availability of Opportunity under HL Banker list
                     string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
                     Assert.AreEqual("Opportunities", tagOpp);
                     extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
@@ -76,7 +76,7 @@ namespace SF_Automation.TestCases.Opportunity
                     string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                     Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
                     extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
-                                       
+
                     //Calling AddOpportunities function                  
                     string value = addOpportunity.AddOpportunitiesLightning(valJobType, file7935);
                     Console.WriteLine("value : " + value);
@@ -92,8 +92,10 @@ namespace SF_Automation.TestCases.Opportunity
                     opportunityDetails.ValidateClientSubjectAndReferralTabL();
                     string addedCompany = clientSubjectsPage.ValidateAddedClientL();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1), addedCompany);
+                    Console.WriteLine("addedCompany:" + addedCompany);
                     string addedCompanyType = clientSubjectsPage.ValidateTypeOfAddedClientL();
                     Assert.AreEqual("Client", addedCompanyType);
+                    Console.WriteLine("addedCompanyType:" + addedCompanyType);
                     string addedCompanyRecType = clientSubjectsPage.ValidateRecTypeOfAddedClientL();
                     Assert.AreEqual("Operating Company", addedCompanyRecType);
                     extentReports.CreateLog(addedCompany + " with Type: " + addedCompanyType + " and Record Type: " + addedCompanyRecType + " is added in Additional Client/Subject section ");
@@ -111,9 +113,9 @@ namespace SF_Automation.TestCases.Opportunity
                     }
                     else
                     {
-                        string addedKeyCre = opportunityDetails.GetCompanyNameOfKeyCreditor();
-                        string typeKeyCre = opportunityDetails.GetTypeOfKeyCreditor();
-                        string recTypeKeyCre = opportunityDetails.GetRecTypeOfKeyCreditor();
+                        string addedKeyCre = clientSubjectsPage.ValidateAddedSubjectWithKeyCreditorL();
+                        string typeKeyCre = clientSubjectsPage.ValidateTypeOfAddedSubjectL();
+                        string recTypeKeyCre = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
                         Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2), addedKeyCre);
                         Assert.AreEqual("Subject", typeKeyCre);
                         Assert.AreEqual("Operating Company", recTypeKeyCre);
@@ -137,82 +139,20 @@ namespace SF_Automation.TestCases.Opportunity
                     else
                     {
                         Assert.AreEqual("No new client exists", addedKey);
-                        Assert.AreNotEqual("Key Creditor", typeKey);
-                        Assert.AreNotEqual("Key Creditor", recTypeKey);
+                        Assert.AreEqual("No new client exists", typeKey);
+                        Assert.AreEqual("No new client exists", recTypeKey);
                         extentReports.CreateLog("No company with Key Creditors exists in Additional Clients/Subjects section ");
-                    }
-
-                    //Update Additional Client and Subject to Yes and validate title of Additional Client/Subject Required Pop up  
-                    opportunityDetails.UpdateAdditionalClientandSubject();
-                    Assert.AreEqual(clientSubjectsPage.ValidateAdditionalClientSubjectTitle(), "Additional Clients/Subjects Required");
-                    extentReports.CreateLog(clientSubjectsPage.ValidateAdditionalClientSubjectTitle() + " is displayed upon setting Yes for Additional Client and Subject ");
-
-                    //Clicking Add Client and validating title of Add Additional Client(s) Pop up
-                    clientSubjectsPage.ClickAddClient();
-                    Console.WriteLine(clientSubjectsPage.ValidateAdditionalClientTitle());
-                    Assert.AreEqual(clientSubjectsPage.ValidateAdditionalClientTitle(), "Add Additional Client(s)");
-                    extentReports.CreateLog(clientSubjectsPage.ValidateAdditionalClientTitle() + " window is displayed ");
-
-                    //Calling Add AdditionalClient function and validating message
-                    clientSubjectsPage.AddAdditionalClient(file7935);
-                    Assert.AreEqual("Success:" + '\r' + '\n' + "Company Added To Additional Clients", clientSubjectsPage.ValidateMessage());
-                    extentReports.CreateLog(clientSubjectsPage.ValidateMessage() + " is displayed ");
-                    clientSubjectsPage.CloseClientPopUp();
-
-                    //Validate additional clients in Table               
-                    Assert.AreEqual("True", clientSubjectsPage.ValidateTableDetails());
-                    extentReports.CreateLog("Client is added in Additional Clients Section ");
-
-                    //Calling AddAdditionalSubject function and validating message
-                    clientSubjectsPage.AddAdditionalSubject(file7935);
-                    Assert.AreEqual("Success:" + '\r' + '\n' + "Company Added To Additional Subjects", clientSubjectsPage.ValidateSubjectMessage());
-                    Console.WriteLine("Message: " + clientSubjectsPage.ValidateSubjectMessage());
-                    extentReports.CreateLog(clientSubjectsPage.ValidateSubjectMessage() + " is displayed ");
-                    clientSubjectsPage.CloseSubjectPopUp();
-
-                    //Validate additional Subject in Table                               
-                    Assert.AreEqual("True", clientSubjectsPage.ValidateSubjectTableDetails());
-                    extentReports.CreateLog("Subject is added in Additional Subjects Section ");
-
-                    //Call selectClientInterest funtion 
-                    clientSubjectsPage.selectClientInterest(file7935);
-
-                    //--Validate added subject in Additional Clients/Subjects section while added from additional client Subject Pop Up
-                    string additionalSubject = opportunityDetails.ValidateAdditionalSubjectFromPopUp(valJobType, ReadExcelData.ReadData(excelPath, "AddOpportunity", 35));
-                    Assert.AreEqual("Subject", additionalSubject);
-                    extentReports.CreateLog("New company: " + ReadExcelData.ReadData(excelPath, "AddOpportunity", 35) + " for Subject is displayed in Additional Clients/Subjects section upon adding Subject from Additional Clients/Subjects pop up for " + valJobType + " ");
-
-                    if (valJobType.Equals("Creditor Advisors"))
-                    {
-                        //--Validate added client and Key Creditor in Additional Clients/Subjects section while added from additional client Subject Pop Up
-                        string additionalClient = opportunityDetails.ValidateAdditionalClientFromPopUp(ReadExcelData.ReadData(excelPath, "AddOpportunity", 33));
-                        Assert.AreEqual("Client", additionalClient);
-                        extentReports.CreateLog("New company: " + ReadExcelData.ReadData(excelPath, "AddOpportunity", 33) + " for Client is displayed in Additional Clients/Subjects section upon adding Subject from Additional Clients/Subjects pop up for " + valJobType + " ");
-
-                        string additionalKeyCred = opportunityDetails.GetCompanyNameOfFeeAttributionParty();
-                        string additionalKeyCredKey = opportunityDetails.GetTypeOfFeeAttributionParty();
-                        string additionalKeyCredRecType = opportunityDetails.GetRecTypeOfFeeAttributionParty();
-                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 33), additionalKeyCred);
-                        Assert.AreEqual("Key Creditor", additionalKeyCredKey);
-                        Assert.AreEqual("Operating Company", additionalKeyCredRecType);
-                        extentReports.CreateLog("Company with name: " + additionalKeyCred + " with Type: " + additionalKeyCredKey + " and Record Type as: " + additionalKeyCredRecType + " is displayed in Additional Clients/Subjects section upon adding client from Additional Clients/Subjects pop up " + valJobType + " ");
-                    }
-                    else
-                    {
-                        string additionalClient = opportunityDetails.ValidateAdditionalSubjectFromPopUp(valJobType, ReadExcelData.ReadData(excelPath, "AddOpportunity", 33));
-                        Assert.AreEqual("Client", additionalClient);
-                        extentReports.CreateLog("New company: " + ReadExcelData.ReadData(excelPath, "AddOpportunity", 33) + " for Client only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
-                       
-                    }                   
-                    usersLogin.UserLogOut();
-                }
-                opportunityDetails.SwitchFrame();
+                    }                    
+                  
+                    usersLogin.DiffLightningLogout();
+                    Console.WriteLine("User logged out");
+                }                
                 usersLogin.UserLogOut();
-                driver.Quit();
+                Console.WriteLine("Admin logged out");
+                driver.Quit();                
             }
-            catch (Exception e)
-            {
-                extentReports.CreateExceptionLog(e.Message);
+            catch(Exception)
+            {               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

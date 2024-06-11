@@ -384,7 +384,6 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
 
-            driver.FindElement(txtTotalDebtL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));          
 
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -452,6 +451,9 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             else if(valRecordType == "FR")
             {
                 driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(txtTotalDebtL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+
             }
             else
             {
