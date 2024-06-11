@@ -142,7 +142,7 @@ namespace SF_Automation.TestCases.Opportunity
                         Assert.AreEqual("No new client exists", typeKey);
                         Assert.AreEqual("No new client exists", recTypeKey);
                         extentReports.CreateLog("No company with Key Creditors exists in Additional Clients/Subjects section ");
-                    }                    
+                    }                  
                   
                     usersLogin.DiffLightningLogout();
                     Console.WriteLine("User logged out");
