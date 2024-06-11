@@ -6588,13 +6588,13 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
             driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
             Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal, 70);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal1, 70);
 
-            driver.FindElement(chkUpPrincipal).Click();
-            driver.FindElement(chkUpSeller).Click();
-            driver.FindElement(chkUpManager).Click();
-            driver.FindElement(chkUpAssociate).Click();
-            driver.FindElement(chkUpAnalyst).Click();
+            driver.FindElement(chkUpManager1).Click();
+            driver.FindElement(chkUpSeller1).Click();
+            driver.FindElement(chkUpAssociate1).Click();
+            driver.FindElement(chkUpAnalyst1).Click();
+            driver.FindElement(chkUpPrincipal1).Click();
             driver.FindElement(chkCheckedInitiator).Click();
 
             driver.FindElement(txtStaff).SendKeys("Sonika Goyal");

@@ -61,7 +61,7 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    extentReports.CreateStepLogs("Pass", "User: " + userExl + " Switched to Lightning View ");
                     //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string msgSave = opportunityDetails.RemoveUserFromITTeamLV();
                     randomPages.CloseActiveTab("Internal Team");
                     Assert.AreEqual("Success:Staff Roles Updated.", msgSave);
-                    extentReports.CreateLog(msgSave + " is displayed upon removing and adding new user from HL Internal Team members ");
+                    extentReports.CreateStepLogs("Pass", msgSave + " is displayed upon removing and adding new user from HL Internal Team members ");
 
                     //Validate if user still exists in deal
                     string userExists = opportunityDetails.ValidateUserIfExistsLV(fileLV_T1683);
@@ -134,13 +134,12 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", userExists + " anymore in the deal ");
 
                     randomPages.CloseActiveTab(opportunityName);
-                    extentReports.CreateStepLogs("Info", opportunityName+" : Tab is closed ");
-                    extentReports.CreateStepLogs("Info", "Selecing My Active Opportunities View from List to Verify Opportunity " + opportunityName + " is present in selected List after changing the user from Internal Team");
+                    extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName+" : Tab is closed ");
                     //Select List View
                     randomPages.SelectListView("My Active Opportunities");
                     recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
-                    Assert.AreEqual("No record found", recFound);
-                    extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Opportunities for user:" + userExl);
+                    Assert.AreEqual("No record found", recFound, "Opportunity should not displayed in My Opportunities for user:" + userExl);
+                    extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Active Opportunities lsit for removed user:" + userExl);
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Pass", "User: "+ userExl + " Logged out");
                     usersLogin.UserLogOut();

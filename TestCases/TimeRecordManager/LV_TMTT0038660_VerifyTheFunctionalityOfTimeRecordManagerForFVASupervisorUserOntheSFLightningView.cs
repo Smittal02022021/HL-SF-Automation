@@ -85,10 +85,18 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.AreEqual(staffNameExl, staffName);
                     extentReports.CreateStepLogs("Passed", "Staff : " + staffName + " is Selected from list ");
                     // Select the rate sheet
-                    string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);                  
-
-                    //TMTI0093765	Verify that the FVA Supervisor can add hours to the project for any user.
+                    string selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
                     timeEntry.GoToWeeklyEntryMatrixLV();
+
+                    //TMTI0093784	Verify the Time Record Period is Defaulted to the Current Week for FVA Supervisor.
+                    string defaultTimeRecordPeriod = timeEntry.GetDefaultTimeRecordPeriodLV();
+                    extentReports.CreateStepLogs("Info", "Default selected Time Record Period Start Date : " + defaultTimeRecordPeriod);
+                    string weekStartDate = timeEntry.GetWeekStartDateLV();
+                    extentReports.CreateStepLogs("Info", "Actual Week Start Date: " + weekStartDate);
+                    Assert.AreEqual(weekStartDate, defaultTimeRecordPeriod);
+                    extentReports.CreateStepLogs("Passed", "Default Time Record Period Start Date is same as System Week Start Date:" + defaultTimeRecordPeriod);
+
+                    //TMTI0093765	Verify that the FVA Supervisor can add hours to the project for any user.                    
                     extentReports.CreateStepLogs("Info", "User is on Weekly Entry Matrix Page");
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");

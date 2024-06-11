@@ -76,13 +76,22 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 int rowSearchValue = ReadExcelData.GetRowCount(excelPath, "Projects");
                 for (int row = 2; row <= rowSearchValue; row++)
                 {
-                    //TMTI0098443   Verify that the Special Project for the Forecasting hours is introduced in the project list in the Weekly Entry Matrix tab.
-                    projectNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Projects", row, 1);
-                    hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Projects", row, 3);
+                    
                     extentReports.CreateStepLogs("Passed", "User on Weekly Entry Matrix Page");
+
+                    //TMTI0098439	Verify the Time Record Period is Defaulted to the Current Week for the FVA User.
+                    string defaultTimeRecordPeriod = timeEntry.GetDefaultTimeRecordPeriodLV();
+                    extentReports.CreateStepLogs("Info", "Default selected Time Record Period Start Date : "+ defaultTimeRecordPeriod);
+                    string weekStartDate = timeEntry.GetWeekStartDateLV();
+                    extentReports.CreateStepLogs("Info", "Actual Week Start Date: " + weekStartDate);
+                    Assert.AreEqual(weekStartDate, defaultTimeRecordPeriod);
+                    extentReports.CreateStepLogs("Passed", "Default Time Record Period Start Date is same as System Week Start Date:" + defaultTimeRecordPeriod);
                     //If any previous unwanted entered is left 
                     timeEntry.DeleteTimeEntryLV();
 
+                    //TMTI0098443   Verify that the Special Project for the Forecasting hours is introduced in the project list in the Weekly Entry Matrix tab.
+                    projectNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Projects", row, 1);
+                    hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Projects", row, 3);
                     timeEntry.GoToWeeklyEntryMatrixLV(); 
                     //timeEntry.SelectFutureTimePeriodLV();
                     //extentReports.CreateStepLogs("Info", "Future Dates are selected from Time Record Period Drop-down");

@@ -113,6 +113,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
+                    //TMTI0055029		Verify the Internal deal team "Specialty" role increased limit for CF LOB Opportunity
                     //AddMultiple Staff to Internal Deal Team
                     int countDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Opportunity ");
@@ -241,6 +242,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
+                    //TMTI0055031		Verify the Internal deal team "Specialty" role increased limit for CF LOB Engagement
                     countDealTeamMember = engagementDetails.AddEngMultipleDealTeamMembersLV(valRecordType, fileTMTI0055029);
                     extentReports.CreateLog(countDealTeamMember + " Internal Team Members with Role Specialty are added to Engagement after conversion after Conversion ");
 

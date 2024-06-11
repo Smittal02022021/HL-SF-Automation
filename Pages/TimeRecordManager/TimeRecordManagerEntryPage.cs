@@ -9,6 +9,7 @@ using System.Threading;
 using OpenQA.Selenium.Interactions;
 using System.Linq;
 using System.Web;
+using MongoDB.Driver;
 
 namespace SF_Automation.Pages.TimeRecordManager
 {
@@ -82,6 +83,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By comboOptionActivity = By.CssSelector("table > tr > td:nth-child(2) > div[class='activityRecordEntry'] > div > div:nth-child(2) > div > select > option");
         By comboOptionsLogsActivity = By.CssSelector("div[class*='medium'] > select[class*='uiInput--select'] > option");
         By txtTotalForcastedHoursL = By.XPath("//div[@class='staffTimeSheetWeeklyMassEdit']/table[2]//tr/td/div[contains(text(),'Forecasted')]/../..//td[2]/div");
+        By txtdefaultTimeRecordPeriodL = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select/option[@selected='selected']");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -1076,17 +1078,15 @@ namespace SF_Automation.Pages.TimeRecordManager
             return name;
         }
         
-        public void GetDefaultTimeRecordPeriodLV()
+        public string  GetDefaultTimeRecordPeriodLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtdefaultTimeRecordPeriod, 30);
-            string defaultPeriod = driver.FindElement(txtdefaultTimeRecordPeriod).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtdefaultTimeRecordPeriodL, 30);
+            string defaultPeriod = driver.FindElement(txtdefaultTimeRecordPeriodL).Text;
+            string startDate = defaultPeriod.Split(' ')[0];
             driver.SwitchTo().DefaultContent();
-        }
-
-        /// <summary>
-        /// ///////
-        /// </summary>
+            return startDate;
+        }       
 
         public void DeleteTimeEntryLV()
         {
@@ -2064,12 +2064,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(10000);
-            //try
-            //{
-            //    WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            //}
-            //catch { Thread.Sleep(4000); }
-            //Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//a[text()='{name}']")).Click();
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             driver.SwitchTo().DefaultContent();
@@ -2558,51 +2552,50 @@ namespace SF_Automation.Pages.TimeRecordManager
             else 
             return "Black";
         }
-        public void GetWeekStartDay()
+        public string GetWeekStartDateLV()
         {
-            string todayDate = DateTime.Today.ToString("yyyy MM dd");
-            string[] date = todayDate.Split(' ');
-            int a = date.Length;
-            var value = Convert.ToInt32(date[a]);
-            //default locale
-            //string getDay = System.DateTime.Now.DayOfWeek.ToString();
-            //localized version
+            string weekStartDate="";            
             string weekday = System.DateTime.Now.ToString("ddd");
-            driver.SwitchTo().DefaultContent();
-            int WeekStartDate;
+            driver.SwitchTo().DefaultContent();            
             switch (weekday)
             {
+                case "Sun":
+                   string weekStartDate1 = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate1;
+                    break;
+
                 case "Mon":
-
-                    WeekStartDate = value - 1;
+                    string weekStartDate2 = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate2;
                     break;
+
                 case "Tue":
-
-                    WeekStartDate = value - 2;
+                    string weekStartDate3 = DateTime.Now.AddDays(-2).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate3;
                     break;
-                case "Wed":
 
-                    WeekStartDate = value - 3;
+                case "Wed":
+                    string weekStartDate4 = DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate4;
                     break;
 
                 case "Thu":
-
-                    WeekStartDate = value - 4;
+                    string weekStartDate5 = DateTime.Now.AddDays(-4).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate5;
                     break;
-                case "Fri":
 
-                    WeekStartDate = value - 5;
+                case "Fri":
+                    string weekStartDate6 = DateTime.Now.AddDays(-5).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate6;
                     break;
 
                 case "Sat":
-
-                    WeekStartDate = value - 6;
+                    string weekStartDate7 = DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate7;
                     break;
-                case "Sun":
-
-                    WeekStartDate = value - 0;
-                    break;
+                
             }
+            return weekStartDate;
         }        
         public string GetTotalForcastedHoursLV()
         {

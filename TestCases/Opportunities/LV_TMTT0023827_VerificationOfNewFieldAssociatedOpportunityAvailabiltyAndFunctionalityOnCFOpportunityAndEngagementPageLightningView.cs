@@ -346,7 +346,6 @@ namespace SF_Automation.TestCases.Opportunities
                     driver.Quit();
                     extentReports.CreateStepLogs("Pass", "Browser Closed");
                 }
-
             }
             catch (Exception e)
             {

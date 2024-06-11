@@ -82,6 +82,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     selectProject = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 1);
                     timeEntry.GoToWeeklyEntryMatrixLV();
                     extentReports.CreateStepLogs("Info", "User: " + user + " is on Weekly Entry Matrix Page");
+
+                    //TMTI0093781	Verify that the Time Record Period is Defaulted to the Current Week for the FVA User.
+                    string defaultTimeRecordPeriod = timeEntry.GetDefaultTimeRecordPeriodLV();
+                    extentReports.CreateStepLogs("Info", "Default selected Time Record Period Start Date : " + defaultTimeRecordPeriod);
+                    string weekStartDate = timeEntry.GetWeekStartDateLV();
+                    extentReports.CreateStepLogs("Info", "Actual Week Start Date: " + weekStartDate);
+                    Assert.AreEqual(weekStartDate, defaultTimeRecordPeriod);
+                    extentReports.CreateStepLogs("Passed", "Default Time Record Period Start Date is same as System Week Start Date:" + defaultTimeRecordPeriod);
+
                     timeEntry.SelectProjectWeeklyEntryMatrixLV(selectProject);
                     extentReports.CreateStepLogs("Info", "Project: " + selectProject + " selected on Weekly Entry Matrix ");
                     txtHours = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2); ;
