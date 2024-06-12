@@ -94,6 +94,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string futureWeekStartDate= timeEntry.GetFutureWeekStartDateLV(3);
                     extentReports.CreateStepLogs("Info", "Actual Future Week Start Date: " + futureWeekStartDate);
                     Assert.AreEqual(futureTimeRecordPeriod, futureWeekStartDate);
+                    extentReports.CreateStepLogs("Passed", "Future Time Record Period Start Date:" + defaultTimeRecordPeriod+" i.e. upto 3 future weeks ");
 
 
                     //If any previous unwanted entered is left 
