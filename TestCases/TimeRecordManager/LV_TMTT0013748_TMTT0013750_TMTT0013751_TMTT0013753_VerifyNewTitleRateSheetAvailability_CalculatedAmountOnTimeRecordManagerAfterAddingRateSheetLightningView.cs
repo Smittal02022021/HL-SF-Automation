@@ -231,7 +231,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //homePageLV.ClickAppLauncher();
 
                 //Go to Opportunity module in Lightning View                 
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                 extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");                
 
