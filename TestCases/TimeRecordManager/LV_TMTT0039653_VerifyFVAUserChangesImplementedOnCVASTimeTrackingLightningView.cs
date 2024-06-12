@@ -86,6 +86,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "Actual Week Start Date: " + weekStartDate);
                     Assert.AreEqual(weekStartDate, defaultTimeRecordPeriod);
                     extentReports.CreateStepLogs("Passed", "Default Time Record Period Start Date is same as System Week Start Date:" + defaultTimeRecordPeriod);
+
+
+                    //TMTI0098441	Verify that the user is able to input activity up to three(3) weeks forward to the current week.
+                    string futureTimeRecordPeriod = timeEntry.GetFutureTimeRecordPeriodLV();
+                    extentReports.CreateStepLogs("Info", "Future Time Record Period Start Date : " + futureTimeRecordPeriod);
+                    string futureWeekStartDate= timeEntry.GetFutureWeekStartDateLV(3);
+                    extentReports.CreateStepLogs("Info", "Actual Future Week Start Date: " + futureWeekStartDate);
+                    Assert.AreEqual(futureTimeRecordPeriod, futureWeekStartDate);
+
+
                     //If any previous unwanted entered is left 
                     timeEntry.DeleteTimeEntryLV();
 

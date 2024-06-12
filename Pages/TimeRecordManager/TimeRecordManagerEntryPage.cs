@@ -84,6 +84,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         By comboOptionsLogsActivity = By.CssSelector("div[class*='medium'] > select[class*='uiInput--select'] > option");
         By txtTotalForcastedHoursL = By.XPath("//div[@class='staffTimeSheetWeeklyMassEdit']/table[2]//tr/td/div[contains(text(),'Forecasted')]/../..//td[2]/div");
         By txtdefaultTimeRecordPeriodL = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select/option[@selected='selected']");
+        By comboTimeRecordPeriodL = By.XPath("//table//div[contains(@class,'TimeRecordPeriodPicker')]//select");
         public void GoToWeeklyEntryMatrix()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabStaffTimeSheet);
@@ -2732,6 +2733,66 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
             return txtMsg;
+        }
+
+        public string GetFutureTimeRecordPeriodLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTimeRecordPeriodL, 10);
+            driver.FindElement(comboTimeRecordPeriodL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtdefaultTimeRecordPeriod, 10);
+            string defaultPeriod = driver.FindElement(txtdefaultTimeRecordPeriod).Text;
+            string startDate = defaultPeriod.Split(' ')[0];
+            driver.FindElement(comboTimeRecordPeriodL).Click();
+            driver.SwitchTo().DefaultContent();
+            return startDate;
+        }
+
+        public string GetFutureWeekStartDateLV(int weeks)
+        {
+            string weekStartDate = "";
+            string weekday = System.DateTime.Now.ToString("ddd");
+            driver.SwitchTo().DefaultContent();
+            int expactedFutureDays = 7 * weeks;
+            switch (weekday)
+            {
+                case "Sun":
+                    string weekStartDate1 = DateTime.Now.AddDays(expactedFutureDays).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate1;
+                    break;
+
+                case "Mon":
+                    string weekStartDate2 = DateTime.Now.AddDays(expactedFutureDays-1).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate2;
+                    break;
+
+                case "Tue":
+                    string weekStartDate3 = DateTime.Now.AddDays(expactedFutureDays - 2).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate3;
+                    break;
+
+                case "Wed":
+                    string weekStartDate4 = DateTime.Now.AddDays(expactedFutureDays - 3).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate4;
+                    break;
+
+                case "Thu":
+                    string weekStartDate5 = DateTime.Now.AddDays(expactedFutureDays - 4).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate5;
+                    break;
+
+                case "Fri":
+                    string weekStartDate6 = DateTime.Now.AddDays(expactedFutureDays - 5).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate6;
+                    break;
+
+                case "Sat":
+                    string weekStartDate7 = DateTime.Now.AddDays(expactedFutureDays - 6).ToString("yyyy-MM-dd");
+                    weekStartDate = weekStartDate7;
+                    break;
+
+            }
+            return weekStartDate;
         }
     }
 }
