@@ -375,7 +375,7 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Passed", "LOB is updated to " + newRecordType + " ");
 
                 string valDFFLOB = randomPages.GetERPUpdateDFFCheckboxStatusLV();
-                //Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
+                Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
                 extentReports.CreateStepLogs("Passed", "**Assersion Pending ERP Update DFF:: " + valDFFLOB + " after updating LOB ");
                 randomPages.ReloadPage();
                 string ERPSubmittedLOB = randomPages.GetERPSubmittedToSyncLV();

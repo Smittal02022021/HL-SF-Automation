@@ -30,7 +30,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyActivityIsRemovedForTRFGroupuser()
+        public void VerifyActivityIsRemovedForTFRGroupuserLV()
         {
             try
             {

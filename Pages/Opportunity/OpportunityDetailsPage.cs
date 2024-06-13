@@ -3184,6 +3184,36 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(titlePage).Text;
             return title;
         }
+        By tabContractL = By.XPath("//a[text()='Contract']");
+        By btnNewL = By.XPath("//button[@name='New']");
+        By titleNewContractPageL = By.XPath("//h2[text()='New Contract']");
+        By inputContractNameL = By.XPath("//input[@name='Name']");
+        By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input");
+        By txtBillingContactL= By.XPath("//label[text()='Billing Contact']//parent::lightning-grouped-combobox/div//input");
+
+        public void GoToContractTabLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContractL, 10);
+            driver.FindElement(tabContractL).Click();            
+        }
+
+        public void AddContractBySelectingACompanyLV(string name, string contact, string client)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewL, 20);
+            driver.FindElement(btnNewL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, titleNewContractPageL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputContractNameL, 20);
+            driver.FindElement(inputContractNameL).SendKeys(name);
+            driver.FindElement(txtClientL).SendKeys(client);
+            By eleClient = By.XPath($"//label[text()='Client']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{client}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 10);
+            driver.FindElement(eleClient).Click();
+            driver.FindElement(txtBillingContactL).SendKeys(contact);
+            By eleBillingContactL = By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{contact}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleBillingContactL, 10);
+            driver.FindElement(eleBillingContactL).Click();
+            driver.FindElement(btnSaveL).Click();
+        }
 
         //Add Contract by not selecting Is Main Contract option
         public string AddContractByNotSelectingIsMainContract(string name, string contact)
@@ -3204,6 +3234,46 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, checkIsMain, 90);
             string main = driver.FindElement(checkIsMain).GetAttribute("title");
             if (main.Equals("Checked"))
+            {
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                return "Is Main Contract checkbox is not checked";
+            }
+        }
+        By chkIsMainL = By.XPath("//input[@name='Is_Main_Contract__c']");//..//span[contains(@class,'checkbox')]");
+        By linkViewAllContractL = By.XPath("//article[@aria-label='Contract']//span[@class='view-all-label']/..");
+        public string ValidateIsMainContractLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkIsMainL, 10);
+            bool isSelected = driver.FindElement(chkIsMainL).Selected;
+            if (isSelected)
+            {
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                return "Is Main Contract checkbox is not checked";
+            }
+        }
+        public void ClickViewAllContracts()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;            
+            WebDriverWaits.WaitUntilEleVisible(driver, linkViewAllContractL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkViewAllContractL));
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(linkViewAllContractL));
+            //driver.FindElement(linkViewAllContractL).Click();
+        }
+        public string ValidateContractIsMainCheboxLV(string contractName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IWebElement elelinkContractName=driver.FindElement(By.XPath($"//table[@aria-label='Contract']//tbody//a//slot[text()='{contractName}']/.."));
+            CustomFunctions.MoveToElement(driver, elelinkContractName);
+            jse.ExecuteScript("arguments[0].click();", elelinkContractName);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkIsMainL, 20);
+            bool isSelected = elelinkContractName.Selected;
+            if (isSelected)
             {
                 return "Is Main Contract checkbox is checked";
             }
@@ -7672,7 +7742,6 @@ namespace SF_Automation.Pages
             //WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             return isFound;
         }
-
         
         public void UpdateCCOutcomeDetailsLV()
         {
