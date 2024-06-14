@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities : BaseClass
+    class TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -59,46 +59,43 @@ namespace SF_Automation.TestCases.Opportunity
 
                  string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
 
-                 //Login as Standard User profile and validate the user
-                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 32);
-                 usersLogin.SearchUserAndLogin(valUser);
-                 string stdUser = login.ValidateUser();
-                 Assert.AreEqual(stdUser.Contains(valUser), true);
-                 extentReports.CreateLog("User: " + stdUser + " logged in ");
+                    //Login as Standard User profile and validate the user
+                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 32);
+                    usersLogin.SearchUserAndLogin(valUser);
+                    string stdUser = login.ValidateFRUserLightning();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
-                string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                    //Verify the availability of Opportunity under HL Banker list
+                    string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                    Assert.AreEqual("Opportunities", tagOpp);
+                    extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                    //Verify that choose LOB is displayed after clicking New button
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                    string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                    Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                    extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Calling AddOpportunities function                  
-                string value = addOpportunity.AddOpportunities(valJobType,file7935);
-                Console.WriteLine("value : " + value);
+                    //Calling AddOpportunities function                  
+                    string value = addOpportunity.AddOpportunitiesLightning(valJobType, file7935);
+                    Console.WriteLine("value : " + value);
 
-                //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(file7935);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                    //Call function to enter Internal Team details and validate Opportunity detail page
+                    string displayedTab = addOpportunity.EnterStaffDetailsL(file7935);
+                    Assert.AreEqual("Info", displayedTab);
+                    extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details  
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
-
-                 //Validate the buttons i.e., New Opportunity Client/Subject and Mass Edit Record
-                 string buttonClientSubject = opportunityDetails.ValidateVisibilityOfNewOpportunityClientSubjectButton();
-                 Assert.AreEqual("New Opportunity Client/Subject", buttonClientSubject);
-                 extentReports.CreateLog("Button with name : " + buttonClientSubject + " is displayed on Opportunity Details page ");
+                    //Validate the buttons i.e., New Opportunity Client/Subject and Mass Edit Record
+                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    string buttonNew = opportunityDetails.ValidateVisibilityOfNewButtonL();
+                  Assert.AreEqual("New", buttonNew);
+                  extentReports.CreateLog("Button with name : " + buttonNew + " is displayed on Client/Subject & Referral ");
 
                  //Validate the buttons i.e., Mass Edit Records
-                 string buttonMassEditRecord = opportunityDetails.ValidateVisibilityOfMassEditRecordsButton();
+                 string buttonMassEditRecord = opportunityDetails.ValidateVisibilityOfMassEditRecordsButtonL();
                  Assert.AreEqual("Mass Edit Records", buttonMassEditRecord);
-                 extentReports.CreateLog("Button with name : " + buttonMassEditRecord + " is displayed on Opportunity Details page ");
+                 extentReports.CreateLog("Button with name : " + buttonMassEditRecord + " is displayed on Client/Subject & Referral ");
                                     
                  //Select Record Type, Click Continue and Save the Opportunity Client/Subject 
                  int rowContact = ReadExcelData.GetRowCount(excelPath, "AddContact");
@@ -107,30 +104,29 @@ namespace SF_Automation.TestCases.Opportunity
                   for (int rowCon = 2; rowCon <= rowContact; rowCon++)
                     {
                         //Validate the title of page upon clicking the New Opportunity Client/Subject button
-                        string titeSelectionPage = opportunityDetails.ClickNewOpportunityClientSubjectButton();
-                        Assert.AreEqual("Select Opportunity Client/Subject Record Type", titeSelectionPage);
-                        extentReports.CreateLog("Page with title : " + titeSelectionPage + " is displayed upon clicking New Opportunity Client/Subject button ");
+                        string titleSelectionPage = opportunityDetails.ClickNewButtonL();
+                        Assert.AreEqual("New Opportunity Client/Subject", titleSelectionPage);
+                        extentReports.CreateLog("Page with title : " + titleSelectionPage + " is displayed upon clicking New button ");
 
                         string valType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 5);
-                        opportunityHome.SelectLOBAndClickContinue(valType);
+                        opportunityDetails.SelectClientTypeAndClickNext(valType);
                         string valClient = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 4);
-                        string txtAddedCompany = opportunityDetails.ValidateSaveFunctionalityOfAdditionalClient(valClient, valJobType);
+                        string txtAddedCompany = opportunityDetails.ValidateSaveFunctionalityOfAdditionalClientL(valClient, valJobType);
                         extentReports.CreateLog("Details are saved in Opportunity Client/Subject page ");
 
                         //Validate the added rows under Additional Clients/Subjects section
                         if (valJobType.Equals("Creditor Advisors") && valClient.Equals("Accupac"))
                         {
-                            string txtAddedType = opportunityDetails.GetTypeOfAdditionalClient();
+                            string txtAddedType = opportunityDetails.GetTypeOfAdditionalClientL(valType);
                             Assert.AreEqual(valClient, txtAddedCompany);
                             Assert.AreEqual("Client", txtAddedType);
                             extentReports.CreateLog("Company with name : " + txtAddedCompany + " with Type: " + txtAddedType + " is displayed under Additional Clients/Subjects section in Opportunity Details page ");
-                            string addedKeyCreditor = opportunityDetails.GetCompanyNameOfFeeAttributionParty();
-                            string typeKeyCre = opportunityDetails.GetTypeOfFeeAttributionParty();
+                            string addedKeyCreditor = opportunityDetails.GetCompanyNameOfFeeAttributionPartyL(valClient);
+                            string typeKeyCre = opportunityDetails.GetTypeOfAdditionalClientL(valType);
                             string recTypeKeyCre = opportunityDetails.GetRecTypeOfFeeAttributionParty();
                             Assert.AreEqual(valClient, addedKeyCreditor);
-                            Assert.AreEqual("Key Creditor", typeKeyCre);
-                            Assert.AreEqual("Operating Company", recTypeKeyCre);
-                            extentReports.CreateLog("Company with name: " + addedKeyCreditor + " with Type: " + typeKeyCre + " and Record Type as: " + recTypeKeyCre + " is displayed in Additional Clients/Subjects section ");
+                            Assert.AreEqual("Key Creditor", typeKeyCre);                           
+                            extentReports.CreateLog("Company with name: " + addedKeyCreditor + " with Type: " + typeKeyCre + " is displayed in Additional Clients/Subjects section ");
                         }
 
                         else

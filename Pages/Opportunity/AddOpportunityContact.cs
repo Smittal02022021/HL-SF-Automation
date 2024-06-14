@@ -28,7 +28,8 @@ namespace SF_Automation.Pages.Opportunity
         By imgContactOppL = By.XPath("//div[@title='Chris Lord']");
         By btnSaveL = By.XPath("//div/footer/button[2]/span");
         By tabRelated = By.XPath("//a[text()='Comments']");
-        By valAddedContact = By.XPath("//dt[text()='Comment:']/ancestor::div[1]/dl/dd[1]//lightning-base-formatted-text");
+        By tabContactsL = By.XPath("//a[text()='Contacts']");
+        By valAddedContact = By.XPath("//tbody/tr/th//span/a[2]");
         By msgParty = By.XPath("//section/div/section/div/div/div/div/div/div[4]/div[1]/div/div/ul/li");
 
         By btnCancelContact = By.XPath("//footer/button[1]/span");
@@ -228,8 +229,8 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateAddedContact()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabRelated, 150);
-            driver.FindElement(tabRelated).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 150);
+            driver.FindElement(tabContactsL).Click();
             Thread.Sleep(8000);
             //driver.Navigate().Refresh();            
             try

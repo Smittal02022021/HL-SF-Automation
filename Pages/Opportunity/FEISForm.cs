@@ -152,7 +152,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
         By btnMore = By.XPath("//div/lightning-tab-bar/ul/li/lightning-button-menu/button[text()='More']");
         By btnMoreCAO = By.XPath("//ul/li[7]/lightning-button-menu/button");
-        By tabReview = By.XPath("//span[text()='Legal Review Criteria']");
+        By tabReview = By.XPath("//span[text()='Review']");
         By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
 
