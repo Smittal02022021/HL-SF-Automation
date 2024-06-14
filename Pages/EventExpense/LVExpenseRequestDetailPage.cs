@@ -10,6 +10,14 @@ namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestDetailPage : BaseClass
     {
+        //Approver Buttons
+        By btnDeleteApprover = By.XPath("//input[@value='Delete']");
+        By btnCloneApprover = By.XPath("//input[@value='Clone']");
+        By btnRequestMoreInformationApprover = By.XPath("//input[@value='Request More Information']");
+        By btnEditApprover = By.XPath("//input[@value='Edit']");
+        By btnApproveApprover = By.XPath("//input[@value='Approve']");
+        By btnRejectApprover = By.XPath("//input[@value='Reject']");
+
         By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
         By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
         By btnReqDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
@@ -24,6 +32,7 @@ namespace SF_Automation.Pages.EventExpense
         //Requestor/Host Information
         By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/span/slot/span/slot)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
+        By lblStatusForApprover = By.XPath("(//th[text()='Status']/following::td/span)[1]");
         By lblCloneStatus = By.XPath("((//span[text()='Status'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By lblTitle = By.XPath("(//span[text()='Title']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
@@ -142,6 +151,15 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             string eventStatusInfo = driver.FindElement(lblStatus).Text;
+            Thread.Sleep(3000);
+            return eventStatusInfo;
+        }
+
+        public string GetEventStatusInfoForApprover()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatusForApprover, 120);
+            string eventStatusInfo = driver.FindElement(lblStatusForApprover).Text;
             Thread.Sleep(3000);
             return eventStatusInfo;
         }
@@ -494,7 +512,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             bool result = false;
             Thread.Sleep(3000);
-            if(driver.FindElement(btnDeleteLWC).Displayed && driver.FindElement(btnEdit).Displayed && driver.FindElement(btnClone).Displayed && driver.FindElement(btnApproveLWC).Displayed && driver.FindElement(btnRejectLWC).Displayed && driver.FindElement(btnRequestMoreInformation).Displayed)
+            if(driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnEditApprover).Displayed && driver.FindElement(btnCloneApprover).Displayed && driver.FindElement(btnApproveApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed)
             {
                 result = true;
             }

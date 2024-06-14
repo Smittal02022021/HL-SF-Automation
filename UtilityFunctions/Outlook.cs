@@ -25,9 +25,9 @@ namespace SF_Automation.UtilityFunctions
         //By btnSearch = By.CssSelector("i[data-icon-name='Search']");
         
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
-        By recentEmail = By.CssSelector("div[class='XG5Jd JtO0E'] > div:nth-child(2)");
+        By recentEmail = By.CssSelector("div[class='XG5Jd TszOG'] > div:nth-child(2)");
 
-        By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
+        By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'Review submission:')]/../..");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
         By expenseRequestNumberApprove1 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
@@ -36,7 +36,7 @@ namespace SF_Automation.UtilityFunctions
         By btnSearchScope = By.XPath("//span[@id='searchScopeButtonId-option']");
         By lblScopeInbox = By.XPath("//div[@id='searchScopeButtonId-list']/button[2]");
         By btnFilter = By.XPath("//div[text()='Filter']");
-        By filterOptionUnread = By.XPath("//span[text()='Unread']");
+        By filterOptionUnread = By.XPath("//span[text()='Unread']/../../..");
         By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
@@ -128,20 +128,20 @@ namespace SF_Automation.UtilityFunctions
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
-            driver.FindElement(btnFilter).Click();
-            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, filterOptionUnread, 120);
             driver.FindElement(filterOptionUnread).Click();
             Thread.Sleep(4000);
 
-            Thread.Sleep(5000);
-            IWebElement element = driver.FindElement(recentEmail);
-            element.Click();
-            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 120);
+            driver.FindElement(recentEmail).Click();
+            Thread.Sleep(4000);
 
+            WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 120);
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
+
+            Thread.Sleep(5000);
             CustomFunctions.SwitchToWindow(driver, 1);
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
         }
 
         //select the Email Searched by specific subject text

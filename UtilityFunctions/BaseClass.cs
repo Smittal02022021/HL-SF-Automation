@@ -71,10 +71,10 @@ namespace SF_Automation.UtilityFunctions
 
         public IWebDriver OutLookInitialize()
         {
-            string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\";
+            //string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\";
             ChromeOptions options = new ChromeOptions();
-            options.AddArguments("user-data-dir=" + path);
-            options.AddArguments("profile-directory=Default");
+            options.AddArgument("--force-device-scale-factor=80/100");
+            
             driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://outlook.office.com/");
             driver.Manage().Window.Maximize();

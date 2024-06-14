@@ -154,10 +154,10 @@ namespace SF_Automation.Pages
 
         public void LoginAsExpenseRequestApprover(string file)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 40);
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();

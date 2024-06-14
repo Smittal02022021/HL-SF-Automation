@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.EventExpense
                 }
 
                 Assert.IsTrue(login.ValidateUserLightningView(fileTC17339, row));
-                extentReports.CreateLog("Standard User: " + user + " is able to login into lightning view. ");
+                extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
 
                 //Click on the Menu button
                 lvHomePage.ClickHomePageMenu();
@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.EventExpense
                 {
                     //Read what action approver needs to perform
                     string action = ReadExcelData.ReadDataMultipleRows(excelPath, "Actions", actionRow, 1);
-
+                    
                     //Go to Expense Request Page
                     lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
                     Assert.IsTrue(lvExpenseRequest.VerifyIfExpenseRequestPageIsOpenedSuccessfully());
@@ -125,9 +125,9 @@ namespace SF_Automation.TestCases.EventExpense
 
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User Logged Out from SF Classic View. ");
-
+                    
                     driver.Quit();
-
+                    
                     //Launch outlook window
                     OutLookInitialize();
 
@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("User is logged in to outlook ");
 
                     outlook.SelectExpenseApprovalEmail();
-                    extentReports.CreateLog("An Email notification with subject line : Request for Marketing Expense Approval * Action Required is sent to approver: " + user1 + " ");
+                    extentReports.CreateLog("An Email notification with subject line : Sandbox: Marketing Expense submission confirmation ");
 
                     login.LoginAsExpenseRequestApprover(fileTC17339);
 
@@ -151,7 +151,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("Approver: " + user1 + " is able to login into lightning view. ");
 
                     // Validate status of the event request on my request page in the request list
-                    string eventStatus1 = lvExpRequestDetail.GetEventStatusInfo();
+                    string eventStatus1 = lvExpRequestDetail.GetEventStatusInfoForApprover();
                     Assert.AreEqual("Waiting for Approval", eventStatus1);
                     extentReports.CreateLog("Expense request status is verified as " + eventStatus1 + " ");
 
@@ -185,7 +185,7 @@ namespace SF_Automation.TestCases.EventExpense
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionality());
                         string eventStatus3 = lvExpRequestDetail.GetEventStatusInfo();
-                        extentReports.CreateLog("Expense request with Expense Preapproval Number: " + expReqpreApprovalNo + " is deleted succssfully with status: " + eventStatus3 + " ");
+                        extentReports.CreateLog("Expense request with Expense Preapproval Number: " + "expReqpreApprovalNo" + " is deleted succssfully with status: " + eventStatus3 + " ");
 
                         //TC - TMTI0038453 - Verify expense detail page on deleting the request as approver.
                         string approverResponse = lvExpRequestDetail.GetApproverResponseFromApprovalHistorySectionForApprover();
