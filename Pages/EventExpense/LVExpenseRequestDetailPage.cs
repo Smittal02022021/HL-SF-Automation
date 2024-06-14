@@ -11,12 +11,12 @@ namespace SF_Automation.Pages.EventExpense
     class LVExpenseRequestDetailPage : BaseClass
     {
         //Approver Buttons
-        By btnDeleteApprover = By.XPath("//input[@value='Delete']");
-        By btnCloneApprover = By.XPath("//input[@value='Clone']");
-        By btnRequestMoreInformationApprover = By.XPath("//input[@value='Request More Information']");
-        By btnEditApprover = By.XPath("//input[@value='Edit']");
-        By btnApproveApprover = By.XPath("//input[@value='Approve']");
-        By btnRejectApprover = By.XPath("//input[@value='Reject']");
+        By btnDeleteApprover = By.XPath("//button[text()='Delete']");
+        By btnCloneApprover = By.XPath("//button[text()='Clone']");
+        By btnRequestMoreInformationApprover = By.XPath("//button[text()='Request More Information']");
+        By btnEditApprover = By.XPath("//button[text()='Edit']");
+        By btnApproveApprover = By.XPath("//button[text()='Approve']");
+        By btnRejectApprover = By.XPath("//button[text()='Reject']");
 
         By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
         By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
@@ -158,8 +158,8 @@ namespace SF_Automation.Pages.EventExpense
         public string GetEventStatusInfoForApprover()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblStatusForApprover, 120);
-            string eventStatusInfo = driver.FindElement(lblStatusForApprover).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
+            string eventStatusInfo = driver.FindElement(lblStatus).Text;
             Thread.Sleep(3000);
             return eventStatusInfo;
         }
@@ -448,8 +448,8 @@ namespace SF_Automation.Pages.EventExpense
         {
             Thread.Sleep(5000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
-            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditApprover, 120);
+            driver.FindElement(btnEditApprover).Click();
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes, 120);
@@ -521,8 +521,8 @@ namespace SF_Automation.Pages.EventExpense
 
         public void RejectExpenseRequest(string notes)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectLWC, 120);
-            driver.FindElement(btnRejectLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectApprover, 120);
+            driver.FindElement(btnRejectApprover).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes, 120);
             driver.FindElement(txtAreaNotes).SendKeys(notes);
             Thread.Sleep(3000);
@@ -532,8 +532,8 @@ namespace SF_Automation.Pages.EventExpense
 
         public void RequestForMoreInformation(string notes)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnRequestMoreInformation, 120);
-            driver.FindElement(btnRequestMoreInformation).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRequestMoreInformationApprover, 120);
+            driver.FindElement(btnRequestMoreInformationApprover).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes1, 120);
             driver.FindElement(txtAreaNotes1).SendKeys(notes);
             Thread.Sleep(3000);
@@ -543,8 +543,8 @@ namespace SF_Automation.Pages.EventExpense
 
         public void ApproveExpenseRequest()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnApproveLWC, 120);
-            driver.FindElement(btnApproveLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApproveApprover, 120);
+            driver.FindElement(btnApproveApprover).Click();
             Thread.Sleep(8000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();

@@ -139,8 +139,9 @@ namespace SF_Automation.TestCases.EventExpense
 
                     outlook.SelectExpenseApprovalEmail();
                     extentReports.CreateLog("An Email notification with subject line : Sandbox: Marketing Expense submission confirmation ");
-
+                    
                     login.LoginAsExpenseRequestApprover(fileTC17339);
+                    extentReports.CreateLog("Test");
 
                     //Switch to lightning view
                     if (driver.Title.Contains("Salesforce - Unlimited Edition"))
