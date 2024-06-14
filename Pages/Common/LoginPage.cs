@@ -112,7 +112,7 @@ namespace SF_Automation.Pages
         public string ValidateUser()
         {
             Thread.Sleep(2000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,140);
             IWebElement loggedUserName = driver.FindElement(loggedUser);
             return loggedUserName.Text;
@@ -124,7 +124,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            //driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 240);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
