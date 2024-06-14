@@ -7,9 +7,9 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyonOpportunityPageLV : BaseClass
+    class LV_TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUELV: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -33,7 +33,7 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void ValidateIsMainContractCheckboxOnOpportunityPageLV()
+        public void ValidateIsMainContractCheckboxSavingAndEditingContractOnOpportunityPageLV()
         {
             try
             {
@@ -132,36 +132,47 @@ namespace SF_Automation.TestCases.Opportunities
                 //Add the contract by selecting any company other than Client Company
                 string contractName1Exl = ReadExcelData.ReadData(excelPath, "AddContact", 9);
                 string companynameExl = ReadExcelData.ReadData(excelPath, "AddContact", 10);
-                opportunityDetails.AddContractBySelectingACompanyLV(contractName1Exl, valContact,companynameExl);
+                opportunityDetails.AddContractBySelectingACompanyLV(contractName1Exl, valContact, companynameExl);
                 Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName1Exl));
                 extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
                 //Validate if Is Main Contract checkbox is checked need to work 
                 string valueIsMain = opportunityDetails.ValidateIsMainContractLV();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueIsMain);
-                extentReports.CreateLog(valueIsMain + " of added Contract: "+contractName1Exl+" even it was not selected while saving the details ");
-                randomPages.CloseActiveTab(contractName1Exl);
-                extentReports.CreateStepLogs("Info", contractName1Exl+" detail page is closed");
+                extentReports.CreateLog(valueIsMain + " of added Contract: " + contractName1Exl + " even it was not selected while saving the details ");
 
-                //Add one more contract from client company
-                opportunityDetails.GoToContractTabLV();
-                string clientComp = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
-                string contractName2Exl = ReadExcelData.ReadData(excelPath, "AddContact", 11);
-                opportunityDetails.AddContractBySelectingACompanyLV(contractName2Exl, valContact, clientComp);
-                Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName2Exl));
+               // -------------------------
+                //Click Edit link of added Contract
+                string titleEdit = opportunityDetails.ClickEditContractLV();
+                Assert.IsTrue(titleEdit.Contains("Edit"));
+                extentReports.CreateLog("Page with title: " + titleEdit + " is displayed upon clicking edit button from added Contract page");
+
+                //Updated the contract by deselecting Is Main Contract checkbox
+                opportunityDetails.EditContractByDeselectingIsMainContractLV();
+                Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName1Exl));
                 extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
-                //Validate if Is Main Contract checkbox is checked for new contract added selecting client company need to work 
+                extentReports.CreateLog("Contract details are saved by deselecting Is Main Contract checkbox ");
+
+                //Validate if Is Main Contract checkbox is checked
                 valueIsMain = opportunityDetails.ValidateIsMainContractLV();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueIsMain);
-                extentReports.CreateLog(valueIsMain + " of added Contract: "+contractName2Exl+"  even it was not selected while saving the details ");
-                randomPages.CloseActiveTab(contractName2Exl);
-                extentReports.CreateStepLogs("Info", contractName2Exl + " detail page is closed");
+                extentReports.CreateLog(valueIsMain + " even it was deselected while editing the contract details ");
 
-                //Validate if Is Main Contract checkbox is checked for previously added contract need to work 
-                string valueNewIsMainPrev = opportunityDetails.ValidateContractIsMainCheboxLV(contractName1Exl);
-                Assert.AreEqual("Is Main Contract checkbox is not checked", valueNewIsMainPrev);
-                extentReports.CreateLog(valueNewIsMainPrev + " for the earlier added Contract: "+contractName1Exl+" from company other than client company ");
-                randomPages.CloseActiveTab(opportunityName);
-                extentReports.CreateStepLogs("Info", contractName1Exl + " detail page is closed");
+                //Add one more contract by selecting Is Main Contract checkbox
+                opportunityDetails.ClickNewContract();
+                string titleDetailIsMainTrue = opportunityDetails.AddContractBySelectingIsMainContract("Additional Contract", valContact);
+                Assert.AreEqual("Additional Contract", titleDetailIsMainTrue);
+                extentReports.CreateLog("New Contract with name: " + titleDetailIsMainTrue + " is added ");
+
+                //Validate if Is Main Contract checkbox is checked for new contract
+                string valueNewIsMainCon = opportunityDetails.ValidateIsMainContractOfNewContract();
+                Assert.AreEqual("Is Main Contract checkbox is checked", valueNewIsMainCon);
+                extentReports.CreateLog(valueNewIsMainCon + " for newly added contract ");
+
+                //Validate if Is Main Contract checkbox is checked for earlier contract
+                string valuePrevIsMainCon = opportunityDetails.ValidateIsMainContractOfOldContract();
+                Assert.AreEqual("Is Main Contract checkbox is not checked", valuePrevIsMainCon);
+                extentReports.CreateLog(valuePrevIsMainCon + " anymore for earlier contract post adding new Contract by selecting Is Main Contract checkbox ");
+
 
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", valUserExl + " Logged out");

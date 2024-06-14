@@ -760,6 +760,7 @@
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUELV.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
@@ -872,7 +873,7 @@
     <Compile Include="TestCases\TimeRecordManager\LV_1_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyFVAUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyTFRSupervisorUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyonOpportunityPageLV.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />

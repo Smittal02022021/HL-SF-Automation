@@ -3292,6 +3292,29 @@ namespace SF_Automation.Pages
             return title;
         }
 
+        By btnEditContractL = By.XPath("//li[contains(@data-target-selection-name,'Button.Contract__c.Edit')]//button[@name='Edit']");
+        By titleEditContractL = By.XPath("//div[contains(@class,'ViewMode-normal')]//h2");
+        By labelIsMainCheckboxL= By.XPath("(//input[@name='Is_Main_Contract__c'])[2]/..");
+        By chkIsMainCheckboxL = By.XPath("(//input[@name='Is_Main_Contract__c'])[2]");
+        By labelERPInfoL = By.XPath("//h3/span[text()='ERP Information']");
+        public string ClickEditContractLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditContractL, 10);
+            driver.FindElement(btnEditContractL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, titleEditContractL, 20);
+            string title = driver.FindElement(titleEditContractL).Text;
+            return title;
+        }
+        //Edit Contract by deselecting Is Main Contract option
+        public void EditContractByDeselectingIsMainContractLV()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, labelIsMainCheckboxL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelERPInfoL));
+            driver.FindElement(chkIsMainCheckboxL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            driver.FindElement(btnSaveL).Click();              
+        }
+
         //Edit Contract by deselecting Is Main Contract option
         public string EditContractByDeselectingIsMainContract()
         {
