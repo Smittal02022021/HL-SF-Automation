@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Common
@@ -155,6 +156,8 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
             driver.FindElement(btnLogin).Click();
+            Thread.Sleep(2000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(2000);
         }
         //--------------------

@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 extentReports.CreateLog("Verified View all link is displaying on homepage ");
 
                 //Verified View All Link on Home page navigates to Activities page 
-                addActivity1.ClickViewAllLinkOnHomePage();
+                addActivity1.ClickViewAllLinkOnHomePageForStandardUser();
                 extentReports.CreateLog("View All Link on Homepage navigates to Activities page ");
 
                 //Search contact
@@ -125,7 +125,7 @@ namespace SF_Automation.TestCases.ActivitiesList
                 extentReports.CreateLog("Verified View all link is displaying on contact page ");
 
                 //Verified View All link
-                addActivity1.ClickViewAllLink();
+                addActivity1.ClickViewAllLinkForStandardUser();
                 extentReports.CreateLog("View All Link on contact page navigates to Activities page ");
 
                 //Verified Previous and Next link on activities page

@@ -12,16 +12,16 @@ namespace SF_Automation.Pages.EventExpense
         By buttonCreateNewExpenseForm = By.XPath("//button[@title='Create New Expense Form']");
 
         By txtRequestor = By.XPath("(//label[text()='Requestor']/following::div/input)[1]");
-        By selectRequestor = By.XPath("//span[text()='Select Item 1']/../..");
+        By selectRequestor = By.XPath("(//a[@data-refid='recordId'])[1]");
         By selectButton = By.XPath("//button[text()='Select']");
         By lblRequestorErr = By.XPath("(//label[text()='Requestor']/following::div/input)[1]/following::div[3]");
 
         By txtEventContact = By.XPath("//label[text()='Event Contact']/following::div[8]/input");
-        By selectEventContact = By.XPath("//span[text()='Select Item 1']/../..");
+        By selectEventContact = By.XPath("(//a[@data-refid='recordId'])[1]");
         By lblEventContactErr = By.XPath("//label[text()='Event Contact']/following::div[8]/input/following::div[3]");
 
         By txtEventName = By.XPath("//input[@placeholder='Search Opportunities...']");
-        By selectEventName = By.XPath("//span[text()='Select Item 1']/../..");
+        By selectEventName = By.XPath("(//a[@data-refid='recordId'])[1]");
         By lblEventErr = By.XPath("//input[@placeholder='Search Opportunities...']/following::div[3]");
 
         By txtStartDate = By.XPath("//input[@name='Start_Date__c']");
@@ -83,7 +83,7 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
@@ -92,7 +92,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
@@ -101,7 +101,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM d, yyyy"));
@@ -149,7 +149,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtEventContact).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", userRow, 3));
@@ -158,7 +158,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtEventName).SendKeys(ReadExcelData.ReadData(excelPath, "ExpenseRequest", 4));
@@ -167,7 +167,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM d, yyyy"));
@@ -256,7 +256,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtRequestor).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectRequestor, 120);
             driver.FindElement(selectRequestor).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtEventContact));
@@ -267,7 +267,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventContact).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventContact, 120);
             driver.FindElement(selectEventContact).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtEventName));
@@ -278,7 +278,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtEventName).SendKeys(Keys.Enter);
             WebDriverWaits.WaitUntilEleVisible(driver, selectEventName, 120);
             driver.FindElement(selectEventName).Click();
-            driver.FindElement(selectButton).Click();
+            //driver.FindElement(selectButton).Click();
             Thread.Sleep(3000);
 
             driver.FindElement(txtStartDate).SendKeys(DateTime.Today.ToString("MMM dd, yyyy"));

@@ -264,9 +264,21 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.Close();
             CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().DefaultContent();
-            
-          
+        }
 
+        public void ClickViewAllLinkForStandardUser()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkActivities);
+            driver.FindElement(lnkActivities).Click();
+            driver.SwitchTo().Frame("066i0000004ZLbF");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAll);
+            driver.FindElement(lnkViewAll).Click();
+            CustomFunctions.SwitchToWindow(driver, 2);
+            string text = driver.FindElement(headingActivitiesPage).Text;
+            Assert.AreEqual(text, "Activities");
+            driver.Close();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            driver.SwitchTo().DefaultContent();
         }
 
         public void VerifyPreviousNextLink() {
@@ -350,6 +362,31 @@ namespace SF_Automation.Pages.ActivitiesList
             Thread.Sleep(5000);
 
         }
+
+        public void ClickViewAllLinkOnHomePageForStandardUser()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,2500)");
+            Thread.Sleep(2000);
+
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='066i0000004Z1AR']")));
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAll);
+            driver.FindElement(lnkViewAll).Click();
+            Thread.Sleep(5000);
+
+            CustomFunctions.SwitchToWindow(driver, 2);
+            string text = driver.FindElement(headingActivitiesPage).Text;
+            Assert.AreEqual(text, "Activities");
+            driver.Close();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            driver.SwitchTo().DefaultContent();
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(5000);
+
+        }
+
 
         public void AddActivityFromViewAllLink() {
             driver.SwitchTo().Frame("066i0000004Z1AR");

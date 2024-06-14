@@ -10,14 +10,14 @@ namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestDetailPage : BaseClass
     {
-        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval (LWC)']");
-        By btnDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[1]");
+        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
+        By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
         By btnReqDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");
-        By btnApproveLWC = By.XPath("//button[text()='Approve(LWC)']");
-        By btnRejectLWC = By.XPath("//button[text()='Reject(LWC)']");
+        By btnApproveLWC = By.XPath("//button[text()='Approve']");
+        By btnRejectLWC = By.XPath("//button[text()='Reject']");
         By btnReject = By.XPath("//button[text()='Reject']");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
