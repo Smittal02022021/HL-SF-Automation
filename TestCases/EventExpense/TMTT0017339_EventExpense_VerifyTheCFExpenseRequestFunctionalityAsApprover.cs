@@ -152,7 +152,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("Approver: " + user1 + " is able to login into lightning view. ");
 
                     // Validate status of the event request on my request page in the request list
-                    string eventStatus1 = lvExpRequestDetail.GetEventStatusInfoForApprover();
+                    string eventStatus1 = lvExpRequestDetail.GetEventStatusInfo();
                     Assert.AreEqual("Waiting for Approval", eventStatus1);
                     extentReports.CreateLog("Expense request status is verified as " + eventStatus1 + " ");
 
