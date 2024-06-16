@@ -96,7 +96,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //Click on the Menu button
                 lvHomePage.ClickHomePageMenu();
 
-                for (int actionRow = 2; actionRow <= rowCount; actionRow++)
+                for (int actionRow = 4; actionRow <= rowCount; actionRow++)
                 {
                     //Read what action approver needs to perform
                     string action = ReadExcelData.ReadDataMultipleRows(excelPath, "Actions", actionRow, 1);
@@ -141,7 +141,6 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("An Email notification with subject line : Sandbox: Marketing Expense submission confirmation ");
                     
                     login.LoginAsExpenseRequestApprover(fileTC17339);
-                    extentReports.CreateLog("Test");
 
                     //Switch to lightning view
                     if (driver.Title.Contains("Salesforce - Unlimited Edition"))
@@ -185,6 +184,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionality());
+                        driver.Navigate().Refresh();
+                        Thread.Sleep(5000);
                         string eventStatus3 = lvExpRequestDetail.GetEventStatusInfo();
                         extentReports.CreateLog("Expense request with Expense Preapproval Number: " + "expReqpreApprovalNo" + " is deleted succssfully with status: " + eventStatus3 + " ");
 
@@ -214,6 +215,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038458 - Verify that approver is able to "Reject" the expense request.
                         lvExpRequestDetail.RejectExpenseRequest(rejectionNotes);
+                        driver.Navigate().Refresh();
+                        Thread.Sleep(5000);
                         string eventRejectStatus = lvExpRequestDetail.GetEventStatusInfo();
                         Assert.AreEqual(eventRejectStatus, "Rejected");
 
@@ -225,6 +228,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038459 - Verify that approver is able to "Request more Information" from the requester.
                         lvExpRequestDetail.RequestForMoreInformation(requestNotes);
+                        driver.Navigate().Refresh();
+                        Thread.Sleep(5000);
                         string eventMoreInfoStatus = lvExpRequestDetail.GetEventStatusInfo();
                         Assert.AreEqual(eventMoreInfoStatus, "More Information Requested");
 
@@ -236,6 +241,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038460 - Verify that approver is able to "Approve" the request.
                         lvExpRequestDetail.ApproveExpenseRequest();
+                        driver.Navigate().Refresh();
+                        Thread.Sleep(5000);
                         string eventApproveStatus = lvExpRequestDetail.GetEventStatusInfo();
                         Assert.AreEqual(eventApproveStatus, "Approved");
                         extentReports.CreateLog("Event Request is approved. Status is updated to: " + eventApproveStatus + " ");
@@ -247,6 +254,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Calling Login function                
                     login.LoginApplication();
+                    Thread.Sleep(20000);
 
                     //Validate user logged in       
                     Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);

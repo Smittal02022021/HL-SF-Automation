@@ -26,7 +26,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnEdit = By.XPath("//button[@name='Edit']");
         By btnApproveLWC = By.XPath("//button[text()='Approve']");
         By btnRejectLWC = By.XPath("//button[text()='Reject']");
-        By btnReject = By.XPath("//button[text()='Reject']");
+        By btnReject = By.XPath("(//button[text()='Reject'])[2]");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
         //Requestor/Host Information

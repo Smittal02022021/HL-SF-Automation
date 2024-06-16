@@ -129,7 +129,7 @@ namespace SF_Automation.UtilityFunctions
             Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, filterOptionUnread, 120);
-            //driver.FindElement(filterOptionUnread).Click();
+            driver.FindElement(filterOptionUnread).Click();
             Thread.Sleep(4000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 120);
