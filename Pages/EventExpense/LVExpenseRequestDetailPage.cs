@@ -33,7 +33,7 @@ namespace SF_Automation.Pages.EventExpense
         //Requestor/Host Information
         By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/span/slot/span/slot)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
-        By lblStatusForApprover = By.XPath("(//th[text()='Status']/following::td/span)[1]");
+        By lblStatusForApprover = By.XPath("(//span[text()='Status']/following::lightning-formatted-text)[1]");
         By lblCloneStatus = By.XPath("((//span[text()='Status'])[2]/following::div/span/slot/lightning-formatted-text)[1]");
         By lblTitle = By.XPath("(//span[text()='Title']/following::div/span/slot/records-formula-output/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
@@ -414,7 +414,7 @@ namespace SF_Automation.Pages.EventExpense
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
 
-            By lblAppNotes = By.XPath($"//table[@aria-label='Event Expense Approval History']/tbody/tr[{size}]/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lightning-base-formatted-text");
+            By lblAppNotes = By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr[1]/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lightning-base-formatted-text");
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblAppNotes, 120);
             string notes = driver.FindElement(lblAppNotes).Text;

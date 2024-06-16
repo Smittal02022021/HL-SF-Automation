@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //Click on the Menu button
                 lvHomePage.ClickHomePageMenu();
 
-                for (int actionRow = 4; actionRow <= rowCount; actionRow++)
+                for (int actionRow = 2; actionRow <= rowCount; actionRow++)
                 {
                     Actions action2 = new Actions(driver);
 
@@ -124,12 +124,9 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("Expense Request submitted for approval successfully. ");
 
                     //Logout from SF Lightning View
-                    lvHomePage.UserLogoutFromSFLightningView();
+                    lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateLog("User Logged Out from SF Lightning View. ");
 
-                    usersLogin.UserLogOut();
-                    extentReports.CreateLog("User Logged Out from SF Classic View. ");
-                    
                     driver.Quit();
                     
                     //Launch outlook window
