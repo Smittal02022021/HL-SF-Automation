@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -20,7 +21,7 @@ namespace SF_Automation.Pages.EventExpense
 
         By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
         By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
-        By btnReqDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
+        By btnReqDelete = By.XPath("(//button[text()='Delete'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");
@@ -158,8 +159,8 @@ namespace SF_Automation.Pages.EventExpense
         public string GetEventStatusInfoForApprover()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
-            string eventStatusInfo = driver.FindElement(lblStatus).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatusForApprover, 120);
+            string eventStatusInfo = driver.FindElement(lblStatusForApprover).Text;
             Thread.Sleep(3000);
             return eventStatusInfo;
         }
@@ -324,8 +325,8 @@ namespace SF_Automation.Pages.EventExpense
 
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteLWC, 120);
-            driver.FindElement(btnDeleteLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteApprover, 120);
+            driver.FindElement(btnDeleteApprover).Click();
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
@@ -348,8 +349,8 @@ namespace SF_Automation.Pages.EventExpense
 
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqDeleteLWC, 120);
-            driver.FindElement(btnReqDeleteLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqDelete, 120);
+            driver.FindElement(btnReqDelete).Click();
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
@@ -527,6 +528,10 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtAreaNotes).SendKeys(notes);
             Thread.Sleep(3000);
             driver.FindElement(btnReject).Click();
+            Thread.Sleep(10000);
+
+            Actions action1 = new Actions(driver);
+            action1.SendKeys(Keys.LeftControl + "R").Build().Perform();
             Thread.Sleep(5000);
         }
 
@@ -538,6 +543,10 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtAreaNotes1).SendKeys(notes);
             Thread.Sleep(3000);
             driver.FindElement(btnOK).Click();
+            Thread.Sleep(10000);
+
+            Actions action1 = new Actions(driver);
+            action1.SendKeys(Keys.LeftControl + "R").Build().Perform();
             Thread.Sleep(5000);
         }
 
@@ -549,6 +558,10 @@ namespace SF_Automation.Pages.EventExpense
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
             Thread.Sleep(10000);
+
+            Actions action1 = new Actions(driver);
+            action1.SendKeys(Keys.LeftControl + "R").Build().Perform();
+            Thread.Sleep(5000);
         }
     }
 }

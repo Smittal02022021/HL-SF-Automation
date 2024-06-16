@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.EventExpense;
@@ -167,7 +169,9 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
 
                         lvExpRequestDetail.CreateCloneExpenseRequest();
-
+                        Actions action = new Actions(driver);
+                        action.SendKeys(Keys.LeftControl + "R").Build().Perform();
+                        Thread.Sleep(5000);
                         string expReqpreApprovalNo1 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
                         string eventStatus1 = lvExpRequestDetail.GetCloneEventStatusInfo();
 
@@ -175,6 +179,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                         //TC - TMTI0038483 - Verify the "Delete" functionality from expense request detail page as requester.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsRequestor());
+                        
                         string eventStatus2 = lvExpRequestDetail.GetCloneEventStatusInfo();
                         extentReports.CreateLog("Expense request is deleted succssfully with status: " + eventStatus2 + " ");
 

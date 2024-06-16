@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.EventExpense;
@@ -98,6 +100,8 @@ namespace SF_Automation.TestCases.EventExpense
 
                 for (int actionRow = 4; actionRow <= rowCount; actionRow++)
                 {
+                    Actions action2 = new Actions(driver);
+
                     //Read what action approver needs to perform
                     string action = ReadExcelData.ReadDataMultipleRows(excelPath, "Actions", actionRow, 1);
                     
@@ -174,9 +178,10 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
 
                         lvExpRequestDetail.CreateCloneExpenseRequest();
-
+                        action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
+                        Thread.Sleep(5000);
                         string expReqpreApprovalNo2 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
-                        string eventStatus2 = lvExpRequestDetail.GetCloneEventStatusInfo();
+                        string eventStatus2 = lvExpRequestDetail.GetEventStatusInfoForApprover();
 
                         extentReports.CreateLog("Cloned Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus2 + " and Expense Preapproval Number: " + expReqpreApprovalNo2 + " ");
                     }
@@ -184,9 +189,9 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionality());
-                        driver.Navigate().Refresh();
+                        action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
                         Thread.Sleep(5000);
-                        string eventStatus3 = lvExpRequestDetail.GetEventStatusInfo();
+                        string eventStatus3 = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         extentReports.CreateLog("Expense request with Expense Preapproval Number: " + "expReqpreApprovalNo" + " is deleted succssfully with status: " + eventStatus3 + " ");
 
                         //TC - TMTI0038453 - Verify expense detail page on deleting the request as approver.
@@ -205,7 +210,6 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
 
                         lvExpRequestDetail.CreateCloneExpenseRequest();
-
                         string expReqpreApprovalNo3 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
                         string eventStatus4 = lvExpRequestDetail.GetCloneEventStatusInfo();
 
@@ -215,9 +219,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038458 - Verify that approver is able to "Reject" the expense request.
                         lvExpRequestDetail.RejectExpenseRequest(rejectionNotes);
-                        driver.Navigate().Refresh();
-                        Thread.Sleep(5000);
-                        string eventRejectStatus = lvExpRequestDetail.GetEventStatusInfo();
+                        
+                        string eventRejectStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventRejectStatus, "Rejected");
 
                         string approverRejectionNotes = lvExpRequestDetail.GetNotesFromApprovalHistorySectionForApprover();
@@ -228,9 +231,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038459 - Verify that approver is able to "Request more Information" from the requester.
                         lvExpRequestDetail.RequestForMoreInformation(requestNotes);
-                        driver.Navigate().Refresh();
-                        Thread.Sleep(5000);
-                        string eventMoreInfoStatus = lvExpRequestDetail.GetEventStatusInfo();
+                        
+                        string eventMoreInfoStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventMoreInfoStatus, "More Information Requested");
 
                         string approverRequestNotes = lvExpRequestDetail.GetNotesFromApprovalHistorySectionForApprover();
@@ -241,9 +243,8 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038460 - Verify that approver is able to "Approve" the request.
                         lvExpRequestDetail.ApproveExpenseRequest();
-                        driver.Navigate().Refresh();
-                        Thread.Sleep(5000);
-                        string eventApproveStatus = lvExpRequestDetail.GetEventStatusInfo();
+                        
+                        string eventApproveStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventApproveStatus, "Approved");
                         extentReports.CreateLog("Event Request is approved. Status is updated to: " + eventApproveStatus + " ");
                     }
