@@ -3,6 +3,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.TimeRecordManager
@@ -152,7 +153,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabDetailLogs);
             driver.FindElement(tabDetailLogs).Click();
             Thread.Sleep(1000);
-
         }
 
         //Get the hours from Summary Log Tab
@@ -172,6 +172,8 @@ namespace SF_Automation.Pages.TimeRecordManager
             string SummaryLogEntryHour = driver.FindElement(txtDetailLogHour).GetAttribute("value");
             return SummaryLogEntryHour;
         }
+
+        
     }
 
         
