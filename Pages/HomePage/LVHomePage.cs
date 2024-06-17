@@ -23,7 +23,7 @@ namespace SF_Automation.Pages.HomePage
         By userImage = By.XPath("(//span[@data-aura-class='uiImage'])[1]");
         By linkLogOut = By.XPath("//a[text()='Log Out']");
         By appLauncher = By.CssSelector("button[class*='slds-icon-waffle_container'] div.slds-icon-waffle");
-        By appHeader = By.CssSelector("div.slds-context-bar__label-action .slds-truncate");
+        By appHeader = By.XPath("//div/h1[contains(@class,'appName')]/span");
         By menuNavigation = By.CssSelector("button[title = 'Show Navigation Menu']");
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
         By lblTearsheetHeading = By.XPath("//h1");
@@ -1245,6 +1245,29 @@ namespace SF_Automation.Pages.HomePage
         public bool IsModulePageDisplayed(string moduleName)
         {
             return (driver.FindElement(pageHeaderEle).Text).Contains(moduleName);
+        }
+
+        public void SelectAppLV(string appName)
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, appHeader, 30);
+            string defaultApp = driver.FindElement(appHeader).Text;
+            if (defaultApp == appName)
+            {
+                //No need to select app again as desired aap is already selected
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, appLauncher, 30);
+                driver.FindElement(appLauncher).Click();
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSearchItems, 30);
+                driver.FindElement(txtSearchItems).SendKeys(appName);
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, _appInAppLauncher(appName), 60);
+                driver.FindElement(_appInAppLauncher(appName)).Click();
+                Thread.Sleep(3000);
+            }
         }
     }
 }

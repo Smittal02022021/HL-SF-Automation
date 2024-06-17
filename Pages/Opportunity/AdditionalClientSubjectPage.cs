@@ -182,6 +182,10 @@ namespace SF_Automation.Pages
         By checkAnalyst = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[8]/input");
         By checkSpecialty = By.XPath("(//*[contains(text(),'Add New Team Member')]/following::td)[11]/following::tr/td[9]/input");
 
+        By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
+        By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
+        By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
+
         public void EnterMultipleStaffDetails(string file, int row, int row1, string recordType)
         {
             Thread.Sleep(3000);
@@ -1993,7 +1997,84 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSave).Click(); WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
         }
-       
+
+        public void EnterMembersToDealTeamLV(string file)
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(5000);
+            driver.FindElement(btnModifyRolesL).Click();
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(10000);
+            By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");
+            driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
+            string valStaff = "";
+            for (int row = 2; row <= rowCount; row++)
+            {
+                valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                driver.FindElement(txtStaff).SendKeys(valStaff);
+                Thread.Sleep(5000);
+
+                By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
+                CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
+                Thread.Sleep(2000);
+
+                switch (row)
+                {
+                    case 2:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 20);
+                        driver.FindElement(checkInitiator).Click();
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 20);
+                        driver.FindElement(checkPrincipal).Click();
+                        break;
+                    case 3:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 20);
+                        driver.FindElement(checkManager).Click();
+                        break;
+                    case 4:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpecialty, 20);
+                        driver.FindElement(checkSpecialty).Click();
+                        break;
+                    case 5:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkMarketing, 20);
+                        driver.FindElement(checkMarketing).Click();
+                        break;
+                    case 6:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 20);
+                        driver.FindElement(checkSeller).Click();
+                        break;
+                    case 7:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 20);
+                        driver.FindElement(checkAssociate).Click();
+                        break;
+                    case 8:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 20);
+                        driver.FindElement(checkAnalyst).Click();
+                        break;
+                    case 9:
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 20);
+                        driver.FindElement(checkIntern).Click();
+                        break;
+                }
+                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitForPageToLoad(driver, 20);
+                Thread.Sleep(10000);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+        }
+
     }
 }
 

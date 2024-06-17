@@ -38,6 +38,15 @@ namespace SF_Automation.Pages
             }
         }
 
+        public string ValidateUserLightningView()
+        {
+            //Thread.Sleep(5000);
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 20);
+            string loggedUserName = driver.FindElement(loggedUserLightningView).Text;
+            return loggedUserName;
+        }
+
         public string ValidateUserLightningCAO()
         {
             Thread.Sleep(7000);

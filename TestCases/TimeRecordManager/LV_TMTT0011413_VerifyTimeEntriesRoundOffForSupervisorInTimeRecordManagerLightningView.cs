@@ -15,6 +15,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         static string fileTMTT0011413 = "LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView";
 
@@ -54,7 +55,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-                    usersLogin.SearchUserAndLogin(userExl);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();

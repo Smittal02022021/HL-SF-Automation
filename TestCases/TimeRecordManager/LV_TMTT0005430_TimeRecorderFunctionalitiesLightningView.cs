@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMT5430 = "LV_TMTT0005430_TimeRecorderFunctionalities";
         [OneTimeSetUp]
@@ -49,7 +50,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as CF Financial Supervisor User and validate the user
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);                
-                usersLogin.SearchUserAndLogin(userExl);
+
+                //Search CF Financial user by global search
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(userExl), true);

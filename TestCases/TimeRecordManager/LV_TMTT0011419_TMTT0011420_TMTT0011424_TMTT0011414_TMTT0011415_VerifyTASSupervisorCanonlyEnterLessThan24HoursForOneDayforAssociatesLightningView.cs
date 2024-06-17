@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages  = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0011419 = "LV_TMTT0011419_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView";
 
@@ -53,7 +54,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as Supervisor user 
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();

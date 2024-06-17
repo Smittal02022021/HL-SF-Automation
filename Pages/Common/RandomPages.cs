@@ -66,6 +66,16 @@ namespace SF_Automation.Pages.Common
         By btnMoreTabs = By.XPath("(//ul[@role='tablist']//button[@title='More Tabs'])[2]");
         By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
+
+        By iconListViewPicker = By.XPath("//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
+        By imgSpinningLoader = By.XPath("//div[@class='loading']");
+        By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
+
+        private By _optionListView(string name)
+        {
+            return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
+        }
+
         private By _elmIGType(string industryType)
         {
             return By.XPath($"//div[contains(@id,'ManagerContainer')]//table//tbody//td[contains(@id,'Industry')]//span[contains(text(),'{industryType}')]");
@@ -698,6 +708,44 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(linkActivity).Click();
                 Thread.Sleep(5000);
             }
+        }
+
+        public void SelectListView(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(iconListViewPicker).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(_optionListView(name)).Click();
+            Thread.Sleep(10000);
+        }
+
+        public void SelectListViewLV(string name)
+        {
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(iconListViewPicker).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            driver.FindElement(_optionListView(name)).Click();
+            try
+            {
+                WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            }
+            catch { Thread.Sleep(4000); }
+            //driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+        }
+
+        public void WaitForPageLoaderLV()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
         }
     }
 }

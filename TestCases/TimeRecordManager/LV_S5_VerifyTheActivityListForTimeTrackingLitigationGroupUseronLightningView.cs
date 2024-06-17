@@ -14,6 +14,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
+        HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         LVHomePage homePageLV = new LVHomePage();
@@ -54,7 +55,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-                    usersLogin.SearchUserAndLogin(userExl);
+
+                    //Search CF Financial user by global search
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();

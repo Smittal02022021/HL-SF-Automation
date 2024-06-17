@@ -26,6 +26,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0013748 = "LV_TMTT0013748_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet";
 
@@ -60,7 +61,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType + " ");
                 //Login as Standard User profile and validate the user
                 string UserCFExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(UserCFExl);
+
+                homePage.SearchUserByGlobalSearchN(UserCFExl);
+                extentReports.CreateStepLogs("Info", "User: " + UserCFExl + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(UserCFExl), true);

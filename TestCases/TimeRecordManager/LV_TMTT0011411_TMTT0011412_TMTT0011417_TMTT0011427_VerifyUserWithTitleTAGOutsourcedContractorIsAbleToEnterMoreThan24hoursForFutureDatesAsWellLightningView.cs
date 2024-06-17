@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         UsersLogin usersLogin = new UsersLogin();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMT1411 = "LV_TMTT0011411VerifyUserWithTitleTAGOutsourcedContractor";
 
@@ -50,7 +51,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+
+                //Search CF Financial user by global search
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();
