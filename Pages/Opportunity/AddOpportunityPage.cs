@@ -17,7 +17,7 @@ namespace SF_Automation.Pages
         By txtSubject = By.XPath("//span[@class='lookupInput']/input[@name='CF00Ni000000D80OZ']");
         By comboJobType = By.CssSelector("select[id*= 'hWW']");
         By comboIndustryGroup = By.CssSelector("select[name*= 'VT3']");
-        By comboSector = By.XPath("//input[@name='CF00NOy000002RB7z']");
+        By comboSector = By.XPath("//tr[6]/td[2]/div/span/input"); // By.CssSelector("select[name*='PI']");
         By comboAdditionalClient = By.CssSelector("select[name*='FmBza']");
         By comboAdditionalSubject = By.CssSelector("select[name*='Bzb']");
         By comboReferralType = By.CssSelector("select[name*='uS']");
@@ -140,6 +140,8 @@ namespace SF_Automation.Pages
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By labelAdmSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
         By labelWomenLedSectionLV = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection3']//h3//span");
+        By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
 
         public string AddOpportunities(string type, string file)
         {
@@ -493,6 +495,7 @@ namespace SF_Automation.Pages
         }
 
 
+
         public string AddOpportunitiesLightningV2(string type, string file)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -524,16 +527,24 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
 
             //Select IG
-            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
-            driver.FindElement(btnIGL).Click();
-            Thread.Sleep(3000);
-            By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
-            driver.FindElement(eleIG).Click();
+            //string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            //Thread.Sleep(3000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
+            //driver.FindElement(btnIGL).Click();
+            //Thread.Sleep(3000);
+            //By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
+            //driver.FindElement(eleIG).Click();
 
+            ////////Filling Req HL sector field Instead of IG ///////////////
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
+            driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
+            //////////////////////////////////
+            ///
             //Select Job Type
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
@@ -544,14 +555,16 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
 
+            ////////////////////////
             //Select sector
-            string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
-            driver.FindElement(comboSectorL).Click();
-            By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
-            driver.FindElement(eleSector).Click();
+            //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            //driver.FindElement(comboSectorL).Click();
+            //By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
+            //driver.FindElement(eleSector).Click();
+            ////////////////////////
 
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
@@ -1307,7 +1320,6 @@ namespace SF_Automation.Pages
                 return secName;
             }
         }
-
         public string AddOpportunitiesLightningV3(string valRecordType, string type, string file)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -1338,16 +1350,24 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
 
             //Select IG
-            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
-            driver.FindElement(btnIGL).Click();
-            Thread.Sleep(3000);
-            By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
-            driver.FindElement(eleIG).Click();
+            //string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            //Thread.Sleep(3000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
+            //driver.FindElement(btnIGL).Click();
+            //Thread.Sleep(3000);
+            //By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
+            //driver.FindElement(eleIG).Click();
 
+
+            ////////Filling Req HL sector field Instead of IG ///////////////
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
+            driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
+            WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
+            driver.FindElement(listHLSectorL).Click();
+            ////////////////////////////////// 
             //Select Job Type
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
@@ -1358,15 +1378,17 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
 
+            ////////////////////////////
             //Select sector
-            string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
-            driver.FindElement(comboSectorL).Click();
-            By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
-            driver.FindElement(eleSector).Click();
+            //string valSector = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            //driver.FindElement(comboSectorL).Click();
+            //By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
+            //driver.FindElement(eleSector).Click();
 
+            /////////////////////////////////////
             //Select Primary Office
             string valPO = ReadExcelData.ReadData(excelPath, "AddOpportunity", 11);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLed));
