@@ -20,7 +20,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
         TimeRecorderFunctionalities timeRecorder = new TimeRecorderFunctionalities();
         LVHomePage homePageLV = new LVHomePage();
-        
+
         public static string fileTMTT0029770 = "LV_TMTT0029770_VerifyUserCanSearchProjectWithNameOnTimeRecordManager";
 
         [OneTimeSetUp]

@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         UsersLogin usersLogin = new UsersLogin();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         private string valueActivity;
         private string valueEnteredHours;
@@ -64,7 +65,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     string userTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-                    usersLogin.SearchUserAndLogin(userNameExl);
+                    //usersLogin.SearchUserAndLogin(userNameExl);
+                    homePage.SearchUserByGlobalSearchN(userNameExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userNameExl + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();

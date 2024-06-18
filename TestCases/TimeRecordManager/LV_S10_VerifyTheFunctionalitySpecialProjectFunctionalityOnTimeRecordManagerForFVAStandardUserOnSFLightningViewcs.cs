@@ -15,6 +15,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
 
@@ -60,8 +61,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 for (int row = 2; row <= rowUser; row++)
                 {
                     userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    usersLogin.SearchUserAndLogin(userExl);
-                   
+                    //usersLogin.SearchUserAndLogin(userExl);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);

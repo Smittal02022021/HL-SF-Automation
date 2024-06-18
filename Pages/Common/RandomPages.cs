@@ -759,8 +759,12 @@ namespace SF_Automation.Pages.Common
         }
         public string GetLVMessagePopup()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
-            return driver.FindElement(msgLVPopup).Text;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
+                return driver.FindElement(msgLVPopup).Text;
+            }
+            catch { return "No popup displayed"; }
         }
         
         public void WaitForPageLoaderLV()

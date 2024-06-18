@@ -105,6 +105,7 @@ namespace SF_Automation.UtilityFunctions
             WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 20);
 
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            Thread.Sleep(2000);
             CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(10000);
         }

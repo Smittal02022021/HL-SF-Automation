@@ -80,7 +80,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType + " ");
                 //Login as Standard User profile and validate the user
                 string UserCFExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(UserCFExl);
+                //usersLogin.SearchUserAndLogin(UserCFExl);
+
+                homePage.SearchUserByGlobalSearchN(UserCFExl);
+                extentReports.CreateStepLogs("Info", "User: " + UserCFExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
@@ -132,7 +136,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as System Admin user 
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-                usersLogin.SearchUserAndLogin(adminUserExl);
+                //usersLogin.SearchUserAndLogin(adminUserExl);
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToClassicView();
                 string userAdmin = login.ValidateUser();
@@ -171,7 +178,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Submit Request to Convert opportunity into Engagement.
                 extentReports.CreateStepLogs("Info", "Submit Request to Convert opportunity into Engagement");
-                usersLogin.SearchUserAndLogin(UserCFExl);
+                //usersLogin.SearchUserAndLogin(UserCFExl);
+                homePage.SearchUserByGlobalSearchN(UserCFExl);
+                extentReports.CreateStepLogs("Info", "User: " + UserCFExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(UserCFExl), true);
@@ -200,7 +210,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " Approving the Request for Engagement and converting into Engagement ");
                     
-                usersLogin.SearchUserAndLogin(userCAOExl);
+                //usersLogin.SearchUserAndLogin(userCAOExl);
+                homePage.SearchUserByGlobalSearchN(userCAOExl);
+                extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string userCAO = login.ValidateUserLightningView();
                 Assert.AreEqual(userCAO.Contains(userCAOExl), true);

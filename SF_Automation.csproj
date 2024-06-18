@@ -680,6 +680,7 @@
     <Compile Include="TestCases\ERPtoOracle\TS28_TS31_VerifyContractDetailsWithNonUsStaffAndUSLegalEntity_Part2.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity_Part2.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
     <Compile Include="TestCases\EventExpense\T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
@@ -760,7 +761,6 @@
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUELV.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />

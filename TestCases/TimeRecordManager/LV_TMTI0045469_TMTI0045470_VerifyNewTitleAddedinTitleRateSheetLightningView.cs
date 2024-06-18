@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0045469 = "LV_TMTI0045469_VerifyNewTitleAddedinTitleRateSheet";        
 
@@ -50,7 +51,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
 
-                usersLogin.SearchUserAndLogin(userSupervisorExl);
+                //usersLogin.SearchUserAndLogin(userSupervisorExl);
+                homePage.SearchUserByGlobalSearchN(userSupervisorExl);
+                extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string userSupervisor = login.ValidateUserLightningView();
                 Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);

@@ -17,9 +17,6 @@ namespace SF_Automation.TestCases.EventExpense
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        CompanyHomePage companyHome = new CompanyHomePage();
-        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
         Outlook outlook = new Outlook();
         CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
         ExpenseRequestCreatePage expReqCreate = new ExpenseRequestCreatePage();

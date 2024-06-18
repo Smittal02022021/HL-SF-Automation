@@ -109,7 +109,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Performing actions with System Admin
                 string caoUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                usersLogin.SearchUserAndLogin(caoUserExl);
+                //usersLogin.SearchUserAndLogin(caoUserExl);
+
+                homePage.SearchUserByGlobalSearchN(caoUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(caoUserExl), true);
