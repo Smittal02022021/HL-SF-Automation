@@ -111,7 +111,7 @@ namespace SF_Automation.TestCases.Opportunity
                         string valType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 5);
                         opportunityDetails.SelectClientTypeAndClickNext(valType);
                         string valClient = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 4);
-                        string txtAddedCompany = opportunityDetails.ValidateSaveFunctionalityOfAdditionalClientL(valClient, valJobType);
+                        string txtAddedCompany = opportunityDetails.ValidateSaveFunctionalityOfAdditionalClientL(valClient, valJobType,valType);
                         extentReports.CreateLog("Details are saved in Opportunity Client/Subject page ");
 
                         //Validate the added rows under Additional Clients/Subjects section
@@ -121,9 +121,8 @@ namespace SF_Automation.TestCases.Opportunity
                             Assert.AreEqual(valClient, txtAddedCompany);
                             Assert.AreEqual("Client", txtAddedType);
                             extentReports.CreateLog("Company with name : " + txtAddedCompany + " with Type: " + txtAddedType + " is displayed under Additional Clients/Subjects section in Opportunity Details page ");
-                            string addedKeyCreditor = opportunityDetails.GetCompanyNameOfFeeAttributionPartyL(valClient);
-                            string typeKeyCre = opportunityDetails.GetTypeOfAdditionalClientL(valType);
-                            string recTypeKeyCre = opportunityDetails.GetRecTypeOfFeeAttributionParty();
+                            string addedKeyCreditor = opportunityDetails.GetAddedCompanyNameL(valClient);
+                            string typeKeyCre = opportunityDetails.GetTypeOfAdditionalKeyCreditor();                            
                             Assert.AreEqual(valClient, addedKeyCreditor);
                             Assert.AreEqual("Key Creditor", typeKeyCre);                           
                             extentReports.CreateLog("Company with name: " + addedKeyCreditor + " with Type: " + typeKeyCre + " is displayed in Additional Clients/Subjects section ");
@@ -131,7 +130,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                         else
                         {
-                            string additionalClient = opportunityDetails.ValidateAdditionalSubjectFromPopUp(valJobType,valClient);
+                            string additionalClient = opportunityDetails.ValidateAdditionalSubjectFromPopUpL(valJobType,valClient,valType);
                             Console.WriteLine(additionalClient);
                             if (valClient.Equals("ACD"))
                             {
@@ -160,12 +159,14 @@ namespace SF_Automation.TestCases.Opportunity
                             }
                         }
                         //Validate the title of page upon clicking Mass Edit Records button
-                        string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButton();
-                        opportunityDetails.ClickBackToOppButtonAndValidatePage(); 
+                        string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButtonL(valJobType, valType);
+                        opportunityDetails.ClickBackToOppButtonAndValidatePageL(); 
                         Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                         extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");
+
+                        opportunityDetails.ValidateClientSubjectAndReferralTabL();
                     }
-                    usersLogin.UserLogOut();
+                    usersLogin.DiffLightningLogout();
                 }
 
                 usersLogin.UserLogOut();

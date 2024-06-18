@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities : BaseClass
+    class TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

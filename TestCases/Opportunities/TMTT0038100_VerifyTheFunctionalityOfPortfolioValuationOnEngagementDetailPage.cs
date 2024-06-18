@@ -317,7 +317,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Link with name: " + deleteTeam + " is displayed in " + secTeamMember + " ");
 
                 //25.  TMTI0093053_Verify that clicking "Save Team Member" adds the user as a Team Member on the selected role with Status
-                string addedStaff = period.SaveTeamMembersAndValidate();
+                string addedStaff = period.SaveTeamMembersAndValidateEng();
                 string addedRole = period.GetSavedRoleOfStaff();
                 Assert.AreEqual("Associate", addedRole);
                 Assert.AreEqual("Karan Chopra", addedStaff);
