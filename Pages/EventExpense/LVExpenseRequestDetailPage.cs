@@ -441,7 +441,10 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnSubmitForApprovalLWC)); ;
-            Thread.Sleep(8000);
+            Thread.Sleep(15000);
+
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+            Thread.Sleep(15000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
