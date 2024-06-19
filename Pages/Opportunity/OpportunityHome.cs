@@ -37,7 +37,7 @@ namespace SF_Automation.Pages
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By btnOppNumLCAO = By.XPath("//header/div[2]/div[2]/div/button/text()");
         By txtOppNumL = By.XPath("//input[@placeholder='Search...']");
-        By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
+        By txtOppNumLCAO = By.XPath("//input[@placeholder='Search...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagOpportunities = By.XPath("//div/ul/li[5]/div/a/span[2]/span");

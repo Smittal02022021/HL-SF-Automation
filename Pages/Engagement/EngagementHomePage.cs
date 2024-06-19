@@ -28,11 +28,11 @@ namespace SF_Automation.Pages
         //Lightning  
         By btnEngNum = By.XPath("//button[@aria-label='Search']");
         By btnEngNumNotBlank = By.XPath("//section/header/div[2]/div[2]/div/button");
-        By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By txtEngNumLightning = By.XPath("//input[@placeholder='Search...']"); //By.XPath("//input[@placeholder='Search Engagements and more...']");
         By lnkEngLightning = By.XPath("//search_dialog-instant-result-item[1]/div[1]/div[2]/div/lightning-formatted-rich-text/span");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnEngNumL = By.XPath("//button[@aria-label='Search']");
-        By txtEngNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By txtEngNumLCAO = By.XPath("//input[@placeholder='Search...']");
         By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
 
         By searchEngBox = By.XPath("//lightning-input[@class='slds-form-element']");
