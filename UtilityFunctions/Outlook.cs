@@ -46,6 +46,7 @@ namespace SF_Automation.UtilityFunctions
             Thread.Sleep(2000);
 
             string excelPath = dir + file;
+
             string username = ReadExcelData.ReadData(excelPath, "UserCredential", 1);
             string password = ReadExcelData.ReadData(excelPath, "UserCredential", 2);
             if (CustomFunctions.IsElementPresent(driver, picAnAccount))
@@ -123,7 +124,7 @@ namespace SF_Automation.UtilityFunctions
             driver.FindElement(lblScopeInbox).Click();
             Thread.Sleep(4000);
 
-            driver.FindElement(searchBox).SendKeys("Sandbox: Request");
+            driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
             Thread.Sleep(5000);
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
