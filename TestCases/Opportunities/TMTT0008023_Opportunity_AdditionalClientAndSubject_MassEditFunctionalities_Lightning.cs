@@ -16,9 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
-        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();        
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string file8023 = "TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities1.xlsx";
@@ -62,63 +60,65 @@ namespace SF_Automation.TestCases.Opportunity
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 32);
                     usersLogin.SearchUserAndLogin(valUser);
-                    string stdUser = login.ValidateUser();
+                    string stdUser = login.ValidateFRUserLightning();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                    //Call function to open Add Opportunity Page
-                    opportunityHome.ClickOpportunity();
-                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    Console.WriteLine("valRecordType:" + valRecordType);
-                    opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                    //Verify the availability of Opportunity under HL Banker list
+                    string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                    Assert.AreEqual("Opportunities", tagOpp);
+                    extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 
-                    //Validating Title of New Opportunity Page
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    //Verify that choose LOB is displayed after clicking New button
+                    string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                    string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                    Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                    extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
                     //Calling AddOpportunities function                  
-                    string value = addOpportunity.AddOpportunities(valJobType, file8023);
+                    string value = addOpportunity.AddOpportunitiesLightning(valJobType, file8023);
                     Console.WriteLine("value : " + value);
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    clientSubjectsPage.EnterStaffDetails(file8023);
-                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                    extentReports.CreateLog(driver.Title + " is displayed ");
+                    string displayedTab = addOpportunity.EnterStaffDetailsL(file8023);
+                    Assert.AreEqual("Info", displayedTab);
+                    extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                    //Validating Opportunity details  
-                    string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                    Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                    extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
+                    //Validate the buttons i.e., New Opportunity Client/Subject and Mass Edit Record
+                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    string buttonNew = opportunityDetails.ValidateVisibilityOfNewButtonL();
+                    Assert.AreEqual("New", buttonNew);
+                    extentReports.CreateLog("Button with name : " + buttonNew + " is displayed on Client/Subject & Referral ");
 
                     //Validate the buttons i.e., Mass Edit Records
-                    string buttonMassEditRecord = opportunityDetails.ValidateVisibilityOfMassEditRecordsButton();
+                    string buttonMassEditRecord = opportunityDetails.ValidateVisibilityOfMassEditRecordsButtonL();
                     Assert.AreEqual("Mass Edit Records", buttonMassEditRecord);
-                    extentReports.CreateLog("Button with name : " + buttonMassEditRecord + " is displayed on Opportunity Details page ");
+                    extentReports.CreateLog("Button with name : " + buttonMassEditRecord + " is displayed on Client/Subject & Referral ");
 
-                    //Validate the title of page upon clicking Mass Edit Records button
-                    string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButton();
+                    //Validate the title of page upon clicking Mass Edit Records button                    
+                    string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButtonLightning();                   
                     Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                     extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");
 
                     //-----Validate all the buttons i.e., Additional Clients/Subjects, Delete Records, Edit and Refresh on tht page
-                    string btnAdditionalClientSub = clientSubjectsPage.ValidateAdditionalClientSubjectButton();
+                    string btnAdditionalClientSub = clientSubjectsPage.ValidateAdditionalClientSubjectButtonL();
                     Assert.AreEqual("Additional Clients/Subjects", btnAdditionalClientSub);
                     extentReports.CreateLog("Button with name : " + btnAdditionalClientSub + " is displayed ");
 
                     //Validate Delete Records button
-                    string btnDeleteRecords = clientSubjectsPage.ValidateDeleteRecordsButton();
+                    string btnDeleteRecords = clientSubjectsPage.ValidateDeleteRecordsButtonL();
                     Assert.AreEqual("Delete Records", btnDeleteRecords);
                     extentReports.CreateLog("Button with name : " + btnDeleteRecords + " is displayed ");
 
                     //Validate Edit button
-                    string btnEdit = clientSubjectsPage.ValidateEditButton();
+                    string btnEdit = clientSubjectsPage.ValidateEditButtonL();
                     Assert.AreEqual("Edit", btnEdit);
                     extentReports.CreateLog("Button with name : " + btnEdit + " is displayed ");
 
                     //Validate Refresh button
-                    string btnRefresh = clientSubjectsPage.ValidateRefreshButton();
-                    Assert.AreEqual("Refresh", btnRefresh);
-                    extentReports.CreateLog("Button with name : " + btnRefresh + " is displayed ");
+                    string btnRefresh = clientSubjectsPage.ValidateRefreshButtonL();
+                    Assert.AreEqual("button", btnRefresh);
+                    extentReports.CreateLog("Refresh button is displayed ");
 
                     //Validate Types                  
                     Assert.IsTrue(clientSubjectsPage.VerifyTypes(), "Verified that displayed Types are same");

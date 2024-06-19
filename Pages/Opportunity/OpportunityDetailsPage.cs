@@ -1127,8 +1127,18 @@ public void ClickNewOpportunitySectorButton()
             }
         }
 
-        //Get Opportunity Number
-        public string GetOppNumber()
+        //To Click Mass Edit Records button button
+        public string ClickMassEditRecordsButtonLightning()
+        {          
+                driver.FindElement(btnMassEditRecordsL).Click();
+                Thread.Sleep(5000);
+                driver.SwitchTo().Frame(0);
+                WebDriverWaits.WaitUntilEleVisible(driver, titleMassEditPageL, 120);
+                string name = driver.FindElement(titleMassEditPageL).Text;
+                return name;
+            }
+            //Get Opportunity Number
+            public string GetOppNumber()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppNum);
             string oppNum = driver.FindElement(valOppNum).Text;
@@ -3842,6 +3852,14 @@ public void ClickNewOpportunitySectorButton()
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, valClientTypeL, 80);
             string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='" + name + "']")).Text;
+            return value;
+        }
+
+        //Get type of added additional client record
+        public string GetTypeOfAdditionalClient()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientType, 80);
+            string value = driver.FindElement(valClientType).Text;
             return value;
         }
         //Validate Edit functionality of Additional Client

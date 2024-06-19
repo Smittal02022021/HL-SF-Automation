@@ -56,10 +56,15 @@ namespace SF_Automation.Pages
         By btnBackToOpp = By.XPath("//div[1]/span/lightning-button/button");
         By titleOppDetails = By.CssSelector("div[id*='j_id55'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
         By btnAdditionalClientSub = By.XPath("//div[2]/span/lightning-button/button");
+        By btnAdditionalClientSubL = By.XPath("//button[text()='Additional Clients/Subjects']");
         By btnEditMassEdit = By.XPath("//header/div[2]/slot/lightning-button/button");
+        By btnEditMassEditL = By.XPath("//button[text()='Edit']");
         By txtRefresh = By.XPath("//div[2]/div[2]/span/p");
+        By btnRefreshL = By.XPath("//div[2]/lightning-button-icon/button");
         By comboTypeMassEdit = By.XPath("//lightning-base-combobox-item[contains(@id,'button-17')]");
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
+        By btnDeleteRecordsL = By.XPath("//button[text()='Delete Records']");
+
         By txtAlertMessage = By.XPath("//slot/div/div/h2");
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
         By checkRecord1 = By.XPath("//tr[1]/td[1]/div/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
@@ -729,6 +734,39 @@ namespace SF_Automation.Pages
             return name;
         }
 
+        //Validate Additional Clients/Subjects button
+        public string ValidateAdditionalClientSubjectButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdditionalClientSubL, 120);
+            string name = driver.FindElement(btnAdditionalClientSubL).Text;
+            return name;
+        }
+
+        //Validate Delete Records button
+        public string ValidateDeleteRecordsButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRecordsL, 120);
+            string name = driver.FindElement(btnDeleteRecordsL).Text;
+            return name;
+        }
+
+        //Validate Edit button
+        public string ValidateEditButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEditL, 120);
+            string name = driver.FindElement(btnEditMassEditL).Text;
+            return name;
+        }
+
+        //Validate Refresh button
+        public string ValidateRefreshButtonL()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRefresh, 120);
+            string name = driver.FindElement(txtRefresh).GetAttribute("type");
+            return name;
+        }
+
         //Validate all displayed Type dropdown values
         public bool VerifyTypes()
         {
@@ -911,6 +949,16 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRecords);
             driver.FindElement(btnDeleteRecords).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAlertMessage, 100);
+            string message = driver.FindElement(txtAlertMessage).Text;
+            return message;
+        }
+
+        //Click Delete button without selecting records and validate error message
+        public string ClickDeleteAndValidateErrorMessageL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRecordsL);
+            driver.FindElement(btnDeleteRecordsL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtAlertMessage, 100);
             string message = driver.FindElement(txtAlertMessage).Text;
             return message;

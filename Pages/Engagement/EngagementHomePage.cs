@@ -26,9 +26,9 @@ namespace SF_Automation.Pages
         By txtErrorMessage = By.CssSelector("span[id*=':theError']");
 
         //Lightning  
-        By btnEngNum = By.XPath("//button[@aria-label='Search']");
+        By btnEngNum = By.XPath("//button[contains(@aria-label,'Search')]");
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
-        By txtEngNumLightning = By.XPath("//input[@placeholder='Search Engagements and more...']");
+        By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search...')]");
         By lnkEngLightning = By.XPath("//img[@title='Engagement']");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
@@ -44,12 +44,12 @@ namespace SF_Automation.Pages
         By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
-        By btnRefresh = By.XPath("//div[3]/force-list-view-manager-button-bar/div/div[1]//button");
-        By valSearchedEng = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']/tbody/tr/th/span/a");
-        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
+        By btnRefresh = By.XPath("//lst-list-view-manager-button-bar/div/div[1]//button");
+        By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
+        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/div");
         By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
-        By tabEngL = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']/tbody/tr/th/span/a");
+        By tabEngL = By.XPath("//table/tbody/tr/th/span//div");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
         By titleEngDetailsL = By.XPath("//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
@@ -245,7 +245,7 @@ namespace SF_Automation.Pages
         public string SearchEngagementWithNumberOnLightning(string name, string jobType)
         {
             Thread.Sleep(6000);
-            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("FA - Portfolio-Valuation"))
+            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets")||jobType.Equals("FA - Portfolio-Valuation"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                 driver.FindElement(btnEngNum).Click();
@@ -262,9 +262,15 @@ namespace SF_Automation.Pages
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumNotBlank, 180);
-                driver.FindElement(btnEngNumNotBlank).Click();
+                driver.FindElement(txtEngNumLightning).Clear();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
+                driver.FindElement(btnEngNum).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumNotBlank, 180);
+                //driver.FindElement(btnEngNumNotBlank).Click();
                 Thread.Sleep(5000);               
+                driver.FindElement(txtEngNumLightning).Clear();
+                driver.FindElement(txtEngNumLightning).SendKeys(name);
+                Thread.Sleep(5000);
                 driver.FindElement(txtEngNumLightning).Clear();
                 driver.FindElement(txtEngNumLightning).SendKeys(name);
                 Thread.Sleep(5000);
@@ -508,14 +514,15 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfEngagements(string name)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
-            driver.FindElement(txtSearchEng).SendKeys(name);
-            Thread.Sleep(5000);
-            driver.FindElement(btnRefresh).Click();
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng, 190);
-            string opp = driver.FindElement(valSearchedEng).Text;
-            return opp;
+                WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+                driver.FindElement(txtSearchEng).SendKeys(name);
+                Thread.Sleep(5000);
+                driver.FindElement(btnRefresh).Click();
+                Thread.Sleep(6000);
+                WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng, 190);
+                string opp = driver.FindElement(valSearchedEng).Text;
+                return opp;
+           
         }
 
         //Validate if Search functionality is working as expected
