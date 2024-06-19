@@ -160,6 +160,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, txtGlobalSearch);
             driver.FindElement(txtGlobalSearch).SendKeys(user);
 
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
             WebDriverWaits.WaitUntilEleVisible(driver, btnGlobalSearch);
             driver.FindElement(btnGlobalSearch).Click();
             Thread.Sleep(10000);
