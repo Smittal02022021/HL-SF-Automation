@@ -180,7 +180,7 @@ namespace SF_Automation.TestCases.EventExpense
                         //TC - TMTI0038483 - Verify the "Delete" functionality from expense request detail page as requester.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsRequestor());
                         
-                        string eventStatus2 = lvExpRequestDetail.GetCloneEventStatusInfo();
+                        string eventStatus2 = lvExpRequestDetail.GetDeletedStatusInfo();
                         extentReports.CreateLog("Expense request is deleted succssfully with status: " + eventStatus2 + " ");
 
                         //TC - TMTI0038484 - Verify expense detail page on deleting the request as requester.

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Threading;
 using excel = Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestData
@@ -57,6 +58,7 @@ namespace SF_Automation.TestData
         //To read data from multiple row
         public static string ReadDataMultipleRows(string path, string sheet, int row, int col)
         {
+            Thread.Sleep(1000);
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(path);
             excel._Worksheet workSheet = workBook.Worksheets.get_Item(sheet);

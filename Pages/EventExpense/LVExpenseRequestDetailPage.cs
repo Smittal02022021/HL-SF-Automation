@@ -173,6 +173,14 @@ namespace SF_Automation.Pages.EventExpense
             return eventStatusInfo;
         }
 
+        public string GetDeletedStatusInfo()
+        {
+            Thread.Sleep(3000);
+            string eventStatusInfo = driver.FindElement(lblStatus).Text;
+            Thread.Sleep(3000);
+            return eventStatusInfo;
+        }
+
         public void EditEventInformation(string file, int userRow)
         {
             Thread.Sleep(5000);
@@ -357,10 +365,10 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtNotes).SendKeys("Test");
             driver.FindElement(btnOK).Click();
 
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCloneStatus, 120);
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
-            if (driver.FindElement(lblCloneStatus).Text == "Deleted")
+            if (driver.FindElement(lblStatus).Text == "Deleted")
             {
                 result = true;
             }
