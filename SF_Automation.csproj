@@ -775,7 +775,7 @@
     <Compile Include="TestCases\Opportunities\VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
-    <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_TMTT0012455_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0024858_TMTT0030610_TMTT0035436_VerifyNewJobTypeIsForFVAOnly.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012824_TMTT0030610_ValidateNewJobTypesAvailability.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />

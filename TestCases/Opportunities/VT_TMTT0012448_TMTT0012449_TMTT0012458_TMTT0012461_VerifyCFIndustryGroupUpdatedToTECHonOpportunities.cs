@@ -7,7 +7,6 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.Contact;
-using OpenQA.Selenium;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -24,9 +23,6 @@ namespace SF_Automation.TestCases.Opportunity
         EngagementHomePage engagementHome = new EngagementHomePage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         ContractDetailsPage contractDetail = new ContractDetailsPage();
-        ContactHomePage contactHome = new ContactHomePage();
-        ContactDetailsPage contactDetail = new ContactDetailsPage();
-
 
         public static string fileTMTI0027313 = "TMTI0027313_VerifyCFIndustryGroupUpdatedToTECHonOpportunities";
        

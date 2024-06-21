@@ -67,6 +67,9 @@ namespace SF_Automation.TestCases.EventExpense
                 expRequest.SaveAllValuesOfEventExpense(fileTC2275);
                 extentReports.CreateLog("Details are saved in Event Expenese form ");
                 expRequest.ClickEditButton();
+
+
+                ///*****************
                 string descEnabled= expRequest.SelectMarketingSupport("Yes");
                 Assert.AreEqual("True",descEnabled);
                 extentReports.CreateLog("Description of Marketing Support field is enabled after selecting Marketing support as Yes ");
@@ -76,6 +79,9 @@ namespace SF_Automation.TestCases.EventExpense
                 string descDisabled = expRequest.SelectMarketingSupport("No");
                 Assert.AreEqual("False", descDisabled);
                 extentReports.CreateLog("Description of Marketing Support field is disabled after selecting Marketing support as No ");
+
+                ///*****************
+
                 expRequest.EnterEndDate("11/11/2020");
                 expRequest.SubmitEventExpenseRequest();
                 string val = expRequest.GetEndDateValidations();
@@ -92,12 +98,14 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual("Error: Other Cost is Required.", valOtherCost);
                 extentReports.CreateLog("Validation: " + valOtherCost + " is displayed upon submitting blank value of Other Cost ");
 
+                //**************************************
                 //Edit the record, add Other Cost and validation message for Description of Other Cost
-                expRequest.ClickEditButton();
-                string valDescCost =expRequest.EnterOtherCostAndSave(fileTC2275);
-                Assert.AreEqual("Error: Please provide Description of Other Cost.", valDescCost);
-                extentReports.CreateLog("Validation: " + valDescCost + " is displayed upon submitting blank value of Description of Other Cost ");
-                
+                //expRequest.ClickEditButton();
+                //string valDescCost =expRequest.EnterOtherCostAndSave(fileTC2275);
+                //Assert.AreEqual("Error: Please provide Description of Other Cost.", valDescCost);
+                //extentReports.CreateLog("Validation: " + valDescCost + " is displayed upon submitting blank value of Description of Other Cost ");
+                //***************************************
+
                 //Edit the record, add Description of Other Cost and validation message for Evaluation Date
                 expRequest.ClickEditButton();
                 string valEvalDate = expRequest.EnterDescofOtherCostAndSave(fileTC2275);

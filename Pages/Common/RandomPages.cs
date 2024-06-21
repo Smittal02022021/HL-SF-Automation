@@ -67,7 +67,7 @@ namespace SF_Automation.Pages.Common
         By btnMoreTabs = By.XPath("(//ul[@role='tablist']//button[@title='More Tabs'])[2]");
         By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
-        By iconListViewPicker = By.XPath("//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
+        By iconListViewPicker = By.XPath("//div[contains(@class,'name-switcher')]//button[contains(@title,'Select a List View')]");//div[contains(@class,'ListViewPicker')]//button[contains(@title,'Select a List View')]");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By dropdownCompaign = By.CssSelector("select[id='fcf']");
         By frameTimeRecordPage = By.XPath("//iframe[@title='accessibility title']");
@@ -790,21 +790,20 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             }
             catch { Thread.Sleep(4000); }
-            //driver.SwitchTo().DefaultContent();
             Thread.Sleep(4000);
         }
 
         private By _eleJobType(string name)
         {
-            return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//th//a[@title='{name}']");
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
         private By _eleLegalEntity(string name)
         {
-            return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//td//a[@title='{name}']");
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//td//a[@title='{name}']");
         }
         private By _quickEleLegalEntity(string name)
         {
-            return By.XPath($"//div[contains(@class,'listViewContent')]//table//tbody//th//a[@title='{name}']");
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
 
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");

@@ -9,11 +9,10 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_TMTT0012455_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
+    class VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         RandomPages randomPages = new RandomPages();
 
@@ -67,7 +66,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual(fieldValue, valFilter);
                     extentReports.CreateLog("Field: " + fieldValue + " is selected ");
 
-                    //TMTI0027302_71646_56871, TMTI0027295 Verify the Industry Group is changed while creating Opportunities & Engagements Reports
+                    //TMTI0027302 TMTI0027295 Verify the Industry Group is changed while creating Opportunities & Engagements Reports
                     //TMTI0071646 Verify the New Job Types are updated while creating the relevant reports from the Reports tab.
                     //TMTI0056871 Verify the New Job Types are updated while creating the relevant reports from Reports tab
                     //TMTI0055400 Verify the New Job Types are updated while creating the relevant reports from Reports tab

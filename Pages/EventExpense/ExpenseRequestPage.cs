@@ -69,6 +69,11 @@ namespace SF_Automation.Pages
 
         By btnCreateNewExpenseFormLWC = By.XPath("//button[@title='Create New Expense Form']");
         By btnSaveLWC = By.XPath("//footer//button[text()='Save']");
+        By btnSaveEditLWC = By.XPath("//button[@name='SaveEdit']");
+        By btnApplyFilterLWC = By.XPath("//div[@slot='footer']//button[text()='Apply Filter']");
+        By btnNameLWC = By.XPath("//div[contains(@class,'footer')]//button");
+        By btnEditRequestor = By.XPath("//button[@title='Edit Requestor']");
+
         By msgLOBLWC = By.XPath("//label[text()='LOB']/abbr/../../div[2][contains(@class,'help')]");
         By msgEventTypeLWC= By.XPath("//label[text()='Event Type']/abbr/../../div[2][contains(@class,'help')]");
         By msgRequestorLWC = By.XPath("//label[text()='Requestor']/abbr/../../div[2][contains(@class,'help')]");
@@ -78,12 +83,15 @@ namespace SF_Automation.Pages
         By msgETCostLWC = By.XPath("//label[text()='Expected Travel Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgEFBCostLWC = By.XPath("//label[text()='Expected F&B Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgOtherCostLWC = By.XPath("//label[text()='Other Cost']/abbr/../../../div[2][contains(@class,'help')]");
+        By msgDescOtherCostLWC = By.XPath("//label[text()='Description of Other Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgEventFormatLWC = By.XPath("//label[text()='Event Format']/abbr/../../../div//div[2][contains(@class,'help')]");
 
         By comboLOBLWC = By.XPath("//label[text()='LOB']/abbr/../..//button");
         By comboEventTypeLWC = By.XPath("//label[text()='Event Type']/abbr/../..//button");
         By comboProductTypeLWC = By.XPath("//label[text()='Product Type']/abbr/../..//button");
         By comboEventFormatLWC = By.XPath("//label[text()='Event Format']/abbr/../..//button");
+        By btnNumberofQuestsLWC = By.XPath("//label[text()='Number of guests']/..//button");
+        By btnMarketingSupportLWC = By.XPath("//label[text()='Marketing support']/..//button");
         By inputRequestorLWC = By.XPath("//label[text()='Requestor']/..//input");
         By inputEventTypeLWC= By.XPath("//label[text()='Event Contact']/..//input");
         By inputEventNameLWC = By.XPath("//label[text()='Event Name']/..//input");
@@ -94,11 +102,109 @@ namespace SF_Automation.Pages
         By inputOtherCostLWC = By.XPath("//label[text()='Other Cost']/..//input");
         By inputDescOtherCostLWC = By.XPath("//label[text()='Description of Other Cost']/..//input");
         By inputHLOppLWC = By.XPath("//label[text()='HL Internal Opportunity Name']/..//input");
-
+        By inputERNLWC = By.XPath("//input[@name='ExpenseRequestNumber']");
+        By inputTeamMemberLWC = By.XPath("//label[text()='List of Team Members']/..//input");
+        By inputDscMarketingSupportLWC = By.XPath("//label[text()='Description of Marketing Support']/..//input");
+        
         By headerPageLWC = By.XPath("//h1//records-entity-label");
+        By headerERNumberLWC = By.XPath("//h1//lightning-formatted-text[@slot='primaryField']");
+        By headerEventTrackingLWC = By.XPath("//h3//span[@title='Event Tracking']");
         By elmEPNumberLWC = By.XPath("//div[contains(@data-target-selection-name,'Event_Expense__c.Name')]//lightning-formatted-text");
+        By elmEPStatusLWC = By.XPath("//span[text()='Status']/../../..//lightning-formatted-text");
+        
+        private By _btnEventExpenseRequestLWC(string btnName)
+        {
+            return By.XPath($"//ul//li//button[text()='{btnName}']");
+        }
+
+        public string GetRequestStatusLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
+            Thread.Sleep(3000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
+            return driver.FindElement(elmEPStatusLWC).Text;
+        }
+        public void SaveExpenseRequestSubmitForApprovalRequiredFieldsLWC(string eventType, string numberOfGuest, string teamMember)
+        {
+
+            switch (eventType)
+            {
+                case "ADM - Staff Entertainment":
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(headerEventTrackingLWC));
+                    driver.FindElement(btnNumberofQuestsLWC).Click();
+
+                    By elmOptionGuests = By.XPath($"//label[text()='Number of guests']/..//lightning-base-combobox-item//span[@title='{numberOfGuest}']");
+                    WebDriverWaits.WaitUntilEleVisible(driver, elmOptionGuests, 10);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elmOptionGuests));
+                    driver.FindElement(elmOptionGuests).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnSaveEditLWC, 10);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveEditLWC));
+                    driver.FindElement(btnSaveEditLWC).Click();
+                    Thread.Sleep(3000);
+                    break;
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, inputTeamMemberLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputTeamMemberLWC));
+            Thread.Sleep(3000);
+            driver.FindElement(inputTeamMemberLWC).Click();
+            driver.FindElement(inputTeamMemberLWC).SendKeys(teamMember);
+            By elmOptionMember = By.XPath($"//label[text()='List of Team Members']/..//li//span[text()='{teamMember}']/../..");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOptionMember, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmOptionMember));
+            driver.FindElement(elmOptionMember).Click();
+            Thread.Sleep(3000);
+            IAlert alert = driver.SwitchTo().Alert();
+            Thread.Sleep(2000);
+            alert.Accept();
+            By elmInList = By.XPath($"//table//td//lightning-base-formatted-text[text()='{teamMember}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmInList, 10);
+            Thread.Sleep(5000);
+        }
+        public void ClickEventExpenseRequestButtonLWC(string btnName)
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC(btnName), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC(btnName)));
+            driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Click();
+        }
+        public void ClickEditExpenseRequestButtonLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRequestor, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditRequestor));
+            driver.FindElement(btnEditRequestor).Click();
+        }
+        public string GetValidationsLWC(string bubbleMessage)
+        {
+            string formatedValidation = bubbleMessage.Replace("\r\n", " ");
+            return formatedValidation;
+        }
+        public string SearchAndSelectExpenseRequestLWC(string number)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWC));
+            driver.FindElement(inputERNLWC).Clear();
+            driver.FindElement(inputERNLWC).SendKeys(number);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWC));
+            driver.FindElement(btnApplyFilterLWC).Click();
+            By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
+            WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
+            driver.FindElement(linkExpenseRequest).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
+            return driver.FindElement(headerERNumberLWC).Text.Trim();
+
+        }
+
+        public string GetButtonnameLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNameLWC, 20);
+            return driver.FindElement(btnNameLWC).Text.Trim();
+        }
             
-        public string getPageHeaderLWC()
+        public string GetPageHeaderLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, headerPageLWC, 20);
             return driver.FindElement(headerPageLWC).Text.Trim();
@@ -227,6 +333,42 @@ namespace SF_Automation.Pages
             string message = driver.FindElement(msgOtherCostLWC).Text;
             return message;
         }
+
+        public string ValidateDscOtherCostLWC()
+        {
+            driver.FindElement(inputOtherCostLWC).SendKeys("10.00");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));            
+            try
+            {
+                driver.FindElement(btnSaveLWC).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, msgDescOtherCostLWC, 5);
+            }
+            catch
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
+                driver.FindElement(btnSaveLWC).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDescOtherCostLWC, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(msgDescOtherCostLWC));
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDescOtherCostLWC, 5);
+            string message = driver.FindElement(msgDescOtherCostLWC).Text;
+            return message;
+        }
+
+        public void SelectMarketingSupportLWC(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMarketingSupportLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnMarketingSupportLWC));
+            driver.FindElement(btnMarketingSupportLWC).Click();
+            By elmMarketingSupport = By.XPath($"//label[text()='Marketing support']/..//lightning-base-combobox-item//span[@title='{value}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmMarketingSupport, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmMarketingSupport));
+            driver.FindElement(elmMarketingSupport).Click();             
+        }
+        public bool GetDescriptionMarketingSupportStateLWC()
+        {
+            return driver.FindElement(inputDscMarketingSupportLWC).Enabled;
+        }
         public string ValidateEventFormatMessageLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEventFormatLWC, 10);
@@ -270,6 +412,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
             driver.FindElement(inputETCostLWC).SendKeys(ETCost);
             driver.FindElement(inputEFBCostLWC).SendKeys(EFBCost);
+            driver.FindElement(inputOtherCostLWC).Clear();
             driver.FindElement(inputOtherCostLWC).SendKeys(OtherCost);
             driver.FindElement(inputDescOtherCostLWC).SendKeys(DescOtherCost);
 
@@ -282,9 +425,12 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLOppLWC));
             driver.FindElement(inputHLOppLWC).SendKeys(nameOpp);
             By elmHLOpp = By.XPath($"//label[text()='HL Internal Opportunity Name']//ancestor::lightning-layout-item//li//span[text()='{nameOpp}']");
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmHLOpp, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmHLOpp));
+            Thread.Sleep(2000);
             driver.FindElement(elmHLOpp).Click();
+            Thread.Sleep(2000);
             driver.FindElement(btnSaveLWC).Click();
             
         }

@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
 
@@ -61,7 +62,12 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
 
-                    usersLogin.SearchUserAndLogin(userExl);
+                    //usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -129,7 +135,12 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateOutcomeDetails(fileTC1624);
                     extentReports.CreateStepLogs("Info", " Required Outcome Details are provided ");
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(userExl);
+                    //usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -161,7 +172,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(userCAOExl);
+                    //usersLogin.SearchUserAndLogin(userCAOExl);                    
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+
 
                     login.SwitchToLightningExperience();
                     string UserCAO = login.ValidateUserLightningView();
