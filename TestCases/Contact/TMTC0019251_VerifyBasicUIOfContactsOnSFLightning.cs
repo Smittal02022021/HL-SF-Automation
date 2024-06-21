@@ -41,6 +41,7 @@ namespace SF_Automation.TestCases.Contact
                 Console.WriteLine(excelPath);
 
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string adminUser = ReadExcelData.ReadData(excelPath, "Users", 2);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -53,7 +54,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
 
-                //Search standard user by global search
+                //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
                 extentReports.CreateLog("User " + user + " details are displayed. ");
 
@@ -99,7 +100,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
                 extentReports.CreateLog("External contact have Edit, Add Relationship L and Printable View buttons displayed at the top. ");
 
-                //TC - TMT0034276 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
+                //TC - TMT0034276, TMT0034268 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
                 Assert.IsTrue(lvContactDetails.VerifyDetailsDisplayedAtTheTopBarForExternalContact());
                 extentReports.CreateLog("External contact have Company Name,  title, phone and Email in top bar. ");
 
@@ -116,6 +117,29 @@ namespace SF_Automation.TestCases.Contact
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+
+                //Search SF Admin user by global search
+                homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
+                extentReports.CreateLog("User " + adminUser + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateLog("User switched to lightning view. ");
+                }
+
+                Assert.IsTrue(login.ValidateUserLightningView(fileTMTC0019251, 2));
+                extentReports.CreateLog("SF Admin User: " + adminUser + " is able to login into lightning view. ");
+
+                //TC - TMT0034196 - Verify the Error Message "Industry Group must be selected when LOB is CF" is displayed when LOB field is selected.
+                lvHomePage.SearchContactFromMainSearch("Test External");
+                Assert.IsTrue(lvContactDetails.VerifyIndustryGroupErrorMessageWhenLOBIsCF());
+                extentReports.CreateLog("The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
+
 
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();

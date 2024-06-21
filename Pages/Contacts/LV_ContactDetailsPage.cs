@@ -177,14 +177,22 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
 
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ExternalContactSections");
-            int tabCount = driver.FindElements(By.XPath("//div[@class='VIEW slds-card']/div/div/div[2]/h2/a")).Count;
+            int tabCount = driver.FindElements(By.XPath("(//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2")).Count;
 
             for (int i = 2; i <= excelCount; i++)
             {
                 string excelSectionName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContactSections", i, 1);
                 for (int j = 1; j <= tabCount; j++)
                 {
-                    string sectionName = driver.FindElement(By.XPath($"(//div[@class='VIEW slds-card']/div/div/div[2]/h2/a)[{j}]")).Text;
+                    string sectionName;
+                    if(j==1)
+                    {
+                        sectionName = driver.FindElement(By.XPath($"(((//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2)[{j}]//div[2]/lightning-formatted-text)[1]")).Text;
+                    }
+                    else
+                    {
+                        sectionName = driver.FindElement(By.XPath($"(((//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2)[{j}]//div[2]/a)[1]")).Text;
+                    }
                     if (sectionName == excelSectionName)
                     {
                         result = true;
@@ -197,6 +205,13 @@ namespace SF_Automation.Pages.Contact
                 }
                 continue;
             }
+
+            return result;
+        }
+
+        public bool VerifyIndustryGroupErrorMessageWhenLOBIsCF()
+        {
+            bool result = false;
 
             return result;
         }
