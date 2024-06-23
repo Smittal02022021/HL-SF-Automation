@@ -73,7 +73,12 @@ namespace SF_Automation.Pages
         By txtType1 = By.XPath("//tr[2]/td[4]/div/lightning-formatted-text");
         By txtType = By.XPath("//tr[1]/td[4]/div/lightning-formatted-text");
         By titleAdditionalClient = By.CssSelector("h2[class='pageDescription']");
+        By titleAdditionalClientL = By.XPath("//div[@class='actionBody']/div/h2");
+
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
+        By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+
         By txtClientSubjectEng = By.CssSelector("span>input[id*='D9Dbw']");
         By valNewClient = By.XPath("//div[@id='box-32']/div[1]/div/lightning-formatted-text");
         By valNewClientEng = By.XPath("//table/tbody/tr[5]/th/a");
@@ -756,16 +761,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEditL, 120);
             string name = driver.FindElement(btnEditMassEditL).Text;
             return name;
-        }
-
-        //Validate Refresh button
-        public string ValidateRefreshButtonL()
-        {
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtRefresh, 120);
-            string name = driver.FindElement(txtRefresh).GetAttribute("type");
-            return name;
-        }
+        }       
 
         //Validate all displayed Type dropdown values
         public bool VerifyTypes()
@@ -1065,6 +1061,17 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(titleAdditionalClient).Text;
             return title;
         }
+        //Click Additional Clients/Subjects button
+        public string ClickAdditionalClientsSubjectsButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAdditionalClientSubL, 250);
+            driver.FindElement(btnAdditionalClientSubL).Click();
+            Thread.Sleep(6000);
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
+            string title = driver.FindElement(titleAdditionalClientL).Text;
+            return title;
+        }
 
         // To validate save functionality of Additional client
         public string ValidateSaveFunctionalityOfAdditionalClient(string name)
@@ -1075,6 +1082,19 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);            
             WebDriverWaits.WaitUntilEleVisible(driver, valNewClient, 150);
             string value = driver.FindElement(valNewClient).Text;
+            return value;
+        }
+
+        // To validate save functionality of Additional client
+        public string ValidateSaveFunctionalityOfAdditionalClientL(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectL, 80);
+            driver.FindElement(txtClientSubjectL).SendKeys(name);
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(By.XPath("//span[text()='Client/Subject']/ancestor::div/dd/div[1]//force-lookup//a/span//span/slot")).Text;
             return value;
         }
 

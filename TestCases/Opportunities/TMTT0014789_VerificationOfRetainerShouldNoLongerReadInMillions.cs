@@ -77,12 +77,12 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtRetainer + " is displayed without (MM) ");
 
                 string value = nform.UpdateRetainerAndValidate();                
-                Assert.AreEqual("EUR 1,000,000.00", value);
+                Assert.AreEqual("USD 1,000,000.00", value);
                 extentReports.CreateLog("Retainer Value: " + value + " is displayed as it is saved ");
 
                 string EstFee = nform.GetEstimatedTotalFee();
                 Console.WriteLine("EstFee: " + EstFee);
-                Assert.AreEqual("EUR 20.0", EstFee);
+                Assert.AreEqual("USD 20.0", EstFee);
                 extentReports.CreateLog("Estimated Total Fee: " + EstFee + " is displayed in MM ");                                
 
                 form.SwitchFrame();

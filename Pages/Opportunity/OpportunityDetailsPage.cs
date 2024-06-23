@@ -250,7 +250,7 @@ namespace SF_Automation.Pages
         By valDefaultClient = By.CssSelector("div[id*='DuhQp_body'] > table > tbody > tr:nth-child(2)>th>a");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
         By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
-
+        By lnkOppClientSubL = By.XPath("//span[text()='Opportunity']/ancestor::div/dd/div[1]//force-lookup//records-hoverable-link");
         By valNewClient = By.CssSelector("div[id*='p_body'] > table > tbody > tr:nth-child(5)> th > a");
         By valNewClientL = By.XPath("//span[text()='Client/Subject']/ancestor::div[2]/dd//span//a//slot/span/slot");
         By valClientType = By.CssSelector("div[id*='uhQp_body'] > table > tbody > tr:nth-child(5)>td:nth-child(3)");
@@ -323,7 +323,7 @@ namespace SF_Automation.Pages
         //Lightning
 
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
-        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span//a");
         By tabOpp = By.XPath("//span[text()='Opportunities']");       
         By btnEditL = By.XPath("//ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-delayed-aura-legacy/slot/slot/lightning-button/button");
         By comboClientOwnershipL = By.XPath("//button[contains(@aria-label,'Client Ownership')]");
@@ -752,11 +752,43 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             else
             {                
                 Thread.Sleep(6000);
-                string type = driver.FindElement(By.XPath("//span[text()='Type']/ancestor::div/dd/div[1]/span//lightning-formatted-text")).Text;
+                string type = driver.FindElement(By.XPath("//lightning-formatted-text[text()='"+value+"']")).Text;
+                driver.FindElement(By.XPath("//lightning-formatted-text[text()='"+value+"']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(tabClientSubject).Click();
+                Thread.Sleep(5000);
                 return type;
             }
         }
-
+        //Validate additional Subject added from Additional Client/Subject Pop up
+        public string ValidateAddedTypesOfClientL(string jobType, string name, string value)
+        {
+            if (jobType.Equals("Creditor Advisors") && value.Equals("Client"))
+            {
+                Thread.Sleep(5000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMoreL, 200);
+                //driver.FindElement(lnkShowMoreL).Click();
+                //Thread.Sleep(7000);
+                string type = driver.FindElement(By.XPath("//tr/td//span[text()='" + value + "']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                return type;
+            }
+            else if (jobType.Equals("Debtor Advisors") && value.Equals("Client"))
+            {
+                Thread.Sleep(5000);                
+                string type = driver.FindElement(By.XPath("//slot[text()='"+name+"']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                return type;
+            }
+            else
+            {
+                Thread.Sleep(6000);
+                string type = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']")).Text;
+                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(tabClientSubject).Click();
+                Thread.Sleep(5000);
+                return type;
+            }
+        }
         //Validate the visibility of New Opportunity Client/Subject button
         public string ValidateVisibilityOfNewOpportunityClientSubjectButton()
         {
@@ -3816,7 +3848,7 @@ public void ClickNewOpportunitySectorButton()
                 driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
                 Thread.Sleep(6000);
-                driver.FindElement(tabOppNameL).Click();
+                driver.FindElement(tabOppNameL).Click();               
                 Thread.Sleep(7000);
                 //string value = driver.FindElement(By.XPath("//tr[4]/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
                 string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
@@ -3829,15 +3861,43 @@ public void ClickNewOpportunitySectorButton()
                 Thread.Sleep(4000);
                 driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(5000);
-                //driver.FindElement(tabOppNameL).Click();
-                //Thread.Sleep(5000);
-                //IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-                //js.ExecuteScript("window.scrollTo(0,230)");
-                //Thread.Sleep(10000);
+                Thread.Sleep(5000);                             
                 //driver.FindElement(lnkShowMoreL).Click();
                 //Thread.Sleep(5000);
                 string value = driver.FindElement(By.XPath("//span[text()='Client/Subject']/ancestor::div/dd/div[1]//force-lookup//a/span//span/slot")).Text;
+                return value;
+            }
+        }
+
+        // To validate save functionality of Additional client
+        public string ValidateSaveFunctionalityOfAdditionalClientThruAdditionalClientButtonL(string name, string type, string recordType)
+        {
+            if (type.Equals("Creditor Advisors") && name.Equals("Accupac")|| type.Equals("Debtor Advisors") && name.Equals("Accupac"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectL, 80);
+                driver.FindElement(txtClientSubjectL).SendKeys(name);
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
+                driver.FindElement(btnSaveDetailsL).Click();
+                Thread.Sleep(6000);
+                driver.FindElement(lnkOppClientSubL).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(tabClientSubject).Click();
+                Thread.Sleep(5000);
+                string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                return value;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectL, 80);
+                driver.FindElement(txtClientSubjectL).SendKeys(name);
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
+                driver.FindElement(btnSaveDetailsL).Click();
+                Thread.Sleep(5000);
+                //driver.FindElement(lnkShowMoreL).Click();
+                //Thread.Sleep(5000);
+                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='"+ recordType + "']/ancestor::records-record-layout-row/slot/records-record-layout-item[1]//dd//a//slot/span/slot")).Text;
                 return value;
             }
         }
@@ -4202,6 +4262,8 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, btnNextL, 110);
             driver.FindElement(btnNextL).Click();
         }
+
+      
         //To click on Back To Opportunity button
         public string ClickBackToOppButtonAndValidatePage()
         {
@@ -4213,6 +4275,7 @@ public void ClickNewOpportunitySectorButton()
             return name;
         }
 
+       
         //To click on Back To Opportunity button
         public string ClickBackToOppButtonAndValidatePageL()
         {

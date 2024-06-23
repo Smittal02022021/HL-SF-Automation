@@ -112,7 +112,7 @@ By txtErrorMessages = By.CssSelector("div[id*='errorDiv_ep']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By btnOppNavigation = By.XPath("//div/button[@aria-label='Show Navigation Menu']");
-        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span//a");
         By valRec3rd = By.XPath("//table/tbody/tr[5]/th/span/a");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");

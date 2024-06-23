@@ -46,15 +46,15 @@ namespace SF_Automation.Pages
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By tblOpportunities = By.XPath("//div[1]/div/div/table");
-        By txtSearchOpp = By.XPath("//input[@name='Opportunity__c-search-input']");
+        By tblOpportunities = By.XPath("//div[2]/div/div/table");
+        By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]/span/span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]/span//span");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By tabOpportunityL = By.XPath("//a/span[text()='Opportunities']");
-        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valRec1st = By.XPath("//table/tbody/tr[1]/th/span//a");
         By btnCloseOpp = By.XPath("//ul[2]/li[2]/div[2]/button");
         By tab1stOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
@@ -440,7 +440,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
             Thread.Sleep(4000);
-            string opp = driver.FindElement(valSearchedOpp).Text;
+            string opp = driver.FindElement(valSearchedOpp).GetAttribute("title");
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
