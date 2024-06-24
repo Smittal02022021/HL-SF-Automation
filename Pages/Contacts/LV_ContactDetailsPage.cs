@@ -97,6 +97,14 @@ namespace SF_Automation.Pages.Contact
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
         By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
 
+        //HL Employee buttons
+        By lobButton = By.XPath("(//label[text()='Line of Business'])[2]/../div//button");
+        By lblIndustryGroup = By.XPath("//label[text()='Industry Group']");
+
+        //Edit HL Contact elements
+        By btnSaveOnEdit = By.XPath("(//button[contains(text(),'Save')])[2]");
+        By btnCancelOnEdit = By.XPath("//button[@name='CancelEdit']");
+
         public void CloseTab(string tabName)
         {
             Thread.Sleep(5000);
@@ -213,6 +221,26 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(8000);
+
+            By elePO = By.XPath("(//label[text()='Line of Business']/following::lightning-base-combobox-item)[2]//span[text()='CF']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+            driver.FindElement(elePO).Click();
+
+            driver.FindElement(btnSaveOnEdit).Click();
+            Thread.Sleep(5000);
+
+            string msg = driver.FindElement(By.XPath("//label[text()='Industry Group']/../div[@aria-live='assertive']")).Text;
+            if(msg == "Industry Group must be selected when LOB is CF")
+            {
+                result = true;
+                driver.FindElement(btnCancelOnEdit).Click();
+                Thread.Sleep(5000);
+            }
             return result;
         }
 

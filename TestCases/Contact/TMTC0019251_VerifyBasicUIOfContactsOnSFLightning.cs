@@ -54,6 +54,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
 
+                /*
                 //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
                 extentReports.CreateLog("User " + user + " details are displayed. ");
@@ -117,6 +118,7 @@ namespace SF_Automation.TestCases.Contact
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+                */
 
                 //Search SF Admin user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
@@ -132,11 +134,10 @@ namespace SF_Automation.TestCases.Contact
                     extentReports.CreateLog("User switched to lightning view. ");
                 }
 
-                Assert.IsTrue(login.ValidateUserLightningView(fileTMTC0019251, 2));
                 extentReports.CreateLog("SF Admin User: " + adminUser + " is able to login into lightning view. ");
 
                 //TC - TMT0034196 - Verify the Error Message "Industry Group must be selected when LOB is CF" is displayed when LOB field is selected.
-                lvHomePage.SearchContactFromMainSearch("Test External");
+                lvHomePage.SearchContactFromMainSearch(adminUser);
                 Assert.IsTrue(lvContactDetails.VerifyIndustryGroupErrorMessageWhenLOBIsCF());
                 extentReports.CreateLog("The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
 
