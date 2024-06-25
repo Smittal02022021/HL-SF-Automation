@@ -817,9 +817,10 @@ namespace SF_Automation.Pages.Common
             }
             catch
             {
+                this.SelectListViewLV("All");
             ReTry: try
                 {
-                    this.SelectListViewLV("All");
+                    
                     WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(_eleJobType(name)));
                 }

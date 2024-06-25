@@ -48,7 +48,6 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
-                //------Only System Admin can see the ERP Section on Opportunity Detail page//
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(adminUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
