@@ -15,6 +15,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         //System Admin: Verify New Job Type is present on Job Type Object page
         //TMTI0056876 Verify New / Updated Job Type And Job Code Under Job Type Object/tab
@@ -49,13 +50,15 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //------Only System Admin can see the ERP Section on Opportunity Detail page//
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(adminUserExl);
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + adminUserExl + " logged in on Lightning View");
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                //homePageLV.ClickAppLauncher();
                 homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);

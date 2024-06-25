@@ -7,10 +7,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -25,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0035971 = "TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus";
 
@@ -63,7 +60,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string stdUser = login.ValidateUser();
@@ -72,7 +72,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -145,7 +144,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     stdUser = login.ValidateUser();
@@ -154,7 +156,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "User: " + stdUser + " Standard User Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -196,13 +197,16 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToClassicView();
                     //Log out of Standard User
                     usersLogin.UserLogOut();
-
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
+                    string userCAOExl= ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "CAOUsers", 1)), true);
+                    Assert.AreEqual(caoUser.Contains(userCAOExl), true);
                     extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
 
                     login.SwitchToLightningExperience();

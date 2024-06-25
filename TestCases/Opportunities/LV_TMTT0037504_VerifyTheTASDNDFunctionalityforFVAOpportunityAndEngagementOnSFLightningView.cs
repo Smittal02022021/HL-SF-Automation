@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0037504 = "LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView";
         private string appNameExl;
@@ -74,7 +75,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string stdUserExl = ReadExcelData.ReadData(excelPath, "StandardUser", 1);
-                    usersLogin.SearchUserAndLogin(stdUserExl);
+                    homePage.SearchUserByGlobalSearchN(stdUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + stdUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
                     user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(stdUserExl), true);
@@ -132,7 +136,10 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as System Admin user 
                     adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 3, 1);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-                    usersLogin.SearchUserAndLogin(adminUserExl);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
                     user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(adminUserExl), true);
@@ -182,7 +189,10 @@ namespace SF_Automation.TestCases.Opportunities
                         dealMemberGroupName= ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", memberRow, 5);
                         extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl+ ", Member Group Name: "+ dealMemberGroupName);
                         extentReports.CreateStepLogs("Info", "Verify the TAS DND button availablility Deal team members: " + dealMemberNameExl + " of LOB: " + dealMemberLOBExl+ " with "+ dealMemberRoleExl+" role on Opportunity Detail page");
-                        usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                        homePage.SearchUserByGlobalSearchN(dealMemberNameExl);
+                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
                         login.SwitchToLightningExperience();
                         //Go to Opportunity module in Lightning View                     
                         homePageLV.SelectAppLV(appNameExl);
@@ -255,7 +265,11 @@ namespace SF_Automation.TestCases.Opportunities
                             dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", memberRow, 5);
                             extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl + ", Member Group Name: " + dealMemberGroupName);
                             extentReports.CreateStepLogs("Info", "Verify that Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
-                            usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                            
+                            homePage.SearchUserByGlobalSearchN(dealMemberNameExl);
+                            extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " details are displayed. ");
+                            //Login user
+                            usersLogin.LoginAsSelectedUser();
                             login.SwitchToLightningExperience();
                             //Go to Opportunity module in Lightning View                     
                             homePageLV.SelectAppLV(appNameExl);
@@ -278,9 +292,12 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as FVA- CAO user 
                     string caoUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 2, 1);
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
-                    usersLogin.SearchUserAndLogin(caoUserExl);
+                    
+                    homePage.SearchUserByGlobalSearchN(caoUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
-                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
@@ -313,9 +330,11 @@ namespace SF_Automation.TestCases.Opportunities
                         dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", newMemberRow, 5);
                         extentReports.CreateStepLogs("Info", "Verify the Access to DND opportunity and TAS DND button for Deal Team Member Name: " + dealMemberNameExl + ", of LOB: " + dealMemberLOBExl + ", with Role: " + dealMemberRoleExl + ", from Group Name: " + dealMemberGroupName);
 
-                        usersLogin.SearchUserAndLogin(dealMemberNameExl);
-                        login.SwitchToLightningExperience();
-                        //homePageLV.ClickAppLauncher();                     
+                        homePage.SearchUserByGlobalSearchN(dealMemberNameExl);
+                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+                        login.SwitchToLightningExperience();                    
                         homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                         extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
@@ -351,7 +370,10 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     
                     extentReports.CreateStepLogs("Info", "Verify FVA CAO User: " + caoUserExl + " can access TAS DND Opportinity and TAS DND button ");
-                    usersLogin.SearchUserAndLogin(caoUserExl);
+                    homePage.SearchUserByGlobalSearchN(caoUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectAppLV(appNameExl);
@@ -412,7 +434,11 @@ namespace SF_Automation.TestCases.Opportunities
                     dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 7, 5);
                     extentReports.CreateStepLogs("Info", "Verify TAS DND button is accessible to FVA Deal team Member Name: " + dealMemberNameExl + ", of LOB: " + dealMemberLOBExl + ", with Role: " + dealMemberRoleExl + ", from Group Name: " + dealMemberGroupName+ "On Engaged Opportunity");
                     
-                    usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                   // usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                    homePage.SearchUserByGlobalSearchN(dealMemberNameExl);
+                    extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     //Go to Opportunity module in Lightning View                     
                     homePageLV.SelectAppLV(appNameExl);
@@ -449,9 +475,11 @@ namespace SF_Automation.TestCases.Opportunities
                         dealMemberGroupName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewDealTeamMembers", 2, 5);
                         extentReports.CreateStepLogs("Info", "Member Name: " + dealMemberNameExl + ", Member LOB: " + dealMemberLOBExl + ", Member Role: " + dealMemberRoleExl + ", Member Group Name: " + dealMemberGroupName);
                         extentReports.CreateStepLogs("Info", "Verify that New Deal team members: " + dealMemberNameExl + "of LOB: " + dealMemberLOBExl + " with " + dealMemberRoleExl + " role can access the TAS DND Opportunity");
-                        usersLogin.SearchUserAndLogin(dealMemberNameExl);
+                        homePage.SearchUserByGlobalSearchN(dealMemberNameExl);
+                        extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
                         login.SwitchToLightningExperience();
-                        //homePageLV.ClickAppLauncher();
                         //Go to Opportunity module in Lightning View                     
                         homePageLV.SelectAppLV(appNameExl);
                         Assert.AreEqual(appNameExl, homePageLV.GetAppName());

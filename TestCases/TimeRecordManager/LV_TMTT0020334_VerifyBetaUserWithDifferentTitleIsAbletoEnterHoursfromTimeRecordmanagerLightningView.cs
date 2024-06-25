@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView:BaseClass
+    class LV_TMTT0020334_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView:BaseClass
     {
         //TMTT0020334
         ExtentReport extentReports = new ExtentReport();
@@ -59,6 +59,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
+                //TMTI0045472 Verify that User is able to enter hours from time record manager for  title "Senior Advisor"
                 int rowUser = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= rowUser; row++)
                 {

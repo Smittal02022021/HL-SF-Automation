@@ -24,8 +24,8 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0035971 = "TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus";
 
@@ -64,7 +64,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string stdUser = login.ValidateUser();
@@ -73,7 +76,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -122,8 +124,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
 
-                    login.SwitchToClassicView();
-                    extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
+                    homePageLV.UserLogoutFromSFLightningView();
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
                     extentReports.CreateStepLogs("Info", stdUser + " Standard User logged out ");
@@ -146,7 +147,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     stdUser = login.ValidateUser();
@@ -155,7 +159,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Info", "User: " + stdUser + " Standard User Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -171,7 +174,6 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
 
                     //TMTI0085986 Verify that if an opportunity is converted into engagement prior to a verbally engaged opportunity, then the "Start Date" field on the engagement detail page gets populated with the date from the Date Engaged field
-
                     //Opp Stage/Priority is Updted to Verbally Engaged 
                     //opportunityDetails.UpdateStagePriorityL(fileTMTT0035971,row);
                     extentReports.CreateStepLogs("Info", "Verify that if an opportunity is converted into engagement prior to a verbally engaged opportunity, then the Start Date field on the engagement detail page gets populated with the date from the Date Engaged field");
@@ -186,65 +188,65 @@ namespace SF_Automation.TestCases.Opportunities
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
-                    extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
+                    extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
 
-                    login.SwitchToClassicView();
+                    homePageLV.UserLogoutFromSFLightningView();
                     //Log out of Standard User
                     usersLogin.UserLogOut();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "CAOUsers", 1));
+                    string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(ReadExcelData.ReadData(excelPath, "CAOUsers", 1)), true);
-                    extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
+                    Assert.AreEqual(caoUser.Contains(userCAOExl), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + caoUser + " CAO User logged in ");
 
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
+                    extentReports.CreateStepLogs("Info", "User: " + caoUser + " Switched to Lightning View ");
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
-
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
-                    extentReports.CreateLog("Opportunity " + status + " ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL();
-                    extentReports.CreateLog("Opportunity Converted into Engagement ");
+                    extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
-                    extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                    extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    //Get DateENgaged                  
+                    //Get DateEngaged                  
                     string valEngDateEngaged = engagementDetails.GetEngStartDate();   
                     extentReports.CreateStepLogs("Info", " Engagement Start Date: " + valEngDateEngaged+" Opportunity Page Date Engaged: "+ valEngDateEngaged);                    
                     Assert.AreEqual(valEngDateEngaged, valOppDateEngaged);
                     extentReports.CreateStepLogs("Pass", "Date Engaged on Opportunity Page and Start Date on Engagement Page are same after conversion");
 
-
-                    login.SwitchToClassicView();                    
-                    usersLogin.UserLogOut();
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "User logged out ");
                     driver.Quit();
+                    extentReports.CreateStepLogs("Info", "Browser closed");
                 }
             }
             catch (Exception e)

@@ -2,6 +2,7 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -20,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         CompanyDetailsPage companyDetailsPage = new CompanyDetailsPage();
         RandomPages Pages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT = "CloneOperation1";
 
@@ -57,14 +59,18 @@ namespace SF_Automation.TestCases.Opportunity
                 //Calling functions to validate Clone operation
 
                 int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
-
                 for (int row = 2; row <= rowUsers; row++)
                 {
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     if (valUser.Equals("Drew Koecher"))
                     {
                         //Login as Standard User and validate the user
-                        usersLogin.SearchUserAndLogin(valUser);
+                        
+                        homePage.SearchUserByGlobalSearchN(valUser);
+                        extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+
                         login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -17,6 +18,8 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         OpportunityManager opportunityManager = new OpportunityManager();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
+
         public static string fileTC1560 = "T1560_OpportunityManager_UpdateFieldsOfLOB_FAS";
 
         [OneTimeSetUp]
@@ -49,8 +52,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Standard user,validate user and search for created opportunity
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);                
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");

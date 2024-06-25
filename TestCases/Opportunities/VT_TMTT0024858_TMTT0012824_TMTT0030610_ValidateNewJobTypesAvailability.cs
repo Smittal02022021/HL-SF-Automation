@@ -4,6 +4,7 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -15,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         EngagementHomePage engagementHome = new EngagementHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         //NA for LV 
         public static string fileTMTI0056880 = "TMTI0056880_ValidateNewJobTypesAvailability";
@@ -34,7 +36,6 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0056880;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -48,9 +49,12 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
-                Console.WriteLine("rowCount " + rowJobType);
                 //Login as Standard User profile and validate the user
-                usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");

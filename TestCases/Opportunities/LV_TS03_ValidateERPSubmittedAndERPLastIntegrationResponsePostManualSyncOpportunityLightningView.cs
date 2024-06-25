@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileERPTS02 = "LV_TS02_PostUpdatingDFFFieldsOfOpportunity";
         [OneTimeSetUp]
@@ -46,12 +47,14 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
-                usersLogin.SearchUserAndLogin(adminUserExl);
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);
                 extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                //homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();

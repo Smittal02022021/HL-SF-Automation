@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0055018 = "LV_TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement";
 
@@ -59,13 +60,14 @@ namespace SF_Automation.TestCases.Opportunities
                         string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                         //Login as Standard User profile and validate the user
                         string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                        usersLogin.SearchUserAndLogin(valUser);
+                        homePage.SearchUserByGlobalSearchN(valUser);
+                        extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
                         login.SwitchToLightningExperience();
                         string stdUser = login.ValidateUserLightningView();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-
-                        //homePageLV.ClickAppLauncher();
                         string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                         homePageLV.SelectAppLV(appNameExl);
                         string appName = homePageLV.GetAppName();
@@ -133,8 +135,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                         //update CC and NBC checkboxes 
                         opportunityDetails.UpdateOutcomeDetails(fileTMTI0055018);
-                        //Login again as Standard User                       
-                        usersLogin.SearchUserAndLogin(valUser);
+                        //Login again as Standard User            
+                        homePage.SearchUserByGlobalSearchN(valUser);
+                        extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
                         login.SwitchToLightningExperience();
                         stdUser = login.ValidateUserLightningView();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
@@ -165,12 +170,16 @@ namespace SF_Automation.TestCases.Opportunities
 
                         //Login as CAO user to approve the Opportunity
                         string userCAO = ReadExcelData.ReadData(excelPath, "Users", 2);
-                        usersLogin.SearchUserAndLogin(userCAO);
+                        //usersLogin.SearchUserAndLogin(userCAO);
+                        homePage.SearchUserByGlobalSearchN(userCAO);
+                        extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+
                         login.SwitchToLightningExperience();
                         string user = login.ValidateUserLightningView();
                         Assert.AreEqual(user.Contains(userCAO), true);
                         extentReports.CreateLog("CAO User: " + userCAO + " logged in on Lightning View");
-                        //homePageLV.ClickAppLauncher();
 
                         //Go to Opportunity module in Lightning View 
                         appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);

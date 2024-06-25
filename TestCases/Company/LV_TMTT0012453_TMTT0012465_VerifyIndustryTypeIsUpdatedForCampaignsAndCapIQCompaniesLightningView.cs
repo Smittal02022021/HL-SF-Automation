@@ -18,6 +18,8 @@ namespace SF_Automation.TestCases.Companies
         RandomPages randomPages = new RandomPages();
         CapIQCompaniesHomePage capIQCompaniesHome = new CapIQCompaniesHomePage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
+
         public static string fileTMTT0012453 = "LV_TMTT0012453_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies";
 
         [OneTimeSetUp]
@@ -49,7 +51,12 @@ namespace SF_Automation.TestCases.Companies
                 //performing actions as System Admin 
                 //Login user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+                //usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(userExl), true);

@@ -5,6 +5,7 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -15,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0027307 = "TMTI0027307_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage";
 
@@ -51,7 +53,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Industry Type Count: " + rowIndustryType);
 
                 //Login as Standard User profile and validate the user
-                usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);                
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);

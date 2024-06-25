@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.Companies
         LVHomePage homePageLV = new LVHomePage();
         CompanyHomePage companyhome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0046461 = "TMTI0046461_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering";
         public string engNumber;
@@ -59,7 +60,11 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 //Login again as CF Financial User
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                //usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);

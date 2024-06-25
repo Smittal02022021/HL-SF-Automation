@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.Companies
         CompanyHomePage companyHome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
 
         public static string fileTMTI0027313 = "TMTI0027313_VerifyCFIndustryGroupUpdatedToTECHonOpportunities";
@@ -53,7 +54,12 @@ namespace SF_Automation.TestCases.Companies
 
                 //Login as Standard User profile and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                //usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);

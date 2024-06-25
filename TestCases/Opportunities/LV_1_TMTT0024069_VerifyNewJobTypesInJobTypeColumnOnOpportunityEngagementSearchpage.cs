@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         EngagementHomePage engagementHome = new EngagementHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0055401 = "TMTI0055401_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage";
         string moduleNameExl;
@@ -53,7 +54,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    //usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser(); 
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);

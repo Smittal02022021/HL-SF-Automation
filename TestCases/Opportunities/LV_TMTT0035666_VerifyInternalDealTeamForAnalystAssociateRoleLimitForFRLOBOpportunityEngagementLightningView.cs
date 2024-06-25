@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0035666 = "LV_TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement";
         [OneTimeSetUp]
@@ -38,7 +39,6 @@ namespace SF_Automation.TestCases.Opportunities
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0035666;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -57,12 +57,14 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 25);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -138,18 +140,19 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateOutcomeDetails(fileTMTT0035666);
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
 
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -168,12 +171,14 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login as CAO user to approve the Opportunity
                     string userCAO = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                    usersLogin.SearchUserAndLogin(userCAO);
+                    homePage.SearchUserByGlobalSearchN(userCAO);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
                     extentReports.CreateLog("User: " + userCAO + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
@@ -182,7 +187,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
-
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 

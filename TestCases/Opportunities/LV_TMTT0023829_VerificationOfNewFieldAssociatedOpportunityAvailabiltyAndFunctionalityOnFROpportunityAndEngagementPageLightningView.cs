@@ -23,6 +23,7 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0054683 = "LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage";
 
@@ -74,13 +75,14 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
 
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);                    
                     extentReports.CreateLog("User: " + valUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -135,12 +137,14 @@ namespace SF_Automation.TestCases.Opportunities
                      
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-                    usersLogin.SearchUserAndLogin(adminUserExl);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
                     string user = login.ValidateUser();
                     Assert.AreEqual(user.Contains(adminUserExl), true);
                     extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-                    //login.SwitchToClassicView();
                     opportunityHome.SearchOpportunity(opportunityName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
@@ -164,7 +168,6 @@ namespace SF_Automation.TestCases.Opportunities
                     /////////////////////////////////////////////////////////////////////
                     login.SwitchToLightningExperience();
                     extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
                     Assert.AreEqual(appNameExl, homePageLV.GetAppName());
@@ -182,10 +185,12 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToClassicView();
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();
-
                     //Login again as Standard User
                     extentReports.CreateLog("login as Standard User ");
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);                   
@@ -219,13 +224,14 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as CAO user to approve the Opportunity
                     extentReports.CreateLog("login as CAO  User switched to Lightning View ");
                     string userCAO = ReadExcelData.ReadData(excelPath, "Users", 2);
-                    usersLogin.SearchUserAndLogin(userCAO);
+                    homePage.SearchUserByGlobalSearchN(userCAO);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
-
                     extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                   //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -302,7 +308,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created Engagement
                     engagementHome.SearchEngagement(engagementName);
-
                     //New Field is Present on Opportunity Detail Page for System Admin 
                     Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresent());
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for System Administrator: " + user + " ");
@@ -318,7 +323,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(user + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
 
                     //Standard User Login 
-                    usersLogin.SearchUserAndLogin(valUser);                    
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valUser), true);                    

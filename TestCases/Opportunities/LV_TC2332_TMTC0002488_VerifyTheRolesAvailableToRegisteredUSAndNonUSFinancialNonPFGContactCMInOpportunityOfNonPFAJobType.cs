@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT2332 = "LV_TC2332_TMTC0002488_VerifyTheRolesAvailable";
 
@@ -49,8 +50,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-
-                usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);

@@ -19,6 +19,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTC1692 = "LV_T1692_ValidationsToBeCompletedBeforeFVAOpportunityIsApproved";
 
@@ -37,7 +38,6 @@ namespace SF_Automation.TestCases.Opportunities
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1692;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -50,7 +50,6 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-
                 for (int row = 2; row <= rowJobType; row++)
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
@@ -58,12 +57,15 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity with Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                    usersLogin.SearchUserAndLogin(userExl);
+
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -103,7 +105,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string txtExpectedRequiredFieldsValidation = opportunityDetails.GetExpectedRequiredFieldsValidationForConversionLV(fileTC1692);
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
-
                 }
                 usersLogin.ClickLogoutFromLightningView();
                 usersLogin.UserLogOut();

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -18,8 +19,8 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         CNBCForm form = new CNBCForm();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         OpportunityManager oppMgr = new OpportunityManager();
+        HomeMainPage homePage = new HomeMainPage();
 
 
         public static string fileTC2081 = "T1592_ValidationsToBeCompleted.xlsx";
@@ -39,7 +40,6 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC2081;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -53,8 +53,11 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login again as Standard User
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);                
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);

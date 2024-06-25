@@ -70,15 +70,15 @@ namespace SF_Automation.TestCases.EventExpense
 
 
                 ///*****************
-                string descEnabled= expRequest.SelectMarketingSupport("Yes");
-                Assert.AreEqual("True",descEnabled);
-                extentReports.CreateLog("Description of Marketing Support field is enabled after selecting Marketing support as Yes ");
+                //string descEnabled= expRequest.SelectMarketingSupport("Yes");
+                //Assert.AreEqual("True",descEnabled);
+                //extentReports.CreateLog("Description of Marketing Support field is enabled after selecting Marketing support as Yes ");
                 
-                //Click on Edit link, enter description of Marketing Support, select Marketing Support as No and validate if description box is disabled
-                expRequest.EnterMarketingSupportDesc();
-                string descDisabled = expRequest.SelectMarketingSupport("No");
-                Assert.AreEqual("False", descDisabled);
-                extentReports.CreateLog("Description of Marketing Support field is disabled after selecting Marketing support as No ");
+                ////Click on Edit link, enter description of Marketing Support, select Marketing Support as No and validate if description box is disabled
+                //expRequest.EnterMarketingSupportDesc();
+                //string descDisabled = expRequest.SelectMarketingSupport("No");
+                //Assert.AreEqual("False", descDisabled);
+                //extentReports.CreateLog("Description of Marketing Support field is disabled after selecting Marketing support as No ");
 
                 ///*****************
 

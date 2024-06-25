@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -15,6 +16,8 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         UsersLogin usersLogin = new UsersLogin();
+        HomeMainPage homePage = new HomeMainPage();
+
         public static string fileTC1649 = "T1649_AdditionalClientsSubjectRequired.xlsx";
        
         [OneTimeSetUp]
@@ -45,7 +48,11 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
                 login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);

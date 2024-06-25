@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0056883 = "LV_TMTI0056883_VerifyNewJobTypeIsForFVAOnly";
         string valJobType;
@@ -42,13 +43,15 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
                 
                 //Login as Standard User profile and validate the user
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);               
-                usersLogin.SearchUserAndLogin(valUser);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-                //homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();

@@ -60,7 +60,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login user
                 usersLogin.LoginAsSelectedUser();
-
                 login.SwitchToLightningExperience();
                 string user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(valUserExl), true);
@@ -109,8 +108,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Performing actions with System Admin
                 string caoUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                //usersLogin.SearchUserAndLogin(caoUserExl);
-
                 homePage.SearchUserByGlobalSearchN(caoUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
@@ -119,7 +116,6 @@ namespace SF_Automation.TestCases.Opportunities
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(caoUserExl), true);
                 extentReports.CreateLog("System Administrator User: " + caoUserExl + " logged in on Lightning View");
-                //homePageLV.ClickAppLauncher();
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -164,7 +160,6 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog(valueIsMain + " even it was deselected while editing the contract details ");
 
                 //---------------------------------------------------------------//
-
                 randomPages.CloseActiveTab(contractName1Exl);
                 extentReports.CreateStepLogs("Info", contractName1Exl+" detail page is closed");
 

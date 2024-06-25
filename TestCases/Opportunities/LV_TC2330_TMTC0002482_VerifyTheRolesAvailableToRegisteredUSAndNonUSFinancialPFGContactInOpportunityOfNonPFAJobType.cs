@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
-
+        HomeMainPage homePage = new HomeMainPage();
         public static string fileT2330 = "LV_T2330_TMTC0002482_VerifyTheRolesAvailable";
 
         [OneTimeSetUp]
@@ -50,7 +50,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -60,9 +64,7 @@ namespace SF_Automation.TestCases.Opportunities
                 for (int row = 2; row <= teamMember; row++)
                 {
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);                   
-                    
-                    //homePageLV.ClickAppLauncher();
+                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);  
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -147,7 +149,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     if (opportunityName.Equals("Project Neon"))
                     {
-                        if (teamMemberName.Equals("Jeffrey Michelson"))
+                        if (teamMemberName.Equals("Jake Noone"))
                         {
                             extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for US Opportunity with Non PFA Job Type for Registered US FIN PFG contact ");
                         }
@@ -158,7 +160,7 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
-                        if (teamMemberName.Equals("Jeffrey Michelson"))
+                        if (teamMemberName.Equals("Jake Noone"))
                         {
                             extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for Foreign Opportunity with Non PFA Job Type for Registered US FIN PFG contact ");
                         }
@@ -173,7 +175,6 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(opportunityName);
                 }
                 homePageLV.UserLogoutFromSFLightningView();
-                //usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
             }

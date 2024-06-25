@@ -21,7 +21,8 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
-     
+        HomeMainPage homePage = new HomeMainPage();
+
         public static string fileTMTI0055029 = "LV_TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement";
 
         [OneTimeSetUp]
@@ -59,7 +60,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string stdUser = login.ValidateUser();
@@ -68,7 +72,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -135,7 +138,6 @@ namespace SF_Automation.TestCases.Opportunities
                     //Logout of user and validate Admin login
                     usersLogin.UserLogOut();                    
                     extentReports.CreateLog(stdUser+ " Standard User logged out ");
-
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
@@ -163,7 +165,10 @@ namespace SF_Automation.TestCases.Opportunities
                     }
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     stdUser = login.ValidateUser();
@@ -172,7 +177,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
                     
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -200,7 +204,12 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.UserLogOut();
 
                     //Login as CAO user to approve the Opportunity
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 2));
+                    string userCAOExl = ReadExcelData.ReadData(excelPath, "Users", 2);
+                    
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string caoUser = login.ValidateUser();
@@ -209,7 +218,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);

@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT2331 = "LV_TC2331_TMTC0002485_VerifyTheRolesAvailable";
 
@@ -48,7 +49,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
@@ -59,9 +64,6 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-
-                    //homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -170,7 +172,6 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(opportunityName);
                 }
                 homePageLV.UserLogoutFromSFLightningView();
-                //usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
             }

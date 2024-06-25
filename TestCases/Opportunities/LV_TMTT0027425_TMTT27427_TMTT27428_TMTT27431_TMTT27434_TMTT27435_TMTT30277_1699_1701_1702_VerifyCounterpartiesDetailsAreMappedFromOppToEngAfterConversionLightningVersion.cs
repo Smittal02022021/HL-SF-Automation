@@ -24,6 +24,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOppCounterparty addCounterparty = new AddOppCounterparty();
         LVHomePage homePageLV = new LVHomePage();
         MassRelationshipCreatorPage creatorPage = new MassRelationshipCreatorPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string TMTI0063910 = "TMTI0063910_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion";
         private string popupMessage;
@@ -59,21 +60,20 @@ namespace SF_Automation.TestCases.Opportunities
                 for (int row = 2; row <= rowOpp; row++)
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
-
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    usersLogin.SearchCFUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
-
                     string stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -144,24 +144,21 @@ namespace SF_Automation.TestCases.Opportunities
                     }
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
-
                     stdUser = login.ValidateUser();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
-
-                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
-                    //moduleNameExl = ReadExcelData.ReadData(excelPath, "ModuleName", 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -287,10 +284,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("System Administrator Performing the Manage Relationship Activities as CF financial user do not have access to Manage Relationship button ");
                     string user = login.ValidateUser();
                     login.SwitchToLightningExperience();
-
-                    //homePageLV.ClickAppLauncher();
-                    //Go to Opportunity module in Lightning View 
-                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -338,7 +331,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Contact Name column is sorted in ascending order " + ascResult + " ");
 
                     //Validate details by selecting External Team, Client Team and CP Contact
-                    //
                     creatorPage.ClickExternalTeam();
                     string extContactName = creatorPage.ValidateContactName();
                     Assert.AreEqual(valContact, extContactName);
@@ -368,10 +360,12 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToClassicView();
 
                     ///////////////////////////
-
                     //Login as CAO user to approve the Opportunity
                     string userCAO = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", row, 1);
-                    usersLogin.SearchUserAndLogin(userCAO);
+                    homePage.SearchUserByGlobalSearchN(userCAO);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToClassicView();
 
                     string caoUser = login.ValidateUser();
@@ -380,16 +374,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                     login.SwitchToLightningExperience();
                     extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     //Go to Opportunity module in Lightning View 
-                    //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
-                    //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
@@ -435,7 +425,6 @@ namespace SF_Automation.TestCases.Opportunities
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
                     extentReports.CreateLog("Counterparty Company Page is closed user switched previous Tab ");
-
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(valUser + " logged out ");
                     driver.Quit();

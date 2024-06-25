@@ -57,8 +57,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as supervisor
                 userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                homePage.SearchUserByGlobalSearch(userExl);
-                //usersLogin.LoginAsSelectedUser();
                 homePage.SearchUserByGlobalSearchN(userExl);
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
@@ -82,7 +80,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 for (int row = 2; row <= rowCount; row++)
                 {
                     //Get the default rate of user as per role
-                    //TMTI0019541 Verify Rate Generation To Staff Members With Different Titles In Summary Log Tab
+                    
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
                     string staffTitle = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 2);
                     string defaultRateExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 3);
@@ -121,7 +119,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     double expectedBilledAmount = Convert.ToDouble(hoursExl) * Convert.ToDouble(defaultRateExl);
                     extentReports.CreateStepLogs("Passed", "Expected Calculated Amount with the Selected sheet for Staff Title: " + staffTitle + " should be:: " + expectedBilledAmount);
 
-                    //Verify that the FVA Supervisor can see the calculated on Summay logs amount as per the rate sheet
+                    //TMTI0019541  Verify that the FVA Supervisor can see the calculated on Summay logs amount as per the rate sheet
                     double actualSummaryLogsBilledAmount = timeEntry.GetTotalAmountLV();
                     Assert.AreEqual(expectedBilledAmount, actualSummaryLogsBilledAmount, "Verify the Amount is calculaton as per the selected Rate sheet on Summary Logs page ");
                     extentReports.CreateStepLogs("Passed", "Amount is calculaton as per the selected Rate sheet on Summary Logs page");
@@ -138,9 +136,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     
                     textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, hoursExl);
                     Assert.AreEqual(textMessage, "Time Record Added");
-                    extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);                    
+                    extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
 
-                    //Verify that the FVA Supervisor can see the calculated on Detail Logs logs amount as per the rate sheet
+                    //TMTI0045475 Verify that the FVA Supervisor can see the calculated on Detail Logs logs amount as per the rate sheet
                     double actualDetailLogsBilledAmount = timeEntry.GetTotalAmountLV();
                     Assert.AreEqual(expectedBilledAmount, actualDetailLogsBilledAmount, "Verify the Amount is calculaton as per the selected Rate sheet on Detail Logs page ");
                     extentReports.CreateStepLogs("Passed", "Amount is calculaton as per the selected Rate sheet on Detail Logs page");

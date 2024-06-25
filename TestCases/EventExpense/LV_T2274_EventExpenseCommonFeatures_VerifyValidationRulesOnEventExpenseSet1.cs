@@ -29,7 +29,7 @@ namespace SalesForce_Project.TestCases.EventExpense
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void SearchCFOpportunityWithNewJobTypeLV()
+        public void VerifyValidationRulesOnEventExpenseLV()
         {
             try
             {
@@ -118,8 +118,7 @@ namespace SalesForce_Project.TestCases.EventExpense
                 bool isDescMarketingSupport = expRequest.GetDescriptionMarketingSupportStateLWC();
                 Assert.IsTrue(isDescMarketingSupport, "Verify Description Marketing Support field is Enabled after selecting Marketing support as Yes");
                 extentReports.CreateStepLogs("Passed", "Description of Marketing Support field is Enabled after selecting Marketing support as Yes ");
-
-                
+                                
                 expRequest.SelectMarketingSupportLWC("No");
                 isDescMarketingSupport = expRequest.GetDescriptionMarketingSupportStateLWC();
                 Assert.IsFalse(isDescMarketingSupport, "Verify Description Marketing Support field is Disabled after selecting Marketing support as No");

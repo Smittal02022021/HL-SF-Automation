@@ -19,6 +19,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOppCounterparty addCounterparty = new AddOppCounterparty();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0063927 = "TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion";
         private string selectedCompany;
@@ -61,14 +62,16 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     //Login again as CF Financial User
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    usersLogin.SearchCFUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     string cfUser = login.ValidateUser();
                     Assert.AreEqual(cfUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + cfUser + " logged in ");
 
                     //Switching to LightningView
                     login.SwitchToLightningExperience();
-                    //homePageLV.ClickAppLauncher();
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName",1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
@@ -133,7 +136,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //TMTI0075578 Verify the funtionality of adding Counterparty through existing opportunity
                     //TMTI0075580 Verify the funtionality of adding Counterparty through existing Comapny list
-
                     int filtersCount = ReadExcelData.GetRowCount(excelPath, "FilterSections");
                     for (int optionRow = 2; optionRow <= filtersCount; optionRow++)
                     {
@@ -189,7 +191,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User returned to Counterparties List Page");
                     extentReports.CreateLog(counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
 
-
                     // TMTI0075582-Verify the funtionality of adding Counterparty through "View All Company List" button
                     extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from View All Company List button ");
 
@@ -222,7 +223,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List ");
 
                     //TMTI0070802-Verification of Seacrh filter available on View Counterparty screen
-
                     addCounterparty.SearchCounterparty(selectedCompany);
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCompany), "Verify added Company: " + selectedCompany + " is under Counterparties List while searching from Search Box ");
                     extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List while searching from Search Box ");
@@ -261,7 +261,6 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateExceptionLog(e.Message);
                 homePageLV.UserLogoutFromSFLightningView();
                 login.SwitchToLightningExperience();
-                //homePageLV.ClickAppLauncher();
                 homePageLV.SelectAppLV(appNameExl);
                 homePageLV.SelectModule(moduleNameExl);
                 opportunityHome.SearchOpportunityInLightning(nameOpportunityExl);

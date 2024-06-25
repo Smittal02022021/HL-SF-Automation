@@ -13,12 +13,12 @@ namespace SF_Automation.TestCases.Contacts
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         ContactHomePage contactHome = new ContactHomePage();
         RandomPages randomPages = new RandomPages();
         ContactDetailsPage contactDetail = new ContactDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTC1197 = "LV_TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage";
 
@@ -44,7 +44,11 @@ namespace SF_Automation.TestCases.Contacts
 
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1197;
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(userExl);
+                //usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(userExl), true);

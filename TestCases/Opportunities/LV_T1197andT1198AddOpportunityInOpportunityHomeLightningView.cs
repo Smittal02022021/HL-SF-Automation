@@ -15,6 +15,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTC1197 = "LV_TC1197andTC1198AddOpportunityInOpportunityHome";
 
@@ -40,7 +41,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1197;
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(userExl), true);

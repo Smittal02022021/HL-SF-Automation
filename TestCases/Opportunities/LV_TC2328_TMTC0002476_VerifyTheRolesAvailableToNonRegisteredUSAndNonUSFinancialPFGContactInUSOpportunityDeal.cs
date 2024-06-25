@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT2328 = "LV_TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUS";
 
@@ -36,7 +37,6 @@ namespace SF_Automation.TestCases.Opportunities
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT2328;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
@@ -50,19 +50,20 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Login as Standard User profile and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
                 extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                 int users = ReadExcelData.GetRowCount(excelPath, "Users");
-
                 for (int row = 2; row <= users; row++)
                 {
                     string opportunityName = ReadExcelData.ReadData(excelPath, "Users", 3);
                     string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -170,7 +171,6 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateStepLogs("Pass", "Specialty role checkbox is not displayed ");
                     }
 
-
                     //Verify PE/HF role
                     string chkPE = opportunityDetails.VerifyPERole();
                     if (teamMemberName.Equals("Eli Meyer")) //(teamMemberName.Equals("Alexander Odysseos"))
@@ -246,7 +246,6 @@ namespace SF_Automation.TestCases.Opportunities
                             extentReports.CreateStepLogs("Pass", "All role checkboxes are displayed for non registered Non US FIN PFG contact in US Opportunity ");
                         else
                             extentReports.CreateStepLogs("Pass", "Only Non Registered role checkbox is displayed for non registered US FIN PFG contact in US Opportunity ");
-
                     }
                     else
                     {

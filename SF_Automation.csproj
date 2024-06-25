@@ -852,8 +852,8 @@
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_2_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRCAOdUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0020334_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0020334_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005430_TimeRecorderFunctionalitiesLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0009535_TMTT0020334_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView.cs" />

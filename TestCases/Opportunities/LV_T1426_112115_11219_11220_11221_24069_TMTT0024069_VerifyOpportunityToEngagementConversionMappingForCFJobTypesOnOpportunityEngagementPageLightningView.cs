@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0055384 = "LV_T1426_OpportunityToEngagementConversionMappingForCF";
         [OneTimeSetUp]
@@ -39,7 +40,6 @@ namespace SF_Automation.TestCases.Opportunities
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0055384;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -61,12 +61,14 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();   
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");                    
-                    //homePageLV.ClickAppLauncher();
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");  
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -83,7 +85,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                     //TMTT0011215- Verify the Women Led field is available for all LOB:CF Opportunity
                     //TMTT0011221- Verify the Women-Led field under the administration section on the Opportunity page
-
                     ///////////////////////////////
                     //Validate Women Led field and Calling AddOpportunities function      
                     string womenLed = addOpportunity.ValidateWomenLedFieldLV(valRecordType);
@@ -147,7 +148,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
+                    //usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
@@ -160,10 +165,8 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
 
@@ -175,27 +178,26 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
-                    usersLogin.SearchUserAndLogin(userCAOExl);
-
+                    //usersLogin.SearchUserAndLogin(userCAOExl);
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
-
-                    //homePageLV.ClickAppLauncher();
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
                     //TMTI0055402 Verify the availability of Job Types for converted engagement on the Engagement page
                     //Search for created opportunity &Approve the Opportunity 
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
@@ -206,14 +208,12 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
-
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     login.SwitchToClassicView();
-
                     engagementHome.ClickEngagementTab();
                     engagementHome.SearchEngagementWithNumber(engagementNumber);
 
@@ -237,7 +237,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Women Led", lblWomenLed);
                     extentReports.CreateStepLogs("Passed", "Field : " + lblWomenLed + " is found on converted Engagement ");
                     string secWomenLed = engagementDetails.GetSectionNameOfWomenLedField(valJobType);
-
                     if (valJobType.Contains("ESOP Corporate Finance") || valJobType.Contains("General Financial Advisory") || valJobType.Contains("Real Estate Brokerage") || valJobType.Contains("Special Committee Advisory") || valJobType.Contains("Strategic Alternatives Study") || valJobType.Contains("Take Over Defense") || valJobType.Equals("Activism Advisory") || valJobType.Equals("Strategy") || valJobType.Equals("Post Merger Integration") || valJobType.Equals("Valuation Advisory"))
                     {
                         Assert.AreEqual("Closing - Admin Details", secWomenLed);
@@ -256,8 +255,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6), engWomenLed);
                     extentReports.CreateStepLogs("Passed", "Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
 
-                    /////////////////////////////////////////////////    
-
+                    ///////////////////////////////////////////////// 
                     engagementDetails.ClickRelatedOpportunityLink();
                     //Validate the ERP status on Opp details page                
                     ERPStatusIG = opportunityDetails.GetERPIntegrationStatus();

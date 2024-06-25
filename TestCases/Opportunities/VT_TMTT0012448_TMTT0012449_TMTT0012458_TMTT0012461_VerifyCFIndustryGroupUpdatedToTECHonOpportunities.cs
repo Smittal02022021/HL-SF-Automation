@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -23,6 +24,7 @@ namespace SF_Automation.TestCases.Opportunity
         EngagementHomePage engagementHome = new EngagementHomePage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         ContractDetailsPage contractDetail = new ContractDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0027313 = "TMTI0027313_VerifyCFIndustryGroupUpdatedToTECHonOpportunities";
        
@@ -38,11 +40,9 @@ namespace SF_Automation.TestCases.Opportunity
         public void ValidateOpportunitiesEngagementsIndstryTypesUpdatedForCF()
         {
             try
-            {
-                
+            {                
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0027313;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -57,7 +57,11 @@ namespace SF_Automation.TestCases.Opportunity
                 int rowIndustryType = ReadExcelData.GetRowCount(excelPath, "IndustryType");
                
                 //Login as Standard User profile and validate the user
-                usersLogin.SearchUserAndLogin(ReadExcelData.ReadData(excelPath, "Users", 1));
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 login.SwitchToClassicView();

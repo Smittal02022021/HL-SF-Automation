@@ -51,7 +51,6 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User is on " + pageHeader + " page ");
 
                 int rowItems = ReadExcelData.GetRowCount(excelPath, "FilterRecord");
-
                 for (int row = 2; row <= rowItems; row++)
                 {
                     string valFilterRecord = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterRecord", row, 1);

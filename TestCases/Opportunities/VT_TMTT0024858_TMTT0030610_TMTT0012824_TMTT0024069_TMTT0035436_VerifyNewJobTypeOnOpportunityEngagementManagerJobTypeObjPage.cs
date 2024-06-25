@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -18,6 +19,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityHomePage opportunityHome = new OpportunityHomePage();    
         UsersLogin usersLogin = new UsersLogin();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0056877 = "TMTI0056875_56876_56877_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage";
 
@@ -50,12 +52,17 @@ namespace SF_Automation.TestCases.Opportunity
                 for (int row = 2; row <= rowJobType; row++)
                 {
                     extentReports.CreateLog("Verify New JobType On Opportunity & Engagement Manager Page For FVA RecordTypes ");
-                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1); 
+                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1);
 
                     //Login as Standard User profile and validate the user
-                    usersLogin.SearchUserAndLogin(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 1));
+                    string stdUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
+                    //usersLogin.SearchUserAndLogin(stdUserExl);
+                    homePage.SearchUserByGlobalSearchN(stdUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + stdUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users",row, 1)), true);
+                    Assert.AreEqual(stdUser.Contains(stdUserExl), true);
                     extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                     //Clicking on Opportunity Manager link and Validate the title of page

@@ -61,7 +61,9 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[5]/span//span");              
+        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
+        By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+        By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
 
         public void SearchEngagementInLightning(string value)
         {
@@ -91,9 +93,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 driver.FindElement(imgEng).Click();
                 Thread.Sleep(6000);
-            }
-            
-
+            }  
         }
 
         public void ClickEngagementTabAdvanceSearch()
@@ -388,7 +388,6 @@ namespace SF_Automation.Pages
         public string SearchEngagementsWithIndustryType(string industryType)
         {
             By matchedEngagement = By.XPath($"//table[contains(@id,'myEngagements')]//tbody//td//span[contains(text(),'{industryType}')]");
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
             driver.FindElement(comboIndustryType).SendKeys(industryType);
             driver.FindElement(btnSearch).Click();
@@ -569,7 +568,6 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(titleEngDetails).Text;
             return title;
         }
-
         public void ClickEngNumber()
         {
             Thread.Sleep(6000);
@@ -586,18 +584,23 @@ namespace SF_Automation.Pages
             driver.FindElement(tabEngagementL).Click();
             Thread.Sleep(3000);
         }
-        //By txtEngNumL = By.XPath("//input[@placeholder='Search...']");
-        //By txtEngNumLCAO = By.XPath("//input[@placeholder='Search Opportunities and more...']");
-        //By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         public string SearchEngagementInLightningView(string value)
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
             driver.FindElement(btnEngNumL).Click();
             Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 20);
+                driver.FindElement(txtEngNumLCAO).SendKeys(value);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);
+            }
 
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 20);
-            driver.FindElement(txtEngNumLCAO).SendKeys(value);
             Thread.Sleep(6000);
             try
             {
@@ -607,8 +610,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
             catch { return "No record found"; }
-        }
-        By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+        }        
         public string UpdateEngAndSearchLV(string oppName)
         {
             try
@@ -620,7 +622,6 @@ namespace SF_Automation.Pages
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
-                //driver.FindElement(btnEngNumL).Click();
                 driver.FindElement(txtEngNumLCAO).Clear();
                 driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
                 Thread.Sleep(6000);

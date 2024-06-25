@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         ContactHomePage contactHome = new ContactHomePage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string ERPTS01 = "LV_TS01_ValidateERPSection";
 
@@ -54,14 +55,14 @@ namespace SF_Automation.TestCases.Opportunities
                     string valUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 25);
-
-                    usersLogin.SearchUserAndLogin(valUserExl);
+                    homePage.SearchUserByGlobalSearchN(valUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + valUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUserExl), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUserExl + " logged in on Lightning View");
-
-                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -114,12 +115,14 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //------Only System Admin can see the ERP Section on Opportunity Detail page//
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
-                    usersLogin.SearchUserAndLogin(adminUserExl);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string userName = login.ValidateUserLightningView();
                     Assert.AreEqual(userName.Contains(adminUserExl), true);
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -132,8 +135,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityL();
                     randomPages.CloseActiveTab("Internal Team");
-                    extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");                    
-                    //extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
+                    extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");  
 
                     //Validate ERP section details------
                     //Full View
@@ -218,7 +220,6 @@ namespace SF_Automation.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 4, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    //randomPages.SelectListViewLV("All");
                     pageTitle = randomPages.SelectJobTypesLV(jobType);
                     Assert.AreEqual(jobType, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");

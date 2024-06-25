@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0055389 = "TMTI0055389_EditExistingOppEngToNewCFJobType";
         [OneTimeSetUp]
@@ -57,19 +58,19 @@ namespace SF_Automation.TestCases.Opportunities
                     string newJobType= ReadExcelData.ReadData(excelPath, "NewJobTypes", 1);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
-                    usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
-
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
-
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
@@ -78,12 +79,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateLog(driver.Title + " is displayed ");
-
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055389);//updated move to jobtype
                     extentReports.CreateLog("Opportunity : " + opportunityName + " is created ");
 
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-
                     //Call function to enter Internal Team details and validate Opportunity detail page
                     string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTI0055389);
                     Assert.AreEqual(displayedTab, "Info");
@@ -123,10 +122,8 @@ namespace SF_Automation.TestCases.Opportunities
                     
                     //Reverting Job Type to Actual Job Type
                     opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
-
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateLog(valUser + " User logged out ");
-
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
@@ -141,7 +138,6 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         extentReports.CreateLog("Conflict Check fields are updated ");
                     }
-
                     //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
                     if (valJobType.Equals("Sellside"))
                     {
@@ -152,20 +148,20 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         extentReports.CreateLog("Not required to update NBC Approval ");
                     }
-
                     //TMTI0056861 Verify that NBC form is not required for new Job type - Lender education
                     //Get NBC Approved Default Status
                     Assert.AreEqual(opportunityDetails.GetNBCApprovedStatus(), "Checked");
                     extentReports.CreateLog("NBC Approved Checkbos is already Checked ");
 
                     //Login again as Standard User
-                    usersLogin.SearchUserAndLogin(valUser);
-
+                    //usersLogin.SearchUserAndLogin(valUser);
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valUser), true);
-
-                    //homePageLV.ClickAppLauncher();
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -179,8 +175,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-
-                    //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
 
                     //Submit Request To Engagement Conversion 
@@ -188,13 +182,16 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
 
-                    login.SwitchToClassicView();
                     //Log out of Standard User
-                    usersLogin.UserLogOut();
+                    usersLogin.ClickLogoutFromLightningView();
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
-                    usersLogin.SearchUserAndLogin(userCAOExl);
+                    //usersLogin.SearchUserAndLogin(userCAOExl);
+                    homePage.SearchUserByGlobalSearchN(userCAOExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
@@ -231,7 +228,6 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //TMTI0055386 Verify the availability of new Job Types on Edit Engagement page
-
                     string existingEngJobType = engagementDetails.GetDetailPageJobTypeLV();
                     //Get Existing JobType with New JobType
                     engagementDetails.UpdateJobTypeLV(existingJobType, newJobType);

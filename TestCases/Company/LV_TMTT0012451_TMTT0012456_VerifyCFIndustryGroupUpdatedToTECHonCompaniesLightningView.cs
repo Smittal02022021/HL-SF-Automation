@@ -17,6 +17,7 @@ namespace SF_Automation.TestCases.Companies
         LVHomePage homePageLV = new LVHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0012451 = "LV_TMTT0012451_VerifyCFIndustryGroupUpdatedToTECHonCompanies";
 
@@ -53,7 +54,10 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
                 //Login user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(userExl);
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(userExl), true);

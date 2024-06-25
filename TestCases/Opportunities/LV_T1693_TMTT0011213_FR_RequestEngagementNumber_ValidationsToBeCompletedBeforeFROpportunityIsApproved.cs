@@ -19,6 +19,8 @@ namespace SF_Automation.TestCases.Opportunities
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
+
         public static string fileT1693 = "LV_T1693_ValidationsToBeCompletedBeforeFROpportunityIsApproved";
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -56,13 +58,14 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Creating Opportunity with Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-
-                    usersLogin.SearchUserAndLogin(userExl);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -103,7 +106,6 @@ namespace SF_Automation.TestCases.Opportunities
                     string txtExpectedRequiredFieldsValidation = opportunityDetails.GetExpectedRequiredFieldsValidationForConversionLV(fileT1693);
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::"+ txtExpectedRequiredFieldsValidation);
-                    
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();

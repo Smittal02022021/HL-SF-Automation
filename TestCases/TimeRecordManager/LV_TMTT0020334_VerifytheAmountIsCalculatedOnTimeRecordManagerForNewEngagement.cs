@@ -12,8 +12,8 @@ using System;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement:BaseClass
-    {//TMTT0020334
+    class LV_TMTT0020334_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement:BaseClass
+    {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -28,18 +28,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LVHomePage homePageLV = new LVHomePage();
 
         public static string fileTC45474 = "LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement";
-
-        private string valueActivity;
-        private string valueProjectOrEngagment;
-        private string valueActivityExl;
-        private string valueDefaultDollarBasedOnTitle;
-        private string valueEnteredHours;
-        private string valueEnteredHoursExl;
+               
         private string selectProject;
-        private double DefaultRateForStaffWithRateSheet;
-        private double totalAmountDisplayedSummaryLogs;
-        private double enteredHoursSummaryLogs;
-        private double totalAmountCalculated;
         private string engagementExl;
         private string textMessage;
         private string hoursExl;
@@ -209,8 +199,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Approve and convert the Opporunity into Engagement
                 string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " Approving the Request for Engagement and converting into Engagement ");
-                    
-                //usersLogin.SearchUserAndLogin(userCAOExl);
+               
                 homePage.SearchUserByGlobalSearchN(userCAOExl);
                 extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
@@ -256,7 +245,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as supervisor
                 string userSupervisorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", 2, 1);
                 userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", 2, 2);
-                homePage.SearchUserByGlobalSearch(userSupervisorExl);
+                homePage.SearchUserByGlobalSearchN(userSupervisorExl);
                 usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
@@ -303,6 +292,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 hoursExl = ReadExcelData.ReadData(excelPath, "SummaryLogs", 2);
                 activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", 2, 3);
 
+                //TMTI0045474 Verify the Amount is calculated and reflected for new engagement.
                 //Enter time under Summary Logs                    
                 textMessage = timeEntry.EnterSummaryLogsHoursLV(selectProject, activityExl, hoursExl);
                 Assert.AreEqual(textMessage, "Time Record Added");

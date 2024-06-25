@@ -64,6 +64,8 @@ namespace SF_Automation.Pages
         By eleItem = By.XPath("//table/tbody//td[5]/span//span");
         By resultTable = By.XPath("//table/tbody//tr//th//a");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+
+        By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         private By _eleOppRecordType(string type)
         {
             return By.XPath($"//div[@class='changeRecordTypeRow']//span[text()='{type}']");
@@ -644,12 +646,21 @@ namespace SF_Automation.Pages
         public string SearchOpportunitiesInLightningView(string value)
         {
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 10);
             driver.FindElement(btnOppNumL).Click();
             Thread.Sleep(4000);
-            
-            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 20);
-            driver.FindElement(txtOppNumLCAO).SendKeys(value);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 10);
+                driver.FindElement(txtOppNumLCAO).SendKeys(value);
+
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);
+            }
             Thread.Sleep(6000);
             try
             {
