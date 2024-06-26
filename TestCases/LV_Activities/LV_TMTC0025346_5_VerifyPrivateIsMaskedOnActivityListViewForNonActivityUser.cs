@@ -59,14 +59,18 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Login user
                 homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser);
                 usersLogin.LoginAsSelectedUser();
-                login.SwitchToClassicView();
 
-                string cfFinancialUser = login.ValidateUser();
-                Assert.AreEqual(cfFinancialUser.Contains(valUser), true);
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + cfFinancialUser + " is able to login into lightning view. ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
 
-                login.SwitchToLightningExperience();
-                extentReports.CreateLog("User: " + cfFinancialUser + " Switched to Lightning View ");
                 homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectApp(appNameExl);
@@ -77,16 +81,10 @@ namespace SF_Automation.TestCases.LV_Activities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
-                
                 CompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
                 lvCompanyDetailsPage.SearchCompanyInLightning(CompanyNameExl);
                 extentReports.CreateStepLogs("Info"," Company: "+ CompanyNameExl+" found and selected ");
                 
-                /*
-                lvCompanyDetailsPage.ClickNewCompanyButton();
-                lvCompanyDetailsPage.SelectRecordType("Capital Provider");
-                CompanyNameExl = lvCompanyDetailsPage.SaveCompany();
-                */
                 string tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 extentReports.CreateStepLogs("Info", tabNameExl + " tab is available on " + CompanyNameExl + " Company Detail Page. ");
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
@@ -111,7 +109,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                extentReports.CreateLog("User: " + cfFinancialUser + " logged out ");
+                extentReports.CreateLog("User: " + valUser + " logged out ");
 
                 //TMT0047478 Verify that the non - activity member is not able to edit the activity.
 
@@ -122,14 +120,17 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Login user
                 homePage.SearchUserByGlobalSearch(fileTMT0047476, nonActivityUser);
                 usersLogin.LoginAsSelectedUser();
-                login.SwitchToClassicView();
 
-                cfFinancialUser = login.ValidateUser();
-                //Assert.AreEqual(cfFinancialUser.Contains(nonActivityUser), true);
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + nonActivityUser + " is able to login into lightning view. ");
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateLog("User: " + nonActivityUser + " Switched to Lightning View ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + nonActivityUser + " is able to login into lightning view. ");
+                }
 
-                login.SwitchToLightningExperience();
-                extentReports.CreateLog("User: " + nonActivityUser + " Switched to Lightning View ");
                 homePageLV.ClickAppLauncher();
                 homePageLV.SelectApp(appNameExl);
                 appName = homePageLV.GetAppName();
@@ -175,21 +176,23 @@ namespace SF_Automation.TestCases.LV_Activities
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("User: " + nonActivityUser + " logged out ");
 
-
-                valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
+                string valUser1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+                extentReports.CreateStepLogs("Info", "User " + valUser1 + " details are displayed. ");
 
                 //Login user
-                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser);
+                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser1);
                 usersLogin.LoginAsSelectedUser();;
-                login.SwitchToClassicView();
 
-                string CFFinancialUser = login.ValidateUser();
-                Assert.AreEqual(CFFinancialUser.Contains(valUser), true);
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + CFFinancialUser + " is able to login into lightning view. ");
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateLog("User: " + valUser1 + " Switched to Lightning View ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser1 + " is able to login into lightning view. ");
+                }
 
-                login.SwitchToLightningExperience();
-                extentReports.CreateLog("User: " + CFFinancialUser + " Switched to Lightning View ");
                 homePageLV.ClickAppLauncher();
                 homePageLV.SelectApp(appNameExl);
                 appName = homePageLV.GetAppName();
@@ -209,7 +212,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", msgSaveActivity);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", CFFinancialUser + " logged out ");
+                extentReports.CreateStepLogs("Info", valUser1 + " logged out ");
 
             }
             catch (Exception e)

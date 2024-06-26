@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.HomePage
         By txtMainSearch = By.XPath("//input[@placeholder='Search...']");
         By userImage = By.XPath("(//span[@data-aura-class='uiImage'])[1]");
         By linkLogOut = By.XPath("//a[text()='Log Out']");
-        By appLauncher = By.CssSelector("button[class*='slds-icon-waffle_container'] div.slds-icon-waffle");
+        By appLauncher = By.XPath("//button[@title='App Launcher']");
         By appHeader = By.XPath("//div/h1[contains(@class,'appName')]/span");
         By menuNavigation = By.CssSelector("button[title = 'Show Navigation Menu']");
         By avaiableModules = By.XPath("//div[@id='navMenuList']/div/ul/li/div/*/*/span");
