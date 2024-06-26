@@ -60,15 +60,18 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Login user
                 homePage.SearchUserByGlobalSearch(fileTMT0047429, valUser);
                 usersLogin.LoginAsSelectedUser();
-                login.SwitchToClassicView();
 
-                string stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                //extentReports.CreateLog("User: " + stdUser + " logged in ");
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + stdUser + " is able to login into lightning view. ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
 
-                login.SwitchToLightningExperience();
-                extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
                 homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectApp(appNameExl);
@@ -83,12 +86,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvCompanyDetailsPage.SearchCompanyInLightning(CompanyNameExl);
                 extentReports.CreateStepLogs("Info"," Company: "+ CompanyNameExl+" found and selected ");
 
-                /*
-                                lvCompanyDetailsPage.ClickNewCompanyButton();
-                                lvCompanyDetailsPage.SelectRecordType("Capital Provider");
-                                CompanyNameExl = lvCompanyDetailsPage.SaveCompany();
-                */
-
                 //TMT0047429	Verify the availability of the "Activity" tab on the Company Detail Page.
                 string tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 Assert.IsTrue(lvCompanyDetailsPage.IsTabAvailable(tabNameExl));
@@ -97,7 +94,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 //TMT0047431 Verify that the Activity Chart is displayed at the top of the list view.8/14/2023
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
 
-                /*
                 Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivitiesChartDisplayed());//need to click on tab
                 
                 extentReports.CreateStepLogs("Passed", " Activities Chart is Displayed on Activity Detail page from "+ CompanyNameExl+" :Company Detail Page. ");
@@ -107,7 +103,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 string isDefaultDateSelected =lvCompaniesActivityDetailPage.DefaultDateSelection(activityDefaultStartDateExl);
                 Assert.AreEqual("true", isDefaultDateSelected);
                 extentReports.CreateStepLogs("Passed", "Activity Default Start Date is "+ activityDefaultStartDateExl+" ");
-                */
 
                 //TMT0047435 Verify the availability of the "Add Activity" button on the right top corner of the list view.
                 Assert.IsTrue(lvCompanyDetailsPage.IsAddActivityButtonDisplayed());

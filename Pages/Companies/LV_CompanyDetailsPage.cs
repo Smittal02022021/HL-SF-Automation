@@ -17,14 +17,14 @@ namespace SF_Automation.Pages.Companies
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");
 
         //Activity Tab
-        By lblAddNewActivity = By.XPath("//h2/span[text()='Add New Activity']");
+        By lblAddNewActivity = By.XPath("//h1[text()='Add New Activity']");
         By btnAddActivity = By.XPath("//button[text()='Add Activity']");
-        By txtSubject = By.XPath("//input[@name='subject']");
-        By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
-        By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
-        By drpdownProductType = By.XPath("//button[@name='productType']");
-        By txtareaDescription = By.XPath("//textarea[@name='description']");
-        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='hlCallNotes']");
+        By txtSubject = By.XPath("//input[@name='Subject']");
+        By txtDate = By.XPath("(//input[@name='Date'])[1]");
+        By drpdownIndustryGroup = By.XPath("//button[@name='IndustryGroup']");
+        By drpdownProductType = By.XPath("//button[@name='ProductType']");
+        By txtareaDescription = By.XPath("//textarea[@name='Description']");
+        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='HLInternalNotes']");
         By txtExternalAttendee = By.XPath("//input[@placeholder='Lookup Contact...']");
         By txtHLAttendee = By.XPath("//input[@placeholder='Lookup Employees...']");
         By txtCompanyDiscussed = By.XPath("//input[@placeholder='Lookup Company...']");
@@ -788,7 +788,8 @@ namespace SF_Automation.Pages.Companies
             DateTime currentDate = DateTime.Today;
             DateTime setDate = currentDate.AddDays(2);
             driver.FindElement(txtDate).Clear();
-            driver.FindElement(txtDate).SendKeys(setDate.ToString("dd-MMM-yyyy"));
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
@@ -812,10 +813,15 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(txtHLAttendee).SendKeys(addHLAttandee);
             Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{addHLAttandee}']")).Click();
+            Thread.Sleep(5000);
 
             //Click Save
-            //driver.FindElement(btnSave).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            Thread.Sleep(2000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
         }
+
         public void CreateNewActivitywithAllFieldsFromCompanyDetailPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
