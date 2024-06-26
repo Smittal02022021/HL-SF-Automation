@@ -51,20 +51,15 @@ namespace SF_Automation.TestCases.Opportunities
                 for (int row = 2; row <= rowOpp; row++)                {
 
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1);
-
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
-                    //usersLogin.SearchUserAndLogin(valUser);
                     homePage.SearchUserByGlobalSearchN(valUser);
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                    //Login user
                     usersLogin.LoginAsSelectedUser(); 
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-
-                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();

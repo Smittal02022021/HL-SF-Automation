@@ -120,7 +120,7 @@ namespace SF_Automation.Pages
         public string GetRequestStatusLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
             return driver.FindElement(elmEPStatusLWC).Text;
         }
@@ -182,12 +182,13 @@ namespace SF_Automation.Pages
         }
         public string SearchAndSelectExpenseRequestLWC(string number)
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWC));
             driver.FindElement(inputERNLWC).Clear();
             driver.FindElement(inputERNLWC).SendKeys(number);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWC));
-            driver.FindElement(btnApplyFilterLWC).Click();
+            driver.FindElement(btnApplyFilterLWC).Click();            
             By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
             WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
@@ -195,7 +196,6 @@ namespace SF_Automation.Pages
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
             return driver.FindElement(headerERNumberLWC).Text.Trim();
-
         }
 
         public string GetButtonnameLWC()

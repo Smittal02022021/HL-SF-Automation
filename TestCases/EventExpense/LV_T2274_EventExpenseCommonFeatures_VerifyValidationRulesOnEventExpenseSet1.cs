@@ -149,10 +149,14 @@ namespace SalesForce_Project.TestCases.EventExpense
                 string msgEventFormat = expRequest.ValidateEventFormatMessageLWC();
                 Assert.AreEqual("Complete this field.", msgEventFormat);
                 extentReports.CreateStepLogs("Passed", "Message: " + msgEventFormat + " is displayed for Event Format");
-                
+                                
                 string eventFormat = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 8);
                 expRequest.AssignEventFormatLWC(eventFormat);
                 extentReports.CreateStepLogs("Passed", "Event Format: " + eventFormat + " value is assigned ");
+
+                // Internal Opportunity should created as per Event Type
+                // e.g. Request Event Type: ADM Staff Entertainment and Internal HL opp should be of Classification: ADM
+
                 string nameHLOpportunity = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 14);
                 expRequest.AssignHLOpportunityLWC(nameHLOpportunity); 
                 string bubbleMessage = random.GetLVMessagePopup();
@@ -194,7 +198,7 @@ namespace SalesForce_Project.TestCases.EventExpense
                 //****************************Out of Scope*****************************/////
 
                 //Click Submit without filling mandatory details and validate all validations
-                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval");
+                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 bubbleMessage = random.GetLVMessagePopup();
                 string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 string validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 3);
@@ -209,7 +213,7 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                 expRequest.SaveExpenseRequestSubmitForApprovalRequiredFieldsLWC(eventTypeExl, numberOfGuestExl, nameTeamMemberExl);
                 extentReports.CreateStepLogs("Passed", "All required fields are filled for Event Type:  " + eventTypeExl);
-                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval");
+                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 //bubbleMessage = random.GetLVMessagePopup();
                 //extentReports.CreateStepLogs("Passed", "Success message: " + bubbleMessage);
                 string status = expRequest.GetRequestStatusLWC();

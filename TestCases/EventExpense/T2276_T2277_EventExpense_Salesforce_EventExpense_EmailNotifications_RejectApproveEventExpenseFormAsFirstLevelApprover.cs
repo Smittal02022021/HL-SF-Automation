@@ -1,15 +1,12 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.EventExpense;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Threading;
 
 namespace SF_Automation.TestCases.EventExpense
 {
@@ -18,7 +15,6 @@ namespace SF_Automation.TestCases.EventExpense
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         Outlook outlook = new Outlook();
-        CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
         ExpenseRequestCreatePage expReqCreate = new ExpenseRequestCreatePage();
         ExpenseRequestDetailPage expReqDetail = new ExpenseRequestDetailPage();
         ExpenseRequestHomePage expRequest = new ExpenseRequestHomePage();
@@ -55,7 +51,6 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Calling Login function                
                     login.LoginApplication();
-
                     //Handling salesforce Lightning
                     login.HandleSalesforceLightningPage();
 
