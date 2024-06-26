@@ -153,13 +153,13 @@ namespace SF_Automation.TestCases.ActivitiesList
                 //Click on print link
                 activityList.ClickPrintLink();
 
-                CustomFunctions.SwitchToWindow(driver, 2);
+                CustomFunctions.SwitchToWindow(driver, 1);
                 string currentURL = driver.Url;
                 string currentURLExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ActivityList", 2, 2);
                 Assert.IsTrue(currentURL.Contains(currentURLExl));
                 extentReports.CreateStepLogs("Passed", "Upon click of print link user redirect to: " + currentURL+" ");
 
-                CustomFunctions.SwitchToWindow(driver, 1);
+                CustomFunctions.SwitchToWindow(driver, 0);
                 //Logout from standard user
                 usersLogin.UserLogOut();
                 

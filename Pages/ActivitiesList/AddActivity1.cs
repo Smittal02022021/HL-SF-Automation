@@ -273,11 +273,11 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.SwitchTo().Frame("066i0000004ZLbF");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAll);
             driver.FindElement(lnkViewAll).Click();
-            CustomFunctions.SwitchToWindow(driver, 2);
+            CustomFunctions.SwitchToWindow(driver, 1);
             string text = driver.FindElement(headingActivitiesPage).Text;
             Assert.AreEqual(text, "Activities");
             driver.Close();
-            CustomFunctions.SwitchToWindow(driver, 1);
+            CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().DefaultContent();
         }
 
@@ -376,11 +376,11 @@ namespace SF_Automation.Pages.ActivitiesList
             driver.FindElement(lnkViewAll).Click();
             Thread.Sleep(5000);
 
-            CustomFunctions.SwitchToWindow(driver, 2);
+            CustomFunctions.SwitchToWindow(driver, 1);
             string text = driver.FindElement(headingActivitiesPage).Text;
             Assert.AreEqual(text, "Activities");
             driver.Close();
-            CustomFunctions.SwitchToWindow(driver, 1);
+            CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().DefaultContent();
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);

@@ -20,7 +20,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnRejectApprover = By.XPath("//button[text()='Reject']");
 
         By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
-        By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
+        By btnDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
         By btnReqDelete = By.XPath("(//button[text()='Delete'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
@@ -357,8 +357,8 @@ namespace SF_Automation.Pages.EventExpense
 
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqDelete, 120);
-            driver.FindElement(btnReqDelete).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteLWC, 120);
+            driver.FindElement(btnDeleteLWC).Click();
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
