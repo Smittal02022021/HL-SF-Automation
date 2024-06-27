@@ -57,6 +57,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                 //Login user
                 usersLogin.LoginAsSelectedUser();
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");

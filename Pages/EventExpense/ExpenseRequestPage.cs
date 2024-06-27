@@ -72,7 +72,8 @@ namespace SF_Automation.Pages
         By btnSaveEditLWC = By.XPath("//button[@name='SaveEdit']");
         By btnApplyFilterLWC = By.XPath("//div[@slot='footer']//button[text()='Apply Filter']");
         By btnNameLWC = By.XPath("//div[contains(@class,'footer')]//button");
-        By btnEditRequestor = By.XPath("//button[@title='Edit Requestor']");
+        By btnEditRequestorLWC = By.XPath("//button[@title='Edit Requestor']");
+        By btnEditEndDateLWC = By.XPath("//button[@title='Edit End Date']");
 
         By msgLOBLWC = By.XPath("//label[text()='LOB']/abbr/../../div[2][contains(@class,'help')]");
         By msgEventTypeLWC= By.XPath("//label[text()='Event Type']/abbr/../../div[2][contains(@class,'help')]");
@@ -97,6 +98,7 @@ namespace SF_Automation.Pages
         By inputEventNameLWC = By.XPath("//label[text()='Event Name']/..//input");
         By inputCityLWC = By.XPath("//label[text()='City']/..//input");
         By inputStartDateLWC = By.XPath("//label[text()='Start Date']/..//input");
+        By inputEndDateLWC = By.XPath("//label[text()='End Date']/..//input");
         By inputETCostLWC = By.XPath("//label[text()='Expected Travel Cost']/..//input");
         By inputEFBCostLWC = By.XPath("//label[text()='Expected F&B Cost']/..//input");
         By inputOtherCostLWC = By.XPath("//label[text()='Other Cost']/..//input");
@@ -119,8 +121,8 @@ namespace SF_Automation.Pages
 
         public string GetRequestStatusLWC()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);            
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
             return driver.FindElement(elmEPStatusLWC).Text;
         }
@@ -140,10 +142,9 @@ namespace SF_Automation.Pages
                     WebDriverWaits.WaitUntilEleVisible(driver, btnSaveEditLWC, 10);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveEditLWC));
                     driver.FindElement(btnSaveEditLWC).Click();
-                    Thread.Sleep(3000);
+                    //Thread.Sleep(3000);
                     break;
             }
-
             WebDriverWaits.WaitUntilEleVisible(driver, inputTeamMemberLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputTeamMemberLWC));
             Thread.Sleep(3000);
@@ -171,14 +172,25 @@ namespace SF_Automation.Pages
         }
         public void ClickEditExpenseRequestButtonLWC()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRequestor, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditRequestor));
-            driver.FindElement(btnEditRequestor).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRequestorLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditRequestorLWC));
+            driver.FindElement(btnEditRequestorLWC).Click();
         }
         public string GetValidationsLWC(string bubbleMessage)
         {
             string formatedValidation = bubbleMessage.Replace("\r\n", " ");
             return formatedValidation;
+        }
+        public void EditExpenseRequestEndDateLWC(string date)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditEndDateLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditEndDateLWC));
+            driver.FindElement(btnEditEndDateLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputEndDateLWC, 10);
+            driver.FindElement(inputEndDateLWC).Clear();
+            driver.FindElement(inputEndDateLWC).SendKeys(date);
+            driver.FindElement(btnSaveEditLWC).Click();
+
         }
         public string SearchAndSelectExpenseRequestLWC(string number)
         {
@@ -194,6 +206,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
             driver.FindElement(linkExpenseRequest).Click();
             driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
             return driver.FindElement(headerERNumberLWC).Text.Trim();
         }
@@ -431,8 +444,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             driver.FindElement(elmHLOpp).Click();
             Thread.Sleep(2000);
-            driver.FindElement(btnSaveLWC).Click();
-            
+            driver.FindElement(btnSaveLWC).Click();            
         }
         public void AssignEventFormatLWC(string eventFormat)
         {
@@ -453,7 +465,6 @@ namespace SF_Automation.Pages
             By elmRequestor = By.XPath($"//label[text()='Requestor']/..//lightning-base-combobox-item//span[contains(@title,'{name}')]");
             WebDriverWaits.WaitUntilEleVisible(driver, elmRequestor, 10);
             driver.FindElement(elmRequestor).Click();
-
         }
 
         //To validate LOB validation

@@ -66,7 +66,6 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
                 opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                 //Validating Title of New Opportunity Page

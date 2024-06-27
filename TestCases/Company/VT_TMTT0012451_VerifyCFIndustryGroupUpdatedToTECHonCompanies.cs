@@ -45,13 +45,11 @@ namespace SF_Automation.TestCases.Companies
 
                 // Calling Login function                
                 login.LoginApplication();
-
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowIndustryType = ReadExcelData.GetRowCount(excelPath, "IndustryType");
-
                 //Login as Standard User profile and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 //usersLogin.SearchUserAndLogin(valUser);

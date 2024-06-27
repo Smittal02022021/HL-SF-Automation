@@ -139,12 +139,14 @@ namespace SF_Automation.Pages
         By valRecType = By.CssSelector("div[id*='RecordTypej']");
         By valOppNum = By.CssSelector("div[id*='VbIj_id0_j_id55_ileinner']");
         By btnNewComment = By.CssSelector("input[value='New Opportunity Comment']");// input[value='New Comment']");
+        By btnNewComment1 = By.CssSelector("input[value=' New ']");
         By comboCommentType = By.CssSelector("select[id*='00Ni000000FnLSo']");
         By txtCommentDesc = By.CssSelector("textarea[id*='FnLSp']");
         By msgError = By.CssSelector("div[class='errorMsg']");
         By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
-        By valComment = By.CssSelector("div[id*='LT7_body'] > table > tbody > tr.dataRow.even.last.first > td:nth-child(3)");
+        By valComment = By.XPath("//table[@class='detailList']//tr//td[text()='Comment']/../td/div");// div[id*='LT7_body'] > table > tbody > tr.dataRow.even.last.first > td:nth-child(3)");
         By lnkDelComment = By.CssSelector("div[id*='LT7_body']> table > tbody > tr.dataRow.even.last.first > td.actionColumn > a:nth-child(2)");
+        By btnDelComment = By.XPath("(//table//input[@value='Delete'])[1]");
         By txtDateEngagedCF = By.CssSelector("input[name*='FnLTv']");
         By lnkPitchDateFAS = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(7) > td:nth-child(4) > span > span > a");
         By lnkValuationDate = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
@@ -2633,8 +2635,16 @@ namespace SF_Automation.Pages
         //Add Opportunity Comments
         public void AddOppComments(string Type)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewComment, 10);
-            driver.FindElement(btnNewComment).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNewComment, 10);
+                driver.FindElement(btnNewComment).Click();
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNewComment1, 10);
+                driver.FindElement(btnNewComment1).Click();
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentType);
             driver.FindElement(comboCommentType).SendKeys(Type);
             driver.FindElement(txtCommentDesc).SendKeys("Testing");
@@ -2652,7 +2662,7 @@ namespace SF_Automation.Pages
         //Get added comment in Comment section
         public string GetAddedComment()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valComment, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, valComment, 20);
             string comment = driver.FindElement(valComment).Text;
             return comment;
         }
@@ -2660,8 +2670,8 @@ namespace SF_Automation.Pages
         //Delete added comments
         public string DeleteAddedOppComments()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelComment, 80);
-            driver.FindElement(lnkDelComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDelComment, 20);
+            driver.FindElement(btnDelComment).Click();
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
             return "Opportunity's existing comments are deleted";

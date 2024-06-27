@@ -47,7 +47,6 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-
                 //Login as Standard User
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
@@ -68,17 +67,16 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateLog("Details are saved in Event Expenese form ");
                 expRequest.ClickEditButton();
 
-
                 ///*****************
-                //string descEnabled= expRequest.SelectMarketingSupport("Yes");
-                //Assert.AreEqual("True",descEnabled);
-                //extentReports.CreateLog("Description of Marketing Support field is enabled after selecting Marketing support as Yes ");
-                
-                ////Click on Edit link, enter description of Marketing Support, select Marketing Support as No and validate if description box is disabled
-                //expRequest.EnterMarketingSupportDesc();
-                //string descDisabled = expRequest.SelectMarketingSupport("No");
-                //Assert.AreEqual("False", descDisabled);
-                //extentReports.CreateLog("Description of Marketing Support field is disabled after selecting Marketing support as No ");
+                string descEnabled = expRequest.SelectMarketingSupport("Yes");
+                Assert.AreEqual("True", descEnabled);
+                extentReports.CreateLog("Description of Marketing Support field is enabled after selecting Marketing support as Yes ");
+
+                //Click on Edit link, enter description of Marketing Support, select Marketing Support as No and validate if description box is disabled
+                expRequest.EnterMarketingSupportDesc();
+                string descDisabled = expRequest.SelectMarketingSupport("No");
+                Assert.AreEqual("False", descDisabled);
+                extentReports.CreateLog("Description of Marketing Support field is disabled after selecting Marketing support as No ");
 
                 ///*****************
 
@@ -87,7 +85,9 @@ namespace SF_Automation.TestCases.EventExpense
                 string val = expRequest.GetEndDateValidations();
                 Assert.AreEqual("Error: End Date should be greater than or equal to Start Date.", val);
                 extentReports.CreateLog("Validation: " + val + " is displayed upon entering End Date in past ");
+                ///*****************
 
+                ///*****************
                 //Click on Edit button, update End Date, clear Other cost fields and validate displayed messages
                 expRequest.ClickEditButton();
                 expRequest.ClickEndDateLink();
@@ -97,13 +97,14 @@ namespace SF_Automation.TestCases.EventExpense
                 string valOtherCost = expRequest.GetOtherCostValidations();
                 Assert.AreEqual("Error: Other Cost is Required.", valOtherCost);
                 extentReports.CreateLog("Validation: " + valOtherCost + " is displayed upon submitting blank value of Other Cost ");
+                ///*****************
 
                 //**************************************
                 //Edit the record, add Other Cost and validation message for Description of Other Cost
-                //expRequest.ClickEditButton();
-                //string valDescCost =expRequest.EnterOtherCostAndSave(fileTC2275);
-                //Assert.AreEqual("Error: Please provide Description of Other Cost.", valDescCost);
-                //extentReports.CreateLog("Validation: " + valDescCost + " is displayed upon submitting blank value of Description of Other Cost ");
+                expRequest.ClickEditButton();
+                string valDescCost = expRequest.EnterOtherCostAndSave(fileTC2275);
+                Assert.AreEqual("Error: Please provide Description of Other Cost.", valDescCost);
+                extentReports.CreateLog("Validation: " + valDescCost + " is displayed upon submitting blank value of Description of Other Cost ");
                 //***************************************
 
                 //Edit the record, add Description of Other Cost and validation message for Evaluation Date

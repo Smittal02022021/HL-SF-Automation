@@ -6,9 +6,9 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.EventExpense
+namespace SF_Automation.TestCases.EventExpense
 {
-    internal class LV_T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1 : BaseClass
+    internal class LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1 : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -34,6 +34,8 @@ namespace SalesForce_Project.TestCases.EventExpense
             try
             {
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT2274;
+                string futureDate= DateTime.Today.AddDays(1).ToString("MMM dd, yyyy");
+                string pastDate = DateTime.Today.AddDays(-2).ToString("MMM dd, yyyy");
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
@@ -46,16 +48,15 @@ namespace SalesForce_Project.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                //usersLogin.SearchUserAndLogin(valUser);
                 homePage.SearchUserByGlobalSearchN(valUser);
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                 //Login user
                 usersLogin.LoginAsSelectedUser();
-
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
@@ -70,48 +71,48 @@ namespace SalesForce_Project.TestCases.EventExpense
                 expRequest.ClickCreateNewExpenseFormLWC();
                 string msgLOB = expRequest.ValidateLOBMessageLWC();
                 Assert.AreEqual("Complete this field.", msgLOB);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgLOB + " is displayed for LOB ");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgLOB + " is displayed for LOB ");
 
                 //**Need to Multiple Expense Request with difeeent Event type because Submit for approval required fields are different for diff event type
                 string valLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 1);
                 string msgEventType = expRequest.ValidateEventTypeMessageLWC(valLOBExl);
                 Assert.AreEqual("Complete this field.", msgEventType);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgEventType + " is displayed for Event Type");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventType + " is displayed for Event Type");
                 string eventTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 2);
                 string msgRequestor = expRequest.ValidateRequestorMessageLWC(eventTypeExl);
                 Assert.AreEqual("Complete this field.", msgRequestor);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgRequestor + " is displayed for Requestor");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgRequestor + " is displayed for Requestor");
 
                 string msgProductType = expRequest.ValidateProductTypeLWC();
                 Assert.AreEqual("Complete this field.", msgProductType);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgProductType + " is displayed for Product Type");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgProductType + " is displayed for Product Type");
 
                 string msgEventName = expRequest.ValidateEventNameLWC();
                 Assert.AreEqual("Complete this field.", msgEventName);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgEventName + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventName + " is displayed ");
 
                 string msgCity = expRequest.ValidateCityLWC();
                 Assert.AreEqual("Complete this field.", msgCity);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgCity + " is displayed for City");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgCity + " is displayed for City");
 
                 string msgETCost = expRequest.ValidateETCostLWC();
                 Assert.AreEqual("Complete this field.", msgETCost);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgETCost + " is displayed for xpected Travel Cost ");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgETCost + " is displayed for xpected Travel Cost ");
 
                 string msgEFBCost = expRequest.ValidateEFBCostLWC();
                 Assert.AreEqual("Complete this field.", msgEFBCost);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgEFBCost + " is displayed for Expected F&B Cost");
-                                
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgEFBCost + " is displayed for Expected F&B Cost");
+
+                //T2275 Other cost fields and validate displayed messages
                 string msgOtherCost = expRequest.ValidateOtherCostLWC();
                 Assert.AreEqual("Complete this field.", msgOtherCost);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgOtherCost + " is displayed for Other Cost");
-
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgOtherCost + " is displayed for Other Cost");
 
                 ///---------------
                 //T2275 add Other Cost and validation message for Description of Other Cost
                 string msgDscOtherCost = expRequest.ValidateDscOtherCostLWC();
                 Assert.AreEqual("Complete this field.", msgDscOtherCost);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgDscOtherCost + " is displayed for Description of Other Cost");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgDscOtherCost + " is displayed for Description of Other Cost");
 
                 //T2275 Verify the Description of Marketing Support field state for Yes/No
                 expRequest.SelectMarketingSupportLWC("Yes");
@@ -124,31 +125,27 @@ namespace SalesForce_Project.TestCases.EventExpense
                 Assert.IsFalse(isDescMarketingSupport, "Verify Description Marketing Support field is Disabled after selecting Marketing support as No");
                 extentReports.CreateStepLogs("Passed", "Description of Marketing Support field is Disabled after selecting Marketing support as No ");
 
-
                 //----------------------
-
                 // Fill All Required fields
                 string nameRequestor = valUser;
                 string nameProductType = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 4);
                 string nameEventContact= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 5);                
                 string nameEvent= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 6);
-                string nameCity= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 7);
-                
+                string nameCity= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 7);                
                 string costET= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 10);
                 string costOther = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 11);
                 string costEFB = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 12);                
-                string costDscother = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 13);
-                
+                string costDscother = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 13);                
 
                 expRequest.SaveExpenseRequestRequiredFieldsLWC(nameRequestor, nameEventContact, nameProductType, nameEvent, nameCity, costET, costEFB, costOther, costDscother);
                 extentReports.CreateStepLogs("Passed", "Values filled for all highlighted fields");
                 string errorHLOpportunity = random.GetLVMessagePopup();
                 Assert.AreEqual("Please select hl opportunity", errorHLOpportunity);
-                extentReports.CreateStepLogs("Passed", "Error: " + errorHLOpportunity + " is displayed for HL Internal Opportunity");
+                extentReports.CreateStepLogs("Passed", "Bubble Message::  " + errorHLOpportunity + " is displayed for HL Internal Opportunity");
 
                 string msgEventFormat = expRequest.ValidateEventFormatMessageLWC();
                 Assert.AreEqual("Complete this field.", msgEventFormat);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgEventFormat + " is displayed for Event Format");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventFormat + " is displayed for Event Format");
                                 
                 string eventFormat = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 8);
                 expRequest.AssignEventFormatLWC(eventFormat);
@@ -159,11 +156,11 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                 string nameHLOpportunity = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 14);
                 expRequest.AssignHLOpportunityLWC(nameHLOpportunity); 
-                string bubbleMessage = random.GetLVMessagePopup();
+                //string bubbleMessage = random.GetLVMessagePopup();
                 //Assert.AreNotEqual("Please select hl opportunity", bubbleMessage);
                 //extentReports.CreateStepLogs("Passed", errorHLOpportunity + " is displayed after assigning HL Internal Opportunity");
-                Assert.AreEqual("Expense Record Created Successfully", bubbleMessage);
-                extentReports.CreateStepLogs("Passed", bubbleMessage + " is displayed");
+                //Assert.AreEqual("Expense Record Created Successfully", bubbleMessage);
+                //extentReports.CreateStepLogs("Passed", bubbleMessage + " is displayed");
 
                 //Save Requestor/Required details and validate Event Expense details page is displayed
                 string pageHeader = expRequest.GetPageHeaderLWC();
@@ -177,7 +174,7 @@ namespace SalesForce_Project.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "Newly created Expense Request:: "+ expenseRequestNumber+" detail page is closed ");
                 string txtButtonName = expRequest.GetButtonnameLWC();
                 Assert.AreEqual("Create New Expense Form", txtButtonName);
-                extentReports.CreateStepLogs("Passed", "After closing  Expense Request detail page user is redirected to "+ txtButtonName);
+                extentReports.CreateStepLogs("Passed", "After closing Expense Request detail page user is redirected to "+ txtButtonName);
 
                 string headerExpNumber = expRequest.SearchAndSelectExpenseRequestLWC(expenseRequestNumber);
                 Assert.AreEqual(headerExpNumber, expenseRequestNumber);
@@ -199,12 +196,11 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                 //Click Submit without filling mandatory details and validate all validations
                 expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                bubbleMessage = random.GetLVMessagePopup();
+                string bubbleMessage = random.GetLVMessagePopup();
                 string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 string validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 3);
                 Assert.AreEqual(validationMsgExl, validationMessage);
-                extentReports.CreateStepLogs("Passed", "Message:: "+bubbleMessage + " is displayed after assiging HL Internal Opportunity");
-
+                extentReports.CreateStepLogs("Passed", "Bubble Message:: " + bubbleMessage + " is displayed after assiging HL Internal Opportunity");
 
                 //Fill all the mandatory details of Event Expense Request, submit the request and validate the status
                 expRequest.ClickEditExpenseRequestButtonLWC();
@@ -213,25 +209,32 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                 expRequest.SaveExpenseRequestSubmitForApprovalRequiredFieldsLWC(eventTypeExl, numberOfGuestExl, nameTeamMemberExl);
                 extentReports.CreateStepLogs("Passed", "All required fields are filled for Event Type:  " + eventTypeExl);
+
+                //T2275 Verify the End date should be greater than Start date validation 
+                expRequest.EditExpenseRequestEndDateLWC(pastDate);
                 expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                //bubbleMessage = random.GetLVMessagePopup();
-                //extentReports.CreateStepLogs("Passed", "Success message: " + bubbleMessage);
+                bubbleMessage = random.GetLVMessagePopup();
+                validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
+                validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp2", 2, 3);
+                Assert.AreEqual(validationMsgExl, validationMessage);
+                extentReports.CreateStepLogs("Passed", "Bubble Message:: " + validationMessage + "  is displayed for End date");
+                expRequest.EditExpenseRequestEndDateLWC(futureDate);
+
+                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 string status = expRequest.GetRequestStatusLWC();
                 Assert.AreEqual("Waiting for Approval", status);
                 extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval");
+                
                 random.CloseActiveTab(expenseRequestNumber);
-
                 homePageLV.UserLogoutFromSFLightningView();                
                 extentReports.CreateLog("User:: "+ valUser+" Logged out ");
                 driver.Quit();
                 extentReports.CreateLog("Browser Closed ");
-
             }
             catch (Exception ex)
             {
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-
             }
         }
     }

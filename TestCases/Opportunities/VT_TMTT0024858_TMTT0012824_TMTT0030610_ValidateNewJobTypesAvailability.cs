@@ -55,6 +55,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                 //Login user
                 usersLogin.LoginAsSelectedUser();
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");

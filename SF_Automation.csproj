@@ -680,7 +680,7 @@
     <Compile Include="TestCases\ERPtoOracle\TS28_TS31_VerifyContractDetailsWithNonUsStaffAndUSLegalEntity_Part2.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity_Part2.cs" />
-    <Compile Include="TestCases\EventExpense\LV_T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
     <Compile Include="TestCases\EventExpense\T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />

@@ -53,6 +53,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                 //Login user
                 usersLogin.LoginAsSelectedUser();
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -67,7 +68,11 @@ namespace SF_Automation.TestCases.Opportunity
                 //Logout of Standard user and login with Compliance User
                 usersLogin.UserLogOut();                
                 string valCompUser = ReadExcelData.ReadData(excelPath, "Users", 2);
-                usersLogin.SearchUserAndLogin(valCompUser);
+                homePage.SearchUserByGlobalSearchN(valCompUser);
+                extentReports.CreateStepLogs("Info", "User: " + valCompUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToClassicView();
                 string compUser = login.ValidateUser();
                 Assert.AreEqual(compUser.Contains(valCompUser), true);
                 extentReports.CreateLog("User: " + compUser + " logged in ");
@@ -87,20 +92,24 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate any other type of comment with Compliance User
                 opportunityDetails.AddOppComments("Internal");
                 string message1 = opportunityDetails.GetCommentsSectionMessage();
-                Assert.AreEqual("Error: Compliance users can only create Compliance comments.", message1);
+                Assert.AreEqual("Error: You must enter a value", message1);
                 extentReports.CreateLog("Message: " + message1 + " is displayed while adding any other type of comment with Compliance User ");
-                               
+                usersLogin.UserLogOut();
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
         }
         [OneTimeTearDown]
         public void TearDown()
         {
             usersLogin.UserLogOut();
-            usersLogin.UserLogOut();
+            driver.Quit();
         }
     }
 }

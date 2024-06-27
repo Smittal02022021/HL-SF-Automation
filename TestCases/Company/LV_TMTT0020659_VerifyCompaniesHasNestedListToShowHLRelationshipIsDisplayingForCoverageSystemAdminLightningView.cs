@@ -52,13 +52,10 @@ namespace SF_Automation.TestCases.Companies
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-
                 //Switching to LightningView
                 login.SwitchToLightningExperience();
-                //homePageLV.ClickAppLauncher();
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
-
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateLog(appName + " App is selected from App Launcher ");

@@ -146,42 +146,22 @@ namespace SF_Automation.Pages
         {
 
             By matchedmyCompany = By.XPath($"//table[contains(@id,'myCompanies')]//tbody//td//span[contains(text(),'{industryType}')]");
-
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
-
             driver.FindElement(comboIndustryType).SendKeys(industryType);
-
             driver.FindElement(btnSearch).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
-
             Thread.Sleep(6000);
-
             try
-
             {
-
                 string result = driver.FindElement(matchedmyCompany).Displayed.ToString();
-
                 Console.WriteLine("Search Results :" + result);
-
                 return "Record found";
-
             }
-
             catch (Exception)
-
             {
-
                 return "No record found";
-
             }
-
         }
-
-
 
         public void CreateCompany(string recordType)
         {
