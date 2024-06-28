@@ -684,8 +684,8 @@
     <Compile Include="TestCases\EventExpense\T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\VT_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
-    <Compile Include="TestCases\EventExpense\T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2.cs" />
+    <Compile Include="TestCases\EventExpense\ZObsolated_T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
+    <Compile Include="TestCases\EventExpense\ZObsolated_T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2.cs" />
     <Compile Include="TestCases\EventExpense\T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\T2278_TMTT0016300_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />

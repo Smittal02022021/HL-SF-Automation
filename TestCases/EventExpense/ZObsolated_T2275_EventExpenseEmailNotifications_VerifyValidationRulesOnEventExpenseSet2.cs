@@ -7,7 +7,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2 : BaseClass
+    class ZObsolated_T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2 : BaseClass
     {        
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

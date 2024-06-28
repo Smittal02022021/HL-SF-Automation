@@ -50,7 +50,6 @@ namespace SF_Automation.TestCases.EventExpense
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valUser);
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                //Login user
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
@@ -73,7 +72,7 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual("Complete this field.", msgLOB);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgLOB + " is displayed for LOB ");
 
-                //**Need to Multiple Expense Request with difeeent Event type because Submit for approval required fields are different for diff event type
+                //**Need to Multiple Expense Request with different Event type because Submit for approval required fields are different for diff event type
                 string valLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 1);
                 string msgEventType = expRequest.ValidateEventTypeMessageLWC(valLOBExl);
                 Assert.AreEqual("Complete this field.", msgEventType);
@@ -152,15 +151,11 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "Event Format: " + eventFormat + " value is assigned ");
 
                 // Internal Opportunity should created as per Event Type
-                // e.g. Request Event Type: ADM Staff Entertainment and Internal HL opp should be of Classification: ADM
+                // e.g. Request Event Type: ADM Staff Entertainment and Internal HL opp should be of Classification: ADM 
+                // and can be automated when we have manual test scripts for this 
 
                 string nameHLOpportunity = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 14);
                 expRequest.AssignHLOpportunityLWC(nameHLOpportunity); 
-                //string bubbleMessage = random.GetLVMessagePopup();
-                //Assert.AreNotEqual("Please select hl opportunity", bubbleMessage);
-                //extentReports.CreateStepLogs("Passed", errorHLOpportunity + " is displayed after assigning HL Internal Opportunity");
-                //Assert.AreEqual("Expense Record Created Successfully", bubbleMessage);
-                //extentReports.CreateStepLogs("Passed", bubbleMessage + " is displayed");
 
                 //Save Requestor/Required details and validate Event Expense details page is displayed
                 string pageHeader = expRequest.GetPageHeaderLWC();
@@ -223,7 +218,7 @@ namespace SF_Automation.TestCases.EventExpense
                 expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 string status = expRequest.GetRequestStatusLWC();
                 Assert.AreEqual("Waiting for Approval", status);
-                extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval");
+                extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval and status is "+ status);
                 
                 random.CloseActiveTab(expenseRequestNumber);
                 homePageLV.UserLogoutFromSFLightningView();                
