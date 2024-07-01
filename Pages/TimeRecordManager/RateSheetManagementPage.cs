@@ -552,9 +552,9 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return rate;
         }
-        private By nameRateSheet(string name)
+        private By _nameRateSheet(string name)
         {
-            return By.XPath($"//div[contains(@class,'listViewConten')]//table//tbody//td//a[@title='{name}']");
+            return By.XPath($"//table//tbody//td//a[@title='{name}']");
         }
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
 
@@ -563,8 +563,8 @@ namespace SF_Automation.Pages.TimeRecordManager
             //driver.SwitchTo().DefaultContent();
             //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, nameRateSheet(name), 20);
-            driver.FindElement(nameRateSheet(name)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 20);
+            driver.FindElement(_nameRateSheet(name)).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader= driver.FindElement(txtPageHeader).Text;

@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
                     string GetTimeRecordUserNameLV = timeEntry.GetTimeRecordUserNameLV();
-                    Assert.AreEqual(GetTimeRecordUserNameLV, user, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
+                    Assert.AreEqual(GetTimeRecordUserNameLV, userExl, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
                     extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
 
                     //TMTI0093762	Verify that the FVA User can add hours for the project in Weekly Entry Matrix tab

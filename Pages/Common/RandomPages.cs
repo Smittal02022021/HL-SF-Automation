@@ -116,7 +116,7 @@ namespace SF_Automation.Pages.Common
 
         private By _optionListView(string name)
         {
-            return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
+            return By.XPath($"//lightning-popup/section//span[@title='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
         }
         private By _elmIGType(string industryType)
         {
