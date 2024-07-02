@@ -28,13 +28,7 @@ namespace SF_Automation.TestCases.Opportunities
 
         private string valAssociatedEng;
         private string nameAssociatedEng;
-        private string stdUser;
-        private string user;
         private string caoUser;
-        private string opportunityName;
-        private string valRecordType;
-        private string valContactType;
-        private string valContact;
         private string valAssociatedOpp;
         private string nameAssociatedOpp;
         

@@ -119,7 +119,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Select List View and Validate if Opportunity exists under My Active Opportunities
                     extentReports.CreateStepLogs("Info", "Selecting My Active Opportunities View from List to Verify Opportunity "+ opportunityName+" is present in selected List before changing the user from Internal Team");
-                    randomPages.SelectListView("My Active Opportunities");                    
+                    randomPages.SelectListViewLV("My Active Opportunities");
+                    extentReports.CreateStepLogs("Pass", "List View: My Active Opportunities is selected");
                     string recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("Record found", recFound);
                     extentReports.CreateStepLogs("Pass", "Opportunity is displayed in My Opportunities for user:"+ userExl);

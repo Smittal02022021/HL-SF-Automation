@@ -49,7 +49,6 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", login.ValidateUser() + " is able to login ");
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-
                 for (int row = 2; row <= rowJobType; row++)
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);

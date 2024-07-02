@@ -6681,7 +6681,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
             driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
             Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal1, 70);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkUpPrincipal1, 20);
 
             driver.FindElement(chkUpManager1).Click();
             driver.FindElement(chkUpSeller1).Click();
@@ -6693,15 +6693,15 @@ namespace SF_Automation.Pages
             driver.FindElement(txtStaff).SendKeys("Sonika Goyal");
             Thread.Sleep(3000);
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "Sonika Goyal");
-            WebDriverWaits.WaitUntilEleVisible(driver, chkAdmin2, 50);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkAdmin2, 20);
             driver.FindElement(chk2ndInitiator).Click();
 
             driver.FindElement(btnSaveITTeam).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgHLIntTeam, 90);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgHLIntTeam, 20);
             string message = driver.FindElement(msgHLIntTeam).Text.Replace("\r\n", " ");
 
             //Click to return back to Opportunity details
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 20);
             driver.FindElement(btnReturnToOpp).Click();
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
