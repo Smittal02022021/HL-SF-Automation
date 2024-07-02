@@ -146,9 +146,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Get NBC Approved Default Status
                     Assert.AreEqual(opportunityDetails.GetNBCApprovedStatus(),"Checked");
                     extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
-
                     //Login again as Standard User
-                    //usersLogin.SearchUserAndLogin(valUser);
                     homePage.SearchUserByGlobalSearchN(valUser);
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                     //Login user
@@ -157,8 +155,7 @@ namespace SF_Automation.TestCases.Opportunities
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-
-                   // homePageLV.ClickAppLauncher();                    
+                   
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -178,7 +175,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
-                    //usersLogin.SearchUserAndLogin(userCAOExl);
                     homePage.SearchUserByGlobalSearchN(userCAOExl);
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                     //Login user

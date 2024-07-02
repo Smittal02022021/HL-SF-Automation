@@ -150,7 +150,7 @@ namespace SF_Automation.Pages
             driver.FindElement(comboIndustryType).SendKeys(industryType);
             driver.FindElement(btnSearch).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
-            Thread.Sleep(6000);
+            Thread.Sleep(10000);
             try
             {
                 string result = driver.FindElement(matchedmyCompany).Displayed.ToString();

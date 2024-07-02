@@ -75,7 +75,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on Module: " + moduleNameExl + " Page ");
 
                 string ListViewExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ListView", 2, 1);                
-                randomPages.SelectListView(ListViewExl);
+                randomPages.SelectListViewLV(ListViewExl);
                 extentReports.CreateStepLogs("Info", "List View: " + ListViewExl + " is selected");
 
                 string IndustryTypeExl = ReadExcelData.ReadData(excelPath, "IndustryType", 1);

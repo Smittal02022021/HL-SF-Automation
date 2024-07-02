@@ -116,7 +116,11 @@ namespace SF_Automation.Pages.Common
 
         private By _optionListView(string name)
         {
-            return By.XPath($"//lightning-popup/section//span[@title='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
+            return By.XPath($"//lightning-popup/section//span[text()='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
+        }
+        private By _optionListViewL(string name)
+        {
+            return By.XPath($"//div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
         }
         private By _elmIGType(string industryType)
         {
@@ -782,9 +786,17 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
             driver.FindElement(iconListViewPicker).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
-            driver.FindElement(_optionListView(name)).Click();
+            Thread.Sleep(2000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _optionListView(name), 10);
+                driver.FindElement(_optionListView(name)).Click();
+            }
+            catch
+            {
+                driver.FindElement(_optionListViewL(name)).Click();
+            }
             try
             {
                 WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);

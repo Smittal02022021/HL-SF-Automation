@@ -463,6 +463,9 @@ namespace SF_Automation.Pages
         By txtRetainerL = By.XPath("//input[@name= 'Retainer__c']");
         By txtMonthlyL = By.XPath("//input[@name= 'ProgressMonthly_Fee__c']");
         By txtContigentL = By.XPath("//input[@name= 'Contingent_Fee__c']");
+        By txtSharedServExpL = By.XPath("//input[@name= 'Admin_Fee__c']");
+        By txtEstimatedCapL = By.XPath("//input[@name= 'Expense_Cap__c']");
+        By txtLegalCapL = By.XPath("//input[@name= 'Legal_Cap__c']");
         By txtTailExpiresL = By.XPath("//input[@name= 'Tail_Expires__c']");
         By comboBenOwnerL = By.XPath("//label[text()='Beneficial Owner & Control Person form?']/parent::div//button");//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
@@ -565,6 +568,7 @@ namespace SF_Automation.Pages
         By comboLegalAdvisorHLL = By.XPath("//button[contains(@aria-label,'Legal Advisor to HL Client Group')]");//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
         By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");//button[@aria-label='Referral Type, --None--']");
         By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By comboIndemLngL = By.XPath("//label[text()='Indemnification Language']/parent::div//button");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
@@ -626,6 +630,7 @@ namespace SF_Automation.Pages
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
+        By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -5646,9 +5651,6 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Console.WriteLine("path:" + excelPath);
-            //Thread.Sleep(4000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
-            //driver.FindElement(tabEngagementNumL).Click();
             string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
@@ -5660,27 +5662,19 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valClient + "']")).Click();
 
-
-
             string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
             driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
-
-
 
             //Enter SIC
             //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
             //Thread.Sleep(3000);
             //driver.FindElement(comboSICL).Click();
 
-
-
             //Opp Desc
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL, 20);
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
-
-
 
             //Estimated Fees
             driver.FindElement(txtRetainerL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
@@ -5704,26 +5698,16 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.FindElement(comboRefContactL).Click();
 
-
-
-            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-
-
-
             //Select Beneficial Owner
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);            
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
             driver.FindElement(comboUpdBenOwnerL).SendKeys(valBenOwner);
             driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-
-
-
-
 
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
 
             ////Select Conf Agreement
@@ -5735,14 +5719,11 @@ namespace SF_Automation.Pages
             //driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
 
-
             //Select Fairness
             Thread.Sleep(4000);
             driver.FindElement(btnFairnessL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + valWomen + "']")).Click();
-
-
 
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
@@ -6188,6 +6169,11 @@ namespace SF_Automation.Pages
             driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
 
+            //New required fields for CF conversion 
+            driver.FindElement(txtSharedServExpL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstimatedCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtLegalCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15)); 
+
             //Ref Contact
             string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblAdditionalClient));
@@ -6232,7 +6218,6 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Fairness Opinion Component']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
 
-
             //WomenLed
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
@@ -6240,16 +6225,21 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
 
             ////Select Conf Agreement
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             driver.FindElement(comboConfAggL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
+            //New fields for for CF conversion
+            driver.FindElement(comboIndemLngL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
-
 
         public bool IsViewCounterpartyButton()
         {
