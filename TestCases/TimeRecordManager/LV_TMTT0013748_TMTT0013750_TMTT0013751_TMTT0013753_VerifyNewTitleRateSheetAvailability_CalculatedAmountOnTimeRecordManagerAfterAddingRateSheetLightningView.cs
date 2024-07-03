@@ -252,7 +252,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 login.SwitchToLightningExperience();
                 string userSupervisor = login.ValidateUserLightningView();
                 Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);
-                extentReports.CreateStepLogs("Passed", "Supervosor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
+                extentReports.CreateStepLogs("Passed", "Supervisor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
                 //homePageLV.ClickAppLauncher();
 
                 //Go to Opportunity module in Lightning View                 
@@ -268,8 +268,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 4, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    randomPages.SelectListViewLV("All");
-                    extentReports.CreateStepLogs("Info"," All List option is selected ");
+                    //randomPages.SelectListViewLV("All");
+                    //extentReports.CreateStepLogs("Info"," All List option is selected ");
 
                     //Click on the new title rate sheet name
                     string nameRateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 3);
@@ -281,7 +281,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Info", "Title: "+ userTitleExl+" Default Rate: USD "+ defaultRate);
 
                     //Verify the correct title rate sheet is opened
-                    //Assert.AreEqual(WebDriverWaits.TitleContains(driver, nameRateSheetExl), true);
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, nameRateSheetExl), true);
                     extentReports.CreateStepLogs("Info", driver.Title + " page is displayed ");
 
                     randomPages.CloseActiveTab(nameRateSheetExl);

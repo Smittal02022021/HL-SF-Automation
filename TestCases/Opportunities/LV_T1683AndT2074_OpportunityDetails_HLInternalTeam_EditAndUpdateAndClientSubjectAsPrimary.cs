@@ -139,7 +139,7 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(opportunityName);
                     extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName+" : Tab is closed ");
                     //Select List View
-                    randomPages.SelectListView("My Active Opportunities");
+                    randomPages.SelectListViewLV("My Active Opportunities");
                     recFound = opportunityHome.SearchMyOpportunitiesLV(opportunityName);
                     Assert.AreEqual("No record found", recFound, "Opportunity should not displayed in My Opportunities for user:" + userExl);
                     extentReports.CreateStepLogs("Pass", "Opportunity is not displayed in My Active Opportunities lsit for removed user:" + userExl);

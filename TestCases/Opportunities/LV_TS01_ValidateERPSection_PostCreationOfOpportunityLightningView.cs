@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    opportunityHome.SearchOpportunityInLightning(oppName);
+                    opportunityHome.SearchOpportunitiesInLightningView(oppName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(ERPTS01);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
@@ -199,6 +199,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //string IG = opportunityDetails.GetIndustryGroup();
                     //string ERPIG = randomPages.GetERPIndustryGroupLV();
                     //Assert.AreEqual(IG, ERPIG);
+
                     extentReports.CreateStepLogs("Info", "****Industry Group field is removed from Opp Detail page  ");//+ ERPIG +
 
                     //Validate ERP Last Integration Status
@@ -234,8 +235,9 @@ namespace SF_Automation.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    opportunityHome.SearchOpportunityInLightning(oppName);  
-
+                    opportunityHome.SearchOpportunitiesInLightningView(oppName);
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
                     //Validate Product Line
                     string productLine = randomPages.GetERPProductTypeLV();
                     Assert.AreEqual(prodLine, productLine);
@@ -281,7 +283,9 @@ namespace SF_Automation.TestCases.Opportunities
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    opportunityHome.SearchOpportunityInLightning(oppName);
+                    opportunityHome.SearchOpportunitiesInLightningView(oppName);
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
 
                     //Validate ERP Template                
                     string ERPTemplate = randomPages.GetERPTemplateLV();

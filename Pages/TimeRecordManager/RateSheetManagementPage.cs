@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using OpenQA.Selenium;
+using SF_Automation.Pages.Common;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -12,6 +13,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 {
     class RateSheetManagementPage : BaseClass
     {
+        RandomPages randomPages = new RandomPages();
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By imgTitleRateSheet = By.CssSelector("img[alt = 'Title Rate Sheets']");
         By btnGo = By.CssSelector("input[title='Go!']");
@@ -556,14 +558,34 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             return By.XPath($"//table//tbody//td//a[@title='{name}']");
         }
+        private By _nameRateSheetRecent(string name)
+        {
+            return By.XPath($"//table//tbody//th//a[@title='{name}']");
+        }
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
 
         public string SelectTitleRateSheetLV(string name)
         {
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 20);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            Thread.Sleep(5000); 
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheetRecent(name), 10);
+            }
+            catch
+            {
+                randomPages.SelectListViewLV("All");
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 10);
+                }
+                catch
+                {
+                    js.ExecuteScript("window.scrollTo(0,500)");
+                    WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 10);
+                }
+            } 
+            
             driver.FindElement(_nameRateSheet(name)).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);

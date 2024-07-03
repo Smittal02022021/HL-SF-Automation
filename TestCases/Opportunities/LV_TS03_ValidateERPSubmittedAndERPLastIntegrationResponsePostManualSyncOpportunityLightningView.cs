@@ -66,7 +66,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Search for an opportunity
                 string oppName = "Project Saber";
-                opportunityHome.SearchOpportunityInLightning(oppName);
+                opportunityHome.SearchOpportunitiesInLightningView(oppName);
                 extentReports.CreateLog("Matching record is displayed ");
 
                 //Validating Opportunity details page 

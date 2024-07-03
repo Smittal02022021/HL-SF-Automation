@@ -142,9 +142,7 @@ namespace SF_Automation.Pages
         }
 
         public string SearchCompanyWithIndustryType(string industryType)
-
         {
-
             By matchedmyCompany = By.XPath($"//table[contains(@id,'myCompanies')]//tbody//td//span[contains(text(),'{industryType}')]");
             WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
             driver.FindElement(comboIndustryType).SendKeys(industryType);

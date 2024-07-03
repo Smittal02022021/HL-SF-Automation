@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_TMTT0027430_TMTT0027433_TMTT0027436_TMTT0027437_TMTT0027438_TMTT0027439_TMTT0030273_TMTT0032167_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion  : BaseClass
+    class LV_TMTT0027430_HOLD_TMTT0027433_TMTT0027436_TMTT0027437_TMTT0027438_TMTT0027439_TMTT0030273_TMTT0032167_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion  : BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();
@@ -64,14 +64,13 @@ namespace SF_Automation.TestCases.Opportunities
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     homePage.SearchUserByGlobalSearchN(valUser);
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
-                    string cfUser = login.ValidateUser();
-                    Assert.AreEqual(cfUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + cfUser + " logged in ");
 
-                    //Switching to LightningView
                     login.SwitchToLightningExperience();
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");                   
+
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName",1);
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();

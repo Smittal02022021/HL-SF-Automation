@@ -251,7 +251,7 @@ namespace SF_Automation.Pages.HomePage
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
                 driver.FindElement(linkLogout).Click();
-                Thread.Sleep(4000);
+                Thread.Sleep(2000);
             }
             catch (Exception ex)
             {
@@ -259,7 +259,7 @@ namespace SF_Automation.Pages.HomePage
                 Thread.Sleep(4000);
                 WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
                 driver.FindElement(linkLogout).Click();
-                Thread.Sleep(4000);
+                Thread.Sleep(2000);
             }
         }
 
