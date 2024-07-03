@@ -6,18 +6,21 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView: BaseClass
+    class LV_TMTT0020334_VerifyNewTitleAddedinTitleRateSheetLightningView : BaseClass
     {//TMTT0020334
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         RateSheetManagementPage rateSheetMgt = new RateSheetManagementPage();
         LVHomePage homePageLV = new LVHomePage();
-        HomeMainPage homePage = new HomeMainPage();
         RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0045469 = "LV_TMTI0045469_VerifyNewTitleAddedinTitleRateSheet";        
 
@@ -51,19 +54,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
 
-                //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearchN(userSupervisorExl);
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " details are displayed. ");
-
-                //Login user
                 usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();
                 string userSupervisor = login.ValidateUserLightningView();
                 Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);
                 extentReports.CreateStepLogs("Passed", "Supervosor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                //homePageLV.ClickAppLauncher();
-
+                
                 //Go to Opportunity module in Lightning View                 
                 homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
@@ -74,10 +73,11 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                 randomPages.SelectListViewLV("All");
                 extentReports.CreateStepLogs("Info", " All List option is selected ");
-
+                 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "TitleRateSheet");
                 for (int row = 2; row <= rowCount; row++)
                 {
+                    //TMTI0045469 Verify the Rate sheet is updated with title "Senior Advisor"
                     //Click on the new title rate sheet name
                     string nameRateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 1);
                     string pageTitle = rateSheetMgt.SelectTitleRateSheetLV(nameRateSheetExl);
@@ -86,7 +86,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     string userTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 2);
                     string titleDefaultRateExl= ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 3);
-
+                    //TMTI0045470 Verify the Amount in Rate sheet for title "Senior Advisor" 
                     double defaultRate = rateSheetMgt.GetDefaultRateAsPerRoleLV(userTitleExl);
                     Assert.AreEqual(Convert.ToDouble(titleDefaultRateExl), defaultRate);
                     extentReports.CreateStepLogs("Passed", "Title: " + userTitleExl + " Default Rate: USD " + defaultRate);

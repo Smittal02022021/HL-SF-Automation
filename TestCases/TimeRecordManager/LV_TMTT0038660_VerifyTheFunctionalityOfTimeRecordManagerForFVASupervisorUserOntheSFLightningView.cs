@@ -6,8 +6,6 @@ using SF_Automation.TestData;
 using System;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
-using AventStack.ExtentReports.Gherkin.Model;
-
 namespace SF_Automation.TestCases.TimeRecordManager
 {
     class LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView:BaseClass
@@ -21,6 +19,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
 
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView";
@@ -58,13 +57,20 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     string rateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
-                    usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "Supervisor User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
+                    //usersLogin.SearchUserAndLogin(userExl);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Supervisor User: " + userExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
 
                     login.SwitchToLightningExperience();
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userExl), true);
+
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
                     //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -116,7 +122,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //TMTI0093785	Verify that the FVA Supervisor can access the Summary Log tab and can add hours.
                     timeEntry.GoToSummaryLogLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Summary Log Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Summary Log Page ");
                     string activityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 3);
                     string hoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SummaryLogs", row, 2);
                     
@@ -129,7 +135,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //TMTI0093766	Verify that the FVA Supervisor can access the Detail Logs tab.
                     timeEntry.GoToDetailLogsLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Detail Logs Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Detail Logs Page ");
                     textMessage = timeEntry.EnterDetailLogsHoursLV(selectProject, activityExl, hoursExl);
                     Assert.AreEqual(textMessage, "Time Record Added");
                     extentReports.CreateStepLogs("Passed", " Hours entered on Detail Logs Page with Success Message: " + textMessage);
@@ -151,7 +157,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //TMTI0093786	Verify that the FVA Supervisor can access the Weekly Overview tab and can see entered hours
                     timeEntry.GoToWeeklyOverviewLV();
-                    extentReports.CreateStepLogs("Passed", "User: " + user + " is on Weekly Overview Page ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userExl + " is on Weekly Overview Page ");
 
                     //TMTI0093767	Verify that the FVA Supervisor can add hours from the Weekly Overview tab for the selected project and success message appears on the screen.
                     textMessage = timeEntry.EnterWeeklyOverviewHoursLV(selectProject, activityExl, hoursExl);
@@ -162,7 +168,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     usersLogin.ClickLogoutFromLightningView();
-                    extentReports.CreateStepLogs("Info", "User: " + user + " logged out");                    
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");                    
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();

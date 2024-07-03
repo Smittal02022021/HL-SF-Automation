@@ -16,6 +16,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0038660 = "LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView";
 
@@ -56,13 +57,21 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-                    usersLogin.SearchUserAndLogin(userExl);
-                    login.SwitchToClassicView();
-                    string user = login.ValidateUser();
-                    Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " from Time Tracking Group: "+ userGrpNameExl+"  logged in ");
+                    //usersLogin.SearchUserAndLogin(userExl);
+                    homePage.SearchUserByGlobalSearchN(userExl);
+                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
+
+                    //login.SwitchToClassicView();
+                    //string user = login.ValidateUser();
+                    //Assert.AreEqual(user.Contains(userExl), true);
+                    //extentReports.CreateStepLogs("Passed", "Standard User: " + userExl + " from Time Tracking Group: "+ userGrpNameExl+"  logged in ");
+                    //login.SwitchToLightningExperience();
+                    
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(userExl), true);
+
                     //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -75,7 +84,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + user);
                     string GetTimeRecordUserNameLV = timeEntry.GetTimeRecordUserNameLV();
-                    Assert.AreEqual(GetTimeRecordUserNameLV, user, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
+                    Assert.AreEqual(GetTimeRecordUserNameLV, userExl, "Verify Logged-in FVA User name is displayed on the top of Time Record Manager Page ");
                     extentReports.CreateStepLogs("Passed", "User Name: " + GetTimeRecordUserNameLV + " is displayed on the top of Time Record Manager Page ");
 
                     //TMTI0093762	Verify that the FVA User can add hours for the project in Weekly Entry Matrix tab

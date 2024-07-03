@@ -51,12 +51,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Login as Standard User and validate the user
                 string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-
-                //Search CF Financial user by global search
+                //usersLogin.SearchUserAndLogin(userExl);
                 homePage.SearchUserByGlobalSearchN(userExl);
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-
-                //Login user
                 usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();

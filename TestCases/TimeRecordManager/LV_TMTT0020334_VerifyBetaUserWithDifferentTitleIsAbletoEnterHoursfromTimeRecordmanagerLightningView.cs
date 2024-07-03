@@ -9,15 +9,15 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView:BaseClass
+    class LV_TMTT0020334_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView:BaseClass
     {
         //TMTT0020334
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
-        HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         LVHomePage homePageLV = new LVHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         private string valueActivity;
         private string valueEnteredHours;
@@ -59,18 +59,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
+                //TMTI0045472 Verify that User is able to enter hours from time record manager for  title "Senior Advisor"
                 int rowUser = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= rowUser; row++)
                 {
                     string userNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     string userTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-
-                    //Search CF Financial user by global search
+                    //usersLogin.SearchUserAndLogin(userNameExl);
                     homePage.SearchUserByGlobalSearchN(userNameExl);
                     extentReports.CreateStepLogs("Info", "User: " + userNameExl + " details are displayed. ");
-
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();

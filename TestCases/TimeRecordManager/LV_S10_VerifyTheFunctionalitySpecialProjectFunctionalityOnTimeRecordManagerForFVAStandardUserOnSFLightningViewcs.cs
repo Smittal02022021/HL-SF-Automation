@@ -61,11 +61,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 for (int row = 2; row <= rowUser; row++)
                 {
                     userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    //Search CF Financial user by global search
+                    //usersLogin.SearchUserAndLogin(userExl);
                     homePage.SearchUserByGlobalSearchN(userExl);
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();

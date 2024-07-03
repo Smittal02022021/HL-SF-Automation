@@ -54,10 +54,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Login as Supervisor user 
                 string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
+                //usersLogin.SearchUserAndLogin(userExl);
                 homePage.SearchUserByGlobalSearchN(userExl);
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-
-                //Login user
                 usersLogin.LoginAsSelectedUser();
 
                 login.SwitchToLightningExperience();

@@ -51,27 +51,19 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
-
                 for (int row = 2; row <= rowCount; row++)
-                {            
-
+                {  
                     //Login as CAO  User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-
-                    //Search CF Financial user by global search
                     homePage.SearchUserByGlobalSearchN(userExl);
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
 
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " logged in on Lightning View");
-
-                    //homePageLV.ClickAppLauncher();
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
