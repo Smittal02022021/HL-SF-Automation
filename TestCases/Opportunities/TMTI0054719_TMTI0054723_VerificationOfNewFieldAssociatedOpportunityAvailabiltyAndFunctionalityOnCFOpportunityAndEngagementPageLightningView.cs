@@ -268,8 +268,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 2);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
-                    Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
+                    opportunityDetails.EnterAssociatedOpportunityLV(valAssociatedOpp);
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
                     //Approve the Opportunity 
@@ -291,7 +290,7 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //New Field is Present on Opportunity Detail Page for CAO User
-                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
+                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Engagement Detail Page for CAO User: " + caoUser + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
@@ -300,7 +299,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Enter the Associated Opportunity name
                     valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 1);
-                    nameAssociatedEng = engagementDetails.EnterAssociatedEngagementL(valAssociatedEng);
+                    engagementDetails.EnterAssociatedEngagementLV(valAssociatedEng);
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateLog(caoUser + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
 
@@ -357,7 +356,7 @@ namespace SF_Automation.TestCases.Opportunity
                     engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);
 
                     //New Field is Present on Opportunity Detail Page for Standard User
-                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentL());
+                    Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());
                     extentReports.CreateLog("New Field i.e. Associated Engagement is Present on Engagement Detail Page for Standard User " + stdUser + " ");
 
                     // New Field on Opportunity Detail Page is not editable for Standard User

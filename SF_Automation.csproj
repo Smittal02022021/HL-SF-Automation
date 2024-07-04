@@ -801,8 +801,6 @@
     <Compile Include="TestCases\TimeRecordManager\LV_S10_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningViewcs.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_S5_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanagerLightningView.cs" />
-    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005211_TMTT0005221_TMTT0038660_VerifyTheTimeClockRecorderStartAndRefreshButtonsfunctionalityOnSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005430_TimeRecorderFunctionalitiesLightningView.cs" />

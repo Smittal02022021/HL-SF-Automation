@@ -1373,7 +1373,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
             driver.FindElement(btnJobTypeL).Click();
             Thread.Sleep(3000);
-            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
+            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item[@data-value='{type}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
