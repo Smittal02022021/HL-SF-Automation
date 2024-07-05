@@ -41,12 +41,13 @@ namespace SF_Automation.Pages
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagEngagements = By.XPath("//ul/li/div/a/span[2]/span[text()='Engagements']");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
-        By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@data-aura-class='uiVirtualDataTable']");
+        By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@aria-label='Recently Viewed']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
         By btnRefresh = By.XPath("//lst-list-view-manager-button-bar/div/div[1]//button");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
+        By valSearchedEng1 = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/div");
         By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//div");
@@ -519,13 +520,26 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtSearchEng).SendKeys(name);
                 Thread.Sleep(5000);
                 driver.FindElement(btnRefresh).Click();
-                Thread.Sleep(6000);
+                Thread.Sleep(8000);
                 WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng, 190);
                 string opp = driver.FindElement(valSearchedEng).Text;
                 return opp;
            
         }
+        //Validate if Search functionality is working as expected
+        public string ValidateSearchFunctionalityOfEngagement(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
+            driver.FindElement(txtSearchEng).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng1, 190);
+            string opp = driver.FindElement(valSearchedEng1).GetAttribute("title");
+            driver.FindElement(valSearchedEng1).Click();
+            return opp;
 
+        }
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfEngagementsByJobType(string name)
         {

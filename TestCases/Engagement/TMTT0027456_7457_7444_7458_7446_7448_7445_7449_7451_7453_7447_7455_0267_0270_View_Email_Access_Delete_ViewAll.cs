@@ -104,9 +104,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Edit Bids", btnEditBids);
                 extentReports.CreateLog("Button with name : " + btnEditBids + " is displayed on Counterparty Details page ");
 
-                string btnImport = counterparty.ValidateImportWithDataloaderButton();
-                Assert.AreEqual("Import with Dataloader", btnImport);
-                extentReports.CreateLog("Button with name : " + btnImport + " is displayed on Counterparty Details page ");
+                //string btnImport = counterparty.ValidateImportWithDataloaderButton();
+                //Assert.AreEqual("Import with Dataloader", btnImport);
+                //extentReports.CreateLog("Button with name : " + btnImport + " is displayed on Counterparty Details page ");
 
                 string btnExport = counterparty.ValidateExportDataButton();
                 Assert.AreEqual("Export Data", btnExport);

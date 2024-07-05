@@ -151,7 +151,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgPostSubmission = By.XPath("//div[@class='pageLevelErrors']/ul/li");
         By btnMore = By.XPath("//div/lightning-tab-bar/ul/li/lightning-button-menu/button[text()='More']");
-        By btnMoreCAO = By.XPath("//ul/li[7]/lightning-button-menu/button");
+        By btnMoreCAO = By.XPath("//li[7]/lightning-button-menu/button");
         By tabReview = By.XPath("//span[text()='Review']");
         By tabReviewCAO = By.XPath("//lightning-tab-bar/ul/li[8]/lightning-button-menu/button");
         By lblReviewed = By.XPath("//div/span[text()='Reviewed']");
@@ -329,7 +329,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(6000);
             //WebDriverWaits.WaitUntilEleVisible(driver, valEmailOppNameL, 90);
-            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@title,'Rich Text Editor')]")));
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[contains(@title,'Editor')]")));
             Thread.Sleep(4000);
             string emailSub = driver.FindElement(valEmailOppNameL).Text;
             return emailSub;

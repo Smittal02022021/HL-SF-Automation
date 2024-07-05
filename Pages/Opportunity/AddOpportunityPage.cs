@@ -131,7 +131,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
         By chkboxNBC = By.CssSelector("input[id*='00Ni000000FmBzh']");
         By chkboxByPassConflictCheck = By.CssSelector("input[id*='00N3100000Gb1CJ']");
         By inputHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//input");
-        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//div[@role='listbox']/ul/li[2]");
+        By listHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector_cField')]//div[@role='listbox']/ul/li[1]");
         By txtTotalDebtL = By.XPath("//input[@name='Total_Debt_MM__c']");
 
         public string AddOpportunities(string type,string file)
@@ -378,7 +378,7 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
                 Console.WriteLine("No objective required");
             }
 
-            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
+            string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
             driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);

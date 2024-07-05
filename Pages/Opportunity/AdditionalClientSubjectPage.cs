@@ -1302,6 +1302,16 @@ namespace SF_Automation.Pages
             return name;
         }
 
+        //Click Edit button and validate Save button
+        public string ClickEditButtonAndValidateSaveButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEditL, 120);
+            driver.FindElement(btnEditMassEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveRecords, 110);
+            string name = driver.FindElement(btnSaveRecords).Text;
+            return name;
+        }
+
         //Validate Cancel button
         public string ValidateCancelButton()
         {

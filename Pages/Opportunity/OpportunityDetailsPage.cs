@@ -336,7 +336,10 @@ namespace SF_Automation.Pages
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
         By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
         By valValuationDateL = By.XPath("//input[@name='Valuation_Date__c']");
-
+        By txtSharedServExpL = By.XPath("//input[@name= 'Admin_Fee__c']");
+        By txtEstimatedCapL = By.XPath("//input[@name= 'Expense_Cap__c']");
+        By txtLegalCapL = By.XPath("//input[@name= 'Legal_Cap__c']");
+        By comboIndemLngL = By.XPath("//label[text()='Indemnification Language']/parent::div//button");
 
         By txtEstTxnSizeL = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By btnWomenLedL = By.XPath("//button[contains(@aria-label,'Women Led')]");
@@ -507,7 +510,8 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");              
         By btnFairnessL = By.XPath("//button[contains(@aria-label,'Fairness Opinion')]");
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
-              
+        
+ By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");     
                    
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
         By btnReqEng1L = By.XPath("//button[text()='Request Engagement']");
@@ -4344,7 +4348,12 @@ public void ClickNewOpportunitySectorButton()
             //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
             //Thread.Sleep(3000);
             //driver.FindElement(comboSICL).Click();
+            //New required fields for CF conversion 
+            driver.FindElement(txtSharedServExpL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstimatedCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtLegalCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
 
+           
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
 
@@ -4389,6 +4398,12 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
 
+            //New fields for for CF conversion
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            driver.FindElement(comboIndemLngL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+            
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(4000);
@@ -4401,9 +4416,9 @@ public void ClickNewOpportunitySectorButton()
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Console.WriteLine("path:" + excelPath);
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
-            driver.FindElement(tabEngagementNumL).Click();
+            //Thread.Sleep(4000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
+            //driver.FindElement(tabEngagementNumL).Click();
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
             driver.FindElement(btnEditL).Click();
@@ -4639,11 +4654,11 @@ public void ClickNewOpportunitySectorButton()
         public string ClickRequestoEngFVAL()
         {
             Thread.Sleep(9000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
-            driver.FindElement(lnkMoreL).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
-            driver.FindElement(btnReqEngL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+            //driver.FindElement(lnkMoreL).Click();
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 320);
+            driver.FindElement(btnReqEng1L).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
             string validations = driver.FindElement(msgReqEngFVAL).Text;
             driver.FindElement(btnCloseReqEngFVAL).Click();

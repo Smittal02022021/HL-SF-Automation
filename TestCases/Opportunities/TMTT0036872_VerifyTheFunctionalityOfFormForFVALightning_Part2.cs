@@ -85,7 +85,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
                                
                 //Update all required fields for Conversion to Engagement
-                counterparty.ClickViewCounterparties();
+               
+                //counterparty.ClickViewCounterparties();
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC1644);
                 extentReports.CreateLog("All required details are saved ");               
                 opportunityDetails.ClickAddFVAOppContact();

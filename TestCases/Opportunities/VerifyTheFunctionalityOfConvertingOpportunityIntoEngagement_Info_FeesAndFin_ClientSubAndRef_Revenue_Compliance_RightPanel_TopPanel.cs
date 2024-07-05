@@ -218,12 +218,12 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Search Engagements functionality is available ");
 
                 //Verify Search Functionality of Engagements
-                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagements(engNum);
-                Assert.AreEqual(searchedEng, engNum);
+                string searchedEng = engHome.ValidateSearchFunctionalityOfEngagement(engNum);
+                Assert.AreEqual(engNum, searchedEng);
                 extentReports.CreateLog("Engagement is displayed as per entered search criteria ");
 
                 //Validate on clicking Engagement number, engagement details page is displayed
-                engHome.ClickEngNumber();
+                //engHome.ClickEngNumber();
                 string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
                 Assert.AreEqual("Details", titleEngDetails);
                 extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");

@@ -38,11 +38,11 @@ namespace SF_Automation.Pages.Engagement
         By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
-        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
-        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div[1]/dl/dd/div/span/slot/lightning-formatted-text");
-        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
-        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
-        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div/dl/dd/div[1]/span/slot/lightning-formatted-text");
+        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
+        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div[1]//dd/div/span/slot/lightning-formatted-text");
+        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
+        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
+        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
     
@@ -359,7 +359,7 @@ namespace SF_Automation.Pages.Engagement
         By btnAddRevenue = By.XPath("// button[text()='Add Accrual']");
         By btnSaveRevenue = By.XPath("//footer/button[2]/span");
         By valRevAccID = By.XPath("//span[@title='(1)']");
-        By btnShowMoreRev = By.XPath("//table/tbody/tr/td[10]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnShowMoreRev = By.XPath("//table/tbody/tr/td[10]//force-aura-action-wrapper/div//div/a");
         By btnEditRevenue = By.XPath("/html/body/div[8]/div/ul/li/a");
         By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
         By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
@@ -3147,11 +3147,20 @@ namespace SF_Automation.Pages.Engagement
         //Click Portfolio valuation button and get title of page
         public void ClickPortfolioValuationL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
-            driver.FindElement(btnPortfolioVL).Click();
-            Thread.Sleep(9000);
-            driver.SwitchTo().Frame(0);
-            Thread.Sleep(9000);            
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
+                driver.FindElement(btnPortfolioVL).Click();
+                Thread.Sleep(9000);
+                driver.SwitchTo().Frame(0);
+                Thread.Sleep(8000);
+
+            }
+            catch (Exception)
+            {
+                driver.SwitchTo().Frame(6);
+                Thread.Sleep(9000);
+            }
         }
         
         //Fetch Validate imported valuation period upon conversion
@@ -3427,6 +3436,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.FindElement(valStageL).Click();
             driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, valSavedStageL, 240);
             string value = driver.FindElement(valSavedStageL).Text;
             return value;
