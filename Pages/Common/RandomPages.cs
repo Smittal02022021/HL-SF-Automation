@@ -107,7 +107,7 @@ namespace SF_Automation.Pages.Common
         By valERPLegalEntityL = By.XPath("//records-record-layout-item[@field-label='ERP Legal Entity']//lightning-formatted-text");
         By valERPErrorL = By.XPath("//records-record-layout-item[contains(@field-label,'Error Description')]//lightning-formatted-text");
         By valERPEmailIDL = By.XPath("//records-record-layout-item[@field-label='ERP Principal Manager']//lightning-formatted-text");
-        By valLOBL = By.XPath("///records-record-layout-item[@field-label='Line of Business']//lightning-formatted-text");
+        By valLOBL = By.XPath("//records-record-layout-item[@field-label='Line of Business']//lightning-formatted-text");
         By valJobCodeL = By.XPath("//records-record-layout-item[@field-label='Job Code']//lightning-formatted-text");
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
@@ -837,7 +837,7 @@ namespace SF_Automation.Pages.Common
                 }
                 catch
                 {
-                    js.ExecuteScript("window.scrollTo(0,400)");
+                    js.ExecuteScript("window.scrollTo(0,500)");
                     Thread.Sleep(2000);
                     goto ReTry;
                 }
