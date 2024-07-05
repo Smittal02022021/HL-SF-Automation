@@ -85,10 +85,10 @@ namespace SF_Automation.Pages.Common
         By iconInlineEditERPSubmittedToSyncL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//button");
         By textDatePickerL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-datepicker//input");
         By txtTimePickerL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-timepicker//input");
-        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//dd//lightning-formatted-text");
-        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span");
-        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
-        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
+        By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//lightning-formatted-text");
+        By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span/slot/span/slot");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//lightning-formatted-text");
+        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-formatted-text");
         By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
         By valERPIDL = By.XPath("//records-record-layout-item[@field-label='ERP ID']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP ID']//dd//lightning-formatted-text");
         By valERPProjStatusCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Project Status Code']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Status Code']//dd//lightning-formatted-text");

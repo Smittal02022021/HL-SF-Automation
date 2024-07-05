@@ -24,7 +24,7 @@ namespace SF_Automation.TestCases.Opportunities
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
 
-        public static string fileTMTI0054719 = "TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage";
+        public static string fileTMTI0054719 = "LV_TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage";
 
         private string valAssociatedEng;
         private string nameAssociatedEng;
@@ -306,7 +306,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "New Field i.e. Associated Engagement is Editable for System Administrator: " + user + " ");
 
                     //Enter the Associated Opportunity name
-                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 2, 2);
+                    valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 3, 1);
                     nameAssociatedEng = engagementDetails.EnterAssociatedEngagement(valAssociatedEng);
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateStepLogs("Passed", user + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
@@ -330,7 +330,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Standard User Search for converted Engagement ");
 
                     //Search for created Engagement
-                    engagementHome.SearchMyEngagementInLightning(engagementName, userExl);
+                    engagementHome.SearchEngagementInLightningView(engagementName);
 
                     //New Field is Present on Opportunity Detail Page for Standard User
                     Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());

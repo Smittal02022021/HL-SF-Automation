@@ -599,7 +599,7 @@ namespace SF_Automation.Pages
             {
                 driver.FindElement(comboRefTypeL).Click();
                 By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
-                WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 80);
+                WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 20);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
                 driver.FindElement(eleReferralType).Click();
             }

@@ -40,7 +40,6 @@ namespace SF_Automation.TestCases.Opportunities
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
-
                 //Calling Login function                
                 login.LoginApplication();
                 login.SwitchToClassicView();
@@ -58,12 +57,13 @@ namespace SF_Automation.TestCases.Opportunities
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                     homePage.SearchUserByGlobalSearchN(userExl);
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToLightningExperience();
                     string stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(userExl), true);
                     extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();

@@ -7247,7 +7247,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(1000);
             driver.FindElement(comboTASServicesL).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath("//label[text()='TAS Services']/following::lightning-base-combobox-item//span[@title='AFR - ESG']")).Click();
+            driver.FindElement(By.XPath("//label[text()='TAS Services']/..//following::lightning-base-combobox-item//span[@title='Buyside AFR']")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }
@@ -7581,7 +7581,7 @@ namespace SF_Automation.Pages
 
                     CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLedL));
                     driver.FindElement(comboPrimaryOfficeL).Click();
-                    By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{fieldValue}']");
+                    By elePO = By.XPath($"//label[text()='Primary Office']/..//lightning-base-combobox-item//span[@title='{fieldValue}']");
                     CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
                     WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
@@ -7595,15 +7595,15 @@ namespace SF_Automation.Pages
 
         public void UpdatePrimaryOfficeLV(string value)
         {
-            Thread.Sleep(60000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLedL));
             driver.FindElement(comboPrimaryOfficeL).Click();
-            By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{value}']");
+            By elePO = By.XPath($"//label[text()='Primary Office']/..//lightning-base-combobox-item//span[@title='{value}']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
             WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
@@ -7617,7 +7617,7 @@ namespace SF_Automation.Pages
 
         public void UpdateJobTypeLV(string jobType)
         {
-            Thread.Sleep(60000);
+           // Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -7626,7 +7626,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnJobTypeL));
             driver.FindElement(btnJobTypeL).Click();
             Thread.Sleep(2000);
-            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{jobType}']");
+            By eleJobType = By.XPath($"//label[text()='Job Type']/..//lightning-base-combobox-item//span[@title='{jobType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
@@ -7637,7 +7637,7 @@ namespace SF_Automation.Pages
         }
         public void UpdateClientOwnershipLV(string client)
         {
-            Thread.Sleep(70000);
+            //Thread.Sleep(70000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -7645,7 +7645,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
             driver.FindElement(comboClientOwnershipL).Click();
             Thread.Sleep(2000);
-            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{client}']");
+            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/..//lightning-base-combobox-item//span[@title='{client}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleClientOwnership, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
             driver.FindElement(eleClientOwnership).Click();
@@ -7664,7 +7664,7 @@ namespace SF_Automation.Pages
 
         public void UpdateRecordTypeLV(string recordType, string jobType)
         {
-            Thread.Sleep(60000);
+            //Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
             driver.FindElement(btnChangeRecordTypeL).Click();
@@ -7674,13 +7674,13 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
             driver.FindElement(btnLOBL).Click();
             //Thread.Sleep(2000);
-            By eleLOB = By.XPath($"//label[text()='Line of Business']/following::lightning-base-combobox-item//span[@title='{recordType}']");
+            By eleLOB = By.XPath($"//label[text()='Line of Business']/..//lightning-base-combobox-item//span[@title='{recordType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleLOB, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleLOB));
             driver.FindElement(eleLOB).Click();
             //Thread.Sleep(2000);
             driver.FindElement(btnJobTypeL).Click();
-            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{jobType}']");
+            By eleJobType = By.XPath($"//label[text()='Job Type']/..//lightning-base-combobox-item//span[@title='{jobType}']");
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 5);
@@ -7714,13 +7714,13 @@ namespace SF_Automation.Pages
         }
         public void UpdateHLSectorIDLV(string sector)
         {
-            Thread.Sleep(60000);
+            //Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(editAssociatedOppFieldL));
             driver.FindElement(btnClearHLSectionL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
             driver.FindElement(inputHLSectorIDL).Click();
@@ -7783,7 +7783,7 @@ namespace SF_Automation.Pages
             //driver.FindElement(comboOutcomeL).Click();
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboOutcomeL));
             Thread.Sleep(1000);
-            By eleOptOutcome = By.XPath("//label[text()='Outcome']/following::lightning-base-combobox-item//span[@title='Cleared']");
+            By eleOptOutcome = By.XPath("//label[text()='Outcome']/..//lightning-base-combobox-item//span[@title='Cleared']");
             driver.FindElement(eleOptOutcome).Click();                        
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);

@@ -98,8 +98,9 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
-                    
-                    //Select Staff Member from the list
+
+                    //Select Staff Member from the list should be member of Time Tracking Beta Geoup
+
                     string staffNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StaffMember", row, 1);
                     timeEntry.SelectStaffMemberLV(staffNameExl);
                     string staffName = timeEntry.GetSelectedStaffNameLV();

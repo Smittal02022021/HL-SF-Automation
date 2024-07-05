@@ -86,7 +86,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(addOpportunity.VerifyWomenLedValues(), "Verified that displayed Women Led values are same");
                     extentReports.CreateLog("Displayed Women Led values are correct ");
                     */
-                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTC1692);//updated totalDbt
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType,valJobType, fileTC1692);//updated totalDbt
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page

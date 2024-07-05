@@ -47,6 +47,19 @@ namespace SF_Automation.Pages.TimeRecordManager
         By rowRateSheet = By.CssSelector("div[class*='slds-table'] > tr");
         By rateSheetNameList = By.XPath("//div[contains(@class, ' x-panel x-grid-panel')]//tr//td[5]//a");
         By comboSelectRateSheet3 = By.XPath("//div[contains(text(),'Add Record')]/following::div/div/div/select");
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        By chkboxBilling = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id='tab-billing']//tr[1]//input");
+        By btnSendNotification = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id=\"tab-billing\"]//button");
+
+        private By _nameRateSheet(string name)
+        {
+            return By.XPath($"//table//tbody//td//a[@title='{name}']");
+        }
+        private By _nameRateSheetRecent(string name)
+        {
+            return By.XPath($"//table//tbody//th//a[@title='{name}']");
+        }
+        
 
         //private By rateSheetName(String rateSheetname)
         //{
@@ -511,8 +524,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return billedAmount; 
         }
-        By chkboxBilling = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id='tab-billing']//tr[1]//input");
-        By btnSendNotification = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id=\"tab-billing\"]//button");
         public void GoToBillingPreparationTabLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -521,7 +532,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkboxBilling, 20);
             driver.SwitchTo().DefaultContent();
-
         }
         public bool GetSendNotificatioButtonStatusLV()
         {
@@ -546,23 +556,12 @@ namespace SF_Automation.Pages.TimeRecordManager
         }
         public double GetDefaultRateAsPerRoleLV(string role)
         {
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitUntilEleVisible(driver, nameRole(role),20);
             string ratePerHour = driver.FindElement(nameRole(role)).Text;
             double rate = Convert.ToDouble(ratePerHour.Split(' ')[1].Trim());
             driver.SwitchTo().DefaultContent();
             return rate;
-        }
-        private By _nameRateSheet(string name)
-        {
-            return By.XPath($"//table//tbody//td//a[@title='{name}']");
-        }
-        private By _nameRateSheetRecent(string name)
-        {
-            return By.XPath($"//table//tbody//th//a[@title='{name}']");
-        }
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        }        
 
         public string SelectTitleRateSheetLV(string name)
         {
@@ -571,6 +570,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheetRecent(name), 10);
+                driver.FindElement(_nameRateSheetRecent(name)).Click();
             }
             catch
             {
@@ -578,19 +578,18 @@ namespace SF_Automation.Pages.TimeRecordManager
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 10);
+                    driver.FindElement(_nameRateSheet(name)).Click();
                 }
                 catch
                 {
-                    js.ExecuteScript("window.scrollTo(0,500)");
+                    js.ExecuteScript("window.scrollTo(0,550)");
                     WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheet(name), 10);
+                    driver.FindElement(_nameRateSheet(name)).Click();
                 }
-            } 
-            
-            driver.FindElement(_nameRateSheet(name)).Click();
+            }            
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader= driver.FindElement(txtPageHeader).Text;
-            //driver.SwitchTo().DefaultContent();
             return pageheader;
         }
 

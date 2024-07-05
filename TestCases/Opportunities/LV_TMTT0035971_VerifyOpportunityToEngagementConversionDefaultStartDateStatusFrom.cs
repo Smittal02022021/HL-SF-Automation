@@ -179,15 +179,13 @@ namespace SF_Automation.TestCases.Opportunities
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
                     homePage.SearchUserByGlobalSearchN(userCAOExl);
-                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");                   
+                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
+
                     login.SwitchToLightningExperience();
-
                     string caoUser = login.ValidateUserLightningView();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-
                     Assert.AreEqual(caoUser.Contains(userCAOExl), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " CAO User logged in ");
+                    extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
                     
                     //Go to Opportunity module in Lightning View 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -201,7 +199,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
