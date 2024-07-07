@@ -817,6 +817,11 @@ namespace SF_Automation.Pages.Common
             return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
 
+        private By _nameRecentViewed(string name)
+        {
+            return By.XPath($"//table//tbody//th//a[@title='{name}']");
+        }
+
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
         public string SelectJobTypesLV(string name)
         {
@@ -824,7 +829,8 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(5000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
+                WebDriverWaits.WaitUntilEleVisible(driver, _nameRecentViewed(name), 10);
+                driver.FindElement(_nameRecentViewed(name)).Click();
             }
             catch
             {
@@ -834,6 +840,7 @@ namespace SF_Automation.Pages.Common
                     
                     WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(_eleJobType(name)));
+                    driver.FindElement(_eleJobType(name)).Click();
                 }
                 catch
                 {

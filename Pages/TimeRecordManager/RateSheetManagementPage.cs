@@ -55,7 +55,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             return By.XPath($"//table//tbody//td//a[@title='{name}']");
         }
-        private By _nameRateSheetRecent(string name)
+        private By _nameRecentViewed(string name)
         {
             return By.XPath($"//table//tbody//th//a[@title='{name}']");
         }
@@ -569,8 +569,8 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(5000); 
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, _nameRateSheetRecent(name), 10);
-                driver.FindElement(_nameRateSheetRecent(name)).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, _nameRecentViewed(name), 10);
+                driver.FindElement(_nameRecentViewed(name)).Click();
             }
             catch
             {

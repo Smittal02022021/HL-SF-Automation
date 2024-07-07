@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
 
                     // Create Expense Request
-                    expReqCreate.CreateExpenseRequest(fileTC2276_T2277);
+                    expReqCreate.CreateExpenseRequest(fileTC2276_T2277);// fill all rew fields(including the submit fields 
                     extentReports.CreateLog("Expense request is created successfully ");
 
                     //Validate Requestor value of expense request

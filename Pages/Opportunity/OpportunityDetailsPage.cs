@@ -600,9 +600,9 @@ namespace SF_Automation.Pages
         By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtClientNameL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient')]//records-hoverable-link//a//span");
         By txtSubjectNameL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSubject')]//records-hoverable-link//a//span");
-        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
-        By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
-        By valOppNumL = By.XPath("//flexipage-field[contains(@data-field-id,'Opportunity_Number__cField')]//dd//lightning-formatted-text");
+        By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-formatted-text");
+        By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//lightning-formatted-text");
+        By valOppNumL = By.XPath("//flexipage-field[contains(@data-field-id,'Opportunity_Number__cField')]//lightning-formatted-text");
         By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
         By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
         By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
@@ -610,11 +610,11 @@ namespace SF_Automation.Pages
         By lblWomenLedL = By.XPath("//label[text()='Women Led']");
         By lblExpense = By.XPath("//span[text()='Expense']");
         By btnSaveL = By.XPath("//button[text()='Save']");
-        By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
+        By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//button[@title='Change Record Type']");
         By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
-        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//div[contains(@class,'recordTypeName')]/span");
         By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
-        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
+        By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//lightning-formatted-text");
         By valERPProductTypCodeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
         By txtEstFee = By.XPath("//input[@name='Fee__c']");
         By btnClearHLSectionL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordIndustry_Sector')]//lightning-base-combobox//button");
@@ -631,6 +631,7 @@ namespace SF_Automation.Pages
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
+        By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -7610,7 +7611,7 @@ namespace SF_Automation.Pages
             driver.FindElement(elePO).Click();
 
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
         }
@@ -7631,7 +7632,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             driver.FindElement(eleJobType).Click();
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
         }
@@ -7650,7 +7651,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
             driver.FindElement(eleClientOwnership).Click();
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
         }
@@ -7714,13 +7715,14 @@ namespace SF_Automation.Pages
         }
         public void UpdateHLSectorIDLV(string sector)
         {
-            //Thread.Sleep(8000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(editAssociatedOppFieldL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblIBL));
+            Thread.Sleep(2000);
             driver.FindElement(btnClearHLSectionL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
             driver.FindElement(inputHLSectorIDL).Click();

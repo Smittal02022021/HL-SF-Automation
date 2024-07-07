@@ -128,7 +128,7 @@ namespace SF_Automation.Pages.HomePage
                     {
                         WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
                     }
-                    catch { Thread.Sleep(10000); }
+                    catch { Thread.Sleep(5000); }
                     Thread.Sleep(4000);
                     break;
                 }

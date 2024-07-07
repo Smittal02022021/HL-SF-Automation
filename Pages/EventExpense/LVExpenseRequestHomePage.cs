@@ -50,6 +50,15 @@ namespace SF_Automation.Pages.EventExpense
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
 
+        
+        By headerPageLWC = By.XPath("//h1//records-entity-label");
+
+        public string GetPageHeaderLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, headerPageLWC, 20);
+            return driver.FindElement(headerPageLWC).Text.Trim();
+        }
+        
         public bool VerifyIfExpenseRequestPageIsOpenedSuccessfully()
         {
             Thread.Sleep(3000);

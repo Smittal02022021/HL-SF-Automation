@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.EventExpense;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -12,7 +13,9 @@ namespace SF_Automation.TestCases.EventExpense
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        ExpenseRequestPage expRequest = new ExpenseRequestPage();
+        LVExpenseRequestCreatePage expRequest = new LVExpenseRequestCreatePage();
+        LVExpenseRequestHomePage expRequestHomePage = new LVExpenseRequestHomePage();
+        LVExpenseRequestDetailPage expRequestDetailPage  = new LVExpenseRequestDetailPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages random= new RandomPages();
@@ -158,10 +161,10 @@ namespace SF_Automation.TestCases.EventExpense
                 expRequest.AssignHLOpportunityLWC(nameHLOpportunity); 
 
                 //Save Requestor/Required details and validate Event Expense details page is displayed
-                string pageHeader = expRequest.GetPageHeaderLWC();
+                string pageHeader = expRequestHomePage.GetPageHeaderLWC();
                 Assert.AreEqual("HL_Expense Request", pageHeader);
                 extentReports.CreateStepLogs("Passed", "User is on "+pageHeader+" detail page");
-                string expenseRequestNumber = expRequest.GetRequestNumberLWC();
+                string expenseRequestNumber = expRequestDetailPage.GetRequestNumberLWC();
                 extentReports.CreateStepLogs("Passed", "Expense Request with Expense Preapproval Number:: " + expenseRequestNumber + " is created");
 
                 //Click Back To Expense Request/Closing the Expense Request detail page and validate Event Expense Home page
@@ -190,7 +193,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //****************************Out of Scope*****************************/////
 
                 //Click Submit without filling mandatory details and validate all validations
-                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 string bubbleMessage = random.GetLVMessagePopup();
                 string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 string validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 3);
@@ -198,7 +201,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "Bubble Message:: " + bubbleMessage + " is displayed after assiging HL Internal Opportunity");
 
                 //Fill all the mandatory details of Event Expense Request, submit the request and validate the status
-                expRequest.ClickEditExpenseRequestButtonLWC();
+                expRequestDetailPage.ClickEditExpenseRequestButtonLWC();
                 string numberOfGuestExl= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 9);
                 string nameTeamMemberExl= ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 15);
 
@@ -206,17 +209,17 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "All required fields are filled for Event Type:  " + eventTypeExl);
 
                 //T2275 Verify the End date should be greater than Start date validation 
-                expRequest.EditExpenseRequestEndDateLWC(pastDate);
-                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                expRequestDetailPage.EditExpenseRequestEndDateLWC(pastDate);
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
                 bubbleMessage = random.GetLVMessagePopup();
                 validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp2", 2, 3);
                 Assert.AreEqual(validationMsgExl, validationMessage);
                 extentReports.CreateStepLogs("Passed", "Bubble Message:: " + validationMessage + "  is displayed for End date");
-                expRequest.EditExpenseRequestEndDateLWC(futureDate);
+                expRequestDetailPage.EditExpenseRequestEndDateLWC(futureDate);
 
-                expRequest.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                string status = expRequest.GetRequestStatusLWC();
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                string status = expRequestDetailPage.GetRequestStatusLWC();
                 Assert.AreEqual("Waiting for Approval", status);
                 extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval and status is "+ status);
                 
@@ -228,6 +231,7 @@ namespace SF_Automation.TestCases.EventExpense
             }
             catch (Exception ex)
             {
+                extentReports.CreateExceptionLog(ex.Message);
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
             }
