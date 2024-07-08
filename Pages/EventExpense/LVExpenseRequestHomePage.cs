@@ -1,16 +1,22 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestHomePage : BaseClass
     {
+        LoginPage login = new LoginPage();
+        LVHomePage homePageLV = new LVHomePage();
+        ExtentReport extentReports = new ExtentReport();
         //Tabs & Labels
         By valExpenseRequest = By.XPath("//h2[@class='slds-card__header-title']/span");
         By tabExpenseRequestLWC = By.XPath("//a[@title='Expense Request(LWC)']/span");
@@ -49,9 +55,87 @@ namespace SF_Automation.Pages.EventExpense
 
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
-
-        
+        By inputERNLWCMR = By.XPath("(//input[@name='ExpenseRequestNumber'])[1]");
+        By inputERNLWCPR = By.XPath("(//input[@name='ExpenseRequestNumber'])[2]");
+        By btnApplyFilterLWCMR = By.XPath("(//div[@slot='footer']//button[text()='Apply Filter'])[1]");
+        By btnApplyFilterLWCPR = By.XPath("(//div[@slot='footer']//button[text()='Apply Filter'])[2]");
+        By headerERNumberLWC = By.XPath("//h1//lightning-formatted-text[@slot='primaryField']");
+        By btnBackToExpRequestList = By.CssSelector("input[value='Back To Expense Request List']");
         By headerPageLWC = By.XPath("//h1//records-entity-label");
+        private By _tabRequestList(string name)
+        {
+            return By.XPath($"//ul[@role='tablist']//li/a[@data-label='{name}']");
+        }
+
+        public string OpenPendingApprovalExpenseRequestLWC(string expenseReqNumber)
+        {      
+            Thread.Sleep(10000);
+            try
+            {
+                //int tabsCount = driver.WindowHandles.Count;
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackToExpRequestList,5);
+                string url = driver.Url;
+                //!(url.Contains(".com/lightning")) || !(url.Contains(".lightning"))
+                if (driver.FindElement(btnBackToExpRequestList).Displayed)
+                {
+                    driver.FindElement(btnBackToExpRequestList).Click();
+                    
+                }
+                login.SwitchToLightningExperience();
+                homePageLV.SelectAppLV("HL Banker");
+                string appName = homePageLV.GetAppName();
+                homePageLV.SelectModule("Expense Request(LWC)");
+                this.SelectRequestTabLWC("Requests Pending My Approval");
+                this.SearchAndSelectExpenseRequestLWC(expenseReqNumber, "Requests Pending My Approval");
+                //driver.Close();
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                driver.Close();
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                return " UI Switching from Classic to Lightning was Completed";
+            }
+            catch (Exception ex)
+            {
+                return " UI Switching from Classic to Lightning is not Required";
+            }
+
+        }
+        public void SelectRequestTabLWC(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _tabRequestList(name), 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_tabRequestList(name)));
+            driver.FindElement(_tabRequestList(name)).Click();
+        }
+        public string SearchAndSelectExpenseRequestLWC(string number, string requestType)
+        {
+            Thread.Sleep(5000);
+            if(requestType== "My Requests")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWCMR, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWCMR));
+                driver.FindElement(inputERNLWCMR).Clear();
+                driver.FindElement(inputERNLWCMR).SendKeys(number);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWCMR));
+                driver.FindElement(btnApplyFilterLWCMR).Click();
+            }
+            if (requestType == "Requests Pending My Approval")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWCPR, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWCPR));
+                driver.FindElement(inputERNLWCPR).Clear();
+                driver.FindElement(inputERNLWCPR).SendKeys(number);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWCPR));
+                driver.FindElement(btnApplyFilterLWCPR).Click();
+            }            
+            By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
+            WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
+            driver.FindElement(linkExpenseRequest).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
+            return driver.FindElement(headerERNumberLWC).Text.Trim();
+        }
 
         public string GetPageHeaderLWC()
         {

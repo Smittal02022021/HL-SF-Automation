@@ -19,7 +19,6 @@ namespace SF_Automation.TestCases.Engagements
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         RandomPages pages = new RandomPages();
         LegalEntityDetail entityDetails = new LegalEntityDetail();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
@@ -67,7 +66,6 @@ namespace SF_Automation.TestCases.Engagements
                     Assert.AreEqual(stdUser.Contains(valUserExl), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valUserExl + " logged in on Lightning View");
 
-                    //homePageLV.ClickAppLauncher();
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -136,7 +134,6 @@ namespace SF_Automation.TestCases.Engagements
                     string userName = login.ValidateUserLightningView();
                     Assert.AreEqual(userName.Contains(adminUserExl), true);
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -169,7 +166,7 @@ namespace SF_Automation.TestCases.Engagements
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUserExl), true);
                     extentReports.CreateLog("Standard User: " + valUserExl + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
+                    
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -191,7 +188,7 @@ namespace SF_Automation.TestCases.Engagements
                     string userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
                     extentReports.CreateStepLogs("Info", "CAO User:" + userCAOExl + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
+                    
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -222,7 +219,7 @@ namespace SF_Automation.TestCases.Engagements
                     userName = login.ValidateUserLightningView();
                     Assert.AreEqual(userName.Contains(adminUserExl), true);
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View for ERP related Activities");
-                    //homePageLV.ClickAppLauncher();
+                   
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -398,8 +395,7 @@ namespace SF_Automation.TestCases.Engagements
                     string ERPLegCode = randomPages.GetERPLegCodeLV();
                     Assert.AreEqual(legisCode, ERPLegCode);
                     extentReports.CreateStepLogs("Passed", "ERP Legislation Code in ERP section: " + ERPLegCode + " matches with ERP Legal Entity ID of Legal Entity: " + entity + " ");
-
-                    
+                                        
                     //Validate the creation of default contract
                     engagementDetails.ClickQuickLink("Contract");
                     extentReports.CreateStepLogs("Info", " Contract List Page is opened");                    

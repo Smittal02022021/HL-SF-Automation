@@ -4,6 +4,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Web;
 
 namespace SF_Automation.Pages.EventExpense
 {
@@ -110,6 +111,19 @@ namespace SF_Automation.Pages.EventExpense
             return By.XPath($"//ul//li//button[text()='{btnName}']");
         }
 
+        public bool IsButtonDisplayedLWC(string btnName)
+        {
+            return driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Displayed;
+        }
+        public string GetExpenseRequestStatusLWC(int windowId)
+        {
+            CustomFunctions.SwitchToWindow(driver, windowId);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
+            return driver.FindElement(elmEPStatusLWC).Text;
+        }
+
         public string GetEventFormatLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valEventFormatLWC, 60);
@@ -159,7 +173,7 @@ namespace SF_Automation.Pages.EventExpense
             return driver.FindElement(elmEPNumberLWC).Text.Trim();
         }
 
-        public string GetRequestStatusLWC()
+        public string GetExpenseRequestStatusLWC()
         {
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
@@ -178,6 +192,29 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC(btnName), 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC(btnName)));
             driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Click();
+        }
+        By txtCommentsL = By.XPath("//p//textarea");
+        public void ClickRequestMoreInformationButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Request More Information"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Request More Information")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Request More Information")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
+            driver.FindElement(txtCommentsL).SendKeys(" Request More Information Automation");
+        }
+        By btnRejectAcceptL = By.XPath("//p//button[@title='Primary action']");
+        public void ClickRejectButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Reject(LWC)"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
+            driver.FindElement(txtCommentsL).SendKeys(" Request Rejected Automation");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectAcceptL, 10);
+            driver.FindElement(btnRejectAcceptL).Click();
+            Thread.Sleep(5000);
         }
         public void ClickEditExpenseRequestButtonLWC()
         {

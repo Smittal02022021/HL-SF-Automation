@@ -55,7 +55,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnCreateNewExpenseFormLWC = By.XPath("//button[@title='Create New Expense Form']");
         By btnSaveLWC = By.XPath("//footer//button[text()='Save']");
         By btnSaveEditLWC = By.XPath("//button[@name='SaveEdit']");
-        By btnApplyFilterLWC = By.XPath("//div[@slot='footer']//button[text()='Apply Filter']");
+        
         By btnNameLWC = By.XPath("//div[contains(@class,'footer')]//button");
         
 
@@ -88,11 +88,11 @@ namespace SF_Automation.Pages.EventExpense
         By inputOtherCostLWC = By.XPath("//label[text()='Other Cost']/..//input");
         By inputDescOtherCostLWC = By.XPath("//label[text()='Description of Other Cost']/..//input");
         By inputHLOppLWC = By.XPath("//label[text()='HL Internal Opportunity Name']/..//input");
-        By inputERNLWC = By.XPath("//input[@name='ExpenseRequestNumber']");
+        
         By inputTeamMemberLWC = By.XPath("//label[text()='List of Team Members']/..//input");
         By inputDscMarketingSupportLWC = By.XPath("//label[text()='Description of Marketing Support']/..//input");
        
-        By headerERNumberLWC = By.XPath("//h1//lightning-formatted-text[@slot='primaryField']");
+        
         By headerEventTrackingLWC = By.XPath("//h3//span[@title='Event Tracking']");        
         
         public void SaveExpenseRequestSubmitForApprovalRequiredFieldsLWC(string eventType, string numberOfGuest, string teamMember)
@@ -137,34 +137,13 @@ namespace SF_Automation.Pages.EventExpense
         {
             string formatedValidation = bubbleMessage.Replace("\r\n", " ");
             return formatedValidation;
-        }
-       
-        public string SearchAndSelectExpenseRequestLWC(string number)
-        {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWC, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWC));
-            driver.FindElement(inputERNLWC).Clear();
-            driver.FindElement(inputERNLWC).SendKeys(number);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWC));
-            driver.FindElement(btnApplyFilterLWC).Click();
-            By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
-            WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
-            driver.FindElement(linkExpenseRequest).Click();
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
-            return driver.FindElement(headerERNumberLWC).Text.Trim();
-        }
+        }         
 
         public string GetButtonnameLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNameLWC, 20);
             return driver.FindElement(btnNameLWC).Text.Trim();
         }
-
-        
 
         public void ClickCreateNewExpenseFormLWC()
         {

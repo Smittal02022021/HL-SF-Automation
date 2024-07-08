@@ -174,7 +174,7 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual("Create New Expense Form", txtButtonName);
                 extentReports.CreateStepLogs("Passed", "After closing Expense Request detail page user is redirected to "+ txtButtonName);
 
-                string headerExpNumber = expRequest.SearchAndSelectExpenseRequestLWC(expenseRequestNumber);
+                string headerExpNumber = expRequestHomePage.SearchAndSelectExpenseRequestLWC(expenseRequestNumber, "My Requests");
                 Assert.AreEqual(headerExpNumber, expenseRequestNumber);
                 extentReports.CreateStepLogs("Passed", "User is on Expense Request :: "+ headerExpNumber+" detail page");
 
@@ -219,7 +219,7 @@ namespace SF_Automation.TestCases.EventExpense
                 expRequestDetailPage.EditExpenseRequestEndDateLWC(futureDate);
 
                 expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                string status = expRequestDetailPage.GetRequestStatusLWC();
+                string status = expRequestDetailPage.GetExpenseRequestStatusLWC();
                 Assert.AreEqual("Waiting for Approval", status);
                 extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval and status is "+ status);
                 

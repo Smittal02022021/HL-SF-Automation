@@ -611,7 +611,7 @@ namespace SF_Automation.Pages
         By lblExpense = By.XPath("//span[text()='Expense']");
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//button[@title='Change Record Type']");
-        By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
+        By headerChangeRT = By.XPath("//h1[contains(text(),'Change ')]");
         By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//div[contains(@class,'recordTypeName')]/span");
         By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By valERPProductTypeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//lightning-formatted-text");
