@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover : BaseClass
+    class ZObsolated_T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

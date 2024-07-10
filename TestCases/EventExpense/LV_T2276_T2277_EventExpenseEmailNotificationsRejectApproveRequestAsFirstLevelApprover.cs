@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.EventExpense
+namespace SF_Automation.TestCases.EventExpense
 {
     class LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover : BaseClass
     {
