@@ -159,7 +159,28 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();
-            Thread.Sleep(10000);        }
+            Thread.Sleep(10000);       
+        }
+        By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
+        public void LoginAsExpenseRequestApproverV(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
+            driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
+            driver.FindElement(btnLogin).Click();
+            Thread.Sleep(10000);
+            //try
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);
+            //    driver.SwitchTo().Window(driver.WindowHandles[0]);
+            //}
+            //catch
+            //{ 
+            
+            //}
+        }
 
         public void LoginAsFirstLevelExpenseRequest(string file)
         {

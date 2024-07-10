@@ -91,7 +91,6 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                     
                     //Validate Requestor value of expense request
-                    //string requestor = ReadExcelData.ReadData(excelPath, "ExpenseRequest", 3);
                     string requestor=expRequestDetailPage.GetRequestorLWC();
                     Assert.AreEqual(nameRequestor, requestor);
                     extentReports.CreateStepLogs("Passed", "Requestor value is validated as " + requestor);
@@ -104,6 +103,7 @@ namespace SalesForce_Project.TestCases.EventExpense
                     ////Get expense pre approver number
                     string expensePreAppNumber = expRequestDetailPage.GetRequestNumberLWC();
                     extentReports.CreateStepLogs("Passed", "Expense Request created with number " + expensePreAppNumber);
+
                     ////Validate event contact
                     string eventContact = expRequestDetailPage.GetEventContactLWC();
                     Assert.AreEqual(nameEventContactExl, eventContact);
@@ -149,7 +149,7 @@ namespace SalesForce_Project.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Submitted Expense Request Detail page is closed and user returned to Expense List page");
 
                     //Validate expense request submitted is displayed in list
-                    expRequestHomePage.SelectRequestTabLWC("My Requests");
+                    //expRequestHomePage.SelectRequestTabLWC("My Requests");
                     string headerExpNumber = expRequestHomePage.SearchAndSelectExpenseRequestLWC(expensePreAppNumber, "My Requests");
                     Assert.AreEqual(headerExpNumber, expensePreAppNumber);
                     extentReports.CreateStepLogs("Passed", "Expense Request:: " + headerExpNumber + " is found and selected");
@@ -165,8 +165,6 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                     //Launch outlook window
                     OutLookInitialize();
-
-                    //Login into Outlook
                     outlook.LoginOutlook(fileOutlook);
                     string outlookLabel = outlook.GetLabelOfOutlook();
                     Assert.AreEqual("Outlook", outlookLabel);
@@ -179,8 +177,8 @@ namespace SalesForce_Project.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "User is redirected to salesforce with " + driver.Title + " is displayed ");
 
                     //Switch to Salesforce from outlook
-                    login.LoginAsExpenseRequestApprover(fileT2276);
-                    extentReports.CreateStepLogs("Passed", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
+                    login.LoginAsExpenseRequestApproverV(fileT2276, row);
+                    extentReports.CreateStepLogs("Info", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
 
                     //Check if UI is Classic, Click back to List button, Switch to lV Search Pending Requests
                     string RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
@@ -208,32 +206,152 @@ namespace SalesForce_Project.TestCases.EventExpense
 
                     //Reject expense request
                     expRequestDetailPage.ClickRejectButtonLWC();
+                    string bubbleMessage = random.GetLVMessagePopup();
+                    string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
+                    Assert.AreEqual("Record Rejected", validationMessage," Validate the Sucess Pop-up after Rejecting Request");
+                    extentReports.CreateStepLogs("Info", "Pop-up Message after Rejection is " + validationMessage);
+
                     status = expRequestDetailPage.GetExpenseRequestStatusLWC();
+                    //Issue Page is not being Reloaded to reflect the latest Sstaus 
                     Assert.AreEqual("Rejected", status,"Verify the Status of Request after Rejection");
-                    extentReports.CreateLog("Rejected expense request and expense request status validated as " + status + " ");
+                    extentReports.CreateStepLogs("Info", "Rejected expense request and expense request status validated as " + status + " ");
 
                     random.CloseActiveTab(expensePreAppNumber);
                     homePageLV.UserLogoutFromSFLightningView();
-                    login.SwitchToClassicView();
+                    //login.SwitchToClassicView();
                     driver.Quit();
-                    extentReports.CreateStepLogs("Info", "Request 1st level Approver Logged out and close the browser ");
+                    extentReports.CreateStepLogs("Info", "Approver Logged out and close the browser");
 
+                    extentReports.CreateStepLogs("Info", "Verify the Rejected Request email in outlook");
+                    //Verify the Rejection email in outlook 
+                    OutLookInitialize();
+                    outlook.LoginOutlook(fileOutlook);
+                    string outlookLabels = outlook.GetLabelOfOutlook();
+                    Assert.AreEqual("Outlook", outlookLabels);
+                    extentReports.CreateStepLogs("Passed", "Verified and Validation is done for User logged in to outlook");
 
+                    //Verify rejected email recieved on outlook
+                    string expenseReqNumberFromEmail = outlook.VerifyExpenseRequestForRejectedEmail(0);
+                    Assert.AreEqual(expensePreAppNumber, expenseReqNumberFromEmail);
+                    extentReports.CreateStepLogs("Passed", "Rejection email is recieved with expense Request Number " + expenseReqNumberFromEmail + " ");
+                    driver.Quit();
 
+                    /**Resubmit rejected expense request for approval ***/
+                    Initialize();
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
+                    extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");               
+                    login.LoginApplication();
+                    login.SwitchToClassicView();
+                    Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                    extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
-                    /////////-----------------------------------
+                    //Login as user who created the Expense Requst 
+                    homePage.SearchUserByGlobalSearchN(valUser);
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    usersLogin.LoginAsSelectedUser();
+                    login.SwitchToLightningExperience();
+                    stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
-                    //Require More Information
-                    expRequestDetailPage.ClickRequestMoreInformationButtonLWC();
+                    homePageLV.SelectAppLV(appNameExl);
+                    appName = homePageLV.GetAppName();
+                    Assert.AreEqual(appNameExl, appName);
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Module Page ");
+
+                    //Validate expense request submitted is displayed in list
+                    //expRequestHomePage.SelectRequestTabLWC("My Requests");
+                    headerExpNumber = expRequestHomePage.SearchAndSelectExpenseRequestLWC(expensePreAppNumber, "My Requests");
+
+                    //Verify the status of Event Request
                     status = expRequestDetailPage.GetExpenseRequestStatusLWC();
-                    Assert.AreEqual("More Information Requested", status, "Verify the Status of Request after Request for More Information");
-                    extentReports.CreateLog("Rejected expense request and expense request status validated as " + status + " ");
+                    Assert.AreEqual("Rejected", status);
+                    extentReports.CreateStepLogs("Info", "Expense request status validated as " + status);
 
-                    //Validate expense request response under approval history section
+                    //Edit expense request
+                    string editCityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", row, 17);                    
+                    expRequestDetailPage.EditExpenseRequestCityLWC(editCityExl);
+                    extentReports.CreateLog("Rejected Expense Request updated with Differnt City ");
 
+                    //Validate updated event city from event expense detail page
+                    string latestEventCity = expRequestDetailPage.GetEventCityLWC();
+                    Assert.AreEqual(editCityExl, latestEventCity);
+                    extentReports.CreateStepLogs("Passed", "Expense request event city is validated as " + latestEventCity);
+
+                    //Click on submit for approval button
+                    expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                    extentReports.CreateStepLogs("Info", "Rejected Expense Request ie Edited and Resubmitted for approval");
+
+                    //Validate expense request status after resubmitting for approval
+                    requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC();
+                    Assert.AreEqual("Waiting for Approval", requestStatus);
+                    extentReports.CreateStepLogs("Passed", "Event Expense Request:: " + expensePreAppNumber + "  is submitted for approval and status is " + requestStatus);
+
+                    random.CloseActiveTab(expensePreAppNumber);
+                    extentReports.CreateStepLogs("Info", "Submitted Expense Request Detail page is closed and user returned to Expense List page");
 
                     homePageLV.UserLogoutFromSFLightningView();
+                    login.SwitchToClassicView();
+                    extentReports.CreateLog("Event Expense Requestor logout after Resubmitting the event expense request which was rejected ");
                     driver.Quit();
+                    extentReports.CreateLog("Close Browser ");
+
+                    //Launch outlook 
+                    OutLookInitialize();
+                    outlook.LoginOutlook(fileOutlook);
+                    string outlookTitle = outlook.GetLabelOfOutlook();
+                    Assert.AreEqual("Outlook", outlookTitle);
+                    extentReports.CreateLog("Verified and Validation is done for User is logged in to outlook ");
+
+                    //Select expense request approval email 
+                    outlook.SelectExpenseApprovalEmailV();
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
+                    extentReports.CreateLog("User is redirected to salesforce with " + driver.Title + " is displayed ");
+
+                    //Login as Expense Request approver
+                    login.LoginAsExpenseRequestApproverV(fileT2276, row);
+                    extentReports.CreateLog("Login into outlook as first level approver of event expense requested ");
+
+                    //Check if UI is Classic, Click back to List button, Switch to LV Search Pending Requests
+                    RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
+                    extentReports.CreateStepLogs("Info", RequestUIStatus);
+
+                    // Validate status of the event request on my request page in the request list
+                    requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC();
+                    Assert.AreEqual("Waiting for Approval", requestStatus);
+                    extentReports.CreateStepLogs("Passed", "Event Expense Request:: " + expensePreAppNumber + "  is submitted for approval and status is " + requestStatus);
+
+                    ////Approve expense request
+                    expRequestDetailPage.ClickApproveButtonLWC();
+                    requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC();
+                    Assert.AreEqual("Approved", requestStatus);
+                    extentReports.CreateStepLogs("Passed", "Expense Request Status is Approved");
+
+                    random.CloseActiveTab(expensePreAppNumber);
+                    extentReports.CreateStepLogs("Info", "Approver Approved the Expense Request");
+
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateLog("Event Expense Approver logout after Approving the Event Expense Request");
+                    driver.Quit();
+                    extentReports.CreateLog("Close Browser ");
+
+                    //Launch outlook 
+                    OutLookInitialize();
+                    outlook.LoginOutlook(fileOutlook);
+                    extentReports.CreateLog("Login into outlook to verfied approved email recieved ");
+
+                    //Verify approval email 
+                    string expenseReqNumberFromApprovedEmail = outlook.VerifyExpenseRequestForApprovedEmail(0);
+                    Assert.AreEqual(expensePreAppNumber, expenseReqNumberFromApprovedEmail);
+                    extentReports.CreateLog("Approval email is recieved with expense Request Number " + expenseReqNumberFromApprovedEmail + " ");
+
+                    // outlook.OutLookLogOut();
+                    extentReports.CreateLog("Logout from outlook as approver of event expense requested ");
+                    driver.Quit();
+                    extentReports.CreateLog("Close the browser ");                    
                 }
             }
             catch (Exception ex)

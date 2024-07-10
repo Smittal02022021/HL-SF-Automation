@@ -109,6 +109,7 @@ namespace SF_Automation.Pages.EventExpense
         public string SearchAndSelectExpenseRequestLWC(string number, string requestType)
         {
             Thread.Sleep(5000);
+
             if(requestType== "My Requests")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWCMR, 10);
@@ -130,6 +131,7 @@ namespace SF_Automation.Pages.EventExpense
             By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
             WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
+            Thread.Sleep(2000);
             driver.FindElement(linkExpenseRequest).Click();
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(5000);

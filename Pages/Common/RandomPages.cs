@@ -849,7 +849,7 @@ namespace SF_Automation.Pages.Common
                     goto ReTry;
                 }
             }
-            driver.FindElement(_eleJobType(name)).Click();
+            //driver.FindElement(_eleJobType(name)).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader = driver.FindElement(txtPageHeader).Text;

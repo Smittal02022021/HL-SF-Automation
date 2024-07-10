@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V107.HeadlessExperimental;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -140,6 +141,28 @@ namespace SF_Automation.UtilityFunctions
             element.Click();
             Thread.Sleep(10000);
 
+            driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            Thread.Sleep(10000);
+        }
+
+        By txtMessageBody = By.XPath("//div[@class='PlainText']");
+        public void SelectVerifyIdentityEmail()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(searchBox).Clear();  
+            driver.FindElement(searchBox).SendKeys("Sandbox: Verify your identity in Salesforce");
+            Thread.Sleep(5000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter); 
+            Thread.Sleep(5000);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+            string messageBody = driver.FindElement(txtMessageBody).Text;
+            //string one = messageBody.Split("Code:")[1].Trim();
+            //NeedsBeginFramesChangedEventArgs to work to get the Verification code
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
             CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(10000);

@@ -399,10 +399,10 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate the Engagement name in Engagement details page
                     string engNumber = engagementDetails.GetEngagementNumberL();
                     Assert.AreEqual(opportunityNumber, engNumber);
-                    extentReports.CreateStepLogs("Info", "Number of Engagement : " + engNumber + " is Same as Opportunity number ");
+                    extentReports.CreateStepLogs("Info", "Number of Engagement : " + engNumber + " is Same as Opportunity number: "+ engNumber);
                     string engName = engagementDetails.GetEngagementNameL();
                     Assert.AreEqual(dndOppName, engName);
-                    extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
+                    extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name: " + opportunityName);
                                          
                     //TMTI0090549	Verify the FVA CAO can access engaged TAS DND Opportunity and can release the TAS DND using the TAS DND button. (After Conversion)
                     extentReports.CreateStepLogs("Info", "Verify the FVA CAO User: "+ caoUserExl+" can access Engaged TAS DND Opportunity and can release the TAS DND using the TAS DND button. (After Conversion)");

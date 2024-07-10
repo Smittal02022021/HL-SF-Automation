@@ -103,6 +103,10 @@ namespace SF_Automation.Pages.EventExpense
         By valLOBLWC= By.XPath("//span[contains(@class,'field-label')][text()='LOB']/../../..//lightning-formatted-text");
         By valEventTypeLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Type']/../../..//lightning-formatted-text");
         By valEventFormatLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Format']/../../..//lightning-formatted-text");
+        By btnInlineEditCityLWC = By.XPath("//button[@title='Edit City']");
+        By inputCityLWC = By.XPath("//label[text()='City']/..//input");
+        By txtCommentsL = By.XPath("//p//textarea");
+        By btnRejectAcceptL = By.XPath("//p//button[@title='Primary action']");
 
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
@@ -111,6 +115,30 @@ namespace SF_Automation.Pages.EventExpense
             return By.XPath($"//ul//li//button[text()='{btnName}']");
         }
 
+        public void ClickApproveButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve(LWC)"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")).Click();
+            Thread.Sleep(5000);
+            IAlert alert = driver.SwitchTo().Alert();
+            Thread.Sleep(2000);
+            alert.Accept();            
+        }
+
+        public void EditExpenseRequestCityLWC(string cityName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditCityLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnInlineEditCityLWC));
+            driver.FindElement(btnInlineEditCityLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCityLWC, 20);
+            driver.FindElement(inputCityLWC).Clear();
+            driver.FindElement(inputCityLWC).SendKeys(cityName);
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveEditLWC).Click();
+            Thread.Sleep(6000);
+        }
         public bool IsButtonDisplayedLWC(string btnName)
         {
             return driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Displayed;
@@ -193,7 +221,7 @@ namespace SF_Automation.Pages.EventExpense
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC(btnName)));
             driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Click();
         }
-        By txtCommentsL = By.XPath("//p//textarea");
+        
         public void ClickRequestMoreInformationButtonLWC()
         {
             Thread.Sleep(5000);
@@ -203,7 +231,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
             driver.FindElement(txtCommentsL).SendKeys(" Request More Information Automation");
         }
-        By btnRejectAcceptL = By.XPath("//p//button[@title='Primary action']");
+        
         public void ClickRejectButtonLWC()
         {
             Thread.Sleep(5000);

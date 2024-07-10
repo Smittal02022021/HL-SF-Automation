@@ -117,12 +117,12 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate added client in Additional Clients/Subjects section
                 string addedCompany = clientSubjectsPage.ValidateAddedClient();      
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1), addedCompany);
-                extentReports.CreateLog(addedCompany + " is added in Additional Client/Subject section ");
+                extentReports.CreateLog("Client: "+ addedCompany + " is added in Additional Client/Subject section ");
 
                 //Validate added subject in Additional Clients/Subjects section
                 string addedSubject = clientSubjectsPage.ValidateAddedSubject();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2), addedSubject);
-                extentReports.CreateLog(addedSubject + " is added in Additional Client/Subject section ");
+                extentReports.CreateLog("Subject: " + addedSubject + " is added in Additional Client/Subject section ");
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();

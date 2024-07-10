@@ -138,9 +138,10 @@ namespace SF_Automation.TestCases.Opportunities
                 string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
                 extentReports.CreateStepLogs("Info", "ERP Submitted to Sync before update is: " + ERPSubmitted + " ");
 
-                string valERPUpdateDFF = randomPages.GetERPUpdateDFFCheckboxStatusLV();
+                //Due to Refersh Issue
+                //string valERPUpdateDFF = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is not checked", valERPUpdateDFF);
-                extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valERPUpdateDFF + " by default ");
+                //extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valERPUpdateDFF + " by default ");
 
                 string ERPResDate = randomPages.GetERPLastIntegrationResponseDateLV();
                 extentReports.CreateStepLogs("Info", "ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
@@ -204,9 +205,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string updSector = ReadExcelData.ReadData(excelPath, "DFFUpdates", 8);                
                 opportunityDetails.UpdateHLSectorIDLV(updSector);
                 
-                //string sector = randomPages.GetHLSectorIDLV();
-                //string sectorCombo = randomPages.GetHLSectorComboLV();
-                //Assert.AreEqual(sectorCombo.Contains(updSector), true);
+                string sector = randomPages.GetHLSectorIDLV();
+                string sectorCombo = randomPages.GetHLSectorComboLV();
+                Assert.AreEqual(sectorCombo.Contains(updSector), true);
                 extentReports.CreateStepLogs("Passed", "******Need to work on GetHLSectorIDLV vlue ****Pending****Sector is updated to and sector combo contains " + updSector + " ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
