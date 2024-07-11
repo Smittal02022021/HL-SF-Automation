@@ -227,9 +227,26 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnEdit).Click();
             Thread.Sleep(8000);
 
-            By elePO = By.XPath("(//label[text()='Line of Business']/following::lightning-base-combobox-item)[2]//span[text()='CF']");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
-            driver.FindElement(elePO).Click();
+            try
+            {
+                By elePO = By.XPath("(//button[@aria-label='Industry Group'])[2]");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+                Thread.Sleep(3000);
+            }
+            catch(Exception)
+            {
+                By elePO = By.XPath("(//button[@aria-label='Industry Group'])[1]");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+                Thread.Sleep(3000);
+            }
+
+            By elePO1 = By.XPath("(//label[text()='Line of Business'])[2]/..//lightning-base-combobox");
+            driver.FindElement(elePO1).Click();
+            Thread.Sleep(2000);
+
+            By elePO2 = By.XPath("(//label[text()='Line of Business']/following::lightning-base-combobox-item)[2][@data-value='CF']");
+            driver.FindElement(elePO2).Click();
+            Thread.Sleep(2000);
 
             driver.FindElement(btnSaveOnEdit).Click();
             Thread.Sleep(5000);
@@ -239,7 +256,7 @@ namespace SF_Automation.Pages.Contact
             {
                 result = true;
                 driver.FindElement(btnCancelOnEdit).Click();
-                Thread.Sleep(5000);
+                Thread.Sleep(3000);
             }
             return result;
         }

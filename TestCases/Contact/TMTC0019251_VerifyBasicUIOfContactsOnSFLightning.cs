@@ -45,19 +45,18 @@ namespace SF_Automation.TestCases.Contact
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed. ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
                 //Calling Login function                
                 login.LoginApplication();
 
                 //Validate user logged in       
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
-                /*
                 //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
-                extentReports.CreateLog("User " + user + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
 
                 //Login user
                 usersLogin.LoginAsSelectedUser();
@@ -66,27 +65,27 @@ namespace SF_Automation.TestCases.Contact
                 if (driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateLog("User switched to lightning view. ");
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
 
                 Assert.IsTrue(login.ValidateUserLightningView(fileTMTC0019251, 2));
-                extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
                 //TC - TMT0033921 - Verify that there is Contacts Navigational Item on HL Banker dropdown
                 Assert.IsTrue(lvHomePage.VerifyThereExistContactsOptionAsANavigationalItemOnHLBanker());
-                extentReports.CreateLog("There exists Contacts Navigational Item on HL Banker dropdown. ");
+                extentReports.CreateStepLogs("Passed", "There exists Contacts Navigational Item on HL Banker dropdown. ");
 
                 //TC - TMT0033922 - Verify that selecting contact will show the "Recently Viewed" by default selected list view of the contacts. 
                 Assert.IsTrue(lvHomePage.VerifyUserNavigatedToRecentlyViewedContactsPage());
-                extentReports.CreateLog("User has navigated to Recently Viewed Contacts Page. ");
+                extentReports.CreateStepLogs("Passed", "User has navigated to Recently Viewed Contacts Page. ");
 
                 //TC - TMT0033923 - Verify the different list view options available to view the contacts object.
                 Assert.IsTrue(lvRecentlyViewContact.ValidateDiffListViewOptions(fileTMTC0019251));
-                extentReports.CreateLog("All list view options are available on recently viewed contacts page. ");
+                extentReports.CreateStepLogs("Passed", "All list view options are available on recently viewed contacts page. ");
 
                 //TC - TMT0033926 - Verify that clicking "New" will allow the user to navigate to the contact creation form.
                 lvRecentlyViewContact.NavigateToCreateNewContactPage();
-                extentReports.CreateLog("User navigates to Create New Contact Page from Recently Viewed Contacts Page upon clicking the New button. ");
+                extentReports.CreateStepLogs("Info", "User navigates to Create New Contact Page from Recently Viewed Contacts Page upon clicking the New button. ");
 
                 lvRecentlyViewContact.CloseTab("New Contact");
 
@@ -95,34 +94,33 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab("Test External");
                 lvContactDetails.CloseTab("Test External");
                 lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView("Test External");
-                extentReports.CreateLog("Search functionality on recently viewed contact page is working as expected. ");
+                extentReports.CreateStepLogs("Info", "Search functionality on recently viewed contact page is working as expected. ");
 
                 //TC - TMT0034266 - Verify that as a CF Finacial user, external contact have Edit, Add Relationship L and Printable View as Menu options.
                 Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
-                extentReports.CreateLog("External contact have Edit, Add Relationship L and Printable View buttons displayed at the top. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Edit, Add Relationship L and Printable View buttons displayed at the top. ");
 
                 //TC - TMT0034276, TMT0034268 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
                 Assert.IsTrue(lvContactDetails.VerifyDetailsDisplayedAtTheTopBarForExternalContact());
-                extentReports.CreateLog("External contact have Company Name,  title, phone and Email in top bar. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Company Name,  title, phone and Email in top bar. ");
 
                 //TC - TMT0034269 - Verify that as a CF Finacial user, the external contact has Info, Relationships, coverage, activity, campaign history, and History tabs. 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedInRightSideForExternalContact(fileTMTC0019251));
-                extentReports.CreateLog("External contact have Info, Relationships, coverage, activity, campaign history, and History tabs. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Info, Relationships, coverage, activity, campaign history, and History tabs. ");
 
                 //TC - TMT0034271 - As CF Finacial user, verify that the Flag Contact and Company details coming in the Quick Updates. 
                 Assert.IsTrue(lvContactDetails.VerifyFlagContactAndCompanyDetailSectionsAreDisplayedInRightSideForExternalContact(fileTMTC0019251));
-                extentReports.CreateLog("External contact have Flag Contact and Company details coming in the Quick Updates. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Flag Contact and Company details coming in the Quick Updates. ");
 
                 lvContactDetails.CloseTab("Test External");
 
                 //Logout from SF Lightning View
-                lvHomePage.LogoutFromSFLightningAsApprover();
-                extentReports.CreateLog("User Logged Out from SF Lightning View. ");
-                */
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 //Search SF Admin user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
-                extentReports.CreateLog("User " + adminUser + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
 
                 //Login user
                 usersLogin.LoginAsSelectedUser();
@@ -131,20 +129,23 @@ namespace SF_Automation.TestCases.Contact
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateLog("User switched to lightning view. ");
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
 
-                extentReports.CreateLog("SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
 
                 //TC - TMT0034196 - Verify the Error Message "Industry Group must be selected when LOB is CF" is displayed when LOB field is selected.
                 lvHomePage.SearchContactFromMainSearch(adminUser);
                 Assert.IsTrue(lvContactDetails.VerifyIndustryGroupErrorMessageWhenLOBIsCF());
-                extentReports.CreateLog("The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
+                extentReports.CreateStepLogs("Passed", "The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
 
+                //Logout from SF Lightning View
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged Out from SF Classic View. ");
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
 
                 driver.Quit();
             }
