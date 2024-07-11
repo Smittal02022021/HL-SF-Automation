@@ -106,8 +106,10 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("Last name error message displayed upon click of save button without entering details ");
 
                 lvCreateContact.CreateNewContact(fileTMTC0019612);
+                string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
                 string extContactName = lvContactDetails.GetExternalContactName();
-                extentReports.CreateLog("New external contact is created. ");
+                Assert.AreEqual(extContactFullName, extContactName);
+                extentReports.CreateLog("New external contact is created successfully. ");
 
                 driver.SwitchTo().DefaultContent();
                 lvContactDetails.CloseTab(extContactName);
@@ -131,10 +133,6 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMT0034889 - Verify the Relationships can be edited and deleted through Edit and Delete link for respective relationships in Houlihan Lokey Relationships of External Contact.
                 Assert.IsTrue(lvContactDetails.VerifyCFFinancialUserIsAbleToEditNewRelationship("Update"));
                 extentReports.CreateLog("CF Financial user is able to edit the created New Relationship successfully. ");
-
-
-
-
 
                 //TC Start - TMT0034847 - Verify the functionality of the Add Activity with a private check for the external type contact.
                 Assert.IsTrue(lvContactDetails.VerifyUserNavigatedToAddActivityPageForExternalContact());

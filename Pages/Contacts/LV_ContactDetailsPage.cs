@@ -93,7 +93,7 @@ namespace SF_Automation.Pages.Contact
         By linkEditActivity = By.XPath("//tbody[@id='j_id0:j_id1:j_id2:j_id3:pbActivityLog:pbtActivities:tb']/tr[1]/td[1]/span/a[2]");
 
         //Contact Informaction section
-        By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../div[2]/span/slot/lightning-formatted-name");
+        By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../../dd/div/span/slot/lightning-formatted-name");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
         By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
 
