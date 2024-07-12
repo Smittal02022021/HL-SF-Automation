@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using MongoDB.Driver.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V107.HeadlessExperimental;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
@@ -147,24 +148,32 @@ namespace SF_Automation.UtilityFunctions
         }
 
         By txtMessageBody = By.XPath("//div[@class='PlainText']");
+        By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
+        By inputBoxCode = By.XPath("//input[@type='text']");
         public void SelectVerifyIdentityEmail()
         {
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(4000);
             driver.FindElement(searchBox).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(searchBox).Clear();  
+            //Thread.Sleep(3000);
+            //driver.FindElement(searchBox).Clear();
+            Actions actionObj = new Actions(driver);
+            actionObj.KeyDown(Keys.Control).SendKeys("a").KeyUp(Keys.Control).Perform();
+            actionObj.KeyDown(Keys.Delete).KeyUp(Keys.Delete).Perform();
+            Thread.Sleep(2000);
             driver.FindElement(searchBox).SendKeys("Sandbox: Verify your identity in Salesforce");
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
             driver.FindElement(searchBox).SendKeys(Keys.Enter); 
             Thread.Sleep(5000);
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(10000);
-            string messageBody = driver.FindElement(txtMessageBody).Text;
-            //string one = messageBody.Split("Code:")[1].Trim();
-            //NeedsBeginFramesChangedEventArgs to work to get the Verification code
-            driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            string messageBody = driver.FindElement(txtMessageBody).Text.Replace("\r\n", " ").Trim();
+            string subMessageBody = messageBody.Split(':')[4].Trim();
+            string finalCode = subMessageBody.Split(' ')[0].Trim();
             CustomFunctions.SwitchToWindow(driver, 1);
+            driver.FindElement(inputBoxCode).SendKeys(finalCode);
+            driver.FindElement(btnVerifyIdentity).Click();
             Thread.Sleep(10000);
         }
 
@@ -273,7 +282,7 @@ namespace SF_Automation.UtilityFunctions
 
         public string VerifyExpenseRequestForRequestForMoreInfoEmail(int windowId)
         {
-            CustomFunctions.SwitchToWindow(driver, 0);
+            CustomFunctions.SwitchToWindow(driver, windowId);
             driver.FindElement(searchBox).Clear();
             driver.FindElement(searchBox).SendKeys("Sandbox: Marketing Expense request was returned for more information");
 

@@ -597,7 +597,7 @@ namespace SF_Automation.Pages
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By btnDNDConfirmL = By.XPath("//div[@role='dialog']//button[text()='Yes']");
         By checkFRSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/ancestor::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppStage = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/../../..//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Stage/Priority']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtClientNameL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient')]//records-hoverable-link//a//span");
         By txtSubjectNameL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSubject')]//records-hoverable-link//a//span");
         By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-formatted-text");
@@ -632,6 +632,7 @@ namespace SF_Automation.Pages
         By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
+        By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -7504,19 +7505,22 @@ namespace SF_Automation.Pages
         }
 
         public string GetOppStage()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppStage, 20);
+            return driver.FindElement(txtOppStage).Text;   
+        }
+        
+        public void CloseConversionPopup()
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtOppStage, 30);
-                return driver.FindElement(txtOppStage).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, iconCloseConversionPopup, 10);
+                driver.FindElement(iconCloseConversionPopup).Click();
             }
-            catch { return "Not Engaged"; }
-        }
-        By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
-        public void CloseConversionPopup()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, iconCloseConversionPopup, 30);
-            driver.FindElement(iconCloseConversionPopup).Click();
+            catch
+            {
+                //No Pop-up Displaying
+            }
         }
 
         public string RemoveUserFromEngagedOppITTeamLV(string userName)

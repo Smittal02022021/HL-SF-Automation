@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class T2278_TMTT0016300_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover : BaseClass
+    class ZObsolated_T2278_TMTT0016300_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

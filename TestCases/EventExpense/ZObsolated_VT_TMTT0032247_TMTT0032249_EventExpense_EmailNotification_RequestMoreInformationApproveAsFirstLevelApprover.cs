@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover: BaseClass
+    class ZObsolated_VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover: BaseClass
     {
         //TMTI0075765 TMTI0075767 TMTI0075769
         //TMTI0075756 TMTI0075758 TMTI0075760

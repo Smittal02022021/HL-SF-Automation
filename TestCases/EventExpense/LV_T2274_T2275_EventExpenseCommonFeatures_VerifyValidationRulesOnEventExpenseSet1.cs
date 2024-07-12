@@ -174,7 +174,7 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual("Create New Expense Form", txtButtonName);
                 extentReports.CreateStepLogs("Passed", "After closing Expense Request detail page user is redirected to "+ txtButtonName);
                 
-                //expRequestHomePage.SelectRequestTabLWC("My Requests");
+                expRequestHomePage.SelectRequestTabLWC("My Requests");
                 string headerExpNumber = expRequestHomePage.SearchAndSelectExpenseRequestLWC(expenseRequestNumber, "My Requests");
                 Assert.AreEqual(headerExpNumber, expenseRequestNumber);
                 extentReports.CreateStepLogs("Passed", "User is on Expense Request :: "+ headerExpNumber+" detail page");

@@ -9,6 +9,7 @@ namespace SF_Automation.Pages
 {
     class LoginPage : BaseClass
     {
+        Outlook outlook = new Outlook();
         By txtUserName = By.Id("username");
         By txtPassWord = By.Id("password");
         By btnLogin = By.Id("Login");
@@ -65,6 +66,16 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 2));
             driver.FindElement(btnLogin).Click();
+            Thread.Sleep(10000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);
+                outlook.SelectVerifyIdentityEmail();
+            }
+            catch
+            {
+                // No Need to Verify your identity in Salesforce
+            }
         }
         public void SwitchToClassicView()
         {
@@ -160,7 +171,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();
             Thread.Sleep(10000);       
-        }
+        }  
+        
+
         By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
         public void LoginAsExpenseRequestApproverV(string file, int row)
         {
@@ -171,15 +184,15 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
             driver.FindElement(btnLogin).Click();
             Thread.Sleep(10000);
-            //try
-            //{
-            //    WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);
-            //    driver.SwitchTo().Window(driver.WindowHandles[0]);
-            //}
-            //catch
-            //{ 
-            
-            //}
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);                
+                outlook.SelectVerifyIdentityEmail();
+            }
+            catch
+            {
+                // No Need to Verify your identity in Salesforce
+            }
         }
 
         public void LoginAsFirstLevelExpenseRequest(string file)

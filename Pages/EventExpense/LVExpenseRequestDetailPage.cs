@@ -115,13 +115,23 @@ namespace SF_Automation.Pages.EventExpense
             return By.XPath($"//ul//li//button[text()='{btnName}']");
         }
 
+        By totalBudgetRequestedLWC = By.XPath("(//span[contains(@class,'field-label')][text()='Total Budget Requested']/../../..//lightning-formatted-text)[2]");
+        public decimal GetTotalBudgetRequestedLWC()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, totalBudgetRequestedLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(totalBudgetRequestedLWC));
+            string totalBudget = driver.FindElement(totalBudgetRequestedLWC).Text.Split(' ')[1];// seperate the Currency and amount and get the actual amout
+            return CustomFunctions.ReadDecimalValueFromString(totalBudget);
+        }
         public void ClickApproveButtonLWC()
         {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve(LWC)"), 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")));
             driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             IAlert alert = driver.SwitchTo().Alert();
             Thread.Sleep(2000);
             alert.Accept();            
@@ -220,6 +230,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC(btnName), 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC(btnName)));
             driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Click();
+            Thread.Sleep(5000);
         }
         
         public void ClickRequestMoreInformationButtonLWC()
@@ -230,6 +241,9 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(_btnEventExpenseRequestLWC("Request More Information")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
             driver.FindElement(txtCommentsL).SendKeys(" Request More Information Automation");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectAcceptL, 10);
+            driver.FindElement(btnRejectAcceptL).Click();
+            Thread.Sleep(5000);
         }
         
         public void ClickRejectButtonLWC()
