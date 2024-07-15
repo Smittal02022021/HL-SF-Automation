@@ -573,8 +573,8 @@ namespace SF_Automation.Pages
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
         By txtClientDescL = By.XPath("//label[text()='Client Description']//parent::lightning-textarea//div//textarea");
         By txtTotalDebtRepMML = By.XPath("//label[text()='Total Debt HL represents (MM)']//parent::div/div/input");
-        By chkTotalDebtConfMML = By.XPath("//flexipage-field//span//input[@name='TotalDebtMMConfirmed__c']/parent::span/span");//span//input[@name='TotalDebtMMConfirmed__c']");//");//[2]////div[contains(@class,'page-decorator has-footer')]//input[@name='TotalDebtMMConfirmed__c']
-        By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");////button[contains(@aria-label,'EU Securities?, --None--')]");
+        By chkTotalDebtConfMML = By.XPath("//flexipage-field//span//input[@name='TotalDebtMMConfirmed__c']/parent::span/span");
+        By cmboEUSecuritiesL = By.XPath("//button[contains(@aria-label,'EU Securities?')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
@@ -6719,7 +6719,6 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
             driver.FindElement(iconInlineEditTDConfirmed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
-            //js.ExecuteScript("arguments[0].click();", driver.FindElement(chkTotalDebtConfMML));
             try
             {
                 driver.FindElement(chkTDConfirmed1).Click();
