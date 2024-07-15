@@ -131,7 +131,9 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve(LWC)"), 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")));
             driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")).Click();
-            Thread.Sleep(8000);
+            //Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilAlertVisible(driver, 60);
+            Thread.Sleep(2000);
             IAlert alert = driver.SwitchTo().Alert();
             Thread.Sleep(2000);
             alert.Accept();            

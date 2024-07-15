@@ -69,7 +69,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(10000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);
                 outlook.SelectVerifyIdentityEmail();
             }
             catch
@@ -180,13 +180,14 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
             driver.FindElement(btnLogin).Click();
             Thread.Sleep(10000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 10);                
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);                
                 outlook.SelectVerifyIdentityEmail();
             }
             catch

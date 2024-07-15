@@ -9,9 +9,8 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class LV_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover : BaseClass
+    class LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2:BaseClass
     {
-
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         LVExpenseRequestCreatePage expRequest = new LVExpenseRequestCreatePage();
@@ -23,7 +22,7 @@ namespace SF_Automation.TestCases.EventExpense
         RandomPages random = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
 
-        public static string fileT2279 = "LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet1";
+        public static string fileT2279 = "LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet2";
         public static string fileOutlook = "Outlook";
 
         [OneTimeSetUp]
@@ -35,7 +34,7 @@ namespace SF_Automation.TestCases.EventExpense
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void ApproveEventExpenseFormAsSecondLevelApproverL()
+        public void ApproveEventExpenseFormAsSecondLevelApproverLV2()
         {
             try
             {
@@ -164,7 +163,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     string status = expRequestDetailPage.GetExpenseRequestStatusLWC();
                     Assert.AreEqual(requestStatus, status);
-                    extentReports.CreateStepLogs("Passed", "Verified newly Created Expense Request::"+ expensePreAppNumber + " is available in My Requests List with Status: " + status);
+                    extentReports.CreateStepLogs("Passed", "Verified newly Created Expense Request::" + expensePreAppNumber + " is available in My Requests List with Status: " + status);
                     random.CloseActiveTab(expensePreAppNumber);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Passed", "Requestor Logged out after creating Expense Requests:: " + expensePreAppNumber);
@@ -192,7 +191,7 @@ namespace SF_Automation.TestCases.EventExpense
                     login.LoginAsFirstLevelExpenseRequest(fileT2279, row);
                     //login.LoginAsExpenseRequestApproverV(fileT2279, row);
                     extentReports.CreateStepLogs("Info", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
-                                        
+
                     //Check if UI is Classic, Click back to List button, Switch to lV Search Pending Requests
                     string RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
                     extentReports.CreateStepLogs("Info", RequestUIStatus);
@@ -224,7 +223,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     login.LoginAsExpenseRequestApproverV(fileT2279, row);
                     extentReports.CreateStepLogs("Info", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
-                    
+
                     //Check if UI is Classic, Click back to List button, Switch to lV Search Pending Requests
                     RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
                     extentReports.CreateStepLogs("Info", RequestUIStatus);
@@ -274,4 +273,3 @@ namespace SF_Automation.TestCases.EventExpense
             }
         }
     }
-}

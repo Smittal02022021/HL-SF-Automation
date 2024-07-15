@@ -140,19 +140,19 @@ namespace SF_Automation.Pages
             driver.FindElement(lnkCompanies).Click();
             driver.FindElement(linkShowAdvanceSearch).Click();
         }
-
+        By imgLeader = By.XPath("//span[contains(@id,\"loadingStatus.start\")]");
         public string SearchCompanyWithIndustryType(string industryType)
         {
             By matchedmyCompany = By.XPath($"//table[contains(@id,'myCompanies')]//tbody//td//span[contains(text(),'{industryType}')]");
             WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryType);
             driver.FindElement(comboIndustryType).SendKeys(industryType);
             driver.FindElement(btnSearch).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
-            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 20);
+            //Thread.Sleep(10000);
+            WebDriverWaits.WaitTillElementVisible(driver, imgLeader);
             try
             {
                 string result = driver.FindElement(matchedmyCompany).Displayed.ToString();
-                Console.WriteLine("Search Results :" + result);
                 return "Record found";
             }
             catch (Exception)
