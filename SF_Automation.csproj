@@ -685,7 +685,7 @@
     <Compile Include="TestCases\EventExpense\LV_T2278_TMTT0016300_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.cs" />
     <Compile Include="TestCases\EventExpense\LV_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet1.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.cs" />
-    <Compile Include="TestCases\EventExpense\OutlookTest.cs" />
+    <Compile Include="TestCases\EventExpense\VerifyEmailOutlookTest.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\ZObsolated_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\ZObsolated_VT_TMTT0032247_TMTT0032249_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />

@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2:BaseClass
+    class LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2 : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -273,3 +273,4 @@ namespace SF_Automation.TestCases.EventExpense
             }
         }
     }
+}

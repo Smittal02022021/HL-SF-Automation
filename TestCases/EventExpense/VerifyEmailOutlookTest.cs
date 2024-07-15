@@ -1,5 +1,4 @@
-﻿using AventStack.ExtentReports;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.EventExpense;
@@ -10,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    class OutlookTest : BaseClass
+    class VerifyEmailOutlookTest : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -18,10 +17,8 @@ namespace SF_Automation.TestCases.EventExpense
         LVExpenseRequestHomePage expRequestHomePage = new LVExpenseRequestHomePage();
         LVExpenseRequestDetailPage expRequestDetailPage = new LVExpenseRequestDetailPage();
         Outlook outlook = new Outlook();
-        UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages random = new RandomPages();
-        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT2278 = "LV_T2278_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1";
         public static string fileOutlook = "Outlook";

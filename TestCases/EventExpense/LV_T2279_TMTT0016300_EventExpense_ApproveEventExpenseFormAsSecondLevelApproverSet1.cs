@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     string status = expRequestDetailPage.GetExpenseRequestStatusLWC();
                     Assert.AreEqual(requestStatus, status);
-                    extentReports.CreateStepLogs("Passed", "Verified newly Created Expense Request::"+ expensePreAppNumber + " is available in My Requests List with Status: " + status);
+                    extentReports.CreateStepLogs("Passed", "Verified newly Created Expense Request::" + expensePreAppNumber + " is available in My Requests List with Status: " + status);
                     random.CloseActiveTab(expensePreAppNumber);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Passed", "Requestor Logged out after creating Expense Requests:: " + expensePreAppNumber);
@@ -191,7 +191,7 @@ namespace SF_Automation.TestCases.EventExpense
                     login.LoginAsFirstLevelExpenseRequest(fileT2279, row);
                     //login.LoginAsExpenseRequestApproverV(fileT2279, row);
                     extentReports.CreateStepLogs("Info", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
-                                        
+
                     //Check if UI is Classic, Click back to List button, Switch to lV Search Pending Requests
                     string RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
                     extentReports.CreateStepLogs("Info", RequestUIStatus);
@@ -223,7 +223,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     login.LoginAsExpenseRequestApproverV(fileT2279, row);
                     extentReports.CreateStepLogs("Info", "Verified and Validation of User being redirected to Event Expense Form upon successful authentication ");
-                    
+
                     //Check if UI is Classic, Click back to List button, Switch to lV Search Pending Requests
                     RequestUIStatus = expRequestHomePage.OpenPendingApprovalExpenseRequestLWC(expensePreAppNumber);
                     extentReports.CreateStepLogs("Info", RequestUIStatus);
@@ -273,3 +273,4 @@ namespace SF_Automation.TestCases.EventExpense
             }
         }
     }
+}
