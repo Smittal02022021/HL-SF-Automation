@@ -6719,7 +6719,6 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
             driver.FindElement(iconInlineEditTDConfirmed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
-            //js.ExecuteScript("arguments[0].click();", driver.FindElement(chkTotalDebtConfMML));
             try
             {
                 driver.FindElement(chkTDConfirmed1).Click();
