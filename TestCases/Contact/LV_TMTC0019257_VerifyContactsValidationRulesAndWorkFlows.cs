@@ -86,15 +86,20 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedWithNoLastName());
                 extentReports.CreateStepLogs("Passed", "Error message displayed at field level with no Last Name : Complete this field.");
 
-                lvRecentlyViewContact.CloseTab("Test External");
+                lvRecentlyViewContact.CloseTab("Test External | Contact");
+                lvRecentlyViewContact.CloseTab("Test External - Search");
 
                 //TC - TMT0033957 - Verify the Error Message "Only system administrators can change employee currency" is displayed when contact currency field is edited.
                 lvHomePage.SearchContactFromMainSearch("Houlihan Employee");
                 Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage("Houlihan Employee"));
-                extentReports.CreateStepLogs("Info", "User navigated to HL Employee contact details page. ");
+                extentReports.CreateStepLogs("Passed", "User navigated to HL Employee contact details page. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedIfUserTriesToChangeContactCurrency());
-                extentReports.CreateStepLogs("Info", "Error message displayed upon changing contact currency field value : Only system administrators can change employee currency\r\n.");
+                extentReports.CreateStepLogs("Passed", "Error message displayed upon changing contact currency field value : Only system administrators can change employee currency.");
+
+                //TC - TMT0033963 - Verify the Error Message "Only system administrators can change employee name and salutation" is displayed when the contact Last Name field is edited
+                Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedIfUserTriesToChangeLastNameOfHLContact());
+                extentReports.CreateStepLogs("Passed", "Error message displayed upon changing Last Name for HL Contact : Only system administrators can change employee name and salutation.");
 
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();

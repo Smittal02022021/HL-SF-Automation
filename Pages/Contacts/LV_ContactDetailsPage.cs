@@ -20,6 +20,11 @@ namespace SF_Automation.Pages.Contact
         By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
         By linkImportantDates = By.XPath("//a[text()='Important Dates']");
 
+        //Contact Information Section Elements
+        By btnEditName = By.XPath("//button[@title='Edit Name']");
+        By txtLastName = By.XPath("(//label[text()='Last Name']/following::div/input)[1]");
+
+
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
         By btnAddRelationshipL = By.XPath("//button[text()='Add Relationship L']");
@@ -1402,7 +1407,7 @@ namespace SF_Automation.Pages.Contact
             //Enter new company
             WebDriverWaits.WaitUntilClickable(driver, inputCompanyName, 120);
             driver.FindElement(inputCompanyName).SendKeys(newCompany);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//span[contains(@title,'ActivityCompany')]/following::ul/li/lightning-base-combobox-item")).Click();
             Thread.Sleep(2000);
 
@@ -1462,9 +1467,14 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
+            // Scroll to the bottom of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0, 2500)");
+
             WebDriverWaits.WaitUntilClickable(driver, btnEditContactCurrency, 120);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditContactCurrency));
             driver.FindElement(btnEditContactCurrency).Click();
+            js.ExecuteScript("window.scrollTo(0, 2500)");
 
             WebDriverWaits.WaitUntilClickable(driver, btnSaveEdit, 120);
             driver.FindElement(dropdownContactCurrency).Click();
@@ -1490,5 +1500,41 @@ namespace SF_Automation.Pages.Contact
 
             return result;
         }
+
+        public bool VerifyErrorMessageDisplayedIfUserTriesToChangeLastNameOfHLContact()
+        {
+            bool result = false;
+
+            // Scroll to the top of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0, 0)");
+
+            WebDriverWaits.WaitUntilClickable(driver, btnEditName, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditName));
+            driver.FindElement(btnEditName).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(txtLastName).Clear();
+            driver.FindElement(txtLastName).SendKeys("testing");
+            Thread.Sleep(2000);
+
+            driver.FindElement(btnSaveEdit).Click();
+
+            //Get the error message
+            WebDriverWaits.WaitUntilClickable(driver, txtErrorPopup, 120);
+            string errMsg = driver.FindElement(By.XPath("//label[text()='Last Name']/following::div[2]")).Text;
+
+            if(errMsg == "Only system administrators can change employee name and salutation")
+            {
+                result = true;
+            }
+
+            //Click on Cancel button
+            driver.FindElement(btnCancelEdit).Click();
+            Thread.Sleep(2000);
+
+            return result;
+        }
+
     }
 }

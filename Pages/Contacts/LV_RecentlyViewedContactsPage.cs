@@ -118,7 +118,8 @@ namespace SF_Automation.Pages.Contact
 
         public void CloseTab(string tabName)
         {
-            driver.FindElement(By.XPath($"//button[@title='Close {tabName}']")).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
         }
     }
 }
