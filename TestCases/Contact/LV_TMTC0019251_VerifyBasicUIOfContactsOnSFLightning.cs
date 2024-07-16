@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Contact
 {
-    class TMTC0019251_VerifyBasicUIOfContactsOnSFLightning : BaseClass
+    class LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -600,8 +600,9 @@
     <Compile Include="TestCases\Contact\T2149_Contacts_ContactEditPage_WorkFlowUpdateGenderfieldbasedonSalutations.cs" />
     <Compile Include="TestCases\Contact\T2238_T2240_Contacts_VerifyDuplicateRuleAccountCreatedByAndDupRecordSet.cs" />
     <Compile Include="TestCases\Contact\T2247_Contact_AddANewCompanyFromContactPage.cs" />
-    <Compile Include="TestCases\Contact\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
-    <Compile Include="TestCases\Contact\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage.cs" />
     <Compile Include="TestCases\Contact\TMTT0013752_ContactDetailsPage_VerifyAvailabilityOfJobCodeFieldAndValue.cs" />
     <Compile Include="TestCases\Contact\TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage.cs" />
