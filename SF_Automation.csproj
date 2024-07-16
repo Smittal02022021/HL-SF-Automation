@@ -749,6 +749,7 @@
     <Compile Include="TestCases\Opportunities\LV_TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2333_TMTC0002494_VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
@@ -828,7 +829,7 @@
     <Compile Include="TestCases\Opportunities\TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee.cs" />
     <Compile Include="TestCases\Opportunities\ValidateAllJobType.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1197andT1198AddOpportunityInOpportunityHome.cs" />
-    <Compile Include="TestCases\Opportunities\TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
@@ -839,7 +840,7 @@
     <Compile Include="TestCases\Opportunities\T1649_AdditionalClientSubjectRequiredDefaultPopUp.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
-    <Compile Include="TestCases\Opportunities\T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
     <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
     <Compile Include="TestCases\Opportunities\T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed.cs" />
     <Compile Include="TestCases\Opportunities\T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />
@@ -849,7 +850,7 @@
     <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
     <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion.cs" />
-    <Compile Include="TestCases\Opportunities\TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
     <Compile Include="TestCases\Opportunities\ZObsoleted_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\ZObsoleted_T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
@@ -879,7 +880,7 @@
     <Compile Include="TestCases\TimeRecordManager\LV_1_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyFVAUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyTFRSupervisorUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolatedT2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_VT_TMTI0003744_TMTT0029770_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
     <Compile Include="TestCases\TimeRecordManager\ZObsolated_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
