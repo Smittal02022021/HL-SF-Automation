@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using SF_Automation.TestCases.Opportunity;
 using SF_Automation.TestData;
@@ -106,6 +107,11 @@ namespace SF_Automation.Pages.Contact
         By btnCancelOnEdit = By.XPath("//button[@name='CancelEdit']");
         By inputCompanyName = By.XPath("//input[@placeholder='Search Companies...']");
         By txtErrorPopup = By.XPath("//div[@class='genericNotification']/../ul/li");
+        By btnCloseErrorPopup = By.XPath("//button[@title='Close error dialog']");
+
+        //System Information Elements
+        By btnEditContactCurrency = By.XPath("//button[@title='Edit Contact Currency']");
+        By dropdownContactCurrency = By.XPath("//button[@aria-label='Contact Currency']");
 
         public void CloseTab(string tabName)
         {
@@ -1412,8 +1418,77 @@ namespace SF_Automation.Pages.Contact
                 result = true;
             }
 
+            //Click on Cancel button
+            driver.FindElement(btnCancelOnEdit).Click();
+            Thread.Sleep(2000);
+
             return result;
         }
 
+        public bool VerifyErrorMessageDisplayedWithNoLastName()
+        {
+            bool result = false;
+
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilClickable(driver, btnCancelOnEdit, 120);
+
+            //Remove the already associated last name
+            driver.FindElement(By.XPath("//label[text()='Last Name']/following::div/input")).Clear();
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+
+            //Get the error message
+            WebDriverWaits.WaitUntilClickable(driver, btnCloseErrorPopup, 120);
+            string errMsg = driver.FindElement(By.XPath("//label[text()='Last Name']/following::div[2]")).Text;
+
+            if(errMsg == "Complete this field.")
+            {
+                result = true;
+            }
+
+            //Click on Cancel button
+            driver.FindElement(btnCancelOnEdit).Click();
+            Thread.Sleep(2000);
+
+            return result;
+        }
+
+        public bool VerifyErrorMessageDisplayedIfUserTriesToChangeContactCurrency()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilClickable(driver, btnEditContactCurrency, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditContactCurrency));
+            driver.FindElement(btnEditContactCurrency).Click();
+
+            WebDriverWaits.WaitUntilClickable(driver, btnSaveEdit, 120);
+            driver.FindElement(dropdownContactCurrency).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(dropdownContactCurrency).SendKeys(Keys.ArrowUp);
+            driver.FindElement(dropdownContactCurrency).SendKeys(Keys.Enter);
+
+            driver.FindElement(btnSaveEdit).Click();
+
+            //Get the error message
+            WebDriverWaits.WaitUntilClickable(driver, txtErrorPopup, 120);
+            string errMsg = driver.FindElement(By.XPath("//button[@aria-label='Contact Currency']/following::div[3]")).Text;
+
+            if(errMsg == "Only system administrators can change employee currency")
+            {
+                result = true;
+            }
+
+            //Click on Cancel button
+            driver.FindElement(btnCancelEdit).Click();
+            Thread.Sleep(2000);
+
+            return result;
+        }
     }
 }

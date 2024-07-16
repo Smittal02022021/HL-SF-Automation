@@ -76,13 +76,25 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "User navigated to contacts list page. ");
 
                 lvHomePage.SearchContactFromMainSearch("Test External");
-                extentReports.CreateStepLogs("Info", "User navigated to contacts list page. ");
-
                 Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage("Test External"));
                 extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedUponChangingCompanyNameForAContact("ActivityCompany"));
                 extentReports.CreateStepLogs("Passed", "Error message displayed upon changing Company Name for a contact : You do not have rights to move a Contact to another Company.");
+
+                //TC - TMT0033947 - Verify the Error Message "First Name required" is displayed when the First Name field is blank.
+                Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedWithNoLastName());
+                extentReports.CreateStepLogs("Passed", "Error message displayed at field level with no Last Name : Complete this field.");
+
+                lvRecentlyViewContact.CloseTab("Test External");
+
+                //TC - TMT0033957 - Verify the Error Message "Only system administrators can change employee currency" is displayed when contact currency field is edited.
+                lvHomePage.SearchContactFromMainSearch("Houlihan Employee");
+                Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage("Houlihan Employee"));
+                extentReports.CreateStepLogs("Info", "User navigated to HL Employee contact details page. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedIfUserTriesToChangeContactCurrency());
+                extentReports.CreateStepLogs("Info", "Error message displayed upon changing contact currency field value : Only system administrators can change employee currency\r\n.");
 
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();
