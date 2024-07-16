@@ -103,9 +103,7 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(10000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 20);
-
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
             Thread.Sleep(2000);
             CustomFunctions.SwitchToWindow(driver, 1);
@@ -155,8 +153,6 @@ namespace SF_Automation.UtilityFunctions
             driver.SwitchTo().Window(driver.WindowHandles[0]);
             Thread.Sleep(4000);
             driver.FindElement(searchBox).Click();
-            //Thread.Sleep(3000);
-            //driver.FindElement(searchBox).Clear();
             Actions actionObj = new Actions(driver);
             actionObj.KeyDown(Keys.Control).SendKeys("a").KeyUp(Keys.Control).Perform();
             actionObj.KeyDown(Keys.Delete).KeyUp(Keys.Delete).Perform();
@@ -312,6 +308,7 @@ namespace SF_Automation.UtilityFunctions
                 element.Click();
                 Thread.Sleep(10000);
                 driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                Thread.Sleep(2000);
                 CustomFunctions.SwitchToWindow(driver, 1);
                 Thread.Sleep(10000);
             }

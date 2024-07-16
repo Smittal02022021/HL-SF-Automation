@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TS01_ValidateERPSection_PostCreationOfOpportunity : BaseClass
+    class ZObsolated_TS01_ValidateERPSection_PostCreationOfOpportunity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

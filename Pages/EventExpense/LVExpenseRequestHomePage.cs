@@ -69,7 +69,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string OpenPendingApprovalExpenseRequestLWC(string expenseReqNumber)
         {      
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
             try
             {
                 //int tabsCount = driver.WindowHandles.Count;

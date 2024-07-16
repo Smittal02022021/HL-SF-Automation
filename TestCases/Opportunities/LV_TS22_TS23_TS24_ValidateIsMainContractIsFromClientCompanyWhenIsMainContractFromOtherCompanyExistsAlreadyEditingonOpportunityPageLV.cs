@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_TS22_TS23_TS24_TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV : BaseClass
+    class LV_TS22_TS23_TS24_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV : BaseClass
     {//TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUELV
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

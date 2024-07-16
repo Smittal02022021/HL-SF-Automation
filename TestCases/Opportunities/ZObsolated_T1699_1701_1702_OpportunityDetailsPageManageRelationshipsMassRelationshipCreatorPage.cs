@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage : BaseClass
+    class ZObsolated_T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

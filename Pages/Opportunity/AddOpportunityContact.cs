@@ -51,9 +51,19 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
         By btnAddOppContactL = By.XPath("//button[contains(@name,'Opportunity_Contact')]");
 
+        private By _btnAddCFContactL(string lob)
+        {
+            return By.XPath($"//button[contains(@name,'Add_{lob}_Opportunity_Contact')]");
+        } 
         private By _eleCreateOppContact(string RecordType)
         {
             return By.XPath($"//button[contains(@name,'Add_{RecordType}_Opportunity_Contact')]");
+        }
+
+        public void addOpportunityContactLV(string recordType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddCFContactL(recordType), 20);
+            driver.FindElement(_btnAddCFContactL(recordType)).Click();
         }
         public void CickAddOpportunityContact(string RecordType)
         {

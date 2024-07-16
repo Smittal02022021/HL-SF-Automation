@@ -206,7 +206,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC();
                     Assert.AreEqual("Waiting for Approval", requestStatus);
-                    extentReports.CreateStepLogs("Passed", "Expense Request Status is Approved");
+                    extentReports.CreateStepLogs("Passed", "Expense Request Status after 1st level approver is Waiting for Approval");
                     random.CloseActiveTab(expensePreAppNumber);
                     extentReports.CreateStepLogs("Info", "Logout from salesforce as 1st level approver of Event Expense Requested accessed via Email received");
 
