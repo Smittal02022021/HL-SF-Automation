@@ -15,7 +15,7 @@ namespace SF_Automation.Pages.Contact
     class LV_ContactDetailsPage : BaseClass
     {
         //General elements
-        By txtContactName = By.XPath("//span[@class='custom-truncate uiOutputText']");
+        By txtContactName = By.XPath("//lightning-formatted-name[@slot='primaryField']");
         By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
         By linkImportantDates = By.XPath("//a[text()='Important Dates']");
 
@@ -104,6 +104,8 @@ namespace SF_Automation.Pages.Contact
         //Edit HL Contact elements
         By btnSaveOnEdit = By.XPath("(//button[contains(text(),'Save')])[2]");
         By btnCancelOnEdit = By.XPath("//button[@name='CancelEdit']");
+        By inputCompanyName = By.XPath("//input[@placeholder='Search Companies...']");
+        By txtErrorPopup = By.XPath("//div[@class='genericNotification']/../ul/li");
 
         public void CloseTab(string tabName)
         {
@@ -1376,5 +1378,42 @@ namespace SF_Automation.Pages.Contact
 
             return result;
         }
+
+        public bool VerifyErrorMessageDisplayedUponChangingCompanyNameForAContact(string newCompany)
+        {
+            bool result = false;
+
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilClickable(driver, btnCancelOnEdit, 120);
+
+            //Remove the already associated company
+            driver.FindElement(By.XPath("//button[@title='Clear Selection']")).Click();
+
+            //Enter new company
+            WebDriverWaits.WaitUntilClickable(driver, inputCompanyName, 120);
+            driver.FindElement(inputCompanyName).SendKeys(newCompany);
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("//span[contains(@title,'ActivityCompany')]/following::ul/li/lightning-base-combobox-item")).Click();
+            Thread.Sleep(2000);
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+
+            //Get the error message
+            WebDriverWaits.WaitUntilClickable(driver, txtErrorPopup, 120);
+            string errMsg = driver.FindElement(txtErrorPopup).Text;
+
+            if(errMsg == "You do not have rights to move a Contact to another Company.")
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
     }
 }
