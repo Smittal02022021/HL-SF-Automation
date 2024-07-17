@@ -198,16 +198,20 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenFR = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(13) > td:nth-child(1)");
         By valAddedClient = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(2) > td:nth-child(3)");
         By valAddedClientName = By.CssSelector("div[id *= 'DbX_body']> table > tbody > tr:nth-child(6) >th>a");
+        By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
+
         By valAddedKeyCred = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) >th>a");
         By valAddedKeyCredType = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) > td:nth-child(3)");
         By lnkShowMore = By.CssSelector("div[id*='DbX_body'] > div > a:nth-child(1)");
         //By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");        
         By titleMassEditPage = By.XPath("//span[@class='slds-truncate']");       
-        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");       
+        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
+        By lblEngagement = By.XPath("//records-entity-label[text()='Engagement']");
 
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
-
+        By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
+        By titleMassEditPageL = By.XPath("//header/div[2]/h2/span");
         By btnNewEngAdditionalClientSub = By.CssSelector("input[value='New Engagement Client/Subject']");
         By btnAdditionalClientSub = By.XPath("//div[2]/span/lightning-button/button");
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
@@ -359,7 +363,8 @@ namespace SF_Automation.Pages.Engagement
         By btnAddRevenue = By.XPath("// button[text()='Add Accrual']");
         By btnSaveRevenue = By.XPath("//footer/button[2]/span");
         By valRevAccID = By.XPath("//span[@title='(1)']");
-        By btnShowMoreRev = By.XPath("//table/tbody/tr/td[10]//force-aura-action-wrapper/div//div/a");
+        By btnShowMoreRev = By.XPath("//section[2]//td[10]//lightning-button-menu/button");
+        By lnkViewAllRev = By.XPath("//lst-dynamic-related-list//lst-related-list-view-manager/a/span");
         By btnEditRevenue = By.XPath("/html/body/div[8]/div/ul/li/a");
         By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
         By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
@@ -3667,6 +3672,13 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //Get name of added additional client record
+        public string GetNameOfAdditionalAddedClientEngL()
+        {            
+            string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+            return value;
+        }
+
         //Validate the company name of Key creditor 
         public string GetCompanyNameOfAddedKeyCreditor()
         {
@@ -3701,6 +3713,36 @@ namespace SF_Automation.Pages.Engagement
                 string type = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']/ancestor::th/following-sibling::td[1]")).Text;
                 return type;
             }
+        }
+
+        //Validate additional Subject added from Additional Client/Subject Pop up
+        public string ValidateAdditionalSubjectFromPopUpL(string name)
+        {
+            if (name.Equals("A&D Mortgage LLC"))
+            {               
+                Thread.Sleep(7000);
+                //string value = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
+                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//slot[text()='A&D Mortgage LLC']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                return type;
+            }
+            else
+            {
+                Thread.Sleep(6000);
+                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//slot[text()='"+name+"']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                return type;
+            }
+        }
+
+        //To Click Mass Edit Records button button
+        public string ClickMassEditRecordsButtonLightning()
+        {
+            driver.FindElement(btnMassEditRecordsL).Click();
+            Thread.Sleep(5000);            
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleMassEditPageL, 120);
+            string name = driver.FindElement(titleMassEditPageL).Text;
+            return name;
         }
         public string ValidateEngAdditionalSubjectFromPopUp(string name, string jobType)
         {//added accupac for 8330
@@ -3811,6 +3853,17 @@ namespace SF_Automation.Pages.Engagement
                 return "Not required value";
             }
         }
+        //To click on Back To Engagement button
+        public string ClickBackToEngButtonAndValidatePageL()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEng, 150);
+            driver.FindElement(btnBackToEng).Click();
+            driver.SwitchTo().DefaultContent();
+            string name = driver.FindElement(lblEngagement).Text;
+            return name;
+        }
+
         //To click on Back To Engagement button
         public string ClickBackToEngButtonAndValidatePage()
         {
@@ -4735,6 +4788,9 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateEditRevenueFunctionality()
         {
             Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllRev, 150);
+            driver.FindElement(lnkViewAllRev).Click();
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreRev, 150);
             driver.FindElement(btnShowMoreRev).Click();
             Thread.Sleep(5000);

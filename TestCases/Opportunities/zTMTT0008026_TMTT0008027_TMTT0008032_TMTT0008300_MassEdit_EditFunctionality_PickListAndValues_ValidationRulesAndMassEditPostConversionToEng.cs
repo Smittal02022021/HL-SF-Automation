@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Opportunity
                             extentReports.CreateLog("Role values are as expected ");
 
                             //Validate Cancel functionality
-                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type);
+                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type, valClient);
                             Assert.AreEqual("0.0 %", clientHoldingPer);
                             extentReports.CreateLog("Entered value of Client Holdings % is not saved in the table upon clicking cancel button ");
 
@@ -196,7 +196,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                             //Validate Save functionality and displayed message
                             clientSubjectsPage.ClickEditButton();
-                            string message = clientSubjectsPage.ValidateSaveFunctionalityOfMassEdit(clientValue, type);
+                            string message = clientSubjectsPage.ValidateSaveFunctionalityOfMassEdit(clientValue, type,valClient);
                             Assert.AreEqual("Records updated successful", message);
                             extentReports.CreateLog("Message: " + message + " is displayed upon clicking Save button ");
 
@@ -283,7 +283,7 @@ namespace SF_Automation.TestCases.Opportunity
                             }
 
                             //Validate Cancel functionality
-                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type);
+                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type,valClient);
                             if (type.Contains("Client"))
                             {
                                 Assert.AreEqual("0.0 %", clientHoldingPer);
@@ -311,7 +311,7 @@ namespace SF_Automation.TestCases.Opportunity
                             extentReports.CreateLog("Button with name : " + btnSave1 + " is displayed again upon clicking Edit button ");
 
                             //Validate Save functionality and displayed message
-                            string message = clientSubjectsPage.ValidateSaveFunctionalityOfMassEdit(clientValue, type);
+                            string message = clientSubjectsPage.ValidateSaveFunctionalityOfMassEdit(clientValue, type, valClient);
                             Assert.AreEqual("Records updated successful", message);
                             extentReports.CreateLog("Message: " + message + " is displayed upon clicking Save button ");
 

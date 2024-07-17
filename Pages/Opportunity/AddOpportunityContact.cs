@@ -155,7 +155,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(8000);
-            driver.FindElement(imgContactOppL).Click();
+            driver.FindElement(By.XPath("//div[@title='"+name+"']")).Click();
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
@@ -175,8 +175,9 @@ namespace SF_Automation.Pages.Opportunity
             string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);
             driver.FindElement(txtContactL).SendKeys(name);
             driver.FindElement(txtContactL).Clear();
+            Thread.Sleep(5000);
             driver.FindElement(txtContactL).SendKeys(name);
-            Thread.Sleep(11000);
+            Thread.Sleep(8000);            
             driver.FindElement(imgContactOppL).Click();
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);

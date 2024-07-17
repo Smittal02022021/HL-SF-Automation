@@ -100,8 +100,8 @@ namespace SF_Automation.Pages
         By val2ndTypeKey = By.XPath("//table/tbody[1]/tr[2]/td[3]/div/lightning-formatted-text");
         By btnSaveRecords = By.XPath("//header/div[2]/slot/lightning-button[1]/button");
         By btnCancelRecords = By.XPath("//header/div[2]/slot/lightning-button[2]/button");
-        By txtClientHoldingsMM = By.XPath("//*[@id='input-147']");
-        By txtClientHoldingsPer = By.XPath("//*[@id='input-149']");
+        By txtClientHoldingsMM = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[6]//input");
+        By txtClientHoldingsPer = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[7]//input");
         By txtClientHoldingsMMEng = By.XPath("//*[@id='input-135']");
         By txtClientHoldingsPerEng = By.XPath("//*[@id='input-137']");
         By valClientHoldingsPer = By.XPath("//table/tbody[1]/tr[1]/td[7]/div/lightning-formatted-text");
@@ -128,10 +128,10 @@ namespace SF_Automation.Pages
         By valRevAllocationContra = By.XPath("//table/tbody[1]/tr/td[5]/div/lightning-formatted-text");
         By valRevAllocationContraEng = By.XPath("//table/tbody[2]/tr/td[4]/div/lightning-formatted-text");        
         By txtRevAllocationContra2nd = By.XPath("//*[@id='input-204']");
-        By txtKeyCreditorWeighting = By.XPath("//*[@id='input-190']");
+        By txtKeyCreditorWeighting = By.XPath("//lightning-formatted-text[contains(text(),'A&D')]/ancestor::tr/td[8]//input");
         By txtKeyCreditorWeightingEng = By.XPath("//*[@id='input-193']");
         By valKeyCreditorWeighting = By.XPath("//tbody[1]/tr[1]/td[8]/div/lightning-formatted-text");
-        By txtDebtHoldingsMM2nd = By.XPath("//*[@id='input-299']");
+        By txtDebtHoldingsMM2nd = By.XPath("//tbody[1]/tr[1]/td[5]//input");
         By txtDebtHoldingsMM2ndEng = By.XPath("//*[@id='input-241']");
         By txtDebtHoldingsMM2ndEngCred = By.XPath("//*[@id='input-302']");
         By txtRevAllocationOther = By.XPath("//*[@id='input-195']");
@@ -151,19 +151,19 @@ namespace SF_Automation.Pages
         By valRevAllocationSub = By.XPath("//table/tbody[1]/tr/td[6]/div/lightning-formatted-text");
         By valRevAllocationSubEng = By.XPath("//table/tbody[2]/tr/td[5]/div/lightning-formatted-text");
         By comboKeyCreditorImpEng = By.XPath("//div[@id='dropdown-element-189']/lightning-base-combobox-item/span[2]/span");
-        By comboKeyCreditorImp = By.XPath("//div[@id='dropdown-element-186']/lightning-base-combobox-item/span[2]/span");
+        By comboKeyCreditorImp = By.XPath("//lightning-formatted-text[contains(text(),'Accupac')]/ancestor::tr/td[7]//lightning-base-combobox-item/span[2]/span");
         By comboRole = By.XPath("//lightning-base-combobox-item/span[2]/span");
         By comboRoleEng = By.XPath("//*[@id='dropdown-element-131']/lightning-base-combobox-item/span[2]/span");
-        By valKeyCreditorImpDefault = By.XPath("//div/button[@id='combobox-button-186']/span");
+        By valKeyCreditorImpDefault = By.XPath("//lightning-formatted-text[contains(text(),'A&D')]/ancestor::tr/td[7]//button/span");
         By valKeyCreditorImpDefaultEng = By.XPath("//div/button[@id='combobox-button-189']/span");
-        By btnKeyCreditor = By.XPath("//button[@id='combobox-button-186']");
+        By btnKeyCreditor = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[7]//button");
         By btnKeyCreditorEng = By.XPath("//button[@id='combobox-button-189']");
-        By btnRole = By.XPath("//button[@id='combobox-button-16']");
+        By btnRole = By.XPath("//button[@name='Type']");        
         By btnRoleEng = By.XPath("//button[@id='combobox-button-131']");
         By valTotalClientHoldings = By.XPath("//table/tbody[2]/tr[2]/td[6]/div/lightning-formatted-text");
         By txtClientHoldingPerEngage = By.XPath("//*[@id='input-215']");
         By btnCloseMessage = By.XPath("//div[2]/div/div/lightning-button-icon/button");
-        By txtRevAllocationClient = By.XPath("//*[@id='input-251']");
+        By txtRevAllocationClient = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[12]//input");
         By txtRevAllocationClientEngage = By.XPath("//*[@id='input-134']");
         By valRevAllocation = By.XPath("//table/tbody[2]/tr[2]/td[11]/div/lightning-formatted-text");
         By txtKeyCreditorWeighting2nd = By.XPath("//*[@id='input-421']");
@@ -1305,7 +1305,7 @@ namespace SF_Automation.Pages
         //Click Edit button and validate Save button
         public string ClickEditButtonAndValidateSaveButtonL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEditL, 120);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditMassEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveRecords, 110);
             string name = driver.FindElement(btnSaveRecords).Text;
@@ -1328,7 +1328,7 @@ namespace SF_Automation.Pages
         }
 
         //Validate Cancel Functionalities
-        public string ValidateCancelFunctionalityOfMassEdit(string value, string type)
+        public string ValidateCancelFunctionalityOfMassEdit(string value, string type, string valClient)
         {
             if (type.Contains("Client"))
             {
@@ -1353,31 +1353,31 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valKeyCreditorWeighting).Text;
                 return client;
             }
-            else if (type.Contains("Other"))
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther, 140);
-                driver.FindElement(txtRevAllocationOther).Clear();
-                driver.FindElement(txtRevAllocationOther).SendKeys(value);
-                driver.FindElement(btnCancelRecords).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationContra, 130);
-                string client = driver.FindElement(valRevAllocationContra).Text;
-                return client;
-            }
-            else if (type.Contains("PE Firm"))
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm, 140);
-                driver.FindElement(txtRevAllocationPEFirm).Clear();
-                driver.FindElement(txtRevAllocationPEFirm).SendKeys(value);
-                driver.FindElement(btnCancelRecords).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationContra, 130);
-                string client = driver.FindElement(valRevAllocationContra).Text;
-                return client;
-            }
+            //else if (type.Contains("Other"))
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther, 140);
+            //    driver.FindElement(txtRevAllocationOther).Clear();
+            //    driver.FindElement(txtRevAllocationOther).SendKeys(value);
+            //    driver.FindElement(btnCancelRecords).Click();
+            //    WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationContra, 130);
+            //    string client = driver.FindElement(valRevAllocationContra).Text;
+            //    return client;
+            //}
+            //else if (type.Contains("PE Firm"))
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm, 140);
+            //    driver.FindElement(txtRevAllocationPEFirm).Clear();
+            //    driver.FindElement(txtRevAllocationPEFirm).SendKeys(value);
+            //    driver.FindElement(btnCancelRecords).Click();
+            //    WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationContra, 130);
+            //    string client = driver.FindElement(valRevAllocationContra).Text;
+            //    return client;
+            //}
             else if (type.Contains("Subject"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationSub, 140);
-                driver.FindElement(txtRevAllocationSub).Clear();
-                driver.FindElement(txtRevAllocationSub).SendKeys(value);
+                Thread.Sleep(7000);
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).Clear();
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).SendKeys(value);
                 driver.FindElement(btnCancelRecords).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationSub, 130);
                 string client = driver.FindElement(valRevAllocationSub).Text;
@@ -1385,9 +1385,9 @@ namespace SF_Automation.Pages
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationContra, 140);
-                driver.FindElement(txtRevAllocationContra).Clear();
-                driver.FindElement(txtRevAllocationContra).SendKeys(value);
+                Thread.Sleep(7000);
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[5]//input")).Clear();
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[5]//input")).SendKeys(value);
                 driver.FindElement(btnCancelRecords).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationContra, 130);
                 string client = driver.FindElement(valRevAllocationContra).Text;
@@ -1484,16 +1484,17 @@ namespace SF_Automation.Pages
         }
 
         //Validate Save Functionalities
-        public string ValidateSaveFunctionalityOfMassEdit(string value, string type)
+        public string ValidateSaveFunctionalityOfMassEdit(string value, string type, string valClient)
+            
         {
             if (type.Contains("Client"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2nd, 300);
-                driver.FindElement(txtClientHoldingsMM2nd).Clear();
-                driver.FindElement(txtClientHoldingsMM2nd).SendKeys(value);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM, 300);
+                driver.FindElement(txtClientHoldingsMM).Clear();
+                driver.FindElement(txtClientHoldingsMM).SendKeys(value);
                 Thread.Sleep(4000);
-                driver.FindElement(txtClientHoldingsPercen2nd).Clear();
-                driver.FindElement(txtClientHoldingsPercen2nd).SendKeys(value);
+                driver.FindElement(txtClientHoldingsPer).Clear();
+                driver.FindElement(txtClientHoldingsPer).SendKeys(value);
                 Thread.Sleep(4000);
                 driver.FindElement(btnSaveRecords).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 140);
@@ -1502,43 +1503,43 @@ namespace SF_Automation.Pages
             }
             else if (type.Contains("Key Creditor"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtDebtHoldingsMM2nd, 140);
-                driver.FindElement(txtDebtHoldingsMM2nd).Clear();
-                driver.FindElement(txtDebtHoldingsMM2nd).SendKeys(value);
-                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtKeyCreditorWeighting, 140);
+                driver.FindElement(txtKeyCreditorWeighting).Clear();
+                driver.FindElement(txtKeyCreditorWeighting).SendKeys(value);
+                Thread.Sleep(5000);
                 driver.FindElement(btnSaveRecords).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Other"))
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther2nd, 140);
-                driver.FindElement(txtRevAllocationOther2nd).Clear();
-                driver.FindElement(txtRevAllocationOther2nd).SendKeys(value);
-                Thread.Sleep(6000);
-                driver.FindElement(btnSaveRecords).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
-                string client = driver.FindElement(msgSuccessSave).Text;
-                return client;
-            }
-            else if (type.Contains("PE Firm"))
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm2nd, 140);
-                driver.FindElement(txtRevAllocationPEFirm2nd).Clear();
-                driver.FindElement(txtRevAllocationPEFirm2nd).SendKeys(value);
-                Thread.Sleep(4000);
-                driver.FindElement(btnSaveRecords).Click();
-                Thread.Sleep(3000);
-                WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
-                string client = driver.FindElement(msgSuccessSave).Text;
-                return client;
-            }
+            //else if (type.Contains("Other"))
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther2nd, 140);
+            //    driver.FindElement(txtRevAllocationOther2nd).Clear();
+            //    driver.FindElement(txtRevAllocationOther2nd).SendKeys(value);
+            //    Thread.Sleep(6000);
+            //    driver.FindElement(btnSaveRecords).Click();
+            //    WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
+            //    string client = driver.FindElement(msgSuccessSave).Text;
+            //    return client;
+            //}
+            //else if (type.Contains("PE Firm"))
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm2nd, 140);
+            //    driver.FindElement(txtRevAllocationPEFirm2nd).Clear();
+            //    driver.FindElement(txtRevAllocationPEFirm2nd).SendKeys(value);
+            //    Thread.Sleep(4000);
+            //    driver.FindElement(btnSaveRecords).Click();
+            //    Thread.Sleep(3000);
+            //    WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
+            //    string client = driver.FindElement(msgSuccessSave).Text;
+            //    return client;
+            //}
             else if (type.Contains("Subject"))
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationSub2nd, 140);
-                driver.FindElement(txtRevAllocationSub2nd).Clear();
-                driver.FindElement(txtRevAllocationSub2nd).SendKeys(value);
+                Thread.Sleep(5000);
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).Clear();
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).SendKeys(value);
                 Thread.Sleep(4000);
                 driver.FindElement(btnSaveRecords).Click();
                 Thread.Sleep(6000);
@@ -1548,10 +1549,10 @@ namespace SF_Automation.Pages
             }
             else
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationContra2nd, 140);
-                driver.FindElement(txtRevAllocationContra2nd).Clear();
-                driver.FindElement(txtRevAllocationContra2nd).SendKeys(value);
-                Thread.Sleep(43000);
+                Thread.Sleep(5000);
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[5]//input")).Clear();
+                driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[5]//input")).SendKeys(value);
+                Thread.Sleep(4000);
                 driver.FindElement(btnSaveRecords).Click();
                 Thread.Sleep(4000);
                 WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 130);
@@ -1842,11 +1843,12 @@ namespace SF_Automation.Pages
         //Get Client Holdings % message
         public string ValidateErrorMessageUponEnteringClientHoldingsMoreThan100()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer2nd, 160);
-            driver.FindElement(txtClientHoldingsPer2nd).Clear();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer, 160);
+            driver.FindElement(txtClientHoldingsPer).Clear();
             Console.WriteLine("220");
-            driver.FindElement(txtClientHoldingsPer2nd).SendKeys("220");
-            Thread.Sleep(4000);
+            driver.FindElement(txtClientHoldingsPer).SendKeys("220");
+            driver.FindElement(txtClientHoldingsPer).SendKeys("220");
+            Thread.Sleep(6000);
             driver.FindElement(btnSaveRecords).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 140);
             Thread.Sleep(7000);
@@ -1860,8 +1862,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer2ndEngage, 160);
             driver.FindElement(txtClientHoldingsPer2ndEngage).Clear();
             Console.WriteLine("220");
-            driver.FindElement(txtClientHoldingsPer2ndEngage).SendKeys("220");
-            Thread.Sleep(6000);
+            driver.FindElement(txtClientHoldingsPer2ndEngage).SendKeys("22022");
+            Thread.Sleep(7000);
             driver.FindElement(btnSaveRecords).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 140);
             Thread.Sleep(4000);
@@ -1891,12 +1893,12 @@ namespace SF_Automation.Pages
         //Get Revenue  Holdings % message
         public string ValidateErrorMessageUponEnteringRevenueAllocationMoreThan100()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer2nd, 160);
-            driver.FindElement(txtClientHoldingsPer2nd).Clear();           
+            WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsPer, 160);
+            driver.FindElement(txtClientHoldingsPer).Clear();           
             Thread.Sleep(2000);
             driver.FindElement(txtRevAllocationClient).Clear();
             Thread.Sleep(2000);
-            driver.FindElement(txtRevAllocationClient).SendKeys("235");
+            driver.FindElement(txtRevAllocationClient).SendKeys("2351");
             Thread.Sleep(5000);
             driver.FindElement(btnSaveRecords).Click();
             Thread.Sleep(5000);
@@ -1974,10 +1976,10 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEdit, 160);
             driver.FindElement(btnEditMassEdit).Click();
-            driver.FindElement(txtKeyCreditorWeighting2nd).Clear();
+            driver.FindElement(txtKeyCreditorWeighting).Clear();
             Console.WriteLine("220");
             Thread.Sleep(3000);            
-            driver.FindElement(txtKeyCreditorWeighting2nd).SendKeys("235");
+            driver.FindElement(txtKeyCreditorWeighting).SendKeys("235");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveRecords).Click();
             Thread.Sleep(3000);
@@ -2123,7 +2125,8 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOpp, 150);
-            driver.FindElement(btnBackToOpp).Click();            
+            driver.FindElement(btnBackToOpp).Click();
+            driver.SwitchTo().DefaultContent();
         }
 
         //Get Help text displayed on Client Holdings%
