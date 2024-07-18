@@ -13,12 +13,12 @@ namespace SF_Automation.Pages.EventExpense
     {
         //Approver Buttons & Labels
         By btnDeleteApprover = By.XPath("//button[text()='Delete']");
-        By btnCloneApprover = By.XPath("//input[@value='Clone']");
-        By btnRequestMoreInformationApprover = By.XPath("//input[@value='Request More Information']");
-        By btnEditApprover = By.XPath("//input[@value='Edit']");
-        By btnApproveApprover = By.XPath("//input[@value='Approve']");
-        By btnRejectApprover = By.XPath("//input[@value='Reject']");
-        By lblApproverStatus = By.XPath("(//th[text()='Status']/following::span)[1]");
+        By btnCloneApprover = By.XPath("//button[text()='Clone']");
+        By btnRequestMoreInformationApprover = By.XPath("//button[text()='Request More Information']");
+        By btnEditApprover = By.XPath("//button[text()='Edit']");
+        By btnApproveApprover = By.XPath("//button[text()='Approve']");
+        By btnRejectApprover = By.XPath("//button[text()='Reject']");
+        By lblApproverStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
 
         //Requestor Buttons
         By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
@@ -464,6 +464,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaNotes, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtAreaNotes));
             driver.FindElement(txtAreaNotes).Clear();
             driver.FindElement(txtAreaNotes).SendKeys(notes);
 
@@ -523,7 +524,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             bool result = false;
             Thread.Sleep(3000);
-            if(driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnEditApprover).Displayed && driver.FindElement(btnCloneApprover).Displayed && driver.FindElement(btnApproveApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed && driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnRequestMoreInformationApprover).Displayed)
+            if(driver.FindElement(btnEditApprover).Displayed && driver.FindElement(btnCloneApprover).Displayed && driver.FindElement(btnApproveApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed && driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnRequestMoreInformationApprover).Displayed)
             {
                 result = true;
             }
