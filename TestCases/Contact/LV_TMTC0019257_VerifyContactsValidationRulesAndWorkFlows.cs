@@ -46,7 +46,7 @@ namespace SF_Automation.TestCases.Contact
                 string assistantName = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 1);
                 string assistantPhone = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 2);
                 string assistantEmail = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 3);
-                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 6);
+                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
                 string dealAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 1);
                 string eventConf = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 2);
                 string generalAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 3);
@@ -99,8 +99,8 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyUserCanEditAssistantNamePhoneAndEmail(assistantName, assistantPhone, assistantEmail));
                 extentReports.CreateStepLogs("Passed", "CF financial user is able to edit the Assistant Name, phone and email under the Additional information.");
 
-                lvRecentlyViewContact.CloseTab("Test External | Contact");
-                lvRecentlyViewContact.CloseTab("Test External - Search");
+                lvContactDetails.CloseTab("Test External | Contact");
+                lvContactDetails.CloseTab("Test External - Search");
 
                 //TC - TMT0033957 - Verify the Error Message "Only system administrators can change employee currency" is displayed when contact currency field is edited.
                 lvHomePage.SearchContactFromMainSearch("Houlihan Employee");

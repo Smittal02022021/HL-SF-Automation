@@ -19,6 +19,7 @@ namespace SF_Automation.Pages.Contact
         By txtContactName = By.XPath("//lightning-formatted-name[@slot='primaryField']");
         By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
         By linkImportantDates = By.XPath("//a[text()='Important Dates']");
+        By btnDeleteContact = By.XPath("//div[contains(text(),'Are you sure you want')]/following::button[@title='Delete']");
 
         //Contact Information Section Elements
         By btnEditName = By.XPath("//button[@title='Edit Name']");
@@ -142,11 +143,9 @@ namespace SF_Automation.Pages.Contact
         public void DeleteContact()
         {
             driver.FindElement(btnDelete).Click();
-
-            IAlert alert = driver.SwitchTo().Alert();
             Thread.Sleep(5000);
-            alert.Accept();
-            Thread.Sleep(2000);
+            driver.FindElement(btnDeleteContact).Click();
+            Thread.Sleep(5000);
         }
 
         public void CloseTab(string tabName)

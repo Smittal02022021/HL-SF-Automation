@@ -126,11 +126,10 @@ namespace SF_Automation.Pages.Contact
 
         public void SelectContactType(string type)
         {
+            Thread.Sleep(5000);
             switch (type)
             {
                 case "External Contact":
-                    WebDriverWaits.WaitUntilEleVisible(driver, radioExternalContact, 20);
-                    driver.FindElement(radioExternalContact).Click();
                     break;
                 case "Archived":
                     WebDriverWaits.WaitUntilEleVisible(driver, radioArchivedContact, 20);
