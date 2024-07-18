@@ -28,6 +28,15 @@ namespace SF_Automation.Pages.Contact
         By btnGo = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:btnGo']");
         By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");
 
+        //New Contact Page - Select Contact Type
+        By radioExternalContact = By.XPath("//span[text()='External Contact']/../input");
+        By radioArchivedContact = By.XPath("//span[text()='Archived']/../input");
+        By radioConflictsCheckLDCCRContact = By.XPath("//span[text()='Conflicts Check LDCCR']/../input");
+        By radioDistributionListsContact = By.XPath("//span[text()='Distribution Lists']/../input");
+        By radioHoulihanEmployeeContact = By.XPath("//span[text()='Houlihan Employee']/../input");
+        By btnNext = By.XPath("//span[text()='Next']/..");
+        By btnCancel = By.XPath("(//span[text()='Cancel']/..)[2]");
+
         public void CreateNewContact(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -113,6 +122,37 @@ namespace SF_Automation.Pages.Contact
             return ContactInformationRequiredTag("FirstName").GetAttribute("class").Contains("requiredBlock") &&
             ContactInformationRequiredTag("LastName").GetAttribute("class").Contains("requiredBlock") &&
             ContactInformationRequiredTag("Account").GetAttribute("class").Contains("requiredBlock");
+        }
+
+        public void SelectContactType(string type)
+        {
+            switch (type)
+            {
+                case "External Contact":
+                    WebDriverWaits.WaitUntilEleVisible(driver, radioExternalContact, 20);
+                    driver.FindElement(radioExternalContact).Click();
+                    break;
+                case "Archived":
+                    WebDriverWaits.WaitUntilEleVisible(driver, radioArchivedContact, 20);
+                    driver.FindElement(radioArchivedContact).Click();
+                    break;
+                case "Conflicts Check LDCCR":
+                    WebDriverWaits.WaitUntilEleVisible(driver, radioConflictsCheckLDCCRContact, 20);
+                    driver.FindElement(radioConflictsCheckLDCCRContact).Click();
+                    break;
+                case "Distribution Lists":
+                    WebDriverWaits.WaitUntilEleVisible(driver, radioDistributionListsContact, 20);
+                    driver.FindElement(radioDistributionListsContact).Click();
+                    break;
+                case "Houlihan Employee":
+                    WebDriverWaits.WaitUntilEleVisible(driver, radioHoulihanEmployeeContact, 20);
+                    driver.FindElement(radioHoulihanEmployeeContact).Click();
+                    break;
+            }
+
+            //Click Next
+            driver.FindElement(btnNext).Click();
+            Thread.Sleep(3000);
         }
     }
 }

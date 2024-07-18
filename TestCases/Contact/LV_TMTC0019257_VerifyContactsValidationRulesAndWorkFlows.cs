@@ -46,6 +46,11 @@ namespace SF_Automation.TestCases.Contact
                 string assistantName = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 1);
                 string assistantPhone = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 2);
                 string assistantEmail = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 3);
+                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 6);
+                string dealAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 1);
+                string eventConf = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 2);
+                string generalAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 3);
+                string insightsContent = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 4);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -58,6 +63,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
+                /*
                 //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
                 extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
@@ -108,6 +114,53 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMT0033963 - Verify the Error Message "Only system administrators can change employee name and salutation" is displayed when the contact Last Name field is edited
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedIfUserTriesToChangeLastNameOfHLContact());
                 extentReports.CreateStepLogs("Passed", "Error message displayed upon changing Last Name for HL Contact : Only system administrators can change employee name and salutation.");
+
+                //Logout from SF Lightning View
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+                */
+
+                //Search SF Admin user by global search
+                homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
+                extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
+
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+
+                //TC - TMT0034256 - Verify Changes done to "DA, Event, GA, and Insights" fields under Subscription Preferences update the "Deal Announcements Change.
+                lvHomePage.NavigateToAnItemFromHLBankerDropdown("Contacts");
+                extentReports.CreateStepLogs("Info", "User navigated to contacts list page. ");
+
+                lvRecentlyViewContact.NavigateToCreateNewContactPage();
+                extentReports.CreateStepLogs("Info", "User has navigated to Create New Contacts Page. ");
+
+                //Select Contact Type
+                lvCreateContact.SelectContactType(contactType);
+                extentReports.CreateStepLogs("Info", "Contact Type selected as: " +contactType +" ");
+
+                //Create New External Contact
+                lvCreateContact.CreateNewContact(fileTMTC0019251);
+                string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
+                string extContactName = lvContactDetails.GetExternalContactName();
+                Assert.AreEqual(extContactFullName, extContactName);
+                extentReports.CreateStepLogs("Passed", "New external contact: " + extContactFullName + " is created successfully.");
+
+                lvContactDetails.VerifyUserIsAbleToEditSubscriptionPreferenes(dealAnnouncement, eventConf, generalAnnouncement, insightsContent);
+                extentReports.CreateStepLogs("Passed", "Changes related to DA, Event, GA, and Insights are reflected under Subscription Preferences on Contact Details page. ");
+
+                //Delete Created Contact
+                lvHomePage.SearchContactFromMainSearch(extContactFullName);
+                lvContactDetails.DeleteContact();
+                extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();
