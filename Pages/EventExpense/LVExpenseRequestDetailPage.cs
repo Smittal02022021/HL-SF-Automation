@@ -13,12 +13,13 @@ namespace SF_Automation.Pages.EventExpense
     {
         //Approver Buttons
         By btnDeleteApprover = By.XPath("//button[text()='Delete']");
-        By btnCloneApprover = By.XPath("//button[text()='Clone']");
-        By btnRequestMoreInformationApprover = By.XPath("//button[text()='Request More Information']");
-        By btnEditApprover = By.XPath("//button[text()='Edit']");
-        By btnApproveApprover = By.XPath("//button[text()='Approve']");
-        By btnRejectApprover = By.XPath("//button[text()='Reject']");
+        By btnCloneApprover = By.XPath("//input[@value='Clone']");
+        By btnRequestMoreInformationApprover = By.XPath("//input[@value='Request More Information']");
+        By btnEditApprover = By.XPath("//input[@value='Edit']");
+        By btnApproveApprover = By.XPath("//input[@value='Approve']");
+        By btnRejectApprover = By.XPath("//input[@value='Reject']");
 
+        //Requestor Buttons
         By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
         By btnReqDelete = By.XPath("(//button[text()='Delete'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
