@@ -43,6 +43,10 @@ namespace SF_Automation.TestCases.Contact
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string adminUser = ReadExcelData.ReadData(excelPath, "Users", 2);
 
+                string assistantName = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 1);
+                string assistantPhone = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 2);
+                string assistantEmail = ReadExcelData.ReadData(excelPath, "AdditionalInfo", 3);
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
@@ -85,6 +89,10 @@ namespace SF_Automation.TestCases.Contact
                 //TC - TMT0033947 - Verify the Error Message "First Name required" is displayed when the First Name field is blank.
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedWithNoLastName());
                 extentReports.CreateStepLogs("Passed", "Error message displayed at field level with no Last Name : Complete this field.");
+
+                //TC - TMT0034209 - Verify that CF financial user can able to edit the Assistant Name, phone and email under the Additional information
+                Assert.IsTrue(lvContactDetails.VerifyUserCanEditAssistantNamePhoneAndEmail(assistantName, assistantPhone, assistantEmail));
+                extentReports.CreateStepLogs("Passed", "CF financial user is able to edit the Assistant Name, phone and email under the Additional information.");
 
                 lvRecentlyViewContact.CloseTab("Test External | Contact");
                 lvRecentlyViewContact.CloseTab("Test External - Search");

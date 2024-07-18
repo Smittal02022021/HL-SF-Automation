@@ -24,6 +24,14 @@ namespace SF_Automation.Pages.Contact
         By btnEditName = By.XPath("//button[@title='Edit Name']");
         By txtLastName = By.XPath("(//label[text()='Last Name']/following::div/input)[1]");
 
+        //Assistant Information Section Elements
+        By lblAssistant = By.XPath("(//span[text()='Assistant']/following::lightning-formatted-text)[1]");
+        By lblAssistantPhone = By.XPath("(//span[text()='Assistant Phone']/following::a)[1]");
+        By lblAssistantEmail = By.XPath("(//span[text()='Assistant Email']/following::a)[1]");
+
+        //System Information Section Elements
+        By btnEditContactCurrency = By.XPath("//button[@title='Edit Contact Currency']");
+        By dropdownContactCurrency = By.XPath("//button[@aria-label='Contact Currency']");
 
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
@@ -113,10 +121,9 @@ namespace SF_Automation.Pages.Contact
         By inputCompanyName = By.XPath("//input[@placeholder='Search Companies...']");
         By txtErrorPopup = By.XPath("//div[@class='genericNotification']/../ul/li");
         By btnCloseErrorPopup = By.XPath("//button[@title='Close error dialog']");
-
-        //System Information Elements
-        By btnEditContactCurrency = By.XPath("//button[@title='Edit Contact Currency']");
-        By dropdownContactCurrency = By.XPath("//button[@aria-label='Contact Currency']");
+        By inputAssistantName = By.XPath("//input[@name='AssistantName']");
+        By inputAssistantPhone = By.XPath("//input[@name='AssistantPhone']");
+        By inputAssistantEmail = By.XPath("//input[@name='Assistant_Email__c']");
 
         public void CloseTab(string tabName)
         {
@@ -1532,6 +1539,42 @@ namespace SF_Automation.Pages.Contact
             //Click on Cancel button
             driver.FindElement(btnCancelEdit).Click();
             Thread.Sleep(2000);
+
+            return result;
+        }
+
+        public bool VerifyUserCanEditAssistantNamePhoneAndEmail(string assName, string assPhn, string assEmail)
+        {
+            bool result = false;
+
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilClickable(driver, btnCancelOnEdit, 120);
+
+            //Enter Assistant Name, Phone and Email
+            driver.FindElement(inputAssistantName).Clear();
+            driver.FindElement(inputAssistantName).SendKeys(assName);
+            Thread.Sleep(2000);
+
+            driver.FindElement(inputAssistantPhone).Clear();
+            driver.FindElement(inputAssistantPhone).SendKeys(assPhn);
+            Thread.Sleep(2000);
+
+            driver.FindElement(inputAssistantEmail).Clear();
+            driver.FindElement(inputAssistantEmail).SendKeys(assEmail);
+            Thread.Sleep(2000);
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+            Thread.Sleep(3000);
+
+            if(assName == driver.FindElement(lblAssistant).Text && assPhn == driver.FindElement(lblAssistantPhone).Text && assEmail == driver.FindElement(lblAssistantEmail).Text)
+            {
+                result = true;
+            }
 
             return result;
         }
