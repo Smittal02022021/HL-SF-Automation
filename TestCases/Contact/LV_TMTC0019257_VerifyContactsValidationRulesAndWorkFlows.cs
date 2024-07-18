@@ -149,6 +149,8 @@ namespace SF_Automation.TestCases.Contact
 
                 //Create New External Contact
                 lvCreateContact.CreateNewContact(fileTMTC0019251);
+                driver.SwitchTo().DefaultContent();
+
                 string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
                 string extContactName = lvContactDetails.GetExternalContactName();
                 Assert.AreEqual(extContactFullName, extContactName);
