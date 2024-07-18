@@ -19,14 +19,11 @@ namespace SF_Automation.Pages.EventExpense
         By btnApproveApprover = By.XPath("//button[text()='Approve']");
         By btnRejectApprover = By.XPath("//button[text()='Reject']");
 
-        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
-        By btnDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
+        By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
         By btnReqDelete = By.XPath("(//button[text()='Delete'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");
-        By btnApproveLWC = By.XPath("//button[text()='Approve']");
-        By btnRejectLWC = By.XPath("//button[text()='Reject']");
         By btnReject = By.XPath("(//button[text()='Reject'])[2]");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
@@ -327,7 +324,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(5000);
         }
 
-        public bool VerifyDeleteExpenseRequestFunctionality()
+        public bool VerifyDeleteExpenseRequestFunctionalityAsApprover()
         {
             bool result = false;
 
@@ -357,8 +354,8 @@ namespace SF_Automation.Pages.EventExpense
 
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteLWC, 120);
-            driver.FindElement(btnDeleteLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqDelete, 120);
+            driver.FindElement(btnReqDelete).Click();
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
@@ -430,17 +427,17 @@ namespace SF_Automation.Pages.EventExpense
             return notes;
         }
 
-        public bool SubmitExpenseRequestLWCForApproval()
+        public bool SubmitExpenseRequestForApproval()
         {
             bool result = false;
 
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApprovalLWC, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForApproval, 120);
             //driver.FindElement(btnSubmitForApprovalLWC).Click();
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnSubmitForApprovalLWC)); ;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnSubmitForApproval)); ;
             Thread.Sleep(15000);
 
             WebDriverWaits.WaitForPageToLoad(driver, 120);

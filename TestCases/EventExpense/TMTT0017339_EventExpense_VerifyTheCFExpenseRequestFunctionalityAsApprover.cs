@@ -120,7 +120,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateLog("Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus + " and Expense Preapproval Number: " + expReqpreApprovalNo + " ");
 
                     //TC - TMTI0038456 - Verify that email notification has been sent to appropriate Approver on Submission of the Expense Request for approval
-                    Assert.IsTrue(lvExpRequestDetail.SubmitExpenseRequestLWCForApproval());
+                    Assert.IsTrue(lvExpRequestDetail.SubmitExpenseRequestForApproval());
                     extentReports.CreateLog("Expense Request submitted for approval successfully. ");
 
                     //Logout from SF Lightning View
@@ -185,7 +185,7 @@ namespace SF_Automation.TestCases.EventExpense
                     else if (action == "Delete")
                     {
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
-                        Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionality());
+                        Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsApprover());
                         action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
                         Thread.Sleep(5000);
                         string eventStatus3 = lvExpRequestDetail.GetEventStatusInfoForApprover();
