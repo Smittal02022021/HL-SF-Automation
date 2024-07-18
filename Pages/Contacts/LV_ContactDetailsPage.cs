@@ -127,6 +127,7 @@ namespace SF_Automation.Pages.Contact
         By dropdownEventConferences = By.XPath("//button[@aria-label='Events/Conferences']");
         By dropdownGeneralAnnouncements = By.XPath("//button[@aria-label='General Announcements']");
         By dropdownInsightsContent = By.XPath("//button[@aria-label='Insights/Content']");
+        By inputMergeGroup = By.XPath("//input[@name='Merge_Group__c']");
 
         //Marketing Tab Elements
         By lblDealAnnouncement = By.XPath("(//span[text()='Deal Announcements']/following::lightning-formatted-text)[1]");
@@ -134,7 +135,7 @@ namespace SF_Automation.Pages.Contact
         By lblGeneralAnnouncements = By.XPath("(//span[text()='General Announcements']/following::lightning-formatted-text)[1]");
         By lblInsightsContent = By.XPath("(//span[text()='Insights/Content']/following::lightning-formatted-text)[1]");
         By lblDealAnnouncementChangeDate = By.XPath("(//span[text()='Deal Announcements Change Date']/following::lightning-formatted-text)[1]");
-        By lblEventsConferencesChangeDate = By.XPath("(//span[text()='Events/Conferences Change Date']/following::lightning-formatted-text)[1]");
+        By lblEventsConferencesChangeDate = By.XPath("(//span[text()='Events/Conference Change Date']/following::lightning-formatted-text)[1]");
         By lblGeneralAnnouncementsChangeDate = By.XPath("(//span[text()='General Announcements Change Date']/following::lightning-formatted-text)[1]");
         By lblInsightsContentChangeDate = By.XPath("(//span[text()='Insights/Content Change Date']/following::lightning-formatted-text)[1]");
 
@@ -1608,24 +1609,31 @@ namespace SF_Automation.Pages.Contact
             bool result1 = false;
             bool result2 = false;
 
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilClickable(driver, btnCancelOnEdit, 120);
+
             //Scroll to the bottom of the page
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0, 2500)");
 
             //Select Deal Announcement
-            WebDriverWaits.WaitUntilClickable(driver, dropdownDealAnnouncements, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownDealAnnouncements));
+            WebDriverWaits.WaitUntilEleVisible(driver, inputMergeGroup, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputMergeGroup));
             driver.FindElement(dropdownDealAnnouncements).Click();
             Thread.Sleep(2000);
 
             if(dealAnn == "Opt In")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[2]")).Click();
                 Thread.Sleep(2000);
             }
             else if (dealAnn == "Opt Out")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[3]")).Click();
                 Thread.Sleep(2000);
             }
 
@@ -1637,12 +1645,12 @@ namespace SF_Automation.Pages.Contact
 
             if(eventConference == "Opt In")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Events/Conferences']/following::div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Events/Conferences']/following::div[2]/lightning-base-combobox-item[2]")).Click();
                 Thread.Sleep(2000);
             }
             else if(eventConference == "Opt Out")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Events/Conferences']/following::div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Events/Conferences']/following::div[2]/lightning-base-combobox-item[3]")).Click();
                 Thread.Sleep(2000);
             }
 
@@ -1654,12 +1662,12 @@ namespace SF_Automation.Pages.Contact
 
             if(generalAnn == "Opt In")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='General Announcements']/following::div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='General Announcements']/following::div[2]/lightning-base-combobox-item[2]")).Click();
                 Thread.Sleep(2000);
             }
             else if(generalAnn == "Opt Out")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='General Announcements']/following::div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='General Announcements']/following::div[2]/lightning-base-combobox-item[3]")).Click();
                 Thread.Sleep(2000);
             }
 
@@ -1671,31 +1679,31 @@ namespace SF_Automation.Pages.Contact
 
             if(insightsCon == "Opt In")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Insights/Content']/following::div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Insights/Content']/following::div[2]/lightning-base-combobox-item[2]")).Click();
                 Thread.Sleep(2000);
             }
             else if(insightsCon == "Opt Out")
             {
-                driver.FindElement(By.XPath("//button[@aria-label='Insights/Content']/following::div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//button[@aria-label='Insights/Content']/following::div[2]/lightning-base-combobox-item[3]")).Click();
                 Thread.Sleep(2000);
             }
 
             //Click on Save button
             driver.FindElement(btnSaveOnEdit).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             //Scroll to the top of the page
             js.ExecuteScript("window.scrollTo(0, 0)");
 
             //Navigate to Marketing Tab
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
             driver.FindElement(tabMarketing).Click();
             Thread.Sleep(2000);
-            js.ExecuteScript("window.scrollTo(0, 1000)");
 
             if(dealAnn == driver.FindElement(lblDealAnnouncement).Text && eventConference == driver.FindElement(lblEventsConferences).Text && generalAnn == driver.FindElement(lblGeneralAnnouncements).Text && insightsCon == driver.FindElement(lblInsightsContent).Text)
             {
                 result1 = true;
-                string updatedDate = DateTime.Today.ToString("MM/dd/yyyy");
+                string updatedDate = DateTime.Today.ToString("M/dd/yyyy").Replace('-', '/');
                 if(driver.FindElement(lblDealAnnouncementChangeDate).Text == updatedDate && driver.FindElement(lblEventsConferencesChangeDate).Text == updatedDate && driver.FindElement(lblGeneralAnnouncementsChangeDate).Text == updatedDate && driver.FindElement(lblInsightsContentChangeDate).Text == updatedDate)
                 {
                     result2 = true;

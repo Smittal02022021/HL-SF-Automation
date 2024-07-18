@@ -63,7 +63,6 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
-                /*
                 //Search CF Financial user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
                 extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
@@ -118,7 +117,6 @@ namespace SF_Automation.TestCases.Contact
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
-                */
 
                 //Search SF Admin user by global search
                 homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
@@ -160,7 +158,6 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "Changes related to DA, Event, GA, and Insights are reflected under Subscription Preferences on Contact Details page. ");
 
                 //Delete Created Contact
-                lvHomePage.SearchContactFromMainSearch(extContactFullName);
                 lvContactDetails.DeleteContact();
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
