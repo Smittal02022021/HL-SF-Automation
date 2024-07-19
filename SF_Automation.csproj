@@ -812,7 +812,7 @@
     <Compile Include="TestCases\Opportunities\TMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008034_MassEdit_FieldMappings.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />

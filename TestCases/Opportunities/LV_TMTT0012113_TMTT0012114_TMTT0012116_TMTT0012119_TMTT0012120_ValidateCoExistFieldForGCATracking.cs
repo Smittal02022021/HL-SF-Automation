@@ -8,7 +8,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking : BaseClass
     {
