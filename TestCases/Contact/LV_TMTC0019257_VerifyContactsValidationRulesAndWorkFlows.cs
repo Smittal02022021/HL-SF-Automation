@@ -51,9 +51,6 @@ namespace SF_Automation.TestCases.Contact
                 string eventConf = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 2);
                 string generalAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 3);
                 string insightsContent = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 4);
-                string badgeFirstName = ReadExcelData.ReadData(excelPath, "EventBadges", 1);
-                string badgeLastName = ReadExcelData.ReadData(excelPath, "EventBadges", 2);
-                string badgeCompanyName = ReadExcelData.ReadData(excelPath, "EventBadges", 3);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
