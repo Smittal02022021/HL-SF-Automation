@@ -24,6 +24,12 @@ namespace SF_Automation.Pages.Contact
         //Contact Information Section Elements
         By btnEditName = By.XPath("//button[@title='Edit Name']");
         By txtLastName = By.XPath("(//label[text()='Last Name']/following::div/input)[1]");
+        By lblContactName = By.XPath("(//span[text()='Name']/following::lightning-formatted-name)[2]");
+        By lblCompanyName = By.XPath("//span[text()='Company Name']/following::dd//records-hoverable-link//slot//slot");
+        By lblEmail = By.XPath("((//span[text()='Email'])[2]/following::dd//span/slot//a)[1]");
+        By lblPhoneNo = By.XPath("((//span[text()='Phone'])[2]/following::dd//span/slot//a)[1]");
+        By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
+        By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
 
         //Assistant Information Section Elements
         By lblAssistant = By.XPath("(//span[text()='Assistant']/following::lightning-formatted-text)[1]");
@@ -33,6 +39,7 @@ namespace SF_Automation.Pages.Contact
         //System Information Section Elements
         By btnEditContactCurrency = By.XPath("//button[@title='Edit Contact Currency']");
         By dropdownContactCurrency = By.XPath("//button[@aria-label='Contact Currency']");
+        By contactRecordType = By.XPath("//div[@class='recordTypeName slds-grow slds-truncate']/span");
 
         //Buttons for CF Financial User
         By btnEdit = By.XPath("//button[@name='Edit']");
@@ -105,11 +112,6 @@ namespace SF_Automation.Pages.Contact
         //Activity Details
         By lblGetPrimaryContactNameFromActivity = By.XPath("//tbody[@id='j_id0:j_id1:j_id2:j_id3:pbActivityLog:pbtActivities:tb']/tr[1]/td[5]/span/a");
         By linkEditActivity = By.XPath("//tbody[@id='j_id0:j_id1:j_id2:j_id3:pbActivityLog:pbtActivities:tb']/tr[1]/td[1]/span/a[2]");
-
-        //Contact Informaction section
-        By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../../dd/div/span/slot/lightning-formatted-name");
-        By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
-        By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
 
         //HL Employee buttons
         By lobButton = By.XPath("(//label[text()='Line of Business'])[2]/../div//button");
@@ -412,6 +414,26 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver,lblContactName,60);
             return driver.FindElement(lblContactName).Text;
+        }
+
+        public string GetCompanyName()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyName, 60);
+            string companyName = driver.FindElement(lblCompanyName).Text;
+            return companyName;
+        }
+
+        public string GetContactRecordTypeValue()
+        {
+            //Scroll to the bottom of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0, 2500)");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, contactRecordType, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(contactRecordType));
+
+            string valContactRecord = driver.FindElement(contactRecordType).Text;
+            return valContactRecord;
         }
 
         public bool VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser()

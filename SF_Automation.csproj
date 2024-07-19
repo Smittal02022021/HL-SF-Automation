@@ -579,6 +579,7 @@
     <Compile Include="TestCases\Company\TMTT0014212_TMTT0014213_TMTT0014215_Company_VerifyTheUserIsAbleToAddNewSectorOnTheCompanyPage.cs" />
     <Compile Include="TestCases\Company\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.cs" />
     <Compile Include="TestCases\Company\TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.cs" />
+    <Compile Include="TestCases\Contact\LV_T1047_T1100_T1941_T1945_T2146_T2145_Contact_CreateNewContactRecordTypeExternalContact.cs" />
     <Compile Include="TestCases\Contact\T1047_T1100_T1941_T1945_T2146_T2145_Contact_CreateNewContactRecordTypeExternalContact.cs" />
     <Compile Include="TestCases\Contact\T1048_T1942_T1943_T1944_T1945_T1946_T1951_T1954_T1955_T1957_T1958_Contact_CreateNewContactRecordTypeHoulihanEmployee.cs" />
     <Compile Include="TestCases\Contact\T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton.cs" />

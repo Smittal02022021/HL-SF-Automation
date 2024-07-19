@@ -44,7 +44,14 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
             Thread.Sleep(5000);
 
-            driver.SwitchTo().Frame(0);
+            try
+            {
+                driver.SwitchTo().Frame(0);
+            }
+            catch(Exception)
+            {
+
+            }
 
             //Click lookup 
             WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
