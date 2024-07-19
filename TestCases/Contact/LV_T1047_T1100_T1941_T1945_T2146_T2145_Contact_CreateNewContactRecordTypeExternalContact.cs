@@ -126,18 +126,16 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
                     " ,Contact Record type is displayed under system information section ");
 
-                /*
-                //Verified quick links and Related objects for external contact 
-                Assert.IsTrue(contactEdit.ValidateQuickLink(fileTC1047));
-                extentReports.CreateStepLogs("Passed", "Verified quick links and Related objects for external contact ");
+                //TC Start - TMT0034863 - As a CF Finacial User, Verify the Buttons and Tabs for contact in the Contact Detail page for External Record Type. 
+                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser());
+                extentReports.CreateLog("External contact have Edit, Add Relationship L, and Printable View buttons displayed at the top for CF Financial user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser());
+                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History and Summary tabs displayed at the top for CF Financial user. ");
 
                 //Verify error message is dispalyed when user tries to change company
-                contactEdit.EditCompany();
-                contactEdit.ClickSaveBtn();
-                String errMsg = contactEdit.TxtErrorMessageCompany();
-                Assert.AreEqual("Error: Invalid Data.\r\nReview all error messages below to correct your data.\r\nYou do not have rights to move a Contact to another Company.", errMsg);
-                extentReports.CreateStepLogs("Passed", "Error message: "+ errMsg+" is displaying when user tries to change company");
-                */
+                Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedUponChangingCompanyNameForAContact("StandardTestCompany"));
+                extentReports.CreateStepLogs("Passed", "Error message displayed upon changing Company Name for a contact : You do not have rights to move a Contact to another Company.");
 
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();
@@ -162,6 +160,15 @@ namespace SF_Automation.TestCases.Contact
                 lvHomePage.SearchContactFromMainSearch(extContactFullName);
                 Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactFullName));
                 extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyQuickLinksOnContactDetailPageForSysAdminUser(fileTC1047));
+                extentReports.CreateStepLogs("Passed", "All the quick links are displayed as expected for System Admin user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser());
+                extentReports.CreateStepLogs("Passed", "External contact have Details, Related and News tabs displayed at the top for System Admin user. ");
+
+                Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForSysAdminUser());
+                extentReports.CreateStepLogs("Passed", "External contact have Edit, Add Relationship L, Delete and Printable View buttons displayed at the top for System Admin user. ");
 
                 //Delete Created Contact
                 lvContactDetails.DeleteContact();

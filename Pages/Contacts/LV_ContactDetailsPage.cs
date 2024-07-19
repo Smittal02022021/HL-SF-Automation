@@ -1,13 +1,9 @@
-﻿using Microsoft.Office.Interop.Excel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using SF_Automation.TestCases.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -56,7 +52,8 @@ namespace SF_Automation.Pages.Contact
         By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
 
         //Quick Links
-        By linkHLRelationships = By.XPath("(//span[contains(text(),'HL Relationships')]/../..)[1]");
+        By quickLinksShowAll = By.XPath("(//a[contains(text(),'Show All')])[2]");
+        By linkHLRelationships = By.XPath("((//*[text()='Related List Quick Links'])[2]/following::ul/li//a)[1]");
         By linkIndustryFocus = By.XPath("(//span[contains(text(),'Industry Focus')]/../..)[1]");
         By linkOpportunityContacts = By.XPath("(//span[contains(text(),'Opportunity Contacts')]/../..)[1]");
         By linkEngagementContacts = By.XPath("(//span[contains(text(),'Engagement Contacts')]/../..)[1]");
@@ -94,12 +91,15 @@ namespace SF_Automation.Pages.Contact
 
         //Tabs for CF Financial/System Admin User
         By tabInfo = By.XPath("//a[@data-label='Info']");
+        By tabPitchBook = By.XPath("//a[@data-label='PitchBook']");
         By tabRelationships = By.XPath("//a[@data-label='Relationships']");
         By tabCoverage = By.XPath("//a[@data-label='Coverage']");
         By tabActivity = By.XPath("//a[@data-label='Activity']");
         By tabCampaignHistory = By.XPath("//a[@data-label='Campaign History']");
         By tabHistory = By.XPath("//a[@data-label='History']");
         By tabMarketing = By.XPath("//a[@data-label='Marketing']");
+        By tabSummary = By.XPath("//a[@data-label='Summary']");
+
         By tabDetails = By.XPath("//a[@data-label='Details']");
         By tabRelated = By.XPath("//a[@data-label='Related']");
         By tabNews = By.XPath("//a[@data-label='News']");
@@ -439,7 +439,7 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser()
         {
             bool result = false;
-            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
             {
                 result = true;
             }
@@ -453,10 +453,19 @@ namespace SF_Automation.Pages.Contact
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Thread.Sleep(5000);
+
+            //Scroll to the bottom of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0, 500)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, quickLinksShowAll, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(quickLinksShowAll));
+            driver.FindElement(quickLinksShowAll).Click();
+            Thread.Sleep(2000);
 
             //Get no of quick links
-            int linkCount = driver.FindElements(By.XPath("(//ul[@class='slds-grid slds-wrap list'])[1]/li")).Count;
+            int linkCount = driver.FindElements(By.XPath("(//*[text()='Related List Quick Links'])[2]/following::ul/li//slot")).Count;
 
             //Get the count from excel
             int excelLinkCount = ReadExcelData.GetRowCount(excelPath,"QuickLinks");
@@ -466,7 +475,7 @@ namespace SF_Automation.Pages.Contact
                 string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath,"QuickLinks",i,1);
                 for(int j=1;j<=linkCount;j++)
                 {
-                    string linkName = driver.FindElement(By.XPath($"(//ul[@class='slds-grid slds-wrap list'])[1]/li[{j}]/lst-related-list-quick-link/div/div/records-hoverable-link/div/a/slot/span")).Text;
+                    string linkName = driver.FindElement(By.XPath($"((//*[text()='Related List Quick Links'])[2]/following::ul/li//slot)[{j}]")).Text;
                     if(linkName.Contains(excelLinkName))
                     {
                         result = true;
@@ -481,7 +490,7 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser()
         {
             bool result = false;
-            if(driver.FindElement(tabDetails).Displayed && driver.FindElement(tabRelated).Displayed && driver.FindElement(tabNews).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
             {
                 result = true;
             }
@@ -491,7 +500,8 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForSysAdminUser()
         {
             bool result = false;
-            if(driver.FindElement(btnAddRelationship).Displayed && driver.FindElement(btnTearsheet).Displayed && driver.FindElement(btnContactReportsM).Displayed && driver.FindElement(btnDelete).Displayed && driver.FindElement(btnSubmitForApproval).Displayed)
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
+            if(driver.FindElement(btnEdit).Displayed && driver.FindElement(btnAddRelationshipL).Displayed && driver.FindElement(btnPrintableView).Displayed && driver.FindElement(btnDelete).Displayed)
             {
                 result = true;
             }
