@@ -151,6 +151,8 @@ namespace SF_Automation.Pages.Contact
 
         public void DeleteContact()
         {
+            WebDriverWaits.WaitUntilClickable(driver, btnDelete, 120);
+
             driver.FindElement(btnDelete).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnDeleteContact).Click();
@@ -1773,6 +1775,7 @@ namespace SF_Automation.Pages.Contact
             {
                 result1 = true;
             }
+            Thread.Sleep(5000);
 
             //Cick on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
@@ -1793,11 +1796,16 @@ namespace SF_Automation.Pages.Contact
             {
                 result2 = true;
             }
+            Thread.Sleep(5000);
 
             //Cick on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
             Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownDealAnnouncements, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownDealAnnouncements));
+            Thread.Sleep(2000);
 
             driver.FindElement(inputBadgeFirstName).Clear();
             driver.FindElement(inputBadgeFirstName).Click();
