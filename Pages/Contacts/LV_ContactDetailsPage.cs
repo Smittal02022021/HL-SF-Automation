@@ -130,6 +130,9 @@ namespace SF_Automation.Pages.Contact
         By dropdownInsightsContent = By.XPath("//button[@aria-label='Insights/Content']");
         By inputMergeGroup = By.XPath("//input[@name='Merge_Group__c']");
         By checkboxCopyFromContactDetail = By.XPath("(//input[@name='Copy_From_Contact_Detail__c'])[2]");
+        By inputBadgeFirstName = By.XPath("//input[@name='Badge_First_Name__c']");
+        By inputBadgeLastName = By.XPath("//input[@name='Badge_Last_Name__c']");
+        By inputBadgeCompanyName = By.XPath("//input[@name='Badge_Company__c']");
 
         //Marketing Tab Elements
         By lblDealAnnouncement = By.XPath("(//span[text()='Deal Announcements']/following::lightning-formatted-text)[1]");
@@ -143,7 +146,8 @@ namespace SF_Automation.Pages.Contact
         By chkboxCopyFromContactDetail = By.XPath("");
         By lblBadgeFirstName = By.XPath("(//span[text()='Badge First Name']/following::lightning-formatted-text)[1]");
         By lblBadgeLastName = By.XPath("(//span[text()='Badge Last Name']/following::lightning-formatted-text)[1]");
-        By lblBadgeCompanyName = By.XPath("(//span[text()='Badge Company Name']/following::lightning-formatted-text)[1]");
+        By lblBadgeCompanyName = By.XPath("(//span[text()='Badge Company']/following::lightning-formatted-text)[1]");
+        By lblBadgeFullName = By.XPath("(//span[text()='Badge Full Name']/following::lightning-formatted-text)[1]");
 
         public void DeleteContact()
         {
@@ -1726,6 +1730,9 @@ namespace SF_Automation.Pages.Contact
         {
             Thread.Sleep(3000);
             bool overallResult = false;
+            bool result1 = false;
+            bool result2 = false;
+            bool result3 = false;
 
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -1733,6 +1740,12 @@ namespace SF_Automation.Pages.Contact
             string companyName = ReadExcelData.ReadData(excelPath, "Contact", 1);
             string firstName = ReadExcelData.ReadData(excelPath, "Contact", 2);
             string lastName = ReadExcelData.ReadData(excelPath, "Contact", 3);
+            string fullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
+
+            string badgeFirst = ReadExcelData.ReadData(excelPath, "EventBadges", 1);
+            string badgeLast = ReadExcelData.ReadData(excelPath, "EventBadges", 2);
+            string badgeCompany = ReadExcelData.ReadData(excelPath, "EventBadges", 3);
+            string badgeFullName = badgeFirst + " " + badgeLast;
 
             //Cick on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
@@ -1756,7 +1769,58 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(tabMarketing).Click();
             Thread.Sleep(5000);
 
-            if(companyName == driver.FindElement(lblBadgeCompanyName).Text && firstName == driver.FindElement(lblBadgeFirstName).Text && lastName == driver.FindElement(lblBadgeLastName).Text)
+            if(companyName == driver.FindElement(lblBadgeCompanyName).Text && firstName == driver.FindElement(lblBadgeFirstName).Text && lastName == driver.FindElement(lblBadgeLastName).Text && fullName == driver.FindElement(lblBadgeFullName).Text)
+            {
+                result1 = true;
+            }
+
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            //Uncheck Copy from Contact Detail checkbox
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownDealAnnouncements, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownDealAnnouncements));
+            driver.FindElement(checkboxCopyFromContactDetail).Click();
+            Thread.Sleep(2000);
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+            Thread.Sleep(3000);
+
+            if(driver.FindElement(lblBadgeCompanyName).Text == "" && driver.FindElement(lblBadgeFirstName).Text == "" && driver.FindElement(lblBadgeLastName).Text == "" && driver.FindElement(lblBadgeFullName).Text == "")
+            {
+                result2 = true;
+            }
+
+            //Cick on Edit button
+            WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(inputBadgeFirstName).Clear();
+            driver.FindElement(inputBadgeFirstName).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(inputBadgeLastName).Clear();
+            driver.FindElement(inputBadgeLastName).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(inputBadgeCompanyName).Clear();
+            driver.FindElement(inputBadgeCompanyName).Click();
+            Thread.Sleep(2000);
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+            Thread.Sleep(3000);
+
+            if(badgeCompany == driver.FindElement(lblBadgeCompanyName).Text && badgeFirst == driver.FindElement(lblBadgeFirstName).Text && badgeLast == driver.FindElement(lblBadgeLastName).Text && badgeFullName == driver.FindElement(lblBadgeFullName).Text)
+            {
+                result3 = true;
+            }
+
+            if(result1 && result2 && result3 == true)
             {
                 overallResult = true;
             }
