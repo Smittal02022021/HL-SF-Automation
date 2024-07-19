@@ -254,7 +254,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //extentReports.CreateLog("Sub Tab " + CST + " is displayed under Info Tab ");
 
                 string billing = engagementDetails.ValidateBillingCommentsSubTab();
-                Assert.AreEqual("Billing Comments", billing);
+                Assert.AreEqual("Comments", billing);
                 extentReports.CreateLog("Sub Tab " + billing + " is displayed under Info Tab ");
 
                 //Validate Edit functionality of Details tab                

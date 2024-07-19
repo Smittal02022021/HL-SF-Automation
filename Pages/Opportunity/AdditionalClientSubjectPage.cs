@@ -174,8 +174,10 @@ namespace SF_Automation.Pages
         By valTotalDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[2]/td[4]/div/lightning-formatted-text");
         By valOtherCreditorsDebtHoldingsMM = By.XPath("//table/tbody[2]/tr[1]/td[4]/div/lightning-formatted-text");
         By txtDebtHodlingsKeyCred1 = By.XPath("//*[@id='input-148']");
+        By txtDebtHodlingsKeyCred1L = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[5]//input");
         By txtDebtHodlingsKeyCred1Eng = By.XPath("//*[@id='input-204']");
         By txtDebtHodlingsKeyCred2 = By.XPath("//*[@id='input-173']");
+        By txtDebtHodlingsKeyCred2L = By.XPath("//tr[2]/td[5]//input");
         By txtDebtHodlingsKeyCred12ndEdit = By.XPath("//*[@id='input-227']");
         By txtDebtHodlingsKeyCred12ndEditEng = By.XPath("//*[@id='input-246']");
         By txtDebtHodlingsKeyCred22ndEdit = By.XPath("//*[@id='input-252']");
@@ -2053,6 +2055,17 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveRecords).Click();
         }
 
+        //Clear all Debt Holdings
+        public void ClearAllDebtHoldingsL()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(txtDebtHodlingsKeyCred1L).Clear();
+            Thread.Sleep(2000);
+            driver.FindElement(txtDebtHodlingsKeyCred2L).Clear();
+            Thread.Sleep(3000);
+            driver.FindElement(btnSaveRecords).Click();
+        }
+
         //Clear all Debt Holdings of Engagement
         public void ClearAllDebtHoldingsOfEngagement()
         {
@@ -2077,9 +2090,9 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditMassEdit, 150);
             driver.FindElement(btnEditMassEdit).Click();
             Thread.Sleep(3000);
-            driver.FindElement(txtDebtHodlingsKeyCred12ndEdit).SendKeys("50");
+            driver.FindElement(txtDebtHodlingsKeyCred1L).SendKeys("50");
             Thread.Sleep(3000);
-            driver.FindElement(txtDebtHodlingsKeyCred22ndEdit).SendKeys("20");
+            driver.FindElement(txtDebtHodlingsKeyCred2L).SendKeys("20");
             Thread.Sleep(3000);
             driver.FindElement(btnSaveRecords).Click();
         }
@@ -2101,8 +2114,8 @@ namespace SF_Automation.Pages
         {
             driver.FindElement(btnEditMassEdit).Click();
             Thread.Sleep(2000);
-            driver.FindElement(txtDebtHodlingsKeyCred13rdEdit).Clear();
-            driver.FindElement(txtDebtHodlingsKeyCred23rdEdit).Clear();
+            driver.FindElement(txtDebtHodlingsKeyCred1L).Clear();
+            driver.FindElement(txtDebtHodlingsKeyCred2L).Clear();
             driver.FindElement(btnSaveRecords).Click();
             Thread.Sleep(3000);
             driver.SwitchTo().DefaultContent();

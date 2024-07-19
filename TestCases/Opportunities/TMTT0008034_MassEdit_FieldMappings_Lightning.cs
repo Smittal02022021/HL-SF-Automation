@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0008034_MassEdit_FieldMappings : BaseClass
+    class TMTT0008034_MassEdit_FieldMappings_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -54,27 +54,27 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User profile and validate the user
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 32);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateFRUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Search FR Opportunity 
-                string opp = opportunityHome.SearchOpportunityWithJobTypeAndStge("Creditor Advisors","High");
-                Assert.AreEqual("Record found",opp);
+                opportunityHome.SearchMyOpportunitiesInLightning("01012024090102", valUser);
                 extentReports.CreateLog("Records matches to LOB-FR are found and Opportunity Detail page is displayed ");
 
                 //Get currency of Total Debt
-                string debtCurrency= opportunityDetails.GetTotalDebtCurrency();
+                string debtCurrency= opportunityDetails.GetTotalDebtCurrencyL();
                 string dCurrency = debtCurrency.Substring(0, 3);
                 extentReports.CreateLog("Total Debt Currency: "+debtCurrency + " is displayed ");
 
                 //Get Total Debt MM value
-                string totalDebt = opportunityDetails.GetTotalDebtMM();
+                string totalDebt = opportunityDetails.GetTotalDebtMML();
                 string debt = totalDebt.Substring(0, 4);
                 extentReports.CreateLog("Total Debt MM's valie: " + totalDebt + " is displayed in Opportunity details page ");
 
                 //Validate the title of page upon clicking Mass Edit Records button
-                string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButton();
+                opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButtonLightning();
                 Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                 extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");
 
@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Total of Column Debt Holdings MM is matching with Total Debt MM pulled from Opportunity ");
 
                 //Get the Other Creditors of Debt Holdings (MM) 
-                clientSubjectsPage.ClearAllDebtHoldings();
+                clientSubjectsPage.ClearAllDebtHoldingsL();
                 string valCreditor = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
                 Assert.AreEqual(debt, valCreditor);
                 extentReports.CreateLog("Other Creditor of Debt Holdings MM is matching with Total Debt MM pulled from Opportunity when there is no other Debt Holdings ");
@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Other Creditor of Debt Holdings MM is updated according to match with Total Debt MM pulled from Opportunity when other Debt Holdings are updated ");
                 clientSubjectsPage.ResetAllDebtHoldings();
 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

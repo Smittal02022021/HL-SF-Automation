@@ -445,19 +445,19 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             Thread.Sleep(7000);
             if (valRecordType == "CF")
             {
-                driver.FindElement(By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
                 //flexipage-component2[10]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span[text()='" + valBenOwner + "']
             }
             else if(valRecordType == "FR")
             {
-                driver.FindElement(By.XPath("//flexipage-component2[10]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[9]/slot/flexipage-field-section2//slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
                 Thread.Sleep(4000);
                 driver.FindElement(txtTotalDebtL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
 
             }
             else
             {
-                driver.FindElement(By.XPath("//flexipage-component2[12]/slot//div/slot/flexipage-field[1]/slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//div/slot/flexipage-field[1]/slot//lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             }
             //Select Does HL have material            
@@ -465,15 +465,15 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             Thread.Sleep(9000);           
             if (valRecordType == "CF")
             {
-                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             }
             else if (valRecordType == "FR")
             {
-                driver.FindElement(By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             }
             else
             {
-                driver.FindElement(By.XPath("//flexipage-component2[12]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
                                              //flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/dl/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div[2]/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span
             }
             //Select Conf Agreement

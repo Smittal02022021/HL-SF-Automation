@@ -307,7 +307,9 @@ namespace SF_Automation.Pages
         By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
         By lnkShowMoreL = By.XPath("(//span[@class='view-all-label'])[1]/..");
         By valTotalDebtCurrency = By.XPath("//div[7]/table/tbody/tr[5]/td[2]");
+        By valTotalDebtCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_Currency__c']//dd//lightning-formatted-text");
         By valTotalDebtMM = By.XPath("//div[3]/div[2]/div[7]/table/tbody/tr[4]/td[2]");
+        By valTotalDebtMML = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_MM__c']//dd//lightning-formatted-number");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
@@ -330,8 +332,8 @@ namespace SF_Automation.Pages
         By comboClientOwnershipL = By.XPath("//button[contains(@aria-label,'Client Ownership')]");
         By comboSubjectOwnershipL = By.XPath("//button[contains(@aria-label,'Subject Ownership')]");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
-        By txtRefContactL = By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]//div/input");
-        By txtRefContactFVAL = By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
+        By txtRefContactL = By.XPath("//flexipage-component2[8]/slot//flexipage-column2[2]//div/input");
+        By txtRefContactFVAL = By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
@@ -4327,10 +4329,27 @@ public void ClickNewOpportunitySectorButton()
         }
 
         //Get Total Debt Currency
+        public string GetTotalDebtCurrencyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTotalDebtCurrencyL);
+            string currency = driver.FindElement(valTotalDebtCurrencyL).Text;
+            return currency;
+        }
+
+
+        //Get Total Debt Currency
         public string GetTotalDebtMM()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valTotalDebtMM);
             string value = driver.FindElement(valTotalDebtMM).Text;
+            return value;
+        }
+
+        //Get Total Debt Currency
+        public string GetTotalDebtMML()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTotalDebtMML);
+            string value = driver.FindElement(valTotalDebtMML).Text;
             return value;
         }
 
@@ -4804,11 +4823,11 @@ public void ClickNewOpportunitySectorButton()
         {
             try
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(7000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 20);
                 driver.FindElement(btnReqEng1L).Click();
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
                 driver.FindElement(iconExpandMoreButonL).Click();
@@ -7099,13 +7118,25 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Validate Request Engagement button
         public string ValidateRequestEngButton()
         {
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
-            driver.FindElement(lnkReqEngL).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 350);
-            string value = driver.FindElement(btnReqEngL).Displayed.ToString();
-            return value;
+            try
+            {
+                //Thread.Sleep(3000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+                //driver.FindElement(lnkReqEngL).Click();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 400);
+                string value = driver.FindElement(btnReqEng1L).Displayed.ToString();
+                return value;
+            }
+            catch(Exception e)
+            {
+                Thread.Sleep(3000);
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 20);                
+                string value = driver.FindElement(btnReqEngL).Displayed.ToString();
+                return value;
+            }
         }
 
         public string ClickReqToEngagement()

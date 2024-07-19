@@ -288,9 +288,9 @@ namespace SF_Automation.Pages.Engagement
         By subTabDetails = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a");
         By subTabImpDates = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a");
         By subTabAdmin = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[3]/a");
-        By subTabClosingInfo = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By subTabClosingInfo = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
         By subTabCST = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
-        By subTabBilling = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
+        By subTabBilling = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
         By lnkEditEngName = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
         By tabImpDates = By.XPath("//a[text()='Important Dates']");
         By tabInfo2ndL = By.XPath("//a[text()='Info']");
@@ -364,10 +364,12 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveRevenue = By.XPath("//footer/button[2]/span");
         By valRevAccID = By.XPath("//span[@title='(1)']");
         By btnShowMoreRev = By.XPath("//section[2]//td[10]//lightning-button-menu/button");
-        By lnkViewAllRev = By.XPath("//lst-dynamic-related-list//lst-related-list-view-manager/a/span");
-        By btnEditRevenue = By.XPath("/html/body/div[8]/div/ul/li/a");
+        By lnkViewAllRev = By.XPath("//lst-dynamic-related-list//lst-related-list-view-manager/a/span[text()='View All']");
+        By lnkRevYearL = By.XPath("//tr/th[@data-col-key-value='Year_Month__c-formulaOutputFormulaHtml-2']//a[2]");
+
+        By btnEditRevenue = By.XPath("//records-entity-label[text()='Revenue Accrual']/ancestor::div[4]/div[3]//button[text()='Edit']");
         By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
-        By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
+        By valPeriodAccural = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Period_Accrued_Fees__c']//lightning-formatted-text");
         By tabRevProj = By.XPath("//a[text()='Revenue Projection']");
         By titleRevProj = By.XPath("//span[text()='Revenue Projections']");
         By btnEditRevProj = By.XPath("//button[text()='Update Revenue Projection']");
@@ -415,7 +417,7 @@ namespace SF_Automation.Pages.Engagement
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
-        By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
+        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']//dd//records-hoverable-link//a/span/slot/span/slot/text");
             
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal//lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/button/lightning-primitive-icon");
@@ -3860,7 +3862,9 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEng, 150);
             driver.FindElement(btnBackToEng).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(7000);
             string name = driver.FindElement(lblEngagement).Text;
+            //driver.SwitchTo().DefaultContent();
             return name;
         }
 
@@ -4787,13 +4791,9 @@ namespace SF_Automation.Pages.Engagement
         //Validate Edit Revenue Accural functionality
         public string ValidateEditRevenueFunctionality()
         {
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllRev, 150);
-            driver.FindElement(lnkViewAllRev).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreRev, 150);
-            driver.FindElement(btnShowMoreRev).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);           
+            driver.FindElement(lnkRevYearL).Click();
+            Thread.Sleep(5000);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 170);
             driver.FindElement(btnEditRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtPeriodAccural, 250);
@@ -4809,8 +4809,8 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateAndClickRevenueProjectionTab()
         {
             Thread.Sleep(5000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkEngName, 150);
-            //driver.FindElement(lnkEngName).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngName, 150);
+            driver.FindElement(lnkEngName).Click();
             //WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 150);
             //driver.FindElement(tabRevenue).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabRevProj, 250);
