@@ -51,6 +51,9 @@ namespace SF_Automation.TestCases.Contact
                 string eventConf = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 2);
                 string generalAnnouncement = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 3);
                 string insightsContent = ReadExcelData.ReadData(excelPath, "SubscriptionPreferences", 4);
+                string badgeFirstName = ReadExcelData.ReadData(excelPath, "EventBadges", 1);
+                string badgeLastName = ReadExcelData.ReadData(excelPath, "EventBadges", 2);
+                string badgeCompanyName = ReadExcelData.ReadData(excelPath, "EventBadges", 3);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -156,6 +159,10 @@ namespace SF_Automation.TestCases.Contact
 
                 lvContactDetails.VerifyUserIsAbleToEditSubscriptionPreferenes(dealAnnouncement, eventConf, generalAnnouncement, insightsContent);
                 extentReports.CreateStepLogs("Passed", "Changes related to DA, Event, GA, and Insights are reflected under Subscription Preferences on Contact Details page. ");
+
+                //TC - TMT0034259 - Verify Badge Contact Copy and Delete Work Flow which mainly updates Badge First Name, last name and company name fields upon enabling/disabling the "Copy from Contact Detail" field
+                lvContactDetails.VerifyUserIsAbleToEditEventBadges(fileTMTC0019251);
+                extentReports.CreateStepLogs("Passed", "Changes related to Event Badges: Badge First Name, Last Name and Company are reflected on Contact Details page. ");
 
                 //Delete Created Contact
                 lvContactDetails.DeleteContact();
