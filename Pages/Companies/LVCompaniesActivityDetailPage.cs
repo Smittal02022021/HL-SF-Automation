@@ -99,7 +99,12 @@ namespace SF_Automation.Pages.Companies
             return toastMsg;
         }
 
-
+        public void CloseTab(string tabName)
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
+            Thread.Sleep(5000);
+        }
 
         public void ClickActivityDetailPageButton(string btnName)
         {

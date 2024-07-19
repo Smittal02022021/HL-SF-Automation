@@ -17,14 +17,14 @@ namespace SF_Automation.Pages.Companies
         By lblSponsorCoverage = By.XPath("(//h2[@id='header'])[1]/span");
 
         //Activity Tab
-        By lblAddNewActivity = By.XPath("//h1[text()='Add New Activity']");
-        By btnAddActivity = By.XPath("//button[text()='Add Activity']");
-        By txtSubject = By.XPath("//input[@name='Subject']");
-        By txtDate = By.XPath("(//input[@name='Date'])[1]");
-        By drpdownIndustryGroup = By.XPath("//button[@name='IndustryGroup']");
-        By drpdownProductType = By.XPath("//button[@name='ProductType']");
-        By txtareaDescription = By.XPath("//textarea[@name='Description']");
-        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='HLInternalNotes']");
+        By lblAddNewActivity = By.XPath("//span[text()='Add New Activity']");
+        By btnAddActivity = By.XPath("(//button[text()='Add Activity'])[1]");
+        By txtSubject = By.XPath("//input[@name='subject']");
+        By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
+        By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
+        By drpdownProductType = By.XPath("//button[@name='productType']");
+        By txtareaDescription = By.XPath("//textarea[@name='description']");
+        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='hlCallNotes']");
         By txtExternalAttendee = By.XPath("//input[@placeholder='Lookup Contact...']");
         By txtHLAttendee = By.XPath("//input[@placeholder='Lookup Employees...']");
         By txtCompanyDiscussed = By.XPath("//input[@placeholder='Lookup Company...']");
@@ -625,6 +625,14 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnRefereshActivitiesList).Click();
             Thread.Sleep(4000);
         }
+
+        public void CloseTab(string tabName)
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
+            Thread.Sleep(5000);
+        }
+
         public bool ClickActivityViewOption()
         {          
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesRow, 30);
@@ -774,9 +782,11 @@ namespace SF_Automation.Pages.Companies
             string addHLAttandee = ReadExcelData.ReadData(excelPath, "Activity", 8);
 
             //Click on Add Activity button
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity1, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity1));
-            driver.FindElement(btnAddActivity1).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
+            driver.FindElement(btnAddActivity).Click();
+            Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
 
             //Enter Activity details
@@ -819,7 +829,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             Thread.Sleep(2000);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
         }
 
         public void CreateNewActivitywithAllFieldsFromCompanyDetailPage(string file)

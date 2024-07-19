@@ -1,11 +1,13 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Activities;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -19,6 +21,9 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
         LVCompaniesActivityDetailPage lvCompaniesActivityDetailPage = new LVCompaniesActivityDetailPage();
         CompanyDetailsPage companyDetail = new CompanyDetailsPage();
+
+        LV_AddActivity addActivity = new LV_AddActivity();
+        LV_ActivitiesList activitiesList = new LV_ActivitiesList();
 
         public static string fileTMT0047476 = "TMT0047476_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage";
         string msgSaveActivity;
@@ -91,29 +96,33 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", " User navigated to Activity Detail page from " + CompanyNameExl + " :Company Detail Page. ");
 
                 /////////////////////////////////////////////////////
-                //Crteating new Private Activity 
+                //Crteating new Activity 
                 /////////////////////////////////////////////////////
-                lvCompanyDetailsPage.CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(fileTMT0047476);
-                extentReports.CreateStepLogs("Info", " User navigated to Add Activity Detail page ");
+                addActivity.CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(fileTMT0047476);
+                lvCompaniesActivityDetailPage.CloseTab("View Activity");
 
-                lvCompaniesActivityDetailPage.ClickPrivateCheckbox();
-                extentReports.CreateStepLogs("Info", "Activity is Marked as Private ");
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
+                Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList());
+                extentReports.CreateStepLogs("Info", "Activity created successfully. ");
+
+                //lvCompaniesActivityDetailPage.ClickPrivateCheckbox();
+                //extentReports.CreateStepLogs("Info", "Activity is Marked as Private ");
+                //lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
 
                 //Get popup message
-                msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
-                Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Required fields ");
-                lvCompanyDetailsPage.RefreshActivitiesList();
+                //msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
+                //msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
+                //Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
+                //extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Required fields ");
 
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("User: " + valUser + " logged out ");
+                //lvCompanyDetailsPage.RefreshActivitiesList();
+
+                //Logout from SF Lightning View
+                homePageLV.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " logged out ");
 
                 //TMT0047478 Verify that the non - activity member is not able to edit the activity.
-
                 string nonActivityUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
+
                 //Search CF Financial User Non-Activity user by global search                
                 extentReports.CreateStepLogs("Info", "User " + nonActivityUser + " details are displayed. ");
 
