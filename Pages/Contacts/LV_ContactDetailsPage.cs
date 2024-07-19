@@ -1727,7 +1727,6 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(3000);
             bool overallResult = false;
 
-            ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
