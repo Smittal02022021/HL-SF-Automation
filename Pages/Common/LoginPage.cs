@@ -43,7 +43,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(7000);
             driver.SwitchTo().Window(driver.WindowHandles[0]);
-            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 30);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 10);
         }
@@ -52,7 +52,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 30);
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
             driver.FindElement(btnLogin).Click();
@@ -62,6 +62,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 30);
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 2));
             driver.FindElement(btnLogin).Click();

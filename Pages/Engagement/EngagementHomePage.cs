@@ -587,6 +587,12 @@ namespace SF_Automation.Pages
         public string SearchEngagementInLightningView(string value)
         {
             Thread.Sleep(6000);
+            //try
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+            //    driver.FindElement(iconClearSearch).Click();
+            //}
+            //catch { }
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
             driver.FindElement(btnEngNumL).Click();
             Thread.Sleep(4000);

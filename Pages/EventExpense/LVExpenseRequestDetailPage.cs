@@ -10,14 +10,14 @@ namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestDetailPage : BaseClass
     {
-        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval (LWC)']");
-        By btnDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[1]");
-        By btnReqDeleteLWC = By.XPath("(//button[text()='Delete(LWC)'])[2]");
+        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
+        By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
+        By btnReqDeleteLWC = By.XPath("(//button[text()='Delete'])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");
-        By btnApproveLWC = By.XPath("//button[text()='Approve(LWC)']");
-        By btnRejectLWC = By.XPath("//button[text()='Reject(LWC)']");
+        By btnApproveLWC = By.XPath("//button[text()='Approve']");
+        By btnRejectLWC = By.XPath("//button[text()='Reject']");
         By btnReject = By.XPath("//button[text()='Reject']");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
@@ -128,14 +128,14 @@ namespace SF_Automation.Pages.EventExpense
         public void ClickApproveButtonLWC()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve(LWC)"), 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")));
-            driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Approve")).Click();
             //Thread.Sleep(8000);
-            WebDriverWaits.WaitUntilAlertVisible(driver, 60);
-            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilAlertVisible(driver, 20);
+            Thread.Sleep(1000);
             IAlert alert = driver.SwitchTo().Alert();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             alert.Accept();            
         }
 
@@ -251,9 +251,9 @@ namespace SF_Automation.Pages.EventExpense
         public void ClickRejectButtonLWC()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Reject(LWC)"), 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")));
-            driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Reject"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Reject")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Reject")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
             driver.FindElement(txtCommentsL).SendKeys(" Request Rejected Automation");
             WebDriverWaits.WaitUntilEleVisible(driver, btnRejectAcceptL, 10);

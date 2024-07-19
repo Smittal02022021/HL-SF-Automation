@@ -60,9 +60,11 @@ namespace SF_Automation.Pages.Opportunity
             return By.XPath($"//button[contains(@name,'Add_{RecordType}_Opportunity_Contact')]");
         }
 
-        public void addOpportunityContactLV(string recordType)
+        public void ClickAddOpportunityContactLV(string recordType)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddCFContactL(recordType), 20);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddCFContactL(recordType), 10);
             driver.FindElement(_btnAddCFContactL(recordType)).Click();
         }
         public void CickAddOpportunityContact(string RecordType)

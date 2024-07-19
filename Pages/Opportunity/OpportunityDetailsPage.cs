@@ -971,6 +971,27 @@ namespace SF_Automation.Pages
                 return "CoExist field is editable ";
             }
         }
+        By btnInlineEditCoExistL= By.XPath("//button[@title='Edit Co-exist']");
+        public string VerifyIfCoExistFieldIsEditableOrNotLV()
+        {
+           // driver.FindElement(tabAdministationL).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistL, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(checkBoxCoExistL));
+                if (driver.FindElement(btnInlineEditCoExistL).Displayed)
+                {
+                    return "Co-Exist field is editable";
+                }
+                else
+                {
+                    return "Co-Exist field is not editable";
+                }
+            }
+            catch { return "Co-Exist field is not editable"; }
+            
+
+        }
         public string ValidateIfCoExistFieldIsPresentAndCheckedOrNot()
         {
             if (driver.FindElement(checkBoxCoExist).Displayed)
@@ -989,6 +1010,52 @@ namespace SF_Automation.Pages
             {
                 return "CoExist checkbox is not displayed.";
             }
+        }
+        By checkBoxCoExistL = By.XPath("//input[@name='Co_exist__c']");
+        By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
+        public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
+        {            
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistL, 5);
+                if (driver.FindElement(checkBoxCoExistL).Displayed)
+                {
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(checkBoxCoExistL));     
+                    if (driver.FindElement(checkBoxCoExistL).Selected)
+                    {
+                        return "Co-Exist checkbox is displayed and checked";
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is displayed and not-checked";
+                    }
+                }
+                else
+                {
+                    return "Co-Exist checkbox is not displayed";
+                }
+            }
+            catch { 
+                driver.FindElement(tabAdministationL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistL, 5);
+                if (driver.FindElement(checkBoxCoExistL).Displayed)
+                {
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(checkBoxCoExistL));
+                    if (driver.FindElement(checkBoxCoExistL).Selected)
+                    {
+                        return "Co-Exist checkbox is displayed and checked";
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is displayed and not-checked";
+                    }
+                }
+                else
+                {
+                    return "Co-Exist checkbox is not displayed";
+                }
+            }
+            
         }
 
         public bool VerifyIfOpportunitySectorQuickLinkIsDisplayed()
@@ -2520,6 +2587,54 @@ namespace SF_Automation.Pages
 
         //To update Outcome details
         public void UpdateOutcomeDetails(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+            driver.FindElement(btnEdit).Click();
+            try
+            {
+                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
+                {
+                    driver.FindElement(lnkOutcomeDate).Click();
+                }
+                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
+                {
+                    driver.FindElement(lnkOutcomeDateFR).Click();
+                }
+                else
+                {
+                    driver.FindElement(lnkOutcomeDateFAS).Click();
+                }
+                driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
+                driver.FindElement(btnSave).Click();
+            }
+            catch (Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                driver.FindElement(lnkReDisplayRec).Click();
+                Thread.Sleep(1000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 110);
+                driver.FindElement(btnEdit).Click();
+                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
+                {
+                    driver.FindElement(lnkOutcomeDate).Click();
+                }
+                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
+                {
+                    driver.FindElement(lnkOutcomeDateFR).Click();
+                }
+                else
+                {
+                    driver.FindElement(lnkOutcomeDateFAS).Click();
+                }
+                driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
+                driver.FindElement(btnSave).Click();
+            }
+        }
+        //To update Outcome details
+        public void UpdateOutcomeDetailsLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -5790,7 +5905,6 @@ namespace SF_Automation.Pages
             Thread.Sleep(10000);
 
             By internalTeamFrame = By.XPath("//iframe[contains(@src,'InternalTeamModifyView')]");  //article/div[2]/div/iframe"); 
-            //WebDriverWaits.WaitUntilEleVisible(driver, internalTeamFrame, 20);
             driver.SwitchTo().Frame(driver.FindElement(internalTeamFrame));
 
             string name = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
@@ -5800,7 +5914,6 @@ namespace SF_Automation.Pages
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 20);
-            //driver.FindElement(chkInitiatorL).Click();
             driver.FindElement(chkSellerL).Click();
             driver.FindElement(chkPrincipalL).Click();
             driver.FindElement(chkManagerL).Click();
@@ -5810,8 +5923,6 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveTeamL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
-            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngTeamL, 20);
-            //driver.FindElement(tabEngTeamL).Click();
         }
         public string ClickManageRelationshipsLV()
         {
@@ -6709,12 +6820,13 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
             return message;
         }
-        By iconInlineEditTDConfirmed = By.XPath("//button[@title='Edit Total Debt (MM) Confirmed']");
-        By chkTDConfirmed1 = By.XPath("//input[@name='TotalDebtMMConfirmed__c']");
+        By iconInlineEditTDConfirmed = By.XPath("(//button[@title='Edit Total Debt (MM) Confirmed'])[1]");
+        By chkTDConfirmed1 = By.XPath("(//input[@name='TotalDebtMMConfirmed__c'])[1]");
         public void UpdateTotalDebtConfirmedLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(tabInfo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditTDConfirmed, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
             driver.FindElement(iconInlineEditTDConfirmed).Click();

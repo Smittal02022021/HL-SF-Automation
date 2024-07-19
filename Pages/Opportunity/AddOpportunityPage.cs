@@ -497,11 +497,10 @@ namespace SF_Automation.Pages
 
         public string AddOpportunitiesLightningV2(string type, string file)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;            
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Console.WriteLine("path:" + excelPath);
             Thread.Sleep(5000);
             string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
             //--------------------------Enter Opportunity details-----------------------------
@@ -553,6 +552,7 @@ namespace SF_Automation.Pages
             By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            jse.ExecuteScript("window.scrollTo(0,10)");
             driver.FindElement(eleJobType).Click();
 
             ////////////////////////
@@ -1327,7 +1327,6 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(5000);
-            //string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
             //--------------------------Enter Opportunity details-----------------------------
             //Information Section           
             WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityNameL, 240);

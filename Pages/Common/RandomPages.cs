@@ -1185,17 +1185,22 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(1000);
             try
             {
-                js.ExecuteScript("window.scrollTo(0,0)");
-                WebDriverWaits.WaitUntilEleVisible(driver, tabFullViewL, 10);
-                driver.FindElement(tabFullViewL).Click();
+                try
+                {
+                    js.ExecuteScript("window.scrollTo(0,0)");
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabFullViewL, 5);
+                    driver.FindElement(tabFullViewL).Click();
+                }
+                catch (Exception e)
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
+                    driver.FindElement(iconHeaderMoreTabsL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabMoreFullViewL, 5);
+                    driver.FindElement(tabMoreFullViewL).Click();
+                }
             }
-            catch (Exception e)
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
-                driver.FindElement(iconHeaderMoreTabsL).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, tabMoreFullViewL, 10);
-                driver.FindElement(tabMoreFullViewL).Click();
-            }
+            catch { }
+            
             Thread.Sleep(10000);
         }        
     }

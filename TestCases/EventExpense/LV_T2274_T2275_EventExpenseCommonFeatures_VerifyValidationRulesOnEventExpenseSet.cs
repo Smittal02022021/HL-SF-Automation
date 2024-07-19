@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    internal class LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1 : BaseClass
+    internal class LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -194,7 +194,7 @@ namespace SF_Automation.TestCases.EventExpense
                 //****************************Out of Scope*****************************/////
 
                 //Click Submit without filling mandatory details and validate all validations
-                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval");
                 string bubbleMessage = random.GetLVMessagePopup();
                 string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 string validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 3);
@@ -211,7 +211,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                 //T2275 Verify the End date should be greater than Start date validation 
                 expRequestDetailPage.EditExpenseRequestEndDateLWC(pastDate);
-                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval");
                 bubbleMessage = random.GetLVMessagePopup();
                 validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
                 validationMsgExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp2", 2, 3);
@@ -219,7 +219,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "Bubble Message:: " + validationMessage + "  is displayed for End date");
                 expRequestDetailPage.EditExpenseRequestEndDateLWC(futureDate);
 
-                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval");
                 string status = expRequestDetailPage.GetExpenseRequestStatusLWC();
                 Assert.AreEqual("Waiting for Approval", status);
                 extentReports.CreateStepLogs("Passed","Event Expense Request:: "+ headerExpNumber+"  is submitted for approval and status is "+ status);

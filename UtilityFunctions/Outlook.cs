@@ -298,9 +298,10 @@ namespace SF_Automation.UtilityFunctions
         {
             try
             {
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 20);
                 driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
                 Thread.Sleep(1000);
-                //driver.FindElement(btnSearch).Click();
                 driver.FindElement(searchBox).SendKeys(Keys.Enter);
                 Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 30);

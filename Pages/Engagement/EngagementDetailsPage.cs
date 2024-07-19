@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Policy;
 using System.Threading;
 using System.Xml.Linq;
@@ -635,7 +636,7 @@ namespace SF_Automation.Pages.Engagement
         By txtEngContactL = By.XPath("//article[@aria-label='Engagement Contacts']//h3//span");
         By tabInternalTeamL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Internal Team']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Internal Team']/a");////div[@class='onePanelManagerScoped']//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
-        By tabAdministationL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
+        
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
         By linkRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a/../..");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
 
@@ -679,6 +680,8 @@ namespace SF_Automation.Pages.Engagement
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
         By optionsJobTypeL= By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
         By lblEngDesc = By.XPath("//div//label[text()='Engagement Description']");
+        By tabAdministationL1 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
+        By tabAdministationL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Administration'])[2]");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -735,13 +738,147 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//h2//span[text()='Engagement Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");//(//lightning-datatable//table//tbody//td//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}'])[2]
         }
+        By checkBoxCoExistEngL = By.XPath("//input[@name='Co_exist__c']");
+        By checkBoxCoExistEngL2 = By.XPath("(//input[@name='Co_exist__c'])[2]");
+        public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
+        {
+            try
+            {
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL, 5);
+                    if (driver.FindElement(checkBoxCoExistEngL).Displayed)
+                    {
+                        if (driver.FindElement(checkBoxCoExistEngL).Selected)
+                        {
+                            return "Co-Exist checkbox is displayed and checked";
+                        }
+                        else
+                        {
+                            return "Co-Exist checkbox is displayed and not-checked";
+                        }
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is not displayed.";
+                    }
+                }
+                catch
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL2, 5);
+                    if (driver.FindElement(checkBoxCoExistEngL2).Displayed)
+                    {
+                        if (driver.FindElement(checkBoxCoExistEngL2).Selected)
+                        {
+                            return "Co-Exist checkbox is displayed and checked";
+                        }
+                        else
+                        {
+                            return "Co-Exist checkbox is displayed and not-checked";
+                        }
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is not displayed.";
+                    }
+                }
+
+            }
+            catch
+            {
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
+                    driver.FindElement(tabAdministationL).Click();
+                }
+                catch
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL1, 5);
+                    driver.FindElement(tabAdministationL1).Click();
+                }
+                
+                
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL, 5);
+                    if (driver.FindElement(checkBoxCoExistEngL).Displayed)
+                    {
+                        if (driver.FindElement(checkBoxCoExistEngL).Selected)
+                        {
+                            return "Co-Exist checkbox is displayed and checked";
+                        }
+                        else
+                        {
+                            return "Co-Exist checkbox is displayed and not-checked";
+                        }
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is not displayed.";
+                    }
+                }
+                catch
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL2, 5);
+                    if (driver.FindElement(checkBoxCoExistEngL2).Displayed)
+                    {
+                        if (driver.FindElement(checkBoxCoExistEngL2).Selected)
+                        {
+                            return "Co-Exist checkbox is displayed and checked";
+                        }
+                        else
+                        {
+                            return "Co-Exist checkbox is displayed and not-checked";
+                        }
+                    }
+                    else
+                    {
+                        return "Co-Exist checkbox is not displayed.";
+                    }
+                }
+
+            }
+        }
+        By btnInlineEditCoExistEngL = By.XPath("//button[@title='Edit Co-exist']");
+        By btnInlineEditCoExistEngL2 = By.XPath("(//button[@title='Edit Co-exist'])[2]");
+        public string VerifyIfCoExistFieldIsEditableOrNotLV()
+        {
+            driver.FindElement(tabAdministationL).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditCoExistEngL, 5);
+                if (driver.FindElement(btnInlineEditCoExistEngL).Displayed)
+                {
+                    return "Co-Exist field is editable";
+                }
+                else
+                {
+                    return "Co-Exist field is not editable";
+                }
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditCoExistEngL2, 5);
+                if (driver.FindElement(btnInlineEditCoExistEngL2).Displayed)
+                {
+                    return "Co-Exist field is editable";
+                }
+                else
+                {
+                    return "Co-Exist field is not editable";
+                }
+
+            }
+
+        }
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file; WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContact, 50);
             driver.FindElement(btnAddOppContact).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 80); driver.FindElement(txtContact).SendKeys(contact);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 80); 
+            driver.FindElement(txtContact).SendKeys(contact);
             driver.FindElement(comboRole).SendKeys(TestData.ReadExcelData.ReadData(excelPath, "AddContact", 2));
             driver.FindElement(comboType).SendKeys(valType); string Type = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowNumber, 4);
             if (Type.Equals("Client"))

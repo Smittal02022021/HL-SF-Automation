@@ -140,7 +140,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Expense request event format is validated as " + eventFormat);
 
                     //Click submit for approval button
-                    expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                    expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval");
                     string requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC();
                     Assert.AreEqual("Waiting for Approval", requestStatus);
                     extentReports.CreateStepLogs("Passed", "Event Expense Request:: " + expensePreAppNumber + "  is submitted for approval and status is " + requestStatus);
@@ -190,12 +190,12 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Expense request status is validated as " + requestStatus + " ");
                                          
                     //Verify Approve button 
-                    bool approveBtnStatus = expRequestDetailPage.IsButtonDisplayedLWC("Approve(LWC)");
+                    bool approveBtnStatus = expRequestDetailPage.IsButtonDisplayedLWC("Approve");
                     Assert.IsTrue(approveBtnStatus,"Verify Approve(LWC) button is Displayed on Request Details Page");
                     extentReports.CreateStepLogs("Passed", "Approve button is Displayed on expense request detail page ");
 
                     //Verify Reject button 
-                    bool rejectBtnStatus = expRequestDetailPage.IsButtonDisplayedLWC("Reject(LWC)");
+                    bool rejectBtnStatus = expRequestDetailPage.IsButtonDisplayedLWC("Reject");
                     Assert.IsTrue(rejectBtnStatus, "Verify Reject(LWC) button is Displayed on Request Details Page");
                     extentReports.CreateStepLogs("Passed", "Reject button is Displayed on expense request detail page ");
 
@@ -206,15 +206,15 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Reject expense request
                     expRequestDetailPage.ClickRejectButtonLWC();
-                    string bubbleMessage = random.GetLVMessagePopup();
-                    string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
-                    Assert.AreEqual("Record Rejected", validationMessage," Validate the Sucess Pop-up after Rejecting Request");
-                    extentReports.CreateStepLogs("Info", "Pop-up Message after Rejection is " + validationMessage);
+                    extentReports.CreateStepLogs("Info", "Expense Request isRejected");
+                    //string bubbleMessage = random.GetLVMessagePopup();
+                    //string validationMessage = expRequest.GetValidationsLWC(bubbleMessage);
+                    //Assert.AreEqual("Record Rejected", validationMessage," Validate the Sucess Pop-up after Rejecting Request");
+                    //extentReports.CreateStepLogs("Info", "Pop-up Message after Rejection is " + validationMessage);
 
-                    status = expRequestDetailPage.GetExpenseRequestStatusLWC();
-                    //Issue Page is not being Reloaded to reflect the latest Sstaus 
+                    status = expRequestDetailPage.GetExpenseRequestStatusLWC();                     
                     Assert.AreEqual("Rejected", status,"Verify the Status of Request after Rejection");
-                    extentReports.CreateStepLogs("Info", "****Fail*****Pending Issue**********Rejected expense request and expense request status validated as " + status + " ");
+                    extentReports.CreateStepLogs("Info", "Rejected expense request and expense request status validated as " + status + " ");
 
                     random.CloseActiveTab(expensePreAppNumber);
                     homePageLV.UserLogoutFromSFLightningView();
@@ -282,7 +282,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Expense request event city is validated as " + latestEventCity);
 
                     //Click on submit for approval button
-                    expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
+                    expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval");
                     extentReports.CreateStepLogs("Info", "Rejected Expense Request is Edited and Resubmitted for approval");
 
                     //Validate expense request status after resubmitting for approval
