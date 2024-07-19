@@ -98,10 +98,11 @@ namespace SF_Automation.TestCases.LV_Activities
                 /////////////////////////////////////////////////////
                 //Crteating new Activity 
                 /////////////////////////////////////////////////////
+                int beforeCount = activitiesList.GetActivityCount();
                 addActivity.CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(fileTMT0047476);
                 lvCompaniesActivityDetailPage.CloseTab("View Activity");
 
-                Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList());
+                Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                 extentReports.CreateStepLogs("Info", "Activity created successfully. ");
 
                 //lvCompaniesActivityDetailPage.ClickPrivateCheckbox();

@@ -13,7 +13,6 @@ namespace SF_Automation.Pages.Activities
     {
         ExtentReport extentReports = new ExtentReport();
 
-        //Add New Activity
         By lblAddNewActivity = By.XPath("//span[text()='Add New Activity']");
         By btnAddActivity = By.XPath("(//button[text()='Add Activity'])[1]");
         By btnRefereshActivitiesList = By.XPath("//button[@title='Refresh Activities']");
@@ -38,9 +37,24 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-        public bool VerifyCreatedActivityIsDisplayedUnderActivitiesList()
+        public int GetActivityCount()
+        {
+            Thread.Sleep(3000);
+            int totalNumberOfActivities = driver.FindElements(By.XPath("//tr[@class='slds-hint-parent']")).Count;
+            return totalNumberOfActivities;
+        }
+
+        public bool VerifyCreatedActivityIsDisplayedUnderActivitiesList(int num)
         {
             bool result = false;
+
+            //Get Activity List Count
+            int activitiesAfterAdding = GetActivityCount();
+
+            if (activitiesAfterAdding == num+1)
+            {
+                result= true;
+            }
 
             return result;
         }
