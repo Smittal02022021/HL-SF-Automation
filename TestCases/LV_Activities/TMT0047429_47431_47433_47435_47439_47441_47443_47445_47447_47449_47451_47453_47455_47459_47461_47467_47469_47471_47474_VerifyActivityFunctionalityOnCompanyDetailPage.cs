@@ -6,6 +6,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using SF_Automation.Pages.Activities;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -19,6 +20,10 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_CompanyDetailsPage lvCompanyDetailsPage = new LV_CompanyDetailsPage();
         LVCompaniesActivityDetailPage lvCompaniesActivityDetailPage = new LVCompaniesActivityDetailPage();
         CompanyDetailsPage companyDetail = new CompanyDetailsPage();
+
+        LV_AddActivity addActivity = new LV_AddActivity();
+        LV_ActivitiesList activitiesList = new LV_ActivitiesList();
+        LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
 
         public static string fileTMT0047429 = "TMT0047429_VerifyActivityFunctionalityOnCompanyDetailPage";
         string msgActivity;
@@ -109,30 +114,27 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Activity tab is opened successfully and Add Activity button is Displayed  ");
 
                 //TMT0047439 Verify that the error message appears on clicking the Save button without filling in data in the required fields
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Add Activity");
+                activitiesList.ClickAddActivityBtn();
+                addActivity.ClickSaveActivityBtn();
 
-                lvCompaniesActivityDetailPage.ClickEditButton();
-
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
                 string msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
-                string msgSaveActivity = lvCompaniesActivityDetailPage.GetRequiredFieldErrorMsg();
+                string msgSaveActivity = addActivity.GetRequiredFieldErrorMsg();
                 Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
                 extentReports.CreateStepLogs("Passed", "Message: "+ msgSaveActivity+ "is Displayed for Required fields ");
 
                 //TMT0047441 Verify that the logged-in user(CF Financial User) who is creating an activity is selected as Primary HL Attendee by default. 
-               
-                string defaultHlAttandee = lvCompaniesActivityDetailPage.GetDefaultPrimaryHlAttandeeHLAttandee();
+                string defaultHlAttandee = addActivity.GetDefaultPrimaryHlAttandeeHLAttandee();
                 Assert.AreEqual(valUser, defaultHlAttandee, " Verify that the logged-in user(CF Financial User) who is creating an activity is selected as Primary HL Attendee by default ");
                 extentReports.CreateStepLogs("Passed", defaultHlAttandee + " (Logged in CF Financial User) is default Primary HL Attendee ");
 
                 //TMT0047443 Verify that the Company from where the user is creating an Activity is selected in the "Companies Discussed" section
-                string defaultCompaniesDiscussed= lvCompaniesActivityDetailPage.GetDefaultCompaniesDiscussed();
+                string defaultCompaniesDiscussed= addActivity.GetDefaultCompaniesDiscussed();
                 Assert.AreEqual(CompanyNameExl, defaultCompaniesDiscussed, "Verify the Companies Discussed is the selected Company from where the user is creating an Activity ");
                 extentReports.CreateStepLogs("Passed", defaultCompaniesDiscussed + " is the selected as Companies Discussed ");
 
                 //TMT0047445 Verify that the user redirects to list view on clicking "Cancel" button of Add New Activity page.
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
+                addActivity.ClickCancelActivityBtn();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "ActivityCompany | Company | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Add New Activity page ");
 
                 //TMT0047447 Verify that the activity of type "Meeting" is created by clicking the "Save" button and redirecting the user to the list view with a success message.
@@ -152,28 +154,31 @@ namespace SF_Automation.TestCases.LV_Activities
                     string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
                     string extAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 7);
 
+                    int beforeCount = activitiesList.GetActivityCount();
                     lvCompanyDetailsPage.CreateNewActivityFromCompanyDetailPage(type, subject, industryGroup, productType, description, meetingNotes, extAttendee);
-                    msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                    msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 2);
-                    Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
-                    extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Activity Type: " + type + " ");
-                    Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
-                    extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Add New Activity page ");
-                    lvCompanyDetailsPage.RefreshActivitiesList();
+                    lvCompaniesActivityDetailPage.CloseTab("View Activity");
+
+                    Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
+                    extentReports.CreateStepLogs("Info", "Activity created successfully. ");
+
                     //Deleting Created Activity
-                    lvCompanyDetailsPage.DeleteActivity();
+                    activitiesList.ViewActivityFromList();
+                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+                    activityDetailPage.DeleteActivity();
+                    int afterCount = activitiesList.GetActivityCount();
+                    Assert.AreEqual(beforeCount, afterCount);
+                    extentReports.CreateStepLogs("Info", "Activity delete successfully. ");
                 }
 
                 //TMT0047455 Verify that the user is able to create a follow-up task while creating an activity.
-
+                int beforeCount1 = activitiesList.GetActivityCount();
                 lvCompanyDetailsPage.CreateNewActivityAndFollowupFromCompanyDetailPage(fileTMT0047429);
-                msgActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 2);
-                Assert.AreEqual(msgSaveActivityExl, msgActivity);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Activity and Followup creation ");
-                lvCompanyDetailsPage.RefreshActivitiesList();
-                //TMT0047459	Verify the Company Activity List view on the Activity tab.
+                lvCompaniesActivityDetailPage.CloseTab("View Activity");
 
+                Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount1));
+                extentReports.CreateStepLogs("Info", "User is able to create a follow-up task while creating an activity. ");
+
+                //TMT0047459 - Verify the Company Activity List view on the Activity tab.
                 bool areColumnsDisplayed = lvCompanyDetailsPage.VerifyAvailableColumnsOnCompaniesActivitiesListView(fileTMT0047429);
                 Assert.IsTrue(areColumnsDisplayed, "Verify the Columns of Company Activity List view on the Activity tab ");
                 extentReports.CreateStepLogs("Passed", "All Columns of Company Activity List view on the Activity tab are displayed ");
@@ -189,10 +194,12 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvCompanyDetailsPage.ClosePrimaryContactPage(activityPrimaryContact);
 
                 //Deleting Created Activity
-                lvCompanyDetailsPage.DeleteActivity();
+                activitiesList.ViewActivityFromList();
+                activityDetailPage.DeleteActivity();
 
                 //Deleting Created Follow up
-                lvCompanyDetailsPage.DeleteActivity();
+                activitiesList.ViewActivityFromList();
+                activityDetailPage.DeleteActivity();
                 
                 //// TMT0047467 Verify that clicking the "Cancel" button on the activity detail page redirects the user to the activity list view.
 

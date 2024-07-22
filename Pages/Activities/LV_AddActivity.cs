@@ -39,10 +39,44 @@ namespace SF_Automation.Pages.Activities
         By btnSave = By.XPath("(//button[@title='Save'])[1]");
         By btnCancel = By.XPath("(//button[@title='Cancel'])[1]");
 
+        By reqFieldErrMsg = By.XPath("//label[text()='Subject']/following::div[2]");
+        By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
+        By txtDefaultCompanyDiscussed = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForAccount')]//lightning-pill//span[contains(@class,'pill__label')]");
+
         public void ClickAddActivityBtn()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity);
             driver.FindElement(btnAddActivity).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void ClickSaveActivityBtn()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void ClickCancelActivityBtn()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(5000);
+        }
+
+        public string GetRequiredFieldErrorMsg()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, reqFieldErrMsg, 20);
+            string toastMsg = driver.FindElement(reqFieldErrMsg).Text;
+            return toastMsg;
         }
 
         public void CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(string file)
@@ -116,6 +150,20 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
             Thread.Sleep(5000);
+        }
+
+        public string GetDefaultPrimaryHlAttandeeHLAttandee()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultHLAttandee, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDefaultHLAttandee));
+            return driver.FindElement(txtDefaultHLAttandee).Text;
+        }
+
+        public string GetDefaultCompaniesDiscussed()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultCompanyDiscussed, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDefaultCompanyDiscussed));
+            return driver.FindElement(txtDefaultCompanyDiscussed).Text;
         }
     }
 

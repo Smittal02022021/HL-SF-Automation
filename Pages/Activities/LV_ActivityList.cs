@@ -16,6 +16,7 @@ namespace SF_Automation.Pages.Activities
         By lblAddNewActivity = By.XPath("//span[text()='Add New Activity']");
         By btnAddActivity = By.XPath("(//button[text()='Add Activity'])[1]");
         By btnRefereshActivitiesList = By.XPath("//button[@title='Refresh Activities']");
+        By tableActivities = By.XPath("(//div[contains(@class,'table_header')]//table)[1]");
 
         public void ClickAddActivityBtn()
         {
@@ -90,9 +91,19 @@ namespace SF_Automation.Pages.Activities
 
         public void ViewActivityFromList()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("(//td[@data-label='Subject']//a)[1]")).Click();
 
+        }
+
+        public bool IsActivityListDisplayed()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tableActivities, 20);
+                return driver.FindElement(tableActivities).Displayed;
+            }
+            catch { return false; }
         }
     }
 
