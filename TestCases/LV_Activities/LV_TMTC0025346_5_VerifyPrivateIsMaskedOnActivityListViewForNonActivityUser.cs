@@ -24,6 +24,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
         LV_AddActivity addActivity = new LV_AddActivity();
         LV_ActivitiesList activitiesList = new LV_ActivitiesList();
+        LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
 
         public static string fileTMT0047476 = "TMT0047476_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage";
         string msgSaveActivity;
@@ -46,6 +47,10 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMT0047476;
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+                string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+                string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+                string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
+                string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -93,7 +98,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 string tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 extentReports.CreateStepLogs("Info", tabNameExl + " tab is available on " + CompanyNameExl + " Company Detail Page. ");
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
-                extentReports.CreateStepLogs("Info", " User navigated to Activity Detail page from " + CompanyNameExl + " :Company Detail Page. ");
+                extentReports.CreateStepLogs("Info", " User navigated to Activity List page from " + CompanyNameExl + " :Company Detail Page. ");
 
                 /////////////////////////////////////////////////////
                 //Crteating new Activity 
@@ -153,54 +158,43 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", " Company: " + CompanyNameExl + " found and selected ");
                 extentReports.CreateStepLogs("Info", tabNameExl + " tab is available on " + CompanyNameExl + " Company Detail Page. ");
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
-                extentReports.CreateStepLogs("Info", " User navigated to Activity Detail page from " + CompanyNameExl + " :Company Detail Page. ");
-
-                //TMT0047492 Verify that the "Private" is masked by the activity details in the list view and in the detail view for non-activity members.
+                extentReports.CreateStepLogs("Info", " User navigated to Activity List page from " + CompanyNameExl + " :Company Detail Page. ");
 
                 string actualMask;
-                actualMask = lvCompanyDetailsPage.GetValueFromActivityList("Type");
-                Assert.AreEqual("Private", actualMask, "Verify that Activity Type is Masked as Private for Non-Activity member ");
-                extentReports.CreateStepLogs("Pass", "Activity Type is Masked as " + actualMask + " for Non-Activity member ");
+                actualMask = activitiesList.GetActivityTypeFromList();
+                Assert.AreEqual(type, actualMask);
+                extentReports.CreateStepLogs("Passed", "Activity Type is displayed as " + actualMask + " for Non-Activity member ");
 
-                actualMask = lvCompanyDetailsPage.GetValueFromActivityList("Subject");
-                Assert.AreEqual("Private", actualMask, "Verify that Activity Subject is Masked as Private for Non-Activity member ");
-                extentReports.CreateStepLogs("Pass", "Activity Subject is Masked as " + actualMask + " for Non-Activity member ");
+                actualMask = activitiesList.GetActivitySubjectFromList();
+                Assert.AreEqual(subject, actualMask);
+                extentReports.CreateStepLogs("Passed", "Activity Subject is displayed as " + actualMask + " for Non-Activity member ");
 
-                actualMask = lvCompanyDetailsPage.GetValueFromActivityList("Description");
-                Assert.AreEqual("Private", actualMask, "Verify that Activity Description is Masked as Private for Non-Activity member ");
-                extentReports.CreateStepLogs("Pass", "Activity Description is Masked as " + actualMask + " for Non-Activity member ");
+                actualMask = activitiesList.GetActivityDescriptionFromList();
+                Assert.AreEqual(description, actualMask);
+                extentReports.CreateStepLogs("Passed", "Activity Description is displayed as " + actualMask + " for Non-Activity member ");
 
-                actualMask = lvCompanyDetailsPage.GetValueFromActivityList("Meeting/Call Notes");
-                Assert.AreEqual("Private", actualMask, "Verify that Activity Meeting/Call Notes is Masked as Private for Non-Activity member ");
-                extentReports.CreateStepLogs("Pass", "Activity Meeting/Call Notes is Masked as " + actualMask + " for Non-Activity member ");
+                actualMask = activitiesList.GetActivityMeetingNotesFromList();
+                Assert.AreEqual(meetingNotes, actualMask);
+                extentReports.CreateStepLogs("Passed", "Activity Meeting/Call Notes is displayed as " + actualMask + " for Non-Activity member ");
 
-                //Select the Activity
-                lvCompanyDetailsPage.ViewActivity();
-                extentReports.CreateStepLogs("Info", "Non-Activity User clicked on View option from Activities List and redirected Activity Detail Page ");
-                msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 4);
-                Assert.AreEqual(msgSaveActivityExl, msgSaveActivity, "Verify Non - Activity member is not able to access Private activity ");
-                extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed while view Private Activity by Non-Activity member");
+                //Logout from SF Lightning View
+                homePageLV.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User: " + nonActivityUser + " logged out ");
 
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("User: " + nonActivityUser + " logged out ");
-
-                string valUser1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                extentReports.CreateStepLogs("Info", "User " + valUser1 + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
 
                 //Login user
-                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser1);
+                homePage.SearchUserByGlobalSearch(fileTMT0047476, valUser);
                 usersLogin.LoginAsSelectedUser();;
 
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateLog("User: " + valUser1 + " Switched to Lightning View ");
+                    extentReports.CreateLog("User: " + valUser + " Switched to Lightning View ");
                 }
                 else
                 {
-                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser1 + " is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
                 }
 
                 homePageLV.ClickAppLauncher();
@@ -215,15 +209,18 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", " Company: " + CompanyNameExl + " found and selected ");
                 extentReports.CreateStepLogs("Info", tabNameExl + " tab is available on " + CompanyNameExl + " Company Detail Page. ");
                 lvCompanyDetailsPage.NavigateToAParticularTab("Activity");
-                extentReports.CreateStepLogs("Info", " User navigated to Activity Detail page from " + CompanyNameExl + " :Company Detail Page. ");
+                extentReports.CreateStepLogs("Info", " User navigated to Activity List page from " + CompanyNameExl + " :Company Detail Page. ");
 
-                lvCompanyDetailsPage.DeleteActivity();
+                //Select the Activity
+                activitiesList.ViewActivityFromList();
+                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                activityDetailPage.DeleteActivity();
                 msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
                 extentReports.CreateStepLogs("Info", msgSaveActivity);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", valUser1 + " logged out ");
-
+                extentReports.CreateStepLogs("Info", valUser + " logged out ");
             }
             catch (Exception e)
             {
@@ -232,14 +229,5 @@ namespace SF_Automation.TestCases.LV_Activities
                 usersLogin.UserLogOut();
             }
         }
-        /*
-        [TearDown]
-        public void TearDown()
-        {
-            //companyhome.SearchCompany(CompanyNameExl);
-            companyDetail.DeleteCompany(CompanyNameExl);
-            Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
-            extentReports.CreateStepLogs("Info", "Created company is deleted successfully ");
-        }*/
     }
 }

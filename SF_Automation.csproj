@@ -455,6 +455,7 @@
     <Compile Include="Pages\ActivitiesList\ActivitiesListDetailPage.cs" />
     <Compile Include="Pages\ActivitiesList\AddActivity1.cs" />
     <Compile Include="Pages\ActivitiesList\EditActivity.cs" />
+    <Compile Include="Pages\Activities\LV_ActivityDetailPage.cs" />
     <Compile Include="Pages\Activities\LV_ActivityList.cs" />
     <Compile Include="Pages\Activities\LV_AddActivity.cs" />
     <Compile Include="Pages\Campaign\CampaignDetailPage.cs" />

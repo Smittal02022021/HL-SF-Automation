@@ -46,6 +46,7 @@ namespace SF_Automation.Pages.Activities
 
         public bool VerifyCreatedActivityIsDisplayedUnderActivitiesList(int num)
         {
+            Thread.Sleep(10000);
             bool result = false;
 
             //Get Activity List Count
@@ -59,6 +60,40 @@ namespace SF_Automation.Pages.Activities
             return result;
         }
 
+        public string GetActivityTypeFromList()
+        {
+            Thread.Sleep(5000);
+            string typeName = driver.FindElement(By.XPath("(//td[@data-label='Type']//lightning-base-formatted-text)[1]")).Text;
+            return typeName;
+        }
+
+        public string GetActivitySubjectFromList()
+        {
+            Thread.Sleep(5000);
+            string subjectName = driver.FindElement(By.XPath("(//td[@data-label='Subject']//a)[1]")).Text;
+            return subjectName;
+        }
+
+        public string GetActivityDescriptionFromList()
+        {
+            Thread.Sleep(5000);
+            string descName = driver.FindElement(By.XPath("(//td[@data-label='Description']//lightning-base-formatted-text)[1]")).Text;
+            return descName;
+        }
+
+        public string GetActivityMeetingNotesFromList()
+        {
+            Thread.Sleep(5000);
+            string meetingNotesName = driver.FindElement(By.XPath("(//td[@data-label='Meeting/Call Notes']//a)[1]")).Text;
+            return meetingNotesName;
+        }
+
+        public void ViewActivityFromList()
+        {
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("(//td[@data-label='Subject']//a)[1]")).Click();
+
+        }
     }
 
 }

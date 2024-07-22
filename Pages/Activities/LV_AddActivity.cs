@@ -108,7 +108,7 @@ namespace SF_Automation.Pages.Activities
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             Thread.Sleep(2000);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(10000);
         }
 
         public void CloseTab(string tabName)
