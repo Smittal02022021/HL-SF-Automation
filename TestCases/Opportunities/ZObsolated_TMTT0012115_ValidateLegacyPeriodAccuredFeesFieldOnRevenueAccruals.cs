@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals : BaseClass
+    class ZObsolated_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

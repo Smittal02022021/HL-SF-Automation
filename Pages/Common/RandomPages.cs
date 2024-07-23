@@ -112,7 +112,7 @@ namespace SF_Automation.Pages.Common
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
-        
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
 
         private By _optionListView(string name)
         {
@@ -153,7 +153,23 @@ namespace SF_Automation.Pages.Common
         {
             return By.XPath($"//h1//slot//lightning-formatted-text[text()='{itemName}']");
         }
+        private By _eleJobType(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
+        }
+        private By _eleLegalEntity(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//td//a[@title='{name}']");
+        }
+        private By _quickEleLegalEntity(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
+        }
 
+        private By _nameRecentViewed(string name)
+        {
+            return By.XPath($"//table//tbody//th//a[@title='{name}']");
+        }
         public string ClickReportsTab()
         {
             try
@@ -802,27 +818,8 @@ namespace SF_Automation.Pages.Common
             }
             catch { Thread.Sleep(4000); }
             Thread.Sleep(4000);
-        }
-
-        private By _eleJobType(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
-        }
-        private By _eleLegalEntity(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//td//a[@title='{name}']");
-        }
-        private By _quickEleLegalEntity(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
-        }
-
-        private By _nameRecentViewed(string name)
-        {
-            return By.XPath($"//table//tbody//th//a[@title='{name}']");
-        }
-
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        }      
+        
         public string SelectJobTypesLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;

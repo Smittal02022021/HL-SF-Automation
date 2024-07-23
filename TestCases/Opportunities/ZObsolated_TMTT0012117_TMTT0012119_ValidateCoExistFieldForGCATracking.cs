@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking : BaseClass
+    class ZObsolated_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

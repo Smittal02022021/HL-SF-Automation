@@ -5,11 +5,14 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Web;
 
 namespace SF_Automation.Pages.Common
 {
     class MonthlyRevenue : BaseClass
     {
+        RandomPages randomPages = new RandomPages();
+
         By dropDownView = By.XPath("//select[@id='fcf']");
         By btnGo = By.XPath("//input[@title='Go!']");
         By colIsCurrent = By.XPath("//td[@class='x-grid3-hd x-grid3-cell x-grid3-td-00Ni000000FnLRS ASC']");
@@ -89,6 +92,77 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(lnkBackToList).Click();
             Thread.Sleep(2000);
         }
+
+        By lnkIsCurrentColumn = By.XPath("//th[@aria-label='Is Current']//a");
+        By chkIsCurrent = By.XPath("(//td[@data-label='Is Current'])[1]//input");
+        By linkCurrentMonthRev=By.XPath("(//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
+        public void SelectCurrentMonthRevenuePageLV()
+        {
+            IsCurrentStatus:
+            if(driver.FindElement(chkIsCurrent).Selected)
+            {
+                driver.FindElement(linkCurrentMonthRev).Click();
+                Thread.Sleep(5000);                
+            }
+            else
+            {
+                driver.FindElement(lnkIsCurrentColumn).Click();
+                Thread.Sleep(2000);
+                goto IsCurrentStatus;
+            }
+        }
+        
+        By linkViewAllRevAccu = By.XPath("//article[@aria-label='Revenue Accruals']//a[contains(@class,'footer')]");
+        By listRevAccu = By.XPath("(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr");
+        By valRVAccuNum = By.XPath("//records-record-layout-item[@field-label='Revenue Accrual #']//lightning-formatted-text");
+        
+        public string SelectRevenueAccrualLV(string lob)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,5000)");
+            Thread.Sleep(2000);
+            string valRVAccu="";
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkViewAllRevAccu));
+            Thread.Sleep(2000);
+            //driver.FindElement(linkViewAllRevAccu).Click();
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(linkViewAllRevAccu));
+            WebDriverWaits.WaitUntilEleVisible(driver, listRevAccu, 20);
+            IList<IWebElement> element = driver.FindElements(listRevAccu);
+            int totalRows = element.Count;
+            for (int row = 1; row <= totalRows; row++)
+            {
+                By linkRevAccu = By.XPath($"(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr[{row}]//th//a/../..");
+                driver.FindElement(linkRevAccu).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, valRVAccuNum,20);
+                valRVAccu = driver.FindElement(valRVAccuNum).Text;
+                string RevAccuLOB= randomPages.GetLOBLV();
+                if(RevAccuLOB== lob)
+                {
+                    break; 
+                }
+                else
+                {                    
+                    By btnCloseRevAccu = By.XPath($"//button[contains(@title,'Close {valRVAccu} | Revenue Accrual')]");
+                    driver.FindElement(btnCloseRevAccu).Click();
+                    Thread.Sleep(2000);
+                }
+            }
+           return valRVAccu;
+        }
+        By lblLagacyPAFee = By.XPath("//records-record-layout-item[@field-label='Legacy Period Accrued Fees']");
+        public bool IsLegacyPeriodAccruedFeesExistLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lblLagacyPAFee, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(lblLagacyPAFee));
+                return driver.FindElement(lblLagacyPAFee).Displayed;
+            }
+            catch { return false; }
+            
+            
+        }
+
     }
 }
 

@@ -185,7 +185,8 @@ namespace SF_Automation.Pages
             Thread.Sleep(10000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);                
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);
+                Thread.Sleep(5000);
                 outlook.SelectVerifyIdentityEmail();
             }
             catch

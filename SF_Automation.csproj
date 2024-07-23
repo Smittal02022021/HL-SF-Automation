@@ -750,6 +750,8 @@
     <Compile Include="TestCases\Opportunities\LV_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2333_TMTC0002494_VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCAandNonGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
@@ -813,8 +815,8 @@
     <Compile Include="TestCases\Opportunities\TMTT0008034_MassEdit_FieldMappings.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
