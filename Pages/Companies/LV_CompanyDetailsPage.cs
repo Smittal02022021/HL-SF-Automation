@@ -46,8 +46,8 @@ namespace SF_Automation.Pages.Companies
         By dropdownFolloupFrom = By.XPath("//button[contains(@name,'Followup_Start_Time')]");// [contains(@aria-label,'From')]");
         By dropdownFolloupTo = By.XPath("//button[contains(@name,'Followup_End_Time')]");// [contains(@aria-label,'To')]");
         By txtAreaFollowuoComments = By.XPath("//textarea[contains(@name,'Followup_Comments')]");
-        By linkPrimayContact = By.XPath("//table//tbody//tr[1]//td[@data-label='Primary Contact']//a");
-        By pageHeaderContactpage = By.XPath("//h1//div[text()='Contact']");
+        By linkPrimayContact = By.XPath("(//table//tbody//tr[1]//td[@data-label='Primary Contact']//a)[1]");
+        By pageHeaderContactpage = By.XPath("//h1//records-entity-label[text()='Contact']");
         By btnActivitiesRow = By.XPath("//table//tbody//tr[1]//td[7]//button");
         By btnActivitiesRowAction = By.XPath("//table//tbody//tr[1]//td[7]//button//following-sibling::div//span");
         By btnViewActivityDetails = By.XPath("//table//tbody//tr[1]//td[7]//button//following-sibling::div//span[text()='View']");
@@ -521,7 +521,7 @@ namespace SF_Automation.Pages.Companies
             bool result = false;
 
             //Get columns count            
-            int recordCount = driver.FindElements(By.XPath("//table//tr[@data-row-key-value='HEADER']//th//span[@class='slds-truncate']")).Count;
+            int recordCount = driver.FindElements(By.XPath("(//table)[2]//th[@role='columnheader']")).Count;
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ActivityListColumns");
 
             for (int columnExl = 2; columnExl <= excelCount; columnExl++)
@@ -530,7 +530,7 @@ namespace SF_Automation.Pages.Companies
 
                 for (int recordIndex = 1; recordIndex < recordCount; recordIndex++)
                 {
-                    string actualColValue = driver.FindElement(By.XPath($"//table//tr[@data-row-key-value='HEADER']//th[{recordIndex}]//span[@class='slds-truncate']")).Text;
+                    string actualColValue = driver.FindElement(By.XPath($"((//table)[2]//th[@role='columnheader'])[{recordIndex}]//span[@class='slds-truncate']")).Text;
                     if (expColValue == actualColValue)
                     {
                         result = true;

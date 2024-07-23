@@ -212,7 +212,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", " User navigated to Activity List page from " + CompanyNameExl + " :Company Detail Page. ");
 
                 //Select the Activity
-                activitiesList.ViewActivityFromList();
+                activitiesList.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
                 activityDetailPage.DeleteActivity();

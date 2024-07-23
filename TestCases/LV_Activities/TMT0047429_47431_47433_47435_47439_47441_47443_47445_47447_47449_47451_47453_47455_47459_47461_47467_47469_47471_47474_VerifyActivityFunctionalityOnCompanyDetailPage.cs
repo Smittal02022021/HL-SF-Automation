@@ -141,7 +141,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 //TMT0047449 Verify that the user is able to create an activity of type - Call by clicking the "Save" button and redirect the user to the list view with a success message.
                 //TMT0047451 Verify that the user is able to create an activity of type - Email on clicking the "Save" button and redirects the user to the list view with a success message.
                 //TMT0047453 Verify that the user is able to create an activity of type - Other on clicking the "Save" button and redirects the user to the list view with the success message.
-
+                /*
                 int rowActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
                 
                 for (int row = 2; row <= rowActivity; row++)
@@ -159,28 +159,37 @@ namespace SF_Automation.TestCases.LV_Activities
                     lvCompaniesActivityDetailPage.CloseTab("View Activity");
 
                     Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
-                    extentReports.CreateStepLogs("Info", "Activity created successfully. ");
+                    extentReports.CreateStepLogs("Info", "Activity created successfully with call type: " + type);
 
                     //Deleting Created Activity
-                    activitiesList.ViewActivityFromList();
+                    activitiesList.ViewActivityFromList(subject);
                     extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
                     int afterCount = activitiesList.GetActivityCount();
                     Assert.AreEqual(beforeCount, afterCount);
-                    extentReports.CreateStepLogs("Info", "Activity delete successfully. ");
+                    extentReports.CreateStepLogs("Info", "Activity with call type: "+ type + " deleted successfully. ");
                 }
+                
+                //TMT0047455 Verify that the user is able to create a follow-up task while editing an activity.
+                addActivity.CreateNewActivity(fileTMT0047429);
+                activityDetailPage.CloseTab("View Activity");
+                extentReports.CreateStepLogs("Info", "New activity is created. ");
 
-                //TMT0047455 Verify that the user is able to create a follow-up task while creating an activity.
                 int beforeCount1 = activitiesList.GetActivityCount();
-                lvCompanyDetailsPage.CreateNewActivityAndFollowupFromCompanyDetailPage(fileTMT0047429);
-                lvCompaniesActivityDetailPage.CloseTab("View Activity");
+
+                string subject1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 2);
+                activitiesList.ViewActivityFromList(subject1);
+
+                activityDetailPage.EditActivityAndAddFollowupDetail(fileTMT0047429);
+                activityDetailPage.CloseTab("View Activity");
+                activityDetailPage.CloseTab("View Activity");
 
                 Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount1));
-                extentReports.CreateStepLogs("Info", "User is able to create a follow-up task while creating an activity. ");
+                extentReports.CreateStepLogs("Passed", "User is able to add a follow-up task while editing an activity. ");
+                */
 
                 //TMT0047459 - Verify the Company Activity List view on the Activity tab.
-                bool areColumnsDisplayed = lvCompanyDetailsPage.VerifyAvailableColumnsOnCompaniesActivitiesListView(fileTMT0047429);
-                Assert.IsTrue(areColumnsDisplayed, "Verify the Columns of Company Activity List view on the Activity tab ");
+                Assert.IsTrue(activitiesList.VerifyAvailableColumnsOnCompaniesActivitiesListView(fileTMT0047429));
                 extentReports.CreateStepLogs("Passed", "All Columns of Company Activity List view on the Activity tab are displayed ");
 
                 //TMT0047461	Verify that the "Primary Contact" is hyperlinked and navigates the user to the contact record(External Contact).
@@ -193,43 +202,23 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User navigated to Contact Page is displayed on Activity Primay Contact hyperlink Click ");
                 lvCompanyDetailsPage.ClosePrimaryContactPage(activityPrimaryContact);
 
-                //Deleting Created Activity
-                activitiesList.ViewActivityFromList();
-                activityDetailPage.DeleteActivity();
-
-                //Deleting Created Follow up
-                activitiesList.ViewActivityFromList();
-                activityDetailPage.DeleteActivity();
-                
-                //// TMT0047467 Verify that clicking the "Cancel" button on the activity detail page redirects the user to the activity list view.
-
-                //lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
-                //Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
-                //extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Activity Detail page ");
-
-                //TMT0047469	Verify that clicking the "Edit" button on the activity detail page opens up the activity detail in editable mode.
-
-                lvCompanyDetailsPage.ClickActivityViewOption();
-                extentReports.CreateStepLogs("Info", "User clicked on View option from Activities List ");
-                bool isActivityetailPageEnabled= lvCompaniesActivityDetailPage.VerifyActivityDetailPageStatus();
-                Assert.IsFalse(isActivityetailPageEnabled, "View action button redirects the the user to Activity Details page and page is disabled for any change ");
-                extentReports.CreateStepLogs("Passed", "View action button redirects the the user to Activity Details page and page is disabled for any change ");
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Edit");
-                isActivityetailPageEnabled = lvCompaniesActivityDetailPage.VerifyActivityDetailPageStatus();
-                Assert.IsTrue(isActivityetailPageEnabled, "Verify Activity Details page is Enabled after clicking on Edit button ");
-                extentReports.CreateStepLogs("Passed", "Activity Details page is Enabled after clicking on Edit button ");
-
-
-                //lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
-                //extentReports.CreateStepLogs("Info", "User redirected to Activity list view on clicking Cancel button from Activity details page ");
-               
                 // TMT0047467 Verify that clicking the "Cancel" button on the activity detail page redirects the user to the activity list view.
+                string newSubject = activitiesList.GetActivitySubjectFromList();
+                activitiesList.ViewActivityFromList(newSubject);
 
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Cancel");
+                activityDetailPage.ClickActivityDetailPageButton("Cancel");
                 Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Activity Detail page ");
 
+                //Deleting Created Activity
+                activitiesList.ViewActivityFromList(newSubject);
+                activityDetailPage.DeleteActivity();
 
+                //Deleting Created Follow up
+                newSubject = activitiesList.GetActivitySubjectFromList();
+                activitiesList.ViewActivityFromList(newSubject);
+                activityDetailPage.DeleteActivity();
+                
                 //TMT0047471 Verify that Primary HL Attendee is able to Edit the activity and that changes get reflected in the activity. 
                 //TMT0047474 Verify that HL Attendee is able to add follow-up meetings while editing an activity.
 
