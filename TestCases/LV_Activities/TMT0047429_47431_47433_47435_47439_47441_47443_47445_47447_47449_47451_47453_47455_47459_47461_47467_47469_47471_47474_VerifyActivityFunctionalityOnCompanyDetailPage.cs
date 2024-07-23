@@ -207,7 +207,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 activitiesList.ViewActivityFromList(newSubject);
 
                 activityDetailPage.ClickActivityDetailPageButton("Cancel");
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Cancel button of Add New Activity page ");
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "ActivityCompany | Company | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Cancel button from Activity Detail page ");
 
                 //Deleting Created Activity
