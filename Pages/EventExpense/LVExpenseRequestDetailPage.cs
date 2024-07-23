@@ -524,7 +524,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             bool result = false;
             Thread.Sleep(3000);
-            if(driver.FindElement(btnEditApprover).Displayed && driver.FindElement(btnCloneApprover).Displayed && driver.FindElement(btnApproveApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed && driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnRequestMoreInformationApprover).Displayed)
+            if(driver.FindElement(btnEditApprover).Displayed && driver.FindElement(btnApproveApprover).Displayed && driver.FindElement(btnRejectApprover).Displayed && driver.FindElement(btnDeleteApprover).Displayed && driver.FindElement(btnRequestMoreInformationApprover).Displayed)
             {
                 result = true;
             }
@@ -539,11 +539,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtAreaNotes).SendKeys(notes);
             Thread.Sleep(3000);
             driver.FindElement(btnReject).Click();
-            Thread.Sleep(10000);
-
-            Actions action1 = new Actions(driver);
-            action1.SendKeys(Keys.LeftControl + "R").Build().Perform();
-            Thread.Sleep(5000);
+            Thread.Sleep(20000);
         }
 
         public void RequestForMoreInformation(string notes)
@@ -554,11 +550,7 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtAreaNotes1).SendKeys(notes);
             Thread.Sleep(3000);
             driver.FindElement(btnOK).Click();
-            Thread.Sleep(10000);
-
-            Actions action1 = new Actions(driver);
-            action1.SendKeys(Keys.LeftControl + "R").Build().Perform();
-            Thread.Sleep(5000);
+            Thread.Sleep(20000);
         }
 
         public void ApproveExpenseRequest()

@@ -158,7 +158,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //TC - TMTI0038457 - Verify that the approver of the expense request can see buttons like  "Approve, Reject, Required more Information"
                     Assert.IsTrue(lvExpRequestDetail.VerifyNecessaryButtonsAreDisplayedWhenApproverLandsOnExpenseDetailPage());
-                    extentReports.CreateLog("Approver of the expense request can see buttons like: Approve, Reject, Clone, Edit and Required more Information. ");
+                    extentReports.CreateLog("Approver of the expense request can see buttons like: Delete, Approve, Reject, Edit and Required more Information. ");
 
                     if (action == "Edit")
                     {
