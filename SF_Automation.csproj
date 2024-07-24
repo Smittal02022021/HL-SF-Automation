@@ -708,7 +708,7 @@
     <Compile Include="TestCases\LV_Activities\TMT0047429_47431_47433_47435_47439_47441_47443_47445_47447_47449_47451_47453_47455_47459_47461_47467_47469_47471_47474_VerifyActivityFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047463_47465_47476_47478_47494_47498_47502_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047484_47893_47895_47897_VerifyPrimaryAttendeeSelection.cs" />
-    <Compile Include="TestCases\LV_Activities\TMT0047480_47482_47492_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0047482_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047486_47488_47490_VerifyActivityMappedSelectedOpportunityEngagementCampaign.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />

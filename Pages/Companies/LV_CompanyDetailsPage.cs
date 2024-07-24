@@ -382,6 +382,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             driver.FindElement(btnSave).Click();
         }
+
         public void CreateNewActivityAndFollowupFromCompanyDetailPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -472,6 +473,7 @@ namespace SF_Automation.Pages.Companies
             //Click Save
             driver.FindElement(btnSave).Click();
         }
+
         public string GetActivityPrimayContact()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkPrimayContact, 30);
@@ -750,15 +752,17 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
-            //Enter External Attendee
-            //driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
-            //Thread.Sleep(5000);
-            //driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
 
             //Click Save
-            //driver.FindElement(btnSave).Click();
+            WebDriverWaits.WaitUntilClickable(driver, btnSave, 60);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
         }
-        
+
         public void CheckNoExternalContactCheckbox()
         { 
             WebDriverWaits.WaitUntilEleVisible(driver, chckNoExternalContact, 20);

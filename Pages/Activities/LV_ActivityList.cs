@@ -48,7 +48,16 @@ namespace SF_Automation.Pages.Activities
             js.ExecuteScript("window.scrollTo(0,2500)");
             Thread.Sleep(2000);
 
-            int totalNumberOfActivities = driver.FindElements(By.XPath("(//tr[@class='slds-hint-parent'])[1]/../tr")).Count;
+            int totalNumberOfActivities;
+            try
+            {
+                totalNumberOfActivities = driver.FindElements(By.XPath("(//tr[@class='slds-hint-parent'])[1]/../tr")).Count;
+            }
+            catch(Exception)
+            {
+                totalNumberOfActivities = 0;
+            }
+            
             return totalNumberOfActivities;
         }
 
