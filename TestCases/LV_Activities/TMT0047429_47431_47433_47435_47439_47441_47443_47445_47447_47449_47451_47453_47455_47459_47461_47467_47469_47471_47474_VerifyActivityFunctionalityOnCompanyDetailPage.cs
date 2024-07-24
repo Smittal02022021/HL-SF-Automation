@@ -141,7 +141,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 //TMT0047449 Verify that the user is able to create an activity of type - Call by clicking the "Save" button and redirect the user to the list view with a success message.
                 //TMT0047451 Verify that the user is able to create an activity of type - Email on clicking the "Save" button and redirects the user to the list view with a success message.
                 //TMT0047453 Verify that the user is able to create an activity of type - Other on clicking the "Save" button and redirects the user to the list view with the success message.
-                /*
+                
                 int rowActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
                 
                 for (int row = 2; row <= rowActivity; row++)
@@ -186,7 +186,6 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount1));
                 extentReports.CreateStepLogs("Passed", "User is able to add a follow-up task while editing an activity. ");
-                */
 
                 //TMT0047459 - Verify the Company Activity List view on the Activity tab.
                 Assert.IsTrue(activitiesList.VerifyAvailableColumnsOnCompaniesActivitiesListView(fileTMT0047429));
@@ -219,39 +218,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 activitiesList.ViewActivityFromList(newSubject);
                 activityDetailPage.DeleteActivity();
                 
-                //TMT0047471 Verify that Primary HL Attendee is able to Edit the activity and that changes get reflected in the activity. 
-                //TMT0047474 Verify that HL Attendee is able to add follow-up meetings while editing an activity.
-
-                lvCompanyDetailsPage.ClickActivityViewOption();
-                extentReports.CreateStepLogs("Info", "User clicked on View option from Activities List and redirected Activity Detail Page ");
-                string updateSubjectExl = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", 2, 1);
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Edit");
-                extentReports.CreateStepLogs("Info", "Activity Details page is Enabled after clicking on Edit button ");
-
-                lvCompaniesActivityDetailPage.UpdateActivity(updateSubjectExl);
-                extentReports.CreateStepLogs("Info", "Updated Activity Details ");
-
-                //TMT0047474	Verify that HL Attendee is able to add follow-up meetings while editing an activity.
-                lvCompaniesActivityDetailPage.CreateFollowup(fileTMT0047429);
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
-                extentReports.CreateStepLogs("Info", "Followup Details provided ");
-
-                msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 2);
-                Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for updated Activity ");
-                lvCompanyDetailsPage.RefreshActivitiesList();
-
-                Assert.IsTrue(lvCompaniesActivityDetailPage.IsActivityListDisplayed(), "Verify user redirects to list view on clicking Save button from Activity Detail page ");
-                extentReports.CreateStepLogs("Passed", "User redirected to Activity list view on clicking Save button from Activity Detail page ");
-                lvCompanyDetailsPage.RefreshActivitiesList();
-
-                string activitySubject= lvCompanyDetailsPage.GetActivitySubject();
-                Assert.IsTrue(activitySubject.Contains(updateSubjectExl));
-                extentReports.CreateStepLogs("Passed", "Updated Activity Details are saved when edited via Edit Button");                
-                //Deleting Created Follow up
-                lvCompanyDetailsPage.DeleteActivity();
-
                 //Logout from SF Lightning View
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
@@ -269,16 +235,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 usersLogin.UserLogOut();
             }
         }
-        /*
-        [TearDown]
-        public void TearDown()
-        {
-            //companyhome.SearchCompany(CompanyNameExl);
-            companyDetail.DeleteCompany(CompanyNameExl);
-            Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Salesforce - Unlimited Edition"), true);
-            extentReports.CreateStepLogs("Info", "Created company is deleted successfully ");
-        }
-        */
     }
     
 }
