@@ -421,7 +421,7 @@ namespace SF_Automation.Pages
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
         By tabOpportunityL = By.XPath("//section[3]/div/div//ul[2]/li[2]/a/span[2]");
-        By tabOppL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
+        By tabOppL = By.XPath("//section[2]/div//div/ul[2]/li[2]/a/span[2]");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By txtClearOppName = By.XPath("//input[@name='Name']");
@@ -4314,7 +4314,7 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOpp, 150);
             driver.FindElement(btnBackToOpp).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             driver.SwitchTo().DefaultContent();
             string name = driver.FindElement(tabDetails).Text;
             return name;
@@ -7014,7 +7014,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 180);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 210);
             driver.FindElement(tabOppL).Click();
             Thread.Sleep(5000);
             return comment;
@@ -7161,12 +7161,12 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,-500)");
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
-            driver.FindElement(lnkReqEngL).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 360);
-            driver.FindElement(btnConvertToEngL).Click();
+            //Thread.Sleep(4000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+            //driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
+            driver.FindElement(btnConvertToEngPVL).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;

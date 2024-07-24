@@ -416,7 +416,7 @@ namespace SF_Automation.TestCases.Opportunity
                     Assert.AreEqual("Engagement", engDetails);
                     extentReports.CreateLog("Opportunity is converted to Engagement after clicking Request To Engagement button ");
                    
-                    for (int rowCon = 2; rowCon <= rowContact; rowCon++)
+                   for (int rowCon = 2; rowCon <= rowContact; rowCon++)
                     {
                         string valType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 5);
 

@@ -24,6 +24,7 @@ namespace SF_Automation.Pages.Engagement
         By valHLEntity = By.CssSelector("div[id *= '00Ni000000D96Bbj_id0_j_id4_ileinner']");
         By titleEngPage = By.CssSelector("h1[class='pageType']");
         By btnEdit = By.CssSelector("input[value=' Edit ']");
+        //By btnEditL = By.XPath("//button[@name='Edit']");
         By txtEngNum = By.CssSelector("input[name*='D96p8']");
         By btnSave = By.CssSelector("input[name='save']");
         By valEngNum = By.CssSelector("div[id*='D96p8j']");
@@ -217,7 +218,7 @@ namespace SF_Automation.Pages.Engagement
         By btnDeleteRecords = By.XPath("//div[3]/span/lightning-button/button");
         By btnEditMassEdit = By.XPath("//header/div[2]/slot/lightning-button/button");
         By txtRefresh = By.XPath("//div[2]/div[2]/span/p");
-        By comboTypeMassEdit = By.XPath("//lightning-base-combobox-item[contains(@id,'button-16')]/span[2]/span");
+        By comboTypeMassEdit = By.XPath("//lightning-base-combobox-item[contains(@id,'button-17')]/span[2]/span");
         By colTableColumns = By.XPath("//table/thead/tr/td/div");
         By txtAlertMessage = By.XPath("//slot/div/div/h2");
         By btnCloseError = By.XPath("//div/div/div/lightning-button-icon/button");
@@ -3840,6 +3841,17 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //To Click Additional Client Subject button 
+        public string ClickAdditionalClientSubjectButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 80);
+            driver.FindElement(btnNewEngAdditionalClientSub).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleFREngSum, 120);
+            string name = driver.FindElement(titleFREngSum).Text;
+            return name;
+        }
+
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateUpdatedValuessFromMassEdit(string name)
         {
@@ -3878,6 +3890,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(titleEngDetails).Text;
             return name;
         }
+        
 
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateAdditionalSubjectFromPopUp(string jobType, string name)
@@ -3937,7 +3950,7 @@ namespace SF_Automation.Pages.Engagement
         public bool VerifyTypes()
         {
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//button[contains(@id,'button-16')]")).Click();
+            driver.FindElement(By.XPath("//button[contains(@id,'button-17')]")).Click();
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(comboTypeMassEdit);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();

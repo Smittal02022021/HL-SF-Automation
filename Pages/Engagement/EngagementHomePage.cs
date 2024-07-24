@@ -39,7 +39,7 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//ul/li/div/a/span[2]/span[text()='Engagements']");        
+        By tagEngagements = By.XPath("//ul/li/div/a//span[text()='Engagements']");        
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@aria-label='Recently Viewed']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
@@ -246,7 +246,7 @@ namespace SF_Automation.Pages
         public string SearchEngagementWithNumberOnLightning(string name, string jobType)
         {
             Thread.Sleep(6000);
-            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets")||jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting"))
+            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets")||jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                 driver.FindElement(btnEngNum).Click();
@@ -443,6 +443,17 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
             driver.FindElement(tagEngagements).Click();            
         }
+
+        public void SelectDirectEngUnderHLBanker()
+        {            
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
+            driver.FindElement(btnNavigationMenu).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
+            driver.FindElement(tagEngagements).Click();
+        }
+
         //Validate Recently Viewed is displayed upon selecting Engagements
         public string ValidateRecentViewedUponSelectingEngagements()
         {

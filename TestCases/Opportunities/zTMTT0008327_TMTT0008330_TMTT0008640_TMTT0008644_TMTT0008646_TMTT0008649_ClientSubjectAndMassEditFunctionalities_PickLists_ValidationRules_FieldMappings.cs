@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings : BaseClass
+    class zTMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
