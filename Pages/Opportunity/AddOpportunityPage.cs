@@ -1361,7 +1361,7 @@ namespace SF_Automation.Pages
 
 
             ////////Filling Req HL sector field Instead of IG ///////////////
-            string valIG = "CSDN-0000007072";
+            string valIG = "CSDN-0000002536";
             //string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));
             driver.FindElement(inputHLSectorIDL).SendKeys(valIG);
