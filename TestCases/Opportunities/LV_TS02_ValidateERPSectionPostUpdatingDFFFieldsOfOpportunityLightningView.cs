@@ -208,7 +208,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string sector = randomPages.GetHLSectorIDLV();
                 string sectorCombo = randomPages.GetHLSectorComboLV();
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
-                extentReports.CreateStepLogs("Passed", "******Need to work on GetHLSectorIDLV vlue ****Pending****Sector is updated to and sector combo contains " + updSector + " ");
+                extentReports.CreateStepLogs("Passed", "******Need to work on GetHLSectorIDLV value ****Pending****Sector is updated to and sector combo contains " + updSector + " ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
 
@@ -253,7 +253,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedJobType + " Old: "+ ERPSubmittedSector);
 
                 string ERPStatusJobType = randomPages.GetERPLastIntegrationStatusLV();
-                //Assert.AreEqual("Success", ERPStatusJobType);// need to uncomment
+                Assert.AreEqual("Success", ERPStatusJobType);// need to uncomment
                 extentReports.CreateStepLogs("Passed", "FAIL*****Pending***** ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
 
                 string ERPResJobType = randomPages.GetERPLastIntegrationResponseDateLV();
@@ -315,7 +315,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedClient + " Old: "+ ERPResSector);
 
                 string ERPStatusClient = randomPages.GetERPLastIntegrationStatusLV();
-                //Assert.AreEqual("Success", ERPStatusClient);// need to uncomment
+                Assert.AreEqual("Success", ERPStatusClient);// need to uncomment
                 extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
 
                 string ERPResClient = randomPages.GetERPLastIntegrationResponseDateLV();
@@ -345,7 +345,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedLOB + " Old: "+ ERPSubmittedClient);
 
                 string ERPStatusLOB = randomPages.GetERPLastIntegrationStatusLV();
-                //Assert.AreEqual("Success", ERPStatusLOB); // need to uncomment
+                Assert.AreEqual("Success", ERPStatusLOB); // need to uncomment
                 extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();

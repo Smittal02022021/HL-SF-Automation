@@ -8,7 +8,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
      class LV_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCAandNonGCATracking:BaseClass
     {
@@ -35,14 +35,12 @@ namespace SalesForce_Project.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-
         [Test]
         public void ValidateCoExistCheckboxWithHLAndGCAMemberInDealTeamLV()
         {
             try
             { //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileGCATracking;
-
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
@@ -178,8 +176,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                     opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileGCATracking);
                     extentReports.CreateStepLogs("Info", "More member(GCA and Non-GCA) added " + adminUserExl + " logged out");
                     //opportunityDetails.ClickReturnToOpportunityLV();
-                   // extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                     randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked on Opportunity Details page for for System Administrator
@@ -187,10 +186,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for for System Administrator on Opportunity detail page. ");
 
-                    //Validate if Standard User is able to edit the CoExist field for for System Administrator
-                    //editValue = opportunityDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
-                    //Assert.AreEqual("Co-Exist field is editable", editValue);
-                    //extentReports.CreateStepLogs("Passed", editValue + " for System Administrator on Opportunity detail page. ");
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " logged out");
 
@@ -242,11 +237,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for System Administrator on Opportunity detail page");
 
-                    //Validate if CAO User is able to edit the CoExist field
-                    //editValue = opportunityDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
-                    //Assert.AreEqual("Co-Exist field is editable", editValue);
-                    //extentReports.CreateStepLogs("Passed", editValue + "for CAO User on Opportunity detail page. ");
-
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
@@ -268,10 +258,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult1 + " on Engagement detail page. ");
 
-                    //Validate if CAO User is able to edit the CoExist field
-                    //string editEngValue = engagementDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
-                    //Assert.AreEqual("Co-Exist field is editable", editValue);
-                    //extentReports.CreateStepLogs("Passed", editEngValue + " for CAO User on Engagement detail page. ");
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", userCAOExl + " CAO User loggout after converting Opportunity into Engagement");
 
@@ -296,9 +282,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for System Administrator on Opportunity detail page");
                     
-                    //editValue = opportunityDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
-                    //Assert.AreEqual("Co-Exist field is editable", editValue);
-                    //extentReports.CreateStepLogs("Passed", editValue + " for System Administrator on Opportunity detail page");
                     randomPages.CloseActiveTab(opportunityName);
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                     homePageLV.SelectModule(moduleNameExl);

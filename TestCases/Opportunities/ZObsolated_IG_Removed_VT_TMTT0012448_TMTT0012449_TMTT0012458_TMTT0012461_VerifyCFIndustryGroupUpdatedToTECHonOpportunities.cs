@@ -6,13 +6,14 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Opportunity;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.HomePage;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities : BaseClass
+    class ZObsolated_IG_Removed_VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities : BaseClass
     {
+       // ****************** IG Removed from UI *******************
+
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();

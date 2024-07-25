@@ -752,6 +752,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCAandNonGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
@@ -767,6 +768,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0027425_TMTT27427_TMTT27428_TMTT27431_TMTT27434_TMTT27435_TMTT30277_1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
@@ -781,7 +783,7 @@
     <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\Z_Dup_T1432_VT_TMTT0035667_3_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFVALOBOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0012460_TMTT0012462_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage.cs" />
-    <Compile Include="TestCases\Opportunities\VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_IG_Removed_VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
