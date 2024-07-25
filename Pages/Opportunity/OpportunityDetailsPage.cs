@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
+using RazorEngine.Compilation.ImpromptuInterface.Optimization;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -633,6 +634,10 @@ namespace SF_Automation.Pages
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
+        By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
+        By txtPageLevelError = By.XPath("//div[@class='pageLevelErrors']//li");
+        By txtFieldLevelErrors = By.XPath("//div[contains(@class,'fieldLevelErrors')]//li/a");
+
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -7906,7 +7911,47 @@ namespace SF_Automation.Pages
             Thread.Sleep(10000);
         }
 
-        
+        public void EditOpportunityStageLV(string stage)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, ComboStagePriorityL, 20);
+            driver.FindElement(ComboStagePriorityL).Click();
+            By eleStage = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='{stage}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 10);
+            driver.FindElement(eleStage).Click();                        
+        }
+
+        public void ClickSaveEditOpportunityPageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
+            driver.FindElement(btnSaveL).Click();
+        }
+
+        public string GetOppVerballyEngagedValidationErrorsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, popHitaSang, 10);
+            Thread.Sleep(2000);
+            string pageLevelError = driver.FindElement(txtPageLevelError).Text;
+            string formatedpageLevelError = Regex.Replace(pageLevelError, @"\t|\n|\r", "");            
+
+            IList<IWebElement> fieldLevelErrors = driver.FindElements(txtFieldLevelErrors);
+            string formatedFieldLevelErrors = "";
+            foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
+            {
+                string fieldLevelError = txtFieldLevelError.Text;
+                string formatedfieldLevelError = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
+                formatedFieldLevelErrors = formatedFieldLevelErrors + formatedfieldLevelError;
+            }
+
+            string finalErroList = formatedpageLevelError + formatedFieldLevelErrors;
+            driver.FindElement(iconCloseError).Click();
+            return finalErroList;
+        }
     }
 }
 
