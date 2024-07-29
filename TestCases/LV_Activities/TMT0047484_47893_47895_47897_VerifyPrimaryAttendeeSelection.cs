@@ -6,6 +6,7 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using SF_Automation.Pages.Activities;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -20,6 +21,10 @@ namespace SF_Automation.TestCases.LV_Activities
         LVCompaniesActivityDetailPage lvCompaniesActivityDetailPage = new LVCompaniesActivityDetailPage();
         RandomPages randomPages = new RandomPages();
         CompanyDetailsPage companyDetail = new CompanyDetailsPage();
+
+        LV_AddActivity addActivity = new LV_AddActivity();
+        LV_ActivitiesList activitiesList = new LV_ActivitiesList();
+        LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
 
         public static string fileTMT0047484 = "TMT0047484_VerifyPrimaryAttendeeSelection";
         string msgSaveActivity;
@@ -78,15 +83,10 @@ namespace SF_Automation.TestCases.LV_Activities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                 
+                //Search Company
                 CompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
                 lvCompanyDetailsPage.SearchCompanyInLightning(CompanyNameExl);
                 extentReports.CreateStepLogs("Info", " Company: " + CompanyNameExl + " found and selected ");
-                
-                /*
-                lvCompanyDetailsPage.ClickNewCompanyButton();
-                lvCompanyDetailsPage.SelectRecordType("Capital Provider");
-                CompanyNameExl= lvCompanyDetailsPage.SaveCompany();
-                */
 
                 string tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 extentReports.CreateStepLogs("Info", tabNameExl + " tab is available on " + CompanyNameExl + " Company Detail Page. ");
@@ -96,25 +96,19 @@ namespace SF_Automation.TestCases.LV_Activities
                 /////////////////////////////////////////////////////
                 //Crteating new Activity with additional HL Attandee
                 /////////////////////////////////////////////////////
-                lvCompanyDetailsPage.CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(fileTMT0047484);
-                extentReports.CreateStepLogs("Info", " User navigated to Add Activity Detail page ");
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Save");
-                //Get popup message
-                msgSaveActivity = lvCompaniesActivityDetailPage.GetLVMessagePopup();
-                msgSaveActivityExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SaveActivityPopUpMsg", 2, 1);
-                Assert.AreEqual(msgSaveActivityExl, msgSaveActivity);
-                extentReports.CreateStepLogs("Passed", "Message: " + msgSaveActivity + "is Displayed for Required fields ");
-                lvCompanyDetailsPage.RefreshActivitiesList();
+                string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 2);
+                int beforeCount = activitiesList.GetActivityCount();
 
-                lvCompanyDetailsPage.ClickActivityViewOption();
-                extentReports.CreateStepLogs("Info", "User clicked on View option from Activities List and redirected Activity Detail Page ");
-                lvCompaniesActivityDetailPage.ClickActivityDetailPageButton("Edit");
-                extentReports.CreateStepLogs("Info", "Activity Details page is Enabled after clicking on Edit button ");
-                
+                lvCompanyDetailsPage.CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(fileTMT0047484);
+                lvCompaniesActivityDetailPage.CloseTab("View Activity");
+                Assert.IsTrue(activitiesList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
+                extentReports.CreateStepLogs("Passed", "Activity created successfully with additional HL Attandee.");
+
                 //TMT0047484 Verify that if the non-primary attendee removed the primary attendee while editing the activity, the next available activity attendee will become the primary attendee by default.
 
                 string addHLAttandee = ReadExcelData.ReadData(excelPath, "Activity", 8);
-                string primayContact=lvCompaniesActivityDetailPage.GetPrimaryHlAttandeeHLAttandee();
+                activitiesList.ViewActivityFromList(subject);
+                string primayContact =lvCompaniesActivityDetailPage.GetPrimaryHlAttandeeHLAttandee();
                 extentReports.CreateStepLogs("Info", "Default Primay Contact: "+ primayContact);
                 lvCompaniesActivityDetailPage.RemovePrimaryContact(primayContact);
                 extentReports.CreateStepLogs("Info", "Primary Contact: " + primayContact+" is removed ");

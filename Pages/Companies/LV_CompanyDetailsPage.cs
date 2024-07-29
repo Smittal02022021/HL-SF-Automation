@@ -802,7 +802,7 @@ namespace SF_Automation.Pages.Companies
             DateTime currentDate = DateTime.Today;
             DateTime setDate = currentDate.AddDays(2);
             driver.FindElement(txtDate).Clear();
-            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("dd-MMM-yyyy"));
             Thread.Sleep(2000);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
@@ -921,7 +921,16 @@ namespace SF_Automation.Pages.Companies
             By campDiscussed = By.XPath($"//div[@data-name='{campaignsDiscussed}']");
             CustomFunctions.MoveToElement(driver, driver.FindElement(campDiscussed));
             driver.FindElement(campDiscussed).Click();
-            Thread.Sleep(1000);
+
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            WebDriverWaits.WaitUntilClickable(driver, btnSave, 60);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
         }
 
         By _eleActivityListFields(string fieldName)

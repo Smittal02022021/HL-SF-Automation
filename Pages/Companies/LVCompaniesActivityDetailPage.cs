@@ -250,7 +250,9 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, areaFollowuoComments);
             areaFollowuoComments.SendKeys(commentsFollowup);
         }
-        By chckPrimarySelection = By.XPath("//lightning-input[@data-class='primaryCheck']");
+
+        By chckPrimarySelection = By.XPath("//lightning-input[@data-class='primaryCheckInternal']");
+
         public string GetPrimaryHlAttandeeHLAttandee()
         {
             string contactName="";
@@ -258,9 +260,9 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(chckPrimarySelection));
             for (int recordIndex = 1; recordIndex <= recordCount; recordIndex++)
             {
-                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
+                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheckInternal'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
                 {
-                    contactName = driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//ancestor::header//h2//span")).Text;
+                    contactName = driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheckInternal'])[{recordIndex}]//ancestor::header//h2//span")).Text;
                     break;
                 }
             }
