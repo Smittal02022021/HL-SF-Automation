@@ -202,9 +202,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 ////-----Update Sector, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
+
+                // need to correct code for sector 
                 string updSector = ReadExcelData.ReadData(excelPath, "DFFUpdates", 8);                
                 opportunityDetails.UpdateHLSectorIDLV(updSector);
-                
+
                 string sector = randomPages.GetHLSectorIDLV();
                 string sectorCombo = randomPages.GetHLSectorComboLV();
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
@@ -315,7 +317,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedClient + " Old: "+ ERPResSector);
 
                 string ERPStatusClient = randomPages.GetERPLastIntegrationStatusLV();
-                Assert.AreEqual("Success", ERPStatusClient);// need to uncomment
+                Assert.AreEqual("Success", ERPStatusClient);
                 extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
 
                 string ERPResClient = randomPages.GetERPLastIntegrationResponseDateLV();
@@ -345,7 +347,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Submitted to Sync New: " + ERPSubmittedLOB + " Old: "+ ERPSubmittedClient);
 
                 string ERPStatusLOB = randomPages.GetERPLastIntegrationStatusLV();
-                Assert.AreEqual("Success", ERPStatusLOB); // need to uncomment
+                Assert.AreEqual("Success", ERPStatusLOB); 
                 extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();

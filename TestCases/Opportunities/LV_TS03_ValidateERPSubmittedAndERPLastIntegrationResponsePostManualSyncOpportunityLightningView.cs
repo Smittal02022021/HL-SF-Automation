@@ -100,11 +100,11 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Opportunity ERP Submitted to Sync : " + ERPSubmittedPostSync + " is updated post scheduling ERP sync ");
 
                 string ERPResDatePostSync = randomPages.GetERPLastIntegrationResponseDateLV();
-                //Assert.AreNotEqual(ERPResDate, ERPResDatePostSync); ERP not working
+                Assert.AreNotEqual(ERPResDate, ERPResDatePostSync); //ERP not working
                 extentReports.CreateLog("****Assersion Pending:: ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
 
                 string ERPStatusPostSync = randomPages.GetERPLastIntegrationStatusLV();
-                //Assert.AreEqual("Success", ERPStatusPostSync); ERP not working
+                Assert.AreEqual("Success", ERPStatusPostSync); //ERP not working
                 extentReports.CreateLog("****Opportunity Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
 
                 randomPages.CloseActiveTab(oppName);

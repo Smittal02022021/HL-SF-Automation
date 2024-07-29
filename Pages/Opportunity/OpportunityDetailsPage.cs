@@ -7841,6 +7841,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearHLSectionL, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblIBL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblIBL));
             Thread.Sleep(2000);
             driver.FindElement(btnClearHLSectionL).Click();
@@ -7922,7 +7923,11 @@ namespace SF_Automation.Pages
             driver.FindElement(ComboStagePriorityL).Click();
             By eleStage = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='{stage}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 10);
-            driver.FindElement(eleStage).Click();                        
+            driver.FindElement(eleStage).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(15000);
         }
 
         public void ClickSaveEditOpportunityPageLV()
@@ -7930,6 +7935,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
+            //Thread.Sleep(10000);
         }
 
         public string GetOppVerballyEngagedValidationErrorsLV()
@@ -7952,6 +7958,58 @@ namespace SF_Automation.Pages
             driver.FindElement(iconCloseError).Click();
             return finalErroList;
         }
+
+        public void EnterVerballyEngagedRequiredFieldsLV(string jobType, string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valJobType = jobType;
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(2000);
+
+            //Opportunity Description
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            driver.FindElement(txtOppDescL2).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Contingent Fee/
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblFeeNotesDes));
+            driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            // EBITDA(MM)
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+            if (valJobType == "Sellside"|| valJobType== "Buyside")
+            {
+                driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+                //Thread.Sleep(2000);
+            }
+
+            //Estimated Close Date & Est. Transaction Size / Market Cap (MM)
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
+
+            //WomenLed
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
+        }
+
+        By valStageL = By.XPath("//span[contains(@class,'field-label')][text()='Stage/Priority']/../../..//lightning-formatted-text");
+        public string GetStageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valStageL, 20);
+            Thread.Sleep(2000);
+            string stage = driver.FindElement(valStageL).Text;
+            return stage;
+        }
+       
     }
 }
 
