@@ -52,7 +52,7 @@ namespace SF_Automation.Pages.Contact
         By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
 
         //Quick Links
-        By quickLinksShowAll = By.XPath("(//a[contains(text(),'Show All')])[2]");
+        By quickLinksShowAll = By.XPath("(//a[contains(text(),'Show All')])[1]");
         By linkHLRelationships = By.XPath("((//*[text()='Related List Quick Links'])[2]/following::ul/li//a)[1]");
         By linkIndustryFocus = By.XPath("(//span[contains(text(),'Industry Focus')]/../..)[1]");
         By linkOpportunityContacts = By.XPath("(//span[contains(text(),'Opportunity Contacts')]/../..)[1]");
@@ -465,7 +465,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(2000);
 
             //Get no of quick links
-            int linkCount = driver.FindElements(By.XPath("(//*[text()='Related List Quick Links'])[2]/following::ul/li//slot")).Count;
+            int linkCount = driver.FindElements(By.XPath("(//*[text()='Related List Quick Links'])[1]/following::ul/li//slot")).Count;
 
             //Get the count from excel
             int excelLinkCount = ReadExcelData.GetRowCount(excelPath,"QuickLinks");
@@ -475,7 +475,7 @@ namespace SF_Automation.Pages.Contact
                 string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath,"QuickLinks",i,1);
                 for(int j=1;j<=linkCount;j++)
                 {
-                    string linkName = driver.FindElement(By.XPath($"((//*[text()='Related List Quick Links'])[2]/following::ul/li//slot)[{j}]")).Text;
+                    string linkName = driver.FindElement(By.XPath($"((//*[text()='Related List Quick Links'])[1]/following::ul/li//slot)[{j}]")).Text;
                     if(linkName.Contains(excelLinkName))
                     {
                         result = true;
@@ -489,6 +489,11 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser()
         {
+            //Scroll to the bottom of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             bool result = false;
             if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
             {
@@ -1467,6 +1472,11 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             //Cick on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
@@ -1481,7 +1491,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilClickable(driver, inputCompanyName, 120);
             driver.FindElement(inputCompanyName).SendKeys(newCompany);
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//span[contains(@title,'ActivityCompany')]/following::ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(By.XPath("//input[@placeholder='Search Companies...']/following::div[2]/ul/li/lightning-base-combobox-item")).Click();
             Thread.Sleep(2000);
 
             //Click on Save button

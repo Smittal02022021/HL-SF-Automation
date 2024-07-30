@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "All the quick links are displayed as expected for System Admin user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser());
-                extentReports.CreateStepLogs("Passed", "External contact have Details, Related and News tabs displayed at the top for System Admin user. ");
+                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History and Summary tabs displayed at the top for System Admin user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForSysAdminUser());
                 extentReports.CreateStepLogs("Passed", "External contact have Edit, Add Relationship L, Delete and Printable View buttons displayed at the top for System Admin user. ");
