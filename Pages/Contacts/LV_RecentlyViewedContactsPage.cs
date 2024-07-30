@@ -16,6 +16,7 @@ namespace SF_Automation.Pages.Contact
         By lblTabTitle = By.XPath("(//span[@class='title slds-truncate'])[1]");
         By btnSelectListView = By.XPath("//button[@title='Select a List View: Contacts']");
         By linkContactsTab = By.XPath("//a[@title='Contacts']");
+        By nextButton = By.XPath("//span[text()='Next']/..");
                 
         public void NavigateToCreateNewContactPage()
         {
@@ -24,6 +25,28 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(8000);
             string tabName = driver.FindElement(lblTabTitle).Text;
             Assert.IsTrue(tabName == "New Contact");
+        }
+
+        public void NavigateToContactTypeSelectionPage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewContact, 120);
+            driver.FindElement(btnNewContact).Click();
+            Thread.Sleep(3000);
+        }
+
+        public void ClickNextButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, nextButton, 120);
+            driver.FindElement(nextButton).Click();
+            Thread.Sleep(3000);
+        }
+
+        public void SelectContactType(string type)
+        {
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"(//span[text()='{type}']/../span)[1]")).Click();
+            Thread.Sleep(2000);
+            ClickNextButton();
         }
 
         public void ChangeContactListView(string viewName)

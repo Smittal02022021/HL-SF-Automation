@@ -7,6 +7,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -42,6 +43,12 @@ namespace SF_Automation.TestCases.Contact
                 Console.WriteLine(excelPath);
 
                 string adminUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
+                string compName = ReadExcelData.ReadData(excelPath, "Contact", 1);
+                string firstName = ReadExcelData.ReadData(excelPath, "Contact", 2);
+                string lastName = ReadExcelData.ReadData(excelPath, "Contact", 3);
+                string email = ReadExcelData.ReadData(excelPath, "Contact", 4);
+                string PhnNo = ReadExcelData.ReadData(excelPath, "Contact", 5);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -53,22 +60,6 @@ namespace SF_Automation.TestCases.Contact
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-
-                //Search SF Admin user by global search
-                homePage.SearchUserByGlobalSearch(fileTC1048, adminUser);
-                extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
-
-                //Login user
-                usersLogin.LoginAsSelectedUser();
-
-                //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
-                }
-
-                extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
 
                 int rowUserType = ReadExcelData.GetRowCount(excelPath, "UsersType");
                 for (int row = 2; row <= rowUserType; row++)
@@ -91,6 +82,31 @@ namespace SF_Automation.TestCases.Contact
                         string HRUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
                         Assert.AreEqual(HRUserExl.Contains(HRUser), true);
                         extentReports.CreateLog("HR User: " + HRUser + " is able to login ");
+
+                        //Switch to lightning view
+                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                        {
+                            homePage.SwitchToLightningView();
+                            extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                        }
+                    }
+                    else
+                    {
+                        //Search SF Admin user by global search
+                        homePage.SearchUserByGlobalSearch(fileTC1048, adminUser);
+                        extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
+
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+
+                        //Switch to lightning view
+                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                        {
+                            homePage.SwitchToLightningView();
+                            extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                        }
+
+                        extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
                     }
 
                     //Navigate to Contacts page
@@ -98,142 +114,77 @@ namespace SF_Automation.TestCases.Contact
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);
                     extentReports.CreateStepLogs("Passed", "User navigated to contacts list page. ");
 
-                    /*
-                    // Calling select record type and click continue function
+                    //Select Contact type and click continue
+                    lvRecentlyViewContact.NavigateToContactTypeSelectionPage();
+                    extentReports.CreateStepLogs("Info", "User navigated to contacts type selection page. ");
+                    
                     string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
-                    //conSelectRecord.SelectContactRecordType(fileTC1048, contactType);
-                    extentReports.CreateLog("user navigate to create contact page upon click of continue button ");
+                    lvRecentlyViewContact.SelectContactType(contactType);
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact: Houlihan Employee | Salesforce"), true);
+                    extentReports.CreateStepLogs("Passed", "User selected contact type as :" + contactType + ".");
 
                     //Validate FirstName, LastName and CompanyName display with red flag as mandatory fields
-                    //Assert.IsTrue(createContact.ValidateMandatoryFields(), "Validate Mandatory fields");
-                    extentReports.CreateLog("Validated FirstName, LastName and CompanyName displayed with red flag as mandatory fields ");
+                    Assert.IsTrue(lvCreateContact.ValidateMandatoryFields(), "Validate Mandatory fields");
+                    extentReports.CreateStepLogs("Passed", "Validated FirstName, LastName and CompanyName displayed with red flag as mandatory fields ");
 
                     //Calling click save button function
-                    //createContact.ClickSaveButton();
+                    lvCreateContact.ClickSaveButton();
 
                     //Validation of company error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company Name").Text.Contains("Error: You must enter a value"));
-                    extentReports.CreateLog("Company name error message displayed upon click of save button without entering details ");
+                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company Name").Text.Contains("You must enter a value"));
+                    extentReports.CreateStepLogs("Passed", "Company name error message displayed upon click of save button without entering details ");
 
                     //Validation of first name error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "First Name").Text.Contains("Error: You must enter a value"));
-                    extentReports.CreateLog("First name error message displayed upon click of save button without entering details ");
+                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "First Name").Text.Contains("You must enter a value"));
+                    extentReports.CreateStepLogs("Passed", "First name error message displayed upon click of save button without entering details ");
 
                     //Validation of last name error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Last Name").Text.Contains("Error: You must enter a value"));
-                    extentReports.CreateLog("Last name error message displayed upon click of save button without entering details ");
+                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Last Name").Text.Contains("You must enter a value"));
+                    extentReports.CreateStepLogs("Passed", "Last name error message displayed upon click of save button without entering details ");
 
-                    // Calling CreateContact function to create new HL contact
-                    //createContact.CreateContact(fileTC1048, row);
-                    extentReports.CreateLog("Houlihan Employee created ");
+                    //Create New HL Contact
+                    lvCreateContact.CreateNewContact(fileTC1048);
+                    driver.SwitchTo().DefaultContent();
+
+                    //Assertion to validate contact name displayed on the contacts detail page
+                    string extContactName = lvContactDetails.GetExternalContactName();
+                    Assert.AreEqual(extContactFullName, extContactName);
+                    extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
 
                     // Assertion to validate the company name selected display on contact details page
-                    //string companyName = contactDetails.GetCompanyName();
-                    string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1);
-                    //Assert.AreEqual(companyNameExl, companyName);
-                    //extentReports.CreateLog("Company Name: " + companyName + " in add contact page matches on contact details page");
-
-                    // Assertion to validate the contact first and last name selected display on contact details page
-                    string firstNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2);
-                    string lastNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 3);
-                    //string completeName = contactDetails.GetFirstAndLastName();
-                    //Assert.AreEqual(firstNameExl + " " + lastNameExl, completeName);
-                    //extentReports.CreateLog("First Name and Last Name: " + completeName + " in add contact page matches on contact details page");
+                    string companyName = lvContactDetails.GetCompanyName();
+                    Assert.AreEqual(compName, companyName);
+                    extentReports.CreateStepLogs("Passed", "Company Name: " + companyName + " in add contact page matches on contact details page");
 
                     //Assertion to validate contact record type
-                    string contactRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 7);
-                    string contactRecordType = contactDetails.GetContactRecordTypeValue();
-                    Assert.AreEqual(contactRecordTypeExl, contactRecordType);
-                    extentReports.CreateLog("Validation of contact with Record Type " + contactRecordType + " created with detailed information" +
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
+                    extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
                         " ,Contact Record type is displayed under system information section ");
 
                     if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
-                        //Verify Validation message is dispalying when HR user tries to edit employee currency
-                        // contactEdit.EditContact(fileTC1048, 2, 2);
-                        contactEdit.VerifyEmployeeCurrencyValidation("AUD - Australian Dollar");
-                        contactEdit.ClickSaveBtn();
-                        String errMessage1 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Only system administrators can change employee currency", errMessage1);
-                        extentReports.CreateLog("Error message: " + errMessage1 + " is displaying when HR user tries to change currency ");
-                        contactEdit.ClickCancelBtn();
+                        //Delete Created Contact
+                        lvContactDetails.DeleteContact();
+                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
-                        //Verify Validation message is dispalying when HR user tries to edit employee Name
-                        contactEdit.VerifyLastNameValidation();
-                        contactEdit.ClickSaveBtn();
-                        String errMessage2 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Only system administrators can change employee name and salutation", errMessage2);
-                        extentReports.CreateLog("Error message: " + errMessage2 + " is displaying when HR user tries to change Name ");
-                        contactEdit.ClickCancelBtn();
-
-                        usersLogin.UserLogOut();
-
-                        //Delete the created contact
-                        conHome.SearchContactMultipleRows(fileTC1048, 3);
-                        contactDetails.DeleteContact();
-                        extentReports.CreateLog("Deletion of Created Contact ");
                     }
                     else
-                    {                        
-                        //Verify error message is displaying when departure date is before the hire date
-                        contactEdit.EditContact(fileTC1048, 2, 2);
-                       
-                        contactEdit.VerifyDepartureDate();
-                        contactEdit.ClickSaveBtn();
-
-                        String errMsg = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Departure Date cannot be earlier than Hire Date", errMsg);
-                        extentReports.CreateLog("Error message: " + errMsg + " is displaying when departure date is before the hire date ");
-                        contactEdit.VerifyDepartureDateforInactiveEmployee();
-                        
-                        contactEdit.ClickSaveBtn();
-
-                        //Verify error message is displaying when departure date is not provided for inactive employee
-                        string errMsg1 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Departure Date is required for Inactive employees hired after 1/1/2009", errMsg1);
-                        extentReports.CreateLog("Error message: " + errMsg1 + " is displaying when departure date is required for inactive employees");
-
-                        contactEdit.ClickCancelBtn();
-
-                        //Verify error message for Industry group when LOB is CF
-                        contactEdit.VerifyIndustryGroupValidation();
-                        contactEdit.ClickSaveBtn();
-
-                        string errMsg2 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Industry Group must be selected when LOB is CF", errMsg2);
-                        extentReports.CreateLog("Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
-                        
-                        //Verify PDC Validation when primary PDC is null
-                        contactEdit.ClickCancelBtn();
-                        contactEdit.VerifyPrimaryPDCValidation();
-                        contactEdit.ClickSaveBtn();
-
-                        string errMsg3 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
-                        extentReports.CreateLog("Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
-
-                        contactEdit.ClickCancelBtn();
-                        
-                        //Verify error message is displaying when flag reason comment is not provided
-                        contactEdit.VerifyFlagReasonValidation("Contact Has Left Company");
-                        contactEdit.ClickSaveBtn();
-                        string errMessage = contactEdit.TxtErrorMessageDepartureDate();
-                        contactEdit.ClickCancelBtn();
-                        
-                        Assert.AreEqual("Error: Please provide additional information for selected Flag Reason.", errMessage);
-                        extentReports.CreateLog("Error message: " + errMessage + " is displaying when flag reason is not selected");
-
-                        contactDetails.DeleteCreatedContact(fileTC1048, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
-                        extentReports.CreateLog("Deletion of Created Contact ");
-                    
+                    {
+                        //Delete Created Contact
+                        lvContactDetails.DeleteContact();
+                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
                     }
-                    */
+
+                    //Logout from SF Lightning View
+                    lvHomePage.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
                 }
 
                 usersLogin.UserLogOut();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
+
                 driver.Quit();
             }
-
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
