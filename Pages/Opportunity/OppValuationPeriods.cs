@@ -71,7 +71,9 @@ namespace SF_Automation.Pages.Opportunity
 
        
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
-        By txtNameL = By.XPath("//input[contains(@id,'j_id30')]");
+        By txtNameL = By.XPath("//input[contains(@id,'id33')]");
+        By txtName2L = By.XPath("//input[contains(@id,'id30')]");
+
         By txtEditNameL = By.XPath("//label[text()='Position Name']/ancestor::tr/td[1]//input");
         By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
         By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
@@ -637,7 +639,26 @@ namespace SF_Automation.Pages.Opportunity
             driver.SwitchTo().Frame(0);
             Thread.Sleep(5000);
               
-            driver.FindElement(txtNameL).SendKeys(name);            
+            driver.FindElement(txtName2L).SendKeys(name);            
+            driver.FindElement(lnkValDateL).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valNameL).Text;
+            return value;
+        }
+
+        //Enter all details and save it.
+        public string EnterAndSaveOppValuationPeriodDetailsL2nd(string name)
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtNameL).SendKeys(name);
             driver.FindElement(lnkValDateL).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);

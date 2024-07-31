@@ -28,8 +28,8 @@ namespace SF_Automation.Pages
         By btnAdditionalClientL = By.XPath("//button[@aria-label='Additional Client']");
         By btnAdditionalSubjectL = By.XPath("//button[@aria-label='Additional Subject']");
 
-        By valAdditionalClientL = By.XPath("//flexipage-tab2[5]//flexipage-column2[1]//lightning-base-combobox-item[2]/span[2]/span");
-        By valAdditionalSubjectL = By.XPath("//flexipage-tab2[5]//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span");
+        By valAdditionalClientL = By.XPath("//flexipage-tab2[5]//flexipage-column2[1]//lightning-base-combobox-item//span[text()='Yes']");
+        By valAdditionalSubjectL = By.XPath("//flexipage-tab2[5]//flexipage-column2[2]//lightning-base-combobox-item//span[text()='Yes']");
 
 
         By valOpportunity = By.XPath("//div[contains(@id,'Name')]");
@@ -383,6 +383,7 @@ namespace SF_Automation.Pages
 
         By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
+        By tabInfo = By.XPath("//a[text()='Info']");
         By tabAdmin = By.XPath("//a[text()='Administration']");
         By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Opportunity Name']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
@@ -1182,15 +1183,16 @@ public void ClickNewOpportunitySectorButton()
 
         //To Click Mass Edit Records button button
         public string ClickMassEditRecordsButtonLightning()
-        {          
+        {
+                Thread.Sleep(6000);
                 driver.FindElement(btnMassEditRecordsL).Click();
                 Thread.Sleep(5000);
                 driver.SwitchTo().Frame(0);
-                WebDriverWaits.WaitUntilEleVisible(driver, titleMassEditPageL, 120);
+                Thread.Sleep(5000);
                 string name = driver.FindElement(titleMassEditPageL).Text;
                 return name;
-            }
-            //Get Opportunity Number
+         }
+         //Get Opportunity Number
             public string GetOppNumber()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppNum);
@@ -4180,19 +4182,31 @@ public void ClickNewOpportunitySectorButton()
         }
 
         //To update Additional Client and Additional Subject 
-        public void UpdateAdditionalClientAndSubjectL()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditClientL, 80);
+        public string UpdateAdditionalClientL()
+        {            
             driver.FindElement(btnEditClientL).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnAdditionalClientL).Click();
             driver.FindElement(valAdditionalClientL).Click();
+            Thread.Sleep(5000);           
+            driver.FindElement(btnSaveDetailsL).Click();
+            string name = driver.FindElement(secReferralInfo).Text;
+            return name;
+        }
+        //To update Additional Client and Additional Subject 
+        public string UpdateAdditionalSubjectL()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditClientL).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnAdditionalSubjectL).Click();
-            driver.FindElement(valAdditionalClientL).Click();
+            driver.FindElement(valAdditionalSubjectL).Click();
+            Thread.Sleep(5000);          
             driver.FindElement(btnSaveDetailsL).Click();
+            string name = driver.FindElement(secReferralInfo).Text;
+            return name;
         }
-
+        
         //To update Additional Client and Additional Subject 
         public void UpdateAdditionalClientandSubject()
         {

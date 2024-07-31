@@ -49,7 +49,6 @@ namespace SF_Automation.Pages
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
         By valSearchedEng1 = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/div");
-        By titleEngDetails = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//div");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
@@ -577,8 +576,8 @@ namespace SF_Automation.Pages
         //Validate Engagement details page upon clicking Engagement Name
         public string ClickEngNumAndValidateThePage()
         {            
-            WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetails, 170);
-            string title = driver.FindElement(titleEngDetails).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetailsL, 170);
+            string title = driver.FindElement(titleEngDetailsL).Text;
             return title;
         }
 

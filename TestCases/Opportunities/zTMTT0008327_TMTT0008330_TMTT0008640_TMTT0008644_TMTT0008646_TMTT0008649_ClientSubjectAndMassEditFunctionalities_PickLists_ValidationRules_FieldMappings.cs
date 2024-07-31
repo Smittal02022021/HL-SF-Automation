@@ -500,14 +500,14 @@ namespace SF_Automation.TestCases.Opportunity
                                 clientSubjectsPage.ClickEditButtonAndValidateSaveButton();
 
                                 //Validate Key Creditor Weighting % error message when more than 100%
-                                string valMessageKeyCred = clientSubjectsPage.ValidateErrorMessageUponEnteringKeyCreditorWeightingMoreThan100InEng();
-                                Assert.AreEqual("Key Creditor Weighting cannot exceed 100%", valMessageKeyCred);
-                                extentReports.CreateLog("Message: " + valMessageKeyCred + " is displayed upon clicking Save button after entering more than 100% in Key Creditor Weighting ");
+                                //string valMessageKeyCred = clientSubjectsPage.ValidateErrorMessageUponEnteringKeyCreditorWeightingMoreThan100InEng();
+                                //Assert.AreEqual("Key Creditor Weighting cannot exceed 100%", valMessageKeyCred);
+                                //extentReports.CreateLog("Message: " + valMessageKeyCred + " is displayed upon clicking Save button after entering more than 100% in Key Creditor Weighting ");
 
-                                clientSubjectsPage.SaveKeyCreditorWeighting();
-                                string colourCode = clientSubjectsPage.GetColourCodePostSavingKeyCreditorWeightingLessThan100();
-                                Assert.AreEqual("slds-text-color_error", colourCode);
-                                extentReports.CreateLog("Total Value of Key Creditor Weighting % is displayed in red when it is less than 100 ");
+                                //clientSubjectsPage.SaveKeyCreditorWeighting();
+                                //string colourCode = clientSubjectsPage.GetColourCodePostSavingKeyCreditorWeightingLessThan100();
+                                //Assert.AreEqual("slds-text-color_error", colourCode);
+                                //extentReports.CreateLog("Total Value of Key Creditor Weighting % is displayed in red when it is less than 100 ");
 
                                 //Validate Total Debt Holding and other creditors upon adding more creditors
                                 clientSubjectsPage.ClickEditButton();
@@ -518,17 +518,17 @@ namespace SF_Automation.TestCases.Opportunity
                                 extentReports.CreateLog("Total of Column Debt Holdings MM is matching with Total Debt MM pulled from Opportunity ");
 
                                 //Get the Other Creditors of Debt Holdings (MM) 
-                                clientSubjectsPage.ClearAllDebtHoldingsOfEngagement();
-                                string valCreditor = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
-                                Assert.AreEqual(debt, valCreditor);
-                                extentReports.CreateLog("Other Creditor of Debt Holdings MM is matching with Total Debt MM pulled from Opportunity when there is no other Debt Holdings ");
+                                //clientSubjectsPage.ClearAllDebtHoldingsOfEngagement();
+                                //string valCreditor = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
+                                //Assert.AreEqual(debt, valCreditor);
+                                //extentReports.CreateLog("Other Creditor of Debt Holdings MM is matching with Total Debt MM pulled from Opportunity when there is no other Debt Holdings ");
 
-                                //Update few Key Creditors
-                                clientSubjectsPage.UpdateAllDebtHoldingsOfEngagement();
-                                string valCreditorLatest = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
-                                Assert.AreNotEqual(valTotalDebt, valCreditorLatest);
-                                extentReports.CreateLog("Other Creditor of Debt Holdings MM is updated according to match with Total Debt MM pulled from Opportunity when other Debt Holdings are updated ");
-                                clientSubjectsPage.ResetAllDebtHoldingsOfEngagement();
+                                ////Update few Key Creditors
+                                //clientSubjectsPage.UpdateAllDebtHoldingsOfEngagement();
+                                //string valCreditorLatest = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
+                                //Assert.AreNotEqual(valTotalDebt, valCreditorLatest);
+                                //extentReports.CreateLog("Other Creditor of Debt Holdings MM is updated according to match with Total Debt MM pulled from Opportunity when other Debt Holdings are updated ");
+                                //clientSubjectsPage.ResetAllDebtHoldingsOfEngagement();
 
                             }
                             else

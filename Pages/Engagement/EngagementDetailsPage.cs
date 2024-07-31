@@ -286,13 +286,13 @@ namespace SF_Automation.Pages.Engagement
         By tabInfo = By.XPath("//a[@aria-controls='tab-1']");
         By tabInformationL = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabInfoL = By.XPath("//section[2]/div//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]");
-        By subTabDetails = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a");
-        By subTabImpDates = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a");
-        By subTabAdmin = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[3]/a");
-        By subTabClosingInfo = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
-        By subTabCST = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
-        By subTabBilling = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
-        By lnkEditEngName = By.XPath("//section[2]//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
+        By subTabDetails = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a[text()='Details']");
+        By subTabImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a[text()='Important Dates']");
+        By subTabAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[3]/a");
+        By subTabClosingInfo = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
+        By subTabCST = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
+        By subTabBilling = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
         By tabImpDates = By.XPath("//a[text()='Important Dates']");
         By tabInfo2ndL = By.XPath("//a[text()='Info']");
         By valFinalReportL = By.XPath("//flexipage-tab2[2]//flexipage-column2[1]/div/slot/flexipage-field[4]//lightning-formatted-text");
@@ -302,19 +302,19 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox//button");
-        By valClientOwnershipAfter = By.XPath("//section[2]//flexipage-component2//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[3]//slot[1]/lightning-formatted-text");
+        By valClientOwnershipAfter = By.XPath("//flexipage-component2//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[3]//slot[1]/lightning-formatted-text");
         By lnkImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2//flexipage-column2[1]//flexipage-field[1]/slot//dd/div[1]/button");
         By txtEstMktDate = By.XPath("//input[@name='Expected_In_Market_Date__c']");
-        By valEstMktDate = By.XPath("//flexipage-tab2[2]//flexipage-column2[1]/div/slot/flexipage-field[2]//lightning-formatted-text");
+        By valEstMktDate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Expected_In_Market_Date__c']//lightning-formatted-text");
         By lnkAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
         By lnkEditAccStatus = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[1]//flexipage-column2[1]/div/slot/flexipage-field[2]/slot//button/span[1]");
         By txtDealCloudID = By.XPath("//input[@name='Legacy_SLX_ID__c']");
         By valDealCloudIDPostUpdate = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[1]//flexipage-column2[1]/div/slot/flexipage-field[5]/slot//lightning-formatted-text");
-        By lnkEditIntDeal = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[2]//flexipage-column2[1]/div/slot/flexipage-field[1]/slot//button/span[1]");
+        By lnkEditIntDeal = By.XPath("//button[@title='Edit Internal Deal Announcement']");
         By btnIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]/div//button");
-        By valIntDeal = By.XPath("//section[2]//flexipage-tab2[1]/slot//flexipage-component2[2]/slot//flexipage-column2[1]//lightning-base-combobox-item[3]/span[2]/span");
-        By valIntDealPostUpdate = By.XPath("//flexipage-tab2[4]/slot/flexipage-component2[2]//flexipage-column2[1]//flexipage-field[1]//slot[1]/lightning-formatted-text");
+        By valIntDeal = By.XPath("//flexipage-tab2[1]/slot//flexipage-component2[2]/slot//flexipage-column2[1]//lightning-base-combobox-item[3]/span[2]/span");
+        By valIntDealPostUpdate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Internal_Announcement__c']//slot[1]/lightning-formatted-text");
         By lnkEditCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/button");
         By btnCST = By.XPath("//button[@aria-label='CST Questionnaire, --None--']");
         By valCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]");
@@ -746,6 +746,8 @@ namespace SF_Automation.Pages.Engagement
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnEditEngL = By.XPath("//ul//li[contains(@data-target-selection-name,'Button.Engagement')]//button[@name='Edit']");
+        By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
+        By lnkEngClientSubL = By.XPath("//span[text()='Engagement']/ancestor::div/dd/div[1]//force-lookup//records-hoverable-link");
 
         By txtAssociatedEngLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']");
         By editAssociatedEngField = By.XPath("//input[@name='CF00N6e00000MfcTw']");
@@ -3785,6 +3787,39 @@ namespace SF_Automation.Pages.Engagement
                 return type;
             }
         }
+
+        public string ValidateEngAdditionalSubjectFromPopUpL(string jobType, string name, string value)
+        {//added accupac for 8330
+            if (jobType.Equals("Creditor Advisors") && name.Equals("Accupac"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 200);
+                driver.FindElement(lnkShowMore).Click();
+                Thread.Sleep(8000);
+                string value1 = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
+                string type = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']/ancestor::th/following-sibling::td[1]")).Text;
+                return type;
+            }            
+            //else if (jobType.Equals("Debtor Advisors") && name.Equals("2Agriculture") || jobType.Equals("Debtor Advisors") && name.Equals("ABC"))
+            //{
+            //    WebDriverWaits.WaitUntilEleVisible(driver, lnkShowMore, 150);
+            //    driver.FindElement(lnkShowMore).Click();
+            //    Thread.Sleep(10000);
+            //    string value1 = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
+            //    string type = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']/ancestor::th/following-sibling::td[1]")).Text;
+            //    return type;
+            //}
+            else
+            {
+                Thread.Sleep(8000);
+                Console.WriteLine("Entered else");
+                string type = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']")).Text;
+                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(tabClientSubject).Click();
+                Thread.Sleep(5000);
+                return type;
+            }
+        }
         //Validate the visibility of New Engagement Client/Subject button
         public string ValidateNewEngClientSubjectButton()
         {
@@ -3852,6 +3887,7 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateUpdatedValuessFromMassEdit(string name)
         {
@@ -3867,6 +3903,40 @@ namespace SF_Automation.Pages.Engagement
                 return "Not required value";
             }
         }
+
+
+        // To validate save functionality of Additional client
+        public string ValidateSaveFunctionalityOfAdditionalClientThruAdditionalClientButtonL(string name, string type, string recordType)
+        {
+            if (type.Equals("Creditor Advisors") && name.Equals("Accupac") || type.Equals("Debtor Advisors") && name.Equals("Accupac"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectL, 80);
+                driver.FindElement(txtClientSubjectL).SendKeys(name);
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
+                driver.FindElement(btnSaveDetailsL).Click();
+                Thread.Sleep(7000);
+                driver.FindElement(lnkEngClientSubL).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(tabClientSubject).Click();
+                Thread.Sleep(5000);
+                string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                return value;
+            }
+            else
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectL, 80);
+                driver.FindElement(txtClientSubjectL).SendKeys(name);
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//strong")).Click();
+                driver.FindElement(btnSaveDetailsL).Click();
+                Thread.Sleep(5000);
+                //driver.FindElement(lnkShowMoreL).Click();
+                //Thread.Sleep(5000);
+                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + recordType + "']/ancestor::records-record-layout-row/slot/records-record-layout-item[1]//dd//a//slot/span/slot")).Text;
+                return value;
+            }
+        }
         //To click on Back To Engagement button
         public string ClickBackToEngButtonAndValidatePageL()
         {
@@ -3879,7 +3949,10 @@ namespace SF_Automation.Pages.Engagement
             //driver.SwitchTo().DefaultContent();
             return name;
         }
-
+        public void SwitchDefaultFrame()
+        {
+            driver.SwitchTo().DefaultContent();
+        }
         //To click on Back To Engagement button
         public string ClickBackToEngButtonAndValidatePage()
         {
@@ -4153,7 +4226,7 @@ namespace SF_Automation.Pages.Engagement
         //Select value from Type dropdown and validate the displayed values
         public string SelectValueFromTypeDropdown(string name)
         {
-            Thread.Sleep(9000);
+            Thread.Sleep(7000);
             driver.FindElement(valType).Click();
             Thread.Sleep(3000);
             if (name.Equals("PE Firm") || name.Equals("Subject"))
@@ -4615,8 +4688,8 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateInfoTab()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(Driver, tabInfoL, 100);
-            string value = driver.FindElement(tabInfoL).Text;
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabInformationL, 100);
+            string value = driver.FindElement(tabInformationL).Text;
             return value;
 
         }
@@ -4692,7 +4765,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateBillingCommentsSubTab()
         {
 
-            WebDriverWaits.WaitUntilEleVisible(Driver, subTabBilling, 100);
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabBilling, 150);
             string value = driver.FindElement(subTabBilling).Text;
             return value;
         }

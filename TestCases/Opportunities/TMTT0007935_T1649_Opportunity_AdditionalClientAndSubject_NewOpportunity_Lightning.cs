@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity_Lightning : BaseClass
+    class TMTT0007935_T1649_Opportunity_AdditionalClientAndSubject_NewOpportunity_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -134,6 +134,16 @@ namespace SF_Automation.TestCases.Opportunity
                         Assert.AreEqual("Key Creditor", typeKey);
                         Assert.AreEqual("Operating Company", recTypeKey);
                         extentReports.CreateLog("Company with name: " + addedKey + " with Type: " + typeKey + " and Record Type as: " + recTypeKey + " is displayed in Additional Clients/Subjects section ");
+
+                        //T1649 -Additional Client and Subject as Yes
+                        string additionalClient =   opportunityDetails.UpdateAdditionalClientL();
+                        Assert.AreEqual("Referral Info", additionalClient);
+                        extentReports.CreateLog("Tab with Additional Client/Subject & Referral is displayed only even when Additional Client is selectded as YES ");
+
+                        string additionalSubject = opportunityDetails.UpdateAdditionalSubjectL();
+                        Assert.AreEqual("Referral Info", additionalSubject);
+                        extentReports.CreateLog("Tab with Additional Client/Subject & Referral is displayed only even when Additional Client is selectded as YES ");
+
                     }
 
                     else
@@ -142,11 +152,13 @@ namespace SF_Automation.TestCases.Opportunity
                         Assert.AreEqual("No new client exists", typeKey);
                         Assert.AreEqual("No new client exists", recTypeKey);
                         extentReports.CreateLog("No company with Key Creditors exists in Additional Clients/Subjects section ");
-                    }                  
+                    }                 
                   
                     usersLogin.DiffLightningLogout();
                     Console.WriteLine("User logged out");
-                }                
+                }    
+                
+
                 usersLogin.UserLogOut();
                 Console.WriteLine("Admin logged out");
                 driver.Quit();                

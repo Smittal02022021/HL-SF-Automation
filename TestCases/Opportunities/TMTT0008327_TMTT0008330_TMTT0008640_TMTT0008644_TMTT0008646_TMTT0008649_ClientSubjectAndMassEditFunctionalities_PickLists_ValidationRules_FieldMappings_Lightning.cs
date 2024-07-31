@@ -244,35 +244,41 @@ namespace SF_Automation.TestCases.Opportunity
                         string valType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 5);
                         string valClient = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowCon, 4);
                         opportunityDetails.SelectClientTypeAndClickNext(valType);
-                        string txtAddedCompany = opportunityDetails.ValidateSaveFunctionalityOfAdditionalClientThruAdditionalClientButtonL(valClient, valJobType, valType);
-                        extentReports.CreateLog("Details are saved in Opportunity Client/Subject page ");
+                        string txtAddedCompany = engagementDetails.ValidateSaveFunctionalityOfAdditionalClientThruAdditionalClientButtonL(valClient, valJobType, valType);
+                        extentReports.CreateLog("Details are saved in Engagement Client/Subject page ");
 
                         string clientValue = ReadExcelData.ReadData(excelPath, "AddOpportunity", 27);
-                                                
+
                         //Validate the added rows under Additional Clients/Subjects section
                         if (valJobType.Equals("Creditor Advisors") && valClient.Equals("Accupac"))
                         {
-                            string txtAddedType = clientSubjectsPage.GetTypeOfEngAdditionalClientWithAllOption();
+                            string txtAddedType = opportunityDetails.GetTypeOfAdditionalClientL(valType);
                             Assert.AreEqual(valClient, txtAddedCompany);
                             Assert.AreEqual("Client", txtAddedType);
-                            extentReports.CreateLog("Company with name : " + txtAddedCompany + " with Type: " + txtAddedType + " is displayed in the table on Additional Clients/Subjects page ");
-                            string addedKeyCreditor = clientSubjectsPage.GetCompanyNameOfEngKeyCreditor();
-                            string typeKeyCre = clientSubjectsPage.GetTypeOfEngKeyCreditor();
+                            extentReports.CreateLog("Company with name : " + txtAddedCompany + " with Type: " + txtAddedType + " is displayed under Additional Clients/Subjects section in Engagement Details page ");
+                            string addedKeyCreditor = opportunityDetails.GetAddedCompanyNameL(valClient);
+                            string typeKeyCre = opportunityDetails.GetTypeOfAdditionalKeyCreditor();
                             Assert.AreEqual(valClient, addedKeyCreditor);
                             Assert.AreEqual("Key Creditor", typeKeyCre);
-                            extentReports.CreateLog("Company with name: " + addedKeyCreditor + " with Type: " + typeKeyCre + " is displayed in the table on Additional Clients/Subjects page ");
+                            extentReports.CreateLog("Company with name: " + addedKeyCreditor + " with Type: " + typeKeyCre + " is displayed in Additional Clients/Subjects section ");
 
                             //Validate Delete functionality
-                            engagementDetails.ClickMassEditRecordsButton();
+                            engagementDetails.ClickMassEditRecordsButtonLightning();
                             string delMessage = clientSubjectsPage.ValidateDeleteRecordsFunctionalityOfMassEdit();
                             Assert.AreEqual("Record is deleted successfully", delMessage);
                             extentReports.CreateLog(delMessage + " upon selecting a record and clicking Delete Records button ");
-                       
-                         }
-
+                        }
+                        else if (valJobType.Equals("Debtor Advisors") && valClient.Equals("Accupac"))
+                        {
+                            string txtAddedType = opportunityDetails.GetTypeOfAdditionalClientL(valType);
+                            Assert.AreEqual(valClient, txtAddedCompany);
+                            Assert.AreEqual("Client", txtAddedType);
+                            extentReports.CreateLog("Company with name : " + txtAddedCompany + " with Type: " + txtAddedType + " is displayed under Additional Clients/Subjects section in Engagement Details page ");
+                            engagementDetails.ClickMassEditRecordsButtonLightning();
+                        }
                         else
                         {
-                            string additionalClient = engagementDetails.ValidateEngAdditionalSubjectFromPopUp(valClient, valJobType);
+                            string additionalClient = engagementDetails.ValidateEngAdditionalSubjectFromPopUpL(valJobType, valClient, valType);
                             Console.WriteLine(additionalClient);
                             if (valClient.Equals("Allied Capital Corporation"))
                             {
@@ -295,11 +301,11 @@ namespace SF_Automation.TestCases.Opportunity
                                 extentReports.CreateLog("New company: " + valClient + " for " + additionalClient + " only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
                             }
                             else if (valClient.Equals("2Agriculture"))
-                            {                                
+                            {
                                 Assert.AreEqual("Subject", additionalClient);
                                 extentReports.CreateLog("Company with name : " + valClient + " with Type: " + additionalClient + " is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
                             }
-                            else if (valClient.Equals("Bel Pastry Inc.")) 
+                            else if (valClient.Equals("Bel Pastry Inc."))
                             {
                                 Assert.AreEqual("Counterparty", additionalClient);
                                 extentReports.CreateLog("Company with name : " + valClient + " with Type: " + additionalClient + " is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
@@ -314,7 +320,7 @@ namespace SF_Automation.TestCases.Opportunity
                                 Assert.AreEqual("Key Creditor", additionalClient);
                                 extentReports.CreateLog("New company: " + valClient + " for " + additionalClient + " only is displayed in Additional Clients/Subjects section upon adding Client from Additional Clients/Subjects pop up for " + valJobType + " ");
                             }
-                            engagementDetails.ClickMassEditRecordsButton();
+                            opportunityDetails.ClickMassEditRecordsButtonLightning();
                         }
 
                         //Validate Edit button
@@ -347,8 +353,7 @@ namespace SF_Automation.TestCases.Opportunity
                         }
                         else
                         {
-                            Assert.AreEqual(valClient, displayedComp);
-                            
+                            Assert.AreEqual(valClient, displayedComp);                            
                             Assert.AreEqual(valType, displayedType);
                             extentReports.CreateLog("Company with name : " + displayedComp + " with Type: " + displayedType + " is displayed in the table upon selecting value: " + type + " in Type dropdown ");
                         }
@@ -447,7 +452,7 @@ namespace SF_Automation.TestCases.Opportunity
                                 Console.WriteLine("No need to validate picklist ");
                             }
                             //Validate Cancel functionality
-                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEditOfEngagement(clientValue, type);
+                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEditOfEngagementL(clientValue, type,valClient);
                             if (valType.Equals("Client") || valType.Equals("Key Creditor"))
                             {
                                 Assert.AreEqual("0.0 %", clientHoldingPer);
@@ -464,7 +469,7 @@ namespace SF_Automation.TestCases.Opportunity
                             extentReports.CreateLog("Button with name : " + btnSave1 + " is displayed again upon clicking Edit button ");
 
                             //Validate Save functionality and displayed message                        
-                            string message1 = clientSubjectsPage.ValidateSaveFunctionalityOfMassEditOfEngagement(valJobType, type);
+                            string message1 = clientSubjectsPage.ValidateSaveFunctionalityOfMassEditOfEngagementL(valJobType, type, valClient);
                             Assert.AreEqual("Records updated successful", message1);
                             extentReports.CreateLog("Message: " + message1 + " is displayed upon clicking Save button ");
                         }
@@ -501,11 +506,11 @@ namespace SF_Automation.TestCases.Opportunity
                                 clientSubjectsPage.ClickEditButtonAndValidateSaveButton();
 
                                 //Validate Key Creditor Weighting % error message when more than 100%
-                                string valMessageKeyCred = clientSubjectsPage.ValidateErrorMessageUponEnteringKeyCreditorWeightingMoreThan100InEng();
+                                string valMessageKeyCred = clientSubjectsPage.ValidateErrorMessageUponEnteringKeyCreditorWeightingMoreThan100InEng(valClient);
                                 Assert.AreEqual("Key Creditor Weighting cannot exceed 100%", valMessageKeyCred);
                                 extentReports.CreateLog("Message: " + valMessageKeyCred + " is displayed upon clicking Save button after entering more than 100% in Key Creditor Weighting ");
 
-                                clientSubjectsPage.SaveKeyCreditorWeighting();
+                                clientSubjectsPage.SaveKeyCreditorWeighting(valClient);
                                 string colourCode = clientSubjectsPage.GetColourCodePostSavingKeyCreditorWeightingLessThan100();
                                 Assert.AreEqual("slds-text-color_error", colourCode);
                                 extentReports.CreateLog("Total Value of Key Creditor Weighting % is displayed in red when it is less than 100 ");
@@ -519,17 +524,17 @@ namespace SF_Automation.TestCases.Opportunity
                                 extentReports.CreateLog("Total of Column Debt Holdings MM is matching with Total Debt MM pulled from Opportunity ");
 
                                 //Get the Other Creditors of Debt Holdings (MM) 
-                                clientSubjectsPage.ClearAllDebtHoldingsOfEngagement();
+                                clientSubjectsPage.ClearAllDebtHoldingsOfEngagement(valClient);
                                 string valCreditor = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
                                 Assert.AreEqual(debt, valCreditor);
                                 extentReports.CreateLog("Other Creditor of Debt Holdings MM is matching with Total Debt MM pulled from Opportunity when there is no other Debt Holdings ");
 
                                 //Update few Key Creditors
-                                clientSubjectsPage.UpdateAllDebtHoldingsOfEngagement();
+                                clientSubjectsPage.UpdateAllDebtHoldingsOfEngagement(valClient);
                                 string valCreditorLatest = clientSubjectsPage.GetOtherCreditorsOfDebtHoldingsMM();
                                 Assert.AreNotEqual(valTotalDebt, valCreditorLatest);
                                 extentReports.CreateLog("Other Creditor of Debt Holdings MM is updated according to match with Total Debt MM pulled from Opportunity when other Debt Holdings are updated ");
-                                clientSubjectsPage.ResetAllDebtHoldingsOfEngagement();
+                                clientSubjectsPage.ResetAllDebtHoldingsOfEngagement(valClient);
 
                             }
                             else
@@ -537,10 +542,12 @@ namespace SF_Automation.TestCases.Opportunity
                                 Console.WriteLine("No need to validate validations ");
                             }
                         }
-                        engagementDetails.ClickBackToEngButtonAndValidatePage();
+                        engagementDetails.ClickBackToEngButtonAndValidatePageL();
+                        opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                        opportunityDetails.ClickMassEditRecordsButtonLightning();
                     }
-                    
-                    usersLogin.UserLogOut();
+                    engagementDetails.SwitchDefaultFrame();
+                    usersLogin.DiffLightningLogout();
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
