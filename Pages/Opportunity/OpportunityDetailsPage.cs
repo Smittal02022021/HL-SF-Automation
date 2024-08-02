@@ -630,14 +630,14 @@ namespace SF_Automation.Pages
         By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
-        By btnInlineEditCCOutComeL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='Outcome']//dd//button");
+        By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
         By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
         By txtPageLevelError = By.XPath("//div[@class='pageLevelErrors']//li");
         By txtFieldLevelErrors = By.XPath("//div[contains(@class,'fieldLevelErrors')]//li/a");
-
+        By lblHLSectorIDL = By.XPath("//label[text()='HL Sector ID']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -5980,7 +5980,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLSectorIDL));// lblSICCode))
+            WebDriverWaits.WaitUntilEleVisible(driver, lblHLSectorIDL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLSectorIDL));// lblSICCode))
             By btnJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//button[@data-value='" + oldJobType + "']");
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
             driver.FindElement(btnJobTypeL).Click();
@@ -6222,8 +6223,8 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
-        By iconInlineEditNBCCheckBox = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='NBC Approved']//dd//button");
-        By chkNBCApprovedL = By.XPath("//div[@class='slds-form']//records-record-layout-item[@field-label='NBC Approved']//input");
+        By iconInlineEditNBCCheckBox = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//dd//button");
+        By chkNBCApprovedL = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//input");
         
         public void UpdateNBCApprovalLV()
         {
@@ -6243,7 +6244,6 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Console.WriteLine("path:" + excelPath);
             string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
@@ -6325,7 +6325,6 @@ namespace SF_Automation.Pages
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(4000);
 
-
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
@@ -6353,7 +6352,6 @@ namespace SF_Automation.Pages
             driver.FindElement(comboIndemLngL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
-
 
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
@@ -6390,33 +6388,43 @@ namespace SF_Automation.Pages
         {
             bool result = false; ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;             //Click Edit button on Company Sector detail page 
+            string excelPath = dir + file;            
+            //Click Edit button on Company Sector detail page 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditCompCoverageSector, 120);
             driver.FindElement(btnEditCompCoverageSector).Click();
-            Thread.Sleep(2000);             //Click on Coverage Sector Dependency LookUp icon
+            Thread.Sleep(2000);             
+            //Click on Coverage Sector Dependency LookUp icon
             WebDriverWaits.WaitUntilEleVisible(driver, imgCoverageSectorDependencyLookUp, 120);
             driver.FindElement(imgCoverageSectorDependencyLookUp).Click();
-            Thread.Sleep(2000);             // Switch to second window
+            Thread.Sleep(2000);             
+            // Switch to second window
             CustomFunctions.SwitchToWindow(driver, 1);
-            Thread.Sleep(2000);             //Enter search frame
+            Thread.Sleep(2000);             
+            //Enter search frame
             WebDriverWaits.WaitUntilEleVisible(driver, By.Id("searchFrame"));
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='searchFrame']")));
-            Thread.Sleep(2000);             //Clear Search box
-            driver.FindElement(txtSearchBox).Clear(); driver.SwitchTo().DefaultContent();             //Enter results frame
+            Thread.Sleep(2000);             
+            //Clear Search box
+            driver.FindElement(txtSearchBox).Clear(); driver.SwitchTo().DefaultContent();             
+            //Enter results frame
             WebDriverWaits.WaitUntilEleVisible(driver, By.Id("resultsFrame"));
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
-            Thread.Sleep(2000);             //Click on Show Filters link
-            //driver.FindElement(linkShowFilters).Click();             //Enter filter values
+            Thread.Sleep(2000);            
+            //Click on Show Filters link
+            //driver.FindElement(linkShowFilters).Click();             
+            //Enter filter values
             driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));
             driver.FindElement(inputPrimarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 2));
             driver.FindElement(inputSecondarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 3));
             driver.FindElement(inputTertiarySector).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 4));             //Click on Apply filters button
             driver.FindElement(btnApplyFilters).Click();
-            Thread.Sleep(2000); if (driver.FindElement(linkCoverageSectorDependencyName).Text == covSectorDependencyName)
+            Thread.Sleep(2000); 
+            if (driver.FindElement(linkCoverageSectorDependencyName).Text == covSectorDependencyName)
             {
                 //Select the desired dependency name from the result
                 driver.FindElement(linkCoverageSectorDependencyName).Click();
-                Thread.Sleep(4000);                 //Switch back to original window
+                Thread.Sleep(4000);                 
+                //Switch back to original window
                 CustomFunctions.SwitchToWindow(driver, 0); result = true;
             }
             return result;
@@ -7911,7 +7919,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
         }
-
+        By iconLoadSpinner = By.XPath("//lightning-spinner");
         public void EditOpportunityStageLV(string stage)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -7921,13 +7929,27 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
             WebDriverWaits.WaitUntilEleVisible(driver, ComboStagePriorityL, 20);
             driver.FindElement(ComboStagePriorityL).Click();
+            Thread.Sleep(1000);
             By eleStage = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='{stage}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 10);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            }
+            catch
+            {
+                driver.FindElement(ComboStagePriorityL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            }
+
             driver.FindElement(eleStage).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
-            Thread.Sleep(15000);
+            //Thread.Sleep(2000);
+            //WebDriverWaits.WaitTillElementVisible(driver, iconLoadSpinner);
+            Thread.Sleep(20000);
         }
 
         public void ClickSaveEditOpportunityPageLV()
@@ -7935,7 +7957,6 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
-            //Thread.Sleep(10000);
         }
 
         public string GetOppVerballyEngagedValidationErrorsLV()

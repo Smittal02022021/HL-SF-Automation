@@ -615,7 +615,7 @@ namespace SF_Automation.Pages.Engagement
         By iconClearAssociatedEngL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Opportunity')]//div[contains(@class,'icon-group_right')]//button");
         By comboIGOptions = By.CssSelector("select[id*='6Ax'] option");
         By valEngERPLastIntStatus = By.CssSelector("div[id*='eeCj']");
-        By btnViewCounterparty = By.XPath("//li[contains(@data-target-selection-name,'QuickAction.Engagement')]//button[contains(text(),'View Counterparties')]");
+        By btnViewCounterpartyL = By.XPath("//li[contains(@data-target-selection-name,'QuickAction.Engagement')]//button[contains(text(),'View Counterparties')]");
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelWomenLedCVAS = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By txtSecWomenLedCVAS = By.CssSelector("div[id*='5y_ep_j_id0_j_id4']>h3");
@@ -6135,20 +6135,20 @@ namespace SF_Automation.Pages.Engagement
             string status = driver.FindElement(valEngERPLastIntStatus).Text;
             return status;
         }
-        public bool IsViewCounterpartyButtonEngagementPageL()
+        public bool IsViewCounterpartyButtonEngagementPageLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
-            return driver.FindElement(btnViewCounterparty).Displayed;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterpartyL, 60);
+            return driver.FindElement(btnViewCounterpartyL).Displayed;
         }
-        public void ClickViewCounterpartyButtonEngagementPageL()
+        public void ClickViewCounterpartyButtonEngagementPageLV()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
-            driver.FindElement(btnViewCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterpartyL, 60);
+            driver.FindElement(btnViewCounterpartyL).Click();
             Thread.Sleep(8000);
         }
         
-        public void ClickPanelRightEngagementPage(string name)
+        public void ClickPanelRightEngagementPageLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
@@ -6996,7 +6996,106 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(valCompNameL).GetAttribute("title");
             return name;
         }
-        
+                
+        By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
+        By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
+        By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
+        By radioCompName = By.XPath("//table/tbody/tr[2]/td[1]/div/input");
+        By btnOK = By.XPath("//button[@title='OK']");
+        By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
+        By btnBackCounterparties = By.XPath("//button[text()='Back']");
+        By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
+        By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
+        By btnSearchContact = By.XPath("//button[@title='Search']");
+        By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnAddContact = By.XPath("//button[@title='counterparty']");
+        By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
+        //Validate add counterparty functionality
+        public string ValidateAddCounterpartyFunctionality()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL, 150);
+            driver.FindElement(btnAddCounterpartiesL).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkExistingCompanies, 150);
+            driver.FindElement(lnkExistingCompanies).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllCompList, 150);
+            driver.FindElement(btnViewAllCompList).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, radioCompName, 150);
+            driver.FindElement(radioCompName).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
+            driver.FindElement(chkCompany).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyTo, 150);
+            driver.FindElement(btnAddCounterpartyTo).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackCounterparties, 150);
+            driver.FindElement(btnBackCounterparties).Click();
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCompCounterparty, 180);
+            string name = driver.FindElement(lnkCompCounterparty).Text;
+            return name;
+        }
+        //Validate search counterparty functionality
+        public string ValidateSearchCounterpartyFunctionality()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCounterparty, 150);
+            driver.FindElement(txtSearchCounterparty).SendKeys("Skyhive");
+            driver.FindElement(txtSearchCounterparty).Click();
+            Thread.Sleep(8000);
+            string name = driver.FindElement(lnkCompCounterparty).Text;
+            return name;
+
+        }
+        //Search Contact using Name field
+        public void SearchContactUsingName()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox, 180);
+            driver.FindElement(txtSearchBox).SendKeys("Salmaan Jaffery");
+            driver.FindElement(btnSearchContact).Click();
+        }
+        //Add Contact 
+        public string AddContact()
+        {
+            Thread.Sleep(17000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkContact, 180);
+            driver.FindElement(chkContact).Click();
+            string name = driver.FindElement(valContact).Text;
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddContact).Click();
+            Thread.Sleep(8000);
+            driver.FindElement(btnBackCounterparties).Click();
+            Thread.Sleep(8000);
+            return name;
+        }
+        //Validate contact on Counterparties page
+        public string ValidateContactDetailsOnCounterpartiesPage()
+        {
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            Thread.Sleep(4000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(9000);
+            //var element = driver.FindElement(lnkContacts);
+            //Actions action = new Actions(driver);
+            //action.MoveToElement(element);
+            //action.Perform();
+            //Thread.Sleep(5000);
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            //js.ExecuteScript("window.scrollTo(0,100)");
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContacts, 80);
+            string name = driver.FindElement(lnkContacts).Text;
+            return name;
+        }
+
 
     }
 }

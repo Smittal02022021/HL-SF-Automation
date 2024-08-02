@@ -78,7 +78,7 @@ namespace SF_Automation.Pages.Common
         By valERPProductTypCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Product Type Code']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
         By checkERPUpdateDFFL = By.XPath("//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
         By valERPSubmittedToSyncL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
-        By valERPLastIntStatusL = By.XPath("//records-record-layout-item[@field-label='ERP Last Integration Status']//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text
+        By valERPLastIntStatusL = By.XPath("//records-record-layout-item[@field-label='ERP Last Integration Status']//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text
         By valERPLastIntegrationResponseDateL = By.XPath("//records-record-layout-item[@field-label='ERP Last Integration Response Date']//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text
         By btnSaveL = By.XPath("//button[text()='Save']");
 
@@ -87,7 +87,8 @@ namespace SF_Automation.Pages.Common
         By txtTimePickerL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-timepicker//input");
         By valAdminPrimaryOfficeL = By.XPath("//h3//span[text()='Administration']//ancestor::h3/following-sibling::div//records-record-layout-item[@field-label='Primary Office']//lightning-formatted-text");
         By txtHLSectorIDL = By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a//span/slot/span/slot");
-        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//lightning-formatted-text");
+        By lblHLSectorIDL= By.XPath("//flexipage-field[contains(@data-field-id,'Industry_Sector_cField')]//records-hoverable-link//a");
+        By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordHL_Sector_cField')]//lightning-formatted-text");
         By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//lightning-formatted-text");
         By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
         By valERPIDL = By.XPath("//records-record-layout-item[@field-label='ERP ID']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP ID']//dd//lightning-formatted-text");
@@ -982,8 +983,8 @@ namespace SF_Automation.Pages.Common
         }
         public string GetHLSectorIDLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorIDL, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLSectorIDL));
+            WebDriverWaits.WaitUntilEleVisible(driver, lblHLSectorIDL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLSectorIDL));
             return driver.FindElement(txtHLSectorIDL).Text;
         }
 
