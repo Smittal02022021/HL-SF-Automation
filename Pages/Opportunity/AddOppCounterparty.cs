@@ -1278,6 +1278,7 @@ namespace SF_Automation.Pages.Opportunity
             return message;
         }
         By btnEngCPCommentsL = By.XPath("//article[@aria-label='Engagement Counterparty Comments']//lightning-button-menu//button");
+        By linkNewEngCommentL = By.XPath("//a//span[text()='New Engagement Counterparty Comment']");
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
         By inputRelatedEngCPL = By.XPath("//Input[contains(@placeholder,'Search Engagement Counterparties')]");
         By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
@@ -1289,6 +1290,8 @@ namespace SF_Automation.Pages.Opportunity
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngCPCommentsL));
             Thread.Sleep(2000);
             driver.FindElement(btnEngCPCommentsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkNewEngCommentL, 20);
+            driver.FindElement(linkNewEngCommentL).Click();
         }
         public void AddNewEngagementCounterpartyCommentLV(string commentType, string commentText, string relatedEngCP)
         {

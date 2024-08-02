@@ -230,6 +230,8 @@ namespace SF_Automation.TestCases.Engagements
                     engagementHome.SearchEngagementInLightning(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
 
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
                     //Validate ERP section details------
                     //Validate ERP Submitted To Sync                 
                     string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
@@ -321,6 +323,8 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightning(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
                     string productLine = randomPages.GetERPProductTypeLV();
                     Assert.AreEqual(prodLine, productLine);
                     extentReports.CreateStepLogs("Passed", "Product Type in ERP section: " + productLine + " matches with Product Line in Job Type Detail ");
@@ -365,7 +369,8 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightning(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
-
+                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
                     //Validate ERP Template                
                     string ERPTemplate = randomPages.GetERPTemplateLV();
                     Assert.AreEqual(templateNum, ERPTemplate);

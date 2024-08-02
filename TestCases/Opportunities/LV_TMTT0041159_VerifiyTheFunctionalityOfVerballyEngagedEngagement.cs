@@ -324,6 +324,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 
                 //*******Adding Comments with All Types ********************
                 addCounterparty.ClickEngCPVCommentsLV();
+                
                 int typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
                 for (int typeRow = 2; typeRow <= typeRowCount; typeRow++)
                 {
