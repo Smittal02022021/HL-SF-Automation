@@ -65,7 +65,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 //Search for an opportunity
-                string oppName = "Project Saber";
+                string oppName = "ERP_Sync_Res_Date_Status"; //"Project Saber"; Need to create after Referesh
                 opportunityHome.SearchOpportunitiesInLightningView(oppName);
                 extentReports.CreateLog("Matching record is displayed ");
 
@@ -101,11 +101,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPResDatePostSync = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResDate, ERPResDatePostSync); //ERP not working
-                extentReports.CreateLog("****Assersion Pending:: ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
+                extentReports.CreateLog("ERP Last Integration Response Date in ERP section: " + ERPResDatePostSync + " is displayed post ERP sync ");
 
                 string ERPStatusPostSync = randomPages.GetERPLastIntegrationStatusLV();
                 Assert.AreEqual("Success", ERPStatusPostSync); //ERP not working
-                extentReports.CreateLog("****Opportunity Assersion Pending ::ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
+                extentReports.CreateLog("ERP Last Integration Status in ERP section: " + ERPStatusPostSync + " is displayed post ERP sync ");
 
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity is closed");

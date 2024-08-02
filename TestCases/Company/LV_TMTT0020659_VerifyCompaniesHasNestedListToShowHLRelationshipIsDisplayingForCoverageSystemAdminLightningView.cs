@@ -120,8 +120,8 @@ namespace SF_Automation.TestCases.Companies
                     //companyDetails.CloseCompanyTabL(companyNameExl);
                     companyDetails.CloseCoverageTeamDetailPageLV();
                     extentReports.CreateLog(companyNameExl + ": Coverage Team Tab Closed ");
-                    companyDetails.CloseCompanyTabLV(companyNameExl);
-                    extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
+                    //companyDetails.CloseCompanyTabLV(companyNameExl);not displayed so commenting this line for now
+                    //extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();

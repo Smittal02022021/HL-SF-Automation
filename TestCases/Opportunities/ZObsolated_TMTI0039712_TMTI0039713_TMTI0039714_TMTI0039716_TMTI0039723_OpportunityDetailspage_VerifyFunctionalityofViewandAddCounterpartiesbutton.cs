@@ -142,7 +142,7 @@ namespace SF_Automation.TestCases.Opportunity
                         //GetCompanynamefrom Company List 
                         selectedCompany = addCounterparty.GetCompanyNameFromList();
                         // Checkbox of first company
-                        addCounterparty.CheckBoxSelectRecord();
+                        addCounterparty.SelectCompanyFromListLV();
                         extentReports.CreateLog("Company selected from Company List ");
                         // Click on Add Counterparty oppname button
                         addCounterparty.ClickAddCompanyToCounterparty();

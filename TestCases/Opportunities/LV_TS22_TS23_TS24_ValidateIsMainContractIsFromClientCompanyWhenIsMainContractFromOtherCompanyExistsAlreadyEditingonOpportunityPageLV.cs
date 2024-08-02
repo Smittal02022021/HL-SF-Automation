@@ -133,8 +133,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string contractName1Exl = ReadExcelData.ReadData(excelPath, "AddContact", 9);
                 string companynameExl = ReadExcelData.ReadData(excelPath, "AddContact", 10);
                 opportunityDetails.AddContractBySelectingACompanyLV(contractName1Exl, valContact,companynameExl);
-                Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName1Exl));
-                extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
+                string msgPop = randomPages.GetLVMessagePopup();
+                Assert.IsTrue(msgPop.Contains(contractName1Exl));
+                extentReports.CreateStepLogs("Passed", msgPop);
 
                 //Validate if Is Main Contract checkbox is checked need to work 
                 string valueIsMain = opportunityDetails.ValidateIsMainContractLV();
@@ -150,8 +151,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Updated the contract by deselecting Is Main Contract checkbox
                 opportunityDetails.EditContractByDeselectingIsMainContractLV();
-                Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName1Exl));
-                extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
+                msgPop = randomPages.GetLVMessagePopup();
+                Assert.IsTrue(msgPop.Contains(contractName1Exl));
+                extentReports.CreateStepLogs("Passed", msgPop);
                 extentReports.CreateLog("Contract details are saved by deselecting Is Main Contract checkbox ");
 
                 //Validate if Is Main Contract checkbox is checked
@@ -168,8 +170,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string clientComp = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
                 string contractName2Exl = ReadExcelData.ReadData(excelPath, "AddContact", 11);
                 opportunityDetails.AddContractBySelectingACompanyLV(contractName2Exl, valContact, clientComp);
-                Assert.IsTrue(randomPages.GetLVMessagePopup().Contains(contractName2Exl));
-                extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
+                msgPop = randomPages.GetLVMessagePopup();
+                Assert.IsTrue(msgPop.Contains(contractName2Exl));
+                extentReports.CreateStepLogs("Passed", msgPop);
                 //Validate if Is Main Contract checkbox is checked for new contract added selecting client company need to work 
                 valueIsMain = opportunityDetails.ValidateIsMainContractLV();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueIsMain);

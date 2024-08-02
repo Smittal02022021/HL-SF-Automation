@@ -7,6 +7,12 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Extensions.Options;
+using Microsoft.Office.Interop.Excel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Policy;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
@@ -24,8 +30,16 @@ namespace SalesForce_Project.TestCases.Opportunities
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
         RandomPages randomPages = new RandomPages();
+        AddOppCounterparty addCounterparty = new AddOppCounterparty();
 
         public static string fileTMTT0041159 = "LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement";
+
+        private string filterSection;
+        private string subFilterSection;
+        private string filterValue;
+        private string popupMessage;
+        private string selectedCompany;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -112,7 +126,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
-
+                ////////////// TMTI0101380 Test Case Start////////////////////
                 //TMTI0101380	Verify that user is able to change the stage as Verbally engaged after satisfying all the validations
                 //Login as System Admin user to Fill Required fields for conversion 
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
@@ -140,7 +154,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
                 }
 
-                /////////////////////////////////////////////////////////////////////
+                ////Admin actions in LV/////
                 login.SwitchToLightningExperience();
                 extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
                 //Go to Opportunity module in Lightning View 
@@ -188,11 +202,158 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage= opportunityDetails.GetStageLV();
-                Assert.AreEqual(updatedStage,stage);
+                Assert.AreEqual(updatedStage, stageExl);
                 extentReports.CreateStepLogs("Passed", "Opportunity Stage is updated from "+stage+" to "+ updatedStage);
+                randomPages.CloseActiveTab(opportunityName);
+                extentReports.CreateStepLogs("Info", updatedStage+"opportunity tab is closed");
+                CustomFunctions.PageReload(driver);
+                //////////////TMTI0101380 Test Case End////////////////////
 
 
 
+                //Start TMTI0101390	Verify that CF user can fill all the related list in Partial engagement like- Counterparty, FS Eng, Eng Contact, comments etc.
+
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                extentReports.CreateStepLogs("Info", "CF Financial User is on Partiel Engaged "+moduleNameExl);
+                engagementHome.SearchEngagementInLightningView(opportunityName);
+
+
+                ////**********Counterparties Actions********/////
+                ///1. Click on top on View Counterparty button and click Add New Counterparty.
+                //2.Try to add one counterparty from each available option like, Existing engagement, company list, Add Counterparty button.
+                //3.Once CP added click to back on View Counterparty page.
+                //4.Fill all the available fields for added counterparty including comment.
+                //5.Now open any one of the Counterparty detail page and add contacts and comments with all available option on this page like multiple contact search option and multiple comment type options.
+                ///*****************************************/////
+
+                ///# 2. Adding  Existing engagement, company list
+                // Verify the funtionality of adding Counterparty through existing Engagement
+                // Verify the funtionality of adding Counterparty through existing Comapny list
+                engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
+                int filtersCount = ReadExcelData.GetRowCount(excelPath, "FilterSections");
+                for (int optionRow = 2; optionRow <= filtersCount; optionRow++)
+                {
+                    filterSection = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 1);
+                    subFilterSection = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 2);
+                    addCounterparty.ClickAddCounterpartiesButtonLV();
+                    filterValue = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 3);
+                    extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from " + filterSection + " ");
+
+                    addCounterparty.SelectFilterLV(filterSection, subFilterSection);
+                    addCounterparty.SearchCounterpartiesLV(subFilterSection, filterValue);
+
+                    //Get Company name from Company List 
+                    selectedCompany = addCounterparty.GetCompanyNameFromListLV();
+
+                    // Checkbox of first company
+                    addCounterparty.SelectCompanyFromListLV();
+                    extentReports.CreateLog(selectedCompany + " : Company selected from Company List ");
+                    // Click on Add Counterparty oppname button
+                    addCounterparty.ClickAddCounterpartyToOpportunity();
+
+                    //Verify the Success Message
+                    popupMessage = addCounterparty.GetLVMessagePopup();
+                    Assert.AreEqual(popupMessage, "Selected Counterparty Records have been created.");
+                    extentReports.CreateLog(popupMessage + " message Displayed and company " + selectedCompany + " is added in counterparty list ");
+
+                    //Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page
+                    addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV(); //ButtonClick("Back");
+                    extentReports.CreateLog("Clicked on Back button ");
+                    Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
+                    Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCompany), "Verify added Company: " + selectedCompany + " is under Counterparties List ");
+                    extentReports.CreateLog("User return to Counterparties List Page ");
+                    extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List ");
+                }
+                addCounterparty.ClickAllCheckboxCounterpartyCompany();
+                addCounterparty.ClickDeleteCounterpartyButton();
+                addCounterparty.ButtonConfirmDeleteCounterparty();//need to change locator on delte popup 
+                popupMessage = addCounterparty.GetLVMessagePopup();
+                Assert.AreEqual(popupMessage, "Records deleted successfully", "Verify the Success Message if Counterparty is Deleted ");
+                extentReports.CreateLog(popupMessage + " : Message Displayed and counterparties is deleted from list ");
+
+                //-Verify the funtionality of adding Counterparty through Add Counterparty button
+                string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 1);
+                string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 2);
+                addCounterparty.ClickAddCounterpartiesButtonLV();
+                addCounterparty.ButtonClick("Add Counterparty");
+                extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
+
+                addCounterparty.AddNewEngagementCounterpartyLV(counterpartyCompanyNameExl, counterpartyTypeExl);
+                popupMessage = addCounterparty.GetLVMessagePopup();
+                Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
+                extentReports.CreateLog(popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
+
+                addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
+                addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV(); //ButtonClick("Back");
+                extentReports.CreateLog("Clicked on Back button");
+                Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
+                Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List");
+                extentReports.CreateLog("User returned to Counterparties List Page");
+                extentReports.CreateLog(counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
+
+                //#4.Fill all the available fields for added counterparty including comment.
+                string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
+                addCounterparty.EditCoutnerpartyDetails(commentsExl);
+                addCounterparty.SaveCounterpartyChanges();
+                popupMessage = addCounterparty.GetLVMessagePopup();
+                Assert.AreEqual(popupMessage, "Records Updated Successfully!");
+                extentReports.CreateLog("Added Counterparty details are updated ");
+
+                //#//5.Now open any one of the Counterparty detail page and add contacts and comments with all available option on this page like multiple contact search option and multiple comment type options.
+                
+                addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
+                CustomFunctions.SwitchToWindow(driver, 1);
+                extentReports.CreateLog("User Switched to new tab ");
+                addCounterparty.ButtonClick("New Engagement Counterparty Contact");
+                
+                string contactFilterType = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);
+                string contactname = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);                
+                string contactNameResult = addCounterparty.GetContactSearchedLV(contactFilterType, contactname);//Updated
+
+                string valCPContact = addCounterparty.GetContactNameFromListLV();
+                addCounterparty.SelectContactFromListLV();
+                addCounterparty.ClickAddContactLV();
+                extentReports.CreateLog("New Engagement Counterparty Contact is added ");
+                addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();// ButtonClick("Back");
+
+                string contactEngCP= addCounterparty.GetEngCounterpartyContactLV();
+                Assert.IsTrue(contactname.Contains(contactEngCP));
+                extentReports.CreateLog("Contact: " + valCPContact + " is available on Engagement Counterparty Contact(s) Right Panel");
+                
+                //*******Adding Comments with All Types ********************
+                addCounterparty.ClickEngCPVCommentsLV();
+                int typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
+                for (int typeRow = 2; typeRow <= typeRowCount; typeRow++)
+                {
+                    string commentTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 1);
+                    string commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 2);
+                    addCounterparty.AddNewEngagementCounterpartyCommentLV(commentTypeExl, commentTextExl, counterpartyCompanyNameExl);
+                    popupMessage = addCounterparty.GetLVMessagePopup();
+                    Assert.IsTrue(popupMessage.Contains("Engagement Counterparty Comment"), "Verify the Added Counterparty name is displayed in Popup message ");
+                    extentReports.CreateLog(popupMessage + " message Displayed and Comments added for counterparty");
+                    string commentType= addCounterparty.GetCommentTypeLV();
+                    Assert.AreEqual(commentType, commentTypeExl,"Verify Comments added with Type:  "+ commentTypeExl);
+
+                }
+
+
+                CustomFunctions.CloseWindow(driver, 1);
+                CustomFunctions.SwitchToWindow(driver, 0);
+                CustomFunctions.PageReload(driver);
+
+                Assert.IsTrue(addCounterparty.IsContactAddedCounterpartyListLV(counterpartyCompanyNameExl), "Verify Contact is added under Company name in Counterparty Companies List");
+                extentReports.CreateLog("Added Contact is available under Counterparty Record List ");
+
+                ////////////////////////////////////////////
+
+                //Adding Comment on Counterparty
+                
+
+
+
+                ///*****************************************/////
                 usersLogin.ClickLogoutFromLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();

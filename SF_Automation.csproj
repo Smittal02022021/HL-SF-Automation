@@ -841,7 +841,7 @@
     <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\T1644_OpportunityDetails_FEISForm_SubmitForReview.cs" />
-    <Compile Include="TestCases\Opportunities\T1649_AdditionalClientSubjectRequiredDefaultPopUp.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1649_AdditionalClientSubjectRequiredDefaultPopUp.cs" />
     <Compile Include="TestCases\Opportunities\Z_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />

@@ -201,16 +201,14 @@ namespace SF_Automation.TestCases.Opportunities
                 */
 
                 ////-----Update Sector, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
-
-
-                // need to correct code for sector 
+                               
                 string updSector = ReadExcelData.ReadData(excelPath, "DFFUpdates", 8);                
                 opportunityDetails.UpdateHLSectorIDLV(updSector);
 
                 string sector = randomPages.GetHLSectorIDLV();
                 string sectorCombo = randomPages.GetHLSectorComboLV();
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
-                extentReports.CreateStepLogs("Passed", "******Need to work on GetHLSectorIDLV value ****Pending****Sector is updated to and sector combo contains " + updSector + " ");
+                extentReports.CreateStepLogs("Passed", "Sector is updated to and sector combo contains " + updSector + " ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
 
@@ -220,13 +218,12 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "ERP Update DFF " + valDFFSector + " after updating Sector ");
                 */
                 string ERPSubmittedSector = randomPages.GetERPSubmittedToSyncLV();
-                //Assert.AreNotEqual(ERPSubmittedIG, ERPSubmittedSector);// need to uncomment
                 Assert.AreNotEqual(ERPSubmittedOffice, ERPSubmittedSector);
                 extentReports.CreateStepLogs("Passed", " ERP Submitted to Sync New : " + ERPSubmittedSector + " Old: "+ ERPSubmittedOffice);
 
                 string ERPStatusSector = randomPages.GetERPLastIntegrationStatusLV();
-                //Assert.AreEqual("Success", ERPStatusSector);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "FAIL*****Pending*****ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
+                Assert.AreEqual("Success", ERPStatusSector);// need to uncomment
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
 
                 string ERPResSector = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResOffice, ERPResSector);
@@ -256,7 +253,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusJobType = randomPages.GetERPLastIntegrationStatusLV();
                 Assert.AreEqual("Success", ERPStatusJobType);// need to uncomment
-                extentReports.CreateStepLogs("Passed", "FAIL*****Pending***** ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusJobType + " is displayed ");
 
                 string ERPResJobType = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResSector, ERPResJobType);//Realted to updateSector 
@@ -318,7 +315,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusClient = randomPages.GetERPLastIntegrationStatusLV();
                 Assert.AreEqual("Success", ERPStatusClient);
-                extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusClient + " is displayed ");
 
                 string ERPResClient = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResJobType, ERPResClient);
@@ -348,7 +345,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPStatusLOB = randomPages.GetERPLastIntegrationStatusLV();
                 Assert.AreEqual("Success", ERPStatusLOB); 
-                extentReports.CreateStepLogs("Passed", "FAIL*******Pending*****ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusLOB + " is displayed ");
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResClient, ERPResLOB);

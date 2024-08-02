@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Verify the number of filter section on Add Counterparties page
                     //TMTI0063928 Verify the UI placement and role of Add Counterparties button 
-                    addCounterparty.ClickAddCounterpartiesButton();
+                    addCounterparty.ClickAddCounterpartiesButtonLV();
                     int filterSectionsExl = ReadExcelData.GetRowCount(excelPath, "FilterSections");
                     Assert.AreEqual(addCounterparty.GetCounterpartiesFiltersCount(), filterSectionsExl - 1, "Verifying the number of filter Sections on Add Counterparties page ");
                     extentReports.CreateLog(filterSectionsExl - 1 + " sectors are available on Add Counterparties page as Expected ");
@@ -138,19 +138,19 @@ namespace SF_Automation.TestCases.Opportunities
                     int filtersCount = ReadExcelData.GetRowCount(excelPath, "FilterSections");
                     for (int optionRow = 2; optionRow <= filtersCount; optionRow++)
                     {
-                        addCounterparty.ClickAddCounterpartiesButton();
+                        addCounterparty.ClickAddCounterpartiesButtonLV();
                         filterSection = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 1);
                         subFilterSection = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 2);
                         filterValue = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", optionRow, 3);
                         extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from " + filterSection + " ");
-                        addCounterparty.SelectFilter(filterSection, subFilterSection);
-                        addCounterparty.SearchCounterparties(subFilterSection, filterValue);
+                        addCounterparty.SelectFilterLV(filterSection, subFilterSection);
+                        addCounterparty.SearchCounterpartiesLV(subFilterSection, filterValue);
 
                         //Get Company name from Company List 
-                        selectedCompany = addCounterparty.GetItemNameFromList();
+                        selectedCompany = addCounterparty.GetCompanyNameFromListLV();
                         
                         // Checkbox of first company
-                        addCounterparty.CheckBoxSelectRecord();
+                        addCounterparty.SelectCompanyFromListLV();
                         extentReports.CreateLog(selectedCompany + " : Company selected from Company List ");
                         // Click on Add Counterparty oppname button
                         addCounterparty.ClickAddCounterpartyToOpportunity();
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 1);
                     string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 2);
 
-                    addCounterparty.ClickAddCounterpartiesButton();
+                    addCounterparty.ClickAddCounterpartiesButtonLV();
                     addCounterparty.ButtonClick("Add Counterparty");                    
                     extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
 
@@ -193,8 +193,8 @@ namespace SF_Automation.TestCases.Opportunities
                     // TMTI0075582-Verify the funtionality of adding Counterparty through "View All Company List" button
                     extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from View All Company List button ");
 
-                    addCounterparty.ClickAddCounterpartiesButton();
-                    addCounterparty.SelectFilter(filterSection, subFilterSection);// parameters values are same as from previous iteration.
+                    addCounterparty.ClickAddCounterpartiesButtonLV();
+                    addCounterparty.SelectFilterLV(filterSection, subFilterSection);// parameters values are same as from previous iteration.
                     addCounterparty.ButtonClick("View All Company List");
                     string filterValue1 = ReadExcelData.ReadDataMultipleRows(excelPath, "FilterSections", 4, 3);
                     addCounterparty.SelectCompanyFromAllCompanyList(filterValue1);
@@ -202,10 +202,10 @@ namespace SF_Automation.TestCases.Opportunities
                    // selectedCompany = addCounterparty.GetItemNameFromList();
 
                     //Get Company name from Company List 
-                    selectedCompany = addCounterparty.GetItemNameFromList();
+                    selectedCompany = addCounterparty.GetCompanyNameFromListLV();
 
                     // Checkbox of first company
-                    addCounterparty.CheckBoxSelectRecord();
+                    addCounterparty.SelectCompanyFromListLV();
                     extentReports.CreateLog(selectedCompany + " : Company selected from Company List ");
                     // Click on Add Counterparty oppname button
                     addCounterparty.ClickAddCounterpartyToOpportunity();

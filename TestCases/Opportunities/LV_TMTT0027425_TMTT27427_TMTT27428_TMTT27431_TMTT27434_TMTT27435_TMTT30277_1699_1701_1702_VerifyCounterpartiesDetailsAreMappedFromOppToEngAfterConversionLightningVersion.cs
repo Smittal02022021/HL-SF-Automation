@@ -174,7 +174,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 1);
                     string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 2);
-                    addCounterparty.ClickAddCounterpartiesButton();
+                    addCounterparty.ClickAddCounterpartiesButtonLV();
                     addCounterparty.ButtonClick("Add Counterparty");
                     extentReports.CreateLog("Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
 
@@ -208,13 +208,13 @@ namespace SF_Automation.TestCases.Opportunities
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
                     
                     //Verify the ways of add contact and Adding Contacts
-                    string companyNameResult = addCounterparty.GetContactSearched("Company", "8K Miles");
-                    string industryNameResult = addCounterparty.GetContactSearched("Industry/Product Focus", "FIG");
-                    string contactNameResult = addCounterparty.GetContactSearched("Name", counterpartyContactNameExl);//Updated
+                    string companyNameResult = addCounterparty.GetContactSearchedLV("Company", "8K Miles");
+                    string industryNameResult = addCounterparty.GetContactSearchedLV("Industry/Product Focus", "FIG");
+                    string contactNameResult = addCounterparty.GetContactSearchedLV("Name", counterpartyContactNameExl);//Updated
                     
-                    string valCPContact = addCounterparty.GetItemNameFromList();
-                    addCounterparty.CheckBoxSelectRecord();
-                    addCounterparty.ClickAddContact();
+                    string valCPContact = addCounterparty.GetContactNameFromListLV();
+                    addCounterparty.SelectContactFromListLV();
+                    addCounterparty.ClickAddContactLV();
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Counterparty Contact(s) were created successfully");
                     extentReports.CreateLog("New Opportunity Counterparty Contact is added ");
@@ -227,7 +227,7 @@ namespace SF_Automation.TestCases.Opportunities
                     CustomFunctions.SwitchToWindow(driver, 0);
                     CustomFunctions.PageReload(driver);
 
-                    Assert.IsTrue(addCounterparty.IsContactAddedCounterpartyList(counterpartyCompanyNameExl), "Verify Contact is added under Company name in Counterparty Companies List");
+                    Assert.IsTrue(addCounterparty.IsContactAddedCounterpartyListLV(counterpartyCompanyNameExl), "Verify Contact is added under Company name in Counterparty Companies List");
                     extentReports.CreateLog("Added Contact is available under Counterparty Record List ");
 
                     //opportunityDetails.CloseOpprtunityTabL("Counterparty Editor");
@@ -406,9 +406,9 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //TMTI0063913 Verify the case when an opportunity is converted into the engagement and counterparties are already added                     
-                    Assert.IsTrue(engagementDetails.IsViewCounterpartyButtonEngagementPageL(), "Verify View Counterparty Button is displayed on Engagement Detail Page ");
+                    Assert.IsTrue(engagementDetails.IsViewCounterpartyButtonEngagementPageLV(), "Verify View Counterparty Button is displayed on Engagement Detail Page ");
                     extentReports.CreateLog("View Counterparty Button is displayed on Engagement Detail Page");
-                    engagementDetails.ClickViewCounterpartyButtonEngagementPageL();
+                    engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
                     Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page ");
                     extentReports.CreateLog("User is redirected to Counterparties List page");                       
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List");
@@ -419,11 +419,11 @@ namespace SF_Automation.TestCases.Opportunities
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateLog("User Clicked on Company name from Counterparties List and switched to New Tab ");
-                    engagementDetails.ClickPanelRightEngagementPage("Comments");
+                    engagementDetails.ClickPanelRightEngagementPageLV("Comments");
                     Assert.IsTrue(addCounterparty.IsCommentDisplayedInQuickLinkList(commentsExl));
                     extentReports.CreateLog("Opportunity Counterparties Comments are mapped on Engagement page after conversion ");
                     addCounterparty.CloseEngCounterpartiesCommentsTab();
-                    engagementDetails.ClickPanelRightEngagementPage("Contacts");
+                    engagementDetails.ClickPanelRightEngagementPageLV("Contacts");
                     Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));                    
                     extentReports.CreateLog("Opportunity Counterparties Contact: " + valCPContact + " is mapped on Engagement page after conversion ");
                     CustomFunctions.CloseWindow(driver, 1);
