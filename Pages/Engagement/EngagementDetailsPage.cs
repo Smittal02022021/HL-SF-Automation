@@ -290,8 +290,8 @@ namespace SF_Automation.Pages.Engagement
         By subTabImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a[text()='Important Dates']");
         By subTabAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[3]/a");
         By subTabClosingInfo = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
-        By subTabCST = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
-        By subTabBilling = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By subTabComments = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By subTabBilling = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[6]/a");
         By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
         By tabImpDates = By.XPath("//a[text()='Important Dates']");
         By tabInfo2ndL = By.XPath("//a[text()='Info']");
@@ -319,7 +319,7 @@ namespace SF_Automation.Pages.Engagement
         By btnCST = By.XPath("//button[@aria-label='CST Questionnaire, --None--']");
         By valCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]");
         By valCSTPostUpdate = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
-        By btnNewBilling = By.XPath("//button[@name='New']");
+        By btnNewBilling = By.XPath("//span[text()='Billing Comments']/ancestor::div[4]/div[3]//button");
         By btnCloseBilling = By.XPath("//button[@title='Close error dialog']");
         By msgDate = By.XPath("//records-record-layout-item[2]/div/span/slot/lightning-input/lightning-datepicker/div[2]");
         By msgStatus = By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]");
@@ -418,7 +418,7 @@ namespace SF_Automation.Pages.Engagement
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
-        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']//dd//records-hoverable-link//a/span/slot/span/slot/text");
+        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']/div/dd//span//records-hoverable-link//a//span//span/slot/text()");
             
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal//lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/button/lightning-primitive-icon");
@@ -453,7 +453,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
-        By tabMore = By.XPath("//flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
+        By tabMore = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
         By lblBid = By.XPath("//span[text()='Bids']");
         By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
@@ -4752,21 +4752,21 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        //Get CST Questionnaire Sub tab
-        public string ValidateCSTQuestionnaireDetailsSubTab()
-        {
-
-            WebDriverWaits.WaitUntilEleVisible(Driver, subTabCST, 100);
-            string value = driver.FindElement(subTabCST).Text;
-            return value;
-        }
-
         //Get Billing CommentsSub tab
         public string ValidateBillingCommentsSubTab()
         {
 
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabBilling, 150);
             string value = driver.FindElement(subTabBilling).Text;
+            return value;
+        }
+
+        //Get  CommentsSub tab
+        public string ValidateCommentsSubTab()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabComments, 150);
+            string value = driver.FindElement(subTabComments).Text;
             return value;
         }
 
@@ -5035,14 +5035,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(subTabClosingInfo).Click();
         }
 
-        //Click CST Questionnaire Details tab
-        public void ClickCSTQuesTab()
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,-450)");
-            WebDriverWaits.WaitUntilEleVisible(Driver, subTabCST, 150);
-            driver.FindElement(subTabCST).Click();
-        }
+       
 
         //Click Billing Comments tab
         public void ClickBillingCommentsTab()
@@ -5303,6 +5296,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtBillingComment, 190);
             driver.FindElement(txtBillingComment).SendKeys(value);
+            Thread.Sleep(3000);
             driver.FindElement(btnSaveDetailsL).Click();
             //WebDriverWaits.WaitUntilEleVisible(driver, lnkAddedComment, 190);
             //driver.FindElement(lnkAddedComment).Click();

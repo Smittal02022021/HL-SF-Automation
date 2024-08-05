@@ -157,10 +157,13 @@ namespace SF_Automation.Pages
         By btnNewComment = By.CssSelector("input[value='New Comment']");
         By comboCommentType = By.CssSelector("select[id*='00Ni000000FnLSo']");
         By txtCommentDesc = By.CssSelector("textarea[id*='FnLSp']");
-        By msgError = By.CssSelector("div[class='errorMsg']");     
+        By msgError = By.XPath("//div[contains(text(),'Compliance')]");     
    By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
         By valComment = By.CssSelector("div[id*='LT7_body'] > table > tbody > tr.dataRow.even.last.first > td:nth-child(3)");
-        By lnkDelComment = By.CssSelector("div[id*='LT7_body']> table > tbody > tr.dataRow.even.last.first > td.actionColumn > a:nth-child(2)");
+        By lnkDelete = By.XPath("//a[@title='Delete']");
+        By lnkDelCommentL = By.XPath("//span[text()='Comments']/ancestor::lst-common-list-internal/div//button");
+        By btnDeleteL = By.XPath("//button[@title='Delete']");
+        By valNoCommentL = By.XPath("//span[@title='(0)']");
         By txtDateEngagedCF = By.CssSelector("input[name*='FnLTv']");
         By lnkPitchDateFAS = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(7) > td:nth-child(4) > span > span > a");
         By lnkValuationDate = By.CssSelector("div:nth-child(3) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span > span > a");
@@ -421,8 +424,12 @@ namespace SF_Automation.Pages
         By btnSaveComments = By.XPath("//button[@name='save']");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
+        By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
+
         By tabOpportunityL = By.XPath("//section[3]/div/div//ul[2]/li[2]/a/span[2]");
         By tabOppL = By.XPath("//section[2]/div//div/ul[2]/li[2]/a/span[2]");
+        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
+
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By txtClearOppName = By.XPath("//input[@name='Name']");
@@ -2851,9 +2858,11 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnSave).Click();
         }
 
-        //Get validatin message while adding comment
+        //Get validation message while adding comment
         public string GetCommentsSectionMessage()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 180);
+            driver.FindElement(btnCloseL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgError, 70);
             string message = driver.FindElement(msgError).Text;
             return message;
@@ -2870,11 +2879,14 @@ public void ClickNewOpportunitySectorButton()
         //Delete added comments
         public string DeleteAddedOppComments()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelComment, 80);
-            driver.FindElement(lnkDelComment).Click();
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
-            return "Opportunity's existing comments are deleted";
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDelCommentL, 80);
+            driver.FindElement(lnkDelCommentL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(lnkDelete).Click();
+            driver.FindElement(btnDeleteL).Click();
+            Thread.Sleep(4000);
+            string name = driver.FindElement(valNoCommentL).Text;
+            return name;
         }
         
         //To updated required opportunity fields of CF opp for conversion to engagement
@@ -6994,7 +7006,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
               
 
         //Add Opportunity Comments
-        public void AddOppCommentaAndValidate()
+        public void AddOppCommentaAndValidate(string type)
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
@@ -7009,7 +7021,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
-            driver.FindElement(valCommentsType).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='"+type+"']")).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
             driver.FindElement(btnSaveCSTQuestionnaire).Click();
             Thread.Sleep(4000);
@@ -7020,6 +7032,16 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             //return commentType;          
         }
 
+        //Get added Compliance comments error message
+        public string GetComplianceCommentsMessageL()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseL, 180);
+            driver.FindElement(btnCloseL).Click();
+            string message = driver.FindElement(msgComplianceL).Text;
+            driver.FindElement(btnCancelEditFormL).Click();
+            return message;
+        }
+
         //Get added Opportunity comments
         public string GetOppCommentsL()
         {
@@ -7028,8 +7050,8 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
             string comment = driver.FindElement(valAddedComment).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 210);
-            driver.FindElement(tabOppL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 210);
+            driver.FindElement(valRelatedOppL).Click();
             Thread.Sleep(5000);
             return comment;
         }

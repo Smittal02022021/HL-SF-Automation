@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUserLightning();
-                Assert.AreEqual(valUser, stdUser);
+                Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " is able to login ");
 
                 //Fetching all rows as per different Job Types

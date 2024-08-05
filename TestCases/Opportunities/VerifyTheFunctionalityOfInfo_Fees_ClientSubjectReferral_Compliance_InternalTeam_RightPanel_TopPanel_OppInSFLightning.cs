@@ -383,7 +383,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name: " + tabComments + " is displayed under Opportunity Details page ");
 
                 //Save an Opportunity Comment
-                opportunityDetails.AddOppCommentaAndValidate();
+                opportunityDetails.AddOppCommentaAndValidate("Administrative");
                 string addedComments = opportunityDetails.GetOppCommentsL();
                 //Assert.AreEqual("Administrative", addedCommentsType);
                 Assert.AreEqual("Testing", addedComments);

@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance : BaseClass
+    class T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -51,42 +51,46 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateLog("User: " + stdUser + " logged in ");
+                string stdUser2 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser2.Contains(valUser), true);
+                extentReports.CreateLog("User: " + valUser + " logged in ");
 
-                //Search for required Opportunity
-                opportunityHome.SearchOpportunity("Rockwood - PV 2021");
-                opportunityDetails.AddOppComments("Compliance");
-                string message = opportunityDetails.GetCommentsSectionMessage();
-                Assert.AreEqual("Error: Only Compliance users can create comments of type Compliance.", message);
-                extentReports.CreateLog("Message: " + message + " is displayed with Standard User ");
+                //Search for required Opportunity  
+                opportunityHome.SearchMyOpportunitiesInLightning("Rockwood - PV 2021", valUser);                                           
+                
+                //Validate the Compliance Comment's validation message
+                opportunityDetails.AddOppCommentaAndValidate("Compliance");
+                string messageComp = opportunityDetails.GetComplianceCommentsMessageL();
+                Assert.AreEqual("Only Compliance users can create comments of type Compliance.", messageComp);
+                extentReports.CreateLog("Message: " + messageComp + " is displayed with Standard User: "+stdUser2 +" ");
 
                 //Logout of Standard user and login with Compliance User
-                usersLogin.UserLogOut();                
-                string valCompUser = ReadExcelData.ReadData(excelPath, "Users", 2);
-                usersLogin.SearchUserAndLogin(valCompUser);
-                string compUser = login.ValidateUser();
-                Assert.AreEqual(compUser.Contains(valCompUser), true);
-                extentReports.CreateLog("User: " + compUser + " logged in ");
+                usersLogin.DiffLightningLogout();
+                string valUser2 = ReadExcelData.ReadData(excelPath, "Users", 2);
+                usersLogin.SearchUserAndLogin(valUser2);
+                string stdUser = login.ValidateUserLightning();
+                Console.WriteLine("stdUser" + stdUser);
+                Assert.AreEqual(stdUser.Contains(valUser2), true);
+                extentReports.CreateLog("User: " + valUser2 + " logged in ");
 
                 //Search for required Opportunity
-                opportunityHome.SearchOpportunity("Rockwood - PV 2021");
-                opportunityDetails.AddOppComments("Compliance");
-                string addedComment = opportunityDetails.GetAddedComment();
+                opportunityHome.SearchMyOpportunitiesInLightning("Rockwood - PV 2021", valUser2);
+
+                opportunityDetails.AddOppCommentaAndValidate("Compliance");
+                string addedComment = opportunityDetails.GetOppCommentsL();
                 Assert.AreEqual("Testing", addedComment);
                 extentReports.CreateLog("Added comment: " + addedComment + " of type compliance is saved successfully with Compliance user ");
 
                 //Delete the added comment
                 string comment =opportunityDetails.DeleteAddedOppComments();
-                Assert.AreEqual("Opportunity's existing comments are deleted", comment);
+                Assert.AreEqual("(0)", comment);
                 extentReports.CreateLog("Added comment is deleted successfully ");
                 
                 //Validate any other type of comment with Compliance User
-                opportunityDetails.AddOppComments("Internal");
-                string message1 = opportunityDetails.GetCommentsSectionMessage();
-                Assert.AreEqual("Error: Compliance users can only create Compliance comments.", message1);
-                extentReports.CreateLog("Message: " + message1 + " is displayed while adding any other type of comment with Compliance User ");
+                opportunityDetails.AddOppCommentaAndValidate("Internal");
+                string messageInt = opportunityDetails.GetCommentsSectionMessage();
+                Assert.AreEqual("Compliance users can only create Compliance comments.", messageInt);
+                extentReports.CreateLog("Message: " + messageInt + " is displayed while adding any other type of comment with Compliance User ");
                                
             }
             catch (Exception e)

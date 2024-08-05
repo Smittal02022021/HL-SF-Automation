@@ -249,12 +249,12 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Closing Info", closingInfo);
                 extentReports.CreateLog("Sub Tab " + closingInfo + " is displayed under Info Tab ");
 
-                //string CST = engagementDetails.ValidateCSTQuestionnaireDetailsSubTab();
-                //Assert.AreEqual("CST Questionnaire Details", CST);
-                //extentReports.CreateLog("Sub Tab " + CST + " is displayed under Info Tab ");
+                string comments = engagementDetails.ValidateCommentsSubTab();
+                Assert.AreEqual("Comments", comments);
+                extentReports.CreateLog("Sub Tab " + comments + " is displayed under Info Tab ");
 
                 string billing = engagementDetails.ValidateBillingCommentsSubTab();
-                Assert.AreEqual("Comments", billing);
+                Assert.AreEqual("Billing Comments", billing);
                 extentReports.CreateLog("Sub Tab " + billing + " is displayed under Info Tab ");
 
                 //Validate Edit functionality of Details tab                
@@ -393,12 +393,12 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Revenue", tabRevenue);
                 extentReports.CreateLog("Tab " + tabRevenue + " is displayed on Engagement Details page ");
 
-                //Validate Add functionality of Revenue Accural tab                
+                //Validate Add functionality of Revenue Accrual tab                
                 string RevID = engagementDetails.ValidateAddRevenueFunctionality();
                 Assert.AreEqual("(1)", RevID);
-                extentReports.CreateLog("Revenue Accural is created after adding Revenue Accural ");
+                extentReports.CreateLog("Revenue Accrual is created after adding Revenue Accrual ");
 
-                //Validate Edit Functionality of Revenue Accural tab    
+                //Validate Edit Functionality of Revenue Accrual tab    
                 string Legacy = engagementDetails.ValidateEditRevenueFunctionality();
                 Assert.AreEqual("10.00", Legacy);
                 extentReports.CreateLog("Legacy DC ID wth value: " + Legacy + " is saved after updating Revenue Accural ");

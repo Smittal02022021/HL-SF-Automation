@@ -1949,7 +1949,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtClientHoldingsPer).Clear();
             Console.WriteLine("220");
             driver.FindElement(txtClientHoldingsPer).SendKeys("220");
-            driver.FindElement(txtClientHoldingsPer).SendKeys("220");
+            //driver.FindElement(txtClientHoldingsPer).SendKeys("220");
             Thread.Sleep(6000);
             driver.FindElement(btnSaveRecords).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessSave, 140);

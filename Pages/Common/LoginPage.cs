@@ -192,7 +192,8 @@ namespace SF_Automation.Pages
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
-            return loggedUserName.Text.Substring(13, 12);
+            return loggedUserName.Text;
+            //return loggedUserName.Text.Substring(13, 12);
         }
         public string ValidateFRUserLightning()
         {

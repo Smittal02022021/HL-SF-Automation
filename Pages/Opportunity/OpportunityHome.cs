@@ -39,6 +39,7 @@ namespace SF_Automation.Pages
         By btnOppNumLCAO = By.XPath("//header/div[2]/div[2]/div/button/text()");
         By txtOppNumL = By.XPath("//input[@placeholder='Search...']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search...']");
+        By txtOppAndMore = By.XPath("//input[@placeholder='Search Opportunities and More...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagOpportunities = By.XPath("//div/ul/li[6]/div/a/span[2]/span");
@@ -534,27 +535,39 @@ namespace SF_Automation.Pages
         //To Search Opportunity with Opportunity Name in Lighting
         public void SearchMyOpportunitiesInLightning(string value, string user)
         {
-            Thread.Sleep(6000);
-            if (user.Equals("James Craven"))
+            try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
-                driver.FindElement(btnOppNumL).Click();
-                Thread.Sleep(4000);
+                Thread.Sleep(6000);
+                if (user.Equals("James Craven"))
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                    driver.FindElement(btnOppNumL).Click();
+                    Thread.Sleep(4000);
+                }
+                else
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                    driver.FindElement(btnOppNumL).Click();
+                    Thread.Sleep(4000);
+                }
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+                driver.FindElement(txtOppNumLCAO).SendKeys(value);
+                Thread.Sleep(8000);
+                driver.FindElement(imgOppL).Click();
+                Thread.Sleep(7000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
+                //driver.FindElement(imgOppL).Click();
+                //Thread.Sleep(8000);
             }
-            else
+            catch(Exception)
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
-                driver.FindElement(btnOppNumL).Click();
-                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppAndMore, 100);
+                driver.FindElement(txtOppAndMore).SendKeys(value);
+                Thread.Sleep(8000);
+                driver.FindElement(imgOppL).Click();
+                Thread.Sleep(7000);
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
-            driver.FindElement(txtOppNumLCAO).SendKeys(value);          
-            Thread.Sleep(8000);           
-            driver.FindElement(imgOppL).Click();
-            Thread.Sleep(7000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
-            //driver.FindElement(imgOppL).Click();
-            //Thread.Sleep(8000);
+
         }
 
         
