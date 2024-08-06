@@ -111,6 +111,7 @@ namespace SF_Automation.Pages.Common
         By valLOBL = By.XPath("//records-record-layout-item[@field-label='Line of Business']//lightning-formatted-text");
         By valJobCodeL = By.XPath("//records-record-layout-item[@field-label='Job Code']//lightning-formatted-text");
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
+        By tabInfo = By.XPath("//lightning-tab-bar/ul/li/a[text()='Info']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
@@ -983,6 +984,8 @@ namespace SF_Automation.Pages.Common
         }
         public string GetHLSectorIDLV()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lblHLSectorIDL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLSectorIDL));
             return driver.FindElement(txtHLSectorIDL).Text;
@@ -996,6 +999,8 @@ namespace SF_Automation.Pages.Common
         }
         public string GetJobTypeLV()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtJobTypeL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtJobTypeL));
             return driver.FindElement(txtJobTypeL).Text;

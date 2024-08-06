@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.Engagements
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                    addOpportunityContact.CickAddOpportunityContact(valRecordType);
+                    addOpportunityContact.ClickAddOpportunityContactLV(valRecordType);
                     addOpportunityContact.CreateContactL2(ERPTS04);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 

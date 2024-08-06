@@ -3,8 +3,6 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System.Threading;
 using System;
-using NUnit.Framework;
-using RazorEngine.Compilation.ImpromptuInterface;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -36,41 +34,33 @@ namespace SF_Automation.Pages.Opportunity
 
         //Lightning--
         
-        By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
-             
+        By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");             
         //By imgContactL = By.XPath("//div[2]/ul/li[26]/a/div[1]/span/img");
         By imgContactL = By.XPath("//div[2]/ul/li[9]/a/div[1]/span/img");
         By msgContact = By.XPath("//section/div/div/div/div/div/div[1]/div[1]/div/div/ul/li");
-
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
-
-        
+                
         By dropdownContactType = By.XPath("//div[3]/div[1]/div/div/div/div/div[1]/div/div/a");
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
         By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
         By btnAddOppContactL = By.XPath("//button[contains(@name,'Opportunity_Contact')]");
 
-        private By _btnAddCFContactL(string lob)
+        private By _btnAddContactL(string lob)
         {
             return By.XPath($"//button[contains(@name,'Add_{lob}_Opportunity_Contact')]");
-        } 
-        private By _eleCreateOppContact(string RecordType)
-        {
-            return By.XPath($"//button[contains(@name,'Add_{RecordType}_Opportunity_Contact')]");
-        }
-
+        }         
         public void ClickAddOpportunityContactLV(string recordType)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddCFContactL(recordType), 10);
-            driver.FindElement(_btnAddCFContactL(recordType)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddContactL(recordType), 10);
+            driver.FindElement(_btnAddContactL(recordType)).Click();
         }
         public void CickAddOpportunityContact(string RecordType)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, _eleCreateOppContact(RecordType), 20);
-            driver.FindElement(_eleCreateOppContact(RecordType)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnAddContactL(RecordType), 20);
+            driver.FindElement(_btnAddContactL(RecordType)).Click();
         }
         public void CreateContact(string file, string contact, string valRecType, string valType)
         {

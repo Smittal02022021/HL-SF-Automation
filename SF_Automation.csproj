@@ -845,7 +845,7 @@
     <Compile Include="TestCases\Opportunities\Z_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
     <Compile Include="TestCases\Opportunities\ZObsolated_T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
-    <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
     <Compile Include="TestCases\Opportunities\T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed.cs" />
     <Compile Include="TestCases\Opportunities\T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />
     <Compile Include="TestCases\Opportunities\T2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages.cs" />

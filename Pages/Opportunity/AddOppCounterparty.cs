@@ -1280,9 +1280,10 @@ namespace SF_Automation.Pages.Opportunity
         By btnEngCPCommentsL = By.XPath("//article[@aria-label='Engagement Counterparty Comments']//lightning-button-menu//button");
         By linkNewEngCommentL = By.XPath("//a//span[text()='New Engagement Counterparty Comment']");
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
-        By inputRelatedEngCPL = By.XPath("//Input[contains(@placeholder,'Search Engagement Counterparties')]");
+        //By inputRelatedEngCPL = By.XPath("//Input[contains(@placeholder,'Search Engagement Counterparties')]");
         By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
-        By optionRelatedEngCPL = By.XPath("//ul[@aria-label='Recent Engagement Counterparties']//li[2]");
+        By inputSearchEngCouterparty = By.XPath("//input[contains(@placeholder,'Search')]");
+        By optionRelatedEngCPL = By.XPath("//input[contains(@placeholder,'Search')]/../../../..//ul//li[2]/lightning-base-combobox-item");        
         By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//dd//lightning-formatted-text");
         public void ClickEngCPVCommentsLV()
         {
@@ -1301,12 +1302,14 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, eleType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleType));
             driver.FindElement(eleType).Click();
-            driver.FindElement(inputCommentL).SendKeys(relatedEngCP);
+            driver.FindElement(inputSearchEngCouterparty).Click();
+            driver.FindElement(inputSearchEngCouterparty).SendKeys(relatedEngCP);
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, optionRelatedEngCPL, 10);
             driver.FindElement(optionRelatedEngCPL).Click();
             driver.FindElement(inputCommentL).SendKeys(commentText);
             driver.FindElement(buttonSaveL).Click();
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
         }
         public string GetCommentTypeLV()
         {
