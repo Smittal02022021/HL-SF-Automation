@@ -660,7 +660,7 @@ namespace SF_Automation.Pages.Engagement
         By lblExpense = By.XPath("//span[text()='Expense']");
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
-        By headerChangeRT = By.XPath("//h2[contains(text(),'Change ')]");
+        By headerChangeRT = By.XPath("//h1[contains(text(),'Change')]");
         By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
         By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By valERPProductTypeL = By.XPath("//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
@@ -6739,13 +6739,14 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
             driver.FindElement(inputHLSectorIDL).Click();
             driver.FindElement(inputHLSectorIDL).SendKeys(sector);
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            //driver.Navigate().Refresh();
-            //Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public void UpdateJobTypeLV(string jobType)
         {
@@ -6765,8 +6766,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(eleJobType).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            //driver.Navigate().Refresh();
-            //Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public void UpdateClientOwnershipLV(string client)
         {
@@ -6784,8 +6785,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(eleClientOwnership).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-            //driver.Navigate().Refresh();
-            //Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }
         public void UpdateRecordTypeLV(string JobType, string newLOBExl)
         {
@@ -6826,12 +6827,14 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(15000);
-            //driver.Navigate().Refresh();
-            //Thread.Sleep(10000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
         }        
 
         public string GetClientOwnershipLV()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valClientOwnershipL));
             string clientOwnership = driver.FindElement(valClientOwnershipL).Text;
@@ -6862,7 +6865,7 @@ namespace SF_Automation.Pages.Engagement
             return isFound;
         }
 
-        By rowContractL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/th//a//span");
+        By rowContractL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/th//a//span[@class='slds-truncate']//slot"); //div//table[@aria-label='Contract']//tbody/tr/th//a//span");
         By valERPContractTypeL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[4]//lst-formatted-text/span");
         By valERPBusUnitL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[5]//lst-formatted-text/span");
         By valERPLegalEntityL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[6]//lst-formatted-text/span");
@@ -6874,23 +6877,25 @@ namespace SF_Automation.Pages.Engagement
         By tableContractsL= By.XPath("//table[@aria-label='Contract']");
         private By _quickLink(string linkText)
         {
-            return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//ul//li//a//span[contains(text(),'{linkText}')]");
+            return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
         }
 
         public void ClickQuickLink(string linkName)
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(driver, _quickLink(linkName), 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_quickLink(linkName)));
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(_quickLink(linkName)));
             driver.FindElement(_quickLink(linkName)).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tableContractsL, 10);
             Thread.Sleep(10000);
         }
-        public string ValidateContractExistsLV()
+        public string GetExistingContractNameLV()
         {
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, rowContractL, 10);
-                CustomFunctions.MoveToElement(driver, driver.FindElement(rowContractL));
+                //CustomFunctions.MoveToElement(driver, driver.FindElement(rowContractL));
                 string id = driver.FindElement(rowContractL).Text;
                 return id;
             }
@@ -6955,7 +6960,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Get if Main Contract checkbox is checked
-        public string GetIfIsMainContractCheckedLV()
+        public string GetIsMainContractStateLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valIsMainL, 10);
             //string main = driver.FindElement(valIsMainL).GetAttribute("title");
@@ -7208,6 +7213,13 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(optionSponsorCompany).Click();
             Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+
+        public void ClickContactTabLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
+            driver.FindElement(tabContactsL).Click();
+            Thread.Sleep(5000);
         }
     }
 }

@@ -297,6 +297,7 @@ namespace SF_Automation.Pages.EventExpense
         }
         public bool GetDescriptionMarketingSupportStateLWC()
         {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputDscMarketingSupportLWC));
             return driver.FindElement(inputDscMarketingSupportLWC).Enabled;
         }
         public string ValidateEventFormatMessageLWC()

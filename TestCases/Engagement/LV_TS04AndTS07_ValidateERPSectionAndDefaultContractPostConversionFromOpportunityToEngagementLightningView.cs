@@ -404,9 +404,12 @@ namespace SF_Automation.TestCases.Engagements
                     //Validate the creation of default contract
                     engagementDetails.ClickQuickLink("Contract");
                     extentReports.CreateStepLogs("Info", " Contract List Page is opened");                    
-                    string contractID = engagementDetails.ValidateContractExistsLV();
+                    string contractID = engagementDetails.GetExistingContractNameLV();
                     Assert.AreEqual(contractID, engName);
                     extentReports.CreateStepLogs("Passed", "Contract with name: " + contractID + " similar to Engagement's name is created upon conversion to engagement ");
+                    //randomPages.CloseActiveTab("Contract");
+                    //randomPages.DetailPageFullViewLV();
+                    //extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
 
                     //Validate ERP Contract Type
                     string contractType = engagementDetails.GetERPContractTypeLV();
@@ -445,15 +448,15 @@ namespace SF_Automation.TestCases.Engagements
                     }
 
                     //Validate Is Main Contract checkbox is checked
-                    string mainContract = engagementDetails.GetIfIsMainContractCheckedLV();
+                    string mainContract = engagementDetails.GetIsMainContractStateLV();
                     Assert.AreEqual("Is Main Contract checkbox is checked", mainContract);
                     extentReports.CreateStepLogs("Passed", mainContract);
                     randomPages.CloseActiveTab("Contract");
                     extentReports.CreateStepLogs("Info", "Contract List Closed");
 
                     //Validate Bill To// on Contact Page need to go to Contact section
-                    engagementDetails.ClickEngagementContactList();
-                    extentReports.CreateStepLogs("Info", " Engagement Contact List Page is opened");
+                    engagementDetails.ClickContactTabLV();// ClickEngagementContactList();
+                    extentReports.CreateStepLogs("Info", " Engagement Contact Tab is opened");
                     string compName = engagementDetails.GetCompanyNameOfContactLV();                    
                     Assert.AreEqual(compName, contractBillTo);
                     extentReports.CreateStepLogs("Passed", "Bill To: " + contractBillTo + " is displayed same as Engagement contact's company in Contract section ");
