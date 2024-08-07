@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Thomas Bailey"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealTeamMemberLightning(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for CF engagement  ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for CF engagement  ");
                             usersLogin.LightningLogout();
                         }
                         else
@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Jennifer Muller"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealMemberClassic(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for FVA engagement ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for FVA engagement ");
                             usersLogin.UserLogOut();
                         }
                         else
@@ -197,7 +197,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Aaron Schultz"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealMemberClassic(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for FR engagement ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for FR engagement ");
                             usersLogin.UserLogOut();
                         }
                         else

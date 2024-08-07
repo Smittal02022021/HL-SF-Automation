@@ -392,7 +392,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkEditConfAgree = By.XPath("//button[@title='Edit Confidentiality Agreement']");
         By txtDateSigned = By.XPath("//input[@name='Date_CA_Signed__c']");
         By valDateSigned = By.XPath("//span[text()='Date Signed']/ancestor::div[2]/dd//slot/lightning-formatted-text");
-        By tabComments = By.XPath("//ul/li/a[text()='Comments']");
+        By tabComments = By.XPath("//ul/li[2]/a[text()='Comments']");
         By tabFinancials = By.XPath("//ul/li/a[text()='Financials']");
         By tabEngContacts = By.XPath("//ul/li/a[text()='Eng Contacts']");
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
@@ -418,7 +418,7 @@ namespace SF_Automation.Pages.Engagement
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
-        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']/div/dd//span//records-hoverable-link//a//span//span/slot/text()");
+        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']/div/dd//span//records-hoverable-link");
             
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal//lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/button/lightning-primitive-icon");
@@ -4939,11 +4939,11 @@ namespace SF_Automation.Pages.Engagement
 
         //Validate displayed reports for deal team member
         public bool VerifyReportNamesForDealTeamMemberLightning()
-        {
+         {
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
             var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Counterparty List Report", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -5436,18 +5436,18 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
             driver.FindElement(tabComments).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 150);
-            driver.FindElement(lnkComments).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkNewComment, 150);
-            driver.FindElement(lnkNewComment).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 150);
+            //driver.FindElement(lnkComments).Click();
+            //Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkNewComment, 150);
+            //driver.FindElement(lnkNewComment).Click();
             
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
             driver.FindElement(valCommentsType).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
-            driver.FindElement(btnSaveCSTQuestionnaire).Click();
+            driver.FindElement(btnSaveComments).Click();
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,550)");
@@ -5886,7 +5886,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
             var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "PIF"};
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty List Report", "PIF"};
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -6055,7 +6055,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
             var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "PIF" };
+            string[] expectedValue = { "Capital Markets Contact Log","Counterparty List Report", "PIF" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -6448,7 +6448,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
             var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
+            string[] expectedValue = { "Capital Markets Contact Log", "Counterparty History Report", "Counterparty List and Contact Log", "Counterparty List Report", "Engagement Working Group List", "PIF", "Potential Counterparty List - Client Copy", "Potential Counterparty List - Client Status", "Potential Counterparty List - Long", "Potential Counterparty List - Medium", "Potential Counterparty List Summary - Multi-Page", "Potential Counterparty List Summary - Single Page", "Potential Counterparty List- Short", "Racetrack Report" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
