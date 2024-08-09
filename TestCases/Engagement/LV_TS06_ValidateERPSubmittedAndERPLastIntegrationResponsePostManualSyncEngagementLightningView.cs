@@ -65,7 +65,7 @@ namespace SF_Automation.TestCases.Engagements
 
                 //Search for an opportunity
                 string EngName = "FGIC";
-                engHome.SearchEngagementInLightning(EngName);
+                engHome.SearchEngagementInLightningView(EngName);
                 extentReports.CreateStepLogs("Info", "Matching record is displayed ");
 
                 //Validating Opportunity details page 

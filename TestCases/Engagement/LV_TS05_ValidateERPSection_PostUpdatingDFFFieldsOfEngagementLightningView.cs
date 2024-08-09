@@ -195,7 +195,7 @@ namespace SF_Automation.TestCases.Engagements
                 moduleNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                engagementHome.SearchEngagementInLightning(engagementName);
+                engagementHome.SearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Full View is selected");
@@ -341,7 +341,7 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                engagementHome.SearchEngagementInLightning(engagementName);
+                engagementHome.SearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Full View is selected");
