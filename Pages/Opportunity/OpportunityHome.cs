@@ -58,7 +58,7 @@ namespace SF_Automation.Pages
         By comboIndustryTypeOptions = By.CssSelector("select[name*='industryGroupSearch'] option");
         By linkEngManager = By.XPath("//a[contains(text(),'Engagement Manager')]");
         By btnOppsearchL = By.XPath("//button[@aria-label='Search']");
-        By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search')]");
+        By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
         By eleItem = By.XPath("//table/tbody//td[5]/span//span");
