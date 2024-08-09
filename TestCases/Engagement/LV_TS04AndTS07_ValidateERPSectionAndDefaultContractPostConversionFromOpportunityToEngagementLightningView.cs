@@ -308,7 +308,6 @@ namespace SF_Automation.TestCases.Engagements
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 4, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    //randomPages.SelectListViewLV("All");
                     pageTitle = randomPages.SelectJobTypesLV(jobType);
                     Assert.AreEqual(jobType, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
@@ -340,7 +339,6 @@ namespace SF_Automation.TestCases.Engagements
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 5, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    //randomPages.SelectListViewLV("All Legal Entities");
                     extentReports.CreateStepLogs("Info", "List View is set to All Legal Entities");
                     pageTitle = randomPages.SelectLegalEntityLV(entity);
                     Assert.AreEqual(entity, pageTitle);
@@ -407,10 +405,7 @@ namespace SF_Automation.TestCases.Engagements
                     string contractID = engagementDetails.GetExistingContractNameLV();
                     Assert.AreEqual(contractID, engName);
                     extentReports.CreateStepLogs("Passed", "Contract with name: " + contractID + " similar to Engagement's name is created upon conversion to engagement ");
-                    //randomPages.CloseActiveTab("Contract");
-                    //randomPages.DetailPageFullViewLV();
-                    //extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
-
+                    
                     //Validate ERP Contract Type
                     string contractType = engagementDetails.GetERPContractTypeLV();
                     Assert.AreEqual("Engagement", contractType);
@@ -446,7 +441,6 @@ namespace SF_Automation.TestCases.Engagements
                         Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), contractStartDate);
                         extentReports.CreateStepLogs("Passed", "Contract Start Date: " + contractStartDate + " is displayed same as current date ");
                     }
-
                     //Validate Is Main Contract checkbox is checked
                     string mainContract = engagementDetails.GetIsMainContractStateLV();
                     Assert.AreEqual("Is Main Contract checkbox is checked", mainContract);
@@ -454,12 +448,13 @@ namespace SF_Automation.TestCases.Engagements
                     randomPages.CloseActiveTab("Contract");
                     extentReports.CreateStepLogs("Info", "Contract List Closed");
 
-                    //Validate Bill To// on Contact Page need to go to Contact section
-                    engagementDetails.ClickContactTabLV();// ClickEngagementContactList();
+                    //Validate Bill To Company on Contact Page need to go to Contact section
+                    engagementDetails.ClickEngContactTabLV();
                     extentReports.CreateStepLogs("Info", " Engagement Contact Tab is opened");
                     string compName = engagementDetails.GetCompanyNameOfContactLV();                    
                     Assert.AreEqual(compName, contractBillTo);
                     extentReports.CreateStepLogs("Passed", "Bill To: " + contractBillTo + " is displayed same as Engagement contact's company in Contract section ");
+                   
                     //------------------------------
                     randomPages.CloseActiveTab("Engagement Contacts");
                     extentReports.CreateStepLogs("Info", "Engagement Contacts List Closed");

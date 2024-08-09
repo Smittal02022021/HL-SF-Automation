@@ -683,11 +683,52 @@ namespace SF_Automation.Pages.Engagement
         By tabAdministationL1 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By tabAdministationL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Administration'])[2]");
         By lblEngDescL = By.XPath("//label[text()='Engagement Description']");
-        By _elmRecordType(string text)
+        By rowContractL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/th//a//span[@class='slds-truncate']//slot"); //div//table[@aria-label='Contract']//tbody/tr/th//a//span");
+        By valERPContractTypeL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[4]//lst-formatted-text/span");
+        By valERPBusUnitL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[5]//lst-formatted-text/span");
+        By valERPLegalEntityL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[6]//lst-formatted-text/span");
+        By valERPBillPlanL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[7]//lst-formatted-text/span");
+        By valBillToL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[8]//a");
+        By valStartDateL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[9]//div//lightning-formatted-date-time");
+        By valIsMainL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[11]//input[@type='checkbox']");
+        By valCompNameL = By.XPath("//table[@aria-label='Engagement Contacts']//tbody//tr//td[10]//a");
+        By tableContractsL = By.XPath("//table[@aria-label='Contract']");
+        By lnkViewAllContactsL = By.XPath("//article[@aria-label='Engagement Contacts']//span[text()='View All']//parent::a");
+        By tableContactsL = By.XPath("//table[@aria-label='Engagement Contacts']");
+        By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
+        By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
+        By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
+        By radioCompName = By.XPath("//table/tbody/tr[2]/td[1]/div/input");
+        By btnOK = By.XPath("//button[@title='OK']");
+        By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
+        By btnBackCounterparties = By.XPath("//button[text()='Back']");
+        By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
+        By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
+        By btnSearchContact = By.XPath("//button[@title='Search']");
+        By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
+        By btnAddContact = By.XPath("//button[@title='counterparty']");
+        By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");       
+        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By txtContactL = By.XPath("//input[@title='Search Contacts']");
+        By btnSaveContactL = By.XPath("//footer//button/span[text()='Save']");
+        By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
+        By tabCommentsL = By.XPath("//div[contains(@class,'sidebar-right')]//li[@title='Comments']");
+        By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
+        By btnSidebarSave = By.XPath("//div[contains(@class,'sidebar-right')]//button[@name='save']");
+        By tabFSEngL = By.XPath("//lightning-tab-bar/ul/li/a[text()='FS Engagements']");
+        By lnkMoretabFSEngL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='FS Engagements']");
+        By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
+        By btnNewFSEngL = By.XPath("//article[@aria-label='FS Engagements']//button[@name='New']");
+        By inputSponsorCompanyL = By.XPath("//input[@placeholder='Search Companies...']");
+        By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[1]");
+        By checkBoxCoExistEngL = By.XPath("//input[@name='Co_exist__c']");
+        By checkBoxCoExistEngL2 = By.XPath("(//input[@name='Co_exist__c'])[2]");
+        private By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
         }
-        By _sharingGroup(string text)
+        private By _sharingGroup(string text)
         {
             return By.XPath($"//div[contains(@class,'recordsRecordShare')]//table//tbody//tr//lightning-base-formatted-text[text()='{text}']");
         }
@@ -739,8 +780,11 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//h2//span[text()='Engagement Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");//(//lightning-datatable//table//tbody//td//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}'])[2]
         }
-        By checkBoxCoExistEngL = By.XPath("//input[@name='Co_exist__c']");
-        By checkBoxCoExistEngL2 = By.XPath("(//input[@name='Co_exist__c'])[2]");
+        private By _btnAddContactL(string lob)
+        {
+            return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
+        }
+        
         public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
         {
             try
@@ -6540,7 +6584,7 @@ namespace SF_Automation.Pages.Engagement
 
         By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
         By txtContactName = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
-
+        By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
         public string GetEngExternalContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
@@ -6865,16 +6909,7 @@ namespace SF_Automation.Pages.Engagement
             return isFound;
         }
 
-        By rowContractL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/th//a//span[@class='slds-truncate']//slot"); //div//table[@aria-label='Contract']//tbody/tr/th//a//span");
-        By valERPContractTypeL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[4]//lst-formatted-text/span");
-        By valERPBusUnitL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[5]//lst-formatted-text/span");
-        By valERPLegalEntityL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[6]//lst-formatted-text/span");
-        By valERPBillPlanL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[7]//lst-formatted-text/span");
-        By valBillToL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[8]//a");
-        By valStartDateL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[9]//div//lightning-formatted-date-time");
-        By valIsMainL = By.XPath("//div//table[@aria-label='Contract']//tbody/tr/td[11]//input[@type='checkbox']");
-        By valCompNameL = By.XPath("//table[@aria-label='Engagement Contacts']//tbody//tr//td[10]//a");
-        By tableContractsL= By.XPath("//table[@aria-label='Contract']");
+        
         private By _quickLink(string linkText)
         {
             return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
@@ -6975,10 +7010,7 @@ namespace SF_Automation.Pages.Engagement
                 return "Is Main Contract checkbox is not checked";
             }
         }
-
-        By lnkViewAllContactsL = By.XPath("//article[@aria-label='Engagement Contacts']//span[text()='View All']//parent::a");
-        By tableContactsL = By.XPath("//table[@aria-label='Engagement Contacts']");
-
+        
         public void ClickEngagementContactList()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -7003,20 +7035,7 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
                 
-        By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
-        By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
-        By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
-        By radioCompName = By.XPath("//table/tbody/tr[2]/td[1]/div/input");
-        By btnOK = By.XPath("//button[@title='OK']");
-        By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
-        By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
-        By btnBackCounterparties = By.XPath("//button[text()='Back']");
-        By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
-        By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
-        By btnSearchContact = By.XPath("//button[@title='Search']");
-        By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
-        By btnAddContact = By.XPath("//button[@title='counterparty']");
-        By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
+        
         //Validate add counterparty functionality
         public string ValidateAddCounterpartyFunctionality()
         {
@@ -7101,17 +7120,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(lnkContacts).Text;
             return name;
         }
-        private By _btnAddContactL(string lob)
-        {
-            return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
-        }
-        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
-        By txtContactL = By.XPath("//input[@title='Search Contacts']");
-        By btnSaveContactL = By.XPath("//footer//button/span[text()='Save']");
-        By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
-        By tabCommentsL = By.XPath("//div[contains(@class,'sidebar-right')]//li[@title='Comments']");
-        By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
-        By btnSidebarSave = By.XPath("//div[contains(@class,'sidebar-right')]//button[@name='save']");
+        
         public void AddEngementCommentsLV(string commentType, string txtComments)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabCommentsL, 20);
@@ -7167,12 +7176,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveContactL).Click();
             Thread.Sleep(5000);
         }
-        By tabFSEngL = By.XPath("//lightning-tab-bar/ul/li/a[text()='FS Engagements']");
-        By lnkMoretabFSEngL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='FS Engagements']");
-
-        By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
-
+        
         public void ClickTabFSEngagementLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -7198,27 +7202,26 @@ namespace SF_Automation.Pages.Engagement
 
             Thread.Sleep(10000);
         }
-        By btnNewFSEng = By.XPath("//article[@aria-label='FS Engagements']//button[@name='New']");
-        By inputSponsorCompany = By.XPath("//input[@placeholder='Search Companies...']");
-        By optionSponsorCompany = By.XPath("(//div[@role=\"listbox\"]//li)[1]");
+        
         public void CreateNewFSEngagementLV(string sponsor)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSEng, 10);
-            driver.FindElement(btnNewFSEng).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSEngL, 10);
+            driver.FindElement(btnNewFSEngL).Click();
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, optionSponsorCompany, 5);
-            driver.FindElement(inputSponsorCompany).Click();
-            
-            WebDriverWaits.WaitUntilEleVisible(driver, optionSponsorCompany, 10);
-            driver.FindElement(optionSponsorCompany).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSponsorCompanyL, 10);
+            driver.FindElement(inputSponsorCompanyL).Click();
+            driver.FindElement(inputSponsorCompanyL).SendKeys(sponsor);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, optionSponsorCompanyL, 10);
+            driver.FindElement(optionSponsorCompanyL).Click();
             Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
-        public void ClickContactTabLV()
+        public void ClickEngContactTabLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
-            driver.FindElement(tabContactsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 20);
+            driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
     }

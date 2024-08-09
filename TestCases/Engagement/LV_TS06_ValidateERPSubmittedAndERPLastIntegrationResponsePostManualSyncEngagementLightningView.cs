@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.Engagements
         RandomPages randomPages = new RandomPages();
         EngagementHomePage engHome = new EngagementHomePage();
         EngagementDetailsPage engDetails = new EngagementDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileERPTS02 = "LV_TS05_ValidateERPSection";
         [OneTimeSetUp]
@@ -42,7 +43,12 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
-                usersLogin.SearchUserAndLogin(adminUserExl);
+                //usersLogin.SearchUserAndLogin(adminUserExl);
+
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string userName = login.ValidateUserLightningView();
                 Assert.AreEqual(userName.Contains(adminUserExl), true);

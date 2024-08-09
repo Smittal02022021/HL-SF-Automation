@@ -26,7 +26,7 @@ namespace SF_Automation.Pages
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 10);
                 IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
                 if (linkSwitchtoLightning.Displayed)
                 {
@@ -194,7 +194,6 @@ namespace SF_Automation.Pages
                 // No Need to Verify your identity in Salesforce
             }
         }
-
         public void LoginAsFirstLevelExpenseRequest(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");

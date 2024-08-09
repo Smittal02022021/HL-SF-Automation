@@ -321,7 +321,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string valCPContact = addCounterparty.GetContactNameFromListLV();
                 addCounterparty.SelectContactFromListLV();
                 addCounterparty.ClickAddContactLV();
-                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact is added ");
+                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact:"+ contactname+" is added ");
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();// ButtonClick("Back");
                 
                 string contactEngCP= addCounterparty.GetEngCounterpartyContactLV();
@@ -347,7 +347,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual(commentType, commentTypeExl,"Verify Comments added with Type:  "+ commentTypeExl);
                     randomPages.CloseActiveTab("ECC");                    
                 }
-
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 CustomFunctions.PageReload(driver);
@@ -379,23 +378,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", 5, 2);
                 engagementDetails.AddEngementCommentsLV(commentTypeExl, commentTextExl);
                 extentReports.CreateStepLogs("Info", "Comments added on Engagement page with Type:  " + commentTypeExl);
-
-                usersLogin.ClickLogoutFromLightningView();
-                //engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
-                //addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
-                //CustomFunctions.SwitchToWindow(driver, 1);
-                //extentReports.CreateLog("User Switched to new tab ");
-
-                //addCounterparty.ClickEngCPVCommentsLV();
-                //commentTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 6, 1);
-                //commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 6, 2);
-                //addCounterparty.AddNewEngagementCounterpartyCommentLV(commentTypeExl, commentTextExl, counterpartyCompanyNameExl);
-                //popupMessage = addCounterparty.GetLVMessagePopup();
-                //Assert.IsTrue(popupMessage.Contains("Engagement Counterparty Comment"), "Verify the Added Counterparty name is displayed in Popup message ");
-                //extentReports.CreateLog(popupMessage + " message Displayed and Comments added for counterpartywith Type:  " + commentTypeExl);
-                //commentType = addCounterparty.GetCommentTypeLV();
-                //Assert.AreEqual(commentType, commentTypeExl, "Verify Comments added with Type:  " + commentTypeExl);
-                //randomPages.CloseActiveTab("ECC");
+                usersLogin.ClickLogoutFromLightningView();                
 
                 ////*****************************************////
                 
@@ -427,7 +410,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 engagementDetails.CreateNewFSEngagementLV(counterpartyCompanyNameExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and Comments added for counterpartywith Type:  " + commentTypeExl);
+                extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and FS Engagement added for Engagement with Sponsored Company  " + counterpartyCompanyNameExl);
                 usersLogin.ClickLogoutFromLightningView();
 
                 usersLogin.UserLogOut();

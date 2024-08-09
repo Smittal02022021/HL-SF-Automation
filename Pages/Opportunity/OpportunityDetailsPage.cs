@@ -7315,7 +7315,7 @@ namespace SF_Automation.Pages
             string tombstonePermissionExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 29);
             driver.FindElement(comboTombstonePermissionL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath($"//label[text()='Tombstone Permission']/following::lightning-base-combobox-item//span[text()='{tombstonePermissionExl}']")).Click();
+            driver.FindElement(By.XPath($"//label[text()='Tombstone Permission']/following::lightning-base-combobox-item//span[text()='No Restrictions']")).Click();
 
             //Valuation Date
             WebDriverWaits.WaitUntilEleVisible(driver, txtvaluationDateL, 20);

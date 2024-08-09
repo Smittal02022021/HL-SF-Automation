@@ -20,7 +20,7 @@ namespace SF_Automation.UtilityFunctions
         By linkSignOut = By.CssSelector("a[id*='signOut']");
         By outlookLabel = By.CssSelector("div[id*='owaBranding_container'] > div > a > span");
         //By searchBox = By.CssSelector("div[class='DqR_QI9wxI9eR6VFTBDcQ'] > input");
-        By searchBox = By.XPath("(//div[@class='rclHC']/input)[1]");
+        By searchBox = By.XPath("//input[@id='topSearchInput']");// (//div[@class='rclHC']/input)[1]");
         By btnSearch = By.XPath("//*[@id='searchBoxColumnContainerId']/div[1]/button");
         //By btnSearch = By.CssSelector("i[data-icon-name='Search']");
 
@@ -58,7 +58,6 @@ namespace SF_Automation.UtilityFunctions
                 if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
-
                 }
             }
             else
@@ -73,14 +72,12 @@ namespace SF_Automation.UtilityFunctions
                 if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
-
                 }
             }
             else
             {
                 Console.WriteLine("User is already logged in");
-            }
-          
+            }          
         }
         public void SelectExpenseApprovalEmailV()
         {
@@ -251,12 +248,14 @@ namespace SF_Automation.UtilityFunctions
         public string VerifyExpenseRequestForApprovedEmail(int windowId)
         {
             CustomFunctions.SwitchToWindow(driver, 0);
+            WebDriverWaits.WaitUntilEleVisible(driver, searchBox, 20);
             driver.FindElement(searchBox).Clear();
             driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense APPROVED");
             Thread.Sleep(2000);
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             //driver.FindElement(btnSearch).Click();
             Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 20);
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(2000);

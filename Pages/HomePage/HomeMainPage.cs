@@ -228,6 +228,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, btnGlobalSearch);
             driver.FindElement(btnGlobalSearch).Click();
             Thread.Sleep(10000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkPeople));
             WebDriverWaits.WaitUntilEleVisible(driver, linkPeople);
             driver.FindElement(linkPeople).Click();
             Thread.Sleep(2000);
