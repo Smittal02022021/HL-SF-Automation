@@ -6082,7 +6082,7 @@ namespace SF_Automation.Pages.Engagement
                 return false;
             }
         }
-        public string EnterAssociatedEngagement(string name)
+        public void EnterAssociatedEngagement(string name)
         {
             try
             {
@@ -6091,15 +6091,18 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(editAssociatedEngField).Clear();
                 driver.FindElement(editAssociatedEngField).SendKeys(name);
                 driver.FindElement(btnSave).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEng, 20);
-                return driver.FindElement(txtAssociatedEng).Text;
+                Thread.Sleep(8000);
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditForm).Click();
-                return e.Message;
             }
-        }        
+        }   
+        public string GetAssociatedEngagement()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEng, 20);
+            return driver.FindElement(txtAssociatedEng).Text;
+        }
         public void EnterAssociatedEngagementLV(string name)
         {
             Thread.Sleep(2000);
