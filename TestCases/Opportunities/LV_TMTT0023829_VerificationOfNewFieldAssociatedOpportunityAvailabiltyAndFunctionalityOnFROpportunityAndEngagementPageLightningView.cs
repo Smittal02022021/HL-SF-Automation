@@ -251,7 +251,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //New Field is Present on Opportunity Detail Page for CAO user
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldPresentLV());
-                    extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for CAO User: " + caoUser + " ");
+                    extentReports.CreateLog("New Field i.e. Associated Opportunity is Present on Opportunity Detail Page for CAO User: " + userCAO + " ");
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should be editable for CAO User ");
