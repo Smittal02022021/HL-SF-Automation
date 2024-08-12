@@ -787,7 +787,7 @@ namespace SF_Automation.Pages.Engagement
         By btnReqFullEngL = By.XPath("//button[text()='Request Full Engagement']");
         By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
         By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
-        By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//abbr");
+        By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label");
         By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
         public void ClickRequestFullEngagementLV()
         {
@@ -7246,8 +7246,9 @@ namespace SF_Automation.Pages.Engagement
 
             Thread.Sleep(10000);
         }
-        
-        public void CreateNewFSEngagementLV(string sponsor)
+
+        By txtFSEngNameL = By.XPath("//h1//records-entity-label[text()='FS Engagement']/../../..//slot[@name='primaryField']//lightning-formatted-text");
+        public string CreateNewFSEngagementLV(string sponsor)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSEngL, 10);
             driver.FindElement(btnNewFSEngL).Click();
@@ -7260,6 +7261,9 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(optionSponsorCompanyL).Click();
             Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
+            //Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngNameL, 10);
+            return driver.FindElement(txtFSEngNameL).Text;
         }
 
         public void ClickEngContactTabLV()

@@ -255,7 +255,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //New Field on Opportunity Detail Page is not editable for CAO User
                     Assert.IsTrue(opportunityDetails.IsAssociatedOppFieldEditableLV(), "Verify Associated Engagement should be editable for CAO User ");
-                    extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for CAO User: " + caoUser + " ");
+                    extentReports.CreateLog("New Field i.e. Associated Opportunity is Editable for CAO User: " + userCAO + " ");
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 3, 1);
