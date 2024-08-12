@@ -784,8 +784,8 @@ namespace SF_Automation.Pages.Engagement
         }
 
 
-        By btnReqEngL = By.XPath("//button[text()='Request Full Engagement']");
-        By linkReqEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
+        By btnReqFullEngL = By.XPath("//button[text()='Request Full Engagement']");
+        By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
         By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
         By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//abbr");
         By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
@@ -794,15 +794,15 @@ namespace SF_Automation.Pages.Engagement
             try
             {
                 Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 20);
-                driver.FindElement(btnReqEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqFullEngL, 20);
+                driver.FindElement(btnReqFullEngL).Click();
             }
             catch (Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
                 driver.FindElement(iconExpandMoreButonL).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, linkReqEngL, 20);
-                driver.FindElement(linkReqEngL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkReqFullEngL, 20);
+                driver.FindElement(linkReqFullEngL).Click();
             }
         }
         public string GetVerballyFullEngValidationHeaderErrorsLV()
