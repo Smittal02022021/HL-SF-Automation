@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -121,11 +122,9 @@ namespace SF_Automation.Pages.Engagement
         By valSector = By.CssSelector("div[id*='6B7']");
         By comboJobType = By.CssSelector("select[id*= '65s']");
         By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id4_ileinner'] > a");
-        By comboLOB = By.CssSelector("select[id*='LoE']");
-      
+        By comboLOB = By.CssSelector("select[id*='LoE']");      
         By lnkClient = By.XPath("//*[text()='Client']/.. //td[2]//div//a");
         By lnkSecondContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
-
         By lnkSyncDate = By.CssSelector("table > tbody > tr:nth-child(1) > td.dataCol.col02 > span > span > a");
         By rowContract = By.CssSelector("div[id*='cq_body']>table>tbody>tr.dataRow.even.last.first>th>a");
         By valERPContractType = By.CssSelector("div[id*='cq_body']>table>tbody>tr.dataRow.even.last.first>td:nth-child(4)");
@@ -171,7 +170,6 @@ namespace SF_Automation.Pages.Engagement
 
         By textEngagementDetailEngagementName = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By textEngagementDetailEngagementNumber = By.XPath("//p[@title='Engagement Number']//following-sibling::p//slot//lightning-formatted-text");
-
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");        
 
@@ -784,7 +782,50 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
         }
-        
+
+
+        By btnReqEngL = By.XPath("//button[text()='Request Full Engagement']");
+        By linkReqEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
+        By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
+        By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//abbr");
+        By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
+        public void ClickRequestFullEngagementLV()
+        {
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 20);
+                driver.FindElement(btnReqEngL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkReqEngL, 20);
+                driver.FindElement(linkReqEngL).Click();
+            }
+        }
+        public string GetVerballyFullEngValidationHeaderErrorsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngAlertHeaderErrorsL, 10);
+            Thread.Sleep(2000);
+            string pageLevelError = driver.FindElement(txtEngAlertHeaderErrorsL).Text;
+            string formatedHeaderError = Regex.Replace(pageLevelError, @"\t|\n|\r", "");
+            return formatedHeaderError;
+        }
+        public string GetVerballyFullEngReqFieldsLV()
+        {
+            IList<IWebElement> fieldLevelErrors = driver.FindElements(lblVEEngEditFormLabelsL);
+            string formatedReqFieldLabels = "";
+            foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
+            {
+                string fieldLevelError = txtFieldLevelError.Text;
+                string formatedfieldLevelLabels = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
+                formatedReqFieldLabels = formatedReqFieldLabels + formatedfieldLevelLabels;
+            }
+            driver.FindElement(iconCloseErrorL).Click();
+            return formatedReqFieldLabels;
+        }
         public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
         {
             try

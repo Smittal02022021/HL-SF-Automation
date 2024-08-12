@@ -112,8 +112,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string stage = opportunityDetails.GetStageLV();
                 string stageExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 31);
                 opportunityDetails.EditOpportunityStageLV(stageExl);
-                string actualListValidationErrors= opportunityDetails.GetOppVerballyEngagedValidationErrorsLV();
-                string expectedListValidationErrors = ReadExcelData.ReadData(excelPath, "VEValidationList",1);
+                string expectedListValidationErrors = ReadExcelData.ReadData(excelPath, "VEValidationList", 1);
+                string actualListValidationErrors= opportunityDetails.GetOppVerballyEngagedValidationErrorsLV();                
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
                 usersLogin.ClickLogoutFromLightningView();
@@ -411,6 +411,21 @@ namespace SalesForce_Project.TestCases.Opportunities
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and FS Engagement added for Engagement with Sponsored Company  " + counterpartyCompanyNameExl);
+
+                //TMTI0101392 Verify that CF User is able to Request Full engagement from Partial engagement.
+                engagementDetails.ClickRequestFullEngagementLV();
+                extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
+                
+                string expectedHeaderErrorsList = ReadExcelData.ReadData(excelPath, "VEValidationList", 2);
+                string actualHeaderErrorsList = engagementDetails.GetVerballyFullEngValidationHeaderErrorsLV();
+                Assert.AreEqual(expectedHeaderErrorsList,actualHeaderErrorsList, "Verify the Validations in Header of Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "Validations in Header of Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
+
+                string expectedLabelList = ReadExcelData.ReadData(excelPath, "VEValidationList", 3);
+                string actualLabelList= engagementDetails.GetVerballyFullEngReqFieldsLV();
+                Assert.AreEqual(expectedLabelList, actualLabelList, "Verify the Required Fields on Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "Required Fields on Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
+
                 usersLogin.ClickLogoutFromLightningView();
 
                 usersLogin.UserLogOut();

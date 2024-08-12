@@ -554,7 +554,7 @@ namespace SF_Automation.Pages
         By txtDateEngaged = By.XPath("//flexipage-field[contains(@data-field-id,'Date_Engaged_cField')]//span[contains(@class,'field-value')]//lightning-formatted-text");
         By popupError = By.XPath("//div[contains(@class,'OppRequestEngagementAura')]");
         By txtErrorList = By.XPath("//div[contains(@class,'OppRequestEngagementAura')]//lightning-formatted-text");
-        By iconCloseError = By.XPath("//button[@title='Close this window']");
+        By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
         By tabOppClientSubjectRefL = By.XPath("//li/a[contains(@data-label,'Subject & Referral')]");
         By tabOppaddClientSubjectL = By.XPath("//article[@aria-label='Additional Clients/Subjects']//h2/a");
         By lnkAdditionalClientL = By.XPath("//article//table[@aria-label='Additional Clients/Subjects']//tr[1]//th[contains(@data-label,'Opportunity Client/Subject')]//a//span");
@@ -6721,7 +6721,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             string actualErrorsList = driver.FindElement(txtErrorList).Text;
             string formatedActualErrorsList = Regex.Replace(actualErrorsList, @"\t|\n|\r", "");
-            driver.FindElement(iconCloseError).Click();
+            driver.FindElement(iconCloseErrorL).Click();
             return formatedActualErrorsList;
         }
         public string GetExpectedRequiredFieldsValidationForConversionLV(string file)
@@ -7980,7 +7980,7 @@ namespace SF_Automation.Pages
             }
 
             string finalErroList = formatedpageLevelError + formatedFieldLevelErrors;
-            driver.FindElement(iconCloseError).Click();
+            driver.FindElement(iconCloseErrorL).Click();
             return finalErroList;
         }
 
