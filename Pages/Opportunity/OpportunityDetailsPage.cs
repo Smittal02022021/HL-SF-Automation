@@ -5637,7 +5637,7 @@ namespace SF_Automation.Pages
                 return false;
             }
         }
-        public string EnterAssociatedOpportunity(string name)
+        public void EnterAssociatedOpportunity(string name)
         {
             try
             {
@@ -5646,15 +5646,19 @@ namespace SF_Automation.Pages
                 driver.FindElement(editAssociatedOppField).Clear();
                 driver.FindElement(editAssociatedOppField).SendKeys(name);
                 driver.FindElement(btnSave).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);
-                return driver.FindElement(txtAssociatedOpp).Text;
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);                
             }
             catch (Exception e)
             {
-                driver.FindElement(btnCancelEditForm).Click();
-                return e.Message;
+                driver.FindElement(btnCancelEditForm).Click();                
             }
 
+        }
+        public string GetAssociatedOpportunity()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);
+            return driver.FindElement(txtAssociatedOpp).Text;
         }
         public void EnterAssociatedOpportunityLV(string name)
         {
