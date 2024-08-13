@@ -798,14 +798,48 @@ namespace SF_Automation.Pages.Engagement
         By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
         By inputTailExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Tail Expires']/..//input");
         By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
-        By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button");
+        By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
         By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
         By btnEngInfoSaveL= By.XPath("//footer//button[@type='submit']");
+        By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
+        By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
+        By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
 
+        public void CreateBillingContactLV(string name, string party)
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
+            driver.FindElement(txtContactL).SendKeys(name);
+            Thread.Sleep(3000);
+            try
+            {
+                By listContactOption = By.XPath($"//div[@role='listbox']//ul//li//a//div[2]//div[1][@title='{name}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 5);
+                driver.FindElement(listContactOption).Click();
+            }
+            catch (Exception ex)
+            {
+                By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
+                WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
+                driver.FindElement(iconContactSearchItem).Click();
+                By txtContact = By.XPath("//div[contains(@class,'gridInScroller')]//table//tbody//tr[1]//td[1]//a");
+                WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
+                driver.FindElement(txtContact).Click();
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
+            driver.FindElement(btnPartyL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            driver.FindElement(chkBillingContactL).Click();
+            driver.FindElement(chkAckBillingContactL).Click();
+            driver.FindElement(chkPrimaryContactL).Click();
+            driver.FindElement(btnSaveContactL).Click();
+            Thread.Sleep(5000);
+        }
 
         public void EnterRequestFullEngagementReqValuesLV()
         {
-            string dateToday = DateTime.Today.ToString("MM/DD/YYYY");
+            string dateToday = DateTime.Today.ToString("MM/dd/yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, inputSSExpL, 20);
             driver.FindElement(inputSSExpL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputExpCapL, 20);
@@ -824,8 +858,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(inputRetainerL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputProgMnthFL, 20);
             driver.FindElement(inputProgMnthFL).SendKeys("10");
-            WebDriverWaits.WaitUntilEleVisible(driver, inputContgFeeL, 20);
-            driver.FindElement(inputContgFeeL).SendKeys("10");
+            //WebDriverWaits.WaitUntilEleVisible(driver, inputContgFeeL, 20);
+            //driver.FindElement(inputContgFeeL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputTailExpL, 20);
             driver.FindElement(inputTailExpL).SendKeys(dateToday);
 
@@ -838,7 +872,7 @@ namespace SF_Automation.Pages.Engagement
 
             WebDriverWaits.WaitUntilEleVisible(driver, inputFairnessOppL, 5);
             driver.FindElement(inputFairnessOppL).Click();
-            By eleOptionFairnessOpp = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button/../..//lightning-base-combobox-item//span[@title='No']");
+            By eleOptionFairnessOpp = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']/../..//lightning-base-combobox-item//span[@title='No']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleOptionFairnessOpp, 5);
             driver.FindElement(eleOptionFairnessOpp).Click();
 
@@ -7276,7 +7310,6 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
-            //string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
             driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();            
             driver.FindElement(btnSaveContactL).Click();
             Thread.Sleep(5000);

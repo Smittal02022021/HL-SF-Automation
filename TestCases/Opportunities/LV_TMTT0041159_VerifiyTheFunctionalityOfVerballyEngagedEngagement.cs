@@ -226,7 +226,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 engagementDetails.CreateContactLV(contactNameExl, contactPartyExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and Comments added for counterpartywith Type:  " + commentTypeExl);
+                extentReports.CreateStepLogs("Passed", "Comments added for counterpartywith Type:  " + commentTypeExl);
                 extentReports.CreateStepLogs("Info", contactNameExl+" Contact added on Engagement page");
 
                 //CF Financial User Add Comments on Parial Engaged Engagement
@@ -341,7 +341,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     addCounterparty.AddNewEngagementCounterpartyCommentLV(commentTypeExl, commentTextExl, counterpartyCompanyNameExl);
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.IsTrue(popupMessage.Contains("Engagement Counterparty Comment"), "Verify the Engagement Counterparty Comments is displayed in Popup message ");
-                    extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and Comments added for counterpartywith Type:  " + commentTypeExl);
+                    extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeExl);
                     commentType= addCounterparty.GetCommentTypeLV();
                     Assert.AreEqual(commentType, commentTypeExl,"Verify Comments added with Type:  "+ commentTypeExl);
                     randomPages.CloseActiveTab("ECC");                    
@@ -351,8 +351,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 CustomFunctions.PageReload(driver);
 
                 usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "CF Financial User logged out");
                 ////////////////////////////////////////////
-                
+
                 //*Adding Comments with  Compliance User on Engagement //
                 string complianceuserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 5, 1);
                 homePage.SearchUserByGlobalSearchN(complianceuserExl);
@@ -377,10 +378,11 @@ namespace SalesForce_Project.TestCases.Opportunities
                 commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", 5, 2);
                 engagementDetails.AddEngementCommentsLV(commentTypeExl, commentTextExl);
                 extentReports.CreateStepLogs("Info", "Comments added on Engagement page with Type:  " + commentTypeExl);
-                usersLogin.ClickLogoutFromLightningView();                
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "Compliance User: "+ complianceuserExl+" logged out");
 
                 ////*****************************************////
-                
+
                 //Login as System Admin user to add FS Engagement 
                 adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Adding FS Engagement ");
@@ -409,9 +411,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string nameFSEng= engagementDetails.CreateNewFSEngagementLV(counterpartyCompanyNameExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company " + counterpartyCompanyNameExl);
-                //close FS Eng
+                extentReports.CreateStepLogs("Passed", " FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company: " + counterpartyCompanyNameExl);
                 randomPages.CloseActiveTab(nameFSEng);
+                //////////////////////////////////////////               
 
                 //TMTI0101392 Verify that CF User is able to Request Full engagement from Partial engagement.
                 engagementDetails.ClickRequestFullEngagementLV();
@@ -427,16 +429,61 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(expectedLabelList, actualLabelList, "Verify the Required Fields on Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
                 extentReports.CreateStepLogs("Passed", "Required Fields on Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
 
+                //Create Primary Contact 
+                engagementDetails.CickAddEngagementContactLV(valRecordType);
+                contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 8);
+                contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 3);
+
+                engagementDetails.CreateBillingContactLV(contactNameExl, contactPartyExl);
+                popupMessage = addCounterparty.GetLVMessagePopup();
+                Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
+                extentReports.CreateStepLogs("Passed", contactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page");
+
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
-
+                
+                //Enter Required fields for Request Full Engagement
                 engagementDetails.EnterRequestFullEngagementReqValuesLV();
                 extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
-                engagementDetails.ClickRequestFullEngagementLV();
-                extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
-
+                popupMessage = addCounterparty.GetLVMessagePopup();
+                Assert.IsTrue(popupMessage.Contains("Record submitted for approval!"));                                
+                extentReports.CreateStepLogs("Passed", "Request Full Engagement button clicked with popup message "+ popupMessage);
                 usersLogin.ClickLogoutFromLightningView();
-                
+                extentReports.CreateStepLogs("Passed", "System Administrator: "+ appNameExl+" logged out" );
+
+                //TMTI0101394 Verify that CAO User can approve the Full engagement request
+                string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 3);
+                homePage.SearchUserByGlobalSearchN(userCAOExl);
+                extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                string userCAO = login.ValidateUserLightningView();
+                Assert.AreEqual(userCAO.Contains(userCAOExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
+                //Go to Opportunity module in Lightning View 
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+
+                engagementHome.SearchEngagementInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Engagement found and selected");
+                string status = opportunityDetails.ClickApproveButtonL();
+                Assert.AreEqual(status, "Approved");
+                extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
+                opportunityDetails.CloseApprovalHistoryTabL();
+                opportunityDetails.ClickConvertToEngagementL2();
+                extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
+                //Validate the Engagement name in Engagement details page
+                string engagementNumber = engagementDetails.GetEngagementNumberL();
+                string engagementName = engagementDetails.GetEngagementNameL();
+                Assert.AreEqual(opportunityName, engagementName);
+                extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " logged out");
+
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
