@@ -206,7 +206,6 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
-                //extentReports.CreateStepLogs("Info", "CF Financial User is on " + moduleNameExl + " Page ");
                 extentReports.CreateStepLogs("Info", "CF Financial User is on Partial Engaged "+moduleNameExl);
                 engagementHome.SearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
@@ -413,6 +412,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company " + counterpartyCompanyNameExl);
                 //close FS Eng
                 randomPages.CloseActiveTab(nameFSEng);
+
                 //TMTI0101392 Verify that CF User is able to Request Full engagement from Partial engagement.
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
@@ -422,13 +422,21 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(expectedHeaderErrorsList,actualHeaderErrorsList, "Verify the Validations in Header of Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
                 extentReports.CreateStepLogs("Passed", "Validations in Header of Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
 
-                string expectedLabelList = ReadExcelData.ReadData(excelPath, "VEValidationList", 4);
+                string expectedLabelList = ReadExcelData.ReadData(excelPath, "VEValidationList", 5);
                 string actualLabelList= engagementDetails.GetVerballyFullEngReqFieldsLV();
-                //Assert.AreEqual(expectedLabelList, actualLabelList, "Verify the Required Fields on Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
+                Assert.AreEqual(expectedLabelList, actualLabelList, "Verify the Required Fields on Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
                 extentReports.CreateStepLogs("Passed", "Required Fields on Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
 
-                usersLogin.ClickLogoutFromLightningView();
+                engagementDetails.ClickRequestFullEngagementLV();
+                extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
 
+                engagementDetails.EnterRequestFullEngagementReqValuesLV();
+                extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
+                engagementDetails.ClickRequestFullEngagementLV();
+                extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
+
+                usersLogin.ClickLogoutFromLightningView();
+                
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

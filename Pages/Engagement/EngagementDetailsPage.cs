@@ -789,6 +789,66 @@ namespace SF_Automation.Pages.Engagement
         By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
         By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label");
         By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
+        By inputSSExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Shared Services Expense']/..//input");
+        By inputExpCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Expense Cap']/..//input");
+        By inputLegalCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Legal Cap']/..//input");
+        By btnIndLngL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/..//button");
+        By inputRetainerL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Retainer']/..//input");
+        By inputProgMnthFL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Progress/Monthly Fee']/..//input");
+        By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
+        By inputTailExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Tail Expires']/..//input");
+        By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
+        By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button");
+        By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
+        By btnEngInfoSaveL= By.XPath("//footer//button[@type='submit']");
+
+
+        public void EnterRequestFullEngagementReqValuesLV()
+        {
+            string dateToday = DateTime.Today.ToString("MM/DD/YYYY");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSSExpL, 20);
+            driver.FindElement(inputSSExpL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputExpCapL, 20);
+            driver.FindElement(inputExpCapL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputLegalCapL, 20);
+            driver.FindElement(inputLegalCapL).SendKeys("10");
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngInfoSaveL));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIndLngL, 5);
+            driver.FindElement(btnIndLngL).Click();
+            By eleOptionIngLng = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/..//button/../..//lightning-base-combobox-item//span[@title='No']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleOptionIngLng, 5);
+            driver.FindElement(eleOptionIngLng).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, inputRetainerL, 20);
+            driver.FindElement(inputRetainerL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputProgMnthFL, 20);
+            driver.FindElement(inputProgMnthFL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputContgFeeL, 20);
+            driver.FindElement(inputContgFeeL).SendKeys("10");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputTailExpL, 20);
+            driver.FindElement(inputTailExpL).SendKeys(dateToday);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfAggL, 20);
+            driver.FindElement(btnConfAggL).Click();
+            By eleOptionConfAgg = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button/../..//lightning-base-combobox-item//span[@title='No']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleOptionConfAgg, 5);
+            driver.FindElement(eleOptionConfAgg).Click();
+
+
+            WebDriverWaits.WaitUntilEleVisible(driver, inputFairnessOppL, 5);
+            driver.FindElement(inputFairnessOppL).Click();
+            By eleOptionFairnessOpp = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button/../..//lightning-base-combobox-item//span[@title='No']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleOptionFairnessOpp, 5);
+            driver.FindElement(eleOptionFairnessOpp).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDateEngdL, 5);
+            driver.FindElement(inputDateEngdL).SendKeys(dateToday);
+            driver.FindElement(btnEngInfoSaveL).Click();
+        }
+
+
+
         public void ClickRequestFullEngagementLV()
         {
             try
@@ -6140,7 +6200,8 @@ namespace SF_Automation.Pages.Engagement
         }
             public string GetAssociatedEngagementLV()
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
                 return driver.FindElement(txtAssociatedEngL).Text;
             }
         public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)

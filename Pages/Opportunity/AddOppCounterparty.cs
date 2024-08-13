@@ -1091,8 +1091,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(2000);
             WebDriverWaits.WaitTillElementVisible(driver,iconLoadSpinner);
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchedContactL, 60);
-            Thread.Sleep(10000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtSearchedContactL, 60);
+            Thread.Sleep(15000);
             return driver.FindElement(txtSearchedContactL).Text;
         }
         public bool IsContactAddedCounterpartyListLV(string companyName)

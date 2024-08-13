@@ -5660,6 +5660,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);
             return driver.FindElement(txtAssociatedOpp).Text;
         }
+        By editLbloppDescL = By.XPath("//label[text()='Opportunity Description']");
         public void EnterAssociatedOpportunityLV(string name)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -5668,6 +5669,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
+                CustomFunctions.MoveToElement(driver, driver.FindElement(editLbloppDescL));
                 WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedOppL, 10);
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(iconClearAssociatedOppL));
 
@@ -5684,6 +5686,7 @@ namespace SF_Automation.Pages
         }
         public string GetAssociatedOpportunityLV()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
             return driver.FindElement(txtAssociatedOppL).Text;
         }
