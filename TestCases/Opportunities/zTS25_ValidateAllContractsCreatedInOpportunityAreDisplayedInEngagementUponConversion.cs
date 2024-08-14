@@ -11,7 +11,7 @@ namespace SF_Automation.TestCases.Opportunity
 
 {
 
-    class TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion : BaseClass
+    class zTS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion : BaseClass
 
     {
 
@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to enter Internal Team details and validate Opportunity detail page
                 clientSubjectsPage.EnterStaffDetails(ERP);
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateLog(driver.Title + " is displayed ");
 
                 //Validating Opportunity details page 
                 string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
@@ -130,7 +130,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Add the contract by not selecting "Is Main Contract" option
 
                 string titleDetail = opportunityDetails.AddContractByNotSelectingIsMainContract("Test Contract", valContact);
-                                Assert.AreEqual("Test Contract", titleDetail);
+                Assert.AreEqual("Test Contract", titleDetail);
                 extentReports.CreateLog("Contract with name: " + titleDetail + " is added ");
 
                 //Validate if Is Main Contract checkbox is checked
@@ -140,21 +140,18 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(valueIsMain + " of added Contract even it was not selected while saving the details ");
 
                 //Add one more contract by selecting Is Main Contract checkbox
-
                 opportunityDetails.ClickNewContract();
-                                string titleDetailIsMainTrue = opportunityDetails.AddContractBySelectingIsMainContract("Additional Contract", valContact);
+                string titleDetailIsMainTrue = opportunityDetails.AddContractBySelectingIsMainContract("Additional Contract", valContact);
 
                 Assert.AreEqual("Additional Contract", titleDetailIsMainTrue);
                 extentReports.CreateLog("New Contract with name: " + titleDetailIsMainTrue + " is added ");
 
                 //Validate if Is Main Contract checkbox is checked for new contract
-
                 string valueNewIsMainCon = opportunityDetails.ValidateIsMainContractOfNewContract();
                 Assert.AreEqual("Is Main Contract checkbox is checked", valueNewIsMainCon);
                 extentReports.CreateLog(valueNewIsMainCon + " for newly added contract ");
 
                 //Logout of CAO user and login as Standard user
-
                 usersLogin.UserLogOut();
 
                 //Logout of user and validate Admin login               

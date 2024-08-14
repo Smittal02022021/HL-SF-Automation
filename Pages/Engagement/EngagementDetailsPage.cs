@@ -154,7 +154,14 @@ namespace SF_Automation.Pages.Engagement
         By valStartDate = By.CssSelector("div[id*='cq_body']>table>tbody>tr.dataRow.even.last.first>td:nth-child(9)");
         By valIsMain = By.CssSelector("div[id*='cq_body']>table>tbody>tr:nth-child(2)>td:nth-child(11)>img");
         By valContract1 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
+        By valContract1L = By.XPath("//flexipage-tab2[6]//tr[1]/th//records-hoverable-link/div/a/span/slot/span/slot");
         By valContract2 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
+        By valContract2L = By.XPath("//flexipage-tab2[6]//tr[2]/th//records-hoverable-link/div/a/span/slot/span/slot");
+        By lnk2ndContractL = By.XPath("//table[@aria-label='Contract']/tbody/tr[1]/th//records-hoverable-link");
+        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
+        By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
+        By lnkOppL = By.XPath("//flexipage-component2[1]//dl/slot/records-record-layout-row[6]//records-hoverable-link");
+
         By lnkOpp = By.CssSelector("div[id*='zAzj']>a");
         By btnCancel = By.CssSelector("input[value='Cancel']");
         //By valNewSubject = By.CssSelector("div[id*='aho5_00Ni000000D9DbX_body'] > table > tbody > tr:nth-child(4)>th>a");
@@ -357,6 +364,7 @@ namespace SF_Automation.Pages.Engagement
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
         By tabRevenue = By.XPath("//li[6]/a[@data-label='Revenue']");
+        By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
         By subTabLegal = By.XPath("//a[text()='Legal Matters']");
@@ -3528,6 +3536,30 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
+        //Get if Main Contract checkbox is checked
+        public string GetIfIsMainContractCheckedL()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, lnk2ndContractL, 100);
+            driver.FindElement(lnk2ndContractL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, checkIsMainL, 90);
+            string main = driver.FindElement(checkIsMainL).Text;
+            Console.WriteLine("main:" + main);
+            if (main.Equals(""))
+            {
+                driver.FindElement(lnkOppL).Click();
+                Thread.Sleep(4000);
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                driver.FindElement(lnkOppL).Click();
+                Thread.Sleep(4000);
+                return "Is Main Contract checkbox is not checked";
+            }
+
+        }
+
         //Get 1st contract name
         public string Get1stContractName()
         {
@@ -3536,11 +3568,31 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Get 1st contract name
+        public string Get1stContractNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 100);
+            driver.FindElement(tabRevenue).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, subtabContracts, 150);
+            driver.FindElement(subtabContracts).Click();
+            Thread.Sleep(4000);
+            string name = driver.FindElement(valContract1L).Text;
+            return name;
+        }
+
         //Get 2nd contract name
         public string Get2ndContractName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valContract2, 100);
             string name = driver.FindElement(valContract2).Text;
+            return name;
+        }
+
+        //Get 2nd contract name
+        public string Get2ndContractNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valContract2L, 100);
+            string name = driver.FindElement(valContract2L).Text;
             return name;
         }
 
@@ -6668,7 +6720,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             if (user.Equals("Karan Chopra"))
             {
-                driver.SwitchTo().Frame(0);
+                driver.SwitchTo().Frame(1);
                 Thread.Sleep(5000);
                 try
                 {

@@ -217,19 +217,33 @@ namespace SF_Automation.Pages
         //By valSubjectOwnership = By.CssSelector("div[id*='2Uj']");
         By lnkSyncDate = By.CssSelector("table > tbody > tr:nth-child(1) > td.dataCol.col02 > span > span > a");
         By btnNewContract = By.CssSelector("input[value='New Contract']");
+        By tabContractL = By.XPath("//a[text()='Contract']");
+        By btnNewContractL = By.XPath("//button[text()='New']");
+        By titleContractL = By.XPath("//h2[text()='New Contract']");
+
         By titlePage = By.CssSelector("h2[class='pageDescription']");
         By titlePageNewL = By.XPath("//h2[text()='New Opportunity Client/Subject']");
         By txtContractName = By.CssSelector("input[id*='Name']");
+        By txtContractNameL = By.XPath("//input[@name='Name']");
         By txtBillingContact = By.CssSelector("span>input[id*='CF00N5A00000M0ebh']");
+        By txtBillingContactL = By.XPath("//input[@placeholder='Search Contacts...']");
+        By valAddedContractL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text");
+        By valAddedContractIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]");
         By lnkOpportunity = By.CssSelector("a[id*='A00000M0ed1']");
         By checkIsMain = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.last.first > td.dataCell.booleanColumn > img");
+        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
         By lnkEditContract = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr.dataRow.even.last.first > td.actionColumn > a:nth-child(1)");
         By titleEditContract = By.CssSelector("h1[class='pageType']");
         By checkSelectedIsMain = By.CssSelector("input[name*='ZS']");
+        By checkSelectedIsMainL = By.XPath("//records-record-layout-row[9]//lightning-primitive-input-checkbox//input");
         By checkIsMainContract1 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.first > td.dataCell.booleanColumn > img");
+        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::dl//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
         By checkIsMainContract2 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valContract1 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
+        By valContract1L = By.XPath("//flexipage-tab2[1]//tr[1]/th//records-hoverable-link/div/a/span/slot/span/slot");
+        By valContract2L = By.XPath("//flexipage-tab2[1]//tr[2]/th//records-hoverable-link/div/a/span/slot/span/slot");
+
         By txtClientContract = By.CssSelector("span>input[id*='CF00N5A00000M0ebj']");
         By btnModifyRoles = By.CssSelector("td[id*='j_id0:j_id1:j_id2:j_id3:pbHLInternalTeam:j_id4:bottom']>a");
         By checkInitiator = By.CssSelector("input[name*='internalTeam:j_id64:0:j_id66']");
@@ -1703,7 +1717,7 @@ public void ClickNewOpportunitySectorButton()
                 driver.FindElement(chkUpAssociate).Click();
                 driver.FindElement(chkUpAnalyst).Click();
                 driver.FindElement(btnSaveITTeam).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(6000);
 
                 //Click to return back to Opportunity details
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
@@ -3405,7 +3419,18 @@ public void ClickNewOpportunitySectorButton()
             string title = driver.FindElement(titlePage).Text;
             return title;
         }
-
+        //Click New Contract button
+        public string ClickNewContractL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContractL, 90);
+            driver.FindElement(tabContractL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewContractL, 90);
+            driver.FindElement(btnNewContractL).Click();
+            //driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string title = driver.FindElement(titleContractL).Text;
+            return title;
+        }
         //Add Contract by not selecting Is Main Contract option
         public string AddContractByNotSelectingIsMainContract(string name, string contact)
         {
@@ -3416,6 +3441,22 @@ public void ClickNewOpportunitySectorButton()
             string title = driver.FindElement(titlePage).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunity, 80);
             driver.FindElement(lnkOpportunity).Click();
+            return title;
+        }
+        //Add Contract by not selecting Is Main Contract option
+        public string AddContractByNotSelectingIsMainContractL(string name, string contact)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContractNameL, 90);
+            driver.FindElement(txtContractNameL).SendKeys(name);
+            driver.FindElement(txtBillingContactL).SendKeys(contact);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[1]/lightning-base-combobox-item/span[1]")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string title = driver.FindElement(valAddedContractL).Text;
+            
+            //driver.FindElement(tabOppNameL).Click();
+            //Thread.Sleep(5000);
             return title;
         }
 
@@ -3432,6 +3473,25 @@ public void ClickNewOpportunitySectorButton()
             {
                 return "Is Main Contract checkbox is not checked";
             }
+        }
+
+        //Validate that Is Main Contract checkbox is checked or not
+        public string ValidateIsMainContractL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, checkIsMainL, 90);
+            string main = driver.FindElement(checkIsMainL).Text;
+            Console.WriteLine("main:" +main);
+            if (main.Equals(""))
+            {
+                driver.FindElement(tabOppNameL).Click();
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                driver.FindElement(tabOppNameL).Click();
+                return "Is Main Contract checkbox is not checked";
+            }
+            
         }
 
         //Click on Edit link of Contract 
@@ -3481,12 +3541,42 @@ public void ClickNewOpportunitySectorButton()
             return title;
         }
 
+        //Add Contract by selecting Is Main Contract option
+        public string AddContractBySelectingIsMainContractL(string name, string contact)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContractNameL, 90);
+            driver.FindElement(txtContractNameL).SendKeys(name);
+            driver.FindElement(checkSelectedIsMainL).Click();
+            driver.FindElement(txtBillingContactL).SendKeys(contact);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[1]/lightning-base-combobox-item/span[1]")).Click();
+            Thread.Sleep(4000);           
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            string title = driver.FindElement(valAddedContractIsMainL).Text;           
+           
+            return title;
+        }
         //Validate that Is Main Contract checkbox is checked for earlier contract when multiple contracts are there
         public string ValidateIsMainContractOfNewContract()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, checkIsMainContract1, 90);
             string main = driver.FindElement(checkIsMainContract1).GetAttribute("title");
             if (main.Equals("Checked"))
+            {
+                return "Is Main Contract checkbox is checked";
+            }
+            else
+            {
+                return "Is Main Contract checkbox is not checked";
+            }
+        }
+        //Validate that Is Main Contract checkbox is checked for earlier contract when multiple contracts are there
+        public string ValidateIsMainContractOfNewContractL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, checkIsMainContract1L, 90);
+            string main = driver.FindElement(checkIsMainContract1L).Text;
+            if (main.Equals(""))
             {
                 return "Is Main Contract checkbox is checked";
             }
@@ -3521,11 +3611,32 @@ public void ClickNewOpportunitySectorButton()
             return name;
         }
 
+
+        public string Get1stContractNameL()
+        {
+            Thread.Sleep(7000);            
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContractL, 280);
+            driver.FindElement(tabContractL).Click();
+            driver.FindElement(tabContractL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valContract1L, 100);
+            Thread.Sleep(2000);
+            string name = driver.FindElement(valContract1L).Text;
+            return name;
+        }
+
         //Get 2nd contract name
         public string Get2ndContractName()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valContract2, 100);
             string name = driver.FindElement(valContract2).Text;
+            return name;
+        }
+
+        //Get 2nd contract name
+        public string Get2ndContractNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valContract2L, 100);
+            string name = driver.FindElement(valContract2L).Text;
             return name;
         }
 
@@ -7119,7 +7230,9 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Click Add CF Opprotunity Contact 
         public string ClickAddCFOppContact()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContact, 150);
+            Console.WriteLine("Entered into contact");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContact, 180);
             driver.FindElement(btnAddCFContact).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
@@ -7203,7 +7316,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
             driver.FindElement(btnConvertToEngPVL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;
             return value;
