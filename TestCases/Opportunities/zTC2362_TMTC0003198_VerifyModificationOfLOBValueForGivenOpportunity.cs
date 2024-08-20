@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity : BaseClass
+    class zTC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

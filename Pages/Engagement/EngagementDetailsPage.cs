@@ -161,6 +161,7 @@ namespace SF_Automation.Pages.Engagement
         By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
         By lnkOppL = By.XPath("//flexipage-component2[1]//dl/slot/records-record-layout-row[6]//records-hoverable-link");
+        By btnCloseOppL = By.XPath("//button[@title='Close this window']");
 
         By lnkOpp = By.CssSelector("div[id*='zAzj']>a");
         By btnCancel = By.CssSelector("input[value='Cancel']");
@@ -3549,12 +3550,14 @@ namespace SF_Automation.Pages.Engagement
             {
                 driver.FindElement(lnkOppL).Click();
                 Thread.Sleep(4000);
+                driver.FindElement(btnCloseOppL).Click();
                 return "Is Main Contract checkbox is checked";
             }
             else
             {
                 driver.FindElement(lnkOppL).Click();
                 Thread.Sleep(4000);
+                driver.FindElement(btnCloseOppL).Click();               
                 return "Is Main Contract checkbox is not checked";
             }
 
@@ -6720,7 +6723,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             if (user.Equals("Karan Chopra"))
             {
-                driver.SwitchTo().Frame(1);
+                driver.SwitchTo().Frame(2);
                 Thread.Sleep(5000);
                 try
                 {

@@ -118,7 +118,7 @@ namespace SF_Automation.Pages
         By chkCheckedAdmin = By.CssSelector("input[name*='1:j_id45:9:j_id47']");
         By chkCheckedInitiator = By.CssSelector("input[name*='0:j_id41:0:j_id43']");
         By msgHLIntTeam = By.CssSelector("div[id*='pgfrmId:internalTeam:j']");
-        By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id55_ileinner'] > a");
+        By  lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id55_ileinner'] > a");
         By comboRecType = By.CssSelector("select[id*='p3']");
         By btnContinue = By.CssSelector("input[value='Continue']");
         By btnNextL = By.XPath("//span[text()='Next']");
@@ -2054,17 +2054,39 @@ public void ClickNewOpportunitySectorButton()
         //To update Record Type
         public string UpdateRecordTypeAndLOB()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkRecordTypeChange, 90);
-            driver.FindElement(lnkRecordTypeChange).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, comboRecType, 90);
-            driver.FindElement(comboRecType).SendKeys("CF");
-            driver.FindElement(btnContinue).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, comboLOB, 90);
-            driver.FindElement(comboLOB).SendKeys("CF");
-            driver.FindElement(comboJobType).SendKeys("Negotiated Fairness");
-            driver.FindElement(btnSave).Click();
-            string LOB = driver.FindElement(valLOB).Text;
-            return LOB;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkRecordTypeChange, 110);
+                driver.FindElement(lnkRecordTypeChange).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboRecType, 90);
+                driver.FindElement(comboRecType).SendKeys("CF");
+                driver.FindElement(btnContinue).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboLOB, 90);
+                driver.FindElement(comboLOB).SendKeys("CF");
+                driver.FindElement(comboJobType).SendKeys("Negotiated Fairness");
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+                string LOB = driver.FindElement(valLOB).Text;
+                return LOB;
+            }
+            catch(Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 110);
+                driver.FindElement(lnkReDisplayRec).Click();
+                Thread.Sleep(5000);                
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkRecordTypeChange, 110);
+                driver.FindElement(lnkRecordTypeChange).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboRecType, 90);
+                driver.FindElement(comboRecType).SendKeys("CF");
+                driver.FindElement(btnContinue).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, comboLOB, 90);
+                driver.FindElement(comboLOB).SendKeys("CF");
+                driver.FindElement(comboJobType).SendKeys("Negotiated Fairness");
+                driver.FindElement(btnSave).Click();
+                Thread.Sleep(4000);
+                string LOB = driver.FindElement(valLOB).Text;
+                return LOB;
+            }
         }
 
         //To update additional fields when FAS changed to CF
@@ -2085,6 +2107,24 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnSave).Click();
         }
 
+        //To update additional fields when FAS changed to CF
+        public void AddAdditionalFieldsForCFL(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 120);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtSharedServExpL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstimatedCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtLegalCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            driver.FindElement(comboIndemLngL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
         //To Click Request Engagement Button         
         public string ClickRequestEngWithoutDetails()
         {
@@ -7299,7 +7339,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 350);
             driver.FindElement(btnConvertToEngL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 350);
             string value = driver.FindElement(lblEngagement).Text;
             return value;

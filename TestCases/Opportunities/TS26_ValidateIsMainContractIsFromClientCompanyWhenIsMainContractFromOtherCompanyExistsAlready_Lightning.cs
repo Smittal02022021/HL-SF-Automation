@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready : BaseClass
+    class TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -20,8 +20,11 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        AddOppCounterparty counterparty = new AddOppCounterparty();
+        AddOpportunityContact addContact = new AddOpportunityContact();
 
-        public static string ERP = "TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx";
+        //public static string ERP = "TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx";
+        public static string ERP = "TS25_ValidateAllContracts.xlsx";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -53,45 +56,44 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+
+                //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
+                extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
-                string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                //Verify the availability of Opportunity under HL Banker list
+                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                Assert.AreEqual("Opportunities", tagOpp);
+                extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                //Verify that choose LOB is displayed after clicking New button
+                string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Calling AddOpportunities function                
+                //Calling AddOpportunities function
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType, ERP);
-                Console.WriteLine("value : " + value);
+                string opportunityNumber = addOpportunity.AddOpportunitiesLightning(valJobType, ERP);
+                Console.WriteLine("value : " + opportunityNumber);
+                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(ERP);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                string displayedTab = addOpportunity.EnterStaffDetailsL(ERP);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details page 
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
-
-                //Create External Primary Contact         
+                //Create External Primary Contact
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                 string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
-                addOpportunityContact.CreateContact(ERP, valContact, valRecordType, valContactType);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
+                //counterparty.ClickViewCounterparties();               
+                opportunityDetails.ClickAddCFOppContact();
+                addContact.CreateContactL(ERP);
 
                 //Logout of Standard user
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
