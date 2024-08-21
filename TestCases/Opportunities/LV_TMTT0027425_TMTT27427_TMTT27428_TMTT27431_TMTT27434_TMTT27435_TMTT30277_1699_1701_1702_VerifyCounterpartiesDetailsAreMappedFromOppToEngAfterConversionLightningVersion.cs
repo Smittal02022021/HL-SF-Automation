@@ -192,7 +192,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //TMTI0063910 Verify that the user is able to edit and save the multiple entries with Comments                    
                     string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 3);
-                    addCounterparty.EditCoutnerpartyDetails(commentsExl);
+                    addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
                     addCounterparty.SaveCounterpartyChanges();
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records Updated Successfully!");

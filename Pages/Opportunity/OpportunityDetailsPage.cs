@@ -3,6 +3,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using RazorEngine.Compilation.ImpromptuInterface.Optimization;
+using SF_Automation.TestCases.Contact;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -2638,55 +2639,46 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnSave).Click();
             }
         }
+
+        By lblHLEntityL = By.XPath("//label[text()='HL Entity']");
+        By inputCCOutcomeDateL = By.XPath("//label[text()='Outcome Date']/..//input");
+        By comboCCOutcomeL = By.XPath("//button[@aria-label='Outcome']");
+        By optionCCOutcomeL = By.XPath("//button[@aria-label='Outcome']/../..//lightning-base-combobox-item//span[@title='Cleared']");
+        By lblCreatedBy = By.XPath("//span[text()='Created By']");
+        By chkNBCApproveL = By.XPath("//span[text()='NBC Approved']/../..//input");
         //To update Outcome details
-        public void UpdateOutcomeDetailsLV(string file)
+        public void UpdateOutcomeNBCApproveDetailsLV(string valJobType)
         {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
-            driver.FindElement(btnEdit).Click();
+            string dateCCOutcome = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblHLEntityL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLEntityL));
+            Thread.Sleep(2000);
+            driver.FindElement(inputCCOutcomeDateL).SendKeys(dateCCOutcome);
+            driver.FindElement(comboCCOutcomeL).Click();
+            Thread.Sleep(2000);
             try
             {
-                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
-                {
-                    driver.FindElement(lnkOutcomeDate).Click();
-                }
-                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
-                {
-                    driver.FindElement(lnkOutcomeDateFR).Click();
-                }
-                else
-                {
-                    driver.FindElement(lnkOutcomeDateFAS).Click();
-                }
-                driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
-                driver.FindElement(btnSave).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, optionCCOutcomeL, 5);
             }
-            catch (Exception)
+            catch
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
-                driver.FindElement(lnkReDisplayRec).Click();
-                Thread.Sleep(1000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 110);
-                driver.FindElement(btnEdit).Click();
-                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
-                {
-                    driver.FindElement(lnkOutcomeDate).Click();
-                }
-                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
-                {
-                    driver.FindElement(lnkOutcomeDateFR).Click();
-                }
-                else
-                {
-                    driver.FindElement(lnkOutcomeDateFAS).Click();
-                }
-                driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
-                driver.FindElement(btnSave).Click();
+                driver.FindElement(comboCCOutcomeL).Click();
+                Thread.Sleep(2000);
             }
-        }
-
+            driver.FindElement(optionCCOutcomeL).Click();
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
+                Thread.Sleep(2000);
+                driver.FindElement(chkNBCApproveL).Click();
+                Thread.Sleep(2000);
+            }
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(8000);             
+        }       
 
         //To update NBC Approval
         public void UpdateNBCApproval()
@@ -4187,7 +4179,6 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Console.WriteLine("path:" + excelPath);
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 320);
             driver.FindElement(tabEngagementNumL).Click();
@@ -4235,7 +4226,8 @@ namespace SF_Automation.Pages
 
 
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
+            string closeDate = DateTime.Today.AddDays(3).ToString("dd/mm/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
 
@@ -4255,8 +4247,9 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
 
-            //Date Engaged            
-            driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
+            //Date Engaged
+            string dateEng=DateTime.Today.AddDays(-3).ToString("dd/mm/yyyy");
+            driver.FindElement(txtDateEngL).SendKeys(dateEng);
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
         }
@@ -4362,7 +4355,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,520)");
+            js.ExecuteScript("window.scrollTo(0,1200)");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 120);
             driver.FindElement(lnkViewAllL).Click();
@@ -6334,7 +6327,8 @@ namespace SF_Automation.Pages
 
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
+            string closeDate = DateTime.Today.AddDays(2).ToString("dd/mm/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
 
             //Select Fairness
             Thread.Sleep(4000);
@@ -7925,8 +7919,7 @@ namespace SF_Automation.Pages
             driver.FindElement(eleOptOutcome).Click();                        
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
-        }
-        By iconLoadSpinner = By.XPath("//lightning-spinner");
+        }        
         public void EditOpportunityStageLV(string stage)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -8017,7 +8010,8 @@ namespace SF_Automation.Pages
 
             //Estimated Close Date & Est. Transaction Size / Market Cap (MM)
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
+            string dateClose = DateTime.Today.AddDays(10).ToString("dd/MM/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys(dateClose);
 
             //WomenLed
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
@@ -8028,8 +8022,26 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
+        By btnInlineEditNBCL = By.XPath("//button[@title='Edit NBC Approved']");
+        By chkCCBypassL = By.XPath("//input[@name='Conflicts_Bypass__c']");
+        By chkNBCBypassL = By.XPath("//input[@name='NBC_Approved__c']");
+        By lblAssAddL = By.XPath("//Span[text()='Associated Address']");
+        public void ByPassCCNBCLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblAssAddL));
+            Thread.Sleep(2000);
+            driver.FindElement(btnInlineEditNBCL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(chkCCBypassL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(chkNBCBypassL).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
+        
+        }
 
         By valStageL = By.XPath("//span[contains(@class,'field-label')][text()='Stage/Priority']/../../..//lightning-formatted-text");
+        
         public string GetStageLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valStageL, 20);
@@ -8037,7 +8049,7 @@ namespace SF_Automation.Pages
             string stage = driver.FindElement(valStageL).Text;
             return stage;
         }
-       
+        
     }
 }
 

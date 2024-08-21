@@ -838,8 +838,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public void EnterRequestFullEngagementReqValuesLV()
-        {
-            string dateToday = DateTime.Today.ToString("MM/dd/yyyy");
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, inputSSExpL, 20);
             driver.FindElement(inputSSExpL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputExpCapL, 20);
@@ -861,7 +860,8 @@ namespace SF_Automation.Pages.Engagement
             //WebDriverWaits.WaitUntilEleVisible(driver, inputContgFeeL, 20);
             //driver.FindElement(inputContgFeeL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputTailExpL, 20);
-            driver.FindElement(inputTailExpL).SendKeys(dateToday);
+            string dateTailExp= DateTime.Today.AddDays(20).ToString("dd-MMM-yyyy");
+            driver.FindElement(inputTailExpL).SendKeys(dateTailExp);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnConfAggL, 20);
             driver.FindElement(btnConfAggL).Click();
@@ -877,12 +877,10 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(eleOptionFairnessOpp).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, inputDateEngdL, 5);
-            driver.FindElement(inputDateEngdL).SendKeys(dateToday);
+            string dateEngd = DateTime.Today.AddDays(-2).ToString("dd-MMM-yyyy");
+            driver.FindElement(inputDateEngdL).SendKeys(dateEngd);
             driver.FindElement(btnEngInfoSaveL).Click();
         }
-
-
-
         public void ClickRequestFullEngagementLV()
         {
             try

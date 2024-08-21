@@ -309,6 +309,8 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "System Administrator Logged out after final validation on Opportunity and Engagement detail page for LOB: "+ valRecordType);
                 }
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

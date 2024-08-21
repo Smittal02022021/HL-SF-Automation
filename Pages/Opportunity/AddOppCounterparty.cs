@@ -953,17 +953,15 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(2000);
         }
         
-        public void EditCoutnerpartyDetails(string comments)
+        public void EditCoutnerpartyDetailsLV(string comments)
         {
             string getDate = DateTime.Today.AddDays(1).ToString("dd/MM/yyyy");
-            driver.FindElement(chkboxSelectAll).Click();
-
+            //driver.FindElement(chkboxSelectAll).Click();
             driver.FindElement(iconEditTier).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, optionsTier, 10);
             driver.FindElement(optionsTier).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, optionTier, 10);
             driver.FindElement(optionTier).Click();
-
             driver.FindElement(iconEditInitalContact).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtInitalContact, 10);
             driver.FindElement(txtInitalContact).SendKeys(getDate);
@@ -1092,6 +1090,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitTillElementVisible(driver,iconLoadSpinner);
             Thread.Sleep(5000);
             //WebDriverWaits.WaitUntilEleVisible(driver, txtSearchedContactL, 60);
+            WebDriverWaits.WaitUntilClickable(driver,txtSearchedContactL,90);
             Thread.Sleep(15000);
             return driver.FindElement(txtSearchedContactL).Text;
         }

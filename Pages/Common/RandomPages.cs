@@ -115,7 +115,7 @@ namespace SF_Automation.Pages.Common
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
-
+        By chkVerballyEngL = By.XPath("//input[@name='Verbally_Engaged__c']");
         private By _optionListView(string name)
         {
             return By.XPath($"//lightning-popup/section//span[text()='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -141,12 +141,10 @@ namespace SF_Automation.Pages.Common
         {
             return By.XPath($"//table[contains(@class,'row-table')]//span[contains(text(),'{valJobType}')]");
         }
-
         private By _objJobTypeCode(string valJobCode)
         {
             return By.XPath($"//div[contains(text(),'{valJobCode}')]");
         }
-
         private By _TabEle(string value)
         {
             return By.XPath($"//button[contains(@title,{value})]");
@@ -167,7 +165,6 @@ namespace SF_Automation.Pages.Common
         {
             return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
-
         private By _nameRecentViewed(string name)
         {
             return By.XPath($"//table//tbody//th//a[@title='{name}']");
@@ -260,7 +257,6 @@ namespace SF_Automation.Pages.Common
             CustomFunctions.SwitchToWindow(driver, 0);
             return found;
         }
-
         public string CloseUnsavedReport()
         {
             try
@@ -294,7 +290,6 @@ namespace SF_Automation.Pages.Common
             {
                 //do nothing
             }
-
             return pageTitle;
         }
         //Validate the Job Type in Displayed in List 
@@ -340,9 +335,7 @@ namespace SF_Automation.Pages.Common
                 {
                     isJobTypefound = false;
                 }
-
             }
-            //}
             return isJobTypefound;
         }
 
@@ -559,8 +552,6 @@ namespace SF_Automation.Pages.Common
             return isSame;
         }
 
-        //
-
         //To Validate Job Types 
         public bool ValidateProductLines()
         {
@@ -615,7 +606,6 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(comboIndustryTypeOpp).Click();
             return isFound;
         }
-
         public bool IsIndustryTypePresentInDropdownEngManager(string valIndustryGroup)
         {
             bool isFound = false;
@@ -725,7 +715,6 @@ namespace SF_Automation.Pages.Common
                 }
             }
             return isFound;
-
         }
         public void CloseActiveTab(string name)
         {
@@ -740,8 +729,7 @@ namespace SF_Automation.Pages.Common
             catch 
             { 
                 //tab already closed
-             }
-            
+             }            
         }
         public bool IsPageHeaderDisplayedLV(string item)
         {
@@ -820,8 +808,7 @@ namespace SF_Automation.Pages.Common
             }
             catch { Thread.Sleep(4000); }
             Thread.Sleep(4000);
-        }      
-        
+        }          
         public string SelectJobTypesLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -884,9 +871,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader = driver.FindElement(txtPageHeader).Text;
             return pageheader;
-        }
-
-       
+        }       
         public string GetJobTypeProductLineLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtProductLineL, 20);
@@ -912,8 +897,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, txtProductTypeCodeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtProductTypeCodeL));
             return driver.FindElement(txtProductTypeCodeL).Text;
-        }
-        
+        }        
         public void UpdateERPSyncManuallyInlineLV()
         {
             //Thread.Sleep(60000);
@@ -990,7 +974,6 @@ namespace SF_Automation.Pages.Common
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLSectorIDL));
             return driver.FindElement(txtHLSectorIDL).Text;
         }
-
         public string GetHLSectorComboLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorComboL, 10);
@@ -1202,9 +1185,15 @@ namespace SF_Automation.Pages.Common
                     driver.FindElement(tabMoreFullViewL).Click();
                 }
             }
-            catch { }
-            
+            catch { }            
             Thread.Sleep(10000);
-        }        
+        }
+        
+        public bool GetVerballyEngCheckboxStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
+            Thread.Sleep(2000);
+            return driver.FindElement(chkVerballyEngL).Selected;
+        }
     }
 }

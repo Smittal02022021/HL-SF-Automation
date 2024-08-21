@@ -92,7 +92,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                 Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
-
                 string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType,valJobType, fileTMTT0041159);
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
@@ -128,28 +127,11 @@ namespace SalesForce_Project.TestCases.Opportunities
                 homePage.SearchUserByGlobalSearchN(adminUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
-                login.SwitchToClassicView();
-                string userAdmin = login.ValidateUser();
+                login.SwitchToLightningExperience();
+                string userAdmin = login.ValidateUserLightningView();
                 Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-
-                opportunityHome.SearchOpportunity(opportunityName);
-                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                //update CC 
-                opportunityDetails.UpdateOutcomeDetails(fileTMTT0041159);
-                if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
-                {
-                    opportunityDetails.UpdateNBCApproval();
-                    extentReports.CreateStepLogs("Info", "Conflict Check and NBC fields are updated ");
-                }
-                else
-                {
-                    extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
-                }
-
-                ////Admin actions in LV/////
-                login.SwitchToLightningExperience();
-                extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
+                
                 //Go to Opportunity module in Lightning View 
                 homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
@@ -159,7 +141,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                extentReports.CreateStepLogs("Info", "Conflict Check and NBC details are provided");
                 //////Standard User don't have permission to modify the Internal team so System Admin is modifying the roles////////
                 opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0041159);
                 extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
@@ -172,7 +155,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //Login as CF Financial User logged in to fill fields level required fields 
                 homePage.SearchUserByGlobalSearchN(userExl);
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-                //Login user
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 stdUser = login.ValidateUserLightningView();
@@ -197,9 +179,10 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string updatedStage= opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
                 extentReports.CreateStepLogs("Passed", "Opportunity Stage is updated from "+stage+" to "+ updatedStage);
+                Assert.IsTrue(randomPages.GetVerballyEngCheckboxStatusLV(),"Verify Verbally Engaged checkbox is checked after stage change of the Opportunity to Verbally Engaged");
+                extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is checked after stage change of the Opportunity to Verbally Engaged");
                 randomPages.CloseActiveTab(opportunityName);
-                extentReports.CreateStepLogs("Info", updatedStage+" opportunity tab is closed");
-                CustomFunctions.PageReload(driver);
+                extentReports.CreateStepLogs("Info", updatedStage+" opportunity tab is closed");                
                 //////////////TMTI0101380 Test Case End////////////////////
 
                 //Start TMTI0101390	Verify that CF user can fill all the related list in Partial engagement like- Counterparty, FS Eng, Eng Contact, comments etc.
@@ -207,6 +190,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "CF Financial User is on Partial Engaged "+moduleNameExl);
+                CustomFunctions.PageReload(driver);
                 engagementHome.SearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
 
@@ -221,7 +205,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //CF Financial user add Engagement Contact
                 engagementDetails.CickAddEngagementContactLV(valRecordType);
                 string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 6);
-                //string contactRoleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 2);
                 string contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 3);
                 engagementDetails.CreateContactLV(contactNameExl, contactPartyExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
@@ -272,13 +255,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "User return to Counterparties List Page ");
                     extentReports.CreateStepLogs("Passed", selectedCompany + " Company is added and displayed into Counterparties List ");
                 }
-                addCounterparty.ClickAllCheckboxCounterpartyCompany();
-                addCounterparty.ClickDeleteCounterpartyButton();
-                addCounterparty.ButtonConfirmDeleteCounterparty(); 
-                popupMessage = addCounterparty.GetLVMessagePopup();
-                Assert.AreEqual(popupMessage, "Records deleted successfully", "Verify the Success Message if Counterparty is Deleted ");
-                extentReports.CreateStepLogs("Passed", popupMessage + " : Message Displayed and counterparties is deleted from list ");
-
+                
                 //-CF Financial User Verify the funtionality of adding Counterparty through Add Counterparty button
                 string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 1);
                 string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 2);
@@ -301,7 +278,7 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //#4.Fill all the available fields for added counterparty including comment.
                 string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
-                addCounterparty.EditCoutnerpartyDetails(commentsExl);
+                addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
                 addCounterparty.SaveCounterpartyChanges();
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.AreEqual(popupMessage, "Records Updated Successfully!");
@@ -327,9 +304,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.IsTrue(contactname.Contains(contactEngCP));
                 extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available on Engagement Counterparty Contact(s) Right Panel");
                 randomPages.CloseActiveTab("Tab");
-
-                //Assert.IsTrue(addCounterparty.IsContactAddedCounterpartyListLV(counterpartyCompanyNameExl), "Verify Contact is added under Company name in Counterparty Companies List");
-                //extentReports.CreateLog("Added Contact is available under Counterparty Record List ");
 
                 //*******CF Financial User Adding Engagement Counterparty Comments with All Types ******************** 
                 typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
@@ -390,11 +364,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 homePage.SearchUserByGlobalSearchN(adminUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
-                login.SwitchToClassicView();
-                userAdmin = login.ValidateUser();
-                Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
-                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-
                 login.SwitchToLightningExperience();
                 extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
                 //Go to Opportunity module in Lightning View 
@@ -413,9 +382,30 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", " FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company: " + counterpartyCompanyNameExl);
                 randomPages.CloseActiveTab(nameFSEng);
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "System Administrator: " + appNameExl + " logged out");
+
                 //////////////////////////////////////////               
 
                 //TMTI0101392 Verify that CF User is able to Request Full engagement from Partial engagement.
+                homePage.SearchUserByGlobalSearchN(userExl);
+                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(userExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + userExl + " logged in on Lightning View");
+
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+
+                engagementHome.SearchEngagementInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Engagement found and selected");
+
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
                 
@@ -452,7 +442,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "System Administrator: "+ appNameExl+" logged out" );
 
                 //TMTI0101394 Verify that CAO User can approve the Full engagement request
-                string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 3);
+                string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3,1);
                 homePage.SearchUserByGlobalSearchN(userCAOExl);
                 extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
@@ -472,15 +462,41 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Engagement found and selected");
                 string status = opportunityDetails.ClickApproveButtonL();
                 Assert.AreEqual(status, "Approved");
-                extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
+                extentReports.CreateStepLogs("Passed", "Verbally Engagement is "+ status+" for Full Enagement ");
                 opportunityDetails.CloseApprovalHistoryTabL();
-                opportunityDetails.ClickConvertToEngagementL2();
-                extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
+                
+                ////TMTI0101396	Verify that once CAO user approve the request, a full engagement get created
+                
+                Assert.IsFalse(randomPages.GetVerballyEngCheckboxStatusLV(), "Verify Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
+                extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
+
+                //TMTI0101398	Verify all the details filled in psudo/Partial engagement is correctly mapped with Full engagement.
+
                 //Validate the Engagement name in Engagement details page
                 string engagementNumber = engagementDetails.GetEngagementNumberL();
                 string engagementName = engagementDetails.GetEngagementNameL();
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                //********In Progress
+
+                //---------------//
+                randomPages.CloseActiveTab(opportunityName);
+                extentReports.CreateStepLogs("Info", "Opportunity tab closed");
+
+                //Moved to Opportunity Module to Verify the Stage of Opportunity (should be engaged)
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Opportunity found and selected");                
+                //Verify the Stage of Opportunity (should be engaged)
+                string Oppstage = opportunityDetails.GetStageLV();
+                Assert.AreEqual("Engaged", Oppstage, "Verify the Stage of Opportunity (should be engaged) after Approved Full Engagement");
+                extentReports.CreateStepLogs("Passed", "Stage of Opportunity changed to "+ Oppstage+ " after Approved Full Engagement");
+
+                //-------------------------------//
+
+
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " logged out");
 
