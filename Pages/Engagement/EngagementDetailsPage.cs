@@ -20,6 +20,7 @@ namespace SF_Automation.Pages.Engagement
         By valEngName = By.CssSelector("div[id='Namej_id0_j_id4_ileinner']");
         By valStage = By.CssSelector("td[id*='id0_j_id4_ilecell']>div[id='00Ni000000D7NlWj_id0_j_id4_ileinner']");
         By valRecordType = By.CssSelector("div[id*='RecordType']");
+        By valRecordTypeL = By.XPath("//section[3]//flexipage-tab2[1]//flexipage-tab2[3]/slot/flexipage-component2[5]//flexipage-column2[1]//flexipage-field[2]//records-record-type/div/div/span");
         By valLegalEntity = By.CssSelector("div[id*='eecj']");
         By valHLEntity = By.CssSelector("div[id *= '00Ni000000D96Bbj_id0_j_id4_ileinner']");
         By titleEngPage = By.CssSelector("h1[class='pageType']");
@@ -297,6 +298,7 @@ namespace SF_Automation.Pages.Engagement
         By subTabDetails = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a[text()='Details']");
         By subTabImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a[text()='Important Dates']");
         By subTabAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[3]/a");
+        By subTabAdminEngL = By.XPath("//section[3]//flexipage-component2//flexipage-tab2[1]/slot//ul/li[3]/a");
         By subTabClosingInfo = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
         By subTabComments = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
         By subTabBilling = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[6]/a");
@@ -2322,6 +2324,19 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valRecordType, 60);
             string recordType = driver.FindElement(valRecordType).Text;
+            return recordType;
+        }
+
+        public string GetRecordTypeL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, subTabAdminEngL, 60);
+            driver.FindElement(subTabAdminEngL).Click();
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            Thread.Sleep(5000);
+            string recordType = driver.FindElement(valRecordTypeL).Text;
             return recordType;
         }
 
@@ -6721,18 +6736,20 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
             driver.FindElement(btnPortfolioValL).Click();
             Thread.Sleep(4000);
+                     
             if (user.Equals("Karan Chopra"))
-            {
-                driver.SwitchTo().Frame(2);
+            {                
                 Thread.Sleep(5000);
                 try
                 {
+                    driver.SwitchTo().Frame(2);
                     string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
                     driver.SwitchTo().DefaultContent();
                     return "New Opportunity Valuation Period button is displayed";
                 }
                 catch (Exception)
                 {
+                    driver.SwitchTo().Frame(1);
                     driver.SwitchTo().DefaultContent();
                     return "New Opportunity Valuation Period button is not displayed";
                 }

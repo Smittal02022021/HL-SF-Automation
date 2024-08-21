@@ -155,11 +155,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
                                
                 //Get Record Type of Engagement 
-                string engJobType = engagementDetails.GetRecordType();
+                string engJobType = engagementDetails.GetRecordTypeL();
                 Console.WriteLine("engJobType " + engJobType);
                 Assert.AreEqual("Fairness (CF)", engJobType);
                 extentReports.CreateLog("Record Type of Engagement is displayed as " +engJobType + " ");
-                usersLogin.UserLogOut();                
+                
+                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
             catch (Exception e)
             {

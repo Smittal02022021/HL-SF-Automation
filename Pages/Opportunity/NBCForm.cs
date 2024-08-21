@@ -1666,7 +1666,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnFairnessOpinion).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             driver.FindElement(tabAdmin).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             driver.FindElement(btnRestricted).Click();
             driver.FindElement(By.XPath("//label[text()='Restricted List']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
 
