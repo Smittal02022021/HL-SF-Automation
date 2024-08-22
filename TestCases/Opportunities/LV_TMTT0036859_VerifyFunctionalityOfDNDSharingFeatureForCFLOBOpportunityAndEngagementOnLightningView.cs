@@ -671,8 +671,10 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(dndOppName);
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + ": Logged out");
+                    extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Logged out");
                 }
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch(Exception e)
             {

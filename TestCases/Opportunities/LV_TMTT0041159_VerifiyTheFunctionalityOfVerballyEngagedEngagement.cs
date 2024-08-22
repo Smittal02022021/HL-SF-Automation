@@ -179,8 +179,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string updatedStage= opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
                 extentReports.CreateStepLogs("Passed", "Opportunity Stage is updated from "+stage+" to "+ updatedStage);
-                Assert.IsTrue(randomPages.GetVerballyEngCheckboxStatusLV(),"Verify Verbally Engaged checkbox is checked after stage change of the Opportunity to Verbally Engaged");
-                extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is checked after stage change of the Opportunity to Verbally Engaged");
+                Assert.IsTrue(randomPages.GetVerballyEngCheckboxStatusLV(),"Verify Verbally Engaged checkbox is Checked after stage change of the Opportunity to Verbally Engaged");
+                extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is Checked after stage change of the Opportunity to Verbally Engaged");
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", updatedStage+" opportunity tab is closed");                
                 //////////////TMTI0101380 Test Case End////////////////////
@@ -204,13 +204,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                 
                 //CF Financial user add Engagement Contact
                 engagementDetails.CickAddEngagementContactLV(valRecordType);
-                string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 6);
+                string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 1);
                 string contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 3);
                 engagementDetails.CreateContactLV(contactNameExl, contactPartyExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", "Comments added for counterpartywith Type:  " + commentTypeExl);
-                extentReports.CreateStepLogs("Info", contactNameExl+" Contact added on Engagement page");
+                extentReports.CreateStepLogs("Pass", contactNameExl+ " Contact added on Engagement page(Required for Verbally Engaged Stage)");
 
                 //CF Financial User Add Comments on Parial Engaged Engagement
                 int typeRowCount = ReadExcelData.GetRowCount(excelPath, "EngComments");
@@ -421,13 +420,13 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //Create Primary Contact 
                 engagementDetails.CickAddEngagementContactLV(valRecordType);
-                contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 8);
-                contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 3);
+                string billingContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 1);
+                contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 3);
 
-                engagementDetails.CreateBillingContactLV(contactNameExl, contactPartyExl);
+                engagementDetails.CreateBillingContactLV(billingContactNameExl, contactPartyExl);
                 popupMessage = addCounterparty.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", contactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page");
+                extentReports.CreateStepLogs("Passed", billingContactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page(Required for Full Engagement Request)");
 
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
@@ -477,9 +476,20 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string engagementName = engagementDetails.GetEngagementNameL();
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+
+                //Get FS Eng on Fully Engaged Engagement              
+                engagementDetails.ClickTabFSEngagementLV();
+                extentReports.CreateStepLogs("Info", "User is on FS Engagement tab");
+                string fullFSEngName = engagementDetails.GetFSEngagementIDLV();
+                Assert.AreEqual(nameFSEng, fullFSEngName);
+                extentReports.CreateStepLogs("Passed", "FS Engagement with ID: "+ fullFSEngName+" added on Partial Engaged Engagement is present on Fully Engaged Engagement");
+
+                //Get Contacts on Fully Engaged Engagement
+                engagementDetails.ClickEngContactTabLV();
+
                 //********In Progress
 
-                //---------------//
+        //---------------//
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab closed");
 
@@ -491,8 +501,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Opportunity found and selected");                
                 //Verify the Stage of Opportunity (should be engaged)
                 string Oppstage = opportunityDetails.GetStageLV();
-                Assert.AreEqual("Engaged", Oppstage, "Verify the Stage of Opportunity (should be engaged) after Approved Full Engagement");
-                extentReports.CreateStepLogs("Passed", "Stage of Opportunity changed to "+ Oppstage+ " after Approved Full Engagement");
+                Assert.AreEqual("Engaged", Oppstage, "Verify the Stage of Opportunity (should be engaged) after Full Engagement Request Approval");
+                extentReports.CreateStepLogs("Passed", "Stage of Opportunity changed to "+ Oppstage+ " after Full Engagement Request Approval");
 
                 //-------------------------------//
 

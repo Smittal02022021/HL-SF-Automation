@@ -392,7 +392,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
                     Assert.AreEqual("Success", ERPStatusOffice, "Verify the Engagement ERP Last Integration Status as Success ");
-                    extentReports.CreateStepLogs("Passed", "********PENDING***** Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
+                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
                     randomPages.CloseActiveTab(engName);
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");

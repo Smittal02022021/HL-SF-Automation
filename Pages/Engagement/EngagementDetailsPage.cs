@@ -722,6 +722,34 @@ namespace SF_Automation.Pages.Engagement
         By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[1]");
         By checkBoxCoExistEngL = By.XPath("//input[@name='Co_exist__c']");
         By checkBoxCoExistEngL2 = By.XPath("(//input[@name='Co_exist__c'])[2]");
+        
+        By btnReqFullEngL = By.XPath("//button[text()='Request Full Engagement']");
+        By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
+        By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
+        By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label");
+        By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
+        By inputSSExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Shared Services Expense']/..//input");
+        By inputExpCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Expense Cap']/..//input");
+        By inputLegalCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Legal Cap']/..//input");
+        By btnIndLngL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/..//button");
+        By inputRetainerL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Retainer']/..//input");
+        By inputProgMnthFL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Progress/Monthly Fee']/..//input");
+        By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
+        By inputTailExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Tail Expires']/..//input");
+        By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
+        By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
+        By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
+        By btnEngInfoSaveL= By.XPath("//footer//button[@type='submit']");
+        By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
+        By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
+        By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
+        By btnInlineEditCoExistEngL = By.XPath("//button[@title='Edit Co-exist']");
+        By btnInlineEditCoExistEngL2 = By.XPath("(//button[@title='Edit Co-exist'])[2]");
+        By txtFSEngIDL = By.XPath("//table[@aria-label='FS Engagements']//tr[1]//th//lightning-primitive-cell-factory[@data-label='FS Engagement ID']//a//slot//slot");
+        By txtFSEngNameL = By.XPath("//h1//records-entity-label[text()='FS Engagement']/../../..//slot[@name='primaryField']//lightning-formatted-text");
+        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
+        By txtContactNameL = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
+        By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
         private By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -783,27 +811,6 @@ namespace SF_Automation.Pages.Engagement
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
         }
 
-
-        By btnReqFullEngL = By.XPath("//button[text()='Request Full Engagement']");
-        By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
-        By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
-        By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label");
-        By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
-        By inputSSExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Shared Services Expense']/..//input");
-        By inputExpCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Expense Cap']/..//input");
-        By inputLegalCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Legal Cap']/..//input");
-        By btnIndLngL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/..//button");
-        By inputRetainerL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Retainer']/..//input");
-        By inputProgMnthFL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Progress/Monthly Fee']/..//input");
-        By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
-        By inputTailExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Tail Expires']/..//input");
-        By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
-        By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
-        By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
-        By btnEngInfoSaveL= By.XPath("//footer//button[@type='submit']");
-        By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
-        By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
-        By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
 
         public void CreateBillingContactLV(string name, string party)
         {            
@@ -868,7 +875,6 @@ namespace SF_Automation.Pages.Engagement
             By eleOptionConfAgg = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button/../..//lightning-base-combobox-item//span[@title='No']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleOptionConfAgg, 5);
             driver.FindElement(eleOptionConfAgg).Click();
-
 
             WebDriverWaits.WaitUntilEleVisible(driver, inputFairnessOppL, 5);
             driver.FindElement(inputFairnessOppL).Click();
@@ -1017,8 +1023,7 @@ namespace SF_Automation.Pages.Engagement
 
             }
         }
-        By btnInlineEditCoExistEngL = By.XPath("//button[@title='Edit Co-exist']");
-        By btnInlineEditCoExistEngL2 = By.XPath("(//button[@title='Edit Co-exist'])[2]");
+        
         public string VerifyIfCoExistFieldIsEditableOrNotLV()
         {
             driver.FindElement(tabAdministationL).Click();
@@ -1113,7 +1118,6 @@ namespace SF_Automation.Pages.Engagement
             int countContracts = driver.FindElements(valNoOfContract).Count;
             return countContracts;
         }
-
         public void ClickContractLink(int row)
         {
             Thread.Sleep(3000);
@@ -1131,7 +1135,6 @@ namespace SF_Automation.Pages.Engagement
                 driver.Navigate().Refresh();
             }
         }
-
         public void ClickBillToForContract(int row)
         {
             Thread.Sleep(3000);
@@ -1229,8 +1232,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(lnkSwitchToClassic).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception e) { }
-            
+            catch(Exception e) { }            
         }
 
         public bool ValidateRelatedQuickLink(string linkText)
@@ -1288,7 +1290,6 @@ namespace SF_Automation.Pages.Engagement
         {
             driver.FindElement(_tabDetailPage(tabName)).Click();
         }
-
         public bool ValidateCSTQuestionnaireDropdownOptions(string file)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, iconCSTTabInline, 10);
@@ -1321,7 +1322,6 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancelCSTQuestionnaire).Click();
             return equal;
         }
-
         public bool ValidateButtonSaveOption(string option)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, iconCSTTabInline, 10);
@@ -6719,37 +6719,30 @@ namespace SF_Automation.Pages.Engagement
             return nameInternalTeamMember;
         }
 
-        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
-        By txtContactName = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
-        By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
+        
         public string GetEngExternalContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
             driver.FindElement(tabContactsL).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 20);
-            return driver.FindElement(txtContactName).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactNameL, 20);
+            return driver.FindElement(txtContactNameL).Text;
         }        
         public string GetWomenLedSectionNameLV(string recType)
         {
             if (recType.Equals("CF"))
             {
-                //WebDriverWaits.WaitUntilEleVisible(driver, labelWomenLedSectionLV);
-                ////CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
-                //string secName = driver.FindElement(labelWomenLedSectionLV).Text;
                 return "Need toChange"; //secName;
             }
             else if (recType.Equals("FVA"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelAdminSectionLV);
-                //CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
                 string secName = driver.FindElement(labelAdminSectionLV).Text;
                 return secName;
             }
             else
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, labelAdminSectionLV);
-                //CustomFunctions.MoveToElement(driver, driver.FindElement(labelWomenLedLV));
                 string secName = driver.FindElement(labelAdminSectionLV).Text;
                 return secName;
             }
@@ -7338,8 +7331,7 @@ namespace SF_Automation.Pages.Engagement
 
             Thread.Sleep(10000);
         }
-
-        By txtFSEngNameL = By.XPath("//h1//records-entity-label[text()='FS Engagement']/../../..//slot[@name='primaryField']//lightning-formatted-text");
+        
         public string CreateNewFSEngagementLV(string sponsor)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSEngL, 10);
@@ -7357,6 +7349,12 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngNameL, 10);
             return driver.FindElement(txtFSEngNameL).Text;
         }
+        
+        public string GetFSEngagementIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngIDL, 10);
+            return driver.FindElement(txtFSEngIDL).Text;
+        } 
 
         public void ClickEngContactTabLV()
         {
