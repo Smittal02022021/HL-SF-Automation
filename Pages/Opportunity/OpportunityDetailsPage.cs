@@ -4355,8 +4355,11 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,1200)");
-            Thread.Sleep(4000);
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+            driver.FindElement(tabInfo).Click();
+            Thread.Sleep(2000);
+            js.ExecuteScript("window.scrollTo(0,520)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 120);
             driver.FindElement(lnkViewAllL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnApproveL, 100);
