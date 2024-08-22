@@ -7362,5 +7362,31 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
+        public bool IsEngContactPresent(string file)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            int engContactsCount = driver.FindElements(By.XPath("//table[@aria-label='Engagement Contacts']//tr//th//lightning-primitive-cell-factory//a[2]")).Count;
+            int excelLinkCount = ReadExcelData.GetRowCount(excelPath, "AddContact");
+            for (int i = 2; i <= excelLinkCount; i++)
+            {
+                result = false;
+                string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", i, 1);
+                for (int j = 1; j <= engContactsCount; j++)
+                {
+                    string contactName = driver.FindElement(By.XPath($"//table[@aria-label='Engagement Contacts']//tr{j}//th//lightning-primitive-cell-factory//a[2]")).Text;
+                    if (contactName==contactNameExl)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+                //continue;
+            }
+            return result;
+        }
     }
 }

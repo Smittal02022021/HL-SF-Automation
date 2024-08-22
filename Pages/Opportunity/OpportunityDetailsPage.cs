@@ -6327,8 +6327,8 @@ namespace SF_Automation.Pages
 
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            string closeDate = DateTime.Today.AddDays(2).ToString("dd/mm/yyyy");
-            driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
+            //string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
 
             //Select Fairness
             Thread.Sleep(4000);

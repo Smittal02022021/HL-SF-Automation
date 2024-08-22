@@ -486,10 +486,11 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //Get Contacts on Fully Engaged Engagement
                 engagementDetails.ClickEngContactTabLV();
-
+                Assert.IsTrue(engagementDetails.IsEngContactPresent(fileTMTT0041159), "Verify Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
+                extentReports.CreateStepLogs("Passed", "FS Engagement with ID: " + fullFSEngName + " Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
                 //********In Progress
 
-        //---------------//
+                //---------------//
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab closed");
 
