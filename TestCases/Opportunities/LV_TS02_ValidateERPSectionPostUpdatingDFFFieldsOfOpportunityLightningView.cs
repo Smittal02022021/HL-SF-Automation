@@ -349,7 +349,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string ERPResLOB = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResClient, ERPResLOB);
-                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResLOB + " is displayed OLd: "+ ERPResClient);
+                extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResLOB + " is displayed Old: "+ ERPResClient);
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
                 usersLogin.ClickLogoutFromLightningView();

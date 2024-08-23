@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using SF_Automation.TestCases.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -60,9 +61,9 @@ namespace SF_Automation.Pages.Engagement
         By valYearMonth = By.CssSelector("div[id*='hsaB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
         By txtStage = By.CssSelector("select[name*='NlW']");
         By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
-        By txtContact = By.CssSelector("span>input[id*='OPH']");     
+        By txtContact = By.CssSelector("span>input[id*='OPH']");
         By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
-        
+
         By txtParty = By.CssSelector("select[name*='M0eMS']");
         By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");
         By btnBillingRequest = By.CssSelector("input[value='Billing Request']");
@@ -122,7 +123,7 @@ namespace SF_Automation.Pages.Engagement
         By valSector = By.CssSelector("div[id*='6B7']");
         By comboJobType = By.CssSelector("select[id*= '65s']");
         By lnkRecordTypeChange = By.CssSelector("div[id*='RecordTypej_id0_j_id4_ileinner'] > a");
-        By comboLOB = By.CssSelector("select[id*='LoE']");      
+        By comboLOB = By.CssSelector("select[id*='LoE']");
         By lnkClient = By.XPath("//*[text()='Client']/.. //td[2]//div//a");
         By lnkSecondContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
         By lnkSyncDate = By.CssSelector("table > tbody > tr:nth-child(1) > td.dataCol.col02 > span > span > a");
@@ -149,29 +150,29 @@ namespace SF_Automation.Pages.Engagement
         By txtSecWomenLedActivism = By.CssSelector("div[id*='X1_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFVA = By.CssSelector("div[id*='9E_ep_j_id0_j_id4']>h3");
         By txtSecWomenLedFR = By.CssSelector("div[id*='PL_ep_j_id0_j_id4']>h3");
-       
+
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
-        By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFN']");       
+        By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFN']");
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
-        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']"); 
-             
+        By imgCoverageSectorDependencies = By.CssSelector("img[alt = 'Coverage Sector Dependencies']");
+
         By txtCoverageType = By.CssSelector("input[id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
         By txtPrimarySector = By.CssSelector("input[id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
         By txtSecondarySector = By.CssSelector("input[id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
         By txtTertiarySector = By.CssSelector("input[id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
         By btnApplyFilters = By.XPath("//input[@title='Apply Filters']");
         By linkShowAllResults = By.XPath("//a[contains(text(),'Show all results')]");
-       
+
         //By btnSendEmail = By.CssSelector("input[value='Send Email']");
-        
+
         By titlePage = By.CssSelector("h2[class='pageDescription']");
         By titleOppDetails = By.CssSelector("div[id*='j_id55'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
-        
+
 
         By textEngagementDetailEngagementName = By.XPath("//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By textEngagementDetailEngagementNumber = By.XPath("//p[@title='Engagement Number']//following-sibling::p//slot//lightning-formatted-text");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
-        By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");        
+        By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
 
         By labelWomenLed = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(9) > td:nth-child(1)");
         By labelWomenLedJob = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(7) > td:nth-child(3)");// div:nth-child(33) > table > tbody > tr:nth-child(7) > td:nth-child(3)");
@@ -184,9 +185,9 @@ namespace SF_Automation.Pages.Engagement
         By valAddedKeyCredType = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) > td:nth-child(3)");
         By lnkShowMore = By.CssSelector("div[id*='DbX_body'] > div > a:nth-child(1)");
         //By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
-        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");        
-        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");       
-        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");       
+        By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
+        By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
+        By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
 
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
 
@@ -221,18 +222,18 @@ namespace SF_Automation.Pages.Engagement
         By valCreatorL = By.XPath("//dt[text()='Creator:']/ancestor::dl/dd[2]/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span");
         By tabInternalTeam = By.XPath("//a[text()='Internal Team']");
         By txtMember = By.XPath("//div[text()='Member']");
-        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");  
-        By btnSaveEngagementSector = By.XPath("(//input[@title='Save'])[1]"); 
+        By linkCoverageSectorDependencyName = By.XPath("//a[@href='#']");
+        By btnSaveEngagementSector = By.XPath("(//input[@title='Save'])[1]");
         By txtERPLegalEntity = By.CssSelector("input[id*='M0eec'][type='text']");
         //By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFOj_id0_j_id55_ileinner'] > img");
         By checkBoxCoExist = By.CssSelector("div[id*='00N6e00000MRVFNj_id0_j_id4_ileinner'] > img");
         //By imputCoExist = By.XPath("//input[@id='00N6e00000MRVFO']");
-        By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");       
-        By lblHeaderText = By.XPath("//h1/span[2]");      
-        By linkSectorName = By.XPath("//*/th[contains(text(),'Engagement Sector')]/following::tr/th/a");        
+        By btnCFEngagementSummary = By.XPath("(//input[@title='CF Engagement Summary (lwc)'])[1]");
+        By lblHeaderText = By.XPath("//h1/span[2]");
+        By linkSectorName = By.XPath("//*/th[contains(text(),'Engagement Sector')]/following::tr/th/a");
         By btnDeleteEngagementSector = By.XPath("(//input[@title='Delete'])[1]");
-        By linkEngagementName = By.XPath("(//td[contains(text(),'Engagement')])[2]/../td[2]/div/a");       
-        By btnNewEngagementSector = By.XPath("//input[@value='New Engagement Sector']");      
+        By linkEngagementName = By.XPath("(//td[contains(text(),'Engagement')])[2]/../td[2]/div/a");
+        By btnNewEngagementSector = By.XPath("//input[@value='New Engagement Sector']");
         By valEngagementSectorName = By.XPath("//td[contains(text(),'Engagement Sector')]/following::div[1]");
         By imgCoverageSectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
 
@@ -243,10 +244,10 @@ namespace SF_Automation.Pages.Engagement
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
         By valEnggNumberSuffix = By.CssSelector("div[id*='M0eeaj']");
         By inputCoverageType = By.XPath("//input[@id='00N6e00000MRMtkEAHCoverage_Sector_Dependency__c']");
-        By inputPrimarySector = By.XPath("//input[@id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");       
-        By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");    
-        By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");        
-        By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");        
+        By inputPrimarySector = By.XPath("//input[@id='00N6e00000MRMtlEAHCoverage_Sector_Dependency__c']");
+        By inputSecondarySector = By.XPath("//input[@id='00N6e00000MRMtmEAHCoverage_Sector_Dependency__c']");
+        By inputTertiarySector = By.XPath("//input[@id='00N6e00000MRMtnEAHCoverage_Sector_Dependency__c']");
+        By btnEditCompCoverageSector = By.XPath("//input[@title='Edit']");
         By btnAddOppContact = By.CssSelector("input[name='new_external_team']");
         By comboRole = By.CssSelector("select[name*='D7Qcn']");
         By comboParty = By.CssSelector("select[name*='M0eMp']");
@@ -264,7 +265,7 @@ namespace SF_Automation.Pages.Engagement
         By subTabCST = By.XPath("//ul/li[@title='CST Questionnaire Details']/a[@data-tab-value='flexipage_tab20']");
         By subTabBilling = By.XPath("//ul/li[@title='Billing Comments']/a[@data-tab-value='flexipage_tab22']");
         By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        
+
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div[1]/div[1]/div/button");
@@ -374,7 +375,7 @@ namespace SF_Automation.Pages.Engagement
         By valFinancials = By.XPath("//div[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
         By lnkEngName = By.XPath("//records-record-layout-item[2]/div/div/div[2]/span/slot[1]/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
-            
+
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal/div/div/lst-primary-display-manager/div/lst-primary-display/lst-primary-display-card/lst-customized-template-list/div/lst-template-list-item-factory/lst-related-preview-card/article/slot/lst-template-list-field");
         By btnClearContact = By.XPath("//records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/div/button/lightning-primitive-icon");
         By btnCloseEngContact = By.XPath("//records-record-edit-error-header/lightning-button-icon");
@@ -389,18 +390,18 @@ namespace SF_Automation.Pages.Engagement
         By btnAddClientL = By.XPath("//button[@name='Engagement__c.Add_Client_L']");
         By txtCompanies = By.XPath("//input[@placeholder='Search Companies...']");
         By valCompanyName = By.XPath("//tbody/tr[3]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
-		By btnAddSubjectL = By.XPath("//button[@name='Engagement__c.Add_Subject_L']");
+        By btnAddSubjectL = By.XPath("//button[@name='Engagement__c.Add_Subject_L']");
         By valSubjectComp = By.XPath("//tbody/tr[4]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valSubjectType = By.XPath("//table/tbody/tr[4]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By valClientType = By.XPath("//table/tbody/tr[3]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
-		By btnAddOtherL = By.XPath("//button[@name='Engagement__c.Add_Other_Party_L']");
+        By btnAddOtherL = By.XPath("//button[@name='Engagement__c.Add_Other_Party_L']");
         By valOtherComp = By.XPath("//tbody/tr[5]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/force-lookup/div/records-hoverable-link/div/a/slot/slot/span");
         By valOtherType = By.XPath("//table/tbody/tr[5]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnAddEngContact = By.XPath("//button[@name='Engagement__c.Add_CF_Engagement_Contact']");
         By txtContacts = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnPartyContact = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
-		By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
-        
+        By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
@@ -498,8 +499,6 @@ namespace SF_Automation.Pages.Engagement
         By fieldExpectedMeetingEndDate = By.XPath("//input[@name='Expected_Meeting_Dates_From__c']");
         By caseSavedStatus = By.XPath("//p[@title='Status']//following-sibling::p//lightning-formatted-text");
         By editStartDate = By.XPath("//button[@title='Edit Provide Start Dates']");
-
-
         By fieldInvitation = By.XPath("(//span[@class='test-id__field-label'])[contains(text(),'Would you like CST to send invitations?')]");
         By dropdownIconInvitation = By.XPath("//button[contains(@aria-label,'Would you like CST to send invitations?')]");
         By optionsInvitation = By.XPath("//flexipage-field[contains(@data-field-id,'CST_to_send_invitations')]//lightning-base-combobox-item//span[@class='slds-truncate']");
@@ -541,14 +540,12 @@ namespace SF_Automation.Pages.Engagement
         By fieldEngagementName = By.XPath("//label//span[text()='Engagement']//following::Input[@aria-required='true']");
         By buttonNewEngagemenCounterparty = By.XPath("//button[@title='Save']");
         By btnAddCounterpartyRequiredItem = By.XPath("(//button[@title='Save'])[2]");
-
         By comboDropdownResult = By.XPath("(//ul[@role='group']//li)[1]");
         By dropdownist = By.XPath("//button[contains(@title,'Select a List View')]");
         By searchList = By.XPath("//div[@role='dialog']//input");
         By listOption = By.XPath("//div[@role='dialog']//div//ul//li");
         By caseLink = By.XPath("//table//tbody//tr[1]//th//a");
         By fieldCaseOwner = By.XPath("//span[contains(@class,'owner-name')]//a//span");
-
         By panelCST = By.XPath("//a[@data-label='CST']");
         By panelCSTQuestionnaires = By.XPath("//a//span[@title='Questionnaires']");
         By PanelCSTFiles = By.XPath("//a//span[@title='Files']");
@@ -558,7 +555,6 @@ namespace SF_Automation.Pages.Engagement
         By buttonDelete = By.XPath("//button[@title='Delete']");
         By tabDropdown = By.XPath("//div[@title='Actions for Questionnaires']");
         By tabRefresh = By.XPath("//ul//li[@title='Refresh Tab']//a");
-
         By sectionCaseComments = By.XPath("//span[@title='Case Comments']");
         By savedComments = By.XPath("//div[@title='Comment:']//following::div[contains(@class,'slds-truncate')]//span");
         By iconCommentsAction = By.XPath("//span[@title='Case Comments']//following::a[@role='button'][1]");
@@ -566,8 +562,6 @@ namespace SF_Automation.Pages.Engagement
         By tabRelated = By.XPath("//li[@class='slds-tabs_default__item']//a[@data-label='Related']");
         By linkNew = By.XPath("//a[@title='New']");
         By textArea = By.XPath("//textarea[@role='textbox']");
-        //By btnSaveComments = By.XPath("//button[@title='Save']");
-
         By txtNotesTitle = By.XPath("//div[contains(@class,'notesEditPanel')]//input");
         By txtNotes = By.XPath("//div[@aria-label='Compose text']");
         By btnNotesDone = By.XPath("//div[contains(@class,'bottomBar')]//button[text()='Done']");
@@ -627,17 +621,14 @@ namespace SF_Automation.Pages.Engagement
         By valEngInternalMemberMulti = By.XPath("//form[contains(@action,'HL_EngagementInternalTeamView')]//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//label");
         By textWomenLedLE = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(11) > td:nth-child(1)");
         By txtWomenLedSell = By.CssSelector("div[id*='pBs_ep_j_id0_j_id4']>h3");
-
         By tabEngActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab13__item']");
         By txtInternalTeamMemberL = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody/tr[1]/td[1]//label");
         By tabSidePanelL = By.XPath("//ul[@role='tablist']//li//a[@data-label='Eng Contacts']");
         By txtEngContactL = By.XPath("//article[@aria-label='Engagement Contacts']//h3//span");
         By tabInternalTeamL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Internal Team']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Internal Team']/a");////div[@class='onePanelManagerScoped']//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By lblWomenLedL = By.XPath("//h3/button/span[@title='Administrative Info']/ancestor::h3/parent::div/laf-progressive-container//flexipage-field[contains(@data-field-id,'RecordWomen_Led')]//div[contains(@class,'field-label')]/span");
-        
         By txtWomenLedL = By.XPath("//div[contains(@data-target-selection-name,'Women_Led')]//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]//dl//dd//span//slot/lightning-formatted-text");//div[contains(@data-target-selection-name,'Women_Led')]/div/div/span/slot/lightning-formatted-text");
         By linkRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a/../..");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//records-hoverable-link//a//span");//span[contains(@class,'field-label')][normalize-space()='Related Opportunity']/parent::div/following-sibling::div//div/a//span");
-
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
         By tblSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//table//tbody");
@@ -676,7 +667,7 @@ namespace SF_Automation.Pages.Engagement
         By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
         By comboClientOwnershipL = By.XPath("//label[text()='Client Ownership']/parent::div//button");
         By valClientOwnershipL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordClient_Ownership')]//dd//lightning-formatted-text");
-        By optionsJobTypeL= By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
+        By optionsJobTypeL = By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
         By lblEngDesc = By.XPath("//div//label[text()='Engagement Description']");
         By tabAdministationL1 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
         By tabAdministationL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Administration'])[2]");
@@ -706,7 +697,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSearchContact = By.XPath("//button[@title='Search']");
         By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
-        By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");       
+        By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
         By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By txtContactL = By.XPath("//input[@title='Search Contacts']");
         By btnSaveContactL = By.XPath("//footer//button/span[text()='Save']");
@@ -722,7 +713,6 @@ namespace SF_Automation.Pages.Engagement
         By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[1]");
         By checkBoxCoExistEngL = By.XPath("//input[@name='Co_exist__c']");
         By checkBoxCoExistEngL2 = By.XPath("(//input[@name='Co_exist__c'])[2]");
-        
         By btnReqFullEngL = By.XPath("//button[text()='Request Full Engagement']");
         By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
         By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
@@ -739,7 +729,7 @@ namespace SF_Automation.Pages.Engagement
         By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
         By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
         By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
-        By btnEngInfoSaveL= By.XPath("//footer//button[@type='submit']");
+        By btnEngInfoSaveL = By.XPath("//footer//button[@type='submit']");
         By chkBillingContactL = By.XPath("//span[text()='Billing Contact']/following::input[1]");
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
@@ -750,6 +740,9 @@ namespace SF_Automation.Pages.Engagement
         By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
         By txtContactNameL = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
         By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
+        By textEngCommentsL = By.XPath("//h2[text()='Tabs']/..//table//lightning-base-formatted-text");
+        By tabcommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
+        By counterpartyNameL = By.XPath("//table//th[@data-label='Company']");
         private By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -811,9 +804,8 @@ namespace SF_Automation.Pages.Engagement
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
         }
 
-
         public void CreateBillingContactLV(string name, string party)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(3000);
@@ -845,7 +837,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public void EnterRequestFullEngagementReqValuesLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, inputSSExpL, 20);
             driver.FindElement(inputSSExpL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputExpCapL, 20);
@@ -867,7 +859,7 @@ namespace SF_Automation.Pages.Engagement
             //WebDriverWaits.WaitUntilEleVisible(driver, inputContgFeeL, 20);
             //driver.FindElement(inputContgFeeL).SendKeys("10");
             WebDriverWaits.WaitUntilEleVisible(driver, inputTailExpL, 20);
-            string dateTailExp= DateTime.Today.AddDays(20).ToString("dd-MMM-yyyy");
+            string dateTailExp = DateTime.Today.AddDays(20).ToString("dd-MMM-yyyy");
             driver.FindElement(inputTailExpL).SendKeys(dateTailExp);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnConfAggL, 20);
@@ -980,8 +972,8 @@ namespace SF_Automation.Pages.Engagement
                     WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL1, 5);
                     driver.FindElement(tabAdministationL1).Click();
                 }
-                
-                
+
+
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL, 5);
@@ -1023,7 +1015,7 @@ namespace SF_Automation.Pages.Engagement
 
             }
         }
-        
+
         public string VerifyIfCoExistFieldIsEditableOrNotLV()
         {
             driver.FindElement(tabAdministationL).Click();
@@ -1060,7 +1052,7 @@ namespace SF_Automation.Pages.Engagement
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file; WebDriverWaits.WaitUntilEleVisible(driver, btnAddOppContact, 50);
             driver.FindElement(btnAddOppContact).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 80); 
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 80);
             driver.FindElement(txtContact).SendKeys(contact);
             driver.FindElement(comboRole).SendKeys(TestData.ReadExcelData.ReadData(excelPath, "AddContact", 2));
             driver.FindElement(comboType).SendKeys(valType); string Type = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowNumber, 4);
@@ -1150,7 +1142,7 @@ namespace SF_Automation.Pages.Engagement
                 CustomFunctions.SwitchToWindow(driver, 5);
                 driver.Navigate().Refresh();
             }
-        }       
+        }
 
         //Search and select the desired case
         public void SelectCase(string CaseNumber)
@@ -1158,7 +1150,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(searchBox).SendKeys(CaseNumber);
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//table[contains(@class,'slds-table')]//tbody//tr//th//a[@title='"+ CaseNumber +"']")).Click();
+            driver.FindElement(By.XPath("//table[contains(@class,'slds-table')]//tbody//tr//th//a[@title='" + CaseNumber + "']")).Click();
             Thread.Sleep(4000);
         }
         public void SelectListView(string view)
@@ -1232,7 +1224,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(lnkSwitchToClassic).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception e) { }            
+            catch (Exception e) { }
         }
 
         public bool ValidateRelatedQuickLink(string linkText)
@@ -1824,7 +1816,7 @@ namespace SF_Automation.Pages.Engagement
             }
             return InternalTeamMembers;
         }
-       
+
         public void SelectDealTeamContact()
         {
             driver.FindElement(autoDropdownDealTeamContacts).Click();
@@ -2425,7 +2417,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, questionnaireCST, 20);
         }
 
-       public string GetQuestionnaireListQuestionnaireNumber()
+        public string GetQuestionnaireListQuestionnaireNumber()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkQuesionnaireNumber, 10);
             return driver.FindElement(linkQuesionnaireNumber).Text;
@@ -2697,7 +2689,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.SwitchTo().DefaultContent();
                 return value;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 driver.Navigate().Refresh();
                 driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='HL_EngagementInternalTeamView']")));
@@ -2714,13 +2706,13 @@ namespace SF_Automation.Pages.Engagement
                 WebDriverWaits.WaitUntilEleVisible(driver, valEngContact2, 30);
                 return driver.FindElement(valEngContact2).Text.Trim();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, valEngContact2, 30);
                 return driver.FindElement(valEngContact2).Text.Trim();
             }
-           
+
         }
         public string GetLegalEntity()
         {
@@ -2787,7 +2779,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string ValidateFinancialsProjectionsTabL()
         {
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
             driver.FindElement(tabFinancialsL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabFinancialsL, 90);
             string title = driver.FindElement(tabFinancialsL).Text;
@@ -2831,14 +2823,14 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 150);
             driver.FindElement(tabInfo).Click();
             return title;
-            
+
         }
 
         //Get value of Post Transaction Status
         public string GetValueOfPostTransactionStatusL()
-        {           
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, valPostTxnStatus, 90);
-            string title = driver.FindElement(valPostTxnStatus).Text;            
+            string title = driver.FindElement(valPostTxnStatus).Text;
             return title;
 
         }
@@ -3075,7 +3067,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(10000);
             return h1Text;
         }
-       
+
         public bool VerifyFiltersFunctionalityOnCoverageSectorDependencyPopUp(string file, string covSectorDependencyName)
         {
             bool result = false;
@@ -3782,7 +3774,7 @@ namespace SF_Automation.Pages.Engagement
                 return value;
             }
             else if (JobType.Contains("TAS"))
-            {                
+            {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedTAS, 20);
                 string value = driver.FindElement(txtSecWomenLedTAS).Text;
                 return value;
@@ -3829,7 +3821,7 @@ namespace SF_Automation.Pages.Engagement
                 return value;
             }
             else if (JobType.Equals("Lender Education"))
-            {                
+            {
                 WebDriverWaits.WaitUntilEleVisible(driver, textWomenLedLE, 25);
                 string value = driver.FindElement(textWomenLedLE).Text;
                 return value;
@@ -4306,7 +4298,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabFees);
             driver.FindElement(tabFees).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyL,150);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCurrencyL, 150);
             string currency = driver.FindElement(valCurrencyL).Text;
             return currency;
         }
@@ -4328,7 +4320,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnViewCounterparties).Click();
         }
 
-       
+
 
         //Click Engagement Counterparty Button
         public string ClickEngCounterpartyButton()
@@ -4337,7 +4329,7 @@ namespace SF_Automation.Pages.Engagement
             Console.WriteLine("Looking for added counterpatry link");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkAddedCounterparty, 150);
             driver.FindElement(lnkAddedCounterparty).Click();
-            driver.SwitchTo().Window(driver.WindowHandles.Last());            
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngCounterpartyContact, 150);
             driver.FindElement(btnEngCounterpartyContact).Click();
@@ -4563,7 +4555,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 return "CoExist checkbox is not displayed.";
             }
-        }       
+        }
 
         public void DeleteEngagementSector()
         {
@@ -4642,7 +4634,7 @@ namespace SF_Automation.Pages.Engagement
             return result;
         }
 
-      
+
         public void ClickFirstContractLink(int row)
         {
             Thread.Sleep(3000);
@@ -4916,7 +4908,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(7000);
             string id = driver.FindElement(valPeriodAccural).Text;
-            return id.Substring(4,5);
+            return id.Substring(4, 5);
         }
 
         //Click Revenue Projection Tab
@@ -5435,7 +5427,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(valAddedComment).Text;
             return name;
         }
-  
+
 
         //Add Engagement Comments
         public string AddEngCommentaAndValidate()
@@ -5454,7 +5446,7 @@ namespace SF_Automation.Pages.Engagement
             string commentType = driver.FindElement(valAddedCommentType).Text;
             return commentType;
         }
-       
+
 
         //Add Financials.
         public string AddFinancialsAndValidate()
@@ -5550,7 +5542,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameBacklog, 100);
             driver.FindElement(txtEngNameBacklog).Clear();
-            driver.FindElement(txtEngNameBacklog).SendKeys("Testing");            
+            driver.FindElement(txtEngNameBacklog).SendKeys("Testing");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
             driver.FindElement(btnSaveBacklog).Click();
@@ -5560,212 +5552,212 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-       
-		//Validate Add Client button
-		public string ValidateAddClientButton()
-		{
-			Thread.Sleep(5000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddClientL, 100);
-			string value = driver.FindElement(btnAddClientL).Text;
-			return value;
-		}
 
-		//Validate validation of Add Client button
-		public string ValidateMandatoryValidationOfAddClient()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddClientL, 100);
-			driver.FindElement(btnAddClientL).Click();
-			Thread.Sleep(3000);			
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			string validation = driver.FindElement(msgEngNameBacklog).Text;
-			return validation;
-		}
+        //Validate Add Client button
+        public string ValidateAddClientButton()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddClientL, 100);
+            string value = driver.FindElement(btnAddClientL).Text;
+            return value;
+        }
 
-		//Validate validation of Add Client button
-		public string ValidateEditFunctionalityOfAddClient()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
-			driver.FindElement(txtCompanies).Click();
-			Thread.Sleep(4000);
+        //Validate validation of Add Client button
+        public string ValidateMandatoryValidationOfAddClient()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddClientL, 100);
+            driver.FindElement(btnAddClientL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            string validation = driver.FindElement(msgEngNameBacklog).Text;
+            return validation;
+        }
+
+        //Validate validation of Add Client button
+        public string ValidateEditFunctionalityOfAddClient()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
+            driver.FindElement(txtCompanies).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
-			Thread.Sleep(5000);			
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
             Thread.Sleep(4000);
             driver.FindElement(tabClientSub).Click();
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,450)");
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(4000);
             string name = driver.FindElement(valCompanyName).Text;
             return name;
-		}
+        }
 
-		//Validate Add Subject button
-		public string ValidateAddSubjectButton()
-		{
-			Thread.Sleep(3000);
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,-400)");
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddSubjectL, 100);
-			string value = driver.FindElement(btnAddSubjectL).Text;
-			return value;
-		}
+        //Validate Add Subject button
+        public string ValidateAddSubjectButton()
+        {
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-400)");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddSubjectL, 100);
+            string value = driver.FindElement(btnAddSubjectL).Text;
+            return value;
+        }
 
-		//Validate validation of Add Subject button
-		public string ValidateMandatoryValidationOfAddSubject()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddSubjectL, 100);
-			driver.FindElement(btnAddSubjectL).Click();
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(3000);
-			string validation = driver.FindElement(msgEngNameBacklog).Text;
-			return validation;
-		}
+        //Validate validation of Add Subject button
+        public string ValidateMandatoryValidationOfAddSubject()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddSubjectL, 100);
+            driver.FindElement(btnAddSubjectL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(3000);
+            string validation = driver.FindElement(msgEngNameBacklog).Text;
+            return validation;
+        }
 
-		//Validate Edit functionality of Add Subject button
-		public string ValidateEditFunctionalityOfAddSubject()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
-			driver.FindElement(txtCompanies).Click();
-			Thread.Sleep(4000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
-			Thread.Sleep(5000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(4000);
-			driver.FindElement(tabClientSub).Click();
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,450)");
-			Thread.Sleep(4000);
-			string name = driver.FindElement(valSubjectComp).Text;
-			return name;
-		}
+        //Validate Edit functionality of Add Subject button
+        public string ValidateEditFunctionalityOfAddSubject()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
+            driver.FindElement(txtCompanies).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabClientSub).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
+            Thread.Sleep(4000);
+            string name = driver.FindElement(valSubjectComp).Text;
+            return name;
+        }
 
         //Get type of added company
         public string GetTypeOfSubCompany()
         {
             Thread.Sleep(4000);
-			WebDriverWaits.WaitUntilEleVisible(driver, valSubjectType, 200);
-			string name = driver.FindElement(valSubjectType).Text;
-			return name;
-		}
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubjectType, 200);
+            string name = driver.FindElement(valSubjectType).Text;
+            return name;
+        }
 
-		//Get type of added client company
-		public string GetTypeOfClientCompany()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, valClientType, 200);
-			string name = driver.FindElement(valClientType).Text;
-			return name;
-		}
+        //Get type of added client company
+        public string GetTypeOfClientCompany()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientType, 200);
+            string name = driver.FindElement(valClientType).Text;
+            return name;
+        }
 
-		//Validate Add Other Party button
-		public string ValidateAddOtherPartyButton()
-		{
-			Thread.Sleep(3000);
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,-400)");
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddOtherL, 100);
-			string value = driver.FindElement(btnAddOtherL).Text;
-			return value;
-		}
+        //Validate Add Other Party button
+        public string ValidateAddOtherPartyButton()
+        {
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-400)");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOtherL, 100);
+            string value = driver.FindElement(btnAddOtherL).Text;
+            return value;
+        }
 
         //Validate validation of Add Other Party button
-		public string ValidateMandatoryValidationOfAddOtherParty()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddOtherL, 100);
-			driver.FindElement(btnAddOtherL).Click();
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(3000);
-			string validation = driver.FindElement(msgEngNameBacklog).Text;
-			return validation;
-		}
-
-		//Validate Edit functionality of Add Other Party button
-		public string ValidateEditFunctionalityOfAddOtherParty()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
-			driver.FindElement(txtCompanies).Click();
-			Thread.Sleep(5000);
-			driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
-			Thread.Sleep(5000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(4000);
-			driver.FindElement(tabClientSub).Click();
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,450)");
-			Thread.Sleep(4000);
-			string name = driver.FindElement(valOtherComp).Text;
-			return name;
-		}
-		//Get type of added Other company
-		public string GetTypeOfOtherCompany()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, valOtherType, 200);
-			string name = driver.FindElement(valOtherType).Text;
-			return name;
-		}
-
-		//Validate Add CF Engagement Contact button
-		public string ValidateAddCFEngContactButton()
-		{
-			Thread.Sleep(3000);
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,-400)");
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddEngContact, 100);
-			string value = driver.FindElement(btnAddEngContact).Text;
-			return value;
-		}
-
-		//Validate validation of Add CF Engagement Contact button
-		public string ValidateMandatoryValidationOfAddCFEngContact()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, btnAddEngContact, 100);
-			driver.FindElement(btnAddEngContact).Click();
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(3000);
-			string validation = driver.FindElement(msgEngNameBacklog).Text;
-			return validation;
-		}
-
-		//Validate Edit functionality of Add CF Engagement Contact button
-		public string ValidateEditFunctionalityOfAddEngContact()
-		{
-			WebDriverWaits.WaitUntilEleVisible(driver, txtContacts, 100);
-            driver.FindElement(txtContacts).SendKeys("Shivali Sharma");
-			Thread.Sleep(12000);
-			driver.FindElement(By.XPath("//div[2]/ul/li/a/div[1]/span/img")).Click();
-			Thread.Sleep(3000);
-			IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-			js.ExecuteScript("window.scrollTo(0,300)");
+        public string ValidateMandatoryValidationOfAddOtherParty()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddOtherL, 100);
+            driver.FindElement(btnAddOtherL).Click();
             Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
-			driver.FindElement(btnPartyContact).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(3000);
+            string validation = driver.FindElement(msgEngNameBacklog).Text;
+            return validation;
+        }
+
+        //Validate Edit functionality of Add Other Party button
+        public string ValidateEditFunctionalityOfAddOtherParty()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanies, 100);
+            driver.FindElement(txtCompanies).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//div[2]/ul/li[2]/a/div[2]/div[1]")).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabClientSub).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
+            Thread.Sleep(4000);
+            string name = driver.FindElement(valOtherComp).Text;
+            return name;
+        }
+        //Get type of added Other company
+        public string GetTypeOfOtherCompany()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valOtherType, 200);
+            string name = driver.FindElement(valOtherType).Text;
+            return name;
+        }
+
+        //Validate Add CF Engagement Contact button
+        public string ValidateAddCFEngContactButton()
+        {
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-400)");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEngContact, 100);
+            string value = driver.FindElement(btnAddEngContact).Text;
+            return value;
+        }
+
+        //Validate validation of Add CF Engagement Contact button
+        public string ValidateMandatoryValidationOfAddCFEngContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEngContact, 100);
+            driver.FindElement(btnAddEngContact).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(3000);
+            string validation = driver.FindElement(msgEngNameBacklog).Text;
+            return validation;
+        }
+
+        //Validate Edit functionality of Add CF Engagement Contact button
+        public string ValidateEditFunctionalityOfAddEngContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContacts, 100);
+            driver.FindElement(txtContacts).SendKeys("Shivali Sharma");
+            Thread.Sleep(12000);
+            driver.FindElement(By.XPath("//div[2]/ul/li/a/div[1]/span/img")).Click();
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,300)");
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPartyContact, 100);
+            driver.FindElement(btnPartyContact).Click();
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("/html/body/div[8]/div/ul/li[3]/a[text()='Seller']")).Click();
-			WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
-			driver.FindElement(btnSaveBacklog).Click();
-			Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveBacklog, 200);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(6000);
             driver.FindElement(tabEngContacts).Click();
             Thread.Sleep(5000);
-			string name = driver.FindElement(valAddedContactNum).Text;
-			return name;
-		}
+            string name = driver.FindElement(valAddedContactNum).Text;
+            return name;
+        }
 
         public string GetEngNumberL()
         {
-            Thread.Sleep(5000);   
-            WebDriverWaits.WaitUntilEleVisible(driver, valEngNumL, 200);            
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEngNumL, 200);
             string name = driver.FindElement(valEngNumL).Text;
             return name;
         }
@@ -5837,7 +5829,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabMore, 200);
             driver.FindElement(tabMore).Click();
-            Thread.Sleep(3000);            
+            Thread.Sleep(3000);
             string name = driver.FindElement(lblBid).Text;
             driver.FindElement(lblBid).Click();
             return name;
@@ -5882,7 +5874,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             IReadOnlyCollection<IWebElement> valReportNames = driver.FindElements(tblReports);
             var actualValue = valReportNames.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Capital Markets Contact Log", "PIF"};
+            string[] expectedValue = { "Capital Markets Contact Log", "PIF" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -5964,7 +5956,7 @@ namespace SF_Automation.Pages.Engagement
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            Thread.Sleep(7000);            
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngInternalTeamL, 30);
             driver.FindElement(tabEngInternalTeamL).Click();
             Thread.Sleep(8000);
@@ -5983,7 +5975,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 try
                 {
-                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);                    
+                    string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "EngDealTeamMembers", row, 1);
                     Thread.Sleep(5000);
                     WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
                     driver.FindElement(txtStaff).SendKeys(valStaff);
@@ -6033,8 +6025,8 @@ namespace SF_Automation.Pages.Engagement
                     return row - 2;
                 }
             }
-            driver.SwitchTo().DefaultContent();
-            return totalDealTeamMemberadded;
+            driver.SwitchTo().DefaultContent();
+            return totalDealTeamMemberadded;
         }
         public bool IsAssociatedEngFieldPresent()
         {
@@ -6048,7 +6040,7 @@ namespace SF_Automation.Pages.Engagement
                 return false;
             }
         }
-       
+
         //Validate displayed reports
         public bool VerifyReportNamesForNonDealMemberClassic()
         {
@@ -6069,9 +6061,9 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
-            driver.FindElement(btnReturnToEngLightning).Click();            
+            driver.FindElement(btnReturnToEngLightning).Click();
             return isSame;
-        }       
+        }
         public bool IsAssociatedEngFieldPresentLV()
         {
             try
@@ -6189,7 +6181,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 driver.FindElement(btnCancelEditForm).Click();
             }
-        }   
+        }
         public string GetAssociatedEngagement()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEng, 20);
@@ -6203,7 +6195,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
                 driver.FindElement(btnEditEngL).Click();
-                
+
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedEngL, 10);
@@ -6220,22 +6212,22 @@ namespace SF_Automation.Pages.Engagement
                     driver.FindElement(editAssociatedEngFieldL).SendKeys(name);
                     Thread.Sleep(2000);
                     driver.FindElement(By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']")).Click();
-                }
+                }
 
                 driver.FindElement(btnSaveDetailsL).Click();
-                Thread.Sleep(10000); 
+                Thread.Sleep(10000);
             }
             catch (Exception e)
             {
                 driver.FindElement(btnCancelEditFormL).Click();
             }
         }
-            public string GetAssociatedEngagementLV()
-            {
+        public string GetAssociatedEngagementLV()
+        {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedEngL, 20);
-                return driver.FindElement(txtAssociatedEngL).Text;
-            }
+            return driver.FindElement(txtAssociatedEngL).Text;
+        }
         public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
@@ -6246,7 +6238,7 @@ namespace SF_Automation.Pages.Engagement
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
             for (int row = 0; row < actualValue.Length; row++)
-            {                
+            {
                 if (actualValue[row].Contains(IndustryType))
                 {
                     isFound = true;
@@ -6256,7 +6248,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancel).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
             return isFound;
-        }      
+        }
 
         public void ClickDetailPageQuickLink(string value)
         {
@@ -6329,7 +6321,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnViewCounterpartyL).Click();
             Thread.Sleep(8000);
         }
-        
+
         public void ClickPanelRightEngagementPageLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -6372,9 +6364,9 @@ namespace SF_Automation.Pages.Engagement
             }
             catch (Exception) { return "Job Type not found"; }
         }
-        
+
         public void UpdateJobTypeLV(string oldJobType, string newJobType)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
@@ -6420,7 +6412,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, listInternalDealTeam, 20);
-            int memberCount= driver.FindElements(listInternalDealTeam).Count();
+            int memberCount = driver.FindElements(listInternalDealTeam).Count();
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpporEng);
             driver.FindElement(btnReturnToOpporEng).Click();
             return memberCount;
@@ -6464,9 +6456,9 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
-            driver.FindElement(btnReturnToEngLightning).Click();           
+            driver.FindElement(btnReturnToEngLightning).Click();
             return isSame;
-        }        
+        }
 
         //Validate Bid tab
         public string ValidateBidTabForAdmin()
@@ -6490,7 +6482,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tblBids, 200);
-            string table = driver.FindElement(tblBids).Displayed.ToString();           
+            string table = driver.FindElement(tblBids).Displayed.ToString();
             return table;
         }
 
@@ -6505,7 +6497,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='First']")).Click();
             string tab = driver.FindElement(tabAddedBid).Text;
             driver.Navigate().Refresh();
-            return tab;            
+            return tab;
         }
 
         //Validate Mandatory fields validation
@@ -6526,7 +6518,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(lnkEditMaxBid).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtMinBid, 350);
             driver.FindElement(txtMinBid).Clear();
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblMinBid, 200);
             driver.FindElement(lblMinBid).Click();
 
@@ -6542,7 +6534,7 @@ namespace SF_Automation.Pages.Engagement
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,500)");
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveMinBid, 240);
             driver.FindElement(btnSaveMinBid).Click();
             Thread.Sleep(4000);
@@ -6615,7 +6607,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-     //Valdiate Engagement Expenses report
+        //Valdiate Engagement Expenses report
         public string ValidateEngExpReport()
         {
             Thread.Sleep(3000);
@@ -6645,19 +6637,19 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Valdiate Engagement Working Group List
-       public string ValidateEngWorkingGroupReport()
+        public string ValidateEngWorkingGroupReport()
         {
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEngWorking, 140);
             driver.FindElement(lnkEngWorking).Click();
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngWorking, 240);
             string value = driver.FindElement(lblEngWorking).Text;
             driver.SwitchTo().Window(driver.WindowHandles[0]);
             return value;
         }
-       
+
         public string GetEngStartDate()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngImpDate, 20);
@@ -6697,13 +6689,13 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lblWomenLedL, 20);
             return driver.FindElement(lblWomenLedL).Text;
         }
-       
+
         public string GetValueWomenLedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtValueWomenLedL, 20);
             return driver.FindElement(txtValueWomenLedL).Text;
         }
-        
+
         public string GetEngDealTeammMemberLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 30);
@@ -6719,7 +6711,7 @@ namespace SF_Automation.Pages.Engagement
             return nameInternalTeamMember;
         }
 
-        
+
         public string GetEngExternalContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 20);
@@ -6727,7 +6719,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactNameL, 20);
             return driver.FindElement(txtContactNameL).Text;
-        }        
+        }
         public string GetWomenLedSectionNameLV(string recType)
         {
             if (recType.Equals("CF"))
@@ -6845,17 +6837,17 @@ namespace SF_Automation.Pages.Engagement
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, txtname, 10);
                     js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtname));
-                    return driver.FindElement(txtname).Displayed;                
+                    return driver.FindElement(txtname).Displayed;
                 }
                 catch { return false; }
             }
         }
         public string GetLegalEntityLV()
-        {                        
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngLegalEntityL, 10);
             return driver.FindElement(txtEngLegalEntityL).Text;
         }
-        
+
         public string GetWomenLedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtWomenLedL, 10);
@@ -6877,7 +6869,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, linkRelatedOppL, 30);
             driver.FindElement(linkRelatedOppL).Click();
             Thread.Sleep(10000);
-        }        
+        }
 
         public void UpdatePrimaryOfficeInlineLV(string value)
         {
@@ -7003,7 +6995,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(15000);
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
-        }        
+        }
 
         public string GetClientOwnershipLV()
         {
@@ -7039,7 +7031,7 @@ namespace SF_Automation.Pages.Engagement
             return isFound;
         }
 
-        
+
         private By _quickLink(string linkText)
         {
             return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
@@ -7113,7 +7105,7 @@ namespace SF_Automation.Pages.Engagement
             CustomFunctions.MoveToElement(driver, driver.FindElement(valBillToL));
             string bill = driver.FindElement(valBillToL).GetAttribute("title");
             return bill;
-        }       
+        }
 
         //Get Contract Start Date
         public string GetContractStartDateLV()
@@ -7140,7 +7132,7 @@ namespace SF_Automation.Pages.Engagement
                 return "Is Main Contract checkbox is not checked";
             }
         }
-        
+
         public void ClickEngagementContactList()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -7164,8 +7156,8 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(valCompNameL).GetAttribute("title");
             return name;
         }
-                
-        
+
+
         //Validate add counterparty functionality
         public string ValidateAddCounterpartyFunctionality()
         {
@@ -7250,7 +7242,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(lnkContacts).Text;
             return name;
         }
-        
+
         public void AddEngementCommentsLV(string commentType, string txtComments)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabCommentsL, 20);
@@ -7301,11 +7293,11 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();            
+            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
             driver.FindElement(btnSaveContactL).Click();
             Thread.Sleep(5000);
         }
-        
+
         public void ClickTabFSEngagementLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -7331,7 +7323,7 @@ namespace SF_Automation.Pages.Engagement
 
             Thread.Sleep(10000);
         }
-        
+
         public string CreateNewFSEngagementLV(string sponsor)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSEngL, 10);
@@ -7349,12 +7341,12 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngNameL, 10);
             return driver.FindElement(txtFSEngNameL).Text;
         }
-        
+
         public string GetFSEngagementIDLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngIDL, 10);
             return driver.FindElement(txtFSEngIDL).Text;
-        } 
+        }
 
         public void ClickEngContactTabLV()
         {
@@ -7362,10 +7354,9 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
-        public bool IsEngContactPresent(string file)
+        public bool IsEngContactsPresentLV(string file)
         {
             bool result = false;
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -7377,16 +7368,70 @@ namespace SF_Automation.Pages.Engagement
                 string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", i, 1);
                 for (int j = 1; j <= engContactsCount; j++)
                 {
-                    string contactName = driver.FindElement(By.XPath($"//table[@aria-label='Engagement Contacts']//tr{j}//th//lightning-primitive-cell-factory//a[2]")).Text;
-                    if (contactName==contactNameExl)
+                    string contactName = driver.FindElement(By.XPath($"//table[@aria-label='Engagement Contacts']//tr[{j}]//th//lightning-primitive-cell-factory//a[2]")).Text;
+                    if (contactName == contactNameExl)
                     {
                         result = true;
                         break;
                     }
-                }
-                //continue;
+                }                
             }
             return result;
+        }
+        
+        public void ClickEngCommentsTabLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabcommentsL, 20);
+            driver.FindElement(tabcommentsL).Click();
+            Thread.Sleep(5000);
+        }
+        public bool IsEngCommentsPresentLV(string file)
+        {
+            bool isCommentFund = false;
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, textEngCommentsL, 10);
+            IList<IWebElement> engComments = driver.FindElements(textEngCommentsL);
+            foreach(IWebElement engComment in engComments)
+            {
+                isCommentFund = false;
+                int engCommentsExlCount = ReadExcelData.GetRowCount(excelPath, "EngComments");                
+                for (int commentsIndex = 1; commentsIndex < engCommentsExlCount; commentsIndex++)
+                {
+                    string engCommentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", commentsIndex, 2);
+                    if (engComment.Text == engCommentsExl)
+                    {
+                        isCommentFund = true;
+                        break;
+                    }
+                }
+            }
+            return isCommentFund;
+        }        
+        public bool IsEngCounterparyCompaniesPresentLV(string[] addedCounterpartyCompany)
+        {
+            bool iscounterpartyfound = false;            
+            IList<IWebElement> counterpartyName = driver.FindElements(counterpartyNameL);
+            WebDriverWaits.WaitUntilEleVisible(driver, counterpartyNameL, 20);
+            foreach (IWebElement counterparty in counterpartyName)
+            {
+                iscounterpartyfound = false;
+                foreach (string addedCompany in addedCounterpartyCompany)
+                {
+                    string availablecounterparty = counterparty.GetAttribute("data-cell-value");
+                    if (availablecounterparty == addedCompany)
+                    {
+                        iscounterpartyfound = true;
+                        break;
+                    }
+                }
+            }
+            return iscounterpartyfound;
         }
     }
 }

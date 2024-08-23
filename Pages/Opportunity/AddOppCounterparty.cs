@@ -94,7 +94,7 @@ namespace SF_Automation.Pages.Opportunity
         
         private By _counterpartyCompanyEle(string companyName)
         {
-            return By.XPath($"//article//table//div//*[@title='{companyName}']");
+            return By.XPath($"//article//table//th//a[@title='{companyName}']");
         }
         private By _comboTypeCounterpartyOptionEle(string value)
         {
@@ -903,7 +903,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(_quickLinkObject(linkName)).Click();
             Thread.Sleep(8000);
         }
-        By txtEngCPContact = By.XPath("//article[@aria-label='Engagement Counterparty Contacts']//dd[1]//lst-formatted-text/span");
+        By txtEngCPContact = By.XPath("//article[@aria-label='Engagement Counterparty Contacts']//dd[2]//lst-formatted-text/span");
         public string GetEngCounterpartyContactLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngCPContact, 10);

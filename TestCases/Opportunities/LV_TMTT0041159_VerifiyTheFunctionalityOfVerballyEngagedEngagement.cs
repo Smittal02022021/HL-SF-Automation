@@ -31,11 +31,12 @@ namespace SalesForce_Project.TestCases.Opportunities
         private string subFilterSection;
         private string filterValue;
         private string popupMessage;
-        private string selectedCompany;
+        //private string selectedCompany;
         private string commentTypeExl;
         private string commentTextExl;
         private string commentType;
-
+        private string[] selectedCounterpartyCompany = new string[3];
+        private int index = 0;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -223,7 +224,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 ///# 2. Adding  Existing engagement, company list
                 // Verify the funtionality of adding Counterparty through existing Engagement
                 // Verify the funtionality of adding Counterparty through existing Comapny list
-                engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
+                engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();                
                 int filtersCount = ReadExcelData.GetRowCount(excelPath, "FilterSections");
                 for (int optionRow = 2; optionRow <= filtersCount; optionRow++)
                 {
@@ -236,23 +237,24 @@ namespace SalesForce_Project.TestCases.Opportunities
                     addCounterparty.SearchCounterpartiesLV(subFilterSection, filterValue);
 
                     //Get Company name from Company List 
-                    selectedCompany = addCounterparty.GetCompanyNameFromListLV();
+                    selectedCounterpartyCompany[index] = addCounterparty.GetCompanyNameFromListLV();
                     // Checkbox of first company
                     addCounterparty.SelectCompanyFromListLV();
-                    extentReports.CreateStepLogs("Info", selectedCompany + " : Company selected from Company List ");
+                    extentReports.CreateStepLogs("Info", selectedCounterpartyCompany[index] + " : Company selected from Company List ");
                     // Click on Add Counterparty oppname button
                     addCounterparty.ClickAddCounterpartyToOpportunity();
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Selected Counterparty Records have been created.");
-                    extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and company " + selectedCompany + " is added in counterparty list ");
+                    extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and company " + selectedCounterpartyCompany[index] + " is added in counterparty list ");
 
                     //Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page
-                    addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV(); //ButtonClick("Back");
+                    addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();
                     extentReports.CreateStepLogs("Info", "Clicked on Back button ");
                     Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
-                    Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCompany), "Verify added Company: " + selectedCompany + " is under Counterparties List ");
+                    Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCounterpartyCompany[index]), "Verify added Company: " + selectedCounterpartyCompany[index] + " is under Counterparties List ");
                     extentReports.CreateStepLogs("Passed", "User return to Counterparties List Page ");
-                    extentReports.CreateStepLogs("Passed", selectedCompany + " Company is added and displayed into Counterparties List ");
+                    extentReports.CreateStepLogs("Passed", selectedCounterpartyCompany[index] + " Company is added and displayed into Counterparties List ");
+                    index++;
                 }
                 
                 //-CF Financial User Verify the funtionality of adding Counterparty through Add Counterparty button
@@ -274,7 +276,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List");
                 extentReports.CreateStepLogs("Passed", "User returned to Counterparties List Page");
                 extentReports.CreateLog(counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
-
+                selectedCounterpartyCompany[index] = counterpartyCompanyNameExl;
                 //#4.Fill all the available fields for added counterparty including comment.
                 string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
                 addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
@@ -290,17 +292,17 @@ namespace SalesForce_Project.TestCases.Opportunities
                 addCounterparty.ButtonClick("New Engagement Counterparty Contact");
                 
                 string contactFilterType = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);
-                string contactname = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);                
-                string contactNameResult = addCounterparty.GetContactSearchedLV(contactFilterType, contactname);
+                string contactNameCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);                
+                string contactNameResult = addCounterparty.GetContactSearchedLV(contactFilterType, contactNameCPExl);
 
                 string valCPContact = addCounterparty.GetContactNameFromListLV();
                 addCounterparty.SelectContactFromListLV();
                 addCounterparty.ClickAddContactLV();
-                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact:"+ contactname+" is added ");
+                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact:"+ contactNameCPExl + " is added ");
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();// ButtonClick("Back");
                 
                 string contactEngCP= addCounterparty.GetEngCounterpartyContactLV();
-                Assert.IsTrue(contactname.Contains(contactEngCP));
+                Assert.IsTrue(contactNameCPExl.Contains(contactEngCP));
                 extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available on Engagement Counterparty Contact(s) Right Panel");
                 randomPages.CloseActiveTab("Tab");
 
@@ -477,17 +479,42 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                //Get FS Eng on Fully Engaged Engagement              
+                //Validate FS Eng on Fully Engaged Engagement              
                 engagementDetails.ClickTabFSEngagementLV();
                 extentReports.CreateStepLogs("Info", "User is on FS Engagement tab");
                 string fullFSEngName = engagementDetails.GetFSEngagementIDLV();
                 Assert.AreEqual(nameFSEng, fullFSEngName);
                 extentReports.CreateStepLogs("Passed", "FS Engagement with ID: "+ fullFSEngName+" added on Partial Engaged Engagement is present on Fully Engaged Engagement");
 
-                //Get Contacts on Fully Engaged Engagement
+                //Validate Contacts on Fully Engaged Engagement
                 engagementDetails.ClickEngContactTabLV();
-                Assert.IsTrue(engagementDetails.IsEngContactPresent(fileTMTT0041159), "Verify Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
-                extentReports.CreateStepLogs("Passed", "FS Engagement with ID: " + fullFSEngName + " Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
+                Assert.IsTrue(engagementDetails.IsEngContactsPresentLV(fileTMTT0041159), "Verify All Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "All Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
+
+                //Engagement Comments
+                engagementDetails.ClickEngCommentsTabLV();
+                Assert.IsTrue(engagementDetails.IsEngCommentsPresentLV(fileTMTT0041159), "Verify All Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "All Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+
+                //Validate Eng Counterparties
+                engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
+                Assert.IsTrue(engagementDetails.IsEngCounterparyCompaniesPresentLV(selectedCounterpartyCompany), "Verify Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "All "+selectedCounterpartyCompany.Length+" Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+
+                //Validate contact of Counterparty 
+                addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
+                CustomFunctions.SwitchToWindow(driver, 1);
+                extentReports.CreateStepLogs("Info", "User Switched to Counterparty Details new tab ");
+                string contactApprovedEngCP = addCounterparty.GetEngCounterpartyContactLV();
+                Assert.IsTrue(contactNameCPExl.Contains(contactApprovedEngCP));
+                extentReports.CreateStepLogs("Info", "Counterparty Contact added from Opp/Verbally Engaged Engagement Counterparty is present on Fully Engaged Engagement Counterparty");
+
+                //Counterparty Comments
+
+                CustomFunctions.CloseWindow(driver, 1);
+                CustomFunctions.SwitchToWindow(driver, 0);
+                CustomFunctions.PageReload(driver);
+
                 //********In Progress
 
                 //---------------//
