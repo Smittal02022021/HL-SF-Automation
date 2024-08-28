@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SF_Automation.TestCases.Companies;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -19,6 +20,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtCityName = By.Id("sf_value_1");
         By btnSearch = By.CssSelector("td>#search_btn");
         By checkCity = By.Id("thePage:theForm3:pbResult:tickTable:0:myCheckbox");
+        By btnSearchL = By.XPath("//lightning-accordion-section[1]//lightning-layout//lightning-button/button");
         By btnAddRec = By.Id("add_btn");
         By msgSuccess = By.CssSelector("td.messageCell>div");
         By btnBack = By.Id("back_btn");
@@ -32,11 +34,17 @@ namespace SF_Automation.Pages.Opportunity
         By rowCPContact = By.CssSelector("table > tbody > tr.dataRow.even.last.first");
         By linkOpp = By.XPath("//td[text() = 'Opportunity']/following-sibling::td/child::div/child::a");
         By titlePage = By.CssSelector("h1[class='pageType']");
+        By titlePageL = By.XPath("//h2/span[text()='Counterparties']");
         By lblFilter = By.CssSelector("h3[class*='active ui-corner-top']>a");
         By lblExistingOpp = By.CssSelector("h3:nth-child(3) > a");
+        By lblExistingOppL = By.XPath("//span[text()='Get Companies from existing Opportunity']");
         By lblExistingCompany = By.CssSelector("h3:nth-child(5) > a");
+        By lblExistingCompanyL = By.XPath("//span[text()='Get Companies from existing Company List']");
+
         By lblOpp = By.CssSelector("div[class*='bottom ui-accordion-content-active']>div>table>tbody>tr>td>b");
+        By lblOppL = By.XPath("//label[text()='Opportunity']");
         By txtLookUp = By.CssSelector("span[class='lookupInput']>input[id*='theForm:j_id65:1:j_id67']");
+        By txtLookUpL = By.XPath("//input[@placeholder='Search Company List here...']");
         By btnCancelBack = By.CssSelector("input[name*='id64']");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By listStaff = By.XPath("/html/body/ul");
@@ -46,10 +54,17 @@ namespace SF_Automation.Pages.Opportunity
         By chkInternalTeamPrompt = By.CssSelector("input[name*='FnLTz']");
         By btnSaveRoles = By.CssSelector("input[value='Save']");
         By txtOpp = By.CssSelector("span>input[name*='id65:0:j_id67']");
+        By txtOppL = By.XPath("//input[@placeholder='Search Opportunity here...']");
         By btnSearchOpp = By.CssSelector("td>#search_btn2");
         By checkRow = By.CssSelector("#dtable > div.fix-column > div.tbody > div > div > div:nth-child(1) > input.targetCheck");
+        By checkRowL = By.XPath("//c-s-l-opportunity-counterparty-data-table//td[2]//lightning-primitive-cell-checkbox");
+        By addedCompanyL = By.XPath("//c-s-l-opportunity-counterparty-data-table//lightning-formatted-url/a");
         By btnDelete = By.CssSelector("input[value='Delete']");
+        By btnDeleteL = By.XPath("//button[text()='Delete']");
+        By btnOKL = By.XPath("//button[text()='OK']");
+
         By msgText = By.CssSelector("span[id*=':f']> div");
+        By msgTextL = By.XPath("//span[text()='Displaying 0 to 0 of 0 records. Page 1 of 0.']");
         //By fitersSectionsCounterparties = By.XPath("//h3[@class='slds-accordion__summary-heading']/button/span[@class='slds-accordion__summary-content']"); 
         //By hyperlinkedCompanies = By.XPath("//lightning-datatable//table[contains(@role,'grid')]//a[contains(@href,'/lightning/r')]");
 
@@ -430,6 +445,51 @@ namespace SF_Automation.Pages.Opportunity
                 return pageTitle;
             }
         }
+
+        //To validate Add Counterparites button is displayed
+        public string ValidateAddCounterpartiesAndGetPageHeaderL(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;           
+            string excelPath = dir + file;
+            string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+            Console.WriteLine(valUser);
+            try
+            {
+                string value = driver.FindElement(btnAddCounterpartiesL).Displayed.ToString();
+                Console.WriteLine(value);
+                driver.FindElement(btnAddCounterpartiesL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, titlePageL, 60);
+                string pageTitle = driver.FindElement(titlePageL).Text;
+                return pageTitle;
+            }
+            catch (Exception)
+            {
+                driver.FindElement(btnCancelBack).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(chkInternalTeamPrompt).Click();
+                driver.FindElement(btnSave).Click();
+
+                //Enter logged in user and assign Initiator role             
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 80);
+                driver.FindElement(txtStaff).SendKeys(valUser);
+                Thread.Sleep(3000);
+                CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valUser);
+                WebDriverWaits.WaitUntilEleVisible(driver, chkInitiator, 70);
+                driver.FindElement(chkInitiator).Click();
+                driver.FindElement(btnSaveRoles).Click();
+                driver.FindElement(btnReturnToOpp).Click();
+
+                //Click Counterparties and check for Add Counterparty button
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
+                driver.FindElement(btnCounterparties).Click();
+                driver.FindElement(btnAddCounterparties).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, titlePage, 60);
+                string pageTitle = driver.FindElement(titlePage).Text;
+                return pageTitle;
+            }
+        }
         //Validate Filter section
         public string ValidateFilterSection()
         {
@@ -442,10 +502,23 @@ namespace SF_Automation.Pages.Opportunity
             string section2 = driver.FindElement(lblExistingOpp).Text;
             return section2;
         }
+
+        //Validate existing Opportunity Section
+        public string ValidateExistingOpportunitySectionL()
+        {
+            string section2 = driver.FindElement(lblExistingOppL).Text;
+            return section2;
+        }
         //Validate existing Company Section
         public string ValidateExistingCompanySection()
         {
             string section3 = driver.FindElement(lblExistingCompany).Text;
+            return section3;
+        }
+        //Validate existing Company Section
+        public string ValidateExistingCompanySectionL()
+        {
+            string section3 = driver.FindElement(lblExistingCompanyL).Text;
             return section3;
         }
         //Validate fields of existing Opportunity Section
@@ -456,6 +529,15 @@ namespace SF_Automation.Pages.Opportunity
             string fieldOpp = driver.FindElement(lblOpp).Text;
             return fieldOpp;
         }
+        //Validate fields of existing Opportunity Section
+        public string ValidateFieldsOfExistingOppSectionL()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, lblOppL, 60);
+            string fieldOpp = driver.FindElement(lblOppL).Text;
+            return fieldOpp;
+        }
+
         //Validate fields of existing Company List Section
         public string ValidateFieldsOfExistingCompanySection()
         {
@@ -464,6 +546,17 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(lblExistingCompany).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLookUp, 100);
             string fieldOpp = driver.FindElement(txtLookUp).Displayed.ToString();
+            return fieldOpp;
+        }
+
+        //Validate fields of existing Company List Section
+        public string ValidateFieldsOfExistingCompanySectionL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblExistingCompanyL, 100);
+            Thread.Sleep(3000);
+            driver.FindElement(lblExistingCompanyL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLookUpL, 100);
+            string fieldOpp = driver.FindElement(txtLookUpL).Displayed.ToString();
             return fieldOpp;
         }
         //Validate page after clicking back button
@@ -490,6 +583,26 @@ namespace SF_Automation.Pages.Opportunity
             return message;
         }
 
+        //Add company from existing opportunity
+        public string AddCompanyFromExistingOppL(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppL, 80);
+            driver.FindElement(txtOppL).SendKeys(value);
+            driver.FindElement(txtOppL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//section[2]//c-s-l-opportunity-counterparty-data-table//lightning-accordion-section[1]/div//ul/li/div")).Click();
+            driver.FindElement(btnSearchL).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 250);
+            driver.FindElement(chkCompany).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
+            driver.FindElement(btnAddCounterparty).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessL, 350);
+            string message = driver.FindElement(msgSuccessL).Text;
+            return message;
+        }
+
         //Validate if company get added
         public string ValidateAddedCompanyExists()
         {
@@ -498,6 +611,14 @@ namespace SF_Automation.Pages.Opportunity
             return value;
         }
 
+        //Validate if company get added
+        public string ValidateAddedCompanyExistsL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, addedCompanyL, 120);
+            string value = driver.FindElement(addedCompanyL).Text;
+            return value;
+        }
+        
         //Delete the added company
         public string DeleteAddedCompany()
         {
@@ -508,12 +629,30 @@ namespace SF_Automation.Pages.Opportunity
             string text = driver.FindElement(msgText).Text;
             return text;
         }
+        //Delete the added company
+        public string DeleteAddedCompanyL()
+        {
+           
+            driver.FindElement(checkRowL).Click();
+            driver.FindElement(btnDeleteL).Click();
+            driver.FindElement(btnOKL).Click();
+            Thread.Sleep(4000);
+            string text = driver.FindElement(msgTextL).Text;
+            return text;
+        }
+
 
         //Click Add Counterparties
         public void AddCounterparties()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparties);
             driver.FindElement(btnAddCounterparties).Click();
+        }
+        //Click Add Counterparties
+        public void AddCounterpartiesL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartiesL);
+            driver.FindElement(btnAddCounterpartiesL).Click();
         }
 
         //Lightning code--------------------------------

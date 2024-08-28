@@ -91,7 +91,10 @@ namespace SF_Automation.TestCases.Opportunity
                 string messageInt = opportunityDetails.GetCommentsSectionMessage();
                 Assert.AreEqual("Compliance users can only create Compliance comments.", messageInt);
                 extentReports.CreateLog("Message: " + messageInt + " is displayed while adding any other type of comment with Compliance User ");
-                               
+
+                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
+                driver.Quit();
             }
             catch (Exception e)
             {

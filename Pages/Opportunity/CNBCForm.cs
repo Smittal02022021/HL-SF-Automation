@@ -398,6 +398,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("(//div/lightning-base-combobox)[3]/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             driver.FindElement(btnExistingRel).Click();
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("(//div/lightning-base-combobox)[4]/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             js.ExecuteScript("window.scrollTo(0,700)");
             string text = ReadExcelData.ReadData(excelPath, "NBCForm", 3);
