@@ -494,6 +494,7 @@
     <Compile Include="Pages\Contacts\LV_ContactRelationshipPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactDetailsPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsActivityDetailPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactsActivityListPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsAddActivityPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsCreatePage.cs" />
     <Compile Include="Pages\Contacts\LV_RecentlyViewedContactsPage.cs" />
@@ -706,6 +707,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\TMTC0032668_VerifyMeetingsEventsActivitiesCreatedAsABankerInSF.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047429_47431_47433_47435_47439_47441_47443_47445_47447_47449_47451_47453_47455_47459_47461_47467_47469_47471_47474_VerifyActivityFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047463_47465_47476_47478_47494_47498_47502_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0047484_47893_47895_47897_VerifyPrimaryAttendeeSelection.cs" />
