@@ -226,6 +226,73 @@ namespace SF_Automation.Pages.Activities
             CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"//a[@title='{name}']")), 60);
             Thread.Sleep(5000);
         }
+
+        public void CreateNewActivityFromContactActivityPage(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+            string industryGroup = ReadExcelData.ReadData(excelPath, "Activity", 3);
+            string productType = ReadExcelData.ReadData(excelPath, "Activity", 4);
+            string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
+            string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
+            string extAttendee = ReadExcelData.ReadData(excelPath, "Activity", 7);
+            string addHLAttandee = ReadExcelData.ReadData(excelPath, "Activity", 8);
+
+            //Click on Add Activity button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
+            driver.FindElement(btnAddActivity).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
+
+            //Enter Activity details
+            Thread.Sleep(3000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(2);
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(txtareaDescription).SendKeys(description);
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            //Enter External Attendee
+            driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
+
+            //Additional HL Attendee
+            driver.FindElement(txtHLAttendee).SendKeys(addHLAttandee);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//div[@data-name='{addHLAttandee}']")).Click();
+            Thread.Sleep(5000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            Thread.Sleep(2000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(10000);
+        }
+
     }
 
 }
