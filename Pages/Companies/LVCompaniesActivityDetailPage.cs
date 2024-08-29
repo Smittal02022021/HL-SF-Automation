@@ -273,6 +273,7 @@ namespace SF_Automation.Pages.Companies
         {
             driver.FindElement(By.XPath($"//lightning-pill//span[@title='{name}']//parent::span//lightning-button-icon//button")).Click();
         }
+
         public void ClickDicsussionItemName(string item)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
