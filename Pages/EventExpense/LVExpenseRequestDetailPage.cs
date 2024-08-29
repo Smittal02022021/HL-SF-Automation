@@ -279,6 +279,10 @@ namespace SF_Automation.Pages.EventExpense
             string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
             string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnClone));
 
             driver.FindElement(btnClone).Click();
