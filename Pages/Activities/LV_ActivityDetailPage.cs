@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
@@ -6,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using static NUnit.Framework.Internal.OSPlatform;
 
 namespace SF_Automation.Pages.Activities
 {
@@ -25,6 +27,19 @@ namespace SF_Automation.Pages.Activities
         By btnCreateFollowUp = By.XPath("//button[text()='Create Follow-up']");
         By txtAreaFollowupDescription = By.XPath("(//textarea[contains(@name,'description')])[2]");
         By btnSaveFollowup = By.XPath("(//button[@title='Save'])[2]");
+
+        By txtSubject = By.XPath("//input[@name='subject']");
+        By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
+        By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
+        By drpdownProductType = By.XPath("//button[@name='productType']");
+        By txtareaDescription = By.XPath("//textarea[@name='description']");
+        By txtareaHLInternalMeetingNotes = By.XPath("//textarea[@name='hlCallNotes']");
+        By txtExternalAttendee = By.XPath("//input[@placeholder='Lookup Contact...']");
+        By txtHLAttendee = By.XPath("//input[@placeholder='Lookup Employees...']");
+        By txtCompanyDiscussed = By.XPath("//input[@placeholder='Lookup Company...']");
+        By txtOpportunitiesDiscussed = By.XPath("//input[@placeholder='Lookup Opportunities...']");
+        By txtEngagementsDiscussed = By.XPath("//input[@placeholder='Lookup Engagements...']");
+        By txtCampaignsDiscussed = By.XPath("//input[@placeholder='Lookup Campaigns...']");
 
         private By _comboDropdown(string value)
         {
@@ -108,7 +123,7 @@ namespace SF_Automation.Pages.Activities
 
             //Click Save
             driver.FindElement(btnSaveFollowup).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
         }
 
         public void ClickActivityDetailPageButton(string name)
@@ -117,6 +132,83 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityDetailPage(name), 20);
             driver.FindElement(_btnActivityDetailPage(name)).Click();
+        }
+
+        public void ClickEditActivityButton()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditActivity));
+            WebDriverWaits.WaitUntilClickable(driver, btnEditActivity, 60);
+            driver.FindElement(btnEditActivity).Click();
+            Thread.Sleep(2000);
+        }
+
+        public void UpdateActivityByPrimaryHLAttendee(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
+            string updatedIndGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 2);
+            string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
+            string updatedDesc = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 4);
+            string updatedNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 5);
+            string updatedExtAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 6);
+            string updatedHLAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 7);
+
+            //Edit Subject details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(txtSubject).Clear();
+            driver.FindElement(txtSubject).SendKeys(updatedSubject);
+            Thread.Sleep(1000);
+
+            //Edit Description details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaDescription));
+            driver.FindElement(txtareaDescription).Clear();
+            driver.FindElement(txtareaDescription).SendKeys(updatedDesc);
+            Thread.Sleep(1000);
+
+            //Edit Notes details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaHLInternalMeetingNotes));
+            driver.FindElement(txtareaHLInternalMeetingNotes).Clear();
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(updatedNotes);
+            Thread.Sleep(1000);
+
+            //Edit Industry Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath($"//span[@title='{updatedIndGrp}']/../..")).Click();
+            Thread.Sleep(1000);
+
+            //Edit Product Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath($"//span[@title='{updatedPrdType}']")).Click();
+            Thread.Sleep(1000);
+
+            //Update External Attendee
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            driver.FindElement(txtExternalAttendee).SendKeys(updatedExtAttendee);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[@data-name='{updatedExtAttendee}']")).Click();
+            Thread.Sleep(2000);
+            
+            //Update HL Attendee
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLAttendee));
+            driver.FindElement(txtHLAttendee).SendKeys(updatedHLAttendee);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[@data-name='{updatedHLAttendee}']")).Click();
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            driver.FindElement(btnSaveFollowup).Click();
+            Thread.Sleep(5000);
         }
     }
 
