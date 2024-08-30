@@ -174,6 +174,10 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(updatedNotes);
             Thread.Sleep(1000);
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(2000);
+
             //Edit Industry Group
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
@@ -202,7 +206,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(By.XPath($"//div[@data-name='{updatedHLAttendee}']")).Click();
             Thread.Sleep(2000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 

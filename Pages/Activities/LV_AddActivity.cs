@@ -244,7 +244,7 @@ namespace SF_Automation.Pages.Activities
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
             driver.FindElement(btnAddActivity).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
 
@@ -259,11 +259,15 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
             Thread.Sleep(2000);
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(2000);
+
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             driver.FindElement(drpdownProductType).Click();
             Thread.Sleep(1000);
@@ -272,7 +276,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 
