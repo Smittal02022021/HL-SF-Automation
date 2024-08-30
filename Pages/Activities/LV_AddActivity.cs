@@ -251,7 +251,6 @@ namespace SF_Automation.Pages.Activities
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
 
             //Enter Activity details
-            Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
             driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
             driver.FindElement(txtSubject).SendKeys(subject);
@@ -275,16 +274,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
-            //Enter External Attendee
-            driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
-
-            //Additional HL Attendee
-            driver.FindElement(txtHLAttendee).SendKeys(addHLAttandee);
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath($"//div[@data-name='{addHLAttandee}']")).Click();
-            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
 
             //Click Save
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));

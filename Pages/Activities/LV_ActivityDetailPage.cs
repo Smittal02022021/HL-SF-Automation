@@ -59,7 +59,7 @@ namespace SF_Automation.Pages.Activities
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 30);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
             driver.FindElement(btnDeleteActivity).Click();
-            Thread.Sleep(60000);
+            Thread.Sleep(2000);
         }
 
         public void CloseTab(string tabName)

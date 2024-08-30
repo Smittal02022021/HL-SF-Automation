@@ -11,7 +11,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class TMTC0032668_VerifyMeetingsEventsActivitiesCreatedAsABankerInSF : BaseClass
+    class TMT0072151_TMT0072475_TMT0072477_TMT0072479_VerifyTypesOfActivitiesCreatedByBankerInSF : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -86,6 +86,40 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
                 Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
                 extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+
+                //TMT0072151 Verify that the Banker can add the activity of Type - Meeting in Salesforce.
+                //TMT0072475 Verify that the Banker can add the activity of Type - Call in Salesforce.
+                //TMT0072477 Verify that the Banker can add the activity of Type - Email in Salesforce.
+                //TMT0072479 Verify that the Banker can add the activity of Type - Other in Salesforce.
+
+                int totalActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
+
+                for(int row = 2; row <= totalActivity; row++)
+                {
+                    string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
+                    string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+                    string industryGroup = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 3);
+                    string productType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 4);
+                    string description = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 5);
+                    string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
+                    string extAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 7);
+
+                    int beforeCount = LV_ContactsActivityList.GetActivityCount();
+                    addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668);
+                    lvContactDetails.CloseTab("View Activity");
+
+                    Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
+                    extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
+
+                    //Deleting Created Activity
+                    LV_ContactsActivityList.ViewActivityFromList(subject);
+                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+                    activityDetailPage.DeleteActivity();
+
+                    int afterCount = activitiesList.GetActivityCount();
+                    Assert.AreEqual(beforeCount, afterCount);
+                    extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
+                }
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();

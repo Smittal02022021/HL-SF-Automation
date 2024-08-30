@@ -14,9 +14,53 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyUserLandsOnActivityTab()
         {
-            return true;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+                return driver.FindElement(btnAddActivity).Displayed;
+            }
+            catch { return false; }
         }
 
+        public int GetActivityCount()
+        {
+            Thread.Sleep(3000);
+
+            int totalNumberOfActivities;
+            try
+            {
+                totalNumberOfActivities = driver.FindElements(By.XPath("(//tr[@class='slds-hint-parent'])[1]/../tr")).Count;
+            }
+            catch(Exception)
+            {
+                totalNumberOfActivities = 0;
+            }
+
+            return totalNumberOfActivities;
+        }
+
+        public bool VerifyCreatedActivityIsDisplayedUnderActivitiesList(int num)
+        {
+            Thread.Sleep(5000);
+            bool result = false;
+
+            //Get Activity List Count
+            int activitiesAfterAdding = GetActivityCount();
+
+            if(activitiesAfterAdding == num + 1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public void ViewActivityFromList(string name)
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[1]")), 60);
+            Thread.Sleep(3000);
+        }
 
     }
 }

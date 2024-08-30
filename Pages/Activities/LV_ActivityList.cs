@@ -44,9 +44,6 @@ namespace SF_Automation.Pages.Activities
         public int GetActivityCount()
         {
             Thread.Sleep(3000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,2500)");
-            Thread.Sleep(2000);
 
             int totalNumberOfActivities;
             try
