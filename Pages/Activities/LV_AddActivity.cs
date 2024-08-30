@@ -227,20 +227,18 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-        public void CreateNewActivityFromContactActivityPage(string file)
+        public void CreateNewActivityFromContactActivityPage(string file, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
-            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
-            string industryGroup = ReadExcelData.ReadData(excelPath, "Activity", 3);
-            string productType = ReadExcelData.ReadData(excelPath, "Activity", 4);
-            string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
-            string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
-            string extAttendee = ReadExcelData.ReadData(excelPath, "Activity", 7);
-            string addHLAttandee = ReadExcelData.ReadData(excelPath, "Activity", 8);
+            string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
+            string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+            string industryGroup = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 3);
+            string productType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 4);
+            string description = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 5);
+            string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
 
             //Click on Add Activity button
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);

@@ -98,14 +98,10 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
-                    string industryGroup = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 3);
-                    string productType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 4);
-                    string description = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 5);
-                    string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
-                    string extAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 7);
 
+                    //Create new activity
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
-                    addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668);
+                    addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668, row);
                     lvContactDetails.CloseTab("View Activity");
 
                     Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
@@ -116,6 +112,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
 
+                    //Verify activity is deleted successfully
                     int afterCount = activitiesList.GetActivityCount();
                     Assert.AreEqual(beforeCount, afterCount);
                     extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
@@ -139,5 +136,4 @@ namespace SF_Automation.TestCases.LV_Activities
             }
         }
     }
-    
 }
