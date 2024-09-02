@@ -92,7 +92,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 int totalActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
 
-                for(int row = 2; row <= 2; row++)
+                for(int row = 2; row <= totalActivity; row++)
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
