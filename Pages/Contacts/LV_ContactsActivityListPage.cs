@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V120.DOM;
 using SF_Automation.TestData;
@@ -62,6 +63,12 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(3000);
         }
 
+        public string GetActivitySubjectName()
+        {
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr/td[4]//a")).Text;
+            return subject;
+        }
+
         public bool VerifyUpdatedActivityIsDisplayedUnderActivitiesList(string file, int row)
         {
             Thread.Sleep(2000);
@@ -72,12 +79,12 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
 
             string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
-            string updatedIndGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 2);
-            string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
-            string updatedDesc = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 4);
-            string updatedNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 5);
-            string updatedExtAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 6);
-            string updatedHLAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 7);
+            string sub = GetActivitySubjectName();
+
+            if (updatedSubject == sub)
+            {
+                result = true;
+            }
 
             return result;
         }

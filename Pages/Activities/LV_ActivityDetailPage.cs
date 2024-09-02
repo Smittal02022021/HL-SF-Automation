@@ -181,16 +181,16 @@ namespace SF_Automation.Pages.Activities
             //Edit Industry Group
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{updatedIndGrp}']/../..")).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedIndGrp}']")).Click();
+            Thread.Sleep(2000);
 
             //Edit Product Group
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
             driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{updatedPrdType}']")).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
+            Thread.Sleep(2000);
 
             //Update External Attendee
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
@@ -210,7 +210,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             //Click Save
-            driver.FindElement(btnSaveFollowup).Click();
+            driver.FindElement(btnSaveActivity).Click();
             Thread.Sleep(5000);
         }
     }

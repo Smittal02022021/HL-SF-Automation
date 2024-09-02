@@ -96,17 +96,22 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+                    string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
 
-                    //Create new activity
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
-                    addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668, row);
-                    lvContactDetails.CloseTab("View Activity");
-
-                    Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
-                    extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
 
                     if(row == 2)
                     {
+                        //Create new activity
+                        addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668, row);
+                        lvContactDetails.CloseTab("View Activity");
+
+                        Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
+                        extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
+
+                        LV_ContactsActivityList.ViewActivityFromList(subject);
+                        extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
                         //Edit Activity
                         activityDetailPage.ClickEditActivityButton();
 
@@ -119,9 +124,56 @@ namespace SF_Automation.TestCases.LV_Activities
                     }
                     else
                     {
-                        //Update Activity as Non-Primary HL Attendee
-                    }
+                        //Create new activity with multiple attendees
+                        addActivity.CreateNewActivityWithMultipleAttendees(fileTMTC0032668, row);
+                        lvContactDetails.CloseTab("View Activity");
 
+                        Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
+                        extentReports.CreateStepLogs("Passed", "Activity created successfully with multiple attendees.");
+
+                        //Logout from SF Lightning View
+                        lvHomePage.LogoutFromSFLightningAsApprover();
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+
+                        //Login user
+                        homePage.SearchUserByGlobalSearch(fileTMTC0032668, additionalHLAttendee);
+                        usersLogin.LoginAsSelectedUser();
+
+                        //Switch to lightning view
+                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                        {
+                            homePage.SwitchToLightningView();
+                            extentReports.CreateStepLogs("Passed", "CF Financial User: " + additionalHLAttendee + " is able to login into lightning view. ");
+                        }
+                        else
+                        {
+                            extentReports.CreateStepLogs("Passed", "CF Financial User: " + additionalHLAttendee + " is able to login into lightning view. ");
+                        }
+
+                        //Search external contact
+                        lvHomePage.SearchContactFromMainSearch(extContactName);
+                        Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
+                        extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
+
+                        //Navigate to Activity tab
+                        lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
+                        Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
+                        extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+
+                        //View created activity
+                        LV_ContactsActivityList.ViewActivityFromList(subject);
+                        extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                        //Edit Activity
+                        activityDetailPage.ClickEditActivityButton();
+
+                        //Update Activity as Non-Primary HL Attendee
+                        activityDetailPage.UpdateActivityByPrimaryHLAttendee(fileTMTC0032668, row);
+                        lvContactDetails.CloseTab("View Activity");
+
+                        Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032668, row));
+                        extentReports.CreateStepLogs("Passed", "Activity updated successfully by non-primary HL Attendee");
+                    }
 
                     //Deleting Created Activity
                     LV_ContactsActivityList.ViewActivityFromList(subject);
