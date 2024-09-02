@@ -72,48 +72,48 @@ namespace SF_Automation.TestCases.EventExpense
                 //Validate Required fields validation on Expense Request Form
                 expRequest.ClickCreateNewExpenseFormLWC();
                 string msgLOB = expRequest.ValidateLOBMessageLWC();
-                Assert.AreEqual("Complete this field.", msgLOB);
+                Assert.AreEqual("LOB Complete this field.", msgLOB);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgLOB + " is displayed for LOB ");
 
                 //**Need to Multiple Expense Request with different Event type because Submit for approval required fields are different for diff event type
                 string valLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp",2, 1);
                 string msgEventType = expRequest.ValidateEventTypeMessageLWC(valLOBExl);
-                Assert.AreEqual("Complete this field.", msgEventType);
+                Assert.AreEqual("Event Type Complete this field.", msgEventType);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventType + " is displayed for Event Type");
                 string eventTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 2);
                 string msgRequestor = expRequest.ValidateRequestorMessageLWC(eventTypeExl);
-                Assert.AreEqual("Complete this field.", msgRequestor);
+                Assert.AreEqual("Requestor Complete this field.", msgRequestor);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgRequestor + " is displayed for Requestor");
 
                 string msgProductType = expRequest.ValidateProductTypeLWC();
-                Assert.AreEqual("Complete this field.", msgProductType);
+                Assert.AreEqual("Product Type Complete this field.", msgProductType);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgProductType + " is displayed for Product Type");
 
                 string msgEventName = expRequest.ValidateEventNameLWC();
-                Assert.AreEqual("Complete this field.", msgEventName);
+                Assert.AreEqual("Event Name Complete this field.", msgEventName);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventName + " is displayed ");
 
                 string msgCity = expRequest.ValidateCityLWC();
-                Assert.AreEqual("Complete this field.", msgCity);
+                Assert.AreEqual("City Complete this field.", msgCity);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgCity + " is displayed for City");
 
                 string msgETCost = expRequest.ValidateETCostLWC();
-                Assert.AreEqual("Complete this field.", msgETCost);
+                Assert.AreEqual("Expected Travel Cost Complete this field.", msgETCost);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgETCost + " is displayed for xpected Travel Cost ");
 
                 string msgEFBCost = expRequest.ValidateEFBCostLWC();
-                Assert.AreEqual("Complete this field.", msgEFBCost);
+                Assert.AreEqual("Expected F&B Cost Complete this field.", msgEFBCost);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgEFBCost + " is displayed for Expected F&B Cost");
 
                 //T2275 Other cost fields and validate displayed messages
                 string msgOtherCost = expRequest.ValidateOtherCostLWC();
-                Assert.AreEqual("Complete this field.", msgOtherCost);
+                Assert.AreEqual("Other Cost Complete this field.", msgOtherCost);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgOtherCost + " is displayed for Other Cost");
 
                 ///---------------
                 //T2275 add Other Cost and validation message for Description of Other Cost
                 string msgDscOtherCost = expRequest.ValidateDscOtherCostLWC();
-                Assert.AreEqual("Complete this field.", msgDscOtherCost);
+                Assert.AreEqual("Description of Other Cost Complete this field.", msgDscOtherCost);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgDscOtherCost + " is displayed for Description of Other Cost");
 
                 //T2275 Verify the Description of Marketing Support field state for Yes/No
@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.EventExpense
                 extentReports.CreateStepLogs("Passed", "Bubble Message::  " + errorHLOpportunity + " is displayed for HL Internal Opportunity");
 
                 string msgEventFormat = expRequest.ValidateEventFormatMessageLWC();
-                Assert.AreEqual("Complete this field.", msgEventFormat);
+                Assert.AreEqual("Event Format Complete this field.", msgEventFormat);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventFormat + " is displayed for Event Format");
                                 
                 string eventFormat = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 8);

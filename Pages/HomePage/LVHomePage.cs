@@ -124,12 +124,12 @@ namespace SF_Automation.Pages.HomePage
                 if (moduleValue.Equals(moduleName))
                 {
                     modules[module].Click();
-                    try
-                    {
-                        WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-                    }
-                    catch { Thread.Sleep(5000); }
-                    Thread.Sleep(4000);
+                    //try
+                    //{
+                    //    WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+                    //}
+                    //catch { Thread.Sleep(5000); }
+                    Thread.Sleep(5000);
                     break;
                 }
             }
