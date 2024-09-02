@@ -29,7 +29,7 @@ namespace SF_Automation.Pages.Contact
             int totalNumberOfActivities;
             try
             {
-                totalNumberOfActivities = driver.FindElements(By.XPath("(//tr[@class='slds-hint-parent'])[1]/../tr")).Count;
+                totalNumberOfActivities = driver.FindElements(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr")).Count;
             }
             catch(Exception)
             {
@@ -41,7 +41,7 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyCreatedActivityIsDisplayedUnderActivitiesList(int num)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
             bool result = false;
 
             //Get Activity List Count

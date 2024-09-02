@@ -48,7 +48,7 @@ namespace SF_Automation.Pages.Activities
             int totalNumberOfActivities;
             try
             {
-                totalNumberOfActivities = driver.FindElements(By.XPath("(//tr[@class='slds-hint-parent'])[1]/../tr")).Count;
+                totalNumberOfActivities = driver.FindElements(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr")).Count;
             }
             catch(Exception)
             {

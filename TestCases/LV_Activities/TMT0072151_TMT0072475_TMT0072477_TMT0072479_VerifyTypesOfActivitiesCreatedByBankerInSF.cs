@@ -113,7 +113,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     activityDetailPage.DeleteActivity();
 
                     //Verify activity is deleted successfully
-                    int afterCount = activitiesList.GetActivityCount();
+                    int afterCount = LV_ContactsActivityList.GetActivityCount();
                     Assert.AreEqual(beforeCount, afterCount);
                     extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
                 }

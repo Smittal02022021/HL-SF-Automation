@@ -265,14 +265,14 @@ namespace SF_Automation.Pages.Activities
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
+            Thread.Sleep(3000);
 
             driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{productType}']")).Click();
+            Thread.Sleep(5000);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
@@ -283,7 +283,7 @@ namespace SF_Automation.Pages.Activities
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             Thread.Sleep(2000);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
         }
 
     }
