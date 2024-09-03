@@ -96,6 +96,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+                    string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
                     string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
 
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
@@ -168,7 +169,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         activityDetailPage.ClickEditActivityButton();
 
                         //Update Activity as Non-Primary HL Attendee
-                        activityDetailPage.UpdateActivityByPrimaryHLAttendee(fileTMTC0032668, row);
+                        activityDetailPage.UpdateActivityByNonPrimaryHLAttendee(fileTMTC0032668, row);
                         lvContactDetails.CloseTab("View Activity");
 
                         Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032668, row));
@@ -176,7 +177,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     }
 
                     //Deleting Created Activity
-                    LV_ContactsActivityList.ViewActivityFromList(subject);
+                    LV_ContactsActivityList.ViewActivityFromList(updatedSubject);
                     extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
 

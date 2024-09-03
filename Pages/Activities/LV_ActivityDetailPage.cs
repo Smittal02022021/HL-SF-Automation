@@ -1,13 +1,8 @@
-﻿using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using static NUnit.Framework.Internal.OSPlatform;
 
 namespace SF_Automation.Pages.Activities
 {
@@ -175,7 +170,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(1000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,1000)");
+            js.ExecuteScript("window.scrollTo(0,1500)");
             Thread.Sleep(2000);
 
             //Edit Industry Group
@@ -213,6 +208,63 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSaveActivity).Click();
             Thread.Sleep(5000);
         }
+
+        public void UpdateActivityByNonPrimaryHLAttendee(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
+            string updatedIndGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 2);
+            string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
+            string updatedDesc = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 4);
+            string updatedNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 5);
+
+            //Edit Subject details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(txtSubject).Clear();
+            driver.FindElement(txtSubject).SendKeys(updatedSubject);
+            Thread.Sleep(1000);
+
+            //Edit Description details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaDescription));
+            driver.FindElement(txtareaDescription).Clear();
+            driver.FindElement(txtareaDescription).SendKeys(updatedDesc);
+            Thread.Sleep(1000);
+
+            //Edit Notes details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaHLInternalMeetingNotes));
+            driver.FindElement(txtareaHLInternalMeetingNotes).Clear();
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(updatedNotes);
+            Thread.Sleep(1000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1500)");
+            Thread.Sleep(2000);
+
+            //Edit Industry Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedIndGrp}']")).Click();
+            Thread.Sleep(2000);
+
+            //Edit Product Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            driver.FindElement(btnSaveActivity).Click();
+            Thread.Sleep(5000);
+        }
+
     }
 
 }
