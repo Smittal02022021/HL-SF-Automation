@@ -87,10 +87,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
                 extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
 
-                //TMT0072151 Verify that the Banker can add the activity of Type - Meeting in Salesforce.
-                //TMT0072475 Verify that the Banker can add the activity of Type - Call in Salesforce.
-                //TMT0072477 Verify that the Banker can add the activity of Type - Email in Salesforce.
-                //TMT0072479 Verify that the Banker can add the activity of Type - Other in Salesforce.
+                //TMT0072159 Verify that the banker can create an External Follow-up Activity.
+                //TMT0072162 Verify that the banker can create an Internal Follow-up Activity.
 
                 int totalActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
 
