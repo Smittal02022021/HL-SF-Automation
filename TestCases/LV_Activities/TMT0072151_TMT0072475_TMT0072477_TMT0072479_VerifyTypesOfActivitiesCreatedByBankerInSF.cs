@@ -101,7 +101,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                     //Create new activity
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
-                    addActivity.CreateNewActivityFromContactActivityPage(fileTMTC0032668, row);
+                    addActivity.CreateMultipleActivityFromContactActivityPage(fileTMTC0032668, row);
                     lvContactDetails.CloseTab("View Activity");
 
                     Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));

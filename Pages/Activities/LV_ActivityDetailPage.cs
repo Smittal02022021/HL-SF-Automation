@@ -265,6 +265,16 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-    }
+        public bool VerifyNonActivityUserCannotEditActivity()
+        {
+            bool result = false;
+            Thread.Sleep(5000);
 
+            if(driver.FindElement(btnEditActivity).Displayed==false)
+            {
+                result = true;
+            }
+            return result;
+        }
+    }
 }
