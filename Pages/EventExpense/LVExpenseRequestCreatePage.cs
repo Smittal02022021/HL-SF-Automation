@@ -155,7 +155,7 @@ namespace SF_Automation.Pages.EventExpense
         public string ValidateLOBMessageLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgLOBLWC, 10);
-            string message = driver.FindElement(msgLOBLWC).Text;
+            string message = driver.FindElement(msgLOBLWC).Text.Replace("\r\n", " ");
             return message;
         }
         //To validate LOB validation
@@ -177,7 +177,7 @@ namespace SF_Automation.Pages.EventExpense
                 driver.FindElement(btnCreateNewExpenseFormLWC).Click();
             }
             WebDriverWaits.WaitUntilEleVisible(driver, msgEventTypeLWC, 5);
-            string message = driver.FindElement(msgEventTypeLWC).Text;
+            string message = driver.FindElement(msgEventTypeLWC).Text.Replace("\r\n", " "); 
             return message;
         }
         public string ValidateRequestorMessageLWC(string type)
@@ -216,35 +216,35 @@ namespace SF_Automation.Pages.EventExpense
                 WebDriverWaits.WaitUntilEleVisible(driver, msgRequestorLWC, 5);
             }
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgRequestorLWC));
-            string message = driver.FindElement(msgRequestorLWC).Text;
+            string message = driver.FindElement(msgRequestorLWC).Text.Replace("\r\n", " "); 
             return message;
         }
         public string ValidateProductTypeLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgProductTypeLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgProductTypeLWC));
-            string message = driver.FindElement(msgProductTypeLWC).Text;
+            string message = driver.FindElement(msgProductTypeLWC).Text.Replace("\r\n", " ");
             return message;
         }
         public string ValidateEventNameLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEventNameLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgEventNameLWC));
-            string message = driver.FindElement(msgEventNameLWC).Text;
+            string message = driver.FindElement(msgEventNameLWC).Text.Replace("\r\n", " ");
             return message;
         }
         public string ValidateCityLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgCityLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgCityLWC));
-            string message = driver.FindElement(msgCityLWC).Text;
+            string message = driver.FindElement(msgCityLWC).Text.Replace("\r\n", " ");
             return message;
         }
         public string ValidateETCostLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgETCostLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgETCostLWC));
-            string message = driver.FindElement(msgETCostLWC).Text;
+            string message = driver.FindElement(msgETCostLWC).Text.Replace("\r\n", " ");
             return message;
         }
 
@@ -252,7 +252,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEFBCostLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgEFBCostLWC));
-            string message = driver.FindElement(msgEFBCostLWC).Text;
+            string message = driver.FindElement(msgEFBCostLWC).Text.Replace("\r\n", " ");
             return message;
         }
 
@@ -260,7 +260,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgOtherCostLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgOtherCostLWC));
-            string message = driver.FindElement(msgOtherCostLWC).Text;
+            string message = driver.FindElement(msgOtherCostLWC).Text.Replace("\r\n", " ");
             return message;
         }
 
@@ -281,7 +281,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, msgDescOtherCostLWC, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgDescOtherCostLWC));
             WebDriverWaits.WaitUntilEleVisible(driver, msgDescOtherCostLWC, 5);
-            string message = driver.FindElement(msgDescOtherCostLWC).Text;
+            string message = driver.FindElement(msgDescOtherCostLWC).Text.Replace("\r\n", " ");
             return message;
         }
 
@@ -304,14 +304,14 @@ namespace SF_Automation.Pages.EventExpense
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEventFormatLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgEventFormatLWC));
-            string message = driver.FindElement(msgEventFormatLWC).Text;
+            string message = driver.FindElement(msgEventFormatLWC).Text.Replace("\r\n", " ");
             return message;
         }
         public string ValidateErrorHlopportunityLWC()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEventFormatLWC, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgEventFormatLWC));
-            string message = driver.FindElement(msgEventFormatLWC).Text;
+            string message = driver.FindElement(msgEventFormatLWC).Text.Replace("\r\n", " ");
             return message;
         }
         public void SaveExpenseRequestRequiredFieldsLWC(string nameRequestor, string nameEventContact, string nameProducType, string nameEvent, string nameCity, string ETCost, string EFBCost, string OtherCost, string DescOtherCost)
