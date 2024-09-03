@@ -88,5 +88,33 @@ namespace SF_Automation.Pages.Contact
 
             return result;
         }
+
+        public bool VerifyFollowupActivityIsDeleted(int num)
+        {
+            bool result = false;
+
+            //Get Activity List Count
+            int activitiesAfterDeleting = GetActivityCount();
+
+            if(activitiesAfterDeleting == num-1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool VerifyFollowupActivityIsCreatedSuccessfully(string sub)
+        {
+            bool result = false;
+
+            string followupActivitySubject = GetActivitySubjectName();
+
+            if (followupActivitySubject == "Follow-up: " + sub)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

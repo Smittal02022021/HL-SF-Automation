@@ -96,6 +96,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+                    string followUpActivityType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 8);
 
                     //Create new activity
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
@@ -105,15 +106,39 @@ namespace SF_Automation.TestCases.LV_Activities
                     Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                     extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
 
-                    //Deleting Created Activity
+                    //View Created activity
+                    LV_ContactsActivityList.ViewActivityFromList(subject);
+                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                    //Create Followup Activity
+                    activityDetailPage.CreateFolloupActivity(fileTMTC0032668);
+                    lvContactDetails.CloseTab("View Activity");
+                    lvContactDetails.CloseTab("View Activity");
+
+                    int afterCount = LV_ContactsActivityList.GetActivityCount();
+
+                    //Verify Followup activity is created successfully
+                    Assert.IsTrue(LV_ContactsActivityList.VerifyFollowupActivityIsCreatedSuccessfully(subject));
+                    extentReports.CreateStepLogs("Passed", followUpActivityType + " Followup Activity created successfully. ");
+
+                    //Deleting Followup Activity
+                    LV_ContactsActivityList.ViewActivityFromList("Follow-up: "+ subject);
+                    extentReports.CreateStepLogs("Info", "User redirected to Followup Activity Detail Page ");
+                    activityDetailPage.DeleteActivity();
+
+                    //Verify Followup activity is deleted successfully
+                    Assert.IsTrue(LV_ContactsActivityList.VerifyFollowupActivityIsDeleted(afterCount));
+                    extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
+
+                    //Deleting Main Created Activity
                     LV_ContactsActivityList.ViewActivityFromList(subject);
                     extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
 
-                    //Verify activity is deleted successfully
-                    int afterCount = LV_ContactsActivityList.GetActivityCount();
-                    Assert.AreEqual(beforeCount, afterCount);
-                    extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
+                    //Verify main activity is deleted successfully
+                    int afterCount1 = activitiesList.GetActivityCount();
+                    Assert.AreEqual(beforeCount, afterCount1);
+                    extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
                 }
 
                 //Logout from SF Lightning View

@@ -15,13 +15,13 @@ namespace SF_Automation.Pages.Activities
         By btnEditActivity = By.XPath("//button[@title='Edit']");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
         By btnSendNotificationActivity = By.XPath("//button[@title='Edit']");
+
         By dropdownFollowupType = By.XPath("//button[contains(@aria-label,'Follow-up Type')]");
-        By txtFollowupDate = By.XPath("(//input[contains(@name,'startDateTime')])[3]");
-        By dropdownFolloupFrom = By.XPath("(//input[contains(@name,'startDateTime')])[4]");
-        By dropdownFolloupTo = By.XPath("(//input[contains(@name,'endDateTime')])[4]");
+        By txtFollowupStartDate = By.XPath("(//input[contains(@name,'startDate')])[1]");
+        By txtFollowupEndDate = By.XPath("(//input[contains(@name,'endDate')])[1]");
         By btnCreateFollowUp = By.XPath("//button[text()='Create Follow-up']");
         By txtAreaFollowupDescription = By.XPath("(//textarea[contains(@name,'description')])[2]");
-        By btnSaveFollowup = By.XPath("(//button[@title='Save'])[2]");
+        By btnSaveFollowup = By.XPath("(//button[@title='Save'])[1]");
 
         By txtSubject = By.XPath("//input[@name='subject']");
         By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
@@ -79,20 +79,17 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-        public void EditActivityAndAddFollowupDetail(string file)
+        public void CreateFolloupActivity(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
             string typeFollowup = ReadExcelData.ReadData(excelPath, "Followup", 1);
-            string fromFollowup = ReadExcelData.ReadData(excelPath, "Followup", 2);
-            string toFollowup = ReadExcelData.ReadData(excelPath, "Followup", 3);
-            string commentsFollowup = ReadExcelData.ReadData(excelPath, "Followup", 4);
+            string commentsFollowup = ReadExcelData.ReadData(excelPath, "Followup", 2);
 
-            //Click Edit button
-            WebDriverWaits.WaitUntilClickable(driver, btnEditActivity, 60);
-            driver.FindElement(btnEditActivity).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2500)");
             Thread.Sleep(2000);
 
             //Enter Followup  details
@@ -108,17 +105,28 @@ namespace SF_Automation.Pages.Activities
 
             DateTime currentDate1 = DateTime.Today;
             DateTime setDate1 = currentDate1.AddDays(2);
-            IWebElement followupDate = driver.FindElement(txtFollowupDate);
-            CustomFunctions.MoveToElement(driver, followupDate);
-            followupDate.Clear();
-            followupDate.SendKeys(setDate1.ToString("MMM dd, yyyy"));
+
+            IWebElement followupStartDate = driver.FindElement(txtFollowupStartDate);
+            CustomFunctions.MoveToElement(driver, followupStartDate);
+            followupStartDate.Clear();
+            followupStartDate.SendKeys(setDate1.ToString("MMM dd, yyyy"));
+            Thread.Sleep(2000);
+
+            IWebElement followupEndDate = driver.FindElement(txtFollowupEndDate);
+            CustomFunctions.MoveToElement(driver, followupEndDate);
+            followupEndDate.Clear();
+            followupEndDate.SendKeys(setDate1.ToString("MMM dd, yyyy"));
+            Thread.Sleep(2000);
 
             driver.FindElement(txtAreaFollowupDescription).SendKeys(commentsFollowup);
             Thread.Sleep(2000);
 
             //Click Save
             driver.FindElement(btnSaveFollowup).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
         }
 
         public void ClickActivityDetailPageButton(string name)
