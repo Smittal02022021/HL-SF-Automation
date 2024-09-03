@@ -20,7 +20,7 @@ namespace SF_Automation.Pages.Activities
         By txtFollowupStartDate = By.XPath("(//input[contains(@name,'startDate')])[1]");
         By txtFollowupEndDate = By.XPath("(//input[contains(@name,'endDate')])[1]");
         By btnCreateFollowUp = By.XPath("//button[text()='Create Follow-up']");
-        By txtAreaFollowupDescription = By.XPath("(//textarea[contains(@name,'description')])[2]");
+        By txtAreaFollowupDescription = By.XPath("(//textarea[contains(@name,'description')])[1]");
         By btnSaveFollowup = By.XPath("(//button[@title='Save'])[1]");
 
         By txtSubject = By.XPath("//input[@name='subject']");

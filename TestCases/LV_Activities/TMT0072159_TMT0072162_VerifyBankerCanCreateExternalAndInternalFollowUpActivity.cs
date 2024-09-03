@@ -96,7 +96,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
-                    string followUpActivityType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 8);
+                    string followUpActivityType = ReadExcelData.ReadDataMultipleRows(excelPath, "Followup", row, 1);
 
                     //Create new activity
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
