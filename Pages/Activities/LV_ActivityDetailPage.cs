@@ -270,7 +270,7 @@ namespace SF_Automation.Pages.Activities
             bool result = false;
             Thread.Sleep(5000);
 
-            if(driver.FindElement(btnEditActivity).Displayed==false)
+            if(CustomFunctions.IsElementPresent(driver, btnEditActivity) == false)
             {
                 result = true;
             }
