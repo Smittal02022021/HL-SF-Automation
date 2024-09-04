@@ -121,6 +121,16 @@ namespace SF_Automation.TestCases.LV_Activities
                         extentReports.CreateStepLogs("Passed", "Primary HL Attendee is able to remove Non-Primary HL and Non-Primary External Attendees. ");
 
                         lvContactDetails.CloseTab("View Activity");
+
+                        //Deleting Created Activity
+                        LV_ContactsActivityList.ViewActivityFromList(subject);
+                        extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+                        activityDetailPage.DeleteActivity();
+
+                        //Verify activity is deleted successfully
+                        int afterCount = activitiesList.GetActivityCount();
+                        Assert.AreEqual(beforeCount, afterCount);
+                        extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
                     }
                     else
                     {
@@ -172,17 +182,46 @@ namespace SF_Automation.TestCases.LV_Activities
                         extentReports.CreateStepLogs("Passed", "Non-Primary HL Attendee is able to remove Non-Primary HL and Non-Primary External Attendees. ");
 
                         lvContactDetails.CloseTab("View Activity");
+
+                        //Logout from SF Lightning View
+                        lvHomePage.LogoutFromSFLightningAsApprover();
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+
+                        //Login user
+                        homePage.SearchUserByGlobalSearch(fileTMTC0032668, valUser);
+                        usersLogin.LoginAsSelectedUser();
+
+                        //Switch to lightning view
+                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                        {
+                            homePage.SwitchToLightningView();
+                            extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                        }
+                        else
+                        {
+                            extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                        }
+
+                        //Search external contact
+                        lvHomePage.SearchContactFromMainSearch(extContactName);
+                        Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
+                        extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
+
+                        //Navigate to Activity tab
+                        lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
+                        Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
+                        extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+
+                        //Deleting Created Activity
+                        LV_ContactsActivityList.ViewActivityFromList(subject);
+                        extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+                        activityDetailPage.DeleteActivity();
+
+                        //Verify activity is deleted successfully
+                        int afterCount = activitiesList.GetActivityCount();
+                        Assert.AreEqual(beforeCount, afterCount);
+                        extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
                     }
-
-                    //Deleting Created Activity
-                    LV_ContactsActivityList.ViewActivityFromList(subject);
-                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
-                    activityDetailPage.DeleteActivity();
-
-                    //Verify activity is deleted successfully
-                    int afterCount = activitiesList.GetActivityCount();
-                    Assert.AreEqual(beforeCount, afterCount);
-                    extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
                 }
 
                 //Logout from SF Lightning View

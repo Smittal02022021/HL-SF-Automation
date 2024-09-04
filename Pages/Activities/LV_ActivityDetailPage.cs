@@ -67,11 +67,12 @@ namespace SF_Automation.Pages.Activities
 
         public void DeleteActivity()
         {
+            Thread.Sleep(5000);
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
             driver.FindElement(btnDeleteActivity).Click();
             Thread.Sleep(2000);
