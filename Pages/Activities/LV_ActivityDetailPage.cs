@@ -10,6 +10,7 @@ namespace SF_Automation.Pages.Activities
     {
         ExtentReport extentReports = new ExtentReport();
 
+        By successMsg = By.XPath("//span[text()='Record saved!']");
         By btnCancelActivity = By.XPath("//button[@title='Cancel']");
         By btnSaveActivity = By.XPath("//button[@title='Save']");
         By btnEditActivity = By.XPath("//button[@title='Edit']");
@@ -66,6 +67,10 @@ namespace SF_Automation.Pages.Activities
 
         public void DeleteActivity()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 30);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
             driver.FindElement(btnDeleteActivity).Click();
@@ -285,9 +290,35 @@ namespace SF_Automation.Pages.Activities
             return result;
         }
 
-        public void RemoveNonPrimaryHLAndExternalAttendees()
+        public bool VerifyBankerIsAbleToRemoveNonPrimaryHLAndExternalAttendees(string extAtt, string hlAtt)
         {
+            bool result = false;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(2000);
+
+            //Remove Non Primary Ext Attendee
+            driver.FindElement(By.XPath($"//span[text()='Remove {extAtt}']/..")).Click();
+            Thread.Sleep(2000);
+
+            //Remove Non Primary HL Attendee
+            driver.FindElement(By.XPath($"//span[text()='Remove {hlAtt}']/..")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            driver.FindElement(btnSaveActivity).Click();
+            Thread.Sleep(2000);
+
+            if(driver.FindElement(successMsg).Displayed)
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }

@@ -96,6 +96,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
                     string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
+                    string additionalExtAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 1);
                     string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
 
                     int beforeCount = LV_ContactsActivityList.GetActivityCount();
@@ -116,7 +117,10 @@ namespace SF_Automation.TestCases.LV_Activities
                         activityDetailPage.ClickEditActivityButton();
 
                         //Remove non-primary HL Attendee and Non-Primary External Attendee
-                        activityDetailPage.RemoveNonPrimaryHLAndExternalAttendees();
+                        Assert.IsTrue(activityDetailPage.VerifyBankerIsAbleToRemoveNonPrimaryHLAndExternalAttendees(additionalExtAttendee, additionalHLAttendee));
+                        extentReports.CreateStepLogs("Passed", "Primary HL Attendee is able to remove Non-Primary HL and Non-Primary External Attendees. ");
+
+                        lvContactDetails.CloseTab("View Activity");
                     }
                     else
                     {
@@ -164,11 +168,14 @@ namespace SF_Automation.TestCases.LV_Activities
                         activityDetailPage.ClickEditActivityButton();
 
                         //Remove non-primary HL Attendee and Non-Primary External Attendee
-                        activityDetailPage.RemoveNonPrimaryHLAndExternalAttendees();
+                        Assert.IsTrue(activityDetailPage.VerifyBankerIsAbleToRemoveNonPrimaryHLAndExternalAttendees(additionalExtAttendee, additionalHLAttendee));
+                        extentReports.CreateStepLogs("Passed", "Non-Primary HL Attendee is able to remove Non-Primary HL and Non-Primary External Attendees. ");
+
+                        lvContactDetails.CloseTab("View Activity");
                     }
 
                     //Deleting Created Activity
-                    LV_ContactsActivityList.ViewActivityFromList(updatedSubject);
+                    LV_ContactsActivityList.ViewActivityFromList(subject);
                     extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
 
