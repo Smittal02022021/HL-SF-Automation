@@ -182,7 +182,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
                     extentReports.CreateLog(popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
 
-                    addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
+                    addCounterparty.CloseOppCounterpartyPage(counterpartyCompanyNameExl);
                     addCounterparty.ButtonClick("Back");
                     extentReports.CreateLog("Clicked on Back button");
                     Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");

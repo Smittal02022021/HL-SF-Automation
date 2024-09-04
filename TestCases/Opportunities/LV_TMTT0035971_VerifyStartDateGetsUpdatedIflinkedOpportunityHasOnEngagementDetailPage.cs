@@ -64,14 +64,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-                    login.SwitchToClassicView();
-
-                    string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Info", "User: " + stdUser + " logged in ");
-
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    string stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -119,12 +115,8 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-
-                    login.SwitchToClassicView();
-                    extentReports.CreateLog(stdUser + " Standard User Switched to Classic View ");
-                    //Logout of user and validate Admin login
-                    usersLogin.UserLogOut();
-                    extentReports.CreateStepLogs("Info", stdUser + " Standard User logged out ");
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged out ");
 
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
@@ -145,17 +137,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Login again as Standard User
                     homePage.SearchUserByGlobalSearchN(valUser);
-                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                    //Login user
                     usersLogin.LoginAsSelectedUser();
-                    login.SwitchToClassicView();
-
-                    stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Info", "User: " + stdUser + " Standard User logged in ");
-
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Info", "User: " + stdUser + " Standard User Switched to Lightning View ");
+                    stdUser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged in ");
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
@@ -174,21 +160,26 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Verify that if the linked opportunity has a Start Date, then the Start Date field on the engagement detail page gets populated with the date from the Start Date field");
 
                     //Opp Stage/Priority is Updted to Verbally Engaged 
-                    string dateStageChange = opportunityDetails.UpdateStagePriorityL(fileTMTT0035971, row);
+                    string valStagePriority = ReadExcelData.ReadData(excelPath, "AddOpportunity", 31);
+                    string dateStageChange = opportunityDetails.UpdateStagePriorityLV(valStagePriority);
+
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged out ");
 
                     //Get DateEngaged on Opportunity Detail Page
                     //string valOppDateEngaged = opportunityDetails.GetOppDateEngagedL();
                     //extentReports.CreateStepLogs("Info", "Opportunity Date Engaged: " + valOppDateEngaged);
 
                     //Requesting for engagement and validate the success message
-                    extentReports.CreateStepLogs("Info", "Opportunity with Stage updated to Verbally Engaged, Requesting for Engagement conversion : ");
-                    opportunityDetails.ClickRequestToEngL();
+                    //extentReports.CreateStepLogs("Info", "Opportunity with Stage updated to Verbally Engaged, Requesting for Engagement conversion");
+                    //No Need opportunityDetails.ClickRequestToEngL();
 
                     /*
                      * **************************************************************
                      ******************FOR Stage Verbally Engaged we don't have Request Engagement Button **********
                      * ***************************************************************
                      */
+                    /* NoNeed
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
@@ -197,8 +188,10 @@ namespace SF_Automation.TestCases.Opportunities
                     login.SwitchToClassicView();
                     //Log out of Standard User
                     usersLogin.UserLogOut();
+                    */
+
                     //Login as CAO user to approve the Opportunity
-                    string userCAOExl= ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
                     homePage.SearchUserByGlobalSearchN(userCAOExl);
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                     //Login user
@@ -227,6 +220,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Search for created opportunity
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
 
+                    /*
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();
                     Assert.AreEqual(status, "Approved");
@@ -236,22 +230,25 @@ namespace SF_Automation.TestCases.Opportunities
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
+                    */
+
+                    opportunityDetails.ClickEngagementLinkLV();
+                    extentReports.CreateStepLogs("Info", "User is on Verbally Engaged Engagement detail page");
 
                     //Validate the Engagement name in Engagement details page                    
                     string engagementName = engagementDetails.GetEngagementNameL();
-                    //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //Get DateENgaged
-
-                    string valEngDateEngaged = engagementDetails.GetEngStartDate();
+                    string valEngDateEngaged = engagementDetails.GetEngStartDateLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Stage change date: " + dateStageChange+ "Engagement Start Date: " + valEngDateEngaged );
 
                     Assert.AreEqual(dateStageChange, valEngDateEngaged);
-                    extentReports.CreateStepLogs("Pass", "Date Engaged on Opportunity Page and Start Date on Engagement Page are same after conversion");
+                    extentReports.CreateStepLogs("Pass", "Start Date: " + valEngDateEngaged+ " on Engagement Page is same as Stage Change Date: "+ dateStageChange + " on Opportunity Page when Verballey Engaged");
 
-                    login.SwitchToClassicView();
+                    usersLogin.ClickLogoutFromLightningView();
+                    extentReports.CreateStepLogs("Info","CF Financial User:"+ valUser + " logged out ");
                     usersLogin.UserLogOut();
                     driver.Quit();
                     extentReports.CreateStepLogs("Info", "Browser Closed");
@@ -260,6 +257,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -217,13 +217,13 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //Get DateEngaged                  
-                    string valEngDateEngaged = engagementDetails.GetEngStartDate();   
+                    string valEngDateEngaged = engagementDetails.GetEngStartDateLV();   
                     extentReports.CreateStepLogs("Info", " Engagement Start Date: " + valEngDateEngaged+" Opportunity Page Date Engaged: "+ valEngDateEngaged);                    
                     Assert.AreEqual(valEngDateEngaged, valOppDateEngaged);
                     extentReports.CreateStepLogs("Pass", "Date Engaged on Opportunity Page and Start Date on Engagement Page are same after conversion");
 
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Info", "User logged out ");
+                    extentReports.CreateStepLogs("Info", "CAO User: "+ userCAOExl+" logged out ");
                     driver.Quit();
                     extentReports.CreateStepLogs("Info", "Browser closed");
                 }

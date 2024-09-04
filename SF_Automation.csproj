@@ -768,7 +768,8 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0027425_TMTT27427_TMTT27428_TMTT27431_TMTT27434_TMTT27435_TMTT30277_1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0041159-2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0041159-1_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />

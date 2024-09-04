@@ -1191,6 +1191,8 @@ namespace SF_Automation.Pages.Common
         
         public bool GetVerballyEngCheckboxStatusLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
             Thread.Sleep(2000);
             return driver.FindElement(chkVerballyEngL).Selected;

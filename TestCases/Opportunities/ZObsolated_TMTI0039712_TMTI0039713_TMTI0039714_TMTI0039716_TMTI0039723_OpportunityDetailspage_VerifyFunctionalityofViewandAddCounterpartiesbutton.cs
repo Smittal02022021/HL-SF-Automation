@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Opportunity
                     addCounterparty.AddNewOpportunityCounterparty(counterpartyCompanyNameExl, counterpartyTypeExl);
                     //msgSuccess = addCounterparty.GetLVMessagePopup();
                     //Assert.AreEqual(msgSuccess, "Selected Counterparty Records have been created.");
-                    addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
+                    addCounterparty.CloseOppCounterpartyPage(counterpartyCompanyNameExl);
                     addCounterparty.ButtonClick("Back");
                     extentReports.CreateLog("Clicked on Back button");
                     Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");

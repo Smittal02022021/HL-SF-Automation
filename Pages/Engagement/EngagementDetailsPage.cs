@@ -175,7 +175,7 @@ namespace SF_Automation.Pages.Engagement
 
         By labelWomenLed = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(9) > td:nth-child(1)");
         By labelWomenLedJob = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(7) > td:nth-child(3)");// div:nth-child(33) > table > tbody > tr:nth-child(7) > td:nth-child(3)");
-        By labelWomenLedActivism = By.CssSelector("div:nth-child(35) > table > tbody > tr:nth-child(7) > td:nth-child(1)");
+        By labelWomenLedActivism = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(7) > td:nth-child(1)");
         By labelWomenFVA = By.CssSelector("div:nth-child(29) > table > tbody > tr:nth-child(3) > td:nth-child(1)");
         By labelWomenFR = By.CssSelector("div:nth-child(33) > table > tbody > tr:nth-child(13) > td:nth-child(1)");
         By valAddedClient = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(2) > td:nth-child(3)");
@@ -695,7 +695,7 @@ namespace SF_Automation.Pages.Engagement
         By chkContact = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnAddContact = By.XPath("//button[@title='counterparty']");
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
-        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By btnPartyL = By.XPath("//div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By txtContactL = By.XPath("//input[@title='Search Contacts']");
         By btnSaveContactL = By.XPath("//footer//button/span[text()='Save']");
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
@@ -703,6 +703,7 @@ namespace SF_Automation.Pages.Engagement
         By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
         By btnSidebarSave = By.XPath("//div[contains(@class,'sidebar-right')]//button[@name='save']");
         By tabFSEngL = By.XPath("//lightning-tab-bar/ul/li/a[text()='FS Engagements']");
+        By tabEngFeeAndFinanciaL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Fees & Financials']");
         By lnkMoretabFSEngL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='FS Engagements']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
         By btnNewFSEngL = By.XPath("//article[@aria-label='FS Engagements']//button[@name='New']");
@@ -740,6 +741,8 @@ namespace SF_Automation.Pages.Engagement
         By textEngCommentsL = By.XPath("//h2[text()='Tabs']/..//table//lightning-base-formatted-text");
         By tabcommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
         By counterpartyNameL = By.XPath("//table//th[@data-label='Company']");
+
+
         private By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -873,8 +876,9 @@ namespace SF_Automation.Pages.Engagement
 
             WebDriverWaits.WaitUntilEleVisible(driver, inputDateEngdL, 5);
             string dateEngd = DateTime.Today.AddDays(-2).ToString("dd-MMM-yyyy");
-            driver.FindElement(inputDateEngdL).SendKeys(dateEngd);
+            driver.FindElement(inputDateEngdL).SendKeys(dateEngd);            
             driver.FindElement(btnEngInfoSaveL).Click();
+            //driver.FindElement(iconCloseErrorL).Click();
         }
         public void ClickRequestFullEngagementLV()
         {
@@ -910,7 +914,8 @@ namespace SF_Automation.Pages.Engagement
                 string formatedfieldLevelLabels = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
                 formatedReqFieldLabels = formatedReqFieldLabels + formatedfieldLevelLabels;
             }
-            driver.FindElement(iconCloseErrorL).Click();
+            //driver.FindElement(iconCloseErrorL).Click();
+            Thread.Sleep(2000);
             return formatedReqFieldLabels;
         }
         public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
@@ -6632,7 +6637,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        public string GetEngStartDate()
+        public string GetEngStartDateLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngImpDate, 20);
             driver.FindElement(tabEngImpDate).Click();
@@ -7220,6 +7225,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void CickAddEngagementContactLV(string RecordType)
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, _btnAddContactL(RecordType), 20);
             driver.FindElement(_btnAddContactL(RecordType)).Click();
         }
@@ -7307,66 +7313,47 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
-        public bool IsEngContactsPresentLV(string file)
+        public bool IsEngContactPresentLV(string contactNamePE)
         {
-            bool result = false;
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            int engContactsCount = driver.FindElements(By.XPath("//table[@aria-label='Engagement Contacts']//tr//th//lightning-primitive-cell-factory//a[2]")).Count;
-            int excelLinkCount = ReadExcelData.GetRowCount(excelPath, "AddContact");
-            for (int i = 2; i <= excelLinkCount; i++)
+            bool result = false;            
+            IList<IWebElement> engContacts = driver.FindElements(By.XPath("//table[@aria-label='Engagement Contacts']//tr//th//lightning-primitive-cell-factory//a[2]"));
+            foreach(IWebElement engContact in engContacts)
             {
                 result = false;
-                string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", i, 1);
-                for (int j = 1; j <= engContactsCount; j++)
+                if (engContact.Text == contactNamePE)
                 {
-                    string contactName = driver.FindElement(By.XPath($"//table[@aria-label='Engagement Contacts']//tr[{j}]//th//lightning-primitive-cell-factory//a[2]")).Text;
-                    if (contactName == contactNameExl)
-                    {
-                        result = true;
-                        break;
-                    }
-                }                
-            }
+                    result = true;
+                    break;
+                }
+            }            
             return result;
         }
         
         public void ClickEngCommentsTabLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(1000);
-            driver.FindElement(tabInfo).Click();
+            js.ExecuteScript("window.scrollTo(0,0)");            
             WebDriverWaits.WaitUntilEleVisible(driver, tabcommentsL, 20);
             driver.FindElement(tabcommentsL).Click();
             Thread.Sleep(5000);
         }
-        public bool IsEngCommentsPresentLV(string file)
+        public bool IsEngCommentsPresentLV(string txtPEComments)
         {
             bool isCommentFund = false;
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
             WebDriverWaits.WaitUntilEleVisible(driver, textEngCommentsL, 10);
             IList<IWebElement> engComments = driver.FindElements(textEngCommentsL);
             foreach(IWebElement engComment in engComments)
             {
-                isCommentFund = false;
-                int engCommentsExlCount = ReadExcelData.GetRowCount(excelPath, "EngComments");                
-                for (int commentsIndex = 1; commentsIndex < engCommentsExlCount; commentsIndex++)
+                isCommentFund = false;             
+                if (engComment.Text == txtPEComments)
                 {
-                    string engCommentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", commentsIndex, 2);
-                    if (engComment.Text == engCommentsExl)
-                    {
-                        isCommentFund = true;
-                        break;
-                    }
-                }
+                    isCommentFund = true;
+                    break;
+                }                
             }
             return isCommentFund;
         }        
-        public bool IsEngCounterparyCompaniesPresentLV(string[] addedCounterpartyCompany)
+        public bool IsEngCounterparyCompaniesPresentLV(string addedCounterpartyCompany)
         {
             bool iscounterpartyfound = false;            
             IList<IWebElement> counterpartyName = driver.FindElements(counterpartyNameL);
@@ -7374,17 +7361,82 @@ namespace SF_Automation.Pages.Engagement
             foreach (IWebElement counterparty in counterpartyName)
             {
                 iscounterpartyfound = false;
-                foreach (string addedCompany in addedCounterpartyCompany)
+                string availablecounterparty = counterparty.GetAttribute("data-cell-value");
+                if (availablecounterparty == addedCounterpartyCompany)
                 {
-                    string availablecounterparty = counterparty.GetAttribute("data-cell-value");
-                    if (availablecounterparty == addedCompany)
-                    {
-                        iscounterpartyfound = true;
-                        break;
-                    }
-                }
+                   iscounterpartyfound = true;
+                   break;
+                }                
             }
             return iscounterpartyfound;
         }
+
+        public void ClickTabEngFeeAndFincnciaLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);           
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngFeeAndFinanciaL, 5);
+            driver.FindElement(tabEngFeeAndFinanciaL).Click();
+            Thread.Sleep(5000);
+        }
+
+        By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
+        By txtEbitdaL = By.XPath("//span[contains(text(),'EBITDA')]/../../..//lightning-formatted-text");
+        By txtRetainerL = By.XPath("//span[contains(text(),'Retainer')]/../../..//lightning-formatted-text");
+        By txtProgressMonthlyFeeL = By.XPath("//span[contains(text(),'Progress/Monthly Fee')]/../../..//lightning-formatted-text");
+        By txtContingentFeeL = By.XPath("//span[contains(text(),'Contingent Fee')]/../../..//lightning-formatted-text");
+        By txtTotalFeeL = By.XPath("//span[contains(text(),'Total Fee')]/../../..//lightning-formatted-text");
+        By txtSSExpenseL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
+        By txtExpenseCapL = By.XPath("//span[contains(text(),'Expense Cap')]/../../..//lightning-formatted-text");
+        By txtLegalCapL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
+
+        public string GetValEstTansacttionMarketCapLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEstTransMCapL, 10);
+            return driver.FindElement(txtEstTransMCapL).Text;
+        }
+        public string GetValEbitdaLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEbitdaL, 10);
+            return driver.FindElement(txtEbitdaL).Text;
+        }
+        public string GetValRetainerLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRetainerL, 10);
+            return driver.FindElement(txtRetainerL).Text;
+        }
+        public string GetValProgressMonthlyFeeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtProgressMonthlyFeeL, 10);
+            return driver.FindElement(txtProgressMonthlyFeeL).Text;
+        }
+        public string GetValContingentFeeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContingentFeeL, 10);
+            return driver.FindElement(txtContingentFeeL).Text;
+        }
+        public string GetValTotalFeeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalFeeL, 10);
+            return driver.FindElement(txtTotalFeeL).Text;
+        }
+        public string GetValSSExpenseLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSSExpenseL, 10);
+            return driver.FindElement(txtSSExpenseL).Text;
+        }
+        public string GetValExpenseCapLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtExpenseCapL, 10);
+            return driver.FindElement(txtExpenseCapL).Text;
+        }
+        public string GetValLegalCapLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLegalCapL, 10);
+            return driver.FindElement(txtLegalCapL).Text;
+        }
+
     }
 }

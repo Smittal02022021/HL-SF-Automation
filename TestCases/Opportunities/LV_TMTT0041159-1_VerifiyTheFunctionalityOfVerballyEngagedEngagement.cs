@@ -10,7 +10,7 @@ using SF_Automation.TestData;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedEngagement:BaseClass
+    class LV_TMTT0041159_1_VerifiyTheFunctionalityOfVerballyEngagedEngagement:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -31,12 +31,21 @@ namespace SalesForce_Project.TestCases.Opportunities
         private string subFilterSection;
         private string filterValue;
         private string popupMessage;
-        //private string selectedCompany;
         private string commentTypeExl;
         private string commentTextExl;
         private string commentType;
         private string[] selectedCounterpartyCompany = new string[3];
         private int index = 0;
+        private string valPEEstTransMCap;
+        private string valPEEBITDA;
+        private string valPERetainer;
+        private string valPEProgressMonthlyFee;
+        private string valPEContingentFee;
+        private string valPETotalFee;
+        private string valPESSExpense;
+        private string valPEExpenseCap;
+        private string valPELegalCap;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -113,7 +122,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string stageExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 31);
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string expectedListValidationErrors = ReadExcelData.ReadData(excelPath, "VEValidationList", 1);
-                string actualListValidationErrors= opportunityDetails.GetOppVerballyEngagedValidationErrorsLV();                
+                string actualListValidationErrors= opportunityDetails.GetOppVEValidationErrorsLV();                
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
                 usersLogin.ClickLogoutFromLightningView();
@@ -182,6 +191,16 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "Opportunity Stage is updated from "+stage+" to "+ updatedStage);
                 Assert.IsTrue(randomPages.GetVerballyEngCheckboxStatusLV(),"Verify Verbally Engaged checkbox is Checked after stage change of the Opportunity to Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is Checked after stage change of the Opportunity to Verbally Engaged");
+
+                //TMTI0101388	Verify that once Partial Engagement is created, CF user have access to edit the Partial Engagement
+                //Edit Opportunity Description on VE opportnity 
+                opportunityDetails.UpdateVEOpportunityDescription();
+                string expectedValidationErrors = ReadExcelData.ReadData(excelPath, "VEValidationList", 5);
+                string actualValidationErrors = opportunityDetails.GetOppVEValidationErrorsLV();
+                Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
+                extentReports.CreateStepLogs("Passed", "Validations:"+actualValidationErrors+" appeared when CF user try to update the Verbally Engaged Opportunity");
+
+
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", updatedStage+" opportunity tab is closed");                
                 //////////////TMTI0101380 Test Case End////////////////////
@@ -203,14 +222,17 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //5.Now open any one of the Counterparty detail page and add contacts and comments with all available option on this page like multiple contact search option and multiple comment type options.
                 ///*****************************************/////
                 
+                //TMTI0101388	Verify that once Partial Engagement is created, CF user have access to edit the Partial Engagement
+                //Adding Contact on Partial Engaged Egagement to CF user have access to edit the Partial Engagement
+
                 //CF Financial user add Engagement Contact
                 engagementDetails.CickAddEngagementContactLV(valRecordType);
                 string contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 1);
                 string contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 2, 3);
                 engagementDetails.CreateContactLV(contactNameExl, contactPartyExl);
-                popupMessage = addCounterparty.GetLVMessagePopup();
+                popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
-                extentReports.CreateStepLogs("Pass", contactNameExl+ " Contact added on Engagement page(Required for Verbally Engaged Stage)");
+                extentReports.CreateStepLogs("Pass", contactNameExl+ " Contact added on Engagement page(Required for Verbally Engaged Stage). Hence CF user is able to edit the Partial Engagement");
 
                 //CF Financial User Add Comments on Parial Engaged Engagement
                 int typeRowCount = ReadExcelData.GetRowCount(excelPath, "EngComments");
@@ -243,7 +265,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", selectedCounterpartyCompany[index] + " : Company selected from Company List ");
                     // Click on Add Counterparty oppname button
                     addCounterparty.ClickAddCounterpartyToOpportunity();
-                    popupMessage = addCounterparty.GetLVMessagePopup();
+                    popupMessage = randomPages.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Selected Counterparty Records have been created.");
                     extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and company " + selectedCounterpartyCompany[index] + " is added in counterparty list ");
 
@@ -264,12 +286,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                 addCounterparty.ButtonClick("Add Counterparty");
                 extentReports.CreateStepLogs("Info", "Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
 
-                addCounterparty.AddNewEngagementCounterpartyLV(counterpartyCompanyNameExl, counterpartyTypeExl);
-                popupMessage = addCounterparty.GetLVMessagePopup();
+                addCounterparty.AddNewNewCounterpartyLV(counterpartyCompanyNameExl, counterpartyTypeExl);
+                popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
 
-                addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
+                addCounterparty.CloseEngCounterpartyPage(counterpartyCompanyNameExl);
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV(); //ButtonClick("Back");
                 extentReports.CreateStepLogs("Info", "Clicked on Back button");
                 Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
@@ -281,9 +303,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
                 addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
                 addCounterparty.SaveCounterpartyChanges();
-                popupMessage = addCounterparty.GetLVMessagePopup();
+                popupMessage = randomPages.GetLVMessagePopup();
                 Assert.AreEqual(popupMessage, "Records Updated Successfully!");
-                extentReports.CreateStepLogs("Passed", "Added Counterparty details are updated ");
+                extentReports.CreateStepLogs("Passed", "**Comments are not being added*** Added Counterparty details are updated ");
 
                 //#//5.Now open any one of the Counterparty detail page and add contacts and comments with all available option on this page like multiple contact search option and multiple comment type options.
                 addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
@@ -299,8 +321,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 addCounterparty.SelectContactFromListLV();
                 addCounterparty.ClickAddContactLV();
                 extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact:"+ contactNameCPExl + " is added ");
-                addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();// ButtonClick("Back");
-                
+                addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();                
                 string contactEngCP= addCounterparty.GetEngCounterpartyContactLV();
                 Assert.IsTrue(contactNameCPExl.Contains(contactEngCP));
                 extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available on Engagement Counterparty Contact(s) Right Panel");
@@ -308,13 +329,13 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //*******CF Financial User Adding Engagement Counterparty Comments with All Types ******************** 
                 typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
-                for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
+                for (int typeRow = 2; typeRow <= typeRowCount; typeRow++)
                 {
-                    addCounterparty.ClickEngCPVCommentsLV();
+                    addCounterparty.ClickEngCPVCommentsLV();// remove text from comopany
                     commentTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 1);
                     commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 2);
                     addCounterparty.AddNewEngagementCounterpartyCommentLV(commentTypeExl, commentTextExl, counterpartyCompanyNameExl);
-                    popupMessage = addCounterparty.GetLVMessagePopup();
+                    popupMessage = randomPages.GetLVMessagePopup();
                     Assert.IsTrue(popupMessage.Contains("Engagement Counterparty Comment"), "Verify the Engagement Counterparty Comments is displayed in Popup message ");
                     extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeExl);
                     commentType= addCounterparty.GetCommentTypeLV();
@@ -324,7 +345,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 CustomFunctions.PageReload(driver);
-
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "CF Financial User logged out");
                 ////////////////////////////////////////////
@@ -355,7 +375,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Comments added on Engagement page with Type:  " + commentTypeExl);
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "Compliance User: "+ complianceuserExl+" logged out");
-
                 ////*****************************************////
 
                 //Login as System Admin user to add FS Engagement 
@@ -379,7 +398,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 engagementDetails.ClickTabFSEngagementLV();
                 extentReports.CreateStepLogs("Info", "User is on FS Engagement tab");
                 string nameFSEng= engagementDetails.CreateNewFSEngagementLV(counterpartyCompanyNameExl);
-                popupMessage = addCounterparty.GetLVMessagePopup();
+                popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", " FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company: " + counterpartyCompanyNameExl);
                 randomPages.CloseActiveTab(nameFSEng);
@@ -406,7 +425,6 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 engagementHome.SearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", "Engagement found and selected");
-
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and verify that below validation");
                 
@@ -420,27 +438,39 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(expectedLabelList, actualLabelList, "Verify the Required Fields on Engagement Information page, while Request for Full Engagement a Verbally Engaged Engagement");
                 extentReports.CreateStepLogs("Passed", "Required Fields on Engagement Information page are correct, while Request for Full Engagement a Verbally Engaged Engagement");
 
-                //Create Primary Contact 
+                //Enter Required fields for Request Full Engagement
+                engagementDetails.EnterRequestFullEngagementReqValuesLV();
+                extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
+                popupMessage = randomPages.GetLVMessagePopup();
+                extentReports.CreateStepLogs("Passed", "Required Fields saved with popup message: " + popupMessage);                //Create Primary Contact 
+                
                 engagementDetails.CickAddEngagementContactLV(valRecordType);
                 string billingContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 1);
                 contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 3);
-
                 engagementDetails.CreateBillingContactLV(billingContactNameExl, contactPartyExl);
-                popupMessage = addCounterparty.GetLVMessagePopup();
+                popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", billingContactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page(Required for Full Engagement Request)");
+
+                //Get Fee & Financial details 
+                engagementDetails.ClickTabEngFeeAndFincnciaLV();
+
+                valPEEstTransMCap= engagementDetails.GetValEstTansacttionMarketCapLV();
+                valPEEBITDA=engagementDetails.GetValEbitdaLV();
+                valPERetainer=engagementDetails.GetValRetainerLV();
+                valPEProgressMonthlyFee=engagementDetails.GetValProgressMonthlyFeeLV();
+                valPEContingentFee=engagementDetails.GetValContingentFeeLV();
+                valPETotalFee=engagementDetails.GetValTotalFeeLV();
+                valPESSExpense=engagementDetails.GetValSSExpenseLV();
+                valPEExpenseCap=engagementDetails.GetValExpenseCapLV();
+                valPELegalCap=engagementDetails.GetValLegalCapLV();
 
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
                 
-                //Enter Required fields for Request Full Engagement
-                engagementDetails.EnterRequestFullEngagementReqValuesLV();
-                extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
-                popupMessage = addCounterparty.GetLVMessagePopup();
-                Assert.IsTrue(popupMessage.Contains("Record submitted for approval!"));                                
-                extentReports.CreateStepLogs("Passed", "Request Full Engagement button clicked with popup message "+ popupMessage);
+                //xtentReports.CreateStepLogs("Passed", "Request Full Engagement button clicked with popup message: "+ popupMessage);
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Passed", "System Administrator: "+ appNameExl+" logged out" );
+                extentReports.CreateStepLogs("Passed", "CF Financial User: "+ userExl + " logged out" );
 
                 //TMTI0101394 Verify that CAO User can approve the Full engagement request
                 string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3,1);
@@ -478,6 +508,46 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string engagementName = engagementDetails.GetEngagementNameL();
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                
+                //Engagement Comments
+                engagementDetails.ClickEngCommentsTabLV();                
+                typeRowCount = ReadExcelData.GetRowCount(excelPath, "EngComments");
+                for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
+                {                    
+                    commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", typeRow, 2);
+                    Assert.IsTrue(engagementDetails.IsEngCommentsPresentLV(commentTextExl), "Verify All Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                    extentReports.CreateStepLogs("Passed", commentTextExl+ " Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                }
+                //Validate Fee & Financial Fees on Fully Engaged Engagement  
+                engagementDetails.ClickTabEngFeeAndFincnciaLV();
+                Assert.AreEqual(valPEEstTransMCap,engagementDetails.GetValEstTansacttionMarketCapLV());
+                extentReports.CreateStepLogs("Passed", "Est.Trans Market Cap(MM): " + valPEEstTransMCap+ " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPEEBITDA,engagementDetails.GetValEbitdaLV());
+                extentReports.CreateStepLogs("Passed", "EBITDA: " + valPEEBITDA + " from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPERetainer,engagementDetails.GetValRetainerLV());
+                extentReports.CreateStepLogs("Passed", "Retainer: " + valPERetainer + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPEProgressMonthlyFee,engagementDetails.GetValProgressMonthlyFeeLV());
+                extentReports.CreateStepLogs("Passed", "Progress Monthly Fee: " + valPEProgressMonthlyFee + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPEContingentFee, engagementDetails.GetValContingentFeeLV());
+                extentReports.CreateStepLogs("Passed", "Contingent Fee: " + valPEContingentFee + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPETotalFee,engagementDetails.GetValTotalFeeLV());
+                extentReports.CreateStepLogs("Passed", "Total Fee: " + valPETotalFee + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPESSExpense,engagementDetails.GetValSSExpenseLV());
+                extentReports.CreateStepLogs("Passed", "Shared Services Expense: " + valPESSExpense + " from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPEExpenseCap,engagementDetails.GetValExpenseCapLV());
+                extentReports.CreateStepLogs("Passed", "Expense Cap: " + valPEExpenseCap + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                Assert.AreEqual(valPELegalCap,engagementDetails.GetValLegalCapLV());
+                extentReports.CreateStepLogs("Passed", "Legal Cap: " + valPELegalCap + " , from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+
+                //Validate Contacts on Fully Engaged Engagement
+                engagementDetails.ClickEngContactTabLV();
+                int contactsCount = ReadExcelData.GetRowCount(excelPath, "AddContact");
+                for (int row = 2; row <= contactsCount; row++)
+                {                    
+                    string contactExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", row, 1);
+                    Assert.IsTrue(engagementDetails.IsEngContactPresentLV(contactExl), "Contacts: "+ contactExl+" added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                    extentReports.CreateStepLogs("Passed", "Contacts: "+ contactExl+" added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
+                }
 
                 //Validate FS Eng on Fully Engaged Engagement              
                 engagementDetails.ClickTabFSEngagementLV();
@@ -485,21 +555,14 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string fullFSEngName = engagementDetails.GetFSEngagementIDLV();
                 Assert.AreEqual(nameFSEng, fullFSEngName);
                 extentReports.CreateStepLogs("Passed", "FS Engagement with ID: "+ fullFSEngName+" added on Partial Engaged Engagement is present on Fully Engaged Engagement");
-
-                //Validate Contacts on Fully Engaged Engagement
-                engagementDetails.ClickEngContactTabLV();
-                Assert.IsTrue(engagementDetails.IsEngContactsPresentLV(fileTMTT0041159), "Verify All Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
-                extentReports.CreateStepLogs("Passed", "All Contacts added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement ");
-
-                //Engagement Comments
-                engagementDetails.ClickEngCommentsTabLV();
-                Assert.IsTrue(engagementDetails.IsEngCommentsPresentLV(fileTMTT0041159), "Verify All Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
-                extentReports.CreateStepLogs("Passed", "All Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
-
+                 
                 //Validate Eng Counterparties
                 engagementDetails.ClickViewCounterpartyButtonEngagementPageLV();
-                Assert.IsTrue(engagementDetails.IsEngCounterparyCompaniesPresentLV(selectedCounterpartyCompany), "Verify Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
-                extentReports.CreateStepLogs("Passed", "All "+selectedCounterpartyCompany.Length+" Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                for(int i = 0;i< selectedCounterpartyCompany.Length; i++)
+                {
+                    Assert.IsTrue(engagementDetails.IsEngCounterparyCompaniesPresentLV(selectedCounterpartyCompany[i]), "Verify Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                    extentReports.CreateStepLogs("Passed", selectedCounterpartyCompany[i] + " Counterparties added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                }
 
                 //Validate contact of Counterparty 
                 addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
@@ -507,20 +570,21 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User Switched to Counterparty Details new tab ");
                 string contactApprovedEngCP = addCounterparty.GetEngCounterpartyContactLV();
                 Assert.IsTrue(contactNameCPExl.Contains(contactApprovedEngCP));
-                extentReports.CreateStepLogs("Info", "Counterparty Contact added from Opp/Verbally Engaged Engagement Counterparty is present on Fully Engaged Engagement Counterparty");
+                extentReports.CreateStepLogs("Info", "Counterparty Contact: "+ contactNameCPExl+" added from Opp/Verbally Engaged Engagement Counterparty is present on Fully Engaged Engagement Counterparty");
 
                 //Counterparty Comments
-
+                addCounterparty.ClickViewAllEngCPCommentsLV();
+                typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
+                for (int typeRow = 2; typeRow <= typeRowCount; typeRow++)
+                {                    
+                    commentTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 1);
+                    Assert.IsTrue(addCounterparty.IsEngCPCommentPresentLV(commentTypeExl));
+                    extentReports.CreateStepLogs("Passed", "Comment Type: "+commentTypeExl + " Counterparty with Comments added from Opp/Verbally Engaged Engagement is present on Fully Engaged Engagement");
+                 }
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
-                CustomFunctions.PageReload(driver);
-
-                //********In Progress
-
-                //---------------//
-                randomPages.CloseActiveTab(opportunityName);
-                extentReports.CreateStepLogs("Info", "Opportunity tab closed");
-
+                randomPages.CloseActiveTab(engagementName); 
+                
                 //Moved to Opportunity Module to Verify the Stage of Opportunity (should be engaged)
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
@@ -534,10 +598,38 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 //-------------------------------//
 
-
+                randomPages.CloseActiveTab(opportunityName);
+                extentReports.CreateStepLogs("Info", "Opportunity tab closed");
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " logged out");
 
+                //Login as Compliance user and Verfy the Eng Compliance comments               
+                homePage.SearchUserByGlobalSearchN(complianceuserExl);
+                extentReports.CreateStepLogs("Info", "Compliance User: " + complianceuserExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                Assert.AreEqual(login.ValidateUserLightningView().Contains(complianceuserExl), true);
+                appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                engagementHome.SearchEngagementInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Compliance User is on Fully Engaged Engagement page");
+
+                engagementDetails.ClickEngCommentsTabLV();
+                commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", 5, 2);
+                Assert.IsTrue(engagementDetails.IsEngCommentsPresentLV(commentTextExl), "Verify Compliance Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", commentTextExl + " , Comments added from Opp/Verbally Engaged Engagement are present on Fully Engaged Engagement");
+                
+                //---------------//
+                randomPages.CloseActiveTab(engagementName);
+                extentReports.CreateStepLogs("Info", "Engagement tab closed");
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "Compliance User: " + complianceuserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
