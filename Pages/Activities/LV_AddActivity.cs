@@ -419,6 +419,5 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
         }
-
     }
 }

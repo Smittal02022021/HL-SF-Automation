@@ -284,5 +284,10 @@ namespace SF_Automation.Pages.Activities
             }
             return result;
         }
+
+        public void RemoveNonPrimaryHLAndExternalAttendees()
+        {
+
+        }
     }
 }
