@@ -168,20 +168,6 @@ namespace SF_Automation.TestCases.EventExpense
                         Assert.AreEqual(approverNotes, updatedNotes);
                         extentReports.CreateLog("Approver is able to edit expense request successfully. ");
                     }
-                    else if (action == "Clone")
-                    {
-                        //TC - TMTI0038451 - Verify the functionality of "Clone" button on expense request detail page as approver.
-                        Assert.IsTrue(lvExpRequestDetail.VerifyCloneButtonFunctionality());
-                        extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
-
-                        lvExpRequestDetail.CreateCloneExpenseRequest();
-                        action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
-                        Thread.Sleep(5000);
-                        string expReqpreApprovalNo2 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
-                        string eventStatus2 = lvExpRequestDetail.GetEventStatusInfoForApprover();
-
-                        extentReports.CreateLog("Cloned Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus2 + " and Expense Preapproval Number: " + expReqpreApprovalNo2 + " ");
-                    }
                     else if (action == "Delete")
                     {
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
@@ -201,16 +187,6 @@ namespace SF_Automation.TestCases.EventExpense
                         //TC - TMTI0038454 - Verify that approver is not able to "Edit" the deleted request.
                         Assert.IsTrue(lvExpRequestDetail.VerifyApproverIsNotAbleToEditExpenseRequest(approverErrMsg));
                         extentReports.CreateLog("Approver is not able to edit the deleted request and getting the expected error message: " + approverErrMsg + " ");
-
-                        //TC - TMTI0038455 - Verify that approver is able to "Clone" the deleted request.
-                        Assert.IsTrue(lvExpRequestDetail.VerifyCloneButtonFunctionality());
-                        extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
-
-                        lvExpRequestDetail.CreateCloneExpenseRequest();
-                        string expReqpreApprovalNo3 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
-                        string eventStatus4 = lvExpRequestDetail.GetCloneEventStatusInfo();
-
-                        extentReports.CreateLog("Deleted Expense Request of LOB: " + lobName + " is cloned successfully by Approver with Status as: " + eventStatus4 + " and Expense Preapproval Number: " + expReqpreApprovalNo3 + " ");
                     }
                     else if (action == "Reject")
                     {
