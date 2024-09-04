@@ -162,7 +162,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //opportunityDetails.UpdateStagePriorityL(fileTMTT0035971,row);
                     extentReports.CreateStepLogs("Info", "Verify that if an opportunity is converted into engagement prior to a verbally engaged opportunity, then the Start Date field on the engagement detail page gets populated with the date from the Date Engaged field");
                     //Get DateEngaged on Opportunity Detail Page
-                    string valOppDateEngaged = opportunityDetails.GetOppDateEngagedL();
+                    string valOppDateEngaged = opportunityDetails.GetOppDateEngagedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Date Engaged: " + valOppDateEngaged);
 
                     //Requesting for engagement and validate the success message

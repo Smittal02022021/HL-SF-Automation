@@ -61,6 +61,7 @@ namespace SF_Automation.Pages
         By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
         By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//dd//a");
 
+        By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
 
@@ -71,8 +72,18 @@ namespace SF_Automation.Pages
             driver.FindElement(btnContactSearchL).Click();
             Thread.Sleep(2000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL, 10);
-            driver.FindElement(txtContactSearchL).SendKeys(value);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL, 10);
+                driver.FindElement(txtContactSearchL).SendKeys(value);
+            }
+            catch (Exception ex)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);
+            }            
+
+            
             WebDriverWaits.WaitUntilEleVisible(driver, imgContact);
             Thread.Sleep(4000);
             driver.FindElement(imgContact).Click();

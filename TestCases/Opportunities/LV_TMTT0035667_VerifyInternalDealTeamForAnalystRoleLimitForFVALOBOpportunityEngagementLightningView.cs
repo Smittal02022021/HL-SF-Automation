@@ -1,53 +1,17 @@
-﻿using SF_Automation.Pages.Common;
+﻿using NUnit.Framework;
+using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages;
-using SF_Automation.UtilityFunctions;
-using NUnit.Framework;
 using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit : BaseClass
+    internal class LV_TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagementLightningView:BaseClass
     {
-        //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
-        /*done
-         TMTI0056866 Verify the availability of new Job Type- FA - Portfolio-Auto Struct Prd/Consulting in Job Type Picklist while adding new FVA Opportunity
-         TMTI0056870 Verify user is able to create new Opportunity with new Job Type - FA - Portfolio-Auto Struct Prd/Consulting
-         TMTI0056872 Verify the availability of Job Types for converted engagement on the Engagement page
-         TMTI0056884 Verify the Record Type conversion of Opportunity to Engagement
-         TMTI0028220 Verify the availability of new Job Types in Job Type Picklist while adding new Opportunity
-         TMTI0028213 Verify user is able to create new Opportunity with new  Type 
-        
-        //TMTT0030610 done
-         TMTI0071643 Verify the availability of new Job Type- CVAS - IP Valuation in Job Type Picklist while adding new FVA Opportunity
-         TMTI0071652 Verify the availability of Job Types for converted engagement on the Engagement page 
-         TMTI0071653 Verify that the user is able to create new Opportunity with new  Job Type - CVAS - IP Valuation
-         TMTI0071656 Verify the Record Type conversion of Opportunity to Engagement
-        
-        //TMTT0035436 done
-        TMTI0084227	Verify the availability of new Job Type- TAS - ESG Due Diligence & Analytics in Job Type Picklist while adding new FVA Opportunity
-        TMTI0084215	Verify the availability of Job Types for converted engagement on the Engagement page
-        TMTI0084219	Verify user is able to create new Opportunity with new  Job Type -TAS - ESG Due Diligence & Analytics        
-        TMTI0084224	Verify the Record Type conversion of Opportunity to Engagement
-        
-        //TMTT0035667 done
-        //TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity
-
-        TMTT0024858 done
-        TMTI0056869 Verify the availability of new Job Types on the Edit Engagement page
-
-        TMTT0030610 done
-        TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
-        TMTI0071647 Verify the status is updated in the Oracle ERP Information section
-
-        TMTT0035436 done
-        TMTI0084220 Verify the availability of new Job Types on the Edit Engagement page
-        TMTI0084221 Verify the status is updated in the Oracle ERP Information section
-
-        */
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -61,7 +25,7 @@ namespace SF_Automation.TestCases.Opportunities
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
 
-        public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";
+        public static string fileTMTT0035667 = "TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement";
         string exectedMaxLimit;
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -72,12 +36,13 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void OpportunityToEngagementConversionMappingForFVAOnLightningView()
+
+        public void  VerifyDealTeamAnalystRoleOnCFOppEngPage()
         {
             try
-            {                
+            {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileT1432;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0035667;
                 extentReports.CreateStepLogs("Info", "Verify Functionality of Opportunity to Engagement conversion for LOB:FVA On LightningView");
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -97,7 +62,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType + " ");
                     //Login as Standard User profile and validate the user
-                    string stdUserExl = ReadExcelData.ReadData(excelPath, "StandardUser",1);
+                    string stdUserExl = ReadExcelData.ReadData(excelPath, "StandardUser", 1);
                     homePage.SearchUserByGlobalSearchN(stdUserExl);
                     extentReports.CreateStepLogs("Info", "User: " + stdUserExl + " details are displayed. ");
                     //Login user
@@ -119,10 +84,10 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType);
-                    string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileT1432);
+                    string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTT0035667);
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
                     //Call function to enter Internal Team details and validate Opportunity detail page
-                    string displayedTab = addOpportunity.EnterStaffDetailsL(fileT1432);
+                    string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTT0035667);
                     Assert.AreEqual(displayedTab, "Info");
                     extentReports.CreateStepLogs("Passed", "User is on Opportunity detail " + displayedTab + " tab ");
 
@@ -136,11 +101,11 @@ namespace SF_Automation.TestCases.Opportunities
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     addOpportunityContact.CickAddOpportunityContactLV();
-                    addOpportunityContact.CreateContactL2(fileT1432);
+                    addOpportunityContact.CreateContactL2(fileTMTT0035667);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileT1432);
+                    opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0035667);
                     if (valJobType.Contains("TAS"))
                     {
                         opportunityDetails.UpdateTASServicesLV();
@@ -148,8 +113,8 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
-                    
-                   //Login as System Admin user 
+
+                    //Login as System Admin user 
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 3, 1);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
 
@@ -167,7 +132,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityHome.SearchOpportunity(opportunityName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     //update CC 
-                    opportunityDetails.UpdateOutcomeDetails(fileT1432);
+                    opportunityDetails.UpdateOutcomeDetails(fileTMTT0035667);
                     extentReports.CreateStepLogs("Info", "Conflict Check fields are updated");
 
                     /////////////////////////////////////////////////////////////////////
@@ -184,42 +149,35 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                     //////Standard User don't have permission to modify the Internal team so System Admin is modifying the roles////////
-                    opportunityDetails.UpdateInternalTeamDetailsLV(fileT1432);
+                    opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0035667);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-                    
+
                     //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
-                   if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
-                    {
-                        string memberRole="";
-                        //AddMultiple Staff for Specific Role
-                        if (valJobType == "CVAS - IP Valuation")
-                        {
-                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 2, 1);
-                        }
-                        else
-                        {
-                            memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", 3, 1);
-                        }
-                        exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                        extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
+                    //AddMultiple Staff for Specific Role                    
+                    string  memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", row, 1);
+                    string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
 
-                        int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileT1432);
-                        Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
-                        extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+                    extentReports.CreateStepLogs("Info", " Internal Team Members Limit with Role:" + memberRole + " on  Opportunity ");
+                    exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
 
-                        string  msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1//Function Updated 
-                        string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
-                        Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
-                        extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+                    int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileTMTT0035667);
+                    Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
+                    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
-                        //get the line error message from internal staff page.
-                        string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();//Function Updated
-                        string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
-                        Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
-                        extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
-                    }
+                    string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1//Function Updated 
+                    string exectedLimitMessage = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 1);
+                    Assert.AreNotEqual(exectedLimitMessage, msgActualLimit);
+                    extentReports.CreateStepLogs("Pass", msgActualLimit + " is Displayed after Adding " + countOppDealTeamMember + " deal team members");
+
+                    //get the line error message from internal staff page.
+                    string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();//Function Updated
+                    string maxMemberLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
+                    extentReports.CreateStepLogs("Pass", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    
                     //opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     homePageLV.UserLogoutFromSFLightningView();
@@ -256,7 +214,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Standard User: " + stdUserExl + " switched to Classic and Loggout ");
 
                     //Approve and convert the Opporunity into Engagement
-                    string caoUserExl = ReadExcelData.ReadData(excelPath, "CAOUser",1);
+                    string caoUserExl = ReadExcelData.ReadData(excelPath, "CAOUser", 1);
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Approving the Request for Engagement and converting into Engagement ");
                     //Search and Approve the DND Opp
                     homePage.SearchUserByGlobalSearchN(caoUserExl);
@@ -265,7 +223,7 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string userCAO = login.ValidateUserLightningView();
-                    Assert.AreEqual(userCAO.Contains(caoUserExl), true);                    
+                    Assert.AreEqual(userCAO.Contains(caoUserExl), true);
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " Switched to Lightning View ");
 
                     //Go to Opportunity module in Lightning View 
@@ -288,111 +246,25 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " Converted into Engagement ");
 
                     //Validate the Engagement name in Engagement details page
-                    string engNumber = engagementDetails.GetEngagementNumberL(); 
+                    string engNumber = engagementDetails.GetEngagementNumberL();
                     Assert.AreEqual(opportunityNumber, engNumber);
                     extentReports.CreateStepLogs("Info", "Number of Engagement : " + engNumber + " is Same as Opportunity number ");
                     string engName = engagementDetails.GetEngagementNameL();
                     Assert.AreEqual(opportunityName, engName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
 
-                    //TMTI0056869 Verify the availability of new Job Types on Edit Engagement page
-                    //TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
-                    //TMTI0084220 Verify the availability of new Job Types on Edit Engagement page
-                    Assert.IsTrue(engagementDetails.IsJobTypePresentInDropdownOppDetailPageLV(valJobType));
-                    extentReports.CreateLog("Job Type: " + valJobType + " is present on edit Engageent page ");
+                    
 
                     /////////////////////////////////////////
                     /////TMTI0085043   Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Engagement
-
-                    //if (valJobType == "CVAS - IP Valuation" || valJobType == "TAS - ESG Due Diligence & Analytics")
-                    //{
-                    //    int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
-                    //    Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
-                    //    extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
-                    //    engagementDetails.ClickReturnToEngagementLV();
-                    //    extentReports.CreateStepLogs("Info", "Return to Engagement Detail page ");
-                    //}
+                   
+                    int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
+                    Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember).ToString());
+                    extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
+                    engagementDetails.ClickReturnToEngagementLV();
+                    extentReports.CreateStepLogs("Info", "Return to Engagement Detail page ");                    
                     /////////////////////////////////////////////////   
 
-                    string engStage = engagementDetails.GetStageL();
-                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row,1), engStage);
-                    extentReports.CreateLog("Value of Stage field is : " + engStage + " for Job Type " + valJobType + " ");
-                    engagementDetails.NavigateToAdministratorTabL();
-
-                    //Validate the value of Record Type in Engagement details page
-                    string engRecordType = engagementDetails.GetRecordTypeLV();
-                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2), engRecordType);
-                    extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
-                                       
-                    //Validate the value of HL Entity in Engagement details page
-                    string engLegalEntity = engagementDetails.GetLegalEntityLV();
-                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row,3), engLegalEntity);
-                    extentReports.CreateLog("Value of HL Entity is : " + engLegalEntity + " ");
-
-                    //Validate the section in which Women led field and value is displayed
-                    string secWomenLed = engagementDetails.GetWomenLedSectionNameLV(valRecordType);
-                    Assert.AreEqual("Administrative Info", secWomenLed);
-                    string lblWomenLed = engagementDetails.ValidateWomenLedFieldLV();
-                    Assert.AreEqual("Women Led", lblWomenLed);
-                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
-
-                    if (valJobType.Contains("CVAS") || valJobType.Contains("TAS"))
-                    {
-                        Assert.AreEqual("Administrative Info", secWomenLed);
-                    }
-                    else
-                    {
-                        Assert.AreEqual("Administrative Info", secWomenLed);
-                    }
-                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
-
-                    //Validate the value of Women Led in Engagement details page
-                    string engWomenLed = engagementDetails.GetWomenLedLV();
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 6), engWomenLed);
-                    extentReports.CreateLog("Value of Women Led is : " + engWomenLed + " is same as selected in Opportunity page ");
-
-                    //Internal Deal Team member on eng page are mapped from Opp page   
-                    //string engInternalTeamMember = engagementDetails.GetEngDealTeammMemberLV();
-                    //Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 14), engInternalTeamMember);
-                    //extentReports.CreateStepLogs("Pass", "Internal Deal Team member: " + engInternalTeamMember + " is mapped on Engagement detail page after conversion ");
-
-                    //Contact on eng page in mapped fom Opportunity
-                    string engContactName = engagementDetails.GetEngExternalContactLV();
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
-                    extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
-                    /////////
-                    usersLogin.ClickLogoutFromLightningView();
-                    extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
-
-                    //---------------------------------------------------------//
-                    //Login Via System Admin to verify Last Integration the ERP Status
-                    homePage.SearchUserByGlobalSearchN(adminUserExl);
-                    extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
-                    //Login user
-                    usersLogin.LoginAsSelectedUser();
-
-                    login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Passed", "System Admin Loggin to Lightning View ");
-                    //Go to Opportunity module in Lightning View 
-                    homePageLV.SelectAppLV(appNameExl);
-                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                    extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
-                    homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                    //Search for created opportunity
-                    engagementHome.SearchEngagementInLightningView(engName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-
-                    //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
-                    //TMTI0084221 Verify the status is updated in Oracle ERP Information section
-                    //Validate the ERP Last Integration Status on Engagement details page
-                    randomPages.DetailPageFullViewLV();
-                    extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
-
-                    string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
-                    Assert.AreEqual("Success", ERPStatusOffice, "Verify the Engagement ERP Last Integration Status as Success ");
-                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
                     randomPages.CloseActiveTab(engName);
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");

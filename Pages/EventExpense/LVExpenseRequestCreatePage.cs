@@ -171,6 +171,7 @@ namespace SF_Automation.Pages.EventExpense
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, msgEventTypeLWC, 5);
+                driver.FindElement(btnCreateNewExpenseFormLWC).Click();
             }
             catch
             {
@@ -186,10 +187,18 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(comboEventTypeLWC).Click();
             //Thread.Sleep(2000);
             By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{type}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);                
+            }
+            catch
+            {
+                driver.FindElement(comboEventTypeLWC).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
+            }
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
             driver.FindElement(elmEventType).Click();
-            //Thread.Sleep(2000);
             driver.FindElement(btnCreateNewExpenseFormLWC).Click();
 
             try
@@ -200,7 +209,7 @@ namespace SF_Automation.Pages.EventExpense
             catch
             {
                 driver.FindElement(btnCreateNewExpenseFormLWC).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveLWC, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveLWC, 10);
             }
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
             //Thread.Sleep(2000);
@@ -208,12 +217,16 @@ namespace SF_Automation.Pages.EventExpense
             {
                 driver.FindElement(btnSaveLWC).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, msgRequestorLWC, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
+                driver.FindElement(btnSaveLWC).Click();
             }
             catch
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
                 driver.FindElement(btnSaveLWC).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, msgRequestorLWC, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveLWC));
+                driver.FindElement(btnSaveLWC).Click();
             }
             CustomFunctions.MoveToElement(driver, driver.FindElement(msgRequestorLWC));
             string message = driver.FindElement(msgRequestorLWC).Text.Replace("\r\n", " "); 
