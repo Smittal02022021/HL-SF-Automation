@@ -21,7 +21,7 @@ namespace SF_Automation.Pages
         By btnAddCompany = By.CssSelector("td[class='pbButton center'] > input[value='Add Company']");
         By errPage = By.CssSelector("span[id='theErrorPage:theError']");
 
-        By btnCompanysearchL = By.XPath("//button[@aria-label='Search']");
+        By btnCompanysearchL = By.XPath("//button[@aria-label='Search...']");
         By txtCompanysearchL = By.XPath("//input[contains(@placeholder,'Search Companies')]");
         By txtCompanysearchL2 = By.XPath("//input[@placeholder='Search...']");
         By imgCompany = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
