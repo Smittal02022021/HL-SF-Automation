@@ -110,7 +110,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //4.  TMTI0075814_Verify that an error message appears for the required field on clicking the "Save" button of Add Equity Holder screen on leaving fields blank 
                 string msgClient = summaryPage.ValidateErrorMessageForClientSubject();
-                Assert.AreEqual("Complete this field.", msgClient);
+                Assert.AreEqual("Client/Subject\r\nComplete this field.", msgClient);
                 extentReports.CreateLog("Message: " + msgClient + " is displayed for Client/Subject field upon clicking Save button without selecting any value ");
 
                 //5.  TMTI0075816_Verify that clicking the "Cancel" button will take the user back to the list view of the Post-Transaction Info tab.
@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //12. TMTI0075215_Verify that an error message appears on clicking the "Save" button of Add Board Member screen without selecting contacts
                 string msgContacts = summaryPage.ValidateErrorMessageForContact();
-                Assert.AreEqual("Complete this field.", msgContacts);
+                Assert.AreEqual("Contact (External)\r\nComplete this field.", msgContacts);
                 extentReports.CreateLog("Message: " + msgContacts + " is displayed for Contacts field upon clicking Save button without selecting any value ");
 
                 //13. TMTI0075217_Verify that clicking the "Cancel" button of Add Board Member window takes the user back to the list view of the Post-Transaction Info tab.
@@ -252,7 +252,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //21. TMTI0075233_ Verify that an error message appears on clicking the "Save" button of Add Debt Structure screen without selecting data in the required field
                 string msgSecurityType = summaryPage.ValidateErrorMessageForSecuirtyType();
-                Assert.AreEqual("Complete this field.", msgSecurityType);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgSecurityType);
                 extentReports.CreateLog("Message: " + msgSecurityType + " is displayed for Security Type field upon clicking Save button without selecting any value ");
 
                 //22. TMTI0075235_ Verify that clicking the "Cancel" button of Add Debt Structure window takes the user back to the list view of the Pre-Transaction Info tab
@@ -300,12 +300,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //28.  Verify that the application gives an error message on clicking the Save button of Add Key Creditors window without selecting data in the required fields. 
                 string msgMandatoryKeyCred = summaryPage.ValidateErrorMessageWhileSavingKeyCredWithoutClientSubject();
-                Assert.AreEqual("Complete this field.", msgMandatoryKeyCred);
+                Assert.AreEqual("Client/Subject\r\nComplete this field.", msgMandatoryKeyCred);
                 extentReports.CreateLog("Error message " + msgMandatoryKeyCred + " is displayed when Save button is clicked without entering mandatory details for Key Creditors ");
 
                 //30. TMTI0075866_Verify that if the user removes the data from required fields while editing debt structure, the application gives an error message on the screen for required fields on clicking the "Save" button
                 string msgMandatoryDebt = summaryPage.ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructurePost();
-                Assert.AreEqual("Complete this field.", msgMandatoryDebt);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgMandatoryDebt);
                 extentReports.CreateLog("Error message " + msgMandatoryDebt + " is displayed when mandatory fields are removed from Debt Strcuture ");
 
                 //31. TMTI0075868_Verify that clicking the "Delete" button of the Post-Transaction Debt Structure record gives a confirmation message before deleting the record

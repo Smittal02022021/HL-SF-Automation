@@ -4,6 +4,7 @@ using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
+using SF_Automation.TestCases.Contact;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -106,7 +107,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //4.  TMTI0073759_Verify that an error message appears for the required field on clicking the "Save" button of Add Equity Holder screen on leaving fields blank. 
                 string msgClient = summaryPage.ValidateErrorMessageForClientSubject();
-                Assert.AreEqual("Complete this field.", msgClient);
+                Assert.AreEqual("Client/Subject\r\nComplete this field.", msgClient);
                 extentReports.CreateLog("Message: " + msgClient + " is displayed for Client/Subject field upon clicking Save button without selecting any value ");
 
                 //5.  TMTI0073762_ Verify that clicking the "Cancel" button will take the user back to the list view of the Pre-Transaction Info tab
@@ -161,7 +162,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //12. TMTI0075215_Verify that an error message appears on clicking the "Save" button of Add Board Member screen without selecting contacts
                 string msgContacts = summaryPage.ValidateErrorMessageForContact();
-                Assert.AreEqual("Complete this field.", msgContacts);
+                Assert.AreEqual("Contact (External)\r\nComplete this field.", msgContacts);
                 extentReports.CreateLog("Message: " + msgContacts + " is displayed for Contacts field upon clicking Save button without selecting any value ");
 
                 //13. TMTI0075217_Verify that clicking the "Cancel" button of Add Board Member window takes the user back to the list view of the Pre-Transaction Info tab.
@@ -196,7 +197,7 @@ namespace SF_Automation.TestCases.Engagement
                 //18.  TMTI0075227_ Verify that if the user selects already added Contact while adding Board Member, the application gives an error message
                 string errorMessage = summaryPage.ValidateErrorMessageUponAddingDuplicateContact();
                 Assert.AreEqual("Duplicate record detected.", errorMessage);
-                extentReports.CreateLog("Error message: " +errorMessage + " is displayed upon adding duplicate contact in Add Board Member ");
+                extentReports.CreateLog("Error message: " + errorMessage + " is displayed upon adding duplicate contact in Add Board Member ");
 
                 //19. TMTI0075229_Verify that clicking the "Delete" button of the Board Member record gives a confirmation message before deleting the record
                 string msgCancelBoard = summaryPage.ValidateCancelFunctionalityOfAddBoardMember();
@@ -211,13 +212,14 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifyTextFieldsOfAddDebtStructureL(), "Verified that displayed text fields labels are same");
                 extentReports.CreateLog("Text fields of Add Debt Structure are displayed as expected ");
 
+                string SecurityType = summaryPage.VerifySecurityTypeFieldOfAddDebtL();
+                Assert.AreEqual("*Security Type", SecurityType);
+                extentReports.CreateLog("Field with name: " + SecurityType + " is displayed on Add Debt Structure window ");
+
                 string MaturityDate = summaryPage.VerifyMaturityDateFieldL();
                 Assert.AreEqual("Maturity Date", MaturityDate);
                 extentReports.CreateLog("Date Picker field with name: " + Contacts + " is displayed on Add Debt Structure window ");
 
-                string SecurityType = summaryPage.VerifySecurityTypeFieldOfAddDebtL();
-                Assert.AreEqual("*Security Type", SecurityType);
-                extentReports.CreateLog("Field with name: " + SecurityType + " is displayed on Add Debt Structure window ");
 
                 string Currency = summaryPage.VerifyCurrencyFieldOfAddDebtL();
                 Assert.AreEqual("Currency", Currency);
@@ -248,7 +250,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //21. TMTI0075233_ Verify that an error message appears on clicking the "Save" button of Add Debt Structure screen without selecting data in the required field
                 string msgSecurityType = summaryPage.ValidateErrorMessageForSecuirtyType();
-                Assert.AreEqual("Complete this field.", msgSecurityType);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgSecurityType);
                 extentReports.CreateLog("Message: " + msgSecurityType + " is displayed for Security Type field upon clicking Save button without selecting any value ");
 
                 //22. TMTI0075235_ Verify that clicking the "Cancel" button of Add Debt Structure window takes the user back to the list view of the Pre-Transaction Info tab
@@ -278,7 +280,7 @@ namespace SF_Automation.TestCases.Engagement
                 //26.  Verify that the application gives an error message on the screen on adding duplicate Client/Subject as Key Creditors.
                 string msgDupClientSub = summaryPage.ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred();
                 Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgDupClientSub);
-                extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
+                extentReports.CreateLog("Error message " + msgDupClientSub + " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
                 //29. Verify that clicking the "Edit" button of the Pre-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
                 string updatedSecurity = summaryPage.ValidateEditFunctionalityOfAddedDebtStructure();
@@ -296,12 +298,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //28.  Verify that the application gives an error message on clicking the Save button of Add Key Creditors window without selecting data in the required fields. 
                 string msgMandatoryKeyCred = summaryPage.ValidateErrorMessageWhileSavingKeyCredWithoutClientSubject();
-                Assert.AreEqual("Complete this field.", msgMandatoryKeyCred);
+                Assert.AreEqual("Client/Subject\r\nComplete this field.", msgMandatoryKeyCred);
                 extentReports.CreateLog("Error message " + msgMandatoryKeyCred + " is displayed when Save button is clicked without entering mandatory details for Key Creditors ");
 
                 //30. TMTI0075271_Verify that if the user removes the data from required fields while editing debt structure, the application gives an error message on the screen for required fields on clicking the "Save" button. 
                 string msgMandatoryDebt = summaryPage.ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructure();
-                Assert.AreEqual("Complete this field.", msgMandatoryDebt);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgMandatoryDebt);
                 extentReports.CreateLog("Error message " + msgMandatoryDebt + " is displayed when mandatory fields are removed from Debt Strcuture ");
 
                 //31. TMTI0075274_Verify that clicking the "Delete" button of the Pre-Transaction Debt Structure record gives a confirmation message before deleting the record

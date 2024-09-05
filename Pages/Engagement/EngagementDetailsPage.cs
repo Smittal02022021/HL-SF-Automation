@@ -240,7 +240,7 @@ namespace SF_Automation.Pages.Engagement
         By valTotalDebtMM = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
         //By valTotalDebtMM = By.CssSelector("div[id*='fqWj_id0_j_id55_ileinner']");
         By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button slds-button_icon-border-filled')])[3]");
-        By btnViewCounterpartiesL = By.XPath("//span[text()='View Counterparties']");
+        By btnViewCounterpartiesL = By.XPath("//button[text()='View Counterparties']");
 
         By btnViewCounterparties = By.XPath("//button[contains(@name,'Engagement__c.ViewCounterparties')]");
         By btnClose = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/div[2]/button");
@@ -3446,6 +3446,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabExistingEng, 100);
             driver.FindElement(tabExistingEng).Click();
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 130);
             driver.FindElement(tabInfo2ndL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabImpDates, 120);
@@ -3481,11 +3482,15 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRevAccrualL, 140);
             string value = driver.FindElement(valRevAccrualL).Text;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-600)");
+            Thread.Sleep(5000);
             driver.FindElement(tabPositionL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(6000);
+            Console.WriteLine("value: "+value);
             return value;
         }
 
@@ -4355,9 +4360,9 @@ namespace SF_Automation.Pages.Engagement
 
         public void ClickViewCounterpartiesButtonL()
         {
-            Thread.Sleep(14000);           
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparties, 150);
-            driver.FindElement(btnViewCounterparties).Click();
+            Thread.Sleep(4000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterpartiesL, 150);
+            driver.FindElement(btnViewCounterpartiesL).Click();
         }
 
 
@@ -6737,12 +6742,12 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnPortfolioValL).Click();
             Thread.Sleep(4000);
                      
-            if (user.Equals("Karan Chopra"))
+            if (user.Contains("Karan Chopra"))
             {                
                 Thread.Sleep(5000);
                 try
                 {
-                    driver.SwitchTo().Frame(1);
+                    driver.SwitchTo().Frame(2);
                     string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
                     driver.SwitchTo().DefaultContent();
                     return "New Opportunity Valuation Period button is displayed";
@@ -6750,8 +6755,9 @@ namespace SF_Automation.Pages.Engagement
                 catch (Exception)
                 {
                     driver.SwitchTo().Frame(0);
+                    string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
                     driver.SwitchTo().DefaultContent();
-                    return "New Opportunity Valuation Period button is not displayed";
+                    return "New Opportunity Valuation Period button is displayed";
                 }
             }
             else

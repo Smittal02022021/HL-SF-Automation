@@ -1251,7 +1251,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabCounterpartyEditor).Click();
             Thread.Sleep(5000);
             driver.FindElement(lnk2ndCompCounterparty).Click();
-            Thread.Sleep(14000);
+            Thread.Sleep(7000);
             driver.Navigate().Refresh();
             Console.WriteLine("About to fetch the element");
            //WebDriverWaits.WaitUntilEleVisible(driver, valMinRoundBid, 200);

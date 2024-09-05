@@ -322,11 +322,11 @@ namespace SF_Automation.TestCases.Opportunity
                 //Click Billing Comments tab and validate displayed validations
                 engagementDetails.ClickBillingCommentsTab();
                 string tabBillingEditable = engagementDetails.ValidateCommentDateMandatoryValidation();
-                Assert.AreEqual("Complete this field.", tabBillingEditable);
+                Assert.AreEqual("Date\r\nComplete this field with format M/d/yyyy.", tabBillingEditable);
                 extentReports.CreateLog("Message: " + tabBillingEditable + " is displayed upon clicking Save button without entering Date ");
 
                 string msgStatus = engagementDetails.ValidateCommentStatusMandatoryValidation();
-                Assert.AreEqual("Complete this field.", msgStatus);
+                Assert.AreEqual("Status\r\nComplete this field.", msgStatus);
                 extentReports.CreateLog("Message: " + msgStatus + " is displayed upon clicking Save button without entering Status ");
 
                 string msgComment = engagementDetails.ValidateBillingCommentMandatoryValidation();

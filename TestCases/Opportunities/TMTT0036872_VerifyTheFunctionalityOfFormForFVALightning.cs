@@ -367,7 +367,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //42.   TMTI0088320_Verify that on clicking the save button, the application gives validation messages to answer the required questions of the Other Opinion Information tab
                 string messageOpinion = form.VerifyAllOtherOpinionInfoValidations();
-                Assert.AreEqual("Complete this field.", messageOpinion);
+                Assert.AreEqual("Opinion Special Committee\r\nComplete this field.", messageOpinion);
                 extentReports.CreateLog("Mandatory field validation: " + messageOpinion + " is displayed upon clicking save button on Other Opinion Information tab ");
 
                 //44.	TMTI0088324_Verify that on clicking the Save button, the selected options of the Opinion Special Committee question will get saved and no error message will appear on the screen

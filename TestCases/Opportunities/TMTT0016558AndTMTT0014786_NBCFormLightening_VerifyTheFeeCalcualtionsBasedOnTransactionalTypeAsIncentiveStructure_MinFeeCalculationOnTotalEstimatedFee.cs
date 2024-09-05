@@ -245,7 +245,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate the mandatory field validation for Estimated Transaction Value (MM) when it is not filled
                 string valEst = form.GetValidationOfEstTransValue();
-                Assert.AreEqual("Estimated Transaction Value (MM ) should be greater than 0", valEst);
+                Assert.AreEqual("Estimated Transaction Value (MM)\r\nEstimated Transaction Value (MM ) should be greater than 0", valEst);
                 extentReports.CreateLog("Mandatory validation : " + valEst + " is displayed when Estimated Transaction Value (MM) field s not filled and saved ");
 
                 //Update Review Submission and Base Fee and validate the Estimated Total Fee
@@ -267,62 +267,62 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Enter the value for 1st, 2nd, 3rd and 4th Ratchet pecent fields and validare validation for respective from and to amount fields
                 string msg1stRatchetFromAmt = form.UpdateAllRatchetPercent();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetFromAmt);
+                Assert.AreEqual("First Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetFromAmt);
                 extentReports.CreateLog("Validation : " + msg1stRatchetFromAmt + " for 1st Ratchet From Amount is displayed when only 1st Ratchet percent is entered ");
 
                 //Get 1st Ratchet To Amount validation
                 string msg1stRatchetToAmt = form.Get1stRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetToAmt);
+                Assert.AreEqual("First Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg1stRatchetToAmt + " for 1st Ratchet To Amount is displayed when only 1st Ratchet percent is entered ");
 
                 //Get 2nd Ratchet From Amount validation
                 string msg2ndRatchetFromAmt = form.Get2ndRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetFromAmt);
+                Assert.AreEqual("Second Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg2ndRatchetFromAmt + " for 2nd Ratchet To Amount is displayed when only 2nd Ratchet percent is entered ");
 
                 //Get 2nd Ratchet To Amount validation
                 string msg2ndRatchetToAmt = form.Get2ndRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetToAmt);
+                Assert.AreEqual("Second Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg2ndRatchetToAmt + "for 2nd Ratchet To Amount is displayed when only 2nd Ratchet percent is entered ");
 
                 //Get 3rd Ratchet From Amount validation
                 string msg3rdRatchetFromAmt = form.Get3rdRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetFromAmt);
+                Assert.AreEqual("Third Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg3rdRatchetFromAmt + " for 3rd Ratchet To Amount is displayed when only 3rd Ratchet percent is entered ");
 
                 //Get 3rd Ratchet To Amount validation
                 string msg3rdRatchetToAmt = form.Get3rdRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetToAmt);
+                Assert.AreEqual("Third Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg3rdRatchetToAmt + "for 3rd Ratchet To Amount is displayed when only 3rd Ratchet percent is entered ");
 
                 //Get 4th Ratchet From Amount validation
                 string msg4tRatchetFromAmt = form.Get4thRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4tRatchetFromAmt);
+                Assert.AreEqual("Fourth Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4tRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg4tRatchetFromAmt + " for 4th Ratchet To Amount is displayed when only 4th Ratchet percent is entered ");
 
                 //Get 4th Ratchet To Amount validation
                 string msg4thRatchetToAmt = form.Get4thRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4thRatchetToAmt);
+                Assert.AreEqual("Fourth Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4thRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg4thRatchetToAmt + " for 4th Ratchet To Amount is displayed when only 4th Ratchet percent is entered ");
 
                 //Update all Ratchet From and To Amount as well
                 string msg1stGreaterToAmount = form.UpdateAllRatchetFromAndToAmt();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg1stGreaterToAmount);
+                Assert.AreEqual("First Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg1stGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg1stGreaterToAmount + " for 1st Ratchet To Amount field is displayed when greater value for 1st Ratchet From Amount is entered ");
 
                 //Get 2nd Ratchet To Amount greater validation
                 string msg2ndGreaterToAmount = form.Get2ndRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg2ndGreaterToAmount);
+                Assert.AreEqual("Second Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg2ndGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg2ndGreaterToAmount + " for 2nd Ratchet To Amount field is displayed when greater value for 2nd Ratchet From Amount is entered ");
 
                 //Get 3rd Ratchet To Amount greater validation
                 string msg3rdGreaterToAmount = form.Get3rdRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg3rdGreaterToAmount);
+                Assert.AreEqual("Third Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg3rdGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg3rdGreaterToAmount + " for 3rd Ratchet To Amount field is displayed when greater value for 3rd Ratchet From Amount is entered ");
                 
                 //Get 4th Ratchet To Amount greater validation
                 string msg4thGreaterToAmount = form.Get4thRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg4thGreaterToAmount);
+                Assert.AreEqual("Fourth Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg4thGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg4thGreaterToAmount + " for 4th Ratchet To Amount field is displayed when greater value for 4th Ratchet From Amount is entered ");
 
                 //Update 1st Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 1st Ratchet To Amount

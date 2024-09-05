@@ -4806,8 +4806,8 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(7000);
             driver.FindElement(valValuationDateL).SendKeys("20/5/2024");
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,1050)");
-            Thread.Sleep(5000);
+            js.ExecuteScript("window.scrollTo(0,1200)");
+            Thread.Sleep(7000);
             driver.FindElement(comboTombstoneL).Click();
             driver.FindElement(By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
 

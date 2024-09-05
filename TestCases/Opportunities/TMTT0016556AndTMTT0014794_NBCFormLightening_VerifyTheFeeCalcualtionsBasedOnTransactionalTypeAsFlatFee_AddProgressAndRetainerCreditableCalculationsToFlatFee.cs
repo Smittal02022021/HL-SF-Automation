@@ -235,8 +235,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWith100Cred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 100 ");
 
                 form.SwitchFrame();
-                usersLogin.UserLogOut();                              
-
+                usersLogin.UserLogOut();                           
                 usersLogin.UserLogOut();
                 driver.Quit();                        
              

@@ -61,7 +61,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate the Compliance Comment's validation message
                 opportunityDetails.AddOppCommentaAndValidate("Compliance");
                 string messageComp = opportunityDetails.GetComplianceCommentsMessageL();
-                Assert.AreEqual("Only Compliance users can create comments of type Compliance.", messageComp);
+                Assert.AreEqual("Comment Type\r\nOnly Compliance users can create comments of type Compliance.", messageComp);
                 extentReports.CreateLog("Message: " + messageComp + " is displayed with Standard User: "+stdUser2 +" ");
 
                 //Logout of Standard user and login with Compliance User
@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate any other type of comment with Compliance User
                 opportunityDetails.AddOppCommentaAndValidate("Internal");
                 string messageInt = opportunityDetails.GetCommentsSectionMessage();
-                Assert.AreEqual("Compliance users can only create Compliance comments.", messageInt);
+                Assert.AreEqual("Comment Type\r\nCompliance users can only create Compliance comments.", messageInt);
                 extentReports.CreateLog("Message: " + messageInt + " is displayed while adding any other type of comment with Compliance User ");
 
                 usersLogin.DiffLightningLogout();

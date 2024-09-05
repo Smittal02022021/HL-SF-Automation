@@ -98,22 +98,22 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate that mandatory field validations are displayed when save button is clicked without entering any values
                 string oppNameValidation = addOpportunity.ValidateMandatoryFieldsValidations();
-                Assert.AreEqual("Complete this field.", oppNameValidation);
+                Assert.AreEqual("Opportunity Name\r\nComplete this field.", oppNameValidation);
                 extentReports.CreateLog("Validation: " + oppNameValidation + " is displayed for Opportunity Name field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Client
                 string clientValidation = addOpportunity.ValidateMandatoryValidationOfClient();
-                Assert.AreEqual("Complete this field.", clientValidation);
+                Assert.AreEqual("Client\r\nComplete this field.", clientValidation);
                 extentReports.CreateLog("Validation: " + clientValidation + " is displayed for Client field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Subject
                 string subValidation = addOpportunity.ValidateMandatoryValidationOfSubject();
-                Assert.AreEqual("Complete this field.", subValidation);
+                Assert.AreEqual("Subject\r\nComplete this field.", subValidation);
                 extentReports.CreateLog("Validation: " + subValidation + " is displayed for Subject field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Job Type
                 string jobTypeValidation = addOpportunity.ValidateMandatoryValidationOfJobType();
-                Assert.AreEqual("Complete this field.", jobTypeValidation);
+                Assert.AreEqual("Job Type\r\nComplete this field.", jobTypeValidation);
                 extentReports.CreateLog("Validation: " + jobTypeValidation + " is displayed for Job Type field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Industry Group
@@ -123,37 +123,37 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate that mandatory field validations for Primary Office
                 string primaryValidation = addOpportunity.ValidateMandatoryValidationOfPrimaryOffice();
-                Assert.AreEqual("Complete this field.", primaryValidation);
+                Assert.AreEqual("Primary Office\r\nComplete this field.", primaryValidation);
                 extentReports.CreateLog("Validation: " + primaryValidation + " is displayed for Primary Office field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Legal Entity
                 string legalValidation = addOpportunity.ValidateMandatoryValidationOfLegalEntity();
-                Assert.AreEqual("Complete this field.", legalValidation);
+                Assert.AreEqual("Legal Entity\r\nComplete this field.", legalValidation);
                 extentReports.CreateLog("Validation: " + legalValidation + " is displayed for Legal Entity field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Referral Type
                 string refTypeValidation = addOpportunity.ValidateMandatoryValidationOfRefType();
-                Assert.AreEqual("Complete this field.", refTypeValidation);
+                Assert.AreEqual("Referral Type\r\nComplete this field.", refTypeValidation);
                 extentReports.CreateLog("Validation: " + refTypeValidation + " is displayed for Referral Type field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Additional Client
                 string addClientValidation = addOpportunity.ValidateMandatoryValidationOfAdditionalClient();
-                Assert.AreEqual("Complete this field.", addClientValidation);
+                Assert.AreEqual("Additional Client\r\nComplete this field.", addClientValidation);
                 extentReports.CreateLog("Validation: " + addClientValidation + " is displayed for Additional Client field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Additional Subject
                 string addSubjectValidation = addOpportunity.ValidateMandatoryValidationOfAdditionalSubject();
-                Assert.AreEqual("Complete this field.", addSubjectValidation);
+                Assert.AreEqual("Additional Subject\r\nComplete this field.", addSubjectValidation);
                 extentReports.CreateLog("Validation: " + addSubjectValidation + " is displayed for Additional Subject field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Beneficial Owner & Control Person form?
                 string benOwnerValidation = addOpportunity.ValidateMandatoryValidationOfBeneficialOwner();
-                Assert.AreEqual("Complete this field.", benOwnerValidation);
+                Assert.AreEqual("Beneficial Owner & Control Person form?\r\nComplete this field.", benOwnerValidation);
                 extentReports.CreateLog("Validation: " + benOwnerValidation + " is displayed for Beneficial Owner & Control Person form? field when Save button is clicked without entering any value ");
 
                 //Validate that mandatory field validations for Does HL Have Material Non-Public Info?
                 string doesHLValidation = addOpportunity.ValidateMandatoryValidationOfDoesHL();
-                Assert.AreEqual("Complete this field.", doesHLValidation);
+                Assert.AreEqual("Does HL Have Material Non-Public Info?\r\nComplete this field.", doesHLValidation);
                 extentReports.CreateLog("Validation: " + doesHLValidation + " is displayed for Does HL Have Material Non-Public Info? field when Save button is clicked without entering any value ");
 
                 //Enter details for all mandatory fields
@@ -280,7 +280,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate the validation displayed for Est. Transaction Size when it is more than 100000
                 string estTxnValidation = opportunityDetails.GetValidationOfEstTxnSizeWhenItExceeds100000();
-                Assert.AreEqual("The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.", estTxnValidation);
+                Assert.AreEqual("Est. Transaction Size / Market Cap (MM)\r\nThe Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.", estTxnValidation);
                 extentReports.CreateLog("Validation: " + estTxnValidation + " is displayed when Est. Transaction Size is entered more than 100000 ");
 
                 //Validate the value displayed for Est. Transaction Size when it is less than 100000
@@ -403,7 +403,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name: " + tabEdit + " is displayed under Opportunity Details page ");
 
                 string messageClient = opportunityDetails.GetMandatoryFieldValidationOfGeneral();
-                Assert.AreEqual("Complete this field.", messageClient);
+                Assert.AreEqual("Opportunity Name\r\nComplete this field.", messageClient);
                 extentReports.CreateLog("Validation message: " + messageClient + " is displayed when Save button is clicked on after removing one of the mandatory field ");
 
                 //Save the data and validate it

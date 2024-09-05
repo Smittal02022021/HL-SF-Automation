@@ -11,6 +11,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using System.Data;
 using System.Transactions;
 using System.Web;
+using MongoDB.Driver;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -1017,11 +1018,24 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(7000);
             driver.FindElement(comboDebtCurrencyL).Click();
-            driver.FindElement(comboDebtCurrencyL).Click();
-            Thread.Sleep(4000);
+            //driver.FindElement(comboDebtCurrencyL).Click();
+            Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(valDebtCurrencyL);
         
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
+            Console.WriteLine("1st:" + actualValue[0]);
+            Console.WriteLine("1st:" + actualValue[1]);
+            Console.WriteLine(actualValue[2]);
+            Console.WriteLine(actualValue[3]);
+            Console.WriteLine(actualValue[4]);
+            Console.WriteLine(actualValue[5]);
+            Console.WriteLine(actualValue[6]);
+            Console.WriteLine(actualValue[7]);
+            Console.WriteLine(actualValue[8]);
+            Console.WriteLine(actualValue[9]);
+            Console.WriteLine(actualValue[10]);
+            Console.WriteLine(actualValue[11]);
+            Console.WriteLine(actualValue[12]);
             string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "NOK - Norwegian Krone", "QAR - Qatar Rial","SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
             bool isSame = true;
 
@@ -4857,11 +4871,13 @@ namespace SF_Automation.Pages.Engagement
         public bool VerifyTextFieldsOfAddDebtStructureL()
         {
             driver.FindElement(btnAddDebtStrL).Click();
-            IReadOnlyCollection<IWebElement> valHeader = driver.FindElements(lblAddDebtTxtFields);
-            var actualValue = valHeader.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses", "Facility Balance (MM)"};
-            bool isSame = true;
 
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valHeader = driver.FindElements(lblAddDebtTxtFields);
+            var actualValue = valHeader.Select(x => x.Text).ToArray();            
+            Console.WriteLine(actualValue);            
+            string[] expectedValue = { "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses", "Facility Balance (MM)" };
+            bool isSame = true;
             if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
@@ -4874,9 +4890,10 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
-            return isSame;
+               return isSame;
+            
         }
-
+    
     }
 }
 

@@ -127,11 +127,11 @@ namespace SF_Automation.TestCases.Engagement
 
                 //6. TMTI0075896_Verify that an error message appears for the required field on clicking the "Save" button of Add Staff Role screen on leaving fields blank
                 string msgClient = summaryPage.ValidateErrorMessageForContactInt();
-                Assert.AreEqual("Complete this field.", msgClient);
+                Assert.AreEqual("Contact (Internal)\r\nComplete this field.", msgClient);
                 extentReports.CreateLog("Message: " + msgClient + " is displayed for Contact Internal field upon clicking Save button without selecting any value ");
 
                 string msgRole = summaryPage.ValidateErrorMessageForRole();
-                Assert.AreEqual("Complete this field.", msgRole);
+                Assert.AreEqual("Role\r\nComplete this field.", msgRole);
                 extentReports.CreateLog("Message: " + msgRole + " is displayed for Role field upon clicking Save button without selecting any value ");
 
                 //7.  TMTI0075899_Verify that clicking the "Cancel" button will take user back to list view of HL Post-Transaction Opp tab
@@ -188,11 +188,11 @@ namespace SF_Automation.TestCases.Engagement
 
                 //13. TMTI0075912_Verify that an error message appears for the required field on clicking the "Save" button of Add Key External Contact screen on leaving fields blank
                 string msgClientExt = summaryPage.ValidateErrorMessageForContactExt();
-                Assert.AreEqual("Complete this field.", msgClientExt);
+                Assert.AreEqual("Contact (External)\r\nComplete this field.", msgClientExt);
                 extentReports.CreateLog("Message: " + msgClientExt + " is displayed for Contact External field upon clicking Save button without selecting any value ");
 
                 string msgRoleExt = summaryPage.ValidateErrorMessageForRole();
-                Assert.AreEqual("Complete this field.", msgRoleExt);
+                Assert.AreEqual("Role\r\nComplete this field.", msgRoleExt);
                 extentReports.CreateLog("Message: " + msgRoleExt + " is displayed for Role field upon clicking Save button without selecting any value ");
 
                 //14. TMTI0075914_ Verify that clicking the "Cancel" button will take the user back to the list view of the HL Post-Transaction Opp tab

@@ -398,7 +398,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditTargetComp, 160);
             driver.FindElement(btnEditTargetComp).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEdit, 150);
             driver.FindElement(lnkEdit).Click();
             Thread.Sleep(5000);
@@ -804,7 +804,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSaveL).Click();
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgRelationshipQ);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field." };
+            string[] expectedValues = { "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field." };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -973,7 +973,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnCloseL).Click();
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(msgRelationshipQ);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field." };
+            string[] expectedValues = { "Fairness Opinion Publicly Disclosed\r\nComplete this field.", "Fairness Relative Fairness\r\nComplete this field.", "Fairness Fairness or Terms\r\nComplete this field.", "Fairness Committee or Trustee\r\nComplete this field.", "Fairness Unusual Opinion\r\nComplete this field." };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -1291,8 +1291,9 @@ namespace SF_Automation.Pages.Opportunity
             //Validate Review tab post submission of form
             public string ValidateReviewTabPostSubmissionCAO()
             {
-                Thread.Sleep(4000);
-                driver.FindElement(btnMoreCAO).Click();
+                Thread.Sleep(6000);
+                 WebDriverWaits.WaitUntilEleVisible(driver, btnMoreCAO, 110);
+                 driver.FindElement(btnMoreCAO).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, tabReview, 100);
                 driver.FindElement(tabReview).Click();
 

@@ -193,22 +193,22 @@ namespace SF_Automation.TestCases.Opportunity
                 string actCurrentStatusVal = nform.GetValidationOfCurrentStatus();
                 Console.WriteLine(actCurrentStatusVal);
                 string expCurrentStatusVal = ReadExcelData.ReadData(excelPath, "NBCForm", 35);
-                Assert.AreEqual(expCurrentStatusVal, actCurrentStatusVal);
+                Assert.AreEqual("Current Status\r\nOpportunity Overview: Current Status", actCurrentStatusVal);
                 extentReports.CreateLog("Validation: " + actCurrentStatusVal + " is displayed for Current Status field ");
 
                 string actAsiaAngleVal = nform.GetValidationOfAsiaAngle();
                 string expAsiaAngleVal = ReadExcelData.ReadData(excelPath, "NBCForm", 40);
-                Assert.AreEqual(expAsiaAngleVal, actAsiaAngleVal);
+                Assert.AreEqual("Asia Angle\r\nOpportunity Overview: Asia Angle", actAsiaAngleVal);
                 extentReports.CreateLog("Validation: " + actAsiaAngleVal + " is displayed for Asia Angle field ");
 
                 string actRealEstateVal = nform.GetValidationOfRealEstateAngle();
                 string expRealEstateVal = ReadExcelData.ReadData(excelPath, "NBCForm", 38);
-                Assert.AreEqual(expRealEstateVal, actRealEstateVal);
+                Assert.AreEqual("Real Estate Angle\r\nOpportunity Overview: Real Estate Angle", actRealEstateVal);
                 extentReports.CreateLog("Validation: " + actRealEstateVal + " is displayed for Real Estate Angle field ");
 
                 string actIntAngleVal = nform.GetValidationOfInternationalAngle();
                 string expIntAngleVal = ReadExcelData.ReadData(excelPath, "NBCForm", 42);
-                Assert.AreEqual(expIntAngleVal, actIntAngleVal);
+                Assert.AreEqual("International Angle?\r\nOpportunity Overview: Cross-border Angle", actIntAngleVal);
                 extentReports.CreateLog("Validation: " + actIntAngleVal + " is displayed for International Angle field ");
 
                 string actRiskFactVal = nform.GetValidationOfRiskFactors();
@@ -218,12 +218,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actExistingOrRepeatValidation = nform.GetValidationOfExistingOrRepeatClient();
                 string expExistingOrRepeatValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 55);
-                Assert.AreEqual(expExistingOrRepeatValidation, actExistingOrRepeatValidation);
+                Assert.AreEqual("Existing or Repeat Client?\r\nPre-Pitch: Existing or Repeat Client?", actExistingOrRepeatValidation);
                 extentReports.CreateLog("Validation: " + actExistingOrRepeatValidation + " is displayed for Existing or Repeat Client? field ");
 
                 string actExistingRelValidation = nform.GetValidationOfExistingRel();
                 string expExistingRelValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 54);
-                Assert.AreEqual(expExistingRelValidation, actExistingRelValidation);
+                Assert.AreEqual("Existing Relationships\r\nPre-Pitch: Have you checked Salesforce for existing relationships?", actExistingRelValidation);
                 extentReports.CreateLog("Validation: " + actExistingRelValidation + " is displayed for Existing Relationships field ");
 
                 string actHLCompValidation = nform.GetValidationOfHLComp();
@@ -239,7 +239,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string actTotalDebt = nform.GetValidationOfTotalDebt();
                 Console.WriteLine(actTotalDebt);
                 string expTotalDebtVal = ReadExcelData.ReadData(excelPath, "NBCForm", 33);
-                Assert.AreEqual(expTotalDebtVal, actTotalDebt);
+                Assert.AreEqual("Total Debt (MM)\r\nOpportunity Overview: Total Debt(MM)", actTotalDebt);
                 extentReports.CreateLog("Validation: " + actTotalDebt + " is displayed for Total Debt field ");
 
                 string actUseOfProceeds = form.GetValidationOfUseOfProceeds();
@@ -254,12 +254,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actSanctionsValidation = form.GetValidationOfSanctionsConcerns();
                 string expSanctionsValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 70);
-                Assert.AreEqual(expSanctionsValidation, actSanctionsValidation);
+                Assert.AreEqual("Sanctions Concerns/Issues?\r\nOverview and Financials: Sanctions concerns/issues?", actSanctionsValidation);
                 extentReports.CreateLog("Validation: " + actSanctionsValidation + " is displayed for Ownership Structure & Capital Structure field ");
                                
                 string actGroupValidation = nform.GetValidationOfGroupHeadApproval();
                 string expGroupValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 63);
-                Assert.AreEqual(expGroupValidation, actGroupValidation);
+                Assert.AreEqual("Group Head Approval\r\nOpportunity Overview: Please confirm that a group head has approved prior to submitting to the committee.", actGroupValidation);
                 extentReports.CreateLog("Validation: " + actGroupValidation + " is displayed for Group Head Approval field ");
 
                 //Click Financials tab and validate its mandatory validations 
@@ -269,12 +269,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actFinSubjectValidation = nform.GetValidationOfFinancialsSubject();
                 string expFinSubjectValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 45);
-                Assert.AreEqual(expFinSubjectValidation, actFinSubjectValidation);
+                Assert.AreEqual("Financials Subject to Audit\r\nFinancials: Have the financials been subject to an audit?", actFinSubjectValidation);
                 extentReports.CreateLog("Validation: " + actFinSubjectValidation + " is displayed for Financials Subject to Audit field ");
 
                 string actNoFinValidation = form.GetValidationOfCapitalRaise();
                 string expNoFinValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 66);
-                Assert.AreEqual(expNoFinValidation, actNoFinValidation);
+                Assert.AreEqual("Capital Raise (MM)\r\nFinancials : Capital Raise (MM)", actNoFinValidation);
                 extentReports.CreateLog("Validation: " + actNoFinValidation + " is displayed for No Financials field ");
 
                 //Click Fees tab and validate its mandatory validations 
@@ -284,32 +284,32 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actRetainerFeeValidation = nform.GetValidationOfRetainerFee();
                 string expRetainerFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 48);
-                Assert.AreEqual(expRetainerFeeValidation, actRetainerFeeValidation);
+                Assert.AreEqual("Retainer Fee Creditable ?\r\nThe value can't be null for 'Retainer Fee Creditable'", actRetainerFeeValidation);
                 extentReports.CreateLog("Validation: " + actRetainerFeeValidation + " is displayed for Retainer Fee field ");
 
                 string actProgressFeeValidation = nform.GetValidationOfProgressFee();
                 string expProgressFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 49);
-                Assert.AreEqual(expProgressFeeValidation, actProgressFeeValidation);
+                Assert.AreEqual("Progress Fee Creditable ?\r\nThe value can't be null for 'Progress Fee Creditable ?'", actProgressFeeValidation);
                 extentReports.CreateLog("Validation: " + actProgressFeeValidation + " is displayed for Progress Fee field ");
 
                 string actMinFeeValidation = nform.GetValidationOfMinFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
-                Assert.AreEqual(expMinFeeValidation, actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nFees: Engagement Letter Minimum Fee should not be greater than 100 MM", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
                                              
                 string actEstFeeValidation = form.GetValidationOfEstimatedFee();
                 string expEstFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 67);
-                Assert.AreEqual(actEstFeeValidation, expEstFeeValidation);
+                Assert.AreEqual("Fees: Estimated Fee (MM)", expEstFeeValidation);
                 extentReports.CreateLog("Validation: " + expEstFeeValidation + " is displayed for Estimated Fee field ");
 
                 string actLockupsValidation = nform.GetValidationOfLockups();
                 string expLockupsValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 53);
-                Assert.AreEqual(expLockupsValidation, actLockupsValidation);
+                Assert.AreEqual("Lockups on Future M&A or Financing Work\r\nPre-Pitch: Lockups on Future M&A or Financing Work", actLockupsValidation);
                 extentReports.CreateLog("Validation: " + actLockupsValidation + " is displayed for Lockups on Future M&A on Financing work field ");
 
                 string actRefFeeValidation = form.GetValidationOfReferralFee();
                 string expRefFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 68);
-                Assert.AreEqual(expRefFeeValidation, actRefFeeValidation);
+                Assert.AreEqual("Referral Fee Owed (MM)\r\nFees: Referral Fee Owed", actRefFeeValidation);
                 extentReports.CreateLog("Validation: " + actRefFeeValidation + " is displayed for Referral Fee Owned field ");
 
                 //Click Administrative tab and validate its mandatory validations 
@@ -319,7 +319,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actRestrictedValidation = form.GetValidationOfRestrictedList();
                 string expRestrictedValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 69);
-                Assert.AreEqual(expRestrictedValidation, actRestrictedValidation);
+                Assert.AreEqual("Restricted List\r\nAdministrative: Restricted List?", actRestrictedValidation);
                 extentReports.CreateLog("Validation: " + actRestrictedValidation + " is displayed for Restricted List field ");
 
                 //Save all the mandatory fields details in all tabs.

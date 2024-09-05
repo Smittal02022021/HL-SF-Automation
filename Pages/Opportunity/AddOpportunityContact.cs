@@ -19,7 +19,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");      
+        By btnPartyL = By.XPath("//dl[4]/div[1]//div/a");      
         
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
@@ -30,7 +30,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabRelated = By.XPath("//a[text()='Comments']");
         By tabContactsL = By.XPath("//a[text()='Contacts']");
         By valAddedContact = By.XPath("//tbody/tr/th//span/a[2]");
-        By msgParty = By.XPath("//section/div/section/div/div/div/div/div/div[4]/div[1]/div/div/ul/li");
+        By msgParty = By.XPath("//section/div//dl[4]/div[1]//div/ul/li");
 
         By btnCancelContact = By.XPath("//footer/button[1]/span");
 
@@ -40,7 +40,7 @@ namespace SF_Automation.Pages.Opportunity
              
         //By imgContactL = By.XPath("//div[2]/ul/li[26]/a/div[1]/span/img");
         By imgContactL = By.XPath("//div[2]/ul/li[9]/a/div[1]/span/img");
-        By msgContact = By.XPath("//section/div/div/div/div/div/div[1]/div[1]/div/div/ul/li");
+        By msgContact = By.XPath("//section//div/dl[1]/div[1]/div/div/ul/li");
 
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
