@@ -6305,7 +6305,6 @@ namespace SF_Automation.Pages
             //Ref Contact
             string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblAdditionalClient));
-
             if (valJobType == "Lender Education")
             {
                 driver.FindElement(txtRefContactL2).SendKeys(valRef);
@@ -6322,19 +6321,16 @@ namespace SF_Automation.Pages
                 CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
                 driver.FindElement(refContactL).Click();
             }
-
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
             if (valJobType == "Sellside")
             {
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 Thread.Sleep(2000);
             }
-
             //Date Engaged
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(4000);
-
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             //string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");
@@ -6352,7 +6348,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
 
-            ////Select Conf Agreement
+            //Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             driver.FindElement(comboConfAggL).Click();
@@ -6363,7 +6359,6 @@ namespace SF_Automation.Pages
             driver.FindElement(comboIndemLngL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
-
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
