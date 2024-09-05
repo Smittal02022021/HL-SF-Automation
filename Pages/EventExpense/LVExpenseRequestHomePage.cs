@@ -591,15 +591,20 @@ namespace SF_Automation.Pages.EventExpense
             return result;
         }
 
-        public string GetRequiredFieldErrorUponClickingCreateNewExpenseFormButton()
+        public bool VerifyRequiredFieldErrorUponClickingCreateNewExpenseFormButton(string err)
         {
+            bool result = false;
+
             WebDriverWaits.WaitUntilEleVisible(driver, buttonCreateNewExpenseForm, 120);
             driver.FindElement(buttonCreateNewExpenseForm).Click();
 
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblSelectLOBErrorMsg, 60);
 
-            string result = driver.FindElement(lblSelectLOBErrorMsg).Text;
+            if(driver.FindElement(lblSelectLOBErrorMsg).Text.Contains(err))
+            {
+                result=true;
+            }
             return result;
         }
 

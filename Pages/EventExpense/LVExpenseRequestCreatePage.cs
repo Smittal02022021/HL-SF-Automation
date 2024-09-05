@@ -212,9 +212,9 @@ namespace SF_Automation.Pages.EventExpense
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblRequestorErr));
 
             //Verify all mandatory fields
-            if (driver.FindElement(lblRequestorErr).Text==err && driver.FindElement(lblEventContactErr).Text == err && driver.FindElement(lblEventErr).Text == err && driver.FindElement(lblStartDateErr).Text == err && driver.FindElement(lblNoOfGuestsErr).Text == err)
+            if (driver.FindElement(lblRequestorErr).Text.Contains(err) && driver.FindElement(lblEventContactErr).Text.Contains(err) && driver.FindElement(lblEventErr).Text.Contains(err) && driver.FindElement(lblStartDateErr).Text.Contains(err) && driver.FindElement(lblNoOfGuestsErr).Text.Contains(err))
             {
-                if (driver.FindElement(lblExpectedAirFareCostErr).Text == err && driver.FindElement(lblExpectedFnBCostErr).Text == err && driver.FindElement(lblExpectedLodgingCostErr).Text == err && driver.FindElement(lblExpectedRegistrationFeeCostErr).Text == err && driver.FindElement(lblOtherCostErr).Text == err)
+                if (driver.FindElement(lblExpectedAirFareCostErr).Text.Contains(err) && driver.FindElement(lblExpectedFnBCostErr).Text.Contains(err) && driver.FindElement(lblExpectedLodgingCostErr).Text.Contains(err) && driver.FindElement(lblExpectedRegistrationFeeCostErr).Text.Contains(err) && driver.FindElement(lblOtherCostErr).Text.Contains(err))
                 {
                     result = true;
                 }

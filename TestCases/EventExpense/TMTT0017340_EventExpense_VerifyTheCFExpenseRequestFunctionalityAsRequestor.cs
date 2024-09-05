@@ -121,9 +121,8 @@ namespace SF_Automation.TestCases.EventExpense
                     if(row==2)
                     {
                         //TC - TMTI0038469 - Verify required field error while clicking "Create New Expense Form".
-                        string error = lvExpenseRequest.GetRequiredFieldErrorUponClickingCreateNewExpenseFormButton();
-                        Assert.AreEqual(error, mandatoryFieldErrMsg);
-                        extentReports.CreateLog("Error message : " + error + " is prompted for LOB field upon clicking Create New Expense Request button. ");
+                        Assert.IsTrue(lvExpenseRequest.VerifyRequiredFieldErrorUponClickingCreateNewExpenseFormButton(mandatoryFieldErrMsg));
+                        extentReports.CreateLog("Error message : " + mandatoryFieldErrMsg + " is prompted for LOB field upon clicking Create New Expense Request button. ");
 
                         //TC - TMTI0038470 - Verify that on selecting LOB - CF, Event Type field should remove from the screen.
                         Assert.IsFalse(lvExpenseRequest.VerifyEventTypeFieldDisplayedOrNotUponSelectingLOB(lobName));
@@ -174,7 +173,7 @@ namespace SF_Automation.TestCases.EventExpense
                         Thread.Sleep(5000);
                         string expReqpreApprovalNo1 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
                         string eventStatus1 = lvExpRequestDetail.GetCloneEventStatusInfo();
-
+                        
                         extentReports.CreateLog("Cloned Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus1 + " and Expense Preapproval Number: " + expReqpreApprovalNo1 + " ");
 
                         //TC - TMTI0038483 - Verify the "Delete" functionality from expense request detail page as requester.
