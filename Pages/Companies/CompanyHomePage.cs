@@ -23,6 +23,7 @@ namespace SF_Automation.Pages
 
         By btnCompanysearchL = By.XPath("//button[@aria-label='Search']");
         By txtCompanysearchL = By.XPath("//input[contains(@placeholder,'Search Companies')]");
+        By txtCompanysearchL2 = By.XPath("//input[@placeholder='Search...']");
         By imgCompany = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
@@ -126,9 +127,17 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnCompanysearchL, 20);
             driver.FindElement(btnCompanysearchL).Click();
             Thread.Sleep(4000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL, 10);
-            driver.FindElement(txtCompanysearchL).SendKeys(value);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL2, 10);
+                driver.FindElement(txtCompanysearchL2).SendKeys(value);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL, 10);
+                driver.FindElement(txtCompanysearchL).SendKeys(value);
+            }
+            
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, imgCompany, 10);
             driver.FindElement(imgCompany).Click();

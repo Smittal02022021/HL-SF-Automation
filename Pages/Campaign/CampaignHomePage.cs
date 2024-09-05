@@ -56,7 +56,7 @@ namespace SF_Automation.Pages
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             //Thread.Sleep(5000);
             int scrollCounter = 0;
-            By typeIGL = By.XPath($"//div[contains(@aria-label,'CF Campaigns')]//table//tbody/tr/td[4]//span[text()='{valIndustryGroup}']");
+            By typeIGL = By.XPath($"//table[@aria-label='CF Campaigns']//tbody/tr/td[4]//span[text()='{valIndustryGroup}']");
             bool isIndustryGroupfound = false;
             IWebElement elmIGType;
 

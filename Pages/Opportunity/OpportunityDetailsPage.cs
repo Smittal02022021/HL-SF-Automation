@@ -6249,12 +6249,12 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
         }
-        public void UpdateReqFieldsForCFConversionLV2(string file)
+        public void UpdateReqFieldsForCFConversionLV2(string file, string valJobType)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+            //string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             driver.FindElement(btnEditL).Click();

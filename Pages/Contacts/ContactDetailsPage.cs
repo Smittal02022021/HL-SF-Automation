@@ -1437,10 +1437,10 @@ namespace SF_Automation.Pages.Contact
             bool isFound = false;
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptionsL);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for (int row = 0; row < actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                Console.WriteLine(actualValue[row]);
-                if (actualValue[row].Contains(IndustryType))
+                string comboValue= actualValue[row];
+                if (comboValue.Contains(IndustryType))
                 {
                     isFound = true;
                     break;

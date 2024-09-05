@@ -110,7 +110,7 @@ namespace SF_Automation.TestCases.Engagements
 
                     if (valRecordType == "CF")
                     {
-                        opportunityDetails.UpdateReqFieldsForCFConversionLV2(ERPTS04);                        
+                        opportunityDetails.UpdateReqFieldsForCFConversionLV2(ERPTS04, valJobType);                        
                     }
                     if (valRecordType == "FR")
                     {

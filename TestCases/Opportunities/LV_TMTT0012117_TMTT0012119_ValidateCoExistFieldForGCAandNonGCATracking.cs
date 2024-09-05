@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Update required Opportunity fields for conversion and Internal team details
                     if (valRecordType == "CF")
                     {
-                        opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileGCATracking);
+                        opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileGCATracking, valJobType);
                         extentReports.CreateStepLogs("Info", "Fields required for converting CF opportunity to engagement are updated. ");
                     }
                     else if (valRecordType == "FVA")
