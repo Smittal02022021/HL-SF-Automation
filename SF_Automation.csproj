@@ -697,8 +697,9 @@
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.cs" />
-    <Compile Include="TestCases\GiftLog\T1508_T1511_T1514_ClientGiftPre_ApprovalPage_AddGiftToSelectRecipient_RequiredInformationFieldValidation_AtleastOneRecipientRequired.cs" />
-    <Compile Include="TestCases\GiftLog\T1509_Verifysubmittedforfield%27slookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1508_T1509_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.cs" />
+    <Compile Include="TestCases\GiftLog\ZObsolated_T1508_T1511_T1514_ClientGiftPre_ApprovalPage_AddGiftToSelectRecipient_RequiredInformationFieldValidation_AtleastOneRecipientRequired.cs" />
+    <Compile Include="TestCases\GiftLog\ZObsolated_T1509_Verifysubmittedforfield%27slookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails.cs" />
     <Compile Include="TestCases\GiftLog\T1510_ClientGiftPre_ApprovalPageLayoutAndFields.cs" />
     <Compile Include="TestCases\GiftLog\T1512_T1513_ClientGiftPre-ApprovalPage_AddingaRecipientToTheSelectedRecipientSection.cs" />
     <Compile Include="TestCases\GiftLog\T1516_T1517_T1518_T1519_T1520_T2005_ ClientGiftPre-ApprovalPage-RecipientsExceedsYearlyGiftAllowance-100-ReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar.cs" />

@@ -12,7 +12,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1508_T1511_T1514_ClientGiftPre_ApprovalPage_AddGiftToSelectRecipient_RequiredInformationFieldValidation_AtleastOneRecipientRequired : BaseClass
+    class ZObsolated_T1508_T1511_T1514_ClientGiftPre_ApprovalPage_AddGiftToSelectRecipient_RequiredInformationFieldValidation_AtleastOneRecipientRequired : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

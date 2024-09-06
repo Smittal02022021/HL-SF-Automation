@@ -188,7 +188,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", contractName1Exl + " detail page is closed");
 
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Info", valUserExl + " Logged out");
+                extentReports.CreateStepLogs("Info","CAO User: "+ caoUserExl + " Logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

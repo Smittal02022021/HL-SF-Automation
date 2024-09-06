@@ -4,12 +4,15 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Threading;
+using OpenQA.Selenium.Interactions;
 
 namespace SF_Automation.Pages.GiftLog
 {
     class GiftRequestPage : BaseClass
     {
+        
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By linkGiftRequests = By.CssSelector("td[class*='dataCol Custom40Block'] > a > img[title='Gift Requests']");
         By valGiftRequestsTitle = By.CssSelector("h2[class='mainTitle']");
@@ -23,17 +26,13 @@ namespace SF_Automation.Pages.GiftLog
         By txtCompanyName = By.CssSelector("input[id*='searchTextAccount']");
         By txtContactName = By.CssSelector("input[id*='searchTextContact']");
         By btnSearch = By.CssSelector("input[name*='thePage:theForm:thePageBlock'][value='Search']");
-
         By valAvailableRecipientName = By.CssSelector("tbody[id*='j_id50:j_id60:table:tb']>tr:nth-child(1)>td:nth-child(2)>span");
         By valRecipientCompanyName = By.CssSelector("tbody[id*='j_id50:j_id60:table:tb']>tr:nth-child(1)>td:nth-child(3)>span");
-
         By chkBoxOfAvailableRecipient = By.CssSelector("input[name*='table:0:j_id62']");
         By btnAddRecipients = By.CssSelector("input[name*='j_id91:j_id93']");
         //  By valSelectedRecipientName = By.CssSelector("span[id*='table2:0:j_id165']");
-
         By valSelectedRecipientName = By.CssSelector("tbody[id*='j_id50:table2:tb']>tr>td:nth-child(2)>span");
         By valSelectedCompanyName = By.CssSelector("tbody[id*='j_id50:table2:tb']>tr>td:nth-child(3)>span");
-
         // By valSelectedCompanyName = By.CssSelector("span[id*='table2:0:j_id166']");
         By chkBoxOfSelectedRecipient = By.CssSelector("input[name*='table2:0:j_id77']");
         //By btnRemoveRecipients = By.CssSelector("input[name*='j_id93:j_id94']");
@@ -64,25 +63,16 @@ namespace SF_Automation.Pages.GiftLog
         By chkFirstSelectedRecipient = By.CssSelector("input[name*='0:j_id62']");
         By btnRemoveRecipients = By.CssSelector("input[value*='Remove Recipients']");
         By btnRefresh = By.CssSelector("input[value='Refresh']");
-
-
         By clickLookupIcon = By.CssSelector("img.lookupIcon");
         By txtMsgFrame = By.CssSelector("div.messageText");
-
         By radioBtnName = By.CssSelector("input[value=SEARCH_NAME]");
         By radioBtnAllFields = By.CssSelector("input[value=SEARCH_ALL]");
-
         By txtSearchBox = By.CssSelector("input#lksrch");
         By btnGo = By.CssSelector("input[name=go]");
-
         By txtSearchResults = By.CssSelector("#Contact > div:nth-of-type(2) > div > div:nth-of-type(1) > table > tbody > tr:nth-of-type(1) > td:nth-of-type(1) > h3 > span");
-
-
         By searchFrame = By.CssSelector("frame#searchFrame");
         By resultFrame = By.CssSelector("frame#resultsFrame");
         By srchHoulihanEmployeeResult = By.CssSelector("tr.dataRow.even.first > th>a:nth-of-type(1)");
-
-
         By titleResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(2)");
         By deptResult = By.CssSelector("tr.dataRow.even.first > td:nth-of-type(3)");
         //  By SrchCmpnyResults = By.XPath("//tr[@class='dataRow even  first']/td[3]/span");
@@ -97,8 +87,259 @@ namespace SF_Automation.Pages.GiftLog
         By txtCurrentGiftAmtYTD = By.CssSelector("td[id*='table:0:j_id67']");
         By txtCurrentNextYearGiftAmt = By.CssSelector("td[id*='table:0:j_id71']");
         By selectCurrencyDrpDown = By.CssSelector("select[id*='j_id28:ddlCurrency']");
-
         By linkGiftRequestTab = By.XPath("//a[text()='Gift Requests']");
+
+        ///LightningView
+
+        By btnSubmitGiftRequestL = By.XPath("");
+        By frameGiftRequestL = By.XPath("//iframe[@title='accessibility title']");
+        By txtGiftTypeErrorL = By.XPath("//label[text()='Gift Type']/ancestor::tbody//td//div[@class='errorMsg']");
+        By txtGiftNameErrorL = By.XPath("//h3[text()='Gift Details']/../..//tr[1]//td[1]//div[@class='errorMsg']");
+        By txtHLRelationshipL = By.XPath("//h3[text()='Gift Details']/../..//tr[1]//td[2]//div[@class='errorMsg']");
+        By txtGiftValueL= By.XPath("//h3[text()='Gift Details']/../..//tr[2]//td[1]//div[@class='errorMsg']");
+        By txtVendorL = By.XPath("//h3[text()='Gift Details']/../..//tr[3]//td[2]//div[@class='errorMsg']");
+
+        By listHaderErrors = By.CssSelector("div[class*='message errorM3']>table>tbody>tr:nth-child(2)>td>span>ul>li");
+
+        By elmToolTipL = By.XPath("//div[@class='helpText']");
+
+        private By _iconHelp(string label)
+        {
+            return By.XPath($"//label[text()='{label}']/../img");
+        }
+        public string SearchWithTitleLV(string title)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            driver.FindElement(radioBtnAllFields).Click();
+            driver.FindElement(txtSearchBox).Clear();
+            driver.FindElement(txtSearchBox).SendKeys(title);
+            driver.FindElement(btnGo).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, resultFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(resultFrame));
+            string txt = driver.FindElement(titleResult).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            return txt;
+        }
+
+        public string SearchWithDeptLV(string dept)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            driver.FindElement(radioBtnAllFields).Click();
+            driver.FindElement(txtSearchBox).Clear();
+            driver.FindElement(txtSearchBox).SendKeys(dept);
+            driver.FindElement(btnGo).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, resultFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(resultFrame));
+            string txt = driver.FindElement(deptResult).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            driver.Close();
+            CustomFunctions.SwitchToWindow(driver, 0);
+
+            return txt;
+
+        }
+        public string SearchHLEmployeeLV(string name)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            driver.FindElement(txtSearchBox).Clear();
+            driver.FindElement(txtSearchBox).SendKeys(name);
+            driver.FindElement(btnGo).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, resultFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(resultFrame));
+            string txt = driver.FindElement(srchHoulihanEmployeeResult).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            return txt;
+
+        }
+        public string SearchExternalContctLV(string name)
+        {
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            driver.FindElement(txtSearchBox).Clear();
+            driver.FindElement(txtSearchBox).SendKeys(name);
+            driver.FindElement(btnGo).Click();
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, resultFrame, 20);
+            driver.SwitchTo().Frame(driver.FindElement(resultFrame));
+            string txt = driver.FindElement(txtSearchResults).Text.Trim();
+            driver.SwitchTo().DefaultContent();
+            if (txt == "Contacts [0]")
+                return "No records were found based on your criteria";
+            else 
+                return txt;            
+        }
+        public bool VerifyRadioBtnNameLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            string str = driver.FindElement(radioBtnName).GetAttribute("checked");
+            driver.SwitchTo().DefaultContent();
+            if (str.Equals("true"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public string GetLookupSubittedForHeaderLV()
+        {
+            driver.FindElement(clickLookupIcon).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            driver.SwitchTo().Frame(driver.FindElement(searchFrame));
+            string textHeader = driver.FindElement(txtMsgFrame).Text.Replace("\r\n", " ").Trim();
+            driver.SwitchTo().DefaultContent();
+            return textHeader;
+        }
+        public string GetGiftRequestPageTitleLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 60);
+            string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
+            return selectedCompanyTypeSelected;
+        }
+        public string GetHelpFieldTextLV(string label)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _iconHelp(label), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_iconHelp(label)));
+            Thread.Sleep(1000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmToolTipL, 15);
+            return driver.FindElement(elmToolTipL).Text.Trim();
+        }               
+
+        public string GetRecipientErrorMessageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valErrorMsgOnlyOneRecipient, 20);
+            string ErrorMsgOnlyOneRecipient = driver.FindElement(valErrorMsgOnlyOneRecipient).Text.Trim().Replace("\r\n", " ");
+            return ErrorMsgOnlyOneRecipient;
+        }
+        public string EnterDetailsGiftRequestLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            // Enter value in gift type
+            WebDriverWaits.WaitUntilEleVisible(driver, comboGiftType);
+            driver.FindElement(comboGiftType).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 1));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSubmittedFor);
+            driver.FindElement(txtSubmittedFor).Clear();
+            driver.FindElement(txtSubmittedFor).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 2));
+
+            //Enter value of gift name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftName);
+            driver.FindElement(txtGiftName).Clear();
+            string valGiftName = "GiftName_"+CustomFunctions.RandomValue();
+            driver.FindElement(txtGiftName).SendKeys(valGiftName);
+
+            // Enter gift value
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValue);
+            driver.FindElement(txtGiftValue).Clear();
+            driver.FindElement(txtGiftValue).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 3));
+
+            // Enter HL Relationship
+            WebDriverWaits.WaitUntilEleVisible(driver, comboHlRelationship);
+            driver.FindElement(comboHlRelationship).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 4));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCurrency);
+            driver.FindElement(comboCurrency).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 5));
+
+            //Enter vendor details
+            WebDriverWaits.WaitUntilEleVisible(driver, txtVendor);
+            driver.FindElement(txtVendor).Clear();
+            driver.FindElement(txtVendor).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 6));
+
+            //Enter reason for gift
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReasonForGift);
+            driver.FindElement(txtReasonForGift).Clear();
+            driver.FindElement(txtReasonForGift).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 7));
+
+            //Enter company name
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSearch));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
+            driver.FindElement(txtCompanyName).Clear();
+            driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 8));
+
+            //Enter contact name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactName);
+            driver.FindElement(txtContactName).Clear();
+            driver.FindElement(txtContactName).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 9));
+
+            //Click search button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 120);
+            driver.FindElement(btnSearch).Click();
+            return valGiftName;
+        }
+        public string AreRequiredFieldsValidationDisplayedLV(string file)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            //driver.FindElements(listHaderErrors);
+            IList<IWebElement> fieldErrorsList = driver.FindElements(listHaderErrors);
+            bool errorFound = false;
+            int rowOpp = ReadExcelData.GetRowCount(excelPath, "GiftLogErrors");
+            foreach (IWebElement txtFieldError in fieldErrorsList)
+            {
+                errorFound = false;
+                string ActualError = txtFieldError.Text.Trim();
+                for (int row = 2; row <= rowOpp; row++)
+                {                    
+                    string valErrorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLogErrors", row, 1);
+                    if(ActualError== valErrorExl)
+                    {
+                        errorFound = true;
+                        break;
+                    }
+                }
+            }
+            if (errorFound)
+                return "All errors for required fields are correct";
+            else
+                return "Required fields errors are not correct";
+        }
+
+        public void ClickSubmitGiftRequestLV()
+        {   
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSubmitGiftRequest));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitGiftRequest, 20);
+            driver.FindElement(btnSubmitGiftRequest).Click();
+            Thread.Sleep(2000);
+        }
+        public string GetGiftTypeFieldValidationLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftTypeErrorL, 20);
+            return driver.FindElement(txtGiftTypeErrorL).Text.Replace("\r\n", " ");
+        }
+        public string GetGiftNameFieldValidationLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftNameErrorL, 20);
+            return driver.FindElement(txtGiftNameErrorL).Text.Replace("\r\n", " ");
+        }
+        public string GetHLRelationshipFieldValidationLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLRelationshipL, 20);
+            return driver.FindElement(txtHLRelationshipL).Text.Replace("\r\n", " ");
+        }
+
+        public string GetGiftValueLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValueL, 20);
+            return driver.FindElement(txtGiftValueL).Text.Replace("\r\n", " ");
+        }
+        public string GetVendorLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtVendorL, 20);
+            return driver.FindElement(txtVendorL).Text.Replace("\r\n", " ");
+        }
 
         public void GoToGiftRequestPage()
         {
@@ -139,11 +380,11 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(shwAllTab).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, linkGiftRequests, 120);
-            driver.FindElement(linkGiftRequests).Click();
+            driver.FindElement(linkGiftRequests).Click();            
         }
 
         public string GetGiftRequestPageTitle()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 60);
             string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
             return selectedCompanyTypeSelected;

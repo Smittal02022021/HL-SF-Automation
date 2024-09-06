@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     internal class LV_TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagementLightningView:BaseClass
     {
@@ -20,7 +20,6 @@ namespace SalesForce_Project.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
@@ -157,10 +156,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     //TMTT0035667/TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity                
                     //AddMultiple Staff for Specific Role                    
                     string  memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", row, 1);
-                    string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
-
-                    extentReports.CreateStepLogs("Info", " Internal Team Members Limit with Role:" + memberRole + " on  Opportunity ");
-                    exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", 2, 2);
+                    exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);
                     extentReports.CreateStepLogs("Info", "Verify the Internal deal team limit is increased for FVA LOB Opportunity of Role: " + memberRole + " ");
 
                     int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileTMTT0035667);
@@ -252,9 +248,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     string engName = engagementDetails.GetEngagementNameL();
                     Assert.AreEqual(opportunityName, engName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
-
                     
-
                     /////////////////////////////////////////
                     /////TMTI0085043   Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Engagement
                    

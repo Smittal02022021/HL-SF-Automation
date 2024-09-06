@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1509_VerifysubmittedforfieldslookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails : BaseClass
+    class ZObsolated_T1509_VerifysubmittedforfieldslookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
