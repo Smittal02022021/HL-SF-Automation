@@ -15,7 +15,9 @@ namespace SF_Automation.Pages.Activities
         By btnSaveActivity = By.XPath("//button[@title='Save']");
         By btnEditActivity = By.XPath("//button[@title='Edit']");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
-        By btnSendNotificationActivity = By.XPath("//button[@title='Edit']");
+        By btnSendNotification = By.XPath("//button[@title='Send Notification']");
+        By txtEmailId = By.XPath("//input[@id='to-3919']");
+        By btnSendEmail = By.XPath("//button[text()='Send Email']");
 
         By dropdownFollowupType = By.XPath("//button[contains(@aria-label,'Follow-up Type')]");
         By txtFollowupStartDate = By.XPath("(//input[contains(@name,'startDate')])[1]");
@@ -344,5 +346,21 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
+        public void SendNotification(string file)
+        {
+            Thread.Sleep(2000);
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string toEmail = ReadExcelData.ReadData(excelPath, "Notification", 1);
+
+            driver.FindElement(btnSendNotification).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(txtEmailId).SendKeys(toEmail);
+            driver.FindElement(btnSendEmail).Click();
+            Thread.Sleep(2000);
+        }
     }
 }

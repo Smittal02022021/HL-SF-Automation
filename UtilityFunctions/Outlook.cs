@@ -83,6 +83,7 @@ namespace SF_Automation.UtilityFunctions
             }
           
         }
+
         public void SelectExpenseApprovalEmailV()
         {
             Thread.Sleep(4000);
@@ -159,6 +160,7 @@ namespace SF_Automation.UtilityFunctions
             element.Click();
             Thread.Sleep(10000);
         }
+
         public string IsCaseLinkPresent()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
@@ -172,6 +174,7 @@ namespace SF_Automation.UtilityFunctions
                 return "Case Link is not Present";
             }
         }
+
         public string IsSubmitterPresentInEmail(string submitterUser)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
@@ -185,6 +188,7 @@ namespace SF_Automation.UtilityFunctions
                 return "Submitter Link is not Present";
             }
         }
+
         public bool IsUpdatedCaseEmailFound()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
@@ -198,6 +202,7 @@ namespace SF_Automation.UtilityFunctions
                 return false;
             }
         }
+
         public string VerifyExpenseRequestForRejectedEmail(int windowId)
         {
             CustomFunctions.SwitchToWindow(driver, 0);
@@ -266,6 +271,7 @@ namespace SF_Automation.UtilityFunctions
             string expRequestNumber = driver.FindElement(expenseRequestNumber).Text;
             return expRequestNumber;
         }
+
         public void SelectSecondLevelExpenseApprovalEmail()
         {
             try
@@ -327,5 +333,44 @@ namespace SF_Automation.UtilityFunctions
             driver.FindElement(linkSignOut).Click();
             Thread.Sleep(12000);
         }
-    }    
+
+        public bool VerifyActivityNotificationIsRecieved(string sub)
+        {
+            bool result = false;
+
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearchScope, 120);
+
+            driver.FindElement(btnSearchScope).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblScopeInbox, 120);
+
+            driver.FindElement(lblScopeInbox).Click();
+            Thread.Sleep(4000);
+
+            driver.FindElement(searchBox).SendKeys("Sandbox: " + sub);
+            Thread.Sleep(5000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, filterOptionUnread, 120);
+            driver.FindElement(filterOptionUnread).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 120);
+            driver.FindElement(recentEmail).Click();
+            Thread.Sleep(4000);
+
+            string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
+
+            if(title== "Sandbox: " + sub)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+    }
 }
