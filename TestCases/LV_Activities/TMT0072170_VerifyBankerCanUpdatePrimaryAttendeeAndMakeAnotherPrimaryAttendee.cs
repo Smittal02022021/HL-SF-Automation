@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         activityDetailPage.ClickEditActivityButton();
 
                         //Update HL and External Attendees and make them as Primary
-                        activityDetailPage.UpdateHLAndExternalAttendeesAsPrimary(additionalExtAttendee);
+                        activityDetailPage.UpdateHLAndExternalAttendeesAsPrimary();
                         lvContactDetails.CloseTab("View Activity");
 
                         //Get primay HL and primary external attendee names from list page
@@ -183,7 +183,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         activityDetailPage.ClickEditActivityButton();
 
                         //Update HL and External Attendees and make them as Primary
-                        activityDetailPage.UpdateHLAndExternalAttendeesAsPrimary(additionalExtAttendee);
+                        activityDetailPage.UpdateHLAndExternalAttendeesAsPrimary();
                         lvContactDetails.CloseTab("View Activity");
 
                         //Get primay HL and primary external attendee names from list page

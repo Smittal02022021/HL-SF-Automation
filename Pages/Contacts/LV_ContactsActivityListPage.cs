@@ -65,7 +65,7 @@ namespace SF_Automation.Pages.Contact
 
         public string GetActivitySubjectName()
         {
-            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[4]//a")).Text;
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr[1]/td[4]//a")).Text;
             return subject;
         }
 
@@ -119,13 +119,15 @@ namespace SF_Automation.Pages.Contact
 
         public string GetPrimaryHLAttendee()
         {
-            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[2]//a")).Text;
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr[1]/td[2]//a")).Text;
+            Thread.Sleep(2000);
             return subject;
         }
 
         public string GetPrimaryExternalAttendee()
         {
-            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[3]//a")).Text;
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr[1]/td[3]//a")).Text;
+            Thread.Sleep(2000);
             return subject;
         }
 

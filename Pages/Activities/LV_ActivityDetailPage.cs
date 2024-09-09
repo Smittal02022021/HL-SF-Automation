@@ -322,18 +322,18 @@ namespace SF_Automation.Pages.Activities
             return result;
         }
 
-        public void UpdateHLAndExternalAttendeesAsPrimary(string extAtt)
+        public void UpdateHLAndExternalAttendeesAsPrimary()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,800)");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             //Update Primary Ext Attendee
-            driver.FindElement(By.XPath("(//input[@part='checkbox'])[7]")).Click();
+            driver.FindElement(By.XPath("((//input[@part='checkbox'])[7]/following::span)[1]")).Click();
             Thread.Sleep(2000);
 
             //Remove Non Primary HL Attendee
-            driver.FindElement(By.XPath("(//input[@part='checkbox'])[10]")).Click();
+            driver.FindElement(By.XPath("((//input[@part='checkbox'])[10]/following::span)[1]")).Click();
             Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
