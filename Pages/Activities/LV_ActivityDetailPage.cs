@@ -16,7 +16,7 @@ namespace SF_Automation.Pages.Activities
         By btnEditActivity = By.XPath("//button[@title='Edit']");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
         By btnSendNotification = By.XPath("//button[@title='Send Notification']");
-        By txtEmailId = By.XPath("//input[@id='to-3919']");
+        By txtEmailId = By.XPath("//div[@class='slds-p-top_small']/input");
         By btnSendEmail = By.XPath("//button[text()='Send Email']");
 
         By dropdownFollowupType = By.XPath("//button[contains(@aria-label,'Follow-up Type')]");
@@ -359,6 +359,9 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             driver.FindElement(txtEmailId).SendKeys(toEmail);
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"//span[text()='{toEmail}']/..")).Click();
+
             driver.FindElement(btnSendEmail).Click();
             Thread.Sleep(2000);
         }

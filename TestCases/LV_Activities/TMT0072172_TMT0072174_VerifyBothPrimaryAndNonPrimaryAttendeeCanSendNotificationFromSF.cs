@@ -52,7 +52,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed. ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -120,7 +120,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                         //Logout from SF Lightning View
                         lvHomePage.LogoutFromSFLightningAsApprover();
-                        extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                         driver.Quit();
 
@@ -131,10 +131,10 @@ namespace SF_Automation.TestCases.LV_Activities
                         outlook.LoginOutlook(fileOutlook);
                         string outlookLabel = outlook.GetLabelOfOutlook();
                         Assert.AreEqual("Outlook", outlookLabel);
-                        extentReports.CreateLog("User is logged in to outlook ");
+                        extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
 
                         Assert.IsTrue(outlook.VerifyActivityNotificationIsRecieved(subject));
-                        extentReports.CreateStepLogs("Info", "Primary attendee of the activity is able to send notification from SF successfully.");
+                        extentReports.CreateStepLogs("Passed", "Primary attendee of the activity is able to send notification from SF successfully.");
 
                         driver.Quit();
 
@@ -232,7 +232,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                         //Logout from SF Lightning View
                         lvHomePage.LogoutFromSFLightningAsApprover();
-                        extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                         driver.Quit();
 
@@ -243,7 +243,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         outlook.LoginOutlook(fileOutlook);
                         string outlookLabel = outlook.GetLabelOfOutlook();
                         Assert.AreEqual("Outlook", outlookLabel);
-                        extentReports.CreateLog("User is logged in to outlook ");
+                        extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
 
                         Assert.IsTrue(outlook.VerifyActivityNotificationIsRecieved(subject));
                         extentReports.CreateStepLogs("Info", "Non-Primary attendee of the activity is able to send notification from SF successfully.");
