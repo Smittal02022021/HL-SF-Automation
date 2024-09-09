@@ -65,7 +65,7 @@ namespace SF_Automation.Pages.Contact
 
         public string GetActivitySubjectName()
         {
-            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr/td[4]//a")).Text;
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[4]//a")).Text;
             return subject;
         }
 
@@ -116,5 +116,29 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
+
+        public string GetPrimaryHLAttendee()
+        {
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[2]//a")).Text;
+            return subject;
+        }
+
+        public string GetPrimaryExternalAttendee()
+        {
+            string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[2]//tbody/tr[1]/td[3]//a")).Text;
+            return subject;
+        }
+
+        public bool VerifyUpdatedPrimaryHLAndExternalAttendeesAreDisplayedOnActivityListPage(string prHL, string addHL, string prExt, string addExt)
+        {
+            bool result = false;
+
+            if(prHL == addHL && prExt== addExt)
+            {
+                result = true;
+            }
+            return result;
+        }
+
     }
 }

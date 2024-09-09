@@ -707,6 +707,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072170_VerifyBankerCanUpdatePrimaryAttendeeAndMakeAnotherPrimaryAttendee.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072168_VerifyBankerCanRemoveNonPrimaryHLAndExternalAttendeesFromAnActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072159_TMT0072162_VerifyBankerCanCreateExternalAndInternalFollowUpActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072153_TMT0072155_VerifyBanker_PrimaryOrNonPrimary_WhoIsPartOfTheActivityCanEditTheActivity.cs" />
