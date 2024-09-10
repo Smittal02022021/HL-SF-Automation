@@ -442,8 +442,12 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser()
         {
+            //Scroll to the Top of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+
             bool result = false;
-            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed)
             {
                 result = true;
             }

@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("External contact have Edit, Add Relationship L, and Printable View buttons displayed at the top for CF Financial user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser());
-                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History and Summary tabs displayed at the top for CF Financial user. ");
+                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History tabs are displayed at the top for CF Financial user. ");
 
                 //Verify error message is dispalyed when user tries to change company
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedUponChangingCompanyNameForAContact("StandardTestCompany"));
