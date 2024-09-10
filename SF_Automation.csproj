@@ -549,13 +549,6 @@
     <Compile Include="Pages\TimeRecordManager\TimeRecorderFunctionalities.cs" />
     <Compile Include="Pages\TimeRecordManager\TimeRecordManagerEntryPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005173_TMTT0005671_VerifyTheLayoutOfActivitiesListPage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005673_VerifyListOfPreSetTemplateInActivitiesList.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005674_VerifyTheActivitiesListFieldsOrColumnOnActivityListPage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011731_TMTT0011736_TMTT0011746_TMTT0011762_VerifytheViewAllLinklinkisredirectingtonewpagefromContactpage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011738_VerifytheTypeFiltersearchwhenthedesiredactivityisnotpresentoncurrentorselectedpage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011740_TMTT0011741_VerifytheaccessofOtherAttendeeAccessForPrivatectivity.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011744_TMTT0011743_TMTT0011742_VerifythatActivityDescriptionontheactivityisbeingmappedtoEmailTemplatewithsameformatasActivityDescription.cs" />
     <Compile Include="TestCases\Company\T1140_T1141_T1151_T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Company\T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Company\T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation.cs" />
