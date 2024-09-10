@@ -166,7 +166,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         //Verify activity is deleted successfully
                         int afterCount = activitiesList.GetActivityCount();
                         Assert.AreEqual(beforeCount, afterCount);
-                        extentReports.CreateStepLogs("Passed", "Activity with call type: " + type + " deleted successfully. ");
+                        extentReports.CreateStepLogs("Passed", "Non-Primary Attendee of the activity is able to delete the activity successfully. ");
                     }
                 }
 
