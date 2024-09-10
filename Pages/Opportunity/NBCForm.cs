@@ -1690,6 +1690,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//label[text()='A']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+lockup+"']")).Click();
             js.ExecuteScript("window.scrollTo(0,280)");
             driver.FindElement(btnB).Click();
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='B']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(5000);
             js.ExecuteScript("window.scrollTo(0,400)");

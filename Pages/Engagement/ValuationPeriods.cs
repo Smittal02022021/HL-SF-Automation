@@ -186,6 +186,18 @@ namespace SF_Automation.Pages.Engagement
             string title = driver.FindElement(lblNewEngValPeriod).Text;
             return title;
         }
+        //To Click New Engagement Valuation Period button
+        public string ClickEngValuationPeriodL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewEngValPeriod, 60);
+            driver.FindElement(btnNewEngValPeriod).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(5000);
+            string title = driver.FindElement(lblNewEngValPeriod).Text;
+            return title;
+        }
 
         //Enter Engagement Valuation Period details and save it.
         public string EnterAndSaveEngValuationDetails()
@@ -235,12 +247,36 @@ namespace SF_Automation.Pages.Engagement
             return title;
         }
 
+        //Click on added Engagement Valuation Period Position
+        public string ClickAddedValPeriodL()
+        {
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(5000);
+            driver.FindElement(tabEngValPeriodL).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Frame(0);
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,250)");
+            Thread.Sleep(5000);            
+            driver.FindElement(valAddedPositionL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngValPeriodDetail, 100);
+            string title = driver.FindElement(lblEngValPeriodDetail).Text;
+            return title;
+        }
+
         //To add team members and save it. 
         public void ClickPositionAndSaveTeamMembers()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddTeamMember, 80);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            By eleJobType = By.XPath("//div[3]//tr[5]/th[1]");
+            Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            Thread.Sleep(5000);
             driver.FindElement(btnAddTeamMember).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamMember, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamMember, 100);
             driver.FindElement(btnSaveTeamMember).Click();
             Thread.Sleep(3000);
         }
@@ -259,11 +295,30 @@ namespace SF_Automation.Pages.Engagement
             return error1;
         }
 
+        //To update the status of Position
+        public string UpdateStatusAndSaveL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditPositionL, 80);
+            driver.FindElement(btnEditPositionL).Click();
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(1);
+            Thread.Sleep(5000);
+            driver.FindElement(comboStatus).SendKeys("Completed, Generate Accrual");
+            driver.FindElement(btnSave).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgErrorBox, 90);
+            string error1 = driver.FindElement(msgError1).Text;
+            return error1;
+        }
+
         //To fetch 2nd error message
         public string GetErrorMessage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgErrorBox, 90);
             string error2 = driver.FindElement(msgError2).Text;
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             return error2;
         }
         //To get Status of Position

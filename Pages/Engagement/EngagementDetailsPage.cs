@@ -6740,7 +6740,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
             driver.FindElement(btnPortfolioValL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
                      
             if (user.Contains("Karan Chopra"))
             {                
