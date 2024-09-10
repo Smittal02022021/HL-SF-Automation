@@ -156,6 +156,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                         //Edit Followp activity
                         LV_ContactsActivityList.ViewActivityFromList("Follow-up: " + subject);
+                        activityDetailPage.ClickEditActivityButton();
                         activityDetailPage.UpdateActivityByNonPrimaryHLAttendee(fileTMTC0032668, row);
                         lvContactDetails.CloseTab("View Activity");
 
@@ -166,6 +167,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     {
                         //Edit Followp activity
                         LV_ContactsActivityList.ViewActivityFromList("Follow-up: " + subject);
+                        activityDetailPage.ClickEditActivityButton();
                         activityDetailPage.UpdateActivityByPrimaryHLAttendee(fileTMTC0032668, row);
                         lvContactDetails.CloseTab("View Activity");
 
