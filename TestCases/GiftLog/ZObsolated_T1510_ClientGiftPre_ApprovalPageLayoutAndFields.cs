@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1510_ClientGiftPre_ApprovalPageLayoutAndFields : BaseClass
+    class ZObsolated_T1510_ClientGiftPre_ApprovalPageLayoutAndFields : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

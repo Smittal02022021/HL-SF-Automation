@@ -56,6 +56,39 @@ namespace SF_Automation.Pages.GiftLog
         By labelApprovalComment = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(2) > td:nth-child(4)");
         By labelLastModifiedBy = By.CssSelector("table[class='detailList'] >tbody > tr:nth-child(11) > td:nth-child(4)");
 
+        By valSubmittedForL = By.CssSelector("span[id*='table:0:j_id20']");
+
+        public string GetvalueSubmittedForLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubmittedForL, 10);
+            string valueSubmittedFor = driver.FindElement(valSubmittedForL).Text.Trim();
+            return valueSubmittedFor;
+        }
+        public string GetGiftValueLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valueCurrency, 10);
+            string valOfGift = driver.FindElement(valueCurrency).Text.Split(' ')[1].Trim();
+            return valOfGift;
+        }
+        public string GetGiftCurrencyCodeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valueCurrency, 10);
+            string valCurrency = driver.FindElement(valueCurrency).Text.Split(' ')[0].Trim();
+
+            return valCurrency;
+        }
+        public void ClickSubmitRequestLV()
+        {
+            try
+            {
+                driver.FindElement(btnSubmitRequest).Click();
+                Thread.Sleep(2000);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
         public bool VerifyGiftNameInGiftRequestDetails(string file, string giftDesc)
         {
             ReadJSONData.Generate("Admin_Data.json");

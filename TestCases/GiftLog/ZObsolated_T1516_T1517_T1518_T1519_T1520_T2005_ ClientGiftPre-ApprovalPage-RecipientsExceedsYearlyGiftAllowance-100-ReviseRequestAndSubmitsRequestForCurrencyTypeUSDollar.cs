@@ -12,7 +12,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPre_ApprovalPage_RecipientsExceedsYearlyGiftAllowance_100_ReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar: BaseClass
+    class ZObsolated_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPre_ApprovalPage_RecipientsExceedsYearlyGiftAllowance_100_ReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -329,6 +329,7 @@ namespace SF_Automation.TestCases.GiftLog
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

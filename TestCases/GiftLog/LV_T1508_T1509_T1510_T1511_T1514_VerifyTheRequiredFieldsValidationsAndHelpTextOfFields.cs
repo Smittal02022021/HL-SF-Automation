@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages;
@@ -10,7 +9,7 @@ using System;
 
 namespace SalesForce_Project.TestCases.GiftLog
 {
-    class LV_T1508_T1509_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields : BaseClass
+    class LV_T1508_T1509_T1510_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -72,8 +71,23 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 //Navigate to Gift Request page                
                 string giftRequestTitle = giftRequest.GetGiftRequestPageTitleLV();
-                Assert.AreEqual("Client Gift Pre-approval", giftRequestTitle);
+                string giftRequestTitleExl = ReadExcelData.ReadData(excelPath, "GiftLog", 10);
+                Assert.AreEqual(giftRequestTitleExl, giftRequestTitle);
                 extentReports.CreateStepLogs("Passed", "Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
+
+                //TMTC0011785/T1510 Client Gift Pre-Approval Page Layout and Fields.
+                //Validate fields under Gift Billing Details Section
+                Assert.True(giftRequest.ValidateFieldsUnderGiftBillingDetailsSectionLV());
+                extentReports.CreateStepLogs("Passed", "Fields defined under Gift Billing Details Section are displayed. ");
+
+                //Validate fields under Gift Details Section
+                Assert.True(giftRequest.ValidateFieldsUnderGiftDetailsSectionLV());
+                extentReports.CreateStepLogs("Passed", "Fields defined under Gift Details Section are displayed. ");
+
+                //Validate fields under Gift Recipients Section
+                Assert.True(giftRequest.ValidateFieldsUnderGiftRecipientsSectionLV());
+                extentReports.CreateStepLogs("Passed", "Fields defined under Gift Recipients Section are displayed. ");
+
 
                 //TMTC0011779/T1508	Client Gift Pre-Approval Page – Submit Gift Request - Required Information field validation
                 giftRequest.ClickSubmitGiftRequestLV();
@@ -93,8 +107,8 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Error Message: " + errorMsg + " is diplayed upon submittion of gift request without adding atleast one recipient to selected recipients list ");
 
                 //TMTC0011797/T1514	Client Gift Pre-Approval Page - Help Text for Fields
-                int rowfield = ReadExcelData.GetRowCount(excelPath, "HelpText");
-                for(int row = 2; row <= rowfield; row++)
+                int rowCount = ReadExcelData.GetRowCount(excelPath, "HelpText");
+                for(int row = 2; row <= rowCount; row++)
                 {
                     string valFieldName = ReadExcelData.ReadDataMultipleRows(excelPath, "HelpText", row, 1);
                     string valExpectedHelptext = ReadExcelData.ReadDataMultipleRows(excelPath, "HelpText", row, 2);
@@ -144,7 +158,6 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
-
             }
             catch (Exception e)
             {

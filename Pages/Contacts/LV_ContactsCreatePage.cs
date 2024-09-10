@@ -28,6 +28,66 @@ namespace SF_Automation.Pages.Contact
         By btnGo = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:btnGo']");
         By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");
 
+        public void CreateNewContactLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);
+
+            try
+            {
+                driver.SwitchTo().Frame(0);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            //Click lookup 
+            WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
+            CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
+
+            // Switch to second window
+            CustomFunctions.SwitchToWindow(driver, 1);
+
+            // Enter value in search box
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
+            driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 1));
+
+            //Click on Go button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
+            driver.FindElement(btnGo).Click();
+
+            // Select first option
+            WebDriverWaits.WaitUntilEleVisible(driver, selFirstOption);
+            CustomFunctions.ActionClicks(driver, selFirstOption);
+
+            // Switch back to default window
+            CustomFunctions.SwitchToWindow(driver, 0);
+            driver.SwitchTo().Frame(0);
+
+            //Enter first name
+            WebDriverWaits.WaitUntilEleVisible(driver, inputFirstName, 40);
+            driver.FindElement(inputFirstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
+
+            //Enter last name
+            WebDriverWaits.WaitUntilEleVisible(driver, inputLastName, 40);
+            driver.FindElement(inputLastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
+
+            //Enter email
+            WebDriverWaits.WaitUntilEleVisible(driver, inputEmail, 40);
+            driver.FindElement(inputEmail).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 4));
+
+            //Enter phone
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPhone, 40);
+            driver.FindElement(inputPhone).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 5));
+
+            // Click save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave1);
+            driver.FindElement(btnSave1).Click();
+            Thread.Sleep(5000);
+        }
         public void CreateNewContact(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");

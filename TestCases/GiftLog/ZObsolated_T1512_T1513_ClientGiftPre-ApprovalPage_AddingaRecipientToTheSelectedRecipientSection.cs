@@ -2,7 +2,6 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
@@ -12,12 +11,10 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1512_T1513_GiftLog_ClientGiftPre_ApprovalPage_AddingaRecipientToTheSelectedRecipientSection : BaseClass
+    class ZObsolated_T1512_T1513_GiftLog_ClientGiftPre_ApprovalPage_AddingaRecipientToTheSelectedRecipientSection : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        CompanyHomePage companyHome = new CompanyHomePage();
-        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         GiftRequestPage giftRequest = new GiftRequestPage();

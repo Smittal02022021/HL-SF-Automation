@@ -96,7 +96,22 @@ namespace SF_Automation.Pages.Contact
         By lblContactName = By.XPath("(//span[text()='Name'])[2]/../../div[2]/span/slot/lightning-formatted-name");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
         By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
+        By btnDeleteContactL = By.XPath("//div[contains(text(),'Are you sure you want')]/following::button[@title='Delete']");
 
+
+        public void DeleteContactLV()
+        {
+            //Scroll to the top of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0, 0)");
+
+            WebDriverWaits.WaitUntilClickable(driver, btnDelete, 120);
+
+            driver.FindElement(btnDelete).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btnDeleteContactL).Click();
+            Thread.Sleep(3000);
+        }
         public void CloseTab(string tabName)
         {
             Thread.Sleep(5000);

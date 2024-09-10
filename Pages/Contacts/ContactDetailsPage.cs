@@ -164,11 +164,21 @@ namespace SF_Automation.Pages.Contact
         By btnCancel = By.CssSelector("input[value='Cancel']");
         By comboIG = By.CssSelector("select[id*='Fl4Bb']");
         By comboIGOptions = By.CssSelector("select[id*='Fl4Bb'] option");
+        By btnDeleteContactL = By.XPath("//button[@name='Delete']");
+        By btnConfirmDeleteL = By.XPath("//div[@role='dialog']//button[@title='Delete']");
         private By _tabContactDetailPageL(string name)
         {
             return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
         }
 
+        public void DeleteContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteContactL);
+            driver.FindElement(btnDeleteContactL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL);
+            driver.FindElement(btnConfirmDeleteL).Click();
+            Thread.Sleep(2000);
+        }
         private By _tabContactDetailPageHeaderL(string name)
         {
             return By.XPath($"//div[contains(@class,'firstHeaderRow')]//h2//a//span[contains(@title,'{name}')]");
