@@ -343,6 +343,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
             driver.FindElement(txtNotes).SendKeys("Test");
             driver.FindElement(btnOK).Click();
+            Thread.Sleep(10000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
@@ -420,7 +421,11 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetNotesFromApprovalHistorySectionForApprover()
         {
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(2000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr")));
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
             int size = elements.Count;
@@ -429,6 +434,9 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblAppNotes, 120);
             string notes = driver.FindElement(lblAppNotes).Text;
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
 
             return notes;
         }

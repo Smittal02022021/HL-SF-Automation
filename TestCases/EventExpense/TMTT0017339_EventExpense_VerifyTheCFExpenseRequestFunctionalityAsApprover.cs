@@ -172,10 +172,10 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         //TC - TMTI0038452 - Verify the "Delete" functionality from expense request detail page as approver.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsApprover());
-                        action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
-                        Thread.Sleep(5000);
+                        //action2.SendKeys(Keys.LeftControl + "R").Build().Perform();
+                        //Thread.Sleep(5000);
                         string eventStatus3 = lvExpRequestDetail.GetEventStatusInfoForApprover();
-                        extentReports.CreateLog("Expense request with Expense Preapproval Number: " + "expReqpreApprovalNo" + " is deleted succssfully with status: " + eventStatus3 + " ");
+                        extentReports.CreateLog("Expense request with Expense Preapproval Number: " + expReqpreApprovalNo + " is deleted succssfully with status: " + eventStatus3 + " ");
 
                         //TC - TMTI0038453 - Verify expense detail page on deleting the request as approver.
                         string approverResponse = lvExpRequestDetail.GetApproverResponseFromApprovalHistorySectionForApprover();
