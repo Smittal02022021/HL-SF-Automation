@@ -159,6 +159,8 @@ namespace SF_Automation.Pages.Activities
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+
             string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
             string updatedIndGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 2);
             string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
@@ -171,22 +173,18 @@ namespace SF_Automation.Pages.Activities
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
             driver.FindElement(txtSubject).Clear();
             driver.FindElement(txtSubject).SendKeys(updatedSubject);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             //Edit Description details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaDescription));
             driver.FindElement(txtareaDescription).Clear();
             driver.FindElement(txtareaDescription).SendKeys(updatedDesc);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             //Edit Notes details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaHLInternalMeetingNotes));
             driver.FindElement(txtareaHLInternalMeetingNotes).Clear();
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(updatedNotes);
-            Thread.Sleep(1000);
-
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,1500)");
             Thread.Sleep(2000);
 
             //Edit Industry Group
@@ -201,6 +199,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(drpdownProductType).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
+            Thread.Sleep(2000);
+            
+            js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(2000);
 
             //Update External Attendee
@@ -256,7 +257,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(1000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,1500)");
+            js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(2000);
 
             //Edit Industry Group
