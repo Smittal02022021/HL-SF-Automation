@@ -168,7 +168,7 @@ namespace SF_Automation.TestCases.LV_Activities
                         //Edit Followp activity
                         LV_ContactsActivityList.ViewActivityFromList("Follow-up: " + subject);
                         activityDetailPage.ClickEditActivityButton();
-                        activityDetailPage.UpdateActivityByPrimaryHLAttendee(fileTMTC0032668, row);
+                        activityDetailPage.UpdateFollowupActivityByPrimaryHLAttendee(fileTMTC0032668, row);
                         lvContactDetails.CloseTab("View Activity");
 
                         Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032668, row));

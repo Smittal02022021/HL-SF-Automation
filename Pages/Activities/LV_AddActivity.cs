@@ -307,7 +307,7 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnAddActivity).Click();
             Thread.Sleep(5000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 60);
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
