@@ -29,7 +29,7 @@ namespace SF_Automation.Pages
         By btnEngNum = By.XPath("//button[contains(@aria-label,'Search')]");
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search...')]");
-        By lnkEngLightning = By.XPath("//img[@title='Engagement']");
+        By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
@@ -278,7 +278,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
                 driver.FindElement(lnkEngLightning).Click();
             }
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
             string engName = driver.FindElement(valEngName).Text;              
             return engName;           
