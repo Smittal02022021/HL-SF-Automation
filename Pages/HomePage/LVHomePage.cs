@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V120.DOM;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -151,6 +152,62 @@ namespace SF_Automation.Pages.HomePage
                 Thread.Sleep(5000);
             }
             
+        }
+
+        public bool VerifyBankerIsAbleToSearchActivityFromGlobalSearch(string actSub)
+        {
+            Thread.Sleep(3000);
+
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(txtMainSearch).SendKeys(actSub);
+            Thread.Sleep(3000);
+            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            Thread.Sleep(8000);
+
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+
+            //Get total rows under events
+            int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
+
+            for(int i=1; i<totalRows; i++)
+            {
+                string sub = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
+
+                if(sub == actSub)
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(string file, string actSub)
+        {
+            bool result = false;
+
+            //Get total rows under events
+            int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
+
+            for(int i = 1; i < totalRows; i++)
+            {
+                string sub = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
+
+                if(sub == actSub)
+                {
+                    driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Click();
+                    Thread.Sleep(3000);
+                    break;
+                }
+            }
+
+            return result;
         }
 
         public void SearchCompanyFromMainSearch(string name)
