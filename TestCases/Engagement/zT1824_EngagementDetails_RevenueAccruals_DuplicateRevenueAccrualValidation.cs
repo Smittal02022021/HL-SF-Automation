@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class T1824_EngagementDetails_RevenueAccruals_DuplicateRevenueAccrualValidation : BaseClass
+    class zT1824_EngagementDetails_RevenueAccruals_DuplicateRevenueAccrualValidation : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

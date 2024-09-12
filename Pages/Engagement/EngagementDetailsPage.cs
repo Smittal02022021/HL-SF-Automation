@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports.Utils;
+using MongoDB.Bson.IO;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -61,6 +62,8 @@ namespace SF_Automation.Pages.Engagement
         By txtTotalEstFeesFAS = By.CssSelector("input[id*='00Ni000000FmBzP']");
         By valTotalEstFeesFAS = By.CssSelector("div[id*='00Ni000000FmBzP']");
         By valYearMonth = By.CssSelector("div[id*='hsaB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
+        By valYearMonthL = By.XPath("//tr[1]/th//span/a[2]");
+
         By txtStage = By.CssSelector("select[name*='NlW']");
         By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
         By txtContact = By.CssSelector("span>input[id*='OPH']");     
@@ -78,10 +81,12 @@ namespace SF_Automation.Pages.Engagement
         By valAccountingStatus = By.CssSelector("div[id*='7XFj_id0_j_id4_ileinner']");
         By lnkRevenueMonth = By.CssSelector("div[id*='00Ni000000EhsaB_body'] > table> tbody >tr:nth-child(2) >th >a:nth-child(2)");
         By valRevID = By.CssSelector("div[id='Name_ileinner']");
+        By valRevIDL = By.XPath("//span[text()='Revenue Accrual #']/ancestor::div[2]/dd//slot[1]/lightning-formatted-text");
         By lnkEngagement = By.CssSelector("a[id*='EhsaB']");
         By btnCounterParties = By.CssSelector("td[id*='topButtonRow'] > input[value='Counterparties']");
         By btnAddRevenueAccrual = By.CssSelector("input[value='Add Revenue Accrual']");
         By errorMessage = By.CssSelector("div[id='errorDiv_ep']");
+        By errorMessageL = By.XPath("//a[@class='errorsListLink']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab - Selected']");
         By comboClientOwnership = By.CssSelector("select[id*='d2R']");
         By txtDebt = By.CssSelector("input[id*='LfH']");
@@ -366,7 +371,7 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-        By tabRevenue = By.XPath("//li[6]/a[@data-label='Revenue']");
+        By tabRevenue = By.XPath("//a[@data-label='Revenue']");
         By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
@@ -683,6 +688,7 @@ namespace SF_Automation.Pages.Engagement
         By linksRelatedList = By.XPath("//flexipage-component2[@data-component-id='force_relatedListQuickLinksContainer']//ul[@class='slds-grid slds-wrap list']//a//span");
         By btnAddMeeting = By.XPath("//button[text()='Add Meeting']");
         By btnAccept = By.XPath("//button[@name='MassAccept']");
+        By btnAccural = By.XPath("//button[text()='Add Accrual']");
         By headerNewMeeting = By.XPath("//h2[text()='New Meeting']");
         By searchCounterparty = By.XPath("//input[@placeholder='Search Engagement Counterparties...']");
         By optionAddNewCounterparty = By.XPath("//input[@placeholder='Search Engagement Counterparties...']//following::div//span[@title='New Engagement Counterparty']");
@@ -2639,6 +2645,18 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        //To get month from created Revenue Accrual record
+        public string GetMonthFromRevenueAccrualRecordL()
+        {
+            By eleJobType = By.XPath("//tr[1]/th//span/a[2]");
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,750)");            
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valYearMonthL).Text;
+            return value;
+        }
+
         //To get value of Total Estimated Fee from created Revenue Accrual record
         public string GetTotalEstFeeFromRevenueAccrualRecord()
         {
@@ -2900,6 +2918,23 @@ namespace SF_Automation.Pages.Engagement
             return id;
         }
 
+
+        //Get Revenue record number
+        public string GetRevenueRecordNumberL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valYearMonthL, 80);
+            driver.FindElement(valYearMonthL).Click();
+            //driver.SwitchTo().Frame(0);
+            Thread.Sleep(7000);
+            string id = driver.Url;
+            Thread.Sleep(4000);
+            driver.FindElement(tabEngagementNumL).Click();
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-750)");
+            return id;
+        }
+
         //Create new Revenue Accrual record
         public string AddRevenueAccrual()
         {
@@ -2907,6 +2942,18 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnAddRevenueAccrual).Click();
             driver.FindElement(btnSave).Click();
             string message = driver.FindElement(errorMessage).Text.Replace("\r\n", " ");
+            return message;
+        }
+
+        //Create new Revenue Accrual record
+        public string AddRevenueAccrualL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAccural, 80);
+            driver.FindElement(btnAccural).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveBacklog).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(errorMessageL).Text;
             return message;
         }
 
@@ -4848,7 +4895,7 @@ namespace SF_Automation.Pages.Engagement
         //Get Revenue tab
         public string ValidateRevenueTab()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(Driver, tabRevenue, 100);
             string value = driver.FindElement(tabRevenue).Text;
             driver.FindElement(tabRevenue).Click();
