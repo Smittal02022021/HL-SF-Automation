@@ -109,6 +109,24 @@ namespace SF_Automation.Pages.GiftLog
             return By.XPath($"//label[text()='{label}']/../img");
         }
 
+        public string GetGiftValueInGiftTotalNextYearLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftTotalNextYear, 20);
+            string valueNewGiftTotalNextYear = driver.FindElement(valNewGiftTotalNextYear).Text.Split(' ')[1].Trim();
+            return valueNewGiftTotalNextYear;
+        }
+        public string GetCurrentNextYearGiftAmtLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCurrentNextYearGiftAmt, 60);
+            string CurrentNextYearGiftAmtText = driver.FindElement(txtCurrentNextYearGiftAmt).Text.Split(' ')[1].Trim();
+            return CurrentNextYearGiftAmtText;
+        }
+        public string GetCurrentGiftAmtYTDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCurrentGiftAmtYTD, 60);
+            string CurrentGiftAmtYTDText = driver.FindElement(txtCurrentGiftAmtYTD).Text.Split(' ')[1].Trim(); ;
+            return CurrentGiftAmtYTDText;
+        }
         public bool IsReturnToPreApprovalPageVisibleLV()
         {
             return CustomFunctions.IsElementPresent(driver, btnReturnToPreApprovalPage);
@@ -144,7 +162,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void ClickReviseRequestButtonLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReviseRequest, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReviseRequest, 20);
             driver.FindElement(btnReviseRequest).Click();
         }
         public bool IsSubmitRequestButtonVisibleLV()
@@ -167,9 +185,13 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetGiftValueColorInGiftAmtYTDLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 20);
             string colorOfValueNewGiftAmtYTD = driver.FindElement(valNewGiftAmtYTD).GetCssValue("color");
             if (colorOfValueNewGiftAmtYTD.Equals("rgba(255, 0, 0, 1)"))
+            {
+                return "Red";
+            }
+            if (colorOfValueNewGiftAmtYTD.Equals("rgba(0, 0, 0, 1)"))
             {
                 return "Red";
             }
@@ -180,7 +202,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetGiftCurrencyCodeLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 20);
             string currencyNewGiftAmtYTD = driver.FindElement(valNewGiftAmtYTD).Text.Split(' ')[0].Trim();
             return currencyNewGiftAmtYTD;
         }
@@ -193,13 +215,13 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetLabelNewGiftAmtYTDLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, labelNewGiftAmtYTD, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, labelNewGiftAmtYTD, 20);
             string lblNewGiftAmtYTD = driver.FindElement(labelNewGiftAmtYTD).Text;
             return lblNewGiftAmtYTD;
         }
         public string GetDesiredDateErrorMsgLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valErrorMsgDesireDate, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valErrorMsgDesireDate, 20);
             string ErrorMsgDesireDate = driver.FindElement(valErrorMsgDesireDate).Text.Replace("\r\n", " ").Trim();
             return ErrorMsgDesireDate;
         }
@@ -215,20 +237,21 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetGiftDescriptionOnGiftRequestDetailLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valGiftDescription, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valGiftDescription, 20);
             string giftDescGiftDetail = driver.FindElement(valGiftDescription).Text;
             return giftDescGiftDetail;
         }
         public void ClickReturnToPreApprovalPageLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToPreApprovalPage, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToPreApprovalPage, 20);
             driver.FindElement(btnReturnToPreApprovalPage).Click();
         }
         public string GetGiftRequestPageTitleAfterReturnToPreApprovalPageLV()
         {
             driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, frameGiftRequestL2, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL2));
-            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 20);
             string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
             driver.SwitchTo().DefaultContent();
             return selectedCompanyTypeSelected;
@@ -236,7 +259,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public string GetRecipientNameOnGiftRequestDetailLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valRecipientNameGiftDetail, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRecipientNameGiftDetail, 20);
 
             string RecipientNameGiftDetail = driver.FindElement(valRecipientNameGiftDetail).Text;
             return RecipientNameGiftDetail;

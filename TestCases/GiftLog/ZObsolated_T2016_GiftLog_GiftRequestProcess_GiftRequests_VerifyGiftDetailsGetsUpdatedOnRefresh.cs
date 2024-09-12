@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2016_GiftLog_GiftRequestProcess_GiftRequests_VerifyGiftDetailsGetsUpdatedOnRefresh : BaseClass
+    class ZObsolated_T2016_GiftLog_GiftRequestProcess_GiftRequests_VerifyGiftDetailsGetsUpdatedOnRefresh : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

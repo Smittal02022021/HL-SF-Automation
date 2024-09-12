@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2017_GiftLog_GiftRequestProcess_GiftRequests_VerifyTheTotalsOfTheGiftsAreMeasuredSeparatelyFromTheCurrentYear : BaseClass
+    class ZObsolated_T2017_GiftLog_GiftRequestProcess_GiftRequests_VerifyTheTotalsOfTheGiftsAreMeasuredSeparatelyFromTheCurrentYear : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

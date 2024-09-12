@@ -6,10 +6,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SF_Automation.Pages.Contact;
 
 namespace SalesForce_Project.TestCases.GiftLog
@@ -32,9 +28,6 @@ namespace SalesForce_Project.TestCases.GiftLog
         public static string fileT1516 = "LV_T1516_GiftLog_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowance";
         private string actualRecipientContactName;
         private string actualRecipientCompanyName;
-        private string comboSelectionExl;
-        private string nameCompanyExl;
-        private string nameContactExl;
         private string currencyCode;
         private string colorOfGiftValue;
         private string colorOfGiftValueExl;
@@ -42,7 +35,6 @@ namespace SalesForce_Project.TestCases.GiftLog
         private string warningMessage;
         private string congratulationMsg;
         private string congratulationMsgExl;
-        private string currencyValue;
         private string recipientOnGiftRequestDetail;
         private string recipientNameExl;
         private string valGiftNameEntered;
@@ -58,9 +50,17 @@ namespace SalesForce_Project.TestCases.GiftLog
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        /*
+         *  TMTC0011803/T1516	Client Gift Pre-Approval Page - Recipients exceeds yearly gift allowance (>100$)  - Revise Request and Submits Request for Currency Type U.S. Dollar
+            TMTC0011806/T1517	Client Gift Pre-Approval Page - Recipients exceeds yearly gift allowance(>100 Euro ) for Currency Type Euro (Not in France)
+            TMTC0011809/T1518	Client Gift Pre-Approval Page - Recipients exceeds yearly gift allowance(>65 Euro ) for Currency Type Euro (in France)
+            TMTC0011812/T1519	Client Gift Pre-Approval Page - Recipients exceeds yearly gift allowance (>100 Pounds) for Currency Type British Pounds
+            TMTC0011815/T1520	Client Gift Pre-Approval Page - Recipients exceeds yearly gift allowance (>100 dollars) for Currency Type Hong Kong dollar
+            TMTC0011850/T2005	GiftLog – Gift Request Process – Recipients exceeds yearly gift allowance (>100 AUD) for Currency Type Australian Dollar.
+         */
 
         [Test]
-        public void VerifyGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear()
+        public void VerifyGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollarLV()
         {
             try
             {
@@ -258,145 +258,30 @@ namespace SalesForce_Project.TestCases.GiftLog
                     giftRequest.ClickReturnToPreApprovalPageLV();
                     randomPages.CloseActiveTab("SL_GiftPreApproval");
                 }
-
-                //randomPages.ReloadPage();
-                //homePageLV.SelectModule(moduleNameExl);
-                //extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                //giftRequestTitle = giftRequest.GetGiftRequestPageTitleLV();
-                //Assert.AreEqual(giftRequestTitleExl, giftRequestTitle);
-                //extentReports.CreateStepLogs("Passed", "Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
-
-                //giftRequest.EnterDetailsGiftRequestLV(fileT1516);
-
-                //Verify company name
-                //Assert.AreEqual(expectedCompanyName, actualRecipientCompanyName);
-                //extentReports.CreateLog("Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table ");
-
-                //Verify recipient contact name
-                //Assert.AreEqual(expectedContactName, actualRecipientContactName);
-                //extentReports.CreateLog("Recipient Name: " + actualRecipientContactName + " is listed in Available Recipient(s) table ");
-
-                // Adding recipient from add recipient section to selected recipient section
-                //giftRequest.AddRecipientToSelectedRecipients();
-                //Assert.AreEqual(expectedLabelGiftAmtYTD, labelGiftAmtYTD);
-                //extentReports.CreateLog("Gift Label: " + labelGiftAmtYTD + " is displayed in Selected Recipient(s) table ");
-
-                //Verify value of gift
-                //Assert.AreEqual(valueOfGiftExl, valueOfGift);
-                //extentReports.CreateLog("Gift Value: " + labelGiftAmtYTD + " is displayed in Selected Recipient(s) table ");
-
-                //Verify currency of gift
-                //Assert.AreEqual("USD", currencyCode);
-                //extentReports.CreateLog("Currency Code: " + currencyCode + " is displayed in Selected Recipient(s) table ");
-
-                //Verification of NewGiftAmtYTD Value turn to red to indicate Currency max limit Exceeded for Current Calendar Year
-                //Assert.AreEqual(colorOfGiftValueExl, colorOfGiftValue);
-                //extentReports.CreateLog("Color Of Gift Value:" + colorOfGiftValue + " is displayed in Selected Recipient(s) table ");
-
-                //Click on submit gift request
-                //giftRequest.ClickSubmitGiftRequest();
-                //Assert.AreEqual(warningMessageExl, warningMessage);
-                //extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
-
-                //Verify revise request button visible
-                //Assert.IsTrue(giftRequest.IsReviseRequestButtonVisible());
-                //extentReports.CreateLog("Revise Request button is visible on warning message page ");
-
-                //Verify submit request button visible
-                //Assert.IsTrue(giftRequest.IsSubmitRequestButtonVisible());
-                //extentReports.CreateLog("Submit Request button is visible on warning message page ");
-
-                //CLick on submit request button
-                //giftRequest.ClickSubmitRequestButton();
-                //Assert.IsTrue(giftRequest.IsReturnToPreApprovalPageVisible());
-                //extentReports.CreateLog("Return to pre approval page button is visible upon click of submit request button ");
-
-                //Verify congratulation message upon successful gift request completion
-                //congratulationMsg = giftRequest.GetCongratulationsMsg();
-                //congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
-                //Assert.AreEqual(congratulationMsgExl, congratulationMsg);
-                //extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
-
-                //Verify Gift description 
-                //string giftDescriptionGiftRequestDetail = giftRequest.GetGiftDescriptionOnGiftRequestDetail();
-
-                ////Assert.AreEqual(valGiftNameEntered, giftDescriptionGiftRequestDetail);
-                //extentReports.CreateLog("Gift Description: " + giftDescriptionGiftRequestDetail + " is listed on gift request submission detail page ");
-
-                //Verify recipient name
-                //string RecipientOnGiftRequestDetail = giftRequest.GetRecipientNameOnGiftRequestDetail();
-                //string recipientName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
-                //Assert.AreEqual(recipientName, RecipientOnGiftRequestDetail);
-                //extentReports.CreateLog("Recipient Name: " + RecipientOnGiftRequestDetail + " is listed on gift request submission detail page ");
-
-                //Verify submitted for
-                //string submittedForValue = giftApprove.GetvalueSubmittedForLV();
-                //string submittedForValueExl = ReadExcelData.ReadData(excelPath, "GiftLog", 2);
-                //Assert.AreEqual(submittedForValueExl, submittedForValue);
-                //extentReports.CreateLog("Submitted For: " + submittedForValue + " is listed on gift request submission detail page ");
-
-                //Verify currency value
-                //currencyValue = giftApprove.GetGiftCurrencyCode();
-
-                ////Assert.AreEqual("USD", currencyValue);
-                //extentReports.CreateLog("Currency: " + currencyValue + " is listed on gift request submission detail page ");
-
-                //string giftValueOnGiftDetail = giftApprove.GetGiftValue();
-                //string giftValueFromExl = ReadExcelData.ReadData(excelPath, "GiftLog", 3);
-                ////Assert.AreEqual("USD " + giftValueFromExl + "0", giftValueOnGiftDetail);
-                //extentReports.CreateLog("Gift Value: " + giftValueOnGiftDetail + " is listed on gift request submission detail page ");
-
-                /********** WILL CHECK LATER************************
-                driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
-
-                string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-
-                homePage.SearchUserByGlobalSearchN(adminUserExl);
-                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
-                login.SwitchToLightningExperience();
-                string userAdmin = login.ValidateUserLightningView();
-                Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
-                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-
-                //Go to Opportunity module in Lightning View 
-                homePageLV.SelectAppLV(appNameExl);
-                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                                
-                //Navigate to contacts page            
-
-                //Search external contact
-                conHome.SearchContactInLightning(recipientNameExl);
-
-                //To delete external contact
-                contactDetails.DeleteContactLV();
-
-                conHome.ClickContact();
-                conHome.ClickAddContact();
-
-                //Calling select record type and click continue function
-                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
-                conSelectRecord.SelectContactRecordType(fileT1516, contactType);
-                extentReports.CreateLog("User navigate to create contact page upon click of continue button. ");
-
-                //Re-create external contact
-                createContact.CreateContact(fileT1516);
-                extentReports.CreateLog("External Contact created. ");
-
-                */
-
                 driver.SwitchTo().DefaultContent();
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out *****Delete & Create Contact Actions are pending ");
+                               
+                //Navigate to contacts page
+                //Search external contact
+                conHome.ClickContact();                
+                conHome.SearchContact(fileT1516);
+                //To Delete created contact
+                contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                conHome.ClickContact();
+                conHome.ClickAddContact();
+
+                // Calling select record type and click continue function
+                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
+                conSelectRecord.SelectContactRecordType(fileT1516, contactType);
+                extentReports.CreateLog("user navigate to create contact page upon click of continue button ");
+
+                createContact.CreateContact(fileT1516);
+                extentReports.CreateLog("External Contact created again ");
+
+                usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
-
 
             }
             catch (Exception e)

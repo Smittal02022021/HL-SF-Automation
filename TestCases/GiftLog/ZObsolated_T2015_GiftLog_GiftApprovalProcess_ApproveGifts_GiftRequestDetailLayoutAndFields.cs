@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
@@ -11,21 +9,17 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear : BaseClass
+    class ZObsolated_T2015_GiftLog_GiftApprovalProcess_ApproveGifts_GiftRequestDetailLayoutAndFields : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        CompanyHomePage companyHome = new CompanyHomePage();
-        CompanyDetailsPage companyDetail = new CompanyDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
-        GiftApprovePage giftApprove = new GiftApprovePage();
         GiftRequestPage giftRequest = new GiftRequestPage();
-        GiftSubmittedPage giftsSubmit = new GiftSubmittedPage();
-        GiftRequestEditPage giftEdit = new GiftRequestEditPage();
+        GiftApprovePage giftApprove = new GiftApprovePage();
 
-        public static string fileTC2022 = "T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear";
-
+        public static string fileTC2015 = "T2015_GiftLog_GiftApprovalProcess_ApproveGifts_GiftRequestDetailLayoutAndFields";
+       
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -36,12 +30,12 @@ namespace SF_Automation.TestCases.GiftLog
         }
 
         [Test]
-        public void GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear()
+        public void GiftLog_GiftApprovalProcess_ApproveGifts_GiftRequestDetailLayoutAndFields()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC2022;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTC2015;
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
@@ -57,7 +51,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                homePage.SearchUserByGlobalSearch(fileTC2022, user);
+                homePage.SearchUserByGlobalSearch(fileTC2015, user);
 
                 //Verify searched user
                 string userPeople = homePage.GetPeopleOrUserName();
@@ -79,8 +73,8 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(giftRequestTitleExl, giftRequestTitle);
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
-                // Enter required details in client gift pre- approval page
-                string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC2022);
+                //Enter required details in client gift pre- approval page
+                string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC2015);
 
                 //Verify company name
                 string actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompany();
@@ -93,8 +87,8 @@ namespace SF_Automation.TestCases.GiftLog
                 string expectedContactName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
                 Assert.AreEqual(expectedContactName, actualRecipientContactName);
                 extentReports.CreateLog("Recipient Name: " + actualRecipientContactName + " is listed in Available Recipient(s) table ");
-                
-                // Adding recipient from add recipient section to selected recipient section
+
+                //Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
 
                 //Verify recipient name
@@ -102,22 +96,17 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(actualRecipientContactName, selectedRecipientName);
                 extentReports.CreateLog("Recipient Name: " + selectedRecipientName + " in selected recipient(s) table matches with available recipient name listed in Available Recipient(s) table ");
 
-                string DesireDate = giftRequest.EnterDesiredDate(364);
-                extentReports.CreateLog("Desire Date: " + DesireDate + " entered as next year date. ");
-
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
                 giftApprove.ClickSubmitRequest();
                 string congratulationMsg = giftRequest.GetCongratulationsMsg();
-                string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
-                Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                 usersLogin.UserLogOut();
 
                 // Search Complaince user by global search
                 string userCompliance = ReadExcelData.ReadData(excelPath, "Users", 2);
-                homePage.SearchUserByGlobalSearch(fileTC2022, userCompliance);
+                homePage.SearchUserByGlobalSearch(fileTC2015, userCompliance);
 
                 //Verify searched user
                 string userPeople1 = homePage.GetPeopleOrUserName();
@@ -133,56 +122,57 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(giftApprove.ApproveSelectedButtonVisibility());
                 extentReports.CreateLog("Approve Selected button is visible on click of approve gifts tab ");
 
-                //Search gift details by recipient last name
-                giftApprove.SearchByRecipientLastNameForNextYear(fileTC2022);
+                //Search gift details by recipient last name for current year
+                giftApprove.SearchByRecipientLastName(fileTC2015);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
-                //Approve gift
-                Assert.IsTrue(giftApprove.CompareGiftDescWithGiftName(valGiftNameEntered));
-                giftApprove.SetApprovalDenialComments();
-                giftApprove.ClickApproveSelectedButton();
-                extentReports.CreateLog("Approve selected button is clicked successfully ");
+                //Approve the current year gift
+                giftApprove.CompareAndClickGiftDesc(valGiftNameEntered);
+                extentReports.CreateLog("Gift desc is clicked successfully ");
 
-                usersLogin.UserLogOut();
+                //Validate Gift Name field and value
+                Assert.IsTrue(giftApprove.VerifyGiftNameInGiftRequestDetails(fileTC2015, valGiftNameEntered));
+                extentReports.CreateLog("Gift Name field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                // Search standard user by global search
-                homePage.SearchUserByGlobalSearch(fileTC2022, user);
+                //Validate Gift Type field and value
+                Assert.IsTrue(giftApprove.VerifyGiftTypeInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Gift Type field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                //Verify searched user
-                homePage.GetPeopleOrUserName();
-                extentReports.CreateLog("User " + userPeople + " details are displayed ");
+                //Validate Recipient For Gift field and value
+                Assert.IsTrue(giftApprove.VerifyRecipientForInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Recipient For Gift field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                //Login as Standard User and validate the user
-                usersLogin.LoginAsSelectedUser();
-                extentReports.CreateLog("Gift Log User: " + giftLogUser + " is able to login ");
+                //Validate Submitted For field and value
+                Assert.IsTrue(giftApprove.VerifySubmittedForInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Submitted For field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                //Navigate to Gift Request page
-                giftRequest.GoToGiftRequestPage();
-                extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
+                //Validate Vendor field and value
+                Assert.IsTrue(giftApprove.VerifyVendorInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Vendor field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                // Enter required details in client gift pre- approval page
-                string valGiftNameEntered1 = giftRequest.EnterDetailsGiftRequest(fileTC2022);
+                //Validate Gift Value field and value
+                Assert.IsTrue(giftApprove.VerifyGiftValueInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Gift Value field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                string DesireDate1 = giftRequest.EnterDesiredDate(350);
-                extentReports.CreateLog("Desire Date: " + DesireDate1 + " entered as next year date. ");
+                //Validate Currency field and value
+                Assert.IsTrue(giftApprove.VerifyCurrencyInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Currency field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                // Adding recipient from add recipient section to selected recipient section
-                giftRequest.AddRecipientToSelectedRecipients();
-                string labelGiftAmtYTD = giftRequest.GetLabelNewGiftAmtYTD();
-                string expectedLabelGiftAmtYTD = ReadExcelData.ReadData(excelPath, "GiftLog", 12);
-                Assert.AreEqual(expectedLabelGiftAmtYTD, labelGiftAmtYTD);
-                extentReports.CreateLog("Gift Label: " + labelGiftAmtYTD + " is displayed in Selected Recipient(s) table ");
+                //Validate HL Relationship field and value
+                Assert.IsTrue(giftApprove.VerifyHLRelationshipInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("HL Relationship field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                //Verification of NewGiftAmtYTD Value turn to red to indicate Currency max limit Exceeded for Current Calendar Year
-                string colorOfGiftValue = giftRequest.GetGiftValueColorInGiftAmtYTD();
-                extentReports.CreateLog("Color Of Gift Value: " + colorOfGiftValue + " is displayed in Selected Recipient(s) table ");
+                //Validate Reason For Gift field and value
+                Assert.IsTrue(giftApprove.VerifyReasonForGiftInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Reason For Gift field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
-                //Click on submit gift request
-                giftRequest.ClickSubmitGiftRequest();
-                string warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceed();
-                string warningMessageExl = ReadExcelData.ReadData(excelPath, "GiftLog", 15);
-                Assert.AreEqual(warningMessageExl, warningMessage);
-                extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
+                //Validate Approval Number field and value
+                Assert.AreEqual("Pending", giftApprove.GetApprovalNumberFromGiftRequestDetails());
+                extentReports.CreateLog("Approval Number field is displayed with value as Pending on approve gifts page. ");
+
+                //Validate Created By field and value
+                Assert.IsTrue(giftApprove.VerifyCreatedByInGiftRequestDetails(fileTC2015));
+                extentReports.CreateLog("Created By field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
@@ -192,9 +182,8 @@ namespace SF_Automation.TestCases.GiftLog
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
-                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }
     }
-}          
+}

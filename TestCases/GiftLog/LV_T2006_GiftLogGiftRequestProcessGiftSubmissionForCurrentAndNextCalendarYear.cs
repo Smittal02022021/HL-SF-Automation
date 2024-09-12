@@ -22,9 +22,6 @@ namespace SalesForce_Project.TestCases.GiftLog
         public static string fileT2006 = "LV_T2006_GiftLog_GiftRequestProcess_GiftSubmissionForCurrentAndNextCalendarYear";
         private string actualRecipientContactName;
         private string actualRecipientCompanyName;
-        private string comboSelectionExl;
-        private string nameCompanyExl;
-        private string nameContactExl;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -83,13 +80,13 @@ namespace SalesForce_Project.TestCases.GiftLog
                 string valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2006);
 
                 //Verify company name
-                string actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
+                actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
                 string expectedCompanyName = ReadExcelData.ReadData(excelPath, "GiftLog", 8);
                 Assert.AreEqual(expectedCompanyName, actualRecipientCompanyName);
                 extentReports.CreateLog("Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table ");
 
                 //Verify recipient contact name
-                string actualRecipientContactName = giftRequest.GetAvailableRecipientNameLV();
+                actualRecipientContactName = giftRequest.GetAvailableRecipientNameLV();
                 string expectedContactName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
                 Assert.AreEqual(expectedContactName, actualRecipientContactName);
                 extentReports.CreateLog("Recipient Name: " + actualRecipientContactName + " is listed in Available Recipient(s) table ");
