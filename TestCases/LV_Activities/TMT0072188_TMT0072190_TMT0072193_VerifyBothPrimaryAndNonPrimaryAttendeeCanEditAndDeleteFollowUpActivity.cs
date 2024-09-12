@@ -11,7 +11,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class TMT0072188_TMT0072190_VerifyBothPrimaryAndNonPrimaryAttendeeCanEditFollowUpActivity : BaseClass
+    class TMT0072188_TMT0072190_TMT0072193_VerifyBothPrimaryAndNonPrimaryAttendeeCanEditAndDeleteFollowUpActivity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -37,7 +37,7 @@ namespace SF_Automation.TestCases.LV_Activities
         }
 
         [Test]
-        public void VerifyBothPrimaryAndNonPrimaryAttendeeCanEditFollowUpActivity()
+        public void VerifyBothPrimaryAndNonPrimaryAttendeeCanEditAndDeleteFollowUpActivity()
         {
             try
             {
