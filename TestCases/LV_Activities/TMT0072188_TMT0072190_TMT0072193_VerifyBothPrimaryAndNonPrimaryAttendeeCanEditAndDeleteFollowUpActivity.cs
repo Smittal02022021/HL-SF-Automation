@@ -97,6 +97,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
                     string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
                     string followUpActivityType = ReadExcelData.ReadDataMultipleRows(excelPath, "Followup", row, 1);
+                    string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
                     string additionalExtAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 1);
                     string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
 
@@ -176,7 +177,7 @@ namespace SF_Automation.TestCases.LV_Activities
                     }
 
                     //Deleting Followup Activity
-                    LV_ContactsActivityList.ViewActivityFromList("Follow-up: " + subject);
+                    LV_ContactsActivityList.ViewActivityFromList(updatedSubject);
                     extentReports.CreateStepLogs("Info", "User redirected to Followup Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
 

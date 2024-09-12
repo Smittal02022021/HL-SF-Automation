@@ -276,6 +276,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
             Thread.Sleep(2000);
 
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
             //Click Save
             driver.FindElement(btnSaveActivity).Click();
             Thread.Sleep(5000);
@@ -312,8 +315,8 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(1000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,1000)");
-            Thread.Sleep(2000);
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
 
             //Edit Industry Group
             CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
@@ -323,7 +326,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             //Edit Product Group
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
             driver.FindElement(drpdownProductType).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
