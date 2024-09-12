@@ -323,10 +323,10 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedIndGrp}']")).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             //Edit Product Group
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
             driver.FindElement(drpdownProductType).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
