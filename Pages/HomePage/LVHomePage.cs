@@ -134,6 +134,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(linkContactsInSearchAllDropDown).Click();
             Thread.Sleep(5000);
 
+            driver.FindElement(txtMainSearch).Clear();
             driver.FindElement(txtMainSearch).SendKeys(name);
             Thread.Sleep(3000);
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
@@ -154,20 +155,23 @@ namespace SF_Automation.Pages.HomePage
             
         }
 
-        public bool VerifyBankerIsAbleToSearchActivityFromGlobalSearch(string actSub)
+        public bool VerifyBankerIsAbleToSearchActivityFromGlobalSearch(string actSub, string user, string addUser)
         {
             Thread.Sleep(3000);
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
 
             bool result = false;
+            Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(3000);
 
+            driver.FindElement(txtMainSearch).Clear();
             driver.FindElement(txtMainSearch).SendKeys(actSub);
             Thread.Sleep(3000);
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
-            Thread.Sleep(8000);
+            Thread.Sleep(3000);
 
             WebDriverWaits.WaitForPageToLoad(driver, 120);
 
@@ -176,13 +180,24 @@ namespace SF_Automation.Pages.HomePage
 
             for(int i=1; i<totalRows; i++)
             {
-                string sub = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
+                string sub1 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
+                string alias1 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[6]/span/span")).Text.Remove(0,1);
 
-                if(sub == actSub)
+                if(sub1 == actSub && addUser.Contains(alias1))
                 {
-                    result = true;
-                    break;
+                    for(int j=2; j < totalRows; j++)
+                    {
+                        string sub2 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{j}]/td[3]//a")).Text;
+                        string alias2 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{j}]/td[6]/span/span")).Text.Remove(0, 1);
+
+                        if(sub2 == actSub && user.Contains(alias2))
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
                 }
+                break;
             }
 
             return result;

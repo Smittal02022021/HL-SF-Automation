@@ -15,6 +15,8 @@ namespace SF_Automation.Pages.Activities
         By btnSaveActivity = By.XPath("//button[@title='Save']");
         By btnEditActivity = By.XPath("//button[@title='Edit']");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
+        By btnDelete = By.XPath("(//button[@title='Delete'])[2]");
+
         By btnSendNotification = By.XPath("//button[@title='Send Notification']");
         By txtEmailId = By.XPath("//div[@class='slds-p-top_small']/input");
         By btnSendEmail = By.XPath("//button[text()='Send Email']");
@@ -79,6 +81,20 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnDeleteActivity).Click();
             Thread.Sleep(2000);
         }
+
+        public void DeleteActivityForAdmin()
+        {
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDelete, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnDelete));
+            driver.FindElement(btnDelete).Click();
+            Thread.Sleep(2000);
+        }
+
 
         public void CloseTab(string tabName)
         {
@@ -442,16 +458,6 @@ namespace SF_Automation.Pages.Activities
             string additionalExtAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 1);
             string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
 
-            //Get Activity Details
-            string type1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[1]")).Text;
-            string subject1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[3]")).Text;
-            string description1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/lightning-formatted-text)[1]")).Text;
-            string meetingNotes1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/lightning-formatted-text)[2]")).Text;
-            string industryGroup1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[13]")).Text;
-            string productType1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[15]")).Text;
-            string additionalExtAttendee1 = driver.FindElement(By.XPath("(//h2//a)[3]")).Text;
-            string additionalHLAttendee1 = driver.FindElement(By.XPath("(//h2//a)[6]")).Text;
-
             //Get total rows under events
             int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
 
@@ -464,6 +470,16 @@ namespace SF_Automation.Pages.Activities
                     driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Click();
                     Thread.Sleep(3000);
                     WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
+
+                    //Get Activity Details
+                    string type1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[1]")).Text;
+                    string subject1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[2]")).Text;
+                    string description1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static']/lightning-formatted-text)[1]")).Text;
+                    string meetingNotes1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static']/lightning-formatted-text)[2]")).Text;
+                    string industryGroup1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[7]")).Text;
+                    string productType1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[8]")).Text;
+                    string additionalExtAttendee1 = driver.FindElement(By.XPath("//a[@data-value='003Oy00000OE2H3IAL']")).Text;
+                    string additionalHLAttendee1 = driver.FindElement(By.XPath("//a[@data-value='0035A00003czwjrQAA']")).Text;
 
                     if(type==type1 && subject==subject1 && description==description1 && meetingNotes==meetingNotes1 && industryGroup==industryGroup1 && productType==productType1 && additionalExtAttendee==additionalExtAttendee1 && additionalHLAttendee==additionalHLAttendee1)
                     {

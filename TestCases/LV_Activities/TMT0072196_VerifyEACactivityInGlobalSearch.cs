@@ -106,53 +106,52 @@ namespace SF_Automation.TestCases.LV_Activities
                     Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                     extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
 
-                    //Verify Primary Attendee is able to search activity from Global Search.
-                    Assert.IsTrue(lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject));
-                    extentReports.CreateStepLogs("Passed", "Primary Attendee is able to search activity from Global Search.");
-
-                    //Verify if activity details match
-                    Assert.IsTrue(activityDetailPage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject, row));
-                    extentReports.CreateStepLogs("Passed", "Activity details match when navigated from Global Search.");
-
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
-
-                    //Login user
-                    homePage.SearchUserByGlobalSearch(fileTMTC0032668, additionalHLAttendee);
-                    usersLogin.LoginAsSelectedUser();
 
                     //Switch to lightning view
                     if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                     {
                         homePage.SwitchToLightningView();
-                        extentReports.CreateStepLogs("Passed", "CF Financial User: " + additionalHLAttendee + " is able to login into lightning view. ");
-                    }
-                    else
-                    {
-                        extentReports.CreateStepLogs("Passed", "CF Financial User: " + additionalHLAttendee + " is able to login into lightning view. ");
+                        extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
                     }
 
-                    //Verify Primary Attendee is able to search activity from Global Search.
-                    Assert.IsTrue(lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject));
-                    extentReports.CreateStepLogs("Passed", "Non-Primary Attendee is able to search activity from Global Search.");
+                    //Verify Admin is able to search activity from Global Search.
+                    Assert.IsTrue(lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject, valUser, additionalHLAttendee));
+                    extentReports.CreateStepLogs("Passed", "Admin user is able to search activity from Global Search.");
 
                     //Verify if activity details match
                     Assert.IsTrue(activityDetailPage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject, row));
                     extentReports.CreateStepLogs("Passed", "Activity details match when navigated from Global Search.");
 
+                    //Search external contact
+                    lvHomePage.SearchContactFromMainSearch(extContactName);
+                    Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
+                    extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
+
+                    //Navigate to Activity tab
+                    lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
+                    Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
+                    extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+
                     //Deleting Main Created Activity
-                    activityDetailPage.DeleteActivity();
-                    extentReports.CreateStepLogs("Info", "Main Activity with call type: " + type + " deleted successfully. ");
+                    LV_ContactsActivityList.ViewActivityFromList(subject);
+                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+                    activityDetailPage.DeleteActivityForAdmin();
+
+                    //Verify main activity is deleted successfully
+                    int afterCount1 = activitiesList.GetActivityCount();
+                    Assert.AreEqual(beforeCount, afterCount1);
+                    extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
                 }
 
-                //Logout from SF Lightning View
-                lvHomePage.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+                //Switch Back to Classic View
+                lvHomePage.SwitchBackToClassicView();
 
                 //Logout from SF Classic View
                 usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Classic View. ");
 
                 driver.Quit();
             }
