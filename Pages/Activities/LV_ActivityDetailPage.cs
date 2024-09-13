@@ -424,5 +424,57 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSendEmail).Click();
             Thread.Sleep(2000);
         }
+
+        public bool VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(string file, string actSub, int row)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
+            string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+            string industryGroup = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 3);
+            string productType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 4);
+            string description = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 5);
+            string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
+            string additionalExtAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 1);
+            string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
+
+            //Get Activity Details
+            string type1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[1]")).Text;
+            string subject1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[3]")).Text;
+            string description1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/lightning-formatted-text)[1]")).Text;
+            string meetingNotes1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/lightning-formatted-text)[2]")).Text;
+            string industryGroup1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[13]")).Text;
+            string productType1 = driver.FindElement(By.XPath("(//span[text()='Type']/following::div/div)[15]")).Text;
+            string additionalExtAttendee1 = driver.FindElement(By.XPath("(//h2//a)[3]")).Text;
+            string additionalHLAttendee1 = driver.FindElement(By.XPath("(//h2//a)[6]")).Text;
+
+            //Get total rows under events
+            int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
+
+            for(int i = 1; i < totalRows; i++)
+            {
+                string sub = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
+
+                if(sub == actSub)
+                {
+                    driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Click();
+                    Thread.Sleep(3000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
+
+                    if(type==type1 && subject==subject1 && description==description1 && meetingNotes==meetingNotes1 && industryGroup==industryGroup1 && productType==productType1 && additionalExtAttendee==additionalExtAttendee1 && additionalHLAttendee==additionalHLAttendee1)
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
     }
 }

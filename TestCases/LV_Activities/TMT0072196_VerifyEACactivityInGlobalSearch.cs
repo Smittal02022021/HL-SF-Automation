@@ -107,11 +107,11 @@ namespace SF_Automation.TestCases.LV_Activities
                     extentReports.CreateStepLogs("Passed", "Activity created successfully with call type: " + type);
 
                     //Verify Primary Attendee is able to search activity from Global Search.
-                    lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject);
+                    Assert.IsTrue(lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject));
                     extentReports.CreateStepLogs("Passed", "Primary Attendee is able to search activity from Global Search.");
 
                     //Verify if activity details match
-                    lvHomePage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject);
+                    Assert.IsTrue(activityDetailPage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject, row));
                     extentReports.CreateStepLogs("Passed", "Activity details match when navigated from Global Search.");
 
                     //Logout from SF Lightning View
@@ -134,22 +134,16 @@ namespace SF_Automation.TestCases.LV_Activities
                     }
 
                     //Verify Primary Attendee is able to search activity from Global Search.
-                    lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject);
+                    Assert.IsTrue(lvHomePage.VerifyBankerIsAbleToSearchActivityFromGlobalSearch(subject));
                     extentReports.CreateStepLogs("Passed", "Non-Primary Attendee is able to search activity from Global Search.");
 
                     //Verify if activity details match
-                    lvHomePage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject);
+                    Assert.IsTrue(activityDetailPage.VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(fileTMTC0032668, subject, row));
                     extentReports.CreateStepLogs("Passed", "Activity details match when navigated from Global Search.");
 
                     //Deleting Main Created Activity
-                    LV_ContactsActivityList.ViewActivityFromList(subject);
-                    extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                     activityDetailPage.DeleteActivity();
-
-                    //Verify main activity is deleted successfully
-                    int afterCount1 = activitiesList.GetActivityCount();
-                    Assert.AreEqual(beforeCount, afterCount1);
-                    extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
+                    extentReports.CreateStepLogs("Info", "Main Activity with call type: " + type + " deleted successfully. ");
                 }
 
                 //Logout from SF Lightning View

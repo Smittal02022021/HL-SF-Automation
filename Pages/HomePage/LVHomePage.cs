@@ -188,28 +188,6 @@ namespace SF_Automation.Pages.HomePage
             return result;
         }
 
-        public bool VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(string file, string actSub)
-        {
-            bool result = false;
-
-            //Get total rows under events
-            int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
-
-            for(int i = 1; i < totalRows; i++)
-            {
-                string sub = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
-
-                if(sub == actSub)
-                {
-                    driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Click();
-                    Thread.Sleep(3000);
-                    break;
-                }
-            }
-
-            return result;
-        }
-
         public void SearchCompanyFromMainSearch(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
