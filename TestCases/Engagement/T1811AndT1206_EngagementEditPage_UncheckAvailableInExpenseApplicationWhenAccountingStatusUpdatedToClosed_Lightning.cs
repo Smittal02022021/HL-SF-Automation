@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class T1811AndT1206_EngagementEditPage_UncheckAvailableInExpenseApplicationWhenAccountingStatusUpdatedToClosed : BaseClass
+    class T1811AndT1206_EngagementEditPage_UncheckAvailableInExpenseApplicationWhenAccountingStatusUpdatedToClosed_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -74,26 +74,24 @@ namespace SF_Automation.TestCases.Engagement
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Std User: " + stdUser + " is able to login ");
 
-                engHome.SearchEngagementWithName("Delaware River Solar");
-                string ownership = engagementDetails.UpdateClientOwnershipAndDebt("Bank", "13.00");
+                engHome.SearchEngagementWithNumberOnLightning("Delaware River Solar", "General Financial Advisory");
+                string ownership = engagementDetails.UpdateClientOwnershipAndDebtL("Bank", "13.00");
                 extentReports.CreateLog("Client ownership and Debt details are updated ");
-                Assert.AreEqual("Bank", ownership);
-                //string debt = engagementDetails.GetTotalDebt();
-                //Assert.AreEqual("13.00",debt);
+                Assert.AreEqual("Bank", ownership);                
                 extentReports.CreateLog("Updated Client Ownership details are displayed ");
 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

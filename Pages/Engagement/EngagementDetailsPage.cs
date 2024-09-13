@@ -91,6 +91,7 @@ namespace SF_Automation.Pages.Engagement
         By comboClientOwnership = By.CssSelector("select[id*='d2R']");
         By txtDebt = By.CssSelector("input[id*='LfH']");
         By valClientOwnership = By.CssSelector("div[id*='d2Rj_id0_j_id4_ileinner']");
+        By valClientOwnershipL = By.XPath("//flexipage-column2[2]//flexipage-field[3]//slot[1]/lightning-formatted-text");
         By valTotalDebt = By.CssSelector("div[id*='fHj_id0_j_id4_ileinner']");
         By lnkRecChange = By.CssSelector("div[id*='RecordType'] > a");
         By comboRecType = By.CssSelector("select[id*='p3']");
@@ -371,7 +372,7 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-        By tabRevenue = By.XPath("//a[@data-label='Revenue']");
+        By tabRevenue = By.XPath("//a[@aria-controls='tab-13']");
         By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
@@ -469,7 +470,7 @@ namespace SF_Automation.Pages.Engagement
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
         By btnCancelSendEmail = By.XPath("//div/div[1]/table/tbody/tr/td[2]/input[2]");
         By txtTo = By.XPath("//input[@name='j_id0:j_id58:pbSendEmail:pbsMain:j_id60:inputToId']");
-        By tabMore = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/lightning-button-menu");
+        By tabMore = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu");
         By lblBid = By.XPath("//span[text()='Bids']");
         By lblReport = By.XPath("//span[text()='Report']");
         By lblBidAdmin = By.XPath("//flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[8]/a");
@@ -756,6 +757,8 @@ namespace SF_Automation.Pages.Engagement
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By frameInternalTeamModifyPage = By.XPath("//article/div[2]/div/iframe");
         By btnEditL = By.XPath("//li[contains(@data-target-selection-name,'Engagement__c.Edit')]");
+        By comboClientOwnershipL = By.XPath("//button[contains(@aria-label,'Client Ownership')]");
+
         //records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_opportunity__c___012i0000000tpyfaau___compact___view___recordlayout2/records-highlights2/div[1]/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li[1]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-page-reference/slot/slot/lightning-button/button");
         By txtAssociatedEngLabelL = By.XPath("//span[text()='Associated Engagement']");
         By editAssociatedEngFieldL = By.XPath("//flexipage-field[contains(@data-field-id,'Associated_Engagement')]//input");
@@ -3004,6 +3007,22 @@ namespace SF_Automation.Pages.Engagement
             return clientOwnership;
         }
 
+        //Update Client Ownership and Total Debt
+        public string UpdateClientOwnershipAndDebtL(string Ownership, string Debt)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 80);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 100);            
+            driver.FindElement(comboClientOwnershipL).SendKeys(Ownership);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='"+ Ownership+"']")).Click();
+
+            driver.FindElement(btnSaveDetailsL).Click();
+            string clientOwnership = driver.FindElement(valClientOwnershipL).Text;
+            return clientOwnership;
+        }
+
         //To get Debt
         public string GetTotalDebt()
         {
@@ -3490,8 +3509,8 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();            
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabExistingEng, 100);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabExistingEng, 110);
             driver.FindElement(tabExistingEng).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 130);
@@ -3643,7 +3662,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 100);
             driver.FindElement(tabRevenue).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, subtabContracts, 150);
+            Thread.Sleep(5000);
             driver.FindElement(subtabContracts).Click();
             Thread.Sleep(4000);
             string name = driver.FindElement(valContract1L).Text;
@@ -6801,7 +6820,7 @@ namespace SF_Automation.Pages.Engagement
                 }
                 catch (Exception)
                 {
-                    driver.SwitchTo().Frame(0);
+                    driver.SwitchTo().Frame(1);
                     string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
                     driver.SwitchTo().DefaultContent();
                     return "New Opportunity Valuation Period button is displayed";
