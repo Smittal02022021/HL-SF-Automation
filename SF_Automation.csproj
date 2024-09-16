@@ -700,6 +700,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072229_VerifyActivityIsLinkedToTheSelectedCompanyDiscussed.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072196_VerifyEACactivityInGlobalSearch.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072188_TMT0072190_TMT0072193_VerifyBothPrimaryAndNonPrimaryAttendeeCanEditAndDeleteFollowUpActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072178_TMT0072180_VerifyBothPrimaryAndNonPrimaryAttendeeCanDeleteActivityFromSF.cs" />
