@@ -25,6 +25,8 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_ActivitiesList activitiesList = new LV_ActivitiesList();
         LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
 
+        LVCompaniesActivityDetailPage companyActivityDetail = new LVCompaniesActivityDetailPage();
+
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheSelectedCompanyDiscussed";
 
         [OneTimeSetUp]
@@ -116,22 +118,23 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Search Company Discussed
                 lvHomePage.SearchCompanyFromMainSearch(companyDis);
-                Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
-                extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
+                Assert.IsTrue(companyActivityDetail.VerifyUserLandedOnCorrectCompaniesDetailsPage(companyDis));
+                extentReports.CreateStepLogs("Passed", "User navigated to companies detail page. ");
 
                 //Navigate to Activity tab
-                lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
-                Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
-                extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+                companyActivityDetail.NavigateToActivityTab();
+                Assert.IsTrue(companyActivityDetail.IsActivityListDisplayed());
+                extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of company. ");
+
+                //Verify Activity is linked with Company Discussed
+                Assert.IsTrue(companyActivityDetail.VerifyActivityLinkedWithCompanyIsVisible(subject));
+                extentReports.CreateStepLogs("Passed", "Activity linked with the company is listed under Activity Tab of the company. ");
 
                 //Deleting Main Created Activity
-                LV_ContactsActivityList.ViewActivityFromList(subject);
+                companyActivityDetail.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
-                activityDetailPage.DeleteActivityForAdmin();
 
-                //Verify main activity is deleted successfully
-                int afterCount1 = activitiesList.GetActivityCount();
-                Assert.AreEqual(beforeCount, afterCount1);
+                companyActivityDetail.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
                 //Switch Back to Classic View

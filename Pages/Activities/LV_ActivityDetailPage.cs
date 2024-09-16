@@ -95,7 +95,6 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
         }
 
-
         public void CloseTab(string tabName)
         {
             Thread.Sleep(5000);
