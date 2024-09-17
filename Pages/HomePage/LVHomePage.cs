@@ -69,7 +69,7 @@ namespace SF_Automation.Pages.HomePage
         By dropdownSearchAll = By.XPath("//input[@data-value='Search: All']");
         By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
         By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
-
+        By linkOpportunitiesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Opportunity__c:Opportunities']");
 
         By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
@@ -221,6 +221,26 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(By.XPath($"(//a[@title='{name}'])[2]")).Click();
             Thread.Sleep(5000);
         }
+
+        public void SearchOpportunityFromMainSearch(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkOpportunitiesInSearchAllDropDown, 120);
+            driver.FindElement(linkOpportunitiesInSearchAllDropDown).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
+            Thread.Sleep(5000);
+        }
+
 
         public void ClickExpenseRequestMenuButton()
         {
