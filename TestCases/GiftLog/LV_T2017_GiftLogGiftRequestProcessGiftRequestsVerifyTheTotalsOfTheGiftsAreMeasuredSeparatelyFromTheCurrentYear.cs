@@ -164,7 +164,8 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Approve Selected button is visible on click of approve gifts tab ");
 
                 //Search gift details by recipient last name
-                giftApprove.SearchByRecipientLastNameLV(fileT2017);
+                string recipientLastNameExl = ReadExcelData.ReadData(excelPath, "GiftLog", 13);
+                giftApprove.SearchByRecipientLastNameLV(recipientLastNameExl);
                 extentReports.CreateStepLogs("Info", "Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                 //Approve gift

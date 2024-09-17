@@ -41,8 +41,9 @@ namespace SalesForce_Project.TestCases.GiftLog
         private string submittedForValue;
         private string submittedForValueExl;
         private string expectedContactName;
+        private string contactType;
 
-        [OneTimeSetUp]
+       [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             Initialize();
@@ -212,8 +213,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                     giftRequest.ClickSubmitGiftRequestLV();
                     //Verification of error message displaying on submit of gift request exceeds yearly gift allowance for currency type euro(not in france)
                     warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceedLV();
-
-                    
+                                        
                     Assert.AreEqual(warningMessageExl, warningMessage);
                     extentReports.CreateStepLogs("Passed", "Warning Message: " + warningMessage+ " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
@@ -260,11 +260,17 @@ namespace SalesForce_Project.TestCases.GiftLog
                 }
                 driver.SwitchTo().DefaultContent();
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out *****Delete & Create Contact Actions are pending ");
-                               
-                //Navigate to contacts page
-                //Search external contact
-                conHome.ClickContact();                
+                extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
+                  
+            }
+            catch (Exception e)
+            {
+                extentReports.CreateExceptionLog(e.Message);
+                driver.SwitchTo().DefaultContent();
+                login.SwitchToClassicView();
+                usersLogin.UserLogOut();
+                string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
+                conHome.ClickContact();
                 conHome.SearchContact(fileT1516);
                 //To Delete created contact
                 contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
@@ -272,7 +278,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                 conHome.ClickAddContact();
 
                 // Calling select record type and click continue function
-                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
+                contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
                 conSelectRecord.SelectContactRecordType(fileT1516, contactType);
                 extentReports.CreateLog("user navigate to create contact page upon click of continue button ");
 
@@ -282,16 +288,31 @@ namespace SalesForce_Project.TestCases.GiftLog
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
+            }
 
-            }
-            catch (Exception e)
-            {
-                extentReports.CreateExceptionLog(e.Message);
-                driver.SwitchTo().DefaultContent();
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                driver.Quit();
-            }
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
+            conHome.ClickContact();
+            conHome.SearchContact(fileT1516);
+            //To Delete created contact
+            contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+            conHome.ClickContact();
+            conHome.ClickAddContact();
+
+            // Calling select record type and click continue function
+            contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
+            conSelectRecord.SelectContactRecordType(fileT1516, contactType);
+            extentReports.CreateStepLogs("Info", " TearDown user navigate to create contact page upon click of continue button ");
+
+            createContact.CreateContact(fileT1516);
+            extentReports.CreateLog("External Contact created again ");
+
+            usersLogin.UserLogOut();
+            driver.Quit();
+            extentReports.CreateStepLogs("Info", "Browser Closed");
         }
     }
 }

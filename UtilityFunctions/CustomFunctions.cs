@@ -337,6 +337,7 @@ namespace SF_Automation.UtilityFunctions
         public static void PageReload(IWebDriver driver)
         {
             driver.Navigate().Refresh();
+            Thread.Sleep(5000);
         }
         //Validate the file name after download
         public static string ValidateFileName(string dir, string fileName)

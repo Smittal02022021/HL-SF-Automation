@@ -20,6 +20,7 @@ namespace SF_Automation.TestCases.Companies
         CompanyHomePage companyhome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
         ContactDetailsPage contactDetails = new ContactDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0046471 = "TMTI0046471_VerifyCompaniesHasNestedListToShowHLRelationshipForContacts";
 
@@ -54,10 +55,17 @@ namespace SF_Automation.TestCases.Companies
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
-                
-                //Switching to LightningView
+
+                //Login as System Admin user 
+                string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "System Administrator User: " + adminUserExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                //homePageLV.ClickAppLauncher();
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(adminUserExl), true);
+                extentReports.CreateStepLogs("Passed", "System Administrator User: " + adminUserExl + " logged in on Lightning View");
+                                
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
 
@@ -114,11 +122,11 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Info", companyNameExl + ": Company Tab Closed ");
 
                 }
-                login.SwitchToClassicView();
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged out ");
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception ex)
             {

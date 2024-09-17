@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit : BaseClass
+    class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit : BaseClass
     {
         //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
         /*done
@@ -33,9 +33,6 @@ namespace SF_Automation.TestCases.Opportunities
         TMTI0084219	Verify user is able to create new Opportunity with new  Job Type -TAS - ESG Due Diligence & Analytics        
         TMTI0084224	Verify the Record Type conversion of Opportunity to Engagement
         
-        //TMTT0035667 done
-        //TMTI0085044	Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FVA LOB Opportunity
-
         TMTT0024858 done
         TMTI0056869 Verify the availability of new Job Types on the Edit Engagement page
 

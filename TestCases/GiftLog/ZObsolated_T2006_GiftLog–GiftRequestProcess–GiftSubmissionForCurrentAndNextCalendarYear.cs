@@ -8,9 +8,10 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2011_GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetailLayoutAndFields : BaseClass
+    class ZObsolated_T2006_GiftLog_GiftRequestProcess_GiftSubmissionForCurrentAndNextCalendarYear : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,7 +24,7 @@ namespace SF_Automation.TestCases.GiftLog
         GiftSubmittedPage giftsSubmit = new GiftSubmittedPage();
         GiftRequestEditPage giftEdit = new GiftRequestEditPage();
 
-        public static string fileTC2011 = "T2011_GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetailLayoutAndFields";
+        public static string fileTC2006 = "T2006_GiftLog_GiftRequestProcess_GiftSubmissionForCurrentAndNextCalendarYear";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -35,12 +36,12 @@ namespace SF_Automation.TestCases.GiftLog
         }
 
         [Test]
-        public void GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetailLayoutAndFields()
+        public void GiftRequestProcess_GiftSubmissionForCurrentAndNextCalendarYear()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC2011;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTC2006;
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
@@ -56,7 +57,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Search standard user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                homePage.SearchUserByGlobalSearch(fileTC2011, user);
+                homePage.SearchUserByGlobalSearch(fileTC2006, user);
 
                 //Verify searched user
                 string userPeople = homePage.GetPeopleOrUserName();
@@ -79,7 +80,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
                 // Enter required details in client gift pre- approval page
-                string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC2011);
+                string valGiftNameEntered = giftRequest.EnterDetailsGiftRequest(fileTC2006);
 
                 //Verify company name
                 string actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompany();
@@ -92,72 +93,24 @@ namespace SF_Automation.TestCases.GiftLog
                 string expectedContactName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
                 Assert.AreEqual(expectedContactName, actualRecipientContactName);
                 extentReports.CreateLog("Recipient Name: " + actualRecipientContactName + " is listed in Available Recipient(s) table ");
-
+                
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipients();
-                
+
                 //Verify recipient name
                 string selectedRecipientName = giftRequest.GetSelectedRecipientName();
                 Assert.AreEqual(actualRecipientContactName, selectedRecipientName);
                 extentReports.CreateLog("Recipient Name: " + selectedRecipientName + " in selected recipient(s) table matches with available recipient name listed in Available Recipient(s) table ");
-                
+
+                string DesireDate = giftRequest.EnterDesiredDate(365);
+                extentReports.CreateLog("Desire Date: " + DesireDate + " entered as next year date greater than an year ");
+
                 //Click on submit gift request
                 giftRequest.ClickSubmitGiftRequest();
                 giftApprove.ClickSubmitRequest();
-                string congratulationMsg = giftRequest.GetCongratulationsMsg();
-                string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
-                Assert.AreEqual(congratulationMsgExl, congratulationMsg);
-                extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
-
-                giftsSubmit.GoToGiftsSubmittedPage();
-                extentReports.CreateLog("Gift submitted page opened. ");
-
-                giftsSubmit.CompareAndClickGiftDescWithGiftName(valGiftNameEntered);
-                extentReports.CreateLog("Clicked on gift description successfully. ");
-
-                //Validate Gift Name field and value
-                Assert.IsTrue(giftApprove.VerifyGiftNameInGiftRequestDetails(fileTC2011, valGiftNameEntered));
-                extentReports.CreateLog("Gift Name field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Gift Type field and value
-                Assert.IsTrue(giftApprove.VerifyGiftTypeInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Gift Type field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Recipient For Gift field and value
-                Assert.IsTrue(giftApprove.VerifyRecipientForInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Recipient For Gift field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Submitted For field and value
-                Assert.IsTrue(giftApprove.VerifySubmittedForInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Submitted For field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Vendor field and value
-                Assert.IsTrue(giftApprove.VerifyVendorInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Vendor field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Gift Value field and value
-                Assert.IsTrue(giftApprove.VerifyGiftValueInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Gift Value field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Currency field and value
-                Assert.IsTrue(giftApprove.VerifyCurrencyInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Currency field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate HL Relationship field and value
-                Assert.IsTrue(giftApprove.VerifyHLRelationshipInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("HL Relationship field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Reason For Gift field and value
-                Assert.IsTrue(giftApprove.VerifyReasonForGiftInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Reason For Gift field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
-
-                //Validate Approval Number field and value
-                Assert.AreEqual("Pending", giftApprove.GetApprovalNumberFromGiftRequestDetails());
-                extentReports.CreateLog("Approval Number field is displayed with value as Pending on gifts submitted page. ");
-
-                //Validate Created By field and value
-                Assert.IsTrue(giftApprove.VerifyCreatedByInGiftRequestDetails(fileTC2011));
-                extentReports.CreateLog("Created By field is displayed with correct value under Gift Request detail section on gifts submitted page. ");
+                string DesiredDateError = giftRequest.GetDesiredDateErrorMsg();
+                Assert.AreEqual("Error:\r\nDesired Date Should not be greater than one Year.", DesiredDateError);
+                extentReports.CreateLog("Error Message: " + DesiredDateError + " is displayed upon entering a desire date greater than an year and clicking on submit gift request ");
 
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
@@ -167,8 +120,9 @@ namespace SF_Automation.TestCases.GiftLog
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }
     }
-}
+}          

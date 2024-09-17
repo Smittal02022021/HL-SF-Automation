@@ -207,7 +207,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateLog("Color Of Gift Value: " + colorOfGiftValue + " is displayed in Selected Recipient(s) table ");
 
                 //Click on submit gift request
-                giftRequest.ClickSubmitGiftRequest();
+                giftRequest.ClickSubmitGiftRequestLV();
                 warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceedLV();
                 warningMessageExl = ReadExcelData.ReadData(excelPath, "GiftLog", 15);
                 Assert.AreEqual(warningMessageExl, warningMessage);

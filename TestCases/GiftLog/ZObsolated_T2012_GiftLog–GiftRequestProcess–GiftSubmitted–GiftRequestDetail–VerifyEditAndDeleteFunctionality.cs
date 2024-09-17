@@ -10,7 +10,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2012_GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetail_VerifyEditAndDeleteFunctionality : BaseClass
+    class ZObsolated_T2012_GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetail_VerifyEditAndDeleteFunctionality : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

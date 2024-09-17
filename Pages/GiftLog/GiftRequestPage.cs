@@ -108,7 +108,105 @@ namespace SF_Automation.Pages.GiftLog
         {
             return By.XPath($"//label[text()='{label}']/../img");
         }
+        public string GetDollarValueTotalNextYearLV(int num)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"td[id*='{num}:j_id85']"), 60);
+            string dollarValue = driver.FindElement(By.CssSelector($"td[id*='{num}:j_id85']")).Text.Split(' ')[1].Trim();
+            return dollarValue;
+        }
 
+        public void RemoveSelectedRecipientLV()
+        {
+            driver.FindElement(chkFirstSelectedRecipient).Click();
+            driver.FindElement(btnRemoveRecipients).Click();
+        }
+        public string GetDollarValueLV(int num)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"td[id*='{num}:j_id81']"), 60);
+            string dollarValue = driver.FindElement(By.CssSelector($"td[id*='{num}:j_id81']")).Text.Split(' ')[1].Trim();
+            return dollarValue;
+        }
+        public int GetSizeOfSelectedRecipientLV()
+        {
+            IList<IWebElement> selectedRecipient = driver.FindElements(By.CssSelector("tbody[id*='j_id49:table2:tb'] > tr"));
+            return selectedRecipient.Count;
+        }
+        public void AddMultipleRecipientToSelectedRecipientsLV(int num)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"input[name*='{num}:j_id61']"), 60);
+            driver.FindElement(By.CssSelector($"input[name*='{num}:j_id61']")).Click();
+        }
+
+        public int GetSizeOfAvailableRecipientLV()
+        {
+            IList<IWebElement> availableRecipient = driver.FindElements(By.CssSelector("tbody[id*='j_id59:table:tb'] > tr"));
+            return availableRecipient.Count;
+        }
+        public string EnterGiftRequestDetailsLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+
+            string excelPath = dir + file;
+            // Enter value in gift type
+            WebDriverWaits.WaitUntilEleVisible(driver, comboGiftType);
+            driver.FindElement(comboGiftType).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 1));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSubmittedFor);
+            driver.FindElement(txtSubmittedFor).Clear();
+            driver.FindElement(txtSubmittedFor).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 2));
+
+            //Enter value of gift name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftName);
+            driver.FindElement(txtGiftName).Clear();
+            string valGiftName = CustomFunctions.RandomValue();
+            driver.FindElement(txtGiftName).SendKeys(valGiftName);
+
+            // Enter gift value
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValue);
+            driver.FindElement(txtGiftValue).Clear();
+            driver.FindElement(txtGiftValue).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 3));
+
+            // Enter HL Relationship
+            WebDriverWaits.WaitUntilEleVisible(driver, comboHlRelationship);
+            driver.FindElement(comboHlRelationship).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 4));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCurrency);
+            driver.FindElement(comboCurrency).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 5));
+
+            //Enter vendor details
+            WebDriverWaits.WaitUntilEleVisible(driver, txtVendor);
+            driver.FindElement(txtVendor).Clear();
+            driver.FindElement(txtVendor).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 6));
+
+            //Click Divide Gift Value
+            driver.FindElement(chkDivideGiftValue).Click();
+            //Enter reason for gift
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReasonForGift);
+            driver.FindElement(txtReasonForGift).Clear();
+            driver.FindElement(txtReasonForGift).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 7));
+
+            //Enter company name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
+            driver.FindElement(txtCompanyName).Clear();
+            driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 8));
+
+
+            //Click search button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 120);
+            driver.FindElement(btnSearch).Click();
+
+            return valGiftName;
+        }
+        public string GetEditPageNewGiftRequestPageTitleLV()
+        {
+            driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, frameGiftRequestL2, 60);
+            driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL2));
+            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 60);
+            string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
+            return selectedCompanyTypeSelected;
+        }
         public string GetGiftValueInGiftTotalNextYearLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftTotalNextYear, 20);
@@ -412,7 +510,7 @@ namespace SF_Automation.Pages.GiftLog
         public string GetCongratulationsMsgLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCongratulationMsg, 60);
-            string CongratulationMsg = driver.FindElement(valCongratulationMsg).GetAttribute("innerText");
+            string CongratulationMsg = driver.FindElement(valCongratulationMsg).GetAttribute("innerText").Trim();
             return CongratulationMsg;
         }
         public string SearchWithTitleLV(string title)
@@ -508,8 +606,9 @@ namespace SF_Automation.Pages.GiftLog
         public string GetGiftRequestPageTitleLV()
         {
             driver.SwitchTo().DefaultContent();
+            WebDriverWaits.WaitUntilEleVisible(driver, frameGiftRequestL, 60);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL));
-            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 20);
             string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
             return selectedCompanyTypeSelected;
         }

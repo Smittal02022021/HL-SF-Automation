@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2007_GiftLog_GiftRequestProcess_SplitGiftValueInEqualDistributionForSelectedRecipient : BaseClass
+    class ZObsolated_T2007_GiftLog_GiftRequestProcess_SplitGiftValueInEqualDistributionForSelectedRecipient : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

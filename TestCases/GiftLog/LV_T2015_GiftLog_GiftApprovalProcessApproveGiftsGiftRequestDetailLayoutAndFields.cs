@@ -162,7 +162,8 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateLog("Approve Selected button is visible on click of approve gifts tab ");
 
                 //Search gift details by recipient last name for current year
-                giftApprove.SearchByRecipientLastNameLV(fileT2015);
+                string recipientLastNameExl = ReadExcelData.ReadData(excelPath, "GiftLog", 13);
+                giftApprove.SearchByRecipientLastNameLV(recipientLastNameExl);
                 extentReports.CreateLog("Approved Column is displayed with 'Pending' Status as default and upon search gifts list is displayed ");
 
                 //Approve the current year gift
