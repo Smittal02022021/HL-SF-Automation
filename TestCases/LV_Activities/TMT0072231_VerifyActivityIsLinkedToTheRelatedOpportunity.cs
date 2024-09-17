@@ -20,6 +20,7 @@ namespace SF_Automation.TestCases.LV_Activities
         LVHomePage lvHomePage = new LVHomePage();
         LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
         LV_ContactsActivityListPage LV_ContactsActivityList = new LV_ContactsActivityListPage();
+        LV_ContactsActivityDetailPage lV_ContactsActivityDetailPage = new LV_ContactsActivityDetailPage();
 
         LV_AddActivity addActivity = new LV_AddActivity();
         LV_ActivitiesList activitiesList = new LV_ActivitiesList();
@@ -132,6 +133,11 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
                 //Navigate to Opportunity Detail from Activity Detail page
+                Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToOpportunityDetailPage(oppDis));
+                extentReports.CreateStepLogs("Passed", "User landed on the Opportunity detail page. ");
+
+
+
 
 
                 //Verify Activity is linked with Opportunity Discussed
