@@ -145,7 +145,9 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 1);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunity(valAssociatedOpp);
+                    opportunityDetails.EnterAssociatedOpportunity(valAssociatedOpp);
+                    nameAssociatedOpp = opportunityDetails.GetAssociatedOpportunity();
+
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(user + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
@@ -209,7 +211,9 @@ namespace SF_Automation.TestCases.Opportunity
 
                     //Enter the Associated Opportunity name
                     valAssociatedOpp = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedOpp", 2, 1);
-                    nameAssociatedOpp = opportunityDetails.EnterAssociatedOpportunity(valAssociatedOpp);
+                    opportunityDetails.EnterAssociatedOpportunity(valAssociatedOpp);
+                    nameAssociatedOpp = opportunityDetails.GetAssociatedOpportunity();
+
                     Assert.AreEqual(nameAssociatedOpp, valAssociatedOpp, "Verify Entered Associated Opportunity as saved ");
                     extentReports.CreateLog(user + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 

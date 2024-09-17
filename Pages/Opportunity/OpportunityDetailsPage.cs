@@ -5658,11 +5658,13 @@ namespace SF_Automation.Pages
             }
 
         }
+
         public string GetAssociatedOpportunity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOpp, 20);
             return driver.FindElement(txtAssociatedOpp).Text;
         }
+
         By editLbloppDescL = By.XPath("//label[text()='Opportunity Description']");
         public void EnterAssociatedOpportunityLV(string name)
         {
@@ -5687,12 +5689,14 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnCancelEditFormL).Click();
             }
         }
+
         public string GetAssociatedOpportunityLV()
         {
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssociatedOppL, 20);
             return driver.FindElement(txtAssociatedOppL).Text;
         }
+
         public bool IsGetIndustryGroupSaved(string value)
         {
             By txtIndustryGroup = By.XPath($"//td[text()='Industry Group']//following-sibling::td//div[contains(text(),'{value}')]");
@@ -5703,6 +5707,7 @@ namespace SF_Automation.Pages
             }
             catch { return false; }
         }
+
         public bool IsIndustryTypePresentInDropdownOppDetailPage(string IndustryType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
@@ -5724,6 +5729,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnCancel).Click();
             return isFound;
         }
+
         public string GetOppERPIntegrationStatus()
         {
             Thread.Sleep(8000);
@@ -5734,11 +5740,13 @@ namespace SF_Automation.Pages
             string status = driver.FindElement(valOppERPLastIntStatus).Text;
             return status;
         }
+
         public bool IsViewCounterpartyButtonOpportunityPageL()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
             return driver.FindElement(btnViewCounterparty).Displayed;
         }
+
         public void ClickViewCounterpartyButtonOpportunityPageL()
         {
             Thread.Sleep(5000);
@@ -5747,6 +5755,7 @@ namespace SF_Automation.Pages
             //WebDriverWaits.WaitTillElementVisible(driver, loader);
             Thread.Sleep(8000);
         }
+
         public string GetOpportunityJobTypeL()
         {
             try
@@ -5759,6 +5768,7 @@ namespace SF_Automation.Pages
                 return ex.Message;
             }
         }
+
         public void CloseOpprtunityTabL(string name)
         {
             By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");
@@ -5777,6 +5787,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
         }
+
         public void UpdateReqFieldsForCFConversionLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -5939,6 +5950,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
+
         public string ClickManageRelationshipsLV()
         {
             try
@@ -5961,6 +5973,7 @@ namespace SF_Automation.Pages
             By txtMangeRelationshipHeader = By.XPath("//span[@id='j_id0:j_id1']/form/table/tbody/tr/td/label");
             return driver.FindElement(txtMangeRelationshipHeader).Text.Replace("\r\n", " ");
         }
+
         public string GetNBCApprovedStatus()
         {
             try
@@ -5973,6 +5986,7 @@ namespace SF_Automation.Pages
 
 
         }
+
         public string GetDetailPageJobTypeLV()
         {
             Thread.Sleep(4000);
@@ -6116,8 +6130,6 @@ namespace SF_Automation.Pages
             driver.FindElement(comboTASServices).SendKeys("Buyside AFR");
             driver.FindElement(btnSave).Click();
         }
-
-
 
         public bool IsLinkedActivityDisplayed(string activity)
         {
