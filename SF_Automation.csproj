@@ -700,7 +700,8 @@
     <Compile Include="TestCases\GiftLog\LV_T1508_T1509_T1510_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.cs" />
     <Compile Include="TestCases\GiftLog\LV_T1512_T1513_ClientGiftPreApprovalPageSubmitGiftRequestSearchCriteria_CancelAndAddInGitfsRecipientSection.cs" />
     <Compile Include="TestCases\GiftLog\LV_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar.cs" />
-    <Compile Include="TestCases\GiftLog\LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2020_GiftApprovalProcessApproveGiftsVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
+    <Compile Include="TestCases\GiftLog\N_LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2007_GiftLogGiftRequestProcessSplitGiftValueInEqualDistributionForSelectedRecipient.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2011_GiftLogGiftRequestProcessGiftSubmittedGiftRequestDetailLayoutAndFields.cs" />

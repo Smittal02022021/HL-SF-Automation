@@ -81,13 +81,13 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valUser);
-                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "CF Fin User: " + valUser + " details are displayed. ");
                 //Login user
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+                extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged in on Lightning View");
 
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
@@ -97,7 +97,7 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                extentReports.CreateStepLogs("Info", "CF Fin User is on " + moduleNameExl + " Page ");
 
                 //Navigate to Gift Request page                
                 giftRequestTitle = giftRequest.GetGiftRequestPageTitleLV();

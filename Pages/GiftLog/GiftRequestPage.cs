@@ -108,6 +108,12 @@ namespace SF_Automation.Pages.GiftLog
         {
             return By.XPath($"//label[text()='{label}']/../img");
         }
+
+        public void SetDesiredDateToCurrentDateLV()
+        {
+            driver.FindElement(linkDesireDate).Click();
+            Thread.Sleep(2000);
+        }
         public string GetDollarValueTotalNextYearLV(int num)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, By.CssSelector($"td[id*='{num}:j_id85']"), 60);

@@ -60,6 +60,153 @@ namespace SF_Automation.Pages.GiftLog
         By frameGiftApproveL = By.XPath("//iframe[@title='accessibility title']");
 
 
+        public bool SortGiftDetailsTableColumnsByDESCLV(string name)
+        {
+            bool result = false;
+
+            //Get the table columns count
+            IList<IWebElement> element = driver.FindElements(GiftTableColLength);
+            int totalColumns = element.Count;
+
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            {
+                //Get the column name
+                By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
+                //driver.FindElement(GiftTableCol).Click();
+                //Thread.Sleep(2000);
+                string colName = driver.FindElement(GiftTableCol).Text;
+
+                if (name == colName)
+                {
+                    //Before sort
+                    IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
+                    int totalRows = element1.Count;
+                    string[] beforSortGiftDesc = new string[totalRows];
+                    int i = 0;
+                    for (int j = 1; j <= totalRows; j++)
+                    {
+                        By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
+                        IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                        beforSortGiftDesc[i] = descGiftWebElement.Text;
+                        i++;
+                    }
+
+                    Array.Reverse(beforSortGiftDesc);
+
+                    By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
+                    string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
+
+                    if (sortStatus == "Desc")
+                    {
+                        string[] afterSortGiftDesc = new string[totalRows];
+                        int k = 0;
+                        for (int m = 1; m <= totalRows; m++)
+                        {
+                            By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
+                            IWebElement descGiftWebElement1 = driver.FindElement(abc);
+
+                            afterSortGiftDesc[k] = descGiftWebElement1.Text;
+                            k++;
+                        }
+
+                        Assert.AreEqual(afterSortGiftDesc, beforSortGiftDesc);
+                        result = true;
+                    }
+                    else
+                    {
+                        //Click button to sort results in DESC
+                        driver.FindElement(GiftTableCol).Click();
+                        Thread.Sleep(2000);
+
+                        string[] afterSortGiftDesc = new string[totalRows];
+                        int a = 0;
+                        for (int b = 1; b <= totalRows; b++)
+                        {
+                            By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
+                            IWebElement descGiftWebElement1 = driver.FindElement(abc);
+
+                            afterSortGiftDesc[a] = descGiftWebElement1.Text;
+                            a++;
+                        }
+
+                        Assert.AreEqual(afterSortGiftDesc, beforSortGiftDesc);
+                        result = true;
+                    }
+                    break;
+                }
+            }
+            return result;
+        }
+        public bool SortGiftDetailsTableColumnsByASCLV(string name)
+        {
+            bool result = false;
+            //Get the table columns count
+            IList<IWebElement> element = driver.FindElements(GiftTableColLength);
+            int totalColumns = element.Count;
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            {
+                //Get the column name
+                By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
+                driver.FindElement(GiftTableCol).Click();
+                Thread.Sleep(2000);
+                string colName = driver.FindElement(GiftTableCol).Text;
+                if (name == colName)
+                {
+                    //Before sort
+                    IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
+                    int totalRows = element1.Count;
+                    string[] beforSortGiftDesc = new string[totalRows];
+                    int i = 0;
+                    for (int j = 1; j <= totalRows; j++)
+                    {
+                        By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
+                        IWebElement descGiftWebElement = driver.FindElement(xyz);
+                        beforSortGiftDesc[i] = descGiftWebElement.Text;
+                        i++;
+                    }
+                    Array.Sort(beforSortGiftDesc);
+                    By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
+                    string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
+                    if (sortStatus == "Desc")
+                    {
+                        //Click button to sort results in ASC
+                        driver.FindElement(GiftTableCol).Click();
+                        Thread.Sleep(2000);
+                        //After Ascending Sort
+                        string[] afterSortGiftDesc = new string[totalRows];
+                        int k = 0;
+                        for (int m = 1; m <= totalRows; m++)
+                        {
+                            By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
+                            IWebElement descGiftWebElement1 = driver.FindElement(abc);
+
+                            afterSortGiftDesc[k] = descGiftWebElement1.Text;
+                            k++;
+                        }
+                        Assert.AreEqual(afterSortGiftDesc, beforSortGiftDesc);
+                        result = true;
+                    }
+                    else
+                    {
+                        string[] afterSortGiftDesc = new string[totalRows];
+                        int a = 0;
+                        for (int b = 1; b <= totalRows; b++)
+                        {
+                            By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
+                            IWebElement descGiftWebElement1 = driver.FindElement(abc);
+
+                            afterSortGiftDesc[a] = descGiftWebElement1.Text;
+                            a++;
+                        }
+                        Assert.AreEqual(afterSortGiftDesc, beforSortGiftDesc);
+                        result = true;
+                    }
+                    break;
+                }
+            }
+            return result;
+        }
         public bool VerifyCreatedByInGiftRequestDetailsLV(string valCreatedBy)
         {
             bool result = false;

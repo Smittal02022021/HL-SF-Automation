@@ -16,7 +16,7 @@ namespace SalesForce_Project.TestCases.GiftLog
 {
     //Issue in Search 
 
-    class LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList:BaseClass
+    class N_LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

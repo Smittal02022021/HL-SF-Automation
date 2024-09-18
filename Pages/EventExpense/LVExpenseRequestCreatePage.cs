@@ -407,12 +407,25 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(elmComboLOB).Click();
 
             //select Event Type
-            WebDriverWaits.WaitUntilEleVisible(driver, comboEventTypeLWC, 5);
-            driver.FindElement(comboEventTypeLWC).Click();
-            By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{eventType}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
-            driver.FindElement(elmEventType).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEventTypeLWC, 5);
+                driver.FindElement(comboEventTypeLWC).Click();
+                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{eventType}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
+                driver.FindElement(elmEventType).Click();
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, comboEventTypeLWC, 5);
+                driver.FindElement(comboEventTypeLWC).Click();
+                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{eventType}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
+                driver.FindElement(elmEventType).Click();
+            }
+            
 
             //Click create new button
             this.ClickCreateNewExpenseFormLWC();
