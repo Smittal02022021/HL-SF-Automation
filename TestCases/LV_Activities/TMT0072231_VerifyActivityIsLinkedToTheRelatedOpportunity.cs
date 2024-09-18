@@ -1,5 +1,4 @@
 ﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages;
 using SF_Automation.UtilityFunctions;
@@ -23,10 +22,7 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_ContactsActivityDetailPage lV_ContactsActivityDetailPage = new LV_ContactsActivityDetailPage();
 
         LV_AddActivity addActivity = new LV_AddActivity();
-        LV_ActivitiesList activitiesList = new LV_ActivitiesList();
-        LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
-
-        LVCompaniesActivityDetailPage companyActivityDetail = new LVCompaniesActivityDetailPage();
+        OpportunityDetailsPage opportunityDetail = new OpportunityDetailsPage();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheRelatedOpportunity";
 
@@ -136,19 +132,15 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToOpportunityDetailPage(oppDis));
                 extentReports.CreateStepLogs("Passed", "User landed on the Opportunity detail page. ");
 
-
-
-
-
-                //Verify Activity is linked with Opportunity Discussed
-                Assert.IsTrue(companyActivityDetail.VerifyActivityLinkedWithCompanyIsVisible(subject));
-                extentReports.CreateStepLogs("Passed", "Activity linked with the company is listed under Activity Tab of the company. ");
+                //Verify Activity Is Linked To Opportunity
+                Assert.IsTrue(opportunityDetail.VerifyActivityIsLinkedToOpportunity(subject));
+                extentReports.CreateStepLogs("Passed", "Activity linked with the Opportunity is listed under Activity Tab of the opportunity. ");
 
                 //Deleting Main Created Activity
-                companyActivityDetail.ViewActivityFromList(subject);
+                opportunityDetail.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
-                companyActivityDetail.DeleteActivity();
+                opportunityDetail.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
                 //Switch Back to Classic View

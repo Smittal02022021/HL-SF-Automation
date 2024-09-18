@@ -18,6 +18,8 @@ namespace SF_Automation.Pages
 {
     class OpportunityDetailsPage : BaseClass
     {
+        By btnMore = By.XPath("(//button[@title='More Tabs'])[3]");
+        By btnDeleteActivity = By.XPath("//button[@title='Delete']");
 
         By imgCoverageSectorDependencyLookUp = By.XPath("//img[@alt='Coverage Sector Dependency Lookup (New Window)']");
         By txtSearchBox = By.XPath("//input[@title='Go!']/preceding::input[1]");
@@ -8213,6 +8215,50 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkEng));
             driver.FindElement(linkEng).Click();
         }
+
+        public bool VerifyActivityIsLinkedToOpportunity(string sub)
+        {
+            bool result = false;
+            driver.FindElement(btnMore).Click();
+            Thread.Sleep(2000);
+            try
+            {
+                driver.FindElement(By.XPath("((//button[@title='More Tabs'])[3]/following::lightning-menu-item)[1]//a")).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+                driver.FindElement(By.XPath("(//a[text()='Activity'])[2]")).Click();
+                Thread.Sleep(2000);
+            }
+
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ViewActivityFromList(string name)
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
+            Thread.Sleep(3000);
+        }
+
+        public void DeleteActivity()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
+            driver.FindElement(btnDeleteActivity).Click();
+            Thread.Sleep(2000);
+        }
+
+
     }
 }
 
