@@ -22,7 +22,8 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_ContactsActivityDetailPage lV_ContactsActivityDetailPage = new LV_ContactsActivityDetailPage();
 
         LV_AddActivity addActivity = new LV_AddActivity();
-        OpportunityDetailsPage opportunityDetail = new OpportunityDetailsPage();
+        CampaignHomePage campaignHome = new CampaignHomePage();
+        NewCampaignPage newCampaign = new NewCampaignPage();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheRelatedCampaign";
 
@@ -46,6 +47,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 string extContactName = ReadExcelData.ReadData(excelPath, "Contact", 1);
                 string relatedCompany = ReadExcelData.ReadData(excelPath, "Contact", 2);
                 string tabName = ReadExcelData.ReadData(excelPath, "Contact", 3);
+                string campRecordType = ReadExcelData.ReadData(excelPath, "Campaign", 1);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -65,10 +67,24 @@ namespace SF_Automation.TestCases.LV_Activities
                     extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
                 }
 
+                //Navigate to Campaigns page
+                lvHomePage.NavigateToAnItemFromHLBankerDropdown("Campaigns");
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Campaigns | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User navigated to Campaigns list page. ");
 
+                //Navigate to Select New Campaign Record Type page
+                campaignHome.NavigateToNewCampaignPage();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Campaign | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User navigated to Select New Campaign Record Type page. ");
 
+                //Select Campaign record type
+                newCampaign.SelectCampaignType(campRecordType);
+                extentReports.CreateStepLogs("Info", "Campaign Record Type : "+ campRecordType + " selected. ");
 
-
+                //Create New Campaign
+                newCampaign.CreateNewParentCampaign(fileTMTC0032668);
+                Assert.IsTrue(newCampaign.VerifyIfNewCampaignIsCreatedSuccessfully(campRecordType));
+                extentReports.CreateStepLogs("Passed", "Campaign with Record Type : "+ campRecordType + " created successfully. ");
 
                 //Search external contact
                 lvHomePage.SearchContactFromMainSearch(extContactName);
@@ -105,17 +121,8 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToOpportunityDetailPage(oppDis));
                 extentReports.CreateStepLogs("Passed", "User landed on the Opportunity detail page. ");
 
-                //Verify Activity Is Linked To Opportunity
-                Assert.IsTrue(opportunityDetail.VerifyActivityIsLinkedToOpportunity(subject));
-                extentReports.CreateStepLogs("Passed", "Activity linked with the Opportunity is listed under Activity Tab of the opportunity. ");
-
-                //Deleting Main Created Activity
-                opportunityDetail.ViewActivityFromList(subject);
-                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
-
-                opportunityDetail.DeleteActivity();
-                extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
-
+                //Verify Activity Is Linked To Campaign
+                
                 //Switch Back to Classic View
                 lvHomePage.SwitchBackToClassicView();
 

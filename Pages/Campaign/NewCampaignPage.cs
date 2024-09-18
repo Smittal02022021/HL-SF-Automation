@@ -100,6 +100,9 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitTillElementVisible(driver, txtHeadingSelectCampaignType);
             driver.FindElement(By.XPath($"//span[text()='{name}']/../input")).Click();
             Thread.Sleep(2000);
+
+            driver.FindElement(btnNext).Click();
+            Thread.Sleep(3000);
         }
 
         public bool VerifyUserLandedOnNewCampaignPage()
