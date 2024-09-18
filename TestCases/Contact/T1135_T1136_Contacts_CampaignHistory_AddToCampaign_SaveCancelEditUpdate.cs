@@ -54,7 +54,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Navigate To Parent Campaign creation page
-                campHome.NavigateToNewCampaignPage(fileTC1135_TC1136);
+                campHome.NavigateToNewCampaignPage();
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Campaign Edit: New Campaign ~ Salesforce - Unlimited Edition"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
 

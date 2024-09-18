@@ -460,6 +460,7 @@
     <Compile Include="Pages\Activities\LV_AddActivity.cs" />
     <Compile Include="Pages\Campaign\CampaignDetailPage.cs" />
     <Compile Include="Pages\Campaign\CampaignHomePage.cs" />
+    <Compile Include="Pages\Campaign\CampaignActivityPage.cs" />
     <Compile Include="Pages\Campaign\CampaignMemberEditPage.cs" />
     <Compile Include="Pages\Campaign\NewCampaignPage.cs" />
     <Compile Include="Pages\Common\LegalEntityDetail.cs" />

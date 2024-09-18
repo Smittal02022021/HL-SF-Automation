@@ -89,6 +89,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //TMT0072188 Verify that the primary attendee of the activity can edit the Follow-up Activities.
                 //TMT0072190 Verify that the Non-primary attendee of the activity can edit the Follow-up Activities.
+                //TMT0072193 The banker of the activity should be able to delete the Follow-up Activities.
 
                 int totalActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
 

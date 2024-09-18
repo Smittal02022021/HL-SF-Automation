@@ -10,14 +10,19 @@ namespace SF_Automation.Pages
 {
     class CampaignDetailPage : BaseClass
     {
+        //Buttons
         By linkRemoveContact = By.XPath("//a[@title='Remove - Record 1 - Contact']");
-        By btnDelete = By.XPath("//input[@title='Delete']");
-        By tabActivity = By.XPath($"//ul[@class='tabs__nav']//li//a[@title='Activity']");
+        By btnDelete = By.XPath("//a[@title='Delete']");
+
+        //Tabs
+        By tabCampaignMembers = By.XPath("(//span[text()='Campaign Members']/..)[2]");
+        By tabActivity = By.XPath("(//span[text()='Activity']/..)[1]");
 
         private By _txtPageHeader(string item)
         {
             return By.XPath($"//div[contains(@class,'testonly-outputNameWithHierarchyIcon')]//lightning-formatted-text[text()='{item}']");
         }
+
         private By _txtActivitySubject(string value)
         {
             return By.XPath($"//div[contains(@class,'timelineGridItemLeft')]//a[@title='{value}']");
@@ -61,6 +66,7 @@ namespace SF_Automation.Pages
             }
             catch { return false; }
         }
+
         public void ClickActivityTab()
         {
             Thread.Sleep(2000);
