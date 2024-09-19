@@ -60,6 +60,164 @@ namespace SF_Automation.Pages.GiftLog
         By frameGiftApproveL = By.XPath("//iframe[@title='accessibility title']");
 
 
+        public void SearchByRecipientLastNameAndStatusForNextYearLV(string recipientLastName, string status)
+        {
+            string getMonth = DateTime.Today.ToString("MMM");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
+            driver.FindElement(comboMonth).SendKeys(getMonth);
+
+            string getYear = DateTime.Today.AddYears(1).ToString("yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboYear);
+            driver.FindElement(comboYear).SendKeys(getYear);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboApprovedStatus);
+            driver.FindElement(comboApprovedStatus).SendKeys(status);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName);
+            driver.FindElement(txtAreaRecipientLastName).Clear();
+            driver.FindElement(txtAreaRecipientLastName).SendKeys(recipientLastName);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
+            driver.FindElement(btnGo).Click();
+            Thread.Sleep(2000);
+        }
+        public string GetApprovedNewYTDValueLV(string giftName)
+        {
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string newYTDValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(9)");
+                    IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
+                    Thread.Sleep(1000);
+                    newYTDValue = newYTDElement.Text.Split(' ')[1].Trim();
+                    break;
+                }
+            }
+            return newYTDValue;
+        }
+        public string GetGiftValueFromApprovedGiftsLV(string giftName)
+        {
+            Thread.Sleep(2000);
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string giftValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(8)");
+                    IWebElement giftValueElement = driver.FindElement(giftValueLabel);
+                    Thread.Sleep(1000);
+                    giftValue = giftValueElement.Text.Split(' ')[1].Trim();
+                    break;
+                }
+            }
+            return giftValue;
+        }
+        public string GetApprovedPrevYTDValueLV(string giftName)
+        {
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, GiftDescColLength,20);
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string prevYTDValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(7)");
+                    IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
+                    Thread.Sleep(1000);
+                    prevYTDValue = prevYTDElement.Text.Split(' ')[1].Trim();
+                    break;
+                }
+            }
+            return prevYTDValue;
+        }
+        public string GetNewYTDValueLV(string giftName)
+        {
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string newYTDValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(12)");
+                    IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
+                    Thread.Sleep(1000);
+                    newYTDValue = newYTDElement.Text.Split(' ')[3].Trim();
+                    break;
+                }
+            }
+            return newYTDValue;
+        }
+        public string GetGiftValueFromPendingGiftsLV(string giftName)
+        {
+            Thread.Sleep(6000);
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string giftValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(11)");
+                    IWebElement giftValueElement = driver.FindElement(giftValueLabel);
+                    Thread.Sleep(1000);
+                    giftValue = giftValueElement.Text.Split(' ')[1].Trim();
+                    break;
+                }
+            }
+            return giftValue;
+        }
+        public string GetPrevYTDValueLV(string giftName)
+        {
+            Thread.Sleep(2000);
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            string prevYTDValue = null;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(10)");
+                    IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
+                    Thread.Sleep(1000);
+                    prevYTDValue = prevYTDElement.Text.Split(' ')[1].Trim();
+                    break;
+                }
+            }
+            return prevYTDValue;
+        }
         public bool SortGiftDetailsTableColumnsByDESCLV(string name)
         {
             bool result = false;
@@ -365,7 +523,7 @@ namespace SF_Automation.Pages.GiftLog
             return txt;
         }
 
-        public void SearchByStatusLV(string recipientLastName, string status)
+        public void SearchByRecipientLastNameAndStatusLV(string recipientLastName, string status)
         {
             string getMonth = DateTime.Today.ToString("MMM");
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
@@ -380,7 +538,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
         public void ClickDenySelectedButtonLV()
         {
@@ -563,7 +721,7 @@ namespace SF_Automation.Pages.GiftLog
                 }
             }
         }
-        public void SearchByRecipientLastNameLV(string recipientLastNameExl)
+        public void SearchByRecipientLastNameLV(string recipientLastName)
         {   
             string getMonth = DateTime.Today.ToString("MMM");
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
@@ -574,7 +732,7 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(comboYear).SendKeys(getYear);
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName);
-            driver.FindElement(txtAreaRecipientLastName).SendKeys(recipientLastNameExl);
+            driver.FindElement(txtAreaRecipientLastName).SendKeys(recipientLastName);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
@@ -626,13 +784,8 @@ namespace SF_Automation.Pages.GiftLog
             driver.SwitchTo().Frame(driver.FindElement(frameGiftApproveL));
             return CustomFunctions.IsElementPresent(driver, btnApproveSelected);
         }
-        public void SearchByRecipientLastNameForNextYearLV(string file)
-        {
-            ReadJSONData.Generate("Admin_Data.json");
-            string dir = ReadJSONData.data.filePaths.testData;
-
-            string excelPath = dir + file;
-
+        public void SearchByRecipientLastNameForNextYearLV(string recipientLastName)
+        {           
             string getMonth = DateTime.Today.ToString("MMM");
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
@@ -644,7 +797,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName);
             driver.FindElement(txtAreaRecipientLastName).Clear();
-            driver.FindElement(txtAreaRecipientLastName).SendKeys(ReadExcelData.ReadData(excelPath, "GiftLog", 13));
+            driver.FindElement(txtAreaRecipientLastName).SendKeys(recipientLastName);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();

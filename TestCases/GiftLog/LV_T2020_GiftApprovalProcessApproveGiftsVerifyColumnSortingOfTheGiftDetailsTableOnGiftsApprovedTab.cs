@@ -101,17 +101,17 @@ namespace SalesForce_Project.TestCases.GiftLog
                                         
                     //Enter required details in client gift pre- approval page
                     giftRequest.SetDesiredDateToCurrentDateLV();
-                    string valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2020);
+                    valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2020);
 
                     //Verify company name
-                    string actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
-                    string expectedCompanyName = ReadExcelData.ReadData(excelPath, "GiftLog", 8);
+                    actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
+                    expectedCompanyName = ReadExcelData.ReadData(excelPath, "GiftLog", 8);
                     Assert.AreEqual(expectedCompanyName, actualRecipientCompanyName);
                     extentReports.CreateLog("Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table ");
 
                     //Verify recipient contact name
-                    string actualRecipientContactName = giftRequest.GetAvailableRecipientNameLV();
-                    string expectedContactName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
+                    actualRecipientContactName = giftRequest.GetAvailableRecipientNameLV();
+                    expectedContactName = ReadExcelData.ReadData(excelPath, "GiftLog", 9);
                     Assert.AreEqual(expectedContactName, actualRecipientContactName);
                     extentReports.CreateLog("Recipient Name: " + actualRecipientContactName + " is listed in Available Recipient(s) table ");
 
@@ -126,8 +126,8 @@ namespace SalesForce_Project.TestCases.GiftLog
                     //Click on submit gift request
                     giftRequest.ClickSubmitGiftRequestLV();
                     giftApprove.ClickSubmitRequestLV();
-                    string congratulationMsg = giftRequest.GetCongratulationsMsgLV();
-                    string congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
+                    congratulationMsg = giftRequest.GetCongratulationsMsgLV();
+                    congratulationMsgExl = ReadExcelData.ReadData(excelPath, "GiftLog", 11);
                     Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                     extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of 1st gift request ");
 
@@ -146,7 +146,7 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                     //Enter required details in client gift pre- approval page
                     giftRequest.SetDesiredDateToCurrentDateLV();
-                    string valGiftNameEntered1 = giftRequest.EnterDetailsGiftRequestLV(fileT2020);
+                    valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2020);
                     extentReports.CreateLog("Gift details entered for a new gift request. ");
 
                     //Adding recipient from add recipient section to selected recipient section

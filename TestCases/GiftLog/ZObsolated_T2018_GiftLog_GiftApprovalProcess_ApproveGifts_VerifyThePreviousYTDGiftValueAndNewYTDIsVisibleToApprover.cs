@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2018_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover : BaseClass
+    class ZObsolated_T2018_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

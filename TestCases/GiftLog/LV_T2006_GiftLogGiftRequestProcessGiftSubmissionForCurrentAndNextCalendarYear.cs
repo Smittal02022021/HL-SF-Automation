@@ -33,7 +33,7 @@ namespace SalesForce_Project.TestCases.GiftLog
         }
 
         [Test]
-        public void VerifyGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear()
+        public void VerifyGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYearLV()
         {
             try
             {
