@@ -61,7 +61,7 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
+        By eleItem = By.XPath("//table/tbody//td[4]/span//span");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
 
@@ -634,8 +634,10 @@ namespace SF_Automation.Pages
             }
             catch
             {
-                driver.FindElement(txtEngNumLCAO).Clear();
-                driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
+                driver.FindElement(inputAdminGlobalSearchL).Click();
+                driver.FindElement(inputAdminGlobalSearchL).Clear();
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(oppName);
                 Thread.Sleep(6000);
             }
             try

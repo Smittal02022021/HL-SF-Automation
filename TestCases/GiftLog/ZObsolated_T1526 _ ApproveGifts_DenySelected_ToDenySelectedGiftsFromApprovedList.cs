@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1526_ApproveGifts_DenySelected_ToDenySelectedGiftsFromApprovedList : BaseClass
+    class ZObsolated_T1526_ApproveGifts_DenySelected_ToDenySelectedGiftsFromApprovedList : BaseClass
     {
         ContactCreatePage createContact = new ContactCreatePage();
         ExtentReport extentReports = new ExtentReport();

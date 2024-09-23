@@ -61,7 +61,7 @@ namespace SF_Automation.Pages
         By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
+        By eleItem = By.XPath("//table/tbody//td[4]/span//span");
         By resultTable = By.XPath("//table/tbody//tr//th//a");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
 
@@ -688,12 +688,25 @@ namespace SF_Automation.Pages
             catch{ }
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 20);
-                //driver.FindElement(btnOppNumL).Clear();
-                driver.FindElement(btnOppNumL).Click();
-                driver.FindElement(txtOppNumLCAO).Clear();
-                driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
-                Thread.Sleep(6000);
+                try
+                {
+
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 10);
+                    //driver.FindElement(btnOppNumL).Clear();
+                    driver.FindElement(btnOppNumL).Click();
+                    driver.FindElement(txtOppNumLCAO).Clear();
+                    driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
+                    Thread.Sleep(6000);
+                }
+                catch {
+                    WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                    //driver.FindElement(btnOppNumL).Clear();
+                    driver.FindElement(inputAdminGlobalSearchL).Click();
+                    driver.FindElement(inputAdminGlobalSearchL).Clear();
+                    driver.FindElement(inputAdminGlobalSearchL).SendKeys(oppName);
+                    Thread.Sleep(6000);
+
+                }
             }
             catch 
             {

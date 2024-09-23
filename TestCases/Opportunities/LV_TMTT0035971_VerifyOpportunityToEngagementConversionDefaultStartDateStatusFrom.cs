@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //TMTI0085986 Verify that if an opportunity is converted into engagement prior to a verbally engaged opportunity, then the "Start Date" field on the engagement detail page gets populated with the date from the Date Engaged field
                     //Opp Stage/Priority is Updted to Verbally Engaged 

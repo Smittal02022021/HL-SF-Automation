@@ -154,7 +154,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //TMTI0085985	Verify that if the linked opportunity has a Start Date, then the "Start Date" field on the engagement detail page gets populated with the date from the Start Date field.
                     extentReports.CreateStepLogs("Info", "Verify that if the linked opportunity has a Start Date, then the Start Date field on the engagement detail page gets populated with the date from the Start Date field");
@@ -218,7 +218,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     /*
                     //Approve the Opportunity 

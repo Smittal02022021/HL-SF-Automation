@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2009_GiftLog_GiftRequestProcess_RecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar : BaseClass
+    class ZObsolated_T2009_GiftLog_GiftRequestProcess_RecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

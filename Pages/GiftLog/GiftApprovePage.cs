@@ -60,6 +60,24 @@ namespace SF_Automation.Pages.GiftLog
         By frameGiftApproveL = By.XPath("//iframe[@title='accessibility title']");
 
 
+        public bool ValidateGiftDescWithGiftNameLV(string giftName)
+        {
+            Thread.Sleep(6000);
+            IList<IWebElement> element = driver.FindElements(GiftDescColLength);
+            int totalRows = element.Count;
+            for (int i = 1; i <= totalRows; i++)
+            {
+                By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
+                IWebElement descGiftWebElement = driver.FindElement(xyz);
+
+                string descGift = descGiftWebElement.Text;
+                if (descGift.Equals(giftName))
+                {
+                    break;
+                }
+            }
+            return true;
+        }
         public void SearchByRecipientLastNameAndStatusForNextYearLV(string recipientLastName, string status)
         {
             string getMonth = DateTime.Today.ToString("MMM");

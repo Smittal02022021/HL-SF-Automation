@@ -94,12 +94,13 @@ namespace SF_Automation.Pages.Common
         }
 
         By lnkIsCurrentColumn = By.XPath("//th[@aria-label='Is Current']//a");
-        By chkIsCurrent = By.XPath("(//td[@data-label='Is Current'])[1]//input");
-        By linkCurrentMonthRev=By.XPath("(//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
+        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
+        By linkCurrentMonthRev = By.XPath("//table//tbody//tr[1]/th//a");// (//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
         public void SelectCurrentMonthRevenuePageLV()
         {
-            IsCurrentStatus:
-            if(driver.FindElement(chkIsCurrent).Selected)
+        IsCurrentStatus:
+            string chckboxStatus = driver.FindElement(chkIsCurrent).GetAttribute("alt");
+            if (chckboxStatus=="True")
             {
                 driver.FindElement(linkCurrentMonthRev).Click();
                 Thread.Sleep(5000);                

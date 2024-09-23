@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     extentReports.CreateStepLogs("Info", "User is on " + opportunityName + " Detail Page ");
 
                     extentReports.CreateStepLogs("Info", "Validating Roles for " + teamMemberName);

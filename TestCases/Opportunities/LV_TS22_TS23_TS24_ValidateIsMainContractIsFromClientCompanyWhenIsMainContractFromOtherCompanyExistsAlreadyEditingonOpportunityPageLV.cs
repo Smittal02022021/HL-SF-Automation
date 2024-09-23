@@ -124,7 +124,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 //Search for added opportunity
-                opportunityHome.SearchOpportunityInLightning(opportunityName);
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                 //Click on New Contract button
