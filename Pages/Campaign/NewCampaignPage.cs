@@ -42,6 +42,8 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
+            Thread.Sleep(3000);
+
             //Add Campaign Name
             driver.FindElement(txtCampaignName).SendKeys(ReadExcelData.ReadData(excelPath, "Campaign", 2));
 
