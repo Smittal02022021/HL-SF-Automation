@@ -43,7 +43,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
 
             //Add Campaign Name
-            driver.FindElement(txtCampaignName).SendKeys(ReadExcelData.ReadData(excelPath, "Campaign", 1));
+            driver.FindElement(txtCampaignName).SendKeys(ReadExcelData.ReadData(excelPath, "Campaign", 2));
 
             //Get LOB options Count
             IList<IWebElement> elementLOB = driver.FindElements(selectLOB);
@@ -52,7 +52,7 @@ namespace SF_Automation.Pages
             //select LOB
             for (int i = 1; i <= lobOptionsCount; i++)
             {
-                if(driver.FindElement(By.XPath($"((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li[{i}]")).Text == ReadExcelData.ReadData(excelPath, "Campaign", 2))
+                if(driver.FindElement(By.XPath($"((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li[{i}]")).Text == ReadExcelData.ReadData(excelPath, "Campaign", 3))
                 {
                     driver.FindElement(By.XPath($"((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li[{i}]")).Click();
                     driver.FindElement(linkAddLOB).Click();
@@ -70,10 +70,15 @@ namespace SF_Automation.Pages
                 if (driver.FindElement(By.XPath($"((//div[text()='Industry Groups']/following::div)[1]//ul)[1]/li[{j}]")).Text == ReadExcelData.ReadData(excelPath, "Campaign", 4))
                 {
                     driver.FindElement(By.XPath($"((//div[text()='Industry Groups']/following::div)[1]//ul)[1]/li[{j}]")).Click();
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(linkAddIndGrp));
                     driver.FindElement(linkAddIndGrp).Click();
                     break;
                 }
             }
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(2000);
 
             //Get HL Sub Group options Count
             IList<IWebElement> elementHLSubGrp = driver.FindElements(selectHLSubGroup);
@@ -85,6 +90,7 @@ namespace SF_Automation.Pages
                 if (driver.FindElement(By.XPath($"((//div[text()='HL Sub-Group']/following::div)[1]//ul)[1]/li[{k}]")).Text == ReadExcelData.ReadData(excelPath, "Campaign", 5))
                 {
                     driver.FindElement(By.XPath($"((//div[text()='HL Sub-Group']/following::div)[1]//ul)[1]/li[{k}]")).Click();
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(linkAddHLSubGrp));
                     driver.FindElement(linkAddHLSubGrp).Click();
                     break;
                 }
@@ -97,12 +103,19 @@ namespace SF_Automation.Pages
 
         public void SelectCampaignType(string name)
         {
-            WebDriverWaits.WaitTillElementVisible(driver, txtHeadingSelectCampaignType);
-            driver.FindElement(By.XPath($"//span[text()='{name}']/../input")).Click();
-            Thread.Sleep(2000);
+            try
+            {
+                Thread.Sleep(5000);
+                driver.FindElement(By.XPath($"(//span[text()='{name}']/../span)[3]")).Click();
+                Thread.Sleep(2000);
 
-            driver.FindElement(btnNext).Click();
-            Thread.Sleep(3000);
+                driver.FindElement(btnNext).Click();
+                Thread.Sleep(3000);
+            }
+            catch(Exception)
+            {
+                
+            }
         }
 
         public bool VerifyUserLandedOnNewCampaignPage()

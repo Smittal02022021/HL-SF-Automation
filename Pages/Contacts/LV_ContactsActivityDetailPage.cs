@@ -242,5 +242,25 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
+
+        public bool NavigateToCampaignDetailPage(string campName)
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath($"//a[text()='{campName}']")).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == campName)
+            {
+                result = true;
+            }
+            return result;
+        }
+
     }
 }

@@ -104,22 +104,23 @@ namespace SF_Automation.TestCases.LV_Activities
                 string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
                 string companyDis = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 7);
                 string oppDis = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 8);
+                string campaign = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", 2, 9);
 
                 //Create new activity
                 int beforeCount = LV_ContactsActivityList.GetActivityCount();
-                addActivity.CreateNewActivityWithOpportunityDiscussed(fileTMTC0032668);
+                addActivity.CreateNewActivityWithCampaign(fileTMTC0032668);
                 lvContactDetails.CloseTab("View Activity");
 
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
-                extentReports.CreateStepLogs("Passed", "Activity created successfully with company & opportunity discussed for call type: " + type);
+                extentReports.CreateStepLogs("Passed", "Activity created successfully with campaign: " + campaign  + " for call type: " + type);
 
                 //Navigate to Activity Detail Page
                 LV_ContactsActivityList.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
                 //Navigate to Campaign Detail from Activity Detail page
-                Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToOpportunityDetailPage(oppDis));
-                extentReports.CreateStepLogs("Passed", "User landed on the Opportunity detail page. ");
+                Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToCampaignDetailPage(campaign));
+                extentReports.CreateStepLogs("Passed", "User landed on the Campaign detail page. ");
 
                 //Verify Activity Is Linked To Campaign
                 
