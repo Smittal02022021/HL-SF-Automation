@@ -8234,7 +8234,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
 
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
             {
                 result = true;
             }
@@ -8244,7 +8244,7 @@ namespace SF_Automation.Pages
         public void ViewActivityFromList(string name)
         {
             Thread.Sleep(2000);
-            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
+            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[3]")), 60);
             Thread.Sleep(3000);
         }
 
