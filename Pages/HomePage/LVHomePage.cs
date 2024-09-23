@@ -218,8 +218,16 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath($"(//a[@title='{name}'])[2]")).Click();
-            Thread.Sleep(5000);
+            try
+            {
+                driver.FindElement(By.XPath($"(//a[@title='{name}'])[2]")).Click();
+                Thread.Sleep(5000);
+            }
+            catch(Exception)
+            {
+                driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
+                Thread.Sleep(5000);
+            }
         }
 
         public void SearchOpportunityFromMainSearch(string name)

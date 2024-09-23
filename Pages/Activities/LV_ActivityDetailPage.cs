@@ -334,18 +334,10 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(3000);
 
             //Edit Industry Group
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedIndGrp}']")).Click();
             Thread.Sleep(5000);
-
-            //Edit Product Group
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
-            driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
-            Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
