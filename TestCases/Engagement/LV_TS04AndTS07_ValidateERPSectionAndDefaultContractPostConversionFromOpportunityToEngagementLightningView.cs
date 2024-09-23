@@ -140,7 +140,7 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    opportunityHome.SearchOpportunityInLightning(oppName);
+                    opportunityHome.SearchOpportunitiesInLightningView(oppName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     randomPages.DetailPageFullViewLV();
                     opportunityDetails.UpdateCCOutcomeDetailsLV();
