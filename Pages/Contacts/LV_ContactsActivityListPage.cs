@@ -58,9 +58,18 @@ namespace SF_Automation.Pages.Contact
 
         public void ViewActivityFromList(string name)
         {
-            Thread.Sleep(2000);
-            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[1]")), 60);
-            Thread.Sleep(3000);
+            try
+            {
+                Thread.Sleep(2000);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[1]")), 60);
+                Thread.Sleep(3000);
+            }
+            catch(Exception) 
+            {
+                Thread.Sleep(2000);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
+                Thread.Sleep(3000);
+            }
         }
 
         public string GetActivitySubjectName()

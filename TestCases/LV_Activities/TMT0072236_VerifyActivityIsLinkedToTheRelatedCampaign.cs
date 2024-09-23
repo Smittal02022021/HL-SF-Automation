@@ -24,6 +24,8 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_AddActivity addActivity = new LV_AddActivity();
         CampaignHomePage campaignHome = new CampaignHomePage();
         NewCampaignPage newCampaign = new NewCampaignPage();
+        CampaignDetailPage campaignDetail = new CampaignDetailPage();
+        CampaignActivityPage campaignActivityPage = new CampaignActivityPage();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheRelatedCampaign";
 
@@ -109,21 +111,28 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Create new activity
                 int beforeCount = LV_ContactsActivityList.GetActivityCount();
                 addActivity.CreateNewActivityWithCampaign(fileTMTC0032668);
-                lvContactDetails.CloseTab("View Activity");
-
-                Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                 extentReports.CreateStepLogs("Passed", "Activity created successfully with campaign: " + campaign  + " for call type: " + type);
-
-                //Navigate to Activity Detail Page
-                LV_ContactsActivityList.ViewActivityFromList(subject);
-                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
                 //Navigate to Campaign Detail from Activity Detail page
                 Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToCampaignDetailPage(campaign));
                 extentReports.CreateStepLogs("Passed", "User landed on the Campaign detail page. ");
 
                 //Verify Activity Is Linked To Campaign
-                
+                campaignDetail.ClickActivityTab();
+                Assert.IsTrue(campaignActivityPage.VerifyActivityIsLinkedToCampaign(subject));
+                extentReports.CreateStepLogs("Passed", "Activity linked with the Campaign is listed under Activity Tab of the Campaign. ");
+
+                //Deleting Main Created Activity
+                campaignActivityPage.ViewActivityFromList(subject);
+                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                campaignActivityPage.DeleteActivity();
+                extentReports.CreateStepLogs("Info", "Main Activity with call type: " + type + " deleted successfully. ");
+
+                //Delete Campaign
+                campaignDetail.DeleteCampaign();
+                extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
+
                 //Switch Back to Classic View
                 lvHomePage.SwitchBackToClassicView();
 

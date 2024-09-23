@@ -13,10 +13,11 @@ namespace SF_Automation.Pages
         //Buttons
         By linkRemoveContact = By.XPath("//a[@title='Remove - Record 1 - Contact']");
         By btnDelete = By.XPath("//a[@title='Delete']");
+        By btnDelete1 = By.XPath("//button[@title='Delete']");
 
         //Tabs
         By tabCampaignMembers = By.XPath("(//span[text()='Campaign Members']/..)[2]");
-        By tabActivity = By.XPath("(//span[text()='Activity']/..)[1]");
+        By tabActivity = By.XPath("(//span[text()='Activity']/..)[2]");
 
         private By _txtPageHeader(string item)
         {
@@ -41,8 +42,7 @@ namespace SF_Automation.Pages
         {
             driver.FindElement(btnDelete).Click();
             Thread.Sleep(2000);
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
+            driver.FindElement(btnDelete1).Click();
             Thread.Sleep(2000);
         }
        
@@ -74,5 +74,6 @@ namespace SF_Automation.Pages
             driver.FindElement(tabActivity).Click();
             Thread.Sleep(5000);
         }
+
     }
 }
