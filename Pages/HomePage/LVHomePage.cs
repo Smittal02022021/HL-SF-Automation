@@ -21,6 +21,8 @@ namespace SF_Automation.Pages.HomePage
         By linkLogout = By.XPath("//a[contains(text(),'Log out')]");
         By btnMainSearch = By.XPath("//button[@aria-label='Search']");
         By txtMainSearch = By.XPath("//input[@placeholder='Search...']");
+        By txtMainSearch1 = By.XPath("(//input[contains(@placeholder,'Search')])[2]");
+
         By userImage = By.XPath("(//span[@data-aura-class='uiImage'])[1]");
         By linkLogOut = By.XPath("//a[text()='Log Out']");
         By appLauncher = By.XPath("//button[@title='App Launcher']");
@@ -167,10 +169,10 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(3000);
 
-            driver.FindElement(txtMainSearch).Clear();
-            driver.FindElement(txtMainSearch).SendKeys(actSub);
+            driver.FindElement(txtMainSearch1).Clear();
+            driver.FindElement(txtMainSearch1).SendKeys(actSub);
             Thread.Sleep(3000);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch1).SendKeys(Keys.Enter);
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitForPageToLoad(driver, 120);
