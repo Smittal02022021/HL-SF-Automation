@@ -384,9 +384,12 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(By.XPath($"(//div[@data-name='{oppName}'])[1]")).Click();
             Thread.Sleep(2000);
 
+            js.ExecuteScript("window.scrollTo(0,3000)");
+            Thread.Sleep(2000);
+
             driver.FindElement(txtEngagementsDiscussed).SendKeys(engName);
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"(//div[@data-name='{engName}'])[1]")).Click();
+            driver.FindElement(By.XPath($"(//div[@data-name='{engName}'])[2]")).Click();
             Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
