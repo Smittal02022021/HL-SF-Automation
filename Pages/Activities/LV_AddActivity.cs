@@ -371,7 +371,7 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,2000)");
+            js.ExecuteScript("window.scrollTo(0,2500)");
             Thread.Sleep(2000);
 
             driver.FindElement(txtCompanyDiscussed).SendKeys(companyDiscussed);
