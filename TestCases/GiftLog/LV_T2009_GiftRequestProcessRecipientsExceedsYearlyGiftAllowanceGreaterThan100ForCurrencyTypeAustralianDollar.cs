@@ -1,17 +1,11 @@
 ﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.GiftLog;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using OpenQA.Selenium.DevTools.V125.Browser;
 
 namespace SalesForce_Project.TestCases.GiftLog
 {

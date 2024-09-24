@@ -556,7 +556,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
         }
         public void ClickDenySelectedButtonLV()
         {

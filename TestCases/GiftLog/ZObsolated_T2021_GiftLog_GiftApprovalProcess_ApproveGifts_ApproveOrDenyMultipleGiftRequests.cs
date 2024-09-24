@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests : BaseClass
+    class ZObsolated_T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -18,8 +18,22 @@ namespace SF_Automation.TestCases.GiftLog
         GiftRequestPage giftRequest = new GiftRequestPage();
         GiftApprovePage giftApprove = new GiftApprovePage();
 
-        public static string fileTC2021 = "T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests";
-       
+        public static string fileTC2021 = "LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests";
+        private string currencyCode;
+        private string colorOfGiftValue;
+        private string colorOfGiftValueExl;
+        private string giftRequestTitle;
+        private string warningMessage;
+        private string congratulationMsg;
+        private string congratulationMsgExl;
+        private string stdUser;
+        private string newDesireDate;
+        private string valueOfGift;
+        private string labelGiftAmtYTD;
+        private string expectedLabelGiftAmtYTD;
+        private string giftRequestTitleExl;
+        private string warningMessageExl;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
