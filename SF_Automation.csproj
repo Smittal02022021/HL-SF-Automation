@@ -706,6 +706,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072233_VerifyActivityIsLinkedToTheRelatedEngagement.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072238_TMT0072487_TMT0072489_TMT0072491_VerifyActivityPageValidations.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072236_VerifyActivityIsLinkedToTheRelatedCampaign.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072231_VerifyActivityIsLinkedToTheRelatedOpportunity.cs" />
@@ -724,6 +725,7 @@
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTI0055401_55390_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
