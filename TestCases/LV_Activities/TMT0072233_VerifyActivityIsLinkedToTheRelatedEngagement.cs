@@ -67,17 +67,14 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
                 //Switch to lightning view
-                try
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
-                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                    {
-                        homePage.SwitchToLightningView();
-                        extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
-                    }
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
                 }
-                catch(Exception)
+                else
                 {
-
+                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
                 }
 
                 //Navigate to Opportunities page
