@@ -58,23 +58,40 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
-                //Search CF Financial User user by global search
-                extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
-
-                //Login user
-                homePage.SearchUserByGlobalSearch(fileTMTC0032668, valUser);
-                usersLogin.LoginAsSelectedUser();
-
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
                 }
-                else
-                {
-                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
-                }
+
+                //Navigate to Opportunities page
+                lvHomePage.NavigateToAnItemFromHLBankerDropdown("Opportunities");
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Opportunities | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User navigated to Opportunities list page. ");
+
+                string valJobType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 3);
+                string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //Search external contact
                 lvHomePage.SearchContactFromMainSearch(extContactName);
