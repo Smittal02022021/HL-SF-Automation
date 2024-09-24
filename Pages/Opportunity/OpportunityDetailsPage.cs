@@ -572,6 +572,7 @@ namespace SF_Automation.Pages
         By comboLegalAdvisorHLL = By.XPath("//button[contains(@aria-label,'Legal Advisor to HL Client Group')]");//button[@aria-label='Legal Advisor to HL Client Group, --None--']");
         By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");//button[@aria-label='Referral Type, --None--']");
         By comboConfAggL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By txtLegalHoldNotes = By.XPath("(//label[text()='Legal Hold Notes']/following::div/textarea)[1]");
         By comboIndemLngL = By.XPath("//label[text()='Indemnification Language']/parent::div//button");
         By lblCAComments = By.XPath("//label[text()='CA Comments']");
         By txtTotalDebtMML = By.XPath("//input[@name='Total_Debt_MM__c']");
@@ -635,6 +636,7 @@ namespace SF_Automation.Pages
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
+        By txtConflictsRun = By.XPath("(//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//input)[1]");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Close this window']");
         By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
@@ -2606,8 +2608,8 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
-            driver.FindElement(btnEdit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
+            driver.FindElement(btnEditL).Click();
             try
             {
                 if (driver.FindElement(comboRecordType).Text.Contains("CF"))
@@ -2645,7 +2647,7 @@ namespace SF_Automation.Pages
                     driver.FindElement(lnkOutcomeDateFAS).Click();
                 }
                 driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
-                driver.FindElement(btnSave).Click();
+                driver.FindElement(btnSaveDetailsL).Click();
             }
         }
 
@@ -6363,13 +6365,14 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
 
             //Select Conf Agreement
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtLegalHoldNotes));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             driver.FindElement(comboConfAggL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
             //New fields for for CF conversion
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtConflictsRun));
             driver.FindElement(comboIndemLngL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
