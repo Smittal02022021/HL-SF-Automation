@@ -6860,6 +6860,43 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        public bool VerifyActivityIsLinkedToEngagement(string sub)
+        {
+            bool result = false;
+            driver.FindElement(btnMoreAdmin).Click();
+            Thread.Sleep(3000);
+            try
+            {
+                driver.FindElement(By.XPath("(//button[@title='More Tabs'])[1]")).Click();
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("((//button[@title='More Tabs'])[1]/following::lightning-menu-item//a)[1]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+                driver.FindElement(By.XPath("(//a[text()='Activity'])[1]")).Click();
+                Thread.Sleep(2000);
+            }
+
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            {
+                result = true;
+                driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Click();
+            }
+            return result;
+        }
+
+        public void DeleteActivity()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
+            driver.FindElement(btnDeleteActivity).Click();
+            Thread.Sleep(2000);
+        }
 
     }
 }

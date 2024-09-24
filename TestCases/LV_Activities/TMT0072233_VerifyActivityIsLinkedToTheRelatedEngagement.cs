@@ -8,6 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.Pages.Activities;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.Opportunity;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -28,6 +29,7 @@ namespace SF_Automation.TestCases.LV_Activities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheRelatedEngagement";
 
@@ -65,10 +67,17 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
 
                 //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                try
                 {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                    {
+                        homePage.SwitchToLightningView();
+                        extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    }
+                }
+                catch(Exception)
+                {
+
                 }
 
                 //Navigate to Opportunities page
@@ -98,6 +107,13 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsNotNull(opportunityNumber);
                 extentReports.CreateStepLogs("Passed", "Opportunity with number : " + opportunityNumber + " is created ");
 
+                //Create External Primary Contact
+                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
+                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
+                addOpportunityContact.CickAddCFOpportunityContact();
+                addOpportunityContact.CreateContactL2(fileTMTC0032668);
+                extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
+
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTC0032668, valJobType);
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
@@ -108,28 +124,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                //update CC and NBC checkboxes 
-                opportunityDetails.UpdateOutcomeDetails(fileTMTC0032668);
-                if(valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
-                {
-                    opportunityDetails.UpdateNBCApproval();
-                    extentReports.CreateStepLogs("Ingo", "Conflict Check and NBC fields are updated ");
-                }
-                else
-                {
-                    extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
-                }
-
-                //Update Client and Subject to Accupac bypass EBITDA field validation for JobType- Sellside
-                if(valJobType.Equals("Sellside"))
-                {
-                    opportunityDetails.UpdateClientandSubject("Accupac");
-                    extentReports.CreateStepLogs("Info", "Updated Client and Subject fields ");
-                }
-                else
-                {
-                    extentReports.CreateStepLogs("Info", "Not required to update ");
-                }
+                //update CC and NBC checkboxes in LV
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
 
                 //Requesting for engagement and validate the success message
                 opportunityDetails.ClickRequestToEngL();
@@ -215,25 +212,25 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Create new activity
                 int beforeCount = LV_ContactsActivityList.GetActivityCount();
-                addActivity.CreateNewActivityWithOpportunityDiscussed(fileTMTC0032668);
+                addActivity.CreateNewActivityWithEngagementDiscussed(fileTMTC0032668, engagementName, opportunityName);
                 lvContactDetails.CloseTab("View Activity");
 
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
-                extentReports.CreateStepLogs("Passed", "Activity created successfully with company & opportunity discussed for call type: " + type);
+                extentReports.CreateStepLogs("Passed", "Activity created successfully with Engagement discussed for call type: " + type);
 
                 //Navigate to Engagement Detail from Activity Detail page
-                Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToOpportunityDetailPage(oppDis));
-                extentReports.CreateStepLogs("Passed", "User landed on the Opportunity detail page. ");
-
-                //Verify Activity Is Linked To Engagement
-                Assert.IsTrue(opportunityDetails.VerifyActivityIsLinkedToOpportunity(subject));
-                extentReports.CreateStepLogs("Passed", "Activity linked with the Opportunity is listed under Activity Tab of the opportunity. ");
-
-                //Deleting Main Created Activity
-                opportunityDetails.ViewActivityFromList(subject);
+                LV_ContactsActivityList.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
-                opportunityDetails.DeleteActivity();
+                Assert.IsTrue(lV_ContactsActivityDetailPage.NavigateToEngagementDetailPage(engagementName));
+                extentReports.CreateStepLogs("Passed", "User landed on the Engagement details page. ");
+
+                //Verify Activity Is Linked To Engagement
+                Assert.IsTrue(engagementDetails.VerifyActivityIsLinkedToEngagement(subject));
+                extentReports.CreateStepLogs("Passed", "Activity linked with the Engagement is listed under Activity Tab of the Engagement. ");
+
+                //Deleting Main Created Activity
+                engagementDetails.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
                 //Switch Back to Classic View

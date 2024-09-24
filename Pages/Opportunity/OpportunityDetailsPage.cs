@@ -2608,8 +2608,8 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 100);
-            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+            driver.FindElement(btnEdit).Click();
             try
             {
                 if (driver.FindElement(comboRecordType).Text.Contains("CF"))
@@ -2657,10 +2657,11 @@ namespace SF_Automation.Pages
         By optionCCOutcomeL = By.XPath("//button[@aria-label='Outcome']/../..//lightning-base-combobox-item//span[@title='Cleared']");
         By lblCreatedBy = By.XPath("//span[text()='Created By']");
         By chkNBCApproveL = By.XPath("//span[text()='NBC Approved']/../..//input");
+
         //To update Outcome details
         public void UpdateOutcomeNBCApproveDetailsLV(string valJobType)
         {
-            string dateCCOutcome = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy");
+            string dateCCOutcome = DateTime.Today.AddDays(-2).ToString("M/d/yyyy").Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
