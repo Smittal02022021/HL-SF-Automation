@@ -15,6 +15,7 @@ namespace SF_Automation.Pages.Engagement
 {
     class EngagementDetailsPage : BaseClass
     {
+        By btnDeleteActivity = By.XPath("//button[@title='Delete']");
         By valEngContact2 = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         By lnkContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valEngName = By.CssSelector("div[id='Namej_id0_j_id4_ileinner']");
