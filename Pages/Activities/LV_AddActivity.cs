@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
@@ -25,6 +26,7 @@ namespace SF_Automation.Pages.Activities
 
         By txtSubject = By.XPath("//input[@name='subject']");
         By txtDate = By.XPath("(//input[@name='startDateTime'])[1]");
+        By txtEndDate = By.XPath("(//input[@name='endDateTime'])[1]");
         By drpdownIndustryGroup = By.XPath("//button[@name='industryGroup']");
         By drpdownProductType = By.XPath("//button[@name='productType']");
         By txtareaDescription = By.XPath("//textarea[@name='description']");
@@ -402,7 +404,6 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(4000);
         }
 
-
         public void CloseTab(string tabName)
         {
             Thread.Sleep(5000);
@@ -622,6 +623,175 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
+        }
+
+        public bool VerifyValidationMessageWithoutExternalAttendeeAndCompany(string file, string contact)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+            string industryGroup = ReadExcelData.ReadData(excelPath, "Activity", 3);
+            string productType = ReadExcelData.ReadData(excelPath, "Activity", 4);
+            string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
+            string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
+            string msgExcel = ReadExcelData.ReadData(excelPath, "Validations", 1);
+
+            //Enter Activity details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(2);
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            driver.FindElement(txtareaDescription).SendKeys(description);
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(2000);
+
+            //Remove External Attendee
+            driver.FindElement(By.XPath($"//button[@title='Remove {contact}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+
+            if(msgExcel == driver.FindElement(By.XPath("//div[@class='slds-text-heading_large slds-text-color_destructive']")).Text)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyValidationsOnClickingSaveWithoutFillingInMandatoryFields(string file)
+        {
+            bool result = false;
+            Thread.Sleep(3000);
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string subExcel = ReadExcelData.ReadData(excelPath, "Validations", 2);
+            string dateExcel = ReadExcelData.ReadData(excelPath, "Validations", 3);
+
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtEndDate).Clear();
+            Thread.Sleep(3000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+
+            if(subExcel == driver.FindElement(By.XPath("(//span[text()='Subject'])[3]/..")).Text && dateExcel == driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text && dateExcel == driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyValidationMessageThatAppearsIfEndDateIsLessThanFromDate(string file)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+            string msg1 = ReadExcelData.ReadData(excelPath, "Validations", 4);
+            string msg2 = ReadExcelData.ReadData(excelPath, "Validations", 5);
+
+            //Enter Activity details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).Clear();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(-2);
+            driver.FindElement(txtEndDate).Clear();
+            driver.FindElement(txtEndDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+
+            if(msg1 == driver.FindElement(By.XPath("(//ul[@class='slds-list_dotted']/li)[1]/div")).Text && msg2 == driver.FindElement(By.XPath("(//ul[@class='slds-list_dotted']/li)[2]/div")).Text)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyValidationMessageIfBankerTriesToSaveActivityWithoutHLAttendee(string file, string hlAttendee)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+            string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
+            string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
+            string msgExcel = ReadExcelData.ReadData(excelPath, "Validations", 6);
+
+            //Enter Activity details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(2);
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            driver.FindElement(txtareaDescription).SendKeys(description);
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            Thread.Sleep(2000);
+
+            //Remove HL Attendee
+            driver.FindElement(By.XPath($"//button[@title='Remove {hlAttendee}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+
+            if(msgExcel == driver.FindElement(By.XPath("//div[@class='slds-text-heading_large slds-text-color_destructive']")).Text)
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }
