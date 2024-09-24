@@ -22,10 +22,6 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_ContactsActivityDetailPage lV_ContactsActivityDetailPage = new LV_ContactsActivityDetailPage();
 
         LV_AddActivity addActivity = new LV_AddActivity();
-        CampaignHomePage campaignHome = new CampaignHomePage();
-        NewCampaignPage newCampaign = new NewCampaignPage();
-        CampaignDetailPage campaignDetail = new CampaignDetailPage();
-        CampaignActivityPage campaignActivityPage = new CampaignActivityPage();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityPageValidations";
 

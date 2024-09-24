@@ -635,8 +635,6 @@ namespace SF_Automation.Pages.Activities
 
             string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
             string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
-            string industryGroup = ReadExcelData.ReadData(excelPath, "Activity", 3);
-            string productType = ReadExcelData.ReadData(excelPath, "Activity", 4);
             string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
             string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
             string msgExcel = ReadExcelData.ReadData(excelPath, "Validations", 1);
@@ -656,7 +654,7 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
+            js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(2000);
 
             //Remove External Attendee
@@ -699,7 +697,11 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
 
-            if(subExcel == driver.FindElement(By.XPath("(//span[text()='Subject'])[3]/..")).Text && dateExcel == driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text && dateExcel == driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text)
+            string msg1 = driver.FindElement(By.XPath("(//span[text()='Subject'])[3]/..")).Text;
+            string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text;
+            string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text;
+
+            if(msg1.Contains(subExcel) && dateExcel == msg2 && dateExcel == msg3)
             {
                 result = true;
             }
@@ -772,7 +774,7 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
+            js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(2000);
 
             //Remove HL Attendee
