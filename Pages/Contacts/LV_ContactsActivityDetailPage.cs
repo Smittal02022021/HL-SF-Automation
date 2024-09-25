@@ -249,7 +249,7 @@ namespace SF_Automation.Pages.Contact
             bool result = false;
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,2000)");
+            js.ExecuteScript("window.scrollTo(0,3000)");
             Thread.Sleep(2000);
 
             driver.FindElement(By.XPath($"(//a[text()='{engName}'])[3]")).Click();

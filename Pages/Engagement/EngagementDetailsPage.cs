@@ -6868,21 +6868,19 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             try
             {
-                driver.FindElement(By.XPath("(//button[@title='More Tabs'])[1]")).Click();
-                Thread.Sleep(2000);
-                driver.FindElement(By.XPath("((//button[@title='More Tabs'])[1]/following::lightning-menu-item//a)[1]")).Click();
+                driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
                 Thread.Sleep(2000);
             }
             catch(Exception)
             {
-                driver.FindElement(By.XPath("(//a[text()='Activity'])[1]")).Click();
+                driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
                 Thread.Sleep(2000);
             }
 
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
             {
                 result = true;
-                driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Click();
+                driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Click();
             }
             return result;
         }
