@@ -338,7 +338,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                     extentReports.CreateLog("Standard User Search for converted Engagement ");
                     //Search for created Engagement
-                    engagementHome.SearchMyEngagementInLightning(engagementName, stdUser);
+                    engagementHome.SearchEngagementInLightningView(engagementName);
 
                     //New Field is Present on Opportunity Detail Page for Standard User
                     Assert.IsTrue(engagementDetails.IsAssociatedEngFieldPresentLV());
