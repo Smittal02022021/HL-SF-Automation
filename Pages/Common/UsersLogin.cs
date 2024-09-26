@@ -134,7 +134,7 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 180);
             driver.FindElement(txtSearch).SendKeys(name);
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             driver.FindElement(lnkUser).Click();
             //CustomFunctions.SelectValueWithoutSelect(driver, listUser, name);
             WebDriverWaits.WaitUntilEleVisible(driver, arrowMenu, 130);

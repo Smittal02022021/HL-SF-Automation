@@ -28,7 +28,7 @@ namespace SF_Automation.Pages
         //Lightning  
         By btnEngNum = By.XPath("//button[contains(@aria-label,'Search')]");
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
-        By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search...')]");
+        By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
         By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
         By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
@@ -44,11 +44,11 @@ namespace SF_Automation.Pages
         By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@aria-label='Recently Viewed']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
-        By btnRefresh = By.XPath("//lst-list-view-manager-button-bar/div/div[1]//button");
+        By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
+        By btnRefresh = By.XPath("//button[@name='refreshButton']");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
         By valSearchedEng1 = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div/a");
-        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/div");
+        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//div");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");

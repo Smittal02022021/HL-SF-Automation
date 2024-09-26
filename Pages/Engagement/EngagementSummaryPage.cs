@@ -1018,13 +1018,13 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(7000);
             driver.FindElement(comboDebtCurrencyL).Click();
-            //driver.FindElement(comboDebtCurrencyL).Click();
+            driver.FindElement(comboDebtCurrencyL).Click();
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(valDebtCurrencyL);
         
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            Console.WriteLine("1st:" + actualValue[0]);
-            Console.WriteLine("1st:" + actualValue[1]);
+            
+           
             Console.WriteLine(actualValue[2]);
             Console.WriteLine(actualValue[3]);
             Console.WriteLine(actualValue[4]);

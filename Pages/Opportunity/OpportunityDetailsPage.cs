@@ -4805,9 +4805,11 @@ public void ClickNewOpportunitySectorButton()
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
             driver.FindElement(valValuationDateL).SendKeys("20/5/2024");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,1200)");
-            Thread.Sleep(7000);
+            Thread.Sleep(5000);
+            By lblTombstone = By.XPath("//div[1]//flexipage-component2[1]//flexipage-field[8]//div/div/div[1]/button");
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTombstone, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblTombstone));
+            Thread.Sleep(6000);
             driver.FindElement(comboTombstoneL).Click();
             driver.FindElement(By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
 

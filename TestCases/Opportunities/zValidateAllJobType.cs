@@ -7,7 +7,7 @@ using SF_Automation.Pages.Common;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class ValidateAllJobType : BaseClass
+    class zValidateAllJobType : BaseClass
     {
        ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

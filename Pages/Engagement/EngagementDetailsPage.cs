@@ -372,7 +372,8 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-        By tabRevenue = By.XPath("//a[@aria-controls='tab-13']");
+        By tabRevenue = By.XPath("//a[@aria-controls='tab-11']");
+        By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
         By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
         By subTabCompliance = By.XPath("//a[text()='Compliance']");
@@ -3546,9 +3547,11 @@ namespace SF_Automation.Pages.Engagement
         public string GetRevenueAccrual()
         {         
             Thread.Sleep(7000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,600)");
             WebDriverWaits.WaitUntilEleVisible(driver, valRevAccrualL, 140);
             string value = driver.FindElement(valRevAccrualL).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,-600)");
             Thread.Sleep(5000);
             driver.FindElement(tabPositionL).Click();

@@ -47,10 +47,10 @@ namespace SF_Automation.Pages
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By tblOpportunities = By.XPath("//div[2]/div/div/table");
-        By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
+        By tblOpportunities = By.XPath("//div/table/tbody");
+        By txtSearchOpp = By.XPath("//input[@name='Opportunity__c-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]/span//span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]/span//span");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
@@ -415,7 +415,7 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is available
         public string ValidateSearchFunctionalityIsAvailable()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchOpp, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchOpp, 170);
             string name = driver.FindElement(txtSearchOpp).Displayed.ToString();
             return name;            
         }
@@ -440,7 +440,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtSearchOpp).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             string opp = driver.FindElement(valSearchedOpp).GetAttribute("title");
             try
             {
@@ -537,7 +537,7 @@ namespace SF_Automation.Pages
         {
             try
             {
-                Thread.Sleep(6000);
+                Thread.Sleep(8000);
                 if (user.Equals("James Craven"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);

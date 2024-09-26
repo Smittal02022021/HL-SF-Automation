@@ -18,6 +18,8 @@ namespace SF_Automation.Pages.Common
         By btnClone = By.CssSelector("input[value='Clone']");
         By linkDBCompanyRecords = By.XPath("//a[text() = 'D&B Company Records']");
         By btnAllList = By.Id("AllTab_Tab");
+        By btnAllListL = By.XPath("//button[@title='Select a List View: Job Types']");
+
         By linkRowSelection = By.CssSelector("div[id*='FaE_Name'] > a");
         By linkDBContactRecords = By.XPath("//a[text() = 'D&B Contact Records']");
         By linkRowSelectionDB = By.CssSelector("div[id*='xdu_Name'] > a");
@@ -31,7 +33,9 @@ namespace SF_Automation.Pages.Common
         By valProductTypeCode = By.CssSelector("table > tbody > tr:nth-child(22) > td:nth-child(2)");
         By valJobTypeNames = By.CssSelector("div[id*='_Name']>a>span");
         By valJobTypes = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(3)");
+        By valJobTypesL = By.XPath("//div[2]/div[1]//div//tr/th/span/a");
         By valProdLines = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(5)");
+        By valProdLinesL = By.XPath("//table/tbody/tr/td[3]/span/span");
         By valBlank = By.CssSelector("div[id*='wN2_00Ni000000G8Xmo']");
 
         By txtPageCountString = By.XPath("//div[@class='paginator']//td[2]//span//i");
@@ -67,6 +71,9 @@ namespace SF_Automation.Pages.Common
         By btnMoreTabs = By.XPath("(//ul[@role='tablist']//button[@title='More Tabs'])[2]");
         By linkActivity = By.XPath("//div[@role='menu']//lightning-menu-item//a//span[text()='Activity']");
         By tabActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
+        By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
+        By tagJobTypes = By.XPath("//div/ul/li/div/a/span[2]/span[text()='Job Types']");
+
         private By _elmIGType(string industryType)
         {
             return By.XPath($"//div[contains(@id,'ManagerContainer')]//table//tbody//td[contains(@id,'Industry')]//span[contains(text(),'{industryType}')]");
@@ -397,15 +404,27 @@ namespace SF_Automation.Pages.Common
         //To get Job Types 
         public void GetJobTypes()
         {
-            driver.Navigate().Refresh();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
-            driver.FindElement(btnAllList).Click();
-            driver.FindElement(linkJobTypes).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
-            driver.FindElement(btnGo).Click();
-            Thread.Sleep(3000);
-            IReadOnlyCollection<IWebElement> type = driver.FindElements(valJobTypes);
-            //Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
+           driver.Navigate().Refresh();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
+            //driver.FindElement(btnAllList).Click();
+            //driver.FindElement(linkJobTypes).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
+            //driver.FindElement(btnGo).Click();
+            Thread.Sleep(6000);
+            By eleJobType = By.XPath("//div[2]/div[1]//div/table/tbody/tr/th/span/a[@title='Debtor Advisors']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            Thread.Sleep(5000);
+            By eleJobType1 = By.XPath("//div[2]/div[1]//div/table/tbody/tr/th/span/a[@title='ESOP Capital Partnership']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType1, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType1));
+            Thread.Sleep(5000);
+            By eleJobType2 = By.XPath("//div[2]/div[1]//div/table/tbody/tr/th/span/a[@title='Sellside']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType2));
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> type = driver.FindElements(valJobTypesL);
+            Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
             int row_num = 1;
             foreach (IWebElement element in type)
             {
@@ -418,7 +437,7 @@ namespace SF_Automation.Pages.Common
         public void GetProductLines()
         {
             Thread.Sleep(3000);
-            IReadOnlyCollection<IWebElement> type = driver.FindElements(valProdLines);
+            IReadOnlyCollection<IWebElement> type = driver.FindElements(valProdLinesL);
             Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
 
             int row_num = 1;
@@ -430,16 +449,11 @@ namespace SF_Automation.Pages.Common
             }
         }
 
-
-
         public string GetBlankValue()
         {
             string value = driver.FindElement(valBlank).Text;
             return value;
         }
-
-
-
 
         //Get the value of Product Line
         public string GetProductLine()
@@ -492,20 +506,49 @@ namespace SF_Automation.Pages.Common
             }
                         return isSame;
         }
+
+        public bool ValidateJobTypesL()
+        {          
+           
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> jobTypes = driver.FindElements(valJobTypesL);
+            var actualValue = jobTypes.Select(x => x.GetAttribute("title")).ToArray();
+            string[] expectedValue = { "Activism Advisory", "Board Advisory Services (BAS)", "Buyside", "Buyside & Financing Advisory", "Collateral Valuation", "Compensation/Formula Analysis", "Consulting", "Corporate Alliances", "Creditor Advisors", "CVAS - Complex Securities", "CVAS - Forensic Services", "CVAS - FV Opinion", "CVAS - Goodwill or Asset Impairment", "CVAS - IP Valuation", "CVAS - Modeling", "CVAS - Pre-Acq Val'n Cons", "CVAS - Purchase Price Allocation", "CVAS - SFAS 123R/409A Stock, Option Valuation", "CVAS - Sovereign Advisory", "CVAS - Tangible Asset Valuation", "CVAS - Tax Valuation", "CVAS - Transfer Pricing", "Debt Advisory", "Debt Capital Markets", "Debtor Advisors", "Discretionary Advisory", "DM&A Buyside", "DM&A Sellside", "DRC - Ad Valorem Services", "DRC - Appointed Arbitrator/Mediator", "DRC - Contract Compliance", "DRC - Exp Cons-Arbitrat'n", "DRC - Exp Cons-Bankruptcy", "DRC - Exp Cons-Litigation", "DRC - Exp Cons-Mediation", "DRC - Exp Cons-Pre-Complt", "DRC - Exp Wit-Arbitration", "DRC - Exp Wit-Bankruptcy", "DRC - Exp Wit-Litigation", "DRC - Exp Wit-Mediation", "DRC - Exp Wit-Pre-Complnt", "DRC - Post Transaction Dispute", "Equity Advisors", "Equity Capital Markets", "ESOP Advisory - CVAS", "ESOP Advisory - DRC", "ESOP Advisory - Other", "ESOP Advisory - PV", "ESOP Advisory - TO", "ESOP Capital Partnership", "ESOP Corporate Finance", "ESOP Fairness", "ESOP Update", "Estate & Gift Tax", "FA - Fund Opinions-Fairness", "FA - Fund Opinions-Non-Fairness", "FA - Fund Opinions-Valuation", "FA - Portfolio - SPAC", "FA - Portfolio LIBOR Advisory", "FA - Portfolio-Advis/Consulting", "FA - Portfolio-Auto Loans", "FA - Portfolio-Auto Struct Prd", "FA - Portfolio-Auto Struct Prd/Consulting", "FA - Portfolio-BDC/Direct Lending", "FA - Portfolio-Deriv/Risk Mgmt", "FA - Portfolio-Diligence/Assets", "FA - Portfolio-Funds Transfer", "FA - Portfolio-GP interest", "FA - Portfolio-Outsourcing", "FA - Portfolio-Real Estate", "FA - Portfolio-Valuation", "Fairness", "FAS - Administrative", "Financing", "FMV Non-Transaction Based Opinion", "FMV Transaction Based Opinion", "General Financial Advisory", "Going Private", "Illiquid Financial Assets", "Income Deposit Securities", "InSource", "Lender Education", "Liability Management", "Liability Mgmt", "Litigation", "Merger", "Negotiated Fairness", "Partners", "PBAS", "Portfolio Acquisition", "Post Merger Integration", "Private Funds: Direct", "Private Funds: GP Advisory", "Private Funds: GP Stake Sale", "Private Funds: Primary Advisory", "Private Funds: Secondary Advisory", "Real Estate Brokerage", "Regulator/Other", "Securities Design", "Sellside", "Solvency", "Sovereign Restructuring", "Special Committee Advisory", "Special Situations", "Special Situations Buyside", "Special Situations Sellside", "Strategic Alternatives Study", "Strategic Consulting", "Strategy", "Syndicated Finance", "T+IP - Damages", "T+IP - Expert Report", "Take Over Defense", "TAS - Accounting and Financial Reporting Advisory", "TAS - Due Diligence-Buyside", "TAS - Due Diligence-Buyside Add-On", "TAS - Due Diligence-Sellside", "TAS - DVC Business Analytics", "TAS - DVC Decision Modeling", "TAS - ESG Due Diligence & Analytics", "TAS - Lender Services", "TAS - Tax", "TAS - Tech & Cyber", "Tech+IP - Buyside", "Tech+IP - Patent Acquisition Support", "Tech+IP - Patent Sales", "Tech+IP - Strategic Advisory", "Tech+IP - Tech+IP Sales", "Tech+IP - Valuation", "Valuation Advisory" };
+            Console.WriteLine("Clicked Job types");
+            bool isSame = true;
+            List<string> difference = actualValue.Except(expectedValue).ToList();
+            foreach (var value in difference)
+            {
+                Console.WriteLine(value);
+            }
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
         public bool ValidateProductLines()
 
         {
-            driver.Navigate().Refresh();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
-            driver.FindElement(btnAllList).Click();
-            driver.FindElement(linkJobTypes).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
-            driver.FindElement(btnGo).Click();
-            Thread.Sleep(3000);
-            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLines);
+            //driver.Navigate().Refresh();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
+            //driver.FindElement(btnAllList).Click();
+            //driver.FindElement(linkJobTypes).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
+            //driver.FindElement(btnGo).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLinesL);
             var actualValue = prodLines.Select(x => x.Text).ToArray();
-            Console.WriteLine(actualValue);
-            string[] expectedValue = { "Advisory", "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Markets", "Capital Markets", "Financial Restructuring - Creditor / Debtor", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "CVAS - Corporate Valuation Advisory Services", "Dispute", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other", "Dispute", "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", " ", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Advisory", "Other", "Other", "Capital Markets", "Capital Markets", "Financial Restructuring - Other", "Dispute", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", " ", "Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", " ", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
+            //Console.WriteLine(actualValue);
+            string[] expectedValue = { "Advisory", "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Markets", "Capital Markets", "Financial Restructuring - Creditor / Debtor", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "CVAS - Corporate Valuation Advisory Services", "Dispute", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other", "Dispute", "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", "", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Advisory", "Other", "Other", "Capital Markets", "Capital Markets", "Financial Restructuring - Other", "Dispute", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", "", "Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
 
             bool isSame = true;
             List<string> difference = actualValue.Except(expectedValue).ToList();
@@ -530,6 +573,19 @@ namespace SF_Automation.Pages.Common
                 }
             }
             return isSame;
+        }
+
+        public string SelectJobType()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 250);            
+            driver.FindElement(btnNavigationMenu).Click();
+            Console.WriteLine("Clicked navigation");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagJobTypes, 350);
+            string value = driver.FindElement(tagJobTypes).Text;
+            driver.FindElement(tagJobTypes).Click();
+            return value;
         }
         public bool IsIndustryTypePresentInDropdownOppManager(string valIndustryGroup)
         {
