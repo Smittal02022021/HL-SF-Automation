@@ -7,16 +7,10 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalesForce_Project.TestCases.GiftLog
 {
-    //Issue in Search 
-
-    class N_LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList:BaseClass
+    class LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -25,11 +19,6 @@ namespace SalesForce_Project.TestCases.GiftLog
         GiftRequestPage giftRequest = new GiftRequestPage();
         GiftApprovePage giftApprove = new GiftApprovePage();
         LVHomePage homePageLV = new LVHomePage();
-        ContactCreatePage createContact = new ContactCreatePage();
-        ContactDetailsPage contactDetails = new ContactDetailsPage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
-        ContactHomePage conHome = new ContactHomePage();
-        RandomPages randomPages = new RandomPages();
 
         public static string fileT1525 = "LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList";
         private string errorMsgApproveGiftText;
@@ -69,13 +58,14 @@ namespace SalesForce_Project.TestCases.GiftLog
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
 
+                //Compliance User
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valUser);
                 extentReports.CreateStepLogs("Info", "Compliance User: " + valUser + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                string stdUser = login.ValidateUserLightningView();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
+                string user = login.ValidateUserLightningView();
+                Assert.AreEqual(user.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged in on Lightning View");
 
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -96,9 +86,6 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT1525);
-
-                //giftRequest.EnterGiftValue("110");
-
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipientsLV();
 
@@ -109,8 +96,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                 extentReports.CreateStepLogs("Passed", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
-                //CustomFunctions.PageReload(driver);
-                driver.SwitchTo().DefaultContent();
+                CustomFunctions.PageReload(driver);                
                 //Click on approve gifts tab
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
@@ -130,7 +116,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Approve selected button is clicked successfully ");
 
                 errorMsgApproveGiftText = giftApprove.ErrorMsgForApproveGiftLV();
-                Assert.IsTrue(errorMsgApproveGiftText.Contains("Error:You must select at least one gift to approve."));
+                Assert.IsTrue(errorMsgApproveGiftText.Contains("You must select at least one gift to approve."));
                 extentReports.CreateStepLogs("Passed", "Error message:" + errorMsgApproveGiftText + " is displaying ");
                                 
                 Assert.IsTrue(giftApprove.CompareGiftDescWithGiftNameLV(valGiftNameEntered));
@@ -142,7 +128,8 @@ namespace SalesForce_Project.TestCases.GiftLog
                 // Verification of gift status displaying in Denied list
                 Assert.AreEqual("Denied", txtStatus);
                 extentReports.CreateStepLogs("Passed", txtStatus + " is displaying in gift status ");
-                driver.SwitchTo().DefaultContent();
+
+                CustomFunctions.PageReload(driver);
                 //Navigate to Gift Request page
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
@@ -156,7 +143,7 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT1525);
-                giftRequest.EnterGiftValue(ReadExcelData.ReadData(excelPath, "GiftValue", 1));
+                giftRequest.EnterGiftValueLV(ReadExcelData.ReadData(excelPath, "GiftValue", 1));
 
                 // Adding recipient from add recipient section to selected recipient section
                 giftRequest.AddRecipientToSelectedRecipientsLV();
@@ -168,7 +155,8 @@ namespace SalesForce_Project.TestCases.GiftLog
 
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                 extentReports.CreateStepLogs("Passed", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
-                driver.SwitchTo().DefaultContent();
+
+                CustomFunctions.PageReload(driver);
                 //Click on approve gifts tab
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);

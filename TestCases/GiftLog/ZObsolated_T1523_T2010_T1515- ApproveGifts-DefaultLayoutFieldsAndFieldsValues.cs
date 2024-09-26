@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class T1523_T2010_T1515_ApproveGifts_DefaultLayoutFieldsAndFieldsValues : BaseClass
+    class ZObsolated_T1523_T2010_T1515_ApproveGifts_DefaultLayoutFieldsAndFieldsValues : BaseClass
     {
         ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
         ExtentReport extentReports = new ExtentReport();
@@ -194,6 +194,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Gift Approved. ");
 
                 //Search gift details by approved status
+                //Gift Log Gifts are not filtered when selected approved status from the drop-down(without Contact Last name
                 //giftApprove.SelectApprovedStatusCombo("Approved");
                 giftApprove.SearchByMonthYearAndStatusOnly("Approved");
 

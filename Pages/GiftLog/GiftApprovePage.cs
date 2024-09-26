@@ -60,6 +60,100 @@ namespace SF_Automation.Pages.GiftLog
         By frameGiftApproveL = By.XPath("//iframe[@title='accessibility title']");
 
 
+        public string GetGiftStatusLV()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftStatus,10);
+            String txt = driver.FindElement(txtGiftStatus).Text;
+            return txt;
+        }
+        
+        public void SearchByMonthYearAndStatusRecipientLastNameLV(string lastname, string status)
+        {
+            Thread.Sleep(3000);
+
+            string getMonth = DateTime.Today.ToString("MMM");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
+            driver.FindElement(comboMonth).SendKeys(getMonth);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, comboApprovedStatus);
+            driver.FindElement(comboApprovedStatus).SendKeys(status);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName);
+            driver.FindElement(txtAreaRecipientLastName).Clear();
+            driver.FindElement(txtAreaRecipientLastName).SendKeys(lastname);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
+            driver.FindElement(btnGo).Click();
+            Thread.Sleep(2000);
+        }
+        public string GetDefaultValuesUnderApprovedColumnInTableLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valApprovedColumnInTable, 10);
+            string ApprovedColumnValueInTable = driver.FindElement(valApprovedColumnInTable).Text;
+            return ApprovedColumnValueInTable;
+        }
+        public string GetlabelApprovalDenialCommentsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, labelApprovalDenialComments, 10);
+            string labelApprovalDenialComment = driver.FindElement(labelApprovalDenialComments).Text;
+            return labelApprovalDenialComment;
+        }
+        public bool IsTextBoxForApprovalDenialCommentVisibilityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaApprovalDenialComments, 10);
+            return CustomFunctions.IsElementPresent(driver, txtAreaApprovalDenialComments);
+        }
+        public bool IsSearchTextBoxOfRecipientNameVisibilityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName, 10);
+            return CustomFunctions.IsElementPresent(driver, txtAreaRecipientLastName);
+        }
+
+        public string GetDefaultSelectedApprovedStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, selectedApprovedStatus, 10);
+            string DefaultApprovedStatus = driver.FindElement(selectedApprovedStatus).Text;
+            return DefaultApprovedStatus;
+        }
+        public string GetDefaultSelectedYearLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, selectedYear, 10);
+            string DefaultSelectedYear = driver.FindElement(selectedYear).Text;
+            return DefaultSelectedYear;
+        }
+        public string ErrorMsgApprovalCommentLV()
+        {
+            Thread.Sleep(1000);
+            WebDriverWaits.WaitUntilEleVisible(driver, errorMsgApprovalComment, 20);
+            string txt = driver.FindElement(errorMsgApprovalComment).Text;
+            return txt;
+        }
+        public bool IsDeleteButtonVisibilityLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDelete, 10);
+                return CustomFunctions.IsElementPresent(driver, btnDelete);
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool EditButtonVisibilityLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit,10);
+                return CustomFunctions.IsElementPresent(driver, btnEdit);
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
         public bool ValidateGiftDescWithGiftNameLV(string giftName)
         {
             Thread.Sleep(6000);

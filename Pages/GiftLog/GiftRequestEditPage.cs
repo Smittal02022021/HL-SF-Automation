@@ -29,11 +29,73 @@ namespace SF_Automation.Pages.GiftLog
         By btnNewGiftRequest = By.CssSelector("td[class='pbButton '] > input[value='New Gift Request']");
         By txtRecipientName = By.CssSelector("span[id*='j_id48:j_id51']");
         By txtDesiredDate = By.CssSelector("input[id*='j_id48:j_id59']");
+        By txtGiftValueAfterGiftApproveL = By.CssSelector("input[id*='j_id48:j_id58']");
 
         public void ClickNewGiftRequestLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewGiftRequest, 120);
             driver.FindElement(btnNewGiftRequest).Click();
+        }
+
+        public string GetGiftSelectedViewLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valApproved, 10);
+            string giftRequestDetail = driver.FindElement(valApproved).Text;
+            return giftRequestDetail;
+        }
+        public string IsGiftNameEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtGiftName);
+        }
+
+        public string IsGiftTypeEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, comboGiftType);
+        }
+
+        public string IsCurrencyEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, comboCurrency);
+        }
+
+        public string IsHLRelationshipEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, comboHlRelationship);
+        }
+
+        public string IsGiftValueAfterGiftApproveEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtGiftValueAfterGiftApprove);
+        }
+
+        public string IsApporvedDropDownEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, comboApproved);
+        }
+
+        public string IsApporvalCommentsEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtApprovalComments);
+        }
+
+        public string IsVendorEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtVendor);
+        }
+
+        public string IsGiftValueEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtGiftValue);
+        }
+
+        public string IsReasonForGiftEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtReasonForGift);
+        }
+
+        public string IsDesiredDateEditableLV()
+        {
+            return CustomFunctions.IsElementEditable(driver, txtDesiredDate);
         }
 
         public void ClickCancelButtonLV()
