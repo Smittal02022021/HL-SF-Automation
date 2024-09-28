@@ -71,9 +71,12 @@ namespace SF_Automation.Pages.Engagement
         
         By txtParty = By.CssSelector("select[name*='M0eMS']");
         By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");
+        By valContactL = By.XPath("//flexipage-column2[1]//record_flexipage-record-field//slot[1]/lightning-formatted-name");
         By btnBillingRequest = By.CssSelector("input[value='Billing Request']");
         By msgContact = By.CssSelector("div[id*='id34:j_id36']");
+        By msgContactL = By.XPath("//div[@class='messageText']");
         By btnBackToManagement = By.CssSelector("input[value='Back To Engagement']");
+        By btnBackToEngagementL = By.XPath("//input[@value='Back To Engagement']");
         By btnSendEmail = By.CssSelector("input[value='Send Email']");
         By comboAccountingStatus = By.CssSelector("select[id='00Ni000000FF7XF']");
         By comboStage = By.CssSelector("select[id = '00Ni000000D7NlW']");
@@ -413,6 +416,14 @@ namespace SF_Automation.Pages.Engagement
         By tabComments = By.XPath("//ul/li[2]/a[text()='Comments']");
         By tabFinancials = By.XPath("//ul/li/a[text()='Financials']");
         By tabEngContacts = By.XPath("//ul/li/a[text()='Eng Contacts']");
+        By tabContactsL = By.XPath("//ul/li/a[text()='Contacts']");
+        By lnkContactL = By.XPath("//table/tbody/tr//span/a[2]");
+        By btnEditContactL = By.XPath("//button[@name='Contact.Add_Relationship_QuickAction']/ancestor::ul/li[1]//button");
+        By txtFirstNameL = By.XPath("//input[@name='firstName']");
+        By txt2ndNameL = By.XPath("//input[@name='lastName']");
+        By txtEmailL = By.XPath("//input[@name='Email']");
+        By txtTitleL = By.XPath("//input[@name='Title']");
+        
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
         By btnView = By.XPath("//lst-list-view-row-level-action/lightning-button-menu/button");
         By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
@@ -2779,6 +2790,39 @@ namespace SF_Automation.Pages.Engagement
             return contact;
         }
 
+        //To update Engagement contact details
+        public string UpdateEngContactL(string Name, string LOB, string Last)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 70);
+            driver.FindElement(tabContactsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactL, 90);
+            driver.FindElement(lnkContactL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnEditContactL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtFirstNameL).Clear();
+            driver.FindElement(txtFirstNameL).SendKeys(Name);
+            Thread.Sleep(4000);
+            driver.FindElement(txt2ndNameL).Clear();
+            driver.FindElement(txt2ndNameL).SendKeys(Last);
+            if (Name.Equals("Tatiana"))
+            {
+                Console.WriteLine("LOB is CF");
+                driver.FindElement(txtTitleL).Clear();
+                driver.FindElement(txtEmailL).Clear();
+            }
+            else
+            {
+                driver.FindElement(txtEmailL).SendKeys("abc@yopmail.com");
+                driver.FindElement(txtTitleL).SendKeys("Ms.");
+            }
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valContactL, 90);
+            Thread.Sleep(4000);
+            string contact = driver.FindElement(valContactL).Text;
+            return contact;
+        }
+
         //To click on billing request button
         public void ClickBillingRequestButton()
         {
@@ -2786,21 +2830,55 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnBillingRequest).Click();
         }
 
+        //To click on billing request button
+        public void ClickBillingRequestButtonL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 70);
+            driver.FindElement(tabEngagementNumL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 70);
+            driver.FindElement(btnBillingRequestL).Click();
+        }
+        //To get validation message for contact details
+        public string GetContactValidationMessageL()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactL, 100);
+            string message = driver.FindElement(msgContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngagementL, 70);
+            driver.FindElement(btnBackToEngagementL).Click();
+            driver.SwitchTo().DefaultContent();
+            return message;
+
+        }
         //To get validation message for contact details
         public string GetContactValidationMessage()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, msgContact, 70);
-            string message = driver.FindElement(msgContact).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToManagement, 70);
-            driver.FindElement(btnBackToManagement).Click();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactL, 100);
+            string message = driver.FindElement(msgContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBackToEngagementL, 70);
+            driver.FindElement(btnBackToEngagementL).Click();
             return message;
         }
+
 
         //To get Subject from Billing Request Form
         public string GetTitleOfSendEmailButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSendEmail, 70);
             string title = driver.FindElement(btnSendEmail).GetAttribute("value");
+            return title;
+        }
+
+        //To get Subject from Billing Request Form
+        public string GetTitleOfSendEmailButtonL()
+        {
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendEmailL, 70);
+            string title = driver.FindElement(btnSendEmailL).GetAttribute("value");
+            driver.SwitchTo().DefaultContent();
             return title;
         }
 
