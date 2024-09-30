@@ -6877,11 +6877,10 @@ namespace SF_Automation.Pages.Engagement
                 Thread.Sleep(2000);
             }
 
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
-            {
-                result = true;
-                driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Click();
-            }
+            driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Click();
+            Thread.Sleep(3000);
+            result = true;
+
             return result;
         }
 
