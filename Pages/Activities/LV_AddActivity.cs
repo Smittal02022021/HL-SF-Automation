@@ -116,7 +116,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
             Thread.Sleep(2000);
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
@@ -176,7 +175,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
@@ -230,7 +228,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
@@ -291,7 +288,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
@@ -357,7 +353,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
@@ -540,9 +535,8 @@ namespace SF_Automation.Pages.Activities
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
@@ -601,9 +595,8 @@ namespace SF_Automation.Pages.Activities
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
@@ -715,7 +708,6 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-
         public void CreateActivityFromContactActivityPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -750,9 +742,8 @@ namespace SF_Automation.Pages.Activities
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,500)");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
