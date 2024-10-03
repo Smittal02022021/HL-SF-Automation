@@ -74,6 +74,7 @@ namespace SF_Automation.Pages.Contact
 
         public string GetActivitySubjectName()
         {
+            Thread.Sleep(2000);
             string subject = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')])[3]//tbody/tr[1]/td[4]//a")).Text;
             return subject;
         }
@@ -91,6 +92,26 @@ namespace SF_Automation.Pages.Contact
             string sub = GetActivitySubjectName();
 
             if (updatedSubject == sub)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool VerifyUpdatedActivityIsDisplayedUnderActivitiesList2(string file, int row)
+        {
+            Thread.Sleep(2000);
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
+            string sub = driver.FindElement(By.XPath("(//table[contains(@class,'slds-table')]//tbody/tr[1]/td[4]//a)[2]")).Text;
+
+            if(updatedSubject == sub)
             {
                 result = true;
             }

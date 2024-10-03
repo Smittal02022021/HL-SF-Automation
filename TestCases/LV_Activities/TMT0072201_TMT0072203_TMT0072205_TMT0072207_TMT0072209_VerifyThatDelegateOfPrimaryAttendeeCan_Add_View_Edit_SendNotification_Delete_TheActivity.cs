@@ -182,7 +182,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 activityDetailPage.UpdateActivityByDelegate(fileTMTC0032670, 2);
                 lvContactDetails.CloseTab("View Activity");
 
-                Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032670, 2));
+                Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList2(fileTMTC0032670, 2));
                 extentReports.CreateStepLogs("Passed", "Activity updated successfully by Delegate of Banker.");
 
                 //TMT0072209 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
