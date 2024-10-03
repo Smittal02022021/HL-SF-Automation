@@ -254,7 +254,6 @@ namespace SF_Automation.Pages.Activities
             string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
             string updatedDesc = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 4);
             string updatedNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 5);
-            string updatedExtAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 6);
             string updatedHLAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 7);
 
             //Edit Subject details
@@ -290,13 +289,6 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
-            Thread.Sleep(2000);
-
-            //Update External Attendee
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
-            driver.FindElement(txtExternalAttendee).SendKeys(updatedExtAttendee);
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath($"//div[@data-name='{updatedExtAttendee}']")).Click();
             Thread.Sleep(2000);
 
             //Update HL Attendee

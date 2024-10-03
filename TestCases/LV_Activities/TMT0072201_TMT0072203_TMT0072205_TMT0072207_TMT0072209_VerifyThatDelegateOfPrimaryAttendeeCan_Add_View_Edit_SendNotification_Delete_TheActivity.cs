@@ -26,6 +26,7 @@ namespace SF_Automation.TestCases.LV_Activities
         Outlook outlook = new Outlook();
 
         public static string fileTMTC0032670 = "TMTC0032670_VerifyThatDelegateOfPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity";
+        public static string fileOutlook = "Outlook";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -105,9 +106,69 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                 extentReports.CreateStepLogs("Passed", "Delegate of Banker is able to add activity successfully. ");
 
-                //TMT0072203 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
+                //TMT0072207 Verify that the delegate of the banker (Primary Attendee) can "Send Notification".
                 LV_ContactsActivityList.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                //Send Notification
+                activityDetailPage.SendNotification(fileTMTC0032670);
+
+                //Logout from SF Lightning View
+                lvHomePage.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+
+                driver.Quit();
+
+                //Launch outlook window
+                OutLookInitialize();
+
+                //Login into Outlook
+                outlook.LoginOutlook(fileOutlook);
+                string outlookLabel = outlook.GetLabelOfOutlook();
+                Assert.AreEqual("Outlook", outlookLabel);
+                extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
+
+                Assert.IsTrue(outlook.VerifyActivityNotificationIsRecieved(subject));
+                extentReports.CreateStepLogs("Passed", "Delegate of the activity is able to send notification from SF successfully.");
+
+                driver.Quit();
+
+                Initialize();
+
+                //Calling Login function                
+                login.LoginApplication();
+
+                //Validate user logged in       
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
+
+                //Search CF Financial User user by global search
+                extentReports.CreateStepLogs("Info", "User " + valUser + " details are displayed. ");
+
+                //Login user
+                homePage.SearchUserByGlobalSearch(fileTMTC0032670, valUser);
+                usersLogin.LoginAsSelectedUser();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+                }
+
+                //Search external contact
+                lvHomePage.SearchContactFromMainSearch(extContactName);
+                Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
+                extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
+
+                //TMT0072201 Verify that the delegate of the banker (Primary Attendee) can "View" the activity.
+                //TMT0072203 Verify that the delegate of the banker (Primary Attendee) can "Edit" the activity.
+                LV_ContactsActivityList.ViewActivityFromList(subject);
+                extentReports.CreateStepLogs("Passed", "Delegate is able to View the activity. ");
 
                 //Edit Activity
                 activityDetailPage.ClickEditActivityButton();
