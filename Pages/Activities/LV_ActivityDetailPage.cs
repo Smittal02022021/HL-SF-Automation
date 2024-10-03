@@ -241,6 +241,80 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
+        public void UpdateActivityByDelegate(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+
+            string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 1);
+            string updatedIndGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 2);
+            string updatedPrdType = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 3);
+            string updatedDesc = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 4);
+            string updatedNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 5);
+            string updatedExtAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 6);
+            string updatedHLAttendee = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", row, 7);
+
+            //Edit Subject details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(txtSubject).Clear();
+            driver.FindElement(txtSubject).SendKeys(updatedSubject);
+            Thread.Sleep(2000);
+
+            //Edit Description details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaDescription));
+            driver.FindElement(txtareaDescription).Clear();
+            driver.FindElement(txtareaDescription).SendKeys(updatedDesc);
+            Thread.Sleep(2000);
+
+            //Edit Notes details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtareaHLInternalMeetingNotes));
+            driver.FindElement(txtareaHLInternalMeetingNotes).Clear();
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(updatedNotes);
+            Thread.Sleep(2000);
+
+            //Edit Industry Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedIndGrp}']")).Click();
+            Thread.Sleep(2000);
+
+            //Edit Product Group
+            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownProductType));
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{updatedPrdType}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(2000);
+
+            //Update External Attendee
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            driver.FindElement(txtExternalAttendee).SendKeys(updatedExtAttendee);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[@data-name='{updatedExtAttendee}']")).Click();
+            Thread.Sleep(2000);
+
+            //Update HL Attendee
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLAttendee));
+            driver.FindElement(txtHLAttendee).SendKeys(updatedHLAttendee);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[@data-name='{updatedHLAttendee}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            driver.FindElement(btnSaveActivity).Click();
+            Thread.Sleep(5000);
+        }
+
+
         public void UpdateFollowupActivityByPrimaryHLAttendee(string file, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -482,6 +556,5 @@ namespace SF_Automation.Pages.Activities
 
             return result;
         }
-
     }
 }

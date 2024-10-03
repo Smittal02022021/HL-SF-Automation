@@ -668,10 +668,9 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,800)");
+            js.ExecuteScript("window.scrollTo(0,500)");
             Thread.Sleep(2000);
 
-            CustomFunctions.MoveToElement(driver, driver.FindElement(drpdownIndustryGroup));
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();

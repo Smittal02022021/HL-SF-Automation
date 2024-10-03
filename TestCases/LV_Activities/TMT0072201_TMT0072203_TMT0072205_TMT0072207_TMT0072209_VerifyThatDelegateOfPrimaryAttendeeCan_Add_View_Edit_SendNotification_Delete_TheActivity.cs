@@ -88,13 +88,13 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
 
                 //TMT0072205 Verify that the delegate of the banker (Primary Attendee) can "Add" the activity.
-
                 int totalActivity = ReadExcelData.GetRowCount(excelPath, "Activity");
 
                 string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
                 string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
                 string additionalExtAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 1);
                 string additionalHLAttendee = ReadExcelData.ReadData(excelPath, "MoreAttendees", 2);
+                string updatedSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "UpdateActivity", 2, 1);
 
                 int beforeCount = LV_ContactsActivityList.GetActivityCount();
 
@@ -105,10 +105,23 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
                 extentReports.CreateStepLogs("Passed", "Delegate of Banker is able to add activity successfully. ");
 
-                //TMT0072209 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
-
-                //Deleting Created Activity
+                //TMT0072203 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
                 LV_ContactsActivityList.ViewActivityFromList(subject);
+                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
+                //Edit Activity
+                activityDetailPage.ClickEditActivityButton();
+
+                //Update Activity as Delegate
+                activityDetailPage.UpdateActivityByDelegate(fileTMTC0032670, 2);
+                lvContactDetails.CloseTab("View Activity");
+
+                Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032670, 2));
+                extentReports.CreateStepLogs("Passed", "Activity updated successfully by Delegate of Banker.");
+
+                //TMT0072209 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
+                //Deleting Created Activity
+                LV_ContactsActivityList.ViewActivityFromList(updatedSubject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
                 activityDetailPage.DeleteActivity();
 
