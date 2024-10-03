@@ -165,6 +165,11 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
                 extentReports.CreateStepLogs("Passed", "User navigated to external contact details page. ");
 
+                //Navigate to Activity tab
+                lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
+                Assert.IsTrue(LV_ContactsActivityList.VerifyUserLandsOnActivityTab());
+                extentReports.CreateStepLogs("Passed", "User landed on the Activity tab of external contact. ");
+
                 //TMT0072201 Verify that the delegate of the banker (Primary Attendee) can "View" the activity.
                 //TMT0072203 Verify that the delegate of the banker (Primary Attendee) can "Edit" the activity.
                 LV_ContactsActivityList.ViewActivityFromList(subject);
