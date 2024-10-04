@@ -162,6 +162,7 @@ namespace SF_Automation.Pages.Activities
 
         public void ClickEditActivityButton()
         {
+            Thread.Sleep(2000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditActivity));
             WebDriverWaits.WaitUntilClickable(driver, btnEditActivity, 60);
             driver.FindElement(btnEditActivity).Click();
@@ -305,7 +306,6 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSaveActivity).Click();
             Thread.Sleep(5000);
         }
-
 
         public void UpdateFollowupActivityByPrimaryHLAttendee(string file, int row)
         {

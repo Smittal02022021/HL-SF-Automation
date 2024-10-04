@@ -10,7 +10,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity : BaseClass
+    class TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateWhoIsPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -38,7 +38,7 @@ namespace SF_Automation.TestCases.LV_Activities
         }
 
         [Test]
-        public void VerifyThatDelegateOfPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity()
+        public void VerifyThatDelegateWhoIsPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity()
         {
             try
             {
@@ -182,7 +182,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 activityDetailPage.UpdateActivityByDelegate(fileTMTC0032670, 2);
                 lvContactDetails.CloseTab("View Activity");
 
-                Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList2(fileTMTC0032670, 2));
+                Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032670, 2));
                 extentReports.CreateStepLogs("Passed", "Activity updated successfully by Delegate of Banker.");
 
                 //TMT0072209 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
