@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvContactDetails.CloseTab("View Activity");
 
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));
-                extentReports.CreateStepLogs("Passed", "Delegate of Banker is able to add activity successfully. ");
+                extentReports.CreateStepLogs("Passed", "Delegate of Non Primary Banker is able to add activity successfully. ");
 
                 //TMT0072207 Verify that the delegate of the banker (Primary Attendee) can "Send Notification".
                 LV_ContactsActivityList.ViewActivityFromList(subject);
@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
 
                 Assert.IsTrue(outlook.VerifyActivityNotificationIsRecieved(subject));
-                extentReports.CreateStepLogs("Passed", "Delegate of the activity is able to send notification from SF successfully.");
+                extentReports.CreateStepLogs("Passed", "Delegate of Non Primary Banker of the activity is able to send notification from SF successfully.");
 
                 driver.Quit();
 
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 //TMT0072201 Verify that the delegate of the banker (Primary Attendee) can "View" the activity.
                 //TMT0072203 Verify that the delegate of the banker (Primary Attendee) can "Edit" the activity.
                 LV_ContactsActivityList.ViewActivityFromList(subject);
-                extentReports.CreateStepLogs("Passed", "Delegate is able to View the activity. ");
+                extentReports.CreateStepLogs("Passed", "Delegate of Non Primary Banker is able to View the activity. ");
 
                 //Edit Activity
                 activityDetailPage.ClickEditActivityButton();
@@ -183,7 +183,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvContactDetails.CloseTab("View Activity");
 
                 Assert.IsTrue(LV_ContactsActivityList.VerifyUpdatedActivityIsDisplayedUnderActivitiesList(fileTMTC0032670, 2));
-                extentReports.CreateStepLogs("Passed", "Activity updated successfully by Delegate of Banker.");
+                extentReports.CreateStepLogs("Passed", "Activity updated successfully by Delegate of Non Primary Banker.");
 
                 //TMT0072209 Verify that the delegate of the banker (Primary Attendee) can "Delete" the activity.
                 //Deleting Created Activity
@@ -194,7 +194,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Verify activity is deleted successfully
                 int afterCount = activitiesList.GetActivityCount();
                 Assert.AreEqual(beforeCount, afterCount);
-                extentReports.CreateStepLogs("Passed", "Delegate is able to delete the activity successfully. ");
+                extentReports.CreateStepLogs("Passed", "Delegate of Non Primary Banker is able to delete the activity successfully. ");
 
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
