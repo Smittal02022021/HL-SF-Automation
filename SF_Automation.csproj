@@ -706,8 +706,7 @@
     <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
-    <Compile Include="TestCases\LV_Activities\TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateWhoIsPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
-    <Compile Include="TestCases\LV_Activities\TMT0072214_TMT0072217_TMT0072219_TMT0072222_TMT0072226_VerifyThatDelegateWhoIsNonPrimaryAttendeeCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072233_VerifyActivityIsLinkedToTheRelatedEngagement.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072238_TMT0072487_TMT0072489_TMT0072491_VerifyActivityPageValidations.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072236_VerifyActivityIsLinkedToTheRelatedCampaign.cs" />
