@@ -10,7 +10,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
-    class TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity : BaseClass
+    class TMT0072214_TMT0072217_TMT0072219_TMT0072222_TMT0072226_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -25,7 +25,7 @@ namespace SF_Automation.TestCases.LV_Activities
         LV_ActivityDetailPage activityDetailPage = new LV_ActivityDetailPage();
         Outlook outlook = new Outlook();
 
-        public static string fileTMTC0032670 = "TMTC0032670_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity";
+        public static string fileTMTC0032670 = "TMTC0032670_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity";
         public static string fileOutlook = "Outlook";
 
         [OneTimeSetUp]
@@ -38,7 +38,7 @@ namespace SF_Automation.TestCases.LV_Activities
         }
 
         [Test]
-        public void VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity()
+        public void VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity()
         {
             try
             {
@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 int beforeCount = LV_ContactsActivityList.GetActivityCount();
 
                 //Create new activity
-                addActivity.CreateNewActivityWithDelegatesAndPrimaryBanker(fileTMTC0032670, 2);
+                addActivity.CreateNewActivityWithDelegates(fileTMTC0032670, 2);
                 lvContactDetails.CloseTab("View Activity");
 
                 Assert.IsTrue(LV_ContactsActivityList.VerifyCreatedActivityIsDisplayedUnderActivitiesList(beforeCount));

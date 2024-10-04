@@ -493,6 +493,7 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtEmailId).SendKeys(toEmail);
             Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//span[text()='{toEmail}']/..")).Click();
+            Thread.Sleep(4000);
 
             driver.FindElement(btnSendEmail).Click();
             Thread.Sleep(2000);
