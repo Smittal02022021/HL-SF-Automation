@@ -251,7 +251,6 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
         }
 
-
         public void ClickExpenseRequestMenuButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnMenu, 140);
