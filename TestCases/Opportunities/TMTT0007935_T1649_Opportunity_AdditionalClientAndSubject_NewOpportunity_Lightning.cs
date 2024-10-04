@@ -158,7 +158,6 @@ namespace SF_Automation.TestCases.Opportunity
                     Console.WriteLine("User logged out");
                 }    
                 
-
                 usersLogin.UserLogOut();
                 Console.WriteLine("Admin logged out");
                 driver.Quit();                

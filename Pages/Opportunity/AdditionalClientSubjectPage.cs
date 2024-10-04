@@ -1046,7 +1046,7 @@ namespace SF_Automation.Pages
             //Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtType1, 150);
             string type = driver.FindElement(txtType1).Text;
-            if (type.Equals("Subject"))
+            if (type.Equals("Client"))
             {
                 return "Records are deleted successfully";
             }

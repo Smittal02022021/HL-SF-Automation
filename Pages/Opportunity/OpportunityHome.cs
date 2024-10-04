@@ -537,10 +537,10 @@ namespace SF_Automation.Pages
         {
             try
             {
-                Thread.Sleep(8000);
+                Thread.Sleep(6000);
                 if (user.Equals("James Craven"))
                 {
-                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 220);
                     driver.FindElement(btnOppNumL).Click();
                     Thread.Sleep(4000);
                 }
@@ -552,7 +552,7 @@ namespace SF_Automation.Pages
                 }
                 WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
                 driver.FindElement(txtOppNumLCAO).SendKeys(value);
-                Thread.Sleep(8000);
+                Thread.Sleep(7000);
                 driver.FindElement(imgOppL).Click();
                 Thread.Sleep(7000);
                 //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);

@@ -91,6 +91,7 @@ namespace SF_Automation.Pages.Engagement
         By errorMessage = By.CssSelector("div[id='errorDiv_ep']");
         By errorMessageL = By.XPath("//a[@class='errorsListLink']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab - Selected']");
+        By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
         By comboClientOwnership = By.CssSelector("select[id*='d2R']");
         By txtDebt = By.CssSelector("input[id*='LfH']");
         By valClientOwnership = By.CssSelector("div[id*='d2Rj_id0_j_id4_ileinner']");
@@ -3072,6 +3073,13 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngagement).Click();
         }
 
+        //Click on Engagement tab
+        public void ClickEngagementTabL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementL, 80);
+            driver.FindElement(tabEngagementL).Click();
+        }
+
         //Update Client Ownership and Total Debt
         public string UpdateClientOwnershipAndDebt(string Ownership, string Debt)
         {
@@ -3355,6 +3363,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateImportedPeriodPosition(string name)
         {            
             driver.FindElement(By.XPath("//a[text()='" + name + "']")).Click();
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);

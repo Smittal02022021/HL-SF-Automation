@@ -12,6 +12,7 @@ using System.Data;
 using System.Transactions;
 using System.Web;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -424,6 +425,8 @@ namespace SF_Automation.Pages.Engagement
         By rowDebtStrPre = By.CssSelector("tbody[id*='preTransactionDebtStructures:tb']>tr>td>span");
         By valDebtSecurityType = By.CssSelector("td[id*='preTransactionDebtStructures:0:j_id212']");
         By lnkDebtDel = By.CssSelector("td[id*='j_id209']>a");
+        By lnkDebtDelL = By.XPath("//flexipage-tab2[5]//td[13]//lightning-button-icon");
+        By lnkPostDebtDelL = By.XPath("//flexipage-tab2[6]//td[13]//lightning-button-icon/button");
         By msgDebtDelete = By.CssSelector("span[id*='panPreTransactionDebtStructures']>label");
         By btnNewLender = By.CssSelector("input[value='New Key Creditor']");
         By txtLenderAmt = By.CssSelector("input[name*=':0:j_id54']");
@@ -2092,6 +2095,55 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, msgDebtDelete, 110);
             string message = driver.FindElement(msgDebtDelete).Text;
             return message;
+        }
+
+        //To delete added Debt Structure record
+        public string DeleteAndValidatePreDebtStructureRecordL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDebtDelL, 100);
+            driver.FindElement(lnkDebtDelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try 
+            {
+                if (driver.FindElement(lnkDebtDelL).Displayed)
+                {
+                    return "Debt Structure still exists";
+                }
+                else
+                {
+                    return "No records to display";
+                }
+            }
+            catch(Exception )
+            {
+                return "No records to display";
+            }
+        }
+        //To delete added Debt Structure record
+        public string DeleteAndValidatePostDebtStructureRecordL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkPostDebtDelL, 100);
+            driver.FindElement(lnkPostDebtDelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                if (driver.FindElement(lnkDebtDelL).Displayed)
+                {
+                    return "Debt Structure still exists";
+                }
+                else
+                {
+                    return "No records to display";
+                }
+            }
+            catch (Exception)
+            {
+                return "No records to display";
+            }
         }
 
         //To add lender details
@@ -3971,6 +4023,38 @@ namespace SF_Automation.Pages.Engagement
             return row;
         }
 
+        //Validate save functionality of Add Debt Structure Page by adding all values
+        public string ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValuesWithoutClickingAddDebt()
+        {
+           // driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Testing");
+            driver.FindElement(txtAmoritizationL).SendKeys("10");
+            driver.FindElement(txtMandatoryL).SendKeys("10");
+            driver.FindElement(txtFeesL).SendKeys("10");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+            driver.FindElement(btnSaveAndKeyCred).Click();
+            Thread.Sleep(6000);
+
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return "Saved details";
+        }
+
         //Validate edit functionality of Debt Structure 
         public string ValidateEditFunctionalityOfAddedDebtStructure()
         {           
@@ -4872,7 +4956,7 @@ namespace SF_Automation.Pages.Engagement
         {
             driver.FindElement(btnAddDebtStrL).Click();
 
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valHeader = driver.FindElements(lblAddDebtTxtFields);
             var actualValue = valHeader.Select(x => x.Text).ToArray();            
             Console.WriteLine(actualValue);            

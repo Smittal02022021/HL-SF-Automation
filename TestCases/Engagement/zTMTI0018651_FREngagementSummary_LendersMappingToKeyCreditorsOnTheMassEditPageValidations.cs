@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations : BaseClass
+    class zTMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

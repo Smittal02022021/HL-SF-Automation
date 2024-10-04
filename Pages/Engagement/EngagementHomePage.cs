@@ -49,7 +49,7 @@ namespace SF_Automation.Pages
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
         By valSearchedEng1 = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span");
-        By tabEngL = By.XPath("//table/tbody/tr/th/span//div");
+        By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
         By titleEngDetailsL = By.XPath("//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
@@ -531,8 +531,8 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 driver.FindElement(btnRefresh).Click();
                 Thread.Sleep(8000);
-                WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng, 190);
-                string opp = driver.FindElement(valSearchedEng).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEngName, 190);
+                string opp = driver.FindElement(valSearchedEngName).Text;
                 return opp;
            
         }
