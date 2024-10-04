@@ -8223,12 +8223,12 @@ namespace SF_Automation.Pages
         public bool VerifyActivityIsLinkedToOpportunity(string sub)
         {
             bool result = false;
-            driver.FindElement(btnMore).Click();
             Thread.Sleep(2000);
             try
             {
-                driver.FindElement(By.XPath("(//button[@title='More Tabs'])[1]")).Click();
+                driver.FindElement(btnMore).Click();
                 Thread.Sleep(2000);
+
                 driver.FindElement(By.XPath("((//button[@title='More Tabs'])[1]/following::lightning-menu-item//a)[1]")).Click();
                 Thread.Sleep(2000);
             }
