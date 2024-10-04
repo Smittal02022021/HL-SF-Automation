@@ -6869,12 +6869,12 @@ namespace SF_Automation.Pages.Engagement
             try
             {
                 driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
             }
             catch(Exception)
             {
                 driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
             }
 
             driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Click();
