@@ -311,8 +311,8 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnSaveOnEdit).Click();
             Thread.Sleep(5000);
 
-            string msg = driver.FindElement(By.XPath("//label[text()='Industry Group']/../div[@aria-live='assertive']")).Text;
-            if(msg == "Industry Group must be selected when LOB is CF")
+            string msg = driver.FindElement(By.XPath("(//label[text()='Industry Group']/../div)[2]")).Text;
+            if(msg.Contains("Industry Group must be selected when LOB is CF"))
             {
                 result = true;
                 driver.FindElement(btnCancelOnEdit).Click();
