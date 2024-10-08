@@ -491,6 +491,7 @@
     <Compile Include="Pages\Contacts\AddAffiliatedCompanies.cs" />
     <Compile Include="Pages\Contacts\ContactCreatePage.cs" />
     <Compile Include="Pages\Contacts\ContactDetailsPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactEditPage.cs" />
     <Compile Include="Pages\Contacts\ContactEditPage.cs" />
     <Compile Include="Pages\Contacts\ContactHomePage.cs" />
     <Compile Include="Pages\Contacts\ContactRelationshipPage.cs" />

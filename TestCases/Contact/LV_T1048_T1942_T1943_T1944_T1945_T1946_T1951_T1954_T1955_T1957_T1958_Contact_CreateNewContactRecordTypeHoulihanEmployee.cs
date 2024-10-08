@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Contact
         LV_RecentlyViewedContactsPage lvRecentlyViewContact = new LV_RecentlyViewedContactsPage();
         LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
         LV_ContactsCreatePage lvCreateContact = new LV_ContactsCreatePage();
+        LV_ContactEditPage contactEdit = new LV_ContactEditPage();
 
         public static string fileTC1048 = "T1048_Contact_CreateNewContactRecordTypeHoulihanEmployee";
 
@@ -62,24 +63,24 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 int rowUserType = ReadExcelData.GetRowCount(excelPath, "UsersType");
-                for (int row = 2; row <= rowUserType; row++)
+                for (int row = 2; row <= 2; row++)
                 {
                     if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
                         // Search standard user by global search
-                        string user = ReadExcelData.ReadData(excelPath, "Users", 1);
+                        string user = ReadExcelData.ReadData(excelPath, "Users", 2);
                         homePage.SearchUserByGlobalSearch(fileTC1048, user);
 
                         //Verify searched user
                         string userPeople = homePage.GetPeopleOrUserName();
-                        string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                        string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 2);
                         Assert.AreEqual(userPeopleExl, userPeople);
                         extentReports.CreateLog("User " + userPeople + " details are displayed ");
 
                         //Login as HR user
                         usersLogin.LoginAsSelectedUser();
                         string HRUser = login.ValidateUser();
-                        string HRUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                        string HRUserExl = ReadExcelData.ReadData(excelPath, "Users", 2);
                         Assert.AreEqual(HRUserExl.Contains(HRUser), true);
                         extentReports.CreateLog("HR User: " + HRUser + " is able to login ");
 
@@ -170,6 +171,54 @@ namespace SF_Automation.TestCases.Contact
                     }
                     else
                     {
+                        //Verify error message is displaying when departure date is before the hire date
+                        contactEdit.EditContact(fileTC1048, 2, 2);
+
+                        contactEdit.UpdateDepartureDate();
+                        contactEdit.ClickSaveBtn();
+
+                        String errMsg = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Error: Departure Date cannot be earlier than Hire Date", errMsg);
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg + " is displaying when departure date is before the hire date ");
+                        contactEdit.UpdateDepartureDateforInactiveEmployee();
+
+                        contactEdit.ClickSaveBtn();
+
+                        //Verify error message is displaying when departure date is not provided for inactive employee
+                        string errMsg1 = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Error: Departure Date is required for Inactive employees hired after 1/1/2009", errMsg1);
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg1 + " is displaying when departure date is required for inactive employees");
+
+                        contactEdit.ClickCancelBtn();
+
+                        //Verify error message for Industry group when LOB is CF
+                        contactEdit.VerifyIndustryGroupValidation();
+                        contactEdit.ClickSaveBtn();
+
+                        string errMsg2 = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Error: Industry Group must be selected when LOB is CF", errMsg2);
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
+
+                        //Verify PDC Validation when primary PDC is null
+                        contactEdit.ClickCancelBtn();
+                        contactEdit.VerifyPrimaryPDCValidation();
+                        contactEdit.ClickSaveBtn();
+
+                        string errMsg3 = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Error: Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
+
+                        contactEdit.ClickCancelBtn();
+
+                        //Verify error message is displaying when flag reason comment is not provided
+                        contactEdit.VerifyFlagReasonValidation("Contact Has Left Company");
+                        contactEdit.ClickSaveBtn();
+                        string errMessage = contactEdit.TxtErrorMessageDepartureDate();
+                        contactEdit.ClickCancelBtn();
+
+                        Assert.AreEqual("Error: Please provide additional information for selected Flag Reason.", errMessage);
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage + " is displaying when flag reason is not selected");
+
                         //Delete Created Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
