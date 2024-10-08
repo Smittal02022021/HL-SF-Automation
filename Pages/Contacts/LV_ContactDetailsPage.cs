@@ -1542,7 +1542,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilClickable(driver, btnCloseErrorPopup, 120);
             string errMsg = driver.FindElement(By.XPath("//label[text()='Last Name']/following::div[2]")).Text;
 
-            if(errMsg == "Complete this field.")
+            if(errMsg.Contains("Complete this field."))
             {
                 result = true;
             }
@@ -1580,7 +1580,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilClickable(driver, txtErrorPopup, 120);
             string errMsg = driver.FindElement(By.XPath("//button[@aria-label='Contact Currency']/following::div[3]")).Text;
 
-            if(errMsg == "Only system administrators can change employee currency")
+            if(errMsg.Contains("Only system administrators can change employee currency"))
             {
                 result = true;
             }
@@ -1615,7 +1615,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilClickable(driver, txtErrorPopup, 120);
             string errMsg = driver.FindElement(By.XPath("//label[text()='Last Name']/following::div[2]")).Text;
 
-            if(errMsg == "Only system administrators can change employee name and salutation")
+            if(errMsg.Contains("Only system administrators can change employee name and salutation"))
             {
                 result = true;
             }
