@@ -272,7 +272,7 @@ namespace SF_Automation.Pages.Contact
 
         public string TxtErrorMessageEmployeeCurrency()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageEmpCurrency));
             string text = driver.FindElement(txtErrorMessageEmpCurrency).Text;
             Thread.Sleep(1000);

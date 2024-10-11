@@ -200,6 +200,10 @@ namespace SF_Automation.TestCases.Contact
                         //Switch Back To Classic View
                         lvHomePage.SwitchBackToClassicView();
                         extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
+
+                        //Logout from SF Classic View
+                        usersLogin.UserLogOut();
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
                     }
                     else
                     {
@@ -261,11 +265,12 @@ namespace SF_Automation.TestCases.Contact
                         //Switch Back To Classic View
                         lvHomePage.SwitchBackToClassicView();
                         extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
+
+                        //Logout from SF Classic View
+                        usersLogin.UserLogOut();
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
                     }
                 }
-
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
 
                 driver.Quit();
             }
