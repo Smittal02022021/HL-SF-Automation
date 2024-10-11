@@ -16,16 +16,13 @@ namespace SF_Automation.Pages.Contact
         By btnEdit = By.XPath("//button[@name='Edit']");
         By txtMiddleName = By.XPath("//input[@name='middleName']");
         By txtMailingStreet = By.XPath("(//textarea[@name='street'])[1]");
-        //By txtOffice = By.CssSelector("#ep > div.pbBody > div:nth-child(3) > table > tbody > tr:nth-child(7) >td:nth-child(2)");
         By txtMailingCity = By.XPath("(//input[@name='city'])[1]");
-        By txtMailingState = By.XPath("(//input[@name='province'])[1]/..");
+        By txtMailingState = By.XPath("(//input[@name='province'])[1]");
         By btnSaveAndNew = By.XPath("(//button[@name='SaveAndNew'])[1]");
         By comboContactStatus = By.XPath("//button[@aria-label='Status']");
         By comboOffice = By.XPath("//button[@aria-label='Office']");
-        //By comboPhysicalOffice = By.CssSelector("select[id='00N3100000Gb67T']");
         By txtTitle = By.XPath("(//input[@name='Title'])[1]");
         By txtDepartment = By.XPath("(//input[@name='Department'])[1]");
-        //By txtHireDate = By.CssSelector("input[id='00N3100000Gb67A']");
         By comboCountry = By.XPath("(//input[@name='country'])[1]");
 
         By comboLineOfBusiness = By.XPath("//button[@aria-label='Line of Business']");
@@ -33,6 +30,8 @@ namespace SF_Automation.Pages.Contact
         By comboProjectNotifyRole = By.CssSelector("select[title='Project Notify Role - Available']");
         By rightArrow = By.CssSelector("img[id*='67d_right_arrow']");
         By txtHireDate = By.XPath("//input[@name='Hire_Date__c']");
+        By txtDepartureDate = By.XPath("//input[@name='Departure_Date__c']");
+
         By comboMentor = By.CssSelector("span[class='lookupInput'] > select[id*='Gz5Lf']");
         By txtMentor = By.CssSelector("span[class='lookupInput'] > input[id*='Gz5Lf']");
         By lookupCompany = By.CssSelector("a[title='Company Name Lookup (New Window)']");
@@ -43,11 +42,9 @@ namespace SF_Automation.Pages.Contact
         By btnGo = By.CssSelector("input[name=go]");
 
         By txtSearchResults = By.CssSelector("tr[class='dataRow even first']>th>a");
-
         By btnSave = By.XPath("//button[@name='SaveEdit']");
 
         By txtErrorMessageCompany = By.CssSelector("#errorDiv_ep");
-        By txtDepartureDate = By.CssSelector("input[id='00N3100000Gb671']");
         By txtErrorMessageDepartureDate = By.CssSelector("div[class='errorMsg']");
         By btnCancel = By.CssSelector("input[title='Cancel']");
         By lookupExpenseApprover = By.CssSelector("img[alt='Expense Approver Lookup (New Window)']");
@@ -108,53 +105,45 @@ namespace SF_Automation.Pages.Contact
             if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", userRow, 1).Equals("Admin"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMiddleName);
-                driver.FindElement(txtMiddleName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 7));
+                driver.FindElement(txtMiddleName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 8));
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMailingStreet);
                 driver.FindElement(txtMailingStreet).Clear();
-                driver.FindElement(txtMailingStreet).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 8));
+                driver.FindElement(txtMailingStreet).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9));
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMailingCity);
                 driver.FindElement(txtMailingCity).Clear();
-                driver.FindElement(txtMailingCity).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9));
-
-                WebDriverWaits.WaitUntilEleVisible(driver, comboCountry);
-                driver.FindElement(comboCountry).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 11));
+                driver.FindElement(txtMailingCity).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10));
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMailingState);
-                driver.FindElement(txtMailingState).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10));
+                driver.FindElement(txtMailingState).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 11));
             }
             if (ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
             {
                 if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", userRow, 1).Equals("Admin"))
                 {
-                    CustomFunctions.SelectByText(driver, driver.FindElement(By.XPath("//select[@id='00N3100000Gb675']")), "None");
-
                     WebDriverWaits.WaitUntilEleVisible(driver, comboContactStatus);
                     driver.FindElement(comboContactStatus).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 12));
 
                     WebDriverWaits.WaitUntilEleVisible(driver, comboOffice);
                     driver.FindElement(comboOffice).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 13));
 
-                    //WebDriverWaits.WaitUntilEleVisible(driver, comboPhysicalOffice);
-                    //driver.FindElement(comboPhysicalOffice).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 14));
-
                     WebDriverWaits.WaitUntilEleVisible(driver, txtTitle);
-                    driver.FindElement(txtTitle).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 15));
+                    driver.FindElement(txtTitle).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 14));
 
                     WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
-                    driver.FindElement(comboLineOfBusiness).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 17));
+                    driver.FindElement(comboLineOfBusiness).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 16));
 
                     WebDriverWaits.WaitUntilEleVisible(driver, txtDepartment);
-                    driver.FindElement(txtDepartment).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 16));
+                    driver.FindElement(txtDepartment).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 15));
 
-                    string getDates = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
+                    string getDates = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy").Replace('-', '/');
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDates);
                 }
                 else
                 {
-                    string getDate = DateTime.Today.ToString("dd/MM/yyyy");
+                    string getDate = DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/');
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDate);
                 }
@@ -231,8 +220,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
 
-            CustomFunctions.SelectByText(driver, driver.FindElement(By.XPath("//select[@id='00N3100000Gb675']")), "None");
-            driver.FindElement(txtDepartureDate).SendKeys("08/20/2021");
+            driver.FindElement(txtDepartureDate).SendKeys(DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/'));
         }
 
         public void UpdateDepartureDateforInactiveEmployee()

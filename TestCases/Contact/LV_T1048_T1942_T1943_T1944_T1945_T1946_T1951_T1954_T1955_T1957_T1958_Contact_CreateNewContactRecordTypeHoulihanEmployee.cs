@@ -173,7 +173,6 @@ namespace SF_Automation.TestCases.Contact
                     {
                         //Verify error message is displaying when departure date is before the hire date
                         contactEdit.EditContact(fileTC1048, 2, 2);
-
                         contactEdit.UpdateDepartureDate();
                         contactEdit.ClickSaveBtn();
 
