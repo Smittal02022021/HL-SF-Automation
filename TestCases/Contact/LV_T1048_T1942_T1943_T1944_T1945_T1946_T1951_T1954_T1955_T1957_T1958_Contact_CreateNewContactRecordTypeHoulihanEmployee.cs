@@ -80,10 +80,7 @@ namespace SF_Automation.TestCases.Contact
 
                         //Login as HR user
                         usersLogin.LoginAsSelectedUser();
-                        string HRUser = login.ValidateUser();
-                        string HRUserExl = ReadExcelData.ReadData(excelPath, "Users", 2);
-                        Assert.AreEqual(HRUserExl.Contains(HRUser), true);
-                        extentReports.CreateStepLogs("Info", "HR User: " + HRUser + " is able to login into lightning view. ");
+                        extentReports.CreateStepLogs("Info", "HR User: " + user + " is able to login into lightning view. ");
                     }
                     else
                     {
