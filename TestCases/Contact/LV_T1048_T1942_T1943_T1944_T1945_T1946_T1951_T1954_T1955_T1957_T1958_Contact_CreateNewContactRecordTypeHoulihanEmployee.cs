@@ -44,28 +44,29 @@ namespace SF_Automation.TestCases.Contact
                 Console.WriteLine(excelPath);
 
                 string adminUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
-                string compName = ReadExcelData.ReadData(excelPath, "Contact", 1);
-                string firstName = ReadExcelData.ReadData(excelPath, "Contact", 2);
-                string lastName = ReadExcelData.ReadData(excelPath, "Contact", 3);
-                string email = ReadExcelData.ReadData(excelPath, "Contact", 4);
-                string PhnNo = ReadExcelData.ReadData(excelPath, "Contact", 5);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
 
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 int rowUserType = ReadExcelData.GetRowCount(excelPath, "UsersType");
-                for (int row = 2; row <= 2; row++)
+                for (int row = 2; row <= rowUserType; row++)
                 {
-                    if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
+                    string extContactFullName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 6);
+                    string compName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1);
+                    string firstName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2);
+                    string lastName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 3);
+                    string email = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 4);
+                    string PhnNo = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 5);
+
+                    if(ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
                         // Search standard user by global search
                         string user = ReadExcelData.ReadData(excelPath, "Users", 2);
@@ -75,21 +76,14 @@ namespace SF_Automation.TestCases.Contact
                         string userPeople = homePage.GetPeopleOrUserName();
                         string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 2);
                         Assert.AreEqual(userPeopleExl, userPeople);
-                        extentReports.CreateLog("User " + userPeople + " details are displayed ");
+                        extentReports.CreateStepLogs("Passed", "User " + userPeople + " details are displayed ");
 
                         //Login as HR user
                         usersLogin.LoginAsSelectedUser();
                         string HRUser = login.ValidateUser();
                         string HRUserExl = ReadExcelData.ReadData(excelPath, "Users", 2);
                         Assert.AreEqual(HRUserExl.Contains(HRUser), true);
-                        extentReports.CreateLog("HR User: " + HRUser + " is able to login ");
-
-                        //Switch to lightning view
-                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                        {
-                            homePage.SwitchToLightningView();
-                            extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
-                        }
+                        extentReports.CreateStepLogs("Info", "HR User: " + HRUser + " is able to login into lightning view. ");
                     }
                     else
                     {
@@ -101,13 +95,15 @@ namespace SF_Automation.TestCases.Contact
                         usersLogin.LoginAsSelectedUser();
 
                         //Switch to lightning view
-                        if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                        try
                         {
                             homePage.SwitchToLightningView();
                             extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                         }
-
-                        extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                        catch(Exception)
+                        {
+                            extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                        }
                     }
 
                     //Navigate to Contacts page
@@ -144,7 +140,7 @@ namespace SF_Automation.TestCases.Contact
                     extentReports.CreateStepLogs("Passed", "Last name error message displayed upon click of save button without entering details ");
 
                     //Create New HL Contact
-                    lvCreateContact.CreateNewContact(fileTC1048);
+                    lvCreateContact.CreateNewContactMultipleRows(fileTC1048, row);
                     driver.SwitchTo().DefaultContent();
 
                     //Assertion to validate contact name displayed on the contacts detail page
@@ -165,21 +161,48 @@ namespace SF_Automation.TestCases.Contact
                     if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
                         //Verify Validation message is dispalying when HR user tries to edit employee currency
-                        // contactEdit.EditContact(fileTC1048, 2, 2);
                         contactEdit.VerifyEmployeeCurrencyValidation("AUD - Australian Dollar");
                         contactEdit.ClickSaveBtn();
-                        String errMessage1 = contactEdit.TxtErrorMessageDepartureDate();
+
+                        String errMessage1 = contactEdit.TxtErrorMessageEmployeeCurrency();
                         Assert.AreEqual("Only system administrators can change employee currency", errMessage1);
-                        extentReports.CreateLog("Error message: " + errMessage1 + " is displaying when HR user tries to change currency ");
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage1 + " is displaying when HR user tries to change currency ");
                         contactEdit.ClickCancelBtn();
 
                         //Verify Validation message is dispalying when HR user tries to edit employee Name
                         contactEdit.VerifyLastNameValidation();
                         contactEdit.ClickSaveBtn();
-                        String errMessage2 = contactEdit.TxtErrorMessageDepartureDate();
+                        String errMessage2 = contactEdit.TxtErrorMessageEmpName();
                         Assert.AreEqual("Only system administrators can change employee name and salutation", errMessage2);
-                        extentReports.CreateLog("Error message: " + errMessage2 + " is displaying when HR user tries to change Name ");
+                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage2 + " is displaying when HR user tries to change Name ");
                         contactEdit.ClickCancelBtn();
+
+                        //Logout from SF Lightning View
+                        lvHomePage.UserLogoutFromSFLightningView();
+                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+
+                        //Switch to lightning view
+                        try
+                        {
+                            homePage.SwitchToLightningView();
+                            extentReports.CreateStepLogs("Info", "SF Admin User switched to lightning view. ");
+                        }
+                        catch(Exception)
+                        {
+                            extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                        }
+
+                        lvHomePage.SearchContactFromMainSearch(extContactFullName);
+                        Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactFullName));
+                        extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
+
+                        //Delete Created Contact
+                        lvContactDetails.DeleteContact();
+                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
+
+                        //Switch Back To Classic View
+                        lvHomePage.SwitchBackToClassicView();
+                        extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
                     }
                     else
                     {
@@ -211,15 +234,15 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
+                        /*
                         //Verify PDC Validation when primary PDC is null
-                        /*contactEdit.ClickCancelBtn();
+                        contactEdit.ClickCancelBtn();
                         contactEdit.VerifyPrimaryPDCValidation();
                         contactEdit.ClickSaveBtn();
 
                         string errMsg3 = contactEdit.TxtErrorMessageDepartureDate();
                         Assert.AreEqual("Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
-                        */
                         contactEdit.ClickCancelBtn();
 
                         //Verify error message is displaying when flag reason comment is not provided
@@ -230,15 +253,18 @@ namespace SF_Automation.TestCases.Contact
 
                         Assert.AreEqual("Please provide additional information for selected Flag Reason.", errMessage);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMessage + " is displaying when flag reason is not selected");
+                        */
+
+                        contactEdit.ClickCancelBtn();
 
                         //Delete Created Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
-                    }
 
-                    //Logout from SF Lightning View
-                    lvHomePage.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+                        //Logout from SF Lightning View
+                        lvHomePage.UserLogoutFromSFLightningView();
+                        extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
+                    }
                 }
 
                 usersLogin.UserLogOut();

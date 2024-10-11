@@ -48,14 +48,16 @@ namespace SF_Automation.Pages.Contact
         By txtErrorMessageCompany = By.CssSelector("#errorDiv_ep");
         By txtErrorMessageDepartureDate = By.XPath("(//span[text()='Departure Date'])[2]/..");
         By txtErrorMessageIndustryGroup = By.XPath("(//span[text()='Industry Group'])[2]/..");
+        By txtErrorMessageEmpCurrency = By.XPath("(//span[text()='Contact Currency'])[2]/..");
+        By txtErrorMessageLastName = By.XPath("(//span[text()='Last Name'])[1]/..");
 
         By btnCancel = By.XPath("//button[@name='CancelEdit']");
         By lookupExpenseApprover = By.CssSelector("img[alt='Expense Approver Lookup (New Window)']");
         By radioBtnAllFields = By.CssSelector("input[value=SEARCH_ALL]");
         By txtSearchResultExpenseApprover = By.CssSelector("tr[class='dataRow even last first']>th>a");
         By selectFlagReasonDrpDown = By.CssSelector("select[name='00Ni000000Fk47Y']");
-        By selectCurrencyDrpDown = By.CssSelector("select[name='con21']");
-        By txtLastName = By.CssSelector("input[name='name_lastcon2']");
+        By selectCurrencyDrpDown = By.XPath("//button[@aria-label='Contact Currency']");
+        By txtLastName = By.XPath("//input[@name='lastName']");
 
         By lookupPrimaryPDC = By.CssSelector("img[alt='Primary PDC Lookup (New Window)']");
         By txtPrimaryPDC = By.XPath("(//label[text()='Primary PDC']/following::div//input)[1]");
@@ -223,6 +225,7 @@ namespace SF_Automation.Pages.Contact
             var element = driver.FindElement(txtHireDate);
             action.MoveToElement(element);
             driver.FindElement(txtDepartureDate).SendKeys(DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy").Replace('-', '/'));
+            Thread.Sleep(3000);
         }
 
         public void UpdateDepartureDateforInactiveEmployee()
@@ -261,6 +264,34 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(1000);
 
             if(text.Contains("Industry Group\r\n"))
+            {
+                text = text.Remove(0, 16);
+            }
+            return text;
+        }
+
+        public string TxtErrorMessageEmployeeCurrency()
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageEmpCurrency));
+            string text = driver.FindElement(txtErrorMessageEmpCurrency).Text;
+            Thread.Sleep(1000);
+
+            if(text.Contains("Contact Currency\r\n"))
+            {
+                text = text.Remove(0, 18);
+            }
+            return text;
+        }
+
+        public string TxtErrorMessageEmpName()
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageLastName));
+            string text = driver.FindElement(txtErrorMessageLastName).Text;
+            Thread.Sleep(1000);
+
+            if(text.Contains("Last Name\r\n"))
             {
                 text = text.Remove(0, 16);
             }
@@ -306,14 +337,24 @@ namespace SF_Automation.Pages.Contact
 
         public void VerifyEmployeeCurrencyValidation(string value)
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
 
-            string getDate = DateTime.Today.AddDays(-10).ToString("dd/MM/yyyy");
+            string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
             string date = getDate.Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
+            driver.FindElement(txtHireDate).Clear();
             driver.FindElement(txtHireDate).SendKeys(date);
-            CustomFunctions.SelectByText(driver, driver.FindElement(selectCurrencyDrpDown), value);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(selectCurrencyDrpDown));
+            driver.FindElement(selectCurrencyDrpDown).SendKeys(value);
+            Thread.Sleep(1000);
+            driver.FindElement(selectCurrencyDrpDown).SendKeys(Keys.Enter);
+            Thread.Sleep(1000);
         }
 
         public void VerifyLastNameValidation()
@@ -321,10 +362,12 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
 
-            string getDate = DateTime.Today.AddDays(-10).ToString("dd/MM/yyyy");
+            string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
             string date = getDate.Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
+            driver.FindElement(txtHireDate).Clear();
             driver.FindElement(txtHireDate).SendKeys(date);
+            driver.FindElement(txtLastName).Clear();
             driver.FindElement(txtLastName).SendKeys("test");
         }
 

@@ -1309,6 +1309,8 @@ namespace SF_Automation.Pages.HomePage
 
         public void NavigateToAnItemFromHLBankerDropdown(string item)
         {
+            Thread.Sleep(3000);
+
             WebDriverWaits.WaitUntilEleVisible(driver,menuNavigation,120);
             driver.FindElement(menuNavigation).Click();
             Thread.Sleep(5000);
