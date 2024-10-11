@@ -293,7 +293,7 @@ namespace SF_Automation.Pages.Contact
 
             if(text.Contains("Last Name\r\n"))
             {
-                text = text.Remove(0, 16);
+                text = text.Remove(0, 11);
             }
             return text;
         }
@@ -343,6 +343,7 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
 
             string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
             string date = getDate.Replace('-', '/');
@@ -352,7 +353,7 @@ namespace SF_Automation.Pages.Contact
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(selectCurrencyDrpDown));
             driver.FindElement(selectCurrencyDrpDown).SendKeys(value);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             driver.FindElement(selectCurrencyDrpDown).SendKeys(Keys.Enter);
             Thread.Sleep(1000);
         }
@@ -361,6 +362,7 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
 
             string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
             string date = getDate.Replace('-', '/');
@@ -375,6 +377,7 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboLineOfBusiness));
@@ -389,6 +392,7 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
 
             driver.FindElement(lookupPrimaryPDC).Click();
 
