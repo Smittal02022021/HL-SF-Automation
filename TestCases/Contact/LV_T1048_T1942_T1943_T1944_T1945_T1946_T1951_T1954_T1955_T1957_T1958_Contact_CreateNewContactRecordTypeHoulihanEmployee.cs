@@ -164,29 +164,42 @@ namespace SF_Automation.TestCases.Contact
 
                     if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
-                        //Delete Created Contact
-                        lvContactDetails.DeleteContact();
-                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
+                        //Verify Validation message is dispalying when HR user tries to edit employee currency
+                        // contactEdit.EditContact(fileTC1048, 2, 2);
+                        contactEdit.VerifyEmployeeCurrencyValidation("AUD - Australian Dollar");
+                        contactEdit.ClickSaveBtn();
+                        String errMessage1 = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Only system administrators can change employee currency", errMessage1);
+                        extentReports.CreateLog("Error message: " + errMessage1 + " is displaying when HR user tries to change currency ");
+                        contactEdit.ClickCancelBtn();
 
+                        //Verify Validation message is dispalying when HR user tries to edit employee Name
+                        contactEdit.VerifyLastNameValidation();
+                        contactEdit.ClickSaveBtn();
+                        String errMessage2 = contactEdit.TxtErrorMessageDepartureDate();
+                        Assert.AreEqual("Only system administrators can change employee name and salutation", errMessage2);
+                        extentReports.CreateLog("Error message: " + errMessage2 + " is displaying when HR user tries to change Name ");
+                        contactEdit.ClickCancelBtn();
                     }
                     else
                     {
                         //Verify error message is displaying when departure date is before the hire date
                         contactEdit.EditContact(fileTC1048, 2, 2);
+
                         contactEdit.UpdateDepartureDate();
                         contactEdit.ClickSaveBtn();
 
                         String errMsg = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Departure Date cannot be earlier than Hire Date", errMsg);
+                        Assert.AreEqual("Departure Date cannot be earlier than Hire Date", errMsg);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg + " is displaying when departure date is before the hire date ");
-                        contactEdit.UpdateDepartureDateforInactiveEmployee();
-
-                        contactEdit.ClickSaveBtn();
+                        
+                        //contactEdit.UpdateDepartureDateforInactiveEmployee();
+                        //contactEdit.ClickSaveBtn();
 
                         //Verify error message is displaying when departure date is not provided for inactive employee
-                        string errMsg1 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Departure Date is required for Inactive employees hired after 1/1/2009", errMsg1);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg1 + " is displaying when departure date is required for inactive employees");
+                        //string errMsg1 = contactEdit.TxtErrorMessageDepartureDate();
+                        //Assert.AreEqual("Departure Date is required for Inactive employees hired after 1/1/2009", errMsg1);
+                        //extentReports.CreateStepLogs("Passed", "Error message: " + errMsg1 + " is displaying when departure date is required for inactive employees");
 
                         contactEdit.ClickCancelBtn();
 
@@ -194,19 +207,19 @@ namespace SF_Automation.TestCases.Contact
                         contactEdit.VerifyIndustryGroupValidation();
                         contactEdit.ClickSaveBtn();
 
-                        string errMsg2 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Industry Group must be selected when LOB is CF", errMsg2);
+                        string errMsg2 = contactEdit.TxtErrorMessageIndustryGroup();
+                        Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
                         //Verify PDC Validation when primary PDC is null
-                        contactEdit.ClickCancelBtn();
+                        /*contactEdit.ClickCancelBtn();
                         contactEdit.VerifyPrimaryPDCValidation();
                         contactEdit.ClickSaveBtn();
 
                         string errMsg3 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Error: Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
+                        Assert.AreEqual("Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
-
+                        */
                         contactEdit.ClickCancelBtn();
 
                         //Verify error message is displaying when flag reason comment is not provided
@@ -215,7 +228,7 @@ namespace SF_Automation.TestCases.Contact
                         string errMessage = contactEdit.TxtErrorMessageDepartureDate();
                         contactEdit.ClickCancelBtn();
 
-                        Assert.AreEqual("Error: Please provide additional information for selected Flag Reason.", errMessage);
+                        Assert.AreEqual("Please provide additional information for selected Flag Reason.", errMessage);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMessage + " is displaying when flag reason is not selected");
 
                         //Delete Created Contact

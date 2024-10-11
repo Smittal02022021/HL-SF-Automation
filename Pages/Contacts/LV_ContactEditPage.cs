@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -45,8 +46,10 @@ namespace SF_Automation.Pages.Contact
         By btnSave = By.XPath("//button[@name='SaveEdit']");
 
         By txtErrorMessageCompany = By.CssSelector("#errorDiv_ep");
-        By txtErrorMessageDepartureDate = By.CssSelector("div[class='errorMsg']");
-        By btnCancel = By.CssSelector("input[title='Cancel']");
+        By txtErrorMessageDepartureDate = By.XPath("(//span[text()='Departure Date'])[2]/..");
+        By txtErrorMessageIndustryGroup = By.XPath("(//span[text()='Industry Group'])[2]/..");
+
+        By btnCancel = By.XPath("//button[@name='CancelEdit']");
         By lookupExpenseApprover = By.CssSelector("img[alt='Expense Approver Lookup (New Window)']");
         By radioBtnAllFields = By.CssSelector("input[value=SEARCH_ALL]");
         By txtSearchResultExpenseApprover = By.CssSelector("tr[class='dataRow even last first']>th>a");
@@ -55,7 +58,7 @@ namespace SF_Automation.Pages.Contact
         By txtLastName = By.CssSelector("input[name='name_lastcon2']");
 
         By lookupPrimaryPDC = By.CssSelector("img[alt='Primary PDC Lookup (New Window)']");
-        By txtSecondaryPDC = By.CssSelector("input[name='CF00N3100000Gb67h']");
+        By txtPrimaryPDC = By.XPath("(//label[text()='Primary PDC']/following::div//input)[1]");
         By txtDealAnnouncementsChangeDate = By.XPath("//td[text()='Deal Announcements Change Date']//following::div[1]");
         By txtEventsChangeDate = By.CssSelector(@"#\30 0Ni000000FZZiNj_id0_j_id1_ileinner");
 
@@ -137,7 +140,7 @@ namespace SF_Automation.Pages.Contact
                     WebDriverWaits.WaitUntilEleVisible(driver, txtDepartment);
                     driver.FindElement(txtDepartment).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 15));
 
-                    string getDates = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy").Replace('-', '/');
+                    string getDates = DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/');
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDates);
                 }
@@ -167,14 +170,12 @@ namespace SF_Automation.Pages.Contact
                     driver.FindElement(txtMentor).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 19));
                 }
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAndNew, 120);
-            driver.FindElement(btnSaveAndNew).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 120);
+            driver.FindElement(btnSave).Click();
         }
 
         public void EditCompany()
         {
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
 
@@ -197,18 +198,14 @@ namespace SF_Automation.Pages.Contact
 
             driver.FindElement(txtSearchResults).Click();
             CustomFunctions.SwitchToWindow(driver, 0);
-
-
         }
 
         public void ClickSaveBtn()
         {
-
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 120);
             driver.FindElement(btnSave).Click();
-
         }
+
         public string TxtErrorMessageCompany()
         {
             string text = driver.FindElement(txtErrorMessageCompany).Text;
@@ -217,27 +214,63 @@ namespace SF_Automation.Pages.Contact
 
         public void UpdateDepartureDate()
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(3000);
 
-            driver.FindElement(txtDepartureDate).SendKeys(DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/'));
+            Actions action = new Actions(driver);
+            var element = driver.FindElement(txtHireDate);
+            action.MoveToElement(element);
+            driver.FindElement(txtDepartureDate).SendKeys(DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy").Replace('-', '/'));
         }
 
         public void UpdateDepartureDateforInactiveEmployee()
         {
             driver.FindElement(comboContactStatus).SendKeys("Inactive");
+            driver.FindElement(comboContactStatus).SendKeys(Keys.Enter);
+            driver.FindElement(comboContactStatus).SendKeys(Keys.Enter);
+
+            Thread.Sleep(2000);
+            Actions action = new Actions(driver);
+            var element = driver.FindElement(txtHireDate);
+            action.MoveToElement(element);
             driver.FindElement(txtDepartureDate).Clear();
         }
 
         public string TxtErrorMessageDepartureDate()
         {
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageDepartureDate));
             string text = driver.FindElement(txtErrorMessageDepartureDate).Text;
+            Thread.Sleep(1000);
+
+            if(text.Contains("Departure Date\r\n"))
+            {
+                text = text.Remove(0, 16);
+            }
+            
             return text;
         }
+
+        public string TxtErrorMessageIndustryGroup()
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageIndustryGroup));
+            string text = driver.FindElement(txtErrorMessageIndustryGroup).Text;
+            Thread.Sleep(1000);
+
+            if(text.Contains("Industry Group\r\n"))
+            {
+                text = text.Remove(0, 16);
+            }
+            return text;
+        }
+
+
         public void ClickCancelBtn()
         {
             driver.FindElement(btnCancel).Click();
-
         }
 
         public void VerifyExpenseApproverValidation()
@@ -262,7 +295,6 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(txtSearchResultExpenseApprover).Click();
 
             CustomFunctions.SwitchToWindow(driver, 0);
-
         }
 
         public void VerifyFlagReasonValidation(string value)
@@ -286,7 +318,6 @@ namespace SF_Automation.Pages.Contact
 
         public void VerifyLastNameValidation()
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
 
@@ -303,8 +334,12 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnEdit).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
-            driver.FindElement(comboLineOfBusiness).SendKeys("CF");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboLineOfBusiness));
 
+            driver.FindElement(comboLineOfBusiness).SendKeys("CF");
+            Thread.Sleep(1000);
+            driver.FindElement(comboLineOfBusiness).SendKeys(Keys.Enter);
+            Thread.Sleep(1000);
         }
 
         public void VerifyPDCValidation()
@@ -313,7 +348,6 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnEdit).Click();
 
             driver.FindElement(lookupPrimaryPDC).Click();
-
 
             CustomFunctions.SwitchToWindow(driver, 1);
 
@@ -330,21 +364,18 @@ namespace SF_Automation.Pages.Contact
             driver.SwitchTo().Frame(driver.FindElement(resultFrame));
             driver.FindElement(txtSearchResultExpenseApprover).Click();
 
-
             CustomFunctions.SwitchToWindow(driver, 0);
-
-
         }
+
         public void VerifyPrimaryPDCValidation()
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSecondaryPDC, 120);
+            Thread.Sleep(2000);
 
-            driver.FindElement(txtSecondaryPDC).SendKeys("test houlihan");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtPrimaryPDC));
+            driver.FindElement(txtPrimaryPDC).SendKeys("test houlihan");
         }
-
 
         public string TxtDealAnnouncementsChangeDate()
         {
@@ -359,6 +390,7 @@ namespace SF_Automation.Pages.Contact
             string text = driver.FindElement(txtEventsChangeDate).Text;
             return text;
         }
+
         public string TxtGeneralAnnouncementsChangeDate()
 
         {
@@ -366,6 +398,7 @@ namespace SF_Automation.Pages.Contact
             string text = driver.FindElement(txtGeneralAnnouncementsChangeDate).Text;
             return text;
         }
+
         public string TxtContentChangeDate()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtContentChangeDate, 120);
@@ -373,7 +406,7 @@ namespace SF_Automation.Pages.Contact
             return text;
         }
 
-      //Edit Subscription Preference Fields
+        //Edit Subscription Preference Fields
         public void EditSubscriptionPreferenceFields()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
@@ -393,6 +426,7 @@ namespace SF_Automation.Pages.Contact
             string text = driver.FindElement(txtBadgeFirstName).Text;
             return text;
         }
+
         //Get text from Last Name Badge
         public string TxtBadgeLastName()
         {
@@ -400,8 +434,8 @@ namespace SF_Automation.Pages.Contact
             string text = driver.FindElement(txtBadgeLastName).Text;
             return text;
         }
-        //Get Text from Company Badge
 
+        //Get Text from Company Badge
         public string TxtBadgeCompany()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtBadgeCompany, 120);
@@ -410,7 +444,6 @@ namespace SF_Automation.Pages.Contact
 
         }
 
-        
         //Edit Event Badge fields
         public void EditEventBadgeFields()
         {
@@ -451,6 +484,7 @@ namespace SF_Automation.Pages.Contact
             return text;
 
         }
+
         public void VerifyGoogleMapsLink() {
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtGoogleMaps, 120);
@@ -463,7 +497,5 @@ namespace SF_Automation.Pages.Contact
             
             
         }
-        
-
     }
 }
