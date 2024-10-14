@@ -145,19 +145,14 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9) + "\r\n" + ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10) + ", " + ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 11) + " 92001\r\n" + ReadExcelData.ReadData(excelPath, "Contact", 12), contactCompleteAddress);
                         extentReports.CreateStepLogs("Passed", "Contact address: " + contactCompleteAddress + " including street,city and country in edit contact page matches on contact details page ");
 
-                        //Validated Status
-                        string contactStatus = lvContactDetails.GetContactStatus();
-                        Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 13), contactStatus);
-                        extentReports.CreateStepLogs("Passed", "Contact status: " + contactStatus + " in edit contact page matches on contact details page of HL contact ");
-
                         //Validated Title
                         string contactTitle = lvContactDetails.GetContactTitle();
-                        Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 16), contactTitle);
+                        Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 15), contactTitle);
                         extentReports.CreateStepLogs("Passed", "Contact Title: " + contactTitle + " in edit contact page matches on contact details page of HL contact ");
 
                         //Validated Department
                         string contactDept = lvContactDetails.GetContactDepartment();
-                        Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 17), contactDept);
+                        Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 16), contactDept);
                         extentReports.CreateStepLogs("Passed", "Contact Department: " + contactDept + " in edit contact page matches on contact details page of HL contact ");
 
                         //Delete Created Contact

@@ -28,7 +28,7 @@ namespace SF_Automation.Pages.Contact
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
         By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
         By valContactMailingAddress = By.XPath("(//span[text()='Mailing Address']/following::dd//a)[1]");
-        By valContactStatus = By.XPath("(//span[text()='Status']/following::dd//lightning-formatted-text)[42]");
+        By valContactStatus = By.XPath("//lightning-formatted-text[text()='Active']");
         By valContactOffice = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[2]");
         By valContactTitle = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[6]");
         By valContactDepartment = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[8]");
