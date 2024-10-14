@@ -1886,5 +1886,12 @@ namespace SF_Automation.Pages.Contact
             return overallResult;
         }
 
+        public string GetContactDetailsHeading()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 60);
+            string headingcontactDetail = driver.FindElement(txtContactName).Text;
+            return headingcontactDetail;
+        }
+
     }
 }
