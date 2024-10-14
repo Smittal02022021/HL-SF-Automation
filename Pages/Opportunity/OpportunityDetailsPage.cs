@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Web;
 using Microsoft.Office.Interop.Excel;
 using System.Data;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace SF_Automation.Pages
 {
@@ -58,7 +59,9 @@ namespace SF_Automation.Pages
         By valJobType = By.CssSelector("div[id*='00Ni000000D8hWWj']");
         By btnNBCForm = By.CssSelector("input[name='nbc_form']");
         By btnNBCFormL = By.CssSelector("input[name='nbc_form_c']");
+        By btnNBCFormLightning = By.XPath("//button[text()='NBC']");
         By btnNBCFormType = By.CssSelector("input[name='nbc_form_cr']");
+        By msgNoNBCAccessL = By.XPath("//tbody/tr[1]/td[2]/div");
         By btnMA = By.XPath("//fieldset/table/tbody/tr/td[1]/label");
         By btnCapMkt = By.XPath("//fieldset/table/tbody/tr/td[2]/label");
         By titleNBCForm = By.CssSelector(" div.pbBody > table > tbody > tr > td.instructions > p:nth-child(1)");
@@ -328,6 +331,7 @@ namespace SF_Automation.Pages
         By valTotalDebtMM = By.XPath("//div[3]/div[2]/div[7]/table/tbody/tr[4]/td[2]");
         By valTotalDebtMML = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_MM__c']//dd//lightning-formatted-number");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
+        By titleNBCAdmin = By.XPath("//table//tr/td[2]/p[1]");
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
@@ -1397,7 +1401,7 @@ public void ClickNewOpportunitySectorButton()
         }
         public string ClickNBCForm()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCForm, 120);
+            Thread.Sleep(4000);
             driver.FindElement(btnNBCForm).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, titleNBCForm, 80);
             string title = driver.FindElement(titleNBCForm).Text;
@@ -1406,15 +1410,68 @@ public void ClickNewOpportunitySectorButton()
 
         public string ClickNBCFormL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormL, 120);
-            driver.FindElement(btnNBCFormL).Click();
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTab, 140);
-            string title = driver.FindElement(txtDefaultTab).Text;
-            return title;
+            try
+            {
+                Thread.Sleep(8000);
+                driver.FindElement(btnNBCFormL).Click();
+                driver.SwitchTo().Window(driver.WindowHandles.Last());
+                Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTab, 140);
+                string title = driver.FindElement(txtDefaultTab).Text;
+                return title;
+            }
+            catch(Exception)
+            {
+                return "NBC button is not displayed";
+            }
+           }
+
+        public string ValidateNBCFormAdmin()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormL, 140);
+                //string title = driver.FindElement(btnNBCFormL).GetAttribute("title");
+                driver.FindElement(btnNBCFormL).Click();
+                driver.SwitchTo().Window(driver.WindowHandles.Last());
+                Thread.Sleep(5000);
+                driver.SwitchTo().Frame(0);
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, titleNBCAdmin, 140);
+                string title = driver.FindElement(titleNBCAdmin).Text;
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Window(driver.WindowHandles.First());
+                return title;
+                //return title;
+            }
+            catch(Exception)
+            {
+                return "NBC button is not displayed";
+            }
         }
-        
+
+
+        public string ValidateNBCFormButtonLightning()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormLightning, 140);
+                //string title = driver.FindElement(btnNBCFormL).GetAttribute("title");
+                driver.FindElement(btnNBCFormLightning).Click();
+                Thread.Sleep(5000);
+                driver.SwitchTo().Frame(0);
+                Thread.Sleep(7000);
+                WebDriverWaits.WaitUntilEleVisible(driver, msgNoNBCAccessL, 140);
+                string title = driver.FindElement(msgNoNBCAccessL).Text;
+                driver.SwitchTo().DefaultContent();
+                return title;
+                //return title;
+            }
+            catch (Exception)
+            {
+                return "NBC button is not displayed";
+            }
+        }
 
         //Validate radio button M&A
         public string ValidateMARadioButton()

@@ -165,9 +165,9 @@ namespace SF_Automation.Pages.Engagement
         By valStartDate = By.CssSelector("div[id*='cq_body']>table>tbody>tr.dataRow.even.last.first>td:nth-child(9)");
         By valIsMain = By.CssSelector("div[id*='cq_body']>table>tbody>tr:nth-child(2)>td:nth-child(11)>img");
         By valContract1 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
-        By valContract1L = By.XPath("//flexipage-tab2[6]//tr[1]/th//records-hoverable-link/div/a/span/slot/span/slot");
+        By valContract1L = By.XPath("//slot[text()='Additional Contract']");
         By valContract2 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
-        By valContract2L = By.XPath("//flexipage-tab2[6]//tr[2]/th//records-hoverable-link/div/a/span/slot/span/slot");
+        By valContract2L = By.XPath("//slot[text()='Test Contract']");
         By lnk2ndContractL = By.XPath("//table[@aria-label='Contract']/tbody/tr[1]/th//records-hoverable-link");
         By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
@@ -376,7 +376,7 @@ namespace SF_Automation.Pages.Engagement
         By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-        By tabRevenue = By.XPath("//a[@aria-controls='tab-11']");
+        By tabRevenue = By.XPath("//a[@data-label='Revenue']");
         By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
         By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
@@ -3754,7 +3754,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabRevenue).Click();
             Thread.Sleep(5000);
             driver.FindElement(subtabContracts).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string name = driver.FindElement(valContract1L).Text;
             return name;
         }
@@ -6903,7 +6903,7 @@ namespace SF_Automation.Pages.Engagement
                 Thread.Sleep(5000);
                 try
                 {
-                    driver.SwitchTo().Frame(2);
+                    driver.SwitchTo().Frame(0);
                     string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
                     driver.SwitchTo().DefaultContent();
                     return "New Opportunity Valuation Period button is displayed";

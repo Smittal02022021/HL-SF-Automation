@@ -47,7 +47,7 @@ namespace SF_Automation.Pages
         By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
-        By valSearchedEng1 = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div/a");
+        By valSearchedEng1 = By.XPath("//tr/th/span/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");

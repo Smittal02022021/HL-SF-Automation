@@ -543,18 +543,35 @@ namespace SF_Automation.Pages
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 220);
                     driver.FindElement(btnOppNumL).Click();
                     Thread.Sleep(4000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+                    driver.FindElement(txtOppNumLCAO).SendKeys(value);
+                    Thread.Sleep(7000);
+                    driver.FindElement(imgOppL).Click();
+                    Thread.Sleep(7000);
+                }
+                else if (user.Equals("Derek Janisch"))
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                    driver.FindElement(btnOppNumL).Click();
+                    Thread.Sleep(4000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtOppAndMore, 100);
+                    driver.FindElement(txtOppAndMore).SendKeys(value);
+                    Thread.Sleep(7000);
+                    driver.FindElement(imgOppL).Click();
+                    Thread.Sleep(7000);
                 }
                 else
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
                     driver.FindElement(btnOppNumL).Click();
                     Thread.Sleep(4000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
+                    driver.FindElement(txtOppNumLCAO).SendKeys(value);
+                    Thread.Sleep(7000);
+                    driver.FindElement(imgOppL).Click();
+                    Thread.Sleep(7000);
                 }
-                WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
-                driver.FindElement(txtOppNumLCAO).SendKeys(value);
-                Thread.Sleep(7000);
-                driver.FindElement(imgOppL).Click();
-                Thread.Sleep(7000);
+                
                 //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);
                 //driver.FindElement(imgOppL).Click();
                 //Thread.Sleep(8000);
@@ -581,7 +598,13 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnOppNumL).Click();
                 Thread.Sleep(4000);
             }
-            else
+            else if(user.Equals("Derek Janisch"))
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                driver.FindElement(btnOppNumL).Click();
+                Thread.Sleep(4000);
+            }
+            else 
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
                 driver.FindElement(btnOppNumL).Click();
