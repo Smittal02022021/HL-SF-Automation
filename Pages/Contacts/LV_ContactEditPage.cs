@@ -107,9 +107,12 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
-            if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", userRow, 1).Equals("Admin"))
+            Thread.Sleep(3000);
+
+            if(ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", userRow, 1).Equals("Admin"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMiddleName);
+                driver.FindElement(txtMiddleName).Clear();
                 driver.FindElement(txtMiddleName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 8));
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMailingStreet);
@@ -121,7 +124,19 @@ namespace SF_Automation.Pages.Contact
                 driver.FindElement(txtMailingCity).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10));
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMailingState);
+                driver.FindElement(txtMailingState).Clear();
                 driver.FindElement(txtMailingState).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 11));
+                driver.FindElement(txtMailingState).SendKeys(Keys.Enter);
+                Thread.Sleep(1000);
+                driver.FindElement(txtMailingState).SendKeys(Keys.Enter);
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtTitle);
+                driver.FindElement(txtTitle).Clear();
+                driver.FindElement(txtTitle).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 16));
+
+                WebDriverWaits.WaitUntilEleVisible(driver, txtDepartment);
+                driver.FindElement(txtDepartment).Clear();
+                driver.FindElement(txtDepartment).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 17));
             }
             if (ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
             {

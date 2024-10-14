@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -26,6 +27,11 @@ namespace SF_Automation.Pages.Contact
         By lblPhoneNo = By.XPath("((//span[text()='Phone'])[2]/following::dd//span/slot//a)[1]");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
         By txtCloseDate = By.XPath("((//span[text()='Close Date'])[2]/following::div/span)[1]/slot/lightning-formatted-text");
+        By valContactMailingAddress = By.XPath("(//span[text()='Mailing Address']/following::dd//a)[1]");
+        By valContactStatus = By.XPath("(//span[text()='Status']/following::dd//lightning-formatted-text)[42]");
+        By valContactOffice = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[2]");
+        By valContactTitle = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[6]");
+        By valContactDepartment = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[8]");
 
         //Assistant Information Section Elements
         By lblAssistant = By.XPath("(//span[text()='Assistant']/following::lightning-formatted-text)[1]");
@@ -425,6 +431,65 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyName, 60);
             string companyName = driver.FindElement(lblCompanyName).Text;
             return companyName;
+        }
+
+        public string GetFirstAndLastName()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactName, 60);
+            string contactName = driver.FindElement(lblContactName).Text;
+            return contactName;
+        }
+
+        public string GetContactCompleteAddress()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valContactMailingAddress, 60);
+            string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[1]")).Text + "\r\n"+ driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[2]")).Text + "\r\n" + driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[3]")).Text;
+            return contactAddress;
+        }
+
+        public string GetContactStatus()
+        {
+            Thread.Sleep(2000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(5000);
+
+            string contactStatus = driver.FindElement(valContactStatus).Text;
+            return contactStatus;
+        }
+
+        public string GetContactOffice()
+        {
+            Thread.Sleep(2000);
+            Actions action = new Actions(driver);
+            var element = driver.FindElement(valContactOffice);
+            action.MoveToElement(element);
+            Thread.Sleep(2000);
+
+            string contactOffice = driver.FindElement(valContactOffice).Text;
+            return contactOffice;
+        }
+
+        public string GetContactTitle()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            string contactTitle = driver.FindElement(valContactTitle).Text;
+            return contactTitle;
+        }
+
+        public string GetContactDepartment()
+        {
+            Thread.Sleep(2000);
+            Actions action = new Actions(driver);
+            var element = driver.FindElement(valContactDepartment);
+            action.MoveToElement(element);
+            Thread.Sleep(2000);
+
+            string contactDept = driver.FindElement(valContactDepartment).Text;
+            return contactDept;
         }
 
         public string GetContactRecordTypeValue()
