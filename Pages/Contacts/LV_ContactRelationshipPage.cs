@@ -90,5 +90,22 @@ namespace SF_Automation.Pages.Contact
 
             return result;
         }
+
+        public bool VerifyHLRelationshipIsLinkedToExternContact(string contact)
+        {
+            bool result = false;
+            Thread.Sleep(2000);
+            if(contact==driver.FindElement(By.XPath("((//tbody)[2]/tr/td)[2]//a/slot")).Text)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void NavigateToRelationshipDetailPage()
+        {
+            driver.FindElement(By.XPath("(//tbody)[2]/tr//th//a")).Click();
+            Thread.Sleep(2000);
+        }
     }
 }

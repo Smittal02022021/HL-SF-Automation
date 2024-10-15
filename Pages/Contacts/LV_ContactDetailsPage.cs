@@ -51,7 +51,7 @@ namespace SF_Automation.Pages.Contact
         By lblActivityDetails = By.XPath("//div[@class='pbSubheader brandTertiaryBgr first tertiaryPalette']/h3");
 
         //Buttons for System Admin User
-        By btnAddRelationship = By.XPath("//button[text()='Add Relationship']");
+        By btnAddRelationship = By.XPath("//button[text()='Add Relationship L']");
         By btnTearsheet = By.XPath("//button[text()='Tearsheet']");
         By btnContactReportsM = By.XPath("//button[text()='Contact Reports M']");
         By btnDelete = By.XPath("//button[text()='Delete']");
@@ -76,9 +76,9 @@ namespace SF_Automation.Pages.Contact
 
         //Add Relationship
         By txtLookupEmployee = By.XPath("//label[contains(text(),'Lookup')]/../input");
-        By dropdownStrengthRating = By.XPath("//p[contains(text(),'Strength')]/../select");
-        By dropdownType = By.XPath("//p[contains(text(),'Type')]/../select");
-        By txtPersonalNote = By.XPath("//p[contains(text(),'Personal')]/../textarea");
+        By dropdownStrengthRating = By.XPath("(//a[@class='select'])[1]");
+        By dropdownType = By.XPath("(//a[@class='select'])[2]");
+        By txtPersonalNote = By.XPath("(//span[text()='Personal Note']/following::textarea)[1]");
         By txtOutlookCategories = By.XPath("//p[contains(text(),'Outlook')]/../textarea");
         By btnCreateRelationship = By.XPath("//span[contains(text(),'Create Relationship')]/..");
         By btnAddRelationshipPopupCancel = By.XPath("(//span[contains(text(),'Cancel')])[3]/..");
@@ -1985,5 +1985,33 @@ namespace SF_Automation.Pages.Contact
             return headingcontactDetail;
         }
 
+        public void CreateRelationship(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRelationshipL);
+            driver.FindElement(btnAddRelationshipL).Click();
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLContact);
+            driver.FindElement(txtHLContact).SendKeys(ReadExcelData.ReadData(excelPath, "Relationship", 1));
+            driver.FindElement(By.XPath("(//mark[text()='Houlihan'])[1]/../../../..")).Click();
+            Thread.Sleep(2000);
+
+            CustomFunctions.SelectByText(driver, driver.FindElement(dropdownType), ReadExcelData.ReadData(excelPath, "Relationship", 2));
+            CustomFunctions.SelectByText(driver, driver.FindElement(dropdownStrengthRating), ReadExcelData.ReadData(excelPath, "Relationship", 3));
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void NavigateToRelationshipTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships);
+            driver.FindElement(tabRelationships).Click();
+        }
     }
 }
