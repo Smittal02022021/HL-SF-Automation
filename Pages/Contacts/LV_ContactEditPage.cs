@@ -144,28 +144,27 @@ namespace SF_Automation.Pages.Contact
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, comboContactStatus);
                     driver.FindElement(comboContactStatus).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 13));
+                    Thread.Sleep(2000);
 
                     WebDriverWaits.WaitUntilEleVisible(driver, comboOffice);
                     driver.FindElement(comboOffice).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 14));
-
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtTitle);
-                    driver.FindElement(txtTitle).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 15));
+                    Thread.Sleep(2000);
 
                     WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
                     driver.FindElement(comboLineOfBusiness).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 17));
-
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtDepartment);
-                    driver.FindElement(txtDepartment).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 16));
+                    Thread.Sleep(2000);
 
                     string getDates = DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/');
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDates);
+                    Thread.Sleep(2000);
                 }
                 else
                 {
                     string getDate = DateTime.Today.ToString("MM/dd/yyyy").Replace('-', '/');
                     WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
                     driver.FindElement(txtHireDate).SendKeys(getDate);
+                    Thread.Sleep(2000);
                 }
             }
             else if (ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Distribution List"))
@@ -174,13 +173,12 @@ namespace SF_Automation.Pages.Contact
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
                     driver.FindElement(comboLineOfBusiness).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 17));
-                }
-                else
-                {
+                    Thread.Sleep(2000);
                 }
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 120);
             driver.FindElement(btnSave).Click();
+            Thread.Sleep(2000);
         }
 
         public void EditCompany()

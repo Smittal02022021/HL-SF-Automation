@@ -13,10 +13,6 @@ namespace SF_Automation.TestCases.Contact
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        ContactHomePage conHome = new ContactHomePage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
-        ContactCreatePage createContact = new ContactCreatePage();
-        ContactDetailsPage contactDetails = new ContactDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
@@ -146,12 +142,12 @@ namespace SF_Automation.TestCases.Contact
                         extentReports.CreateStepLogs("Passed", "Contact address: " + contactCompleteAddress + " including street,city and country in edit contact page matches on contact details page ");
 
                         //Validated Title
-                        string contactTitle = lvContactDetails.GetContactTitle();
+                        string contactTitle = lvContactDetails.GetContactTitle(fileTC1063, row);
                         Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 15), contactTitle);
                         extentReports.CreateStepLogs("Passed", "Contact Title: " + contactTitle + " in edit contact page matches on contact details page of HL contact ");
 
                         //Validated Department
-                        string contactDept = lvContactDetails.GetContactDepartment();
+                        string contactDept = lvContactDetails.GetContactDepartment(fileTC1063, row);
                         Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 16), contactDept);
                         extentReports.CreateStepLogs("Passed", "Contact Department: " + contactDept + " in edit contact page matches on contact details page of HL contact ");
 

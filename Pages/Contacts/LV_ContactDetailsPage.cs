@@ -442,6 +442,11 @@ namespace SF_Automation.Pages.Contact
 
         public string GetContactCompleteAddress()
         {
+            Thread.Sleep(2000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,700)");
+            Thread.Sleep(5000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, valContactMailingAddress, 60);
             string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[1]")).Text + "\r\n"+ driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[2]")).Text + "\r\n" + driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[3]")).Text;
             return contactAddress;
@@ -470,25 +475,47 @@ namespace SF_Automation.Pages.Contact
             return contactOffice;
         }
 
-        public string GetContactTitle()
+        public string GetContactTitle(string file, int row)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(3000);
 
-            string contactTitle = driver.FindElement(valContactTitle).Text;
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string contactTitle="";
+            if(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
+            {
+                contactTitle = driver.FindElement(By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[5]")).Text;
+            }
+            else
+            {
+                contactTitle = driver.FindElement(valContactTitle).Text;
+            }
             return contactTitle;
         }
 
-        public string GetContactDepartment()
+        public string GetContactDepartment(string file, int row)
         {
-            Thread.Sleep(2000);
-            Actions action = new Actions(driver);
-            var element = driver.FindElement(valContactDepartment);
-            action.MoveToElement(element);
-            Thread.Sleep(2000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
 
-            string contactDept = driver.FindElement(valContactDepartment).Text;
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string contactDept = "";
+            if(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
+            {
+                contactDept = driver.FindElement(By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[17]")).Text;
+            }
+            else
+            {
+                contactDept = driver.FindElement(valContactDepartment).Text;
+            }
             return contactDept;
         }
 
