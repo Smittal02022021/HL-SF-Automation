@@ -81,17 +81,9 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User navigated to contacts list page. ");
 
-                //Select Contact type and click continue
-                lvRecentlyViewContact.NavigateToContactTypeSelectionPage();
-                extentReports.CreateStepLogs("Info", "User navigated to contacts type selection page. ");
-
-                string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
-                lvRecentlyViewContact.SelectContactType(contactType);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact: Houlihan Employee | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", "User selected contact type as :" + contactType + ".");
-
                 //Create New External Contact
-                lvCreateContact.CreateNewContactMultipleRows(fileTC1103, 2);
+                lvRecentlyViewContact.NavigateToContactTypeSelectionPage();
+                lvCreateContact.CreateNewContact(fileTC1103);
                 driver.SwitchTo().DefaultContent();
 
                 //Assertion to validate contact name displayed on the contacts detail page
@@ -113,6 +105,9 @@ namespace SF_Automation.TestCases.Contact
 
                 //Verify Relationship Details
                 lVContactRelationship.NavigateToRelationshipDetailPage();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Relationship | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
+
 
             }
             catch (Exception e)

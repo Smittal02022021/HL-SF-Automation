@@ -95,7 +95,7 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             Thread.Sleep(2000);
-            if(contact==driver.FindElement(By.XPath("((//tbody)[2]/tr/td)[2]//a/slot")).Text)
+            if(contact==driver.FindElement(By.XPath("((//tbody)[2]/tr/td)[2]//a")).GetAttribute("Title"))
             {
                 result = true;
             }

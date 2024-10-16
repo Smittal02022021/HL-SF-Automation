@@ -159,7 +159,6 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
         }
 
-
         // To identify required tags/mandatory fields in Contact Create page
         public IWebElement ContactInformationRequiredTag(string fieldName)
         {

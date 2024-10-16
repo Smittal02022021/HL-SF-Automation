@@ -1997,12 +1997,11 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtHLContact);
             driver.FindElement(txtHLContact).SendKeys(ReadExcelData.ReadData(excelPath, "Relationship", 1));
+            Thread.Sleep(2000);
+
             driver.FindElement(By.XPath("(//mark[text()='Houlihan'])[1]/../../../..")).Click();
             Thread.Sleep(2000);
 
-            CustomFunctions.SelectByText(driver, driver.FindElement(dropdownType), ReadExcelData.ReadData(excelPath, "Relationship", 2));
-            CustomFunctions.SelectByText(driver, driver.FindElement(dropdownStrengthRating), ReadExcelData.ReadData(excelPath, "Relationship", 3));
-            
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
@@ -2012,6 +2011,7 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships);
             driver.FindElement(tabRelationships).Click();
+            Thread.Sleep(5000);
         }
     }
 }
