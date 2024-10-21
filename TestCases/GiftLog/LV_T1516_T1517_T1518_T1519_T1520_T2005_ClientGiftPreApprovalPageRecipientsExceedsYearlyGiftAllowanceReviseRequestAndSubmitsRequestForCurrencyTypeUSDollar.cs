@@ -271,7 +271,7 @@ namespace SalesForce_Project.TestCases.GiftLog
                 usersLogin.UserLogOut();
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
                 conHome.ClickContact();
-                conHome.SearchContact(fileT1516);
+                //conHome.SearchContact(fileT1516);
                 //To Delete created contact
                 contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
                 conHome.ClickContact();
@@ -296,7 +296,7 @@ namespace SalesForce_Project.TestCases.GiftLog
         {
             string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
             conHome.ClickContact();
-            conHome.SearchContact(fileT1516);
+            //conHome.SearchContact(fileT1516);
             //To Delete created contact
             contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
             conHome.ClickContact();

@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation : BaseClass
+    class ZObsolated_T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

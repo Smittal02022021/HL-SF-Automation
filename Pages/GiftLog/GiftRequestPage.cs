@@ -468,9 +468,7 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(txtContactName).Clear();
         }
         public bool ValidateFieldsUnderGiftBillingDetailsSectionLV()
-        {
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL));
+        {            
             if (driver.FindElement(comboGiftType).Displayed && driver.FindElement(txtSubmittedFor).Displayed)
             {
                 return true;
@@ -482,8 +480,6 @@ namespace SF_Automation.Pages.GiftLog
         }
         public bool ValidateFieldsUnderGiftDetailsSectionLV()
         {
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL));
             if (driver.FindElement(txtGiftName).Displayed && driver.FindElement(txtGiftValue).Displayed && driver.FindElement(comboHlRelationship).Displayed && driver.FindElement(comboCurrency).Displayed && driver.FindElement(txtVendor).Displayed && driver.FindElement(txtReasonForGift).Displayed && driver.FindElement(txtDesireDate).Displayed && driver.FindElement(chkDivideGiftValue).Displayed)
             {
                 return true;
@@ -496,8 +492,6 @@ namespace SF_Automation.Pages.GiftLog
 
         public bool ValidateFieldsUnderGiftRecipientsSectionLV()
         {
-            //driver.SwitchTo().DefaultContent();
-            //driver.SwitchTo().Frame(driver.FindElement(frameGiftRequestL));
             if (driver.FindElement(txtCompanyName).Displayed && driver.FindElement(txtContactName).Displayed)
             {
                 return true;

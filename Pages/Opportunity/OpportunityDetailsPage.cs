@@ -645,7 +645,7 @@ namespace SF_Automation.Pages
         By chkNBCBypassL = By.XPath("//input[@name='NBC_Approved__c']");
         By lblAssAddL = By.XPath("//Span[text()='Associated Address']");
         By valStageL = By.XPath("//span[contains(@class,'field-label')][text()='Stage/Priority']/../../..//lightning-formatted-text");
-
+        
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -657,6 +657,189 @@ namespace SF_Automation.Pages
         private By _ActivitySubject(string activitySubject)
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
+        }
+
+        By valLOBL = By.XPath("//flexipage-field[contains(@data-field-id,'Line_of_Business')]//lightning-formatted-text");
+        By valAdditionalClientL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Additional_Client')]//lightning-formatted-text");
+        By valAdditionalSubjectL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Additional_Subject')]//lightning-formatted-text");
+        By valAdditionalReferralTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Referral_Type')]//lightning-formatted-text");
+        By valAdditionalBeneficialOwnerControlPersonL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Beneficial_Owner_Control_Person_form')]//lightning-formatted-text");
+        By valPrimaryOfficeL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Primary_Office')]//lightning-formatted-text");
+        By valLegalEntityL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.Legal_Entity')]//a//span/slot/span/slot");
+        By valExternalDisclosureStateL = By.XPath("//div[contains(@data-target-selection-name,'RecordField.Opportunity__c.External_Disclosure_Status')]//lightning-formatted-text");
+        By valStaffMemberL = By.XPath("//table[contains(@id,'HLInternalTeam')]//tbody//tr[1]//td[1]//label");
+        By txtHLSectorL = By.XPath("//flexipage-field[contains(@data-field-id,'HL_Sector')]//lightning-formatted-text");
+
+
+        
+        By inputSponsorCompanyL = By.XPath("//input[@placeholder='Search Companies...']");
+        By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[1]");
+        By txtFSOppNameL = By.XPath("//h1//records-entity-label[text()='FS Opp']/../../..//slot[@name='primaryField']//lightning-formatted-text");
+        By txtFSOppIDL = By.XPath("//table[@aria-label='FS Opps']//tr[1]//th//lightning-primitive-cell-factory[@data-label='FS Opp ID']//a//slot//slot");
+        By comboSubGrpL = By.XPath("//label[text()='Sub Group']/..//button");
+        By optionSubGrpL = By.XPath("//label[text()='Sub Group']/..//lightning-base-combobox-item//span[text()='Capital Alliance']");
+        public void ClickTabFSOppLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                try
+                {
+                    js.ExecuteScript("window.scrollTo(0,0)");
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabFSOppL, 5);
+                    driver.FindElement(tabFSOppL).Click();
+                }
+                catch (Exception e)
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
+                    driver.FindElement(iconHeaderMoreTabsL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, lnkMoretabFSOppL, 5);
+                    driver.FindElement(lnkMoretabFSOppL).Click();
+                }
+            }
+            catch { }
+
+            Thread.Sleep(10000);
+        }
+
+        public string CreateNewFSOppLV(string sponsor)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSOppL, 10);
+            driver.FindElement(btnNewFSOppL).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSponsorCompanyL, 10);
+            driver.FindElement(inputSponsorCompanyL).Click();
+            driver.FindElement(inputSponsorCompanyL).SendKeys(sponsor);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, optionSponsorCompanyL, 10);
+            driver.FindElement(optionSponsorCompanyL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(comboSubGrpL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, optionSubGrpL, 10);
+            driver.FindElement(optionSubGrpL).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFSOppNameL, 10);
+            return driver.FindElement(txtFSOppNameL).Text;
+        }
+
+        public string GetFSOppIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtFSOppIDL, 10);
+            return driver.FindElement(txtFSOppIDL).Text;
+        }
+
+        public bool IsVerballyEngagedEngCreatedLV(string oppName)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
+            try
+            {
+                By txtEngOppPage = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot[text()='{oppName}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngOppPage, 10);
+                return driver.FindElement(txtEngOppPage).Displayed;                 
+            }
+            catch
+            {
+                return false;
+            }            
+        }
+
+        public void ClickVerballyEngLinkLV(string oppName)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
+            By txtEngOppPage = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot[text()='{oppName}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngOppPage, 20);
+            By lnkEngOppPage = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot[text()='{oppName}']//ancestor::records-hoverable-link");
+            driver.FindElement(lnkEngOppPage).Click();
+        }
+        public string GetStaffMemberLV()
+        {
+            driver.Navigate().Refresh();
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabInternalTeamL));
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valStaffMemberL, 10);
+            string staffMember = driver.FindElement(valStaffMemberL).Text;
+            driver.SwitchTo().DefaultContent();
+            return staffMember;
+        }
+
+        public string GetExternalDisclosureStatusLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valExternalDisclosureStateL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valExternalDisclosureStateL, 10);
+            string extDisclosureStat = driver.FindElement(valExternalDisclosureStateL).Text;
+            return extDisclosureStat;
+        }
+        public string GetSectorLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtHLSectorL, 10);
+            string sector = driver.FindElement(txtHLSectorL).Text;
+            return sector;
+        }
+        //To get Legal entity    
+        public string GetLegalEntityLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valPrimaryOfficeL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valLegalEntityL, 10);
+            string legalEntity = driver.FindElement(valLegalEntityL).Text;
+            return legalEntity;
+        }
+        //To get Bene Owner and Control Person FormValue    
+        public string GetPrimaryOfficeLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valPrimaryOfficeL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valPrimaryOfficeL, 10);
+            string primaryOffice = driver.FindElement(valPrimaryOfficeL).Text;
+            return primaryOffice;
+        }
+
+        public string GetBeneOwnerAndControlPersonFormLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdditionalBeneficialOwnerControlPersonL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valAdditionalBeneficialOwnerControlPersonL, 10);
+            string beneOwner = driver.FindElement(valAdditionalBeneficialOwnerControlPersonL).Text;
+            return beneOwner;
+        }
+
+        public string GetReferalTypeLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdditionalReferralTypeL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valAdditionalReferralTypeL, 10);
+            string ReferalType = driver.FindElement(valAdditionalReferralTypeL).Text;
+            return ReferalType;
+        }
+
+        public string GetAdditionalClientLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdditionalClientL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valAdditionalClientL, 10);
+            string addClient = driver.FindElement(valAdditionalClientL).Text;
+            return addClient;
+        }
+        //To get additional subject value     
+        public string GetAdditionalSubjectLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valAdditionalSubjectL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valAdditionalSubjectL, 10);
+            string addSubject = driver.FindElement(valAdditionalSubjectL).Text;
+            return addSubject;
+        }
+
+        //Get LOB
+        public string GetLOBLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLOBL,20);
+            string LOB = driver.FindElement(valLOBL).Text;
+            return LOB;
         }
 
         public int AddOppMultipleDealTeamMembers(string RecordType, string file)
@@ -4909,7 +5092,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, valReferralType, 100);
             string ReferalType = driver.FindElement(valReferralType).Text;
             return ReferalType;
-        }         //To get non public info value     
+        }        
+        //To get non public info value     
         public string GetNonPublicInfoValue()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNonPublicInfo, 100);
@@ -5736,7 +5920,7 @@ namespace SF_Automation.Pages
         }
         public bool IsViewCounterpartyButtonOpportunityPageL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparty, 20);
             return driver.FindElement(btnViewCounterparty).Displayed;
         }
         public void ClickViewCounterpartyButtonOpportunityPageL()
@@ -7859,8 +8043,9 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             driver.FindElement(btnClearHLSectionL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputHLSectorIDL, 20);
-            driver.FindElement(inputHLSectorIDL).Click();
+            driver.FindElement(inputHLSectorIDL).Click();            
             driver.FindElement(inputHLSectorIDL).SendKeys(sector);
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, listHLSectorL, 20);
             driver.FindElement(listHLSectorL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 20);
@@ -7927,6 +8112,7 @@ namespace SF_Automation.Pages
         public void EditOpportunityStageLV(string stage)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            driver.FindElement(tabInfo).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
@@ -8070,7 +8256,7 @@ namespace SF_Automation.Pages
         By tabFSOppL = By.XPath("//lightning-tab-bar/ul/li/a[text()='FS Opps']");
         By lnkMoretabFSOppL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='FS Engagements']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
-        By btnNewFSOppL = By.XPath("//article[@aria-label='FS Opportunities']//button[@name='New']");
+        By btnNewFSOppL = By.XPath("//article[@aria-label='FS Opps']//button[@name='New']");
 
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
         By tabCommentsL = By.XPath("//div[contains(@class,'sidebar-right')]//li[@title='Comments']");
@@ -8196,7 +8382,7 @@ namespace SF_Automation.Pages
         }
         By linkEng = By.XPath("//article[@aria-label='Engagements']//article//h3//a/../..");
         public void ClickEngagementLinkLV()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, linkEng, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkEng));
             driver.FindElement(linkEng).Click();

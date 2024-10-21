@@ -211,7 +211,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "CF Financial User is on Partial Engaged "+moduleNameExl);
                 CustomFunctions.PageReload(driver);
-                engagementHome.SearchEngagementInLightningView(opportunityName);
+                engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
 
                 ////**********Counterparties Actions********/////
@@ -286,7 +286,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 addCounterparty.ButtonClick("Add Counterparty");
                 extentReports.CreateStepLogs("Info", "Verifying the functionality of adding Counterparties Company from Add Counterparty button ");
 
-                addCounterparty.AddNewNewCounterpartyLV(counterpartyCompanyNameExl, counterpartyTypeExl);
+                addCounterparty.AddNewCounterpartyLV(counterpartyCompanyNameExl, counterpartyTypeExl);
                 popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
@@ -331,7 +331,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 typeRowCount = ReadExcelData.GetRowCount(excelPath, "CounterpartyComments");
                 for (int typeRow = 2; typeRow <= typeRowCount; typeRow++)
                 {
-                    addCounterparty.ClickEngCPVCommentsLV();// remove text from comopany
+                    addCounterparty.ClickEngCPCommentsLV();// remove text from comopany
                     commentTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 1);
                     commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", typeRow, 2);
                     addCounterparty.AddNewEngagementCounterpartyCommentLV(commentTypeExl, commentTextExl, counterpartyCompanyNameExl);

@@ -19,9 +19,72 @@ namespace SF_Automation.Pages.Company
         By btnSave = By.CssSelector("td[class='pbButtonb '] > input[value='Save']");
         By btnSaveIgnoreAlert = By.CssSelector("td[class='pbButton '] > input[value='Save(Ignore Alert)']");
         By errmsgCmpanyName= By.CssSelector("div[class='errorMsg']");
+        By errmsgCompanyNameL = By.XPath("//div[@class='message errorM3']//td//div");
         //By txtZipPostalCode 
 
+        By newCompanyPageFrameL = By.XPath("//iframe[@title='accessibility title']");
+        By txtCreateCompanyHeaderL = By.XPath("//div[@class='editPage']//h2");
+        By optionCompanyTypeL = By.XPath("//table[@class='detailList']//label[text()='Company Type']//ancestor::tr/td//option[@selected='selected']");
+        By btnSaveCompanyL = By.XPath("//div[@class='editPage']//table//input[@type='submit'][@value='Save']");
 
+
+        public void AddCompanyLV(string file, int companyRow)
+        {
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            // Enter company name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 40);
+            driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Company", companyRow, 2));
+            // Select country 
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCompanyCountry, 40);
+            driver.FindElement(comboCompanyCountry).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 3));
+            //Enter street 
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyStreet, 40);
+            driver.FindElement(txtCompanyStreet).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 4));
+            // Enter city
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyCity, 40);
+            driver.FindElement(txtCompanyCity).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 5));
+            // Select state
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCompanyState, 40);
+            driver.FindElement(comboCompanyState).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 6));
+
+            // Enter postal code
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyPostalCode, 40);
+            driver.FindElement(txtCompanyPostalCode).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 14));
+
+
+            //Click save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
+            driver.FindElement(btnSave).Click();
+            driver.SwitchTo().DefaultContent();
+        }
+
+        public string GetSelectedCompanyTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, optionCompanyTypeL, 10);
+            string selectedCompanyTypeSelected = driver.FindElement(optionCompanyTypeL).Text;
+            return selectedCompanyTypeSelected;
+        }
+        public string GetCreateCompanyPageHeaderLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, newCompanyPageFrameL, 20);
+            driver.SwitchTo().Frame(driver.FindElement(newCompanyPageFrameL));
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCreateCompanyHeaderL, 20);
+            string headingCompanyCreatePage = driver.FindElement(txtCreateCompanyHeaderL).Text;
+            return headingCompanyCreatePage;
+        }
+        public string GetErrorMessageCreateCompanyPageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, errmsgCompanyNameL, 10);
+            return driver.FindElement(errmsgCompanyNameL).Text.Replace("\r\n", " ").Trim();
+        }
+        public void ClickSaveNewCompanyButtonLV()
+        {
+            //driver.SwitchTo().Frame(driver.FindElement(newCompanyPageFrameL));
+            driver.FindElement(btnSaveCompanyL).Click();
+        }
         public string GetCreateCompanyPageHeading()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, headingCompanyCreate, 60);

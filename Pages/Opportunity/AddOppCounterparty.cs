@@ -763,7 +763,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(buttonSaveL).Click();
             Thread.Sleep(5000);
         }
-        public void AddNewNewCounterpartyLV(string companyName, string value)
+        public void AddNewCounterpartyLV(string companyName, string value)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, searchCompany, 30);
             IWebElement companySearch = driver.FindElement(searchCompany);
@@ -974,13 +974,13 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(iconEditSentTeaser).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtSentTeaser, 10);
             driver.FindElement(txtSentTeaser).SendKeys(getDate);
-            
+
             //Not working
-            //IWebElement editComments = driver.FindElement(iconEditComments);
-            //CustomFunctions.MoveToElement(driver, editComments);
-            //editComments.Click();
-            //WebDriverWaits.WaitUntilEleVisible(driver, txticonEditComments, 10);
-            //driver.FindElement(txticonEditComments).SendKeys(comments);
+            IWebElement editComments = driver.FindElement(iconEditComments);
+            CustomFunctions.MoveToElement(driver, editComments);
+            editComments.Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txticonEditComments, 10);
+            driver.FindElement(txticonEditComments).SendKeys(comments);
         }
         public void SaveCounterpartyChanges()
         {
@@ -1280,14 +1280,16 @@ namespace SF_Automation.Pages.Opportunity
             return message;
         }
         By btnEngCPCommentsL = By.XPath("//article[@aria-label='Engagement Counterparty Comments']//lightning-button-menu//button");
+        By btnOppCPCommentsL = By.XPath("//article[@aria-label='Opportunity Counterparty Comments']//lightning-button-menu//button");
         By linkNewEngCommentL = By.XPath("//a//span[text()='New Engagement Counterparty Comment']");
+        By linkNewOppCommentL = By.XPath("//a//span[text()='New Opportunity Counterparty Comment']");
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
         //By inputRelatedEngCPL = By.XPath("//Input[contains(@placeholder,'Search Engagement Counterparties')]");
         By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
         By inputSearchEngCouterparty = By.XPath("//input[contains(@placeholder,'Search')]");
         By optionRelatedEngCPL = By.XPath("//input[contains(@placeholder,'Search')]/../../../..//ul//li[2]/lightning-base-combobox-item");        
         By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//dd//lightning-formatted-text");
-        public void ClickEngCPVCommentsLV()
+        public void ClickEngCPCommentsLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngCPCommentsL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngCPCommentsL));
@@ -1296,7 +1298,34 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, linkNewEngCommentL, 20);
             driver.FindElement(linkNewEngCommentL).Click();
         }
+        public void ClickOppCPCommentsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppCPCommentsL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnOppCPCommentsL));
+            Thread.Sleep(2000);
+            driver.FindElement(btnOppCPCommentsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkNewOppCommentL, 20);
+            driver.FindElement(linkNewOppCommentL).Click();
+        }
+
         public void AddNewEngagementCounterpartyCommentLV(string commentType, string commentText, string relatedEngCP)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCommentTypeL, 20);
+            driver.FindElement(comboCommentTypeL).Click();
+            By eleType = By.XPath($"//label[text()='Comment Type']/..//lightning-base-combobox-item//span[@title='{commentType}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleType, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleType));
+            driver.FindElement(eleType).Click();
+            driver.FindElement(inputSearchEngCouterparty).Click();
+            //driver.FindElement(inputSearchEngCouterparty).SendKeys(relatedEngCP);
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, optionRelatedEngCPL, 10);
+            driver.FindElement(optionRelatedEngCPL).Click();
+            driver.FindElement(inputCommentL).SendKeys(commentText);
+            driver.FindElement(buttonSaveL).Click();
+            //Thread.Sleep(5000);
+        }
+        public void AddNewOpportunityCounterpartyCommentLV(string commentType, string commentText, string relatedEngCP)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentTypeL, 20);
             driver.FindElement(comboCommentTypeL).Click();
@@ -1323,6 +1352,18 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngCPContactL, 10);
             return driver.FindElement(txtEngCPContactL).Text;
+        }
+        By txtEngCPCommentsL = By.XPath("//article[@aria-label='Engagement Counterparty Comments']//lightning-base-formatted-text");
+        public string GetEngCounterpartyCommentsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngCPCommentsL, 10);
+            return driver.FindElement(txtEngCPCommentsL).Text;
+        }
+        By txtOppCPContactL = By.XPath("//article[@aria-label='Opportunity Counterparty Contacts']//dd[2]//lst-formatted-text/span");
+        public string GetOppCounterpartyContactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppCPContactL, 10);
+            return driver.FindElement(txtOppCPContactL).Text;
 
         }
         By linkViewAllEngCPCommentsL = By.XPath("//h2//a//span[contains(@title,'Engagement Counterparty Comments')]");//article[@aria-label='Engagement Counterparty Comments']//span[text()='View All']");

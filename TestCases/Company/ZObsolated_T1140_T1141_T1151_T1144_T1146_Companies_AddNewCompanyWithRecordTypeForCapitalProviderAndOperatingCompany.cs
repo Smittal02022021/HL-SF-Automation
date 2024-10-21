@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
@@ -8,11 +9,13 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-
+using System.Threading;
+//using WindowsInput;
+//using WindowsInput.Native;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany : BaseClass
+    class ZObsolated_T1140_T1141_T1151_T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -53,20 +56,24 @@ namespace SF_Automation.TestCases.Companies
 
                 //Handling salesforce Lightning
                 login.HandleSalesforceLightningPage();
-
+                
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
+                CustomFunctions.TableauPopUp();
+                
                 // Click Add Company button
                 companyHome.ClickAddCompany();
-
+               
                 //Verify company record types and description on company record page
                 companySelectRecord.VerifyCompanyRecordTypesandDesc(fileTC1144_TC1146);
+
                 extentReports.CreateLog("Verified company record types and description on company record page");
 
                 //Verify continue and cancel button on company record page
                 companySelectRecord.VerifyContinueCancelBtnDisplay();
+
                 extentReports.CreateLog("Verified continue and cancel button on company record page");
 
                 int rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
@@ -107,7 +114,7 @@ namespace SF_Automation.TestCases.Companies
                     string errmsg=createCompany.errmsgCompanyName();
                     Assert.AreEqual(errmsg, "Error: You must enter a value");
                     extentReports.CreateLog("Error message:"+errmsg+"is displaying for blank input data for company record type");
-
+                    
                     // Create a  company
                     createCompany.AddCompany(fileTC1144_TC1146, row);
 
@@ -129,8 +136,10 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(companyTypeExl, CompanyType);
                     extentReports.CreateLog("Company Type: "+CompanyType + " in add company page matches on company details page ");
 
-                    // Click edit button
+                    // Logout from standard User
                     usersLogin.UserLogOut();
+
+                    // Click edit button
                     string companyType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     companyHome.SearchCompany(fileTC1144_TC1146, companyType);
                     companyDetail.ClickEditButton(fileTC1144_TC1146, companyType);
@@ -142,6 +151,7 @@ namespace SF_Automation.TestCases.Companies
 
                     // Enter values in edit company page
                     companyEdit.EditCompanyDetails(fileTC1144_TC1146, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1));
+
                     extentReports.CreateLog("Required field values are entered into edit company details page ");
                     
                     if (CompanyType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1)))
@@ -178,8 +188,6 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(descriptionInputExl, descriptionInput);
                     extentReports.CreateLog("Company description: "+descriptionInput + " is displayed on company details page ");
 
-                    //Cleanup 
-                    //Search company
                     companyHome.SearchCompany(fileTC1144_TC1146, companyType);
                     
                     if (CustomFunctions.IsElementPresent(driver, errPage))

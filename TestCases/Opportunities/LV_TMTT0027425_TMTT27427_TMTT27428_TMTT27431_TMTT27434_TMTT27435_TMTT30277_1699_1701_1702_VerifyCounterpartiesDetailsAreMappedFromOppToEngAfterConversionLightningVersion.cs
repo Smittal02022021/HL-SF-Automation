@@ -64,16 +64,14 @@ namespace SF_Automation.TestCases.Opportunities
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                     homePage.SearchUserByGlobalSearchN(valUser);
-                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");                    
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-                    login.SwitchToClassicView();
-                    string stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " logged in ");
-
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Switched to Lightning View ");
+                    string stduser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stduser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
@@ -117,8 +115,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateLog(stdUser + " Standard User logged out ");
-                    extentReports.CreateLog("Admin is Performing Required Actions ");
+                    extentReports.CreateLog(valUser + " Standard User logged out ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
                     //update CC and NBC checkboxes 
@@ -148,13 +145,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-                    login.SwitchToClassicView();
-                    stdUser = login.ValidateUser();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + stdUser + " Standard User logged in ");
-
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + stdUser + " Standard User Switched to Lightning View ");
+                    stduser = login.ValidateUserLightningView();
+                    Assert.AreEqual(stduser.Contains(valUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
@@ -163,7 +157,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, stdUser);//updated
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);//updated
 
                     //Verify is View Counterparty Button is Displayed on selected Opportunity Detail page
                     Assert.IsTrue(opportunityDetails.IsViewCounterpartyButtonOpportunityPageL());
@@ -266,13 +260,16 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.CloseOpprtunityTabL("Counterparty Editor");
 
                     */
+                    opportunityDetails.CloseOpprtunityTabL("Counterparty Editor");
                     //Add Client Contact on Opportunity     
                     string valClientContact = ReadExcelData.ReadData(excelPath, "AddContact", 6);
                     party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 5);
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateClientContactL(valClientContact, party, valContactType);
+                    addOpportunityContact.CreateClientContactLV(valClientContact, party, valContactType);
+                    //addOpportunityContact.CreateContactL2(TMTI0063910);
                     extentReports.CreateLog(valClientContact+ "is added as " + valContactType + " ");
+
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
 
@@ -298,7 +295,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                     //user = "Indrajeet Singh";
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, user);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     string pageHeader= opportunityDetails.ClickManageRelationshipsLV();
                     Assert.AreEqual(pageHeader, "Mass Relationship Creator");
@@ -370,14 +367,10 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-                    login.SwitchToClassicView();
-
-                    string caoUser = login.ValidateUser();
-                    Assert.AreEqual(caoUser.Contains(userCAO), true);
-                    extentReports.CreateLog("User: " + caoUser + " CAO User logged in ");
-
                     login.SwitchToLightningExperience();
-                    extentReports.CreateLog("User: " + caoUser + " Switched to Lightning View ");
+                    user = login.ValidateUserLightningView();
+                    Assert.AreEqual(stduser.Contains(userCAO), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + userCAO + " logged in on Lightning View");
 
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
@@ -388,7 +381,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
-                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonL();

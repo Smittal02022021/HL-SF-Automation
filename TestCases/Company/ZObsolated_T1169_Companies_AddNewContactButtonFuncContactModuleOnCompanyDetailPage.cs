@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage : BaseClass
+    class ZObsolated_T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -2,6 +2,7 @@
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Threading;
 
 namespace SF_Automation.Pages.Company
 {
@@ -35,7 +36,165 @@ namespace SF_Automation.Pages.Company
         By valCompanyName = By.CssSelector("input[id='acc2']");
         By linkDateERPSubmittedToSync = By.XPath("//*[text()='ERP Submitted To Sync']/../../../td[2]/span/span/a");
 
-        
+        By btnEditL = By.XPath("//button[@name='Edit']");
+        By comboCountryL = By.XPath("//label[text()='Country']/..//input");
+        By inputStreetL = By.XPath("//label[text()='Street']/..//textarea");
+        By inputCityL = By.XPath("//label[text()='City']/..//input");
+        By comboStateL = By.XPath("//label[text()='State/Province']/..//input");
+        By inputPostalCodeL = By.XPath("//label[text()='Zip/Postal Code']/..//input");
+        By inputDescL = By.XPath("//label[text()='Description']/..//textarea");
+        By btnSaveL = By.XPath("//button[@name='SaveEdit']");
+        By headerCDataL = By.XPath("//h3/span[@title='Connected Data']");
+        By valEditPageHeadingL = By.XPath("//div[contains(@class,'header-container')]//h2[contains(@class,'header')]");
+
+        By comboCmpnySubTypeL=By.XPath("//button[@aria-label='Company Sub Type']");
+        By comboOwnershipL = By.XPath("//button[@aria-label='Ownership']");
+        By comboIGL = By.XPath("//button[@aria-label='Industry Group']");
+        By comboSectorL = By.XPath("//button[@aria-label='Sector']");
+        By headingAFL = By.XPath("(//h3//span[@title='Annual Financials'])[2]");
+        By inputDscL = By.XPath("//label[text()='Description']/..//textarea");
+
+        public void EditCompanyDetailsLV(string file, string companyType)
+        {
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            if (companyType== "Operating Company")
+            {
+                // Enter company sub type
+                WebDriverWaits.WaitUntilEleVisible(driver, comboCmpnySubTypeL, 10);
+                driver.FindElement(comboCmpnySubTypeL).Click();
+                string valCmpnySubType= ReadExcelData.ReadData(excelPath, "Company", 9);
+                By comboOptionCmpnySubType = By.XPath($"//lightning-base-combobox-item//span[2]/span[@title='{valCmpnySubType}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboOptionCmpnySubType));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOptionCmpnySubType, 10);
+                driver.FindElement(comboOptionCmpnySubType).Click();
+
+                //Enter ownership detail
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOwnershipL, 40);
+                driver.FindElement(comboOwnershipL).Click();
+                string valOwnershipL = ReadExcelData.ReadData(excelPath, "Company", 10);
+                By comboOptionOwnership = By.XPath($"//lightning-base-combobox-item//span[2]/span[@title='{valOwnershipL}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboOptionOwnership));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOptionOwnership, 10);
+                driver.FindElement(comboOptionOwnership).Click();
+
+                //Enter Parent company
+                //WebDriverWaits.WaitUntilEleVisible(driver, txtParentCompany, 40);
+                //driver.FindElement(txtParentCompany).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 11));
+
+                // Select value from industry focus
+                WebDriverWaits.WaitUntilEleVisible(driver, comboIGL, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboIGL));
+                driver.FindElement(comboIGL).Click();
+                string valIG = ReadExcelData.ReadData(excelPath, "Company", 15);
+                By comboOptionIG = By.XPath($"//lightning-base-combobox-item//span[2]/span[@title='{valIG}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboOptionIG));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOptionIG, 10);
+                driver.FindElement(comboOptionIG).Click();
+
+                //Select Sector
+                WebDriverWaits.WaitUntilEleVisible(driver, comboSectorL, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(headingAFL));
+                driver.FindElement(comboSectorL).Click();
+                string valSector = ReadExcelData.ReadData(excelPath, "Company", 16);
+                By comboOptionSector = By.XPath($"//lightning-base-combobox-item//span[2]/span[@title='{valSector}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboOptionSector));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOptionSector, 10);
+                driver.FindElement(comboOptionSector).Click();
+
+                // Select value from Deal Preference
+                //WebDriverWaits.WaitUntilEleVisible(driver, selAvailableDealPreference, 40);
+                //driver.FindElement(selAvailableDealPreference).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, btnArrowRightDealPreference, 40);
+                //driver.FindElement(btnArrowRightDealPreference).Click();
+
+                // Select value from Geographical Preference
+                //WebDriverWaits.WaitUntilEleVisible(driver, selAvailableGeographicalFocus, 40);
+                //driver.FindElement(selAvailableGeographicalFocus).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, btnArrowRightGeographicalFocus, 40);
+                //driver.FindElement(btnArrowRightGeographicalFocus).Click();
+            }
+            //Enter Description
+            string valDesc = ReadExcelData.ReadData(excelPath, "Company", 12);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDscL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputDscL));
+            driver.FindElement(inputDscL).SendKeys(valDesc);
+
+            //Enter CapIQ company
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtCapIQCompany, 40);
+            //driver.FindElement(txtCapIQCompany).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 13));
+
+            //Click Save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            driver.FindElement(btnSaveL).Click();
+        }
+        //Get heading of company edit page details 
+        public string GetCompanyEditPageHeadingLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEditPageHeadingL, 20);
+            string editPageHeading = driver.FindElement(valEditPageHeadingL).Text;
+            return editPageHeading;
+        }
+
+        public void UpdateExistingCompanyDetailsLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL);
+            driver.FindElement(btnEditL).Click();
+
+            //Enter updated country
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCountryL, 20);
+            IWebElement headerCData = driver.FindElement(headerCDataL);
+            CustomFunctions.MoveToElement(driver, headerCData);
+            driver.FindElement(comboCountryL).Click();
+            string countryNameExl= ReadExcelData.ReadData(excelPath, "Company", 5);
+            By eleComboCountryOption = By.XPath($"//lightning-base-combobox-item//span/span[@title='{countryNameExl}']");////label[text()='Country']/..
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleComboCountryOption));
+            driver.FindElement(eleComboCountryOption).Click();
+
+            //Enter updated street 
+            WebDriverWaits.WaitUntilEleVisible(driver, inputStreetL, 5);
+            driver.FindElement(inputStreetL).Clear();
+            string txtStreetExl = ReadExcelData.ReadData(excelPath, "Company", 6);
+            driver.FindElement(inputStreetL).SendKeys(txtStreetExl);
+
+            //Enter updated city
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCityL, 5);
+            driver.FindElement(inputCityL).Clear();
+            string txtCityExl = ReadExcelData.ReadData(excelPath, "Company", 7);
+            driver.FindElement(inputCityL).SendKeys(txtCityExl);
+
+            //Enter updated state
+            WebDriverWaits.WaitUntilEleVisible(driver, comboStateL, 5);
+            driver.FindElement(comboStateL).Click();
+            string stateNameExl = ReadExcelData.ReadData(excelPath, "Company", 8);
+            By eleComboStateOption = By.XPath($"//lightning-base-combobox-item//span/span[@title='{stateNameExl}']");////label[text()='Country']/..
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleComboStateOption));
+            //Thread.Sleep(2000);
+            driver.FindElement(eleComboStateOption).Click();
+
+            //Enter updated zipPostalCode
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPostalCodeL, 5);
+            driver.FindElement(inputPostalCodeL).Clear();
+            string txtPostalCodeExl = ReadExcelData.ReadData(excelPath, "Company", 9);
+            driver.FindElement(inputPostalCodeL).SendKeys(txtPostalCodeExl);
+
+            //Enter updated description
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputDescL));
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDescL, 10);
+            driver.FindElement(inputDescL).Clear();
+            string descriptionExl = ReadExcelData.ReadData(excelPath, "Company", 10);
+            driver.FindElement(inputDescL).SendKeys(descriptionExl);
+
+            //Click Save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 5);
+            driver.FindElement(btnSaveL).Click();
+        }
+
         public string GetCompanyNameEditPage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCompanyName, 60);

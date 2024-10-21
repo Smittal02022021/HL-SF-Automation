@@ -35,6 +35,49 @@ namespace SF_Automation.Pages
         By btnSave = By.CssSelector("input[value='Save']");
 
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+                
+        By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
+        By imgCompanyL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
+        By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
+        private By _btnCompanyHomePage(string name)
+        {
+            return By.XPath($"//ul//a[@title='{name}']");
+        }
+
+        public void ClickButtonCompanyHomePageLV(string btnName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnCompanyHomePage(btnName), 10);
+            driver.FindElement(_btnCompanyHomePage(btnName)).Click();
+            Thread.Sleep(5000);
+        }
+
+
+        private By _lnkSearchedCompanyL(string name)
+        {
+            return By.XPath($"//div[@aria-label='Companies||List View']//table//tbody//th[1]//a[@title='{name}']");
+        }
+
+
+
+        public string SearchCompaInLightningView(string companyName)
+        {
+            Thread.Sleep(6000);           
+            WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
+            driver.FindElement(inputGlobalSearchL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+            driver.FindElement(inputAdminGlobalSearchL).SendKeys(companyName);
+            driver.FindElement(inputAdminGlobalSearchL).SendKeys(Keys.Enter);
+            Thread.Sleep(6000);  
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _lnkSearchedCompanyL(companyName), 20);
+                driver.FindElement(_lnkSearchedCompanyL(companyName)).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch { return "No record found"; }
+        }
 
         // To Search Company
         public string SearchCompany(string file, string CompanyType)

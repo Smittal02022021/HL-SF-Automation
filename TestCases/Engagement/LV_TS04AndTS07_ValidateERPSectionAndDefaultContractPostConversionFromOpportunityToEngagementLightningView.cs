@@ -227,7 +227,7 @@ namespace SF_Automation.TestCases.Engagements
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                    engagementHome.SearchEngagementInLightningView(engName);
+                    engagementHome.GlobalSearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
 
                     randomPages.DetailPageFullViewLV();

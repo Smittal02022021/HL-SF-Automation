@@ -741,6 +741,7 @@ namespace SF_Automation.Pages.Engagement
         By textEngCommentsL = By.XPath("//h2[text()='Tabs']/..//table//lightning-base-formatted-text");
         By tabcommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
         By counterpartyNameL = By.XPath("//table//th[@data-label='Company']");
+        
 
 
         private By _elmRecordType(string text)
@@ -876,7 +877,9 @@ namespace SF_Automation.Pages.Engagement
 
             WebDriverWaits.WaitUntilEleVisible(driver, inputDateEngdL, 5);
             string dateEngd = DateTime.Today.AddDays(-2).ToString("dd-MMM-yyyy");
-            driver.FindElement(inputDateEngdL).SendKeys(dateEngd);            
+            driver.FindElement(inputDateEngdL).SendKeys(dateEngd);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngInfoSaveL));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngInfoSaveL, 5);
             driver.FindElement(btnEngInfoSaveL).Click();
             //driver.FindElement(iconCloseErrorL).Click();
         }
@@ -7306,12 +7309,33 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngIDL, 10);
             return driver.FindElement(txtFSEngIDL).Text;
         }
-
+        By valSponsorCmpnyL = By.XPath("//table[@aria-label='FS Engagements']//tbody//tr[1]//lightning-primitive-cell-factory[@data-label='Sponsor Company']//a");
+        public string GetFSEngSponsorCompanyLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSponsorCmpnyL, 10);
+            return driver.FindElement(valSponsorCmpnyL).GetAttribute("title");
+        }
         public void ClickEngContactTabLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 20);
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
+        }
+        By tabEngCommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
+        public void ClickEngInfoCommentsTabLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngCommentsL, 10);
+            driver.FindElement(tabEngCommentsL).Click();
+            Thread.Sleep(5000);
+        }
+        public string GetEngCommentPresentLV(string commentType)
+        {            
+            By txtComments = By.XPath($"//article[@aria-label='{commentType}']//table//td[@data-label='Comment']//lightning-base-formatted-text");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtComments, 10);
+            return driver.FindElement(txtComments).Text.Trim();
+
         }
         public bool IsEngContactPresentLV(string contactNamePE)
         {

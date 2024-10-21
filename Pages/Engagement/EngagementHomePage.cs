@@ -64,6 +64,41 @@ namespace SF_Automation.Pages
         By eleItem = By.XPath("//table/tbody//td[4]/span//span");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
+        By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
+        private By _lnkSearchedEngL(string name)
+        {
+            return By.XPath($"//div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
+        }
+
+        public string GlobalSearchEngagementInLightningView(string engName)
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
+            driver.FindElement(inputGlobalSearchL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+            driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);            
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgEngL, 20);
+                driver.FindElement(imgEngL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch 
+            {
+            try
+            {
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(Keys.Enter);
+                Thread.Sleep(6000);
+                WebDriverWaits.WaitUntilEleVisible(driver, _lnkSearchedEngL(engName), 20);
+                driver.FindElement(_lnkSearchedEngL(engName)).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+                catch { return "No record found"; }
+            }            
+        }
 
         public void SearchEngagementInLightning(string value)
         {
@@ -586,13 +621,7 @@ namespace SF_Automation.Pages
         }
         public string SearchEngagementInLightningView(string value)
         {
-            Thread.Sleep(6000);
-            //try
-            //{
-            //    WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
-            //    driver.FindElement(iconClearSearch).Click();
-            //}
-            //catch { }
+            Thread.Sleep(6000);            
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
             driver.FindElement(btnEngNumL).Click();
             Thread.Sleep(4000);

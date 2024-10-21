@@ -1,6 +1,7 @@
 ﻿
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using RazorEngine.Compilation.ImpromptuInterface;
 using SF_Automation.TestData;
 using System;
 using System.Threading;
@@ -38,6 +39,7 @@ namespace SF_Automation.UtilityFunctions
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']");
         By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
+        By lnkCountinue = By.CssSelector("#hiddenformSubmitBtn");
 
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
@@ -77,7 +79,16 @@ namespace SF_Automation.UtilityFunctions
             else
             {
                 Console.WriteLine("User is already logged in");
-            }          
+            }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkCountinue, 5);
+                driver.FindElement(lnkCountinue).Click();
+            }
+            catch
+            {
+                //Do nothing user is on default browser 
+            }
         }
         public void SelectExpenseApprovalEmailV()
         {
