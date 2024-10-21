@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.Contact
 {
-    class LV_T1103_Contact_CreateNewRelationshipInHoulihanEmpDetailPage : BaseClass
+    class LV_T1103_T1106_Contact_CreateNewRelationshipInHoulihanEmpDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -105,10 +105,42 @@ namespace SF_Automation.TestCases.Contact
 
                 //Verify Relationship Details
                 lVContactRelationship.NavigateToRelationshipDetailPage();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Relationship | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
+                Assert.IsTrue(lVContactRelationship.VerifyRelationshipDetails(hlContact));
+                extentReports.CreateStepLogs("Passed", "Relationship details displayed are correct. ");
 
+                //Delete Relationship
+                lVContactRelationship.DeleteRelationship();
+                extentReports.CreateStepLogs("Info", "Relationship deleted successfully. ");
 
+                //Logout from SF Lightning View
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                extentReports.CreateStepLogs("Info", "SF Admin User is able to login into lightning view. ");
+
+                lvHomePage.SearchContactFromMainSearch(extContactFullName);
+                Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactFullName));
+                extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
+
+                //Delete Created Contact
+                lvContactDetails.DeleteContact();
+                extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
+
+                //Switch Back To Classic View
+                lvHomePage.SwitchBackToClassicView();
+                extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
+
+                usersLogin.UserLogOut();
+                extentReports.CreateStepLogs("Info", "User logged out of SF. ");
+
+                driver.Quit();
             }
             catch (Exception e)
             {

@@ -82,6 +82,5 @@ namespace SF_Automation.Pages
             driver.FindElement(tabActivity).Click();
             Thread.Sleep(5000);
         }
-
     }
 }

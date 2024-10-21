@@ -18,6 +18,8 @@ namespace SF_Automation.Pages.Contact
         By txtHLContact = By.XPath("(//a[@class='flex-wrap-ie11'])[1]/slot/slot/span");
         By txtExternalContact = By.XPath("(//a[@class='flex-wrap-ie11'])[2]/slot/slot/span");
         By txtRelationshipNumber = By.XPath("//lightning-formatted-text[contains(text(),'R-')]");
+        By btnDelete = By.XPath("//button[@name='Delete']");
+        By btnDeleteRelationship = By.XPath("//button[@title='Delete']");
 
         public void CloseTab(string tabName)
         {
@@ -105,6 +107,27 @@ namespace SF_Automation.Pages.Contact
         public void NavigateToRelationshipDetailPage()
         {
             driver.FindElement(By.XPath("(//tbody)[2]/tr//th//a")).Click();
+            Thread.Sleep(2000);
+        }
+
+        public bool VerifyRelationshipDetails(string contact)
+        {
+            bool result = false;
+            Thread.Sleep(3000);
+            if(driver.FindElement(By.XPath("//a[@data-proxy-id='aura-pos-lib-1']//slot//slot")).Text == contact)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void DeleteRelationship()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDelete, 120);
+            driver.FindElement(btnDelete).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRelationship, 120);
+            driver.FindElement(btnDeleteRelationship).Click();
             Thread.Sleep(2000);
         }
     }
