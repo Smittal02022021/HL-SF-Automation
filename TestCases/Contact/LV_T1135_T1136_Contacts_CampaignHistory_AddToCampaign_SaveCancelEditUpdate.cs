@@ -137,7 +137,7 @@ namespace SF_Automation.TestCases.Contact
                 //Add Campaign Member
                 camMemEdit.AddCampaignMember(fileTC1135_TC1136);
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, campName + " | Salesforce - Unlimited Edition"), true);
-                extentReports.CreateStepLogs("Passed", "Campaign Member has been added successfully");
+                extentReports.CreateStepLogs("Passed", "Campaign Member has been successfully attached with the external contact");
 
                 lvContactDetails.CloseTab(campName);
 
