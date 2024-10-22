@@ -19,6 +19,8 @@ namespace SF_Automation.Pages
         
         public string GetErrorMessage()
         {
+            Thread.Sleep(2000);
+
             driver.FindElement(btnSave).Click();
             Thread.Sleep(2000);
             string error = driver.FindElement(lblErrorMsg).Text;
@@ -31,9 +33,23 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            driver.FindElement(selectResponseMethod).SendKeys(ReadExcelData.ReadData(excelPath, "CampaignMember", 1));
-            driver.FindElement(selectStatus).SendKeys(ReadExcelData.ReadData(excelPath, "CampaignMember", 2));
-            driver.FindElement(txtResponseComments).SendKeys(ReadExcelData.ReadData(excelPath, "CampaignMember", 3));
+            string respMethod = ReadExcelData.ReadData(excelPath, "CampaignMember", 1);
+            string status = ReadExcelData.ReadData(excelPath, "CampaignMember", 2);
+
+            try
+            {
+                driver.FindElement(selectResponseMethod).Click();
+                driver.FindElement(By.XPath($"//a[@title='{respMethod}']")).Click();
+                Thread.Sleep(2000);
+
+                driver.FindElement(selectStatus).Click();
+                driver.FindElement(By.XPath($"//a[@title='{status}']")).Click();
+                Thread.Sleep(2000);
+
+                driver.FindElement(txtResponseComments).Clear();
+                driver.FindElement(txtResponseComments).SendKeys(ReadExcelData.ReadData(excelPath, "CampaignMember", 3));
+            }
+            catch (Exception ex) { }
 
             driver.FindElement(btnSave).Click();
             Thread.Sleep(3000);

@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
 
         public void DeleteCampaign()
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
             try
             {
                 driver.FindElement(btnDelete).Click();

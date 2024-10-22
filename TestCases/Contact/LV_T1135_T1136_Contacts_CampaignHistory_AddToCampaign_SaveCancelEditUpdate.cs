@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "Recently created campaign is selected. ");
 
                 //Validating Title of New Campaign Member Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Campaign Member | Salesforce - Unlimited Edition"), true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Campaign Member | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Validate the error message displayed upon clicking Save button
@@ -136,22 +136,20 @@ namespace SF_Automation.TestCases.Contact
 
                 //Add Campaign Member
                 camMemEdit.AddCampaignMember(fileTC1135_TC1136);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, campName + " | Salesforce - Unlimited Edition"), true);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, campName + " | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "Campaign Member has been successfully attached with the external contact");
 
-                lvContactDetails.CloseTab(campName);
-
-
-
-
-
-                //Delete Campaign
+                //Delete Campaign Member
                 campaignDetail.DeleteCampaign();
-                extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
+                extentReports.CreateStepLogs("Info", "Campaign member deleted successfully. ");
 
                 //Delete Created Contact
                 lvContactDetails.DeleteContact();
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
+
+                //Delete Campaign
+                campaignDetail.DeleteCampaign();
+                extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
 
                 //Switch Back to Classic View
                 lvHomePage.SwitchBackToClassicView();

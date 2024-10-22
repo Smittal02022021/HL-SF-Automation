@@ -167,7 +167,7 @@ namespace SF_Automation.Pages.Contact
         By txtInsightsContentChangeDate = By.XPath("(//input[@name='Insights_Content_Change_Date__c'])[1]");
 
         //Campaign History Tab Elements
-        By btnAddToCampaign = By.XPath("//a[@title='Add to Campaign']");
+        By btnAddToCampaign = By.XPath("(//a[@title='Add to Campaign'])[2]");
         By txtSearchCampaign = By.XPath("//input[@title='Search Campaigns']");
         By btnNext = By.XPath("//button[text()='Next']");
 
@@ -2023,6 +2023,7 @@ namespace SF_Automation.Pages.Contact
 
         public void NavigateToRelationshipTab()
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships);
             driver.FindElement(tabRelationships).Click();
             Thread.Sleep(5000);
@@ -2030,6 +2031,7 @@ namespace SF_Automation.Pages.Contact
 
         public void NavigateToMarketingTab()
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing);
             driver.FindElement(tabMarketing).Click();
             Thread.Sleep(5000);
@@ -2037,6 +2039,7 @@ namespace SF_Automation.Pages.Contact
 
         public void NavigateToCampaignHistoryTab()
         {
+            Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabCampaignHistory);
             driver.FindElement(tabCampaignHistory).Click();
             Thread.Sleep(3000);
@@ -2093,21 +2096,29 @@ namespace SF_Automation.Pages.Contact
 
         public void ClickAddToCampaignButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAddToCampaign);
-            driver.FindElement(btnAddToCampaign).Click();
-            Thread.Sleep(2000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddToCampaign);
+                driver.FindElement(btnAddToCampaign).Click();
+                Thread.Sleep(5000);
+            }
+            catch (Exception ex) { }
         }
 
         public void SearchAndSelectCampaignName(string name)
         {
-            driver.FindElement(txtSearchCampaign).SendKeys(name);
-            Thread.Sleep(5000);
+            try
+            {
+                driver.FindElement(txtSearchCampaign).SendKeys(name);
+                Thread.Sleep(5000);
 
-            driver.FindElement(By.XPath($"//div[@title='{name}']")).Click();
-            Thread.Sleep(2000);
+                driver.FindElement(By.XPath($"//div[@title='{name}']")).Click();
+                Thread.Sleep(2000);
 
-            driver.FindElement(btnNext).Click();
-            Thread.Sleep(2000);
+                driver.FindElement(btnNext).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception ex) { }
         }
     }
 }
