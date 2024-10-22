@@ -14,20 +14,13 @@ namespace SF_Automation.TestCases.Contact
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        ContactHomePage conHome = new ContactHomePage();
-        ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
-        ContactCreatePage createContact = new ContactCreatePage();
-        ContactDetailsPage contactDetails = new ContactDetailsPage();
-        ContactHomePage contactHome = new ContactHomePage();
         UsersLogin usersLogin = new UsersLogin();
-        SendEmailNotification sendEmail = new SendEmailNotification();
         HomeMainPage homePage = new HomeMainPage();
 
         LVHomePage lvHomePage = new LVHomePage();
         LV_RecentlyViewedContactsPage lvRecentlyViewContact = new LV_RecentlyViewedContactsPage();
         LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
         LV_ContactsCreatePage lvCreateContact = new LV_ContactsCreatePage();
-        LV_ContactEditPage contactEdit = new LV_ContactEditPage();
 
         public static string fileTC1109 = "T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact";
 

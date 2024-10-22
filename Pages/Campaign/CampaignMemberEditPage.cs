@@ -10,12 +10,12 @@ namespace SF_Automation.Pages
 {
     class CampaignMemberEditPage : BaseClass
     {
-        By btnSave = By.XPath("//input[@title='Save']");
-        By lblErrorMsg = By.XPath("//div[@id='errorDiv_ep']");
+        By btnSave = By.XPath("//button[@title='Save']");
+        By lblErrorMsg = By.XPath("//a[@class='errorsListLink']");
 
-        By selectResponseMethod = By.XPath("//select[@id='00Ni000000D7NF1']");
-        By selectStatus = By.XPath("//select[@id='Status']");
-        By txtResponseComments = By.XPath("//textarea[@id='00Ni000000EiETF']");
+        By selectResponseMethod = By.XPath("(//a[@class='select'])[1]");
+        By selectStatus = By.XPath("(//a[@class='select'])[2]");
+        By txtResponseComments = By.XPath("(//textarea)[1]");
         
         public string GetErrorMessage()
         {

@@ -166,7 +166,10 @@ namespace SF_Automation.Pages.Contact
         By txtGeneralAnnouncementsChangeDate = By.XPath("(//input[@name='General_Announcements_Change_Date__c'])[1]");
         By txtInsightsContentChangeDate = By.XPath("(//input[@name='Insights_Content_Change_Date__c'])[1]");
 
-
+        //Campaign History Tab Elements
+        By btnAddToCampaign = By.XPath("//a[@title='Add to Campaign']");
+        By txtSearchCampaign = By.XPath("//input[@title='Search Campaigns']");
+        By btnNext = By.XPath("//button[text()='Next']");
 
         public void DeleteContact()
         {
@@ -2032,6 +2035,13 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
         }
 
+        public void NavigateToCampaignHistoryTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabCampaignHistory);
+            driver.FindElement(tabCampaignHistory).Click();
+            Thread.Sleep(3000);
+        }
+
         public void UpdateSubscriptionPreferences()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, editCopyFromContactDetail, 120);
@@ -2079,6 +2089,25 @@ namespace SF_Automation.Pages.Contact
                 result = true;
             }
             return result;
+        }
+
+        public void ClickAddToCampaignButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddToCampaign);
+            driver.FindElement(btnAddToCampaign).Click();
+            Thread.Sleep(2000);
+        }
+
+        public void SearchAndSelectCampaignName(string name)
+        {
+            driver.FindElement(txtSearchCampaign).SendKeys(name);
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath($"//div[@title='{name}']")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(btnNext).Click();
+            Thread.Sleep(2000);
         }
     }
 }
