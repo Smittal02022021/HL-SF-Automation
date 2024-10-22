@@ -151,11 +151,22 @@ namespace SF_Automation.Pages.Contact
         By lblEventsConferencesChangeDate = By.XPath("(//span[text()='Events/Conference Change Date']/following::lightning-formatted-text)[1]");
         By lblGeneralAnnouncementsChangeDate = By.XPath("(//span[text()='General Announcements Change Date']/following::lightning-formatted-text)[1]");
         By lblInsightsContentChangeDate = By.XPath("(//span[text()='Insights/Content Change Date']/following::lightning-formatted-text)[1]");
-        By chkboxCopyFromContactDetail = By.XPath("");
         By lblBadgeFirstName = By.XPath("(//span[text()='Badge First Name']/following::lightning-formatted-text)[1]");
         By lblBadgeLastName = By.XPath("(//span[text()='Badge Last Name']/following::lightning-formatted-text)[1]");
         By lblBadgeCompanyName = By.XPath("(//span[text()='Badge Company']/following::lightning-formatted-text)[1]");
         By lblBadgeFullName = By.XPath("(//span[text()='Badge Full Name']/following::lightning-formatted-text)[1]");
+
+        By chkboxCopyFromContactDetail = By.XPath("(//input[@name='Copy_From_Contact_Detail__c'])[1]");
+        By editCopyFromContactDetail = By.XPath("(//button[@title='Edit Copy From Contact Detail'])[1]");
+        By chkboxPardotOptOut = By.XPath("(//input[@name='Pardot_Opt_Out__c'])[1]");
+        By chkboxPardotDoNotEmail = By.XPath("(//input[@name='HasOptedOutOfEmail'])[1]");
+
+        By txtDealAnnouncementChangeDate = By.XPath("(//input[@name='Deal_Announcements_Change_Date__c'])[1]");
+        By txtEventsConferencesChangeDate = By.XPath("(//input[@name='Events_Conference_Change_Date__c'])[1]");
+        By txtGeneralAnnouncementsChangeDate = By.XPath("(//input[@name='General_Announcements_Change_Date__c'])[1]");
+        By txtInsightsContentChangeDate = By.XPath("(//input[@name='Insights_Content_Change_Date__c'])[1]");
+
+
 
         public void DeleteContact()
         {
@@ -2012,6 +2023,62 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships);
             driver.FindElement(tabRelationships).Click();
             Thread.Sleep(5000);
+        }
+
+        public void NavigateToMarketingTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing);
+            driver.FindElement(tabMarketing).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void UpdateSubscriptionPreferences()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, editCopyFromContactDetail, 120);
+            driver.FindElement(editCopyFromContactDetail).Click();
+            Thread.Sleep(2000);
+
+            try
+            {
+                driver.FindElement(chkboxPardotOptOut).Click();
+                Thread.Sleep(2000);
+
+                driver.FindElement(chkboxPardotDoNotEmail).Click();
+                Thread.Sleep(2000);
+
+                string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy").Replace('-', '/');
+                driver.FindElement(txtDealAnnouncementChangeDate).SendKeys(getDate);
+                Thread.Sleep(2000);
+
+                driver.FindElement(txtEventsConferencesChangeDate).SendKeys(getDate);
+                Thread.Sleep(2000);
+
+                driver.FindElement(txtGeneralAnnouncementsChangeDate).SendKeys(getDate);
+                Thread.Sleep(2000);
+
+                driver.FindElement(txtInsightsContentChangeDate).SendKeys(getDate);
+                Thread.Sleep(2000);
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveEdit, 120);
+            driver.FindElement(btnSaveEdit).Click();
+
+            Thread.Sleep(4000);
+        }
+
+        public bool VerifySubscriptionPreferencesAreUpdated()
+        {
+            bool result = false;
+            
+            if(driver.FindElement(lblDealAnnouncementChangeDate).Text!="" && driver.FindElement(lblEventsConferencesChangeDate).Text != "" && driver.FindElement(lblGeneralAnnouncementsChangeDate).Text != "" && driver.FindElement(lblInsightsContentChangeDate).Text != "")
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

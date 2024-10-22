@@ -587,6 +587,7 @@
     <Compile Include="TestCases\Contact\LV_T1048_T1942_T1943_T1944_T1945_T1946_T1951_T1954_T1955_T1957_T1958_Contact_CreateNewContactRecordTypeHoulihanEmployee.cs" />
     <Compile Include="TestCases\Contact\LV_T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton.cs" />
     <Compile Include="TestCases\Contact\LV_T1103_T1106_Contact_CreateNewRelationshipInHoulihanEmpDetailPage.cs" />
+    <Compile Include="TestCases\Contact\LV_T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
     <Compile Include="TestCases\Contact\T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
     <Compile Include="TestCases\Contact\T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate.cs" />
     <Compile Include="TestCases\Contact\T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />

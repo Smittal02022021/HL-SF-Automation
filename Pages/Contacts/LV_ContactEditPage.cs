@@ -303,7 +303,6 @@ namespace SF_Automation.Pages.Contact
             return text;
         }
 
-
         public void ClickCancelBtn()
         {
             driver.FindElement(btnCancel).Click();
