@@ -147,13 +147,14 @@ namespace SF_Automation.Pages.Common
         //Login as Selected user from global search
         public void LoginAsSelectedUser()
         {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;            
             WebDriverWaits.WaitUntilEleVisible(driver, dropDwnForUserDetail);
             driver.FindElement(dropDwnForUserDetail).Click();
-
             WebDriverWaits.WaitUntilEleVisible(driver, optionUserDetail);
             driver.FindElement(optionUserDetail).Click();
             Thread.Sleep(4000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnLogin));
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnLogin));
             WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
             driver.FindElement(btnLogin).Click();
             Thread.Sleep(2000);
