@@ -153,6 +153,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, optionUserDetail);
             driver.FindElement(optionUserDetail).Click();
             Thread.Sleep(4000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnLogin));
             WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
             driver.FindElement(btnLogin).Click();
             Thread.Sleep(2000);
