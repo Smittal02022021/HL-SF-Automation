@@ -384,8 +384,10 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
                     //TMTI0084221 Verify the status is updated in Oracle ERP Information section
                     //Validate the ERP Last Integration Status on Engagement details page
-                    randomPages.DetailPageFullViewLV();
-                    extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                     string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
                     Assert.AreEqual("Success", ERPStatusOffice, "Verify the Engagement ERP Last Integration Status as Success ");
