@@ -630,7 +630,7 @@ namespace SF_Automation.Pages
         By lblConflictTypeL= By.XPath("//label[text()='Conflicts Type']/parent::div//button");
         By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
-        By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associated Address']");//label[text()='Associated Address']");
+        By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associate Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");

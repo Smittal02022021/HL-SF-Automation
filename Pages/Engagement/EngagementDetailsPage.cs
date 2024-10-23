@@ -3567,6 +3567,7 @@ namespace SF_Automation.Pages.Engagement
         //To update Job type for ERP
         public string UpdateJobTypeERP(string jobType)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
             driver.FindElement(btnEdit).Click();
@@ -3579,6 +3580,7 @@ namespace SF_Automation.Pages.Engagement
         //Update Client Ownership
         public string UpdateClientOwnership(string client)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
             driver.FindElement(btnEdit).Click();
@@ -3591,6 +3593,7 @@ namespace SF_Automation.Pages.Engagement
         //To update ERP Record Type
         public string UpdateRecordTypeAndLOBERP()
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkRecordTypeChange, 120);
             driver.FindElement(lnkRecordTypeChange).Click();
@@ -6824,6 +6827,14 @@ namespace SF_Automation.Pages.Engagement
                 catch { return false; }
             }
         }
+        public void ClickDetailAdministrationTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
+            driver.FindElement(subTabAdmin).Click();
+
+        }
         public string GetLegalEntityLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngLegalEntityL, 10);
@@ -6854,6 +6865,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void UpdatePrimaryOfficeInlineLV(string value)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, iconInlinePrimaryOfficeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlinePrimaryOfficeL));
@@ -6874,6 +6886,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void UpdateHLSectorIDLV(string sector)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
@@ -6896,6 +6909,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void UpdateJobTypeLV(string jobType)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
@@ -6916,6 +6930,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void UpdateClientOwnershipLV(string client)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
@@ -6935,6 +6950,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void UpdateRecordTypeLV(string JobType, string newLOBExl)
         {
+            driver.Navigate().Refresh();
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
