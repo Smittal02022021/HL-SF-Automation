@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunity
 {
-    class TMTT0005815_NBCAndCNBCAccessExistingFunctionality_Lightning: BaseClass
+    class TMTT0005815_TMTT0005817NBCAndCNBCAccessExistingFunctionality_RestrictedAccess_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

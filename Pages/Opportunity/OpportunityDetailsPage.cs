@@ -1513,12 +1513,26 @@ public void ClickNewOpportunitySectorButton()
         //To update Retainer and Monthly Fee 
         public void UpdateRetainerAndMonthlyFee()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 350);
-            driver.FindElement(btnEdit).Click();
-            driver.FindElement(txtRetainer).SendKeys("12");
-            driver.FindElement(txtMonthlyFee).SendKeys("15");
-            driver.FindElement(btnSave).Click();
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 350);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(txtRetainer).SendKeys("12");
+                driver.FindElement(txtMonthlyFee).SendKeys("15");
+                driver.FindElement(btnSave).Click();
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 80);
+                driver.FindElement(lnkReDisplayRec).Click();
+                Thread.Sleep(2000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);
+                driver.FindElement(btnEdit).Click();
+                driver.FindElement(txtRetainer).SendKeys("12");
+                driver.FindElement(txtMonthlyFee).SendKeys("15");
+                driver.FindElement(btnSave).Click();
+            }
         }       
        
 

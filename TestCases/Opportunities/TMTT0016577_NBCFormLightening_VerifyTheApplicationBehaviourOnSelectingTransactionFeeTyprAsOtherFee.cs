@@ -93,8 +93,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine(jobType);
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateRetainerAndMonthlyFee();
-                
+                opportunityDetails.UpdateRetainerAndMonthlyFee();                
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();

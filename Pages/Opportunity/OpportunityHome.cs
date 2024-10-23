@@ -43,6 +43,7 @@ namespace SF_Automation.Pages
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagOpportunities = By.XPath("//div/ul/li[6]/div/a/span[2]/span");
+        By tagParentProject = By.XPath("//div/ul/li/div/a/span[2]/span[text()='Parent Projects']");
         By tagOpportunitiesCAO = By.XPath("//div/ul/li[4]/div/a/span[2]/span");
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
@@ -327,6 +328,21 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000); 
             WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
             string value= driver.FindElement(tagOpportunities).Text;
+            return value;
+        }
+
+        //Validate Parent Project is present under HL Banker
+        public string ValidateParentProjectUnderHLBanker()
+        {
+
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 250);
+            Console.WriteLine("about to click navigation");
+            driver.FindElement(btnNavigationMenu).Click();
+            Console.WriteLine("Clicked navigation");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagParentProject, 350);
+            string value = driver.FindElement(tagParentProject).Text;
             return value;
         }
 
