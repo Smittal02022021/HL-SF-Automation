@@ -74,8 +74,9 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Passed", "Engagement with number : " + EngagementNumber + " is displayed ");
 
                 //Full View
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                 //Get ERP Submitted to Sync, Status, ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
@@ -91,9 +92,9 @@ namespace SF_Automation.TestCases.Engagements
                 randomPages.UpdateERPSyncManuallyInlineLV();
                 extentReports.CreateStepLogs("Info", "Manually Submitted to Sync updated ");
                 //Full View
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
-
+                //randomPages.DetailPageFullViewLV();                
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                 string ERPSubmittedPostSync = randomPages.GetERPSubmittedToSyncLV();
                 Assert.AreNotEqual(ERPSubmitted, ERPSubmittedPostSync);
                 extentReports.CreateStepLogs("Passed", "Engagement ERP Submitted to Sync Old:: " + ERPSubmitted+ " New:: "+ ERPSubmittedPostSync + " is updated post scheduling ERP sync ");

@@ -357,6 +357,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string engContactName = engagementDetails.GetEngExternalContactLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
+                    randomPages.CloseActiveTab(opportunityName);
                     /////////
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
@@ -378,7 +379,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
-                    engagementHome.SearchEngagementInLightningView(engName);
+                    engagementHome.GlobalSearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section

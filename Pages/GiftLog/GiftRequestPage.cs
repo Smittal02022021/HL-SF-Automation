@@ -373,11 +373,13 @@ namespace SF_Automation.Pages.GiftLog
             //Click check box
             WebDriverWaits.WaitUntilEleVisible(driver, chkBoxOfAvailableRecipient, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(chkBoxOfAvailableRecipient));
+            Thread.Sleep(2000);
             driver.FindElement(chkBoxOfAvailableRecipient).Click();
 
             //Click add recipients button
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddRecipients, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddRecipients));
+            Thread.Sleep(2000);
             driver.FindElement(btnAddRecipients).Click();
         }
         public string GetSelectedRecipientNameLV()
@@ -718,6 +720,7 @@ namespace SF_Automation.Pages.GiftLog
         public void ClickSubmitGiftRequestLV()
         {   
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSubmitGiftRequest));
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitGiftRequest, 20);
             driver.FindElement(btnSubmitGiftRequest).Click();
             Thread.Sleep(2000);

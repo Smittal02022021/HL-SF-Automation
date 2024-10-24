@@ -7,9 +7,8 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
-using AventStack.ExtentReports.Gherkin.Model;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0041159_2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity:BaseClass
     {
@@ -29,9 +28,6 @@ namespace SalesForce_Project.TestCases.Opportunities
         public static string fileTMTT0041159 = "LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement";
 
         private string popupMessage;
-        //private string commentTypeExl;
-        //private string commentTextExl;
-        //private string commentType;
         
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -361,6 +357,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 randomPages.CloseActiveTab(opportunityName);
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
+                usersLogin.UserLogOut();
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {

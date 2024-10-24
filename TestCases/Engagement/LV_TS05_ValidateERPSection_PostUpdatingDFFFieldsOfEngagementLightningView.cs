@@ -195,10 +195,12 @@ namespace SF_Automation.TestCases.Engagements
                 moduleNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                engagementHome.SearchEngagementInLightningView(engagementName);
+                engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                 //Get ERP Submitted to Sync and get ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmittedDate = randomPages.GetERPSubmittedToSyncLV();
                 extentReports.CreateStepLogs("Info", "Engagement ERP Submitted to Sync before update is: " + ERPSubmittedDate + " ");
@@ -210,12 +212,16 @@ namespace SF_Automation.TestCases.Engagements
                 string ERPResDate = randomPages.GetERPLastIntegrationResponseDateLV();
                 extentReports.CreateStepLogs("Info", "Engagement ERP Last Integration Response Date in ERP section: " + ERPResDate + " is displayed ");
 
+                //Update Primay Office is not available on Info/section/Edit view
+                /*
                 //-----Update Primary office, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status -----
                 string newOffice = ReadExcelData.ReadData(excelPath, "DFFUpdates", 1);
                 engagementDetails.UpdatePrimaryOfficeInlineLV(newOffice);
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-                
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                 string primaryOffice = randomPages.GetPrimaryOfficeLV();
                 Assert.AreEqual(newOffice, primaryOffice);
                 extentReports.CreateStepLogs("Passed", "Engagement Primary Office is updated to from Inline Edit icon" + primaryOffice + " ");
@@ -235,6 +241,9 @@ namespace SF_Automation.TestCases.Engagements
                 string ERPResOffice = randomPages.GetERPLastIntegrationResponseDateLV();
                 Assert.AreNotEqual(ERPResDate, ERPResOffice);// need to uncomment
                 extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Response Date in ERP section New: " + ERPResOffice + " is displayed Old: "+ ERPResDate);
+                */
+                //**************End Update Office section ******//
+
 
                 ////-----Update Industry Group, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
@@ -263,44 +272,51 @@ namespace SF_Automation.TestCases.Engagements
 
                 ////-----Update Sector, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
 
+                engagementDetails.ClickEngInfoTabLV();
                 string updSector = ReadExcelData.ReadData(excelPath, "DFFUpdates", 3);
-                engagementDetails.UpdateHLSectorIDLV(updSector);
+                engagementDetails.UpdateHLSectorIDLV(updSector);//CAN UPDATE
                 string sector = randomPages.GetHLSectorIDLV();
                 
                 string sectorCombo = randomPages.GetHLSectorComboLV();
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
                 extentReports.CreateStepLogs("Passed", "Engagement Sector is updated to and sector combo contains " + updSector + " ");
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-                
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                 string statusDFFSectorChk = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is checked", statusDFFSectorChk);//not updating
                 extentReports.CreateStepLogs("Passed", "**Assersion Skipped Engagement ERP Update DFF:: " + statusDFFSectorChk + " after updating Sector ");
                 
                 string ERPSubmittedSector = randomPages.GetERPSubmittedToSyncLV();
                 //Assert.AreNotEqual(ERPSubmittedIG, ERPSubmittedSector);// need to uncomment
-                Assert.AreNotEqual(ERPSubmittedOfficeDate, ERPSubmittedSector);
-                extentReports.CreateStepLogs("Passed", "Engagement ERP Submitted to Sync New: " + ERPSubmittedSector + " Old: "+ ERPSubmittedOfficeDate);
+                //Assert.AreNotEqual(ERPSubmittedOfficeDate, ERPSubmittedSector);//uncomment when UpdateOffice works
+                Assert.AreNotEqual(ERPSubmittedDate, ERPSubmittedSector);
+                extentReports.CreateStepLogs("Passed", "Engagement ERP Submitted to Sync New: " + ERPSubmittedSector + " Old: " + ERPSubmittedDate);// when update ofc works ERPSubmittedOfficeDate);
 
                 string ERPStatusSector = randomPages.GetERPLastIntegrationStatusLV();
                 Assert.AreEqual("Success", ERPStatusSector);// need to uncomment
                 extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusSector + " is displayed ");
 
                 string ERPResSector = randomPages.GetERPLastIntegrationResponseDateLV();
-                //Assert.AreNotEqual(ERPResIG, ERPResSector);// need to uncomment
-                Assert.AreNotEqual(ERPResOffice, ERPResSector);//not updating
-                extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Response Date in ERP section New: " + ERPResSector + " is displayed Old: "+ ERPResOffice);
+                //Assert.AreNotEqual(ERPResOffice, ERPResSector); uncomment when Update PrimaryOffice works
+                //Assert.AreNotEqual(ERPResIG, ERPResSector);// need to uncomment when IG works 
+                Assert.AreNotEqual(ERPResDate, ERPResSector);//not updating
+                extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Response Date in ERP section New: " + ERPResSector + " is displayed Old: " + ERPResDate);// when update ofc works ERPResOffice);
 
                 ////-----Update Job Type, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
                 string updType = ReadExcelData.ReadData(excelPath, "DFFUpdates", 4);
-                engagementDetails.UpdateJobTypeLV(updType);
+                engagementDetails.UpdateJobTypeLV(updType);//CAN UPDATE
                 
                 string updJobType = randomPages.GetJobTypeLV();
                 Assert.AreEqual(updType, updJobType);
                 extentReports.CreateStepLogs("Passed", "Engagement Job Type is updated to " + updJobType + " ");
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-                
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                 string valDFFJobType = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is checked", valDFFJobType);// not updating
                 extentReports.CreateStepLogs("Passed", "**Assersion Skipped Engagement ERP Update DFF:: " + valDFFJobType + " after updating Job Type ");
@@ -341,11 +357,13 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                engagementHome.SearchEngagementInLightningView(engagementName);
+                engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-                
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                 string productLine = randomPages.GetERPProductTypeLV();
                 Assert.AreEqual(prodLine, productLine);
                 extentReports.CreateStepLogs("Passed", "Product Type in ERP section: " + productLine + " matches with Product Line in Job Type Detail as per updated Job Type ");
@@ -356,14 +374,16 @@ namespace SF_Automation.TestCases.Engagements
 
                 ////-----Update Client Ownership, ERP Update DFF checkbox and validate ERP Sync Date, Status and Last Integration Status-----
                 string updOwnership = ReadExcelData.ReadData(excelPath, "DFFUpdates", 5);
-                engagementDetails.UpdateClientOwnershipLV(updOwnership);
+                engagementDetails.UpdateClientOwnershipLV(updOwnership);//CAN UPDATE
                 
                 string clientOwnership = engagementDetails.GetClientOwnershipLV();
                 Assert.AreEqual(updOwnership, clientOwnership);
                 extentReports.CreateStepLogs("Passed", "Client Ownership is updated to " + clientOwnership + " ");
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-                
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                 string valDFFClient = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is checked", valDFFClient);  //checked for Ownership
                 extentReports.CreateStepLogs("Passed", "**Assersion skipped ERP Update DFF:: " + valDFFClient + " after updating Client Ownership ");
@@ -382,14 +402,15 @@ namespace SF_Automation.TestCases.Engagements
                 
                 string newRecordTypeExl = ReadExcelData.ReadData(excelPath, "DFFUpdates", 6);
                 string newLOBExl = ReadExcelData.ReadData(excelPath, "DFFUpdates", 7);
-                engagementDetails.UpdateRecordTypeLV(newRecordTypeExl, newLOBExl);
-                randomPages.DetailPageFullViewLV();
-                extentReports.CreateStepLogs("Info", "Full View is selected");
-
-                string newRecordType = opportunityDetails.GetRecordTypeLV();
+                engagementDetails.UpdateRecordTypeLV(newRecordTypeExl, newLOBExl);//CAN UPDATE              
+                engagementDetails.ClickEngAdministrationTabLV();
+                string newRecordType = engagementDetails.GetRecordTypeLV();
                 Assert.AreEqual(newRecordTypeExl, newRecordType);
                 extentReports.CreateStepLogs("Passed", "LOB is updated to " + newRecordType + " ");
-
+                //Full View
+                //randomPages.DetailPageFullViewLV();
+                randomPages.ClickTabOracleERPLV();
+                extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                 string valDFFLOB = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
                 extentReports.CreateStepLogs("Passed", "**Assersion skipped ERP Update DFF:: " + valDFFLOB + " after updating LOB ");

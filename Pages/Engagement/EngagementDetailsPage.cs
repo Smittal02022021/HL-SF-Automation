@@ -6667,6 +6667,8 @@ namespace SF_Automation.Pages.Engagement
         }
         public string GetRecordTypeLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,600)");
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtEngRecordTypeL));
             return driver.FindElement(txtEngRecordTypeL).Text;
@@ -6827,10 +6829,14 @@ namespace SF_Automation.Pages.Engagement
                 catch { return false; }
             }
         }
-        public void ClickDetailAdministrationTab()
+        public void ClickEngInfoTabLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
             driver.FindElement(tabInfo).Click();
+
+        }
+        public void ClickEngAdministrationTabLV()
+        {
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
             driver.FindElement(subTabAdmin).Click();
 
@@ -6952,7 +6958,9 @@ namespace SF_Automation.Pages.Engagement
         {
             driver.Navigate().Refresh();
             Thread.Sleep(60000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
+            WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
+            driver.FindElement(subTabAdmin).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);            
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
             driver.FindElement(btnChangeRecordTypeL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerChangeRT, 20);

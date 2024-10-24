@@ -8,7 +8,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0041159_1_VerifiyTheFunctionalityOfVerballyEngagedEngagement:BaseClass
     {

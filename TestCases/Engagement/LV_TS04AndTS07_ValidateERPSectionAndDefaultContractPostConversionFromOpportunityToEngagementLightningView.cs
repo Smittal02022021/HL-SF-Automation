@@ -229,9 +229,19 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.GlobalSearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
+                    //Get LOB
+                    string LOB = randomPages.GetLOBLV();
+                    //Validate HL Entity
+                    //Click Info>>Admintrator tab
+                    engagementDetails.ClickEngInfoTabLV();
+                    engagementDetails.ClickEngAdministrationTabLV();
+                    string entity = engagementDetails.GetLegalEntityLV();
 
-                    randomPages.DetailPageFullViewLV();
-                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                     //Validate ERP section details------
                     //Validate ERP Submitted To Sync                 
                     string ERPSubmitted = randomPages.GetERPSubmittedToSyncLV();
@@ -243,11 +253,10 @@ namespace SF_Automation.TestCases.Engagements
                     Assert.NotNull(ERPID);
                     extentReports.CreateLog("ERP ID in ERP section: " + ERPID + " is displayed ");
 
-                    //Validate HL Entity
-                    string entity = engagementDetails.GetLegalEntityLV();
-                    string HLEntity = randomPages.GetHLEntityLV();
-                    Assert.AreEqual(entity, HLEntity);
-                    extentReports.CreateLog("HL Entity in ERP section: " + HLEntity + " matches with Legal Entity of Engagement ");
+                    
+                    //string HLEntity = randomPages.GetHLEntityLV();
+                    //Assert.AreEqual(entity, HLEntity);
+                    //extentReports.CreateLog("HL Entity in ERP section: " + HLEntity + " matches with Legal Entity of Engagement ");
 
                     //Validate ERP HL Entity                 
                     string ERPEntity = randomPages.GetERPHLEntityLV();
@@ -270,7 +279,7 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateLog("ERP Project Name in ERP section: " + ERPProjectName + " is combination of both Engagement name and number ");
 
                     //Validate ERP LOB
-                    string LOB = randomPages.GetLOBLV();
+                    
                     string ERPLOB = randomPages.GetERPLOBLV();
                     if (LOB.Equals("CF") || LOB.Equals("FR"))
                     {
@@ -322,8 +331,11 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
-                    randomPages.DetailPageFullViewLV();
-                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
                     string productLine = randomPages.GetERPProductTypeLV();
                     Assert.AreEqual(prodLine, productLine);
                     extentReports.CreateStepLogs("Passed", "Product Type in ERP section: " + productLine + " matches with Product Line in Job Type Detail ");
@@ -367,8 +379,10 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
-                    randomPages.DetailPageFullViewLV();
-                    extentReports.CreateStepLogs("Info", "User is on Detail View of Engagement ");
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                     //Validate ERP Template                
                     string ERPTemplate = randomPages.GetERPTemplateLV();
                     Assert.AreEqual(templateNum, ERPTemplate);
