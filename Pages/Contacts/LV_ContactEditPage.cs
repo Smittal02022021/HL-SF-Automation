@@ -48,7 +48,7 @@ namespace SF_Automation.Pages.Contact
         By txtErrorMessageCompany = By.CssSelector("#errorDiv_ep");
         By txtErrorMessageDepartureDate = By.XPath("(//span[text()='Departure Date'])[2]/..");
         By txtErrorMessageIndustryGroup = By.XPath("(//span[text()='Industry Group'])[2]/..");
-        By txtErrorMessageEmpCurrency = By.XPath("(//span[text()='Contact Currency'])[2]/..");
+        By txtErrorMessageEmpCurrency = By.XPath("(//span[text()='Contact Currency'])[1]/..");
         By txtErrorMessageLastName = By.XPath("(//span[text()='Last Name'])[1]/..");
 
         By btnCancel = By.XPath("//button[@name='CancelEdit']");
