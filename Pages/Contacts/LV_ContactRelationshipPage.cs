@@ -114,7 +114,8 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             Thread.Sleep(3000);
-            if(driver.FindElement(By.XPath("//a[@data-proxy-id='aura-pos-lib-1']//slot//slot")).Text == contact)
+            string text = driver.FindElement(By.XPath("((//span[text()='HL Contact'])[2]/following::dd//a)[1]//slot//slot")).Text;
+            if(text == contact)
             {
                 result = true;
             }

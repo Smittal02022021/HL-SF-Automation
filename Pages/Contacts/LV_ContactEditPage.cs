@@ -57,6 +57,7 @@ namespace SF_Automation.Pages.Contact
         By txtSearchResultExpenseApprover = By.CssSelector("tr[class='dataRow even last first']>th>a");
         By selectFlagReasonDrpDown = By.CssSelector("select[name='00Ni000000Fk47Y']");
         By selectCurrencyDrpDown = By.XPath("//button[@aria-label='Contact Currency']");
+        By btnEditContactCurrency = By.XPath("//button[@title='Edit Contact Currency']");
         By txtLastName = By.XPath("//input[@name='lastName']");
 
         By lookupPrimaryPDC = By.CssSelector("img[alt='Primary PDC Lookup (New Window)']");
@@ -70,7 +71,7 @@ namespace SF_Automation.Pages.Contact
         By inputEventsChangeDate = By.CssSelector("input[name='00Ni000000FZZiN']");
         By inputGeneralAnnouncementsChangeDate = By.CssSelector("input[name='00Ni000000FZZiS']");
         By inputContentChangeDate = By.CssSelector("input[name='00Ni000000FZZmF']");
-        By txtBadgeFirstName = By.CssSelector(@"#\30 0Ni000000FYRYnj_id0_j_id1_ileinner");
+        By txtBadgeFirstName = By.XPath("//input[@name='Badge_First_Name__c']");
         By txtBadgeLastName = By.CssSelector(@"#\30 0Ni000000FYRYsj_id0_j_id1_ileinner");
         By txtBadgeCompany = By.CssSelector(@"#\30 0Ni000000FYRZ2j_id0_j_id1_ileinner");
         By txtBadgeFullName = By.CssSelector(@"#\30 0Ni000000FYRZ7j_id0_j_id1_ileinner");
@@ -277,8 +278,7 @@ namespace SF_Automation.Pages.Contact
 
         public string TxtErrorMessageEmployeeCurrency()
         {
-            Thread.Sleep(3000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageEmpCurrency));
+            Thread.Sleep(5000);
             string text = driver.FindElement(txtErrorMessageEmpCurrency).Text;
             Thread.Sleep(1000);
 
@@ -291,8 +291,7 @@ namespace SF_Automation.Pages.Contact
 
         public string TxtErrorMessageEmpName()
         {
-            Thread.Sleep(2000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtErrorMessageLastName));
+            Thread.Sleep(5000);
             string text = driver.FindElement(txtErrorMessageLastName).Text;
             Thread.Sleep(1000);
 
@@ -342,6 +341,23 @@ namespace SF_Automation.Pages.Contact
         public void VerifyEmployeeCurrencyValidation(string value)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2500)");
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditContactCurrency, 120);
+            driver.FindElement(btnEditContactCurrency).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(selectCurrencyDrpDown).Click();
+            driver.FindElement(selectCurrencyDrpDown).SendKeys(value);
+            Thread.Sleep(2000);
+            driver.FindElement(selectCurrencyDrpDown).SendKeys(Keys.Enter);
+            Thread.Sleep(3000);
+        }
+
+        public void VerifyLastNameValidation()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(3000);
 
@@ -349,32 +365,9 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnEdit).Click();
             Thread.Sleep(3000);
 
-            string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
-            string date = getDate.Replace('-', '/');
-            WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
-            driver.FindElement(txtHireDate).Clear();
-            driver.FindElement(txtHireDate).SendKeys(date);
-
-            CustomFunctions.MoveToElement(driver, driver.FindElement(selectCurrencyDrpDown));
-            driver.FindElement(selectCurrencyDrpDown).SendKeys(value);
-            Thread.Sleep(2000);
-            driver.FindElement(selectCurrencyDrpDown).SendKeys(Keys.Enter);
-            Thread.Sleep(1000);
-        }
-
-        public void VerifyLastNameValidation()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
-            driver.FindElement(btnEdit).Click();
-            Thread.Sleep(3000);
-
-            string getDate = DateTime.Today.AddDays(-10).ToString("MM/dd/yyyy");
-            string date = getDate.Replace('-', '/');
-            WebDriverWaits.WaitUntilEleVisible(driver, txtHireDate);
-            driver.FindElement(txtHireDate).Clear();
-            driver.FindElement(txtHireDate).SendKeys(date);
             driver.FindElement(txtLastName).Clear();
             driver.FindElement(txtLastName).SendKeys("test");
+            Thread.Sleep(3000);
         }
 
         public void VerifyIndustryGroupValidation()
