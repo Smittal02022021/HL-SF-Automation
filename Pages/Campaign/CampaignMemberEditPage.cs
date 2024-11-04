@@ -52,7 +52,7 @@ namespace SF_Automation.Pages
             catch (Exception ex) { }
 
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
         }
     }
 }
