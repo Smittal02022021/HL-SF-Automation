@@ -14,6 +14,7 @@ namespace SF_Automation.TestCases.Opportunity
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
+        EngagementHomePage engHome = new EngagementHomePage();
         ParentProject project = new ParentProject();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
@@ -60,7 +61,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Verify the availability of Opportunity under HL Banker list
-                string tagOpp= opportunityHome.ValidateParentProjectUnderHLBanker();
+                string tagOpp = opportunityHome.ValidateParentProjectUnderHLBanker();
                 Assert.AreEqual("Parent Projects", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under Home dropdown ");
 
@@ -68,9 +69,30 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("New Parent Project", titleProject);
                 extentReports.CreateLog(titleProject + " page is displayed after clicking New button ");
 
-                Assert.IsTrue(project.VerifyParentProjectMandatoryValdiations(), "Verified that displayed mandatory validations are same");
+                Assert.IsTrue(project.VerifyParentProjectMandatoryValdiations(), "Verified that displayed mandatory validations are same ");
                 extentReports.CreateLog("Displayed mandatory validations are correct ");
 
+                //4.	TMT0073610_Verify the functionality of creating New Parent Project. 
+                string value = CustomFunctions.RandomValue();
+                string addedProject = project.CreateNewParentProject(value);
+                Assert.AreEqual(value, addedProject);
+                extentReports.CreateLog("Parent Project with name: " + addedProject + " is displayed after saving all the mandatory fields ");
+               
+                //5.	TMT0073612_Verify the functionality of associating first engagement to the Parent Project.
+                engHome.SelectDirectEngUnderHLBanker();
+                engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree", "TAS - Due Diligence-Buyside");
+                string addedProjectEng = project.AssociateParentProjectToEng(value);
+                Assert.AreEqual(value, addedProjectEng);
+                extentReports.CreateLog("Engagement gets associated with Parent Project: " + addedProjectEng + " ");
+
+                //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
+                string associatedEng = project.ValidateAssociatedEngToParentProject();
+                Assert.AreEqual("Project Palm Tree", associatedEng);
+                extentReports.CreateLog("Associated Engagement : " + associatedEng + " is populated on the Parent Project ");
+
+                //7.	TMT0073616_Verify that based on associated engagement, parent project will populate LOB, Legal Entity, Client, and Currency type. 
+              
+                
                 driver.Quit();
             }
             catch (Exception e)

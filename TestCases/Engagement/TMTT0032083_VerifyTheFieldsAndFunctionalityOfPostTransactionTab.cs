@@ -281,7 +281,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //26.  Verify that the application gives an error message on the screen on adding duplicate Client/Subject as Key Creditors.
                 string msgDupClientSub = summaryPage.ValidateErrorMessageWhileAddingSameClientSubjectInKeyCredPost();
-                Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgDupClientSub);
+                Assert.AreEqual("Company Name : 'Dina's Test Company Formula' already exists as an Additional Client/Subject", msgDupClientSub);
                 extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
                 //29. Verify that clicking the "Edit" button of the Post-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added

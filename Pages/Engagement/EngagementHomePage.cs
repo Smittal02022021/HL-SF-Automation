@@ -30,7 +30,7 @@ namespace SF_Automation.Pages
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
         By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
-        By valEngName = By.XPath("//h1/slot/lightning-formatted-text");
+        By valEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Name']//lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
@@ -245,7 +245,7 @@ namespace SF_Automation.Pages
         public string SearchEngagementWithNumberOnLightning(string name, string jobType)
         {
             Thread.Sleep(6000);
-            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets")||jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors")||jobType.Equals("Discretionary Advisory")||jobType.Equals("General Financial Advisory")||jobType.Equals("DRC - Exp Wit-Litigation"))
+            if (jobType.Equals("Sellside")|| jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets")||jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors")||jobType.Equals("Discretionary Advisory")||jobType.Equals("General Financial Advisory")||jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                 driver.FindElement(btnEngNum).Click();
@@ -280,8 +280,8 @@ namespace SF_Automation.Pages
             }
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
-            string engName = driver.FindElement(valEngName).Text;              
-            return engName;           
+            string engName = driver.FindElement(valEngName).Text;
+            return engName;
         }
 
         //To Search Opportunity with Opportunity Name in Lighting

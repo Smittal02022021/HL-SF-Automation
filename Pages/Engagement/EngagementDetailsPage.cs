@@ -522,6 +522,8 @@ namespace SF_Automation.Pages.Engagement
         By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
+        By btnEngReportsL = By.XPath("//button[text()='Engagement Reports']");
+
 
         public void CreateContact(string file, string contact, string valRecType, string valType, int rowNumber)
         {
@@ -6104,11 +6106,19 @@ namespace SF_Automation.Pages.Engagement
         //Click More button on Top panel
         public void ClickEngReportsButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnMoreEng, 200);
-            driver.FindElement(btnMoreEng).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(lnkEngReports).Click();
-            Thread.Sleep(4000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreEng, 170);
+                driver.FindElement(btnMoreEng).Click();
+                Thread.Sleep(3000);
+                driver.FindElement(lnkEngReports).Click();
+                Thread.Sleep(4000);
+            }
+            catch (Exception)
+            {
+                driver.FindElement(btnEngReportsL).Click();
+                Thread.Sleep(4000);
+            }
         }
 
         //Validate displayed reports

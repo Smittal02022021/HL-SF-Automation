@@ -343,6 +343,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tagParentProject, 350);
             string value = driver.FindElement(tagParentProject).Text;
+            driver.FindElement(tagParentProject).Click();
             return value;
         }
 

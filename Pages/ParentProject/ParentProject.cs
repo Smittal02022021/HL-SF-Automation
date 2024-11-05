@@ -17,7 +17,15 @@ namespace SalesForce_Project.Pages
         By msgProject = By.XPath("//flexipage-field//div[contains(text(),'Complete')]");
         By btnSave = By.XPath("//button[@name='SaveEdit']");
         By btnClose = By.XPath("//records-record-edit-error-header//button/lightning-primitive-icon");
-
+        By txtName = By.XPath("//input[@name='Name']");
+        By txtBillTo = By.XPath("//input[@placeholder='Search Companies...']");
+        By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//dd//span//lightning-formatted-text");
+        By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[13]//div/button");
+        By txtParentProject = By.XPath("//input[@placeholder='Search Parent Projects...']");
+        By btnClearParentProject = By.XPath("//label[text()='Parent Project']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
+        By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
+        By tabParentProject = By.XPath("//div[2]/div/div[@role='tablist']/ul[@role='presentation']/li[2]/a/span[2]");
+        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody//th//a/span//span/slot");
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -37,7 +45,8 @@ namespace SalesForce_Project.Pages
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgProject);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             Console.WriteLine(actualValue[0]);
-            string[] expectedValue = { "Complete this field.", "Complete this field."};
+            Console.WriteLine(actualValue[1]);
+            string[] expectedValue = { "Parent Project Name\r\nComplete this field.", "Bill To\r\nComplete this field." };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -55,5 +64,46 @@ namespace SalesForce_Project.Pages
             return isSame;
         }
 
+        public string CreateNewParentProject(string value)
+        {            
+            driver.FindElement(txtName).SendKeys(value);
+            driver.FindElement(txtBillTo).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-grouped-combobox//lightning-base-combobox//div[2]/ul/li[2]")).Click();
+            driver.FindElement(btnSave).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedProject);
+            string project = driver.FindElement(valAddedProject).Text;
+            return project;
+        }
+
+        //Associate Parent project to an Engagement
+        public string AssociateParentProjectToEng(string name)
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditParentProject).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClearParentProject);
+            driver.FindElement(btnClearParentProject).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtParentProject);
+            driver.FindElement(txtParentProject).SendKeys(name);
+            Thread.Sleep(7000);
+            driver.FindElement(By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]/slot/flexipage-component2[1]/slot//flexipage-column2[2]//flexipage-field[13]//div[2]/ul")).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string project = driver.FindElement(valParentProjectEng).Text;
+            return project;
+        }
+
+        //Associate Parent project to an Engagement
+        public string ValidateAssociatedEngToParentProject()
+        {          
+            
+            driver.FindElement(tabParentProject).Click();
+            driver.Navigate().Refresh();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);            
+            string eng = driver.FindElement(valAssociatedEng).Text;
+            return eng;
+        }
     }
 }
