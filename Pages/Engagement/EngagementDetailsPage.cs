@@ -111,6 +111,9 @@ namespace SF_Automation.Pages.Engagement
         By valERPProjectNumber = By.CssSelector("div[id*='eMj']");
         By valERPProjectName = By.CssSelector("div[id*='eLj']");
         By valLOB = By.CssSelector("div[id*='oEj']");
+        By valLOBL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Line_of_Business__c']//dd//lightning-formatted-text");
+        By valClientCompL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Client__c']//dd//records-hoverable-link//span//slot//slot");
+        By valLegalEntityL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Legal_Entity__c']//dd//records-hoverable-link//span//slot//slot");
         By valERPLOB = By.CssSelector("div[id*='e8j']");
         By valIG = By.CssSelector("div[id*='Axj']");
         By valERPIG = By.CssSelector("div[id*='e7j']");
@@ -3262,6 +3265,21 @@ namespace SF_Automation.Pages.Engagement
             return LOB;
         }
 
+        //Get LOB
+        public string GetLOBL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLOBL);
+            string LOB = driver.FindElement(valLOBL).Text;
+            return LOB;
+        }
+        public string GetEngClientCompanyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientCompL);
+            string LOB = driver.FindElement(valClientCompL).Text;
+            return LOB;
+        }
+        
+
         //Get ERP LOB
         public string GetERPLOB()
         {
@@ -4496,6 +4514,17 @@ namespace SF_Automation.Pages.Engagement
             return currency;
         }
 
+
+        //Get Currency
+        public string GetLegalEntityL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, subTabAdmin);
+            driver.FindElement(subTabAdmin).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valLegalEntityL, 150);
+            string currency = driver.FindElement(valLegalEntityL).Text;
+            return currency;
+        }
+
         //Get Total Debt Currency
         public string GetTotalDebtMM()
         {
@@ -4680,6 +4709,9 @@ namespace SF_Automation.Pages.Engagement
             string legalEntity = driver.FindElement(valLegalEntity).Text;
             return legalEntity;
         }
+      
+
+        
         public void ChangeLegalEntity(string legalEntity)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 90);

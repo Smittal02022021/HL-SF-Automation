@@ -26,6 +26,13 @@ namespace SalesForce_Project.Pages
         By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
         By tabParentProject = By.XPath("//div[2]/div/div[@role='tablist']/ul[@role='presentation']/li[2]/a/span[2]");
         By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody//th//a/span//span/slot");
+        By valProjectClient = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Client__c']//dd//lightning-formatted-text");
+        By valProjectLOB = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Line_of_Business__c']//dd//lightning-formatted-text");
+        By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//dd//lightning-formatted-text");
+        By valLegalEntity = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.ERP_Legal_Entity__c']//dd//lightning-formatted-text");
+        By valParentProgContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link//span//span/slot");
+
+
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -89,10 +96,19 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]/slot/flexipage-component2[1]/slot//flexipage-column2[2]//flexipage-field[13]//div[2]/ul")).Click();
             Thread.Sleep(7000);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             string project = driver.FindElement(valParentProjectEng).Text;
             return project;
         }
+
+        public string GetParentContract()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valParentProgContract);
+            string contract = driver.FindElement(valParentProgContract).Text;
+            return contract;
+        }
+
+       
 
         //Associate Parent project to an Engagement
         public string ValidateAssociatedEngToParentProject()
@@ -105,5 +121,34 @@ namespace SalesForce_Project.Pages
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }
+
+        public string GetClientCompanyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valProjectClient);
+            string LOB = driver.FindElement(valProjectClient).Text;
+            return LOB;
+        }
+
+        public string GetLOBL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valProjectLOB);
+            string LOB = driver.FindElement(valProjectLOB).Text;
+            return LOB;
+        }
+
+        public string GetCurrencyL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valProjectCurrency);
+            string LOB = driver.FindElement(valProjectCurrency).Text;
+            return LOB;
+        }
+
+        public string GetLegalEntityL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLegalEntity);
+            string LOB = driver.FindElement(valLegalEntity).Text;
+            return LOB;
+        }
+
     }
 }

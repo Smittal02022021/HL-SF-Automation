@@ -2,6 +2,7 @@
 using SalesForce_Project.Pages;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -20,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOppCounterparty counterparty = new AddOppCounterparty();       
         AddOpportunityContact addContact = new AddOpportunityContact();
+        EngagementDetailsPage engDetails = new EngagementDetailsPage();
 
         public static string TMTT0017889 = "TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.xlsx";
 
@@ -83,6 +85,14 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree", "TAS - Due Diligence-Buyside");
                 string addedProjectEng = project.AssociateParentProjectToEng(value);
                 Assert.AreEqual(value, addedProjectEng);
+                string engLOB =engDetails.GetLOBL();
+                Console.WriteLine("LOB:" + engLOB);
+                string engClient = engDetails.GetEngClientCompanyL();
+                Console.WriteLine("LOB:" + engClient);
+                string engLegalEntity = engDetails.GetLegalEntityL();
+                Console.WriteLine("LOB:" + engLegalEntity);
+                string engCurrency = engDetails.GetCurrencyL();
+                Console.WriteLine("LOB:" + engCurrency);
                 extentReports.CreateLog("Engagement gets associated with Parent Project: " + addedProjectEng + " ");
 
                 //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
@@ -91,7 +101,23 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Associated Engagement : " + associatedEng + " is populated on the Parent Project ");
 
                 //7.	TMT0073616_Verify that based on associated engagement, parent project will populate LOB, Legal Entity, Client, and Currency type. 
-              
+                string LOB = project.GetLOBL();
+                string Client = project.GetClientCompanyL();
+                string Currency = project.GetCurrencyL();
+                string LegalEntity = project.GetLegalEntityL();
+                Assert.AreEqual(engLOB,LOB );
+                Assert.AreEqual(engClient, Client);
+                Assert.AreEqual(engLegalEntity, LegalEntity);
+                Assert.AreEqual(engCurrency, Currency);
+                extentReports.CreateLog("Parent project is populated with similar LOB, Legal Entity, Client, and Currency as of Engagement after associated with Engagement ");
+
+                //8.	TMT0073618_Verify that based on associating engagements, Parent Contract will get created in the parent project. 
+                string projectContract = project.GetParentContract();
+                Assert.AreEqual("Project Palm Tree", projectContract);
+                extentReports.CreateLog("Parent Contract : " + projectContract + " is created in  Parent Project after associating engagement ");
+
+                //9.	TMT0073620_ Verify that the "Parent Contract" created in Parent Project on associating engagement, it will also get associated to engagement and its related opportunity
+                
                 
                 driver.Quit();
             }
