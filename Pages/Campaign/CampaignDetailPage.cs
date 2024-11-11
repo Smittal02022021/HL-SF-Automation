@@ -40,7 +40,7 @@ namespace SF_Automation.Pages
 
         public void DeleteCampaign()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             try
             {
                 driver.FindElement(btnDelete).Click();
@@ -52,6 +52,11 @@ namespace SF_Automation.Pages
             {
 
             }
+
+            driver.FindElement(btnDelete).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(btnDelete1).Click();
+            Thread.Sleep(2000);
         }
        
         public bool IsPageHeaderDisplayedLV(string item)
