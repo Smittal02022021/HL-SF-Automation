@@ -346,17 +346,28 @@ By txtTotalAntRev = By.CssSelector("input[id*='00N6e00000H0zNU']");
             string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
 
             driver.FindElement(txtOpportunityNameL).SendKeys(valOpportunity);
-            
-            driver.FindElement(txtClientL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1));
+            string clientValue = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
+
+
+            driver.FindElement(txtClientL).SendKeys(clientValue);
             driver.FindElement(txtClientL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
-            driver.FindElement(txtSubjectL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2));
+            //driver.FindElement(By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
+            
+            By eleClient = By.XPath($"//label[text()='Client']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='"+ clientValue+"']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 20);
+            driver.FindElement(eleClient).Click();
+
+            string subjectValue = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
+            driver.FindElement(txtSubjectL).SendKeys(subjectValue);
             driver.FindElement(txtSubjectL).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
-            
+            //driver.FindElement(By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul")).Click();
+            By eleSubject = By.XPath($"//label[text()='Subject']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='"+subjectValue+"']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleSubject, 20);
+            driver.FindElement(eleSubject).Click();           
             Thread.Sleep(6000);
+
             //Select Job Type
             WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
             driver.FindElement(btnJobTypeL).Click();

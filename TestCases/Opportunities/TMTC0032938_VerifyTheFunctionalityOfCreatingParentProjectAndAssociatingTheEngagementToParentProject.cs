@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Opportunity
                
                 //5.	TMT0073612_Verify the functionality of associating first engagement to the Parent Project.
                 engHome.SelectDirectEngUnderHLBanker();
-                engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree", "TAS - Due Diligence-Buyside");
+                engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree - Tax", "TAS - Due Diligence-Buyside");
                 string addedProjectEng = project.AssociateParentProjectToEng(value);
                 Assert.AreEqual(value, addedProjectEng);
                 string engLOB =engDetails.GetLOBL();
@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
                 string associatedEng = project.ValidateAssociatedEngToParentProject();
-                Assert.AreEqual("Project Palm Tree", associatedEng);
+                Assert.AreEqual("Project Palm Tree - Tax", associatedEng);
                 extentReports.CreateLog("Associated Engagement : " + associatedEng + " is populated on the Parent Project ");
 
                 //7.	TMT0073616_Verify that based on associated engagement, parent project will populate LOB, Legal Entity, Client, and Currency type. 
@@ -113,12 +113,36 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //8.	TMT0073618_Verify that based on associating engagements, Parent Contract will get created in the parent project. 
                 string projectContract = project.GetParentContract();
-                Assert.AreEqual("Project Palm Tree", projectContract);
+                Assert.AreEqual("Project Palm Tree - Tax", projectContract);
                 extentReports.CreateLog("Parent Contract : " + projectContract + " is created in  Parent Project after associating engagement ");
 
-                //9.	TMT0073620_ Verify that the "Parent Contract" created in Parent Project on associating engagement, it will also get associated to engagement and its related opportunity
-                
-                
+                //9.	TMT0073620_Verify that the "Parent Contract" created in Parent Project on associating engagement, it will also get associated to engagement and its related opportunity
+                string contractNumber = project.GetParentContractNumber();
+                Console.WriteLine("contractNumber: " + contractNumber);
+                engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree - Tax", "TAS - Due Diligence-Buyside");
+                string engContractNumber = engDetails.GetContractNumberL();
+                string oppContractNumber =opportunityDetails.GetContractNumberL();
+                Assert.AreEqual(contractNumber, engContractNumber);
+                Assert.AreEqual(contractNumber, oppContractNumber);
+                extentReports.CreateLog("Parent Contract created in Parent Project with number: " + contractNumber+ " is associated to  its associated engagement and its related opportunity. ");
+
+                //10.   TMT0073622_Verify that the Engagement Contract is selected as Main Contract and not the Parent Project Contract. 
+                string isMain = engDetails.ValidateIsMainOfAddedContractL();
+                Console.WriteLine("isMain : " + isMain);
+                Assert.AreEqual("", isMain);
+                extentReports.CreateLog("Parent Contract in associated engagement is not selected as the Main Contract. ");
+
+                //11. TMT0073624_Verify that on adding additional engagements, those engagements will get associated to the parent project
+                engHome.SelectDirectEngUnderHLBanker();
+                engHome.SearchEngagementWithNumberOnLightning("Project Guide", "TAS - Due Diligence-Buyside");
+                string addedProjectEng2nd = project.AssociateParentProjectToEng(value);
+
+                string associatedEng2nd = project.ValidateAssociated2ndEngToParentProject();
+                Assert.AreEqual("Project Guide", associatedEng2nd);
+                extentReports.CreateLog("2nd Associated Engagement : " + associatedEng + " is populated as well on the Parent Project ");
+
+
+
                 driver.Quit();
             }
             catch (Exception e)

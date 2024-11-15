@@ -111,7 +111,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSaveTeamMemL = By.XPath("//input[@value='Save Team Members']");
         By lnkDeleteTeamL = By.XPath("//a[text()='Delete']");
         By btnRoleL = By.XPath("//select[contains(@name,'id180')]");
-        By btnRoleEngL = By.XPath("//select[contains(@name,'id208')]");
+        By btnRoleEngL = By.XPath("//select[contains(@name,'id209')]");
         By valStaffL = By.XPath("//span/div[2]/div//td[2]");
         By valRoleL = By.XPath("//span/div[2]//td[3]/div/select/option[@selected='selected']");
         By tabHLRelatedL = By.XPath("//span[@title='HL_Related_PortfolioValuations']");
@@ -1135,7 +1135,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnRoleEngL).SendKeys("Associate");
             Thread.Sleep(4000);
             driver.FindElement(btnSaveTeamMemL).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             string name = driver.FindElement(valStaffL).Text;
             return name;
         }

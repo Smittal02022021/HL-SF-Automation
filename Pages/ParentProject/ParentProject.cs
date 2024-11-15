@@ -31,7 +31,7 @@ namespace SalesForce_Project.Pages
         By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//dd//lightning-formatted-text");
         By valLegalEntity = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.ERP_Legal_Entity__c']//dd//lightning-formatted-text");
         By valParentProgContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link//span//span/slot");
-
+        By valContractNumber = By.XPath("//td[@data-label='Contract Number']//lst-formatted-text/span");
 
         public string ClickNewButton()
         {
@@ -86,7 +86,7 @@ namespace SalesForce_Project.Pages
         //Associate Parent project to an Engagement
         public string AssociateParentProjectToEng(string name)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);            
             driver.FindElement(btnEditParentProject).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearParentProject);
             driver.FindElement(btnClearParentProject).Click();
@@ -108,7 +108,12 @@ namespace SalesForce_Project.Pages
             return contract;
         }
 
-       
+        public string GetParentContractNumber()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valContractNumber);
+            string number = driver.FindElement(valContractNumber).Text;
+            return number;
+        }
 
         //Associate Parent project to an Engagement
         public string ValidateAssociatedEngToParentProject()
@@ -118,6 +123,18 @@ namespace SalesForce_Project.Pages
             driver.Navigate().Refresh();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);            
+            string eng = driver.FindElement(valAssociatedEng).Text;
+            return eng;
+        }
+
+        //Associate Parent project to an Engagement
+        public string ValidateAssociated2ndEngToParentProject()
+        {
+
+            driver.FindElement(tabParentProject).Click();
+            //driver.Navigate().Refresh();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }

@@ -223,6 +223,7 @@ namespace SF_Automation.Pages
         By tabContractL = By.XPath("//a[text()='Contract']");
         By btnNewContractL = By.XPath("//button[text()='New']");
         By titleContractL = By.XPath("//h2[text()='New Contract']");
+        By valContractNumberL = By.XPath("//a[text()='Contract']/ancestor::lightning-tab-bar/following::flexipage-tab2[3]//tbody/tr[1]/td[1]//span//span");
 
         By titlePage = By.CssSelector("h2[class='pageDescription']");
         By titlePageNewL = By.XPath("//h2[text()='New Opportunity Client/Subject']");
@@ -3733,6 +3734,23 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(2000);
             string name = driver.FindElement(valContract1L).Text;
             return name;
+        }
+
+
+        public string GetContractNumberL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 280);
+            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 280);
+            driver.FindElement(valRelatedOppL).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabContractL, 280);
+            driver.FindElement(tabContractL).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, valContractNumberL, 100);
+            Thread.Sleep(2000);
+            string number = driver.FindElement(valContractNumberL).Text;
+            return number;
         }
 
         //Get 2nd contract name
