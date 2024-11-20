@@ -63,7 +63,11 @@ namespace SF_Automation.Pages.Engagement
 		By valTotalEstFeesFAS = By.CssSelector("div[id*='00Ni000000FmBzP']");
 		By valYearMonth = By.CssSelector("div[id*='hsaB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
 		By valYearMonthL = By.XPath("//tr[1]/th//span/a[2]");
-
+		By valTotalEstFeeL = By.XPath("//span[text()='Total Estimated Fee']/ancestor::div[2]/dd//lightning-formatted-text");
+		By tabFees2ndEngL = By.XPath("//section[2]//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[3]/a");
+		By tabInfo2ndEngL = By.XPath("//section[2]//div[1]//flexipage-record-home-template-desktop2//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[1]/a");
+		By valTotalEstFee2ndEngL = By.XPath("//section[2]//flexipage-tab2[3]/slot/flexipage-component2[2]//flexipage-column2[1]//flexipage-field[3]//lightning-formatted-text");
+		
 		By txtStage = By.CssSelector("select[name*='NlW']");
 		By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
 		By txtContact = By.CssSelector("span>input[id*='OPH']");     
@@ -4520,9 +4524,28 @@ namespace SF_Automation.Pages.Engagement
 			return currency;
 		}
 
+        //Get Total Estimated Fee
+        public string GetTotalEstimatedFeeL()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, valTotalEstFeeL, 150);
+            string fee = driver.FindElement(valTotalEstFeeL).Text;
+            return fee.Substring(4,9);
+        }
 
-		//Get Currency
-		public string GetLegalEntityL()
+        //Get Total Estimated Fee
+        public string GetTotalEstimatedFeeOf2ndEngL()
+        {
+			driver.FindElement(tabFees2ndEngL).Click();
+			Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valTotalEstFee2ndEngL, 150);
+            string fee = driver.FindElement(valTotalEstFee2ndEngL).Text;
+			driver.FindElement(tabInfo2ndEngL).Click();
+			Thread.Sleep(4000);
+            return fee.Substring(4, 10);
+        }
+
+        //Get Currency
+        public string GetLegalEntityL()
 		{
 			WebDriverWaits.WaitUntilEleVisible(driver, subTabAdmin);
 			driver.FindElement(subTabAdmin).Click();

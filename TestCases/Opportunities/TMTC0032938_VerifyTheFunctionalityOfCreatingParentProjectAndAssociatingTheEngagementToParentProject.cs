@@ -93,6 +93,8 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine("LOB:" + engLegalEntity);
                 string engCurrency = engDetails.GetCurrencyL();
                 Console.WriteLine("LOB:" + engCurrency);
+                string engFee = engDetails.GetTotalEstimatedFeeL();
+                Console.WriteLine("Fee:" + engFee);
                 extentReports.CreateLog("Engagement gets associated with Parent Project: " + addedProjectEng + " ");
 
                 //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
@@ -137,10 +139,36 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SearchEngagementWithNumberOnLightning("Project Guide", "TAS - Due Diligence-Buyside");
                 string addedProjectEng2nd = project.AssociateParentProjectToEng(value);
 
+                string engFee2nd = engDetails.GetTotalEstimatedFeeOf2ndEngL();
+                Console.WriteLine("Fee:" + engFee2nd);
+
                 string associatedEng2nd = project.ValidateAssociated2ndEngToParentProject();
                 Assert.AreEqual("Project Guide", associatedEng2nd);
-                extentReports.CreateLog("2nd Associated Engagement : " + associatedEng + " is populated as well on the Parent Project ");
+                extentReports.CreateLog("2nd Associated Engagement : " + associatedEng2nd + " is populated as well on the Parent Project ");
 
+                //12. TMT0073626_Verify that the "Total Fee" and "Funding Fee" fields of the parent contract, will be aggregate of Total Estimated Fee of all the associated engagements on the Parent project
+                          
+                string totalFee= project.GetContractTotalFee();
+                string fundingAmount= project.GetContractFundingAmount();
+                Console.WriteLine("totalFee:" + totalFee);
+                Console.WriteLine("fundingAmount:" + fundingAmount);
+                string totalFeeOfEngs =  (Convert.ToDouble(engFee)  + Convert.ToDouble(engFee2nd)).ToString("0.00");
+                Console.WriteLine("totalFeeOfEngs:" + totalFeeOfEngs);
+                Assert.AreEqual(totalFee.Replace(",",""),"USD "+ totalFeeOfEngs);
+                Assert.AreEqual(fundingAmount.Replace(",", ""), totalFeeOfEngs);
+                extentReports.CreateLog("Total Fee: " + totalFee + " and Funding Fee: " + fundingAmount + " of the parent Contract is aggregate of Total Estimated Fee of both the associated engagements on the Parent project " );
+
+                //13.  TMT0073628_Verify that the "Related Tab" allows you to view all the details for each associated engagement
+                //opportunityHome.ValidateParentProjectUnderHLBanker();
+                //project.ValidateSearchFunctionalityOfParentProject(addedProject);
+                Assert.IsTrue(project.VerifyRelatedTabSections(), "Verified that displayed sub sections of Related tab are same");
+                extentReports.CreateLog("Displayed sub sections of Related tab are correct ");
+
+                string billing =project.ValidateBillingRequestSection();
+                Assert.AreEqual("Billing Requests", billing);
+                extentReports.CreateLog("Section with name : " + billing + " is displayed on Related tab ");
+
+                //14.  TMT0073630_Verify that user is able to "Edit" the Parent Project
 
 
                 driver.Quit();

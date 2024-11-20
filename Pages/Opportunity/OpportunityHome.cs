@@ -554,7 +554,7 @@ namespace SF_Automation.Pages
         {
             try
             {
-                Thread.Sleep(6000);
+                Thread.Sleep(5000);
                 if (user.Equals("James Craven"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 220);
@@ -562,9 +562,9 @@ namespace SF_Automation.Pages
                     Thread.Sleep(4000);
                     WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
                     driver.FindElement(txtOppNumLCAO).SendKeys(value);
-                    Thread.Sleep(7000);
+                    Thread.Sleep(6000);
                     driver.FindElement(imgOppL).Click();
-                    Thread.Sleep(7000);
+                    Thread.Sleep(6000);
                 }
                 else if (user.Equals("Derek Janisch"))
                 {
@@ -584,9 +584,9 @@ namespace SF_Automation.Pages
                     Thread.Sleep(4000);
                     WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);
                     driver.FindElement(txtOppNumLCAO).SendKeys(value);
-                    Thread.Sleep(7000);
+                    Thread.Sleep(6000);
                     driver.FindElement(imgOppL).Click();
-                    Thread.Sleep(7000);
+                    Thread.Sleep(6000);
                 }
                 
                 //WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 170);

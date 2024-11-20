@@ -24,15 +24,26 @@ namespace SalesForce_Project.Pages
         By txtParentProject = By.XPath("//input[@placeholder='Search Parent Projects...']");
         By btnClearParentProject = By.XPath("//label[text()='Parent Project']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
         By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
+        By lnkParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link");
         By tabParentProject = By.XPath("//div[2]/div/div[@role='tablist']/ul[@role='presentation']/li[2]/a/span[2]");
-        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody//th//a/span//span/slot");
+        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody/tr[1]/th//a/span//span/slot");
         By valProjectClient = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Client__c']//dd//lightning-formatted-text");
         By valProjectLOB = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Line_of_Business__c']//dd//lightning-formatted-text");
         By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//dd//lightning-formatted-text");
         By valLegalEntity = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.ERP_Legal_Entity__c']//dd//lightning-formatted-text");
         By valParentProgContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link//span//span/slot");
         By valContractNumber = By.XPath("//td[@data-label='Contract Number']//lst-formatted-text/span");
-
+        By lnkContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link");
+        By valTotalFee = By.XPath("//span[text()='Total Fee']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valFundingAmount = By.XPath("//span[text()='Funding Amount']/ancestor::div[2]/dd//span");
+        By txtSearchProject = By.XPath("//input[@placeholder='Search this list...']");
+        By btnRefresh = By.XPath("//button[@name='refreshButton']");
+        By valSearchedProjectName = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By tabRelated = By.XPath("//a[text()='Related']");
+        By lblRelatedSections = By.XPath("//h2[@class='header-title-container']/span");
+        By lblBillingRequest = By.XPath("//span[@title='Billing Requests']");
+        By tabParentProj = By.XPath("//span[@title='Parent Project  c']");
+            
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -130,13 +141,33 @@ namespace SalesForce_Project.Pages
         //Associate Parent project to an Engagement
         public string ValidateAssociated2ndEngToParentProject()
         {
-
-            driver.FindElement(tabParentProject).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,150)");
+            Thread.Sleep(4000);
+            driver.FindElement(lnkParentProjectEng).Click();
             //driver.Navigate().Refresh();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng,120);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
+        }
+
+        public string GetContractTotalFee()
+        {
+            driver.FindElement(lnkContract).Click();
+            //driver.Navigate().Refresh();
+            Thread.Sleep(6000);
+            string fee = driver.FindElement(valTotalFee).Text;
+            return fee;
+
+        }
+
+        public string GetContractFundingAmount()
+        {
+            
+            string fee = driver.FindElement(valFundingAmount).Text;
+            return fee;
+
         }
 
         public string GetClientCompanyL()
@@ -167,5 +198,54 @@ namespace SalesForce_Project.Pages
             return LOB;
         }
 
+        //Validate if Search functionality is working as expected
+        public string ValidateSearchFunctionalityOfParentProject(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchProject, 150);
+            driver.FindElement(txtSearchProject).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSearchedProjectName, 190);
+            string project = driver.FindElement(valSearchedProjectName).Text;
+            driver.FindElement(valSearchedProjectName).Click();
+            return project;
+        }
+
+        //Validate Related tabs section
+        public bool VerifyRelatedTabSections()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(tabParentProj).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabRelated).Click();
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblRelatedSections);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = { "Engagements and Internal Teams", "Revenue Accruals (2)", "Expenses (2)", "ERP Invoice Details (2)", "ERP Receipt Detail (2)", "ERP Adjustment Details (2)" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateBillingRequestSection()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblBillingRequest);
+            string billing = driver.FindElement(lblBillingRequest).Text;
+            return billing;
+        }
     }
 }
