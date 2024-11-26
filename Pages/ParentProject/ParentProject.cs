@@ -43,7 +43,14 @@ namespace SalesForce_Project.Pages
         By lblRelatedSections = By.XPath("//h2[@class='header-title-container']/span");
         By lblBillingRequest = By.XPath("//span[@title='Billing Requests']");
         By tabParentProj = By.XPath("//span[@title='Parent Project  c']");
-            
+        By btnEditParentProj = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
+        By txtEditParentProjName = By.XPath("//input[@name='Name']");
+        By valUpdatedParentProjName = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//h1/slot/lightning-formatted-text");
+        By btnDeleteParentProj = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Delete']");
+        By tabProject = By.XPath("//a[@title='Parent Projects Tab']");
+        By lnkProjName = By.XPath("//div[2]//td[2]/div[3]//tr[2]/th/a");
+        By btnDeleteProjAdmin = By.XPath("//div[4]/div[1]//input[@title='Delete']");
+
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -219,11 +226,12 @@ namespace SalesForce_Project.Pages
             driver.FindElement(tabParentProj).Click();
             Thread.Sleep(4000);
             driver.FindElement(tabRelated).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblRelatedSections);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[1]);
             //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
-            string[] expectedValue = { "Engagements and Internal Teams", "Revenue Accruals (2)", "Expenses (2)", "ERP Invoice Details (2)", "ERP Receipt Detail (2)", "ERP Adjustment Details (2)" };
+            string[] expectedValue = { "Engagements and Internal Teams (2)", "Revenue Accruals (2)", "Expenses (2)", "ERP Invoice Details (2)", "ERP Receipt Detail (2)", "ERP Adjustment Details (2)" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -246,6 +254,70 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lblBillingRequest);
             string billing = driver.FindElement(lblBillingRequest).Text;
             return billing;
+        }
+
+        //Validate the Edit functionality of Parent Project
+        public string ValidateEditFunctionalityOfParentProject()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditParentProj,90);
+            driver.FindElement(btnEditParentProj).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtEditParentProjName).Clear();
+            driver.FindElement(txtEditParentProjName).SendKeys("Updated Project");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valUpdatedParentProjName).Text;
+            return value;            
+        }
+
+        public string ValidateDeleteParenttProjectButton()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 60);
+            Thread.Sleep(4000);
+            try
+            {
+                string value = driver.FindElement(btnDeleteParentProj).Displayed.ToString();
+                Console.WriteLine(value);
+                if (value.Equals("True"))
+                {
+                    return "Delete button is displayed";
+                }
+                else
+                {
+                    return "Delete button is not displayed";
+                }
+            }
+            catch (Exception)
+            {
+                return "Delete button is not displayed";
+            }
+        }
+
+
+        public string ValidateDeleteParenttProjectButtonForAdmin()
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(tabProject).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkProjName).Click();
+
+            try
+            {
+                string value = driver.FindElement(btnDeleteProjAdmin).Displayed.ToString();
+                Console.WriteLine(value);
+                if (value.Equals("True"))
+                {
+                    return "Delete button is displayed";
+                }
+                else
+                {
+                    return "Delete button is not displayed";
+                }
+            }
+            catch (Exception)
+            {
+                return "Delete button is not displayed";
+            }
         }
     }
 }

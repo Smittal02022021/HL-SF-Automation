@@ -169,7 +169,21 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Section with name : " + billing + " is displayed on Related tab ");
 
                 //14.  TMT0073630_Verify that user is able to "Edit" the Parent Project
+                string updatedProj = project.ValidateEditFunctionalityOfParentProject();
+                Assert.AreEqual("Updated Project", updatedProj);
+                extentReports.CreateLog("Parent Project's name : " + updatedProj + " is updated after editing it ");
 
+                //15.  TMT0073632_Verify that the "Delete" button is only not available for assistants/accountants/biller
+                string deleteProj = project.ValidateDeleteParenttProjectButton();
+                Assert.AreEqual("Delete button is not displayed", deleteProj);
+                extentReports.CreateLog(deleteProj + " for CF Financial User ");
+
+                usersLogin.DiffLightningLogout();
+
+                //16. TMT0073634_Verify that the System Admin is able to delete the Parent Project 
+                string deleteProjAdmin = project.ValidateDeleteParenttProjectButtonForAdmin();
+                Assert.AreEqual("Delete button is displayed", deleteProjAdmin);
+                extentReports.CreateLog(deleteProjAdmin + " for Admin ");
 
                 driver.Quit();
             }

@@ -7011,14 +7011,14 @@ namespace SF_Automation.Pages.Engagement
 				Thread.Sleep(5000);
 				try
 				{
-					//driver.SwitchTo().Frame(0);
+					driver.SwitchTo().Frame(0);
 					string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
 					driver.SwitchTo().DefaultContent();
 					return "New Opportunity Valuation Period button is displayed";
 				}
 				catch (Exception)
 				{
-					driver.SwitchTo().Frame(1);
+					driver.SwitchTo().Frame(2);
 					string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
 					driver.SwitchTo().DefaultContent();
 					return "New Opportunity Valuation Period button is displayed";
