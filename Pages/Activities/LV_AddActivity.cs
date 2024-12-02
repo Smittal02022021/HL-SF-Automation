@@ -16,7 +16,7 @@ namespace SF_Automation.Pages.Activities
 
         //Add New Activity
         By lblAddNewActivity = By.XPath("//span[text()='Add New Activity']");
-        By btnAddActivity = By.XPath("(//button[text()='Add Activity'])[2]");
+        By btnAddActivity = By.XPath("(//button[text()='Add Activity'])[1]");
 
         By btnCallType = By.XPath("//input[@value='Call']");
         By btnEmailType = By.XPath("//input[@value='Email']");
