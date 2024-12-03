@@ -850,7 +850,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 150);
             driver.FindElement(btnOK).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 150);
             driver.FindElement(chkCompany).Click();
             Thread.Sleep(5000);

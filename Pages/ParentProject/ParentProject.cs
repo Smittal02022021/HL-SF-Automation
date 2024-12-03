@@ -50,7 +50,13 @@ namespace SalesForce_Project.Pages
         By tabProject = By.XPath("//a[@title='Parent Projects Tab']");
         By lnkProjName = By.XPath("//div[2]//td[2]/div[3]//tr[2]/th/a");
         By btnDeleteProjAdmin = By.XPath("//div[4]/div[1]//input[@title='Delete']");
-
+        By lnkBillingReq = By.XPath("//slot[contains(text(),'Billing ')]/ancestor::a");
+        By titleBillingReq = By.XPath("//h1[contains(text(),'Billing ')]");
+        By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
+        By btnNewBillingReq = By.XPath("//button[@name='New']");
+        By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
+        
+        
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -318,6 +324,48 @@ namespace SalesForce_Project.Pages
             {
                 return "Delete button is not displayed";
             }
+        }
+
+        public string ValidateBillingRequestLink()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(lnkBillingReq).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(titleBillingReq).Text;
+            //driver.FindElement(btnCloseBillingReq).Click();
+            return value;
+        }
+
+        //Validate Billing Request validations
+        public bool ValidateBillingRequestValidations()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnNewBillingReq).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgBillingReq);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = { "Complete this field.", "Complete this field.", "Complete this field." };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
     }
 }
