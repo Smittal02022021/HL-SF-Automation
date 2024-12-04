@@ -67,26 +67,32 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Parent Projects", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under Home dropdown ");
 
-                //1. TMT0074711_Verify that the "Billing Request" quick link is placed on the Parent Project
+                //1.  TMT0074711_Verify that the "Billing Request" quick link is placed on the Parent Project
                 project.ValidateSearchFunctionalityOfParentProject("Updated Project");
                 string billing = project.ValidateBillingRequestLink();
                 Assert.AreEqual("Billing Requests", billing);
                 extentReports.CreateLog("Link "+ billing + " is displayed on the Parent Project ");
 
-                //2. TMT0074713_Verify that the "Billing Request" section is placed on the related tab of the Parent Project.  
+                //2.  TMT0074713_Verify that the "Billing Request" section is placed on the related tab of the Parent Project.  
                 // Covered in previous test case
 
-                //3. TMT0074715_Verify that on clicking Save button of the Billing Request, validation appears for the required fields
+                //3.  TMT0074715_Verify that on clicking Save button of the Billing Request, validation appears for the required fields
                 Assert.IsTrue(project.ValidateBillingRequestValidations(), "Verified that displayed mandatory validations are same ");
                 extentReports.CreateLog("Displayed mandatory validations of Billing Request are correct ");
 
-                //4. TMT0074717_Verify that if "Accounting Send Final Invoice" is unchecked, Principal/Manager field enabled and becomes required field to enter the name of the deal team
-                
-                
-                
-                usersLogin.DiffLightningLogout();
+                //4.  TMT0074717_Verify that if "Accounting Send Final Invoice" is unchecked, Principal/Manager field enabled and becomes required field to enter the name of the deal team
+                string messagePrincipal = project.SaveAllMandatoryFieldsOfBillingRequest();
+                Assert.AreEqual("Principal/Manager\r\nComplete this field.", messagePrincipal);
+                extentReports.CreateLog("Principal/Manager field is enabled and becomes the required field when 'Accounting Send Final Invoice' is unchecked and Save button is clicked ");
 
-               
+                //5.  TMT0074720_Verify the functionality of creating the Billing Request. 
+                string billingReq = project.SelectFinalInvoice();
+                Assert.NotNull(billingReq);
+                extentReports.CreateLog("Billing Request with number: " +billingReq + " is displayed on Billing Request detail page. ");
+
+                //6.   TMT0074722_Verify the details and sections displayed on the Billing Request Detail Page.
+
+                usersLogin.DiffLightningLogout();               
 
                 driver.Quit();
             }

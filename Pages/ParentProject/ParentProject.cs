@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SalesForce_Project.Pages
 {
-     class ParentProject : BaseClass
+    class ParentProject : BaseClass
     {
 
         By btnNew = By.XPath("//div[@title='New']");
@@ -55,8 +55,14 @@ namespace SalesForce_Project.Pages
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
         By btnNewBillingReq = By.XPath("//button[@name='New']");
         By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
-        
-        
+        By btnPreference1 = By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']");
+        By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
+        By txtAccounting = By.XPath("//input[@placeholder='Search Contacts...']");
+        By chkInvoice = By.XPath("//input[@name='Accounting_Send_Final_Invoice__c']");
+        By msgPrincipal = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Billing_Request__c.Principal_Manager__c']//lightning-grouped-combobox/div[2]");
+        By valBillingRequest = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::h1/slot/lightning-formatted-text");
+
+
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -64,7 +70,7 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             //driver.SwitchTo().Frame(0);
             WebDriverWaits.WaitUntilEleVisible(driver, titleProject);
-            string title=  driver.FindElement(titleProject).Text;
+            string title = driver.FindElement(titleProject).Text;
             return title;
         }
         public bool VerifyParentProjectMandatoryValdiations()
@@ -96,7 +102,7 @@ namespace SalesForce_Project.Pages
         }
 
         public string CreateNewParentProject(string value)
-        {            
+        {
             driver.FindElement(txtName).SendKeys(value);
             driver.FindElement(txtBillTo).Click();
             Thread.Sleep(4000);
@@ -110,7 +116,7 @@ namespace SalesForce_Project.Pages
         //Associate Parent project to an Engagement
         public string AssociateParentProjectToEng(string name)
         {
-            Thread.Sleep(5000);            
+            Thread.Sleep(5000);
             driver.FindElement(btnEditParentProject).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearParentProject);
             driver.FindElement(btnClearParentProject).Click();
@@ -141,12 +147,12 @@ namespace SalesForce_Project.Pages
 
         //Associate Parent project to an Engagement
         public string ValidateAssociatedEngToParentProject()
-        {          
-            
+        {
+
             driver.FindElement(tabParentProject).Click();
             driver.Navigate().Refresh();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);            
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }
@@ -160,7 +166,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(lnkParentProjectEng).Click();
             //driver.Navigate().Refresh();
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng, 120);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }
@@ -177,7 +183,7 @@ namespace SalesForce_Project.Pages
 
         public string GetContractFundingAmount()
         {
-            
+
             string fee = driver.FindElement(valFundingAmount).Text;
             return fee;
 
@@ -265,7 +271,7 @@ namespace SalesForce_Project.Pages
         //Validate the Edit functionality of Parent Project
         public string ValidateEditFunctionalityOfParentProject()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditParentProj,90);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditParentProj, 90);
             driver.FindElement(btnEditParentProj).Click();
             Thread.Sleep(5000);
             driver.FindElement(txtEditParentProjName).Clear();
@@ -273,7 +279,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valUpdatedParentProjName).Text;
-            return value;            
+            return value;
         }
 
         public string ValidateDeleteParenttProjectButton()
@@ -348,9 +354,11 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgBillingReq);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
             Console.WriteLine("actualValue: " + actualValue[1]);
+            Console.WriteLine("actualValue: " + actualValue[2]);
             //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
-            string[] expectedValue = { "Complete this field.", "Complete this field.", "Complete this field." };
+            string[] expectedValue = { "Client Out-of-Pocket Charges Preference\r\nComplete this field.", "Client Fees Charges Preference\r\nComplete this field.", "Accounting Distribution List\r\nComplete this field." };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -366,6 +374,35 @@ namespace SalesForce_Project.Pages
                 }
             }
             return isSame;
+        }
+
+        public string SaveAllMandatoryFieldsOfBillingRequest()
+            {
+            driver.FindElement(btnPreference1).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]")).Click();
+            driver.FindElement(btnPreference2).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//button[@aria-label='Client Fees Charges Preference']/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]")).Click();
+            driver.FindElement(txtAccounting).SendKeys("FVA");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[4]/div[2]//li[1]")).Click();
+            driver.FindElement(chkInvoice).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(6000);
+           string message = driver.FindElement(msgPrincipal).Text;
+            return message;
+        } 
+
+        public string SelectFinalInvoice()
+        {
+            driver.FindElement(chkInvoice).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string request = driver.FindElement(valBillingRequest).Text;
+            return request;
         }
     }
 }
