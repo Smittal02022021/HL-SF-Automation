@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using OpenQA.Selenium.Interactions;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -12,8 +13,8 @@ namespace SF_Automation.Pages
     {
         //Buttons
         By linkRemoveContact = By.XPath("//a[@title='Remove - Record 1 - Contact']");
-        By btnDelete = By.XPath("//a[@title='Delete']");
-        By btnDelete1 = By.XPath("//button[@title='Delete']");
+        By btnDelete = By.XPath("//a[@title='Delete']/div");
+        By btnDelete1 = By.XPath("//button[@title='Delete']/span");
 
         //Tabs
         By tabCampaignMembers = By.XPath("(//span[text()='Campaign Members']/..)[2]");
@@ -40,7 +41,7 @@ namespace SF_Automation.Pages
 
         public void DeleteCampaign()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             try
             {
                 driver.FindElement(btnDelete).Click();
@@ -52,13 +53,26 @@ namespace SF_Automation.Pages
             {
 
             }
-
-            driver.FindElement(btnDelete).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(btnDelete1).Click();
-            Thread.Sleep(2000);
         }
-       
+
+        public void DeleteCampaignMember()
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(btnDelete));
+
+                Thread.Sleep(2000);
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(btnDelete1));
+                Thread.Sleep(2000);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         public bool IsPageHeaderDisplayedLV(string item)
         {
             try

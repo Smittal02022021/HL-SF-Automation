@@ -140,16 +140,13 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "Campaign Member has been successfully attached with the external contact");
 
                 //Delete Campaign Member
-                campaignDetail.DeleteCampaign();
-                extentReports.CreateStepLogs("Info", "Campaign member deleted successfully. ");
+                campaignDetail.DeleteCampaignMember();
+                extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
 
                 //Delete Created Contact
+                lvContactDetails.CloseTab(campName);
                 lvContactDetails.DeleteContact();
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
-
-                //Delete Campaign
-                campaignDetail.DeleteCampaign();
-                extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
 
                 //Switch Back to Classic View
                 lvHomePage.SwitchBackToClassicView();
