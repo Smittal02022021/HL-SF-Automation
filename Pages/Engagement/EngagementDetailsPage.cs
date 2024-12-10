@@ -6873,15 +6873,28 @@ namespace SF_Automation.Pages.Engagement
             }
             catch(Exception)
             {
-                driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
-                Thread.Sleep(5000);
+                
             }
 
-            driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Click();
-            Thread.Sleep(3000);
-            result = true;
-
+            Thread.Sleep(5000);
+            if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
+            {
+                result = true;
+            }
             return result;
+        }
+
+        public void ViewActivityFromList(string name)
+        {
+            try
+            {
+                Thread.Sleep(2000);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[4]")), 60);
+                Thread.Sleep(3000);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         public void DeleteActivity()

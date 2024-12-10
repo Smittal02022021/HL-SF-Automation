@@ -227,6 +227,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Activity linked with the Engagement is listed under Activity Tab of the Engagement. ");
 
                 //Deleting Main Created Activity
+                engagementDetails.ViewActivityFromList(subject);
+                extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
+
                 engagementDetails.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
