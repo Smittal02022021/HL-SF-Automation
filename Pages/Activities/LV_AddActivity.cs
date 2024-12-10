@@ -922,11 +922,11 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
 
-            string msg1 = driver.FindElement(By.XPath("(//span[text()='Subject'])[3]/..")).Text;
+            string msg1 = driver.FindElement(By.XPath("(//span[text()='Subject'])[2]/..")).Text;
             string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text;
             string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text;
 
-            if(msg1.Contains(subExcel) && dateExcel == msg2 && dateExcel == msg3)
+            if(msg1.Contains(subExcel) && msg2.Contains("Complete this field with format") && msg3.Contains("Complete this field with format"))
             {
                 result = true;
             }

@@ -99,14 +99,14 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //TMT0072491 Verify that validation appears if the External Contact or Company is not selected while creating an activity.
                 Assert.IsTrue(addActivity.VerifyValidationMessageIfBankerTriesToSaveActivityWithoutHLAttendee(fileTMTC0032668, valUser));
-                extentReports.CreateStepLogs("Passed", "Validation message :" + msg4 + " appears if Banker tryies to create activity without HL Attendee.");
+                extentReports.CreateStepLogs("Passed", "Validation message :" + msg4 + " appears if Banker tries to create activity without HL Attendee.");
 
                 addActivity.CloseTab("Add New Activity");
                 addActivity.ClickAddActivityBtn();
 
                 //TMT0072238 Verify that the validation appears on creating Activity without External Attendee and Company.
                 Assert.IsTrue(addActivity.VerifyValidationMessageWithoutExternalAttendeeAndCompany(fileTMTC0032668, extContactName));
-                extentReports.CreateStepLogs("Passed", "Validation message :" + msg1 + " appears if Banker tryies to create activity without External Attendee and Company.");
+                extentReports.CreateStepLogs("Passed", "Validation message :" + msg1 + " appears if Banker tries to create activity without External Attendee and Company.");
 
                 //Switch Back to Classic View
                 lvHomePage.SwitchBackToClassicView();
