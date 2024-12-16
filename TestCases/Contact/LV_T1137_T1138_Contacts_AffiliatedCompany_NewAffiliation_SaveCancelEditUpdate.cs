@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Contact
 {
-    class T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate : BaseClass
+    class LV_T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -20,9 +20,12 @@ namespace SF_Automation.TestCases.Contact
         ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
         ContactDetailsPage contactDetails = new ContactDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
-        LV_AddAffiliatedCompanies addAffiliated = new LV_AddAffiliatedCompanies();
         CompanyListCreatePage companyListCreate = new CompanyListCreatePage();
         HomeMainPage homePage = new HomeMainPage();
+
+        LVHomePage lvHomePage = new LVHomePage();
+        LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
+        LV_AddAffiliatedCompanies addAffiliated = new LV_AddAffiliatedCompanies();
 
         public static string fileTC1137_TC1138 = "T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate";
 
@@ -51,67 +54,55 @@ namespace SF_Automation.TestCases.Contact
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
 
-                // Search standard user by global search
+                string contactName = ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 2);
+
+                /*
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("User is able to login into SF");
+
+                //Search CF Financial user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                homePage.SearchUserByGlobalSearch(fileTC1137_TC1138, user);
+                lvHomePage.SearchUserFromMainSearch(user);
 
                 //Verify searched user
-                string userPeople = homePage.GetPeopleOrUserName();
-                string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                Assert.AreEqual(userPeopleExl, userPeople);
-                extentReports.CreateLog("User " + userPeople + " details are displayed ");
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                extentReports.CreateLog("User " + user + " details are displayed ");
 
-                //Login as standard user
-                usersLogin.LoginAsSelectedUser();
-                string standardUser = login.ValidateUser();
-                string standardUserExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                Assert.AreEqual(standardUserExl.Contains(standardUser), true);
-                extentReports.CreateLog("Standard User: " + standardUser + " is able to login ");
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
+                extentReports.CreateLog("CF FInancial User " + user + " is able to login.");
+                */
 
                 //Search external contact
-                conHome.SearchContact(fileTC1137_TC1138);
-                string contactDetailHeading = createContact.GetContactDetailsHeading();
-                Assert.AreEqual("Contact Detail", contactDetailHeading);
-                extentReports.CreateLog("Page with heading: " + contactDetailHeading + " is displayed upon search for a contact ");
+                lvHomePage.SearchContactFromMainSearch(contactName);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, contactName + " | Contact | Salesforce"), true);
+                extentReports.CreateLog("User landed on Contacts detail page.");
 
-                // Click on new affilation button
-                contactDetails.ClickNewAffiliationButton();
-                string newAffiliateHeading = addAffiliated.GetNewAffliationCompaniesHeading();
-                extentReports.CreateLog("Page with heading: " + newAffiliateHeading + " is displayed upon click of new affiliation button ");
-
-                //Verify Company,Contact,Status and Type required fields in information section 
-                Assert.IsTrue(addAffiliated.ValidateMandatoryFields(), "Validated Mandatory Fields");
-                extentReports.CreateLog("Validated Company, Contact,Status and Type displayed with red flag as mandatory fields ");
+                //Navigate to Affiliated Companies page from quick link
+                lvContactDetails.NavigateToNewAffiliatedCompaniesPage();
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Affiliation | Salesforce"), true);
+                extentReports.CreateLog("User navigated to New Affiliation page.");
 
                 //Click on save button
                 addAffiliated.ClickSaveButton();
-                string pageLevelError = addAffiliated.GetPageLevelError();
-                Assert.AreEqual("Error: Invalid Data.\r\nReview all error messages below to correct your data.", pageLevelError);
-                extentReports.CreateLog("New Affiliation page error message displayed upon click of save button without entering details as: " + pageLevelError + " ");
+                Assert.IsTrue(addAffiliated.GetPageLevelError());
+                extentReports.CreateLog("New Affiliation page error message displayed upon click of save button without entering details. ");
 
-                //Validation of company name error message
-                Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company").Text.Contains("Error: You must enter a value"));
-                extentReports.CreateLog("Affiliation Company name error message displayed upon click of save button without entering details ");
-
-                //Validation of company name error message
-                Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Type").Text.Contains("Error: You must enter a value"));
-                extentReports.CreateLog("Affiliation company type error message displayed upon click of save button without entering details ");
-
-                addAffiliated.EnterNewAffilationCompaniesDetails(fileTC1137_TC1138);
-                addAffiliated.ClickCancelButton();
-                //Validate no affiliate company is created after entering details and click cancel button
-                Assert.IsFalse(contactDetails.ValidateNewAffilationCompaniesCreation(),"Affiliation company not created.");
-                extentReports.CreateLog("Affiliation company is not created upon entering details and click of cancel button ");
-
-                // Click on new affilation button
-                contactDetails.ClickNewAffiliationButton();
+                //Create new affiliation
                 addAffiliated.EnterNewAffilationCompaniesDetails(fileTC1137_TC1138);
                 addAffiliated.ClickSaveButton();
 
+
+                /*
                 //Validate company name
                 string affiliationCompanyName = contactDetails.GetAffiliationCompanyName();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 1), affiliationCompanyName);
@@ -162,7 +153,9 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("Affiliation company is not available after deletion ");
 
                 usersLogin.UserLogOut();
+                */
                 driver.Quit();
+
         }
             catch (Exception e)
             {

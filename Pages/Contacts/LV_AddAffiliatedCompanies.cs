@@ -3,16 +3,15 @@ using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 
-
 namespace SF_Automation.Pages.Contact
 {
-    class AddAffiliatedCompanies : BaseClass
+    class LV_AddAffiliatedCompanies : BaseClass
     {
         By headingNewAffiliate = By.CssSelector("h2[class='pageDescription']");
-        By btnSave = By.CssSelector("td[id='topButtonRow'] > input[value=' Save ']");
+        By btnSave = By.XPath("//button[@name='SaveEdit']");
         By btnCancel = By.CssSelector("td[id='topButtonRow'] > input[value='Cancel']");
         By valPageLevelError = By.CssSelector("div[id='errorDiv_ep']");
-        By txtCompanyName = By.CssSelector("input[id='CF00Ni000000D735b']");
+        By txtCompanyName = By.XPath("//input[@placeholder='Search Companies...']");
         By txtContactName = By.CssSelector("input[id='CF00Ni000000D735q']");
         By comboAffiliationStatus = By.CssSelector("select[id='00Ni000000D737m']");
         By comboAffiliationType = By.CssSelector("select[name='00Ni000000D737h']");
@@ -56,11 +55,19 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAndNew);
             driver.FindElement(btnSaveAndNew).Click();
         }
-        public string GetPageLevelError()
+
+        public bool GetPageLevelError()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valPageLevelError, 60);
-            string pageLevelError = driver.FindElement(valPageLevelError).Text;
-            return pageLevelError;
+            bool result = false;
+
+            string pageLevelError1 = driver.FindElement(By.XPath("//span[text()='Company']/..")).Text;
+            string pageLevelError2 = driver.FindElement(By.XPath("//span[text()='Type']/..")).Text;
+
+            if(pageLevelError1 == "Complete this field." && pageLevelError2== "Complete this field.")
+            {
+                result = true;
+            }
+            return result;
         }
 
         public void EnterNewAffilationCompaniesDetails(string file)

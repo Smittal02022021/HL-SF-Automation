@@ -488,7 +488,7 @@
     <Compile Include="Pages\Company\CompanySelectRecordPage.cs" />
     <Compile Include="Pages\Contacts\ActivityDetailPage.cs" />
     <Compile Include="Pages\Contacts\AddActivity.cs" />
-    <Compile Include="Pages\Contacts\AddAffiliatedCompanies.cs" />
+    <Compile Include="Pages\Contacts\LV_AddAffiliatedCompanies.cs" />
     <Compile Include="Pages\Contacts\ContactCreatePage.cs" />
     <Compile Include="Pages\Contacts\ContactDetailsPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactEditPage.cs" />
@@ -589,6 +589,7 @@
     <Compile Include="TestCases\Contact\LV_T1103_T1106_Contact_CreateNewRelationshipInHoulihanEmpDetailPage.cs" />
     <Compile Include="TestCases\Contact\LV_T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
     <Compile Include="TestCases\Contact\LV_T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate.cs" />
+    <Compile Include="TestCases\Contact\LV_T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />
     <Compile Include="TestCases\Contact\T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />
     <Compile Include="TestCases\Contact\T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
     <Compile Include="TestCases\Contact\T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />

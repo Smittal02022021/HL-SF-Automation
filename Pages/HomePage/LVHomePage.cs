@@ -72,6 +72,9 @@ namespace SF_Automation.Pages.HomePage
         By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
         By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
         By linkOpportunitiesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Opportunity__c:Opportunities']");
+        By linkPeople = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:User:People']");
+        By linkUserDetail = By.XPath("//a[@title='User Detail']");
+        By btnLogin = By.CssSelector("input[title ='Login']");
 
         By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
@@ -155,6 +158,57 @@ namespace SF_Automation.Pages.HomePage
                 Thread.Sleep(5000);
             }
             
+        }
+
+        public void SearchUserFromMainSearch(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkPeople, 120);
+            driver.FindElement(linkPeople).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            try
+            {
+                driver.FindElement(By.XPath($"(//a[text()='{name}'])[1]")).Click();
+                Thread.Sleep(5000);
+            }
+            catch(Exception)
+            {
+            }
+        }
+
+        public void UserLogin()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkUserDetail, 120);
+            driver.FindElement(linkUserDetail).Click();
+            Thread.Sleep(15000);
+
+            driver.SwitchTo().Frame(0);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
+            driver.FindElement(btnLogin).Click();
+            Thread.Sleep(2000);
+
+            driver.SwitchTo().DefaultContent();
+        }
+
+        public bool VerifyUserIsAbleToLogin(string userName)
+        {
+            bool result = false;
+            string name = driver.FindElement(By.XPath("(//lightning-icon[@icon-name='utility:user']/following::span)[1]")).Text;
+            if(name.Contains(userName))
+            {
+                result = true;
+            }
+            return result;
         }
 
         public bool VerifyBankerIsAbleToSearchActivityFromGlobalSearch(string actSub, string user, string addUser)

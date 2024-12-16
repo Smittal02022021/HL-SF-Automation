@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Contact
         By linkOpportunityContacts = By.XPath("(//span[contains(text(),'Opportunity Contacts')]/../..)[1]");
         By linkEngagementContacts = By.XPath("(//span[contains(text(),'Engagement Contacts')]/../..)[1]");
         By linkEngagementsShown = By.XPath("(//span[contains(text(),'Engagements Shown')]/../..)[1]");
-        By linkAffiliatedCompanies = By.XPath("(//span[contains(text(),'Affiliated Companies')]/../..)[1]");
+        By linkAffiliatedCompanies = By.XPath("(//span[contains(text(),'Affiliated Companies')]/../..)[1]/../a");
         By linkMemberships = By.XPath("(//span[contains(text(),'Memberships')]/../..)[1]");
         By linkContactSectors = By.XPath("(//span[contains(text(),'Contact Sectors')]/../..)[1]");
         By linkCampaignHistory = By.XPath("(//span[contains(text(),'Campaign History')]/../..)[1]");
@@ -2119,6 +2119,15 @@ namespace SF_Automation.Pages.Contact
                 Thread.Sleep(2000);
             }
             catch(Exception ex) { }
+        }
+
+        public void NavigateToNewAffiliatedCompaniesPage()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkAffiliatedCompanies));
+            driver.FindElement(linkAffiliatedCompanies).Click();
+
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//button[@name='New']")).Click();
         }
     }
 }
