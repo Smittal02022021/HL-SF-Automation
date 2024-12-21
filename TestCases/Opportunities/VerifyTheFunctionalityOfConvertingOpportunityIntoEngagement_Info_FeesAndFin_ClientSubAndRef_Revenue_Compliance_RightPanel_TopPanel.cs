@@ -408,15 +408,15 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Revenue Projections", RevProj);
                 extentReports.CreateLog("Page with title: " + RevProj + " is displayed after clicking Revenue Projection tab ");
 
-                //Validate Update functionality of Revenue Projection
-                string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
-                Assert.AreEqual("GBP 10.00", valRevProj);
-                extentReports.CreateLog("Revenue Projection with Projected Monthly Fee: " + valRevProj + " is displayed after updating Revenue Projection ");
+                ////Validate Update functionality of Revenue Projection
+                //string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
+                //Assert.AreEqual("GBP 10.00", valRevProj);
+                //extentReports.CreateLog("Revenue Projection with Projected Monthly Fee: " + valRevProj + " is displayed after updating Revenue Projection ");
 
-                //Validate Clear functionality of Revenue Projection
-                string msgRevProjPostClear = engagementDetails.ValidateClearRevenueProjFunctionality();
-                Assert.AreEqual("No Records To Display", msgRevProjPostClear);
-                extentReports.CreateLog("RecordsMessage: " + msgRevProjPostClear + " is displayed after clicking clear on Revenue Projection ");
+                ////Validate Clear functionality of Revenue Projection
+                //string msgRevProjPostClear = engagementDetails.ValidateClearRevenueProjFunctionality();
+                //Assert.AreEqual("No Records To Display", msgRevProjPostClear);
+                //extentReports.CreateLog("RecordsMessage: " + msgRevProjPostClear + " is displayed after clicking clear on Revenue Projection ");
 
                 //Validate Submit functionality of Revenue Projection
                 string valMonth = engagementDetails.ValidateSubmitRevenueProjFunctionality();

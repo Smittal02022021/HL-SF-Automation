@@ -91,6 +91,48 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Billing Request with number: " +billingReq + " is displayed on Billing Request detail page. ");
 
                 //6.   TMT0074722_Verify the details and sections displayed on the Billing Request Detail Page.
+                Assert.IsTrue(project.ValidateBillingRequestHeaders(), "Verified that displayed headers of Billing Request are same ");
+                extentReports.CreateLog("Displayed headers of Billing Request are as expected ");
+
+                Assert.IsTrue(project.ValidateBillingRequestHeaderLinks(), "Verified that displayed headers hyperlinks of Billing Request are same ");
+                extentReports.CreateLog("Displayed headers hyperlinks of Billing Request are as expected ");
+
+                //7.   TMT0074724_Verify that user is able to Edit the Billing Request details
+                string comments = project.ValidateEditFunctionalityOfBillingRequest();
+                Assert.AreEqual("Testing", comments);
+                extentReports.CreateLog("Updated details of Billing Request are saved successfully ");
+
+                //8.  TMT0074726_Verify that status of Billing Request
+                string status = project.GetStatusOfBillingRequest();
+                Assert.AreEqual("Draft Billing Request", status);
+                extentReports.CreateLog("Status: " +status+" of the Billing Request is displayed ");
+
+                //9.  TMT0074728_Verify that the user is able to create another Billing Request(multiple billing requests) even if existing billing request is not approved yet.
+                string billingReq2nd = project.Save2ndBillingRequest();
+                Assert.NotNull(billingReq2nd);
+                extentReports.CreateLog("Billing Request with number: " + billingReq2nd + " is created even when the existing billing request is not approved yet ");
+
+                //10. TMT0074730_Verify that the "New" button is available on the Fees to Bill Section to add Fees to Bill
+                string newFile = project.ValidateNewButtonInFeesToBillSection();
+                Assert.AreEqual("New",newFile);
+                extentReports.CreateLog("Button with name: " + newFile + " is displayed in Fees To Bill section ");
+
+                //11.	TMT0074755_Verify that validation appears for required fields on New Fees to Bill screen
+                Assert.IsTrue(project.ValidateNewFeesToBillValidations(), "Verified that displayed mandatory validations are same ");
+                extentReports.CreateLog("Displayed mandatory validations of New Fees To Bill are correct ");
+
+                //12.	TMT0074757_Verify that user is able to add Fees to Bill with the required information
+                string saveFee = project.SaveFeeToBill();
+                Assert.AreEqual("Admin Fee", saveFee);
+                extentReports.CreateLog("Fee with Type: " + saveFee + " is displayed on Fee To Bill page ");
+
+                //13.	TMT0074759_Verify that once user Add Fees to Bill, Admin Fee will be created automatically. (Based on the percentage fixed in backend)
+                string feeBillingReq =project.ValidateAddedFeeInBillingRequest();
+                Assert.AreEqual("Admin Fee", feeBillingReq);
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+
+                //14.	TMT0074761_ Verify that user is able to Edit the added fees to bill and update the calculated Admin Fee into Fee Amount field manually
+
 
                 usersLogin.DiffLightningLogout();               
 

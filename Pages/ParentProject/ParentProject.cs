@@ -53,7 +53,7 @@ namespace SalesForce_Project.Pages
         By lnkBillingReq = By.XPath("//slot[contains(text(),'Billing ')]/ancestor::a");
         By titleBillingReq = By.XPath("//h1[contains(text(),'Billing ')]");
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
-        By btnNewBillingReq = By.XPath("//button[@name='New']");
+        By btnNewBillingReq = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Request__c.New']//button[@name='New']");
         By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
         By btnPreference1 = By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']");
         By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
@@ -61,7 +61,21 @@ namespace SalesForce_Project.Pages
         By chkInvoice = By.XPath("//input[@name='Accounting_Send_Final_Invoice__c']");
         By msgPrincipal = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Billing_Request__c.Principal_Manager__c']//lightning-grouped-combobox/div[2]");
         By valBillingRequest = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::h1/slot/lightning-formatted-text");
-
+        By lblHeaderRow = By.XPath("//slot[@class='slds-grid slds-page-header__detail-row']//p[1]");
+        By secBillingReq = By.XPath("//span[@title='Approval History']/ancestor::div[5]//flexipage-component2//article//a/span[1]");
+        By btnEditbillingReq = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
+        By txtComments = By.XPath("//textarea");
+        By valComments = By.XPath("//span[text()='Comments']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
+        By valStatusBillingReq = By.XPath("//span[text()='Status']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
+        By subtabParentProj = By.XPath("//div[@class='tabBarContainer']//span[@title='Parent Project  c']");
+        By btnNewFile = By.XPath("//section[4]//flexipage-component2[4]//div[3]//li//button");
+        By txtEngagement = By.XPath("//input[@placeholder='Search Engagements...']");
+        By btnFeeType = By.XPath("//button[@aria-label='Fee Type']");
+        By txtFeeDescription = By.XPath("//textarea");
+        By txtFeeAmount = By.XPath("//input[@name='Fee_Amount__c']");
+        By valFeeType = By.XPath("//span[text()='Fee Type']/ancestor::div[2]/dd//lightning-formatted-text");
+        By subTabBillingReq = By.XPath("//li[5]//span[@title='Billing Request  c']");
+        By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span");
 
         public string ClickNewButton()
         {
@@ -402,6 +416,171 @@ namespace SalesForce_Project.Pages
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string request = driver.FindElement(valBillingRequest).Text;
+            return request;
+        }
+
+        //Validate Header row of Billing Request 
+        public bool ValidateBillingRequestHeaders()
+        {            
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblHeaderRow);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            Console.WriteLine("actualValue: " + actualValue[2]);
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = { "Parent Project", "Total Expense Amount", "Total Suggested Fees To Bill", "Expense Cap", "Total Fees To Bill", "Total Event Amount" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        //Validate links of Header row of Billing Request 
+        public bool ValidateBillingRequestHeaderLinks()
+        {
+            Thread.Sleep(4000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(secBillingReq);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            Console.WriteLine("actualValue: " + actualValue[2]);
+            Console.WriteLine("actualValue: " + actualValue[3]);
+            //Console.WriteLine("actualValue: " + actualValue[4]);
+            string[] expectedValue = { "Approval History", "Files", "Fees To Bill", "Expenses To Bill" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+
+        public string ValidateEditFunctionalityOfBillingRequest()
+        {
+            driver.FindElement(btnEditbillingReq).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtComments).SendKeys("Testing");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);           
+            string comments = driver.FindElement(valComments).Text;
+            return comments;
+        }
+
+
+        public string GetStatusOfBillingRequest()
+        {
+            Thread.Sleep(5000);
+            string status = driver.FindElement(valStatusBillingReq).Text;
+            return status;
+        }
+
+        public string Save2ndBillingRequest()
+        {
+            driver.FindElement(subtabParentProj).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkBillingReq, 100);
+            driver.FindElement(lnkBillingReq).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBillingReq,100);
+            driver.FindElement(btnNewBillingReq).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnPreference1).Click();
+            driver.FindElement(By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]")).Click();
+            driver.FindElement(btnPreference2).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//button[@aria-label='Client Fees Charges Preference']/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]")).Click();
+            driver.FindElement(txtAccounting).SendKeys("FVA");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[4]/div[2]//li[1]")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string request = driver.FindElement(valBillingRequest).Text;
+            return request;
+        }
+
+        public string ValidateNewButtonInFeesToBillSection()
+        {
+            Thread.Sleep(4000);
+            string value = driver.FindElement(btnNewFile).Text;
+            return value;
+        }
+
+        //Validate New Fees To Bill validations
+        public bool ValidateNewFeesToBillValidations()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnNewFile).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgBillingReq);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            Console.WriteLine("actualValue: " + actualValue[2]);
+            string[] expectedValue = { "Engagement\r\nComplete this field.", "Fee Type\r\nComplete this field.", "Complete this field.", "Fee Amount\r\nComplete this field." };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string SaveFeeToBill()
+        {
+            driver.FindElement(txtEngagement).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtEngagement).SendKeys("Palm");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='123441']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnFeeType, 100);
+            driver.FindElement(btnFeeType).Click();
+            driver.FindElement(By.XPath("//span[@title='Admin Fee']")).Click();
+            driver.FindElement(txtFeeDescription).SendKeys("Testing Fee");
+            driver.FindElement(txtFeeAmount).SendKeys("10");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string request = driver.FindElement(valFeeType).Text;
+            return request;
+        }
+
+        public string ValidateAddedFeeInBillingRequest()
+        {
+            driver.FindElement(subTabBillingReq).Click();
+            Thread.Sleep(5000);            
+            string request = driver.FindElement(valFeeTypeBillingReq).Text;
             return request;
         }
     }
