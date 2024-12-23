@@ -540,7 +540,9 @@ namespace SF_Automation.Pages
             driver.FindElement(txtSearchEng).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEng1, 190);
             string opp = driver.FindElement(valSearchedEng1).GetAttribute("title");
             driver.FindElement(valSearchedEng1).Click();

@@ -5118,8 +5118,11 @@ namespace SF_Automation.Pages.Engagement
 		//Get Compliance & Legal tab
 		public string ValidateComplianceAndLegalTab()
 		{
-			Thread.Sleep(3000);
-			WebDriverWaits.WaitUntilEleVisible(Driver, tabCompliance, 100);
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-850)");
+			Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabCompliance, 100);
 			string value = driver.FindElement(tabCompliance).Text;
 			driver.FindElement(tabCompliance).Click();
 			return value;
@@ -5211,8 +5214,10 @@ namespace SF_Automation.Pages.Engagement
 		//Validate Edit Revenue Accural functionality
 		public string ValidateEditRevenueFunctionality()
 		{
-			Thread.Sleep(7000);           
-			driver.FindElement(lnkRevYearL).Click();
+			Thread.Sleep(6000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,850)");
+            driver.FindElement(lnkRevYearL).Click();
 			Thread.Sleep(5000);            
 			WebDriverWaits.WaitUntilEleVisible(driver, btnEditRevenue, 170);
 			driver.FindElement(btnEditRevenue).Click();
