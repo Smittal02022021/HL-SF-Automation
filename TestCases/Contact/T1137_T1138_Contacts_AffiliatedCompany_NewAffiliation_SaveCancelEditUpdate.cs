@@ -89,9 +89,9 @@ namespace SF_Automation.TestCases.Contact
 
                 //Click on save button
                 addAffiliated.ClickSaveButton();
-                string pageLevelError = addAffiliated.GetPageLevelError();
-                Assert.AreEqual("Error: Invalid Data.\r\nReview all error messages below to correct your data.", pageLevelError);
-                extentReports.CreateLog("New Affiliation page error message displayed upon click of save button without entering details as: " + pageLevelError + " ");
+                Assert.IsTrue(addAffiliated.GetPageLevelError());
+                Assert.AreEqual("Error: Invalid Data.\r\nReview all error messages below to correct your data.", "");
+                extentReports.CreateLog("New Affiliation page error message displayed upon click of save button without entering details as: ");
 
                 //Validation of company name error message
                 Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company").Text.Contains("Error: You must enter a value"));
