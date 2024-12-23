@@ -75,6 +75,7 @@ namespace SF_Automation.Pages.Contact
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 40);
             driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 1));
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 40);

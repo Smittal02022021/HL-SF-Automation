@@ -63,11 +63,11 @@ namespace SF_Automation.TestCases.Contact
 
                 string contactName = ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 2);
 
-                /*
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateLog("User is able to login into SF");
 
+                /*
                 //Search CF Financial user by global search
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 lvHomePage.SearchUserFromMainSearch(user);
