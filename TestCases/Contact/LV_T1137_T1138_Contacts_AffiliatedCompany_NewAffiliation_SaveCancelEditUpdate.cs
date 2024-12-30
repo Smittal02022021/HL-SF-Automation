@@ -146,12 +146,9 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "EditAffiliatedCompany", 2), updatedAffiliationCompanyType);
                 extentReports.CreateLog("Affiliation Company Type: " + affiliationCompanyType + " on contact details page matches with value entered in new affiliation company page ");
 
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("Logout from standard user ");
                 */
 
                 // Delete affiliated companies
-                //contactHome.SearchContact(fileTC1137_TC1138);               
                 addAffiliated.DeleteAffiliatedCompanies();
                 Assert.IsFalse(contactDetails.ValidateNewAffilationCompaniesCreation(), "Affiliation company is not available after deletion ");
                 extentReports.CreateLog("Affiliation company is not available after deletion ");
