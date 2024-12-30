@@ -2123,6 +2123,9 @@ namespace SF_Automation.Pages.Contact
 
         public void NavigateToNewAffiliatedCompaniesPage()
         {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkAffiliatedCompanies);
+
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkAffiliatedCompanies));
             driver.FindElement(linkAffiliatedCompanies).Click();
 

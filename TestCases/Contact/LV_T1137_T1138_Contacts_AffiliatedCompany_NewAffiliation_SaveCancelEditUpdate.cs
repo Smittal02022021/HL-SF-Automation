@@ -101,23 +101,26 @@ namespace SF_Automation.TestCases.Contact
                 addAffiliated.EnterNewAffilationCompaniesDetails(fileTC1137_TC1138);
                 addAffiliated.ClickSaveButton();
 
+                //Get Affiliation ID
+                string affID = addAffiliated.GetAffiliationID();
+                extentReports.CreateLog("New Affiliation has been created successfully with ID: " + affID);
 
-                /*
                 //Validate company name
-                string affiliationCompanyName = contactDetails.GetAffiliationCompanyName();
+                string affiliationCompanyName = addAffiliated.GetAffiliationCompanyName();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 1), affiliationCompanyName);
                 extentReports.CreateLog("Affiliation Company Name: " + affiliationCompanyName + " on contact details page matches with value entered in new affiliation company page ");
 
                 //Validate company status
-                string affiliationCompanyStatus = contactDetails.GetAffiliationCompanyStatus();
+                string affiliationCompanyStatus = addAffiliated.GetAffiliationCompanyStatus();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 3), affiliationCompanyStatus);
                 extentReports.CreateLog("Affiliation Company Status: " + affiliationCompanyStatus + " on contact details page matches with value entered in new affiliation company page ");
 
                 //Validate company type
-                string affiliationCompanyType = contactDetails.GetAffiliationCompanyType();
+                string affiliationCompanyType = addAffiliated.GetAffiliationCompanyType();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 4), affiliationCompanyType);
                 extentReports.CreateLog("Affiliation Company Type: " + affiliationCompanyType + " on contact details page matches with value entered in new affiliation company page ");
 
+                /*
                 //Edit affiliation company 
                 addAffiliated.EditNewAffilationCompaniesDetails(fileTC1137_TC1138);
                 addAffiliated.ClickSaveAndNewButton();
@@ -145,17 +148,19 @@ namespace SF_Automation.TestCases.Contact
 
                 usersLogin.UserLogOut();
                 extentReports.CreateLog("Logout from standard user ");
+                */
 
                 // Delete affiliated companies
-                contactHome.SearchContact(fileTC1137_TC1138);               
-                contactDetails.DeleteAffiliatedCompanies(fileTC1137_TC1138, ReadExcelData.ReadData(excelPath, "ContactTypes", 1));
+                //contactHome.SearchContact(fileTC1137_TC1138);               
+                addAffiliated.DeleteAffiliatedCompanies();
                 Assert.IsFalse(contactDetails.ValidateNewAffilationCompaniesCreation(), "Affiliation company is not available after deletion ");
                 extentReports.CreateLog("Affiliation company is not available after deletion ");
 
-                usersLogin.UserLogOut();
-                */
-                driver.Quit();
+                //Logout from SF Lightning View
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
+                driver.Quit();
         }
             catch (Exception e)
             {
