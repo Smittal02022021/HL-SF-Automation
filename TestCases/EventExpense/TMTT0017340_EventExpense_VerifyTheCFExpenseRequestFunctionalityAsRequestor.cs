@@ -50,9 +50,16 @@ namespace SF_Automation.TestCases.EventExpense
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("User is able to login into SF");
 
                 int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
@@ -65,25 +72,17 @@ namespace SF_Automation.TestCases.EventExpense
                     string approverResp = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 16);
                     string approverNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 17);
 
-                    //Search standard user by global search
+                    //Search CF Financial user by global search
                     string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    homePage.SearchUserByGlobalSearch(fileTC17340, user);
+                    lvHomePage.SearchUserFromMainSearch(user);
 
                     //Verify searched user
-                    string userPeopleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    Assert.AreEqual(userPeopleExl, user);
-                    extentReports.CreateLog("User " + user + " details are displayed. ");
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                    extentReports.CreateLog("User " + user + " details are displayed ");
 
-                    //Login user
-                    usersLogin.LoginAsSelectedUser();
-
-                    //Switch to lightning view
-                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                    {
-                        homePage.SwitchToLightningView();
-                    }
-                    
-                    Assert.IsTrue(login.ValidateUserLightningView(fileTC17340, row));
+                    //Login as CF Financial user
+                    lvHomePage.UserLogin();
+                    Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
 
                     switch (row)
                     {
