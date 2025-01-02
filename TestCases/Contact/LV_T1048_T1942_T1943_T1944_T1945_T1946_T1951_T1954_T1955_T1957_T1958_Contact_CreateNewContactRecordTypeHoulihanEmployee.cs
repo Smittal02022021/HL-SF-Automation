@@ -52,9 +52,26 @@ namespace SF_Automation.TestCases.Contact
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in          
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("Admin User is able to login into SF Lightning View");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 int rowUserType = ReadExcelData.GetRowCount(excelPath, "UsersType");
                 for (int row = 2; row <= rowUserType; row++)
@@ -68,39 +85,18 @@ namespace SF_Automation.TestCases.Contact
 
                     if(ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
-                        // Search standard user by global search
+                        //Search HR user by global search
                         string user = ReadExcelData.ReadData(excelPath, "Users", 2);
-                        homePage.SearchUserByGlobalSearch(fileTC1048, user);
+                        lvHomePage.SearchUserFromMainSearch(user);
 
                         //Verify searched user
-                        string userPeople = homePage.GetPeopleOrUserName();
-                        string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 2);
-                        Assert.AreEqual(userPeopleExl, userPeople);
-                        extentReports.CreateStepLogs("Passed", "User " + userPeople + " details are displayed ");
+                        Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                        extentReports.CreateLog("User " + user + " details are displayed ");
 
                         //Login as HR user
-                        usersLogin.LoginAsSelectedUser();
+                        lvHomePage.UserLogin();
+                        Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
                         extentReports.CreateStepLogs("Info", "HR User: " + user + " is able to login into lightning view. ");
-                    }
-                    else
-                    {
-                        //Search SF Admin user by global search
-                        homePage.SearchUserByGlobalSearch(fileTC1048, adminUser);
-                        extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
-
-                        //Login user
-                        usersLogin.LoginAsSelectedUser();
-
-                        //Switch to lightning view
-                        try
-                        {
-                            homePage.SwitchToLightningView();
-                            extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
-                        }
-                        catch(Exception)
-                        {
-                            extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
-                        }
                     }
 
                     //Navigate to Contacts page
@@ -178,15 +174,14 @@ namespace SF_Automation.TestCases.Contact
                         lvHomePage.UserLogoutFromSFLightningView();
                         extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
-                        //Switch to lightning view
+                        //Select HL Banker app
                         try
                         {
-                            homePage.SwitchToLightningView();
-                            extentReports.CreateStepLogs("Info", "SF Admin User switched to lightning view. ");
+                            lvHomePage.SelectAppLV("HL Banker");
                         }
                         catch(Exception)
                         {
-                            extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                            lvHomePage.SelectAppLV1("HL Banker");
                         }
 
                         lvHomePage.SearchContactFromMainSearch(extContactFullName);
@@ -197,13 +192,9 @@ namespace SF_Automation.TestCases.Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
-                        //Switch Back To Classic View
-                        lvHomePage.SwitchBackToClassicView();
-                        extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
-
-                        //Logout from SF Classic View
-                        usersLogin.UserLogOut();
-                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
+                        //User Logout
+                        lvHomePage.UserLogoutFromSFLightningView();
+                        extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
                     }
                     else
                     {
@@ -217,14 +208,6 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual("Departure Date cannot be earlier than Hire Date", errMsg);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg + " is displaying when departure date is before the hire date ");
                         
-                        //contactEdit.UpdateDepartureDateforInactiveEmployee();
-                        //contactEdit.ClickSaveBtn();
-
-                        //Verify error message is displaying when departure date is not provided for inactive employee
-                        //string errMsg1 = contactEdit.TxtErrorMessageDepartureDate();
-                        //Assert.AreEqual("Departure Date is required for Inactive employees hired after 1/1/2009", errMsg1);
-                        //extentReports.CreateStepLogs("Passed", "Error message: " + errMsg1 + " is displaying when departure date is required for inactive employees");
-
                         contactEdit.ClickCancelBtn();
 
                         //Verify error message for Industry group when LOB is CF
@@ -235,40 +218,15 @@ namespace SF_Automation.TestCases.Contact
                         Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
                         extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
-                        /*
-                        //Verify PDC Validation when primary PDC is null
-                        contactEdit.ClickCancelBtn();
-                        contactEdit.VerifyPrimaryPDCValidation();
-                        contactEdit.ClickSaveBtn();
-
-                        string errMsg3 = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Primary PDC cannot be blank when there is a Secondary PDC", errMsg3);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg3 + " is displaying when Primary PDC is null ");
-                        contactEdit.ClickCancelBtn();
-
-                        //Verify error message is displaying when flag reason comment is not provided
-                        contactEdit.VerifyFlagReasonValidation("Contact Has Left Company");
-                        contactEdit.ClickSaveBtn();
-                        string errMessage = contactEdit.TxtErrorMessageDepartureDate();
-                        contactEdit.ClickCancelBtn();
-
-                        Assert.AreEqual("Please provide additional information for selected Flag Reason.", errMessage);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage + " is displaying when flag reason is not selected");
-                        */
-
                         contactEdit.ClickCancelBtn();
 
                         //Delete Created Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
-                        //Switch Back To Classic View
-                        lvHomePage.SwitchBackToClassicView();
-                        extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
-
-                        //Logout from SF Classic View
-                        usersLogin.UserLogOut();
-                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
+                        //User Logout
+                        lvHomePage.UserLogoutFromSFLightningView();
+                        extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
                     }
                 }
 

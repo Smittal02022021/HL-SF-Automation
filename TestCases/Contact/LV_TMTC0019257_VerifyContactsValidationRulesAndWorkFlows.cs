@@ -59,26 +59,37 @@ namespace SF_Automation.TestCases.Contact
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
-
-                //Search CF Financial user by global search
-                homePage.SearchUserByGlobalSearch(fileTMTC0019251, user);
-                extentReports.CreateStepLogs("Info", "User " + user + " details are displayed. ");
-
-                //Login user
-                usersLogin.LoginAsSelectedUser();
-
                 //Switch to lightning view
-                if (driver.Title.Contains("Salesforce - Unlimited Edition"))
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
                     extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
 
-                Assert.IsTrue(login.ValidateUserLightningView(fileTMTC0019251, 2));
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("Admin User is able to login into SF Lightning View");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
+                //Search CF Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(user);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                extentReports.CreateLog("User " + user + " details are displayed ");
+
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
 
                 //TC - TMT0033946 - Verify the Error Message "You do not have rights to move a Contact to another Company" is displayed when the Company name is changed.
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Contacts");

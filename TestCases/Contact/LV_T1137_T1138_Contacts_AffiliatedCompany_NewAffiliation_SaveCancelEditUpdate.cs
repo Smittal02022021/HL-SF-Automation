@@ -61,26 +61,25 @@ namespace SF_Automation.TestCases.Contact
                     extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
 
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("Admin User is able to login into SF Lightning View");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
                 string contactName = ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 2);
 
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateLog("User is able to login into SF");
-
-                /*
-                //Search CF Financial user by global search
-                string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                lvHomePage.SearchUserFromMainSearch(user);
-
-                //Verify searched user
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
-                extentReports.CreateLog("User " + user + " details are displayed ");
-
-                //Login as CF Financial user
-                lvHomePage.UserLogin();
-                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
-                extentReports.CreateLog("CF FInancial User " + user + " is able to login.");
-                */
 
                 //Search external contact
                 lvHomePage.SearchContactFromMainSearch(contactName);

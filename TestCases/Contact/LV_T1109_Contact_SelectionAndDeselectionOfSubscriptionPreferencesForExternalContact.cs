@@ -49,15 +49,25 @@ namespace SF_Automation.TestCases.Contact
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
-
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
                     extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("Admin User is able to login into SF Lightning View");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
                 }
 
                 string extContactFullName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 6);
@@ -104,12 +114,9 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.DeleteContact();
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
-                //Switch Back To Classic View
-                lvHomePage.SwitchBackToClassicView();
-                extentReports.CreateStepLogs("Info", "Admin User Switched Back to Classic View. ");
-
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "User logged out of SF. ");
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
             }

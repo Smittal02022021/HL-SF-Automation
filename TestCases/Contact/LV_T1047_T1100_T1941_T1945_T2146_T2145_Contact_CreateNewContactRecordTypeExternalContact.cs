@@ -66,7 +66,7 @@ namespace SF_Automation.TestCases.Contact
 
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
-                extentReports.CreateLog("User is able to login into SF");
+                extentReports.CreateLog("Admin User is able to login into SF");
 
                 //Select HL Banker app
                 try
