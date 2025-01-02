@@ -72,6 +72,16 @@ namespace SF_Automation.TestCases.EventExpense
                     string approverResp = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 16);
                     string approverNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 17);
 
+                    //Select HL Banker app
+                    try
+                    {
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
+                    }
+
                     //Search CF Financial user by global search
                     string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     lvHomePage.SearchUserFromMainSearch(user);

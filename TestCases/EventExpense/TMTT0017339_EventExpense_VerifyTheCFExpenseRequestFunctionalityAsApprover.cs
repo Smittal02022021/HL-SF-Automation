@@ -81,6 +81,16 @@ namespace SF_Automation.TestCases.EventExpense
                 string user1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Actions");
 
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
                 //Search CF Financial user by global search
                 lvHomePage.SearchUserFromMainSearch(user);
 
