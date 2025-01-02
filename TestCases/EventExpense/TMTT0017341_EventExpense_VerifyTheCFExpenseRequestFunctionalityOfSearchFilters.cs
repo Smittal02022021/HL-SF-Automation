@@ -169,9 +169,10 @@ namespace SF_Automation.TestCases.EventExpense
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateLog("User Logged Out from SF Lightning View. ");
                 }
-                
+
                 //TC - End
-                usersLogin.UserLogOut();
+                lvHomePage.UserLogoutFromSFLightningView();
+                driver.Quit();
             }
             catch (Exception e)
             {

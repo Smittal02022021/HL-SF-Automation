@@ -195,7 +195,8 @@ namespace SF_Automation.TestCases.EventExpense
                 }
 
                 //TC - End
-                usersLogin.UserLogOut();
+                lvHomePage.UserLogoutFromSFLightningView();
+                driver.Quit();
             }
             catch (Exception e)
             {

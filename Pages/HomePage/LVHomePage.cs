@@ -202,6 +202,9 @@ namespace SF_Automation.Pages.HomePage
 
         public bool VerifyUserIsAbleToLogin(string userName)
         {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+
             bool result = false;
             string name = driver.FindElement(By.XPath("(//lightning-icon[@icon-name='utility:user']/following::span)[1]")).Text;
             if(name.Contains(userName))
