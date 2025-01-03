@@ -153,14 +153,17 @@ namespace SF_Automation.TestCases.Contact
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
-                //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                //Select HL Banker app
+                try
                 {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
                 }
 
-                extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                extentReports.CreateStepLogs("Info", "SF Admin User is able to login into lightning view. ");
 
                 lvHomePage.SearchContactFromMainSearch(extContactFullName);
                 Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactFullName));

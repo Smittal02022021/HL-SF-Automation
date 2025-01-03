@@ -224,9 +224,6 @@ namespace SF_Automation.TestCases.Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
-                        //User Logout
-                        lvHomePage.UserLogoutFromSFLightningView();
-                        extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
                     }
                 }
 

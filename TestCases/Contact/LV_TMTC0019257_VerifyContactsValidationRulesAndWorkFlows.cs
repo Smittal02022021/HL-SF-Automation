@@ -129,21 +129,15 @@ namespace SF_Automation.TestCases.Contact
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
-                //Search SF Admin user by global search
-                homePage.SearchUserByGlobalSearch(fileTMTC0019251, adminUser);
-                extentReports.CreateStepLogs("Info", "User " + adminUser + " details are displayed. ");
-
-                //Login user
-                usersLogin.LoginAsSelectedUser();
-
-                //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                //Select HL Banker app
+                try
                 {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                    lvHomePage.SelectAppLV("HL Banker");
                 }
-
-                extentReports.CreateStepLogs("Info", "SF Admin User: " + adminUser + " is able to login into lightning view. ");
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 //TC - TMT0034256 - Verify Changes done to "DA, Event, GA, and Insights" fields under Subscription Preferences update the "Deal Announcements Change.
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Contacts");
@@ -179,10 +173,6 @@ namespace SF_Automation.TestCases.Contact
                 //Logout from SF Lightning View
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
-
-                //Logout from SF Classic View
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "User Logged Out from SF Classic View. ");
 
                 driver.Quit();
             }
