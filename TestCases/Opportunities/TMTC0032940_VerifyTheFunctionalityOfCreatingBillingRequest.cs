@@ -131,8 +131,23 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Admin Fee", feeBillingReq);
                 extentReports.CreateLog("Fee with Type: " + feeBillingReq + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
 
-                //14.	TMT0074761_ Verify that user is able to Edit the added fees to bill and update the calculated Admin Fee into Fee Amount field manually
+                //15.	TMT0074763_Verify that user is not allowed to delete the added Fees to Bill
+                string feeDelete = project.ValidateDeleteFunctionalityOfAddedFeeInBillingRequest();
+                Assert.AreEqual("Edit", feeDelete);
+                extentReports.CreateLog("Delete option to delete fee is not available to the user: " +stdUser + " " );
 
+                //14.	TMT0074761_ Verify that user is able to Edit the added fees to bill and update the calculated Admin Fee into Fee Amount field manually
+                string feeAmtBillingReq = project.ValidateEditFunctionalityOfAddedFeeInBillingRequest();
+                Assert.AreEqual("USD 20.00", feeAmtBillingReq);
+                extentReports.CreateLog("Fee with Amount: " + feeAmtBillingReq + " is displayed on Billing Request page after updating Fee on Fee To Bill page ");
+
+                //16.	TMT0074765_Verify that the user is not able to delete the billing request
+                string billingReqDelete = project.ValidateDeleteFunctionalityOfBillingRequest();
+                Assert.AreEqual("Edit", billingReqDelete);
+                extentReports.CreateLog("Delete option to delete Billing Request is not available to the user: " + stdUser + " ");
+
+                //17.	TMT0074975_Verify that the expenses of each associated engagement will reflect under Expenses to Bill section.
+                
 
                 usersLogin.DiffLightningLogout();               
 

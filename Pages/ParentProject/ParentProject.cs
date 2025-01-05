@@ -75,7 +75,13 @@ namespace SalesForce_Project.Pages
         By txtFeeAmount = By.XPath("//input[@name='Fee_Amount__c']");
         By valFeeType = By.XPath("//span[text()='Fee Type']/ancestor::div[2]/dd//lightning-formatted-text");
         By subTabBillingReq = By.XPath("//li[5]//span[@title='Billing Request  c']");
+        By subTabFeeToBill = By.XPath("//li[6]//span[@title='Fee To Bill  c']");
         By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span");
+        By valFeeAmtBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[8]//span//span");
+        // By lnkViewAll = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span/ancestor::lst-related-list-view-manager/a");
+        //By btnAction = By.XPath("//table//td[10]//lightning-button-menu/button");
+        By btnEditFee = By.XPath("//records-entity-label[text()='Fee To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
+
 
         public string ClickNewButton()
         {
@@ -189,7 +195,7 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(lnkContract).Click();
             //driver.Navigate().Refresh();
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             string fee = driver.FindElement(valTotalFee).Text;
             return fee;
 
@@ -391,7 +397,7 @@ namespace SalesForce_Project.Pages
         }
 
         public string SaveAllMandatoryFieldsOfBillingRequest()
-            {
+        {
             driver.FindElement(btnPreference1).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]")).Click();
@@ -406,9 +412,9 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             driver.FindElement(btnClose).Click();
             Thread.Sleep(6000);
-           string message = driver.FindElement(msgPrincipal).Text;
+            string message = driver.FindElement(msgPrincipal).Text;
             return message;
-        } 
+        }
 
         public string SelectFinalInvoice()
         {
@@ -421,7 +427,7 @@ namespace SalesForce_Project.Pages
 
         //Validate Header row of Billing Request 
         public bool ValidateBillingRequestHeaders()
-        {            
+        {
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblHeaderRow);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
@@ -483,7 +489,7 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             driver.FindElement(txtComments).SendKeys("Testing");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
             string comments = driver.FindElement(valComments).Text;
             return comments;
         }
@@ -501,7 +507,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(subtabParentProj).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lnkBillingReq, 100);
             driver.FindElement(lnkBillingReq).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBillingReq,100);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBillingReq, 100);
             driver.FindElement(btnNewBillingReq).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnPreference1).Click();
@@ -567,6 +573,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='123441']")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFeeType, 100);
             driver.FindElement(btnFeeType).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//span[@title='Admin Fee']")).Click();
             driver.FindElement(txtFeeDescription).SendKeys("Testing Fee");
             driver.FindElement(txtFeeAmount).SendKeys("10");
@@ -579,9 +586,42 @@ namespace SalesForce_Project.Pages
         public string ValidateAddedFeeInBillingRequest()
         {
             driver.FindElement(subTabBillingReq).Click();
-            Thread.Sleep(5000);            
+            Thread.Sleep(5000);
             string request = driver.FindElement(valFeeTypeBillingReq).Text;
             return request;
         }
+
+
+        public string ValidateDeleteFunctionalityOfAddedFeeInBillingRequest()
+        {
+            driver.FindElement(subTabFeeToBill).Click();
+            Thread.Sleep(5000);
+            string delete = driver.FindElement(btnEditFee).GetAttribute("name");
+            return delete;
+
+        }
+        public string ValidateEditFunctionalityOfAddedFeeInBillingRequest()
+        {
+            driver.FindElement(btnEditFee).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtFeeAmount).Clear();
+            driver.FindElement(txtFeeAmount).SendKeys("20");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(subTabBillingReq).Click();
+            Thread.Sleep(5000);
+            string request = driver.FindElement(valFeeAmtBillingReq).Text;
+            return request;
+        }
+
+
+        public string ValidateDeleteFunctionalityOfBillingRequest()
+        {
+            Thread.Sleep(5000);
+            string delete = driver.FindElement(btnEditFee).GetAttribute("name");
+            return delete;
+
+        }
+
     }
 }

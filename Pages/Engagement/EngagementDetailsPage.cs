@@ -386,9 +386,9 @@ namespace SF_Automation.Pages.Engagement
 		By tabRevenue = By.XPath("//a[@data-label='Revenue']");
 		By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
 		By subtabContracts = By.XPath("//a[@data-label='Contracts']");
-		By valContractNumberL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[3]//tr[1]/td[1]//span//span");
-		By valContractNameL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[3]//tr[2]/th[1]//span//records-hoverable-link//a//span//span/slot");
-		By lnkContractL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[3]//tr[2]/th[1]//span//records-hoverable-link");
+		By valContractNumberL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[1]/td[1]//span//span");
+		By valContractNameL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[2]/th[1]//span//records-hoverable-link//a//span//span/slot");
+		By lnkContractL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[2]/th[1]//span//records-hoverable-link");
 		By valIsMainCheckboxL = By.XPath("//records-record-layout-row[11]//slot[1]/lightning-input//label/span[1]");
 		By tabCompliance = By.XPath("//a[text()='Compliance & Legal']");
 		By subTabCompliance = By.XPath("//a[text()='Compliance']");
@@ -5122,6 +5122,9 @@ namespace SF_Automation.Pages.Engagement
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,-850)");
 			Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabEngagementL, 100);
+            driver.FindElement(tabEngagementL).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(Driver, tabCompliance, 100);
 			string value = driver.FindElement(tabCompliance).Text;
 			driver.FindElement(tabCompliance).Click();

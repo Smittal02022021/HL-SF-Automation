@@ -4965,10 +4965,10 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//flexipage-field[4]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
 
-            //Enter SIC (for 38100)
-            //driver.FindElement(txtSICL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 20));
-            //Thread.Sleep(3000);
-            //driver.FindElement(comboSICL).Click();
+            //Opp Desc
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            driver.FindElement(txtOppDescL2).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
 
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
