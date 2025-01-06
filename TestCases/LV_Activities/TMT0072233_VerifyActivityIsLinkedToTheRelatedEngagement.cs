@@ -62,19 +62,25 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
-
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
-                else
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("Passed", "Admin User is able to login into SF");
+
+                //Select HL Banker app
+                try
                 {
-                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
                 }
 
                 //Navigate to Opportunities page
@@ -133,16 +139,17 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                 extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
 
-                //Switch Back to Classic View
-                lvHomePage.SwitchBackToClassicView();
-                extentReports.CreateStepLogs("Info", "Admin user switched back to classic view. ");
+                //Search CAO Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(userCAOExl);
 
-                //Search CAO User by global search
-                extentReports.CreateStepLogs("Info", "User " + userCAOExl + " details are displayed. ");
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, userCAOExl + " | Salesforce"), true);
+                extentReports.CreateLog("User " + userCAOExl + " details are displayed ");
 
-                //Login user
-                homePage.SearchUserByGlobalSearch(fileTMTC0032668, userCAOExl);
-                usersLogin.LoginAsSelectedUser();
+                //Login as CAO user
+                lvHomePage.UserLogin();
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userCAOExl));
+                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
 
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
@@ -181,11 +188,14 @@ namespace SF_Automation.TestCases.LV_Activities
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
 
-                //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                //Select HL Banker app
+                try
                 {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
                 }
 
                 //Search external contact
@@ -233,12 +243,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 engagementDetails.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
-                //Switch Back to Classic View
-                lvHomePage.SwitchBackToClassicView();
-
-                //Logout from SF Classic View
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Classic View. ");
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
             }

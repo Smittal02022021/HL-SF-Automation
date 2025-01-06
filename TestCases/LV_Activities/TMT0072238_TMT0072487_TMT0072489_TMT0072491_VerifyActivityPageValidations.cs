@@ -53,15 +53,25 @@ namespace SF_Automation.TestCases.LV_Activities
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login. ");
-
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "Admin User is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("Passed", "Admin User is able to login into SF");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
                 }
 
                 //Search external contact
@@ -108,12 +118,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 Assert.IsTrue(addActivity.VerifyValidationMessageWithoutExternalAttendeeAndCompany(fileTMTC0032668, extContactName));
                 extentReports.CreateStepLogs("Passed", "Validation message :" + msg1 + " appears if Banker tries to create activity without External Attendee and Company.");
 
-                //Switch Back to Classic View
-                lvHomePage.SwitchBackToClassicView();
-
-                //Logout from SF Classic View
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Classic View. ");
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
             }
