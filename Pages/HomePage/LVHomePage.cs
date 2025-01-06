@@ -162,6 +162,8 @@ namespace SF_Automation.Pages.HomePage
 
         public void SearchUserFromMainSearch(string name)
         {
+            Thread.Sleep(5000);
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
             driver.FindElement(btnMainSearch).Click();
             Thread.Sleep(5000);
@@ -335,7 +337,7 @@ namespace SF_Automation.Pages.HomePage
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 120);
                 driver.FindElement(linkLogout).Click();
                 Thread.Sleep(4000);
             }
@@ -343,7 +345,7 @@ namespace SF_Automation.Pages.HomePage
             {
                 driver.Navigate().Refresh();
                 Thread.Sleep(4000);
-                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 120);
                 driver.FindElement(linkLogout).Click();
                 Thread.Sleep(4000);
             }
@@ -1437,7 +1439,7 @@ namespace SF_Automation.Pages.HomePage
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, _appInAppLauncher(appName), 60);
                 driver.FindElement(_appInAppLauncher(appName)).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(8000);
             }
         }
 
