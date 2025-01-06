@@ -348,7 +348,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyUserLandedOnCorrectCompaniesDetailsPage(string companyName)
         {
             bool result = false;
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             string comp = driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text;
             if (companyName == comp)
             {

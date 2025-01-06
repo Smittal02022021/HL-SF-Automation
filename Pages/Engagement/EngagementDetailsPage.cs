@@ -6881,6 +6881,14 @@ namespace SF_Automation.Pages.Engagement
             {
                 result = true;
             }
+            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
+            {
+                result = true;
+            }
+            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            {
+                result = true;
+            }
             return result;
         }
 
