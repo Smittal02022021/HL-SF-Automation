@@ -431,7 +431,7 @@ namespace SF_Automation.Pages.Engagement
         By msgBidDate = By.XPath("//lightning-primitive-datatable-tooltip-bubble/section/div/ul/li[3]");
         By btnManage = By.XPath("//button[text()='Manage']");
         By valMinBid = By.XPath("//tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-formatted-number");
-        By btnMoreAdmin = By.XPath("//slot/flexipage-component2[1]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[9]/lightning-button-menu/button");
+        By btnMoreAdmin = By.XPath("(//button[@title='More Tabs'])[3]");
         By tabBidAdmin = By.XPath("//span[text()='Bids']");
         By lnkEngAR = By.XPath("//span/a[text()='Engagement AR Receipt']");
         By lnkEngExp = By.XPath("//span/a[text()='Engagement Expenses']");
@@ -6877,7 +6877,7 @@ namespace SF_Automation.Pages.Engagement
             }
 
             Thread.Sleep(5000);
-            if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
+            if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
             {
                 result = true;
             }
@@ -6885,7 +6885,7 @@ namespace SF_Automation.Pages.Engagement
             {
                 result = true;
             }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
             {
                 result = true;
             }

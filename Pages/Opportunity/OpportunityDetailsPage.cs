@@ -8242,6 +8242,14 @@ namespace SF_Automation.Pages
             {
                 result = true;
             }
+            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
+            {
+                result = true;
+            }
+            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
+            {
+                result = true;
+            }
             return result;
         }
 
