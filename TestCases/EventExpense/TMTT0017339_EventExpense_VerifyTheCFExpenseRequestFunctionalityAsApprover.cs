@@ -234,9 +234,23 @@ namespace SF_Automation.TestCases.EventExpense
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateLog("User Logged Out from SF Lightning View. ");
 
+                    driver.Quit();
+
+                    Initialize();
+
                     //Calling Login function                
                     login.LoginApplication();
-                    Thread.Sleep(20000);
+
+                    //Switch to lightning view
+                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                    {
+                        homePage.SwitchToLightningView();
+                        extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                    }
+
+                    //Validate user logged in
+                    Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                    extentReports.CreateLog("User is able to login into SF");
 
                     //Select HL Banker app
                     try
@@ -247,10 +261,6 @@ namespace SF_Automation.TestCases.EventExpense
                     {
                         lvHomePage.SelectAppLV1("HL Banker");
                     }
-
-                    //Validate user logged in
-                    Assert.AreEqual(driver.Url.Contains("lightning"), true);
-                    extentReports.CreateLog("User is able to login into SF");
 
                     //Search CF Financial user by global search
                     lvHomePage.SearchUserFromMainSearch(user);
