@@ -238,11 +238,14 @@ namespace SF_Automation.TestCases.EventExpense
                     login.LoginApplication();
                     Thread.Sleep(20000);
 
-                    //Switch to lightning view
-                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                    //Select HL Banker app
+                    try
                     {
-                        homePage.SwitchToLightningView();
-                        extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
                     }
 
                     //Validate user logged in
