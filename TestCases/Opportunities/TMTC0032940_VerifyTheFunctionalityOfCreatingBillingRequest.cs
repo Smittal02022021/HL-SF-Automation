@@ -7,6 +7,7 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -68,7 +69,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog(tagOpp + " is displayed under Home dropdown ");
 
                 //1.  TMT0074711_Verify that the "Billing Request" quick link is placed on the Parent Project
-                project.ValidateSearchFunctionalityOfParentProject("Updated Project");
+                //project.ValidateSearchFunctionalityOfParentProject("Updated Project");
+                project.ValidateSearchFunctionalityOfParentProject("Loar Holdings Combo");                
                 string billing = project.ValidateBillingRequestLink();
                 Assert.AreEqual("Billing Requests", billing);
                 extentReports.CreateLog("Link "+ billing + " is displayed on the Parent Project ");
@@ -147,7 +149,40 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Delete option to delete Billing Request is not available to the user: " + stdUser + " ");
 
                 //17.	TMT0074975_Verify that the expenses of each associated engagement will reflect under Expenses to Bill section.
-                
+                string expenseType = project.GetExpenseTypeOfBillingRequest();
+                Assert.AreEqual("79770-Cellular Phone Charges", expenseType);
+                extentReports.CreateLog("Expense Type of: " + expenseType +" is displayed in the Billing Request ");
+
+                //18.	TMT0074977_Verify that the user is able to exclude selected expenses using "Update to Bill" from the current billing request
+                string totalExp =  project.GetTotalExpenseOfBillingRequest();
+                string expenseAfterExclude = project.ValidateExcludeExpenseFunctionalityOfBillingRequest();
+                Assert.AreNotEqual(totalExp, expenseAfterExclude);
+                extentReports.CreateLog("Total Expense amount is updated after excluding expense from the Billing Request ");
+
+                //19.	TMT0074979_Verify that the user is able to include that excluded expenses using "Update to Bill" in the currency billing request
+                string expenseAfterInclude = project.ValidateIncludeExpenseFunctionalityOfBillingRequest();
+                Assert.AreNotEqual(expenseAfterExclude, expenseAfterInclude);
+                extentReports.CreateLog("Total Expense amount is updated after including expense in the Billing Request ");
+
+                //21.	TMT0074984_Verify that the user is not allowed to delete the added expenses to bill
+                string expenseDelete = project.ValidateDeleteFunctionalityOfExpenseToBill();
+                Assert.AreEqual("Edit", expenseDelete);
+                extentReports.CreateLog("Delete option to delete Expenses is not available to the user: " + stdUser + " ");
+
+                usersLogin.DiffLightningLogout();
+
+                string expenseDeleteAdmin = project.ValidateDeleteFunctionalityOfExpenseToBillWithAdmin();
+                Assert.AreEqual("Expense deleted successfully", expenseDeleteAdmin);
+                extentReports.CreateLog("Expense is deleted successfully by Admin ");
+
+                //20.	TMT0074981_Verify that the user can add expenses to billing request using "Add Expenses to Bill
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser1 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser1.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
+
+                project.ValidateSearchFunctionalityOfParentProject("Loar Holdings Combo");
+                project.ValidateBillingRequestLink();
 
                 usersLogin.DiffLightningLogout();               
 

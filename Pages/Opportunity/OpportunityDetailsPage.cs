@@ -549,7 +549,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
         By btnReqEng1L = By.XPath("//button[text()='Request Engagement']");
         By msgReqEngFVAL = By.XPath("//div[@class='slds-p-around_large cOppRequestEngagementAura']/lightning-formatted-text");
-        By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
+        By btnCloseReqEngFVAL = By.XPath("//button[@title='Cancel and close']");
         By btnApproveL = By.XPath("//div[@title='Approve']");        
         By lnkConvertToEngL = By.XPath("//a/span[text()='Convert to Engagement']");
         
@@ -7375,7 +7375,7 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         //Click Add FR Opprotunity Contact 
         public string ClickAddFROppContact()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             driver.FindElement(btnAddFRContact).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
