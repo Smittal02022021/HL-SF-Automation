@@ -80,13 +80,13 @@ namespace SF_Automation.TestCases.Engagement
                     Console.WriteLine("value: " + value);
                     if (valUser.Equals("James Craven"))
                        { 
-                    Assert.AreEqual("Ms. " + ReadExcelData.ReadData(excelPath, "Engagement", 2) + ReadExcelData.ReadData(excelPath, "Engagement", 7), value);
+                    Assert.AreEqual("Mr. " + ReadExcelData.ReadData(excelPath, "Engagement", 2) + ReadExcelData.ReadData(excelPath, "Engagement", 7), value);
                     extentReports.CreateLog("Primary and billing contacts is updated such that email and title fields are empty ");
                        }
 
                     else
                     {
-                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 2) + ReadExcelData.ReadData(excelPath, "Engagement", 7), value);
+                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 2) + " M. "+ReadExcelData.ReadData(excelPath, "Engagement", 7), value);
                         extentReports.CreateLog("Primary and billing contacts is updated such that email and title fields are empty ");
                     }
 
@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.Engagement
                     Console.WriteLine("updatedValue: " + updatedValue);
                     if (valUser.Equals("James Craven"))
                     {
-                        Assert.AreEqual("Ms. " + ReadExcelData.ReadData(excelPath, "Engagement", 3) + ReadExcelData.ReadData(excelPath, "Engagement", 8), updatedValue);
+                        Assert.AreEqual("Mr. " + ReadExcelData.ReadData(excelPath, "Engagement", 3) + ReadExcelData.ReadData(excelPath, "Engagement", 8), updatedValue);
                         extentReports.CreateLog("Primary and billing contacts is updated such that email and title fields are not empty ");
                     }
                     else

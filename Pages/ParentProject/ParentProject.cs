@@ -710,9 +710,8 @@ namespace SalesForce_Project.Pages
 
         public string ValidateAddExpenseToBillFunctionality()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,-350)");
-            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link//a"));
+            Thread.Sleep(6000);
             driver.FindElement(btnAddExpToBill).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSelectEng).Click();

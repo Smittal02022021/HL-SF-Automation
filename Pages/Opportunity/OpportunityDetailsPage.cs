@@ -275,7 +275,7 @@ namespace SF_Automation.Pages
         By valNewClient = By.CssSelector("div[id*='p_body'] > table > tbody > tr:nth-child(5)> th > a");
         By valNewClientL = By.XPath("//span[text()='Client/Subject']/ancestor::div[2]/dd//span//a//slot/span/slot");
         By valClientType = By.CssSelector("div[id*='uhQp_body'] > table > tbody > tr:nth-child(5)>td:nth-child(3)");
-        By tabClientL = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2/div[1]/div[2]//ul/li[5]/a[text()='Client/Subject & Referral']");
+        By tabClientL = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2/div[1]/div[2]//ul/li[6]/a[text()='Client/Subject & Referral']");
         By valClientTypeL = By.XPath("//span[text()='Record Type']/ancestor::div[2]/dd[1]//records-record-type/div/div/span");
         By lnkEditClient = By.CssSelector("div[id*='hQp_body'] > table > tbody > tr.dataRow.even.last > td.actionColumn > a:nth-child(1)");
         By comboType = By.CssSelector("select[name*='D9DcL']");
@@ -823,7 +823,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
             else if (jobType.Equals("Debtor Advisors") && value.Equals("Client"))
             {
                 Thread.Sleep(5000);                
-                string type = driver.FindElement(By.XPath("//slot[text()='"+name+"']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                string type = driver.FindElement(By.XPath("//span[text()='"+name+"']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
                 return type;
             }
             else
@@ -5141,7 +5141,7 @@ public void ClickNewOpportunitySectorButton()
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,520)");
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 150);
             driver.FindElement(lnkViewAllL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnApproveL, 100);
             driver.FindElement(btnApproveL).Click();

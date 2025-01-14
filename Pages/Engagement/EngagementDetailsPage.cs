@@ -2816,7 +2816,7 @@ namespace SF_Automation.Pages.Engagement
 			driver.FindElement(tabContactsL).Click();
 			WebDriverWaits.WaitUntilEleVisible(driver, lnkContactL, 90);
 			driver.FindElement(lnkContactL).Click();
-			Thread.Sleep(4000);
+			Thread.Sleep(6000);
 			driver.FindElement(btnEditContactL).Click();
 			Thread.Sleep(5000);
 			driver.FindElement(txtFirstNameL).Clear();
@@ -3028,7 +3028,7 @@ namespace SF_Automation.Pages.Engagement
 			//driver.SwitchTo().Frame(0);
 			Thread.Sleep(7000);
 			string id = driver.Url;
-			Thread.Sleep(4000);
+			Thread.Sleep(5000);
 			driver.FindElement(tabEngagementNumL).Click();
 			Thread.Sleep(5000);
 			IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -3787,6 +3787,8 @@ namespace SF_Automation.Pages.Engagement
 			driver.FindElement(tabRevenue).Click();
 			Thread.Sleep(5000);
 			driver.FindElement(subtabContracts).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
             WebDriverWaits.WaitUntilEleVisible(driver, valContract1L, 180);
             string name = driver.FindElement(valContract1L).Text;
 			return name;
@@ -7028,7 +7030,7 @@ namespace SF_Automation.Pages.Engagement
 				Thread.Sleep(5000);
 				try
 				{
-					driver.SwitchTo().Frame(1);
+					driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
 					string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
 					driver.SwitchTo().DefaultContent();
 					return "New Opportunity Valuation Period button is displayed";

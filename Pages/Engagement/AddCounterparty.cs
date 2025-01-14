@@ -65,7 +65,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEngCounterpartyContact = By.XPath("//button[@name='Engagement_Counterparty__c.New_Engagement_Counterparty_Contact']");
         
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
-        By lnkCompCounterparty = By.XPath("//a[@title='Skyhive']");
+        By lnkCompCounterparty = By.XPath("//a[@title='SkyHive']");
         By txtSearchCounterparty = By.XPath("//input[@placeholder='Search']");
         By txtCPComments = By.XPath("//textarea[@name='Comment__c']");
         By btnSaveCPComment = By.XPath("//button[@type='submit']");
@@ -94,9 +94,9 @@ namespace SF_Automation.Pages.Engagement
         By lblTemplate = By.XPath("//label[text()='Template']");
         By btnTemplate = By.XPath("//label[text()='Template']/ancestor::div[1]/div[1]/lightning-base-combobox/div/div/div[1]/button");
         By valTemplate = By.XPath("//div/div/div[1]/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span");
-        By btnContactEmail = By.XPath("//span[@title='Skyhive']/ancestor::button");
+        By btnContactEmail = By.XPath("//span[@title='SkyHive']/ancestor::button");
         By valEmailId = By.XPath("//c-email-message-input/div[1]/div[1]/div/lightning-pill/span/span");
-        By valComp= By.XPath("//h2/button/span[@title='Skyhive']");
+        By valComp= By.XPath("//h2/button/span[@title='SkyHive']");
 
         By btnCancelConfirm = By.XPath("//button[text()='Cancel']");
         By btnAddRemoveCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[1]/button");
@@ -105,6 +105,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditBidsL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[5]/button");
         By btnImport = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
         By btnExportData = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[6]/button");
+        By btnViewDefault = By.XPath("//button[@data-value='All']");
         By valView = By.XPath("//button[@data-value='Buyside Stages']/span");
         By btnEditViewAll = By.XPath("//tr[1]/td[5]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-list-view-row-level-action/lightning-button-menu/button");
         By lnkEditViewAll = By.XPath("//a[@title='Edit']");
@@ -137,7 +138,7 @@ namespace SF_Automation.Pages.Engagement
         By txtCompanyList = By.XPath("//label[text()='Company List']/following::input[1]");
         By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
         By titleCompanyList = By.XPath("//h2[text()='Company List']");
-        By radioCompName = By.XPath("//table/tbody/tr[2]/td[1]/div/input");
+        By radioCompName = By.XPath("//table/tbody/tr/td[2]/div[text()='2022 Summit Attendees']/ancestor::tr/td[1]");
         By btnOK = By.XPath("//button[@title='OK']");
         By chkCompany = By.XPath("//table/tbody/tr[5]/td[1]/lightning-primitive-cell-checkbox/span/label/span[1]");
         By btnAddCounterpartyTo = By.XPath("//button[text()='Add Counterparty to Project Astro']");
@@ -737,6 +738,9 @@ namespace SF_Automation.Pages.Engagement
         public string GetViewValue()
         {
             Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewDefault, 150);
+            driver.FindElement(btnViewDefault).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item//span[text()='Buyside Stages']")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valView, 150);
             string value = driver.FindElement(valView).Text.Substring(0, 7);
             return value;
@@ -872,7 +876,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCounterparty, 150);
-            driver.FindElement(txtSearchCounterparty).SendKeys("Skyhive");
+            driver.FindElement(txtSearchCounterparty).SendKeys("SkyHive");
             driver.FindElement(txtSearchCounterparty).Click();
             Thread.Sleep(8000);
             string name = driver.FindElement(lnkCompCounterparty).Text;
@@ -1191,7 +1195,7 @@ namespace SF_Automation.Pages.Engagement
             var elementEquity = driver.FindElement(By.XPath("//td[@data-label='Equity %']"));            
             actions.MoveToElement(elementEquity);
             actions.Perform();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.FindElement(btnEquity).Click();
             Thread.Sleep(5000);
             driver.FindElement(txtEquity).Clear();

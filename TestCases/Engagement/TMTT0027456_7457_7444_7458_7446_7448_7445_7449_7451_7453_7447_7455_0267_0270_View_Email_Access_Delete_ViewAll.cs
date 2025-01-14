@@ -126,12 +126,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TC_12_Validate Add counterparty functionality
                 string addedComp = counterparty.ValidateAddCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", addedComp);
+                Assert.AreEqual("SkyHive", addedComp);
                 extentReports.CreateLog("Counterparty with Company name : " + addedComp + " is displayed on Counterparty page after adding it ");
 
                 //TC_13_Search Counterparty
                 string searchCounterparty = counterparty.ValidateSearchCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", searchCounterparty);
+                Assert.AreEqual("SkyHive", searchCounterparty);
                 extentReports.CreateLog("Searched Counterparty with Company name : " + searchCounterparty + " is displayed on Counterparty page ");
 
                 //TC_04__TC_07_Validate Email functionality

@@ -1044,8 +1044,8 @@ namespace SF_Automation.Pages
             //driver.FindElement(valType).Click();
             //driver.FindElement(By.XPath("//div[@id='dropdown-element-16']/lightning-base-combobox-item/span[2]/span[text()='Key Creditor']")).Click();
             //Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtType1, 150);
-            string type = driver.FindElement(txtType1).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtType, 150);
+            string type = driver.FindElement(txtType).Text;
             if (type.Equals("Client"))
             {
                 return "Records are deleted successfully";
@@ -1737,6 +1737,7 @@ namespace SF_Automation.Pages
             }
             else if (type.Contains("Key Creditor") && value.Contains("Creditor Advisors"))
             {
+                Thread.Sleep(3000);
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[8]//input")).Clear();
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[8]//input")).SendKeys("10");
                 Thread.Sleep(3000);
