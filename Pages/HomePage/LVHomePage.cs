@@ -184,6 +184,8 @@ namespace SF_Automation.Pages.HomePage
             }
             catch(Exception)
             {
+                driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")).Click();
+                Thread.Sleep(5000);
             }
         }
 

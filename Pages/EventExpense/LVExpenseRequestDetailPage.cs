@@ -492,7 +492,7 @@ namespace SF_Automation.Pages.EventExpense
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();

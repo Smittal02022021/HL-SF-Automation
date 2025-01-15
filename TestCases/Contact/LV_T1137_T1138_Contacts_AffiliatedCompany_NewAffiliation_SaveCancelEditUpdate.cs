@@ -119,34 +119,6 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AffiliatedCompany", 4), affiliationCompanyType);
                 extentReports.CreateLog("Affiliation Company Type: " + affiliationCompanyType + " on contact details page matches with value entered in new affiliation company page ");
 
-                /*
-                //Edit affiliation company 
-                addAffiliated.EditNewAffilationCompaniesDetails(fileTC1137_TC1138);
-                addAffiliated.ClickSaveAndNewButton();
-
-                string getCompanyName = addAffiliated.GetCompanyNameText();
-                Assert.AreEqual("", getCompanyName);
-                extentReports.CreateLog("Company name is blank upon edit details of affilation company and click on save and new button ");
-
-                string getContactName = addAffiliated.GetContactNameText();
-                Assert.AreEqual("", getContactName);
-                extentReports.CreateLog("Contact name is blank upon edit details of affilation company and click on save and new button ");
-                
-                //Click on cancel button
-                addAffiliated.ClickCancelButton();
-               
-                //Validate company status
-                string updatedAffiliationCompanyStatus = contactDetails.GetAffiliationCompanyStatus();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "EditAffiliatedCompany", 1), updatedAffiliationCompanyStatus);
-                extentReports.CreateLog("Affiliation Company Status: " + affiliationCompanyStatus + " on contact details page matches with value entered in new affiliation company page ");
-
-                //Validate company type
-                string updatedAffiliationCompanyType = contactDetails.GetAffiliationCompanyType();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "EditAffiliatedCompany", 2), updatedAffiliationCompanyType);
-                extentReports.CreateLog("Affiliation Company Type: " + affiliationCompanyType + " on contact details page matches with value entered in new affiliation company page ");
-
-                */
-
                 // Delete affiliated companies
                 addAffiliated.DeleteAffiliatedCompanies();
                 Assert.IsFalse(contactDetails.ValidateNewAffilationCompaniesCreation(), "Affiliation company is not available after deletion ");
