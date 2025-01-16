@@ -171,6 +171,13 @@ namespace SF_Automation.Pages.Contact
         By txtSearchCampaign = By.XPath("//input[@title='Search Campaigns']");
         By btnNext = By.XPath("//button[text()='Next']");
 
+        public void ClickEditContactButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
+            driver.FindElement(btnEdit).Click();
+            Thread.Sleep(2000);
+        }
+
         public void DeleteContact()
         {
             //Scroll to the top of the page
@@ -2131,6 +2138,19 @@ namespace SF_Automation.Pages.Contact
 
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//button[@name='New']")).Click();
+        }
+
+        public bool ValidateOffileFieldEditableForHCMUser()
+        {
+            bool result = false;
+            int size = driver.FindElements(By.XPath("//span[text()='Office']/../../..//button")).Count();
+
+            //string val = driver.FindElement(txtOffice).Text;
+            if(size == 0)
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

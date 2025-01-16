@@ -12,17 +12,17 @@ namespace SF_Automation.Pages.EventExpense
     class LVExpenseRequestDetailPage : BaseClass
     {
         //Approver Buttons & Labels
-        By btnDeleteApprover = By.XPath("//button[text()='Delete']");
-        By btnCloneApprover = By.XPath("//button[text()='Clone']");
-        By btnRequestMoreInformationApprover = By.XPath("//button[text()='Request More Information']");
+        By btnDeleteApprover = By.XPath("//button[contains(text(),'Delete')]");
+        By btnCloneApprover = By.XPath("//button[contains(text(),'Clone')]");
+        By btnRequestMoreInformationApprover = By.XPath("//button[contains(text(),'Request More Information')]");
         By btnEditApprover = By.XPath("//button[text()='Edit']");
-        By btnApproveApprover = By.XPath("//button[text()='Approve']");
-        By btnRejectApprover = By.XPath("//button[text()='Reject']");
+        By btnApproveApprover = By.XPath("//button[contains(text(),'Approve')]");
+        By btnRejectApprover = By.XPath("//button[contains(text(),'Reject')]");
         By lblApproverStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
 
         //Requestor Buttons
-        By btnSubmitForApproval = By.XPath("//button[text()='Submit for Approval']");
-        By btnReqDelete = By.XPath("(//button[text()='Delete'])[2]");
+        By btnSubmitForApproval = By.XPath("//button[contains(text(),'Submit for Approval')]");
+        By btnReqDelete = By.XPath("//button[contains(text(),'Delete')]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");

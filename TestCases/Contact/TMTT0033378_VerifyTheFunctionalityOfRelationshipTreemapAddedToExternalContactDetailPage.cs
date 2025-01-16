@@ -42,7 +42,6 @@ namespace SF_Automation.TestCases.Contact
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTCTMTT0033378;
                 Console.WriteLine(excelPath);
 
-                string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string externalContactName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContact", 1, 1);
                 string externalContactName1 = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContact", 2, 1);
                 string engContactName = ReadExcelData.ReadData(excelPath, "EngContact", 1);
@@ -54,26 +53,47 @@ namespace SF_Automation.TestCases.Contact
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "Admin User: " + login.ValidateUser() + " is able to login in SF TEST environment. ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("Passed", "Admin User is able to login into SF Lightning View");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 //Search CF Financial user by global search
-                homePage.SearchUserByGlobalSearch(fileTCTMTT0033378, user);
-                extentReports.CreateStepLogs("Info", "CF Financial User: " + user + " details are displayed after doing a global search. ");
+                string user = ReadExcelData.ReadData(excelPath, "Users", 1);
+                lvHomePage.SearchUserFromMainSearch(user);
 
-                //Login user
-                usersLogin.LoginAsSelectedUser();
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User " + user + " details are displayed ");
+
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
 
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Passed", "User switched to lightning view. ");
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
                 }
 
-                Assert.IsTrue(login.ValidateUserLightningView(fileTCTMTT0033378, 2));
-                extentReports.CreateStepLogs("Passed", "User is able to login into lightning view. ");
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
                 //TC - TMTI0078920, TMTI0078922 - Verify the availability of "Relationship Treemap" and its sections on the External Contact Detail Page.
                 lvHomePage.SearchContactFromMainSearch(externalContactName);
