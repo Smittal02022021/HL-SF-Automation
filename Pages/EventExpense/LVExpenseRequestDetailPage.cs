@@ -22,11 +22,11 @@ namespace SF_Automation.Pages.EventExpense
 
         //Requestor Buttons
         By btnSubmitForApproval = By.XPath("//button[contains(text(),'Submit for Approval')]");
-        By btnReqDelete = By.XPath("//button[contains(text(),'Delete')]");
+        By btnReqDelete = By.XPath("(//button[contains(text(),'Delete')])[2]");
         By btnOK = By.XPath("//button[text()='Ok']");
         By btnClone = By.XPath("//button[@name='Clone']");
         By btnEdit = By.XPath("//button[@name='Edit']");
-        By btnReject = By.XPath("(//button[text()='Reject'])[2]");
+        By btnReject = By.XPath("(//button[contains(text(),'Reject')])[2]");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
         
         //Requestor/Host Information

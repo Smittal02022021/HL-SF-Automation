@@ -27,7 +27,7 @@ namespace SF_Automation.UtilityFunctions
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
         By recentEmail = By.CssSelector("div[class='XG5Jd TszOG'] > div:nth-child(2)");
 
-        By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'Review submission:')]/../..");
+        By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'Review')]/../..");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
         By expenseRequestNumberApprove1 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
@@ -125,7 +125,7 @@ namespace SF_Automation.UtilityFunctions
             driver.FindElement(lblScopeInbox).Click();
             Thread.Sleep(4000);
 
-            driver.FindElement(searchBox).SendKeys("Sandbox: Request for Marketing Expense Approval *Action Required*");
+            driver.FindElement(searchBox).SendKeys("Sandbox: Marketing Expense submission confirmation");
             Thread.Sleep(5000);
             driver.FindElement(searchBox).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
