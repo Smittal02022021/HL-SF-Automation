@@ -168,15 +168,7 @@ namespace SF_Automation.Pages.Contact
                     Thread.Sleep(2000);
                 }
             }
-            else if (ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Distribution List"))
-            {
-                if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", userRow, 1).Equals("Admin"))
-                {
-                    WebDriverWaits.WaitUntilEleVisible(driver, comboLineOfBusiness);
-                    driver.FindElement(comboLineOfBusiness).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 17));
-                    Thread.Sleep(2000);
-                }
-            }
+            
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 120);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(2000);

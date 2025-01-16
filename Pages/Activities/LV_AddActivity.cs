@@ -559,6 +559,73 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
+        public void CreateMultipleActivityForHLEmployee(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 1);
+            string subject = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 2);
+            string industryGroup = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 3);
+            string productType = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 4);
+            string description = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 5);
+            string meetingNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "Activity", row, 6);
+            string extAttendee = ReadExcelData.ReadData(excelPath, "Activity", 7);
+
+            //Click on Add Activity button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
+            driver.FindElement(btnAddActivity).Click();
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 60);
+
+            //Enter Activity details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(2);
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
+
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{productType}']")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtareaDescription).SendKeys(description);
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            //Add External Attendee
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            driver.FindElement(txtExternalAttendee).SendKeys(extAttendee);
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//div[@data-name='{extAttendee}']")).Click();
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            Thread.Sleep(2000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+        }
+
+
         public void CreateNewActivityWithMultipleAttendees(string file, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");

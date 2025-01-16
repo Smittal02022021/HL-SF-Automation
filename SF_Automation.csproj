@@ -590,7 +590,7 @@
     <Compile Include="TestCases\Contact\LV_T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
     <Compile Include="TestCases\Contact\LV_T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate.cs" />
     <Compile Include="TestCases\Contact\LV_T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />
-    <Compile Include="TestCases\Contact\T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
+    <Compile Include="TestCases\Contact\LV_T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
     <Compile Include="TestCases\Contact\T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />
     <Compile Include="TestCases\Contact\T1549_Contacts_ContactsDetailsPage_HLRelationship_SortableView.cs" />
     <Compile Include="TestCases\Contact\T1845_T1961_T1966_Contact_ContactDetails_Activities_PrivateActivity.cs" />

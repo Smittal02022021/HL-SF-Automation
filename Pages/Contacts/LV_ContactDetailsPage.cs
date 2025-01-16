@@ -30,8 +30,8 @@ namespace SF_Automation.Pages.Contact
         By valContactMailingAddress = By.XPath("(//span[text()='Mailing Address']/following::dd//a)[1]");
         By valContactStatus = By.XPath("//lightning-formatted-text[text()='Active']");
         By valContactOffice = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[2]");
-        By valContactTitle = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[6]");
-        By valContactDepartment = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[8]");
+        By valContactTitle = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[4]");
+        By valContactDepartment = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[6]");
 
         //Assistant Information Section Elements
         By lblAssistant = By.XPath("(//span[text()='Assistant']/following::lightning-formatted-text)[1]");
