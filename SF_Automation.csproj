@@ -593,12 +593,10 @@
     <Compile Include="TestCases\Contact\LV_T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
     <Compile Include="TestCases\Contact\LV_T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />
     <Compile Include="TestCases\Contact\LV_T1950_Contacts_ValidationRules_PreventHCMProfileFromEditingInternalContactRecords.cs" />
-    <Compile Include="TestCases\Contact\T2056_TMTT0011745_ContactDetailsPage_Activities_AddNewContact.cs" />
-    <Compile Include="TestCases\Contact\T2057_T1841_Contact_ContactDetailsPage_ActivitiesEdit_AddNewCompany.cs" />
+    <Compile Include="TestCases\Contact\LV_T2057_T1841_Contact_ContactDetailsPage_ActivitiesEdit_AddNewCompany.cs" />
     <Compile Include="TestCases\Contact\T2144_CreateNewContactWithRecordTypeAsExternal Contact_WorkFlow_DoNotEmailAndDoNotSolicit.cs" />
     <Compile Include="TestCases\Contact\T2149_Contacts_ContactEditPage_WorkFlowUpdateGenderfieldbasedonSalutations.cs" />
     <Compile Include="TestCases\Contact\T2238_T2240_Contacts_VerifyDuplicateRuleAccountCreatedByAndDupRecordSet.cs" />
-    <Compile Include="TestCases\Contact\T2247_Contact_AddANewCompanyFromContactPage.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />

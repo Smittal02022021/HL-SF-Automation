@@ -45,6 +45,11 @@ namespace SF_Automation.Pages.Activities
         By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
         By txtDefaultCompanyDiscussed = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForAccount')]//lightning-pill//span[contains(@class,'pill__label')]");
 
+        By btnCreateNewCompany = By.XPath("//button[text()='Create New Company']");
+        By dropdownCompanyType = By.XPath("//label[text()='Company Type']/following::div//button[@aria-label='Company Type']");
+        By txtCompanyName = By.XPath("//label[text()='Company Name']/following::div//input[@name='Name']");
+        By txtCompanyCountry = By.XPath("//input[@name='country']/../..");
+
         public void ClickAddActivityBtn()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity);
@@ -625,7 +630,6 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
         }
 
-
         public void CreateNewActivityWithMultipleAttendees(string file, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -906,6 +910,99 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click Save
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
+            Thread.Sleep(2000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void AddAnActivityWithNewCompany(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string type = ReadExcelData.ReadData(excelPath, "Activity", 1);
+            string subject = ReadExcelData.ReadData(excelPath, "Activity", 2);
+            string industryGroup = ReadExcelData.ReadData(excelPath, "Activity", 3);
+            string productType = ReadExcelData.ReadData(excelPath, "Activity", 4);
+            string description = ReadExcelData.ReadData(excelPath, "Activity", 5);
+            string meetingNotes = ReadExcelData.ReadData(excelPath, "Activity", 6);
+            string companyType = ReadExcelData.ReadData(excelPath, "Company", 1);
+            string companyName = ReadExcelData.ReadData(excelPath, "Company", 2);
+            string companyCountry = ReadExcelData.ReadData(excelPath, "Company", 3);
+
+            //Click on Add Activity button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddActivity));
+            driver.FindElement(btnAddActivity).Click();
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblAddNewActivity, 60);
+
+            //Enter Activity details
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            driver.FindElement(txtSubject).SendKeys(subject);
+
+            DateTime currentDate = DateTime.Today;
+            DateTime setDate = currentDate.AddDays(2);
+            driver.FindElement(txtDate).Clear();
+            driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM d, yyyy"));
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
+
+            driver.FindElement(drpdownIndustryGroup).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{industryGroup}']")).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(drpdownProductType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{productType}']")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtareaDescription).SendKeys(description);
+            driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(2000);
+
+            //Click Create New Company button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewCompany, 60);
+            driver.FindElement(btnCreateNewCompany).Click();
+            Thread.Sleep(5000);
+
+            //Enter Company Type
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownCompanyType, 60);
+            driver.FindElement(dropdownCompanyType).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(dropdownCompanyType).SendKeys(companyType);
+            driver.FindElement(dropdownCompanyType).SendKeys(Keys.Enter);
+            Thread.Sleep(3000);
+
+            //Entr Company Name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 60);
+            driver.FindElement(txtCompanyName).SendKeys(companyName);
+            Thread.Sleep(2000);
+
+            //Enter Company Location
+            driver.FindElement(txtCompanyCountry).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(txtCompanyCountry).SendKeys(companyCountry);
+            driver.FindElement(txtCompanyCountry).SendKeys(Keys.Enter);
+            Thread.Sleep(3000);
+
+            //Click Save on company page
+            driver.FindElement(By.XPath("(//button[text()='Save'])[2]")).Click();
+            Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);

@@ -64,6 +64,7 @@ namespace SF_Automation.Pages.Companies
 
         By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
+        By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[2]/..");
 
         By _radioRecordType(string recordType)
         {
@@ -986,6 +987,27 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
+        public bool VerifyUserLandsOnCorrectCompanyDetailPage(string name)
+        {
+            bool result = false;
+            Thread.Sleep(5000);
+            if(name==driver.FindElement(By.XPath("(//records-entity-label[text()='Company']/following::slot)[1]/lightning-formatted-text")).Text)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public void DeleteCompany()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreActions, 60);
+            driver.FindElement(btnShowMoreActions).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("//span[text()='Delete']/..")).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("(//span[text()='Delete']/..)[2]")).Click();
+        }
     }
 }
 
