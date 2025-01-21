@@ -103,6 +103,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User navigated to Weekly Entry Matrix ");
                 //Edit the Weekly Entry Matrix Recorded from Time Clock Recorder
                 string updateHoursExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Update_Timer", 2, 2);
+                timeEntry.SelectProjectWeeklyEntryMatrixLV(projectExl);
                 string weekDay = timeEntry.LogCurrentDateHoursLV(updateHoursExl);//1
                 extentReports.CreateStepLogs("Info", "User has edited the Weekly Entry Matrix time Recorder from Time Clock Recorder fo Day: " + weekDay + " ");
                 //Go to Details log

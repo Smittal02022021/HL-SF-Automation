@@ -1071,7 +1071,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
             WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtTimeRecordUserName, 30);
             string name=  driver.FindElement(txtTimeRecordUserName).Text;
             driver.SwitchTo().DefaultContent();
@@ -1096,7 +1096,10 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, tabWeeklyEntryMatrix);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tabWeeklyEntryMatrix));
             driver.FindElement(tabWeeklyEntryMatrix).Click();
-            WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
+            Thread.Sleep(5000);
+            driver.FindElement(tabWeeklyEntryMatrix).Click();
+
+            //WebDriverWaits.WaitTillElementVisible(driver, imgSpinningLoader);
             Thread.Sleep(2000);
             IList<IWebElement> elements = driver.FindElements(btnCross);
             for (int i = 0; i < elements.Count; i++)
@@ -1523,6 +1526,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                         
             WebDriverWaits.WaitUntilEleVisible(driver, btnAdd);
             driver.FindElement(btnAdd).Click();
+            Thread.Sleep(5000);
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tableSummaryLog,20);
