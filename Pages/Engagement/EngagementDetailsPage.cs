@@ -64,9 +64,9 @@ namespace SF_Automation.Pages.Engagement
 		By valYearMonth = By.CssSelector("div[id*='hsaB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
 		By valYearMonthL = By.XPath("//tr[1]/th//span/a[2]");
 		By valTotalEstFeeL = By.XPath("//span[text()='Total Estimated Fee']/ancestor::div[2]/dd//lightning-formatted-text");
-		By tabFees2ndEngL = By.XPath("//section[2]//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[3]/a");
-		By tabInfo2ndEngL = By.XPath("//section[2]//div[1]//flexipage-record-home-template-desktop2//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[1]/a");
-		By valTotalEstFee2ndEngL = By.XPath("//section[2]//flexipage-tab2[3]/slot/flexipage-component2[2]//flexipage-column2[1]//flexipage-field[3]//lightning-formatted-text");
+		By tabFees2ndEngL = By.XPath("//section[3]//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[3]/a");
+		By tabInfo2ndEngL = By.XPath("//section[3]//div[1]//flexipage-record-home-template-desktop2//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[1]/a");
+		By valTotalEstFee2ndEngL = By.XPath("//section[3]//flexipage-tab2[3]/slot/flexipage-component2[2]//flexipage-column2[1]//flexipage-field[3]//lightning-formatted-text");
 		
 		By txtStage = By.CssSelector("select[name*='NlW']");
 		By lnkEditContact = By.CssSelector("div[id*='cI_body'] > table > tbody > tr > td.actionColumn > a:nth-child(1)");
@@ -172,9 +172,9 @@ namespace SF_Automation.Pages.Engagement
 		By valStartDate = By.CssSelector("div[id*='cq_body']>table>tbody>tr.dataRow.even.last.first>td:nth-child(9)");
 		By valIsMain = By.CssSelector("div[id*='cq_body']>table>tbody>tr:nth-child(2)>td:nth-child(11)>img");
 		By valContract1 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
-		By valContract1L = By.XPath("//span[text()='Additional Contract']");
+		By valContract1L = By.XPath("//slot[text()='Additional Contract']");
 		By valContract2 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
-		By valContract2L = By.XPath("//span[text()='Test Contract']");
+		By valContract2L = By.XPath("//slot[text()='Test Contract']");
 		By lnk2ndContractL = By.XPath("//table[@aria-label='Contract']/tbody/tr[1]/th//records-hoverable-link");
 		By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
 		By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
@@ -3671,6 +3671,7 @@ namespace SF_Automation.Pages.Engagement
 			js.ExecuteScript("window.scrollTo(0,600)");
 			WebDriverWaits.WaitUntilEleVisible(driver, valRevAccrualL, 140);
 			string value = driver.FindElement(valRevAccrualL).Text;
+			Console.WriteLine("value:" +value);
 			//IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
 			js.ExecuteScript("window.scrollTo(0,-600)");
 			Thread.Sleep(5000);
@@ -4540,7 +4541,8 @@ namespace SF_Automation.Pages.Engagement
         //Get Total Estimated Fee
         public string GetTotalEstimatedFeeOf2ndEngL()
         {
-			driver.FindElement(tabFees2ndEngL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabFees2ndEngL).Click();
 			Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valTotalEstFee2ndEngL, 150);
             string fee = driver.FindElement(valTotalEstFee2ndEngL).Text;
@@ -6225,7 +6227,7 @@ namespace SF_Automation.Pages.Engagement
 		{
 			try
 			{
-				WebDriverWaits.WaitUntilEleVisible(driver, btnMoreEng, 170);
+				WebDriverWaits.WaitUntilEleVisible(driver, btnMoreEng, 120);
 				driver.FindElement(btnMoreEng).Click();
 				Thread.Sleep(3000);
 				driver.FindElement(lnkEngReports).Click();
@@ -7030,17 +7032,14 @@ namespace SF_Automation.Pages.Engagement
 				Thread.Sleep(5000);
 				try
 				{
-					driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+					//driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
 					string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
-					driver.SwitchTo().DefaultContent();
+					//driver.SwitchTo().DefaultContent();
 					return "New Opportunity Valuation Period button is displayed";
 				}
 				catch (Exception)
 				{
-					driver.SwitchTo().Frame(2);
-					string valImage = driver.FindElement(btnNewOppValPeriodL).Displayed.ToString();
-					driver.SwitchTo().DefaultContent();
-					return "New Opportunity Valuation Period button is displayed";
+					return "New Opportunity Valuation Period button is not displayed";
 				}
 			}
 			else

@@ -158,7 +158,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(progressFee, nbcProgressFee);
                 extentReports.CreateLog("Progress Fee in NBC form " + nbcProgressFee + " matches with Progress Fee in Opportunity details page ");
 
-                form.SaveAllReqFieldsInFees(fileTC1232);
+                form.SaveAllReqFieldsInFees(fileTC1232,"Transaction Type");
 
                 //Get the validation of Other Fee Structure
                 string msgOtherFee = form.GetValidationOfOtherFeeField();

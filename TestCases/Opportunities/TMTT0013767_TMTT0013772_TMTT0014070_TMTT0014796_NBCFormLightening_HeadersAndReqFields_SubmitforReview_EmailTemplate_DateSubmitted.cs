@@ -393,7 +393,7 @@ namespace SF_Automation.TestCases.Opportunity
                 form.SaveAllReqFieldsInFinancialsOverview(fileTC1232);
 
                 form.ClickFeesTab();
-                form.SaveAllReqFieldsInFees(fileTC1232);
+                form.SaveAllReqFieldsInFees(fileTC1232,"Transaction Type");
 
                 form.ClickPitchTab();
                 form.SaveAllReqFieldsInPitch(fileTC1232);

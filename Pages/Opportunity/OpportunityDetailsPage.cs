@@ -549,7 +549,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
         By btnReqEng1L = By.XPath("//button[text()='Request Engagement']");
         By msgReqEngFVAL = By.XPath("//div[@class='slds-p-around_large cOppRequestEngagementAura']/lightning-formatted-text");
-        By btnCloseReqEngFVAL = By.XPath("//button[@title='Cancel and close']");
+        By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
         By btnApproveL = By.XPath("//div[@title='Approve']");        
         By lnkConvertToEngL = By.XPath("//a/span[text()='Convert to Engagement']");
         
@@ -2171,7 +2171,7 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnEdit).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtMonthlyFee, 90);
             driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
-            driver.FindElement(lnkTrialExp).Click();
+            //driver.FindElement(lnkTrialExp).Click();
             driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
             driver.FindElement(lnkEstClosedDate).Click();
             driver.FindElement(comboFairnessOpinion).SendKeys("No");
@@ -4670,7 +4670,7 @@ public void ClickNewOpportunitySectorButton()
 
             //Estimated Fees
             driver.FindElement(txtRetainerL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
+            //driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
             driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
 
@@ -4895,12 +4895,12 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(7000);
             driver.FindElement(valValuationDateL).SendKeys("20/5/2024");
             Thread.Sleep(5000);
-            By lblTombstone = By.XPath("//div[1]//flexipage-component2[1]//flexipage-field[8]//div/div/div[1]/button");
+            By lblTombstone = By.XPath("//div[1]//flexipage-component2[1]//flexipage-field[10]//div/div/div[1]/button");
             WebDriverWaits.WaitUntilEleVisible(driver, lblTombstone, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblTombstone));
             Thread.Sleep(6000);
             driver.FindElement(comboTombstoneL).Click();
-            driver.FindElement(By.XPath("//records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span"));
+            driver.FindElement(By.XPath("//label[text()='Tombstone Permission']/ancestor::div[1]/div//div[2]/lightning-base-combobox-item[2]/span[2]/span"));
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
@@ -4972,12 +4972,15 @@ public void ClickNewOpportunitySectorButton()
 
             //Enter Tombstone Permissions
             Thread.Sleep(7000);
-            driver.FindElement(valValuationDateL).SendKeys("3/4/2024");
-            Thread.Sleep(4000);
+            driver.FindElement(valValuationDateL).SendKeys("20/5/2024");
+            Thread.Sleep(5000);
+            By lblTombstone = By.XPath("//div[1]//flexipage-component2[1]//flexipage-field[10]//div/div/div[1]/button");
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTombstone, 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(lblTombstone));
+            //Thread.Sleep(6000);
             driver.FindElement(comboTombstoneL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//flexipage-field[8]//lightning-base-combobox//lightning-base-combobox-item[2]/span[2]/span")).Click();
-
+            driver.FindElement(By.XPath("//label[text()='Tombstone Permission']/ancestor::div[1]/div//div[2]/lightning-base-combobox-item[2]/span[2]/span"));
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));

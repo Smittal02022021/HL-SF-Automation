@@ -55,7 +55,7 @@ namespace SF_Automation.Pages
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
         By titleEngDetailsL = By.XPath("//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
-
+        ////button[contains(@title,'Close 21132025131338 | Opportunity')]
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
         By btnEngsearchL = By.XPath("//button[@aria-label='Search']");
@@ -574,7 +574,9 @@ namespace SF_Automation.Pages
 
         //Validate Engagement details page upon clicking Engagement Name
         public string ClickEngNumAndValidateThePage()
-        {            
+        {
+            //driver.FindElement(btnCloseTab).Click();
+            //Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetailsL, 170);
             string title = driver.FindElement(titleEngDetailsL).Text;
             return title;
@@ -583,6 +585,8 @@ namespace SF_Automation.Pages
         //Validate Engagement details page upon clicking Engagement Name
         public string ValidateEngDetailsPage()
         {
+            driver.FindElement(btnCloseTab).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetailsL, 170);
             string title = driver.FindElement(titleEngDetailsL).Text;
             return title;

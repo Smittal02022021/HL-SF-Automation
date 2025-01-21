@@ -62,7 +62,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By lblValuationFieldsL = By.XPath("//tbody/tr/th/label");
-        By lblValuationButtonsL = By.XPath("//tbody/tr/td/input");
+        By lblValuationButtonsL = By.XPath("//tbody/tr/td[2]/input");
         By btnSaveL = By.XPath("//input[@value='Save']");
         By msgMandatoryValL = By.XPath("//tbody/tr/td//li");
         By btnCancelL = By.XPath("//input[@value='Cancel']");
@@ -77,7 +77,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtEditNameL = By.XPath("//label[text()='Position Name']/ancestor::tr/td[1]//input");
         By lnkValDateL = By.XPath("//tr[3]/td[1]/div//a");
         By valNameL = By.XPath("//th[text()='Name']/ancestor::tr/td/span/span/span");
-        By secPeriodDetailL = By.XPath("//div[contains(@title,'Hide Section')]");
+        By secPeriodDetailL = By.XPath("//div[contains(@title,'Hide Section')]/img");
         By btnPeriodDetailL = By.XPath("//td//input[@type='submit']");
         By mainSecPeriodDetailL = By.XPath("//td/h2");
         By btnBackValPeriodListL = By.XPath("//input[@value='Back To Opp Valuation Period List']");
@@ -674,8 +674,11 @@ namespace SF_Automation.Pages.Opportunity
         {
                         Thread.Sleep(5000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(secPeriodDetailL);
-            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Opportunity Information", "Valuation Information", "System Information" };
+            var actualValue = valRecordTypes.Select(x => x.GetAttribute("name")).ToArray();
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+            Console.WriteLine(actualValue[2]);
+            string[] expectedValue = { "Opportunity Information", "Valuation Information","Report Section", "System Information" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -851,7 +854,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblPeriodPositionL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Company", "*\r\nAsset Classes", "Company Industry Group", "Company Sector","Position Notes" };
+            string[] expectedValue = { "Company", "*\r\nAsset Classes", "Company Industry Group", "Company Sector","Report Fee","Position Notes" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
             Console.WriteLine(actualValue[2]);

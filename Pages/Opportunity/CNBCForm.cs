@@ -551,7 +551,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             driver.Close();
             Console.WriteLine("Closed the last window");
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
         }
 

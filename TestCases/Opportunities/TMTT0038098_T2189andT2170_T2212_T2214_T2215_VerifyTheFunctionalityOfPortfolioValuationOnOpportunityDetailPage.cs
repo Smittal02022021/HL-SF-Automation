@@ -296,9 +296,9 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.DiffLightningLogout();
                 string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
-                string caoUser = login.ValidateUserLightningCAO();
+                string caoUser = login.ValidateUserLightningCAO3rd();
                 Console.WriteLine("caoUser:" + caoUser);
-                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(1, 10));
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0, 12));
                 Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
@@ -355,7 +355,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //37.  TMTI0092383_Verify that once the opportunity gets converted into engagement, the CAO is not able to perform any action or add a new opp valuation period
                 //39.  TMTI0092387_Verify that once the opportunity gets converted into engagement, the FVA User is not able to perform any action or add a new opp valuation period. 
                 engHome.SelectEngUnderHLBanker();
-                engHome.ValidateSearchFunctionalityOfEngagements("01362024133651");
+                engHome.ValidateSearchFunctionalityOfEngagements("FGIC 2024");
                 engHome.ClickEngNumber();
                string newOppValPeriodCAO= engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp(caoUser);
                 Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodCAO);
@@ -367,7 +367,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(stdUser2.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser2 + " logged in ");
                 engHome.SelectEngUnderHLBanker();
-                engHome.ValidateSearchFunctionalityOfEngagements("01362024133651");
+                engHome.ValidateSearchFunctionalityOfEngagements("FGIC 2024");
                 engHome.ClickEngNumber();
                 string newOppValPeriodFVAUser = engDetails.ValidateNewOppValPeriodButtonOfRelatedOpp(stdUser2);
                 Assert.AreEqual("New Opportunity Valuation Period button is not displayed", newOppValPeriodFVAUser);

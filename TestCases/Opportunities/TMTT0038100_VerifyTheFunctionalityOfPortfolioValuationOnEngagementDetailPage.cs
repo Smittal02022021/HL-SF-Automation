@@ -43,7 +43,7 @@ namespace SF_Automation.TestCases.Opportunity
         {
             try
             {
-                //Get path of Test data file
+                //Get path of Test data file (need to add Karan in PV Supervisor)
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1644;
                 Console.WriteLine(excelPath);
 
@@ -137,8 +137,8 @@ namespace SF_Automation.TestCases.Opportunity
                 usersLogin.DiffLightningLogout();
                 string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
-                string caoUser = login.ValidateUserLightningCAO();
-                Console.WriteLine("caoUser:" + caoUser);
+                string caoUser = login.ValidateUserLightningCAO3rd();
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0, 12));
                 Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 

@@ -47,6 +47,15 @@ namespace SF_Automation.Pages
             return loggedUserName.Text.Substring(13, 10);
         }
 
+        public string ValidateUserLightningCAO3rd()
+        {
+            Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 12);
+        }
+
 
         public string ValidateUserLightningCAO2nd()
         {

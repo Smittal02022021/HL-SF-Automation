@@ -42,7 +42,7 @@ namespace SF_Automation.TestCases.Opportunity
         {
             try
             {
-                //Get path of Test data file
+                //Get path of Test data file  (need to add Karan in PV Supervisor)
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1644;
                 Console.WriteLine(excelPath);
 

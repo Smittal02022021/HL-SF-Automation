@@ -596,9 +596,9 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateSelectPEFirm()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyL, 150);
-            driver.FindElement(txtCompanyL).SendKeys("te");
+            driver.FindElement(txtCompanyL).SendKeys("TE Studio, Ltd.");
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//table/tbody/tr[2]/td/div/strong")).Click();
+            //driver.FindElement(By.XPath("//table/tbody/tr[2]/td/div/strong")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnPEFirm, 160);
             driver.FindElement(btnPEFirm).Click();
             Thread.Sleep(3000);

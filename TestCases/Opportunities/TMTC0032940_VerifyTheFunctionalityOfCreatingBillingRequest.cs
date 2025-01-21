@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //13.	TMT0074759_Verify that once user Add Fees to Bill, Admin Fee will be created automatically. (Based on the percentage fixed in backend)
                 string feeBillingReq =project.ValidateAddedFeeInBillingRequest();
                 Assert.AreEqual("Admin Fee", feeBillingReq);
-                extentReports.CreateLog("Fee with Type: " + feeBillingReq + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq    + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
 
                 //15.	TMT0074763_Verify that user is not allowed to delete the added Fees to Bill
                 string feeDelete = project.ValidateDeleteFunctionalityOfAddedFeeInBillingRequest();

@@ -41,7 +41,7 @@ namespace SF_Automation.Pages.Engagement
         By msgError2 = By.CssSelector("span[id *= 'j_id18'] > ul > li:nth-child(2)");
         By valStatus = By.CssSelector("span[id*='StatusId']");
         By valFeeCompleted = By.CssSelector("span[id*='id66']");
-        By valFeeCompletedInProgressL = By.XPath("//th[contains(text(),' Report')]/ancestor::tr/td[1]/span/span");
+        By valFeeCompletedInProgressL = By.XPath("//th[contains(text(),' Fee Completed')]/ancestor::tr/td[1]/span");
         By valFeeCompletedL = By.XPath("//th[contains(text(),' Report')]/ancestor::tr/td[1]/span//input");
 
         By valRevenueMonth = By.CssSelector("span[id*='id82']");

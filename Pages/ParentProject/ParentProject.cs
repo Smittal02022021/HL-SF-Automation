@@ -50,7 +50,7 @@ namespace SalesForce_Project.Pages
         By tabProject = By.XPath("//a[@title='Parent Projects Tab']");
         By lnkProjName = By.XPath("//div[2]//td[2]/div[3]//tr[2]/th/a");
         By btnDeleteProjAdmin = By.XPath("//div[4]/div[1]//input[@title='Delete']");
-        By lnkBillingReq = By.XPath("//slot[contains(text(),'Billing ')]/ancestor::a");
+        By lnkBillingReq = By.XPath("//slot[contains(text(),'Billing Requests')]/ancestor::a");
         By titleBillingReq = By.XPath("//h1[contains(text(),'Billing ')]");
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
         By btnNewBillingReq = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Request__c.New']//button[@name='New']");
@@ -138,6 +138,7 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(txtName).SendKeys(value);
             driver.FindElement(txtBillTo).Click();
+            driver.FindElement(txtBillTo).SendKeys("Tec");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-grouped-combobox//lightning-base-combobox//div[2]/ul/li[2]")).Click();
             driver.FindElement(btnSave).Click();
@@ -153,10 +154,10 @@ namespace SalesForce_Project.Pages
             driver.FindElement(btnEditParentProject).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnClearParentProject);
             driver.FindElement(btnClearParentProject).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtParentProject);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtParentProject,100);
             driver.FindElement(txtParentProject).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]/slot/flexipage-component2[1]/slot//flexipage-column2[2]//flexipage-field[13]//div[2]/ul")).Click();
+            driver.FindElement(By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]/slot/flexipage-component2[1]/slot//flexipage-column2[2]//flexipage-field[13]//div[2]/ul/li[1]")).Click();
             Thread.Sleep(7000);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(8000);
@@ -448,7 +449,7 @@ namespace SalesForce_Project.Pages
             Console.WriteLine("actualValue: " + actualValue[1]);
             Console.WriteLine("actualValue: " + actualValue[2]);
             //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
-            string[] expectedValue = { "Parent Project", "Total Expense Amount", "Total Suggested Fees To Bill", "Expense Cap", "Total Fees To Bill", "Total Event Amount" };
+            string[] expectedValue = { "Parent Project", "Total Expense Amount", "Expense Cap", "Total Suggested Fees To Bill",  "Total Fees To Bill", "Total Event Amount" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

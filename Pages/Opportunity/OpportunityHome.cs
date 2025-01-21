@@ -579,7 +579,7 @@ namespace SF_Automation.Pages
                 }
                 else
                 {
-                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 150);
                     driver.FindElement(btnOppNumL).Click();
                     Thread.Sleep(4000);
                     WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 100);

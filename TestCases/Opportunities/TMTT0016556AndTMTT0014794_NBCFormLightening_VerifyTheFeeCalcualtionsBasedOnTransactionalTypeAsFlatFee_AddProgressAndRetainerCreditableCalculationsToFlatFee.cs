@@ -159,7 +159,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(progressFee, nbcProgressFee);
                 extentReports.CreateLog("Progress Fee in NBC form " + nbcProgressFee + " matches with Progress Fee in Opportunity details page ");
 
-                form.SaveAllReqFieldsInFees(fileTC1232);
+                form.SaveAllReqFieldsInFees(fileTC1232,"Flat Fee");
 
                 //Navigate to previous window and validate Retainer and Monthly Fee
                 form.NavigateToPreviousWindow();                
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Clear out the Progress Fee and Progress Fee Creditable fields
                 form.NavigateToNextWindow();
-                string estFeeWithRetainer = form.UpdateReviewSubAndProgressFee(fileTC1232);
+                string estFeeWithRetainer = form.UpdateReviewSubAndProgressFee(fileTC1232, "Flat Fee");
                 Console.WriteLine(estFeeWithRetainer);
 
                 string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
@@ -211,18 +211,19 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000)))+ Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered along with Flat Fee ");
 
-                //Validate that if Minimum Fee is greater than Estimated Total Fee then it will be copied to Estimated Total Fee
-                string MinFee = form.UpdateMinFee();
-                string EstFeeWithGreaterMinFee = form.GetEstTotalFee();
-                Assert.AreEqual(MinFee, EstFeeWithGreaterMinFee);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed same as Minimum Fee when Minimum Fee is greater than Estimated Total Fee ");
+                //Commented as Min Fee is not applicable for Flat Fee
+                ////Validate that if Minimum Fee is greater than Estimated Total Fee then it will be copied to Estimated Total Fee
+                //string MinFee = form.UpdateMinFee();
+                //string EstFeeWithGreaterMinFee = form.GetEstTotalFee();
+                //Assert.AreEqual(MinFee, EstFeeWithGreaterMinFee);
+                //extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed same as Minimum Fee when Minimum Fee is greater than Estimated Total Fee ");
 
-                //Validate that if Minimum Fee is less than Estimated Total Fee then it will not be copied to Estimated Total Fee
-                string MinFeeLess = form.UpdateMinFeeLessThanEstTotalFee();
-                string EstFeeWithLessMinFee = form.GetEstTotalFee();
-                Assert.AreNotEqual(MinFee, EstFeeWithLessMinFee);
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), EstFeeWithLessMinFee);
-                extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed as it is when Minimum Fee is less than Estimated Total Fee ");
+                ////Validate that if Minimum Fee is less than Estimated Total Fee then it will not be copied to Estimated Total Fee
+                //string MinFeeLess = form.UpdateMinFeeLessThanEstTotalFee();
+                //string EstFeeWithLessMinFee = form.GetEstTotalFee();
+                //Assert.AreNotEqual(MinFee, EstFeeWithLessMinFee);
+                //Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), EstFeeWithLessMinFee);
+                //extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed as it is when Minimum Fee is less than Estimated Total Fee ");
 
                 //Update Creditable fields to 0%
                 string estFeeWithZeroCred = form.UpdateFeeCreditables("0");               

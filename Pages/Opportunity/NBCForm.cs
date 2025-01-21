@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.SqlServer.Server;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -142,7 +143,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By btnTxnFeeType = By.XPath("(//lightning-base-combobox)[9]");
-        By valTxnFeeType = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[2]/slot//flexipage-field[4]//lightning-base-combobox-item/span[2]/span");
+        By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
         By lblFlatFee = By.XPath("//label[text()='Flat Fee (MM)']");
         By lblOtherFee = By.XPath("//label[contains(text(),'Other Fee Structure')]");
@@ -247,9 +248,9 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
-        By lblMinFee = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordProgress_Fee_cField1']/slot[1]/following::span[1]");
-        By lblTxnFee = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordEstimated_Minimum_Fee_cField1']/slot[1]/following::span[1]");
-        By lblEstTxn = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTransaction_Fee_Type_cField1']/slot[1]/following::span[1]");
+        By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']");
+        By lblTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']");
+        By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
         By lblRetainerFeeCred = By.XPath("//span[text()='Retainer Fee Creditable ?']");
@@ -441,7 +442,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgCC3 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[8]//lightning-combobox/div/div[2]");
         By msgCC4 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[10]//lightning-combobox/div/div[2]");
         By msgCC5 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[12]//lightning-combobox/div/div[2]");
-        By valDateSubmitted = By.XPath("//flexipage-field[3]/slot/record_flexipage-record-field/div/div//dd/div[1]/span/slot[1]/lightning-formatted-text");
+        By valDateSubmitted = By.XPath("//span[text()='Date Submitted']/ancestor::div[2]/dd//lightning-formatted-text");
         By lblBaseFee = By.XPath("//span[text()='Base Fee (MM)']");
         By lbl1stRatchetPercent = By.XPath("//span[text()='First Ratchet Percent']");
         By lbl1stRatchetFromAmt = By.XPath("//span[text()='First Ratchet From Amount (MM)']");
@@ -1062,7 +1063,7 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,200)");
             Thread.Sleep(6000);
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
@@ -1568,7 +1569,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Save all required details in Fees tab
-        public void SaveAllReqFieldsInFees(string file)
+        public void SaveAllReqFieldsInFees(string file, string feeType)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -1581,7 +1582,14 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtProgressFee).SendKeys(fee);
             driver.FindElement(txtProgressFeeCred).SendKeys(fee);
             js.ExecuteScript("window.scrollTo(0,350)");
-            driver.FindElement(txtMinFee).SendKeys(fee);
+            if (feeType.Equals("Flat Fee"))
+            {
+                Console.WriteLine("No Min Fee is requird");
+            }
+            else
+            {
+                driver.FindElement(txtMinFee).SendKeys(fee);
+            }
             driver.FindElement(txtEstTxnVal).SendKeys(fee);
             //driver.FindElement(btnTxnFeeType).Click();           
             //Thread.Sleep(5000);
@@ -1613,7 +1621,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtMinFee).SendKeys(fee);
             driver.FindElement(txtEstTxnVal).SendKeys(fee);
             Thread.Sleep(6000);
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,300)");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
@@ -3362,7 +3370,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Clear Progress Fee related fields and others except Retainer ones
-        public string UpdateReviewSubAndProgressFee(string file)
+        public string UpdateReviewSubAndProgressFee(string file, string feeType)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -3370,7 +3378,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
-            driver.FindElement(btnUpdSubmit).Click();
+            driver.FindElement(btnSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,450)");
             WebDriverWaits.WaitUntilEleVisible(driver, txtRetainer, 150);
             Thread.Sleep(5000);
@@ -3385,7 +3393,14 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtProgressFeeMM).Clear();
             driver.FindElement(txtProgressFee).Clear();
             js.ExecuteScript("window.scrollTo(0,1100)");
-            driver.FindElement(txtMinFeeMM).Clear();
+            if (feeType.Equals("Flat Fee"))
+            {
+                Console.WriteLine("Min Fee is not required here");
+            }
+            else
+            {
+                driver.FindElement(txtMinFeeMM).Clear();
+            }
             driver.FindElement(txtEstTxnValueMM).Clear();
             js.ExecuteScript("window.scrollTo(0,1050)");
             driver.FindElement(txtReferralFeeOwnedMM).Clear();

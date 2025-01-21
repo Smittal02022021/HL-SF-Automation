@@ -224,7 +224,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate on clicking Engagement number, engagement details page is displayed
                 //engHome.ClickEngNumber();
-                string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
+                string titleEngDetails = engHome.ValidateEngDetailsPage();
                 Assert.AreEqual("Details", titleEngDetails);
                 extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
 

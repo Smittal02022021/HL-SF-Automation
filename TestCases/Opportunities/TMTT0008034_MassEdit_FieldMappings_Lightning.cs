@@ -59,7 +59,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Search FR Opportunity 
-                opportunityHome.SearchMyOpportunitiesInLightning("01012024090102", valUser);
+                opportunityHome.SearchMyOpportunitiesInLightning("Kirklands, Inc. - DM&A Sellside - FRG", valUser);
                 extentReports.CreateLog("Records matches to LOB-FR are found and Opportunity Detail page is displayed ");
 
                 //Get currency of Total Debt

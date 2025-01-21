@@ -63,7 +63,7 @@ namespace SF_Automation.TestCases.Opportunity
                 engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2), valJobType);
 
                 //Validate title of Engagement Details page
-                string titleEngDetails = engHome.ValidateEngDetailsPage();
+                string titleEngDetails = engHome.ClickEngNumAndValidateThePage();
                 Assert.AreEqual("Details", titleEngDetails);
                 extentReports.CreateLog("Engagement Details page is displayed upon clicking Engagement number ");
 
@@ -93,7 +93,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //-----Validate Fee Completed
                 string FeeCompleted = valuationPeriods.GetFeeCompletedInProgressL();
-                Assert.AreEqual("USD ", FeeCompleted);
+                Assert.AreEqual("USD 0.00", FeeCompleted);
                 extentReports.CreateLog("Fee Completed: " + FeeCompleted + " is displayed as expected ");
 
                 //-----Validate Revenue Month and Revenue Year
