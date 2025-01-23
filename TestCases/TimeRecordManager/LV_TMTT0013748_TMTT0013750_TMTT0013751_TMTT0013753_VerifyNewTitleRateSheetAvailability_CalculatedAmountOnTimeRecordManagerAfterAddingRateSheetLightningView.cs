@@ -86,6 +86,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for LOB: " + valRecordType + " and Job Type: " + valJobType);
+
                 string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
