@@ -249,7 +249,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']");
-        By lblTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']");
+        By lblTxnFee = By.XPath("//span[text()='Transaction Fee Type']");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
@@ -1134,10 +1134,10 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(7000);
             js.ExecuteScript("window.scrollTo(0,1600)");

@@ -4980,7 +4980,7 @@ public void ClickNewOpportunitySectorButton()
             //Thread.Sleep(6000);
             driver.FindElement(comboTombstoneL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Tombstone Permission']/ancestor::div[1]/div//div[2]/lightning-base-combobox-item[2]/span[2]/span"));
+            driver.FindElement(By.XPath("//label[text()='Tombstone Permission']/following::lightning-base-combobox-item//span[text()='No Restrictions']")).Click();
 
             //Opp Desc
             driver.FindElement(txtOppDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));

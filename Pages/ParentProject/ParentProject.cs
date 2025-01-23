@@ -81,7 +81,7 @@ namespace SalesForce_Project.Pages
         // By lnkViewAll = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span/ancestor::lst-related-list-view-manager/a");
         //By btnAction = By.XPath("//table//td[10]//lightning-button-menu/button");
         By btnEditFee = By.XPath("//records-entity-label[text()='Fee To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
-        By valExpenseType = By.XPath("//span[@title='Expenses To Bill']/ancestor::article//table/tbody//td[4]//span//span");
+        By valExpenseType = By.XPath("//span[@title='Expenses To Bill']/ancestor::article//table/tbody//tr[1]/td[5]//span//span");
         By valTotalExpense = By.XPath("//p[text()='Total Expense Amount']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By checkSelectExp = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr/td[2]//span/label/span[1]");
         By btnUpdateToBill = By.XPath("//button[text()='Update To Bill']");
@@ -90,7 +90,7 @@ namespace SalesForce_Project.Pages
         By btnClose2ndBillingReq = By.XPath("//ul[2]/li[3]/div[2]/button");
         By btnAddExpToBill = By.XPath("//button[@name='Billing_Request__c.Add_Expenses_To_Bill']");
         By btnSelectEng = By.XPath("//button[@aria-label='Select Engagement']");
-        By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr/th//a//slot//slot");
+        By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr[1]/th//button");
         By tabParentProjAdmin = By.XPath("//a[text()='Parent Projects']");
         By lnkParentProjAdmin = By.XPath("//a[text()='Loar Holdings Combo']");
         By lnkBillingReqAdmin = By.XPath("//h3[text()='Billing Requests']//ancestor::div[2]//tr[2]/th/a");
@@ -582,9 +582,9 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(txtEngagement).Click();
             Thread.Sleep(4000);
-            driver.FindElement(txtEngagement).SendKeys("Loar - Desser PPA Carve-out");
+            driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='122151']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFeeType, 100);
             driver.FindElement(btnFeeType).Click();
             Thread.Sleep(4000);
@@ -673,7 +673,9 @@ namespace SalesForce_Project.Pages
         }
 
         public string ValidateIncludeExpenseFunctionalityOfBillingRequest()
-        {           
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(checkSelectExp).Click();
             Thread.Sleep(3000);
             driver.FindElement(btnUpdateToBill).Click();
             Thread.Sleep(6000);
@@ -686,7 +688,8 @@ namespace SalesForce_Project.Pages
         }
 
         public string ValidateDeleteFunctionalityOfExpenseToBill()
-        {           
+        {
+            Thread.Sleep(7000);
             driver.FindElement(lnkExpName).Click();
             Thread.Sleep(5000);
             string delete = driver.FindElement(btnEditFee).GetAttribute("name");

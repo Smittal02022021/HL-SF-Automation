@@ -70,7 +70,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //1.  TMT0074711_Verify that the "Billing Request" quick link is placed on the Parent Project
                 //project.ValidateSearchFunctionalityOfParentProject("Updated Project");
-                project.ValidateSearchFunctionalityOfParentProject("Loar Holdings Combo");                
+                project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
+                
                 string billing = project.ValidateBillingRequestLink();
                 Assert.AreEqual("Billing Requests", billing);
                 extentReports.CreateLog("Link "+ billing + " is displayed on the Parent Project ");
@@ -150,7 +151,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //17.	TMT0074975_Verify that the expenses of each associated engagement will reflect under Expenses to Bill section.
                 string expenseType = project.GetExpenseTypeOfBillingRequest();
-                Assert.AreEqual("79770-Cellular Phone Charges", expenseType);
+                Assert.AreEqual("67150-Overtime Meals", expenseType);
                 extentReports.CreateLog("Expense Type of: " + expenseType +" is displayed in the Billing Request ");
 
                 //18.	TMT0074977_Verify that the user is able to exclude selected expenses using "Update to Bill" from the current billing request
@@ -181,7 +182,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
-                project.ValidateSearchFunctionalityOfParentProject("Loar Holdings Combo");
+                project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
                 project.ValidateBillingRequestLink();
 
                 usersLogin.DiffLightningLogout();               

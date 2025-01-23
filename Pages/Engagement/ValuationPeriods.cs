@@ -53,7 +53,7 @@ namespace SF_Automation.Pages.Engagement
         By valRevenueYearL = By.XPath("//span[contains(text(),'Revenue Year')]/ancestor::tr/td[1]/span");
         By valCancelYear = By.CssSelector("span[id*='id85']");
         By valCancelYearL = By.XPath("//th[contains(text(),'Cancel Year')]/ancestor::tr/td[2]/span");
-        By valCancelYear1 = By.CssSelector("span[id*='id86']");
+        By valCancelYear1 = By.XPath("//th[contains(text(),'Cancel Year')]/ancestor::tr/td[2]/span");
         By valCancelYear1L = By.CssSelector("//th[contains(text(),'Cancel Date')]/ancestor::tr/td[2]/span");
 
         By valCompletedDate = By.CssSelector("span[id*='id87']");
@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Engagement
 
         By btnBackToValuation = By.CssSelector("input[value='Back To Valuation Period']");
         By valPositionName = By.CssSelector("td[id*='id167']>a");
-        By txtUpReportFee = By.CssSelector("input[name*='id38']");
+        By txtUpReportFee = By.CssSelector("input[name*='id40']");
         By btnVoidPosition = By.CssSelector("input[value='Void Position']");
         By msgCancel = By.CssSelector("div[id*='_id5']");
         By btnYes = By.CssSelector("input[value=' Yes ']");
@@ -1044,7 +1044,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(colTeamMemL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "#", "STAFF", "ROLE", "STATUS", "ACTION" };
+            string[] expectedValue = { "#", "Staff", "Role", "Start Date","End Date","Status", "Action" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
             Console.WriteLine(actualValue[2]);

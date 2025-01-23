@@ -383,7 +383,7 @@ namespace SF_Automation.Pages.Engagement
 		By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
 		By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
 		By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
-		By tabRevenue = By.XPath("//a[@data-label='Revenue']");
+		By tabRevenue = By.XPath("//li[7]/a[@data-label='Revenue']");
 		By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
 		By subtabContracts = By.XPath("//a[@data-label='Contracts']");
 		By valContractNumberL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[1]/td[1]//span//span");
@@ -5111,7 +5111,7 @@ namespace SF_Automation.Pages.Engagement
 		//Get Revenue tab
 		public string ValidateRevenueTab()
 		{
-			Thread.Sleep(5000);
+			Thread.Sleep(6000);
 			WebDriverWaits.WaitUntilEleVisible(Driver, tabRevenue, 100);
 			string value = driver.FindElement(tabRevenue).Text;
 			driver.FindElement(tabRevenue).Click();
