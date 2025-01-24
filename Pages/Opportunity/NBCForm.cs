@@ -249,7 +249,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']");
-        By lblTxnFee = By.XPath("//span[text()='Transaction Fee Type']");
+        By lblTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");

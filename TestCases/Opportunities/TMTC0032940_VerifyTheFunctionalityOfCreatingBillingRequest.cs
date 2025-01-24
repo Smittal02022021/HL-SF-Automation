@@ -184,6 +184,33 @@ namespace SF_Automation.TestCases.Opportunity
 
                 project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
                 project.ValidateBillingRequestLink();
+                string messageAddExp  = project.ValidateAddExpenseToBillFunctionality();
+                Assert.AreEqual("records created successfully", messageAddExp);
+                extentReports.CreateLog("Message: "+messageAddExp + " is displayed after adding Expense To Bill ");
+
+                //22.   TMT0074988_Verify that the "Add PV Positions" button is available on the Billing Request
+                string addPVPosition = project.ValidateAddPVPositions();
+                Assert.AreEqual("Add PV Positions", addPVPosition);
+                extentReports.CreateLog("Button: " + addPVPosition + " is displayed on the Billing Request ");
+
+                //25.	TMT0074994 _Verify that the user is able to add PV Positions to Bill to include into the Billing Request that are completed and yet to Invoiced
+                string reportFeePV1 = project.ValidateAddPVPositionsFunctionality();
+                Assert.NotNull(reportFeePV1);
+                extentReports.CreateLog("1st PV Position with Report fee: " + reportFeePV1 + " is displayed on the Billing Request ");
+
+                string reportFeePV2 = project.GetReportFeeOf2ndPVPosition();
+                Assert.NotNull(reportFeePV2);
+                extentReports.CreateLog("2nd PV Position with Report fee: " + reportFeePV2 + " is displayed on the Billing Request ");
+
+                //23.	TMT0074990_Verify that the user is able to exclude selected PV Positions using "Update to Bill" from the current billing request. 
+
+                //24.	TMT0074992_Verify that the user is able to include that excluded PV Positions using "Update to Bill" in the current billing request. 
+                string includePV = project.ValidateIncludePVPositionFunctionalityOfBillingRequest();
+                Assert.AreEqual("Records updated Successfully", includePV);
+                extentReports.CreateLog("Message: " + includePV + " is displayed after including PV Position using Update To Bill ");
+
+                //26.	TMT0074996_Verify that the user is able to add aggregate of the report fee of all the selected positions in Fees to Bill and it will reflect in the Total Fee to Bill. 
+                  
 
                 usersLogin.DiffLightningLogout();               
 

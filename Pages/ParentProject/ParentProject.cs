@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports.Reporter.Configuration;
+using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -90,12 +91,26 @@ namespace SalesForce_Project.Pages
         By btnClose2ndBillingReq = By.XPath("//ul[2]/li[3]/div[2]/button");
         By btnAddExpToBill = By.XPath("//button[@name='Billing_Request__c.Add_Expenses_To_Bill']");
         By btnSelectEng = By.XPath("//button[@aria-label='Select Engagement']");
-        By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr[1]/th//button");
+        By btnSelectPV = By.XPath("//button[@aria-label='Select PV']");
+        By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr[1]/th//records-hoverable-link");
         By tabParentProjAdmin = By.XPath("//a[text()='Parent Projects']");
-        By lnkParentProjAdmin = By.XPath("//a[text()='Loar Holdings Combo']");
+        By lnkParentProjAdmin = By.XPath("//a[text()='Combo O’Connor Global']");
         By lnkBillingReqAdmin = By.XPath("//h3[text()='Billing Requests']//ancestor::div[2]//tr[2]/th/a");
         By lnkDelExpToBillAdmin = By.XPath("//h3[text()='Expenses To Bill']//ancestor::div[2]//tr[2]/td/a[contains(@title,'Delete - Record 1 ')]");
-       
+        By chkExpID = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox//label/span[1]");
+        By chkEXpID2 = By.XPath("//tr[2]/td[1]/lightning-primitive-cell-checkbox//label/span[1]");
+        By btnSaveAddExp = By.XPath("//button[text()='Save']");
+        By msgAddExp = By.XPath("//span[text()='records created successfully']");
+        By btnAddPVPositions = By.XPath("//button[text()='Add PV Positions']");
+        By valReportFeePV1 = By.XPath("//table[@aria-label='PV Positions To Bill']/tbody//tr[1]/td[8]//div//span");
+        By valReportFeePV2 = By.XPath("//table[@aria-label='PV Positions To Bill']/tbody//tr[2]/td[8]//div//span");
+        By checkSelectPV = By.XPath("//table[@aria-label='PV Positions To Bill']/tbody/tr/td[2]//span/label/span[1]");
+        By btnUpateToBillPV = By.XPath("//li[@data-target-selection-name='sfdc:QuickAction.PV_Positions_To_Bill__c.Update_To_Bill']//button");
+        By msgSuccess = By.XPath("//span[text()='Records updated Successfully']");
+        By btnNewFee = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Fee_To_Bill__c.New']//button[@name='New']");
+        //By txtEngagement = By.XPath("");
+
+
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -674,15 +689,13 @@ namespace SalesForce_Project.Pages
 
         public string ValidateIncludeExpenseFunctionalityOfBillingRequest()
         {
-            Thread.Sleep(6000);
-            driver.FindElement(checkSelectExp).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(btnUpdateToBill).Click();
             Thread.Sleep(6000);
             driver.FindElement(checkToBill).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnSaveUpdateToBill).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valTotalExpense).Text;
             return value;
         }
@@ -698,6 +711,7 @@ namespace SalesForce_Project.Pages
 
         public string ValidateDeleteFunctionalityOfExpenseToBillWithAdmin()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabParentProjAdmin, 90);
             driver.FindElement(tabParentProjAdmin).Click();
             driver.FindElement(lnkParentProjAdmin).Click();
             Thread.Sleep(4000);
@@ -714,18 +728,93 @@ namespace SalesForce_Project.Pages
 
         public string ValidateAddExpenseToBillFunctionality()
         {
-            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link//a"));
+            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
             Thread.Sleep(6000);
             driver.FindElement(btnAddExpToBill).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSelectEng).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-item//span[@title='Loar - Desser PPA Carve-out']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item[2]//span[2]/span")).Click();
             Thread.Sleep(5000);
-            driver.FindElement(btnSaveUpdateToBill).Click();
+            driver.FindElement(chkExpID).Click();
             Thread.Sleep(5000);
-            string value = driver.FindElement(valTotalExpense).Text;
+            driver.FindElement(btnSaveAddExp).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(msgAddExp).Text;
             return value;
         }
+
+        public string ValidateAddPVPositions()
+        {
+            Thread.Sleep(5000);           
+            string value = driver.FindElement(btnAddPVPositions).Text;
+            //driver.FindElement(btnCloseBillingReq).Click();
+            return value;
+        }
+
+        public string ValidateAddPVPositionsFunctionality()
+        {
+            driver.FindElement(btnAddPVPositions).Click();           
+            Thread.Sleep(4000);
+            driver.FindElement(btnSelectEng).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-item[2]//span[2]/span")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSelectPV).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//button[@aria-label='Select PV']/ancestor::div[2]/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(chkExpID).Click();
+            driver.FindElement(chkEXpID2).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveAddExp).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,550)");
+            WebDriverWaits.WaitUntilEleVisible(driver, valReportFeePV1, 250);
+            string value = driver.FindElement(valReportFeePV1).Text;
+            return value;
+        }
+
+        public string GetReportFeeOf2ndPVPosition()
+        {
+            string value = driver.FindElement(valReportFeePV2).Text;
+            return value;
+        }
+
+        public string ValidateIncludePVPositionFunctionalityOfBillingRequest()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,350)");
+            Thread.Sleep(6000);            
+            driver.FindElement(checkSelectPV).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(btnUpateToBillPV).Click();
+            Thread.Sleep(6000);
+            //driver.FindElement(checkToBill).Click();
+            //Thread.Sleep(5000);
+            driver.FindElement(btnSaveUpdateToBill).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(msgSuccess).Text;
+            return value;
+        }
+
+        public string ValidateAggregateOfReportFeeFunctionality()
+        {            
+            Thread.Sleep(5000);
+            driver.FindElement(btnNewFee).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(txtEngagement).Click();
+            driver.FindElement(txtEngagement).SendKeys("Connor");
+            Thread.Sleep(5000);
+            driver.FindElement(btnSelectEng).Click();
+            Thread.Sleep(6000);
+            //driver.FindElement(checkToBill).Click();
+            //Thread.Sleep(5000);
+            driver.FindElement(btnSaveUpdateToBill).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(msgSuccess).Text;
+            return value;
+        }
+
     }
 }
