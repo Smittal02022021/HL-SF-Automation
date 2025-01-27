@@ -87,8 +87,27 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Login as CF Financial user
                 lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
                 Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(valUser));
                 extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 //Search external contact
                 lvHomePage.SearchContactFromMainSearch(extContactName);
