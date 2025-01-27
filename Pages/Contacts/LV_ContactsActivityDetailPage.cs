@@ -136,13 +136,14 @@ namespace SF_Automation.Pages.Contact
             string companyDiscussed = driver.FindElement(valCompanyDiscussed).Text;
             return companyDiscussed;
         }
+
         public string GetCompanyDiscussedNameActivityWithoutExternal()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valueCompanyDiscussed, 60);
             string companyDiscussedActivity = driver.FindElement(valueCompanyDiscussed).Text;
             return companyDiscussedActivity;
         }
-        //
+        
         public string GetRelatedOpportunities()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOpportunities, 60);
@@ -261,7 +262,6 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
-
 
         public bool NavigateToCampaignDetailPage(string campName)
         {
