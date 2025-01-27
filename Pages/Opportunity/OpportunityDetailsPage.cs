@@ -6309,8 +6309,8 @@ namespace SF_Automation.Pages
             string valRetainerL = ReadExcelData.ReadData(excelPath, "AddOpportunity", 15);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblFeeNotesDes));
             driver.FindElement(txtRetainerL).SendKeys(valRetainerL);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtTailExpiresL));
-            driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtTailExpiresL));
+            //driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
             driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
 

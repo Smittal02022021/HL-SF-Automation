@@ -148,9 +148,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Login as CAO user
                 lvHomePage.UserLogin();
-                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userCAOExl));
-                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
-
+                
                 //Switch to lightning view
                 if(driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
@@ -161,6 +159,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 {
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
                 }
+
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userCAOExl));
+                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
 
                 //Search for created opportunity
                 extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
