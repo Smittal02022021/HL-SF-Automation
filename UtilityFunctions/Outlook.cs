@@ -312,7 +312,7 @@ namespace SF_Automation.UtilityFunctions
 
         public string GetLabelOfOutlook()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, outlookLabel, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, outlookLabel, 120);
             string labelOutlook = driver.FindElement(outlookLabel).Text;
             Thread.Sleep(5000);
 

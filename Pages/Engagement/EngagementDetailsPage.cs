@@ -6897,7 +6897,7 @@ namespace SF_Automation.Pages.Engagement
             try
             {
                 Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[4]")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
                 Thread.Sleep(3000);
             }
             catch (Exception)
