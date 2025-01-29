@@ -105,6 +105,7 @@ namespace SF_Automation.Pages.Contact
         By tabHistory = By.XPath("//a[@data-label='History']");
         By tabDeals = By.XPath("//a[@data-label='Deals']");
         By tabSummary = By.XPath("//a[@data-label='Summary']");
+        By tabMarketing = By.XPath("//a[@data-label='Marketing']");
 
         By tabDetails = By.XPath("//a[@data-label='Details']");
         By tabRelated = By.XPath("//a[@data-label='Related']");
@@ -577,13 +578,13 @@ namespace SF_Automation.Pages.Contact
 
             //Scroll to the bottom of the page
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0, 500)");
+            js.ExecuteScript("window.scrollTo(0, 0)");
             Thread.Sleep(2000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, quickLinksShowAll, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(quickLinksShowAll));
-            driver.FindElement(quickLinksShowAll).Click();
-            Thread.Sleep(2000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, quickLinksShowAll, 120);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(quickLinksShowAll));
+            //driver.FindElement(quickLinksShowAll).Click();
+            //Thread.Sleep(2000);
 
             //Get no of quick links
             int linkCount = driver.FindElements(By.XPath("(//*[text()='Related List Quick Links'])[1]/following::ul/li//slot")).Count;
@@ -616,7 +617,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(2000);
 
             bool result = false;
-            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabDeals).Displayed && driver.FindElement(tabSummary).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabDeals).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
             {
                 result = true;
             }

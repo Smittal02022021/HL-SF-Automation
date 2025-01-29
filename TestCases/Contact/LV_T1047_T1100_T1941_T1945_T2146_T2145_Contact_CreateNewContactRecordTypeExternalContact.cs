@@ -142,7 +142,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("External contact have Edit, Add Relationship L, and Printable View buttons displayed at the top for CF Financial user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForCFFinancialUser());
-                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History tabs are displayed at the top for CF Financial user. ");
+                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Deals, History & Summary tabs are displayed at the top for CF Financial user. ");
 
                 //Verify error message is dispalyed when user tries to change company
                 Assert.IsTrue(lvContactDetails.VerifyErrorMessageDisplayedUponChangingCompanyNameForAContact("StandardTestCompany"));
@@ -172,7 +172,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "All the quick links are displayed as expected for System Admin user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedOnExternalContactDetailPageForSysAdminUser());
-                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Marketing, History and Summary tabs displayed at the top for System Admin user. ");
+                extentReports.CreateLog("External contact have Info, PitchBook, Relationships, Activity, Coverage, Campaign History, Deals, Marketing, History and Summary tabs displayed at the top for System Admin user. ");
 
                 Assert.IsTrue(lvContactDetails.VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForSysAdminUser());
                 extentReports.CreateStepLogs("Passed", "External contact have Edit, Add Relationship L, Delete and Printable View buttons displayed at the top for System Admin user. ");

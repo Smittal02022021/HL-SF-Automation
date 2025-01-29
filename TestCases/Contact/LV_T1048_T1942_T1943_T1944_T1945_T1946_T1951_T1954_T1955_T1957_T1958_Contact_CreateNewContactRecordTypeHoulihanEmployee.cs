@@ -111,48 +111,34 @@ namespace SF_Automation.TestCases.Contact
                     string contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
                     lvRecentlyViewContact.SelectContactType(contactType);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact: Houlihan Employee | Salesforce"), true);
-                    extentReports.CreateStepLogs("Passed", "User selected contact type as :" + contactType + ".");
+                    extentReports.CreateStepLogs("Passed", "User selected contact type as: " + contactType + ".");
 
                     //Validate FirstName, LastName and CompanyName display with red flag as mandatory fields
-                    Assert.IsTrue(lvCreateContact.ValidateMandatoryFields(), "Validate Mandatory fields");
-                    extentReports.CreateStepLogs("Passed", "Validated FirstName, LastName and CompanyName displayed with red flag as mandatory fields ");
+                    Assert.IsTrue(lvCreateContact.ValidateMandatoryFieldsForHLEmployee(), "Validate Mandatory fields");
+                    extentReports.CreateStepLogs("Passed", "Validated Last Name displayed with red flag as mandatory fields ");
 
                     //Calling click save button function
                     lvCreateContact.ClickSaveButton();
 
-                    //Validation of company error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company Name").Text.Contains("You must enter a value"));
-                    extentReports.CreateStepLogs("Passed", "Company name error message displayed upon click of save button without entering details ");
-
-                    //Validation of first name error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "First Name").Text.Contains("You must enter a value"));
-                    extentReports.CreateStepLogs("Passed", "First name error message displayed upon click of save button without entering details ");
-
                     //Validation of last name error message
-                    Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Last Name").Text.Contains("You must enter a value"));
+                    Assert.IsTrue(lvCreateContact.GetMandatoryFieldErrMsgForLastNameField().Contains("Complete this field."));
                     extentReports.CreateStepLogs("Passed", "Last name error message displayed upon click of save button without entering details ");
-
-                    //Create New HL Contact
-                    lvCreateContact.CreateNewContactMultipleRows(fileTC1048, row);
-                    driver.SwitchTo().DefaultContent();
-
-                    //Assertion to validate contact name displayed on the contacts detail page
-                    string extContactName = lvContactDetails.GetExternalContactName();
-                    Assert.AreEqual(extContactFullName, extContactName);
-                    extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
-
-                    // Assertion to validate the company name selected display on contact details page
-                    string companyName = lvContactDetails.GetCompanyName();
-                    Assert.AreEqual(compName, companyName);
-                    extentReports.CreateStepLogs("Passed", "Company Name: " + companyName + " in add contact page matches on contact details page");
-
-                    //Assertion to validate contact record type
-                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
-                    extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
-                        " ,Contact Record type is displayed under system information section ");
 
                     if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
                     {
+                        //Create New HL Contact
+                        lvCreateContact.CreateNewHLContactByHRUser(fileTC1048, row);
+
+                        //Assertion to validate contact name displayed on the contacts detail page
+                        string extContactName = lvContactDetails.GetExternalContactName();
+                        Assert.AreEqual(extContactFullName, extContactName);
+                        extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
+
+                        //Assertion to validate contact record type
+                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
+                        extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
+                            " ,Contact Record type is displayed under system information section ");
+
                         //Verify Validation message is dispalying when HR user tries to edit employee currency
                         contactEdit.VerifyEmployeeCurrencyValidation("AUD - Australian Dollar");
                         contactEdit.ClickSaveBtn();
@@ -198,6 +184,24 @@ namespace SF_Automation.TestCases.Contact
                     }
                     else
                     {
+                        //Create New HL Contact
+                        lvCreateContact.CreateNewHLContactMultipleRows(fileTC1048, row);
+
+                        //Assertion to validate contact name displayed on the contacts detail page
+                        string extContactName = lvContactDetails.GetExternalContactName();
+                        Assert.AreEqual(extContactFullName, extContactName);
+                        extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
+
+                        // Assertion to validate the company name selected display on contact details page
+                        string companyName = lvContactDetails.GetCompanyName();
+                        Assert.AreEqual(compName, companyName);
+                        extentReports.CreateStepLogs("Passed", "Company Name: " + companyName + " in add contact page matches on contact details page");
+
+                        //Assertion to validate contact record type
+                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
+                        extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
+                            " ,Contact Record type is displayed under system information section ");
+
                         //Verify error message is displaying when departure date is before the hire date
                         contactEdit.EditContact(fileTC1048, 2, 2);
 
@@ -223,7 +227,6 @@ namespace SF_Automation.TestCases.Contact
                         //Delete Created Contact
                         lvContactDetails.DeleteContact();
                         extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
-
                     }
                 }
 
