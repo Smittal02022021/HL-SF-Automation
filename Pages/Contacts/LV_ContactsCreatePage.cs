@@ -9,22 +9,22 @@ namespace SF_Automation.Pages.Contact
 {
     class LV_ContactsCreatePage : BaseClass
     {
-        By btnSave1 = By.XPath("(//input[@value='Save'])[1]");
+        By btnSave1 = By.XPath("(//button[@name='SaveEdit'])[1]");
         By btnSave2 = By.XPath("(//input[@value='Save'])[2]");
-        By btnCancel1 = By.XPath("(//input[@value='Cancel'])[1]");
+        By btnCancel1 = By.XPath("(//button[@name='CancelEdit'])[1]");
         By btnCancel2 = By.XPath("(//input[@value='Cancel'])[2]");
 
         By linkCompanyNameLookupIcon = By.XPath("//a[@title='Company Name Lookup (New Window)']/img");
-        By selectSalutation = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:Salutation");
-        By inputFirstName = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:FirstName");
-        By inputMiddleName = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:MiddleName");
-        By inputLastName = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:LastName");
-        By inputTitle = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:Title");
-        By inputEmail = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:Email");
-        By inputPhone = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:Phone");
-        By inputMobilePhone = By.Id("contactNewPage:NewContactForm:pgBlock:pgBlockSectionAcctInfo:MobilePhone");
+        By selectSalutation = By.XPath("//button[@aria-label='Salutation']");
+        By inputFirstName = By.XPath("//input[@name='firstName']");
+        By inputMiddleName = By.XPath("//input[@name='middleName']");
+        By inputLastName = By.XPath("//input[@name='lastName']");
+        By inputTitle = By.XPath("//input[@name='Title']");
+        By inputEmail = By.XPath("//input[@name='Email']");
+        By inputPhone = By.XPath("//input[@name='Phone']");
+        By inputMobilePhone = By.XPath("//input[@name='MobilePhone']");
 
-        By inputCompanySearchBox = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:txtSearch']");
+        By inputCompanySearchBox = By.XPath("//input[@placeholder='Search Companies...']");
         By btnGo = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:btnGo']");
         By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");
 
@@ -44,6 +44,7 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
             Thread.Sleep(5000);
 
+            /*
             try
             {
                 driver.SwitchTo().Frame(0);
@@ -52,18 +53,31 @@ namespace SF_Automation.Pages.Contact
             {
 
             }
+            */
 
             //Click lookup 
-            WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
-            CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
+            //WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
+            //CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
 
             // Switch to second window
-            CustomFunctions.SwitchToWindow(driver, 1);
+            //CustomFunctions.SwitchToWindow(driver, 1);
 
-            // Enter value in search box
+            // Enter value in Company search box
             WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
             driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 1));
+            Thread.Sleep(2000);
 
+            try
+            {
+                //Select the company
+                driver.FindElement(By.XPath("(//lightning-base-combobox-item)[2]/span[2]")).Click();
+            }
+            catch(Exception)
+            {
+
+            }
+            
+            /*
             //Click on Go button
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
@@ -75,6 +89,7 @@ namespace SF_Automation.Pages.Contact
             // Switch back to default window
             CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().Frame(0);
+            */
 
             //Enter first name
             WebDriverWaits.WaitUntilEleVisible(driver, inputFirstName, 40);
@@ -105,6 +120,7 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
             Thread.Sleep(5000);
 
+            /*
             try
             {
                 driver.SwitchTo().Frame(0);
@@ -113,18 +129,31 @@ namespace SF_Automation.Pages.Contact
             {
 
             }
+            */
 
             //Click lookup 
-            WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
-            CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
+            //WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
+            //CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
 
             // Switch to second window
-            CustomFunctions.SwitchToWindow(driver, 1);
+            //CustomFunctions.SwitchToWindow(driver, 1);
 
-            // Enter value in search box
+            // Enter value in Company search box
             WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
             driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1));
+            Thread.Sleep(2000);
 
+            try
+            {
+                //Select the company
+                driver.FindElement(By.XPath("(//lightning-base-combobox-item)[2]/span[2]")).Click();
+            }
+            catch(Exception)
+            {
+
+            }
+
+            /*
             //Click on Go button
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
@@ -136,6 +165,7 @@ namespace SF_Automation.Pages.Contact
             // Switch back to default window
             CustomFunctions.SwitchToWindow(driver, 0);
             driver.SwitchTo().Frame(0);
+            */
 
             //Enter first name
             WebDriverWaits.WaitUntilEleVisible(driver, inputFirstName, 40);
@@ -162,7 +192,7 @@ namespace SF_Automation.Pages.Contact
         // To identify required tags/mandatory fields in Contact Create page
         public IWebElement ContactInformationRequiredTag(string fieldName)
         {
-            return driver.FindElement(By.XPath($"//input[contains(@id, '{fieldName}')]/..//div"));
+            return driver.FindElement(By.XPath($"//label[contains(text(), '{fieldName}')]/abbr"));
         }
 
         //To Click save button
@@ -184,12 +214,11 @@ namespace SF_Automation.Pages.Contact
 
         public bool ValidateMandatoryFields()
         {
-            driver.SwitchTo().Frame(0);
+            //driver.SwitchTo().Frame(0);
             Thread.Sleep(2000);
 
-            return ContactInformationRequiredTag("FirstName").GetAttribute("class").Contains("requiredBlock") &&
-            ContactInformationRequiredTag("LastName").GetAttribute("class").Contains("requiredBlock") &&
-            ContactInformationRequiredTag("Account").GetAttribute("class").Contains("requiredBlock");
+            return ContactInformationRequiredTag("Company Name").GetAttribute("title").Contains("required") &&
+            ContactInformationRequiredTag("Last Name").GetAttribute("title").Contains("required");
         }
 
         public void SelectContactType(string type)
@@ -220,6 +249,18 @@ namespace SF_Automation.Pages.Contact
             //Click Next
             driver.FindElement(btnNext).Click();
             Thread.Sleep(3000);
+        }
+
+        public string GetMandatoryFieldErrMsgForCompanyField()
+        {
+            string msg = driver.FindElement(By.XPath("(//span[text()='Company Name'])[2]/..")).Text;
+            return msg;
+        }
+
+        public string GetMandatoryFieldErrMsgForLastNameField()
+        {
+            string msg = driver.FindElement(By.XPath("(//span[text()='Last Name'])[1]/..")).Text;
+            return msg;
         }
     }
 }

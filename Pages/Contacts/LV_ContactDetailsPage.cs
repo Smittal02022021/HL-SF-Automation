@@ -103,7 +103,7 @@ namespace SF_Automation.Pages.Contact
         By tabActivity = By.XPath("//a[@data-label='Activity']");
         By tabCampaignHistory = By.XPath("//a[@data-label='Campaign History']");
         By tabHistory = By.XPath("//a[@data-label='History']");
-        By tabMarketing = By.XPath("//a[@data-label='Marketing']");
+        By tabDeals = By.XPath("//a[@data-label='Deals']");
         By tabSummary = By.XPath("//a[@data-label='Summary']");
 
         By tabDetails = By.XPath("//a[@data-label='Details']");
@@ -560,7 +560,7 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0,0)");
 
             bool result = false;
-            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabDeals).Displayed && driver.FindElement(tabSummary).Displayed)
             {
                 result = true;
             }
@@ -616,7 +616,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(2000);
 
             bool result = false;
-            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabMarketing).Displayed && driver.FindElement(tabSummary).Displayed)
+            if(driver.FindElement(tabInfo).Displayed && driver.FindElement(tabPitchBook).Displayed && driver.FindElement(tabRelationships).Displayed && driver.FindElement(tabCoverage).Displayed && driver.FindElement(tabActivity).Displayed && driver.FindElement(tabCampaignHistory).Displayed && driver.FindElement(tabHistory).Displayed && driver.FindElement(tabDeals).Displayed && driver.FindElement(tabSummary).Displayed)
             {
                 result = true;
             }
@@ -1869,8 +1869,8 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0, 0)");
 
             //Navigate to Marketing Tab
-            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
-            driver.FindElement(tabMarketing).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDeals, 120);
+            driver.FindElement(tabDeals).Click();
             Thread.Sleep(2000);
 
             if(dealAnn == driver.FindElement(lblDealAnnouncement).Text && eventConference == driver.FindElement(lblEventsConferences).Text && generalAnn == driver.FindElement(lblGeneralAnnouncements).Text && insightsCon == driver.FindElement(lblInsightsContent).Text)
@@ -1930,8 +1930,8 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
 
             //Navigate to Marketing Tab
-            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
-            driver.FindElement(tabMarketing).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDeals, 120);
+            driver.FindElement(tabDeals).Click();
             Thread.Sleep(5000);
 
             if(companyName == driver.FindElement(lblBadgeCompanyName).Text && firstName == driver.FindElement(lblBadgeFirstName).Text && lastName == driver.FindElement(lblBadgeLastName).Text && fullName == driver.FindElement(lblBadgeFullName).Text)
@@ -2036,11 +2036,11 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
         }
 
-        public void NavigateToMarketingTab()
+        public void NavigateToDealsTab()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing);
-            driver.FindElement(tabMarketing).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDeals);
+            driver.FindElement(tabDeals).Click();
             Thread.Sleep(5000);
         }
 

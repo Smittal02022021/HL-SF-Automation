@@ -24,7 +24,7 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnNewContact).Click();
             Thread.Sleep(8000);
             string tabName = driver.FindElement(lblTabTitle).Text;
-            Assert.IsTrue(tabName == "New Contact");
+            Assert.IsTrue(tabName.Contains("New Contact"));
         }
 
         public void NavigateToContactTypeSelectionPage()

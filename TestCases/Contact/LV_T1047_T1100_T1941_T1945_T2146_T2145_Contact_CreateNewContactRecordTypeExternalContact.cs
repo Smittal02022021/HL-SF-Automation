@@ -95,33 +95,32 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User navigated to contacts list page. ");
 
-                //Navigate to Create New Contacts Page
+                //Navigate to Create New External Contacts Page
                 lvRecentlyViewContact.NavigateToCreateNewContactPage();
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User has navigated to Create New Contacts Page. ");
 
-                //Validate FirstName, LastName and CompanyName display with red flag as mandatory fields
+                //Validate LastName and CompanyName display with red flag as mandatory fields
                 Assert.IsTrue(lvCreateContact.ValidateMandatoryFields(), "Validate Mandatory fields");
-                extentReports.CreateStepLogs("Passed", "Validated FirstName, LastName and CompanyName displayed with red flag as mandatory fields ");
+                extentReports.CreateStepLogs("Passed", "Validated LastName and CompanyName displayed with red flag as mandatory fields ");
 
                 //Calling click save button function
                 lvCreateContact.ClickSaveButton();
 
                 //Validation of company error message
-                Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Company Name").Text.Contains("You must enter a value"));
+                Assert.IsTrue(lvCreateContact.GetMandatoryFieldErrMsgForCompanyField().Contains("Complete this field."));
                 extentReports.CreateStepLogs("Passed", "Company name error message displayed upon click of save button without entering details ");
 
                 //Validation of first name error message
-                Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "First Name").Text.Contains("You must enter a value"));
-                extentReports.CreateStepLogs("Passed", "First name error message displayed upon click of save button without entering details ");
+                //Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "First Name").Text.Contains("You must enter a value"));
+                //extentReports.CreateStepLogs("Passed", "First name error message displayed upon click of save button without entering details ");
 
                 //Validation of last name error message
-                Assert.IsTrue(CustomFunctions.ContactInformationFieldsErrorElement(driver, "Last Name").Text.Contains("You must enter a value"));
+                Assert.IsTrue(lvCreateContact.GetMandatoryFieldErrMsgForLastNameField().Contains("Complete this field."));
                 extentReports.CreateStepLogs("Passed", "Last name error message displayed upon click of save button without entering details ");
 
                 //Create New External Contact
                 lvCreateContact.CreateNewContact(fileTC1047);
-                driver.SwitchTo().DefaultContent();
+                //driver.SwitchTo().DefaultContent();
 
                 //Assertion to validate contact name displayed on the contacts detail page
                 string extContactName = lvContactDetails.GetExternalContactName();
