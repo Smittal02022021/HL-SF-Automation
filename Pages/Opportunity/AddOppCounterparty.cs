@@ -718,9 +718,10 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtCompanyL).SendKeys(name);
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//li[1]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text")).Click();
-            
+
             //Select Type            
             driver.FindElement(comboType).SendKeys(type);
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span[text()='" + type + "']")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveCounterpartyL).Click();
@@ -737,7 +738,7 @@ namespace SF_Automation.Pages.Opportunity
             //Select Name            
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox, 180);
-            driver.FindElement(txtSearchBox).SendKeys("Salmaan Jaffery");
+            driver.FindElement(txtSearchBox).SendKeys("A Salgado");
             driver.FindElement(btnSearchContact).Click();
             Thread.Sleep(12000);
 

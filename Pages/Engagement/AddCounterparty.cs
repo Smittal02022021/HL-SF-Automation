@@ -28,8 +28,10 @@ namespace SF_Automation.Pages.Engagement
         //By btnBack = By.Id("back_btn");
         By btnBack = By.Id("back_btn");
         By lnkDetails = By.CssSelector(".view_record__c > a");
-        By valFirstName = By.XPath("//dt[text()='First Name:']/ancestor::dl[1]/dd[1]/lst-template-list-field/lst-formatted-text");
-        By valLastName = By.XPath("//dt[text()='First Name:']/ancestor::dl[1]/dd[2]/lst-template-list-field/lst-formatted-text");
+        By btnPrintableView = By.XPath("//button[text()='Printable View']");
+        By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
+        By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
+        //By valLastName = By.XPath("//dt[text()='First Name:']/ancestor::dl[1]/dd[2]/lst-template-list-field/lst-formatted-text");
         By btnAddEngCounterPartyÇontact = By.CssSelector("input[value='New Engagement Counterparty Contact']");
         By checkName = By.CssSelector("tbody[id*='pbtableId2:tb'] > tr:nth-child(1) > td:nth-child(1)");
         By btnSave = By.CssSelector("input[value='Save']");
@@ -530,9 +532,10 @@ namespace SF_Automation.Pages.Engagement
             //Actions action = new Actions(driver);
             //action.MoveToElement(element);
             //action.Perform();
-            driver.Navigate().Refresh();
+            driver.FindElement(btnPrintableView).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 80);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());            
+            WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 180);
             string name = driver.FindElement(valFirstName).Text;
             return name;
         }
@@ -543,6 +546,8 @@ namespace SF_Automation.Pages.Engagement
 
             WebDriverWaits.WaitUntilEleVisible(driver, valLastName, 80);
             string name = driver.FindElement(valLastName).Text;
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            Thread.Sleep(5000);
             return name;
         }
 

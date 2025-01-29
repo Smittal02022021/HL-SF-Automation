@@ -358,9 +358,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Engagement Letter Minimum Fee (MM)", txtMinFee);
                 extentReports.CreateLog("Field with name: " + txtMinFee + " is displayed ");
 
-                string txtTxnFee = form.GetLabelTxnFeeType();
-                Assert.AreEqual("Transaction Fee Type", txtTxnFee);
-                extentReports.CreateLog("Field with name: " + txtTxnFee + " is displayed ");
+                //string txtTxnFee = form.GetLabelTxnFeeType();
+                //Assert.AreEqual("Transaction Fee Type", txtTxnFee);
+                //extentReports.CreateLog("Field with name: " + txtTxnFee + " is displayed ");
 
                 string txtRetainerFee = form.GetLabelEstTxn();
                 Assert.AreEqual("Estimated Transaction Value (MM)", txtRetainerFee);

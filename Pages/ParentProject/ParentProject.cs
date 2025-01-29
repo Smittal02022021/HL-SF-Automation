@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports.Reporter.Configuration;
 using OpenQA.Selenium;
+using RazorEngine.Compilation.ImpromptuInterface;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,7 @@ namespace SalesForce_Project.Pages
         By btnSelectEng = By.XPath("//button[@aria-label='Select Engagement']");
         By btnSelectPV = By.XPath("//button[@aria-label='Select PV']");
         By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr[1]/th//records-hoverable-link");
+        By lnkPVPositionName = By.XPath("//table[@aria-label='PV Positions To Bill']/tbody/tr[1]/th//records-hoverable-link");
         By tabParentProjAdmin = By.XPath("//a[text()='Parent Projects']");
         By lnkParentProjAdmin = By.XPath("//a[text()='Combo O’Connor Global']");
         By lnkBillingReqAdmin = By.XPath("//h3[text()='Billing Requests']//ancestor::div[2]//tr[2]/th/a");
@@ -108,9 +110,10 @@ namespace SalesForce_Project.Pages
         By btnUpateToBillPV = By.XPath("//li[@data-target-selection-name='sfdc:QuickAction.PV_Positions_To_Bill__c.Update_To_Bill']//button");
         By msgSuccess = By.XPath("//span[text()='Records updated Successfully']");
         By btnNewFee = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Fee_To_Bill__c.New']//button[@name='New']");
-        //By txtEngagement = By.XPath("");
-
-
+        By valTotalFeeToBill = By.XPath("//p[text()='Total Fees To Bill']/ancestor::div[1]/p[2]//lightning-formatted-text");
+        By tabAccounting = By.XPath("//a[text()='Accounting']");
+        By secERPRevenue = By.XPath("//span[text()='ERP Revenue Billing Events']");
+        
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -709,6 +712,16 @@ namespace SalesForce_Project.Pages
             return delete;
         }
 
+
+        public string ValidateDeleteFunctionalityOfPVPositionsToBill()
+        {
+            Thread.Sleep(7000);
+            driver.FindElement(lnkPVPositionName).Click();
+            Thread.Sleep(5000);
+            string delete = driver.FindElement(btnEditFee).GetAttribute("name");
+            return delete;
+        }
+
         public string ValidateDeleteFunctionalityOfExpenseToBillWithAdmin()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabParentProjAdmin, 90);
@@ -765,11 +778,13 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//button[@aria-label='Select PV']/ancestor::div[2]/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
             Thread.Sleep(5000);
             driver.FindElement(chkExpID).Click();
-            driver.FindElement(chkEXpID2).Click();
+            //driver.FindElement(chkEXpID2).Click();
             Thread.Sleep(5000);
-            driver.FindElement(btnSaveAddExp).Click();
+            driver.FindElement(btnSaveAddExp).Click();           
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,550)");
+            js.ExecuteScript("window.scrollTo(0,650)");
             WebDriverWaits.WaitUntilEleVisible(driver, valReportFeePV1, 250);
             string value = driver.FindElement(valReportFeePV1).Text;
             return value;
@@ -798,22 +813,42 @@ namespace SalesForce_Project.Pages
             return value;
         }
 
-        public string ValidateAggregateOfReportFeeFunctionality()
-        {            
+        public string ValidateAggregateOfReportFeeFunctionality(string fee)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-550)");
             Thread.Sleep(5000);
             driver.FindElement(btnNewFee).Click();
             Thread.Sleep(3000);
             driver.FindElement(txtEngagement).Click();
             driver.FindElement(txtEngagement).SendKeys("Connor");
             Thread.Sleep(5000);
-            driver.FindElement(btnSelectEng).Click();
-            Thread.Sleep(6000);
-            //driver.FindElement(checkToBill).Click();
-            //Thread.Sleep(5000);
-            driver.FindElement(btnSaveUpdateToBill).Click();
+            driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]/span[2]/lightning-base-combobox-formatted-text")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnFeeType).Click();
+            driver.FindElement(By.XPath("//span[text()='Admin Fee']/ancestor::div[1]/lightning-base-combobox-item[8]//span[2]/span")).Click();
+            driver.FindElement(txtFeeDescription).SendKeys("Report Fee");
+            driver.FindElement(txtFeeAmount).SendKeys(fee);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//a/span[contains(text(),'BR')]")).Click();
             Thread.Sleep(5000);
-            string value = driver.FindElement(msgSuccess).Text;
-            return value;
+            string request = driver.FindElement(valTotalFeeToBill).Text;
+            return request.Replace(",","");            
+        }
+
+        public string ValidateBillingEventAccessInAccountingTab()
+        {            
+            driver.FindElement(tabAccounting).Click();
+            try
+            {                
+                string value = driver.FindElement(tabAccounting).Text;
+                return value;
+            }
+            catch(Exception)
+            {
+                return "No access to create a Billing Event";
+            }
         }
 
     }

@@ -1041,10 +1041,10 @@ namespace SF_Automation.Pages.Engagement
         public bool ValidateTeamMemberColumns()
         {
             driver.FindElement(btnAddTeamMemL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(colTeamMemL);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "#", "Staff", "Role", "Start Date","End Date","Status", "Action" };
+            string[] expectedValue = { "#", "STAFF", "ROLE", "START DATE","END DATE","STATUS", "ACTION" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
             Console.WriteLine(actualValue[2]);

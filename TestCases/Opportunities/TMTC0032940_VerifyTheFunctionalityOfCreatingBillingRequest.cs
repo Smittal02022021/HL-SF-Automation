@@ -210,7 +210,28 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message: " + includePV + " is displayed after including PV Position using Update To Bill ");
 
                 //26.	TMT0074996_Verify that the user is able to add aggregate of the report fee of all the selected positions in Fees to Bill and it will reflect in the Total Fee to Bill. 
-                  
+                double fee1 = Convert.ToDouble(reportFeePV1.Substring(4, 6));
+                Console.WriteLine("fee1: " + fee1.ToString("0.00"));
+                double fee2 = Convert.ToDouble(reportFeePV2.Substring(4, 6));
+                Console.WriteLine("fee2: " + fee2.ToString("0.00"));
+
+                string totalReportFee = (Convert.ToDouble(fee1.ToString("0.00")) + Convert.ToDouble(fee2.ToString("0.00"))).ToString();
+                Console.WriteLine("totalReportFee: " + totalReportFee);
+
+                string totalFeeToBill=project.ValidateAggregateOfReportFeeFunctionality(totalReportFee);
+                Assert.AreEqual(totalFeeToBill, "USD " + totalReportFee);
+                extentReports.CreateLog("Total Fee To Bill: " + totalFeeToBill + " is displayed in Billing Request after adding all the selected positions ");
+
+                //27.  TMT0074999_Verify that the Assistant or Deal Team member will not be able to access or add Billing Event on Accounting Tab. 
+                string accessBillingEvent = project.ValidateBillingEventAccessInAccountingTab();
+                Assert.AreEqual("No access to create a Billing Event", accessBillingEvent);
+                extentReports.CreateLog( accessBillingEvent + " to Assistant or Deal Team member ");
+
+                //28.	TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
+                string pvDelete = project.ValidateDeleteFunctionalityOfPVPositionsToBill();
+                Assert.AreEqual("Edit", expenseDelete);
+                extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
+
 
                 usersLogin.DiffLightningLogout();               
 

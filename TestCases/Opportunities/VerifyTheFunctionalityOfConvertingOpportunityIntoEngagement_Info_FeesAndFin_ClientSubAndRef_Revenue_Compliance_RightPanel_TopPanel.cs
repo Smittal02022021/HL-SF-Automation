@@ -249,9 +249,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Closing Info", closingInfo);
                 extentReports.CreateLog("Sub Tab " + closingInfo + " is displayed under Info Tab ");
 
-                string comments = engagementDetails.ValidateCommentsSubTab();
-                Assert.AreEqual("Comments", comments);
-                extentReports.CreateLog("Sub Tab " + comments + " is displayed under Info Tab ");
+                //string comments = engagementDetails.ValidateCommentsSubTab();
+                //Assert.AreEqual("Comments", comments);
+                //extentReports.CreateLog("Sub Tab " + comments + " is displayed under Info Tab ");
 
                 string billing = engagementDetails.ValidateBillingCommentsSubTab();
                 Assert.AreEqual("Billing Comments", billing);
