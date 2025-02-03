@@ -180,7 +180,7 @@ namespace SF_Automation.Pages.Engagement
 		By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
 		By lnkOppL = By.XPath("//flexipage-component2[1]//dl/slot/records-record-layout-row[6]//records-hoverable-link");
 		By btnCloseOppL = By.XPath("//span[@title='Engagement  c']/ancestor::li[1]//button[contains(@title,'Close')]");
-
+        By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
         By lnkOpp = By.CssSelector("div[id*='zAzj']>a");
 		By btnCancel = By.CssSelector("input[value='Cancel']");
 		//By valNewSubject = By.CssSelector("div[id*='aho5_00Ni000000D9DbX_body'] > table > tbody > tr:nth-child(4)>th>a");
@@ -3760,15 +3760,15 @@ namespace SF_Automation.Pages.Engagement
 			{
 				driver.FindElement(lnkOppL).Click();
 				Thread.Sleep(4000);
-				driver.FindElement(btnCloseOppL).Click();
-				return "Is Main Contract checkbox is checked";
+                driver.FindElement(btnCloseReqEngFVAL).Click();
+                return "Is Main Contract checkbox is checked";
 			}
 			else
 			{
 				driver.FindElement(lnkOppL).Click();
 				Thread.Sleep(4000);
-				driver.FindElement(btnCloseOppL).Click();               
-				return "Is Main Contract checkbox is not checked";
+                driver.FindElement(btnCloseReqEngFVAL).Click();
+                return "Is Main Contract checkbox is not checked";
 			}
 
 		}

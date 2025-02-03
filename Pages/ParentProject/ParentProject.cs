@@ -99,6 +99,7 @@ namespace SalesForce_Project.Pages
         By lnkParentProjAdmin = By.XPath("//a[text()='Combo O’Connor Global']");
         By lnkBillingReqAdmin = By.XPath("//h3[text()='Billing Requests']//ancestor::div[2]//tr[2]/th/a");
         By lnkDelExpToBillAdmin = By.XPath("//h3[text()='Expenses To Bill']//ancestor::div[2]//tr[2]/td/a[contains(@title,'Delete - Record 1 ')]");
+        By lnkDelPVToBillAdmin = By.XPath("//h3[text()='PV Positions To Bill']//ancestor::div[2]//tr[2]/td/a[contains(@title,'Delete - Record 1 ')]");
         By chkExpID = By.XPath("//tr[1]/td[1]/lightning-primitive-cell-checkbox//label/span[1]");
         By chkEXpID2 = By.XPath("//tr[2]/td[1]/lightning-primitive-cell-checkbox//label/span[1]");
         By btnSaveAddExp = By.XPath("//button[text()='Save']");
@@ -113,6 +114,12 @@ namespace SalesForce_Project.Pages
         By valTotalFeeToBill = By.XPath("//p[text()='Total Fees To Bill']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By tabAccounting = By.XPath("//a[text()='Accounting']");
         By secERPRevenue = By.XPath("//span[text()='ERP Revenue Billing Events']");
+        By btnPVPositions = By.XPath("//records-entity-label[text()='PV Positions To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
+        By btnSubmitToBiller = By.XPath("//button[@name='Billing_Request__c.Submit_to_Biller']");
+        By btnSubmit = By.XPath("//button[text()='Submit']");
+        By valSubmitterEmail = By.XPath("//span[text()='Submitter Email']/ancestor::div[1]/following::dd[1]//lightning-formatted-email/a");
+        By valAccDistriList = By.XPath("//span[text()='Accounting Distribution List']/ancestor::div[2]/dd[1]//records-hoverable-link//a/span//span/slot");
+        
         
         public string ClickNewButton()
         {
@@ -713,14 +720,6 @@ namespace SalesForce_Project.Pages
         }
 
 
-        public string ValidateDeleteFunctionalityOfPVPositionsToBill()
-        {
-            Thread.Sleep(7000);
-            driver.FindElement(lnkPVPositionName).Click();
-            Thread.Sleep(5000);
-            string delete = driver.FindElement(btnEditFee).GetAttribute("name");
-            return delete;
-        }
 
         public string ValidateDeleteFunctionalityOfExpenseToBillWithAdmin()
         {
@@ -738,6 +737,21 @@ namespace SalesForce_Project.Pages
             return "Expense deleted successfully";
         }
 
+        public string ValidateDeleteFunctionalityOfPVPositionsToBillWithAdmin()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabParentProjAdmin, 90);
+            driver.FindElement(tabParentProjAdmin).Click();
+            driver.FindElement(lnkParentProjAdmin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkBillingReqAdmin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDelPVToBillAdmin).Click();
+            Thread.Sleep(2000);
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(2000);
+            return "PV Position To Bill deleted successfully";
+        }
 
         public string ValidateAddExpenseToBillFunctionality()
         {
@@ -778,20 +792,22 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//button[@aria-label='Select PV']/ancestor::div[2]/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
             Thread.Sleep(5000);
             driver.FindElement(chkExpID).Click();
-            //driver.FindElement(chkEXpID2).Click();
+            driver.FindElement(chkEXpID2).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnSaveAddExp).Click();           
             driver.Navigate().Refresh();
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,650)");
-            WebDriverWaits.WaitUntilEleVisible(driver, valReportFeePV1, 250);
+            js.ExecuteScript("window.scrollTo(0,750)");
+            WebDriverWaits.WaitUntilEleVisible(driver, valReportFeePV1, 260);
             string value = driver.FindElement(valReportFeePV1).Text;
             return value;
         }
 
         public string GetReportFeeOf2ndPVPosition()
         {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valReportFeePV2, 210);
             string value = driver.FindElement(valReportFeePV2).Text;
             return value;
         }
@@ -842,7 +858,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(tabAccounting).Click();
             try
             {                
-                string value = driver.FindElement(tabAccounting).Text;
+                string value = driver.FindElement(secERPRevenue).Text;
                 return value;
             }
             catch(Exception)
@@ -851,5 +867,51 @@ namespace SalesForce_Project.Pages
             }
         }
 
+
+        //Validate Header row of Billing Request 
+        public bool ValidateDeleteFunctionalityOfPVPositionsToBill()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,750)");
+            Thread.Sleep(7000);
+            driver.FindElement(lnkPVPositionName).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(btnPVPositions);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);           
+            string[] expectedValue = { "Edit", "Printable View" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateSubmitToBillerFunctionality()
+        {
+            driver.FindElement(btnSubmitToBiller).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmit,100);
+            driver.FindElement(btnSubmit).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubmitterEmail, 120);
+            string email = driver.FindElement(valSubmitterEmail).Text;
+            return email;
+        }
+        public string ValidateEmailNotificationFunctionality()
+        {           
+            WebDriverWaits.WaitUntilEleVisible(driver,valAccDistriList, 120);
+            string list = driver.FindElement(valAccDistriList).Text;
+            return list;
+        }
     }
 }

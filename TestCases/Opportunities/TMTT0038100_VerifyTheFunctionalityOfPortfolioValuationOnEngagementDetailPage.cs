@@ -409,9 +409,11 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as CAO user 
                 engValPeriod.SwitchFrame();
                 usersLogin.DiffLightningLogout();                
-                usersLogin.SearchUserAndLogin(valCAOUser);
+                usersLogin.SearchUserAndLogin(valCAOUser);               
+
                 string caoUser1 = login.ValidateUserLightningCAO();
-                Console.WriteLine("caoUser:" + caoUser1);
+                Console.WriteLine("caoUser1:" + caoUser1);
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0,10));
                 Assert.AreEqual(caoUser1.Contains(valCAOUser.Substring(1, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 

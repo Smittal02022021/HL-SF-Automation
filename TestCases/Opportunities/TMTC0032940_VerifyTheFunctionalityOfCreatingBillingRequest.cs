@@ -219,7 +219,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine("totalReportFee: " + totalReportFee);
 
                 string totalFeeToBill=project.ValidateAggregateOfReportFeeFunctionality(totalReportFee);
-                Assert.AreEqual(totalFeeToBill, "USD " + totalReportFee);
+                Assert.AreEqual(totalFeeToBill, "USD " + totalReportFee+".00");
                 extentReports.CreateLog("Total Fee To Bill: " + totalFeeToBill + " is displayed in Billing Request after adding all the selected positions ");
 
                 //27.  TMT0074999_Verify that the Assistant or Deal Team member will not be able to access or add Billing Event on Accounting Tab. 
@@ -227,11 +227,26 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("No access to create a Billing Event", accessBillingEvent);
                 extentReports.CreateLog( accessBillingEvent + " to Assistant or Deal Team member ");
 
-                //28.	TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
-                string pvDelete = project.ValidateDeleteFunctionalityOfPVPositionsToBill();
-                Assert.AreEqual("Edit", expenseDelete);
-                extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
+                //29.  TMT0075003_Verify that the user is able to submit the billing request to biller using "Submit to Biller". 
+                string submitBiller = project.ValidateSubmitToBillerFunctionality();
+                Assert.AreEqual("uinderjeet@hl.com.invalid", submitBiller);
+                extentReports.CreateLog("User with  email id: "+ submitBiller+" is able to submit the Billing Request ");
 
+                //30. TMT0075158_Verify that the Email Notification sent to biller once deal team or assistant clicks on "Submit to Biller" of the selected Accounting Distribution
+                 string emailNotify = project.ValidateEmailNotificationFunctionality();
+                 Assert.AreEqual("FVA Invoices (US ENGAGEMENTS ONLY)", emailNotify);
+                 extentReports.CreateLog("Email notification is sent to the billers of distribution list: " + emailNotify + " upon clicking the Submit To Biller button ");
+
+                //28.	TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
+                Assert.IsTrue(project.ValidateDeleteFunctionalityOfPVPositionsToBill(), "Verified that displayed headers hyperlinks of Billing Request are same ");
+                extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
+                
+                usersLogin.DiffLightningLogout();
+                string PVDeleteAdmin = project.ValidateDeleteFunctionalityOfPVPositionsToBillWithAdmin();
+                Assert.AreEqual("PV Position To Bill deleted successfully", PVDeleteAdmin);
+                extentReports.CreateLog("PV Position To Bill is deleted successfully by Admin ");
+
+                  
 
                 usersLogin.DiffLightningLogout();               
 

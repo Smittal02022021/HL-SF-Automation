@@ -5150,9 +5150,10 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(4000);
             driver.FindElement(txtCommentsL).SendKeys("Approved");
             driver.FindElement(btnApproveOppL).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(10000);          
             WebDriverWaits.WaitUntilEleVisible(driver, valStatusL, 100);
             string status = driver.FindElement(valStatusL).Text;
+            //driver.FindElement(btnCloseReqEngFVAL).Click();
             return status;
         }
 
