@@ -113,6 +113,7 @@ namespace SalesForce_Project.Pages
         By btnNewFee = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Fee_To_Bill__c.New']//button[@name='New']");
         By valTotalFeeToBill = By.XPath("//p[text()='Total Fees To Bill']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By tabAccounting = By.XPath("//a[text()='Accounting']");
+        By tabDetails = By.XPath("//a[text()='Accounting']/ancestor::ul/li[1]/a");
         By secERPRevenue = By.XPath("//span[text()='ERP Revenue Billing Events']");
         By btnPVPositions = By.XPath("//records-entity-label[text()='PV Positions To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
         By btnSubmitToBiller = By.XPath("//button[@name='Billing_Request__c.Submit_to_Biller']");
@@ -901,9 +902,12 @@ namespace SalesForce_Project.Pages
         public string ValidateSubmitToBillerFunctionality()
         {
             driver.FindElement(btnSubmitToBiller).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmit,100);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmit,150);
             driver.FindElement(btnSubmit).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, valSubmitterEmail, 120);
+            Thread.Sleep(6000); 
+            driver.FindElement(tabDetails).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubmitterEmail, 150);
             string email = driver.FindElement(valSubmitterEmail).Text;
             return email;
         }

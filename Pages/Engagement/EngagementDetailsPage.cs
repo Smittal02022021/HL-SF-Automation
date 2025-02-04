@@ -96,6 +96,7 @@ namespace SF_Automation.Pages.Engagement
 		By errorMessageL = By.XPath("//a[@class='errorsListLink']");
 		By tabEngagement = By.CssSelector("a[title*='Engagements Tab - Selected']");
 		By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
+		By tabEngRevProj = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Projection__c.Engagement__c']/div/dd//span//records-hoverable-link");
 		By comboClientOwnership = By.CssSelector("select[id*='d2R']");
 		By txtDebt = By.CssSelector("input[id*='LfH']");
 		By valClientOwnership = By.CssSelector("div[id*='d2Rj_id0_j_id4_ileinner']");
@@ -413,9 +414,9 @@ namespace SF_Automation.Pages.Engagement
 		By lnkClearRevProj = By.XPath("//table/tbody/tr[1]/td[7]/a");
 		By msgNoRec = By.XPath("//p[text()='No Records To Display']");
 		By btnStartingYear = By.XPath("//button[@aria-label='Year']");
-		By valStartingYear = By.XPath("//flexipage-component2[1]//flexipage-column2[1]//lightning-base-combobox-item[5]/span[2]/span");
+		By valStartingYear = By.XPath("//label[text()='Year']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[5]//span[2]/span");
         By btnStartingMonth = By.XPath("//button[@aria-label='Month']");
-        By valStartingMonth = By.XPath("//flexipage-component2[1]//flexipage-column2[2]//lightning-base-combobox-item[5]/span[2]/span");
+        By valStartingMonth = By.XPath("//label[text()='Month']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[5]//span[2]/span");
 
         By valStartingMonthDisplayed = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Projection__c.Month__c']//lightning-formatted-text");
 		By btnSubmitRevProj = By.XPath("//button[text()='submit']");
@@ -5122,12 +5123,12 @@ namespace SF_Automation.Pages.Engagement
 		//Get Compliance & Legal tab
 		public string ValidateComplianceAndLegalTab()
 		{
-            Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,-850)");
+            //Thread.Sleep(4000);
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("window.scrollTo(0,-850)");
 			Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(Driver, tabEngagementL, 100);
-            driver.FindElement(tabEngagementL).Click();
+            WebDriverWaits.WaitUntilEleVisible(Driver, tabEngRevProj, 100);
+            driver.FindElement(tabEngRevProj).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(Driver, tabCompliance, 100);
 			string value = driver.FindElement(tabCompliance).Text;
@@ -5246,7 +5247,7 @@ namespace SF_Automation.Pages.Engagement
             //WebDriverWaits.WaitUntilEleVisible(driver, tabRevenue, 150);
             //driver.FindElement(tabRevenue).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,-850)");
+            js.ExecuteScript("window.scrollTo(0,-850)");			
             WebDriverWaits.WaitUntilEleVisible(driver, tabRevProj, 250);
 			driver.FindElement(tabRevProj).Click();
 			Thread.Sleep(3000);
@@ -5324,13 +5325,13 @@ namespace SF_Automation.Pages.Engagement
 			WebDriverWaits.WaitUntilEleVisible(driver, valStartingYear, 250);
 			driver.FindElement(valStartingYear).Click();
 			Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnStartingMonth, 150);
-            driver.FindElement(btnStartingMonth).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valStartingMonth, 250);
-            driver.FindElement(valStartingMonth).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(btnSaveCSTQuestionnaire).Click();
+			WebDriverWaits.WaitUntilEleVisible(driver, btnStartingMonth, 150);
+			driver.FindElement(btnStartingMonth).Click();
+			Thread.Sleep(3000);
+			WebDriverWaits.WaitUntilEleVisible(driver, valStartingMonth, 250);
+			driver.FindElement(valStartingMonth).Click();
+			Thread.Sleep(5000);
+			driver.FindElement(btnSaveCSTQuestionnaire).Click();
 			Thread.Sleep(5000);
 			string month = driver.FindElement(valStartingMonthDisplayed).Text;
 			return month;

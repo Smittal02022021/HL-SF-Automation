@@ -237,7 +237,7 @@ namespace SF_Automation.TestCases.Opportunity
                  Assert.AreEqual("FVA Invoices (US ENGAGEMENTS ONLY)", emailNotify);
                  extentReports.CreateLog("Email notification is sent to the billers of distribution list: " + emailNotify + " upon clicking the Submit To Biller button ");
 
-                //28.	TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
+                //28.  TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
                 Assert.IsTrue(project.ValidateDeleteFunctionalityOfPVPositionsToBill(), "Verified that displayed headers hyperlinks of Billing Request are same ");
                 extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
                 
@@ -246,8 +246,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("PV Position To Bill deleted successfully", PVDeleteAdmin);
                 extentReports.CreateLog("PV Position To Bill is deleted successfully by Admin ");
 
-                  
-
+                usersLogin.UserLogOut();
                 usersLogin.DiffLightningLogout();               
 
                 driver.Quit();
