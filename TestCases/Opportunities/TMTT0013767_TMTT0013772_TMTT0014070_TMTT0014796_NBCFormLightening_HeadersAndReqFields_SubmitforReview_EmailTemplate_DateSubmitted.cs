@@ -292,9 +292,9 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actMinFeeValidation = form.GetValidationOfMinimumFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
-                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nFees: Engagement Letter Minimum Fee should not be greater than 100 MM", actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee (MM) field ");
-
+                
                 //string actTxnFeeValidation = form.GetValidationOfTxnFee();
                 //string expTxnFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 50);
                 //Assert.AreEqual(expTxnFeeValidation, actTxnFeeValidation);

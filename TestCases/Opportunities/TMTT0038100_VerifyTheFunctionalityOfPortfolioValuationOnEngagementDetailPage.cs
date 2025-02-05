@@ -414,7 +414,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string caoUser1 = login.ValidateUserLightningCAO();
                 Console.WriteLine("caoUser1:" + caoUser1);
                 Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0,10));
-                Assert.AreEqual(caoUser1.Contains(valCAOUser.Substring(1, 10)), true);
+                Assert.AreEqual(caoUser1.Contains(valCAOUser.Substring(0, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
                 engHome.SelectEngUnderHLBanker();

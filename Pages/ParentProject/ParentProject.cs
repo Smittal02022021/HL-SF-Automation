@@ -57,6 +57,7 @@ namespace SalesForce_Project.Pages
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
         By btnNewBillingReq = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Request__c.New']//button[@name='New']");
         By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
+        By chkAccInvoice = By.XPath("//span[text()='Accounting Send Final Invoice']/ancestor::lightning-primitive-input-checkbox/div/span/span");
         By btnPreference1 = By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']");
         By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
         By txtAccounting = By.XPath("//input[@placeholder='Search Contacts...']");
@@ -120,8 +121,11 @@ namespace SalesForce_Project.Pages
         By btnSubmit = By.XPath("//button[text()='Submit']");
         By valSubmitterEmail = By.XPath("//span[text()='Submitter Email']/ancestor::div[1]/following::dd[1]//lightning-formatted-email/a");
         By valAccDistriList = By.XPath("//span[text()='Accounting Distribution List']/ancestor::div[2]/dd[1]//records-hoverable-link//a/span//span/slot");
+        By btnSharing = By.XPath("//button[text()='Sharing']");
+        By txtSearchUser = By.XPath("//input[@title='Search User']");
+        By btnAccessLevel = By.XPath("//button[@data-value='Read Only']");
         
-        
+
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -436,6 +440,11 @@ namespace SalesForce_Project.Pages
             return isSame;
         }
 
+        public string ValidateDefaultCheckOfAccountingInvoice()
+        {
+            string value = driver.FindElement(chkAccInvoice).Text;
+            return value;
+        }
         public string SaveAllMandatoryFieldsOfBillingRequest()
         {
             driver.FindElement(btnPreference1).Click();
@@ -916,6 +925,26 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver,valAccDistriList, 120);
             string list = driver.FindElement(valAccDistriList).Text;
             return list;
+        }
+
+        public void ValidateSharingFunctionalityOfBillingRequest()
+        {
+            driver.FindElement(btnSharing).Click();
+            driver.FindElement(txtSearchUser).Click();
+            driver.FindElement(txtSearchUser).SendKeys("Hugh Nelson");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//a[@role='option']//div[2]/div[@title='Hugh Nelson']")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAccessLevel).Click();
+            driver.FindElement(By.XPath("//button[@data-value='Read Only']/ancestor::div[2]/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddExp).Click();         
+        }
+
+        //Check if deal team member can access Billing Request
+        public void ClickCreatedBillingRequest()
+        {
+            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
+                   
         }
     }
 }

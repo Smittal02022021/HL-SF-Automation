@@ -83,6 +83,11 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.IsTrue(project.ValidateBillingRequestValidations(), "Verified that displayed mandatory validations are same ");
                 extentReports.CreateLog("Displayed mandatory validations of Billing Request are correct ");
 
+                //32. TMT0075999_Verify that the "Accounting Send Final Invoice" will be checked by default. 
+                string accInvoice = project.ValidateDefaultCheckOfAccountingInvoice();
+                Assert.AreEqual("::after", accInvoice);
+                extentReports.CreateLog("The Accounting Send Final Invoice is checked by default. ");
+
                 //4.  TMT0074717_Verify that if "Accounting Send Final Invoice" is unchecked, Principal/Manager field enabled and becomes required field to enter the name of the deal team
                 string messagePrincipal = project.SaveAllMandatoryFieldsOfBillingRequest();
                 Assert.AreEqual("Principal/Manager\r\nComplete this field.", messagePrincipal);
@@ -240,11 +245,29 @@ namespace SF_Automation.TestCases.Opportunity
                 //28.  TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
                 Assert.IsTrue(project.ValidateDeleteFunctionalityOfPVPositionsToBill(), "Verified that displayed headers hyperlinks of Billing Request are same ");
                 extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
-                
+
+                //33.  TMT0076112_Verify that the deal team member will be able to access the billing request once it is shared with selected deal team with Read/Write access 
+                project.ValidateSharingFunctionalityOfBillingRequest();
+                usersLogin.DiffLightningLogout();
+                usersLogin.SearchUserAndLogin("Hugh Nelson");
+                string stdUser2 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser2.Contains("Hugh Nelson"), true);
+                extentReports.CreateLog("User: " + stdUser2 + " logged in ");
+
+                opportunityHome.ValidateParentProjectUnderHLBanker();
+                project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
+                project.ValidateBillingRequestLink();
+                project.ClickCreatedBillingRequest();
+                Assert.IsTrue(project.ValidateBillingRequestHeaders(), "Verified that displayed headers of Billing Request are same ");
+                extentReports.CreateLog("Billing Request page with required headers is displayed to Deal Team member post sharing the Billing Request ");
+
+                //28. -Admin  TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
                 usersLogin.DiffLightningLogout();
                 string PVDeleteAdmin = project.ValidateDeleteFunctionalityOfPVPositionsToBillWithAdmin();
                 Assert.AreEqual("PV Position To Bill deleted successfully", PVDeleteAdmin);
                 extentReports.CreateLog("PV Position To Bill is deleted successfully by Admin ");
+
+                //31. 
 
                 usersLogin.UserLogOut();
                 usersLogin.DiffLightningLogout();               
