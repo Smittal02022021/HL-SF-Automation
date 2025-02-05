@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
+using System.IO;
 
 namespace SF_Automation.UtilityFunctions
 {
@@ -58,8 +59,19 @@ namespace SF_Automation.UtilityFunctions
         {
             if (extent == null)
             {
+                // Get current date and time
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+
+                // Define the report file path with timestamp
+                string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\";
+
+                string reportPath = Path.Combine(path, $"ExtentReport_{timestamp}.html");
+
+                // Initialize Extent Reports
                 extent = new ExtentReports();
-                var htmlReporter = new ExtentHtmlReporter(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\ExtentReport.html");
+                var htmlReporter = new ExtentHtmlReporter(reportPath);
+
+                //var htmlReporter = new ExtentHtmlReporter(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\ExtentReport.html");
                 htmlReporter.Config.DocumentTitle="Test Execution Report";
                 extent.AttachReporter(htmlReporter);
                 extent.AddSystemInfo("Application Under Test", "Salesforce Application");
