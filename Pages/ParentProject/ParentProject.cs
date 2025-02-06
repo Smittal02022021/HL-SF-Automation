@@ -57,7 +57,7 @@ namespace SalesForce_Project.Pages
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
         By btnNewBillingReq = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Request__c.New']//button[@name='New']");
         By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
-        By chkAccInvoice = By.XPath("//span[text()='Accounting Send Final Invoice']/ancestor::lightning-primitive-input-checkbox/div/span/span");
+        By chkAccInvoice = By.XPath("//span[text()='Accounting Send Final Invoice']/ancestor::lightning-primitive-input-checkbox/div/span/input");
         By btnPreference1 = By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']");
         By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
         By txtAccounting = By.XPath("//input[@placeholder='Search Contacts...']");
@@ -215,7 +215,7 @@ namespace SalesForce_Project.Pages
 
             driver.FindElement(tabParentProject).Click();
             driver.Navigate().Refresh();
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);            
             WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
@@ -225,7 +225,7 @@ namespace SalesForce_Project.Pages
         public string ValidateAssociated2ndEngToParentProject()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,150)");
+            js.ExecuteScript("window.scrollTo(0,200)");
             Thread.Sleep(4000);
             driver.FindElement(lnkParentProjectEng).Click();
             //driver.Navigate().Refresh();
@@ -442,8 +442,22 @@ namespace SalesForce_Project.Pages
 
         public string ValidateDefaultCheckOfAccountingInvoice()
         {
-            string value = driver.FindElement(chkAccInvoice).Text;
-            return value;
+            try
+            {                
+                if (driver.FindElement(chkAccInvoice).Selected)
+                {
+                    return "Accounting Send Final Invoice is checked";
+                }
+                else
+                {
+                    return "Accounting Send Final Invoice is not-checked";
+                }
+            }
+
+        catch
+              { 
+                return "Accounting Send Final Invoic is not checked";
+              }
         }
         public string SaveAllMandatoryFieldsOfBillingRequest()
         {
@@ -882,7 +896,7 @@ namespace SalesForce_Project.Pages
         public bool ValidateDeleteFunctionalityOfPVPositionsToBill()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,750)");
+            js.ExecuteScript("window.scrollTo(0,850)");
             Thread.Sleep(7000);
             driver.FindElement(lnkPVPositionName).Click();
             Thread.Sleep(5000);
@@ -930,7 +944,9 @@ namespace SalesForce_Project.Pages
         public void ValidateSharingFunctionalityOfBillingRequest()
         {
             driver.FindElement(btnSharing).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchUser, 120);
             driver.FindElement(txtSearchUser).Click();
+            Thread.Sleep(4000);
             driver.FindElement(txtSearchUser).SendKeys("Hugh Nelson");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//a[@role='option']//div[2]/div[@title='Hugh Nelson']")).Click();

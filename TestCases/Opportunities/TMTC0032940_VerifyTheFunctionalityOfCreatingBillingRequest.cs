@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //32. TMT0075999_Verify that the "Accounting Send Final Invoice" will be checked by default. 
                 string accInvoice = project.ValidateDefaultCheckOfAccountingInvoice();
-                Assert.AreEqual("::after", accInvoice);
+                Assert.AreEqual("Accounting Send Final Invoice is checked", accInvoice);
                 extentReports.CreateLog("The Accounting Send Final Invoice is checked by default. ");
 
                 //4.  TMT0074717_Verify that if "Accounting Send Final Invoice" is unchecked, Principal/Manager field enabled and becomes required field to enter the name of the deal team
@@ -243,11 +243,13 @@ namespace SF_Automation.TestCases.Opportunity
                  extentReports.CreateLog("Email notification is sent to the billers of distribution list: " + emailNotify + " upon clicking the Submit To Biller button ");
 
                 //28.  TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
+                project.ValidateSharingFunctionalityOfBillingRequest();
+
                 Assert.IsTrue(project.ValidateDeleteFunctionalityOfPVPositionsToBill(), "Verified that displayed headers hyperlinks of Billing Request are same ");
                 extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
 
                 //33.  TMT0076112_Verify that the deal team member will be able to access the billing request once it is shared with selected deal team with Read/Write access 
-                project.ValidateSharingFunctionalityOfBillingRequest();
+               
                 usersLogin.DiffLightningLogout();
                 usersLogin.SearchUserAndLogin("Hugh Nelson");
                 string stdUser2 = login.ValidateUserLightning();
