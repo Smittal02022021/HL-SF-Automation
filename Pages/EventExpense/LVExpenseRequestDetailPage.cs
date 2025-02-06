@@ -396,12 +396,9 @@ namespace SF_Automation.Pages.EventExpense
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
-            IList<IWebElement> elements = driver.FindElements(By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr"));
-            int size = elements.Count;
-
-            By lblApproverResponseForApprover = By.XPath($"//table[@aria-label='Event Expense Approval History']/tbody/tr[{size}]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
+            By lblApproverResponseForApprover = By.XPath("//table[@aria-label='Event Expense Approval History']/tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
             string approverResp = driver.FindElement(lblApproverResponseForApprover).Text;
 
             return approverResp;
