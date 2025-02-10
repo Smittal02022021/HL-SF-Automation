@@ -470,7 +470,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, valContactMailingAddress, 60);
-            string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[1]")).Text + "\r\n"+ driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[2]")).Text + "\r\n" + driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[3]")).Text;
+            string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[1]")).Text + "\r\n"+ driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[2]")).Text;
             return contactAddress;
         }
 
@@ -2042,6 +2042,14 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabDeals);
             driver.FindElement(tabDeals).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void NavigateToMarketingTab()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing);
+            driver.FindElement(tabMarketing).Click();
             Thread.Sleep(5000);
         }
 

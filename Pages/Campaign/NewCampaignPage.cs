@@ -109,7 +109,7 @@ namespace SF_Automation.Pages
             {
                 Thread.Sleep(5000);
                 driver.FindElement(By.XPath($"((//span[text()='{name}'])[2]/../span)[1]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
 
                 driver.FindElement(btnNext).Click();
                 Thread.Sleep(3000);

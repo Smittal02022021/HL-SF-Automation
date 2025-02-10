@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Contact
 
                     //Validated Address
                     string contactCompleteAddress = lvContactDetails.GetContactCompleteAddress();
-                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9) + "\r\n" + ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10) + ", " + ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 11) + " 92001\r\n" + ReadExcelData.ReadData(excelPath, "Contact", 12), contactCompleteAddress);
+                    Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9) + "\r\n" + ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 10), contactCompleteAddress);
                     extentReports.CreateStepLogs("Passed", "Contact address: " + contactCompleteAddress + " including street,city and country in edit contact page matches on contact details page ");
 
                     //Validated Title

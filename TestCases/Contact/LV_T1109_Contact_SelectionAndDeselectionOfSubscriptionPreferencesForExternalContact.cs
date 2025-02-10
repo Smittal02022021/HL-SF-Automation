@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "New External contact: " + extContactFullName + " is created successfully.");
 
                 //Navigate to Marketing Tab
-                lvContactDetails.NavigateToDealsTab();
+                lvContactDetails.NavigateToMarketingTab();
                 extentReports.CreateStepLogs("Info", "User navigated to marketing tab. ");
 
                 //Update & Verify Subscription Preferences options
