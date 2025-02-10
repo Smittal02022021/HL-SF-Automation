@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Companies
 
         By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
-        By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[2]/..");
+        By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[1]/..");
 
         By _radioRecordType(string recordType)
         {
@@ -999,14 +999,29 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        //This method deletes a company
         public void DeleteCompany()
         {
+            //Wait until the "Show More Actions" button is visible
             WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreActions, 60);
+
+            //Click the "Show More Actions" button
             driver.FindElement(btnShowMoreActions).Click();
+
+            //Wait for 2 seconds
             Thread.Sleep(2000);
+
+            //Click the "Delete" button
             driver.FindElement(By.XPath("//span[text()='Delete']/..")).Click();
+
+            //Wait for 2 seconds
             Thread.Sleep(2000);
+
+            //Click the "Delete" button again
             driver.FindElement(By.XPath("(//span[text()='Delete']/..)[2]")).Click();
+
+            //Wait for 2 seconds
+            Thread.Sleep(2000);
         }
     }
 }
