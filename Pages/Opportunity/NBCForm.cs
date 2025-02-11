@@ -300,10 +300,10 @@ namespace SF_Automation.Pages.Opportunity
         By secPlsConfirm = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection15']/slot/flexipage-field-section2/div/div/div/h3/button/span");
         By lblGroupHead = By.XPath("//flexipage-field[@data-field-id='RecordHead_Approval_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
 
-        By lblStaff = By.XPath("/html/body/span[2]/form/div[1]/div/div[2]/span[2]/table/tbody/tr[3]/td[1]/div[1]/label");
-        By btnSaveITTeam = By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[1]");
-        By btnReturnToOpp = By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[2]");
-        By btnRoleDef = By.XPath("//div[1]/div/div[1]/table/tbody/tr/td[2]/span/input[3]");
+        By lblStaff = By.XPath("//table//tr[3]/td[1]//label");
+        By btnSaveITTeam = By.XPath("//div[1]//div[1]/table//tr/td[2]//input[1]");
+        By btnReturnToOpp = By.XPath("//div[1]//div[1]/table//tr/td[2]//input[2]");
+        By btnRoleDef = By.XPath("//div[1]//div[1]/table//tr/td[2]//input[3]");
 
         By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An NBC Form:']");
         By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//dt/div[1]/span[1]");
@@ -2852,10 +2852,10 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SwitchFrame()
         {
-            driver.Close();
+            //driver.Close();
             Console.WriteLine("Closed the last window");
             Thread.Sleep(6000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            driver.SwitchTo().DefaultContent();
         }
 
         //Validate Submit for Review button

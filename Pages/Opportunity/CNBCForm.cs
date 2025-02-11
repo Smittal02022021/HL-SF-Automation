@@ -10,12 +10,13 @@ namespace SF_Automation.Pages.Opportunity
     class CNBCForm : BaseClass
     {
         By valOppName = By.XPath("//div[2]/h1/slot/records-formula-output/slot/lightning-formatted-text");
-        By lblClientComp = By.XPath("//records-highlights-details-item[1]/div/p[1]");
-        By lblClientOwner = By.XPath("//records-highlights-details-item[2]/div/p[1]");
-        By lblSubjectComp = By.XPath("//records-highlights-details-item[3]/div/p[1]");
-        By lblSubjectOwnership = By.XPath("//records-highlights-details-item[4]/div/p[1]");
-        By lblJobType = By.XPath("//records-highlights-details-item[5]/div/p[1]");
-        By lblIG = By.XPath("//records-highlights-details-item[6]/div/p[1]");
+        By valOppNameL = By.XPath("//records-entity-label[text()='Opportunity Review']/ancestor::h1/slot//slot/lightning-formatted-text");
+        By lblClientComp = By.XPath("//p[text()='Client Company']");
+        By lblClientOwner = By.XPath("//p[text()='Client Ownership']");
+        By lblSubjectComp = By.XPath("//p[text()='Subject Company']");
+        By lblSubjectOwnership = By.XPath("//p[text()='Subject Ownership']");
+        By lblJobType = By.XPath("//p[text()='Subject Ownership']/ancestor::div[2]//p[text()='Job Type']");
+        By lblIG = By.XPath("//p[text()='Primary Industry Group']");
         By valclientComp = By.XPath("//records-highlights-details-item[1]/div/p[2]/slot/records-formula-output/slot/lightning-formatted-text");
         By valclientOwnership = By.XPath("//records-highlights-details-item[2]/div/p[2]/slot/records-formula-output/slot/lightning-formatted-text");
         By valsubjectOwnership = By.XPath("//records-highlights-details-item[4]/div/p[2]/slot/records-formula-output/slot/lightning-formatted-text");
@@ -185,6 +186,13 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppName, 80);
             string valOpp = driver.FindElement(valOppName).Text;
+            return valOpp;
+        }
+
+        public string ValidateOppNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppNameL, 80);
+            string valOpp = driver.FindElement(valOppNameL).Text;
             return valOpp;
         }
         //Validate Client Company Label
@@ -390,6 +398,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='International Angle?']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             driver.FindElement(comboSanctions).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Sanctions Concerns/Issues?']/following::div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
             driver.FindElement(txtRisk).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 13));
             js.ExecuteScript("window.scrollTo(0,380)");
@@ -549,10 +558,11 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SwitchFrame()
         {
-            driver.Close();
+            //driver.Close();
             Console.WriteLine("Closed the last window");
-            Thread.Sleep(8000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
         }
 
         //Validate Submit for Review button

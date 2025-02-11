@@ -555,7 +555,7 @@ namespace SF_Automation.Pages
             try
             {
                 Thread.Sleep(5000);
-                if (user.Equals("James Craven"))
+                if (user.Equals("James Craven")|| user.Equals("Mark Fisher") || user.Equals("Brian Miller"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 220);
                     driver.FindElement(btnOppNumL).Click();

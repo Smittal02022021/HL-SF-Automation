@@ -53,55 +53,46 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
+                //Verify the availability of Opportunity under HL Banker list
+                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                Assert.AreEqual("Opportunities", tagOpp);
+                extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
+
+                //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
-
-                //Calling AddOpportunities function                
+                //Calling AddOpportunities function
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType, fileCNBC);
-                Console.WriteLine("value : " + value);
+                string opportunityNumber = addOpportunity.AddOpportunitiesLightning(valJobType, fileCNBC);
+                Console.WriteLine("value : " + opportunityNumber);
+                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(fileCNBC);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileCNBC);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details page 
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
-
-                //Fetch values of Opportunity Name, Client, Subject and Job Type
-                string oppNum = opportunityDetails.GetOppNumber();
-                string clientName = opportunityDetails.GetClient();
-                string clientOwnership = opportunityDetails.GetClientOwnership();
-                string subjectName = opportunityDetails.GetSubject();
-                string subjectOwnership = opportunityDetails.GetSubjectOwnership();
-                string jobType = opportunityDetails.GetJobType();
-                //string IG = opportunityDetails.GetIG();
-                Console.WriteLine(jobType);
-
-                
-                
+                string clientName = opportunityDetails.GetClientCompanyL();
+                string subjectName= opportunityDetails.GetSubjectCompanyL();                
+                string jobType = opportunityDetails.GetJobTypeL();
+                opportunityDetails.UpdateClientSubjectOwnershipL();
+                string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
+                string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
 
                 //Logout of user and validate Admin login
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
 
                 //update CC and NBC checkboxes 
                 opportunityDetails.UpdateInternalTeamDetails(fileCNBC);
@@ -111,12 +102,13 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser1 = login.ValidateUser();
+                string stdUser1 = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                string oppNumber = opportunityDetails.GetOpportunityNumberLightning();
 
                 //Click on NBC and validate title of page
                 string title = opportunityDetails.ClickNBCFormLCNBC();
@@ -124,8 +116,8 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
 
                 //Validate pre populated fields on CNBC form               
-                string oppCNBC = form.ValidateOppName();
-                Assert.AreEqual(oppNum, oppCNBC);
+                string oppCNBC = form.ValidateOppNameL();               
+                Assert.AreEqual(oppNumber, oppCNBC);
                 extentReports.CreateLog("Opportunity Name: " + oppCNBC + " in CNBC form matches with Opportunity details page ");
 
                 string clientComp = form.ValidateClientCompanyHeader();
@@ -294,7 +286,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actMinFeeValidation = nform.GetValidationOfMinFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
-                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nFees: Engagement Letter Minimum Fee should not be greater than 100 MM", actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
                                              
                 string actEstFeeValidation = form.GetValidationOfEstimatedFee();
@@ -344,20 +336,20 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate Opportunity Name in Email and navigate to Opportunity details page
                 string emailOppName = form.GetOpportunityName();
-                Assert.AreEqual(value, emailOppName);
+                Assert.AreEqual(opportunityNumber, emailOppName);
                 extentReports.CreateLog(" Email Template with Opportunity " + emailOppName + " is displayed ");
                 form.SwitchFrame();       
 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 //Login as CAO User i.e., Brian Miller                
                 string valCAOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
-                string caoUser = login.ValidateUser();
+                string caoUser = login.ValidateUserLightning();
                 Assert.AreEqual(caoUser.Contains(valCAOUser), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");
 
                 //Search for the same Opportunity                
-                opportunityHome.SearchOpportunity(value);               
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valCAOUser);               
                 opportunityDetails.ClickNBCFormLCNBC();
 
                 //Validate Submit for Review button before approval
@@ -380,11 +372,11 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Submit for Review button is not displayed", submit1);
                 extentReports.CreateLog(submit1 + " for CAO user after approval ");
                 form.SwitchFrame();
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
 
                 //Login as Admin and validate NBC Approved checkbox
                 //Search for the same Opportunity                
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
                 string check = opportunityDetails.ValidateNBCApprovedCheckbox();
                 Assert.AreEqual("NBC Approved checkbox is checked", check);
                 extentReports.CreateLog(check + " after approving CNBC Form ");

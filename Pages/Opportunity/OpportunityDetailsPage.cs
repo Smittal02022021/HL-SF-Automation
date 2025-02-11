@@ -409,9 +409,12 @@ namespace SF_Automation.Pages
         By tabAdmin = By.XPath("//a[text()='Administration']");
         By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Opportunity Name']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
-        By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
+        By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox//lightning-base-combobox//button");
         By valClientOwnershipAfter = By.XPath("//flexipage-tab2[1]//flexipage-component2[1]/slot/flexipage-field-section2//flexipage-field[3]//slot[1]/lightning-formatted-text");
-        
+        By valSubjectOwnershipBefore = By.XPath("//label[text()='Subject Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
+        By btnSubjectOwnership = By.XPath("//label[text()='Subject Ownership']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
+        By valSubjectOwnershipAfter = By.XPath("//span[text()='Subject Ownership']/ancestor::div[2]//span//lightning-formatted-text");
+
         By lnkEditPrimaryOffice = By.XPath("//button[@title='Edit Primary Office']");
         By valPrimaryOfficeBefore = By.XPath("//label[text()='Primary Office']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
         By btnPO = By.XPath("//label[text()='Primary Office']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
@@ -622,6 +625,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
+        By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]/dd//lightning-formatted-text");
         By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");
         By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]//span//lightning-formatted-text");
@@ -1484,9 +1488,9 @@ public void ClickNewOpportunitySectorButton()
        
         public string ClickNBCFormLCNBC()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormL, 120);
-            driver.FindElement(btnNBCFormL).Click();
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormLightning, 120);
+            driver.FindElement(btnNBCFormLightning).Click();
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
             string title = driver.FindElement(txtDefaultTabCNBC).Text;
@@ -5252,6 +5256,15 @@ public void ClickNewOpportunitySectorButton()
             return value;
         }
 
+        //Get default value of Client Ownership
+        public string GetSubjectOwnershipLPostUpdate()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipAfter, 150);
+            string value = driver.FindElement(valClientOwnershipAfter).Text;
+            return value;
+        }
+
         //Update the value of Client Ownership
         public void UpdateClientOwnershipL()
         {
@@ -5259,6 +5272,23 @@ public void ClickNewOpportunitySectorButton()
             driver.FindElement(btnClientOwnership).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/lightning-base-combobox-item[8]/span[2]/span")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(3000);
+        }
+
+        //Update the value of Client Ownership
+        public void UpdateClientSubjectOwnershipL()
+        {
+            driver.FindElement(By.XPath("//span[text()='Client Ownership']/ancestor::div[2]/dd//button")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClientOwnership).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox/div[1]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(btnSubjectOwnership).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//label[text()='Subject Ownership']/ancestor::div[2]//lightning-combobox/div[1]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(3000);
@@ -6079,6 +6109,15 @@ public void ClickNewOpportunitySectorButton()
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipBefore, 150);
             string value = driver.FindElement(valClientOwnershipBefore).Text;
+            return value;
+        }
+
+        //Get default value of Client Ownership
+        public string GetSubjectOwnershipL()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubjectOwnershipBefore, 150);
+            string value = driver.FindElement(valSubjectOwnershipBefore).Text;
             return value;
         }
 
@@ -7529,6 +7568,15 @@ public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
             string clientName = driver.FindElement(valClientL).Text;
             return clientName;
         }
+
+        public string GetOpportunityNumberLightning()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valOppNumNBCL, 90);
+            string clientName = driver.FindElement(valOppNumNBCL).Text;
+            return clientName;
+        }
+
+        
         //Get Job Type
         public string GetJobTypeL()
         {
