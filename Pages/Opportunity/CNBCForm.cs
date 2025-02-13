@@ -565,6 +565,14 @@ namespace SF_Automation.Pages.Opportunity
             //driver.SwitchTo().Window(driver.WindowHandles.Last());
         }
 
+        public void SwitchFrameClassic()
+        {            
+            Console.WriteLine("Closed the last window");
+            Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+        }
+
         //Validate Submit for Review button
         public string ValidateSubmitForReviewButton()
         {

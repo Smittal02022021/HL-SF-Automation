@@ -88,7 +88,9 @@ namespace SF_Automation.TestCases.Opportunity
                 string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateRetainerAndMonthlyFee();               
+                opportunityDetails.UpdateRetainerAndMonthlyFeeL();
+                string retainer = opportunityDetails.GetRetainerL();
+                string progressFee = opportunityDetails.GetMonthlyFeeL();
 
                 //Logout of user and validate Admin login
                 usersLogin.DiffLightningLogout();
@@ -112,9 +114,6 @@ namespace SF_Automation.TestCases.Opportunity
                 //Search for created opportunity
                 opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
                 string oppNumber = opportunityDetails.GetOpportunityNumberLightning();
-
-                string retainer = opportunityDetails.GetRetainer();
-                string progressFee = opportunityDetails.GetMonthlyFee();
 
                 //Click on NBC page and validate title of page
                 string title = opportunityDetails.ClickNBCFormLCNBC();
@@ -157,17 +156,18 @@ namespace SF_Automation.TestCases.Opportunity
                 form.SaveAllReqFieldsInFees(fileTC1232,"Flat Fee");
 
                 //Navigate to previous window and validate Retainer and Monthly Fee
-                form.NavigateToPreviousWindow();                
-                string latestRetainer = opportunityDetails.GetRetainer();
+                // form.NavigateToPreviousWindow();
+                opportunityDetails.ClickOppTab();
+                string latestRetainer = opportunityDetails.GetRetainerL();
                 Assert.AreEqual(retainer, latestRetainer);
                 extentReports.CreateLog("Retainer value in Opportunity details: " + latestRetainer + " matches with earlier value of Retainer ");
 
-                string latestProgressFee = opportunityDetails.GetMonthlyFee();
+                string latestProgressFee = opportunityDetails.GetMonthlyFeeL();
                 Assert.AreEqual(progressFee, latestProgressFee);
                 extentReports.CreateLog("Progress Fee value in Opportunity details: " + latestProgressFee + " matches with earlier value of Progress Fee ");
 
                 //Clear out the Progress Fee and Progress Fee Creditable fields
-                form.NavigateToNextWindow();
+               // form.NavigateToNextWindow();
                 string estFeeWithRetainer = form.UpdateReviewSubAndProgressFee(fileTC1232, "Flat Fee");
                 Console.WriteLine(estFeeWithRetainer);
 

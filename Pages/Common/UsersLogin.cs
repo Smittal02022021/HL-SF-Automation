@@ -37,6 +37,7 @@ namespace SF_Automation.Pages.Common
         By lnkLogout = By.XPath("//div[2]/div/a[2]");
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
         By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
+        By btnDiscard = By.XPath("//button[text()='Discard Changes']");
 
         public void SearchCFUserAndLogin(string name)
         {
@@ -177,6 +178,12 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 150);
             driver.FindElement(lnkLogoutL).Click();
+        }
+
+        public void DiscardChanges()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDiscard, 220);
+            driver.FindElement(btnDiscard).Click();            
         }
 
         //Click on Switch To Lightning Experience link

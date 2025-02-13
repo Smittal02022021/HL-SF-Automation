@@ -420,7 +420,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as CAO User i.e., Brian Miller                
                 string valCAOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
-                string caoUser = login.ValidateUser();
+                string caoUser = login.ValidateUserLightning();
                 Assert.AreEqual(caoUser.Contains(valCAOUser), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");
 

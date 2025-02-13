@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC5);
                 extentReports.CreateLog("Validation: " + CC5 + " is displayed ");
 
-                form.SwitchFrame();
+                form.SwitchFrameClassic();
                 usersLogin.UserLogOut();
 
                 opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");

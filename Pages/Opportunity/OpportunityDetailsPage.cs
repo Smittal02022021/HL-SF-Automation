@@ -13,6 +13,7 @@ using System.Web;
 using Microsoft.Office.Interop.Excel;
 using System.Data;
 using System.Web.UI.DataVisualization.Charting;
+using AventStack.ExtentReports.Reporter.Configuration;
 
 namespace SF_Automation.Pages
 {
@@ -103,6 +104,8 @@ namespace SF_Automation.Pages
         By valWinProb = By.CssSelector("div[id*='OKj']");
         By valTxnSize = By.CssSelector("div[id*='80P4j']");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
+        By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]/dd//lightning-formatted-text");
         By valMonthlyFee = By.CssSelector("td[id*='00Ni000000FmBzij']>div[id*='FmBzij']");
         By valContingentFee = By.CssSelector("div[id*='GE9j']");
         By rowOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr");
@@ -110,7 +113,9 @@ namespace SF_Automation.Pages
         By valOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr[class*='first']>td:nth-child(3)");
         By linkDel = By.CssSelector("td[class='actionColumn']>a[title='Delete - Record 1 - View']");
         By btnClone = By.CssSelector("input[title='Clone']");
-        //By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
+
+        By tabOppL = By.XPath("//section[2]//ul[2]/li[2]/a/span[2]");
+            //By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
         By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id43']");
         By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id43']");
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
@@ -128,6 +133,7 @@ namespace SF_Automation.Pages
         By comboLOB = By.CssSelector("select[id*='hW2']");
         By valLOB = By.CssSelector("div[id*='W2j_id0_j_id55_ileinner']");
         By txtMonthlyFee = By.CssSelector("input[name*='FmBzi']");
+        By txtMonthlyFeeL = By.XPath("//input[@name= 'ProgressMonthly_Fee__c']");
         By lnkTrialExp = By.CssSelector("div:nth-child(17) > table > tbody > tr:nth-child(2) > td.dataCol.col02 > span > span > a");
         By txtContingentFee = By.CssSelector("input[name*='FkGE9']");
         By lnkEstClosedDate = By.CssSelector("div:nth-child(25) > table > tbody > tr:nth-child(3) > td.dataCol.col02 > span > span > a");
@@ -449,7 +455,7 @@ namespace SF_Automation.Pages
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
 
         By tabOpportunityL = By.XPath("//section[3]/div/div//ul[2]/li[2]/a/span[2]");
-        By tabOppL = By.XPath("//section[2]/div//div/ul[2]/li[2]/a/span[2]");
+        //By tabOppL = By.XPath("//section[2]/div//div/ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
 
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");        
@@ -859,7 +865,7 @@ By valICOContractName = By.CssSelector("div[id*='M0ed1_body'] > table > tbody > 
         //Get the value of Est Txn Size
         public string GetEstTransactionSize()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
             string value = driver.FindElement(valEstTxnSize).Text;
             string estTxn = value.Substring(0, 8);
             return estTxn;
@@ -1538,8 +1544,23 @@ public void ClickNewOpportunitySectorButton()
                 driver.FindElement(txtMonthlyFee).SendKeys("15");
                 driver.FindElement(btnSave).Click();
             }
-        }       
-       
+        }
+
+        //To update Retainer and Monthly Fee 
+        public void UpdateRetainerAndMonthlyFeeL()
+        {
+            
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 350);
+                driver.FindElement(btnEditL).Click();
+               Thread.Sleep(4000);
+              CustomFunctions.MoveToElement(driver, driver.FindElement(txtRetainerL));
+            Thread.Sleep(4000);
+            driver.FindElement(txtRetainerL).SendKeys("12");
+                driver.FindElement(txtMonthlyFeeL).SendKeys("15");
+                driver.FindElement(btnSaveDetailsL).Click();            
+           
+        }
 
         //To update CC details only for FAS records
         public void UpdateCCOnlyFAS()
@@ -1982,6 +2003,33 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, valMonthlyFee, 90);
             Thread.Sleep(3000);
             string monthlyFee = driver.FindElement(valMonthlyFee).Text;
+            return monthlyFee;
+        }
+        public void ClickOppTab()
+        {
+                       
+            driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 90);
+            driver.FindElement(tabOppL).Click();
+
+        }
+
+        //To get Retainer
+        public string GetRetainerL()
+        {
+            Thread.Sleep(3000);
+            driver.FindElement(tabFees).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRetainerL, 90);
+            Thread.Sleep(2000);            
+            string retainer = driver.FindElement(valRetainerL).Text;
+            return retainer;
+        }
+        //To get Monthly Fee
+        public string GetMonthlyFeeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valMonthlyL, 90);
+            Thread.Sleep(3000);
+            string monthlyFee = driver.FindElement(valMonthlyL).Text;
             return monthlyFee;
         }
         //To get Contingent Fee

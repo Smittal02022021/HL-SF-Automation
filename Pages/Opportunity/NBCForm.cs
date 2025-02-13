@@ -158,6 +158,7 @@ namespace SF_Automation.Pages.Opportunity
         By lnkEditProgressFeeCred = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::div[2]/dd[1]//button");
         By valFlatFee = By.XPath("//span[text()='Flat Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By lnkEditCurrency = By.XPath("//span[text()='Currency']/ancestor::div[2]/dd[1]//button");
+        By lnkEditCurrencyL = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::slot[3]/flexipage-column2[2]//span[text()='Currency']/ancestor::div[2]//button");
         By txtFlatFee = By.XPath("//label[text()='Flat Fee (MM)']/following::div[1]/input");
         By valMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By btnWillThere = By.XPath("//label[text()='Will There Be a Pitch?']/following::button[1]");
@@ -3376,6 +3377,8 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[3]/a/span[1]")).Click();
+            Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             driver.FindElement(btnSubmit).Click();
@@ -3936,8 +3939,8 @@ namespace SF_Automation.Pages.Opportunity
         public string UpdateFeeCreditables(string value)
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency, 180);
-            driver.FindElement(lnkEditCurrency).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrencyL, 190);
+            driver.FindElement(lnkEditCurrencyL).Click();
             driver.FindElement(txtRetainerFeeCred).Clear();
             driver.FindElement(txtRetainerFeeCred).SendKeys(value);
             driver.FindElement(txtProgressFeeCred).Clear();
