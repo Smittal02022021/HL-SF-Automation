@@ -83,22 +83,6 @@ namespace SF_Automation.TestCases.Contact
                     string email = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 4);
                     string PhnNo = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 5);
 
-                    if(ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
-                    {
-                        //Search HR user by global search
-                        string user = ReadExcelData.ReadData(excelPath, "Users", 2);
-                        lvHomePage.SearchUserFromMainSearch(user);
-
-                        //Verify searched user
-                        Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
-                        extentReports.CreateLog("User " + user + " details are displayed ");
-
-                        //Login as HR user
-                        lvHomePage.UserLogin();
-                        Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
-                        extentReports.CreateStepLogs("Info", "HR User: " + user + " is able to login into lightning view. ");
-                    }
-
                     //Navigate to Contacts page
                     lvHomePage.NavigateToAnItemFromHLBankerDropdown("Contacts");
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);
@@ -124,110 +108,49 @@ namespace SF_Automation.TestCases.Contact
                     Assert.IsTrue(lvCreateContact.GetMandatoryFieldErrMsgForLastNameField().Contains("Complete this field."));
                     extentReports.CreateStepLogs("Passed", "Last name error message displayed upon click of save button without entering details ");
 
-                    if (ReadExcelData.ReadDataMultipleRows(excelPath, "UsersType", row, 1).Equals("HR"))
-                    {
-                        //Create New HL Contact
-                        lvCreateContact.CreateNewHLContactByHRUser(fileTC1048, row);
+                    //Create New HL Contact
+                    lvCreateContact.CreateNewHLContactMultipleRows(fileTC1048, row);
 
-                        //Assertion to validate contact name displayed on the contacts detail page
-                        string extContactName = lvContactDetails.GetExternalContactName();
-                        Assert.AreEqual(extContactFullName, extContactName);
-                        extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
+                    //Assertion to validate contact name displayed on the contacts detail page
+                    string extContactName = lvContactDetails.GetExternalContactName();
+                    Assert.AreEqual(extContactFullName, extContactName);
+                    extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
 
-                        //Assertion to validate contact record type
-                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
-                        extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
-                            " ,Contact Record type is displayed under system information section ");
+                    // Assertion to validate the company name selected display on contact details page
+                    string companyName = lvContactDetails.GetCompanyName();
+                    Assert.AreEqual(compName, companyName);
+                    extentReports.CreateStepLogs("Passed", "Company Name: " + companyName + " in add contact page matches on contact details page");
 
-                        //Verify Validation message is dispalying when HR user tries to edit employee currency
-                        contactEdit.VerifyEmployeeCurrencyValidation("AUD - Australian Dollar");
-                        contactEdit.ClickSaveBtn();
+                    //Assertion to validate contact record type
+                    Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
+                    extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
+                        " ,Contact Record type is displayed under system information section ");
 
-                        String errMessage1 = contactEdit.TxtErrorMessageEmployeeCurrency();
-                        Assert.AreEqual("Only system administrators can change employee currency", errMessage1);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage1 + " is displaying when HR user tries to change currency ");
-                        contactEdit.ClickCancelBtn();
+                    //Verify error message is displaying when departure date is before the hire date
+                    contactEdit.EditContact(fileTC1048, 2, 2);
 
-                        //Verify Validation message is dispalying when HR user tries to edit employee Name
-                        contactEdit.VerifyLastNameValidation();
-                        contactEdit.ClickSaveBtn();
-                        String errMessage2 = contactEdit.TxtErrorMessageEmpName();
-                        Assert.AreEqual("Only system administrators can change employee name and salutation", errMessage2);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMessage2 + " is displaying when HR user tries to change Name ");
-                        contactEdit.ClickCancelBtn();
+                    contactEdit.UpdateDepartureDate();
+                    contactEdit.ClickSaveBtn();
 
-                        //Logout from SF Lightning View
-                        lvHomePage.UserLogoutFromSFLightningView();
-                        extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
+                    String errMsg = contactEdit.TxtErrorMessageDepartureDate();
+                    Assert.AreEqual("Departure Date cannot be earlier than Hire Date", errMsg);
+                    extentReports.CreateStepLogs("Passed", "Error message: " + errMsg + " is displaying when departure date is before the hire date ");
 
-                        //Select HL Banker app
-                        try
-                        {
-                            lvHomePage.SelectAppLV("HL Banker");
-                        }
-                        catch(Exception)
-                        {
-                            lvHomePage.SelectAppLV1("HL Banker");
-                        }
+                    contactEdit.ClickCancelBtn();
 
-                        lvHomePage.SearchContactFromMainSearch(extContactFullName);
-                        Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactFullName));
-                        extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
+                    //Verify error message for Industry group when LOB is CF
+                    contactEdit.VerifyIndustryGroupValidation();
+                    contactEdit.ClickSaveBtn();
 
-                        //Delete Created Contact
-                        lvContactDetails.DeleteContact();
-                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
+                    string errMsg2 = contactEdit.TxtErrorMessageIndustryGroup();
+                    Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
+                    extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
-                        //User Logout
-                        lvHomePage.UserLogoutFromSFLightningView();
-                        extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
-                    }
-                    else
-                    {
-                        //Create New HL Contact
-                        lvCreateContact.CreateNewHLContactMultipleRows(fileTC1048, row);
+                    contactEdit.ClickCancelBtn();
 
-                        //Assertion to validate contact name displayed on the contacts detail page
-                        string extContactName = lvContactDetails.GetExternalContactName();
-                        Assert.AreEqual(extContactFullName, extContactName);
-                        extentReports.CreateStepLogs("Passed", "New HL contact: " + extContactFullName + " is created successfully.");
-
-                        // Assertion to validate the company name selected display on contact details page
-                        string companyName = lvContactDetails.GetCompanyName();
-                        Assert.AreEqual(compName, companyName);
-                        extentReports.CreateStepLogs("Passed", "Company Name: " + companyName + " in add contact page matches on contact details page");
-
-                        //Assertion to validate contact record type
-                        Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ContactTypes", 1), lvContactDetails.GetContactRecordTypeValue());
-                        extentReports.CreateStepLogs("Passed", "Validation of contact with Record Type " + lvContactDetails.GetContactRecordTypeValue() + " created with detailed information" +
-                            " ,Contact Record type is displayed under system information section ");
-
-                        //Verify error message is displaying when departure date is before the hire date
-                        contactEdit.EditContact(fileTC1048, 2, 2);
-
-                        contactEdit.UpdateDepartureDate();
-                        contactEdit.ClickSaveBtn();
-
-                        String errMsg = contactEdit.TxtErrorMessageDepartureDate();
-                        Assert.AreEqual("Departure Date cannot be earlier than Hire Date", errMsg);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg + " is displaying when departure date is before the hire date ");
-                        
-                        contactEdit.ClickCancelBtn();
-
-                        //Verify error message for Industry group when LOB is CF
-                        contactEdit.VerifyIndustryGroupValidation();
-                        contactEdit.ClickSaveBtn();
-
-                        string errMsg2 = contactEdit.TxtErrorMessageIndustryGroup();
-                        Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
-                        extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
-
-                        contactEdit.ClickCancelBtn();
-
-                        //Delete Created Contact
-                        lvContactDetails.DeleteContact();
-                        extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
-                    }
+                    //Delete Created Contact
+                    lvContactDetails.DeleteContact();
+                    extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
                 }
 
                 driver.Quit();
