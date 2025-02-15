@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports.Reporter.Configuration;
 using OpenQA.Selenium;
 using RazorEngine.Compilation.ImpromptuInterface;
+using RazorEngine.Compilation.ImpromptuInterface.Optimization;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace SalesForce_Project.Pages
         By btnCloseBillingReq = By.XPath("//button[@title='Close Billing Requests']");
         By btnNewBillingReq = By.XPath("//li[@data-target-selection-name='sfdc:StandardButton.Billing_Request__c.New']//button[@name='New']");
         By msgBillingReq = By.XPath("//div[text()='Complete this field.']");
+        By msgBillingEvent = By.XPath("//div[contains(text(),'Complete ')]");
         By chkAccInvoice = By.XPath("//span[text()='Accounting Send Final Invoice']/ancestor::lightning-primitive-input-checkbox/div/span/input");
         By btnPreference1 = By.XPath("//button[@aria-label='Client Out-of-Pocket Charges Preference']");
         By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
@@ -124,8 +126,19 @@ namespace SalesForce_Project.Pages
         By btnSharing = By.XPath("//button[text()='Sharing']");
         By txtSearchUser = By.XPath("//input[@title='Search User']");
         By btnAccessLevel = By.XPath("//button[@data-value='Read Only']");
+        By btnShowBillingEvent = By.XPath("//span[text()='ERP Revenue Billing Events']/ancestor::div[4]/div[3]//button");
+        By lnkNewBillingEvent = By.XPath("//span[text()='New Billing Event']");
+        By titleBillingEvent = By.XPath("//h2[text()='New ERP Revenue Billing Event']");
+        By txtContract = By.XPath("//input[@placeholder='Search Contract...']");
+        By txtEventAmount = By.XPath("//input[@name='Event_Amount__c']");
+        By btnEventType = By.XPath("//label[text()='Event Type']/ancestor::div[1]//button");
+        By txtCompletionDate = By.XPath("//input[@name='Completion_Date__c']");
+        By valBillingEvent = By.XPath("//records-entity-label[text()='ERP Revenue Billing Event']/ancestor::h1/slot/lightning-formatted-text");
+        By valBillingEventAccounting = By.XPath("//dt[text()='Event Type:']/ancestor::div[2]/div[1]//records-hoverable-link//a/span//span[1]//span");
+        By msgParentContract = By.XPath("//li[text()='Billing events cannot be created on parent contract.']");
+        By btnClearSelection = By.XPath("//label[text()='Contract']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
+        By msgICOContract = By.XPath("//div[text()='Billing Event cannot be created on ICO contracts']");
         
-
         public string ClickNewButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
@@ -962,5 +975,122 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
                    
         }
+
+        public string ValidateAccessToAddBillingEventFunctionality()
+        {
+            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAccounting, 120);
+            driver.FindElement(tabAccounting).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnShowBillingEvent).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkNewBillingEvent, 130);
+            driver.FindElement(lnkNewBillingEvent).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, titleBillingEvent, 140);
+            string value = driver.FindElement(titleBillingEvent).Text;
+            return value;
+        }
+
+        //Validate Billing Event validations
+        public bool ValidateBillingEventValidations()
+        {            
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgBillingEvent);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            Console.WriteLine("actualValue: " + actualValue[2]);
+            //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
+            string[] expectedValue = { "Engagement\r\nComplete this field.", "Contract\r\nComplete this field.", "Event Type\r\nComplete this field.", "Completion Date\r\nComplete this field with format 12/31/2024.", "Event Amount\r\nComplete this field." };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string SaveBillingEventDetails()
+        {            
+            driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+
+            driver.FindElement(txtContract).SendKeys("O'Connor - PV");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+            driver.FindElement(txtEventAmount).SendKeys("10");
+            driver.FindElement(btnEventType).Click();
+            driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtCompletionDate).SendKeys("2/6/2025");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valBillingEvent).Text;
+            return value;
+        }
+
+        public string ValidateCreatedBillingEventInAccountingTab()
+        {
+            driver.FindElement(By.XPath("//span[@title='Billing Request  c']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAccounting, 140);
+            driver.FindElement(tabAccounting).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valBillingEventAccounting, 140);
+           string value=  driver.FindElement(valBillingEventAccounting).Text;
+            return value;
+        }
+
+        public string ValidateBillingEventOnParentContractFunctionality()
+        {
+            driver.FindElement(btnShowBillingEvent).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkNewBillingEvent, 130);
+            driver.FindElement(lnkNewBillingEvent).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+
+            driver.FindElement(txtContract).SendKeys("O'Connor - PV");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//lightning-grouped-combobox//li[2]/lightning-base-combobox-item/span[2]")).Click();
+            driver.FindElement(txtEventAmount).SendKeys("10");
+            driver.FindElement(btnEventType).Click();
+            driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtCompletionDate).SendKeys("2/6/2025");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(msgParentContract).Text;
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(5000);
+            return value;
+        }
+
+        public string ValidateBillingEventOnICOContractFunctionality()
+        {
+            driver.FindElement(btnClearSelection).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtContract).SendKeys("ICO - 001 - 100328");
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//flexipage-field[5]//lightning-base-combobox//div[2]/ul/li")).Click();           
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgICOContract).Text;
+            return value;
+        }
+
+
+       
     }
 }

@@ -3951,8 +3951,6 @@ namespace SF_Automation.Pages.Opportunity
             string fee = driver.FindElement(valEstTotalFeeMM).Text;
             return fee.Substring(4, 6).Replace(",", "");
         }
-
-
     }
 
 

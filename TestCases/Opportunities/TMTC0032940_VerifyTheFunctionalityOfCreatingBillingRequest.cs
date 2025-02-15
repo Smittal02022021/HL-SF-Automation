@@ -7,7 +7,6 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace SF_Automation.TestCases.Opportunity
 {

@@ -19,7 +19,7 @@ namespace SF_Automation.Pages
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
-        By valUser = By.XPath("//section/header/div[1]/div/span");
+        By valUser = By.XPath("//span[contains(text(),'Logged in')]");
 
 
         public void SwitchToLightningExperience()
