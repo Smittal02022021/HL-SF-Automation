@@ -710,6 +710,17 @@ namespace SF_Automation.Pages.Opportunity
             return title;
         }
 
+        //Click on Add Counterparties and validate the page
+        public string ClickAdd2ndCounterpartiesAndValidatePage()
+        {           
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 250);
+            driver.FindElement(btnAddCounterpartyL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblNewOppCounterparty, 250);
+            string title = driver.FindElement(lblNewOppCounterparty).Text;
+            return title;
+        }
+
         //Add Counterparty 
         public void AddCounterpartyInOpportunityL(string name, string type)
         {
@@ -750,7 +761,9 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnAddContactL).Click();
             Thread.Sleep(8000);           
             driver.FindElement(btnBackL).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//li[4]//span[text()='Counterparty Editor']")).Click();
+            Thread.Sleep(4000);
             return name;
         }
 

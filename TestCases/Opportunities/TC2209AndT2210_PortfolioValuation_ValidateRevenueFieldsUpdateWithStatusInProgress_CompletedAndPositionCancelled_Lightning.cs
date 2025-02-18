@@ -219,10 +219,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Logout of standard user 
                 usersLogin.DiffLightningLogout();
-                
-                //Calling function to delete Position
-                //valuationPeriods.DeletePosition();
-
+                //usersLogin.DiscardChanges();                
+               
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

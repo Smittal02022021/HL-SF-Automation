@@ -159,7 +159,7 @@ namespace SalesForce_Project.Pages
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
-            string[] expectedValue = { "Parent Project Name\r\nComplete this field.", "Bill To\r\nComplete this field." };
+            string[] expectedValue = { "Parent Project Name\r\nComplete this field.", "Bill To\r\nComplete this field.", "Bill To Contact\r\nComplete this field." };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

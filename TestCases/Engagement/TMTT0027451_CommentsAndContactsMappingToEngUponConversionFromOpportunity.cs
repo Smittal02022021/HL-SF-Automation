@@ -104,12 +104,14 @@ namespace SF_Automation.TestCases.Engagement
                 //Add Opportunity Counterparties 
                 string valComp = ReadExcelData.ReadData(excelPath, "Counterparty", 1);
                 string valType = ReadExcelData.ReadData(excelPath, "Counterparty", 2);
-                counterparty.AddCounterpartyInOpportunityL(valComp, valType);
+                counterparty.AddCounterpartyInOpportunityL(valComp, valType);                
 
                 //Add Counterparties Contact
                 string selectedName = counterparty.AddCounterpartyContactInOpportunityL();
-                string val1stName = engCounterparty.Get1stName();
-                string val2ndName = engCounterparty.Get2ndName();              
+                counterparty.ClickAdd2ndCounterpartiesAndValidatePage();
+                counterparty.AddCounterpartyInOpportunityL(valComp, valType);
+                string val1stName = engCounterparty.GetContact1stName();
+                string val2ndName = engCounterparty.GetContact2ndName();              
                 Assert.AreEqual(selectedName.Replace(" ", ""), val1stName + val2ndName);
                 extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed under Opportunity Counterparty Contacts section ");
 

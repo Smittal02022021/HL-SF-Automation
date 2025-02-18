@@ -31,6 +31,8 @@ namespace SF_Automation.Pages.Engagement
         By btnPrintableView = By.XPath("//button[text()='Printable View']");
         By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
         By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
+        By valContactFirstName = By.XPath("//section/div/div/p[1]");
+        By valContactLastName = By.XPath("//section/div/div/p[2]");
         //By valLastName = By.XPath("//dt[text()='First Name:']/ancestor::dl[1]/dd[2]/lst-template-list-field/lst-formatted-text");
         By btnAddEngCounterPartyÇontact = By.CssSelector("input[value='New Engagement Counterparty Contact']");
         By checkName = By.CssSelector("tbody[id*='pbtableId2:tb'] > tr:nth-child(1) > td:nth-child(1)");
@@ -135,7 +137,7 @@ namespace SF_Automation.Pages.Engagement
         By txtSearchCompanyList = By.XPath("//input[@placeholder='Search Company List here...']");
         By btnBackCounterparties = By.XPath("//button[text()='Back']");
         By titleEngCounterparties = By.XPath("//div[@class='entityNameTitle slds-line-height--reset']");
-        By lnkAddedCounterparty = By.XPath("//tbody/tr/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/lightning-formatted-url");
+        By lnkAddedCounterparty = By.XPath("//tr[2]/th//lightning-layout-item[2]/slot/lightning-formatted-url");
         By lblView = By.XPath("//label[text()='View']");
         By txtCompanyList = By.XPath("//label[text()='Company List']/following::input[1]");
         By btnViewAllCompList = By.XPath("//button[text()='View All Company List']");
@@ -528,13 +530,13 @@ namespace SF_Automation.Pages.Engagement
         public string Get1stName()
         {
             Thread.Sleep(10000);
-            //var element = driver.FindElement(lnkContacts);
-            //Actions action = new Actions(driver);
-            //action.MoveToElement(element);
-            //action.Perform();
-            driver.FindElement(btnPrintableView).Click();
-            Thread.Sleep(5000);
-            driver.SwitchTo().Window(driver.WindowHandles.Last());            
+            var element = driver.FindElement(lnkContacts);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();
+            //driver.FindElement(btnPrintableView).Click();
+            //Thread.Sleep(5000);
+            // driver.SwitchTo().Window(driver.WindowHandles.Last());            
             WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 180);
             string name = driver.FindElement(valFirstName).Text;
             return name;
@@ -551,6 +553,31 @@ namespace SF_Automation.Pages.Engagement
             return name;
         }
 
+        //Get 1st Name
+        public string GetContact1stName()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//li[3]//span[text()='Counterparty Editor']")).Click();            
+            Thread.Sleep(5000);
+            var element = driver.FindElement(lnkContacts);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element);
+            action.Perform();                       
+            WebDriverWaits.WaitUntilEleVisible(driver, valContactFirstName, 180);
+            string name = driver.FindElement(valContactFirstName).Text;
+            return name;
+        }
+
+        //Get 2nd Name
+        public string GetContact2ndName()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, valContactLastName, 80);
+            string name = driver.FindElement(valContactLastName).Text;
+           // driver.SwitchTo().Window(driver.WindowHandles.First());
+            Thread.Sleep(5000);
+            return name;
+        }
         //Validate contact on Counterparties page
         public string ValidateContactDetailsOnCounterpartiesPage()
         {

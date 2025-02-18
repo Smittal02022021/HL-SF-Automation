@@ -351,7 +351,7 @@ namespace SF_Automation.TestCases.Engagement
                 string addedMemberRole = summaryPage.GetRoleOfAddedBoardMemberInAdditionalClientSubject();
                 Assert.AreEqual("Pre-Transaction Board Member", addedMemberRole);
                 extentReports.CreateLog("Added Board Member in Pre-Transaction tab on FR Engagement Summary is mapped to the Engagement Contacts section type as External and role as Pre-Transaction Board Member ");
-
+                                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
