@@ -98,6 +98,9 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Contract\r\nBilling Event cannot be created on ICO contracts", messageICO);
                 extentReports.CreateLog("Message: " + messageICO + " is displayed while trying to create billing events on ICO Contract ");
 
+                //8.	TMT0075177_Verify that if Total Event Amount is not Equal to Total Fees to Bill, validation appears on screen on Updating Status of the Billing Request. 
+                  
+
 
                 //2.  TMT0075164_Verify that the Biller is able to update the Billing Request, and updated details are reflecting on the Details tab of the billing request
 

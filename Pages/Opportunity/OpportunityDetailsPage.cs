@@ -558,7 +558,8 @@ By btnNewOpportunitySector = By.XPath("//input[@value='New Opportunity Sector']"
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
         By btnReqEng1L = By.XPath("//button[text()='Request Engagement']");
         By msgReqEngFVAL = By.XPath("//div[@class='slds-p-around_large cOppRequestEngagementAura']/lightning-formatted-text");
-        By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
+        //By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
+        By btnCloseReqEngFVAL = By.XPath("//button[@title ='Cancel and close']");
         By btnApproveL = By.XPath("//div[@title='Approve']");        
         By lnkConvertToEngL = By.XPath("//a/span[text()='Convert to Engagement']");
         
@@ -1223,7 +1224,7 @@ public void ClickNewOpportunitySectorButton()
                 Thread.Sleep(6000);
                 driver.FindElement(btnMassEditRecordsL).Click();
                 Thread.Sleep(5000);
-                driver.SwitchTo().Frame(0);
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
                 Thread.Sleep(5000);
                 string name = driver.FindElement(titleMassEditPageL).Text;
                 return name;

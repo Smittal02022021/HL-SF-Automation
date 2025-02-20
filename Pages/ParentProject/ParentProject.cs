@@ -133,7 +133,7 @@ namespace SalesForce_Project.Pages
         By txtEventAmount = By.XPath("//input[@name='Event_Amount__c']");
         By btnEventType = By.XPath("//label[text()='Event Type']/ancestor::div[1]//button");
         By txtCompletionDate = By.XPath("//input[@name='Completion_Date__c']");
-        By valBillingEvent = By.XPath("//records-entity-label[text()='ERP Revenue Billing Event']/ancestor::h1/slot/lightning-formatted-text");
+        By valBillingEvent = By.XPath("//dt[text()='Event Type:']/ancestor::article/div[1]//records-hoverable-link//a//slot[1]//slot/span");
         By valBillingEventAccounting = By.XPath("//dt[text()='Event Type:']/ancestor::div[2]/div[1]//records-hoverable-link//a/span//span[1]//span");
         By msgParentContract = By.XPath("//li[text()='Billing events cannot be created on parent contract.']");
         By btnClearSelection = By.XPath("//label[text()='Contract']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
@@ -1029,7 +1029,7 @@ namespace SalesForce_Project.Pages
 
             driver.FindElement(txtContract).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+            driver.FindElement(By.XPath("//flexipage-field[5]//li[2]/lightning-base-combobox-item")).Click();
             driver.FindElement(txtEventAmount).SendKeys("10");
             driver.FindElement(btnEventType).Click();
             driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
@@ -1062,7 +1062,7 @@ namespace SalesForce_Project.Pages
 
             driver.FindElement(txtContract).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-grouped-combobox//li[2]/lightning-base-combobox-item/span[2]")).Click();
+            driver.FindElement(By.XPath("//flexipage-field[5]//li[1]/lightning-base-combobox-item")).Click();
             driver.FindElement(txtEventAmount).SendKeys("10");
             driver.FindElement(btnEventType).Click();
             driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
