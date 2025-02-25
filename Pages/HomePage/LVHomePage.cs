@@ -176,7 +176,7 @@ namespace SF_Automation.Pages.HomePage
 
             driver.FindElement(txtMainSearch).SendKeys(name);
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
 
             try
             {

@@ -18,6 +18,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         HomeMainPage homePage = new HomeMainPage();
         TimeRecordManagerEntryPage timeEntry = new TimeRecordManagerEntryPage();
         RefreshButtonFunctionality refreshButton = new RefreshButtonFunctionality();
+        LVHomePage lvHomePage = new LVHomePage();
 
         public static string fileTMT = "LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningView";
 
@@ -44,16 +45,31 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
                 //Calling Login function                
                 login.LoginApplication();
-                login.SwitchToClassicView();
-                string TimeRecordManagerUser = login.ValidateUser();
 
-                //Validate user logged in          
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("PAssed", "Admin User is able to login into SF");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 //Login as Standard User and validate the user
                 int rowUser = ReadExcelData.GetRowCount(excelPath, "Users");
@@ -61,22 +77,34 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 for (int row = 2; row <= rowUser; row++)
                 {
                     userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    //usersLogin.SearchUserAndLogin(userExl);
-                    homePage.SearchUserByGlobalSearchN(userExl);
-                    extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
-                    usersLogin.LoginAsSelectedUser();
 
-                    login.SwitchToLightningExperience();
-                    user = login.ValidateUserLightningView();
-                    Assert.AreEqual(user.Contains(userExl), true);
-                    extentReports.CreateLog("User: " + userExl + " logged in on Lightning View");
-                    //homePageLV.ClickAppLauncher();
+                    //Search CF Financial user by global search
+                    lvHomePage.SearchUserFromMainSearch(userExl);
+
+                    //Verify searched user
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, userExl + " | Salesforce"), true);
+                    extentReports.CreateStepLogs("Passed", "User " + userExl + " details are displayed ");
+
+                    //Login as CF Financial user
+                    lvHomePage.UserLogin();
+
+                    //Switch to lightning view
+                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                    {
+                        homePage.SwitchToLightningView();
+                        extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                    }
+
+                    Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userExl));
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + userExl + " has logged in ");
 
                     string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                     homePageLV.SelectAppLV(appNameExl);
                     string appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+
+                    //Select Module
                     string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "Module: : " + moduleNameExl + " is available for Logged-in user: " + userExl);
@@ -121,7 +149,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //Assert.IsTrue(IsCommentsBoxDisplayed, "Verify Comments Box Displayed on Summary Logs for Special Project");
                     //extentReports.CreateStepLogs("Passed", "A Comments Box is Displayed instead on Summary Logs for Special Project");
 
-
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");
 
@@ -134,7 +161,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     //IsCommentsBoxDisplayed = timeEntry.IsLogsCommentBoxDisplayedLV();
                     //Assert.IsTrue(IsCommentsBoxDisplayed, "Verify Comments Box Displayed on Detail Logs Logs for Special Project");
                     //extentReports.CreateStepLogs("Passed", "A Comments Box is Displayed instead on Detail Logs Logs for Special Project");
-
 
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");
@@ -152,16 +178,22 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Info", "Time Entry Deleted");                    
                 }
+
+                //Logout for CF Financial User
                 usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
+                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
+
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
+
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 timeEntry.DeleteTimeEntryLV();
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                usersLogin.UserLogOut();
                 driver.Quit();
             }
         }
