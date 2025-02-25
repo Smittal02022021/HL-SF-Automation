@@ -100,6 +100,7 @@ namespace SF_Automation.Pages.HomePage
                     break;
                 }
             }
+            Thread.Sleep(4000);
         }
 
         public void ClickAppLauncher()
@@ -193,13 +194,13 @@ namespace SF_Automation.Pages.HomePage
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkUserDetail, 120);
             driver.FindElement(linkUserDetail).Click();
-            Thread.Sleep(20000);
+            Thread.Sleep(60000);
 
             driver.SwitchTo().Frame(0);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
             driver.FindElement(btnLogin).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
 
             driver.SwitchTo().DefaultContent();
         }
