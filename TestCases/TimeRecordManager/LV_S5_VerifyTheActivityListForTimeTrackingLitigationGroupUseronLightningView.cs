@@ -72,7 +72,6 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= rowCount; row++)
                 {
-                    //Login as Standard User profile and validate the user
                     string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
 
@@ -175,6 +174,16 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
+
+                    //Select HL Banker app
+                    try
+                    {
+                        homePageLV.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        homePageLV.SelectAppLV1("HL Banker");
+                    }
                 }
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();

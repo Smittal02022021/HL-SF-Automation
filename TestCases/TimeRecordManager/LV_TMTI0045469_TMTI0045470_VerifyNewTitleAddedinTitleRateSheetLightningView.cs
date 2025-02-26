@@ -12,8 +12,8 @@ using System.Web.UI.DataVisualization.Charting;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    class LV_TMTT0020334_VerifyNewTitleAddedinTitleRateSheetLightningView : BaseClass
-    {//TMTT0020334
+    class LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView : BaseClass
+    {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
+        LVHomePage lvHomePage = new LVHomePage();
 
         public static string fileTMTI0045469 = "LV_TMTI0045469_VerifyNewTitleAddedinTitleRateSheet";        
 
@@ -32,6 +33,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+
         [Test]
         public void VerifyNewTitleAddedinTitleRateSheetLightningViewLV()
         {
@@ -39,14 +41,34 @@ namespace SF_Automation.TestCases.TimeRecordManager
             {
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0045469;
                 extentReports.CreateStepLogs("Info", "Creating New Opportunity and Converting to Engagement LOB:FVA On Lightning View");
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
-                // Calling Login function                
+                //Calling Login function                
                 login.LoginApplication();
-                login.SwitchToClassicView();
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("Passed", "Admin User is able to login into SF");
+
+                //Select HL Banker app
+                try
+                {
+                    homePageLV.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    homePageLV.SelectAppLV1("HL Banker");
+                }
 
                 ////////////////Login as Supervisor  User////////////////
                 string userSupervisorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
@@ -54,22 +76,37 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
 
-                homePage.SearchUserByGlobalSearchN(userSupervisorExl);
-                extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
+                //Search Supervisor user by global search
+                lvHomePage.SearchUserFromMainSearch(userSupervisorExl);
 
-                login.SwitchToLightningExperience();
-                string userSupervisor = login.ValidateUserLightningView();
-                Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);
-                extentReports.CreateStepLogs("Passed", "Supervosor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, userSupervisorExl + " | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User " + userSupervisorExl + " details are displayed ");
+
+                //Login as Supervisor user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userSupervisorExl));
+                extentReports.CreateStepLogs("Passed", "Supervisor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
                 
                 //Go to Opportunity module in Lightning View                 
                 homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                 extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+
                 //Navigate to Title Rate Sheets page
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
-                homePageLV.SelectModule(moduleNameExl);
+
+                lvHomePage.NavigateToAnItemFromHLBankerDropdown(moduleNameExl);
+
+                //homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                 randomPages.SelectListViewLV("All");
                 extentReports.CreateStepLogs("Info", " All List option is selected ");
@@ -86,6 +123,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     string userTitleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 2);
                     string titleDefaultRateExl= ReadExcelData.ReadDataMultipleRows(excelPath, "TitleRateSheet", row, 3);
+
                     //TMTI0045470 Verify the Amount in Rate sheet for title "Senior Advisor" 
                     double defaultRate = rateSheetMgt.GetDefaultRateAsPerRoleLV(userTitleExl);
                     Assert.AreEqual(Convert.ToDouble(titleDefaultRateExl), defaultRate);
@@ -96,16 +134,18 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 }
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
-                usersLogin.UserLogOut();
+
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
+
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);                
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                usersLogin.UserLogOut();
+                
                 driver.Quit();
             }
         }
