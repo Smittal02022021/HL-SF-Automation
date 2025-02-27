@@ -1225,7 +1225,7 @@ public void ClickNewOpportunitySectorButton()
                 driver.FindElement(btnMassEditRecordsL).Click();
                 Thread.Sleep(5000);
                 driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
-                Thread.Sleep(5000);
+                Thread.Sleep(6000);
                 string name = driver.FindElement(titleMassEditPageL).Text;
                 return name;
          }

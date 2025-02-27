@@ -580,6 +580,7 @@ namespace SF_Automation.TestCases.Opportunity
                 form.SwitchFrame();
 
                 usersLogin.DiffLightningLogout();
+                usersLogin.DiscardChanges();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -31,6 +31,9 @@ namespace SF_Automation.Pages.Engagement
         By btnPrintableView = By.XPath("//button[text()='Printable View']");
         By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
         By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
+        By valCounterparty1stName = By.XPath("//dt[text()='First Name:']/ancestor::dl/dd[1]//span");
+        By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[1]//span");
+
         By valContactFirstName = By.XPath("//section/div/div/p[1]");
         By valContactLastName = By.XPath("//section/div/div/p[2]");
         //By valLastName = By.XPath("//dt[text()='First Name:']/ancestor::dl[1]/dd[2]/lst-template-list-field/lst-formatted-text");
@@ -539,6 +542,23 @@ namespace SF_Automation.Pages.Engagement
             // driver.SwitchTo().Window(driver.WindowHandles.Last());            
             WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 180);
             string name = driver.FindElement(valFirstName).Text;
+            return name;
+        }
+
+        //Get 1st Name
+        public string GetCounterparty1stName()
+        {
+            Thread.Sleep(5000);                        
+            WebDriverWaits.WaitUntilEleVisible(driver, valCounterparty1stName, 120);
+            string name = driver.FindElement(valCounterparty1stName).Text;
+            return name;
+        }
+
+        public string GetCounterparty2ndName()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCounterparty2ndName, 120);
+            string name = driver.FindElement(valCounterparty2ndName).Text;
             return name;
         }
 

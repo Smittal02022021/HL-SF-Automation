@@ -246,7 +246,7 @@ namespace SF_Automation.Pages
         //To Search with Engagement number on Lightning 
         public string SearchEngagementWithNumberOnLightning(string name, string jobType)
         {
-            Thread.Sleep(6000);
+            Thread.Sleep(5000);
             try
             {
                 if (jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))

@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Engagement
 
         By btnBackToValuation = By.CssSelector("input[value='Back To Valuation Period']");
         By valPositionName = By.CssSelector("td[id*='id167']>a");
-        By txtUpReportFee = By.CssSelector("input[name*='id40']");
+        By txtUpReportFee = By.CssSelector("input[name*='id41']");
         By btnVoidPosition = By.CssSelector("input[value='Void Position']");
         By msgCancel = By.CssSelector("div[id*='_id5']");
         By btnYes = By.CssSelector("input[value=' Yes ']");

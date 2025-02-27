@@ -22,6 +22,7 @@ namespace SalesForce_Project.Pages
         By btnClose = By.XPath("//records-record-edit-error-header//button/lightning-primitive-icon");
         By txtName = By.XPath("//input[@name='Name']");
         By txtBillTo = By.XPath("//input[@placeholder='Search Companies...']");
+        By txtBillToContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//dd//span//lightning-formatted-text");
         By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[13]//div/button");
         By txtParentProject = By.XPath("//input[@placeholder='Search Parent Projects...']");
@@ -184,7 +185,12 @@ namespace SalesForce_Project.Pages
             driver.FindElement(txtBillTo).SendKeys("Tec");
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-grouped-combobox//lightning-base-combobox//div[2]/ul/li[2]")).Click();
-            driver.FindElement(btnSave).Click();
+            driver.FindElement(txtBillToContact).Click();
+            driver.FindElement(txtBillToContact).SendKeys("Tec");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Bill To Contact']/ancestor::lightning-grouped-combobox//ul/li[1]/lightning-base-combobox-item")).Click();
+
+             driver.FindElement(btnSave).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedProject);
             string project = driver.FindElement(valAddedProject).Text;
             return project;

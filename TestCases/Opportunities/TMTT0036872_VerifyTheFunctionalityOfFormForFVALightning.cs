@@ -413,7 +413,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Assert.AreEqual("Review tab is not accessible", tabReview);
                 //extentReports.CreateLog("Review tab is not accessible to FVA user ");
                 usersLogin.DiffLightningLogout();
-
+                usersLogin.DiscardChanges();
 
                 //52. TMTI0088340_Verify that the FVA CAO is able the Review tab where the Reviewed checkbox is checked by default.
                 string valCAOUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);

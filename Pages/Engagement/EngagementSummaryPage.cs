@@ -27,7 +27,8 @@ namespace SF_Automation.Pages.Engagement
         By lblEBITDAL = By.XPath("//label[contains(text(),'EBITDA')]");
         By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
         By lblDMAFieldsL = By.XPath("//table/thead/tr/th/span");
-        By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
+        By lblAddDistressedL = By.XPath("//slot/div//lightning-input-field//div[1]/label");
+
         By lblHLFinTable = By.XPath("//thead/tr[1]/th/span");
         By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
         By lblFinDescL = By.XPath("//label[text()='Financing Description']");
@@ -92,7 +93,7 @@ namespace SF_Automation.Pages.Engagement
         By valSecurityTypeL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
         By valSecurityTypePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
 
-        By rowAddEquityHolderL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr");
+        By rowAddEquityHolderL = By.XPath("//span[text()='Equity Holder']/ancestor::table/tbody/tr");
         By rowAddEquityHolderPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr");
 
         By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
@@ -1039,7 +1040,7 @@ namespace SF_Automation.Pages.Engagement
             Console.WriteLine(actualValue[10]);
             Console.WriteLine(actualValue[11]);
             Console.WriteLine(actualValue[12]);
-            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "NOK - Norwegian Krone", "QAR - Qatar Rial","SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
+            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "MYR - Malaysian Ringgit" ,"NOK - Norwegian Krone", "QAR - Qatar Rial","SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -2894,8 +2895,8 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddDistressedL);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblAddDistressedL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
-            bool isTrue = true;
+            string[] expectedValues = { "*Asset Sold", "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
+                        bool isTrue = true;
             Console.WriteLine(actualNamesAndDesc[0]);
             if (expectedValues.Length != actualNamesAndDesc.Length)
             {

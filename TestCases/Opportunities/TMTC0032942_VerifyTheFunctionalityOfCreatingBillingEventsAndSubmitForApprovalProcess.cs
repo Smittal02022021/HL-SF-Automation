@@ -99,14 +99,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message: " + messageICO + " is displayed while trying to create billing events on ICO Contract ");
 
                 //8.	TMT0075177_Verify that if Total Event Amount is not Equal to Total Fees to Bill, validation appears on screen on Updating Status of the Billing Request. 
-                  
+
 
 
                 //2.  TMT0075164_Verify that the Biller is able to update the Billing Request, and updated details are reflecting on the Details tab of the billing request
 
-
+                usersLogin.DiscardChanges();
                 usersLogin.DiffLightningLogout();
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
 
                 driver.Quit();
             }

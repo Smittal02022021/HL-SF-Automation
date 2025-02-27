@@ -167,9 +167,10 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the added opportunity counterparty contact is mapped to Engagement
                 engagementDetails.ClickViewCounterpartiesButton();
                 engCounterparty.ClickAddedCounterparty();
-                string val1stNameEng = engCounterparty.Get1stName();
-                string val2ndNameEng = engCounterparty.Get2ndName();                
-                Assert.AreEqual(val1stName + val2ndName,val1stNameEng+val2ndNameEng);
+                string val1stNameEng = engCounterparty.GetCounterparty1stName();
+                string val2ndNameEng = engCounterparty.GetCounterparty2ndName();                
+                Assert.AreEqual(val2ndName ,val1stNameEng);
+                Assert.AreEqual(val1stName, val2ndNameEng);
                 extentReports.CreateLog("Engagement Counterparty Contact name: " + val1stNameEng + " " + val2ndNameEng + " is mapped from the opportunity ");
 
                 ////Validate the added opportunity counterparty comment is mapped to Engagement

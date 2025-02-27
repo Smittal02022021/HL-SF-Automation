@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.Opportunity
                     
                     if (valJobType.Equals("Illiquid Financial Assets")|| valJobType.Equals("Buyside & Financing Advisory"))
                     {
-                        string title = opportunityDetails.ClickNBCFormL();
+                        string title = opportunityDetails.ClickNBCForm();
                         //Validate the pop up
                         Assert.AreEqual("Please select a form type.", title);
                         extentReports.CreateLog("Page with title: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : " + valJobType + " ");
