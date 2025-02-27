@@ -27,6 +27,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
+        LVHomePage lvHomePage = new LVHomePage();
 
         public static string fileTMTT0013748 = "LV_TMTT0013748_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet";
 
@@ -46,37 +47,70 @@ namespace SF_Automation.TestCases.TimeRecordManager
             {
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0013748;
                 extentReports.CreateStepLogs("Info", "Creating New Opportunity and Converting to Engagement LOB:FVA On Lightning View");
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
-                // Calling Login function                
+                //Calling Login function                
                 login.LoginApplication();
-                login.SwitchToClassicView();
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("PAssed", "Admin User is able to login into SF");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
                 string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
 
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType + " ");
+                
                 //Login as Standard User profile and validate the user
                 string UserCFExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                //usersLogin.SearchUserAndLogin(UserCFExl);
-                homePage.SearchUserByGlobalSearchN(UserCFExl);
-                extentReports.CreateStepLogs("Info", "User: " + UserCFExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
 
-                login.SwitchToLightningExperience();
-                string userName = login.ValidateUserLightningView();
-                Assert.AreEqual(userName.Contains(UserCFExl), true);
+                //Search CF Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(UserCFExl);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, UserCFExl + " | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User " + UserCFExl + " details are displayed ");
+
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(UserCFExl));
                 extentReports.CreateLog("User: " + UserCFExl + " logged in on Lightning View");
-                //homePageLV.ClickAppLauncher();
 
+                //Select App
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+
+                //Select Module
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
@@ -111,123 +145,83 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
+
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged out ");
 
-                //Login as System Admin user 
-                string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-                //usersLogin.SearchUserAndLogin(adminUserExl);
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
-                homePage.SearchUserByGlobalSearchN(adminUserExl);
-                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
-
-                login.SwitchToClassicView();
-                string userAdmin = login.ValidateUser();
-                Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
-                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-
-                //login.SwitchToClassicView();
-                opportunityHome.SearchOpportunity(opportunityName);
-                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                //update CC 
-                opportunityDetails.UpdateOutcomeDetails(fileTMTT0013748);
-                extentReports.CreateStepLogs("Info", "Conflict Check fields are updated");
-                /////////////////////////////////////////////////////////////////////
-                login.SwitchToLightningExperience();
-                extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                //homePageLV.ClickAppLauncher();
-                //Go to Opportunity module in Lightning View 
-                homePageLV.SelectAppLV(appNameExl);
-                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
-                //////Standard User don't have permission to modify the Internal team so System Admin is modifying the roles////////
+                //Update Internal Team details
                 opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0013748);
-                extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
-                opportunityDetails.ClickReturnToOpportunityLV();
+                extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are updated ");
 
-                //Adding Multiple Deal team members with diff Title
-                clientSubjectsPage.EnterMembersToDealTeamLV(fileTMTT0013748);
-                extentReports.CreateLog("Members added to the deal team with different titles");
+                opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                homePageLV.UserLogoutFromSFLightningView();
-                extentReports.CreateStepLogs("Passed", "Admin: " + adminUserExl + "switched to Classic and Loggout ");
+                //update CC and NBC checkboxes in LV
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
 
-                //Submit Request to Convert opportunity into Engagement.
-                extentReports.CreateStepLogs("Info", "Submit Request to Convert opportunity into Engagement");
-                //usersLogin.SearchUserAndLogin(UserCFExl);
-
-                homePage.SearchUserByGlobalSearchN(UserCFExl);
-                extentReports.CreateStepLogs("Info", "User: " + UserCFExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
-
-                login.SwitchToLightningExperience();
-                userName = login.ValidateUserLightningView();
-                Assert.AreEqual(userName.Contains(UserCFExl), true);
-                extentReports.CreateLog("User: " + UserCFExl + " logged in on Lightning View");
-                //homePageLV.ClickAppLauncher();
-
-                //Go to Opportunity module in Lightning View                     
-                homePageLV.SelectAppLV(appNameExl);
-                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                string result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                Assert.AreEqual("Record found", result);
-                extentReports.CreateStepLogs("Passed", result + " and selected");
+                //Requesting for engagement and validate the success message
                 opportunityDetails.ClickRequestToEngL();
+
                 //Submit Request To Engagement Conversion 
                 string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                 Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                 extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
-
-                homePageLV.UserLogoutFromSFLightningView();
-                extentReports.CreateStepLogs("Info", "Standard User: " + UserCFExl + " Loggout ");
-
+                
                 //Approve and convert the Opporunity into Engagement
                 string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
                 extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " Approving the Request for Engagement and converting into Engagement ");
 
-                //usersLogin.SearchUserAndLogin(userCAOExl);
+                //Search CAO user by global search
+                lvHomePage.SearchUserFromMainSearch(userCAOExl);
 
-                homePage.SearchUserByGlobalSearchN(userCAOExl);
-                extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, userCAOExl + " | Salesforce"), true);
+                extentReports.CreateLog("User " + userCAOExl + " details are displayed ");
 
-                login.SwitchToLightningExperience();
-                string userCAO = login.ValidateUserLightningView();
-                Assert.AreEqual(userCAO.Contains(userCAOExl), true);
-                extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " Switched to Lightning View ");
-                //homePageLV.ClickAppLauncher();
+                //Login as CAO user
+                lvHomePage.UserLogin();
 
-                //Go to Opportunity module in Lightning View 
-                homePageLV.SelectAppLV(appNameExl);
-                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Pass", "User is on " + moduleNameExl + " Page ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+                }
 
-                //Search for opportunity to Approveconversion request
-                result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                Assert.AreEqual("Record found", result);
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userCAOExl));
+                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+
+                //Search for created opportunity
+                extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonL();
                 Assert.AreEqual(status, "Approved");
-                extentReports.CreateStepLogs("Pass", "Opportunity: " + status + " and ready for conversion ");
+                extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                 opportunityDetails.CloseApprovalHistoryTabL();
 
                 //Calling function to convert to Engagement
                 opportunityDetails.ClickConvertToEngagementL2();
-                extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " Converted into Engagement ");
+                extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
 
                 //Validate the Engagement name in Engagement details page
                 string engNumber = engagementDetails.GetEngagementNumberL();
@@ -240,21 +234,43 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 homePageLV.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CAO User: " + UserCFExl + " Loggout ");
 
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
                 ////////////////Login again as Supervisor  User////////////////
                 string userSupervisorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", 2, 1);
                 string userGrpNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", 2, 2);
 
                 //usersLogin.SearchUserAndLogin(userSupervisorExl);
+                lvHomePage.SearchUserFromMainSearch(userSupervisorExl);
 
-                homePage.SearchUserByGlobalSearchN(userSupervisorExl);
-                extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, userSupervisorExl + " | Salesforce"), true);
+                extentReports.CreateLog("User " + userSupervisorExl + " details are displayed ");
 
-                login.SwitchToLightningExperience();
-                string userSupervisor = login.ValidateUserLightningView();
-                Assert.AreEqual(userSupervisor.Contains(userSupervisorExl), true);
-                extentReports.CreateStepLogs("Passed", "Supervosor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
-                //homePageLV.ClickAppLauncher();
+                //Login as Supervisor user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "Supervisor User: " + userSupervisorExl + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "Supervisor User: " + userSupervisorExl + " is able to login into lightning view. ");
+                }
+
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userSupervisorExl));
+                extentReports.CreateStepLogs("Passed", "Supervisor User: " + userSupervisorExl + " from Time Tracking Group: " + userGrpNameExl + "  logged in ");
 
                 //Go to Opportunity module in Lightning View                 
                 homePageLV.SelectAppLV(appNameExl);
@@ -428,20 +444,19 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 }
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
-                usersLogin.UserLogOut();
+
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
+
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception e)
-                {
-                    extentReports.CreateExceptionLog(e.Message);
-                    //timeEntry.GoToStaffTimeSheetTabLV();
-                    timeEntry.DeleteTimeEntryLV();
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    usersLogin.UserLogOut();
-                    driver.Quit();
-                }
+            {
+                extentReports.CreateExceptionLog(e.Message);
+                driver.Quit();
+            }
         }
     }
 }
