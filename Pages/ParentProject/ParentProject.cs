@@ -70,6 +70,7 @@ namespace SalesForce_Project.Pages
         By lblHeaderRow = By.XPath("//slot[@class='slds-grid slds-page-header__detail-row']//p[1]");
         By secBillingReq = By.XPath("//span[@title='Approval History']/ancestor::div[5]//flexipage-component2//article//h2/a/span[1]");
         By btnEditbillingReq = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
+        By btnEditBillingEvent = By.XPath("//records-entity-label[text()='ERP Revenue Billing Event']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
         By txtComments = By.XPath("//textarea");
         By valComments = By.XPath("//span[text()='Comments']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
         By valStatusBillingReq = By.XPath("//span[text()='Status']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
@@ -139,6 +140,15 @@ namespace SalesForce_Project.Pages
         By msgParentContract = By.XPath("//li[text()='Billing events cannot be created on parent contract.']");
         By btnClearSelection = By.XPath("//label[text()='Contract']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
         By msgICOContract = By.XPath("//div[text()='Billing Event cannot be created on ICO contracts']");
+        By valTotalEventAmt = By.XPath("//dt[text()='Event Amount:']/ancestor::article/div[1]//records-hoverable-link//a//slot[1]//slot/span");
+        By tabBillingReq = By.XPath("//ul[2]/li[4]");
+        By lblStatus = By.XPath("//label[text()='Status']");
+        By btnStatus = By.XPath("//label[text()='Status']/ancestor::div[1]//button");
+        By msgTotalFee = By.XPath("//li[text()='Validation total fee to bill should equal to total event amount']");
+        By btnClosePopUp = By.XPath("//button[@title='Cancel and close']");
+        By tabBillingEvent = By.XPath("//ul[2]//li[5]");
+
+        
         
         public string ClickNewButton()
         {
@@ -1046,6 +1056,13 @@ namespace SalesForce_Project.Pages
             return value;
         }
 
+        public string GetTotalEventAmount()
+        {
+            string value = driver.FindElement(valTotalEventAmt).Text;
+            return value;
+            
+        }
+
         public string ValidateCreatedBillingEventInAccountingTab()
         {
             driver.FindElement(By.XPath("//span[@title='Billing Request  c']")).Click();
@@ -1096,7 +1113,46 @@ namespace SalesForce_Project.Pages
             return value;
         }
 
+        public string ValidateTotalFeesToBillValidation()
+        {
+            driver.FindElement(tabBillingReq).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditbillingReq, 130);
+            driver.FindElement(btnEditbillingReq).Click();
+            Thread.Sleep(6000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnStatus));
+            Thread.Sleep(5000);
+            driver.FindElement(btnStatus).Click();
+            driver.FindElement(By.XPath("//label[text()='Status']/ancestor::div[1]//lightning-base-combobox/div//div[2]/lightning-base-combobox-item//span[2]/span[text()='Sent to ERP']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgTotalFee).Text;
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClosePopUp).Click();
+            return message;
+        }
 
-       
+        public string UpdateEventAmountAndValidateStatusOfBillingReq()
+        {
+            driver.FindElement(tabBillingEvent).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditBillingEvent, 130);
+            driver.FindElement(btnEditBillingEvent).Click();
+            driver.FindElement(txtEventAmount).Clear();
+            driver.FindElement(txtEventAmount).SendKeys("30000");
+            driver.FindElement(btnSave).Click();
+
+            driver.FindElement(tabBillingReq).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditbillingReq, 130);
+            driver.FindElement(btnEditbillingReq).Click();
+            Thread.Sleep(6000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnStatus));
+            Thread.Sleep(5000);
+            driver.FindElement(btnStatus).Click();
+            driver.FindElement(By.XPath("//label[text()='Status']/ancestor::div[1]//lightning-base-combobox/div//div[2]/lightning-base-combobox-item//span[2]/span[text()='Sent to ERP']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valStatusBillingReq).Text;            
+            return value;
+        }
     }
 }

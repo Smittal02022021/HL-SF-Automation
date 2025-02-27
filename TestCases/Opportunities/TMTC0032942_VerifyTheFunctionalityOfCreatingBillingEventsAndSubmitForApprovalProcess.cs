@@ -76,12 +76,14 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //3.  TMT0075167_Verify that on clicking Save button of the Billing Event without filling details, validation appears for the required fields
                 Assert.IsTrue(project.ValidateBillingEventValidations(), "Verified that displayed validations of Billing Event are same ");
-                extentReports.CreateLog("Displayed mandatory valoidations of Billing Event are as expected ");
+                extentReports.CreateLog("Displayed mandatory validations of Billing Event are as expected ");
 
                 //4.  TMT0075169_Verify the functionality of creating the Billing Event
                 string eventName = project.SaveBillingEventDetails();
                 Assert.NotNull(eventName);
                 extentReports.CreateLog("Billing Event with number: " + eventName + " is displayed on ERP Revenue Billing Event page. ");
+
+                string eventAmount = project.GetTotalEventAmount();
 
                 //5.   TMT0075171 Verify that the created billing event is displayed under the Accounting Tab of Billing Request
                 string eventNameAcc = project.ValidateCreatedBillingEventInAccountingTab();
@@ -99,7 +101,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Message: " + messageICO + " is displayed while trying to create billing events on ICO Contract ");
 
                 //8.	TMT0075177_Verify that if Total Event Amount is not Equal to Total Fees to Bill, validation appears on screen on Updating Status of the Billing Request. 
+               string messageTotalFee= project.ValidateTotalFeesToBillValidation();
+                Assert.AreEqual("Validation total fee to bill should equal to total event amount", messageTotalFee);
+                extentReports.CreateLog("Message: " + messageTotalFee + " is displayed while trying to create billing events on ICO Contract ");
 
+                //9.	TMT0075179_Verify that the Biller is able to Update Status from Draft Billing Request to Sent to ERP(Sync to Oracle). 
+                string statusBillingRq =project.UpdateEventAmountAndValidateStatusOfBillingReq();
+                Assert.AreEqual("Sent to ERP", statusBillingRq);
+                extentReports.CreateLog("Status of the billing request: " + statusBillingRq + " is displayed after upating Status from Draft Billing Request to Sent to ERP ");
 
 
                 //2.  TMT0075164_Verify that the Biller is able to update the Billing Request, and updated details are reflecting on the Details tab of the billing request
