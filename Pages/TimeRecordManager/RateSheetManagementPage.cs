@@ -131,6 +131,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         //Selecting the Rate Sheet
         public void SelectRateSheet(string rateSheetname)
         {
+            Thread.Sleep(5000);
             IList<IWebElement> rateSheets = driver.FindElements(By.XPath("//tbody/tr"));
             for (int i = 1; i <= rateSheets.Count; i++)
             {

@@ -290,11 +290,13 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                     //Click on the new title rate sheet name
                     string nameRateSheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 3);
-                    pageTitle= rateSheetMgt.SelectTitleRateSheetLV(nameRateSheetExl);
-                    extentReports.CreateStepLogs("Info", "User is on "+ pageTitle+" Page");                    
+                    rateSheetMgt.SelectRateSheet(nameRateSheetExl);
+
+                    //pageTitle = rateSheetMgt.SelectTitleRateSheetLV(nameRateSheetExl);
+                    extentReports.CreateStepLogs("Info", "User is on "+ nameRateSheetExl + " rate sheet page");                    
 
                     string userTitleExl= ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 1);
-                    double defaultRate= rateSheetMgt.GetDefaultRateAsPerRoleLV(userTitleExl);
+                    double defaultRate= rateSheetMgt.GetDefaultRateAsPerRole(userTitleExl);
                     extentReports.CreateStepLogs("Info", "Title: "+ userTitleExl+" Default Rate: USD "+ defaultRate);
 
                     //Verify the correct title rate sheet is opened
