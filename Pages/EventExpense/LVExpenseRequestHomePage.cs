@@ -1,16 +1,25 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestHomePage : BaseClass
     {
+        //Sahil Locators
+        //**********************************************************************************************
+        LoginPage login = new LoginPage();
+        LVHomePage homePageLV = new LVHomePage();
+        ExtentReport extentReports = new ExtentReport();
+
         //Tabs & Labels
         By valExpenseRequest = By.XPath("//h2[@class='slds-card__header-title']/span");
         By tabExpenseRequestLWC = By.XPath("//a[@title='Expense Request(LWC)']/span");
@@ -45,17 +54,112 @@ namespace SF_Automation.Pages.EventExpense
         By lblSelectLOBErrorMsg = By.XPath("(//label[text()='LOB'])[1]/following::div[7]");
         By buttonCreateNewExpenseForm = By.XPath("//button[@title='Create New Expense Form']");
         By dropdownLOB = By.XPath("(//label[text()='LOB']/following::div[4]/button)[1]");
-        By comboEventTypeNoLOB = By.XPath("//button[@id='combobox-button-1116']");
+        By comboEventTypeNoLOB = By.XPath("(//label[text()='Event Type']/following::div[3]/button)[2]");
 
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
         By lblExpensePreapprovalNumber = By.XPath("(//span[text()='Expense Preapproval Number']/following::div/span/slot/lightning-formatted-text)[1]");
+        //****************************************************************************************
+
+        //Vijay Locators
+        By inputERNLWCMR = By.XPath("(//input[@name='ExpenseRequestNumber'])[1]");
+        By inputERNLWCPR = By.XPath("(//input[@name='ExpenseRequestNumber'])[2]");
+        By btnApplyFilterLWCMR = By.XPath("(//div[@slot='footer']//button[text()='Apply Filter'])[1]");
+        By btnApplyFilterLWCPR = By.XPath("(//div[@slot='footer']//button[text()='Apply Filter'])[2]");
+        By headerERNumberLWC = By.XPath("//h1//lightning-formatted-text[@slot='primaryField']");
+        By btnBackToExpRequestList = By.CssSelector("input[value='Back To Expense Request List']");
+        By headerPageLWC = By.XPath("//h1//records-entity-label");
+
+        private By _tabRequestList(string name)
+        {
+            return By.XPath($"//ul[@role='tablist']//li/a[@data-label='{name}']");
+        }
+
+        public string OpenPendingApprovalExpenseRequestLWC(string expenseReqNumber)
+        {
+            //Thread.Sleep(10000);
+            try
+            {
+                //int tabsCount = driver.WindowHandles.Count;
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnBackToExpRequestList, 5);
+                string url = driver.Url;
+                //!(url.Contains(".com/lightning")) || !(url.Contains(".lightning"))
+                if(driver.FindElement(btnBackToExpRequestList).Displayed)
+                {
+                    driver.FindElement(btnBackToExpRequestList).Click();
+
+                }
+                login.SwitchToLightningExperience();
+                homePageLV.SelectAppLV("HL Banker");
+                string appName = homePageLV.GetAppName();
+                homePageLV.SelectModule("Expense Request(LWC)");
+                this.SelectRequestTabLWC("Requests Pending My Approval");
+                this.SearchAndSelectExpenseRequestLWC(expenseReqNumber, "Requests Pending My Approval");
+                //driver.Close();
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                driver.Close();
+                driver.SwitchTo().Window(driver.WindowHandles[1]);
+                return " UI Switching from Classic to Lightning was Completed";
+            }
+            catch(Exception ex)
+            {
+                return " UI Switching from Classic to Lightning is not Required";
+            }
+
+        }
+
+        public void SelectRequestTabLWC(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _tabRequestList(name), 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_tabRequestList(name)));
+            driver.FindElement(_tabRequestList(name)).Click();
+        }
+
+        public string SearchAndSelectExpenseRequestLWC(string number, string requestType)
+        {
+            Thread.Sleep(5000);
+
+            if(requestType == "My Requests")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWCMR, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWCMR));
+                driver.FindElement(inputERNLWCMR).Clear();
+                driver.FindElement(inputERNLWCMR).SendKeys(number);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWCMR));
+                driver.FindElement(btnApplyFilterLWCMR).Click();
+            }
+            if(requestType == "Requests Pending My Approval")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputERNLWCPR, 10);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(inputERNLWCPR));
+                driver.FindElement(inputERNLWCPR).Clear();
+                driver.FindElement(inputERNLWCPR).SendKeys(number);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilterLWCPR));
+                driver.FindElement(btnApplyFilterLWCPR).Click();
+            }
+            By linkExpenseRequest = By.XPath($"//table//tbody//td//a[text()='{number}']/..");
+            WebDriverWaits.WaitUntilEleVisible(driver, linkExpenseRequest, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkExpenseRequest));
+            Thread.Sleep(2000);
+            driver.FindElement(linkExpenseRequest).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, headerERNumberLWC, 10);
+            return driver.FindElement(headerERNumberLWC).Text.Trim();
+        }
+
+        public string GetPageHeaderLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, headerPageLWC, 20);
+            return driver.FindElement(headerPageLWC).Text.Trim();
+        }
 
         public bool VerifyIfExpenseRequestPageIsOpenedSuccessfully()
         {
             Thread.Sleep(3000);
             bool result = false;
 
-            if (driver.FindElement(valExpenseRequest).Text=="Expense Request")
+            if(driver.FindElement(valExpenseRequest).Text == "Expense Request")
             {
                 result = true;
             }
@@ -67,7 +171,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             bool result = false;
 
-            if (driver.FindElement(valMyRequestsTab).Text == "My Requests")
+            if(driver.FindElement(valMyRequestsTab).Text == "My Requests")
             {
                 result = true;
             }
@@ -79,7 +183,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             bool result = false;
 
-            if (driver.FindElement(valRequestsPendingMyApprovalTab).Text == "Requests Pending My Approval")
+            if(driver.FindElement(valRequestsPendingMyApprovalTab).Text == "Requests Pending My Approval")
             {
                 result = true;
             }
@@ -100,7 +204,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
             bool result = false;
 
-            if (driver.FindElement(valAllRequestsTab).Text == "All Requests")
+            if(driver.FindElement(valAllRequestsTab).Text == "All Requests")
             {
                 result = true;
             }
@@ -116,11 +220,10 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(txtExpenseRequestNumber).SendKeys(expReqNo);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnApplyFilters));
-
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(2000);
 
-            if (driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
+            if(driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
             {
                 result = true;
             }
@@ -146,7 +249,7 @@ namespace SF_Automation.Pages.EventExpense
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboEventType));
 
             string attValue = driver.FindElement(comboEventType).GetAttribute("class");
-            if (attValue == "slds-combobox__input slds-input_faux fix-slds-input_faux slds-combobox__input-value")
+            if(attValue == "slds-combobox__input slds-input_faux fix-slds-input_faux slds-combobox__input-value")
             {
                 driver.FindElement(comboEventType).SendKeys(evType);
                 Thread.Sleep(2000);
@@ -155,7 +258,7 @@ namespace SF_Automation.Pages.EventExpense
 
                 CustomFunctions.MoveToElement(driver, driver.FindElement(comboEventFormat));
                 string attValue1 = driver.FindElement(comboEventFormat).GetAttribute("class");
-                if (attValue1 == "slds-combobox__input slds-input_faux fix-slds-input_faux slds-combobox__input-value")
+                if(attValue1 == "slds-combobox__input slds-input_faux fix-slds-input_faux slds-combobox__input-value")
                 {
                     driver.FindElement(comboEventFormat).SendKeys(evFormat);
                     Thread.Sleep(2000);
@@ -167,7 +270,7 @@ namespace SF_Automation.Pages.EventExpense
                     driver.FindElement(btnApplyFilters).Click();
                     Thread.Sleep(4000);
 
-                    if (driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
+                    if(driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
                     {
                         result = true;
                     }
@@ -189,7 +292,7 @@ namespace SF_Automation.Pages.EventExpense
             string dv6 = driver.FindElement(comboSubmissionDate).GetAttribute("data-value");
             string dv7 = driver.FindElement(comboEventFormat).GetAttribute("data-value");
 
-            if (dv1=="AND" && dv2 == "--None--" && dv3 == "--None--" && dv4 == "--None--" && dv5 == "--None--" && dv6 == "--None--" && dv7 == "--None--")
+            if(dv1 == "AND" && dv2 == "--None--" && dv3 == "--None--" && dv4 == "--None--" && dv5 == "--None--" && dv6 == "--None--" && dv7 == "--None--")
             {
                 result = true;
             }
@@ -206,13 +309,13 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(4000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(2000);
 
-            if (driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
+            if(driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
             {
-                WebElement element = (WebElement)driver.FindElement(By.XPath($"//a[text()='{expReqNo}']"));
+                WebElement element = (WebElement) driver.FindElement(By.XPath($"//a[text()='{expReqNo}']"));
                 js.ExecuteScript("arguments[0].click();", element);
 
                 Thread.Sleep(5000);
@@ -227,7 +330,7 @@ namespace SF_Automation.Pages.EventExpense
 
             bool result = false;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(2000);
 
@@ -236,9 +339,9 @@ namespace SF_Automation.Pages.EventExpense
             driver.FindElement(btnApplyFiltersApprovalTab).Click();
             Thread.Sleep(4000);
 
-            if (driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
+            if(driver.FindElement(By.XPath($"//a[text()='{expReqNo}']")).Displayed)
             {
-                WebElement element = (WebElement)driver.FindElement(By.XPath($"//a[text()='{expReqNo}']"));
+                WebElement element = (WebElement) driver.FindElement(By.XPath($"//a[text()='{expReqNo}']"));
                 js.ExecuteScript("arguments[0].click();", element);
 
                 Thread.Sleep(5000);
@@ -253,7 +356,7 @@ namespace SF_Automation.Pages.EventExpense
             string expReqPreAppNum = driver.FindElement(lblExpensePreapprovalNumber).Text;
             string expReqStatus = driver.FindElement(lblStatus).Text;
 
-            if (expReqPreAppNum == expReqNo && expReqStatus == status)
+            if(expReqPreAppNum == expReqNo && expReqStatus == status)
             {
                 result = true;
             }
@@ -279,24 +382,24 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
-            string lastYear = (DateTime.Now.Year-1).ToString();
+            string lastYear = (DateTime.Now.Year - 1).ToString();
 
-            for (int k = 1; k <= maxPages; k++)
+            for(int k = 1; k <= maxPages; k++)
             {
                 //Get no of records
                 int recordCount = driver.FindElements(By.XPath("//table/tbody/tr/th")).Count;
 
-                for (int i = 1; i <= recordCount; i++)
+                for(int i = 1; i <= recordCount; i++)
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/td[10]")).Text;
 
-                    if (value.Contains(lastYear))
+                    if(value.Contains(lastYear))
                     {
-                        if (i < recordCount)
+                        if(i < recordCount)
                         {
                             continue;
                         }
-                        else if (i == recordCount && k<maxPages)
+                        else if(i == recordCount && k < maxPages)
                         {
                             driver.FindElement(inputPageNo).Clear();
                             string newPageNo = (k + 1).ToString();
@@ -338,22 +441,22 @@ namespace SF_Automation.Pages.EventExpense
 
             string currentYear = (DateTime.Now.Year).ToString();
 
-            for (int k = 1; k <= maxPages; k++)
+            for(int k = 1; k <= maxPages; k++)
             {
                 //Get no of records
                 int recordCount = driver.FindElements(By.XPath("//table/tbody/tr/th")).Count;
 
-                for (int i = 1; i <= recordCount; i++)
+                for(int i = 1; i <= recordCount; i++)
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/td[3]")).Text;
 
-                    if (value.Contains(currentYear))
+                    if(value.Contains(currentYear))
                     {
-                        if (i < recordCount)
+                        if(i < recordCount)
                         {
                             continue;
                         }
-                        else if (i == recordCount && k < maxPages)
+                        else if(i == recordCount && k < maxPages)
                         {
                             driver.FindElement(inputPageNo).Clear();
                             string newPageNo = (k + 1).ToString();
@@ -393,22 +496,22 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, lblTotalPages, 120);
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
-            for (int k = 1; k <= maxPages; k++)
+            for(int k = 1; k <= maxPages; k++)
             {
                 //Get no of records
                 int recordCount = driver.FindElements(By.XPath("//table/tbody/tr/th")).Count;
 
-                for (int i = 1; i <= recordCount; i++)
+                for(int i = 1; i <= recordCount; i++)
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/th")).Text;
 
-                    if (value==eventName)
+                    if(value == eventName)
                     {
-                        if (i < recordCount)
+                        if(i < recordCount)
                         {
                             continue;
                         }
-                        else if (i == recordCount && k < maxPages)
+                        else if(i == recordCount && k < maxPages)
                         {
                             driver.FindElement(inputPageNo).Clear();
                             string newPageNo = (k + 1).ToString();
@@ -469,7 +572,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             bool result = false;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,100)");
             Thread.Sleep(5000);
 
@@ -491,22 +594,22 @@ namespace SF_Automation.Pages.EventExpense
 
             int maxPages = Int32.Parse(driver.FindElement(lblTotalPages).Text);
 
-            for (int k = 1; k <= maxPages; k++)
+            for(int k = 1; k <= maxPages; k++)
             {
                 //Get no of records
                 int recordCount = driver.FindElements(By.XPath("//table/tbody/tr/th")).Count;
 
-                for (int i = 1; i <= recordCount; i++)
+                for(int i = 1; i <= recordCount; i++)
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/td[2]")).Text;
 
-                    if (value == reqName)
+                    if(value == reqName)
                     {
-                        if (i < recordCount)
+                        if(i < recordCount)
                         {
                             continue;
                         }
-                        else if (i == recordCount && k < maxPages)
+                        else if(i == recordCount && k < maxPages)
                         {
                             driver.FindElement(inputPageNo).Clear();
                             string newPageNo = (k + 1).ToString();
@@ -556,23 +659,23 @@ namespace SF_Automation.Pages.EventExpense
 
             string currentYear = (DateTime.Now.Year).ToString();
 
-            for (int k = 1; k <= maxPages; k++)
+            for(int k = 1; k <= maxPages; k++)
             {
                 //Get no of records on a page
                 int recordCount = driver.FindElements(By.XPath("//table/tbody/tr/th")).Count;
 
-                for (int i = 1; i <= recordCount; i++)
+                for(int i = 1; i <= recordCount; i++)
                 {
                     string value = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/th")).Text;
                     string value1 = driver.FindElement(By.XPath($"(//table/tbody/tr)[{i}]/td[3]")).Text;
 
-                    if (value1.Contains(currentYear) && value==eventName)
+                    if(value1.Contains(currentYear) && value == eventName)
                     {
-                        if (i < recordCount)
+                        if(i < recordCount)
                         {
                             continue;
                         }
-                        else if (i == recordCount && k < maxPages)
+                        else if(i == recordCount && k < maxPages)
                         {
                             driver.FindElement(inputPageNo).Clear();
                             string newPageNo = (k + 1).ToString();
@@ -603,7 +706,7 @@ namespace SF_Automation.Pages.EventExpense
 
             if(driver.FindElement(lblSelectLOBErrorMsg).Text.Contains(err))
             {
-                result=true;
+                result = true;
             }
             return result;
         }
@@ -624,7 +727,7 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(8000);
 
             result = CustomFunctions.IsElementPresent(driver, comboEventTypeNoLOB);
-            
+
             return result;
         }
     }

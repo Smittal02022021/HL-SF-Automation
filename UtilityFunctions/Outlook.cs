@@ -41,6 +41,44 @@ namespace SF_Automation.UtilityFunctions
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
+        By txtMessageBody = By.XPath("//div[@class='PlainText']");
+
+        By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
+
+        By inputBoxCode = By.XPath("//input[@type='text']");
+
+        public void SelectVerifyIdentityEmail()
+        {
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).Click();
+
+            Actions actionObj = new Actions(driver);
+            actionObj.KeyDown(Keys.Control).SendKeys("a").KeyUp(Keys.Control).Perform();
+            actionObj.KeyDown(Keys.Delete).KeyUp(Keys.Delete).Perform();
+
+            Thread.Sleep(2000);
+            driver.FindElement(searchBox).SendKeys("Sandbox: Verify your identity in Salesforce");
+            Thread.Sleep(2000);
+
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+            IWebElement element = driver.FindElement(recentEmail);
+            element.Click();
+            Thread.Sleep(10000);
+
+            string messageBody = driver.FindElement(txtMessageBody).Text.Replace("\r\n", " ").Trim();
+            string subMessageBody = messageBody.Split(':')[4].Trim();
+            string finalCode = subMessageBody.Split(' ')[0].Trim();
+
+            CustomFunctions.SwitchToWindow(driver, 1);
+            driver.FindElement(inputBoxCode).SendKeys(finalCode);
+
+            driver.FindElement(btnVerifyIdentity).Click();
+            Thread.Sleep(10000);
+        }
+
+
         public void LoginOutlook(string file)
         {
             Thread.Sleep(2000);

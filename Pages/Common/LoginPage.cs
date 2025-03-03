@@ -20,7 +20,9 @@ namespace SF_Automation.Pages
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
         By valUser = By.XPath("//section/header/div[1]/div/span");
+        By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
 
+        Outlook outlook = new Outlook();
 
         public void SwitchToLightningExperience()
         {
@@ -191,6 +193,7 @@ namespace SF_Automation.Pages
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
         }
+
         public string ValidateFRUserLightning()
         {
             Thread.Sleep(7000);
@@ -199,5 +202,27 @@ namespace SF_Automation.Pages
             return loggedUserName.Text.Substring(13, 13);
         }
 
+        public void LoginAsExpenseRequestApproverV(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 10);
+            driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
+            driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
+            driver.FindElement(btnLogin).Click();
+            Thread.Sleep(10000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);
+                Thread.Sleep(5000);
+                outlook.SelectVerifyIdentityEmail();
+            }
+            catch
+            {
+                // No Need to Verify your identity in Salesforce
+            }
+        }
     }
 }

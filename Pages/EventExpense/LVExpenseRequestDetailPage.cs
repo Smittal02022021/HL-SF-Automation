@@ -11,6 +11,9 @@ namespace SF_Automation.Pages.EventExpense
 {
     class LVExpenseRequestDetailPage : BaseClass
     {
+        //Sahil Locators
+        //***********************************************************************************
+
         //Approver Buttons & Labels
         By btnDeleteApprover = By.XPath("//button[contains(text(),'Delete')]");
         By btnCloneApprover = By.XPath("//button[contains(text(),'Clone')]");
@@ -19,7 +22,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnApproveApprover = By.XPath("//button[contains(text(),'Approve')]");
         By btnRejectApprover = By.XPath("//button[contains(text(),'Reject')]");
         By lblApproverStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
-
+        
         //Requestor Buttons
         By btnSubmitForApproval = By.XPath("//button[contains(text(),'Submit for Approval')]");
         By btnReqDelete = By.XPath("(//button[contains(text(),'Delete')])[2]");
@@ -97,15 +100,129 @@ namespace SF_Automation.Pages.EventExpense
         By txtAreaNotes = By.XPath("//label[text()='Notes']/following::div/textarea");
         By txtAreaNotes1 = By.XPath("//label[text()='Textarea field with a placeholder']/following::div/textarea");
         By lblApproverEditExpReqErrorMsg = By.XPath("//ul[@class='errorsList slds-list_dotted slds-m-left_medium']/li");
+        //********************************************************************************************************************
+
+        //Vijay Locators
+        By totalBudgetRequestedLWC = By.XPath("(//span[contains(@class,'field-label')][text()='Total Budget Requested']/../../..//lightning-formatted-text)[2]");
+        By btnApproveLWC = By.XPath("//button[text()='Approve']");
+        By btnRejectLWC = By.XPath("//button[text()='Reject']");
+        By btnSubmitForApprovalLWC = By.XPath("//button[text()='Submit for Approval']");
+        By btnDeleteLWC = By.XPath("(//button[text()='Delete'])[1]");
+        By btnReqDeleteLWC = By.XPath("(//button[text()='Delete'])[2]");
+        By btnEditRequestorLWC = By.XPath("//button[@title='Edit Requestor']");
+        By btnEditEndDateLWC = By.XPath("//button[@title='Edit End Date']");
+        By inputEndDateLWC = By.XPath("//label[text()='End Date']/..//input");
+        By btnSaveEditLWC = By.XPath("//button[@name='SaveEdit']");
+        By valRequestorLWC = By.XPath("//span[contains(@class,'field-label')][text()='Requestor']/../../..//a/span/slot/span/slot");
+        By valEventContactLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Contact']/../../..//a/span/slot/span/slot");
+        By elmEPStatusLWC = By.XPath("//span[text()='Status']/../../..//lightning-formatted-text");
+        By elmEPNumberLWC = By.XPath("//div[contains(@data-target-selection-name,'Event_Expense__c.Name')]//lightning-formatted-text");
+        By valProductTypeLWC = By.XPath("//span[contains(@class,'field-label')][text()='Product Type']/../../..//lightning-formatted-text");
+        By valEventNameLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Name']/../../..//lightning-formatted-text");
+        By valEventCityLWC = By.XPath("//span[contains(@class,'field-label')][text()='City']/../../..//lightning-formatted-text");
+        By valLOBLWC = By.XPath("//span[contains(@class,'field-label')][text()='LOB']/../../..//lightning-formatted-text");
+        By valEventTypeLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Type']/../../..//lightning-formatted-text");
+        By valEventFormatLWC = By.XPath("//span[contains(@class,'field-label')][text()='Event Format']/../../..//lightning-formatted-text");
+        By btnInlineEditCityLWC = By.XPath("//button[@title='Edit City']");
+        By inputCityLWC = By.XPath("//label[text()='City']/..//input");
+        By txtCommentsL = By.XPath("//p//textarea");
+        By btnRejectAcceptL = By.XPath("//p//button[@title='Primary action']");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+
+        private By _btnEventExpenseRequestLWC(string btnName)
+        {
+            return By.XPath($"//ul//li//button[text()='{btnName}']");
+        }
+
+        public bool IsButtonDisplayedLWC(string btnName)
+        {
+            return driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Displayed;
+        }
+
+        public decimal GetTotalBudgetRequestedLWC()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, totalBudgetRequestedLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(totalBudgetRequestedLWC));
+            string totalBudget = driver.FindElement(totalBudgetRequestedLWC).Text.Split(' ')[1];// seperate the Currency and amount and get the actual amout
+            return CustomFunctions.ReadDecimalValueFromString(totalBudget);
+        }
+
+        public void ClickApproveButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Approve(LWC)"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Approve(LWC)")).Click();
+            //Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilAlertVisible(driver, 20);
+            Thread.Sleep(1000);
+            IAlert alert = driver.SwitchTo().Alert();
+            Thread.Sleep(1000);
+            alert.Accept();
+        }
+
+        public void EditExpenseRequestCityLWC(string cityName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditCityLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnInlineEditCityLWC));
+            driver.FindElement(btnInlineEditCityLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCityLWC, 20);
+            driver.FindElement(inputCityLWC).Clear();
+            driver.FindElement(inputCityLWC).SendKeys(cityName);
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveEditLWC).Click();
+            Thread.Sleep(6000);
+        }
+
+        public string GetExpenseRequestStatusLWC()
+        {
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
+            return driver.FindElement(elmEPStatusLWC).Text;
+        }
+
+        public void ClickRejectButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Reject(LWC)"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Reject(LWC)")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
+            driver.FindElement(txtCommentsL).SendKeys(" Request Rejected Automation");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectAcceptL, 10);
+            driver.FindElement(btnRejectAcceptL).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void ClickEditExpenseRequestButtonLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRequestorLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditRequestorLWC));
+            driver.FindElement(btnEditRequestorLWC).Click();
+        }
+
+        public void EditExpenseRequestEndDateLWC(string date)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditEndDateLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditEndDateLWC));
+            driver.FindElement(btnEditEndDateLWC).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputEndDateLWC, 10);
+            driver.FindElement(inputEndDateLWC).Clear();
+            driver.FindElement(inputEndDateLWC).SendKeys(date);
+            driver.FindElement(btnSaveEditLWC).Click();
+
+        }
 
         public bool VerifyIfExpensePreapprovalNumberIsDisplayed()
         {
             Thread.Sleep(10000);
             bool result = false;
             WebDriverWaits.WaitUntilEleVisible(driver, lblExpensePreapprovalNumber, 120);
-            if (driver.FindElement(lblExpensePreapprovalNumber).Displayed)
+            if(driver.FindElement(lblExpensePreapprovalNumber).Displayed)
             {
                 result = true;
             }
@@ -119,6 +236,64 @@ namespace SF_Automation.Pages.EventExpense
             string expensePreapprovalNum = driver.FindElement(lblExpensePreapprovalNumber).Text;
             Thread.Sleep(3000);
             return expensePreapprovalNum;
+        }
+
+        public string GetExpenseRequestStatusLWC(int windowId)
+        {
+            CustomFunctions.SwitchToWindow(driver, windowId);
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
+            return driver.FindElement(elmEPStatusLWC).Text;
+        }
+
+        public string GetEventFormatLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEventFormatLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valEventFormatLWC));
+            return driver.FindElement(valEventFormatLWC).Text;
+        }
+
+        public string GetEventTypeLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEventTypeLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valEventTypeLWC));
+            return driver.FindElement(valEventTypeLWC).Text;
+        }
+
+        public string GetLOBLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLOBLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valLOBLWC));
+            return driver.FindElement(valLOBLWC).Text;
+        }
+
+        public string GetEventCityLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEventCityLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valEventCityLWC));
+            return driver.FindElement(valEventCityLWC).Text;
+        }
+
+        public string GetEventNameLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEventNameLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valEventNameLWC));
+            return driver.FindElement(valEventNameLWC).Text;
+        }
+
+        public string GetProductTypeLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valProductTypeLWC, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(valProductTypeLWC));
+            return driver.FindElement(valProductTypeLWC).Text;
+        }
+
+        public string GetEventContactLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEventContactLWC, 60);
+            string eventContact = driver.FindElement(valEventContactLWC).Text;
+            return eventContact;
         }
 
         public string GetCloneExpensePreapprovalNumber()
@@ -144,6 +319,42 @@ namespace SF_Automation.Pages.EventExpense
             string eventFormatInfo = driver.FindElement(lblEventFormat).Text;
             Thread.Sleep(3000);
             return eventFormatInfo;
+        }
+
+        public string GetRequestNumberLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, elmEPNumberLWC, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPNumberLWC));
+            return driver.FindElement(elmEPNumberLWC).Text.Trim();
+        }
+
+        public string GetRequestorLWC()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valRequestorLWC, 60);
+            string requestorValue = driver.FindElement(valRequestorLWC).Text;
+            return requestorValue;
+        }
+
+        public void ClickEventExpenseRequestButtonLWC(string btnName)
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC(btnName), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC(btnName)));
+            driver.FindElement(_btnEventExpenseRequestLWC(btnName)).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void ClickRequestMoreInformationButtonLWC()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnEventExpenseRequestLWC("Request More Information"), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnEventExpenseRequestLWC("Request More Information")));
+            driver.FindElement(_btnEventExpenseRequestLWC("Request More Information")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsL, 10);
+            driver.FindElement(txtCommentsL).SendKeys(" Request More Information Automation");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRejectAcceptL, 10);
+            driver.FindElement(btnRejectAcceptL).Click();
+            Thread.Sleep(5000);
         }
 
         public string GetEventStatusInfo()
@@ -279,7 +490,7 @@ namespace SF_Automation.Pages.EventExpense
             string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
             string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 
@@ -302,11 +513,11 @@ namespace SF_Automation.Pages.EventExpense
             string event1 = driver.FindElement(txtEvent1).GetAttribute("data-value");
             string lob1 = driver.FindElement(lblLOB1).Text;
 
-            if (CustomFunctions.IsElementPresent(driver, h2NewExpenseRequest) == true)
+            if(CustomFunctions.IsElementPresent(driver, h2NewExpenseRequest) == true)
             {
-                if(requestor==requestor1 && title==title1 && primaryEmail==primaryEmail1 && industryGroup==industryGroup1 && office==office1 && status==status1 && eventContact==eventContact1 && primaryPhnNum==primaryPhnNum1)
+                if(requestor == requestor1 && title == title1 && primaryEmail == primaryEmail1 && industryGroup == industryGroup1 && office == office1 && status == status1 && eventContact == eventContact1 && primaryPhnNum == primaryPhnNum1)
                 {
-                    if(eventName == event1 && lob==lob1)
+                    if(eventName == event1 && lob == lob1)
                     {
                         result = true;
                     }
@@ -347,7 +558,31 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
-            if (driver.FindElement(lblStatus).Text=="Deleted")
+            if(driver.FindElement(lblStatus).Text == "Deleted")
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool VerifyDeleteExpenseRequestFunctionality()
+        {
+            bool result = false;
+
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteLWC, 120);
+            driver.FindElement(btnDeleteLWC).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(txtNotes).SendKeys("Test");
+            driver.FindElement(btnOK).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
+            Thread.Sleep(3000);
+            if(driver.FindElement(lblStatus).Text == "Deleted")
             {
                 result = true;
             }
@@ -372,7 +607,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitForPageToLoad(driver, 120);
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
-            if (driver.FindElement(lblStatus).Text == "Deleted")
+            if(driver.FindElement(lblStatus).Text == "Deleted")
             {
                 result = true;
             }
@@ -382,7 +617,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetApproverResponseFromApprovalHistorySection()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(2000);
 
@@ -394,7 +629,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetApproverResponseFromApprovalHistorySectionForApprover()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(5000);
 
@@ -406,7 +641,7 @@ namespace SF_Automation.Pages.EventExpense
 
         public string GetNotesFromApprovalHistorySection()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(2000);
 
@@ -456,7 +691,7 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 120);
             Thread.Sleep(3000);
-            if (driver.FindElement(lblStatus).Text == "Waiting for Approval")
+            if(driver.FindElement(lblStatus).Text == "Waiting for Approval")
             {
                 result = true;
             }
@@ -487,7 +722,7 @@ namespace SF_Automation.Pages.EventExpense
             bool result = false;
             Thread.Sleep(5000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
 
@@ -504,7 +739,7 @@ namespace SF_Automation.Pages.EventExpense
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblApproverEditExpReqErrorMsg, 120);
             string errorMsg = driver.FindElement(lblApproverEditExpReqErrorMsg).Text;
-            if (errorMsg == msg)
+            if(errorMsg == msg)
             {
                 result = true;
             }
@@ -519,7 +754,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             Thread.Sleep(5000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(2000);
 
