@@ -51,21 +51,40 @@ namespace SF_Automation.Pages.TimeRecordManager
         By chkboxBilling = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id='tab-billing']//tr[1]//input");
         By btnSendNotification = By.XPath("//div[contains(@class,'TimeRecordManager')]//div[@id=\"tab-billing\"]//button");
 
+        By btnListView = By.XPath("//button[@title='Select a List View: Title Rate Sheets']");
+
+        public void SelectAListView(string listName)
+        {
+            driver.FindElement(btnListView).Click();
+            Thread.Sleep(2000);
+
+            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@role='listbox']/li"));
+            int size = elements.Count;
+
+            for(int items = 2; items <= size; items++)
+            {
+                By itemLink = By.XPath($"(//ul[@role='listbox']/li)[{items}]/a/span");
+                string itemName = driver.FindElement(itemLink).Text;
+
+                if(itemName == listName)
+                {
+                    driver.FindElement(itemLink).Click();
+                    Thread.Sleep(5000);
+                    break;
+                }
+            }
+        }
+
         private By _nameRateSheet(string name)
         {
             return By.XPath($"//table//tbody//td//a[@title='{name}']");
         }
+
         private By _nameRateSheetRecent(string name)
         {
             return By.XPath($"//table//tbody//th//a[@title='{name}']");
         }
         
-
-        //private By rateSheetName(String rateSheetname)
-        //{
-        //    return By.XPath($"//a/span[text()={rateSheetname}]");
-        //}     
-
         public string GetRateSheetDetailPage()
         {
 
@@ -81,6 +100,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             Thread.Sleep(2000);
 
         }
+
         public void SelectAllRateSheets()
         {
             Thread.Sleep(4000);
@@ -111,14 +131,13 @@ namespace SF_Automation.Pages.TimeRecordManager
         //Selecting the Rate Sheet
         public void SelectRateSheet(string rateSheetname)
         {
-
-            IList<IWebElement> rateSheets = driver.FindElements(rateSheetNameList);
-            for (int i = 0; i <= rateSheets.Count; i++)
+            IList<IWebElement> rateSheets = driver.FindElements(By.XPath("//tbody/tr"));
+            for (int i = 1; i <= rateSheets.Count; i++)
             {
-                string rateSheetValue = rateSheets[i].Text;
+                string rateSheetValue = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Text;
                 if (rateSheetValue.Equals(rateSheetname))
                 {
-                    rateSheets[i].Click();
+                    driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Click();
                     Thread.Sleep(2000);
                     break;
                 }
@@ -144,8 +163,6 @@ namespace SF_Automation.Pages.TimeRecordManager
             return IsRateAsPerTitleAvailable;
         }
 
-
-        //============================================================
         public void EnterRateSheet(string engagement, string rateSheet)
         {
             Thread.Sleep(4000);
@@ -229,6 +246,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
 
         }
+
         public string GetBillingAmountFromBillingPreparationTab()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabBillingPreparation);
@@ -274,6 +292,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             return rate;
         }
+
         public string GetDefaultRateForOutsourcedContractorAsPerRateSheet(string rateSheet)
         {
             driver.FindElement(shwAllTab).Click();
@@ -309,6 +328,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             return rate;
         }
+
         public string GetDefaultRateForInternAndFinancialAnalyst(string rateSheet)
         {
             string rate = "";
@@ -322,10 +342,11 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         public double GetDefaultRateAsPerRole(string role)
         {
-            string ratePerHour = driver.FindElement(By.XPath($"//*[text()='{role}']/following::td")).Text;
+            string ratePerHour = driver.FindElement(By.XPath($"((//span[text()='{role}'])[2]/following::dd//span//lightning-formatted-text)[1]")).Text;
             double rate = Convert.ToDouble(ratePerHour.Split(' ')[1].Trim());
             return rate;
         }
+
         public void ClickNewTitleRateSheet(string rateSheet)
         {
             //Get Row Count
@@ -344,6 +365,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 }
             }
         }
+
         public void NavigateToTitleRateSheetsPage()
         {
             driver.FindElement(shwAllTab).Click();
@@ -353,6 +375,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(btnGo).Click();
             Thread.Sleep(3000);
         }
+
         public bool VerifyNewTitle(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -370,6 +393,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 
             return result;
         }
+
         public void EnterRateSheet1(string engagement, string rateSheet)
         {
             Thread.Sleep(4000);
@@ -449,6 +473,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             Thread.Sleep(2000);
         }
+
         public void DeleteRateSheetLV(string engagementName)
         {
             try
@@ -501,6 +526,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             }
             driver.SwitchTo().DefaultContent();
         }
+
         public string GetSelectedRateSheetLV()
         {
             Thread.Sleep(5000);
@@ -524,6 +550,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return billedAmount; 
         }
+
         public void GoToBillingPreparationTabLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -533,6 +560,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             WebDriverWaits.WaitUntilEleVisible(driver, chkboxBilling, 20);
             driver.SwitchTo().DefaultContent();
         }
+
         public bool GetSendNotificatioButtonStatusLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -541,6 +569,7 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.SwitchTo().DefaultContent();
             return btnStatus;
         }
+
         public void SelectBillingPreparationRecordLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameTimeRecordPage));
@@ -554,6 +583,7 @@ namespace SF_Automation.Pages.TimeRecordManager
         {
             return By.XPath($"//div/span[text()='{role}']//ancestor::dt/following-sibling::dd//lightning-formatted-text");//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
         }
+
         public double GetDefaultRateAsPerRoleLV(string role)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, nameRole(role),20);

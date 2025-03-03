@@ -190,6 +190,33 @@ namespace SF_Automation.Pages.HomePage
             }
         }
 
+        public void SearchUserFromMainSearch1(string name)
+        {
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkPeople, 120);
+            driver.FindElement(linkPeople).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            Thread.Sleep(5000);
+
+            try
+            {
+                driver.FindElement(By.XPath("(//div[@class='instant-results-list']/search_dialog-instant-result-item)[1]/div")).Click();
+                Thread.Sleep(5000);
+            }
+            catch(Exception)
+            {
+                
+            }
+        }
+
         public void UserLogin()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkUserDetail, 120);
