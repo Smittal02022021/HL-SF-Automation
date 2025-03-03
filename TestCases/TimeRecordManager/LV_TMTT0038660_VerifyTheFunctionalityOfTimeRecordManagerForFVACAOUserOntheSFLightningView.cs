@@ -9,7 +9,6 @@ using SF_Automation.Pages.TimeRecordManager;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
-    
     class LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
