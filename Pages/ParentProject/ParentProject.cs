@@ -1081,7 +1081,7 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(5000);
             driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+            driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//lightning-base-combobox-formatted-text[@title='100328']")).Click();
 
             driver.FindElement(txtContract).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
@@ -1119,8 +1119,8 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditbillingReq, 130);
             driver.FindElement(btnEditbillingReq).Click();
             Thread.Sleep(6000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnStatus));
-            Thread.Sleep(5000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Submission Date']/ancestor::div[1]//button")));
+                        Thread.Sleep(5000);
             driver.FindElement(btnStatus).Click();
             driver.FindElement(By.XPath("//label[text()='Status']/ancestor::div[1]//lightning-base-combobox/div//div[2]/lightning-base-combobox-item//span[2]/span[text()='Sent to ERP']")).Click();
             driver.FindElement(btnSave).Click();

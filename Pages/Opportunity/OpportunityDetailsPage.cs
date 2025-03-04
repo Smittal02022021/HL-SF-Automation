@@ -5370,6 +5370,7 @@ public void ClickNewOpportunitySectorButton()
         public void UpdatePrimaryOfficeL()
         {
             driver.FindElement(btnPO).Click();
+            Thread.Sleep(4000);
             driver.FindElement(By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[5]/span[2]/span")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             driver.FindElement(btnSaveDetailsL).Click();
