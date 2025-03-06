@@ -1577,6 +1577,9 @@ public void ClickNewOpportunitySectorButton()
             WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
             try
                 {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+                driver.FindElement(lnkMoreL).Click();
+                Thread.Sleep(5000);
                 string valImage = driver.FindElement(btnFEISL).Displayed.ToString();
                 Console.WriteLine("Lock Image: " + valImage);
                 return "FEIS Form button is displayed";
@@ -1592,8 +1595,11 @@ public void ClickNewOpportunitySectorButton()
         {            
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
-                string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();               
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+                driver.FindElement(lnkMoreL).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 140);
+                string valImage = driver.FindElement(btnPortfolioVCAOL).Displayed.ToString();               
                 return "Portfolio Valuation button is displayed";
             }
             catch(Exception )
@@ -1626,8 +1632,8 @@ public void ClickNewOpportunitySectorButton()
         //Click Portfolio valuation button and get title of page
         public string ClickPortfolioValuationL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
-            driver.FindElement(btnPortfolioVL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
+            driver.FindElement(btnPortfolioVCAOL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().Frame(0);
             //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
@@ -5163,11 +5169,11 @@ public void ClickNewOpportunitySectorButton()
         public string ClickRequestoEngFVAL()
         {
             Thread.Sleep(9000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
-            //driver.FindElement(lnkMoreL).Click();
-            //Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 320);
-            driver.FindElement(btnReqEng1L).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+            driver.FindElement(lnkMoreL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
+            driver.FindElement(btnReqEngL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
             string validations = driver.FindElement(msgReqEngFVAL).Text;
             driver.FindElement(btnCloseReqEngFVAL).Click();

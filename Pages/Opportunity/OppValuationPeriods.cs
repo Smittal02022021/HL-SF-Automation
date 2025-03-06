@@ -533,8 +533,15 @@ namespace SF_Automation.Pages.Opportunity
         public bool ClickOppValuationAndValidateFields()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 120);
-            driver.FindElement(btnPortfolioVL).Click();
+            By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+            driver.FindElement(lnkMoreL).Click();
+            Thread.Sleep(5000);
+            By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
+            driver.FindElement(btnPortfolioVCAOL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().Frame(0);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);

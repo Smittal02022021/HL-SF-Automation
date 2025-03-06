@@ -70,6 +70,7 @@ namespace SalesForce_Project.Pages
         By lblHeaderRow = By.XPath("//slot[@class='slds-grid slds-page-header__detail-row']//p[1]");
         By secBillingReq = By.XPath("//span[@title='Approval History']/ancestor::div[5]//flexipage-component2//article//h2/a/span[1]");
         By btnEditbillingReq = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
+        By txtEditBRComments = By.XPath("//label[text()='Comments']/ancestor::lightning-textarea//textarea");
         By btnEditBillingEvent = By.XPath("//records-entity-label[text()='ERP Revenue Billing Event']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
         By txtComments = By.XPath("//textarea");
         By valComments = By.XPath("//span[text()='Comments']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
@@ -1119,9 +1120,13 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditbillingReq, 130);
             driver.FindElement(btnEditbillingReq).Click();
             Thread.Sleep(6000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Submission Date']/ancestor::div[1]//button")));
-                        Thread.Sleep(5000);
-            driver.FindElement(btnStatus).Click();
+            driver.FindElement(txtEditBRComments).SendKeys("Testing");
+            By btnSubDate = By.XPath("//label[text()='Billing Request Name']/ancestor::div[1]//input");
+            By btnStatus = By.XPath("//label[text()='Status']/ancestor::div[1]//button");
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnStatus, 120);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnStatus));
+            Thread.Sleep(6000);
+            driver.FindElement(btnStatus).Click();            
             driver.FindElement(By.XPath("//label[text()='Status']/ancestor::div[1]//lightning-base-combobox/div//div[2]/lightning-base-combobox-item//span[2]/span[text()='Sent to ERP']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);

@@ -1,16 +1,12 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
-using OpenQA.Selenium.DevTools.V113.Input;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
-       
+
 
 using System;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace SF_Automation.TestCases.Opportunity
 {
@@ -59,7 +55,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Login as Standard User and validate the user               
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);           
+                usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -71,8 +67,8 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);                
-                Assert.AreEqual("New Opportunity: "+valRecordType, titleOpp);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
                 extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
                 //Add FVA Opportunity
@@ -83,11 +79,11 @@ namespace SF_Automation.TestCases.Opportunity
                 string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1644);
                 Assert.AreEqual("Info", displayedTab);
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
-                               
+
                 //Update all required fields for Conversion to Engagement
                 //counterparty.ClickViewCounterparties();
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC1644);
-                extentReports.CreateLog("All required details are saved ");               
+                extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.ClickAddFVAOppContact();
                 addContact.CreateContactL(fileTC1644);
 
@@ -97,7 +93,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(value);
                 opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
-                extentReports.CreateLog("Internal Team members details are saved ");               
+                extentReports.CreateLog("Internal Team members details are saved ");
                 opportunityDetails.UpdateOutcomeDetails(fileTC1644);
 
                 //Login as Financial User and validate the user                
@@ -108,7 +104,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Open the same opportunity               
                 opportunityHome.SearchMyOpportunitiesInLightning(value, valUser);
-               
+
                 //1. TMTI0088216_Verify the availability of the FEIS Form button availability on all Opportunities of Fairness Job Types
                 string FEISForm = opportunityDetails.ValidateFEISFormButton();
                 string clientName = opportunityDetails.GetClientCompanyL();
@@ -128,7 +124,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //3. TMTI0088220_Verify that clicking the FEIS Form button will redirect the user to the FEIS Form page
                 string title = opportunityDetails.ClickFEISFormL();
                 Assert.AreEqual("FEIS (Part I) Form", title);
-                extentReports.CreateLog("Page with title:" +title + " is displayed upon clicking FEIS Form button ");
+                extentReports.CreateLog("Page with title:" + title + " is displayed upon clicking FEIS Form button ");
 
                 //4.  TMTI0088234_Verify that clicking the FEIS form redirects the user to the Opportunity Overview tab by default
                 string tabDisplayed = form.ValidateDefaultTabOfFEISForm();
@@ -136,7 +132,7 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Tab with name:" + tabDisplayed + " is displayed when FEIS Form is opened ");
 
                 //5.  TMTI0088236_Verify the informative message given at the top of the FEIS Form
-                 string msgInfo = form.ValidateInformativeMessageOnFEISForm();
+                string msgInfo = form.ValidateInformativeMessageOnFEISForm();
                 Assert.AreEqual("Please check this box and press Save to ensure all required fields are completed.", msgInfo);
                 extentReports.CreateLog("Message:" + msgInfo + " is displayed on the top of FEIS Form ");
 
@@ -348,9 +344,9 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Verified that no validations are displayed upon selecting No in Relationship questions ");
 
                 //40.   TMTI0088316_Verify that on clicking the "Fairness" error message, the application will redirect the user to the Legal Review Criteria tab on the respective questions.
-                 string legal= form.ValidateLegalReviewCriteriaTabUponClickingFairnessQuestions();
-                 Assert.AreEqual("Legal Review Criteria", legal);
-                 extentReports.CreateLog("Tab: " + legal + " is displayed upon clicking Fairness error message ");
+                string legal = form.ValidateLegalReviewCriteriaTabUponClickingFairnessQuestions();
+                Assert.AreEqual("Legal Review Criteria", legal);
+                extentReports.CreateLog("Tab: " + legal + " is displayed upon clicking Fairness error message ");
 
                 //39.	TMTI0088314_Verify that on clicking the save button, the application gives validation messages to answer the required questions of the Legal Review Criteria tab
                 Assert.IsTrue(form.VerifyAllLegalReviewValidations(), "Verified that displayed validations are same");
@@ -386,7 +382,7 @@ namespace SF_Automation.TestCases.Opportunity
                 //47.   TMTI0088330_Verify that the "Submit FEIS Form" button will be enabled at the top right corner once all validation messages are fixed
                 string submitFEIS = form.ValidateSubmitFEISFormButton();
                 Assert.AreEqual("Submit FEIS (Part I) Form", submitFEIS);
-                extentReports.CreateLog("Button: "+ submitFEIS+ " is displayed after fixing all mandatory validations ");
+                extentReports.CreateLog("Button: " + submitFEIS + " is displayed after fixing all mandatory validations ");
 
                 //48.   TMTI0088332_Verify that the user will redirected to the Email format with all the FEIS form details by clicking the "Submit FEIS Form" button
                 string pageTitle = form.ValidateEmailFormatAfterClickingFEISFormButton();
@@ -399,14 +395,14 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Email Template with Opportunity " + emailOppName + " is displayed ");
 
                 //49.  TMTI0088334_Verify that the user will be able to Send an Email with all FEIS form details to the desired recipients and redirect the user back to the FEIS form where the submit button disappears and a note in red color will appear on the screen.
-                string submitForm= form.ValidateSendEmailFunctionality();
+                string submitForm = form.ValidateSendEmailFunctionality();
                 Assert.AreEqual("Button is not displayed", submitForm);
                 extentReports.CreateLog("Button: Submit FEIS (Part I) Form  is not displayed anymore ");
 
                 //50. TMTI0088336_Verify that the user is not able to update the FEIS form anymore once Submitted and will give a warning message.
-                string subMessage= form.ValidateIfFormIsEditablePostSubmission();
+                string subMessage = form.ValidateIfFormIsEditablePostSubmission();
                 Assert.AreEqual("Since this form has previously been sent to the Fairness Engagement Committee, you dont have necessary permission to update", subMessage);
-                extentReports.CreateLog("Message: "+ subMessage + " is displayed while udpating FEIS form post submiting it ");
+                extentReports.CreateLog("Message: " + subMessage + " is displayed while udpating FEIS form post submiting it ");
 
                 //51. TMTI0088338_Verify that the FVA User is not able to access the Review tab.
                 //string tabReview = form.ValidateReviewTabPostSubmissionFVA();
@@ -421,7 +417,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string caoUser = login.ValidateUserLightningCAO();
                 Console.WriteLine("caoUser:" + caoUser);
                 Console.WriteLine("valCAOUser:" + valCAOUser.Substring(1, 10));
-                Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1,10)), true);
+                Assert.AreEqual(caoUser.Contains(valCAOUser.Substring(1, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
                 opportunityHome.SearchMyOpportunitiesInLightning(value, caoUser);
