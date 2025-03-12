@@ -1089,6 +1089,8 @@
     <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
     <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
+    <None Include="TestData\LV_TS04AndTS07_ValidateERPSection.xlsx" />
+    <None Include="TestData\LV_TS05_ValidateERPSection.xlsx" />
     <None Include="TestData\Outlook.xlsx" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
@@ -1308,12 +1310,16 @@
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
     <None Include="TestData\TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.xls" />
+    <None Include="TestData\TMTT0027453_MassCheckboxs.xls" />
+    <None Include="TestData\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_View_Email_Access_Delete_ViewAll.xls" />
     <None Include="TestData\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.xlsx" />
     <None Include="TestData\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx" />
     <None Include="TestData\TS012_ERPInformationOfContractDetalPage.xlsx" />
     <None Include="TestData\TS013_ERPInformationOfContractDetalPageWithNewCompany.xlsx" />
     <None Include="TestData\TS019_Company_ERPContactUpdateFlagFields.xlsx" />
     <None Include="TestData\TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
+    <None Include="TestData\TS04AndTS07_ValidateERPSection2.xlsx" />
     <None Include="TestData\TS08_MultipleContractsInEngagement.xlsx" />
     <None Include="TestData\TS09_EngagementDetails.xlsx" />
     <None Include="TestData\TS09_VerifyICOContractBasedOnLOBOfLegalEntity.xlsx" />
@@ -1332,6 +1338,7 @@
     <None Include="TestData\TS32_OpportunityDetails.xlsx" />
     <None Include="TestData\TS32_VerifyIcoContractDetailOnOpportunity.xlsx" />
     <None Include="TestData\TS33_mainContractVerification.xlsx" />
+    <None Include="TestData\VerifyEngagementReportLinks.xls" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
