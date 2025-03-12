@@ -58,7 +58,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog(jobTypes + " is displayed under HL Banker dropdown ");
                 
                 pages.GetJobTypes();
-                Assert.IsTrue(pages.ValidateJobTypesL(), "Verified that displayed Job Types are same");
+                Assert.IsTrue(pages.ValidateJobTypesLV(), "Verified that displayed Job Types are same");
                 extentReports.CreateLog("Displayed Job Types are as expected ");
 
                 //Validate all Product Lines 

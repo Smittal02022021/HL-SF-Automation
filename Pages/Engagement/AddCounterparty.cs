@@ -277,7 +277,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(lnkDetails).Click();
                 return message;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 driver.FindElement(lnkDetails).Click();
                 return "Record is already displayed";
@@ -313,7 +313,7 @@ namespace SF_Automation.Pages.Engagement
                 string message = driver.FindElement(msgSuccess).Text;
                 return message;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Record is not addded";
             }
@@ -332,7 +332,7 @@ namespace SF_Automation.Pages.Engagement
                 string message = driver.FindElement(msgSuccess).Text.Replace("\r\n", " ");
                 return message;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Message is not displayed";
             }
@@ -355,7 +355,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(btnTableBack).Click();
                 return message;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Record is not addded";
             }
@@ -646,7 +646,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tblCounterparty, 180);
             string value = driver.FindElement(tblCounterparty).Displayed.ToString();
             Console.WriteLine(value);
-            if (value.Equals("True"))
+            if(value.Equals("True"))
             {
                 return "Counterparty records are displayed";
             }
@@ -713,13 +713,13 @@ namespace SF_Automation.Pages.Engagement
             string[] expectedValue = { "None", "Sent CA", "Sent Teaser" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -749,13 +749,13 @@ namespace SF_Automation.Pages.Engagement
             string[] expectedValue = { "Counterparty Email", "Counterparty Email Clone" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1216,7 +1216,7 @@ namespace SF_Automation.Pages.Engagement
                 return name;
 
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "2nd company does not exist";
             }
@@ -1410,7 +1410,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnApply).Click();
 
             //Update Markup Received
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollBy(300,0)");
             var elementReceived = driver.FindElement(colReceived);
             actions.MoveToElement(elementReceived);
@@ -1674,6 +1674,7 @@ namespace SF_Automation.Pages.Engagement
             string message = driver.FindElement(msgDeleteFinal).Text;
             return message;
         }
+
     }
 
 }

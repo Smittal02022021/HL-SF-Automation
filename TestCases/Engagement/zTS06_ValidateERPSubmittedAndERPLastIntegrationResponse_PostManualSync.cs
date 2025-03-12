@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync : BaseClass
+    class zTS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class LV_T1512_T1513_ClientGiftPreApprovalPageSubmitGiftRequestSearchCriteria_CancelAndAddInGitfsRecipientSection : BaseClass
     {

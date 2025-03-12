@@ -214,7 +214,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                 //Approve the Opportunity 
-                string status = opportunityDetails.ClickApproveButtonL();
+                string status = opportunityDetails.ClickApproveButtonLV2();
                 Assert.AreEqual(status, "Approved");
                 extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                 opportunityDetails.CloseApprovalHistoryTabL();

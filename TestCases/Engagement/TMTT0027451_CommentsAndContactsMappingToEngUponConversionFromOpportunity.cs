@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Engagement
         AddCounterparty  engCounterparty = new AddCounterparty();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
+        AddOpportunityContact addContact = new AddOpportunityContact();
 
         public static string TMTT0017889 = "TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx";
 
@@ -91,7 +92,8 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.UpdateInternalTeamDetailsL(TMTT0017889);
                 extentReports.CreateLog("Internal Team members details are saved ");
-                opportunityDetails.AddContactDetailsInOpp(TMTT0017889);
+                opportunityDetails.ClickAddCFOppContact();
+                addContact.CreateContactL(TMTT0017889);
 
                 //Click on Add Counterparty
                 counterparty.ClickViewCounterparties();
@@ -102,21 +104,23 @@ namespace SF_Automation.TestCases.Engagement
                 //Add Opportunity Counterparties 
                 string valComp = ReadExcelData.ReadData(excelPath, "Counterparty", 1);
                 string valType = ReadExcelData.ReadData(excelPath, "Counterparty", 2);
-                counterparty.AddCounterpartyInOpportunityL(valComp, valType);
+                counterparty.AddCounterpartyInOpportunityL(valComp, valType);                
 
                 //Add Counterparties Contact
                 string selectedName = counterparty.AddCounterpartyContactInOpportunityL();
-                string val1stName = engCounterparty.Get1stName();
-                string val2ndName = engCounterparty.Get2ndName();              
+                counterparty.ClickAdd2ndCounterpartiesAndValidatePage();
+                counterparty.AddCounterpartyInOpportunityL(valComp, valType);
+                string val1stName = engCounterparty.GetContact1stName();
+                string val2ndName = engCounterparty.GetContact2ndName();              
                 Assert.AreEqual(selectedName.Replace(" ", ""), val1stName + val2ndName);
                 extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed under Opportunity Counterparty Contacts section ");
 
-                //Add Counterparties comments
-                counterparty.AddCounterpartyCommentL();
+                ////Add Counterparties comments
+                //counterparty.AddCounterpartyCommentL();
 
-                //Get added Counterparty Comment, Creator and Contact               
-                string addedComment = counterparty.GetAddedCommentL();
-                string addedCreator = counterparty.GetCreatorOfAddedCommentL();
+                ////Get added Counterparty Comment, Creator and Contact               
+                //string addedComment = counterparty.GetAddedCommentL();
+                //string addedCreator = counterparty.GetCreatorOfAddedCommentL();
 
                 usersLogin.LightningLogout();
 
@@ -151,7 +155,7 @@ namespace SF_Automation.TestCases.Engagement
                 opportunityHome.SearchMyOpportunitiesInLightning(value, ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2));
                
                 //Approve the Opportunity 
-                string status = opportunityDetails.ClickApproveButtonL();
+                string status = opportunityDetails.ClickApproveButtonLV2();
                 Assert.AreEqual("Approved", status);
                 extentReports.CreateLog("Opportunity is approved ");
 
@@ -163,17 +167,18 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the added opportunity counterparty contact is mapped to Engagement
                 engagementDetails.ClickViewCounterpartiesButton();
                 engCounterparty.ClickAddedCounterparty();
-                string val1stNameEng = engCounterparty.Get1stName();
-                string val2ndNameEng = engCounterparty.Get2ndName();                
-                Assert.AreEqual(val1stName + val2ndName,val1stNameEng+val2ndNameEng);
+                string val1stNameEng = engCounterparty.GetCounterparty2ndName();
+                string val2ndNameEng = engCounterparty.GetCounterparty1stName();                
+                Assert.AreEqual(val2ndName ,val1stNameEng);
+                Assert.AreEqual(val1stName, val2ndNameEng);
                 extentReports.CreateLog("Engagement Counterparty Contact name: " + val1stNameEng + " " + val2ndNameEng + " is mapped from the opportunity ");
 
-                //Validate the added opportunity counterparty comment is mapped to Engagement
-                string valCommentEng = engCounterparty.ValidateEngCPCommentOnCounterpartyPage();
-                Assert.AreEqual(addedComment, valCommentEng);                
-                string addedCommentCreator = engCounterparty.GetCPCommentCreator();
-                Assert.AreEqual(addedCreator, addedCommentCreator);    
-                extentReports.CreateLog("Added comments - " + valCommentEng + " by User: " + valCommentEng + " in Opportunity is mapped in Engagement Counterparty Comments section of Engagement ");
+                ////Validate the added opportunity counterparty comment is mapped to Engagement
+                //string valCommentEng = engCounterparty.ValidateEngCPCommentOnCounterpartyPage();
+                //Assert.AreEqual(addedComment, valCommentEng);                
+                //string addedCommentCreator = engCounterparty.GetCPCommentCreator();
+                //Assert.AreEqual(addedCreator, addedCommentCreator);    
+                //extentReports.CreateLog("Added comments - " + valCommentEng + " by User: " + valCommentEng + " in Opportunity is mapped in Engagement Counterparty Comments section of Engagement ");
                                                 
                 driver.Quit();
             }

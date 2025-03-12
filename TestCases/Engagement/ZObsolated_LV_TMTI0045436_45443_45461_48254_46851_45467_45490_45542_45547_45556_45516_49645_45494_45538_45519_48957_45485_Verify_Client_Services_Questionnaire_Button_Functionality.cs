@@ -10,8 +10,9 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality : BaseClass
+    class ZObsolated_LV_TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality : BaseClass
     {
+        //As per Functional QA CST is not required to users
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         EngagementHomePage engagementHome = new EngagementHomePage();

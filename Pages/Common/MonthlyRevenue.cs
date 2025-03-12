@@ -10,6 +10,8 @@ namespace SF_Automation.Pages.Common
 {
     class MonthlyRevenue : BaseClass
     {
+        RandomPages randomPages = new RandomPages();
+
         By dropDownView = By.XPath("//select[@id='fcf']");
         By btnGo = By.XPath("//input[@title='Go!']");
         By colIsCurrent = By.XPath("//td[@class='x-grid3-hd x-grid3-cell x-grid3-td-00Ni000000FnLRS ASC']");
@@ -18,6 +20,141 @@ namespace SF_Automation.Pages.Common
         By LOBColLength = By.XPath("//div[@id='a1r6e000004Sj9R_00N3100000GbhhF_body']/table/tbody/tr");
         By lblLegacyPeriod = By.XPath("//td[text()='Legacy Period Accrued Fees']");
         By lnkBackToList = By.XPath("//a[text()='Back to List: Monthly Revenue Process Controls']");
+        By lblLagacyPAFee = By.XPath("//records-record-layout-item[@field-label='Legacy Period Accrued Fees']");
+
+        By lnkIsCurrentColumn = By.XPath("//th[@aria-label='Is Current']//a");
+
+        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
+
+        By linkCurrentMonthRev = By.XPath("//table//tbody//tr[1]/th//a");// (//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
+
+        By linkViewAllRevAccu = By.XPath("//article[@aria-label='Revenue Accruals']//a[contains(@class,'footer')]");
+
+        By listRevAccu = By.XPath("(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr");
+
+        By valRVAccuNum = By.XPath("//records-record-layout-item[@field-label='Revenue Accrual #']//lightning-formatted-text");
+
+        public void SelectCurrentMonthRevenuePageLV()
+
+        {
+
+        IsCurrentStatus:
+
+            string chckboxStatus = driver.FindElement(chkIsCurrent).GetAttribute("alt");
+
+            if(chckboxStatus == "True")
+
+            {
+
+                driver.FindElement(linkCurrentMonthRev).Click();
+
+                Thread.Sleep(5000);
+
+            }
+
+            else
+
+            {
+
+                driver.FindElement(lnkIsCurrentColumn).Click();
+
+                Thread.Sleep(2000);
+
+                goto IsCurrentStatus;
+
+            }
+
+        }
+
+
+        public string SelectRevenueAccrualLV(string lob)
+
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+
+            js.ExecuteScript("window.scrollTo(0,5000)");
+
+            Thread.Sleep(2000);
+
+            string valRVAccu = "";
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(linkViewAllRevAccu));
+
+            Thread.Sleep(2000);
+
+            //driver.FindElement(linkViewAllRevAccu).Click();
+
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(linkViewAllRevAccu));
+
+            WebDriverWaits.WaitUntilEleVisible(driver, listRevAccu, 20);
+
+            IList<IWebElement> element = driver.FindElements(listRevAccu);
+
+            int totalRows = element.Count;
+
+            for(int row = 1; row <= totalRows; row++)
+
+            {
+
+                By linkRevAccu = By.XPath($"(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr[{row}]//th//a/../..");
+
+                driver.FindElement(linkRevAccu).Click();
+
+                WebDriverWaits.WaitUntilEleVisible(driver, valRVAccuNum, 20);
+
+                valRVAccu = driver.FindElement(valRVAccuNum).Text;
+
+                string RevAccuLOB = randomPages.GetLOBLV();
+
+                if(RevAccuLOB == lob)
+
+                {
+
+                    break;
+
+                }
+
+                else
+
+                {
+
+                    By btnCloseRevAccu = By.XPath($"//button[contains(@title,'Close {valRVAccu} | Revenue Accrual')]");
+
+                    driver.FindElement(btnCloseRevAccu).Click();
+
+                    Thread.Sleep(2000);
+
+                }
+
+            }
+
+            return valRVAccu;
+
+        }
+
+        public bool IsLegacyPeriodAccruedFeesExistLV()
+
+        {
+
+            try
+
+            {
+
+                WebDriverWaits.WaitUntilEleVisible(driver, lblLagacyPAFee, 10);
+
+                CustomFunctions.MoveToElement(driver, driver.FindElement(lblLagacyPAFee));
+
+                return driver.FindElement(lblLagacyPAFee).Displayed;
+
+            }
+
+            catch { return false; }
+
+
+        }
+
+
 
         public void SelectMonthlyRevenueProcessControlView()
         {

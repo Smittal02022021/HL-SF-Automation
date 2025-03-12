@@ -80,7 +80,7 @@ namespace SF_Automation.TestCases.Engagement
                     newCoverageSectorDependencies.CreateNewCoverageSectorDependency(fileTC14212);
 
                     //Fetch the Coverage Sector Dependency Name from its detail page
-                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorID();
+                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorDependencyName();
                     extentReports.CreateLog("Coverage Sector Dependency Name is: " + coverageSectorDependencyName + " ");
 
                     //Search user by global search

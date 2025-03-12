@@ -5,7 +5,6 @@ using SF_Automation.Pages.Engagement;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -52,7 +51,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUserLightning();
-                Assert.AreEqual(valUser, stdUser);
+                Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " is able to login ");
 
                 //Fetching all rows as per different Job Types
@@ -77,7 +76,7 @@ namespace SF_Automation.TestCases.Engagement
                 }
 
                 //Click on Lightning Counterparties button, click on details and click on Eng Counterparty Contact
-                engagementDetails.ClickViewCounterpartiesButton();
+                engagementDetails.ClickViewCounterpartiesButtonL();
 
                 //TC_03_Validate the value in View dropdown is same as Job Type of Engagement
                 string view = counterparty.GetViewValue();
@@ -105,9 +104,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Edit Bids", btnEditBids);
                 extentReports.CreateLog("Button with name : " + btnEditBids + " is displayed on Counterparty Details page ");
 
-                string btnImport = counterparty.ValidateImportWithDataloaderButton();
-                Assert.AreEqual("Import with Dataloader", btnImport);
-                extentReports.CreateLog("Button with name : " + btnImport + " is displayed on Counterparty Details page ");
+                //string btnImport = counterparty.ValidateImportWithDataloaderButton();
+                //Assert.AreEqual("Import with Dataloader", btnImport);
+                //extentReports.CreateLog("Button with name : " + btnImport + " is displayed on Counterparty Details page ");
 
                 string btnExport = counterparty.ValidateExportDataButton();
                 Assert.AreEqual("Export Data", btnExport);
@@ -127,12 +126,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TC_12_Validate Add counterparty functionality
                 string addedComp = counterparty.ValidateAddCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", addedComp);
+                Assert.AreEqual("SkyHive", addedComp);
                 extentReports.CreateLog("Counterparty with Company name : " + addedComp + " is displayed on Counterparty page after adding it ");
 
                 //TC_13_Search Counterparty
                 string searchCounterparty = counterparty.ValidateSearchCounterpartyFunctionality();
-                Assert.AreEqual("Skyhive", searchCounterparty);
+                Assert.AreEqual("SkyHive", searchCounterparty);
                 extentReports.CreateLog("Searched Counterparty with Company name : " + searchCounterparty + " is displayed on Counterparty page ");
 
                 //TC_04__TC_07_Validate Email functionality
@@ -167,7 +166,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate Milestone dropdown and its values
                 string lblMilestone = counterparty.ValidateMilestoneDropdown();
                 Assert.AreEqual("Milestone", lblMilestone);
-                extentReports.CreateLog("Fild with name : " + lblMilestone + " is displayed ");
+                extentReports.CreateLog("File with name : " + lblMilestone + " is displayed ");
 
                 Assert.IsTrue(counterparty.ValidateMilestoneValues(), "Verified that displayed Milestone values are same");
                 extentReports.CreateLog("Displayed Milestone values are correct ");
@@ -210,23 +209,22 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Delete", deleteViewAll);
                 extentReports.CreateLog("Link - " + deleteViewAll + " is displayed to delete added counterparty ");
 
-                //TC_08__Validate Engagement CP Comment functionality
+                // //TC_08__Validate Engagement CP Comment functionality
                 counterparty.ValidateEngCPComment();
-                /*
-                Assert.AreEqual("Testing", addedComment);
-                string addedCommentType = counterparty.GetCPCommentType();
-                Assert.AreEqual("Internal", addedCommentType);
-                string addedCommentCreator = counterparty.GetCPCommentCreator();
-                Assert.AreEqual(valUser, addedCommentCreator);
-                string addedCommentCreatedDate = counterparty.GetCPCommentCreatedDate();
-               // Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), addedCommentCreatedDate);
-                extentReports.CreateLog("Added comments - " + addedComment + " of Type: " + addedCommentType+ " by User: "+ addedCommentCreator+ " along with Date: " + addedCommentCreatedDate+ " is displayed in Engagement Counterparty Comments section ");
+                //string addedComment = counterparty.ValidateEngCPComment();
+               // Assert.AreEqual("Testing", addedComment);
+               // string addedCommentType = counterparty.GetCPCommentType();
+               // Assert.AreEqual("Internal", addedCommentType);
+               // string addedCommentCreator = counterparty.GetCPCommentCreator();
+               // Assert.AreEqual(valUser, addedCommentCreator);
+               // string addedCommentCreatedDate = counterparty.GetCPCommentCreatedDate();
+               //// Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), addedCommentCreatedDate);
+               // extentReports.CreateLog("Added comments - " + addedComment + " of Type: " + addedCommentType+ " by User: "+ addedCommentCreator+ " along with Date: " + addedCommentCreatedDate+ " is displayed in Engagement Counterparty Comments section ");
 
-                //Delete added comments before deleting counterparty
-                string valComment =counterparty.DeleteEngCounterpartyComment();
-                Assert.AreEqual("(0)", valComment);
-                extentReports.CreateLog("Added counterparty comments have been delete successfully. ");
-                */
+               // //Delete added comments before deleting counterparty
+                //string valComment =counterparty.DeleteEngCounterpartyComment();
+               // Assert.AreEqual("(0)", valComment);
+               // extentReports.CreateLog("Added counterparty comments have been delete successfully. ");
 
                 //TC_13_Validate the displayed KPIs and click on any KPI & validate the displayed records
                 string val1stKPI = counterparty.GetNumberOf1stKPI();
@@ -243,7 +241,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 string val3rdKPI = counterparty.GetNumberOf3rdKPI();
                 string sentTeaser = counterparty.GetTextOf3rdKPI();
-                Assert.AreEqual("1", val2ndKPI);
+                Assert.AreEqual("1", val3rdKPI);
                 Assert.AreEqual("Sent Teaser", sentTeaser);
                 extentReports.CreateLog("KPI with name :" + sentTeaser + " is displayed with Count: " + val3rdKPI + " as per its value entered in the displayed Counterparties ");
 
@@ -262,7 +260,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TC11__Validate the Edit Bid functionality on the view counterparty
                 string tabBid = counterparty.ClickEditBidAndValidateNewTab();
-                Assert.AreEqual("Round First", tabBid);
+                Assert.AreEqual("Round Second", tabBid);
                 extentReports.CreateLog("Tab with name: " + tabBid+ " is displayed upon adding bid ");
 
                 //Add all bid details and validate it

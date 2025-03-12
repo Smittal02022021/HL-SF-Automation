@@ -8,7 +8,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Contact;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class LV_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar: BaseClass
     {

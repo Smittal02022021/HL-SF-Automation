@@ -8,7 +8,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Contact;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class LV_T1523_T2010_T1515_ApproveGiftsDefaultLayoutFieldsAndFieldsValues:BaseClass
     {

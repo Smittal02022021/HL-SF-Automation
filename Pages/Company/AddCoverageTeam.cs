@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SalesForce_Project.TestCases.GiftLog;
+using SF_Automation.TestCases.GiftLog;
 using SF_Automation.Pages.Companies;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;

@@ -9,6 +9,7 @@ using SF_Automation.Pages.Activities;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
+using SF_Automation.Pages.Companies;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -29,6 +30,7 @@ namespace SF_Automation.TestCases.LV_Activities
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
 
         public static string fileTMTC0032668 = "TMTC0032668_VerifyActivityIsLinkedToTheRelatedEngagement";
@@ -234,14 +236,14 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "User landed on the Engagement details page. ");
 
                 //Verify Activity Is Linked To Engagement
-                Assert.IsTrue(engagementDetails.VerifyActivityIsLinkedToEngagement(subject));
+                Assert.IsTrue(lvEngagementDetails.VerifyActivityIsLinkedToEngagement(subject));
                 extentReports.CreateStepLogs("Passed", "Activity linked with the Engagement is listed under Activity Tab of the Engagement. ");
 
                 //Deleting Main Created Activity
-                engagementDetails.ViewActivityFromList(subject);
+                lvEngagementDetails.ViewActivityFromList(subject);
                 extentReports.CreateStepLogs("Info", "User redirected Activity Detail Page ");
 
-                engagementDetails.DeleteActivity();
+                lvEngagementDetails.DeleteActivity();
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
                 //TC - End

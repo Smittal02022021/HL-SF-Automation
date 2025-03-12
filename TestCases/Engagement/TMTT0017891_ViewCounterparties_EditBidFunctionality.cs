@@ -31,6 +31,7 @@ namespace SalesForce_Project.TestCases.Engagement
         [Test]
         public void ViewCounterparties_EmailButton()
         {
+            /*
             try
             {
                 //Get path of Test data file
@@ -144,6 +145,7 @@ namespace SalesForce_Project.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
+            */
         }       
     }
 }

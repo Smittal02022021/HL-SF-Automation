@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement : BaseClass
+    class ZObsolated_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -117,7 +117,7 @@ namespace SF_Automation.TestCases.Engagement
                 {
                     opportunityDetails.UpdateReqFieldsForFRConversion(ERP);
                 }
-                opportunityDetails.UpdateInternalTeamDetails(ERP);
+                //opportunityDetails.UpdateInternalTeamDetails(ERP);
 
                 //Logout of user and validate Admin login
                 usersLogin.UserLogOut();

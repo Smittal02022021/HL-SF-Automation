@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class LV_T1524_T2014_GiftApprovalProcessApproveGiftsVerifyPendingApprovedAndDeniedGiftsEditRights:BaseClass
     {

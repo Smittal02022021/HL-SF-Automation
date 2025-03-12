@@ -12,6 +12,11 @@ namespace SF_Automation.Pages.Common
 {
     class RandomPages : BaseClass
     {
+        By chkVerballyEngL = By.XPath("//input[@name='Verbally_Engaged__c']");
+        By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
+        By tagJobTypes = By.XPath("//div/ul/li/div/a/span[2]/span[text()='Job Types']");
+        By valJobTypesL = By.XPath("//div[2]/div[1]//div//tr/th/span/a");
+
         By linkExpenseRequest = By.XPath("//a[text() = 'Expense Request']");
         By linkExpenseNumber = By.CssSelector("tbody[id*='pbtableId1:tb']>tr>td[id*='j_id142'] > a");
         By titleNewExpense = By.XPath("//h2[text() = 'New Expense Request']");
@@ -113,7 +118,6 @@ namespace SF_Automation.Pages.Common
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
 
-        By chkVerballyEngL = By.XPath("//input[@name='Verbally_Engaged__c']");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
 
         By lnkRefereshTabL = By.XPath("//ul//li[@title='Refresh Tab']/a");
@@ -1252,5 +1256,73 @@ namespace SF_Automation.Pages.Common
             catch { }
             Thread.Sleep(5000);
         }
+
+        public string SelectJobType()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 250);
+            driver.FindElement(btnNavigationMenu).Click();
+            Console.WriteLine("Clicked navigation");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagJobTypes, 350);
+            string value = driver.FindElement(tagJobTypes).Text;
+            driver.FindElement(tagJobTypes).Click();
+            return value;
+        }
+
+        public bool ValidateJobTypesLV()
+
+        {
+
+            Thread.Sleep(6000);
+
+            IReadOnlyCollection<IWebElement> jobTypes = driver.FindElements(valJobTypesL);
+
+            var actualValue = jobTypes.Select(x => x.GetAttribute("title")).ToArray();
+
+            string[] expectedValue = { "Activism Advisory", "Board Advisory Services (BAS)", "Buyside", "Buyside & Financing Advisory", "Collateral Valuation", "Compensation/Formula Analysis", "Consulting", "Corporate Alliances", "Creditor Advisors", "CVAS - Complex Securities", "CVAS - Forensic Services", "CVAS - FV Opinion", "CVAS - Goodwill or Asset Impairment", "CVAS - IP Valuation", "CVAS - Modeling", "CVAS - Pre-Acq Val'n Cons", "CVAS - Purchase Price Allocation", "CVAS - SFAS 123R/409A Stock, Option Valuation", "CVAS - Sovereign Advisory", "CVAS - Tangible Asset Valuation", "CVAS - Tax Valuation", "CVAS - Transfer Pricing", "Debt Advisory", "Debt Capital Markets", "Debtor Advisors", "Discretionary Advisory", "DM&A Buyside", "DM&A Sellside", "DRC - Ad Valorem Services", "DRC - Appointed Arbitrator/Mediator", "DRC - Contract Compliance", "DRC - Exp Cons-Arbitrat'n", "DRC - Exp Cons-Bankruptcy", "DRC - Exp Cons-Litigation", "DRC - Exp Cons-Mediation", "DRC - Exp Cons-Pre-Complt", "DRC - Exp Wit-Arbitration", "DRC - Exp Wit-Bankruptcy", "DRC - Exp Wit-Litigation", "DRC - Exp Wit-Mediation", "DRC - Exp Wit-Pre-Complnt", "DRC - Post Transaction Dispute", "Equity Advisors", "Equity Capital Markets", "ESOP Advisory - CVAS", "ESOP Advisory - DRC", "ESOP Advisory - Other", "ESOP Advisory - PV", "ESOP Advisory - TO", "ESOP Capital Partnership", "ESOP Corporate Finance", "ESOP Fairness", "ESOP Update", "Estate & Gift Tax", "FA - Fund Opinions-Fairness", "FA - Fund Opinions-Non-Fairness", "FA - Fund Opinions-Valuation", "FA - Portfolio - SPAC", "FA - Portfolio LIBOR Advisory", "FA - Portfolio-Advis/Consulting", "FA - Portfolio-Auto Loans", "FA - Portfolio-Auto Struct Prd", "FA - Portfolio-Auto Struct Prd/Consulting", "FA - Portfolio-BDC/Direct Lending", "FA - Portfolio-Deriv/Risk Mgmt", "FA - Portfolio-Diligence/Assets", "FA - Portfolio-Funds Transfer", "FA - Portfolio-GP interest", "FA - Portfolio-Outsourcing", "FA - Portfolio-Real Estate", "FA - Portfolio-Valuation", "Fairness", "FAS - Administrative", "Financing", "FMV Non-Transaction Based Opinion", "FMV Transaction Based Opinion", "General Financial Advisory", "Going Private", "Illiquid Financial Assets", "Income Deposit Securities", "InSource", "Lender Education", "Liability Management", "Liability Mgmt", "Litigation", "Merger", "Negotiated Fairness", "Partners", "PBAS", "Portfolio Acquisition", "Post Merger Integration", "Private Funds: Direct", "Private Funds: GP Advisory", "Private Funds: GP Stake Sale", "Private Funds: Primary Advisory", "Private Funds: Secondary Advisory", "Real Estate Brokerage", "Regulator/Other", "Securities Design", "Sellside", "Solvency", "Sovereign Restructuring", "Special Committee Advisory", "Special Situations", "Special Situations Buyside", "Special Situations Sellside", "Strategic Alternatives Study", "Strategic Consulting", "Strategy", "Syndicated Finance", "T+IP - Damages", "T+IP - Expert Report", "Take Over Defense", "TAS - Accounting and Financial Reporting Advisory", "TAS - Due Diligence-Buyside", "TAS - Due Diligence-Buyside Add-On", "TAS - Due Diligence-Sellside", "TAS - DVC Business Analytics", "TAS - DVC Decision Modeling", "TAS - ESG Due Diligence & Analytics", "TAS - Lender Services", "TAS - Tax", "TAS - Tech & Cyber", "Tech+IP - Buyside", "Tech+IP - Patent Acquisition Support", "Tech+IP - Patent Sales", "Tech+IP - Strategic Advisory", "Tech+IP - Tech+IP Sales", "Tech+IP - Valuation", "Valuation Advisory" };
+
+            Console.WriteLine("Clicked Job types");
+
+            bool isSame = true;
+
+            List<string> difference = actualValue.Except(expectedValue).ToList();
+
+            foreach(var value in difference)
+
+            {
+
+                Console.WriteLine(value);
+
+            }
+
+            if(expectedValue.Length != actualValue.Length)
+
+            {
+
+                return !isSame;
+
+            }
+
+            for(int rec = 0; rec < expectedValue.Length; rec++)
+
+            {
+
+                if(!expectedValue[rec].Equals(actualValue[rec]))
+
+                {
+
+                    isSame = false;
+
+                    break;
+
+                }
+
+            }
+
+            return isSame;
+
+        }
+
     }
 }

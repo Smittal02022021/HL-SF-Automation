@@ -7,7 +7,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SalesForce_Project.TestCases.GiftLog
+namespace SF_Automation.TestCases.GiftLog
 {
     class LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar:BaseClass
     {
