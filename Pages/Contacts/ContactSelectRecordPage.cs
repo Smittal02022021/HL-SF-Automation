@@ -12,6 +12,8 @@ namespace SF_Automation.Pages.Contact
     {
         By drpdwnSelectRecordType = By.CssSelector("select[id='p3']");
         By btnContinue = By.CssSelector("input[title='Continue']");
+        By txtTypeL = By.XPath("//div[@class='changeRecordTypeCenter']//label//span[2]");
+        By btnCanelTypeL = By.XPath("//div[@class='forceChangeRecordTypeFooter']//button//span[text()='Cancel']");
 
         //To Select Houlihan Employee option
         public void SelectContactRecordType(string file, string contactType)
@@ -73,5 +75,66 @@ namespace SF_Automation.Pages.Contact
             }
 
         }
+
+        public void ClickCancelContactTypePageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCanelTypeL, 10);
+            driver.FindElement(btnCanelTypeL).Click();
+        }
+
+        public bool AreContactTypesDisplayedLV(string file)
+
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+
+            ReadJSONData.Generate("Admin_Data.json");
+
+            string dir = ReadJSONData.data.filePaths.testData;
+
+            string excelPath = dir + file;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTypeL, 10);
+
+            IList<IWebElement> listRecordTypes = driver.FindElements(txtTypeL);
+
+            bool recordTypeFound = false;
+
+            int rowOpp = ReadExcelData.GetRowCount(excelPath, "ContactTypes");
+
+            foreach(IWebElement txtFieldError in listRecordTypes)
+
+            {
+
+                recordTypeFound = false;
+
+                string actualRecordType = txtFieldError.Text.Trim();
+
+                for(int row = 2; row <= rowOpp; row++)
+
+                {
+
+                    string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1);
+
+                    if(actualRecordType == valRecordTypeExl)
+
+                    {
+
+                        recordTypeFound = true;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+            return recordTypeFound;
+
+        }
+
     }
 }

@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
-using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.Company;
 using SF_Automation.Pages.HomePage;
+using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Companies
+namespace SalesForce_Project.TestCases.Company
 {
-    class T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation : BaseClass
+    class LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -21,8 +21,9 @@ namespace SF_Automation.TestCases.Companies
         CompanyEditPage companyEdit = new CompanyEditPage();
         UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
+        LVHomePage homePageLV = new LVHomePage();
 
-        public static string fileTC1147 = "T1147_Companies_EditAndUpdateTheExistingInformation.xlsx";
+        public static string fileTC1147 = "LV_T1147_CompaniesEditAndUpdateTheExistingInformation";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -34,13 +35,12 @@ namespace SF_Automation.TestCases.Companies
         }
 
         [Test]
-        public void EditAndUpdateCompanyExistingInformation()
+        public void EditAndUpdateCompanyExistingInformationLV()
         {
             try
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC1147;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -54,48 +54,59 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 // Search standard user by global search
-                string user = ReadExcelData.ReadData(excelPath, "Users", 1);
-                homePage.SearchUserByGlobalSearch(fileTC1147, user);
-                string userPeople = homePage.GetPeopleOrUserName();
-                string userPeopleExl = ReadExcelData.ReadData(excelPath, "Users", 1);
-                Assert.AreEqual(userPeopleExl, userPeople);
-                extentReports.CreateLog("User " + userPeople + " details are displayed ");
-
-                //Login as standard user
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
                 usersLogin.LoginAsSelectedUser();
-                string StandardUser = login.ValidateUser();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Users", 1).Contains(StandardUser), true);
-                extentReports.CreateLog("Standard User: " + StandardUser + " is able to login ");
+                login.SwitchToLightningExperience();
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+
+                string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectAppLV(appNameExl);
+                string appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+
+                string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+
 
                 // Calling Search Company function
-                companyHome.SearchCompany(fileTC1147, ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1));
-               
-                string companyDetailHeading = companyDetail.GetCompanyDetailsHeading();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 3), companyDetailHeading);
+
+                string companyNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
+                companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
+
+                string companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
+                Assert.AreEqual(companyNameExl, companyDetailHeading);
                 extentReports.CreateLog("Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
 
                 // Update existing company details
-                companyEdit.UpdateExistingCompanyDetails(fileTC1147);
+                companyEdit.UpdateExistingCompanyDetailsLV(fileTC1147);
                 extentReports.CreateLog("Existing company details are updated sucessfully. ");
 
                 //Validated updated address
-                string companyCompleteAddress = companyDetail.GetCompanyCompleteAddress();
-                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 6) + "\r\n" + ReadExcelData.ReadData(excelPath, "Company", 7)+", " + ReadExcelData.ReadData(excelPath, "Company", 8) +" "+ ReadExcelData.ReadData(excelPath, "Company", 9) + "\r\n"+ ReadExcelData.ReadData(excelPath, "Company", 5), companyCompleteAddress);
+                string companyCompleteAddress = companyDetail.GetCompanyCompleteAddressLV();
+                Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 6) + " " + ReadExcelData.ReadData(excelPath, "Company", 7) + ", " + ReadExcelData.ReadData(excelPath, "Company", 8) + " " + ReadExcelData.ReadData(excelPath, "Company", 9) + " " + ReadExcelData.ReadData(excelPath, "Company", 5), companyCompleteAddress);
                 extentReports.CreateLog("Updated Company address: " + companyCompleteAddress + " includes street,city,state,zip code and country in edit company page matches on company details page ");
 
                 //Validate company text description
-                string companyDesc = companyDetail.GetCompanyDescription();
+                string companyDesc = companyDetail.GetCompanyDescriptionLV();
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 10), companyDesc);
                 extentReports.CreateLog("Updated Company description: " + companyDesc + " in edit company page matches on company details page ");
 
-                usersLogin.UserLogOut();
-                usersLogin.UserLogOut();
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
-        }
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
+                login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

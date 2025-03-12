@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using static NUnit.Framework.Internal.OSPlatform;
 
 namespace SF_Automation.Pages.Companies
@@ -22,9 +21,8 @@ namespace SF_Automation.Pages.Companies
         By btnAddActivity = By.XPath("//header//button[text()='Add Activity']");
         By btnSaveActivity = By.XPath("//button[text()='Save']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
-        By reqFieldErrMsg = By.XPath("//label[text()='Subject']/following::div[2]");
         By btnLVPopupClose = By.XPath("//button[contains(@class,'toastClose')]");
-        By tableActivities = By.XPath("(//div[contains(@class,'table_header')]//table)[3]");
+        By tableActivities = By.XPath("//div[contains(@class,'table_header')]//table");
         By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
         By txtDefaultCompanyDiscussed = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForAccount')]//lightning-pill//span[contains(@class,'pill__label')]");
         By btnCreateNewTask = By.XPath("//button[text()='Create New Task']");
@@ -42,22 +40,17 @@ namespace SF_Automation.Pages.Companies
         By headerFollowup= By.XPath("//h2//span[@title='Schedule Followup']");
         By chkPrivate = By.XPath("//span[text()='Private']//parent::label");
 
-        By btnEdit = By.XPath("(//button[text()='Edit'])[2]");
-
         //By btnDialogDone = By.XPath("//div[@role='dialog']//div[contains(@class,'modal-footer')]//button");
         By txtUploadedFile = By.XPath("//lightning-file-upload//following-sibling::lightning-datatable//table//td[@data-label='File Name']//a");
         By iFrameExternal = By.XPath("//iframe[@title='External Web Page']");
         By iFrameEmailTemplate = By.XPath("//iframe[contains(@title,'Rich Text Editor')]");
         By txtEmailTemplate = By.XPath("//body[contains(@id,'SendEmail')]");
 
-        By chckPrimarySelection = By.XPath("//lightning-input[@data-class='primaryCheckInternal']");
-
         //Tabs for CF Financial/System Admin User
         By tabInfo = By.XPath("//a[@data-label='Info']");
         By tabPitchBook = By.XPath("//a[@data-label='PitchBook']");
         By tabCoverage = By.XPath("//a[@data-label='Coverage']");
         By tabActivity = By.XPath("//a[@data-label='Activity']");
-
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
 
         private By _btnActivityStartDate(string btnName)
@@ -65,7 +58,7 @@ namespace SF_Automation.Pages.Companies
             return By.XPath($"//div[contains(text(),'{btnName}')]//ancestor::button");
         }
 
-        private By _btnActivityDetailPage(string btnName)
+        private By _btnActivityListPage(string btnName)
         {
             return By.XPath($"//button[text()='{btnName}']");
         }
@@ -88,74 +81,47 @@ namespace SF_Automation.Pages.Companies
                 return driver.FindElement(chartActivities).Displayed;                
             }catch { return false; }            
         }
-
         public string DefaultDateSelection(string btnName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityStartDate(btnName), 20);
             return driver.FindElement(_btnActivityStartDate(btnName)).GetAttribute("aria-pressed").ToString();
         }
-
         public string ClickSaveButton(string btnName)
         {
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();
+            driver.FindElement(_btnActivityListPage(btnName)).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
             return driver.FindElement(msgLVPopup).Text;
         }
-
-        public string GetRequiredFieldErrorMsg()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, reqFieldErrMsg, 20);
-            string toastMsg= driver.FindElement(reqFieldErrMsg).Text;
-            return toastMsg;
-        }
-
         public string GetLVMessagePopup()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
-            string toastMsg = driver.FindElement(msgLVPopup).Text;
+            string toastMsg= driver.FindElement(msgLVPopup).Text;
+            driver.FindElement(btnLVPopupClose).Click();
             return toastMsg;
         }
-
-        public void CloseTab(string tabName)
-        {
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
-            Thread.Sleep(5000);
-        }
-
         public void ClickActivityDetailPageButton(string btnName)
         {
             //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             //jse.ExecuteScript("arguments[0].scrollIntoView();", _btnActivityDetailPage(btnName));
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityDetailPage(btnName)));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityListPage(btnName)));
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityDetailPage(btnName), 20);
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityListPage(btnName), 20);
+            driver.FindElement(_btnActivityListPage(btnName)).Click();            
         }
-
-        public void ClickEditButton()
+        public bool IsActivityListDisplayedLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
-            driver.FindElement(btnEdit).Click();
-        }
-
-        public bool IsActivityListDisplayed()
-        {
-            Thread.Sleep(3000);
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tableActivities, 20);
                 return driver.FindElement(tableActivities).Displayed;
             }catch { return false; }
         }
-
         public string GetDefaultPrimaryHlAttandeeHLAttandee()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultHLAttandee, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtDefaultHLAttandee));            
             return driver.FindElement(txtDefaultHLAttandee).Text;
         }
-
         public string GetDefaultCompaniesDiscussed()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultCompanyDiscussed, 20);
@@ -197,7 +163,6 @@ namespace SF_Automation.Pages.Companies
             }
             return isSame;
         }
-
         public bool VerifyActivityDetailPageFileUploadButton()
         {
             try
@@ -208,7 +173,6 @@ namespace SF_Automation.Pages.Companies
             }
             catch { return false; }            
         }
-
         public bool VerifyActivityDetailPageStatus()
         {
             try
@@ -216,7 +180,6 @@ namespace SF_Automation.Pages.Companies
                 return driver.FindElement(txtSubject).Enabled;
             }catch { return false; }   
         }
-
         public void UpdateActivity(string updateSubject)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtSubject, 10);
@@ -225,7 +188,6 @@ namespace SF_Automation.Pages.Companies
             ////Click Save
             //driver.FindElement(btnSave).Click();
         }
-
         //Create Followup 
         public void CreateFollowup(string file)
         {
@@ -274,7 +236,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, areaFollowuoComments);
             areaFollowuoComments.SendKeys(commentsFollowup);
         }
-
+        By chckPrimarySelection = By.XPath("//lightning-input[@data-class='primaryCheck']");
         public string GetPrimaryHlAttandeeHLAttandee()
         {
             string contactName="";
@@ -282,9 +244,9 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(chckPrimarySelection));
             for (int recordIndex = 1; recordIndex <= recordCount; recordIndex++)
             {
-                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheckInternal'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
+                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
                 {
-                    contactName = driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheckInternal'])[{recordIndex}]//ancestor::header//h2//span")).Text;
+                    contactName = driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//ancestor::header//h2//span")).Text;
                     break;
                 }
             }
@@ -295,7 +257,6 @@ namespace SF_Automation.Pages.Companies
         {
             driver.FindElement(By.XPath($"//lightning-pill//span[@title='{name}']//parent::span//lightning-button-icon//button")).Click();
         }
-
         public void ClickDicsussionItemName(string item)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -329,7 +290,6 @@ namespace SF_Automation.Pages.Companies
             return driver.FindElement(txtUploadedFile).Text;
 
         }
-
         public string GetEmailTemplate()
         {
             Thread.Sleep(10000);
@@ -350,7 +310,7 @@ namespace SF_Automation.Pages.Companies
             bool result = false;
             Thread.Sleep(5000);
             string comp = driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text;
-            if (companyName == comp)
+            if(companyName == comp)
             {
                 result = true;
             }
@@ -390,5 +350,52 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnDeleteActivity).Click();
             Thread.Sleep(2000);
         }
+
+        public bool IsActivityListDisplayed()
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tableActivities, 20);
+                return driver.FindElement(tableActivities).Displayed;
+            }
+            catch { return false; }
+        }
+
+        //public void CreateActivityFollowupCompanyDetailPage()
+        //{
+        //    //Click on Create New Task button
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewTask, 20);
+        //    CustomFunctions.MoveToElement(driver, driver.FindElement(btnCreateNewTask));
+        //    driver.FindElement(btnCreateNewTask).Click();
+        //    Thread.Sleep(3000);
+
+        //    //Enter Followup  details
+        //    driver.FindElement(dropdownFollowupType).Click();
+        //    Thread.Sleep(2000);
+        //    driver.FindElement(_comboDropdown(typeFollowup)).Click();
+        //    Thread.Sleep(2000);
+
+        //    DateTime currentDate = DateTime.Today;
+        //    DateTime setDate = currentDate.AddDays(2);
+        //    driver.FindElement(txtDate).Clear();
+        //    driver.FindElement(txtDate).SendKeys(setDate.ToString("dd-MMM-yyyy"));
+
+
+        //    driver.FindElement(dropdownFolloupFrom).Click();
+        //    Thread.Sleep(2000);
+        //    driver.FindElement(_comboDropdown(fromFollowup)).Click();
+
+        //    driver.FindElement(dropdownFolloupTo).Click();
+        //    Thread.Sleep(2000);
+        //    driver.FindElement(_comboDropdown(toFollowup)).Click();
+
+        //    driver.FindElement(txtAreaFollowuoComments).SendKeys(commentsFollowup);
+
+
+        //    //Click Save
+        //    driver.FindElement(btnSave).Click();
+
+        //}
     }
 }

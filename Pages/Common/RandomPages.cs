@@ -112,7 +112,23 @@ namespace SF_Automation.Pages.Common
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
-        
+
+        By chkVerballyEngL = By.XPath("//input[@name='Verbally_Engaged__c']");
+        By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
+
+        By lnkRefereshTabL = By.XPath("//ul//li[@title='Refresh Tab']/a");
+        public void RefreshActiveTab(string name)
+        {
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _TabEle("'Actions for " + name + "'"), 10);
+            IWebElement closeTabIcon = driver.FindElement(_TabEle("'Actions for " + name + "'"));
+            closeTabIcon.Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRefereshTabL, 5);
+            driver.FindElement(lnkRefereshTabL).Click();
+            Thread.Sleep(8000);
+        }
 
         private By _optionListView(string name)
         {
@@ -1190,6 +1206,23 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(tabMoreFullViewL).Click();
             }
             Thread.Sleep(10000);
-        }        
+        }
+
+        public bool GetVerballyEngCheckboxStatusLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
+            Thread.Sleep(2000);
+            return driver.FindElement(chkVerballyEngL).Selected;
+        }
+
+        public string GetPopUpMessagelV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 10);
+            string toasMsg = driver.FindElement(toastMsgPopup).Text;
+            Thread.Sleep(2000);
+            return toasMsg;
+        }
     }
 }

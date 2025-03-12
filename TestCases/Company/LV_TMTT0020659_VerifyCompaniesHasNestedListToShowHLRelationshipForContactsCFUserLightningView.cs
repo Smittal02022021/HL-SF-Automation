@@ -1,5 +1,4 @@
-﻿using AventStack.ExtentReports;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
@@ -11,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046471_46475_46470_46476_VerifyCompaniesHasNestedListToShowHLRelationshipForContacts : BaseClass
+    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUserLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -20,6 +19,7 @@ namespace SF_Automation.TestCases.Companies
         CompanyHomePage companyhome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
         ContactDetailsPage contactDetails = new ContactDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTI0046471 = "TMTI0046471_VerifyCompaniesHasNestedListToShowHLRelationshipForContacts";
 
@@ -38,7 +38,7 @@ namespace SF_Automation.TestCases.Companies
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void VerifyCompaniesHasNestedListToShowHLRelationshipForContactsLV()
+        public void VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUserLV()
         {
             try
             {
@@ -51,21 +51,25 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 // Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 //Login again as CF Financial User
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchCFUserAndLogin(valUser);
-                string cfUser = login.ValidateUser();
-                Assert.AreEqual(cfUser.Contains(valUser), true);
-                extentReports.CreateLog("CF User: " + cfUser + " logged in ");
+                //usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
 
-                //Switching to LightningView
                 login.SwitchToLightningExperience();
-                homePageLV.ClickAppLauncher();
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
+                //homePageLV.ClickAppLauncher();
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
 
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -74,59 +78,51 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateLog(moduleNameExl + ": Module is selected from menu ");
-
                 int companiesRowsCountExl = ReadExcelData.GetRowCount(excelPath, "Companies");
 
                 for (int row = 2; row <= companiesRowsCountExl; row++)
                 {
-
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyhome.SearchCompanyInLightning(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
-                    string valueCompanyType = companyDetails.GetCompanyTypeL();
+                    string valueCompanyType = companyDetails.GetCompanyTypeLV();
                     Assert.AreEqual(companyTypeExl, valueCompanyType);
                     extentReports.CreateLog("Selected Company Type is " + valueCompanyType + " ");
 
                     //Go to Contacts tab from Company detail page
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
-                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Contacts Detail section Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Detail section Displayed after clicking on " + tabNameExl + " Tab ");
 
                     //Verify that there will be Nested List to show HL Relationship displaying for Contacts.
                     contactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Contacts", row, 1);
-                    Assert.IsTrue(companyDetails.IsContactNestedListHLRelationshipL(contactNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
+                    Assert.IsTrue(companyDetails.IsContactNestedListHLRelationshipLV(contactNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
                     extentReports.CreateLog("Nested List is Displayed to show HL Relationship for Contact:  " + contactNameExl + " for "+ valueCompanyType+" Company ");
 
                     //TMTI0046475,TMTI0046476- Verify that Contact is showing same nested HL Relationship that exists in Contacts detail page.
-                    string txtHeaderNestedList = companyDetails.ClickContactNestedListHLRelationshipL(contactNameExl);
+                    string txtHeaderNestedList = companyDetails.ClickContactNestedListHLRelationshipLV(contactNameExl);
                     Assert.IsTrue(txtHeaderNestedList.Contains("Relationship"));
-                    string companyHLRelationContact= companyDetails.GetCompanyHLRelationshipContactL();
+                    string companyHLRelationContact= companyDetails.GetCompanyHLRelationshipContactLV();
                     extentReports.CreateLog("HL Relationship Contact from Nested List on Company Detail Page :  " + companyHLRelationContact + " ");
                     
-                    companyDetails.ClickCompanyNestedContactL(contactNameExl);                  
+                    companyDetails.ClickCompanyNestedContactLV(contactNameExl);                  
                     // On Contact Detail page click Relationship
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName",2);
-                    tabDetailPageDisplayed = contactDetails.ClickContactDetailsPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = contactDetails.ClickContactDetailsPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Contacts Detail section Displayed after clicking on Opportunities Tab ");
 
-                    string contactHLRelationshipContact = contactDetails.GetContactHLRelationshipCotactL();
-                    extentReports.CreateLog("HL Relationship Contact from Nested List on Contact Detail Page :  " + contactHLRelationshipContact + " ");
-                    
+                    string contactHLRelationshipContact = contactDetails.GetContactHLRelationshipCotactLV();
+                    extentReports.CreateLog("HL Relationship Contact from Nested List on Contact Detail Page :  " + contactHLRelationshipContact + " ");                    
                     Assert.AreEqual(companyHLRelationContact, contactHLRelationshipContact);
-
-
-                    companyDetails.CloseCompanyTabL(companyNameExl);
+                    companyDetails.CloseCompanyTabLV(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
-
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged out ");
+                homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception ex)
             {
@@ -134,7 +130,6 @@ namespace SF_Automation.TestCases.Companies
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
             }
         }
     }

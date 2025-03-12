@@ -42,5 +42,76 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
             }
         }
+
+        public bool IsIndustryGroupAvailableOnCampaignPageLV(string valIndustryGroup)
+
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+
+            //Thread.Sleep(5000);
+
+            int scrollCounter = 0;
+
+            By typeIGL = By.XPath($"//table[@aria-label='CF Campaigns']//tbody/tr/td[4]//span[text()='{valIndustryGroup}']");
+
+            bool isIndustryGroupfound = false;
+
+            IWebElement elmIGType;
+
+        Check: try
+
+            {
+
+                elmIGType = driver.FindElement(typeIGL);
+
+                Thread.Sleep(2000);
+
+                CustomFunctions.MoveToElement(driver, elmIGType);
+
+                if(elmIGType.Displayed)
+
+                {
+
+                    isIndustryGroupfound = true;
+
+                    //break;
+
+                }
+
+            }
+
+            catch(Exception e)
+
+            {
+
+                js.ExecuteScript("window.scrollTo(0,100)");
+
+                scrollCounter++;
+
+                Thread.Sleep(2000);
+
+                if(scrollCounter <= 5)
+
+                {
+
+                    goto Check;
+
+                }
+
+                else
+
+                {
+
+                    goto Exit;// No record found till 5 time scroll on screen                  
+
+                }
+
+            }
+
+        Exit: return isIndustryGroupfound;
+
+        }
+
     }
 }

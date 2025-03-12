@@ -1,9 +1,14 @@
 ﻿using OpenQA.Selenium;
+using SalesForce_Project.TestCases.GiftLog;
 using SF_Automation.Pages.Companies;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Timers;
+using System.Web;
 
 namespace SF_Automation.Pages.Company
 {
@@ -19,6 +24,142 @@ namespace SF_Automation.Pages.Company
         By comboTier = By.CssSelector("table[class='detailList'] > tbody > tr:nth-child(7) >td:nth-child(2) > div >  span > select");
         By btnSave = By.CssSelector("td[id='bottomButtonRow'] > input[name='save']");
         By btnEdit = By.CssSelector("div[id*='D7bV0_body']> table > tbody > tr > td:nth-child(1)");
+        By btnNexRecordTypetL = By.XPath("//div[@class='slds-modal__footer']//button[text()='Next']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By btnNewSponsorCoverageL = By.XPath("//h2//span[text()='Sponsor Coverage']//ancestor::article//button[text()='New']");
+        By btnNewIndustryCoverageL = By.XPath("//h2//span[text()='Industry Coverage']//ancestor::article//button[text()='New']");
+        
+        By txtReqFields = By.XPath("//div[@class='fieldLevelErrors']//li//a");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        By inputOfficeL = By.XPath("//label[text()='Officer']/..//input");
+        By inputContactNameL = By.XPath("//input[@title='Search Contacts']/..//li//a//div[@title='{name}']");
+        By comboCovegareTierL = By.XPath("//label[text()='Tier']/..//button");
+        By comboCoverageLevelL = By.XPath("//label[text()='Coverage Level']/..//button");
+        By comboCovegareTypeL = By.XPath("//label[text()='Type']/..//button");
+        By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
+        
+             
+        
+        public string UpdateCoverageTeamTierLV(string tier)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, comboCovegareTierL, 10);
+            driver.FindElement(comboCovegareTierL).Click();
+            By elmCovTier = By.XPath($"//label[text()='Tier']/..//lightning-base-combobox-item//span[@title='{tier}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmCovTier, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovTier));
+            driver.FindElement(elmCovTier).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 5);
+            string toasMsg = driver.FindElement(toastMsgPopup).Text;
+            Thread.Sleep(8000);
+            return toasMsg;
+        }
+
+        //public string UpdateSponsorCoverageTeamTierLV(string tier)
+        //{
+        //    WebDriverWaits.WaitUntilEleVisible(driver, comboCovegareTierL, 10);
+        //    driver.FindElement(comboCovegareTierL).Click();
+        //    By elmCovTier = By.XPath($"//label[text()='Tier']/..//lightning-base-combobox-item//span[@title='{tier}']");
+        //    WebDriverWaits.WaitUntilEleVisible(driver, elmCovTier, 10);
+        //    CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovTier));
+        //    driver.FindElement(elmCovTier).Click();
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+        //    driver.FindElement(btnSaveDetailsL).Click();
+        //    WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 5);
+        //    string toasMsg = driver.FindElement(toastMsgPopup).Text;
+        //    Thread.Sleep(8000);
+        //    return toasMsg;
+        //}
+
+
+
+        public string AddNewCoverageTeamLV(string officerName, string tier, string level, string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputOfficeL, 10);
+            driver.FindElement(inputOfficeL).SendKeys(officerName);
+            By elmOfficer = By.XPath($"//label[text()='Officer']/..//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{officerName}']");
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOfficer, 10);
+            driver.FindElement(elmOfficer).Click();
+
+            driver.FindElement(comboCovegareTierL).Click();
+            By elmCovTier= By.XPath($"//label[text()='Tier']/..//lightning-base-combobox-item//span[@title='{tier}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmCovTier, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovTier));
+            driver.FindElement(elmCovTier).Click();
+
+            driver.FindElement(comboCoverageLevelL).Click();
+            By elmCovlevel = By.XPath($"//label[text()='Coverage Level']/..//lightning-base-combobox-item//span[@title='{level}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmCovlevel, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovlevel));
+            driver.FindElement(elmCovlevel).Click();
+
+            driver.FindElement(comboCovegareTypeL).Click();
+            By elmCovType = By.XPath($"//label[text()='Type']/..//lightning-base-combobox-item//span[@title='{type}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmCovType, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovType));
+            driver.FindElement(elmCovType).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+            driver.FindElement(btnSaveDetailsL).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 5);
+            string toasMsg = driver.FindElement(toastMsgPopup).Text;
+            Thread.Sleep(2000);
+            return toasMsg;
+
+        }
+        public string GetNewCoverageTeamReqFieldsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReqFields, 10);
+            IList<IWebElement> fieldLevelErrors = driver.FindElements(txtReqFields);
+            string formatedReqFieldLabels = "";
+            foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
+            {
+                string fieldLevelError = txtFieldLevelError.Text;
+                string formatedfieldLevelLabels = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
+                formatedReqFieldLabels = formatedReqFieldLabels + formatedfieldLevelLabels;
+            }
+            //driver.FindElement(iconCloseErrorL).Click();
+            Thread.Sleep(2000);
+            return formatedReqFieldLabels;
+        }
+        public void ClickSaveNewCoverageTeamButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+
+        public void ClickNewButtonSponsorCoverageDisplayedLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewSponsorCoverageL, 10);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNewSponsorCoverageL));
+        }
+        public void ClickCancelNewCoverageTeamButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 10);
+            driver.FindElement(btnCancelL).Click();
+        }
+        public bool IsNewButtonSponsorCoverageDisplayedLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewSponsorCoverageL, 10);
+            return driver.FindElement(btnNewSponsorCoverageL).Displayed;
+        }
+        public bool IsNewButtonIndustryCoverageDisplayedLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewIndustryCoverageL, 10);
+            return driver.FindElement(btnNewIndustryCoverageL).Displayed;
+        }
+       
+        public void ClickNextButtonRecordTypeLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNexRecordTypetL, 10);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNexRecordTypetL));
+        }
 
         public void AddNewCoverageTeam(string file, int number)
         {

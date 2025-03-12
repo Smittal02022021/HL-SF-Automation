@@ -164,6 +164,30 @@ namespace SF_Automation.Pages.Contact
         By btnCancel = By.CssSelector("input[value='Cancel']");
         By comboIG = By.CssSelector("select[id*='Fl4Bb']");
         By comboIGOptions = By.CssSelector("select[id*='Fl4Bb'] option");
+
+        By btnConfirmDeleteL = By.XPath("//div[@role='dialog']//button[@title='Delete']");
+        By btnDeleteL = By.XPath("//button[text()='Delete']");
+        By iconExpandMoreButonL = By.XPath("//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')]");
+        By linkDeleteL = By.XPath("//a/span[contains(text(),'Delete')]");
+
+        By txtNumberRelationshipL = By.XPath("//records-entity-label[text()='Relationship']/../../..//slot//lightning-formatted-text");
+        By btnEditRelationshipL = By.XPath("//records-entity-label[text()='Relationship']//ancestor::h1/../../..//button[text()='Edit']");
+        By btnDeleteRelationshipL = By.XPath("//records-entity-label[text()='Relationship']//ancestor::h1/../../..//button[text()='Delete']");
+        By inputPersonalNotesL = By.XPath("//label[text()='Personal Note']/..//textarea");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
+        By lnkViewDetailL = By.XPath("//table[@aria-label='HL Relationships']//tbody//th[@data-label='View Details']//a");
+        By comboContactStatusL = By.XPath("//label[text()='Status']/..//button");
+        By inputDepartureDateL = By.XPath("//label[text()='Departure Date']/..//input");
+        By txtStatusL = By.XPath("//span[text()='Status']/../../..//lightning-formatted-text");
+        By btnEditL = By.XPath("//button[@name='Edit']");
+
+        By btnEditContactL = By.XPath("//div[contains(@class,'region-header')]//li//button[@name='Edit']");
+        By btnCancelDetailsL = By.XPath("//button[@name='CancelEdit']");
+        By comboIGL = By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'RecordIndustry_Group')]//lightning-base-combobox//button");
+        By comboSTL = By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'Staff_Type')]//lightning-base-combobox//button");
+        By comboIGOptionsL = By.XPath("//div[contains(@class,'modal-body')]//flexipage-field[contains(@data-field-id,'RecordIndustry_Group')]//lightning-base-combobox//lightning-base-combobox-item//span[2]//span");
+
         private By _tabContactDetailPageL(string name)
         {
             return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
@@ -1406,6 +1430,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLRelationshipContactL, 30);
             return driver.FindElement(txtContactHLRelationshipContactL).GetAttribute("title");
         }
+
         public bool IsIndustryTypePresentInDropdownContactDetailPage(string IndustryType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
@@ -1426,6 +1451,155 @@ namespace SF_Automation.Pages.Contact
             }
             driver.FindElement(btnCancel).Click();
             return isFound;
+        }
+
+        public void DeleteContactLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteL, 5);
+                driver.FindElement(btnDeleteL).Click();
+            }
+            catch(Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkDeleteL, 10);
+                driver.FindElement(linkDeleteL).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 20);
+            driver.FindElement(btnConfirmDeleteL).Click();
+        }
+
+        public string GetContactStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtStatusL, 10);
+            return driver.FindElement(txtStatusL).Text;
+        }
+
+        public bool ClickContactDetailsPageTabLV(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageL(value), 30);
+            driver.FindElement(_tabContactDetailPageL(value)).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, _tabContactDetailPageHeaderL(value), 30);
+                return driver.FindElement(_tabContactDetailPageHeaderL(value)).Displayed;
+            }
+            catch { return false; }
+        }
+
+        public string GetContactHLRelationshipCotactLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLRelationshipContactL, 30);
+            return driver.FindElement(txtContactHLRelationshipContactL).GetAttribute("title");
+        }
+                
+        public bool IsIndustryTypePresentInDropdownContactDetailPageLV(string IndustryType)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditContactL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditContactL));
+            driver.FindElement(btnEditContactL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIGL, 30);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboSTL));
+            driver.FindElement(comboIGL).Click();
+            Thread.Sleep(1000);
+            bool isFound = false;
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIGOptionsL);
+            var actualValue = valTypes.Select(x => x.Text).ToArray();
+            for(int row = 0; row <= actualValue.Length; row++)
+            {
+                string comboValue = actualValue[row];
+                if(comboValue.Contains(IndustryType))
+                {
+                    isFound = true;
+                    break;
+                }
+            }
+            driver.FindElement(btnCancelDetailsL).Click();
+            return isFound;
+        }
+
+
+        public void UpdateContactStatusLV(string status)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboContactStatusL, 10);
+            driver.FindElement(comboContactStatusL).Click();
+            By elmStatus = By.XPath($"//label[text()='Status']/..//lightning-base-combobox-item//span[@title='{status}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmStatus, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmStatus));
+            driver.FindElement(elmStatus).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputDepartureDateL));
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDepartureDateL, 10);
+            if(status == "Inactive")
+            {
+                driver.FindElement(inputDepartureDateL).Clear();
+                driver.FindElement(inputDepartureDateL).SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+            }
+            else
+            {
+                driver.FindElement(inputDepartureDateL).Clear();
+            }
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 10);
+        }
+
+        public void ClickViewDetailRelationshipLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewDetailL, 10);
+            driver.FindElement(lnkViewDetailL).Click();
+        }
+
+        public string GetRelationshipNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtNumberRelationshipL, 10);
+            return driver.FindElement(txtNumberRelationshipL).Text;
+        }
+
+        public void ClickEditRelationButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRelationshipL, 10);
+            driver.FindElement(btnEditRelationshipL).Click();
+            Thread.Sleep(2000);
+        }
+
+        public string UpdateRelationshipDetailsNotesLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPersonalNotesL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputPersonalNotesL));
+            driver.FindElement(inputPersonalNotesL).SendKeys("Personal Note");
+            Thread.Sleep(3000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 10);
+            string toasMsg = driver.FindElement(toastMsgPopup).Text;
+            Thread.Sleep(5000);
+            return toasMsg;
+        }
+
+        public void DeleteHLRelationshipLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            try
+            {
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRelationshipL, 5);
+                driver.FindElement(btnDeleteRelationshipL).Click();
+            }
+            catch(Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, linkDeleteL, 10);
+                driver.FindElement(linkDeleteL).Click();
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 20);
+            driver.FindElement(btnConfirmDeleteL).Click();
         }
     }
 }

@@ -2,6 +2,7 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -9,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class TMTI0046479_46477_46473_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage:BaseClass
+    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLightningView:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -17,6 +18,8 @@ namespace SF_Automation.TestCases.Companies
         LVHomePage homePageLV = new LVHomePage();
         CompanyHomePage companyhome = new CompanyHomePage();
         CompanyDetailsPage companyDetails = new CompanyDetailsPage();
+        HomeMainPage homePage = new HomeMainPage();
+        CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
 
         public static string fileTMTI0046479 = "TMTI0046479_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage";
 
@@ -34,6 +37,10 @@ namespace SF_Automation.TestCases.Companies
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+
+        //TMTI0046477,TMTI0046479-Verify that for Capital Provider & Operating Company companies, Nested List to show Coverage Sector is displaying for Coverage.
+        //TMTI0046473-Verify that Officer Name is showing same nested Coverage sector that exists in Contacts detail page
+        //TMT0076445	Verify that the Nested List to show the Coverage Sector is displaying for the Industry Coverage Officer
         [Test]
         public void VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLV()
         {
@@ -48,21 +55,28 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 // Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
                 //Login again as CF Financial User
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchCFUserAndLogin(valUser);
-                string cfUser = login.ValidateUser();
-                Assert.AreEqual(cfUser.Contains(valUser), true);
-                extentReports.CreateLog("CF User: " + cfUser + " logged in ");
+                //usersLogin.SearchUserAndLogin(valUser);
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+
+                login.SwitchToLightningExperience();
+                string stdUser = login.ValidateUserLightningView();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
 
                 //Switching to LightningView
                 login.SwitchToLightningExperience();
-                homePageLV.ClickAppLauncher();
+                //homePageLV.ClickAppLauncher();
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectApp(appNameExl);
+                homePageLV.SelectAppLV(appNameExl);
 
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -80,62 +94,60 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
-                    string valueCompanyType = companyDetails.GetCompanyTypeL();
+                    string valueCompanyType = companyDetails.GetCompanyTypeLV();
                     Assert.AreEqual(companyTypeExl, valueCompanyType);
                     extentReports.CreateLog("Selected Company Type is " + valueCompanyType + " ");
 
                     //TMTI0046477,TMTI0046479-Verify that for Capital Provider & Operating Company companies, Nested List to show Coverage Sector is displaying for Coverage.
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
-                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabL(tabNameExl);
+                    tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Coverage Detail section Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Detail section Displayed after clicking on " + tabNameExl + " Tab ");
 
                     //Verify that there will be Nested List to show HL Relationship displaying for Contacts.
+                    //TMT0076445	Verify that the Nested List to show the Coverage Sector is displaying for the Industry Coverage Officer
                     coverageOfficerNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageOfficer", row, 1);
-                    Assert.IsTrue(companyDetails.IsCoverageNestedListOfficerL(coverageOfficerNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
-                    extentReports.CreateLog("Nested List is Displayed to show HL Relationship for Coverage Officer:  " + coverageOfficerNameExl + " for " + valueCompanyType + " Company ");
+                    Assert.IsTrue(companyDetails.IsCoverageNestedListOfficerLV(coverageOfficerNameExl), "Verify that there will be Nested List to show HL Relationship displaying for Contacts");
+                    extentReports.CreateStepLogs("Passed", "Nested List is Displayed to show HL Relationship for Industry Coverage Officer:  " + coverageOfficerNameExl + " for " + valueCompanyType + " Company ");
 
-                    string txtHeaderNestedList = companyDetails.ClickCoverageNestedList(coverageOfficerNameExl);
+                    string txtHeaderNestedList = companyDetails.ClickCoverageNestedListLV(coverageOfficerNameExl);
                     Assert.IsTrue(txtHeaderNestedList.Contains("Coverage"));
                     extentReports.CreateLog("Nested List of Coverage is displayed for Coverage Officer" + coverageOfficerNameExl + "  ");
                     
                     //Get Coverage Type from Nested List of Coverage Officer
-                    string txtCompanyOfficeNameCoverageType = companyDetails.GetCompanyOfficeNameCoverageTypeL();
-                    extentReports.CreateLog("Coverage type for selected officer in nested list " + txtCompanyOfficeNameCoverageType + " ");
-                    
-                    companyDetails.ClickNestedCoverageTeamOfficerL(coverageOfficerNameExl);
+                    string txtCompanyOfficeNameCoverageType = companyDetails.GetCompanyOfficeNameCoverageTypeLV();
+                    extentReports.CreateLog("Coverage type for selected officer in nested list " + txtCompanyOfficeNameCoverageType + " ");                    
+                    companyDetails.ClickNestedCoverageTeamOfficerLV(coverageOfficerNameExl);
                    
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
-                    bool IsCoverageTeamDetailsPageDisplayed = companyDetails.IsCoverageTeamDetailsPageDisplayedL(tabNameExl);
+                    bool IsCoverageTeamDetailsPageDisplayed = companyDetails.IsCoverageTeamDetailsPageDisplayedLV(tabNameExl);
                     Assert.IsTrue(IsCoverageTeamDetailsPageDisplayed, "Verify User is on Coverage Team Detail Page ");
                     extentReports.CreateLog("User is on Coverage Team Detail Page ");
 
-                    string txtCoverageTeamCompanyName = companyDetails.GetCoverageTeamCompanyNameL();
+                    string txtCoverageTeamCompanyName = companyDetails.GetCoverageTeamCompanyNameLV();
                     Assert.AreEqual(txtCoverageTeamCompanyName, companyNameExl);
                     extentReports.CreateLog("Coverage Team Company name is " + txtCoverageTeamCompanyName + " ");
 
                     //TMTI0046473-Verify that Officer Name is showing same nested Coverage sector that exists in Contacts detail page
-                    string txtCoverageOfficerName = companyDetails.GetCoverageOfficerNameL();
+                    string txtCoverageOfficerName = companyDetails.GetCoverageOfficerNameLV();
                     Assert.AreEqual(txtCoverageOfficerName, coverageOfficerNameExl);
                     extentReports.CreateLog("Coverage Officer Name: " + txtCoverageOfficerName + " Detail Page ");
 
                     //Match Coverage type of selected Officer Name from Company Detail Page.
-                    companyDetails.ClickCoverageSectorPanelL();
-                    string txtOfficerCoverageType = companyDetails.GetOfficerCoverageTypeL();
+                    coverageTeamDetail.ClickCoverageSectorPanelLV();
+                    string txtOfficerCoverageType = companyDetails.GetOfficerCoverageTypeLV();
                     Assert.AreEqual(txtOfficerCoverageType, txtCompanyOfficeNameCoverageType);
                     extentReports.CreateLog("Officer Coverage Type is " + txtOfficerCoverageType + " on Coverage Detail Page ");
 
                     //companyDetails.CloseCompanyTabL(companyNameExl);
-                    companyDetails.CloseCoverageTeamDetailPageL();
+                    companyDetails.CloseCoverageTeamDetailPageLV();
                     extentReports.CreateLog(companyNameExl + ": Coverage Team Tab Closed ");
-                    //companyDetails.CloseCompanyTabL(companyNameExl);
-                    //extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
+                    companyDetails.CloseCompanyTabLV(companyNameExl);
+                    extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
-                extentReports.CreateLog("User Logged out ");
+                homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                extentReports.CreateStepLogs("Info", "Browser Closed");
             }
             catch (Exception ex)
             {
