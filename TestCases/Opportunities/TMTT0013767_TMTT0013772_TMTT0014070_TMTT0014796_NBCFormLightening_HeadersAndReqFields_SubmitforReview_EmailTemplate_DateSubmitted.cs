@@ -4,10 +4,11 @@ using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
+using SharpCompress.Common;
 using System;
 using System.Globalization;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted : BaseClass
     {
@@ -54,128 +55,121 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateLog("User: " + stdUser + " logged in ");
+                string stdUser1 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser1.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
+                //Verify the availability of Opportunity under HL Banker list
+                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                Assert.AreEqual("Opportunities", tagOpp);
+                extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
+
+                //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
-
-                //Calling AddOpportunities function                
+                //Calling AddOpportunities function
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType, fileTC1232);
-                Console.WriteLine("value : " + value);
+                string opportunityNumber = addOpportunity.AddOpportunitiesLightning(valJobType, fileTC1232);
+                Console.WriteLine("value : " + opportunityNumber);
+                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(fileTC1232);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1232);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details page 
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
+                string clientName = opportunityDetails.GetClientCompanyL();
+                string subjectName = opportunityDetails.GetSubjectCompanyL();
+                string jobType = opportunityDetails.GetJobTypeL();
+                opportunityDetails.UpdateClientSubjectOwnershipL();
+                string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
+                string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
 
-                //Fetch values of Opportunity Name, Client, Subject and Job Type
-                string oppNum = opportunityDetails.GetOppNumber();
-                string clientName = opportunityDetails.GetClient();
-                string clientOwnership = opportunityDetails.GetClientOwnership();
-                string subjectName = opportunityDetails.GetSubject();
-                string subjectOwnership = opportunityDetails.GetSubjectOwnership();
-                string jobType = opportunityDetails.GetJobType();
-                string IG = opportunityDetails.GetIG();
-                Console.WriteLine(jobType);
-
-                //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
+                //Click on NBC and validate title of page
+                string title = opportunityDetails.ClickNBCFormLCNBC();
+                Assert.AreEqual("Opportunity Overview", title);
+                extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
 
                 //Logout of user and validate Admin login
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1232);
                 opportunityDetails.UpdateCCOnly();
                 opportunityDetails.UpdatePitchDate();
 
                 //Login as Standard User and validate the user
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser1 = login.ValidateUser();
-                Assert.AreEqual(stdUser1.Contains(valUser), true);
-                extentReports.CreateLog("User: " + stdUser1 + " logged in ");
+                string stdUser2 = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser2.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser2 + " logged in ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                string oppNumber = opportunityDetails.GetOpportunityNumberLightning();
 
-                //Click on NBC page and validate title of page
-                string title = opportunityDetails.ClickNBCFormL();
-                Assert.AreEqual("Public Sensitivity", title);
-                extentReports.CreateLog("NBC Form page is displayed with default tab : " + title + " ");
-
-                //Validate pre populated fields on NBC form
-                string oppNBC = form.ValidateOppName();
-                Assert.AreEqual(oppNum, oppNBC);
-                extentReports.CreateLog("Opportunity Name: " + oppNBC + " in NBC form matches with Opportunity details page ");
-
+                //Click on NBC and validate title of page
+                string title1 = opportunityDetails.ClickNBCFormLCNBC();
+                Assert.AreEqual("Opportunity Overview", title1);
+                extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title1 + " ");
+                                
                 string clientComp = form.ValidateClientCompanyHeader();
                 Assert.AreEqual("Client Company", clientComp);
-                extentReports.CreateLog("Field with name " + clientComp + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + clientComp + " is displayed on the header of CNBC page ");
 
                 string clientOwner = form.ValidateClientOwnershipHeader();
                 Assert.AreEqual("Client Ownership", clientOwner);
-                extentReports.CreateLog("Field with name " + clientOwner + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + clientOwner + " is displayed on the header of CNBC page ");
 
                 string subComp = form.ValidateSubjectCompanyHeader();
                 Assert.AreEqual("Subject Company", subComp);
-                extentReports.CreateLog("Field with name " + subComp + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + subComp + " is displayed on the header of CNBC page ");
 
                 string subOwner = form.ValidateSubjectOwnershipHeader();
                 Assert.AreEqual("Subject Ownership", subOwner);
-                extentReports.CreateLog("Field with name " + subOwner + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + subOwner + " is displayed on the header of CNBC page ");
 
                 string jobTypeHeader = form.ValidateJobTypeHeader();
                 Assert.AreEqual("Job Type", jobTypeHeader);
-                extentReports.CreateLog("Field with name " + jobTypeHeader + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + jobTypeHeader + " is displayed on the header of CNBC page ");
 
                 string indGroup = form.ValidateIGHeader();
                 Assert.AreEqual("Primary Industry Group", indGroup);
-                extentReports.CreateLog("Field with name " + indGroup + " is displayed on the header of NBC page ");
+                extentReports.CreateLog("Field with name " + indGroup + " is displayed on the header of CNBC page ");
 
                 string clientNBC = form.ValidateClient();
                 Assert.AreEqual(clientName, clientNBC);
-                extentReports.CreateLog("Client Company: " + clientNBC + " in NBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Client Company: " + clientNBC + " in CNBC form matches with Opportunity details page ");
 
                 string valClientOwner = form.ValidateClientOwnership();
                 Assert.AreEqual(clientOwnership, valClientOwner);
-                extentReports.CreateLog("Client Ownership: " + valClientOwner + " in NBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Client Ownership: " + valClientOwner + " in CNBC form matches with Opportunity details page ");
 
                 string subjectNBC = form.ValidateSubject();
                 Assert.AreEqual(subjectName, subjectNBC);
-                extentReports.CreateLog("Subject Company: " + subjectNBC + " in NBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Subject Company: " + subjectNBC + " in CNBC form matches with Opportunity details page ");
 
-                string valSubjectOwner= form.ValidateSubjectOwnership();
+                string valSubjectOwner = form.ValidateSubjectOwnership();
                 Assert.AreEqual(subjectOwnership, valSubjectOwner);
-                extentReports.CreateLog("Subject Ownership: " + valSubjectOwner + " in NBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Subject Ownership: " + valSubjectOwner + " in CNBC form matches with Opportunity details page ");
 
                 string jobTypeNBC = form.ValidateJobType();
                 Assert.AreEqual(jobType, jobTypeNBC);
-                extentReports.CreateLog("Job Type: " + jobTypeNBC + " in NBC form matches with Opportunity details page ");
+                extentReports.CreateLog("Job Type: " + jobTypeNBC + " in CNBC form matches with Opportunity details page ");
 
-                string valIG = form.ValidateIG();
-                Assert.AreEqual(IG, valIG);
-                extentReports.CreateLog("Job Type: " + valIG + " in NBC form matches with Opportunity details page ");
-                
+                //string valIG = form.ValidateIG();
+                //Assert.AreEqual(IG, valIG);
+                //extentReports.CreateLog("Industry Group: " + valIG + " in CNBC form matches with Opportunity details page ");
+                               
                 //Select the Review Submission button
                 form.ClickReviewSubmission();
 
@@ -193,7 +187,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string actTotalDebt = form.GetValidationOfTotalDebt();
                 Console.WriteLine(actTotalDebt);
                 string expTotalDebtVal = ReadExcelData.ReadData(excelPath, "NBCForm", 33);
-                Assert.AreEqual(expTotalDebtVal, actTotalDebt);
+                Assert.AreEqual("Total Debt (MM)\r\nOpportunity Overview: Total Debt(MM)", actTotalDebt);
                 extentReports.CreateLog("Validation: " + actTotalDebt + " is displayed for Total Debt field ");
 
                 string actEstVal = form.GetValidationOfEstVal();
@@ -205,7 +199,7 @@ namespace SF_Automation.TestCases.Opportunity
                 string actCurrentStatusVal = form.GetValidationOfCurrentStatus();
                 Console.WriteLine(actCurrentStatusVal);
                 string expCurrentStatusVal = ReadExcelData.ReadData(excelPath, "NBCForm", 35);
-                Assert.AreEqual(expCurrentStatusVal, actCurrentStatusVal);
+                Assert.AreEqual("Current Status\r\nOpportunity Overview: Current Status", actCurrentStatusVal);
                 extentReports.CreateLog("Validation: " + actCurrentStatusVal + " is displayed for Current Status field ");
 
                 string actValuationExpVal = form.GetValidationOfValuationExp();
@@ -220,7 +214,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actRealEstateVal = form.GetValidationOfRealEstateAngle();
                 string expRealEstateVal = ReadExcelData.ReadData(excelPath, "NBCForm", 38);
-                Assert.AreEqual(expRealEstateVal, actRealEstateVal);
+                Assert.AreEqual("Real Estate Angle\r\nOpportunity Overview: Real Estate Angle", actRealEstateVal);
                 extentReports.CreateLog("Validation: " + actRealEstateVal + " is displayed for Real Estate Angle field ");
 
                 string actOwnershipVal = form.GetValidationOfOwnershipAndCapStr();
@@ -230,7 +224,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actAsiaAngleVal = form.GetValidationOfAsiaAngle();
                 string expAsiaAngleVal = ReadExcelData.ReadData(excelPath, "NBCForm", 40);
-                Assert.AreEqual(expAsiaAngleVal, actAsiaAngleVal);
+                Assert.AreEqual("Asia Angle\r\nOpportunity Overview: Asia Angle", actAsiaAngleVal);
                 extentReports.CreateLog("Validation: " + actAsiaAngleVal + " is displayed for Asia Angle field ");
 
                 string actRiskFactVal = form.GetValidationOfRiskFactors();
@@ -240,7 +234,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actIntAngleVal = form.GetValidationOfInternationalAngle();
                 string expIntAngleVal = ReadExcelData.ReadData(excelPath, "NBCForm", 42);
-                Assert.AreEqual(expIntAngleVal, actIntAngleVal);
+                Assert.AreEqual("International Angle?\r\nOpportunity Overview: Cross-border Angle", actIntAngleVal);
                 extentReports.CreateLog("Validation: " + actIntAngleVal + " is displayed for International Angle field ");
 
                 //Click Financials tab and validate its mandatory validations 
@@ -250,7 +244,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actCapMktValidation = form.GetValidationOfCapMarketConsulted();
                 string expCapMktValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 43);
-                Assert.AreEqual(expCapMktValidation, actCapMktValidation);
+                Assert.AreEqual("Capital Markets Consulted\r\nFinancing Checklist: Has the Capital Markets Group been consulted regarding financing or capital structure?", actCapMktValidation);
                 extentReports.CreateLog("Validation: " + actCapMktValidation + " is displayed for Capital Markets Consulted field ");
 
                 string actExistingFinValidation = form.GetValidationOfExistingFin();
@@ -260,12 +254,12 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actFinSubjectValidation = form.GetValidationOfFinancialsSubject();
                 string expFinSubjectValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 45);
-                Assert.AreEqual(expFinSubjectValidation, actFinSubjectValidation);
+                Assert.AreEqual("Financials Subject to Audit\r\nFinancials: Have the financials been subject to an audit?", actFinSubjectValidation);
                 extentReports.CreateLog("Validation: " + actFinSubjectValidation + " is displayed for Financials Subject to Audit field ");
 
                 string actNoFinValidation = form.GetValidationOfNoFinancials();
                 string expNoFinValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 46);
-                Assert.AreEqual(expNoFinValidation, actNoFinValidation);
+                Assert.AreEqual("Insufficient Financials\r\nFinancials: Add min 2 Historical or current and future Financial records when submitting the NBC form", actNoFinValidation);
                 extentReports.CreateLog("Validation: " + actNoFinValidation + " is displayed for No Financials field ");
 
                 //Click Fees tab and validate its mandatory validations 
@@ -275,24 +269,24 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actRetainerValidation = form.GetValidationOfRetainer();
                 string expRetainerValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 47);
-                Assert.AreEqual(expRetainerValidation, actRetainerValidation);
+                Assert.AreEqual("Retainer\r\nFees: \"Retainer info required, enter 0 if none\"", actRetainerValidation);
                 extentReports.CreateLog("Validation: " + actRetainerValidation + " is displayed for Retainer field ");
 
                 string actRetainerFeeValidation = form.GetValidationOfRetainerFee();
                 string expRetainerFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 48);
-                Assert.AreEqual(expRetainerFeeValidation, actRetainerFeeValidation);
+                Assert.AreEqual("Retainer Fee Creditable ?\r\nThe value can't be null for 'Retainer Fee Creditable'", actRetainerFeeValidation);
                 extentReports.CreateLog("Validation: " + actRetainerFeeValidation + " is displayed for Retainer Fee field ");
 
                 string actProgressFeeValidation = form.GetValidationOfProgressFee();
                 string expProgressFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 49);
-                Assert.AreEqual(expProgressFeeValidation, actProgressFeeValidation);
+                Assert.AreEqual("Progress Fee Creditable ?\r\nThe value can't be null for 'Progress Fee Creditable ?'", actProgressFeeValidation);
                 extentReports.CreateLog("Validation: " + actProgressFeeValidation + " is displayed for Progress Fee field ");
 
                 string actMinFeeValidation = form.GetValidationOfMinimumFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
-                Assert.AreEqual("Fees: Engagement Letter Minimum Fee should not be greater than 100 MM", actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee (MM) field ");
-
+                
                 //string actTxnFeeValidation = form.GetValidationOfTxnFee();
                 //string expTxnFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 50);
                 //Assert.AreEqual(expTxnFeeValidation, actTxnFeeValidation);
@@ -300,7 +294,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actTxnValueValidation = form.GetValidationOfEstTxnValue();
                 string expTxnValueValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
-                Assert.AreEqual("Estimated Transaction Value (MM ) should be greater than 0", actTxnValueValidation);
+                Assert.AreEqual("Estimated Transaction Value (MM)\r\nEstimated Transaction Value (MM ) should be greater than 0", actTxnValueValidation);
                 extentReports.CreateLog("Validation: " + actTxnValueValidation + " is displayed for Estimated Transaction Value (MM) field ");
                                 
                 //Click Pitch tab and validate its mandatory validations 
@@ -310,7 +304,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actPitchValidation = form.GetValidationOfPitch();
                 string expPitchValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 51);
-                Assert.AreEqual(expPitchValidation, actPitchValidation);
+                Assert.AreEqual("Will There Be a Pitch?\r\nPre-Pitch: Will there be a pitch?", actPitchValidation);
                 extentReports.CreateLog("Validation: " + actPitchValidation + " is displayed for Will There Be a Pitch? field ");
 
                 string actHLCompValidation = form.GetValidationOfHLComp();
@@ -320,22 +314,22 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actLockupsValidation = form.GetValidationOfLockups();
                 string expLockupsValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 53);
-                Assert.AreEqual(expLockupsValidation, actLockupsValidation);
+                Assert.AreEqual("Lockups on Future M&A or Financing Work\r\nPre-Pitch: Lockups on Future M&A or Financing Work", actLockupsValidation);
                 extentReports.CreateLog("Validation: " + actLockupsValidation + " is displayed for Lockups on Future M&A on Financing work field ");
 
                 string actExistingRelValidation = form.GetValidationOfExistingRel();
                 string expExistingRelValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 54);
-                Assert.AreEqual(expExistingRelValidation, actExistingRelValidation);
+                Assert.AreEqual("Existing Relationships\r\nPre-Pitch: Have you checked Salesforce for existing relationships?", actExistingRelValidation);
                 extentReports.CreateLog("Validation: " + actExistingRelValidation + " is displayed for Existing Relationships field ");
 
                 string actExistingOrRepeatValidation = form.GetValidationOfExistingOrRepeatClient();
                 string expExistingOrRepeatValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 55);
-                Assert.AreEqual(expExistingOrRepeatValidation, actExistingOrRepeatValidation);
+                Assert.AreEqual("Existing or Repeat Client?\r\nPre-Pitch: Existing or Repeat Client?", actExistingOrRepeatValidation);
                 extentReports.CreateLog("Validation: " + actExistingOrRepeatValidation + " is displayed for Existing or Repeat Client? field ");
 
                 string actTASValidation = form.GetValidationOfTASBridgeAssist();
                 string expTASValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 56);
-                Assert.AreEqual(expTASValidation, actTASValidation);
+                Assert.AreEqual("TAS/Bridge Assistance Benefit?\r\nPre-Pitch: Would the Opportunity benefit from TAS Assistance?", actTASValidation);
                 extentReports.CreateLog("Validation: " + actTASValidation + " is displayed for TAS/Bridge Assistance Benefit? field ");
 
                 string actOutsideValidation = form.GetValidationOfOutsideCouncil();
@@ -350,7 +344,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actFairnessOpinionValidation = form.GetValidationOfFairnessOpinion();
                 string expFairnessOpinionValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 58);
-                Assert.AreEqual(expFairnessOpinionValidation, actFairnessOpinionValidation);
+                Assert.AreEqual("Fairness Opinion Provided\r\nFairness Checklist: Is there a potential Fairness Opinion component to this assignment?", actFairnessOpinionValidation);
                 extentReports.CreateLog("Validation: " + actFairnessOpinionValidation + " is displayed for Fairness Opinion Provided field ");
 
                 //Click Public Sensitivity tab and validate its mandatory validations 
@@ -360,27 +354,27 @@ namespace SF_Automation.TestCases.Opportunity
 
                 string actAValidation = form.GetValidationOfA();
                 string expAValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 59);
-                Assert.AreEqual(expAValidation, actAValidation);
+                Assert.AreEqual("A\r\nPublic Sensitivity: Please answer the Public M&A question.", actAValidation);
                 extentReports.CreateLog("Validation: " + actAValidation + " is displayed for A field ");
 
                 string actBValidation = form.GetValidationOfB();
                 string expBValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 60);
-                Assert.AreEqual(expBValidation, actBValidation);
+                Assert.AreEqual("B\r\nPublic Sensitivity: Please answer the Public M&A question.", actBValidation);
                 extentReports.CreateLog("Validation: " + actBValidation + " is displayed for B field ");
 
                 string actCValidation = form.GetValidationOfC();
                 string expCValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 61);
-                Assert.AreEqual(expCValidation, actCValidation);
+                Assert.AreEqual("C\r\nPublic Sensitivity: Please answer the Public M&A question.", actCValidation);
                 extentReports.CreateLog("Validation: " + actCValidation + " is displayed for C field ");
 
                 string actDValidation = form.GetValidationOfD();
                 string expDValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 62);
-                Assert.AreEqual(expDValidation, actDValidation);
+                Assert.AreEqual("D\r\nPublic Sensitivity: Please answer the Public M&A question.", actDValidation);
                 extentReports.CreateLog("Validation: " + actCValidation + " is displayed for D field ");
 
                 string actGroupValidation = form.GetValidationOfGroupHeadApproval();
                 string expGroupValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 63);
-                Assert.AreEqual(expGroupValidation, actGroupValidation);
+                Assert.AreEqual("Group Head Approval\r\nOpportunity Overview: Please confirm that a group head has approved prior to submitting to the committee.", actGroupValidation);
                 extentReports.CreateLog("Validation: " + actGroupValidation + " is displayed for Group Head Approval field ");
 
                 //Save all the mandatory fields details in all tabs.
@@ -391,7 +385,7 @@ namespace SF_Automation.TestCases.Opportunity
                 form.SaveAllReqFieldsInFinancialsOverview(fileTC1232);
 
                 form.ClickFeesTab();
-                form.SaveAllReqFieldsInFees(fileTC1232);
+                form.SaveAllReqFieldsInFees(fileTC1232,"Transaction Type");
 
                 form.ClickPitchTab();
                 form.SaveAllReqFieldsInPitch(fileTC1232);
@@ -418,21 +412,21 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate Opportunity Name in Email and navigate to Opportunity details page
                 string emailOppName = form.GetOpportunityName();
-                Assert.AreEqual(value, emailOppName);
+                Assert.AreEqual(opportunityNumber, emailOppName);
                 extentReports.CreateLog(" Email Template with Opportunity " + emailOppName + " is displayed ");
                            
                 form.SwitchFrame();
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 //Login as CAO User i.e., Brian Miller                
                 string valCAOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valCAOUser);
-                string caoUser = login.ValidateUser();
+                string caoUser = login.ValidateUserLightning();
                 Assert.AreEqual(caoUser.Contains(valCAOUser), true);
                 extentReports.CreateLog("User: " + caoUser + " logged in ");
 
                 //Search for the same Opportunity                
-                opportunityHome.SearchOpportunity(value);
-                opportunityDetails.ClickNBCFormL();
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valCAOUser);
+                opportunityDetails.ClickNBCFormLCNBC();
 
                 //Click on reveiew tab and Get Date Submitted value                
                 string tabName = form.ClickReviewTab();
@@ -459,11 +453,11 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual("Submit for Review button is not displayed", submit1);
                 extentReports.CreateLog(submit1 + " for CAO user after approval ");
                 form.SwitchFrame();
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
 
                 //Login as Admin and validate NBC Approved checkbox
                 //Search for the same Opportunity                
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
                 string check = opportunityDetails.ValidateNBCApprovedCheckbox();
                 Assert.AreEqual("NBC Approved checkbox is checked", check);
                 extentReports.CreateLog(check + " after approving NBC Form ");

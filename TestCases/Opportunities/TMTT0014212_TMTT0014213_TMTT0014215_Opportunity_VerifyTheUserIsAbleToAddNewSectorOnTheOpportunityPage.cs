@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0014212_TMTT0014213_TMTT0014215_Opportunity_VerifyTheUserIsAbleToAddNewSectorOnTheOpportunityPage : BaseClass
     {
@@ -77,7 +77,7 @@ namespace SF_Automation.TestCases.Opportunity
                     newCoverageSectorDependencies.CreateNewCoverageSectorDependency(fileTC14212);
 
                     //Fetch the Coverage Sector Dependency Name from its detail page
-                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorID();
+                    string coverageSectorDependencyName = coverageSectorDependenciesDetail.GetCoverageSectorDependencyName();
                     extentReports.CreateLog("Coverage Sector Dependency Name is: " + coverageSectorDependencyName + " ");
 
                     //Search user by global search

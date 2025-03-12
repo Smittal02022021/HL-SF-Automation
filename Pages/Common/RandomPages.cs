@@ -117,6 +117,9 @@ namespace SF_Automation.Pages.Common
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
 
         By lnkRefereshTabL = By.XPath("//ul//li[@title='Refresh Tab']/a");
+        By tabOracleERPL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Oracle ERP']");
+        By tabMoreOracleERPL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Oracle ERP']");
+
         public void RefreshActiveTab(string name)
         {
             driver.SwitchTo().DefaultContent();
@@ -1223,6 +1226,31 @@ namespace SF_Automation.Pages.Common
             string toasMsg = driver.FindElement(toastMsgPopup).Text;
             Thread.Sleep(2000);
             return toasMsg;
+        }
+
+        public void ClickTabOracleERPLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                try
+                {
+                    js.ExecuteScript("window.scrollTo(0,0)");
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabOracleERPL, 5);
+                    driver.FindElement(tabOracleERPL).Click();
+                }
+                catch(Exception e)
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
+                    driver.FindElement(iconHeaderMoreTabsL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, tabMoreOracleERPL, 5);
+                    driver.FindElement(tabMoreOracleERPL).Click();
+                }
+            }
+            catch { }
+            Thread.Sleep(5000);
         }
     }
 }

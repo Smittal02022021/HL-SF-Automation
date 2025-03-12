@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0014792_WhenConflictCheckStatusIsInProgress_CCQuestionsAreRequired : BaseClass
     {
@@ -107,26 +107,26 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate CC mandatory field validations
                 string CC1 = nform.GetCC1stValidation();
-                Assert.AreEqual("Administrative: Please answer all Conflicts Check Information questions." , CC1);
+                Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC1);
                 extentReports.CreateLog("Validation: " + CC1 + " is displayed ");
                
                 string CC2 = nform.GetCC2ndValidation();
-                Assert.AreEqual("Administrative: Please answer all Conflicts Check Information questions.", CC2);
+                Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC2);
                 extentReports.CreateLog("Validation: " + CC2 + " is displayed ");
 
                 string CC3 = nform.GetCC2ndValidation();
-                Assert.AreEqual("Administrative: Please answer all Conflicts Check Information questions.", CC3);
+                Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC3);
                 extentReports.CreateLog("Validation: " + CC3 + " is displayed ");
 
                 string CC4 = nform.GetCC2ndValidation();
-                Assert.AreEqual("Administrative: Please answer all Conflicts Check Information questions.", CC4);
+                Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC4);
                 extentReports.CreateLog("Validation: " + CC4 + " is displayed ");
 
                 string CC5 = nform.GetCC2ndValidation();
-                Assert.AreEqual("Administrative: Please answer all Conflicts Check Information questions.", CC5);
+                Assert.AreEqual("Yes/No\r\nAdministrative: Please answer all Conflicts Check Information questions.", CC5);
                 extentReports.CreateLog("Validation: " + CC5 + " is displayed ");
 
-                form.SwitchFrame();
+                form.SwitchFrameClassic();
                 usersLogin.UserLogOut();
 
                 opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");

@@ -11,7 +11,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class ZObsolated_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton  : BaseClass
     {
@@ -142,7 +142,7 @@ namespace SF_Automation.TestCases.Opportunity
                         //GetCompanynamefrom Company List 
                         selectedCompany = addCounterparty.GetCompanyNameFromList();
                         // Checkbox of first company
-                        addCounterparty.CheckBoxSelectRecord();
+                        addCounterparty.SelectCompanyFromListLV();
                         extentReports.CreateLog("Company selected from Company List ");
                         // Click on Add Counterparty oppname button
                         addCounterparty.ClickAddCompanyToCounterparty();
@@ -153,7 +153,7 @@ namespace SF_Automation.TestCases.Opportunity
                         //Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page
                         addCounterparty.ButtonClick("Back");
                         extentReports.CreateLog("Clicked on Back button");
-                        Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
+                        Assert.IsTrue(addCounterparty.IsCounterpartiesListDisplayed(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
                         extentReports.CreateLog("User return to Counterparties List Page");
                         Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCompany));
                         extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List ");
@@ -173,10 +173,10 @@ namespace SF_Automation.TestCases.Opportunity
                     addCounterparty.AddNewOpportunityCounterparty(counterpartyCompanyNameExl, counterpartyTypeExl);
                     //msgSuccess = addCounterparty.GetLVMessagePopup();
                     //Assert.AreEqual(msgSuccess, "Selected Counterparty Records have been created.");
-                    addCounterparty.CloseCurrentTab(counterpartyCompanyNameExl);
+                    addCounterparty.CloseOppCounterpartyPage(counterpartyCompanyNameExl);
                     addCounterparty.ButtonClick("Back");
                     extentReports.CreateLog("Clicked on Back button");
-                    Assert.IsTrue(addCounterparty.VerifyUserIsOnCounterpartiesListPage(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
+                    Assert.IsTrue(addCounterparty.IsCounterpartiesListDisplayed(), "Verify User is redirected back to Counterparties List page when clicked on Back button from Add Counterparties page");
                     extentReports.CreateLog("User return to Counterparties List Page");
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl));
                     extentReports.CreateLog(counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
@@ -230,7 +230,7 @@ namespace SF_Automation.TestCases.Opportunity
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 homePageLV.UserLogoutFromSFLightningView();
             }
         }

@@ -5,7 +5,7 @@ using SF_Automation.TestData;
 using System;
 using SF_Automation.Pages.Common;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class ValidateAllJobType : BaseClass
     {

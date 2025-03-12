@@ -224,5 +224,14 @@ namespace SF_Automation.Pages
                 // No Need to Verify your identity in Salesforce
             }
         }
+
+        public string ValidateUserLightningCAO3rd()
+        {
+            Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 12);
+        }
     }
 }

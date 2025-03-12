@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng : BaseClass
     {
@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Opportunity
                             extentReports.CreateLog("Role values are as expected ");
 
                             //Validate Cancel functionality
-                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type);
+                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type, valClient);
                             Assert.AreEqual("0.0 %", clientHoldingPer);
                             extentReports.CreateLog("Entered value of Client Holdings % is not saved in the table upon clicking cancel button ");
 
@@ -283,7 +283,7 @@ namespace SF_Automation.TestCases.Opportunity
                             }
 
                             //Validate Cancel functionality
-                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type);
+                            string clientHoldingPer = clientSubjectsPage.ValidateCancelFunctionalityOfMassEdit(clientValue, type, valClient);
                             if (type.Contains("Client"))
                             {
                                 Assert.AreEqual("0.0 %", clientHoldingPer);

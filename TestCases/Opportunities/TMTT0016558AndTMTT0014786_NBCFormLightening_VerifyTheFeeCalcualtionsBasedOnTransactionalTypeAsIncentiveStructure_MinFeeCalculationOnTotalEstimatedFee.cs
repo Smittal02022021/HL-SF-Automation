@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0016558AndTMTT0014786_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsIncentiveStructure_MinFeeCalculationOnTotalEstimatedFee : BaseClass
     {
@@ -50,79 +50,72 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                //Login as Standard User and validate the user
+                //Login as Standard User and validate the user               
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
+                //Verify the availability of Opportunity under HL Banker list
+                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                Assert.AreEqual("Opportunities", tagOpp);
+                extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
+
+                //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
-
-                //Calling AddOpportunities function                
+                //Calling AddOpportunities function
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType, fileTC1232);
-                Console.WriteLine("value : " + value);
+                string opportunityNumber = addOpportunity.AddOpportunitiesLightning(valJobType, fileTC1232);
+                Console.WriteLine("value : " + opportunityNumber);
+                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(fileTC1232);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1232);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details page 
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
-
-                //Fetch values of Opportunity Name, Client, Subject and Job Type
-                string oppNum = opportunityDetails.GetOppNumber();
-                string clientName = opportunityDetails.GetClient();
-                string clientOwnership = opportunityDetails.GetClientOwnership();
-                string subjectName = opportunityDetails.GetSubject();
-                string subjectOwnership = opportunityDetails.GetSubjectOwnership();
-                string jobType = opportunityDetails.GetJobType();
-                string IG = opportunityDetails.GetIG();
-                Console.WriteLine(jobType);
+                string clientName = opportunityDetails.GetClientCompanyL();
+                string subjectName = opportunityDetails.GetSubjectCompanyL();
+                string jobType = opportunityDetails.GetJobTypeL();
+                opportunityDetails.UpdateClientSubjectOwnershipL();
+                string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
+                string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
 
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateRetainerAndMonthlyFee();
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
+                opportunityDetails.UpdateRetainerAndMonthlyFeeL();
+                string retainer = opportunityDetails.GetRetainerL();
+                string progressFee = opportunityDetails.GetMonthlyFeeL();
 
                 //Logout of user and validate Admin login
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
 
                 //update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1232);
                 opportunityDetails.UpdateCCOnly();
 
                 //Login as Standard User and validate the user
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser1 = login.ValidateUser();
+                string stdUser1 = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
-
-                string retainer = opportunityDetails.GetRetainer();
-                string progressFee = opportunityDetails.GetMonthlyFee();
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
 
                 //Click on NBC page and validate title of page
-                string title = opportunityDetails.ClickNBCFormL();
-                Assert.AreEqual("Public Sensitivity", title);
+                string title = opportunityDetails.ClickNBCFormLCNBC();
+                Assert.AreEqual("Opportunity Overview", title);
                 extentReports.CreateLog("NBC Form page is displayed with default tab : " + title + " ");
 
                 //Click on Fees Tab
@@ -244,7 +237,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Validate the mandatory field validation for Estimated Transaction Value (MM) when it is not filled
                 string valEst = form.GetValidationOfEstTransValue();
-                Assert.AreEqual("Estimated Transaction Value (MM ) should be greater than 0", valEst);
+                Assert.AreEqual("Estimated Transaction Value (MM)\r\nEstimated Transaction Value (MM ) should be greater than 0", valEst);
                 extentReports.CreateLog("Mandatory validation : " + valEst + " is displayed when Estimated Transaction Value (MM) field s not filled and saved ");
 
                 //Update Review Submission and Base Fee and validate the Estimated Total Fee
@@ -266,62 +259,62 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Enter the value for 1st, 2nd, 3rd and 4th Ratchet pecent fields and validare validation for respective from and to amount fields
                 string msg1stRatchetFromAmt = form.UpdateAllRatchetPercent();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetFromAmt);
+                Assert.AreEqual("First Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetFromAmt);
                 extentReports.CreateLog("Validation : " + msg1stRatchetFromAmt + " for 1st Ratchet From Amount is displayed when only 1st Ratchet percent is entered ");
 
                 //Get 1st Ratchet To Amount validation
                 string msg1stRatchetToAmt = form.Get1stRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetToAmt);
+                Assert.AreEqual("First Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg1stRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg1stRatchetToAmt + " for 1st Ratchet To Amount is displayed when only 1st Ratchet percent is entered ");
 
                 //Get 2nd Ratchet From Amount validation
                 string msg2ndRatchetFromAmt = form.Get2ndRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetFromAmt);
+                Assert.AreEqual("Second Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg2ndRatchetFromAmt + " for 2nd Ratchet To Amount is displayed when only 2nd Ratchet percent is entered ");
 
                 //Get 2nd Ratchet To Amount validation
                 string msg2ndRatchetToAmt = form.Get2ndRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetToAmt);
+                Assert.AreEqual("Second Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg2ndRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg2ndRatchetToAmt + "for 2nd Ratchet To Amount is displayed when only 2nd Ratchet percent is entered ");
 
                 //Get 3rd Ratchet From Amount validation
                 string msg3rdRatchetFromAmt = form.Get3rdRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetFromAmt);
+                Assert.AreEqual("Third Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg3rdRatchetFromAmt + " for 3rd Ratchet To Amount is displayed when only 3rd Ratchet percent is entered ");
 
                 //Get 3rd Ratchet To Amount validation
                 string msg3rdRatchetToAmt = form.Get3rdRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetToAmt);
+                Assert.AreEqual("Third Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg3rdRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg3rdRatchetToAmt + "for 3rd Ratchet To Amount is displayed when only 3rd Ratchet percent is entered ");
 
                 //Get 4th Ratchet From Amount validation
                 string msg4tRatchetFromAmt = form.Get4thRatchetFromAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4tRatchetFromAmt);
+                Assert.AreEqual("Fourth Ratchet From Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4tRatchetFromAmt);
                 extentReports.CreateLog("Validation: " + msg4tRatchetFromAmt + " for 4th Ratchet To Amount is displayed when only 4th Ratchet percent is entered ");
 
                 //Get 4th Ratchet To Amount validation
                 string msg4thRatchetToAmt = form.Get4thRatchetToAmount();
-                Assert.AreEqual("Enter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4thRatchetToAmt);
+                Assert.AreEqual("Fourth Ratchet To Amount (MM)\r\nEnter To/From Ratchet amount; if final ratchet, please use Final Ratchet field", msg4thRatchetToAmt);
                 extentReports.CreateLog("Validation: " + msg4thRatchetToAmt + " for 4th Ratchet To Amount is displayed when only 4th Ratchet percent is entered ");
 
                 //Update all Ratchet From and To Amount as well
                 string msg1stGreaterToAmount = form.UpdateAllRatchetFromAndToAmt();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg1stGreaterToAmount);
+                Assert.AreEqual("First Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg1stGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg1stGreaterToAmount + " for 1st Ratchet To Amount field is displayed when greater value for 1st Ratchet From Amount is entered ");
 
                 //Get 2nd Ratchet To Amount greater validation
                 string msg2ndGreaterToAmount = form.Get2ndRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg2ndGreaterToAmount);
+                Assert.AreEqual("Second Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg2ndGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg2ndGreaterToAmount + " for 2nd Ratchet To Amount field is displayed when greater value for 2nd Ratchet From Amount is entered ");
 
                 //Get 3rd Ratchet To Amount greater validation
                 string msg3rdGreaterToAmount = form.Get3rdRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg3rdGreaterToAmount);
+                Assert.AreEqual("Third Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg3rdGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg3rdGreaterToAmount + " for 3rd Ratchet To Amount field is displayed when greater value for 3rd Ratchet From Amount is entered ");
                 
                 //Get 4th Ratchet To Amount greater validation
                 string msg4thGreaterToAmount = form.Get4thRatchetToAmountGreaterValue();
-                Assert.AreEqual("TO amount must be greater than FROM amount on Ratchets 1-4", msg4thGreaterToAmount);
+                Assert.AreEqual("Fourth Ratchet To Amount (MM)\r\nTO amount must be greater than FROM amount on Ratchets 1-4", msg4thGreaterToAmount);
                 extentReports.CreateLog("Validation: " + msg4thGreaterToAmount + " for 4th Ratchet To Amount field is displayed when greater value for 4th Ratchet From Amount is entered ");
 
                 //Update 1st Ratchet amount fields and validate Estimated Total Fee when Estimated Transaction value is >= 1st Ratchet To Amount
@@ -456,11 +449,10 @@ namespace SF_Automation.TestCases.Opportunity
                 //Validate Estimated Total Fee when all Ratchet values are saved               
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress+ final1stRatchet+ final2ndRatchet+final3rdRatchet+final4thRatchet+ finalFinalRatchet))+(Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + updEstAllRatchets + " is displayed when all Ratchet amounts are entered along with Retainer and Progress fields ");
-                
-               
+                              
 
                 form.SwitchFrame(); 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
 
                 usersLogin.UserLogOut();
                 driver.Quit();

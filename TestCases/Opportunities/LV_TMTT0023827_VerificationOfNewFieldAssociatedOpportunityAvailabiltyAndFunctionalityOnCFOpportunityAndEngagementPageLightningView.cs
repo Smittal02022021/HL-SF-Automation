@@ -255,7 +255,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", userCAOExl + " Entered " + valAssociatedOpp + " as Associated Opportunity and " + nameAssociatedOpp + " is Saved ");
 
                     //Approve the Opportunity 
-                    string status = opportunityDetails.ClickApproveButtonL();
+                    string status = opportunityDetails.ClickApproveButtonLV2();
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
@@ -309,7 +309,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Enter the Associated Opportunity name
                     valAssociatedEng = ReadExcelData.ReadDataMultipleRows(excelPath, "AssociatedEng", 3, 1);
                     engagementDetails.EnterAssociatedEngagement(valAssociatedEng);
-                    nameAssociatedEng = engagementDetails.GetAssociatedEngagementLV();
+                    nameAssociatedEng = engagementDetails.GetAssociatedEngagement();
                     Assert.AreEqual(nameAssociatedEng, valAssociatedEng, "Verify Entered Associated Engagement as saved ");
                     extentReports.CreateStepLogs("Passed", user + " Entered " + valAssociatedEng + " as Associated Engagement and " + nameAssociatedEng + " is Saved ");
                     homePage.SearchUserByGlobalSearchN(userExl);
@@ -351,7 +351,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                login.SwitchToClassicView();
+                homePageLV.UserLogoutFromSFLightningView();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateLog("Browser Closed ");

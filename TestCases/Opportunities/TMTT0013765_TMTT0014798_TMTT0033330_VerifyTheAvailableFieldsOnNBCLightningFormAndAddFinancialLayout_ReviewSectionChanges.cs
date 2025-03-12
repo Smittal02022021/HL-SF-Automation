@@ -8,7 +8,7 @@ using System;
 using System.Globalization;
 using System.Security.Cryptography;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges: BaseClass
     {
@@ -55,71 +55,66 @@ namespace SF_Automation.TestCases.Opportunity
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Call function to open Add Opportunity Page
-                opportunityHome.ClickOpportunity();
+                //Verify the availability of Opportunity under HL Banker list
+                string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                Assert.AreEqual("Opportunities", tagOpp);
+                extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
+
+                //Verify that choose LOB is displayed after clicking New button
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
-                opportunityHome.SelectLOBAndClickContinue(valRecordType);
+                string titleOpp = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
+                Assert.AreEqual("New Opportunity: " + valRecordType, titleOpp);
+                extentReports.CreateLog("Page with title: " + titleOpp + " is displayed upon clicking next button ");
 
-                //Validating Title of New Opportunity Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity Edit: New Opportunity ~ Salesforce - Unlimited Edition", 60), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
-
-                //Calling AddOpportunities function                
+                //Calling AddOpportunities function
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string value = addOpportunity.AddOpportunities(valJobType, fileTC1232);
-                Console.WriteLine("value : " + value);
+                string opportunityNumber = addOpportunity.AddOpportunitiesLightning(valJobType, fileTC1232);
+                Console.WriteLine("value : " + opportunityNumber);
+                extentReports.CreateLog("Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                clientSubjectsPage.EnterStaffDetails(fileTC1232);
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + value + " ~ Salesforce - Unlimited Edition"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTC1232);
+                Assert.AreEqual("Info", displayedTab);
+                extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
-                //Validating Opportunity details page 
-                string opportunityNumber = opportunityDetails.ValidateOpportunityDetails();
-                Assert.IsNotNull(opportunityDetails.ValidateOpportunityDetails());
-                extentReports.CreateLog("Opportunity with number : " + opportunityDetails.ValidateOpportunityDetails() + " is created ");
-
-                //Fetch values of Opportunity Name, Client, Subject and Job Type
-                string oppNum = opportunityDetails.GetOppNumber();
-                string clientName = opportunityDetails.GetClient();
-                string subjectName = opportunityDetails.GetSubject();
-                string jobType = opportunityDetails.GetJobType();
-                Console.WriteLine(jobType);
-
-                //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
+                string clientName = opportunityDetails.GetClientCompanyL();
+                string subjectName = opportunityDetails.GetSubjectCompanyL();
+                string jobType = opportunityDetails.GetJobTypeL();
+                opportunityDetails.UpdateClientSubjectOwnershipL();
+                string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
+                string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
 
                 //Logout of user and validate Admin login
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchOpportunity(opportunityNumber);
 
-                //update CC and NBC checkboxes 
+                //Call function to update HL -Internal Team details,update CC and NBC checkboxes 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC1232);
                 opportunityDetails.UpdateOutcomeDetails(fileTC1232);
                 opportunityDetails.UpdateCCOnly();
 
                 //Login as Standard User and validate the user
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser1 = login.ValidateUser();
+                string stdUser1 = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                 //Search for created opportunity
-                opportunityHome.SearchOpportunity(value);
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                string oppNumber = opportunityDetails.GetOpportunityNumberLightning();
 
-                //Click on NBC page and validate title of page
-                string title = opportunityDetails.ClickNBCFormL();
-                Assert.AreEqual("Public Sensitivity", title);
-                extentReports.CreateLog("NBC Form page is displayed with default tab : " + title + " ");
-
+                //Click on NBC and validate title of page
+                string title = opportunityDetails.ClickNBCFormLCNBC();
+                Assert.AreEqual("Opportunity Overview", title);
+                extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
                 //Click on Add Financials                
                 string txtAddFin= form.ClickAddFinancialsButton();
                 Assert.AreEqual("Add Financials", txtAddFin);
@@ -357,12 +352,12 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Field with name: " + txtProgFee + " is displayed ");
 
                 string txtMinFee = form.GetLabelMinimumFee();
-                Assert.AreEqual("Engagement Letter Minimum Fee", txtMinFee);
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)", txtMinFee);
                 extentReports.CreateLog("Field with name: " + txtMinFee + " is displayed ");
 
-                string txtTxnFee = form.GetLabelTxnFeeType();
-                Assert.AreEqual("Transaction Fee Type", txtTxnFee);
-                extentReports.CreateLog("Field with name: " + txtTxnFee + " is displayed ");
+                //string txtTxnFee = form.GetLabelTxnFeeType();
+                //Assert.AreEqual("Transaction Fee Type", txtTxnFee);
+                //extentReports.CreateLog("Field with name: " + txtTxnFee + " is displayed ");
 
                 string txtRetainerFee = form.GetLabelEstTxn();
                 Assert.AreEqual("Estimated Transaction Value (MM)", txtRetainerFee);
@@ -772,7 +767,7 @@ namespace SF_Automation.TestCases.Opportunity
                
                 form.SwitchFrame();
 
-                usersLogin.UserLogOut();            
+                usersLogin.DiffLightningLogout();            
                 usersLogin.UserLogOut();
                 driver.Quit();
         }

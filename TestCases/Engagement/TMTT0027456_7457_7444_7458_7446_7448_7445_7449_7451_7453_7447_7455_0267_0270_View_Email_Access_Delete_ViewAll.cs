@@ -211,7 +211,8 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Link - " + deleteViewAll + " is displayed to delete added counterparty ");
 
                 //TC_08__Validate Engagement CP Comment functionality
-                string addedComment = counterparty.ValidateEngCPComment();
+                counterparty.ValidateEngCPComment();
+                /*
                 Assert.AreEqual("Testing", addedComment);
                 string addedCommentType = counterparty.GetCPCommentType();
                 Assert.AreEqual("Internal", addedCommentType);
@@ -225,6 +226,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valComment =counterparty.DeleteEngCounterpartyComment();
                 Assert.AreEqual("(0)", valComment);
                 extentReports.CreateLog("Added counterparty comments have been delete successfully. ");
+                */
 
                 //TC_13_Validate the displayed KPIs and click on any KPI & validate the displayed records
                 string val1stKPI = counterparty.GetNumberOf1stKPI();

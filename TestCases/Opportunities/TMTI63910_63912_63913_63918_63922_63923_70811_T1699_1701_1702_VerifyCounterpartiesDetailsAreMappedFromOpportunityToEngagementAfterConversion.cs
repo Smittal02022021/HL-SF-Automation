@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(TMTI0063910);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityLV();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     homePageLV.UserLogoutFromSFLightningView();
@@ -417,7 +417,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
 
                     //Approve the Opportunity 
-                    string status = opportunityDetails.ClickApproveButtonL();
+                    string status = opportunityDetails.ClickApproveButtonLV2();
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateLog("Opportunity is " + status + " by CAO User ");
                     opportunityDetails.CloseApprovalHistoryTabL();

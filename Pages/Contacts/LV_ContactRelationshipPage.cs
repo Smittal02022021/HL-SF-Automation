@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using SF_Automation.TestCases.Opportunity;
+using SF_Automation.TestCases.Opportunities;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;

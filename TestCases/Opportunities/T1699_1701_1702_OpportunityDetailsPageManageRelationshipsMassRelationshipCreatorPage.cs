@@ -8,7 +8,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage : BaseClass
     {

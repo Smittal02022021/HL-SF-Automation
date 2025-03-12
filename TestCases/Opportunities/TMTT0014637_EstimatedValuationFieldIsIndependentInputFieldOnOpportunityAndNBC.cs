@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC : BaseClass
     {
@@ -87,13 +87,13 @@ namespace SF_Automation.TestCases.Opportunity
                 extentReports.CreateLog("Estimated Valuation in NBC is updated with value: " + updEstVal + " ");
 
                 //Validate the value of Est Transaction Size on Opportunity Details
-                form.SwitchFrame();
+                form.SwitchFrameClassic();
                 string txnSize = opportunityDetails.GetEstTransactionSize();
                 Assert.AreNotEqual(updEstVal, txnSize);
                 extentReports.CreateLog("Estimated Valuation is not copied to Est Transaction Size in Opportunity Details ");
                                             
                 
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

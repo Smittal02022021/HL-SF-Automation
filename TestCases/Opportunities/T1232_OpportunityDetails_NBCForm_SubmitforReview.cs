@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class T1232_OpportunityDetails_NBCForm_SubmitforReview : BaseClass
     {
@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.Opportunity
                 opportunityDetails.ClickNBCForm();
 
                 //Call function to enter NBC details
-                form.EnterDetailsAndClickSubmit(fileTC1232);
+                //form.EnterDetailsAndClickSubmit(fileTC1232);
 
                 //Validate title of Email Template page
                 string pageTitle = form.ValidateHeader();

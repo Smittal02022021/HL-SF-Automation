@@ -7,7 +7,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0012824_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement:BaseClass
     {
@@ -97,7 +97,8 @@ namespace SF_Automation.TestCases.Opportunity
                     addOpportunityContact.CreateContact(fileTMTI0028212, valContact, valRecordType, valContactType);
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Opportunity: " + opportunityNumber + " ~ Salesforce - Unlimited Edition", 60), true);
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
-
+                    
+                    //TMTI0028212	Verify user is able to edit any other Job types to new job type for existing opportunity
                     //Get Actual Job Type of selected Opportunity and updated it with new Job Type
                     extentReports.CreateLog("Verify User Can Edit Any Other Job Types To New Job Type For Existing CF Opportunity ");
                     int rowJobTypes = ReadExcelData.GetRowCount(excelPath, "JobTypes");

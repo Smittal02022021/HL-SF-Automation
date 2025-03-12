@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0024858_TMTT0030610_TMTT0035436_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes : BaseClass
     {

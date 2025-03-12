@@ -1,12 +1,13 @@
 ﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed : BaseClass
     {
@@ -18,8 +19,8 @@ namespace SF_Automation.TestCases.Opportunity
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         CNBCForm form = new CNBCForm();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         OpportunityManager oppMgr = new OpportunityManager();
+        HomeMainPage homePage = new HomeMainPage();
 
 
         public static string fileTC2081 = "T1592_ValidationsToBeCompleted.xlsx";
@@ -39,7 +40,6 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTC2081;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -47,14 +47,18 @@ namespace SF_Automation.TestCases.Opportunity
 
                 // Calling Login function                
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 // Validate user logged in                   
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login again as Standard User
-                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
-                usersLogin.SearchUserAndLogin(valUser);
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);                
+                homePage.SearchUserByGlobalSearchN(valUser);
+                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToClassicView();
                 string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
@@ -62,7 +66,6 @@ namespace SF_Automation.TestCases.Opportunity
                 //Call function to open Add Opportunity Page
                 opportunityHome.ClickOpportunity();
                 string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                Console.WriteLine("valRecordType:" + valRecordType);
                 opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
                 //Validating Title of New Opportunity Page
@@ -92,7 +95,8 @@ namespace SF_Automation.TestCases.Opportunity
                 Console.WriteLine(oppName);
                
                 //Call function to update HL -Internal Team details
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2081);
+                //commented need to revisit
+                //opportunityDetails.UpdateInternalTeamDetails(fileTC2081);
 
                 //Navigate to Opportunity Manager page and sort the column
                 opportunityHome.ClickOppManager();

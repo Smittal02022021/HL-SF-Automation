@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class T2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers : BaseClass
     {
@@ -16,7 +16,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        ValuationPeriods valPeriods = new ValuationPeriods();
+        OppValuationPeriods valPeriods = new OppValuationPeriods();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTC2215 = "T2215_ImportPositionsWithTeamMembers";

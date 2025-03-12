@@ -5,7 +5,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0024858_71649_VerifyNewJobTypeIsForFVAOnly : BaseClass
     {

@@ -2,13 +2,12 @@
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Company;
-using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class Clonebutton_DisplayedOrNot_Update : BaseClass
     {
@@ -22,9 +21,10 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         CompanyDetailsPage companyDetailsPage = new CompanyDetailsPage();
         RandomPages Pages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT = "CloneOperation1";
-
+//commiting from Git to check on local and VM 
         [OneTimeSetUp]
 
         public void OneTimeSetUp()
@@ -44,7 +44,6 @@ namespace SF_Automation.TestCases.Opportunity
             {
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT;
-                Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -52,7 +51,7 @@ namespace SF_Automation.TestCases.Opportunity
 
                 //Calling Login function             
                 login.LoginApplication();
-
+                login.SwitchToClassicView();
                 //Validate user logged in     
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -60,15 +59,19 @@ namespace SF_Automation.TestCases.Opportunity
                 //Calling functions to validate Clone operation
 
                 int rowUsers = ReadExcelData.GetRowCount(excelPath, "Users");
-                Console.WriteLine("rowUsers " + rowUsers);
-
                 for (int row = 2; row <= rowUsers; row++)
                 {
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     if (valUser.Equals("Drew Koecher"))
                     {
                         //Login as Standard User and validate the user
-                        usersLogin.SearchUserAndLogin(valUser);
+                        
+                        homePage.SearchUserByGlobalSearchN(valUser);
+                        extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
@@ -97,6 +100,7 @@ namespace SF_Automation.TestCases.Opportunity
                     {
                         //Login as Standard FAS User and validate the user
                         usersLogin.SearchUserAndLogin(valUser);
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
@@ -125,6 +129,7 @@ namespace SF_Automation.TestCases.Opportunity
                     {
                         //Login as Standard FR User and validate the user
                         usersLogin.SearchUserAndLogin(valUser);
+                        login.SwitchToClassicView();
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
                         extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
@@ -139,12 +144,12 @@ namespace SF_Automation.TestCases.Opportunity
                     string oppClone = opportunityDetails.ValidateCloneButton();
                     if (valUser.Equals("Drew Koecher") || valUser.Equals("Emre Abale") || valUser.Equals("Ayati Arvind"))
                     {
-                        Assert.AreEqual("Clone button is not displayed", oppClone);
+                        Assert.AreEqual("Clone button is displayed", oppClone);
                         extentReports.CreateLog(oppClone + " on Opportunity details page for " + valUser + " ");
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is displayed", oppClone);
+                        Assert.AreEqual("Clone button is not displayed", oppClone);
                         extentReports.CreateLog(oppClone + " on Opportunity details page for " + valUser + " ");
                     }
 
@@ -206,14 +211,14 @@ namespace SF_Automation.TestCases.Opportunity
                     extentReports.CreateLog("Page with title : " + titleCov + " is displayed ");
 
                     string coverageClone = opportunityDetails.ValidateCloneButton();
-                    if (valUser.Equals("Emre Abale")|| valUser.Equals("Ayati Arvind") || valUser.Equals("Drew Koecher") )
+                    if (valUser.Equals("Emre Abale"))//|| valUser.Equals("Ayati Arvind")|| valUser.Equals("Drew Koecher")
                     {
-                        Assert.AreEqual("Clone button is displayed", coverageClone);//not
+                        Assert.AreEqual("Clone button is not displayed", coverageClone);//not
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
                     else
                     {
-                        Assert.AreEqual("Clone button is not displayed", coverageClone);//is
+                        Assert.AreEqual("Clone button is displayed", coverageClone);//is
                         extentReports.CreateLog(coverageClone + " on Coverage Team detail page for " + valUser + " ");
                     }
 

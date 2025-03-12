@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage : BaseClass
     {
@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Opportunity
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        ValuationPeriods valPeriods = new ValuationPeriods();
+        OppValuationPeriods valPeriods = new OppValuationPeriods();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
 
         public static string fileTC2189 = "T2189_PortfolioValuationCreation";

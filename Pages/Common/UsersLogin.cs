@@ -39,6 +39,8 @@ namespace SF_Automation.Pages.Common
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
         By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
         By linkLogoutLV = By.XPath("//header//div[@data-message-id='loginAsSystemMessage']//a[contains(text(),'Log out')]");
+        By btnDiscard = By.XPath("//button[text()='Discard Changes']");
+
         public void SearchCFUserAndLogin(string name)
         {
             Thread.Sleep(5000);
@@ -194,6 +196,12 @@ namespace SF_Automation.Pages.Common
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogoutLV, 10);
             driver.FindElement(linkLogoutLV).Click();
+        }
+
+        public void DiscardChanges()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDiscard, 220);
+            driver.FindElement(btnDiscard).Click();
         }
     }
 }

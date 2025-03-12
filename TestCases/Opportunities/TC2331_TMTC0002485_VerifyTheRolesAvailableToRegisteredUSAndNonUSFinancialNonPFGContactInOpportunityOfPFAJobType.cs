@@ -5,7 +5,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType : BaseClass
     {
