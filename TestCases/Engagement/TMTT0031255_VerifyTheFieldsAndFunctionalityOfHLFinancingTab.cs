@@ -95,7 +95,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Field with name: " + FinAmt + " is displayed on Add HL Financing window ");
 
                 string Other = summaryPage.VerifyOtherFieldL();
-                Assert.AreEqual("Other", Other);
+                Assert.AreEqual("Notes", Other);
                 extentReports.CreateLog("Field with name: " + Other + " is displayed on Add HL Financing window ");
 
                 //Validate values of Financing Type

@@ -1,9 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props" Condition="Exists('packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
   <Import Project="packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" />
-  <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
   <Import Project="packages\NUnit.3.13.3\build\NUnit.props" Condition="Exists('packages\NUnit.3.13.3\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -140,6 +139,9 @@
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeAnalysis.Common.2.8.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>
@@ -147,11 +149,11 @@
       <HintPath>packages\Microsoft.CodeAnalysis.CSharp.2.8.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Configuration.Binder.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
@@ -162,11 +164,11 @@
     <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Configuration.EnvironmentVariables.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Configuration.FileExtensions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.FileExtensions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Configuration.Json.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Json.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Json.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.UserSecrets, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
@@ -177,14 +179,14 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.FileProviders.Physical.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Physical.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.FileSystemGlobbing.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileSystemGlobbing.8.0.0\lib\net462\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
@@ -216,8 +218,8 @@
     <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Options.ConfigurationExtensions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
@@ -249,7 +251,7 @@
       <HintPath>packages\MongoDB.Libmongocrypt.1.3.0\lib\net472\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>packages\NUnit.3.13.3\lib\net45\nunit.framework.dll</HintPath>
@@ -338,8 +340,8 @@
     <Reference Include="System.IO.Pipelines, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.Pipelines.4.5.2\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -358,8 +360,8 @@
       <HintPath>packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -404,11 +406,14 @@
     <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.8.0.4\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
@@ -416,9 +421,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -446,20 +450,22 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Selenium.WebDriver.4.8.0\lib\net47\WebDriver.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Selenium.WebDriver.4.18.1\lib\netstandard2.0\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Selenium.Support.4.8.0\lib\net47\WebDriver.Support.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\Selenium.Support.4.18.1\lib\netstandard2.0\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\ActivitiesList\ActivitiesListDetailPage.cs" />
     <Compile Include="Pages\ActivitiesList\AddActivity1.cs" />
     <Compile Include="Pages\ActivitiesList\EditActivity.cs" />
+    <Compile Include="Pages\Activities\LV_ActivityDetailPage.cs" />
+    <Compile Include="Pages\Activities\LV_ActivityList.cs" />
+    <Compile Include="Pages\Activities\LV_AddActivity.cs" />
     <Compile Include="Pages\Campaign\CampaignDetailPage.cs" />
     <Compile Include="Pages\Campaign\CampaignHomePage.cs" />
+    <Compile Include="Pages\Campaign\CampaignActivityPage.cs" />
     <Compile Include="Pages\Campaign\CampaignMemberEditPage.cs" />
     <Compile Include="Pages\Campaign\NewCampaignPage.cs" />
     <Compile Include="Pages\Common\LegalEntityDetail.cs" />
@@ -482,9 +488,10 @@
     <Compile Include="Pages\Company\CompanySelectRecordPage.cs" />
     <Compile Include="Pages\Contacts\ActivityDetailPage.cs" />
     <Compile Include="Pages\Contacts\AddActivity.cs" />
-    <Compile Include="Pages\Contacts\AddAffiliatedCompanies.cs" />
+    <Compile Include="Pages\Contacts\LV_AddAffiliatedCompanies.cs" />
     <Compile Include="Pages\Contacts\ContactCreatePage.cs" />
     <Compile Include="Pages\Contacts\ContactDetailsPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactEditPage.cs" />
     <Compile Include="Pages\Contacts\ContactEditPage.cs" />
     <Compile Include="Pages\Contacts\ContactHomePage.cs" />
     <Compile Include="Pages\Contacts\ContactRelationshipPage.cs" />
@@ -494,6 +501,7 @@
     <Compile Include="Pages\Contacts\LV_ContactRelationshipPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactDetailsPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsActivityDetailPage.cs" />
+    <Compile Include="Pages\Contacts\LV_ContactsActivityListPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsAddActivityPage.cs" />
     <Compile Include="Pages\Contacts\LV_ContactsCreatePage.cs" />
     <Compile Include="Pages\Contacts\LV_RecentlyViewedContactsPage.cs" />
@@ -510,11 +518,6 @@
     <Compile Include="Pages\Engagement\EngagementSummaryPage.cs" />
     <Compile Include="Pages\Engagement\LV_EngagementDetailsPage.cs" />
     <Compile Include="Pages\Engagement\ValuationPeriods.cs" />
-    <Compile Include="Pages\EventExpense\ExpenseRequestCreatePage.cs" />
-    <Compile Include="Pages\EventExpense\ExpenseRequestDetailPage.cs" />
-    <Compile Include="Pages\EventExpense\ExpenseRequestHomePage.cs" />
-    <Compile Include="Pages\EventExpense\ExpenseRequestPage.cs" />
-    <Compile Include="Pages\EventExpense\ExpenseRequestPage1.cs" />
     <Compile Include="Pages\EventExpense\LVExpenseRequestCreatePage.cs" />
     <Compile Include="Pages\EventExpense\LVExpenseRequestDetailPage.cs" />
     <Compile Include="Pages\EventExpense\LVExpenseRequestHomePage.cs" />
@@ -524,23 +527,24 @@
     <Compile Include="Pages\GiftLog\GiftSubmittedPage.cs" />
     <Compile Include="Pages\HomePage\HomeMainPage.cs" />
     <Compile Include="Pages\HomePage\LVHomePage.cs" />
-    <Compile Include="Pages\Opportunity\AdditionalClientSubjectPageWithJson.cs" />
-    <Compile Include="Pages\Opportunity\AdditionalClientSubjectPage.cs" />
-    <Compile Include="Pages\Opportunity\AddOpportunityPageWithJson.cs" />
-    <Compile Include="Pages\Opportunity\AddOpportunityPage.cs" />
     <Compile Include="Pages\Common\UsersLogin.cs" />
     <Compile Include="Pages\Common\LoginPage.cs" />
-    <Compile Include="Pages\Opportunity\AddOppCounterparty.cs" />
-    <Compile Include="Pages\Opportunity\AddOpportunityByAdmin.cs" />
-    <Compile Include="Pages\Opportunity\AddOpportunityContact.cs" />
-    <Compile Include="Pages\Opportunity\CNBCForm.cs" />
-    <Compile Include="Pages\Opportunity\FEISForm.cs" />
-    <Compile Include="Pages\Opportunity\MassRelationshipCreatorPage.cs" />
-    <Compile Include="Pages\Opportunity\NBCForm.cs" />
-    <Compile Include="Pages\Opportunity\OpportunityDetailsPage.cs" />
-    <Compile Include="Pages\Opportunity\OpportunityHome.cs" />
-    <Compile Include="Pages\Opportunity\OpportunityManager.cs" />
-    <Compile Include="Pages\Opportunity\ValuationPeriods.cs" />
+    <Compile Include="Pages\Opportunities\AdditionalClientSubjectPage.cs" />
+    <Compile Include="Pages\Opportunities\AdditionalClientSubjectPageWithJson.cs" />
+    <Compile Include="Pages\Opportunities\AddOppCounterparty.cs" />
+    <Compile Include="Pages\Opportunities\AddOpportunityByAdmin.cs" />
+    <Compile Include="Pages\Opportunities\AddOpportunityContact.cs" />
+    <Compile Include="Pages\Opportunities\AddOpportunityPage.cs" />
+    <Compile Include="Pages\Opportunities\AddOpportunityPageWithJson.cs" />
+    <Compile Include="Pages\Opportunities\CNBCForm.cs" />
+    <Compile Include="Pages\Opportunities\FEISForm.cs" />
+    <Compile Include="Pages\Opportunities\MassRelationshipCreatorPage.cs" />
+    <Compile Include="Pages\Opportunities\NBCForm.cs" />
+    <Compile Include="Pages\Opportunities\OpportunityDetailsPage.cs" />
+    <Compile Include="Pages\Opportunities\OpportunityHome.cs" />
+    <Compile Include="Pages\Opportunities\OpportunityManager.cs" />
+    <Compile Include="Pages\Opportunities\OppValuationPeriods.cs" />
+    <Compile Include="Pages\ParentProject\ParentProject.cs" />
     <Compile Include="Pages\Reports\ReportHomePage.cs" />
     <Compile Include="Pages\Tableau\TableauPage.cs" />
     <Compile Include="Pages\TimeRecordManager\RateSheetManagementPage.cs" />
@@ -548,92 +552,66 @@
     <Compile Include="Pages\TimeRecordManager\TimeRecorderFunctionalities.cs" />
     <Compile Include="Pages\TimeRecordManager\TimeRecordManagerEntryPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005173_TMTT0005671_VerifyTheLayoutOfActivitiesListPage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005673_VerifyListOfPreSetTemplateInActivitiesList.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0005674_VerifyTheActivitiesListFieldsOrColumnOnActivityListPage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011731_TMTT0011736_TMTT0011746_TMTT0011762_VerifytheViewAllLinklinkisredirectingtonewpagefromContactpage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011738_VerifytheTypeFiltersearchwhenthedesiredactivityisnotpresentoncurrentorselectedpage.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011740_TMTT0011741_VerifytheaccessofOtherAttendeeAccessForPrivatectivity.cs" />
-    <Compile Include="TestCases\ActivitiesList\TMTT0011744_TMTT0011743_TMTT0011742_VerifythatActivityDescriptionontheactivityisbeingmappedtoEmailTemplatewithsameformatasActivityDescription.cs" />
-    <Compile Include="TestCases\Company\T1140_T1141_T1151_T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
-    <Compile Include="TestCases\Company\T1144_T1146_Companies_AddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
-    <Compile Include="TestCases\Company\T1147_Companies_Common_CompanyEditAndUpdateTheExistingInformation.cs" />
-    <Compile Include="TestCases\Company\T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage.cs" />
-    <Compile Include="TestCases\Company\T1170_Companies_Contacts_MergeExistingContactsIntoSingleMasterRecord.cs" />
-    <Compile Include="TestCases\Company\T1174_Companies_AddCFOpportunityInCompanyDetailsPage.cs" />
-    <Compile Include="TestCases\Company\T1176_Companies_AddFVAOpportunityInCompanyDetailPage.cs" />
-    <Compile Include="TestCases\Company\T1177_Companies_AddFROpportunityInCompanyDetailPage.cs" />
-    <Compile Include="TestCases\Company\T1550_T1552_Companies_CompanyLists_SaveCancelEditAndDelete.cs" />
-    <Compile Include="TestCases\Company\T1747_Companies_CoverageTeam_NewOffsiteTemplate_SaveCancel.cs" />
-    <Compile Include="TestCases\Company\T1885_T1886_Companies_CompanyDetailsPage_CompanyFinancials_EditAndDelete.cs" />
-    <Compile Include="TestCases\Company\T1894_CapIQCompanies_CapIQCompaniesDetailPage_AddSalesforceCompany.cs" />
-    <Compile Include="TestCases\Company\T1948_Companies_ValidationRule_NoParentCompanyCannotBeTrueIfParentCompanyHasValue.cs" />
-    <Compile Include="TestCases\Company\T1952_Companies_ValidationRule_OnlyDataHygieneAndSystemAdminsToChangeRecordType.cs" />
-    <Compile Include="TestCases\Company\T2040_Companies_StandardCoverageTeam_VerifyRequiredFieldsHelpText.cs" />
-    <Compile Include="TestCases\Company\T2041_Companies_FSCoverageTeam_VerifyRequiredFieldsHelpText.cs" />
-    <Compile Include="TestCases\Company\T2237_Companies_VerifyDuplicateRuleAccountCreatedByAnd.cs" />
-    <Compile Include="TestCases\Company\T2346_Companies_Common-VerifyCoverageTeamOfficerCanBeAddedToCoverageTeams_BySelectingDifferentPrimarySectorValues.cs" />
-    <Compile Include="TestCases\Company\TMTI0027297_27298_27296_27303_VerifyCFIndustryGroupUpdatedToTECHonCompanies.cs" />
-    <Compile Include="TestCases\Company\TMTI0027300_TMTI0027318_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.cs" />
-    <Compile Include="TestCases\Company\TMTI0046471_46475_46470_46476_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUser.cs" />
-    <Compile Include="TestCases\Company\TMTI0046472_46478_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdmin.cs" />
-    <Compile Include="TestCases\Company\TMTI0046474_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdmin.cs" />
-    <Compile Include="TestCases\Company\TMTI0046479_46477_46473_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverage.cs" />
-    <Compile Include="TestCases\Company\TMTT0014212_TMTT0014213_TMTT0014215_Company_VerifyTheUserIsAbleToAddNewSectorOnTheCompanyPage.cs" />
-    <Compile Include="TestCases\Company\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.cs" />
-    <Compile Include="TestCases\Company\TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.cs" />
-    <Compile Include="TestCases\Contact\T1047_T1100_T1941_T1945_T2146_T2145_Contact_CreateNewContactRecordTypeExternalContact.cs" />
-    <Compile Include="TestCases\Contact\T1048_T1942_T1943_T1944_T1945_T1946_T1951_T1954_T1955_T1957_T1958_Contact_CreateNewContactRecordTypeHoulihanEmployee.cs" />
-    <Compile Include="TestCases\Contact\T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton.cs" />
-    <Compile Include="TestCases\Contact\T1103_Contact_CreateNewRelationshipInHoulihanEmpDetailPage.cs" />
-    <Compile Include="TestCases\Contact\T1106_Contact_CreateNewHLRelationshipThroughNewRelationshipInExternalContactDetailPage.cs" />
-    <Compile Include="TestCases\Contact\T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
-    <Compile Include="TestCases\Contact\T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate.cs" />
-    <Compile Include="TestCases\Contact\T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />
-    <Compile Include="TestCases\Contact\T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
-    <Compile Include="TestCases\Contact\T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />
-    <Compile Include="TestCases\Contact\T1549_Contacts_ContactsDetailsPage_HLRelationship_SortableView.cs" />
-    <Compile Include="TestCases\Contact\T1845_T1961_T1966_Contact_ContactDetails_Activities_PrivateActivity.cs" />
-    <Compile Include="TestCases\Contact\T1846_Contact_ContactDetailsActivitiesCreateAnActivityWithFollowUp.cs" />
-    <Compile Include="TestCases\Contact\T1950_Contacts_ValidationRules_PreventHCMProfileFromEditingInternalContactRecords.cs" />
-    <Compile Include="TestCases\Contact\T1962_Contacts_ContactDetails_DirectLinkSharingOfPrivateActivity.cs" />
-    <Compile Include="TestCases\Contact\T2056_TMTT0011745_ContactDetailsPage_Activities_AddNewContact.cs" />
-    <Compile Include="TestCases\Contact\T2057_T1841_Contact_ContactDetailsPage_ActivitiesEdit_AddNewCompany.cs" />
-    <Compile Include="TestCases\Contact\T2144_CreateNewContactWithRecordTypeAsExternal Contact_WorkFlow_DoNotEmailAndDoNotSolicit.cs" />
-    <Compile Include="TestCases\Contact\T2149_Contacts_ContactEditPage_WorkFlowUpdateGenderfieldbasedonSalutations.cs" />
-    <Compile Include="TestCases\Contact\T2238_T2240_Contacts_VerifyDuplicateRuleAccountCreatedByAndDupRecordSet.cs" />
-    <Compile Include="TestCases\Contact\T2242_Contact_DuplicateManagement_Add_New_Duplicate_Contact_FromContactsTab.cs" />
-    <Compile Include="TestCases\Contact\T2244_Contacts_DuplicateManagement_Edit_Contact_Record_ToMatchWithAnExistingContact.cs" />
-    <Compile Include="TestCases\Contact\T2245_Contacts_DuplicateManagement_AddNewDuplicateEmployeeFromContactsTab.cs" />
-    <Compile Include="TestCases\Contact\T2246_Contacts_DuplicateManagement_EditEmployeeRecordToMatchWithAnExistingEmployee.cs" />
-    <Compile Include="TestCases\Contact\T2247_Contact_AddANewCompanyFromContactPage.cs" />
-    <Compile Include="TestCases\Contact\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
-    <Compile Include="TestCases\Contact\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
-    <Compile Include="TestCases\Contact\TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage.cs" />
-    <Compile Include="TestCases\Contact\TMTT0013752_ContactDetailsPage_VerifyAvailabilityOfJobCodeFieldAndValue.cs" />
+    <Compile Include="TestCases\Company\LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
+    <Compile Include="TestCases\Company\LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation.cs" />
+    <Compile Include="TestCases\Company\LV_T1169_CompaniesAddNewContactButtonFuncContactModuleOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_T1174_TMTC0033995_CompaniesAddCFOpportunityInCompanyDetailsPage.cs" />
+    <Compile Include="TestCases\Company\LV_T1176_TMTC0034007_CompaniesAddFVAOpportunityInCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_T1177_TMTC0034002_CompaniesAddFROpportunityInCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033975_1_VerifyFunctionalityOfCompaniesInfoCFFinUser.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033975_2_VerifyFunctionalityOfCompaniesSystemAdmnUser.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033975_3_VerifyDuplicateAlertFunctionalityForCompaniesAndContact.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033975_4_VerifyRelatedListIsUdatedOnCratedCompany.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033978_1_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0033978_2_VerifyTheFunctionalityOfNewContactButtonAndHLRelationshipObjectOCompanyDetailsPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034013_TMTC0034010_VerifyTheFunctionalityOfPrintableViewAndBoardMembersTabInTheCompany.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034016_1_VerifyTheFunctionalityOfCoverageTabOnCompany.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034016_2_VerifyTheFunctionalityOfCoverageTabCoverageSectorOnCompany.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034016_3_VerifyTheFunctionalityOfCoverageTabOnCompanySystemAdmin.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034016_4_VerifyTheFunctionalityOfCoveageOfficeStatusOnCoverageTeamDetailPages.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034019_VerifyTheFunctionalityOfActivityTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034027_1_VerifyTheFunctionalityOfFinancialsTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034041_VerifyTheFunctionalityOfInvestmentProfileTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034044_VerifyTheAvailabilityOfTheLocationsTabOnTheCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034058_VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034063_VerifyTheFunctionalityOfTearsheetTabOnCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034068_VerifyTheFunctionalityOfFlagTabOnTheCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0012451_TMTT0012456_VerifyCFIndustryGroupUpdatedToTECHonCompaniesLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0012453_TMTT0012465_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompaniesLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020654_TMTC0034030_TMTC0034034_VerifyCompaniesRelatedListOppEngEnhancedWithFilteringLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForContactsCFUserLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdminLightningView.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForCoverageSystemAdminLightningView.cs" />
+    <Compile Include="TestCases\Contact\LV_T1047_T1100_T1941_T1945_T2146_T2145_Contact_CreateNewContactRecordTypeExternalContact.cs" />
+    <Compile Include="TestCases\Contact\LV_T1048_T1942_T1943_T1944_T1945_T1946_T1951_T1954_T1955_T1957_T1958_Contact_CreateNewContactRecordTypeHoulihanEmployee.cs" />
+    <Compile Include="TestCases\Contact\LV_T1063_Contacts_AddMultipleContactsToAnExistingCompanyAndValidateSaveAndNewButton.cs" />
+    <Compile Include="TestCases\Contact\LV_T1103_T1106_Contact_CreateNewRelationshipInHoulihanEmpDetailPage.cs" />
+    <Compile Include="TestCases\Contact\LV_T1109_Contact_SelectionAndDeselectionOfSubscriptionPreferencesForExternalContact.cs" />
+    <Compile Include="TestCases\Contact\LV_T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate.cs" />
+    <Compile Include="TestCases\Contact\LV_T1137_T1138_Contacts_AffiliatedCompany_NewAffiliation_SaveCancelEditUpdate.cs" />
+    <Compile Include="TestCases\Contact\LV_T1503_T1603_T1604_Contact_ContactDetailsPage_AddActivityEditDelete.cs" />
+    <Compile Include="TestCases\Contact\LV_T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />
+    <Compile Include="TestCases\Contact\LV_T1950_Contacts_ValidationRules_PreventHCMProfileFromEditingInternalContactRecords.cs" />
+    <Compile Include="TestCases\Contact\LV_T2057_T1841_Contact_ContactDetailsPage_ActivitiesEdit_AddNewCompany.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage.cs" />
-    <Compile Include="TestCases\Contact\TMTT0014212_TMTT0014213_TMTT0014215_Contact_VerifyTheUserIsAbleToAddNewSectorOnTheContactPage.cs" />
+    <Compile Include="TestCases\Engagement\LV_TS04AndTS07_ValidateERPSectionAndDefaultContractPostConversionFromOpportunityToEngagementLightningView.cs" />
+    <Compile Include="TestCases\Engagement\LV_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagementLightningView.cs" />
+    <Compile Include="TestCases\Engagement\LV_TS06_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncEngagementLightningView.cs" />
     <Compile Include="TestCases\Engagement\T1615_Engagement_ChangeTheStage_POCIsUpdated.cs" />
     <Compile Include="TestCases\Engagement\T1710AndT1422_EngagementCounterpartyDetails_EngagementCounterpartyContact_SaveAndCancelAndAddFromExistingEngagement.cs" />
     <Compile Include="TestCases\Engagement\T1811AndT1206_EngagementEditPage_UncheckAvailableInExpenseApplicationWhenAccountingStatusUpdatedToClosed.cs" />
+    <Compile Include="TestCases\Engagement\T1811AndT1206_EngagementEditPage_UncheckAvailableInExpenseApplicationWhenAccountingStatusUpdatedToClosed_Lightning.cs" />
     <Compile Include="TestCases\Engagement\T1824_EngagementDetails_RevenueAccruals_DuplicateRevenueAccrualValidation.cs" />
-    <Compile Include="TestCases\Engagement\T2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB.cs" />
-    <Compile Include="TestCases\Engagement\T2250_EngagementManager_AbilityToCreateNewRevenueAccrualInEngagementManagerForFREngagement.cs" />
-    <Compile Include="TestCases\Engagement\T1829_EngagementDetails_RevenueAccrual_CFRevenueAccrual_TotalEstimatedFeeChange.cs" />
+    <Compile Include="TestCases\Engagement\T1824_EngagementDetails_RevenueAccruals_DuplicateRevenueAccrualValidation_Lightning.cs" />
     <Compile Include="TestCases\Engagement\T1827_EngagementDetails_RevenueAccrual_FASRevenueAccrual_StageChange.cs" />
     <Compile Include="TestCases\Engagement\T1828_EngagementDetails_RevenueAccrual_FASRevenueAccrual_TotalEstimatedFeeChange.cs" />
-    <Compile Include="TestCases\Engagement\T1900_FREngagementSummary_HLPostTransactionOpportunities_CreateDel.cs" />
-    <Compile Include="TestCases\Engagement\T1899_FREngagementSummary_PostTransactionInformation_Lender_AddEditDel.cs" />
-    <Compile Include="TestCases\Engagement\T1898_FREngagementSummary_PostTransactionInformation_DebtStructure_AddEditDel.cs" />
-    <Compile Include="TestCases\Engagement\T1897_FREngagementSummary_PostTransactionInformation_BoardMember_AddDel.cs" />
-    <Compile Include="TestCases\Engagement\T1896_FREngagementSummary_PostTransactionInformation_EquityHolder_AddEditDel.cs" />
-    <Compile Include="TestCases\Engagement\T1895_FREngagementSummary_PreTransactionInformation_Lender_AddEditDel.cs" />
-    <Compile Include="TestCases\Engagement\T1889_FREngagementSummary_PreTransactionInformation_BoardMember_AddDelCopy.cs" />
-    <Compile Include="TestCases\Engagement\T1888_FREngagementSummary_PreTransactionInformation_EquityHolder_AddEditDelAndCopy.cs" />
-    <Compile Include="TestCases\Engagement\T1887_FREngagementSummary_FinancialsProjections_AddFinancials.cs" />
-    <Compile Include="TestCases\Engagement\T1884_FREngagementSummary_HLFinancing_CreateEditAndDelete.cs" />
-    <Compile Include="TestCases\Engagement\T1882_FREngagementSummary_DistressedMAInformation_CreateEditAndDelete.cs" />
-    <Compile Include="TestCases\Engagement\T1880_FREngagementSummary_HLPostTransactionOpportunities_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\T1829_EngagementDetails_RevenueAccrual_CFRevenueAccrual_TotalEstimatedFeeChange.cs" />
     <Compile Include="TestCases\Engagement\T1873_EngagementSummary_FRDisplayedForSpecificJobTypes.cs" />
     <Compile Include="TestCases\Engagement\T1874_FREngagementSummary_EngagementInformation_FieldsAndValues.cs" />
     <Compile Include="TestCases\Engagement\T1875_FREngagementSummary_FinancialsProjections_FieldsAndValues.cs" />
@@ -641,24 +619,101 @@
     <Compile Include="TestCases\Engagement\T1877_FREngagementSummary_HLFinancing_FieldsAndValues.cs" />
     <Compile Include="TestCases\Engagement\T1878_FREngagementSummary_PreTransactionInformation_FieldsAndValues.cs" />
     <Compile Include="TestCases\Engagement\T1879_FREngagementSummary_PostTransactionInformation_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\T1880_FREngagementSummary_HLPostTransactionOpportunities_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\T1882_FREngagementSummary_DistressedMAInformation_CreateEditAndDelete.cs" />
+    <Compile Include="TestCases\Engagement\T1884_FREngagementSummary_HLFinancing_CreateEditAndDelete.cs" />
+    <Compile Include="TestCases\Engagement\T1887_FREngagementSummary_FinancialsProjections_AddFinancials.cs" />
+    <Compile Include="TestCases\Engagement\T1888_FREngagementSummary_PreTransactionInformation_EquityHolder_AddEditDelAndCopy.cs" />
+    <Compile Include="TestCases\Engagement\T1889_FREngagementSummary_PreTransactionInformation_BoardMember_AddDelCopy.cs" />
     <Compile Include="TestCases\Engagement\T1891_FREngagementSummary_PreTransactionInformation_DebtStructure_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\T1895_FREngagementSummary_PreTransactionInformation_Lender_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\T1896_FREngagementSummary_PostTransactionInformation_EquityHolder_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\T1897_FREngagementSummary_PostTransactionInformation_BoardMember_AddDel.cs" />
+    <Compile Include="TestCases\Engagement\T1898_FREngagementSummary_PostTransactionInformation_DebtStructure_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\T1899_FREngagementSummary_PostTransactionInformation_Lender_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\T1900_FREngagementSummary_HLPostTransactionOpportunities_CreateDel.cs" />
     <Compile Include="TestCases\Engagement\T1975AndT2186_PortfolioValuation_AccrualNotMadeUntilEngagementNumberIsAssigned.cs" />
+    <Compile Include="TestCases\Engagement\T1975AndT2186_PortfolioValuation_AccrualNotMadeUntilEngagementNumberIsAssigned_Lightning.cs" />
+    <Compile Include="TestCases\Engagement\T2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB.cs" />
+    <Compile Include="TestCases\Engagement\T2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB_Lightning.cs" />
+    <Compile Include="TestCases\Engagement\T2250_EngagementManager_AbilityToCreateNewRevenueAccrualInEngagementManagerForFREngagement.cs" />
     <Compile Include="TestCases\Engagement\T2263AndT2264_CreateRevenueAccrualAsSharedFASUserviaEngagementManagerAndUpdateviaEngagementRecord.cs" />
     <Compile Include="TestCases\Engagement\T2295_TMTC0001638_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFASEngagementFromEngagementManager.cs" />
     <Compile Include="TestCases\Engagement\T2296_TMTC0001641_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFREngagementFromEngagementManager.cs" />
     <Compile Include="TestCases\Engagement\T2358AndT2359_AddPrimaryAndBillingContactWithoutEmailAndTitledetailsAndVerifyBillingRequestOnCFAndFASEngagement.cs" />
+    <Compile Include="TestCases\Engagement\T2358AndT2359_AddPrimaryAndBillingContactWithoutEmailAndTitledetailsAndVerifyBillingRequestOnCFAndFASEngagement_Lightning.cs" />
     <Compile Include="TestCases\Engagement\TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations.cs" />
-    <Compile Include="TestCases\Engagement\TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations_lightning.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0019676_TMTI0019677_TMTI0071581_TMTI0071584_TMTI0071586_VerifyNondealUserAndUserPartOfAccessToEngOfAllLOBsAccessToEngReports_VerifyEngagementReportLinksInClassicAndLightning.cs" />
+    <Compile Include="TestCases\Engagement\TMTI0046430_TMTI0046429_TMTI0046434_TMTI0046433_TMTI0046432_TMTI0046431_ValidateBidTrackingComponent.cs" />
     <Compile Include="TestCases\Engagement\TMTI0046858_Verify_Functionality_Of_Outlook_Invitation_Tab_on_CST_Questionnaire_Page.cs" />
     <Compile Include="TestCases\Engagement\TMTI0048263_0048282_45498_45523_48654_48269_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.cs" />
     <Compile Include="TestCases\Engagement\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.cs" />
     <Compile Include="TestCases\Engagement\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0017891_ViewCounterparties_EditBidFunctionality.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027453_ViewCounterparties_MassCheckbox.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031164_VerifyTheInformationUnderEngagementInformationTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031167_VerifyTheFieldsAndFunctionalityOfFinancialsProjectionsTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031209_ VerifyTheFieldsAndFunctionalityOfTheDistressedMAInformationTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031255_VerifyTheFieldsAndFunctionalityOfHLFinancingTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
-    <Compile Include="TestCases\Engagement\TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
-    <Compile Include="TestCases\Engagement\TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
+    <Compile Include="TestCases\Engagement\ZObsolated_LV_TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
+    <Compile Include="TestCases\Engagement\ZObsolated_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
+    <Compile Include="TestCases\Engagement\ZObsolated_TS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
+    <Compile Include="TestCases\Engagement\zT1615_Engagement_ChangeTheStage_POCIsUpdated.cs" />
+    <Compile Include="TestCases\Engagement\zT1710AndT1422_EngagementCounterpartyDetails_EngagementCounterpartyContact_SaveAndCancelAndAddFromExistingEngagement.cs" />
+    <Compile Include="TestCases\Engagement\zT1811AndT1206_EngagementEditPage_UncheckAvailableInExpenseApplicationWhenAccountingStatusUpdatedToClosed.cs" />
+    <Compile Include="TestCases\Engagement\zT1824_EngagementDetails_RevenueAccruals_DuplicateRevenueAccrualValidation.cs" />
+    <Compile Include="TestCases\Engagement\zT1827_EngagementDetails_RevenueAccrual_FASRevenueAccrual_StageChange.cs" />
+    <Compile Include="TestCases\Engagement\zT1828_EngagementDetails_RevenueAccrual_FASRevenueAccrual_TotalEstimatedFeeChange.cs" />
+    <Compile Include="TestCases\Engagement\zT1829_EngagementDetails_RevenueAccrual_CFRevenueAccrual_TotalEstimatedFeeChange.cs" />
+    <Compile Include="TestCases\Engagement\zT1873_EngagementSummary_FRDisplayedForSpecificJobTypes.cs" />
+    <Compile Include="TestCases\Engagement\zT1874_FREngagementSummary_EngagementInformation_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1875_FREngagementSummary_FinancialsProjections_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1876_FREngagementSummary_DistressedMAInformation_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1877_FREngagementSummary_HLFinancing_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1878_FREngagementSummary_PreTransactionInformation_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1879_FREngagementSummary_PostTransactionInformation_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1880_FREngagementSummary_HLPostTransactionOpportunities_FieldsAndValues.cs" />
+    <Compile Include="TestCases\Engagement\zT1882_FREngagementSummary_DistressedMAInformation_CreateEditAndDelete.cs" />
+    <Compile Include="TestCases\Engagement\zT1884_FREngagementSummary_HLFinancing_CreateEditAndDelete.cs" />
+    <Compile Include="TestCases\Engagement\zT1887_FREngagementSummary_FinancialsProjections_AddFinancials.cs" />
+    <Compile Include="TestCases\Engagement\zT1888_FREngagementSummary_PreTransactionInformation_EquityHolder_AddEditDelAndCopy.cs" />
+    <Compile Include="TestCases\Engagement\zT1889_FREngagementSummary_PreTransactionInformation_BoardMember_AddDelCopy.cs" />
+    <Compile Include="TestCases\Engagement\zT1891_FREngagementSummary_PreTransactionInformation_DebtStructure_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1895_FREngagementSummary_PreTransactionInformation_Lender_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1896_FREngagementSummary_PostTransactionInformation_EquityHolder_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1897_FREngagementSummary_PostTransactionInformation_BoardMember_AddDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1898_FREngagementSummary_PostTransactionInformation_DebtStructure_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1899_FREngagementSummary_PostTransactionInformation_Lender_AddEditDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1900_FREngagementSummary_HLPostTransactionOpportunities_CreateDel.cs" />
+    <Compile Include="TestCases\Engagement\zT1975AndT2186_PortfolioValuation_AccrualNotMadeUntilEngagementNumberIsAssigned.cs" />
+    <Compile Include="TestCases\Engagement\zT2198_Engagement_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButtonForNonPortfolioValuationEngagementRecordTypesWithinFASLOB.cs" />
+    <Compile Include="TestCases\Engagement\zT2250_EngagementManager_AbilityToCreateNewRevenueAccrualInEngagementManagerForFREngagement.cs" />
+    <Compile Include="TestCases\Engagement\zT2263AndT2264_CreateRevenueAccrualAsSharedFASUserviaEngagementManagerAndUpdateviaEngagementRecord.cs" />
+    <Compile Include="TestCases\Engagement\zT2295_TMTC0001638_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFASEngagementFromEngagementManager.cs" />
+    <Compile Include="TestCases\Engagement\zT2296_TMTC0001641_ValidateToAddNegativeNumbersToPeriodAccruedFeeToFREngagementFromEngagementManager.cs" />
+    <Compile Include="TestCases\Engagement\zT2358AndT2359_AddPrimaryAndBillingContactWithoutEmailAndTitledetailsAndVerifyBillingRequestOnCFAndFASEngagement.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0018651_FREngagementSummary_LendersMappingToKeyCreditorsOnTheMassEditPageValidations.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0046430_TMTI0046429_TMTI0046434_TMTI0046433_TMTI0046432_TMTI0046431_ValidateBidTrackingComponent.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0046858_Verify_Functionality_Of_Outlook_Invitation_Tab_on_CST_Questionnaire_Page.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0048263_0048282_45498_45523_48654_48269_VerifyOnceQuestionnaireSubmittedEmailWillGoOutToDealUserandCST_group.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.cs" />
+    <Compile Include="TestCases\Engagement\zTMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
+    <Compile Include="TestCases\Engagement\zTMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
+    <Compile Include="TestCases\Engagement\zTMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
+    <Compile Include="TestCases\Engagement\zTS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
+    <Compile Include="TestCases\Engagement\zTS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />
+    <Compile Include="TestCases\Engagement\zTS06_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS08_VerifyMultipleContractsCreationByMultipleBillingContactsInEngagement.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS09_TS11_TS29_VerifyICOContractBasedOnLOBOfLegalEntity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS09_TS11_TS29_VerifyICOContractBasedOnLOBOfLegalEntity_Part2.cs" />
@@ -674,91 +729,158 @@
     <Compile Include="TestCases\ERPtoOracle\TS28_TS31_VerifyContractDetailsWithNonUsStaffAndUSLegalEntity_Part2.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity.cs" />
     <Compile Include="TestCases\ERPtoOracle\TS32_VerifyIcoContractDetailOnOpportunity_Part2.cs" />
-    <Compile Include="TestCases\EventExpense\T2279_TMTI0036293_91_92_95_97_98_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\TMTI0075756_75765_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\TMTI0075758_75760_75767_75769_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\T2274_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet1.cs" />
-    <Compile Include="TestCases\EventExpense\T2275_EventExpenseEmailNotifications_VerifyValidationRulesOnEventExpenseSet2.cs" />
-    <Compile Include="TestCases\EventExpense\T2276_T2277_EventExpense_Salesforce_EventExpense_EmailNotifications_RejectApproveEventExpenseFormAsFirstLevelApprover.cs" />
-    <Compile Include="TestCases\EventExpense\T2278_TMTI0036294_36296_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2278_TMTT0016300_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.cs" />
+    <Compile Include="TestCases\EventExpense\LV_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet1.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.cs" />
-    <Compile Include="TestCases\GiftLog\T1508_T1511_T1514_ClientGiftPre_ApprovalPage_AddGiftToSelectRecipient_RequiredInformationFieldValidation_AtleastOneRecipientRequired.cs" />
-    <Compile Include="TestCases\GiftLog\T1509_Verifysubmittedforfield%27slookupisdisplayingthecontactsofRecordTypesHoulihanEmployeewithdetails.cs" />
-    <Compile Include="TestCases\GiftLog\T1510_ClientGiftPre_ApprovalPageLayoutAndFields.cs" />
-    <Compile Include="TestCases\GiftLog\T1512_T1513_ClientGiftPre-ApprovalPage_AddingaRecipientToTheSelectedRecipientSection.cs" />
-    <Compile Include="TestCases\GiftLog\T1516_T1517_T1518_T1519_T1520_T2005_ ClientGiftPre-ApprovalPage-RecipientsExceedsYearlyGiftAllowance-100-ReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar.cs" />
-    <Compile Include="TestCases\GiftLog\T1523_T2010_T1515- ApproveGifts-DefaultLayoutFieldsAndFieldsValues.cs" />
-    <Compile Include="TestCases\GiftLog\T1524_T2014_GiftLog–GiftApprovalProcess–ApproveGifts–VerifyPendingApprovedAndDeniedGiftsEditRights.cs" />
-    <Compile Include="TestCases\GiftLog\T1525 _ ApproveGifts_DenySelected_ToDenyTheGiftsFromPendingList.cs" />
-    <Compile Include="TestCases\GiftLog\T1526 _ ApproveGifts_DenySelected_ToDenySelectedGiftsFromApprovedList.cs" />
-    <Compile Include="TestCases\GiftLog\T1527_ApproveGifts_ApproveSelected_ToApproveSelectedGiftsFromDeniedList.cs" />
-    <Compile Include="TestCases\GiftLog\T2006_GiftLog–GiftRequestProcess–GiftSubmissionForCurrentAndNextCalendarYear.cs" />
-    <Compile Include="TestCases\GiftLog\T2007_GiftLog-GiftRequestProcess-SplitGiftValueInEqualDistributionForSelectedRecipient.cs" />
-    <Compile Include="TestCases\GiftLog\T2009_GiftLog_GiftRequestProcess_RecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar.cs" />
-    <Compile Include="TestCases\GiftLog\T2011_GiftLog_GiftRequestProcess_GiftSubmitted_GiftRequestDetailLayoutAndFields.cs" />
-    <Compile Include="TestCases\GiftLog\T2012_GiftLog–GiftRequestProcess–GiftSubmitted–GiftRequestDetail–VerifyEditAndDeleteFunctionality.cs" />
-    <Compile Include="TestCases\GiftLog\T2013_T2019_GiftLog_GiftRequestProcess_GiftSubmitted_VerifyApprovedDeniedGiftsEditRights.cs" />
-    <Compile Include="TestCases\GiftLog\T2015_GiftLog_GiftApprovalProcess_ApproveGifts_GiftRequestDetailLayoutAndFields.cs" />
-    <Compile Include="TestCases\GiftLog\T2016_GiftLog_GiftRequestProcess_GiftRequests_VerifyGiftDetailsGetsUpdatedOnRefresh.cs" />
-    <Compile Include="TestCases\GiftLog\T2017_GiftLog_GiftRequestProcess_GiftRequests_VerifyTheTotalsOfTheGiftsAreMeasuredSeparatelyFromTheCurrentYear.cs" />
-    <Compile Include="TestCases\GiftLog\T2018_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover.cs" />
-    <Compile Include="TestCases\GiftLog\T2020_GiftLog_GiftApprovalProcess_ApproveGifts_VerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
-    <Compile Include="TestCases\GiftLog\T2021_GiftLog_GiftApprovalProcess_ApproveGifts_ApproveOrDenyMultipleGiftRequests.cs" />
-    <Compile Include="TestCases\GiftLog\T2022_GiftLog_GiftRequestProcess_VerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_1_VerifyActivityFunctionalityOnCompanyDetailPage.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_2_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_3_VerifyPrimaryAttendeeSelection.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_4_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_5_VerifyPrivateIsMaskedOnActivityListViewForNonActivityUser.cs" />
-    <Compile Include="TestCases\LV_Activities\LV_TMTC0025346_6_VerifyActivityMappedSelectedOpportunityAndEngagement.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1508_T1509_T1510_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1512_T1513_ClientGiftPreApprovalPageSubmitGiftRequestSearchCriteria_CancelAndAddInGitfsRecipientSection.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1523_T2010_T1515_ApproveGiftsDefaultLayoutFieldsAndFieldsValues.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1524_T2014_GiftApprovalProcessApproveGiftsVerifyPendingApprovedAndDeniedGiftsEditRights.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1526_ApproveGiftsDenySelectedToDenySelectedGiftsFromApprovedList.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T1527_ApproveSelectedToApproveSelectedGiftsFromDeniedList.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2007_GiftLogGiftRequestProcessSplitGiftValueInEqualDistributionForSelectedRecipient.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2011_GiftLogGiftRequestProcessGiftSubmittedGiftRequestDetailLayoutAndFields.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2012_GiftLogGiftRequestProcessGiftSubmittedGiftRequestDetailVerifyEditAndDeleteFunctionality.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2013_T2019_GiftRequestProcessGiftSubmittedVerifyApprovedDeniedGiftsEditRights.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2015_GiftLog_GiftApprovalProcessApproveGiftsGiftRequestDetailLayoutAndFields.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2016_GiftLogGiftRequestProcessGiftRequests_VerifyGiftDetailsGetsUpdatedOnRefresh.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2017_GiftLogGiftRequestProcessGiftRequestsVerifyTheTotalsOfTheGiftsAreMeasuredSeparatelyFromTheCurrentYear.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2018_GiftApprovalProcessApproveGiftsVerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2020_GiftApprovalProcessApproveGiftsVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.cs" />
+    <Compile Include="TestCases\GiftLog\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072214_TMT0072217_TMT0072219_TMT0072222_TMT0072226_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072233_VerifyActivityIsLinkedToTheRelatedEngagement.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072238_TMT0072487_TMT0072489_TMT0072491_VerifyActivityPageValidations.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072236_VerifyActivityIsLinkedToTheRelatedCampaign.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072231_VerifyActivityIsLinkedToTheRelatedOpportunity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072229_VerifyActivityIsLinkedToTheSelectedCompanyDiscussed.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072196_VerifyEACactivityInGlobalSearch.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072188_TMT0072190_TMT0072193_VerifyBothPrimaryAndNonPrimaryAttendeeCanEditAndDeleteFollowUpActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072178_TMT0072180_VerifyBothPrimaryAndNonPrimaryAttendeeCanDeleteActivityFromSF.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072172_TMT0072174_VerifyBothPrimaryAndNonPrimaryAttendeeCanSendNotificationFromSF.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072170_VerifyBankerCanUpdatePrimaryAttendeeAndMakeAnotherPrimaryAttendee.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072168_VerifyBankerCanRemoveNonPrimaryHLAndExternalAttendeesFromAnActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072159_TMT0072162_VerifyBankerCanCreateExternalAndInternalFollowUpActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072153_TMT0072155_VerifyBanker_PrimaryOrNonPrimary_WhoIsPartOfTheActivityCanEditTheActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072157_VerifyBankerWhoIsNotPartOfTheActivityCannotEditTheActivity.cs" />
+    <Compile Include="TestCases\LV_Activities\TMT0072151_TMT0072475_TMT0072477_TMT0072479_VerifyTypesOfActivitiesCreatedByBankerInSF.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
+    <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1692_TMTT0011214_FVA_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2154_TMTC0002470_VerifyTheRolesAvailableToRegisteredUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2327_TMTC0002473_VerifyTheRolesAvailableToRegisteredNonUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInUSOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2329_TMTC0002479_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2330_TMTC0002482_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialPFGContactInOpportunityOfNonPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TC2333_TMTC0002494_VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCAandNonGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnJobTypeObjPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0024858_TMTT0030610_TMTT0035436_VerifyNewJobTypeIsForFVAOnlyLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0027425_TMTT27427_TMTT27428_TMTT27431_TMTT27434_TMTT27435_TMTT30277_1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOppToEngAfterConversionLightningVersion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0027430_TMTT0027433_TMTT0027436_TMTT0027437_TMTT0027438_TMTT0027439_TMTT0030273_TMTT0032167_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagementLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatusFrom.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0035971_VerifyStartDateGetsUpdatedIflinkedOpportunityHasOnEngagementDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0036857_VerifyFunctionalityOfDNDSharingFeatureForFRLOBOpportunityAndEngagementOnLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0036858_VerifyFunctionalityOfDNDSharingFeatureForFVALOBOpportunityAndEngagementOnLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0036859_VerifyFunctionalityOfDNDSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0041159-1_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0041159-2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV.cs" />
+    <Compile Include="TestCases\Opportunities\T1232_OpportunityDetails_NBCForm_SubmitforReview.cs" />
+    <Compile Include="TestCases\Opportunities\T1426_11215_11219_11220_11221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
     <Compile Include="TestCases\Opportunities\T1559_TMTT0011212_OpportunityManager_UpdateFieldsOfLOB_CFViaOpportunityManager_ValidateWomenLed.cs" />
-    <Compile Include="TestCases\Opportunities\T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
-    <Compile Include="TestCases\Opportunities\T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
-    <Compile Include="TestCases\Opportunities\T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
+    <Compile Include="TestCases\Opportunities\T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.cs" />
+    <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />
+    <Compile Include="TestCases\Opportunities\T1644_OpportunityDetails_FEISForm_SubmitForReview.cs" />
+    <Compile Include="TestCases\Opportunities\T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
+    <Compile Include="TestCases\Opportunities\T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
     <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0027307_27308_27314_27315_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0027313_27309_27310_27311_27312_27291_27292_27293_27294_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0028216_VerifyNewJobForLOBOtherThanCF.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0046461_46462_46459_46464_46463_46460_46465_46458_VerifyCompaniesRelatedListOpportunitiesEngagementEnhancedWithFiltering.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0054683_TMTI0054712_VerificationOfNewFieldAssociatedOpportunityAavailabiltyAndFunctionalityOnOpportunityAndEngagementPage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0054719_TMTI0054723_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLightningView.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0054728_TMTI0054730_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0055011_TMTI0055013_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0055018_TMTI0055021_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0055029_TMTI0055031_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagementLightiningView.cs" />
-
-    <Compile Include="TestCases\Opportunities\TMTI0056868_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0056871_27295_27302_71646_55400_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0056875_56876_56877_71640_71641_71644_28215_28199_28200_55397_55398_55403_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0056880_56878_28219_28203_28208_28214_71655_71651_ValidateNewJobTypesAvailability.cs" />
-    <Compile Include="TestCases\Opportunities\TMTI0056883_VerifyNewJobTypeIsForFVAOnly.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed.cs" />
+    <Compile Include="TestCases\Opportunities\T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />
+    <Compile Include="TestCases\Opportunities\T2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages.cs" />
+    <Compile Include="TestCases\Opportunities\T2214_PortfolioValuation_ImportPositions_ImportPositionsWithoutTeamMembers.cs" />
+    <Compile Include="TestCases\Opportunities\T2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers.cs" />
+    <Compile Include="TestCases\Opportunities\TC1649_AdditionalClientSubjectRequiredDefaultPopUpWithJson.cs" />
     <Compile Include="TestCases\Opportunities\TC2154_TMTC0002470_VerifyTheRolesAvailableToRegisteredUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TC2327_TMTC0002473_VerifyTheRolesAvailableToRegisteredNonUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
     <Compile Include="TestCases\Opportunities\TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInUSOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\TC2329_TMTC0002479_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\TC2330_TMTC0002482_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialPFGContactInOpportunityOfNonPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\TC2333_TMTC0002494_ VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
-    <Compile Include="TestCases\Opportunities\TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
-    <Compile Include="TestCases\Opportunities\TC2330_TMTC0002482_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialPFGContactInOpportunityOfNonPFAJobType.cs" />
-    <Compile Include="TestCases\Opportunities\TC2329_TMTC0002479_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInForeignOpportunityDeal.cs" />
-    <Compile Include="TestCases\Opportunities\TC2327_TMTC0002473_VerifyTheRolesAvailableToRegisteredNonUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.cs" />
+    <Compile Include="TestCases\Opportunities\TMTC0032940_VerifyTheFunctionalityOfCreatingBillingRequest.cs" />
+    <Compile Include="TestCases\Opportunities\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0028216_55392_VerifyNewJobForLOBOtherThanCF.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0028216_VerifyNewJobForLOBOtherThanCF.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0056873_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI0056883_VerifyNewJobTypeIsForFVAOnly.cs" />
+    <Compile Include="TestCases\Opportunities\TMTI63910_63912_63913_63918_63922_63923_70811_T1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0005815_TMTT0005817NBCAndCNBCAccessExistingFunctionality_RestrictedAccess_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008034_MassEdit_FieldMappings.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008034_MassEdit_FieldMappings_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0011965_OppAndEngagement_MassEditPage_HelpTextOnTheFields.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0012824_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013844_CNBCForm_RequiredFields_SubmitForReview.cs" />
@@ -770,49 +892,120 @@
     <Compile Include="TestCases\Opportunities\TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016558AndTMTT0014786_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsIncentiveStructure_MinFeeCalculationOnTotalEstimatedFee.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee.cs" />
-    <Compile Include="TestCases\Opportunities\ValidateAllJobType.cs" />
-    <Compile Include="TestCases\Opportunities\T1197andT1198AddOpportunityInOpportunityHome.cs" />
-    <Compile Include="TestCases\Opportunities\TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
-    <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
-    <Compile Include="TestCases\Opportunities\T1560_OpportunityManager_UpdateFieldsOfLOB_FASViaOpportunityManager.cs" />
-    <Compile Include="TestCases\Opportunities\T1610_OpportunityManager_UpdateFieldsOfLOB_FRViaOpportunityManager.cs" />
-    <Compile Include="TestCases\Opportunities\T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
-    <Compile Include="TestCases\Opportunities\T1644_OpportunityDetails_FEISForm_SubmitForReview.cs" />
-    <Compile Include="TestCases\Opportunities\T1649_AdditionalClientSubjectRequiredDefaultPopUp.cs" />
-    <Compile Include="TestCases\Opportunities\T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
-    <Compile Include="TestCases\Opportunities\T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
-    <Compile Include="TestCases\Opportunities\T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
-    <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
-    <Compile Include="TestCases\Opportunities\T2081_OpportunityManager_VerifyOpportunityWithRecordTypeOppDelAreNotDisplayed.cs" />
-    <Compile Include="TestCases\Opportunities\T2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />
-    <Compile Include="TestCases\Opportunities\T2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages.cs" />
-    <Compile Include="TestCases\Opportunities\T2214_PortfolioValuation_ImportPositions_ImportPositionsWithoutTeamMembers.cs" />
-    <Compile Include="TestCases\Opportunities\T2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers.cs" />
-    <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity.cs" />
-    <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_27295_27302_71646_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_27295_27302_TMTT0030610_TMTT0024069_TMTT0035436_VerifyNewJobTypesUpdatedonReportsObject.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_71647_71649_71654_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_71649_VerifyNewJobTypeIsForFVAOnly.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0012824_71655_71651_ValidateNewJobTypesAvailability.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0012824_TMTT0030610_TMTT0035436_ValidateNewJobTypesAvailability.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_28215_28199_28200_55397_55398_55403_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_TMTT0035436_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_TMTT0035436_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity _VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0024858_TMTT0030610_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038098_T2189andT2170_T2212_T2214_T2215_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038100_VerifyTheFunctionalityOfPortfolioValuationOnEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion.cs" />
-    <Compile Include="TestCases\Opportunities\TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
+    <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
+    <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\ValidateAllJobType.cs" />
+    <Compile Include="TestCases\Opportunities\ValidateAllJobType_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel.cs" />
     <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0012460_TMTT0012462_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012450_TMTT0012455_TMTT0030610_TMTT0024069_VerifyNewJobTypes_UpdatedonReportsObject.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0012824_TMTT0030610_ValidateNewJobTypesAvailability.cs" />
+    <Compile Include="TestCases\Opportunities\VT_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_IG_Removed_VT_TMTT0012448_TMTT0012449_TMTT0012458_TMTT0012461_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1197andT1198AddOpportunityInOpportunityHome.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0035667_OpportunityToEngagementConversionMappingForFASJobTypesToResultingRTPortfolioValuationRoleLimit.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1649_AdditionalClientSubjectRequiredDefaultPopUp.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1699_1701_1702_OpportunityDetailsPageManageRelationshipsMassRelationshipCreatorPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2154_TMTC0002470_VerifyTheRolesAvailableToRegisteredUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2327_TMTC0002473_VerifyTheRolesAvailableToRegisteredNonUSFinancialPFGContactInUSAndForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInUSOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2329_TMTC0002479_VerifyTheRolesAvailableToNonRegisteredUSAndNonUSFinancialPFGContactInForeignOpportunityDeal.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TC2333_TMTC0002494_ VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TMTT0012117_TMTT0012119_ValidateCoExistFieldForGCATracking.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS01_ValidateERPSection_PostCreationOfOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS02_ValidateERPSection_PostUpdatingDFFFieldsOfOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS03_ValidateERPSubmittedAndERPLastIntegrationResponse_PostManualSync.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_TS22_TS23_TS24_ValidateIsMainContractIsTRUEWhenItWasSetAsFalseWhileSavingAndEditingContractAndFalseWhenNewContractIsAddedAsIsMainContractTRUE.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023827_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023829_VerificationOfNewFieldAssociatedOpportunityAavailabiltyAndFunctionalityOnOpportunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023831_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023919_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023922_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0023926_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0024858_TMTT0030610_TMTT0035436_VerifyNewJobTypeIsForFVAOnly.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0024858_TMTT0030610_TMTT0035436_VerifyStatusIsUpdatedInOracleERPInformationSectionForFASJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0035665_1_VerifyInternalDealTeamForAnalystAssociateRoleLimitForCFLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated_VT_TMTT0035666_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFRLOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated__TC2330_TMTC0002482_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialPFGContactInOpportunityOfNonPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsolated__TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsoleted_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsoleted_T1692_TMTT0011214_FAS_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
+    <Compile Include="TestCases\Opportunities\ZObsoleted_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
+    <Compile Include="TestCases\Opportunities\zT1644_OpportunityDetails_FEISForm_SubmitForReview.cs" />
+    <Compile Include="TestCases\Opportunities\zT1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\zT1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance.cs" />
+    <Compile Include="TestCases\Opportunities\zT2189andT2170_PortfolioValuationCreationValidationAndVerificationOfValuationPeriodDetailsAndPeriodListPage.cs" />
+    <Compile Include="TestCases\Opportunities\zT2212_PortfolioValuation_OpportunityValuationPeriod_ImportPositionInfoMessages.cs" />
+    <Compile Include="TestCases\Opportunities\zT2214_PortfolioValuation_ImportPositions_ImportPositionsWithoutTeamMembers.cs" />
+    <Compile Include="TestCases\Opportunities\zT2215_PortfolioValuation_ImportPositions_ImportPositionsWithTeamMembers.cs" />
+    <Compile Include="TestCases\Opportunities\zTC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled.cs" />
+    <Compile Include="TestCases\Opportunities\zTC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0008034_MassEdit_FieldMappings.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings.cs" />
+    <Compile Include="TestCases\Opportunities\zTS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion.cs" />
+    <Compile Include="TestCases\Opportunities\zTS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready.cs" />
+    <Compile Include="TestCases\Opportunities\zValidateAllJobType.cs" />
+    <Compile Include="TestCases\Opportunities\Z_Dup_T1432_VT_TMTT0035667_3_VerifyInternalDealTeamForAnalystAssociateRoleLimitForFVALOBOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\Z_Dup_TMTI0039712_TMTI0039713_TMTI0039714_TMTI0039716_TMTI0039723_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.cs" />
+    <Compile Include="TestCases\Opportunities\Z_T1426_TMTT0011215_TMTT0011219_TMTT0011220_TMTT0011221_TMTT0012824_OpportunityToEngagementConversionMappingForCFJobTypesToResultingRTAdvisory_Update.cs" />
+    <Compile Include="TestCases\Opportunities\Z_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
+    <Compile Include="TestCases\Opportunities\Z_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
+    <Compile Include="TestCases\Opportunities\Z_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
+    <Compile Include="TestCases\Opportunities\Z_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
-    <Compile Include="TestCases\TimeRecordManager\T2286_T2287_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0003744_68979_68980_68982_68984_68986_69003_69010_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheet.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0045472_VerifyBetauserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0045474_VerifytheAmountisCalculatedandreflectedforNewEngagement.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0068990_68992_68995_68998_68988_69000_VerifyUserCanSearchProjectWithNameLOBNumberOnTimeRecordManager.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTI0069005_69007_69008_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0005211_RefreshButtonFunctionalities.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0005221_TMTT0011420_StartButtonFunctionalities.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0005430_TimeRecorderFunctionalities.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0009535_TMTC0001544_TMTC0001548_TMTI0045473_TMTI0045475_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTab.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0011412_TMTT0011411_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWell.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0011413_Verify_the_time_entries_should_be_rounded_off_to_1_decimal_place_automatically.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0011418_TMTT0011410_VerifyTheTASSupervisorCanOnlyEnterHoursMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0011419_TMTT0011424_TMTT0011414_TMTT0011415_VerifytheTASSupervisorcanonlyenterhourslessthan24hoursforonedayforAssociates .cs" />
-    <Compile Include="TestCases\TimeRecordManager\TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_1_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_2_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRCAOdUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_S10_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningViewcs.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_S5_VerifyTheActivityListForTimeTrackingLitigationGroupUseronLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTI0045469_TMTI0045470_VerifyNewTitleAddedinTitleRateSheetLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0002649_TMTT0029770_VerifyTimeEntriesInTimeRecordManagerRoundOffToFirstDecimalPlaceOfAnHourLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005211_TMTT0005221_TMTT0038660_VerifyTheTimeClockRecorderStartAndRefreshButtonsfunctionalityOnSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0005430_TimeRecorderFunctionalitiesLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0009535_TMTT0020334_TMTC0001544_TMTC0001548_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011411_TMTT0011412_TMTT0011417_TMTT0011427_VerifyUserWithTitleTAGOutsourcedContractorIsAbleToEnterMoreThan24hoursForFutureDatesAsWellLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011418_TMTT0011410_VerifyTASSupervisorCanMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractorLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0011419_TMTT0011420_TMTT0011424_TMTT0011414_TMTT0011415_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheetLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyActivityTypeIsRemovedForCVASTeamTFRTimeTrackingGrupLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0029770_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagementsLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserFromFVATimeTrackingGroupsOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyFVAUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
+    <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyTFRSupervisorUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
     <Compile Include="TestData\ReadExcelData.cs" />
     <Compile Include="TestData\ReadJSONData.cs" />
     <Compile Include="UtilityFunctions\BaseClass.cs" />
@@ -839,6 +1032,66 @@
     <None Include="TestData\ERPPostCoversionToEngagement1.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
+    <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
+    <None Include="TestData\LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes.xlsx" />
+    <None Include="TestData\LV_T1508_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.xlsx" />
+    <None Include="TestData\LV_T1513_ClientGiftPre_ApprovalPage_AddingaRecipientToTheSelectedRecipientSection.xlsx" />
+    <None Include="TestData\LV_T1516_GiftLog_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowance.xlsx" />
+    <None Include="TestData\LV_T1523_GiftLogApproveGiftsDefaultLayoutFieldsAndFieldsValues.xlsx" />
+    <None Include="TestData\LV_T1525_ApproveGiftsDenySelectedToDenyTheGiftsFromPendingList.xlsx" />
+    <None Include="TestData\LV_T1526_ApproveGiftsDenySelectedToDenySelectedGiftsFromApprovedList.xlsx" />
+    <None Include="TestData\LV_T1527_ApproveSelectedToApproveSelectedGiftsFromDeniedList.xlsx" />
+    <None Include="TestData\LV_T1592_ValidationsToBeCompleted.xlsx" />
+    <None Include="TestData\LV_T1683_HLInternalTeam_EditAndUpdate.xlsx" />
+    <None Include="TestData\LV_T1692_ValidationsToBeCompletedBeforeFVAOpportunityIsApproved.xlsx" />
+    <None Include="TestData\LV_T1693_ValidationsToBeCompletedBeforeFROpportunityIsApproved.xlsx" />
+    <None Include="TestData\LV_T1697AndT1698DNDOnOffEnableAndDisableMode.xlsx" />
+    <None Include="TestData\LV_T2006_GiftLog_GiftRequestProcess_GiftSubmissionForCurrentAndNextCalendarYear.xlsx" />
+    <None Include="TestData\LV_T2007_GiftRequestProcessSplitGiftValueInEqualDistributionForSelectedRecipient.xlsx" />
+    <None Include="TestData\LV_T2009_GiftLogRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar.xlsx" />
+    <None Include="TestData\LV_T2011_GiftLogGiftRequestProcessGiftSubmittedGiftRequestDetailLayoutAndFields.xlsx" />
+    <None Include="TestData\LV_T2012_GiftLogGiftRequestProcessGiftSubmittedGiftRequestDetailVerifyEditAndDeleteFunctionality.xlsx" />
+    <None Include="TestData\LV_T2014_GiftApprovalProcessApproveGiftsVerifyPendingApprovedAndDeniedGiftsEditRights.xlsx" />
+    <None Include="TestData\LV_T2017_GiftLogGiftRequestProcessGiftRequestsVerifyTheTotalsOfTheGiftsAreMeasuredSeparatelyFromTheCurrentYear.xlsx" />
+    <None Include="TestData\LV_T2018_GiftApprovalProcessApproveGiftsVerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover.xlsx" />
+    <None Include="TestData\LV_T2020_GiftApprovalProcessVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.xlsx" />
+    <None Include="TestData\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.xlsx" />
+    <None Include="TestData\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.xlsx" />
+    <None Include="TestData\LV_T2327_TMTC0002473_VerifyTheRolesAvailableToRegistered.xlsx" />
+    <None Include="TestData\LV_T2329_TMTC0002479_VerifyTheRoles.xlsx" />
+    <None Include="TestData\LV_T2330_TMTC0002482_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TC1197andTC1198AddOpportunityInOpportunityHome.xlsx" />
+    <None Include="TestData\LV_TC2328_TMTC0002476_VerifyTheRolesAvailableToNonRegisteredUSAndNonUS.xlsx" />
+    <None Include="TestData\LV_TC2331_TMTC0002485_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage.xlsx" />
+    <None Include="TestData\LV_TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.xlsx" />
+    <None Include="TestData\LV_TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.xlsx" />
+    <None Include="TestData\LV_TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTI0055389_EditExistingOppEngToNewCFJobType.xlsx" />
+    <None Include="TestData\LV_TMTI0056883_VerifyNewJobTypeIsForFVAOnly.xlsx" />
+    <None Include="TestData\LV_TMTI0063910_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion.xlsx" />
+    <None Include="TestData\LV_TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion.xlsx" />
+    <None Include="TestData\LV_TMTT0012113_ValidateCoExistFieldForGCATracking.xlsx" />
+    <None Include="TestData\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.xlsx" />
+    <None Include="TestData\LV_TMTT0024858_VerifyNewJobTypeOnJobTypeObjPageLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\LV_TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus.xlsx" />
+    <None Include="TestData\LV_TMTT0036857_VerifyTheFunctionalityOfDNDSharingFeatureForFRLOBOpportunityAndEngagementOnLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0036858_VerifyFunctionalityOfDNDSharingFeatureForFVALOBOpportunityAndEngagementOnLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0036859_VerifyTheFunctionalityOfDNDSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement.xlsx" />
+    <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
+    <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
+    <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
+    <None Include="TestData\LV_TS04AndTS07_ValidateERPSection.xlsx" />
+    <None Include="TestData\LV_TS05_ValidateERPSection.xlsx" />
     <None Include="TestData\Outlook.xlsx" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
@@ -947,6 +1200,7 @@
     <None Include="TestData\T2189_PortfolioValuationCreation.xlsx" />
     <None Include="TestData\T2198_PortfolioValuation_VerifyAbsenceOfPortfolioValuationButton.xls" />
     <None Include="TestData\T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdate.xls" />
+    <None Include="TestData\T2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdate_Lightning.xls" />
     <None Include="TestData\T2214_ImportPositionsWithoutTeamMembers.xlsx" />
     <None Include="TestData\T2215_ImportPositionsWithTeamMembers.xlsx" />
     <None Include="TestData\T2237_Companies_VerifyDuplicateRuleAccountCreatedByAndDupRecordSetOnCreatingDuplicateCompanyRecord.xlsx" />
@@ -980,11 +1234,15 @@
     <None Include="TestData\TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.xlsx" />
     <None Include="TestData\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.xlsx" />
+    <None Include="TestData\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.xlsx" />
+    <None Include="TestData\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
+    <None Include="TestData\TMTI0018624_FREngagementSummary_VerifyLendersAddedunderPreAndPostTransaction.xls" />
     <None Include="TestData\TMTI0027300_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.xlsx" />
     <None Include="TestData\TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage.xlsx" />
     <None Include="TestData\TMTI0027307_VerifyIndustryGroupIsChangedToTECHOnOpportunityAndEngagementManagerpage.xlsx" />
     <None Include="TestData\TMTI0027313_VerifyCFIndustryGroupUpdatedToTECHonOpportunities.xlsx" />
+    <None Include="TestData\TMTI0028212_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunity.xlsx" />
     <None Include="TestData\TMTI0028216_VerifyNewJobForLOBOtherThanCF.xlsx" />
     <None Include="TestData\TMTI0039712_OpportunityDetailspage_VerifyFunctionalityofViewandAddCounterpartiesbutton.xlsx" />
     <None Include="TestData\TMTI0045436_Verify_Client_Services_Questionnaire_Button_Functionality.xlsx" />
@@ -1005,6 +1263,8 @@
     <None Include="TestData\TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTI0055389_EditExistingOppEngToNewCFJobType.xlsx" />
+    <None Include="TestData\TMTI0055401_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.xlsx" />
     <None Include="TestData\TMTI0056868_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes.xlsx" />
     <None Include="TestData\TMTI0056871_VerifyNewJobTypes_UpdatedonReportsObject.xlsx" />
     <None Include="TestData\TMTI0056873_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity.xlsx" />
@@ -1020,6 +1280,7 @@
     <None Include="TestData\TMTT0005430_TimeRecorderFunctionalities.xlsx" />
     <None Include="TestData\TMTT0005673_ActivitiesList_VerifyPreSetTemplateList.xlsx" />
     <None Include="TestData\TMTT0005674_ActivitiesList_VerifyFieldsOrColumnNames.xlsx" />
+    <None Include="TestData\TMTT0005815_NBCAndCNBCAccessExistingFunctionality_Lightning.xlsx" />
     <None Include="TestData\TMTT0005815_NBCAndCNBC_ExistingFunctionality.xlsx" />
     <None Include="TestData\TMTT0005817_NBCAndCNBCForm_RestrictedAccess.xlsx" />
     <None Include="TestData\TMTT0005817_NBCAndCNBCForm_RestrictedAccess1.xlsx" />
@@ -1048,10 +1309,18 @@
     <None Include="TestData\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.xlsx" />
     <None Include="TestData\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.xlsx" />
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
+    <None Include="TestData\TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.xls" />
+    <None Include="TestData\TMTT0027453_MassCheckboxs.xls" />
+    <None Include="TestData\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_View_Email_Access_Delete_ViewAll.xls" />
+    <None Include="TestData\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.xlsx" />
+    <None Include="TestData\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx" />
     <None Include="TestData\TS012_ERPInformationOfContractDetalPage.xlsx" />
     <None Include="TestData\TS013_ERPInformationOfContractDetalPageWithNewCompany.xlsx" />
     <None Include="TestData\TS019_Company_ERPContactUpdateFlagFields.xlsx" />
+    <None Include="TestData\TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
+    <None Include="TestData\TS04AndTS07_ValidateERPSection2.xlsx" />
     <None Include="TestData\TS08_MultipleContractsInEngagement.xlsx" />
     <None Include="TestData\TS09_EngagementDetails.xlsx" />
     <None Include="TestData\TS09_VerifyICOContractBasedOnLOBOfLegalEntity.xlsx" />
@@ -1062,6 +1331,7 @@
     <None Include="TestData\TS18_Company_ERPBillingAndShippingFlagUpdate.xlsx" />
     <None Include="TestData\TS20_ERPInformationOfContractMultipleBillingContactsSameNonClientCompany.xlsx" />
     <None Include="TestData\TS21_ERPInformationOfContractMultipleBillingContactsClientCompany.xlsx" />
+    <None Include="TestData\TS25_ValidateAllContracts.xlsx" />
     <None Include="TestData\TS27_TS30_EngagementDetails.xlsx" />
     <None Include="TestData\TS27_TS30_VerifyNoIcoContractWhenLegalEntityIsCommon.xlsx" />
     <None Include="TestData\TS28_TS31_EngagementDetails.xlsx" />
@@ -1069,6 +1339,7 @@
     <None Include="TestData\TS32_OpportunityDetails.xlsx" />
     <None Include="TestData\TS32_VerifyIcoContractDetailOnOpportunity.xlsx" />
     <None Include="TestData\TS33_mainContractVerification.xlsx" />
+    <None Include="TestData\VerifyEngagementReportLinks.xls" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
@@ -1093,10 +1364,6 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.13.3\build\NUnit.props'))" />
-
-    <Error Condition="!Exists('packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.11.0\build\Selenium.WebDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-
     <Error Condition="!Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />
@@ -1104,9 +1371,9 @@
     <Error Condition="!Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.115.0.5790.17000\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
   <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" />
@@ -1114,8 +1381,8 @@
   <Import Project="packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
   <Import Project="packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets" Condition="Exists('packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets')" />
   <Import Project="packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.targets" Condition="Exists('packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.targets')" />
-  <Import Project="packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.8.0\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.114.0.5735.9000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.114.0.5735.9000\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <!--<Import Project="packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.95.0.4638.1700\build\Selenium.WebDriver.ChromeDriver.targets')" />-->
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" />
 </Project>

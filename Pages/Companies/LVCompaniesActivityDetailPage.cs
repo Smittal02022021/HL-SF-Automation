@@ -46,18 +46,28 @@ namespace SF_Automation.Pages.Companies
         By iFrameEmailTemplate = By.XPath("//iframe[contains(@title,'Rich Text Editor')]");
         By txtEmailTemplate = By.XPath("//body[contains(@id,'SendEmail')]");
 
+        //Tabs for CF Financial/System Admin User
+        By tabInfo = By.XPath("//a[@data-label='Info']");
+        By tabPitchBook = By.XPath("//a[@data-label='PitchBook']");
+        By tabCoverage = By.XPath("//a[@data-label='Coverage']");
+        By tabActivity = By.XPath("//a[@data-label='Activity']");
+        By btnDeleteActivity = By.XPath("//button[@title='Delete']");
+
         private By _btnActivityStartDate(string btnName)
         {
             return By.XPath($"//div[contains(text(),'{btnName}')]//ancestor::button");
         }
-        private By _btnActivityDetailPage(string btnName)
+
+        private By _btnActivityListPage(string btnName)
         {
-            return By.XPath($"//header//button[text()='{btnName}']");
+            return By.XPath($"//button[text()='{btnName}']");
         }
+
         private By _comboDropdown(string value)
         {
             return (By.XPath($"//lightning-base-combobox-item[@data-value='{value}']"));
         }
+
         private By _linkDiscussedItem(string item)
         {
             return By.XPath($"//table//tbody//a[text()='{item}']");
@@ -78,7 +88,7 @@ namespace SF_Automation.Pages.Companies
         }
         public string ClickSaveButton(string btnName)
         {
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();
+            driver.FindElement(_btnActivityListPage(btnName)).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
             return driver.FindElement(msgLVPopup).Text;
         }
@@ -91,12 +101,14 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickActivityDetailPageButton(string btnName)
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityDetailPage(btnName)));
+            //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            //jse.ExecuteScript("arguments[0].scrollIntoView();", _btnActivityDetailPage(btnName));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityListPage(btnName)));
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver,_btnActivityDetailPage(btnName), 20);
-            driver.FindElement(_btnActivityDetailPage(btnName)).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityListPage(btnName), 20);
+            driver.FindElement(_btnActivityListPage(btnName)).Click();            
         }
-        public bool IsActivityListDisplayed()
+        public bool IsActivityListDisplayedLV()
         {
             try
             {
@@ -292,6 +304,64 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.SwitchToWindow(driver, 0);
             return emailTemplate;
         }
+
+        public bool VerifyUserLandedOnCorrectCompaniesDetailsPage(string companyName)
+        {
+            bool result = false;
+            Thread.Sleep(5000);
+            string comp = driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text;
+            if(companyName == comp)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public void NavigateToActivityTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabActivity, 60);
+            driver.FindElement(tabActivity).Click();
+            Thread.Sleep(3000);
+        }
+
+        public bool VerifyActivityLinkedWithCompanyIsVisible(string sub)
+        {
+            bool result = false;
+
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[1]")).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ViewActivityFromList(string name)
+        {
+            Thread.Sleep(2000);
+            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[1]")), 60);
+            Thread.Sleep(3000);
+        }
+
+        public void DeleteActivity()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteActivity, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
+            driver.FindElement(btnDeleteActivity).Click();
+            Thread.Sleep(2000);
+        }
+
+        public bool IsActivityListDisplayed()
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, tableActivities, 20);
+                return driver.FindElement(tableActivities).Displayed;
+            }
+            catch { return false; }
+        }
+
         //public void CreateActivityFollowupCompanyDetailPage()
         //{
         //    //Click on Create New Task button

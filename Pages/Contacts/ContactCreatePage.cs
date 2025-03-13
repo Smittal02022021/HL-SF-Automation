@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Contact
         // To identify required tags/mandatory fields in Contact Create page
         public IWebElement ContactInformationRequiredTag(string fieldName)
         {
-            return driver.FindElement(By.XPath($"//input[contains(@id, '{fieldName}')]/..//div"));
+            return driver.FindElement(By.XPath($"//input[contains(@id, '{fieldName}')]/../div"));
         }
          
         //To Click save button

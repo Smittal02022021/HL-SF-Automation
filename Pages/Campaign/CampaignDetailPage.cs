@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using OpenQA.Selenium.Interactions;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -10,14 +11,20 @@ namespace SF_Automation.Pages
 {
     class CampaignDetailPage : BaseClass
     {
+        //Buttons
         By linkRemoveContact = By.XPath("//a[@title='Remove - Record 1 - Contact']");
-        By btnDelete = By.XPath("//input[@title='Delete']");
-        By tabActivity = By.XPath($"//ul[@class='tabs__nav']//li//a[@title='Activity']");
+        By btnDelete = By.XPath("//a[@title='Delete']/div");
+        By btnDelete1 = By.XPath("//button[@title='Delete']/span");
+
+        //Tabs
+        By tabCampaignMembers = By.XPath("(//span[text()='Campaign Members']/..)[2]");
+        By tabActivity = By.XPath("(//span[text()='Activity']/..)[2]");
 
         private By _txtPageHeader(string item)
         {
             return By.XPath($"//div[contains(@class,'testonly-outputNameWithHierarchyIcon')]//lightning-formatted-text[text()='{item}']");
         }
+
         private By _txtActivitySubject(string value)
         {
             return By.XPath($"//div[contains(@class,'timelineGridItemLeft')]//a[@title='{value}']");
@@ -34,13 +41,38 @@ namespace SF_Automation.Pages
 
         public void DeleteCampaign()
         {
-            driver.FindElement(btnDelete).Click();
-            Thread.Sleep(2000);
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
+            try
+            {
+                driver.FindElement(btnDelete).Click();
+                Thread.Sleep(2000);
+                driver.FindElement(btnDelete1).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
         }
-       
+
+        public void DeleteCampaignMember()
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(btnDelete));
+
+                Thread.Sleep(2000);
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(btnDelete1));
+                Thread.Sleep(2000);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         public bool IsPageHeaderDisplayedLV(string item)
         {
             try
@@ -61,6 +93,7 @@ namespace SF_Automation.Pages
             }
             catch { return false; }
         }
+
         public void ClickActivityTab()
         {
             Thread.Sleep(2000);

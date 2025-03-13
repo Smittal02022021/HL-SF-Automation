@@ -160,6 +160,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, txtGlobalSearch);
             driver.FindElement(txtGlobalSearch).SendKeys(user);
 
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
             WebDriverWaits.WaitUntilEleVisible(driver, btnGlobalSearch);
             driver.FindElement(btnGlobalSearch).Click();
             Thread.Sleep(10000);
@@ -209,6 +210,31 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchToLightningExperience, 120);
             driver.FindElement(linkSwitchToLightningExperience).Click();
             Thread.Sleep(8000);
+        }
+
+        public void SearchUserByGlobalSearchN(string user)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGlobalSearch);
+            driver.FindElement(txtGlobalSearch).SendKeys(user);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGlobalSearch);
+            driver.FindElement(btnGlobalSearch).Click();
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkPeople);
+            driver.FindElement(linkPeople).Click();
+            Thread.Sleep(2000);
+        }
+
+        public void SearchUserByGlobalSearch(string user)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGlobalSearch);
+            driver.FindElement(txtGlobalSearch).SendKeys(user);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnGlobalSearch);
+            driver.FindElement(btnGlobalSearch).Click();
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkPeople);
+            driver.FindElement(linkPeople).Click();
+            Thread.Sleep(2000);
         }
     }
 }

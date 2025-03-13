@@ -8,7 +8,7 @@ using System;
 using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0024858_TMTT0012824_TMTT0030610_TMTT0035436_ValidateNewJobTypesAvailability: BaseClass
     {

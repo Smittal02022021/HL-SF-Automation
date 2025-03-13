@@ -9,7 +9,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Reflection;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_VerifyNewJobTypeOnOpportunityEngagementManagerJobTypeObjPage : BaseClass
     {

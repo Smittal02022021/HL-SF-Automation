@@ -12,7 +12,7 @@ namespace SF_Automation.Pages.Reports
     {
         By lnkReports = By.CssSelector("a[title*='Reports Tab']");
         By txtFindAFolder = By.XPath("(//input[@class='x-form-text x-form-field quickfindInput x-form-empty-field'])[1]");
-        By matchedFolderResult = By.CssSelector("span[unselectable='on'] > div");
+        By matchedFolderResult = By.XPath("//div[@data-qtip='Data Hygiene']/../..");
         By txtFindAReportAndDashboard = By.CssSelector("input[id='ext-comp-1017']");
         By matchedReportResult = By.CssSelector("div[class='nameFieldContainer descrContainer'] > a");
         By btnHideDetails = By.CssSelector("input[value='Hide Details']");
@@ -160,9 +160,11 @@ namespace SF_Automation.Pages.Reports
             driver.FindElement(btnDrillDown).Click();
 
             string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy");
+            string fromD = DateTime.Today.AddDays(-1).ToString("MM/dd/yyyy").Replace('-', '/');
+
             WebDriverWaits.WaitUntilEleVisible(driver, fromDate);
             driver.FindElement(fromDate).Clear();
-            driver.FindElement(fromDate).SendKeys(getDate);
+            driver.FindElement(fromDate).SendKeys(fromD);
             Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, toDate);
             driver.FindElement(toDate).Clear();
@@ -191,8 +193,11 @@ namespace SF_Automation.Pages.Reports
 
             string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy").Replace('-','/');
             WebDriverWaits.WaitUntilEleVisible(driver, fromDate);
+
+            string fromD = DateTime.Today.AddDays(-1).ToString("MM/dd/yyyy").Replace('-', '/');
+
             driver.FindElement(fromDate).Clear();
-            driver.FindElement(fromDate).SendKeys(getDate);
+            driver.FindElement(fromDate).SendKeys(fromD);
             Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, toDate);
             driver.FindElement(toDate).Clear();
@@ -206,8 +211,10 @@ namespace SF_Automation.Pages.Reports
         public void ClickRunReport()
         {
             string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy");
+            string fromD = DateTime.Today.AddDays(-1).ToString("MM/dd/yyyy").Replace('-', '/');
+
             WebDriverWaits.WaitUntilEleVisible(driver, fromDate);
-            driver.FindElement(fromDate).SendKeys(getDate);
+            driver.FindElement(fromDate).SendKeys(fromD);
 
             WebDriverWaits.WaitUntilEleVisible(driver, toDate);
             driver.FindElement(toDate).SendKeys(getDate);

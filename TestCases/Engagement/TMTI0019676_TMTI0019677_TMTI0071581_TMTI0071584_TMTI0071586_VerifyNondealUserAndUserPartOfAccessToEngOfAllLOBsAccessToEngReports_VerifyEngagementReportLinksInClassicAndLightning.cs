@@ -68,7 +68,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate Engagement AR Receipt report
                 string titleEngAR = engagementDetails.ValidateEngARReceiptReport();
-                Assert.AreEqual("Engagement AR Receipt", titleEngAR);
+                Assert.AreEqual("Engagement AR Receipt V1", titleEngAR);
                 extentReports.CreateLog("Page with title: " + titleEngAR + " is displayed upon clicking Engagement AR Receipt report link ");
 
                 //Validate Engagement Expenses report
@@ -78,7 +78,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate Engagement Invoice Details report
                 string titleEngInvoice = engagementDetails.ValidateEngInvoiceReport();
-                Assert.AreEqual("Engagement Invoice Details", titleEngInvoice);
+                Assert.AreEqual("Engagement Invoice Details V1", titleEngInvoice);
                 extentReports.CreateLog("Page with title: " + titleEngInvoice + " is displayed upon clicking Engagement Invoice Details link ");
 
                 //Logout of the user and click on Switch To Lightning Experience link
@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Thomas Bailey"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealTeamMemberLightning(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for CF engagement  ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for CF engagement  ");
                             usersLogin.LightningLogout();
                         }
                         else
@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Jennifer Muller"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealMemberClassic(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for FVA engagement ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for FVA engagement ");
                             usersLogin.UserLogOut();
                         }
                         else
@@ -197,7 +197,7 @@ namespace SF_Automation.TestCases.Engagement
                         if (valUser.Equals("Aaron Schultz"))
                         {
                             Assert.IsTrue(engagementDetails.VerifyReportNamesForNonDealMemberClassic(), "Verified that displayed reports are same");
-                            extentReports.CreateLog("Only 2 reports are displayed for non deal team member - " + valUser + " for FR engagement ");
+                            extentReports.CreateLog("Only 3 reports are displayed for non deal team member - " + valUser + " for FR engagement ");
                             usersLogin.UserLogOut();
                         }
                         else

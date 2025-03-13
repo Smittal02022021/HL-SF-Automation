@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.EventExpense;
@@ -48,9 +50,16 @@ namespace SF_Automation.TestCases.EventExpense
                 //Calling Login function                
                 login.LoginApplication();
 
-                //Validate user logged in       
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login. ");
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("User is able to login into SF");
 
                 int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
@@ -63,41 +72,40 @@ namespace SF_Automation.TestCases.EventExpense
                     string approverResp = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 16);
                     string approverNotes = ReadExcelData.ReadDataMultipleRows(excelPath, "ExpenseRequest", 2, 17);
 
-                    //Search standard user by global search
+                    //Select HL Banker app
+                    try
+                    {
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
+                    }
+
+                    //Search CF Financial user by global search
                     string user = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    homePage.SearchUserByGlobalSearch(fileTC17340, user);
+                    lvHomePage.SearchUserFromMainSearch(user);
 
                     //Verify searched user
-                    string userPeopleExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
-                    Assert.AreEqual(userPeopleExl, user);
-                    extentReports.CreateLog("User " + user + " details are displayed. ");
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
+                    extentReports.CreateLog("User " + user + " details are displayed ");
 
-                    //Login user
-                    usersLogin.LoginAsSelectedUser();
-
-                    //Switch to lightning view
-                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                    {
-                        homePage.SwitchToLightningView();
-                    }
-                    
-                    Assert.IsTrue(login.ValidateUserLightningView(fileTC17340, row));
+                    //Login as CF Financial user
+                    lvHomePage.UserLogin();
+                    Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
 
                     switch (row)
                     {
                         case 2:
-                            extentReports.CreateLog("Standard User: " + user + " is able to login into lightning view. ");
-                            break;
-                        case 3:
                             extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
                             break;
-                        case 4:
+                        case 3:
                             extentReports.CreateLog("CAO User: " + user + " is able to login into lightning view. ");
                             break;
                     }
 
                     //Click on the Menu button
-                    lvHomePage.ClickExpenseRequestMenuButton();
+                    lvHomePage.ClickHomePageMenu();
 
                     //Go to Expense Request Page
                     lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
@@ -122,9 +130,8 @@ namespace SF_Automation.TestCases.EventExpense
                     if(row==2)
                     {
                         //TC - TMTI0038469 - Verify required field error while clicking "Create New Expense Form".
-                        string error = lvExpenseRequest.GetRequiredFieldErrorUponClickingCreateNewExpenseFormButton();
-                        Assert.AreEqual(error, mandatoryFieldErrMsg);
-                        extentReports.CreateLog("Error message : " + error + " is prompted for LOB field upon clicking Create New Expense Request button. ");
+                        Assert.IsTrue(lvExpenseRequest.VerifyRequiredFieldErrorUponClickingCreateNewExpenseFormButton(mandatoryFieldErrMsg));
+                        extentReports.CreateLog("Error message : " + mandatoryFieldErrMsg + " is prompted for LOB field upon clicking Create New Expense Request button. ");
 
                         //TC - TMTI0038470 - Verify that on selecting LOB - CF, Event Type field should remove from the screen.
                         Assert.IsFalse(lvExpenseRequest.VerifyEventTypeFieldDisplayedOrNotUponSelectingLOB(lobName));
@@ -170,15 +177,18 @@ namespace SF_Automation.TestCases.EventExpense
                         extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
 
                         lvExpRequestDetail.CreateCloneExpenseRequest();
-
+                        Actions action = new Actions(driver);
+                        action.SendKeys(Keys.LeftControl + "R").Build().Perform();
+                        Thread.Sleep(5000);
                         string expReqpreApprovalNo1 = lvExpRequestDetail.GetCloneExpensePreapprovalNumber();
                         string eventStatus1 = lvExpRequestDetail.GetCloneEventStatusInfo();
-
+                        
                         extentReports.CreateLog("Cloned Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus1 + " and Expense Preapproval Number: " + expReqpreApprovalNo1 + " ");
 
                         //TC - TMTI0038483 - Verify the "Delete" functionality from expense request detail page as requester.
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsRequestor());
-                        string eventStatus2 = lvExpRequestDetail.GetCloneEventStatusInfo();
+                        
+                        string eventStatus2 = lvExpRequestDetail.GetDeletedStatusInfo();
                         extentReports.CreateLog("Expense request is deleted succssfully with status: " + eventStatus2 + " ");
 
                         //TC - TMTI0038484 - Verify expense detail page on deleting the request as requester.
@@ -195,7 +205,8 @@ namespace SF_Automation.TestCases.EventExpense
                 }
 
                 //TC - End
-                usersLogin.UserLogOut();
+                lvHomePage.UserLogoutFromSFLightningView();
+                driver.Quit();
             }
             catch (Exception e)
             {

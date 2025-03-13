@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0024858_27295_27302_TMTT0030610_TMTT0024069_TMTT0035436_VerifyNewJobTypesUpdatedonReportsObject : BaseClass
     {

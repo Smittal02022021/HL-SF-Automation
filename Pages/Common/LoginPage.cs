@@ -2,6 +2,7 @@
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages
@@ -19,7 +20,9 @@ namespace SF_Automation.Pages
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
         By valUser = By.XPath("//section/header/div[1]/div/span");
+        By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
 
+        Outlook outlook = new Outlook();
 
         public void SwitchToLightningExperience()
         {
@@ -35,6 +38,15 @@ namespace SF_Automation.Pages
             catch (Exception e)
             {
             }
+        }
+
+        public string ValidateUserLightningView()
+        {
+            //Thread.Sleep(5000);
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 20);
+            string loggedUserName = driver.FindElement(loggedUserLightningView).Text;
+            return loggedUserName;
         }
 
         public string ValidateUserLightningCAO()
@@ -110,7 +122,8 @@ namespace SF_Automation.Pages
         }
         public string ValidateUser()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,140);
             IWebElement loggedUserName = driver.FindElement(loggedUser);
             return loggedUserName.Text;
@@ -125,7 +138,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
 
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 240);
+            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 360);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
             if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
             {
@@ -152,10 +165,10 @@ namespace SF_Automation.Pages
 
         public void LoginAsExpenseRequestApprover(string file)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 40);
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();
@@ -180,6 +193,7 @@ namespace SF_Automation.Pages
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
         }
+
         public string ValidateFRUserLightning()
         {
             Thread.Sleep(7000);
@@ -188,5 +202,45 @@ namespace SF_Automation.Pages
             return loggedUserName.Text.Substring(13, 13);
         }
 
+        public void LoginAsExpenseRequestApproverV(string file, int row)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, txtUserName, 10);
+            driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 1));
+            driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Approver", row, 2));
+            driver.FindElement(btnLogin).Click();
+            Thread.Sleep(10000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);
+                Thread.Sleep(5000);
+                outlook.SelectVerifyIdentityEmail();
+            }
+            catch
+            {
+                // No Need to Verify your identity in Salesforce
+            }
+        }
+
+        public string ValidateUserLightningCAO2nd()
+        {
+            Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 13);
+        }
+
+        public string ValidateUserLightningCAO3rd()
+        {
+            Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text.Substring(13, 12);
+        }
     }
 }

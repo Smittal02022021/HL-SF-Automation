@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using SF_Automation.Pages.Opportunity;
 using AventStack.ExtentReports.Gherkin.Model;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTI0056873_71642_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingFVAOpportunity : BaseClass
     {

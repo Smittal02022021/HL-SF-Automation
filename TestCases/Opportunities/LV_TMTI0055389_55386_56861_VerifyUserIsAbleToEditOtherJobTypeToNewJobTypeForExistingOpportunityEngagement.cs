@@ -109,11 +109,11 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog(valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055389);//udated Move to element
+                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055389, valJobType);//udated Move to element
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055389);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
-                    opportunityDetails.ClickRetutnToOpportunityL();
+                    opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
 
                     //TMTI0055389	Verify user is able to edit any other Job types to new job type for existing opportunity
@@ -230,13 +230,13 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityHome.SearchMyOpportunitiesInLightning(opportunityName, caoUser);
 
                     //Approve the Opportunity 
-                    string status = opportunityDetails.ClickApproveButtonL();
+                    string status = opportunityDetails.ClickApproveButtonLV2();
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateLog("Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
-                    opportunityDetails.ClickConvertToEngagementL();
+                    opportunityDetails.ClickConvertToEngagementL2();
                     extentReports.CreateLog("Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
@@ -267,7 +267,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Assert.AreEqual(recordTypeExpected, engRecordType);
                     //extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
-                    
+                    login.SwitchToClassicView();
                     usersLogin.UserLogOut();
                     extentReports.CreateLog("User: " + caoUser + " logged out ");
                 }

@@ -7,9 +7,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
-    class T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity : BaseClass
+    class T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -17,7 +17,8 @@ namespace SF_Automation.TestCases.Opportunity
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOppCounterparty addCounterparty = new AddOppCounterparty();
-            
+
+
         public static string fileTC1832 = "T1832_OpportunityCounterpartiesPageAddCounterparties";
                 
         [OneTimeSetUp]
@@ -48,70 +49,71 @@ namespace SF_Automation.TestCases.Opportunity
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-                //Login again as Standard User
+                //Login as Standard User
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser= login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 //Search for opportunity and open the details page
-                opportunityHome.SearchOpportunityWithJobTypeAndStge("Buyside","High");
+                opportunityHome.SearchMyOpportunitiesInLightning("[AP Buyside 24]", valUser);               
                 extentReports.CreateLog("Matching records are displayed ");
 
                 //Validate Counterparties button
-                string counterParty= opportunityDetails.ValidateCounterparties();
-                Assert.AreEqual("Counterparties button is displayed", counterParty);
-                extentReports.CreateLog(counterParty+ " ");
+                string counterParty = addCounterparty.ClickViewCounterparties();                
+                Assert.AreEqual("Counterparty Editor", counterParty);
+                extentReports.CreateLog("Page with tab: "+counterParty +" is displayed ");
 
                 //Validate Add Counterparty button and navigate back to Opportunity details page
-                string pageTitle = addCounterparty.ValidateAddCounterpartiesAndGetPageHeader(fileTC1832);
-                Assert.AreEqual("Search for Company", pageTitle);
+                string pageTitle = addCounterparty.ValidateAddCounterpartiesAndGetPageHeaderL(fileTC1832);
+                Assert.AreEqual("Counterparties", pageTitle);
                 extentReports.CreateLog("Page with title: "+pageTitle +" is displayed ");
 
                 //Validation all sections on the page i.e. Filter, Get Companies from existing Opportunity/Company List
-                string labelFilter = addCounterparty.ValidateFilterSection();
-                Assert.AreEqual("Filter", labelFilter);
-                extentReports.CreateLog(labelFilter + " section is displayed ");
-
-                string labelExistingOpp = addCounterparty.ValidateExistingOpportunitySection();
+               
+                string labelExistingOpp = addCounterparty.ValidateExistingOpportunitySectionL();
                 Assert.AreEqual("Get Companies from existing Opportunity", labelExistingOpp);
                 extentReports.CreateLog(labelExistingOpp + " section is displayed ");
 
-                string labelExistingCompany = addCounterparty.ValidateExistingCompanySection();
+                string labelExistingCompany = addCounterparty.ValidateExistingCompanySectionL();
                 Assert.AreEqual("Get Companies from existing Company List", labelExistingCompany);
                 extentReports.CreateLog(labelExistingCompany + " section is displayed ");
 
                 //Expand sections i.e. Get Companies from existing Opportunity and validate fields
-                string labelOpp = addCounterparty.ValidateFieldsOfExistingOppSection();
+                string labelOpp = addCounterparty.ValidateFieldsOfExistingOppSectionL();
                 Assert.AreEqual("Opportunity", labelOpp);
                 extentReports.CreateLog("Field " + labelOpp + " under Get Companies from existing Opportunity section is displayed ");
 
                 //Add Company from existing opportunity
-                string msgSuccess = addCounterparty.AddCompanyFromExistingOpp("2020 Buyside - Imperative Chemical Partners");
-                Assert.AreEqual("Selected records were added successfully", msgSuccess);
+                string msgSuccess = addCounterparty.AddCompanyFromExistingOppL("2020 Buyside - Imperative Chemical Partners");
+                Assert.AreEqual("Selected Counterparty Records have been created.", msgSuccess);
                 extentReports.CreateLog("Message " + msgSuccess + " is displayed upon adding company from exisitng opportunity ");
 
                 //Validate title of Counterparty records page
-                string titleCounterParty = addCounterparty.ClickBackAndGetTitle();
-                Assert.AreEqual("Edit Counterparty Records", titleCounterParty);
-                extentReports.CreateLog("Page with title " + titleCounterParty + "is displayed upon clicking Back button ");
+                string titleCounterparties = addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPage();
+                Assert.AreEqual("Counterparties", titleCounterparties);
+                extentReports.CreateLog("Page with title : " + titleCounterparties + " is displayed after clicking Back button on Add Counterparties page ");
 
                 //Validate if company get added and delete the same
-                string value= addCounterparty.ValidateAddedCompanyExists();
-                Assert.AreEqual("True", value);
-                extentReports.CreateLog("Added company is displayed on Edit Counterparty Records ");
-
-                string message = addCounterparty.DeleteAddedCompany();
-                Assert.AreEqual("No records to display", message);
+                string value = addCounterparty.ValidateAddedCompanyExistsL();
+                Assert.AreEqual("Acceldata", value);
+                extentReports.CreateLog("Added company: "+value+" is displayed on Edit Counterparty Records ");
+                string message = addCounterparty.DeleteAddedCompanyL();
+                Assert.AreEqual("Displaying 0 to 0 of 0 records. Page 1 of 0.", message);
                 extentReports.CreateLog("Message :" +message+ " is displayed upon deleting added company ");
 
                 //Expand sections i.e. Get Companies from existing Company List and validate fields
-                addCounterparty.AddCounterparties();
-                string lblLookUp = addCounterparty.ValidateFieldsOfExistingCompanySection();
+                addCounterparty.AddCounterpartiesL();
+                string lblLookUp = addCounterparty.ValidateFieldsOfExistingCompanySectionL();
                 Assert.AreEqual("True", lblLookUp);
                 extentReports.CreateLog("LookUp Field under Get Companies from existing Opportunity section is displayed ");
-               
+
+                usersLogin.LightningLogout();
+                usersLogin.UserLogOut();
+                driver.Quit();
+
             }
             catch (Exception e)
             {
@@ -121,7 +123,7 @@ namespace SF_Automation.TestCases.Opportunity
         [OneTimeTearDown]
         public void TearDown()
         {
-            usersLogin.UserLogOut();
+            usersLogin.LightningLogout();
             usersLogin.UserLogOut();
         }
     }

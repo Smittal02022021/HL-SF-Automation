@@ -8,6 +8,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using MongoDB.Bson.Serialization.Conventions;
+using System.Data;
+using System.Transactions;
+using System.Web;
+using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace SF_Automation.Pages.Engagement
 {
@@ -22,26 +27,94 @@ namespace SF_Automation.Pages.Engagement
         By lblEBITDAL = By.XPath("//label[contains(text(),'EBITDA')]");
         By lblCapexL = By.XPath("//label[contains(text(),'Capex')]");
         By lblDMAFieldsL = By.XPath("//table/thead/tr/th/span");
-        By lblAddDistressedL = By.XPath("//lightning-record-edit-form-create/form/slot/slot/div[1]/div[1]/lightning-input-field/following::div/label");
+        By lblAddDistressedL = By.XPath("//slot/div//lightning-input-field//div[1]/label");
+
         By lblHLFinTable = By.XPath("//thead/tr[1]/th/span");
         By lblTotalFinAmt = By.XPath("//label[text()='Total Financing Amount']");
         By lblFinDescL = By.XPath("//label[text()='Financing Description']");
         By lblFinancingTypeL = By.XPath("//label[text()='Financing Type']");
-        By lblOtherL = By.XPath("//label[text()='Other']");
-        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
+        By lblOtherL = By.XPath("//label[text()='Notes']");
+        By lblCurrencyAddDebtL = By.XPath("//label[text()='Currency']");
+        By btnCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
         By lblFinAmountL = By.XPath("//label[text()='Financing Amount (MM)']");
         By btnFinTypeL = By.XPath("//button[@name='Financing_Type__c']");
         By valFinTypesL = By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnSecTypeL = By.XPath("//button[@name='Security_Type__c']");
         By valSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By txtOtherL = By.XPath("//textarea[@name='Notes__c']");
         By txtFinAmtL = By.XPath("//input[@name='Financing_Amount__c']");
         By msgOtherL = By.XPath("//div[text()='Notes for Other Financing Types can only be saved if \"Other\" is selected from the drop-down.']");
         By valFinTypeL = By.XPath("//table/tbody/tr/th/div");
+        By lblPreTransHeaders = By.XPath("//h3/span");
+        By lblPreTransGrid = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/thead/tr/th/span");
+        By lblPostTransGrid = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/thead/tr/th/span");
+        By lblPreReorg = By.XPath("//label[text()='Pre Reorganization Constituent Debt']");
+        By lblPreReorgTotal = By.XPath("//label[text()='Pre Reorganized Total Debt']");
+        By lblPostRestr = By.XPath("//label[text()='Post-Restructuring Total Debt (MM)']");
+        By lblPostRestrComp = By.XPath("//label[text()='Net Debt of the Restructured Company (MM)']");
+        By lblClosingStockL = By.XPath("//label[text()='Closing Stock Price (first full closing day post-restructuring)']");
+        By lblPostTransOppL = By.XPath("//div[text()='Post-Transaction Opportunities']");
+        By lblPostTransOppValuesL = By.XPath("//span[text()='Available']/ancestor::div[1]/div/ul/li/div/span/span");
+        By lblPostTransOppNotesL = By.XPath("//label[text()='Post-Transaction Opportunity Notes']");
+        By lblPostTransStaffRolesL = By.XPath("//span[text()='Post-Transaction Staff Roles']");
+        By lblPostTransKeyExtContactL = By.XPath("//span[text()='Post-Transaction Key External Contact']");
+        By lblPostTransStaffRolesHeaders = By.XPath("//span[text()='Post-Transaction Staff Roles']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
+        By lblPostTransKeyContacts = By.XPath("//span[text()='Post-Transaction Key External Contact']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
+
+
         By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
+        By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
+        By msgMandatoryKeyCredL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
+        By txtPerOwnershipL = By.XPath("//input[@name='Percent_Ownership__c']");
+        By btnAddBoardMemberL = By.XPath("//button[text()='Add Board Member']");
+        By btnAddDebtStrL = By.XPath("//button[text()='Add Debt Structure']");
+
+        By btnClientSubL = By.XPath("//input[@placeholder='Search Companies...']");
+        By btnSecurityTypeL = By.XPath("//button[@name='Security_Type__c']");
+        By txtInterestL = By.XPath("//input[@name='Interest__c']");
+        By txtAmoritizationL = By.XPath("//input[@name='Amoritization__c']");
+        By txtMandatoryL = By.XPath("//input[@name='Mandatory_Prepayments_ECF_Sweep__c']");
+        By txtFeesL = By.XPath("//input[@name='Fees_Expenses__c']");
+        By txtMaturityL = By.XPath("//input[@name='Maturity_Date__c']");
+        By txtOIDL = By.XPath("//input[@name='OID_Percent__c']");
+        By txtCallProvisionsL = By.XPath("//input[@name='Call_Provisions_Prepayment_Premiums__c']");
+        By txtCovenantsL = By.XPath("//input[@name='Covenants__c']");
+        By txtFacilityL = By.XPath("//input[@name='Facility_Balance_MM__c']");
+
+        By rowAddDebtStructureL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
+        By rowAddDebtStructurePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr");
+
+        By rowAddDebtStrcutureL2nd = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
+        By rowAddDebtStrcutureL2ndPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]");
+
+        By rowAddKeyCredL = By.XPath("//slot/div/div[1]/lightning-input-field/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div/div[1]/div/div/input");
+        By valSecurityTypeL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
+        By valSecurityTypePostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/th");
+
+        By rowAddEquityHolderL = By.XPath("//span[text()='Equity Holder']/ancestor::table/tbody/tr");
+        By rowAddEquityHolderPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr");
+
+        By rowAddBoardMemberL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
+        By rowAddBoardMemberPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[2]/div/div/table/tbody/tr");
+
+        By rowAddBoardMember2ndL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
+        By rowAddBoardMember2ndPostL = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[2]/div/div/table/tbody/tr[2]");
+
+        By msgDupContactL = By.XPath("//div[text()='Duplicate record detected.']");
+        By msgDupKeyContactL = By.XPath("//div[text()='This person has already been added as an Engagement Contact. Please go to their Engagement Contact record and click the “Key External Contact” checkbox to add them to this list.']");
+        By comboSecTypesL = By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+
+        By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
+        By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
         By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
         By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
-        By valTotalFin = By.XPath("");
+        By lblContacts = By.XPath("//label[text()='Contact (External)']");
+        By lblMaturityDate = By.XPath("//lightning-datepicker/div/label");
+        By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
+        By chk1stHLRel = By.XPath("//tr[1]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
+        By chk2ndHLRel = By.XPath("//tr[2]/td[2]/div/lightning-input/lightning-primitive-input-checkbox");
 
         By btnAddDistressedL = By.XPath("//button[text()='Add Distressed M&A Information']");
         By tabDMAL = By.XPath("//li/a[text()='DM&A Info']");
@@ -65,8 +138,8 @@ namespace SF_Automation.Pages.Engagement
         By txtRevFY = By.XPath("//input[@name='Revenue_FY_MM__c']");
         By txtRevLTM = By.XPath("//input[@name='Revenue_LTM_MM__c']");
         By txtRevFYA1 = By.XPath("//input[@name='Revenue_FY_1_MM__c']");
-        By txtRevFYA2= By.XPath("//input[@name='Revenue_FY_2_MM__c']");
-        By txtRevFYA3 = By.XPath("//input[@name='Revenue_FY_3_MM__c']"); 
+        By txtRevFYA2 = By.XPath("//input[@name='Revenue_FY_2_MM__c']");
+        By txtRevFYA3 = By.XPath("//input[@name='Revenue_FY_3_MM__c']");
         By txtRevFYA4 = By.XPath("//input[@name='Revenue_FY_4_MM__c']");
         By txtRevFYA5 = By.XPath("//input[@name='Revenue_FY_5_MM__c']");
         By txtEBITDAFYM1 = By.XPath("//input[@name='EBITDA_FY_minus1_MM__c']");
@@ -91,8 +164,10 @@ namespace SF_Automation.Pages.Engagement
         By msgAssetSold = By.XPath("//label[text()='Asset Sold']/ancestor::lightning-primitive-input-simple/div[2]");
         By btnSaveAddDistressedL = By.XPath("//form/slot/slot/div[2]/lightning-button[2]/button");
         By btnCancel = By.XPath("//button[text()='Cancel']");
+        By btnCancelKeyCredL = By.XPath("//div[2]/button[text()='Cancel']");
         By tabHLFinancingL = By.XPath("//li/a[text()='HL Financing']");
-
+        By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
+        By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By txtAssetSoldL = By.XPath("//input[@name='Name']");
         By txtDateOfSoldL = By.XPath("//input[@name='Date_of_Sale__c']");
         By txtMinOverbidL = By.XPath("//input[@name='Minimum_Overbid__c']");
@@ -101,17 +176,67 @@ namespace SF_Automation.Pages.Engagement
         By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
         By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
         By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
+        By btnEdit2ndDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
+        By btnEditDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
+        By btnEdit2ndDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
+
+        By btnKeyCredL = By.XPath("//button[text()='New Key Creditor']");
+
         By valAssetSold = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr/th/div/div");
         By btnDeleteDistressed = By.XPath("//button[@title='Delete']");
+        By btnDeleteBoard = By.XPath("//tr[2]/td[3]/span/div/lightning-button-icon/button[@title='Delete']");
+        By btnDeleteDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[13]/span/div/lightning-button-icon/button");
+        By lnkEquityHolder = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
+        By lnkEquityHolderPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div/div/div/table/tbody/tr/th/div/a");
+        By btnDeleteDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[13]/span/div/lightning-button-icon/button");
+        By btnDeleteRole = By.XPath("//tr[1]/td[2]/span/div/lightning-button-icon/button[@title='Delete']");
+        By tabEngSummary = By.XPath("//ul[2]/li[3]/a/span[2]");
+        By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
+
+
+        By msgClientSubL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgContactsL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgSecurityTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
         By btnOK = By.XPath("//button[text()='OK']");
         By btnSaveAddHL = By.XPath("//div[2]/lightning-button[2]/button");
+        By btnSaveKeyCredL = By.XPath("//div[3]/lightning-button[2]/button");
+        By btnSaveAndKeyCred = By.XPath("//button[text()='Save and add Key Creditor']");
+        By valPerOwnerL = By.XPath("//table/tbody/tr/td/div/lightning-formatted-number");
         By msgFinTypeL = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[2]");
         By msgSecTypeL = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[2]");
         By txtTotalFinAmt = By.XPath("//input[@name='Total_Financing_Amount__c']");
         By btnSaveHLFin = By.XPath("//c-engagement-fr-summary-hl-financing/div/lightning-button/button[text()='Save']");
         By msgSave = By.XPath("//span[text()='Record saved']");
         By txtFinDesc = By.XPath("//textarea[@name='Financing_Description__c']");
+        By txtContactL = By.XPath("//input[@placeholder=\"Search Contacts...\"]");
+        By txtCompaniesL = By.XPath("//input[@placeholder=\"Search Companies...\"]");
+        By comboContactL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span/span");
+        By txtLoanAmountL = By.XPath("//input[@name='Loan_Amount__c']");
 
+        By btnAddStaffRoleL = By.XPath("//button[text()='Add Staff Role']");
+        By btnAddKeyExtExternalL = By.XPath("//button[text()='Add Key External Contact']");
+        By btnPostTransOppReport = By.XPath("//button[text()='Post-Transaction Opportunity Report']");
+        By btnSubmitEngSummary = By.XPath("//button[text()='Submit Engagement Summary']");
+        By btnSendBTPEmail = By.XPath("//button[text()='Send BTP Email']");
+        By lblSendEmailL = By.XPath("//h2[@class='mainTitle']");
+        By lblReport = By.XPath("//div[@class='brandingText']");
+        By lblContactL = By.XPath("//label[text()='Contact (Internal)']");
+        By lblContactExtL = By.XPath("//label[text()='Contact (External)']");
+        By lblRole = By.XPath("//label[text()='Role']");
+        By msgContactL = By.XPath("//label[text()='Contact (Internal)']/ancestor::lightning-grouped-combobox/div[2]");
+        By msgContactExtL = By.XPath("//label[text()='Contact (External)']/ancestor::lightning-grouped-combobox/div[2]");
+
+        By msgRoleL = By.XPath("//label[text()='Role']/ancestor::lightning-combobox/div/div[2]");
+
+        By txtContactHLPostL = By.XPath("//input[@placeholder='Search Contacts...']");
+        By lnkContactHLPostL = By.XPath("//div[1]/div/lightning-base-combobox/div/div/div[2]/ul/li");
+        By btnRoleL = By.XPath("//button[contains(@aria-label,'Role')]");
+        By valRoleL = By.XPath("//lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By rowStaffRoleL = By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[3]/div/div/table/tbody/tr");
+        By rowKeyContactL = By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
+        By rowKeyExtL = By.XPath("//lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
+        By valAddedRoleL = By.XPath("//table/tbody/tr/td[1]/div");
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -133,7 +258,7 @@ namespace SF_Automation.Pages.Engagement
         By lblLTMProjections = By.CssSelector("div[id*='j_id60'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By rowFinancials = By.CssSelector("tbody[id*='j_id28:j_id60:j_id61:tb']>tr>td:nth-child(2)");
         By tabDistressedMA = By.CssSelector("td[id*='tabDistressedMAInformation_lbl']");
-        
+
         By headerDistressed = By.CssSelector("table[id*=':salesTransactions']>thead>tr>th>div>label");
         By tabHLFinancing = By.CssSelector("td[id*='tabHLFinancing_lbl']");
         By headerHLFinancing = By.CssSelector("table[id*='financing']>thead>tr>th>div>label");
@@ -161,6 +286,16 @@ namespace SF_Automation.Pages.Engagement
         By lblCurrency = By.CssSelector("div[id*='id1:j_id28'] > div.pbBody > table > tbody > tr:nth-child(12) > td:nth-child(1) > label");
         By comboSecType = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id32']>option");
         By comboDebtCurrency = By.CssSelector("select[id*='j_id0:j_id1:j_id28:j_id72']>option");
+        By comboDebtCurrencyL = By.XPath("//button[@name='CurrencyIsoCode']");
+
+        By valAvailableL = By.XPath("//span[@title='M&A - Buyside']");
+        By btnChosenL = By.XPath("//button[@title='Move to Chosen']");
+        By btnAvailableL = By.XPath("//button[@title='Move to Available']");
+        By btnSaveHLPost = By.XPath("//c-engagement-fr-summary-post-tran-opp/div/lightning-button/button");
+        By valChosenL = By.XPath("//span[text()='Chosen']/ancestor::div[1]/div[1]/ul/li/div/span");
+        By txtOppNoteL = By.XPath("//textarea[@name='Post_Transaction_Opportunity_Notes__c']");
+        By msgSuccessHLPost = By.XPath("//div/span[text()='Record saved']");
+
         By btnWinClose = By.CssSelector("button[title='Close']");
         By lblPreTransDebtSec = By.CssSelector("div[id*='id162'] > div.pbBody > table > tbody > tr:nth-child(3) > td:nth-child(1) > label");
         By headerPreTransDebt = By.CssSelector("table[id*=':preTransactionDebtStructures']>thead>tr>th>div");
@@ -256,6 +391,7 @@ namespace SF_Automation.Pages.Engagement
         By checkRow = By.CssSelector("input[name*='tblResults:0:j_id50']");
         By btnAddSelected = By.CssSelector("input[value='Add Selected']");
         By msgSuccess = By.CssSelector("div[id*='4:j_id16']");
+
         By btnEquityClose = By.CssSelector("span[class*='closethick']");
         By valEquityHolder = By.CssSelector("tbody[id*='preTransactionEquityHolders:tb']>tr>td:nth-child(4)");
         By lnkEquityEdit = By.CssSelector("a[id*='editPre']");
@@ -290,6 +426,8 @@ namespace SF_Automation.Pages.Engagement
         By rowDebtStrPre = By.CssSelector("tbody[id*='preTransactionDebtStructures:tb']>tr>td>span");
         By valDebtSecurityType = By.CssSelector("td[id*='preTransactionDebtStructures:0:j_id212']");
         By lnkDebtDel = By.CssSelector("td[id*='j_id209']>a");
+        By lnkDebtDelL = By.XPath("//flexipage-tab2[5]//td[13]//lightning-button-icon");
+        By lnkPostDebtDelL = By.XPath("//flexipage-tab2[6]//td[13]//lightning-button-icon/button");
         By msgDebtDelete = By.CssSelector("span[id*='panPreTransactionDebtStructures']>label");
         By btnNewLender = By.CssSelector("input[value='New Key Creditor']");
         By txtLenderAmt = By.CssSelector("input[name*=':0:j_id54']");
@@ -323,7 +461,36 @@ namespace SF_Automation.Pages.Engagement
         By msgSuccessStaff = By.CssSelector("div[id*='10:j_id12']");
         By btnReturnToEngagement = By.CssSelector("input[value='Return to Engagement']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        By lblAddDebtTxtFields = By.XPath("//lightning-input-field/lightning-input/lightning-primitive-input-simple/div/label");
+        By txtPreReorgConstituentDebt = By.XPath("//input[@name='Pre_Reorgnization_Constituent_Debt__c']");
+        By txtPostRestrDebt = By.XPath("//input[@name='Post_Reorg_Total_Debt__c']");
+
+        By txtPreReorgTotalDebt = By.XPath("//input[@name='Pre_Reorganized_Total_Debt__c']");
+        By txtPostReorgTotalDebt = By.XPath("//input[@name='Post_Reorg_Net_Debt__c']");
+        By txtPostClosingStocking = By.XPath("//input[@name='Post_Reorg_Stock_Price__c']");
+
+        By btnSavePreTransInfo = By.XPath("//div[2]/lightning-button/button");
+        By msgSuccessPreReorg = By.XPath("//div[2]/span[text()='Record saved']");
+        By lnkBoardMember = By.XPath("//div[2]/div/div/table/tbody/tr/th/div/a");
+        By lnkBoardCompany = By.XPath("//div[2]/div/div/table/tbody/tr/td/div/a");
+        By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
+        By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[2]");
+        By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
+        By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
+        By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By rowAddedEquityInAdd = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/th[1]//a");
+        By valAddedEquityType = By.XPath("//lst-formatted-text/span[@title='Equity Holder']");
+        By valAddedEquityRole = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span");
+        By valAddedEquityRolePost = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span[text()='Post-Transaction']");
+
+        By tabEngContactsL = By.XPath("//a[text()='Contacts']");
+        By valAddedMemberType = By.XPath("//tr[1]/td[3]/lightning-primitive-cell-factory/span");
+        By valAddedMemberRole = By.XPath("//span[@title='Pre-Transaction Board Member']");
+        By valAddedMemberRolePost = By.XPath("//span[@title='Post-Transaction Board Member']");
+        By valAddedMember = By.XPath("//tr[1]/th/lightning-primitive-cell-factory//span/a[2]");
+        By valAddedStaffRole = By.XPath("//tr[1]/td[4]/lightning-primitive-cell-factory/span");
+
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
         //Get label i.e. Transaction Type 
         public string GetLabelTransactionType()
@@ -460,9 +627,9 @@ namespace SF_Automation.Pages.Engagement
         //Compare values of Currency Financials
         public bool VerifyCurrencyFinancialsValues()
         {
-            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes); 
+            IReadOnlyCollection<IWebElement> valCurTypes = driver.FindElements(comboCurrencyTypes);
             var actualValue = valCurTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar","Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna","Danish Krone","Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham","Vietnam Dong"};
+            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "Taiwan Dollar", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -818,6 +985,7 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
 
+
         //Validate label Debt Currency in Add New Pre-Transaction Debt Structure window       
         public string ValidateLabelCurrency()
         {
@@ -831,7 +999,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(comboDebtCurrency);
             var actualValue = valCurrencies.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone","Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
+            string[] expectedValue = { "Australian Dollar", "Brazilian Real", "British Pound", "Canadian Dollar", "Chinese Yuan", "Czech Koruna", "Danish Krone", "Euro", "Hong Kong Dollar", "Indian Rupee", "Israeli Shekel", "Japanese Yen", "Norwegian Krone", "Saudi Arabian Riyal", "Singapore Dollar", "Swedish Krona", "Swiss Franc", "Taiwan Dollar", "U.S. Dollar", "UAE Dirham", "Vietnam Dong" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -846,6 +1014,49 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
+            return isSame;
+        }
+
+        //To Validate values of Debt Currency combo    
+        public bool VerifyCurrencyValuesL()
+        {
+            Thread.Sleep(7000);
+            driver.FindElement(comboDebtCurrencyL).Click();
+            driver.FindElement(comboDebtCurrencyL).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valCurrencies = driver.FindElements(valDebtCurrencyL);
+
+            var actualValue = valCurrencies.Select(x => x.Text).ToArray();
+
+
+            Console.WriteLine(actualValue[2]);
+            Console.WriteLine(actualValue[3]);
+            Console.WriteLine(actualValue[4]);
+            Console.WriteLine(actualValue[5]);
+            Console.WriteLine(actualValue[6]);
+            Console.WriteLine(actualValue[7]);
+            Console.WriteLine(actualValue[8]);
+            Console.WriteLine(actualValue[9]);
+            Console.WriteLine(actualValue[10]);
+            Console.WriteLine(actualValue[11]);
+            Console.WriteLine(actualValue[12]);
+            string[] expectedValue = { "--None--", "AED - UAE Dirham", "AUD - Australian Dollar", "BRL - Brazilian Real", "CAD - Canadian Dollar", "CHF - Swiss Franc", "CNY - Chinese Yuan", "CZK - Czech Koruna", "DKK - Danish Krone", "EUR - Euro", "GBP - British Pound", "HKD - Hong Kong Dollar", "ILS - Israeli Shekel", "INR - Indian Rupee", "JPY - Japanese Yen", "MYR - Malaysian Ringgit", "NOK - Norwegian Krone", "QAR - Qatar Rial", "SAR - Saudi Arabian Riyal", "SEK - Swedish Krona", "SGD - Singapore Dollar", "TWD - Taiwan Dollar", "USD - U.S. Dollar", "VND - Vietnam Dong" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveAddHL).Click();
             return isSame;
         }
 
@@ -906,6 +1117,7 @@ namespace SF_Automation.Pages.Engagement
         //To Click Post-Transaction Information tab        
         public void ClickPostTransInfoTab()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabPostTrans, 90);
             driver.FindElement(tabPostTrans).Click();
         }
@@ -1101,7 +1313,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valClassi = driver.FindElements(comboClassification);
             var actualValue = valClassi.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "Financing", "FSG", "FVA", "Industry", "FR" };
+            string[] expectedValue = { "--None--", "Financing", "FR", "FSG", "FVA", "Industry" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1162,7 +1374,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valContact = driver.FindElements(headerExtContact);
             var actualValue = valContact.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "", "Name", "Relationship"};
+            string[] expectedValue = { "", "Name", "Relationship" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1636,7 +1848,7 @@ namespace SF_Automation.Pages.Engagement
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }           
+            }
         }
         public bool ValidateCopiedEquityHolderValues()
         {
@@ -1838,7 +2050,7 @@ namespace SF_Automation.Pages.Engagement
             var actualValue = valRow.Select(x => x.Text).ToArray();
             string value2 = DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
             Console.WriteLine(value2);
-            string[] expectedValue = {"LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
+            string[] expectedValue = { "LC Facility", "", "USD 10.00", value2, "10.00", "10.000%", "USD 10.00", "USD 10.00", "USD 10.00", "10.00", "USD 10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1886,6 +2098,55 @@ namespace SF_Automation.Pages.Engagement
             return message;
         }
 
+        //To delete added Debt Structure record
+        public string DeleteAndValidatePreDebtStructureRecordL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkDebtDelL, 100);
+            driver.FindElement(lnkDebtDelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                if (driver.FindElement(lnkDebtDelL).Displayed)
+                {
+                    return "Debt Structure still exists";
+                }
+                else
+                {
+                    return "No records to display";
+                }
+            }
+            catch (Exception)
+            {
+                return "No records to display";
+            }
+        }
+        //To delete added Debt Structure record
+        public string DeleteAndValidatePostDebtStructureRecordL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkPostDebtDelL, 100);
+            driver.FindElement(lnkPostDebtDelL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                if (driver.FindElement(lnkDebtDelL).Displayed)
+                {
+                    return "Debt Structure still exists";
+                }
+                else
+                {
+                    return "No records to display";
+                }
+            }
+            catch (Exception)
+            {
+                return "No records to display";
+            }
+        }
+
         //To add lender details
         public string AddLenderDetails()
         {
@@ -1916,7 +2177,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, rowLender, 100);
             IReadOnlyCollection<IWebElement> valRow = driver.FindElements(rowLender);
             var actualValue = valRow.Select(x => x.Text).ToArray();
-            string[] expectedValue = {"ABC", "10.00"};
+            string[] expectedValue = { "ABC", "10.00" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1957,7 +2218,7 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valLoanAmt, 90);
             Thread.Sleep(3000);
-            string Amount = driver.FindElement(valLoanAmt).Text;           
+            string Amount = driver.FindElement(valLoanAmt).Text;
             return Amount;
         }
 
@@ -1969,16 +2230,16 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             IAlert alert = driver.SwitchTo().Alert();
             alert.Accept();
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
 
             try
             {
                 string rowDisplayed = driver.FindElement(rowLenderPostDel).Displayed.ToString();
-                Console.WriteLine("rowDisplayed :" + rowDisplayed);               
+                Console.WriteLine("rowDisplayed :" + rowDisplayed);
                 return rowDisplayed;
             }
             catch (Exception)
-            {                
+            {
                 return "No row displayed";
             }
         }
@@ -1988,7 +2249,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(8000);
             driver.SwitchTo().DefaultContent();
-            Thread.Sleep(9000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEquityClose, 300);
             driver.FindElement(btnEquityClose).Click();
         }
@@ -1996,6 +2257,7 @@ namespace SF_Automation.Pages.Engagement
         //To Click Add Equity Holder button in Post- Transaction Information tab       
         public string ValidatePostAddEquityTitle()
         {
+            Thread.Sleep(5000);
             driver.FindElement(btnPostAddEquity).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, titleInsertNewHL, 90);
             string title = driver.FindElement(titleInsertNewHL).Text;
@@ -2022,7 +2284,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEquitySave).Click();
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, valPostOwnership, 90);
-            Thread.Sleep(5000);            
+            Thread.Sleep(5000);
             string valOwner = driver.FindElement(valPostOwnership).Text;
             return valOwner;
         }
@@ -2200,7 +2462,7 @@ namespace SF_Automation.Pages.Engagement
         public void ClickReturnToEngagement()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement,150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToEngagement, 150);
             driver.FindElement(btnReturnToEngagement).Click();
         }
         public string ValidateFieldTransactionTypeL()
@@ -2240,12 +2502,12 @@ namespace SF_Automation.Pages.Engagement
 
         //Get the value of Transaction Type
         public string GetValueOfTransactionTypeInFREngL()
-        {            
-           WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTxnType, 90);
             string value = driver.FindElement(valTxnType).Text;
             return value;
         }
-        
+
         //Validate if Transaction Type is editable or not
         public string ValidateTransactionTypeIfEditable()
         {
@@ -2314,6 +2576,7 @@ namespace SF_Automation.Pages.Engagement
 
         public bool VerifyRevenueFieldsL()
         {
+            Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblRevenueL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
@@ -2340,7 +2603,7 @@ namespace SF_Automation.Pages.Engagement
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblEBITDAL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             // string[] expectedValues = {"Record Type Name Description", "CF Corporate Finance", "Conflicts Check  ", "FAS Financial Advisory Services", "FR Financial Restructuring", "HL Internal Opportunity This record type is used for ERP \"Recommended VAT Treatment\"", "OPP DEL  ", "SC Strategic Consulting"};
-            string[] expectedValues = {"EBITDA FY-1 (MM)", "EBITDA FY (MM)", "EBITDA LTM (MM)", "EBITDA FY+1 (MM)", "EBITDA FY+2 (MM)", "EBITDA FY+3 (MM)", "EBITDA FY+4 (MM)", "EBITDA FY+5 (MM)" };
+            string[] expectedValues = { "EBITDA FY-1 (MM)", "EBITDA FY (MM)", "EBITDA LTM (MM)", "EBITDA FY+1 (MM)", "EBITDA FY+2 (MM)", "EBITDA FY+3 (MM)", "EBITDA FY+4 (MM)", "EBITDA FY+5 (MM)" };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -2420,12 +2683,12 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateProjectionsCalendar()
         {
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver,btnProjections, 90);            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnProjections, 90);
             driver.FindElement(btnProjections).Click();
             Thread.Sleep(10000);
             string value = driver.FindElement(imgProjCalendar).Enabled.ToString();
             Console.WriteLine("value: " + value);
-            if (value.Equals("True")) 
+            if (value.Equals("True"))
             {
                 return "Projections Calendar got displayed";
             }
@@ -2474,7 +2737,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtRevFYA1).SendKeys("10");
             driver.FindElement(txtRevFYA2).Clear();
             driver.FindElement(txtRevFYA2).SendKeys("10");
-            driver.FindElement(txtRevFYA3).Clear();            
+            driver.FindElement(txtRevFYA3).Clear();
             driver.FindElement(txtRevFYA3).SendKeys("10");
             driver.FindElement(txtRevFYA4).Clear();
             driver.FindElement(txtRevFYA4).SendKeys("10");
@@ -2517,7 +2780,7 @@ namespace SF_Automation.Pages.Engagement
 
             driver.FindElement(btnSaveFinancials).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSaveFinancials, 90);
-            string message=  driver.FindElement(msgSaveFinancials).Text;
+            string message = driver.FindElement(msgSaveFinancials).Text;
             return message;
         }
 
@@ -2525,7 +2788,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateUpdateFunctionalityOfFinancialsTab()
         {
             driver.FindElement(txtRevFYM1).Click();
-            Thread.Sleep(4000);           
+            Thread.Sleep(4000);
             driver.FindElement(txtRevFYM1).Clear();
             driver.FindElement(txtRevFYM1).SendKeys("20");
             driver.FindElement(txtRevFY).Clear();
@@ -2632,7 +2895,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lblAddDistressedL);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblAddDistressedL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
+            string[] expectedValues = { "*Asset Sold", "Currency", "Date of Sale", "Minimum Overbid (MM)", "Incremental Overbid (MM)", "Break Up Fee (MM)", "Deposit (MM)", "Cash Component (MM)", "Stock Component (MM)", "Liability Assumed (MM)", "Claim Conversion (MM)" };
             bool isTrue = true;
             Console.WriteLine(actualNamesAndDesc[0]);
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -2654,8 +2917,8 @@ namespace SF_Automation.Pages.Engagement
         public bool VerifyHLFinancingTableFieldsL()
         {
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblHLFinTable);
-            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();            
-            string[] expectedValues = { "Financing Type", "Other", "Security Type", "Financing Amount (MM)"};
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Financing Type", "Other", "Security Type", "Financing Amount (MM)" };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -2675,7 +2938,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string ValidateLabelTotalFinancingAmount()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalFinAmt,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTotalFinAmt, 120);
             string value = driver.FindElement(lblTotalFinAmt).Text;
             return value;
         }
@@ -2699,7 +2962,7 @@ namespace SF_Automation.Pages.Engagement
         //Validate page after clicking Cancel button on Add Distressed M&A Info Page
         public string ValidatePageAfterClickingCancelOnAddDistressedMAInfoPage()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel,150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 150);
             driver.FindElement(btnCancel).Click();
             string name = driver.FindElement(tabDMAL).Text;
             return name;
@@ -2746,7 +3009,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valFinTypesL);
             var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
-            string[] expectedValues = { "--None--", "Acquisition", "Credit Facility", "DIP","Equity","Exit Facility", "Mezzanine", "New Equity Financing","Refinancing", "Revolver","Rollover","Term Loan","Other" };
+            string[] expectedValues = { "--None--", "Acquisition", "Credit Facility", "DIP", "Equity", "Exit Facility", "Mezzanine", "New Equity Financing", "Refinancing", "Revolver", "Rollover", "Term Loan", "Other" };
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -2771,7 +3034,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSecTypeL).Click();
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
-            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();           
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
             string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B", "Bank Debt (First Lien) - Synthetic LC Facility", "Bank Debt (Second Lien)", "Senior Structured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Other Unsecured Debt", "Common Equity", "Preferred Equity" };
             Console.WriteLine("1st:" + actualNamesAndDesc[0]);
             Console.WriteLine("1st:" + actualNamesAndDesc[1]);
@@ -2786,7 +3049,7 @@ namespace SF_Automation.Pages.Engagement
             Console.WriteLine(actualNamesAndDesc[10]);
             Console.WriteLine(actualNamesAndDesc[11]);
             Console.WriteLine(actualNamesAndDesc[12]);
-          
+
             bool isTrue = true;
 
             if (expectedValues.Length != actualNamesAndDesc.Length)
@@ -2801,6 +3064,47 @@ namespace SF_Automation.Pages.Engagement
                     break;
                 }
             }
+            driver.FindElement(btnSecTypeL).Click();
+            return isTrue;
+        }
+
+        //Validate Security Type values
+        public bool VerifySecurityTypeDebtValuesL()
+        {
+            driver.FindElement(btnSecTypeL).Click();
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(valSecTypesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "--None--", "Bank Debt (First Lien) - Revolver", "Bank Debt (First Lien) - Term Loan A", "Bank Debt (First Lien) - Term Loan B", "Bank Debt (First Lien) - Synthetic LC Facility", "ABL/ABS Facility - First Lien", "LC Facility", "Bank Debt (Second Lien)", "ABL/ABS Facility - Second Lien", "Convertible Notes (Secured)", "Senior Secured Notes", "Capital Leases", "Other Secured Debt", "Mezzanine Debt", "Senior Notes (Unsecured)", "Senior Subordinated Notes (Unsecured)", "Substantially All Assets", "Convertible Notes (Unsecured)", "Other Unsecured Debt" };
+            Console.WriteLine("1st:" + actualNamesAndDesc[0]);
+            Console.WriteLine("1st:" + actualNamesAndDesc[1]);
+            Console.WriteLine(actualNamesAndDesc[2]);
+            Console.WriteLine(actualNamesAndDesc[3]);
+            Console.WriteLine(actualNamesAndDesc[4]);
+            Console.WriteLine(actualNamesAndDesc[5]);
+            Console.WriteLine(actualNamesAndDesc[6]);
+            Console.WriteLine(actualNamesAndDesc[7]);
+            Console.WriteLine(actualNamesAndDesc[8]);
+            Console.WriteLine(actualNamesAndDesc[9]);
+            Console.WriteLine(actualNamesAndDesc[10]);
+            Console.WriteLine(actualNamesAndDesc[11]);
+            Console.WriteLine(actualNamesAndDesc[12]);
+
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            Thread.Sleep(4000);
             driver.FindElement(btnSecTypeL).Click();
             return isTrue;
         }
@@ -2830,7 +3134,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEditDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssetSoldL, 120);
             driver.FindElement(txtAssetSoldL).Clear();
-            driver.FindElement(txtAssetSoldL).SendKeys("20");            
+            driver.FindElement(txtAssetSoldL).SendKeys("20");
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAddDistressedL, 120);
             driver.FindElement(btnSaveAddDistressedL).Click();
             driver.FindElement(btnSaveAddDistressedL).Click();
@@ -2865,14 +3169,14 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnDeleteDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 120);
             driver.FindElement(btnOK).Click();
-            Thread.Sleep(4000);           
+            Thread.Sleep(4000);
             try
             {
                 string value = driver.FindElement(rowAddDistressedL).Displayed.ToString();
                 return "Record is displayed";
             }
-         catch(Exception)
-            {               
+            catch (Exception)
+            {
                 return "Record is not displayed";
             }
         }
@@ -2893,6 +3197,16 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAddHL).Click();
             return name;
         }
+
+        //Validate save and Key creditor button
+        public string ValidateSaveAndKeyCreditorButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAndKeyCred, 120);
+            string name = driver.FindElement(btnSaveAndKeyCred).Text;
+            return name;
+        }
+
+
 
         //Validate the error message for Financing type
         public string ValidateErrorMessageForFinancingType()
@@ -2933,7 +3247,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSecTypeL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-             driver.FindElement(txtFinAmtL).SendKeys("10");
+            driver.FindElement(txtFinAmtL).SendKeys("10");
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(6000);
             string row = driver.FindElement(rowAddHLFinL).Displayed.ToString();
@@ -2993,7 +3307,7 @@ namespace SF_Automation.Pages.Engagement
         public string GetFinTypeBeforeUpdate()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valFinTypeL, 120);
-            string value= driver.FindElement(valFinTypeL).Text;
+            string value = driver.FindElement(valFinTypeL).Text;
             return value;
         }
 
@@ -3017,7 +3331,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
             driver.FindElement(btnEditDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
-            driver.FindElement(txtOtherL).SendKeys("Testing");            
+            driver.FindElement(txtOtherL).SendKeys("Testing");
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);
             string message = driver.FindElement(msgOtherL).Text;
@@ -3039,12 +3353,13 @@ namespace SF_Automation.Pages.Engagement
             action.MoveToElement(element);
             action.Perform();
             driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[13]/span[2]/span"))).Click();
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
             driver.FindElement(txtOtherL).SendKeys("Testing");
+            Thread.Sleep(4000);
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);
-            string value = driver.FindElement(valOtherL).Text;           
+            string value = driver.FindElement(valOtherL).Text;
             return value;
         }
 
@@ -3063,7 +3378,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span"))).Click();
             driver.FindElement(btnSecTypeL).Click();
             driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
-           
+
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(msgFinType).Text;
@@ -3071,7 +3386,7 @@ namespace SF_Automation.Pages.Engagement
         }
         //Validate mandatory field validation for Security Type
         public string ValidateMandatoryFieldValidationForSecType()
-        {            
+        {
             string value = driver.FindElement(msgSecType).Text;
             return value;
         }
@@ -3097,26 +3412,1572 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
-            //Validate Delete functionality of Add HL Financing Page
-            public string ValidateDeleteFunctionalityOfHLFinancing()
-            {                
-                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
-                driver.FindElement(btnDeleteDistressed).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
-                driver.FindElement(btnOK).Click();
-                 Thread.Sleep(4000);                
-                try 
-                {
+        //Validate Delete functionality of Add HL Financing Page
+        public string ValidateDeleteFunctionalityOfHLFinancing()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
                 string row = driver.FindElement(valFinTypeL).Displayed.ToString();
                 return "Record is not deleted";
-                }
-                catch(Exception)
-                {
-                    return "Record is deleted";
-                }
-
             }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Pre Transaction Headers 
+        public bool VerifyPreTransactionHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Pre-Transaction Equity Holders", "Pre-Transaction Board Members", "Pre-Transaction Debt (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Post Transaction Headers 
+        public bool VerifyPostTransactionHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Post-Transaction Equity Holders", "Post-Transaction Board Members", "Post-Transaction Debt (MM)" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Post Transaction Opportunities label
+        public string ValidateLabelPostTransOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppL, 120);
+            string value = driver.FindElement(lblPostTransOppL).Text;
+            return value;
+        }
+
+
+        //Validate HL Post Transaction Opportunities Values 
+        public bool VerifyHLPostTransactionOppValuesL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransOppValuesL);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "M&A - Buyside", "M&A - Sellside", "Restructuring", "Valuation", "Financing", "Fairness/Solvency" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+
+        //Validate headers of Post Transaction Staff Roles table
+        public bool VerifyPostTransactionStaffRolesHeadersL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransStaffRolesHeaders);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Name", "Relationship" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate headers of Post-Transaction Key External Contact
+
+        public bool VerifyPostTransactionKeyContactL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransKeyContacts);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Name", "Relationship" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Post Transaction Opportunities Notes
+        public string ValidateLabelPostTransOppNotes()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppNotesL, 120);
+            string value = driver.FindElement(lblPostTransOppNotesL).Text;
+            return value;
+        }
+
+        //Validate Post Transaction Staff Roles
+        public string ValidateLabelPostTransStaffRoles()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransStaffRolesL, 120);
+            string value = driver.FindElement(lblPostTransStaffRolesL).Text;
+            return value;
+        }
+
+        //Validate Post-Transaction Key External Contact
+        public string ValidateLabelPostTransKeyExternalContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransKeyExtContactL, 120);
+            string value = driver.FindElement(lblPostTransKeyExtContactL).Text;
+            return value;
+        }
+
+        //Validate Contact internal field on Add Staff role
+        public string ValidateContactField()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 190);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactL, 120);
+            string value = driver.FindElement(lblContactL).Text;
+            return value;
+        }
+
+        //Validate Contact internal field on Add Key External Contact
+        public string ValidateContactFieldOnAddKeyExternalContact()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 190);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactExtL, 120);
+            string value = driver.FindElement(lblContactExtL).Text;
+            return value;
+        }
+
+        //Validate report on clicking Post-Transaction Opportunity Report
+        public string ValidateReportAfterClickingPostTransOppReport()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPostTransOppReport, 190);
+            driver.FindElement(btnPostTransOppReport).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//h1")).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+        //Validate page on clicking Submit Engagement Summary
+        public string ValidatePageAfterClickingSubmitEngSummary()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitEngSummary, 190);
+            driver.FindElement(btnSubmitEngSummary).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(4000);
+            string value = driver.FindElement(lblSendEmailL).Text;
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            return value;
+        }
+
+        //Validate message on clicking Send BTP Email
+        public string ValidateMessageAfterClickingSendBTPEmail()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSendBTPEmail, 190);
+            driver.FindElement(btnSendBTPEmail).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(tabEngDetailsL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(tabClosingInfo).Click();
+            string value = driver.FindElement(valSendBTPEmail).Text;
+
+            return value;
+        }
+
+        //Validate Role Field
+        public string ValidateRoleField()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblRole, 120);
+            string value = driver.FindElement(lblRole).Text;
+            return value;
+        }
+
+        //Validate Post Transaction Grid Headers 
+        public bool VerifyPostTransactionGridL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPostTransGrid);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Security Type", "Key Creditors", "Constituent Debt", "Facility Balance (MM)", "Maturity Date", "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        //Validate Pre Transaction Grid Headers 
+        public bool VerifyPreTransactionGridL()
+        {
+            IReadOnlyCollection<IWebElement> valNamesAndDesc = driver.FindElements(lblPreTransGrid);
+            var actualNamesAndDesc = valNamesAndDesc.Select(x => x.Text).ToArray();
+            string[] expectedValues = { "Security Type", "Key Creditors", "Constituent Debt", "Facility Balance (MM)", "Maturity Date", "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses" };
+            bool isTrue = true;
+
+            if (expectedValues.Length != actualNamesAndDesc.Length)
+            {
+                return !isTrue;
+            }
+            for (int recType = 0; recType < expectedValues.Length; recType++)
+            {
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                {
+                    isTrue = false;
+                    break;
+                }
+            }
+            return isTrue;
+        }
+
+        public string ValidateLabelPreReOrg()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPreReorg, 120);
+            string value = driver.FindElement(lblPreReorg).Text;
+            return value;
+        }
+
+        public string ValidateLabelPreReOrgTotalDebt()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPreReorgTotal, 120);
+            string value = driver.FindElement(lblPreReorgTotal).Text;
+            return value;
+        }
+
+        public string ValidateLabelPostReStr()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostRestr, 120);
+            string value = driver.FindElement(lblPostRestr).Text;
+            return value;
+        }
+
+        public string ValidateLabelPostReStrCompany()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostRestrComp, 120);
+            string value = driver.FindElement(lblPostRestrComp).Text;
+            return value;
+        }
+
+        public string ValidateLabelClosingStock()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClosingStockL, 120);
+            string value = driver.FindElement(lblClosingStockL).Text;
+            return value;
+        }
+
+        //Validate Client/Subject
+        public string VerifyClientSubjectFieldL()
+        {
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClientSubL, 180);
+            string name = driver.FindElement(lblClientSubL).Text;
+            return name;
+        }
+
+        //Validate Percent Ownership
+        public string VerifyPercentOwnershipFieldL()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPercentOwnershipL, 180);
+            string name = driver.FindElement(lblPercentOwnershipL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfPreTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabPreTransL, 120);
+            string name = driver.FindElement(tabPreTransL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabPostTransL, 120);
+            string name = driver.FindElement(tabPostTransL).Text;
+            return name;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateCancelButtonFunctionalityOfHLPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblPostTransOppL, 120);
+            string name = driver.FindElement(lblPostTransOppL).Text;
+            return name;
+        }
+
+        //Validate save button's functionality
+        public string ValidateSaveButtonFunctionalityOfHLPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Sonika Goyal");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save button's functionality
+        public string ValidateSaveButtonFunctionalityOfKeyExtContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 120);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Chris so");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(rowKeyExtL).Displayed.ToString();
+            return row;
+        }
+
+        //Get the value of role of added contact
+        public string GetRoleOfAddedContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedRoleL, 160);
+            string value = driver.FindElement(valAddedRoleL).Text;
+            return value;
+        }
+        //Validate error message if user tries to add already-added Contact.
+        public string ValidateErrorMessageWhileAddingExistingStaffContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddStaffRoleL, 120);
+            driver.FindElement(btnAddStaffRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Sonika Goyal");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            driver.Navigate().Refresh();
+            return row;
+        }
+
+        //Validate error message if user tries to add already-added Contact.
+        public string ValidateErrorMessageWhileAddingExistingKeyContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddKeyExtExternalL, 120);
+            driver.FindElement(btnAddKeyExtExternalL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactHLPostL, 120);
+            driver.FindElement(txtContactHLPostL).SendKeys("Chris so");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContactHLPostL, 150);
+            driver.FindElement(lnkContactHLPostL).Click();
+            driver.FindElement(btnRoleL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valRoleL, 160);
+            driver.FindElement(valRoleL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupKeyContactL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            return row;
+        }
+
+        //Validate cancel button's functionality
+        public string ValidateSaveFunctionalityOfHLPostTransOpp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valAvailableL, 120);
+            driver.FindElement(valAvailableL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnChosenL, 130);
+            driver.FindElement(btnChosenL).Click();
+            driver.FindElement(btnSaveHLPost).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valChosenL, 140);
+            driver.FindElement(valChosenL).Click();
+            string value = driver.FindElement(valChosenL).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAvailableL, 150);
+            driver.FindElement(btnAvailableL).Click();
+            driver.FindElement(btnSaveHLPost).Click();
+            return value;
+        }
+
+
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfAddEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClientSubL).SendKeys("Dina");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@role='group']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddEquityHolderL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfAddEquityHolderPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnClientSubL).SendKeys("Dina");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@role='group']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddEquityHolderPostL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Equity Holder Page
+        public string ValidateSaveFunctionalityOfPostTransOppNotes()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-400)");
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppNoteL, 120);
+            driver.FindElement(txtOppNoteL).Clear();
+            driver.FindElement(txtOppNoteL).SendKeys("Testing");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveHLPost, 120);
+            driver.FindElement(btnSaveHLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessHLPost, 100);
+            string message = driver.FindElement(msgSuccessHLPost).Text;
+            return message;
+
+        }
+
+
+        //Validate when same client is added in Add Equity Holder Page
+        public string ValidateIfSameClientIsSelectedInAddEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddEquityHolderL, 120);
+            driver.FindElement(btnAddEquityHolderL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClientSubL, 120);
+            driver.FindElement(btnClientSubL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul[@aria-label='Recent Companies']/li[2]")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string message = driver.FindElement(msgDupClientL).Text;
+            return message;
+        }
+
+        //Validate save functionality of Add Debt Structure  Page
+        public string ValidateSaveFunctionalityOfAddDebtStructure()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDebtStructureL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Debt Structure  Page
+        public string ValidateSaveFunctionalityOfAddDebtStructurePostTrans()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddDebtStructurePostL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Debt Structure Page by adding all values
+        public bool ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValues()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Testing");
+            driver.FindElement(txtAmoritizationL).SendKeys("10");
+            driver.FindElement(txtMandatoryL).SendKeys("10");
+            driver.FindElement(txtFeesL).SendKeys("10");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+            driver.FindElement(btnSaveAndKeyCred).Click();
+            Thread.Sleep(6000);
+
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return row;
+        }
+
+        //Validate save functionality of Add Debt Structure Page by adding all values
+        public string ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValuesWithoutClickingAddDebt()
+        {
+            // driver.FindElement(btnAddDebtStrL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Testing");
+            driver.FindElement(txtAmoritizationL).SendKeys("10");
+            driver.FindElement(txtMandatoryL).SendKeys("10");
+            driver.FindElement(txtFeesL).SendKeys("10");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+            driver.FindElement(btnSaveAndKeyCred).Click();
+            Thread.Sleep(6000);
+
+            driver.FindElement(txtCompaniesL).SendKeys("adobe oil & gas");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return "Saved details";
+        }
+
+        //Validate edit functionality of Debt Structure 
+        public string ValidateEditFunctionalityOfAddedDebtStructure()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Updated Value");
+            driver.FindElement(txtAmoritizationL).SendKeys("5");
+            driver.FindElement(txtMandatoryL).SendKeys("5");
+            driver.FindElement(txtFeesL).SendKeys("5");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+
+            driver.FindElement(txtLoanAmountL).Clear();
+            driver.FindElement(txtLoanAmountL).SendKeys("5");
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(valSecurityTypeL).Text;
+            return row;
+        }
+
+        //Validate edit functionality of Debt Structure 
+        public string ValidateEditFunctionalityOfAddedDebtStructurePost()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSecurityTypeL, 120);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(txtInterestL).SendKeys("Updated Value");
+            driver.FindElement(txtAmoritizationL).SendKeys("5");
+            driver.FindElement(txtMandatoryL).SendKeys("5");
+            driver.FindElement(txtFeesL).SendKeys("5");
+
+            driver.FindElement(txtMaturityL).SendKeys("Oct 2, 2023");
+            driver.FindElement(txtOIDL).SendKeys("5");
+            driver.FindElement(txtCallProvisionsL).SendKeys("5");
+            driver.FindElement(txtCovenantsL).SendKeys("Testing");
+            driver.FindElement(txtFacilityL).SendKeys("5");
+
+            driver.FindElement(txtLoanAmountL).Clear();
+            driver.FindElement(txtLoanAmountL).SendKeys("5");
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(valSecurityTypePostL).Text;
+            return row;
+        }
+        //Validate added debt structure 
+        public bool ValidateDebtStrcWithKeyCred()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(4000);
+            bool row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed;
+            return row;
+        }
+
+        //Validate added debt structure 
+        public bool ValidateDebtStrcWithKeyCredPost()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(6000);
+            bool row = driver.FindElement(rowAddDebtStrcutureL2ndPost).Displayed;
+            return row;
+        }
+
+
+
+
+        //Validate edit functionality of Add Equity Holder Page
+        public string ValidateEditFunctionalityOfAddEquityHolder()
+        {
+            //driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            driver.FindElement(btnEditDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPerOwnershipL, 120);
+            driver.FindElement(txtPerOwnershipL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valPerOwnerL).Text;
+            return value;
+        }
+
+        //Validate edit functionality of Add Equity Holder Page
+        public bool ValidateEditFunctionalityOfDebtStruc()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
+            driver.FindElement(btnEditDebtL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            return row;
+
+        }
+        //Validate edit functionality of Add Equity Holder Page
+        public bool ValidateEditFunctionalityOfDebtStrucPost()
+        {
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 120);
+            driver.FindElement(btnEditDebtLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            Thread.Sleep(5000);
+            driver.FindElement(btnSaveKeyCredL).Click();
+            return row;
+
+        }
+        //Validate duplicate error message while adding same company in Key Creditor
+        public string ValidateErrorMessageWhileAddingSameClientSubjectInKeyCred()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
+            driver.FindElement(btnEditDebtL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupClientL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+
+        }
+        //Validate duplicate error message while adding same company in Key Creditor
+        public string ValidateErrorMessageWhileAddingSameClientSubjectInKeyCredPost()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 150);
+            driver.FindElement(btnEditDebtLPost).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 140);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(txtCompaniesL).SendKeys("Dina's Test Company");
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//lightning-base-combobox/div/div/div[2]/ul/li/lightning-base-combobox-item")).Click();
+            driver.FindElement(txtLoanAmountL).SendKeys("10");
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgDupClientL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+
+        }
+
+        //Validate mandatory error message while adding same company in Key Creditor without entering details
+        public string ValidateErrorMessageWhileSavingKeyCredWithoutClientSubject()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnKeyCredL, 120);
+            driver.FindElement(btnKeyCredL).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgMandatoryKeyCredL).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+        //Validate mandatory error message after removing mandatory fields of Debt Structure
+        public string ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructure()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit2ndDebtL, 170);
+            driver.FindElement(btnEdit2ndDebtL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgCurrencyFinancials).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+        //Validate mandatory error message after removing mandatory fields of Debt Structure
+        public string ValidateErrorMessageAfterRemovingMandatoryFieldsOfDebtStructurePost()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit2ndDebtLPost, 170);
+            driver.FindElement(btnEdit2ndDebtLPost).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnSecurityTypeL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            driver.FindElement(btnSaveKeyCredL).Click();
+            Thread.Sleep(5000);
+            string row = driver.FindElement(msgCurrencyFinancials).Text;
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+        //Validate cancel functionality of Key Creditor in Debt Structure
+        public bool ValidateCancelFunctionalityOfKeyCred()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtL, 120);
+            driver.FindElement(btnEditDebtL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelKeyCredL, 140);
+            driver.FindElement(btnCancelKeyCredL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return row;
+
+        }
+        //Validate cancel functionality of Key Creditor in Debt Structure
+        public bool ValidateCancelFunctionalityOfKeyCredPost()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDebtLPost, 120);
+            driver.FindElement(btnEditDebtLPost).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelKeyCredL, 140);
+            driver.FindElement(btnCancelKeyCredL).Click();
+            Thread.Sleep(5000);
+            bool row = driver.FindElement(rowAddKeyCredL).Displayed;
+            return row;
+
+        }
+
+        //Validate delete functionality of Key Creditor in Debt Structure
+        public string ValidateDeleteFunctionalityOfKeyCred()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 130);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 140);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(8000);
+            try
+            {
+                string row = driver.FindElement(rowAddKeyCredL).Displayed.ToString();
+                return row;
+            }
+            catch (Exception e)
+            {
+                return "Row is deleted";
+            }
+
+        }
+        //Validate hyperlink of Added Equity Holder 
+        public string ValidateHyperlinkOfAddedEquityHolder()
+        {
+            Thread.Sleep(5000);
+            string value = driver.FindElement(lnkEquityHolder).GetAttribute("target");
+            return value;
+        }
+
+        //Validate hyperlink of Added Equity Holder in Post Trans
+        public string ValidateHyperlinkOfAddedEquityHolderPost()
+        {
+            Thread.Sleep(5000);
+            string value = driver.FindElement(lnkEquityHolderPost).GetAttribute("target");
+            return value;
+        }
+
+        //Get the value of Percent Ownership  before update
+        public string GetPerOwnershipBeforeUpdate()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valPerOwnerL).Text;
+            return value;
+        }
+
+        //Validate the error message for Financing type
+        public string ValidateErrorMessageForClientSubject()
+        {
+            driver.FindElement(btnSaveAddHL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgClientSubL, 130);
+            string name = driver.FindElement(msgClientSubL).Text;
+            return name;
+        }
+
+        //Validate the error message for Contact
+        public string ValidateErrorMessageForContactInt()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactL, 130);
+            string name = driver.FindElement(msgContactL).Text;
+            return name;
+        }
+
+        //Validate the error message for Contact
+        public string ValidateErrorMessageForContactExt()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactExtL, 130);
+            string name = driver.FindElement(msgContactExtL).Text;
+            return name;
+        }
+
+        //Validate the error message for Role
+        public string ValidateErrorMessageForRole()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgRoleL, 130);
+            string name = driver.FindElement(msgRoleL).Text;
+            return name;
+        }
+        //Validate Cancel functionality of Add Equity Holder Page
+        public string ValidateCancelFunctionalityOfEquityHolder()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(valFinTypeL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Add Board Member Page
+        public string ValidateCancelFunctionalityOfAddedStaffRole()
+        {
+
+            driver.FindElement(tabEngSummary).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabHLPostTransL).Click();
+            //Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Key Contact
+        public string ValidateCancelFunctionalityOfAddedKeyContact()
+        {
+            driver.FindElement(tabEngSummary).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabHLPostTransL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowKeyContactL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Add Staff Role Page
+        public string ValidateCancelFunctionalityOfAddBoardMember()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+        //Validate Cancel functionality of Add Board Member Page
+        public string ValidateCancelFunctionalityOfAddBoardMemberPostTrans()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+        //Validate Cancel functionality of Debt Structure
+        public string ValidateCancelFunctionalityOfDebtStructure()
+        {
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDebtL, 120);
+            driver.FindElement(btnDeleteDebtL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 140);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+
+        //Validate Cancel functionality of Debt Structure
+        public string ValidateCancelFunctionalityOfDebtStructurePost()
+        {
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDebtLPost, 120);
+            driver.FindElement(btnDeleteDebtLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 140);
+            driver.FindElement(btnCancel).Click();
+            string row = driver.FindElement(rowAddDebtStrcutureL2ndPost).Displayed.ToString();
+            if (row.Equals("True"))
+            {
+                return "Record is not deleted";
+            }
+            else
+            {
+                return "Record is deleted";
+            }
+        }
+        //Validate Delete functionality of Added Equity Holder Page
+        public string ValidateDeleteFunctionalityOfEquityHolder()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDistressed, 120);
+            driver.FindElement(btnDeleteDistressed).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(valEquityHolder).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Delete functionality of Added Board Member Page
+        public string ValidateDeleteFunctionalityOfBoardMember()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Delete functionality of Added Board Member Page
+        public string ValidateDeleteFunctionalityOfBoardMemberPostTrans()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteBoard, 120);
+            driver.FindElement(btnDeleteBoard).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+        //Validate Delete functionality of Added Debt Structure Page
+        public string ValidateDeleteFunctionalityOfDebtStructure()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDebtL, 120);
+            driver.FindElement(btnDeleteDebtL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Delete functionality of Added Debt Structure Page
+        public string ValidateDeleteFunctionalityOfDebtStructurePost()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteDebtLPost, 120);
+            driver.FindElement(btnDeleteDebtLPost).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowAddDebtStrcutureL2ndPost).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+        //Validate Delete functionality of Added Staff Role
+        public string ValidateDeleteFunctionalityOfStaffRole()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowStaffRoleL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+
+        //Validate Delete functionality of Added Key Contact
+        public string ValidateDeleteFunctionalityOfKeyContact()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteRole, 120);
+            driver.FindElement(btnDeleteRole).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 130);
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(4000);
+            try
+            {
+                string row = driver.FindElement(rowKeyContactL).Displayed.ToString();
+                return "Record is not deleted";
+            }
+            catch (Exception)
+            {
+                return "Record is deleted";
+            }
+
+        }
+        //Validate Contact field on click of Add Board Member
+        public string VerifyContactsFieldL()
+        {
+            driver.FindElement(btnAddBoardMemberL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContacts, 180);
+            string name = driver.FindElement(lblContacts).Text;
+            return name;
+        }
+
+        //Validate Maturity Date on Add Debt Structure 
+        public string VerifyMaturityDateFieldL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblMaturityDate, 180);
+            string name = driver.FindElement(lblMaturityDate).Text;
+            return name;
+        }
+
+
+        //Validate Security Type on Add Debt Structure 
+        public string VerifySecurityTypeFieldOfAddDebtL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSecurityTypeL, 180);
+            string name = driver.FindElement(lblSecurityTypeL).Text;
+            return name;
+        }
+
+        //Validate Currency on Add Debt Structure 
+        public string VerifyCurrencyFieldOfAddDebtL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCurrencyAddDebtL, 180);
+            string name = driver.FindElement(lblCurrencyAddDebtL).Text;
+            //driver.FindElement(btnCurrencyL).Click();                
+            return name;
+        }
+
+        //Validate the error message for Contacts
+        public string ValidateErrorMessageForContact()
+        {
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContactsL, 130);
+            string name = driver.FindElement(msgContactsL).Text;
+            return name;
+        }
+
+        //Validate the error message for Secutiry Type
+        public string ValidateErrorMessageForSecuirtyType()
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(btnSaveAddHL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSecurityTypeL, 130);
+            string name = driver.FindElement(msgSecurityTypeL).Text;
+            return name;
+        }
+
+        //Validate that inactive contact can not be searched
+        public string ValidateSearchWithInactiveContact()
+        {
+            driver.FindElement(btnAddBoardMemberL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 130);
+            driver.FindElement(txtContactL).SendKeys("Sue Chu");
+            Thread.Sleep(6000);
+            string value = driver.FindElement(comboContactL).Text;
+            return value;
+        }
+
+        //Validate save functionality of Add Board Member Page
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithHLRel()
+        {
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Anne Poetschke");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMemberL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate save functionality of Add Board Member Page
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithHLRelPostTrans()
+        {
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Anne Poetschke");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMemberPostL).Displayed.ToString();
+            return row;
+        }
+
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRel()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMember2ndL).Displayed.ToString();
+            return row;
+        }
+
+        public string ValidateSaveFunctionalityOfAddBoardMemberWithoutHLRelPostTrans()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(rowAddBoardMember2ndPostL).Displayed.ToString();
+            return row;
+        }
+
+        //Validate "Has HL Relationship" checkbox is checked 
+        public string Validate1stHLRelationshipCheckbox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chk1stHLRel, 130);
+            string value = driver.FindElement(chk1stHLRel).GetAttribute("checked");
+            return value;
+
+        }
+
+        //Validate "Has HL Relationship" checkbox is checked 
+        public string Validate2ndHLRelationshipCheckbox()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chk1stHLRel, 130);
+            string value = driver.FindElement(chk1stHLRel).GetAttribute("checked");
+            return value;
+
+        }
+        //Validate error message when same contact is added again
+        public string ValidateErrorMessageUponAddingDuplicateContact()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnAddBoardMemberL).Click();
+            driver.FindElement(txtContactL).SendKeys("Sonika Mathur");
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//div/ul/li/lightning-base-combobox-item/span[2]/span")).Click();
+            driver.FindElement(btnSaveAddHL).Click();
+            Thread.Sleep(6000);
+            string row = driver.FindElement(msgDupContactL).Text;
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            return row;
+        }
+
+        //Save Pre Reorganization details
+        public string SavePreOrganizedDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPreReorgConstituentDebt, 100);
+            driver.FindElement(txtPreReorgConstituentDebt).Clear();
+            driver.FindElement(txtPreReorgConstituentDebt).SendKeys("5");
+            driver.FindElement(txtPreReorgTotalDebt).Clear();
+            driver.FindElement(txtPreReorgTotalDebt).SendKeys("2");
+            driver.FindElement(btnSavePreTransInfo).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgSuccessPreReorg).Text;
+            return message;
+        }
+
+        //Save Pre Reorganization details
+        public string SavePostOrganizedDetails()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPostRestrDebt, 100);
+            driver.FindElement(txtPostRestrDebt).Clear();
+            driver.FindElement(txtPostRestrDebt).SendKeys("5");
+            driver.FindElement(txtPostReorgTotalDebt).Clear();
+            driver.FindElement(txtPostReorgTotalDebt).SendKeys("2");
+            driver.FindElement(txtPostClosingStocking).Clear();
+            driver.FindElement(txtPostClosingStocking).SendKeys("2");
+            driver.FindElement(btnSavePreTransInfo).Click();
+            Thread.Sleep(4000);
+            string message = driver.FindElement(msgSuccessPreReorg).Text;
+            return message;
+        }
+
+        //Validate added Board Member is displayed with Hyperlink
+        public string ValidateBoardMemberIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkBoardMember);
+            string value = driver.FindElement(lnkBoardMember).GetAttribute("target");
+            return value;
+        }
+
+        //Validate added Board Member company is displayed with Hyperlink
+        public string ValidateBoardMemberCompanyIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkBoardCompany);
+            string value = driver.FindElement(lnkBoardCompany).GetAttribute("target");
+            return value;
+        }
+        //Validate added Key Creditor is displayed with Hyperlink
+        public string ValidateKeyCredIsDisplayedWithHyperlink()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkKeyCred);
+            string value = driver.FindElement(lnkKeyCred).GetAttribute("target");
+            return value;
+        }
+
+        //Validate that added Equity Holder company in Pre Transaction is displayed in Additional Client subject section of Engagement
+        public string ValidateAddedEquityHolderIsDisplayedInAdditionalClientSubject()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            driver.FindElement(tabEngDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubL, 140);
+            driver.FindElement(tabClientSubL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(rowAddedEquityInAdd).Displayed.ToString();
+            return value;
+        }
+
+
+        //Validate that added Board Member in Pre Transaction is displayed in Engagement Contacts section
+        public string ValidateAddedBoardMemberIsDisplayedInEngagementContacts()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabEngDetailsL, 100);
+            //driver.FindElement(tabEngDetailsL).Click();
+            //driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabEngContactsL, 140);
+            driver.FindElement(tabEngContactsL).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valAddedMember).Text;
+            return value;
+        }
+
+        //Fetch the type of added board member in Engagement Contacts  
+        public string GetTypeOfAddedBoardMemberInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedMemberType).Text;
+            return value;
+        }
+
+        //Fetch the role of added board member in Engagement Contacts
+        public string GetRoleOfAddedBoardMemberInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedMemberRole).Text;
+            return value;
+        }
+
+        //Fetch the role of added staff contact member in Engagement Contacts
+        public string GetRoleOfAddedStaffInEngContacts()
+        {
+            string value = driver.FindElement(valAddedStaffRole).Text;
+            return value;
+        }
+        //Fetch the role of added board member in Engagement Contacts
+        public string GetRoleOfAddedBoardMemberInAdditionalClientSubjectPost()
+        {
+            string value = driver.FindElement(valAddedMemberRolePost).Text;
+            return value;
+        }
+
+        //Fetch the type of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetTypeOfAddedEquityHolderInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedEquityType).Text;
+            return value;
+        }
+
+        //Fetch the role of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetRoleOfAddedEquityHolderInAdditionalClientSubject()
+        {
+            string value = driver.FindElement(valAddedEquityRole).Text;
+            return value;
+        }
+
+        //Fetch the role of added Equity Holder company in Additional Client subject section of Engagement
+        public string GetRoleOfAddedEquityHolderInAdditionalClientSubjectPost()
+        {
+            string value = driver.FindElement(valAddedEquityRolePost).Text;
+            return value;
+        }
+
+        //Validate Contact field on click of Add Board Member
+        public bool VerifyTextFieldsOfAddDebtStructureL()
+        {
+            driver.FindElement(btnAddDebtStrL).Click();
+
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valHeader = driver.FindElements(lblAddDebtTxtFields);
+            var actualValue = valHeader.Select(x => x.Text).ToArray();
+            Console.WriteLine(actualValue);
+            string[] expectedValue = { "Interest", "OID Percent", "Amortization", "Call Provisions / Prepayment Premiums", "Mandatory Prepayments / ECF Sweep", "Covenants", "Fees & Expenses", "Facility Balance (MM)" };
+            bool isSame = true;
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+
+        }
+
     }
 }
-
-

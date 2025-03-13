@@ -6,13 +6,13 @@ using System.Threading;
 
 namespace SF_Automation.Pages.Opportunity
 {
-    class EngagementManager :BaseClass
+    class EngagementManager : BaseClass
     {
         By btnResetFilters = By.CssSelector("input[value='Reset Filters']");
         By comboShowRec = By.CssSelector("select[name*='engagementOptions']");
-        By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");       
-        By linkEngageName = By.CssSelector("td>span[id*=':j_id181:0:j_id183:2:j_id208'] > a");
-        By titleEngageDetail = By.XPath("//h2[contains(text(),'Engagement Detail')]");       
+        By btnApplyFilters = By.CssSelector("input[value='Apply Filters']");
+        By linkEngageName = By.XPath("//div[1]/table/tbody/tr[1]/td[3]/span/a");
+        By titleEngageDetail = By.XPath("//h2[contains(text(),'Engagement Detail')]");
         By comboRecType = By.CssSelector("select[name*='engagementrecordtype']");
         By comboStage = By.CssSelector("select[name*=':0:j_id183:6:j_id188']");
         By txtTotalEstFee = By.CssSelector("input[name*=':0:j_id183:8:j_id186']");
@@ -25,15 +25,15 @@ namespace SF_Automation.Pages.Opportunity
         By linkFREngageName = By.CssSelector("span[id*='181:0:j_id183:2:j_id208']");
         By txtPerAccFees = By.CssSelector("input[name*=':0:j_id183:8:j_id186']");
         By comboStageField = By.CssSelector("select[id*='engagementStageOptions']");
-        By colActualMonthlyFee = By.CssSelector("td[id*='Actual_Monthly_Fee__c_a095A000013t']>span>span");       
+        By colActualMonthlyFee = By.CssSelector("td[id*='Actual_Monthly_Fee__c_a095A000013t']>span>span");
         By colActualTxnFee = By.CssSelector("td[id*='Actual_Transaction_Fee__c_a095A000013t']>span>span");
- 
-        //string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+
+        //string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
 
         //To click on Engagement Name
         public string ClickEngageName()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkEngageName,150);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkEngageName, 150);
             Thread.Sleep(4000);
             driver.FindElement(linkEngageName).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, titleEngageDetail, 80);
@@ -54,11 +54,11 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
-        }    
+        }
 
         //To reset filters with LOB - FAS for Revenue Accrual
         public void ResetFiltersForRevAccrual(string value)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, comboRecType, 80);
             driver.FindElement(comboRecType).SendKeys(value);
             WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilters, 150);
@@ -70,9 +70,9 @@ namespace SF_Automation.Pages.Opportunity
         //To update stage value of a record
         public void UpdateStageValue(string value)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboStage, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboStage, 90);
             driver.FindElement(comboStage).SendKeys(value);
-            driver.FindElement(comboRecType).Click();         
+            driver.FindElement(comboRecType).Click();
         }
 
         //To update Total Est Fee of a record
@@ -118,15 +118,15 @@ namespace SF_Automation.Pages.Opportunity
         //To validate if Actual Monthly Fee is enabled
         public string ValidateIfActualMonthlyFeeIsEnabled()
         {
-           WebDriverWaits.WaitUntilEleVisible(driver, colActualMonthlyFee, 60);
-           if (driver.FindElement(colActualMonthlyFee).Displayed)
+            WebDriverWaits.WaitUntilEleVisible(driver, colActualMonthlyFee, 60);
+            if (driver.FindElement(colActualMonthlyFee).Displayed)
             {
                 return "Actual Monthly Fee column is read only";
             }
             else
             {
                 return "Actual Monthly Fee column is enabled";
-            }           
+            }
         }
 
         //To validate if Actual Transaction Fee is enabled
@@ -148,11 +148,11 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnResetFilters, 60);
             driver.FindElement(btnResetFilters).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngageNumber, 60);
             driver.FindElement(txtEngageNumber).SendKeys(number);
             driver.FindElement(valShowRec).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(8000);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }
@@ -182,7 +182,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, comboStageField);
             driver.FindElement(comboStageField).SendKeys(value);
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilters,180);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApplyFilters, 180);
             driver.FindElement(btnApplyFilters).Click();
             Thread.Sleep(7000);
         }

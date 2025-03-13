@@ -44,8 +44,6 @@ namespace SF_Automation.UtilityFunctions
             }
         }     
 
-       
-
         //Capture Screenshot
         public string Capture(IWebDriver driver,string screenshotName)
         {
@@ -105,6 +103,5 @@ namespace SF_Automation.UtilityFunctions
             test.Log(logstatus, "Test Failed : Error Message - " + message);
             test.Log(logstatus, "SnapShot below: " + test.AddScreenCaptureFromPath(screenShotPath));
         }
-        
     }
 }

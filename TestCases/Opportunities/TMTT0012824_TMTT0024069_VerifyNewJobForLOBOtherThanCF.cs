@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF:BaseClass
     {
@@ -76,7 +76,7 @@ namespace SF_Automation.TestCases.Opportunity
             }
             catch (Exception e)
             {
-                extentReports.CreateLog(e.Message);
+                extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Threading;
 using excel = Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestData
@@ -18,6 +19,8 @@ namespace SF_Automation.TestData
 
         public static int GetRowCount(string Path, string Sheet)
         {
+            Thread.Sleep(2000);
+
             //string actualfile = directory + Path;
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(Path);
@@ -31,6 +34,8 @@ namespace SF_Automation.TestData
         //count the columns of excel file
         public static int GetColumnCount(string Path, string Sheet)
         {
+            Thread.Sleep(2000);
+
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(Path);
             excel._Worksheet workSheet = workBook.Worksheets.get_Item(Sheet);
@@ -44,6 +49,8 @@ namespace SF_Automation.TestData
 
         public static string ReadData(string path, string sheet, int col)
         {
+            Thread.Sleep(2000);
+
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(path);
             excel._Worksheet workSheet = workBook.Worksheets.get_Item(sheet);
@@ -57,6 +64,7 @@ namespace SF_Automation.TestData
         //To read data from multiple row
         public static string ReadDataMultipleRows(string path, string sheet, int row, int col)
         {
+            Thread.Sleep(2000);
             excel.Application excelApp = new excel.Application();
             excel.Workbook workBook = excelApp.Workbooks.Open(path);
             excel._Worksheet workSheet = workBook.Worksheets.get_Item(sheet);

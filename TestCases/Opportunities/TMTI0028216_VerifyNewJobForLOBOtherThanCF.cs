@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTI0028216_VerifyNewJobForLOBOtherThanCF:BaseClass
     {
@@ -65,6 +65,8 @@ namespace SF_Automation.TestCases.Opportunity
                     string valRecordType = ReadExcelData.ReadData(excelPath, "RecordType", row);
                     opportunityHome.SelectLOBAndClickContinue(valRecordType);
 
+                    //TMTI0028216	Verify new job for LOB other than CF
+                    //TMTI0055392	Verify new job for LOB other than CF
                     int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
                     for (int rec = 1; rec < rowJobType; rec++)
                     {

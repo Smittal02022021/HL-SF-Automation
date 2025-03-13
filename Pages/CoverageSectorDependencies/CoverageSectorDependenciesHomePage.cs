@@ -7,7 +7,7 @@ namespace SF_Automation.Pages
     class CoverageSectorDependenciesHomePage : BaseClass
     {
         By btnNew = By.XPath("//input[@title='New']");
-        By linkCoverageSectorDependencyName = By.XPath("//th[contains(text(),'Coverage Sector Dependency Name')]/following::tr/th/a");
+        By linkCoverageSectorDependencyName = By.XPath("//th[contains(text(),'HL Sector ID')]/following::tr/th/a");
 
         public void ClickNewCoverageDependenciesButton()
         {

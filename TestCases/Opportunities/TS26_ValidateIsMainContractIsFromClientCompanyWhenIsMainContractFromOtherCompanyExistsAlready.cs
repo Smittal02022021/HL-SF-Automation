@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready : BaseClass
     {
@@ -19,9 +19,8 @@ namespace SF_Automation.TestCases.Opportunity
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
 
-        public static string ERP = "TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx";
+        public static string ERP = "TS02_PostUpdatingDFFFieldsOfOpportunity";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

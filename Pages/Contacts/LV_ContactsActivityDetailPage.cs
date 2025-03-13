@@ -136,13 +136,14 @@ namespace SF_Automation.Pages.Contact
             string companyDiscussed = driver.FindElement(valCompanyDiscussed).Text;
             return companyDiscussed;
         }
+
         public string GetCompanyDiscussedNameActivityWithoutExternal()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valueCompanyDiscussed, 60);
             string companyDiscussedActivity = driver.FindElement(valueCompanyDiscussed).Text;
             return companyDiscussedActivity;
         }
-        //
+        
         public string GetRelatedOpportunities()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOpportunities, 60);
@@ -223,5 +224,66 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(By.XPath($"//button[@title='Close {tabName}']")).Click();
             Thread.Sleep(5000);
         }
+
+        public bool NavigateToOpportunityDetailPage(string oppName)
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath($"//a[text()='{oppName}']")).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == oppName)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool NavigateToEngagementDetailPage(string engName)
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,3000)");
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath($"(//a[text()='{engName}'])[3]")).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == engName)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool NavigateToCampaignDetailPage(string campName)
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,3000)");
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath("//span[text()='Related Campaigns']/..")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath($"//a[text()='{campName}']")).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == campName)
+            {
+                result = true;
+            }
+            return result;
+        }
+
     }
 }

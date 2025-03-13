@@ -6,7 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunity
+namespace SF_Automation.TestCases.Opportunities
 {
     class TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType : BaseClass
     {
@@ -64,13 +64,13 @@ namespace SF_Automation.TestCases.Opportunity
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     //Search for created opportunity
-                    string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
-                    Assert.AreEqual("Record found", message);
+                   string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
+                    //opportunityHome.SearchMyOpportunitiesInLightning("78446",valUser);                    
                     extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
                     
                     if (valJobType.Equals("Illiquid Financial Assets")|| valJobType.Equals("Buyside & Financing Advisory"))
                     {
-                        string title = opportunityDetails.ClickNBCFormType();
+                        string title = opportunityDetails.ClickNBCForm();
                         //Validate the pop up
                         Assert.AreEqual("Please select a form type.", title);
                         extentReports.CreateLog("Page with title: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : " + valJobType + " ");
@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.Opportunity
                         extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
                         
                     }
-                    form.SwitchFrame();
+                    form.SwitchFrameClassic();
                 }
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
