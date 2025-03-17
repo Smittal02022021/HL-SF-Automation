@@ -19,7 +19,7 @@ namespace SF_Automation.Pages
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
-        By valUser = By.XPath("//section/header/div[1]/div/span");
+        By valUser = By.XPath("//span[contains(text(),'Logged in')]");
         By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
 
         Outlook outlook = new Outlook();
@@ -189,6 +189,7 @@ namespace SF_Automation.Pages
         public string ValidateUserLightning()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 12);
@@ -197,6 +198,7 @@ namespace SF_Automation.Pages
         public string ValidateFRUserLightning()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 13);

@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Common
         By imgProfile = By.CssSelector("div[class*='profileTrigger ']>span[class='uiImage']");
         By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By imgUser = By.XPath("//span/div/span[@class='uiImage']");
-        By lnkLogout = By.XPath("//div[2]/div[1]/div[1]/div/div[2]/div/a[2]");
+        By lnkLogout = By.XPath("//div[2]/div/a[2]");
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
         By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
         By linkLogoutLV = By.XPath("//header//div[@data-message-id='loginAsSystemMessage']//a[contains(text(),'Log out')]");
