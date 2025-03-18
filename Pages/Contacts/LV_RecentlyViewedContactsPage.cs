@@ -43,8 +43,16 @@ namespace SF_Automation.Pages.Contact
 
         public void SelectContactType(string type)
         {
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"(//span[text()='{type}']/../span)[1]")).Click();
+            Thread.Sleep(5000);
+            try
+            {
+                driver.FindElement(By.XPath($"(//span[text()='{type}']/../span)[1]")).Click();
+            }
+            catch(Exception e)
+            {
+                driver.FindElement(By.XPath($"(//span[text()='{type}']/../span)[2]")).Click();
+            }
+
             Thread.Sleep(2000);
             ClickNextButton();
         }
