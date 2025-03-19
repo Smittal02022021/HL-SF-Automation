@@ -90,7 +90,7 @@ namespace SF_Automation.Pages.Contact
         By txtAreaPersonalNote = By.XPath("//span[contains(text(),'Personal Note')]/../../textarea");
         By txtAreaOutlookCategories = By.XPath("//span[contains(text(),'Outlook Categories')]/../../textarea");
         By txtOutlookCategoriesEdit = By.XPath("//label[contains(text(),'Outlook Categories')]/../div/textarea");
-        By btnSave = By.XPath("(//span[contains(text(),'Save')])[4]/..");
+        By btnSave = By.XPath("(//span[contains(text(),'Save')])[3]/..");
         By btnSaveEdit = By.XPath("//button[@name='SaveEdit']");
         By btnCancel = By.XPath("(//span[contains(text(),'Cancel')])[3]/..");
         By btnCancelEdit = By.XPath("//button[@name='CancelEdit']");
@@ -1870,8 +1870,8 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0, 0)");
 
             //Navigate to Marketing Tab
-            WebDriverWaits.WaitUntilEleVisible(driver, tabDeals, 120);
-            driver.FindElement(tabDeals).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
+            driver.FindElement(tabMarketing).Click();
             Thread.Sleep(2000);
 
             if(dealAnn == driver.FindElement(lblDealAnnouncement).Text && eventConference == driver.FindElement(lblEventsConferences).Text && generalAnn == driver.FindElement(lblGeneralAnnouncements).Text && insightsCon == driver.FindElement(lblInsightsContent).Text)
@@ -1931,8 +1931,8 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(5000);
 
             //Navigate to Marketing Tab
-            WebDriverWaits.WaitUntilEleVisible(driver, tabDeals, 120);
-            driver.FindElement(tabDeals).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
+            driver.FindElement(tabMarketing).Click();
             Thread.Sleep(5000);
 
             if(companyName == driver.FindElement(lblBadgeCompanyName).Text && firstName == driver.FindElement(lblBadgeFirstName).Text && lastName == driver.FindElement(lblBadgeLastName).Text && fullName == driver.FindElement(lblBadgeFullName).Text)

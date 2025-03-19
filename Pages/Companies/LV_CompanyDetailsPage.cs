@@ -990,7 +990,7 @@ namespace SF_Automation.Pages.Companies
         public void DeleteCompany()
         {
             //Wait until the "Show More Actions" button is visible
-            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreActions, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMoreActions, 120);
 
             //Click the "Show More Actions" button
             driver.FindElement(btnShowMoreActions).Click();

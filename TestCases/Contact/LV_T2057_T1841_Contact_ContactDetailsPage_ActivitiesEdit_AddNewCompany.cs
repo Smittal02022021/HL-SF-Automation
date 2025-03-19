@@ -162,11 +162,9 @@ namespace SF_Automation.TestCases.Contact
 
                 driver.Quit();
             }
-
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
