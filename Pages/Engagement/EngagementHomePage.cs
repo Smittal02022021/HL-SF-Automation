@@ -46,11 +46,12 @@ namespace SF_Automation.Pages
         By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@aria-label='Recently Viewed']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
+        By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
+        By btnSearchL = By.XPath("//button[@aria-label='Search']");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
         By valSearchedEng1 = By.XPath("//tr/th/span/a");
-        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span//a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
@@ -593,6 +594,7 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfEngagementsByJobType(string name)
         {
+            //driver.FindElement(btnSearchL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
             driver.FindElement(txtSearchEng).Clear();
             driver.FindElement(txtSearchEng).SendKeys(name);

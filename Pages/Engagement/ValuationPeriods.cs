@@ -174,7 +174,7 @@ namespace SF_Automation.Pages.Engagement
         By valAllocationL = By.XPath("//a[contains(@title,'Delete - Record 1 - VPA-')]/ancestor::tr[1]/th/a");
         By delPositionL = By.XPath("//tr/td[1]/span/a/font");
 
-        string dir = @"C:\Users\VKumarl0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SGoyal0427\source\repos\SF_Automation\TestData\";
 
         //To Click New Engagement Valuation Period button
         public string ClickEngValuationPeriod()

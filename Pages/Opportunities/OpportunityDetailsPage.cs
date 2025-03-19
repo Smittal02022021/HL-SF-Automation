@@ -58,14 +58,14 @@ namespace SF_Automation.Pages
         By drpdownWomenLed = By.CssSelector("select[name='00N6e00000MRNgW']");
         By valIG = By.CssSelector("div[id*='00Ni000000D8VT3j']");
         By valJobType = By.CssSelector("div[id*='00Ni000000D8hWWj']");
-        By btnNBCForm = By.CssSelector("input[name='nbc_form']");
+        By btnNBCForm = By.CssSelector("input[name='nbc_form_cr']");
         By btnNBCFormL = By.CssSelector("input[name='nbc_form_c']");
         By btnNBCFormLightning = By.XPath("//button[text()='NBC']");
         By btnNBCFormType = By.CssSelector("input[name='nbc_form_cr']");
         By msgNoNBCAccessL = By.XPath("//tbody/tr[1]/td[2]/div");
         By btnMA = By.XPath("//fieldset/table/tbody/tr/td[1]/label");
         By btnCapMkt = By.XPath("//fieldset/table/tbody/tr/td[2]/label");
-        By titleNBCForm = By.CssSelector(" div.pbBody > table > tbody > tr > td.instructions > p:nth-child(1)");
+        By titleNBCForm = By.XPath("//table//tr/td[2]//div[2]/p");
         By titleFEISL = By.XPath("//div[@class='slds-rich-text-editor__output uiOutputRichText forceOutputRichText']/p[1]");
         By linkRequestDate = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By linkPitchDate = By.XPath("//div[3]/table/tbody//td[4]/span/span/a");
@@ -433,7 +433,7 @@ namespace SF_Automation.Pages
         By valCurrencyAfter = By.XPath("//lightning-formatted-text[text()='CHF - Swiss Franc']");
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
-        By valEstTxnSizeL = By.XPath("//span[text()='Fee Notes & Description']/ancestor::div[2]/following::dd[1]//slot/lightning-formatted-text");
+        By valEstTxnSizeL = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
@@ -637,7 +637,7 @@ namespace SF_Automation.Pages
         By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]/dd//lightning-formatted-text");
-        By btnPortfolioVL = By.XPath("//button[text()='Portfolio Valuation']");        
+        By btnPortfolioVL = By.XPath("//span[text()='Portfolio Valuation']");        
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]//span//lightning-formatted-text");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
@@ -1210,8 +1210,8 @@ namespace SF_Automation.Pages
         //Get the value of Est Txn Size
         public string GetEstTransactionSize()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
-            string value = driver.FindElement(valEstTxnSize).Text;
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valEstTxnSizeL).Text;
             string estTxn = value.Substring(0, 8);
             return estTxn;
         }
@@ -1221,9 +1221,11 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(4000);
             driver.FindElement(txtEstTxnSize).Clear();
-            driver.FindElement(txtEstTxnSize).SendKeys("15");
+            driver.FindElement(txtEstTxnSize).SendKeys("5");
             driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
             string value = driver.FindElement(valEstTxnSize).Text;
             string estTxn = value.Substring(0, 8);
             return estTxn;
@@ -1816,7 +1818,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNBCForm, 120);
             driver.FindElement(btnNBCForm).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, titleNBCForm, 80);
+            Thread.Sleep(7000);
             string title = driver.FindElement(titleNBCForm).Text;
             return title;
         }
@@ -1999,8 +2001,8 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
                 driver.FindElement(lnkMoreL).Click();
                 Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 140);
-                string valImage = driver.FindElement(btnPortfolioVCAOL).Displayed.ToString();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
+                string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();
                 return "Portfolio Valuation button is displayed";
             }
             catch (Exception)
@@ -2035,13 +2037,21 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
             driver.FindElement(btnPortfolioVCAOL).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(5000);//button[text()='Portfolio Valuation']
             driver.SwitchTo().Frame(0);
             //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, msgNoValL, 160);
             string title = driver.FindElement(msgNoValL).Text;
             return title;
+        }
+
+        //Click Portfolio valuation button and get title of page
+        public string ClickPortfolioValuationEngL()
+        {
+            driver.FindElement(By.XPath("//button[text()='Portfolio Valuation']")).Click();
+            Thread.Sleep(5000);
+            return "Portfolio Valuation button is displayed";
         }
 
         //Click Portfolio valuation button for CAO
@@ -2280,6 +2290,7 @@ namespace SF_Automation.Pages
             string title = driver.FindElement(lblValuationPeriods).Text;
             return title;
         }
+
         //Click Return to Opp
         public string ValidateReturnToOpp()
         {
@@ -4294,6 +4305,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtClientContract).SendKeys(client);
             driver.FindElement(txtBillingContact).SendKeys(contact);
             driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
             string title = driver.FindElement(titlePage).Text;
             WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunity, 80);
             driver.FindElement(lnkOpportunity).Click();
@@ -7947,12 +7959,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,-500)");
-            //Thread.Sleep(4000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
-            //driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
+            driver.FindElement(lnkReqEngL).Click();
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
-            driver.FindElement(btnConvertToEngPVL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 360);
+            driver.FindElement(btnConvertToEngL).Click();
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;

@@ -2853,7 +2853,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SwitchFrame()
         {
-            //driver.Close();
+           // driver.Close();
             Console.WriteLine("Closed the last window");
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
@@ -3298,7 +3298,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrency);
             driver.FindElement(lnkEditCurrency).Click();
             driver.FindElement(txtEstValuation).Clear();
-            driver.FindElement(txtEstValuation).SendKeys("20");
+            driver.FindElement(txtEstValuation).SendKeys("25");
             Thread.Sleep(3000);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(3000);

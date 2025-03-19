@@ -165,7 +165,7 @@ namespace SF_Automation.TestCases.Opportunities
                 engHome.SearchEngagementWithNumberOnLightning(value, valJobType);               
 
                 //1.  TMTI0092391_Verify that the "Portfolio Valuation" button is available on the portfolio Engagement
-                string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButton();
+                string portfolioValuation = opportunityDetails.ClickPortfolioValuationEngL();
                 string jobTypePV = engDetails.GetJobTypeL();
                 Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
                 extentReports.CreateLog("Portfolio Valuation Button is displayed for the Engagement with Job type: " + jobTypePV + " ");

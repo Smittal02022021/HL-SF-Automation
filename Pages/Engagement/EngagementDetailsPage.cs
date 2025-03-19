@@ -304,7 +304,7 @@ namespace SF_Automation.Pages.Engagement
         By checkPrimaryContact = By.CssSelector("input[name*='D7OP7']");
         By valClientL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id=\"RecordClient_cField1\"]//div[contains(@data-target-selection-name,\".Client__c\")]//dd//records-hoverable-link//a/span/slot/span/slot");
         By valSubjectL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id=\"RecordSubject_cField1\"]//div[contains(@data-target-selection-name,\".Subject__c\")]//dd//records-hoverable-link//a/span/slot/span/slot");
-        By tabInfo = By.XPath("//a[@aria-controls='tab-1']");
+        By tabInfo = By.XPath("//a[text()='Info']");
         By tabInformationL = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabInfoL = By.XPath("//section[2]/div//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]");
         By subTabDetails = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a[text()='Details']");
@@ -479,7 +479,7 @@ namespace SF_Automation.Pages.Engagement
 
         
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
-        By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
+        By btnBillingRequestL = By.XPath("//span[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
         By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
@@ -820,7 +820,7 @@ namespace SF_Automation.Pages.Engagement
         By btnInlineEditCoExistEngL2 = By.XPath("(//button[@title='Edit Co-exist'])[2]");
         By txtFSEngIDL = By.XPath("//table[@aria-label='FS Engagements']//tr[1]//th//lightning-primitive-cell-factory[@data-label='FS Engagement ID']//a//slot//slot");
         By txtFSEngNameL = By.XPath("//h1//records-entity-label[text()='FS Engagement']/../../..//slot[@name='primaryField']//lightning-formatted-text");
-        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
+        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[1]");
         By txtContactNameL = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
         By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
         By textEngCommentsL = By.XPath("//article[@aria-label='Comments']//lightning-base-formatted-text"); //h2[text()='Tabs']/..//table//lightning-base-formatted-text");
@@ -3225,9 +3225,11 @@ namespace SF_Automation.Pages.Engagement
         //To click on billing request button
         public void ClickBillingRequestButtonL()
         {
+           
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 70);
             driver.FindElement(tabEngagementNumL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 70);
+            driver.FindElement(By.XPath("//li[10]/lightning-button-menu/button")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 90);
             driver.FindElement(btnBillingRequestL).Click();
         }
         //To get validation message for contact details

@@ -138,8 +138,8 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
 
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 360);
-            IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 360);
+            IWebElement loggedUserName = driver.FindElement(valUser);
             if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
             {
                 result = true;
@@ -192,7 +192,8 @@ namespace SF_Automation.Pages
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
-            return loggedUserName.Text.Substring(13, 12);
+            return loggedUserName.Text;
+            //return loggedUserName.Text.Substring(13, 12);
         }
 
         public string ValidateFRUserLightning()
