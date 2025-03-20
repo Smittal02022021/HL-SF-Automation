@@ -358,17 +358,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(2000);
-
-            driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
-            Thread.Sleep(1000);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+            Thread.Sleep(2000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2500)");

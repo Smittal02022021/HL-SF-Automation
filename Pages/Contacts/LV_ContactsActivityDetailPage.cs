@@ -254,7 +254,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(2000);
 
             driver.FindElement(By.XPath($"(//a[text()='{engName}'])[2]")).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
 
             if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == engName)
             {

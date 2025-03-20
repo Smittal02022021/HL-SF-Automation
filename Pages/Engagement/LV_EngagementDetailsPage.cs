@@ -205,13 +205,13 @@ namespace SF_Automation.Pages.Companies
             try
             {
                 Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[3]")), 60);
                 Thread.Sleep(3000);
             }
             catch(Exception)
             {
                 Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[3]")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[4]")), 60);
                 Thread.Sleep(3000);
             }
         }
