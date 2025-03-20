@@ -71,7 +71,7 @@ namespace SF_Automation.Pages.Contact
             bool result = false;
 
             string pageLevelError1 = driver.FindElement(By.XPath("//span[text()='Company']/..")).Text;
-            string pageLevelError2 = driver.FindElement(By.XPath("(//span[text()='Type']/..)[1]")).Text;
+            string pageLevelError2 = driver.FindElement(By.XPath("(//span[text()='Type']/..)[2]")).Text;
 
             if(pageLevelError1.Contains("Complete this field.") && pageLevelError2.Contains("Complete this field."))
             {
