@@ -2147,6 +2147,7 @@ namespace SF_Automation.Pages.Contact
 
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//button[@name='New']")).Click();
+            Thread.Sleep(5000);
         }
 
         public bool ValidateOffileFieldEditableForHCMUser()

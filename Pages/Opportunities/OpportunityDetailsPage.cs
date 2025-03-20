@@ -704,7 +704,7 @@ namespace SF_Automation.Pages
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associate Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
-        By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
+        By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//label[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Cancel and close']");//Close this window
         By iconCloseConversionPopup2 = By.XPath("//button[@title='Close this window']");//
@@ -3299,7 +3299,7 @@ namespace SF_Automation.Pages
         //To update Outcome details
         public void UpdateOutcomeNBCApproveDetailsLV(string valJobType)
         {
-            string dateCCOutcome = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy");
+            string dateCCOutcome = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy").Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
             driver.FindElement(btnEditL).Click();
