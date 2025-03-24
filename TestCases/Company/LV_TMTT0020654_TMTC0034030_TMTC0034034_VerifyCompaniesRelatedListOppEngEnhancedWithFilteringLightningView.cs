@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.Companies
                 for (int row = 2; row <= companiesRowsCountExl; row++)
                 {                    
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);

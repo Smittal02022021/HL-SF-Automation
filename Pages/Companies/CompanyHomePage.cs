@@ -37,9 +37,10 @@ namespace SF_Automation.Pages
         string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
         By inputSearchL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
+        By inputGlobalSearchL2 = By.XPath("//button[contains(@aria-label,'Search: ')]");
         By imgCompanyL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
-        By txtDefaultSelectedViewL = By.XPath("//h1//span[contains(@class,'selectedListView ')]");
+        By txtDefaultSelectedViewL = By.XPath("//h1//span[contains(@class,'lineHeight')]");//h1//span[contains(@class,'selectedListView ')]");
         By iconListViewPickerL = By.XPath("//div[contains(@class,'name-switcher')]//button[contains(@title,'Select a List View')]");
         By listViewsL = By.XPath("//div[contains(@class,'AutocompleteMenuList')]//li//span[contains(@class,'AutocompleteOptionText')]");
         By txtSearchBoxL = By.XPath("//input[@placeholder='Search this list...']");
@@ -47,6 +48,7 @@ namespace SF_Automation.Pages
         By eleItemL = By.XPath("//table/tbody//tr[1]//th/span//a");
         By imgCompL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By popDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]");
+        By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         private By _btnCompanyHomePage(string name)
         {
             return By.XPath($"//ul//a[@title='{name}']");
@@ -149,9 +151,19 @@ namespace SF_Automation.Pages
         
         public string GlobalSearchCompanyInLightningView(string companyName)
         {
-            Thread.Sleep(6000);           
-            WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 5);
-            driver.FindElement(inputGlobalSearchL).Click();
+            Thread.Sleep(6000); try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 5);
+                driver.FindElement(inputGlobalSearchL).Click();
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL2, 5);
+                driver.FindElement(inputGlobalSearchL2).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            
             Thread.Sleep(4000);
             try
             {
@@ -294,28 +306,34 @@ namespace SF_Automation.Pages
             return ReadExcelData.ReadDataMultipleRows(excelPath, "Sheet 1", row1, 4);
         }
         //To Search Company with Company Name in Lighting
-        public void SearchCompanyInLightning(string value)
-        {
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCompanysearchL, 20);
-            driver.FindElement(btnCompanysearchL).Click();
-            Thread.Sleep(4000);
-            try
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL2, 10);
-                driver.FindElement(txtCompanysearchL2).SendKeys(value);
-            }
-            catch
-            {
-                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL, 10);
-                driver.FindElement(txtCompanysearchL).SendKeys(value);
-            }
+        //public void GlobalSearchCompanyInLightningView(string value)
+        //{
+        //    Thread.Sleep(2000);
+        //    try
+        //    {
+        //        WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+        //        driver.FindElement(iconClearSearch).Click();
+        //    }
+        //    catch { }
+        //    WebDriverWaits.WaitUntilEleVisible(driver, btnCompanysearchL, 20);
+        //    driver.FindElement(btnCompanysearchL).Click();
+        //    Thread.Sleep(4000);
+        //    try
+        //    {
+        //        WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL2, 10);
+        //        driver.FindElement(txtCompanysearchL2).SendKeys(value);
+        //    }
+        //    catch
+        //    {
+        //        WebDriverWaits.WaitUntilEleVisible(driver, txtCompanysearchL, 10);
+        //        driver.FindElement(txtCompanysearchL).SendKeys(value);
+        //    }
             
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgCompany, 10);
-            driver.FindElement(imgCompany).Click();
-            Thread.Sleep(6000);
-        }
+        //    Thread.Sleep(6000);
+        //    WebDriverWaits.WaitUntilEleVisible(driver, imgCompany, 10);
+        //    driver.FindElement(imgCompany).Click();
+        //    Thread.Sleep(6000);
+        //}
          public void ClickCompaniesTabAdvanceSearch()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanies);

@@ -82,7 +82,7 @@ namespace SF_Automation.TestCases.Companies
                 {
 
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateStepLogs("Info", companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);

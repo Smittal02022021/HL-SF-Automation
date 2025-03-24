@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Companies
         By btnSaveActivity = By.XPath("//button[text()='Save']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By btnLVPopupClose = By.XPath("//button[contains(@class,'toastClose')]");
-        By tableActivities = By.XPath("//div[contains(@class,'table_header')]//table");
+        By tableActivities = By.XPath("(//div[contains(@class,'table_header')]//table)[3]");
         By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
         By txtDefaultCompanyDiscussed = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForAccount')]//lightning-pill//span[contains(@class,'pill__label')]");
         By btnCreateNewTask = By.XPath("//button[text()='Create New Task']");

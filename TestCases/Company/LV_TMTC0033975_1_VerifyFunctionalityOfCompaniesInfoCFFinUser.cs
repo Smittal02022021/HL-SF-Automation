@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
                 //TMT0076278 Verify that when you select Companies, you will list the "Recently Viewed" default list of the chosen view of the Companies.
-                string valViewExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Views", 6, 1);                ;
+                string valViewExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Views", 6, 1);                
                 Assert.AreEqual(valViewExl, companyHome.GetDefaultSelectedViewLV(),"Verify the Default View selection is "+ valViewExl);
                 extentReports.CreateStepLogs("Passed", "Company Home page Default selected View is " + valViewExl);
 

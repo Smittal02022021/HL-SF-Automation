@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Companies
                     // Calling Search Company function
                     string companyType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     string companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading);
                     extentReports.CreateStepLogs("Passed", "Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Companies
                     //Click Cancel and check user is redireced to Company page 
                     addOpportunity.ClickCancelAddOpportunityPageLV();
                     randomPages.CloseActiveTab(companyNameExl);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading, "Verify that clicking the 'Cancel' button navigates the user back to the Company details page.");
                     extentReports.CreateStepLogs("Passed", "Clicking the 'Cancel' button navigates the user back to the Company details page.");

@@ -128,7 +128,7 @@ namespace SF_Automation.Pages.Companies
             return By.XPath($"//button[contains(@title,{value})]");
         }
         
-        public void SearchCompanyInLightning(string value)
+        public void GlobalSearchCompanyInLightningView(string value)
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnsearchL, 5);

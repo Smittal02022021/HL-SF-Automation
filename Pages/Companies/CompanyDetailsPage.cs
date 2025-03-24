@@ -327,8 +327,31 @@ namespace SF_Automation.Pages.Companies
         By btnNewFSFundsL = By.XPath("//article[@aria-label='FS Funds']//div//button[@name='New']");
         By valCompanyNameL = By.XPath("//label[text()='Company']/..//input");
         By btnNewFinancialsL = By.XPath("//article[@aria-label='HL Company Financials']//div//button[@name='New']");
-        By btnNewFinancialsSPL = By.XPath("//article[@aria-label='Current Sponsors']//div//button[@name='New']");
+        By btnNewFinancialsSPL = By.XPath("//article[contains(@aria-label,'Current')]//div//button[@name='New']");
         By txtSPNameL = By.XPath("//span[text()='Investment List Number']/../../..//lightning-formatted-text");
+        By btnInlineFlagReasonL = By.XPath("//button[@title='Edit Flag Reason']");
+        By btnFlagReasonL = By.XPath("//button[@aria-label='Flag Reason']");
+        By inputFlagReasonCommentL = By.XPath("//label[text()='Flag Reason Comment']/..//textarea");
+        By txtFlagReasonL = By.XPath("//span[text()='Flag Reason']/../../..//lightning-formatted-text");
+        By txtFlagReasonCommentL = By.XPath("//span[text()='Flag Reason Comment']/../../..//lightning-formatted-text");
+        By btnEditL = By.XPath("//button[@name='Edit']");
+        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
+        By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
+        By btnDialogNextL = By.XPath("//div[@role='dialog']//button[text()='Next']");
+        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
+        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
+
+        By btnEditInvestmentL = By.XPath("(//button[@name='Edit'])[2]");
+        By inputInvestmentAmountL = By.XPath("//label[text()='Amount of Investment']/..//input");
+        By btnInvestStatusL = By.XPath("//button[@aria-label='Status']");
+        By btnActivitiesReportL = By.XPath("//button[text()='Activities Report']");
+        By iframeTableCompanyActivityL = By.XPath("//iframe[@title='Report Viewer']");
+        By headerPageL = By.XPath("//div[contains(@class,'reportView')]//h1");
+        By tableCompaiesActivities = By.XPath("//table[contains(@class,'full-table')]");
+        By tableActivityCompanyName = By.XPath("//table[contains(@class,'full-table')]//tbody//tr[2]//td[6]//span/a");
         private By _DetailPageQuickLink(string name)
         {
             return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
@@ -1129,9 +1152,14 @@ namespace SF_Automation.Pages.Companies
         }
 
         
-        public void AddNewCompanyFinancialsSponsorsLV()
+        public void AddNewCompanyFinancialsSponsorsLV(string status)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInvestStatusL, 10);
+            driver.FindElement(btnInvestStatusL).Click();
+            By optionsStatus = By.XPath($"//button[@aria-label='Status']/../..//lightning-base-combobox-item//span[@title='{status}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionsStatus, 10);
+            driver.FindElement(optionsStatus).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
             driver.FindElement(btnSaveDetailsL).Click();
         }
         
@@ -1143,25 +1171,26 @@ namespace SF_Automation.Pages.Companies
        
         public bool IsFinancialSPRecordDisplayedLV(string investmentNumber)
         {
-            By fundRecord = By.XPath($"//table[@aria-label='Current Sponsors']//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            Thread.Sleep(5000);
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
                 return driver.FindElement(fundRecord).Displayed;
             }
             catch { return false; }
-        }
-        By btnEditInvestmentL = By.XPath("(//button[@name='Edit'])[2]");
-        By inputInvestmentAmountL = By.XPath("//label[text()='Amount of Investment']/..//input");
+        }        
+
         public void EditFinancialSPRecord(string investmentNumber, string InvestmentAmount)
         {
-            By fundRecord = By.XPath($"//table[@aria-label='Current Sponsors']//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
             WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
             driver.FindElement(fundRecord).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditInvestmentL, 10);
             driver.FindElement(btnEditInvestmentL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputInvestmentAmountL, 10);
             driver.FindElement(inputInvestmentAmountL).SendKeys(InvestmentAmount);
+            Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
@@ -3021,11 +3050,6 @@ namespace SF_Automation.Pages.Companies
                 return false;
             }            
         }
-        By btnInlineFlagReasonL = By.XPath("//button[@title='Edit Flag Reason']");
-        By btnFlagReasonL = By.XPath("//button[@aria-label='Flag Reason']");
-        By inputFlagReasonCommentL = By.XPath("//label[text()='Flag Reason Comment']/..//textarea");
-        By txtFlagReasonL = By.XPath("//span[text()='Flag Reason']/../../..//lightning-formatted-text");
-        By txtFlagReasonCommentL = By.XPath("//span[text()='Flag Reason Comment']/../../..//lightning-formatted-text");
         public string GetFlagReasonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtFlagReasonL, 10);
@@ -3050,11 +3074,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(inputFlagReasonCommentL).SendKeys(flagReasonComment);
             driver.FindElement(btnSaveDetailsL).Click();
         }
-        By btnActivitiesReportL = By.XPath("//button[text()='Activities Report']");
-        By iframeTableCompanyActivityL = By.XPath("//iframe[@title='Report Viewer']");
-        By headerPageL = By.XPath("//div[contains(@class,'reportView')]//h1");
-        By tableCompaiesActivities = By.XPath("//table[contains(@class,'full-table')]");
-        By tableActivityCompanyName = By.XPath("//table[contains(@class,'full-table')]//tbody//tr[2]//td[6]//span/a");
+        
         public void ClickActivitiesReportButtonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesReportL);
@@ -3464,23 +3484,11 @@ namespace SF_Automation.Pages.Companies
             }
             return isFound;
         }
-
-        By btnEditL = By.XPath("//button[@name='Edit']");
-        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
-        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
-        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
-        By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
-        By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
-        By btnDialogNextL= By.XPath("//div[@role='dialog']//button[text()='Next']");
-        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
-        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
-        
-               
+                       
         private By _btnViewNestedRContactL(string contactName)
         {
             return By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
         }
-
         
         public bool IsIndustryTypePresentonCoverageTeamLV(string industryType)
         {

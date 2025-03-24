@@ -23,10 +23,6 @@ namespace SalesForce_Project.TestCases.Company
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
-        AddCoverageTeam coverageTeam = new AddCoverageTeam();
-        CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
-        ContactHomePage contactHome = new ContactHomePage();
-        ContactDetailsPage contactDetail = new ContactDetailsPage();
 
         public static string fileTMTC0034038 = "LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage";
 
@@ -34,8 +30,6 @@ namespace SalesForce_Project.TestCases.Company
         private string newCompanyName;
         private string companyNameExl;
         private string excelPath;
-        private string valUser;
-        private string officerExl;
         private string valAdminUser;
         private string user;
         private string appNameExl;
@@ -44,6 +38,7 @@ namespace SalesForce_Project.TestCases.Company
         private string btnNameExl;
         private string tabNameExl;
         private string msgBubble;
+        private string investmentNumber;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -55,7 +50,7 @@ namespace SalesForce_Project.TestCases.Company
         }
 
         [Test]
-        public void VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPageLV()
+        public void VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPageLV()
         {
             try
             {
@@ -99,7 +94,8 @@ namespace SalesForce_Project.TestCases.Company
                     extentReports.CreateStepLogs("Passed", "Page with heading: " + createCompanyPage + " is displayed upon selecting company record type ");
                     // Create a  company
                     createCompany.CreateNewCompanyLV(fileTMTC0034038, row);
-                    extentReports.CreateStepLogs("Info", " New Company Created ");
+                    newCompanyName = companyDetail.GetCompanyNameHeaderLV();
+                    extentReports.CreateStepLogs("Info", " New Company : "+newCompanyName+" Created ");
                     //Validate company detail heading
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     newCompanyName = companyDetail.GetCompanyNameHeaderLV();
@@ -107,7 +103,7 @@ namespace SalesForce_Project.TestCases.Company
                     extentReports.CreateStepLogs("Passed", valRecordTypeExl + " Company created and name :" + newCompanyName + " displayed on Company Detail page Header ");
 
                     //TMT0076521 Verify the availability of the "Financial Sponsors" tab on the Company detail page.
-                    tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 1);
+                    tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", row, 1);
                     Assert.IsTrue(companyDetail.IsCompanyDetailPageTabPresentLV(tabNameExl), "Verify the availability of the '" + tabNameExl + "' tab on the Company detail page");
                     extentReports.CreateStepLogs("Passed", tabNameExl + " tab available on the Company detail page");
 
@@ -117,26 +113,43 @@ namespace SalesForce_Project.TestCases.Company
                     extentReports.CreateStepLogs("Passed", "'New' button is available on the company.");
 
                     //TMT0076529 Verify that the System Admin can add a Sponsor Company using the "New" button on the Financial Sponsor tab of the Company Detail Page
-                    companyDetail.ClickFinancialSponsorsNewButtonDisplayedLV();
-                    companyDetail.AddNewCompanyFinancialsSponsorsLV();
-                    msgBubble = randomPages.GetPopUpMessagelV();
-                    Assert.IsTrue(msgBubble.Contains("was created"));
-                    extentReports.CreateStepLogs("Passed", " New FS Sponsors added followed by the success message: " + msgBubble);
+                    int rowCount = ReadExcelData.GetRowCount(excelPath, "Company");
 
-                    string investmentNumber = companyDetail.GetFinancialSponsorsNameLV();
-                    randomPages.CloseActiveTab(investmentNumber);
-                    Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber));
-                    extentReports.CreateStepLogs("Passed", " Added Investment" + investmentNumber+" is present in Record List ");
-                    companyDetail.EditFinancialSPRecord(investmentNumber,"100");
-                    msgBubble = randomPages.GetPopUpMessagelV();
-                    Assert.IsTrue(msgBubble.Contains("was saved"));
-                    extentReports.CreateStepLogs("Passed", " Investment Record: " + investmentNumber+"  updated followed by the success message: " + msgBubble);
+                    for (int invRow = 2; invRow <= rowCount; invRow++)
+                    {
+                        companyDetail.ClickFinancialSponsorsNewButtonDisplayedLV();
+                        string investmentStatusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 1);
+                        companyDetail.AddNewCompanyFinancialsSponsorsLV(investmentStatusExl);
+                        msgBubble = randomPages.GetPopUpMessagelV();
+                        Assert.IsTrue(msgBubble.Contains("was created"));
+                        extentReports.CreateStepLogs("Passed", " New FS Sponsors added followed by the success message: " + msgBubble);
 
+                        investmentNumber = companyDetail.GetFinancialSponsorsNameLV();
+                        randomPages.CloseActiveTab(investmentNumber);
+                        //TMT0076523	Verify that the "Financial Sponsor" tab lists all the Current and Previous Sponsors of the Company.
+                        Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber));
+                        extentReports.CreateStepLogs("Passed", " Added Investment " + investmentNumber + " is present in Record List under "+investmentStatusExl+" Sponsors");
+
+                        //TMT0076531 Verify that the System Admin can update the Sponsor Company using the "Edit" button on the Investment list
+                        string amountExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 2);
+                        companyDetail.EditFinancialSPRecord(investmentNumber, amountExl);
+                        msgBubble = randomPages.GetPopUpMessagelV();
+                        Assert.IsTrue(msgBubble.Contains("was saved"));
+                        extentReports.CreateStepLogs("Passed", " Investment Record: " + investmentNumber + "  updated followed by the success message: " + msgBubble);
+
+                        //TMT0076533 Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
+
+
+                        randomPages.CloseActiveTab(investmentNumber);                        
+                    }
+                    randomPages.CloseActiveTab(newCompanyName);
                 }
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
+                randomPages.CloseActiveTab(investmentNumber);
+                randomPages.CloseActiveTab(newCompanyName);
                 usersLogin.ClickLogoutFromLightningView();
                 //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
@@ -161,7 +174,8 @@ namespace SalesForce_Project.TestCases.Company
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateStepLogs("Passed", "Company: " + companyNameExl + " found and selected");
                     try
-                    {                        
+                    {
+                        randomPages.CloseActiveTab(investmentNumber);
                         companyDetail.DeleteCompanyLV();
                        
                     }
@@ -170,7 +184,7 @@ namespace SalesForce_Project.TestCases.Company
 
                     }
 
-                    randomPages.CloseActiveTab(companyNameExl);
+                   // randomPages.CloseActiveTab(companyNameExl);
 
                 }
                 driver.Quit();
