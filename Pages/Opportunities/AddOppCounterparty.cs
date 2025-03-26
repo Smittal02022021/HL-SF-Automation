@@ -960,7 +960,6 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtCommentsL).SendKeys("Testing");
             driver.FindElement(btnSaveCommentL).Click();
             Thread.Sleep(4000);
-
         }
 
 

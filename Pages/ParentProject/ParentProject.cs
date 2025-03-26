@@ -24,7 +24,7 @@ namespace SalesForce_Project.Pages
         By txtBillTo = By.XPath("//input[@placeholder='Search Companies...']");
         By txtBillToContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//dd//span//lightning-formatted-text");
-        By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[13]//div/button");
+        By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot//div/button[@title='Edit Parent Project']");
         By txtParentProject = By.XPath("//input[@placeholder='Search Parent Projects...']");
         By btnClearParentProject = By.XPath("//label[text()='Parent Project']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
         By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
@@ -42,7 +42,7 @@ namespace SalesForce_Project.Pages
         By valFundingAmount = By.XPath("//span[text()='Funding Amount']/ancestor::div[2]/dd//span");
         By txtSearchProject = By.XPath("//input[@placeholder='Search this list...']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
-        By valSearchedProjectName = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valSearchedProjectName = By.XPath("//table/tbody/tr[1]/th/span//a");
         By tabRelated = By.XPath("//a[text()='Related']");
         By lblRelatedSections = By.XPath("//h2[@class='header-title-container']/span");
         By lblBillingRequest = By.XPath("//span[@title='Billing Requests']");
@@ -153,7 +153,7 @@ namespace SalesForce_Project.Pages
         
         public string ClickNewButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNew);
+            Thread.Sleep(5000);
             driver.FindElement(btnNew).Click();
             Thread.Sleep(4000);
             //driver.SwitchTo().Frame(0);
@@ -217,7 +217,17 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtParentProject,100);
             driver.FindElement(txtParentProject).SendKeys(name);
             Thread.Sleep(7000);
-            driver.FindElement(By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]/slot/flexipage-component2[1]/slot//flexipage-column2[2]//flexipage-field[13]//div[2]/ul/li[1]")).Click();
+            try
+            {
+                driver.FindElement(By.XPath("//flexipage-field[12]//div[1]//lightning-base-combobox/div//div[2]/ul/li")).Click();
+                //driver.FindElement(By.XPath("//flexipage-field[12]/slot//div[1]/div/lightning-base-combobox//div[2]/ul/li")).Click();
+
+            }
+            catch
+            {
+                driver.FindElement(By.XPath("//flexipage-field[13]//div[1]//lightning-base-combobox/div//div[2]/ul/li")).Click();
+
+            }
             Thread.Sleep(7000);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(8000);
@@ -269,7 +279,7 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(lnkContract).Click();
             //driver.Navigate().Refresh();
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             string fee = driver.FindElement(valTotalFee).Text;
             return fee;
 

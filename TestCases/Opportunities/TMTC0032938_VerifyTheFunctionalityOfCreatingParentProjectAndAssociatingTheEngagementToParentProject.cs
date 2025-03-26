@@ -147,7 +147,6 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("2nd Associated Engagement : " + associatedEng2nd + " is populated as well on the Parent Project ");
 
                 //12. TMT0073626_Verify that the "Total Fee" and "Funding Fee" fields of the parent contract, will be aggregate of Total Estimated Fee of all the associated engagements on the Parent project
-                          
                 string totalFee= project.GetContractTotalFee();
                 string fundingAmount= project.GetContractFundingAmount();
                 Console.WriteLine("totalFee:" + totalFee);

@@ -5,6 +5,7 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Linq;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -83,12 +84,14 @@ namespace SF_Automation.TestCases.Opportunities
                         string CapitalMkt = opportunityDetails.ValidateCapitalMktRadioButton();
                         Assert.AreEqual("Capital Market", CapitalMkt);
                         extentReports.CreateLog("Radio button with name: " + CapitalMkt + " is displayed on the pop up ");
+                        
+
                     }
                     else
                     {
                         string title = opportunityDetails.ClickNBCFormL();
                         extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
-                        
+                       
                     }
                     form.SwitchFrameClassic();
                 }

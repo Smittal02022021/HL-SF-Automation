@@ -30,7 +30,8 @@ namespace SF_Automation.Pages
         By btnEngNum = By.XPath("//button[contains(@aria-label,'Search')]");
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
-        By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
+        //By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
+        By txtEngNumLightningL = By.XPath("//div[1]/div/div[1]/lightning-input//div[1]//input");
         By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
         By valEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Name']//lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
@@ -50,7 +51,7 @@ namespace SF_Automation.Pages
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
         By btnSearchL = By.XPath("//button[@aria-label='Search']");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
-        By valSearchedEng1 = By.XPath("//tr/th/span/a");
+        By valSearchedEng1 = By.XPath("//tr/th//div/a");
         By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span//a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
@@ -292,10 +293,9 @@ namespace SF_Automation.Pages
             {
                 if (jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
                 {
-                    WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
+                    Thread.Sleep(5000);
                     driver.FindElement(btnEngNum).Click();
-                    Thread.Sleep(6000);
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
+                    Thread.Sleep(7000);                    
                     driver.FindElement(txtEngNumLightning).Clear();
                     driver.FindElement(txtEngNumLightning).SendKeys(name);
                     Thread.Sleep(5000);
@@ -305,20 +305,39 @@ namespace SF_Automation.Pages
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 310);
                     driver.FindElement(lnkEngLightning).Click();
                 }
+                else
+                {
+                    driver.Navigate().Refresh();
+                    Thread.Sleep(6000);
+                    driver.FindElement(btnEngNum).Click();
+                    Thread.Sleep(5000);
+                    driver.FindElement(txtEngNumLightningL).Clear();
+                    driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                    Thread.Sleep(5000);
+                    driver.FindElement(txtEngNumLightningL).Clear();
+                    driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                    Thread.Sleep(7000);
+                    // WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
+                    driver.FindElement(lnkEngLightning).Click();
+                }
             }
             catch (Exception)
             {
-                driver.FindElement(txtEngNumLightningL).Clear();
-                driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                driver.Navigate().Refresh();
+                Thread.Sleep(6000);
+                driver.FindElement(btnEngNum).Click();
                 Thread.Sleep(5000);
                 driver.FindElement(txtEngNumLightningL).Clear();
                 driver.FindElement(txtEngNumLightningL).SendKeys(name);
                 Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
+                driver.FindElement(txtEngNumLightningL).Clear();
+                driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                Thread.Sleep(7000);
+               // WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
                 driver.FindElement(lnkEngLightning).Click();
             }
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
+            Thread.Sleep(10000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
             string engName = driver.FindElement(valEngName).Text;
             return engName;
         }
@@ -486,7 +505,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
             driver.FindElement(btnNavigationMenu).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
             driver.FindElement(tagEngagements).Click();
         }

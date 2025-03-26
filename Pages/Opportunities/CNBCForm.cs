@@ -567,9 +567,10 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SwitchFrameClassic()
         {
+            driver.Close();
             Console.WriteLine("Closed the last window");
             Thread.Sleep(4000);
-            driver.SwitchTo().DefaultContent();
+            //driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Window(driver.WindowHandles.Last());
         }
 

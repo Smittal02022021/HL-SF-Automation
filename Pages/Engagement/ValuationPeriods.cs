@@ -300,6 +300,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditPositionL, 80);
             driver.FindElement(btnEditPositionL).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
             driver.FindElement(comboStatus).SendKeys("Completed, Generate Accrual");

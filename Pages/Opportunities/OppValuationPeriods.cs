@@ -111,7 +111,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSaveTeamMemL = By.XPath("//input[@value='Save Team Members']");
         By lnkDeleteTeamL = By.XPath("//a[text()='Delete']");
         By btnRoleL = By.XPath("//select[contains(@name,'id180')]");
-        By btnRoleEngL = By.XPath("//select[contains(@name,'id216')]");
+        By btnRoleEngL = By.XPath("//div[text()='Role']/ancestor::table//tbody//td[3]");
         By valStaffL = By.XPath("//span/div[2]/div//td[2]");
         By valRoleL = By.XPath("//span/div[2]//td[3]/div/select/option[@selected='selected']");
         By tabHLRelatedL = By.XPath("//span[@title='HL_Related_PortfolioValuations']");
@@ -1142,10 +1142,13 @@ namespace SF_Automation.Pages.Opportunity
         //Save Team members and validate it
         public string SaveTeamMembersAndValidateEng()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,750)");
+            Thread.Sleep(5000);
             driver.FindElement(btnRoleEngL).SendKeys("Associate");
             Thread.Sleep(4000);
-            driver.FindElement(btnSaveTeamMemL).Click();
-            Thread.Sleep(8000);
+            driver.FindElement(btnSaveTeamMemL).Click();                       
+            Thread.Sleep(6000);
             string name = driver.FindElement(valStaffL).Text;
             return name;
         }
@@ -1204,8 +1207,9 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(btnBackToOppValPeriodList).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(3000);
             driver.SwitchTo().Frame(0);
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
             driver.FindElement(btnNewOppValPeriodL).Click();
 
         }

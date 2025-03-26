@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //1.  TMTI0092391_Verify that the "Portfolio Valuation" button is available on the portfolio Engagement
                 string portfolioValuation = opportunityDetails.ClickPortfolioValuationEngL();
                 string jobTypePV = engDetails.GetJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
+                Assert.AreEqual("Portfolio Valuation", portfolioValuation);
                 extentReports.CreateLog("Portfolio Valuation Button is displayed for the Engagement with Job type: " + jobTypePV + " ");
 
                 //2.  TMTI0092393_Verify that clicking the "Portfolio Valuation" button opens up a new tab with the added list of valuations on the screen

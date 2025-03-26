@@ -93,6 +93,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Message: " + messageInt + " is displayed while adding any other type of comment with Compliance User ");
 
                 usersLogin.DiffLightningLogout();
+                usersLogin.DiscardChanges();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

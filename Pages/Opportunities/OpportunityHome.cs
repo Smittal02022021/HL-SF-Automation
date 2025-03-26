@@ -46,9 +46,9 @@ namespace SF_Automation.Pages
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By tblOpportunities = By.XPath("//div/table/tbody");
-        By txtSearchOpp = By.XPath("//input[@name='Opportunity__c-search-input']");
+        By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]/span//span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]//lst-formatted-text/span");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
@@ -514,12 +514,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
             Thread.Sleep(5000);
-            string opp = driver.FindElement(valSearchedOpp).GetAttribute("title");
+            string opp = driver.FindElement(valSearchedOpp).Text;
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
-                driver.FindElement(valRec1st).Click();
-                driver.FindElement(btnCloseOpp).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+                //driver.FindElement(valRec1st).Click();
+                //driver.FindElement(btnCloseOpp).Click();
 
                 return opp;
             }
@@ -565,7 +565,7 @@ namespace SF_Automation.Pages
         //Click on New button and validate Choose LOB screen
         public bool ValidateChooseLOBPostClickingNewButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 350);
+            Thread.Sleep(5000);
             driver.FindElement(btnNew).Click();
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valLOBs);

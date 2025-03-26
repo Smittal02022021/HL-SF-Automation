@@ -433,7 +433,7 @@ namespace SF_Automation.Pages
         By valCurrencyAfter = By.XPath("//lightning-formatted-text[text()='CHF - Swiss Franc']");
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
-        By valEstTxnSizeL = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//dd//slot[1]/lightning-formatted-text");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
@@ -448,6 +448,7 @@ namespace SF_Automation.Pages
         By btnSaveCSTQuestionnaire = By.XPath("//button[@name='SaveEdit']");
         By btnSaveComments = By.XPath("//button[@name='save']");
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
+        By valCreator = By.XPath("//dt[text()='Created By:']/ancestor::dl/dd[2]//span");
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
         By tabOpportunityL = By.XPath("//section[3]/div/div//ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
@@ -637,7 +638,8 @@ namespace SF_Automation.Pages
         By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]/dd//lightning-formatted-text");
-        By btnPortfolioVL = By.XPath("//span[text()='Portfolio Valuation']");        
+        By btnPortfolioVL = By.XPath("//span[text()='Portfolio Valuation']");
+        By btnPortfolioVL2 = By.XPath("//button[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]//span//lightning-formatted-text");
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Opportunity. To proceed, please create a new valuation period.']");
         By btnBackToOppL = By.XPath("//input[@value='Back To Opportunity']");
@@ -1818,6 +1820,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNBCForm, 120);
             driver.FindElement(btnNBCForm).Click();
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(7000);
             string title = driver.FindElement(titleNBCForm).Text;
             return title;
@@ -1998,18 +2001,20 @@ namespace SF_Automation.Pages
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
-                driver.FindElement(lnkMoreL).Click();
-                Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
-                string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();
-                return "Portfolio Valuation button is displayed";
+                    WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+                    driver.FindElement(lnkMoreL).Click();
+                    Thread.Sleep(5000);
+                    WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL2, 140);
+                    string valImage = driver.FindElement(btnPortfolioVL2).Displayed.ToString();
+                    return "Portfolio Valuation button is displayed";
+                
             }
             catch (Exception)
             {
+                //string valImage = driver.FindElement(btnPortfolioVL).Displayed.ToString();
                 return "Portfolio Valuation button is not displayed";
             }
-        }
+            }
 
         //Click FEIS button and get title of page
         public string ClickFEISForm()
@@ -2049,9 +2054,10 @@ namespace SF_Automation.Pages
         //Click Portfolio valuation button and get title of page
         public string ClickPortfolioValuationEngL()
         {
-            driver.FindElement(By.XPath("//button[text()='Portfolio Valuation']")).Click();
             Thread.Sleep(5000);
-            return "Portfolio Valuation button is displayed";
+            string value= driver.FindElement(By.XPath("//button[text()='Portfolio Valuation']")).Text;
+            
+                return value;
         }
 
         //Click Portfolio valuation button for CAO
@@ -2104,6 +2110,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnBackToOppL, 120);
             driver.FindElement(btnBackToOppL).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             string tab = driver.FindElement(tabDetails).Text;
             return tab;
 
@@ -7814,6 +7821,13 @@ namespace SF_Automation.Pages
             driver.FindElement(valRelatedOppL).Click();
             Thread.Sleep(5000);
             return comment;
+        }
+
+        public string GetCommentCreator()
+        {
+            Thread.Sleep(5000);
+            string name = driver.FindElement(valCreator).Text;
+            return name;
         }
 
         //Validate File upload option under Files

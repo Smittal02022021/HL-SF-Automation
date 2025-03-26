@@ -78,7 +78,8 @@ namespace SF_Automation.TestCases.Opportunities
                 string msgNotReq = nform.GetCCStatusMessage();
                 Assert.AreEqual("Conflicts Check not requested yet - Please return to the Opportunity and request a Conflicts Check.", msgNotReq);
                 extentReports.CreateLog("Message: " + msgNotReq + " is displayed when CC is not requested ");
-                nform.SwitchFrame();
+                //nform.SwitchFrame();
+                form.SwitchFrameClassic();
                 usersLogin.UserLogOut();
 
                 //Login as admin, search for same Opportunity and Request for CC
