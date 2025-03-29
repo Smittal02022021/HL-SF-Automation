@@ -2016,6 +2016,19 @@ namespace SF_Automation.Pages
             }
             }
 
+        
+        public string ValidatePortfolioValuationButtonL()
+        {
+            
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+                driver.FindElement(lnkMoreL).Click();
+                Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
+                string valImage = driver.FindElement(btnPortfolioVL).Text;
+            return valImage;
+
+            }
+
         //Click FEIS button and get title of page
         public string ClickFEISForm()
         {

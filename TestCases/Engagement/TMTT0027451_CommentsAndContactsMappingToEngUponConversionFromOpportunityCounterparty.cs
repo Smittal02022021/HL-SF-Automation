@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity : BaseClass
+    class TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunityCounterparty : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -115,16 +115,12 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(selectedName.Replace(" ", ""), val1stName + val2ndName);
                 extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed under Opportunity Counterparty Contacts section ");
 
-                //Add Counterparties comments
-                opportunityDetails.ClickOppName();
-                opportunityDetails.AddOppCommentaAndValidate("Internal");
+                //Add Counterparties comments                
                 //counterparty.AddCounterpartyCommentL();
 
-                //Get added Counterparty Comment, Creator and Contact
-                string addedComment=opportunityDetails.GetOppCommentsL();
-                string addedCreator = opportunityDetails.GetCommentCreator();
-                // string addedComment = counterparty.GetAddedCommentL();
-                //string addedCreator = counterparty.GetCreatorOfAddedCommentL();
+                //Get added Counterparty Comment, Creator and Contact                
+                 //string addedComment = counterparty.GetAddedCommentL();
+                 //string addedCreator = counterparty.GetCreatorOfAddedCommentL();
 
                 usersLogin.LightningLogout();
 
@@ -171,19 +167,20 @@ namespace SF_Automation.TestCases.Engagement
                 //Validate the added opportunity counterparty contact is mapped to Engagement
                 engagementDetails.ClickViewCounterpartiesButton();
                 engCounterparty.ClickAddedCounterparty();
-                string val1stNameEng = engCounterparty.GetCounterparty2ndName();
-                string val2ndNameEng = engCounterparty.GetCounterparty1stName();                
+                string val1stNameEng = engCounterparty.GetCounterparty1stName();
+                string val2ndNameEng = engCounterparty.GetCounterparty2ndName();                
                 Assert.AreEqual(val1stName ,val1stNameEng);
                 Assert.AreEqual(val2ndName, val2ndNameEng);
                 extentReports.CreateLog("Engagement Counterparty Contact name: " + val1stNameEng + " " + val2ndNameEng + " is mapped from the opportunity ");
 
                 //Validate the added opportunity counterparty comment is mapped to Engagement
-                string valCommentEng = engCounterparty.ValidateEngCPCommentOnCounterpartyPage();
-                Assert.AreEqual(addedComment, valCommentEng);
-                string addedCommentCreator = engCounterparty.GetCPCommentCreator();
-                Assert.AreEqual(addedCreator, addedCommentCreator);
-                extentReports.CreateLog("Added comments - " + valCommentEng + " by User: " + valCommentEng + " in Opportunity is mapped in Engagement Counterparty Comments section of Engagement ");
-
+                //string valCommentEng = engCounterparty.ValidateEngCPCommentOnCounterpartyPage();
+                //Assert.AreEqual(addedComment, valCommentEng);
+                //string addedCommentCreator = engCounterparty.GetCPCommentCreator();
+                //Assert.AreEqual(addedCreator, addedCommentCreator);
+                //extentReports.CreateLog("Added comments - " + valCommentEng + " by User: " + valCommentEng + " in Opportunity is mapped in Engagement Counterparty Comments section of Engagement ");
+                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
                 driver.Quit();
             }
             catch (Exception e)

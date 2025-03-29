@@ -80,9 +80,9 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
                 //1.  TMTI0092012_Verify that the "Portfolio Valuation" button is available on the portfolio opportunities. – Completed
-                string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButton();
+                string portfolioValuation = opportunityDetails.ValidatePortfolioValuationButtonL();
                 string jobTypePV = opportunityDetails.GetJobTypeL();
-                Assert.AreEqual("Portfolio Valuation button is displayed", portfolioValuation);
+                Assert.AreEqual("Portfolio Valuation", portfolioValuation);
                 extentReports.CreateLog("Portfolio Valuation Button is displayed for the Opportunity with Job type: " + jobTypePV + " ");
 
                 ////2.  TMTI0092014_Verify that the "Portfolio Valuation" button is not available on opportunities other than portfolio job types. – Completed

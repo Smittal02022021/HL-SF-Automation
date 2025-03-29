@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using NUnit.Framework;
+using OpenQA.Selenium.Interactions;
 using SalesForce_Project.Pages;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -10,8 +11,8 @@ using SF_Automation.UtilityFunctions;
 using System;
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess:BaseClass
-    { 
+    class TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess : BaseClass
+    {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -19,7 +20,7 @@ namespace SF_Automation.TestCases.Opportunities
         ParentProject project = new ParentProject();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOppCounterparty counterparty = new AddOppCounterparty();       
+        AddOppCounterparty counterparty = new AddOppCounterparty();
         AddOpportunityContact addContact = new AddOpportunityContact();
         EngagementDetailsPage engDetails = new EngagementDetailsPage();
 
@@ -45,7 +46,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");   
+                extentReports.CreateLog(driver.Title + " is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -69,6 +70,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //1.  TMT0075162_Verify that the "Billing Request" quick link is placed on the Parent Project               
                 project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
+                //project.ValidateSearchFunctionalityOfParentProject("3D Systems Entach Combo");
                 project.ValidateBillingRequestLink();
                 string billingEvent = project.ValidateAccessToAddBillingEventFunctionality();
                 Assert.AreEqual("New ERP Revenue Billing Event", billingEvent);
@@ -87,7 +89,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //5.   TMT0075171 Verify that the created billing event is displayed under the Accounting Tab of Billing Request
                 string eventNameAcc = project.ValidateCreatedBillingEventInAccountingTab();
-                Assert.AreEqual(eventName,eventNameAcc);
+                Assert.AreEqual(eventName, eventNameAcc);
                 extentReports.CreateLog("The created billing event is displayed under the Accounting Tab of the Billing Request.");
 
                 //6.   TMT0075173_Verify that the biller is not able to create billing events on Parent Contract created on the Parent Project
@@ -101,17 +103,37 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Message: " + messageICO + " is displayed while trying to create billing events on ICO Contract ");
 
                 //8.	TMT0075177_Verify that if Total Event Amount is not Equal to Total Fees to Bill, validation appears on screen on Updating Status of the Billing Request. 
-               string messageTotalFee= project.ValidateTotalFeesToBillValidation();
+                string messageTotalFee = project.ValidateTotalFeesToBillValidation();
                 Assert.AreEqual("Validation total fee to bill should equal to total event amount", messageTotalFee);
                 extentReports.CreateLog("Message: " + messageTotalFee + " is displayed while trying to create billing events on ICO Contract ");
 
                 //9.	TMT0075179_Verify that the Biller is able to Update Status from Draft Billing Request to Sent to ERP(Sync to Oracle). 
-                string statusBillingRq =project.UpdateEventAmountAndValidateStatusOfBillingReq();
+                string statusBillingRq = project.UpdateEventAmountAndValidateStatusOfBillingReq();
                 Assert.AreEqual("Sent to ERP", statusBillingRq);
                 extentReports.CreateLog("Status of the billing request: " + statusBillingRq + " is displayed after upating Status from Draft Billing Request to Sent to ERP ");
 
-
                 //2.  TMT0075164_Verify that the Biller is able to update the Billing Request, and updated details are reflecting on the Details tab of the billing request
+                string comments = project.GetUpdatedCommentOfBillingRequest();
+                Assert.AreEqual("Testing Comments", comments);
+                extentReports.CreateLog("Comments: " + comments + " is displayed in Details tab after upating comments of Billing Request ");
+
+                //10.  TMT0075181_Verify that the ERP Last Integration Status of the Billing Events on the Accounting Tab once event synced to oracle. 
+                string statusERP = project.ValidateERPLastIntStatus();
+                //Assert.AreEqual("Sent to ERP", statusBillingRq);
+                extentReports.CreateLog("ERP Last Integration Status of the billing request: " + statusERP + " is displayed after event synced to Oracle ");
+
+                //11.  TMT0075183_Verify that the Generate Invoice button gets enabled on Billing Request once billing events successfully synced to Oracle
+                //12.	TMT0075185_Verify that the "Resubmit" button gets enabled on the Billing Request if billing events failed to synced to Oracle. 
+                string generateInvoice = project.ValidateVisibilityOfGenerateInvoiceOrResubmitButton();
+                //Assert.AreEqual("Generate Invoice", generateInvoice);
+                extentReports.CreateLog("Button with name: " + generateInvoice + " is displayed depending on Oracle Sync of Billing Event ");
+
+                //13.  TMT0075187_Verify that the error message appears on the generate invoice dialog box on clicking Save button without selecting dates
+                Assert.IsTrue(project.ValidateGenerateInvoiceValidations(), "Verified that displayed validations on Generate Invoice dialog box are same ");
+                extentReports.CreateLog("Displayed mandatory validations on Generate Invoice dialog box as expected ");
+
+                //14.	TMT0075189_Verify that the error message appears for selecting Invoice Date more than 30 days on the Generate Invoice dialog box
+
 
                 usersLogin.DiscardChanges();
                 usersLogin.DiffLightningLogout();
@@ -126,9 +148,9 @@ namespace SF_Automation.TestCases.Opportunities
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 

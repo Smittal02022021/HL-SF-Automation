@@ -32,7 +32,7 @@ namespace SF_Automation.Pages.Engagement
         By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
         By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
         By valCounterparty1stName = By.XPath("//dt[text()='First Name:']/ancestor::dl/dd[1]//span");
-        By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[1]//span");
+        By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[2]//span");
 
         By valContactFirstName = By.XPath("//section/div/div/p[1]");
         By valContactLastName = By.XPath("//section/div/div/p[2]");

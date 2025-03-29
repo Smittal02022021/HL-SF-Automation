@@ -148,9 +148,14 @@ namespace SalesForce_Project.Pages
         By msgTotalFee = By.XPath("//li[text()='Validation total fee to bill should equal to total event amount']");
         By btnClosePopUp = By.XPath("//button[@title='Cancel and close']");
         By tabBillingEvent = By.XPath("//ul[2]//li[5]");
+        By valERPStatus = By.XPath("//dt[text()='ERP Last Integration Status:']/../dd[2]//lightning-formatted-number");
+        By btnGenerateInvoice = By.XPath("//button[text()='Generate Invoice']");
+        By btnResubmit = By.XPath("//button[text()='Resubmit']");
+        By btnSaveInvoice = By.XPath("//button[@name='Save']");
+        By msgInvoice = By.XPath("//h2[text()='Generate Invoice']/ancestor::lightning-quick-action-panel//lightning-messages/..//lightning-input//div[2]/span");
 
-        
-        
+
+
         public string ClickNewButton()
         {
             Thread.Sleep(5000);
@@ -1056,7 +1061,7 @@ namespace SalesForce_Project.Pages
 
             driver.FindElement(txtContract).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//flexipage-field[5]//li[2]/lightning-base-combobox-item")).Click();
+            driver.FindElement(By.XPath("//flexipage-field[5]//li[1]/lightning-base-combobox-item")).Click();
             driver.FindElement(txtEventAmount).SendKeys("10");
             driver.FindElement(btnEventType).Click();
             driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
@@ -1092,11 +1097,11 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(5000);
             driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//ul/li[1]/lightning-base-combobox-item//span[2]//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
 
             driver.FindElement(txtContract).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//flexipage-field[5]//li[1]/lightning-base-combobox-item")).Click();
+            driver.FindElement(By.XPath("//flexipage-field[5]//li[2]/lightning-base-combobox-item")).Click();
             driver.FindElement(txtEventAmount).SendKeys("10");
             driver.FindElement(btnEventType).Click();
             driver.FindElement(By.XPath("//label[text()='Event Type']/ancestor::div[1]//button/ancestor::div[2]/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
@@ -1127,7 +1132,7 @@ namespace SalesForce_Project.Pages
         public string ValidateTotalFeesToBillValidation()
         {
             driver.FindElement(tabBillingReq).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditbillingReq, 130);
+            Thread.Sleep(6000);
             driver.FindElement(btnEditbillingReq).Click();
             Thread.Sleep(6000);
             driver.FindElement(txtEditBRComments).SendKeys("Testing");
@@ -1168,6 +1173,67 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             string value = driver.FindElement(valStatusBillingReq).Text;            
             return value;
+        }
+
+        public string GetUpdatedCommentOfBillingRequest()
+        {
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valComments, 130);
+            string value = driver.FindElement(valComments).Text;
+            return value;
+        }
+        public string ValidateERPLastIntStatus()
+        {
+            //driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            driver.FindElement(tabAccounting).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valERPStatus, 130);
+            string value = driver.FindElement(valERPStatus).Text;
+            return value;
+        }
+        public string ValidateVisibilityOfGenerateInvoiceOrResubmitButton()
+        {
+            Thread.Sleep(4000);
+            try
+            {
+                string value = driver.FindElement(btnGenerateInvoice).Displayed.ToString();
+                string invoice = driver.FindElement(btnGenerateInvoice).Text;
+                return invoice;
+            }
+            catch (Exception)
+            {
+                string value = driver.FindElement(btnResubmit).Displayed.ToString();
+                string resubmit = driver.FindElement(btnResubmit).Text;
+                return resubmit;
+            }
+
+        }
+        //Validate Billing Event validations
+        public bool ValidateGenerateInvoiceValidations()
+        {
+            driver.FindElement(btnSaveInvoice).Click();
+            Thread.Sleep(5000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(msgInvoice);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            Console.WriteLine("actualValue: " + actualValue[0]);
+            Console.WriteLine("actualValue: " + actualValue[1]);
+            string[] expectedValue = { "Bill Through Date\r\nComplete this field with format Dec 31, 2024.", "Invoice Date\r\nComplete this field with format Dec 31, 2024." };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
     }
 }
