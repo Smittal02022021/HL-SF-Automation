@@ -18,6 +18,14 @@ namespace SF_Automation.Pages
 {
     class OpportunityDetailsPage : BaseClass
     {
+        By btnRequestBuyersList = By.XPath("//button[text()='Request Buyers List']");
+        By btnBuyerListType = By.XPath("//button[@name='Type']");
+        By txtBUyerListDueDate = By.XPath("//input[@name='Due_Date__c']");
+        By btnBuyerListRegion = By.XPath("//button[@aria-label='Region']");
+        By btnSelectSubRegionArrow = By.XPath("//button[@title='Move to Chosen']");
+        By btnRequestBuyerListSave = By.XPath("//button[@type='submit']");
+        By tabBuyersList = By.XPath("//a[text()='Buyers List']");
+
         By btnMore = By.XPath("(//button[@title='More Tabs'])[3]");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
 
@@ -6667,7 +6675,6 @@ namespace SF_Automation.Pages
             }
         }
 
-
         public string GetOpportunityNumberL()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
@@ -6755,6 +6762,7 @@ namespace SF_Automation.Pages
             driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
         }
+
         public string GetRequestToEngMsgL()
         {
             Thread.Sleep(2000);
@@ -6764,10 +6772,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             return txtMsg;
         }
+
         public void CloseApprovalHistoryTabL()
         {
             driver.FindElement(tabApprovalHistoryL).Click();
         }
+
         public void ClickConvertToEngagementL()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -6789,6 +6799,7 @@ namespace SF_Automation.Pages
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
         }
+
         public void ClickConvertToEngagementL2()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -6810,6 +6821,7 @@ namespace SF_Automation.Pages
             }
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngHeader, 60);
         }
+
         public bool IsAssociatedOppFieldPresent()
         {
             try
@@ -6823,6 +6835,7 @@ namespace SF_Automation.Pages
             }
 
         }
+
         public bool IsAssociatedOppFieldPresentLV()
         {
             try
@@ -6838,6 +6851,7 @@ namespace SF_Automation.Pages
 
 
         }
+
         public bool IsAssociatedOppFieldEditable()
         {
             try
@@ -6856,6 +6870,7 @@ namespace SF_Automation.Pages
                 return false;
             }
         }
+
         public bool IsAssociatedOppFieldEditableLV()
         {
             try
@@ -6876,6 +6891,7 @@ namespace SF_Automation.Pages
                 return false;
             }
         }
+
         public void EnterAssociatedOpportunity(string name)
         {
             try
@@ -9778,6 +9794,106 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
             driver.FindElement(btnDeleteActivity).Click();
             Thread.Sleep(2000);
+        }
+
+        public bool VerifyRequestBuyersListButtonOnOpportunityDetailPage()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRequestBuyersList, 60);
+            if(driver.FindElement(btnRequestBuyersList).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ClickRequestBuyersListButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRequestBuyersList, 60);
+            driver.FindElement(btnRequestBuyersList).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void FillRequestBuyersListDetails(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);
+
+            //Select Type
+            string listType = ReadExcelData.ReadData(excelPath, "RequestBuyersList", 1);
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBuyerListType, 60);
+            driver.FindElement(btnBuyerListType).Click();
+            Thread.Sleep(2000);
+
+            By typeValue = By.XPath($"//lightning-base-combobox-item//span[@title='{listType}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(typeValue));
+            driver.FindElement(typeValue).Click();
+            Thread.Sleep(2000);
+
+            //Enter Due Date
+            string todayDate = DateTime.Now.ToString("MMM dd, yyyy").Replace('-', '/');
+            driver.FindElement(txtBUyerListDueDate).SendKeys(todayDate);
+            Thread.Sleep(2000);
+
+            //Select Region
+            string region = ReadExcelData.ReadData(excelPath, "RequestBuyersList", 2);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBuyerListRegion, 60);
+            driver.FindElement(btnBuyerListRegion).Click();
+
+            By regionValue = By.XPath($"//lightning-base-combobox-item//span[@title='{region}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(regionValue));
+            driver.FindElement(regionValue).Click();
+            Thread.Sleep(2000);
+
+            //Select Sub Region
+            string subRegion = ReadExcelData.ReadData(excelPath, "RequestBuyersList", 3);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSelectSubRegionArrow));
+            int count = driver.FindElements(By.XPath("(//span[text()='Available']/following::ul)[1]/li")).Count;
+            for(int i = 1; i <= count; i++)
+            {
+                string subRegionValue = driver.FindElement(By.XPath($"(//span[text()='Available']/following::ul)[1]/li[{i}]//span/span")).Text;
+                if(subRegionValue.Equals(subRegion))
+                {
+                    driver.FindElement(By.XPath($"(//span[text()='Available']/following::ul)[1]/li[{i}]//span/span")).Click();
+                    driver.FindElement(btnSelectSubRegionArrow).Click();
+                    break;
+                }
+            }
+
+            //Click Save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRequestBuyerListSave, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnRequestBuyerListSave));
+            driver.FindElement(btnRequestBuyerListSave).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyBuyersListTabIsDisplayed()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBuyersList, 60);
+            if(driver.FindElement(tabBuyersList).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ClickBuyersListTab()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabBuyersList, 60);
+            driver.FindElement(tabBuyersList).Click();
+            Thread.Sleep(5000);
+        }
+
+        public string GetParentRequestID()
+        {
+            string requestID = driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::dd//a//span)[3]")).Text;
+            return requestID;
         }
     }
 }

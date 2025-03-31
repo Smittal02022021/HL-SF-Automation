@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props" Condition="Exists('packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
@@ -854,6 +854,7 @@
     <Compile Include="TestCases\Opportunities\TC2333_TMTC0002494_ VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
     <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0042712_VerificationOfBuyersListFeatureOnOpportunityScreen.cs" />
     <Compile Include="TestCases\Opportunities\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.cs" />
     <Compile Include="TestCases\Opportunities\TMTC0032940_VerifyTheFunctionalityOfCreatingBillingRequest.cs" />
     <Compile Include="TestCases\Opportunities\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.cs" />
