@@ -137,15 +137,17 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Request Buyers List button is clicked. ");
 
                 opportunityDetails.FillRequestBuyersListDetails(fileTMTT0042712);
+                extentReports.CreateStepLogs("Info", "Request Buyers List Details filled successfully. ");
+
                 Assert.IsTrue(opportunityDetails.VerifyBuyersListTabIsDisplayed());
                 extentReports.CreateStepLogs("Passed", "Buyers List tab is displayed. ");
 
                 opportunityDetails.ClickBuyersListTab();
                 string buyerRequestCaseID = opportunityDetails.GetParentRequestID();
-                extentReports.CreateStepLogs("Passed", "Buyer Request Case ID: " + buyerRequestCaseID + " is displayed. ");
+                extentReports.CreateStepLogs("Passed", "Buyer Request Case Number: " + buyerRequestCaseID + " is generated. ");
 
                 string getCaseTitle = opportunityDetails.GetCaseTitle();
-                extentReports.CreateStepLogs("Info", "Case title: " + getCaseTitle + " is displayed. ");
+                extentReports.CreateStepLogs("Info", "Case title: " + getCaseTitle + " is displayed on case details page. ");
 
                 driver.Quit();
 
