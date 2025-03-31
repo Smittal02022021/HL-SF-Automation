@@ -9622,6 +9622,7 @@ namespace SF_Automation.Pages
         By linkNewOppCommentL = By.XPath("//article[@aria-label='Comments']//a//span[text()='New']");
         By buttonSaveL = By.XPath("//button[@name='SaveEdit']");
         By txtCommentsIDL = By.XPath("//h1//records-entity-label[text()='Opportunity Comment']/../../..//lightning-formatted-text");
+
         public void ClickOppNewCommentsLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabCommentsL, 20);
@@ -9634,6 +9635,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, linkNewOppCommentL, 20);
             driver.FindElement(linkNewOppCommentL).Click();
         }
+
         public void AddNewOppCommentLV(string commentType, string commentText)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentTypeL, 20);
@@ -9653,6 +9655,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsIDL, 20);
             return driver.FindElement(txtCommentsIDL).Text;
         }
+
         public void ClickTabFSOpportunityLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -9709,6 +9712,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, _btnAddContactL(RecordType), 20);
             driver.FindElement(_btnAddContactL(RecordType)).Click();
         }
+
         public void CreateContactLV(string name, string party)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
@@ -9893,7 +9897,25 @@ namespace SF_Automation.Pages
         public string GetParentRequestID()
         {
             string requestID = driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::dd//a//span)[3]")).Text;
+            Thread.Sleep(5000);
             return requestID;
+        }
+
+        public string GetCaseTitle()
+        {
+            try
+            {
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::dd//a)[1]")), 60);
+                Thread.Sleep(5000);
+            }
+            catch(Exception)
+            {
+
+            }
+            string caseTitle = driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'Buyers List Request')]")).Text;
+            Thread.Sleep(5000);
+
+            return caseTitle;
         }
     }
 }

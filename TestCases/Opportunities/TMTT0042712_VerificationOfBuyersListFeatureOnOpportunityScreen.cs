@@ -19,8 +19,10 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+        Outlook outlook = new Outlook();
 
         public static string fileTMTT0042712 = "TMTT0042712_VerificationOfBuyersListFeatureOnOpportunityScreen";
+        public static string fileOutlook = "Outlook";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -39,6 +41,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0042712;
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string FSCOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -135,16 +138,84 @@ namespace SF_Automation.TestCases.Opportunities
 
                 opportunityDetails.FillRequestBuyersListDetails(fileTMTT0042712);
                 Assert.IsTrue(opportunityDetails.VerifyBuyersListTabIsDisplayed());
-                opportunityDetails.ClickBuyersListTab();
+                extentReports.CreateStepLogs("Passed", "Buyers List tab is displayed. ");
 
+                opportunityDetails.ClickBuyersListTab();
                 string buyerRequestCaseID = opportunityDetails.GetParentRequestID();
                 extentReports.CreateStepLogs("Passed", "Buyer Request Case ID: " + buyerRequestCaseID + " is displayed. ");
 
+                string getCaseTitle = opportunityDetails.GetCaseTitle();
+                extentReports.CreateStepLogs("Info", "Case title: " + getCaseTitle + " is displayed. ");
+
+                driver.Quit();
+
                 //TC - TMTI0104949 - Verify that an email sent to requestor and FSCO user of related region once parent case is created.
 
+                //Launch outlook window
+                OutLookInitialize();
 
+                //Login into Outlook
+                outlook.LoginOutlook(fileOutlook);
+                string outlookLabel = outlook.GetLabelOfOutlook();
+                Assert.AreEqual("Outlook", outlookLabel);
+                extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
 
+                string region = ReadExcelData.ReadData(excelPath, "RequestBuyersList", 2);
 
+                Assert.IsTrue(outlook.VerifyBuyersListGenerationEmailIsRecievedWithSubmitter(buyerRequestCaseID));
+                extentReports.CreateStepLogs("Passed", "Email sent to submitted CF Financial user once parent case is created.");
+
+                //Assert.IsTrue(outlook.VerifyBuyersListGenerationEmailIsRecievedWithFSCO(buyerRequestCaseID, region, getCaseTitle));
+                //extentReports.CreateStepLogs("Passed", "Email sent to FSCO user related region once parent case is created.");
+
+                driver.Quit();
+
+                Initialize();
+
+                //Calling Login function                
+                login.LoginApplication();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateLog("Admin User is able to login into SF");
+
+                //Search FSCO user by global search
+                lvHomePage.SearchUserFromMainSearch(FSCOUser);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, FSCOUser + " | Salesforce"), true);
+                extentReports.CreateLog("User " + FSCOUser + " details are displayed ");
+
+                //Login as FSCO user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(FSCOUser));
+                extentReports.CreateStepLogs("Passed", "FSCO User: " + FSCOUser + " is able to login into lightning view. ");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
 
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();

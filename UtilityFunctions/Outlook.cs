@@ -25,7 +25,7 @@ namespace SF_Automation.UtilityFunctions
         //By btnSearch = By.CssSelector("i[data-icon-name='Search']");
         
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
-        By recentEmail = By.CssSelector("div[class='XG5Jd TszOG'] > div:nth-child(2)");
+        By recentEmail = By.CssSelector("div[class='EeHm8'] > div:nth-child(2)");
 
         By linkFirstLevelReviewSubmission = By.XPath("//span[contains(text(),'Review')]/../..");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
@@ -408,6 +408,84 @@ namespace SF_Automation.UtilityFunctions
                 result = true;
             }
             return result;
+        }
+
+        public bool VerifyBuyersListGenerationEmailIsRecievedWithFSCO(string caseNumber, string reg, string caseName)
+        {
+            bool result = false;
+
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearchScope, 120);
+
+            driver.FindElement(btnSearchScope).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblScopeInbox, 120);
+
+            driver.FindElement(lblScopeInbox).Click();
+            Thread.Sleep(4000);
+
+            driver.FindElement(searchBox).SendKeys("Sandbox: Case # " + caseNumber + ": " + caseName + " has been assigned to the " + reg + " Queue..");
+            Thread.Sleep(5000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, filterOptionUnread, 120);
+            driver.FindElement(filterOptionUnread).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 120);
+            driver.FindElement(recentEmail).Click();
+            Thread.Sleep(4000);
+
+            string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
+
+            if(title == "Sandbox: Case # " + caseNumber + ": " + caseName + " has been assigned to the " + reg + " Queue..")
+            {
+                result = true;
+            }
+            return result;
+
+        }
+
+        public bool VerifyBuyersListGenerationEmailIsRecievedWithSubmitter(string caseNumber)
+        {
+            bool result = false;
+
+            Thread.Sleep(4000);
+            driver.FindElement(searchBox).Click();
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSearchScope, 120);
+
+            driver.FindElement(btnSearchScope).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblScopeInbox, 120);
+
+            driver.FindElement(lblScopeInbox).Click();
+            Thread.Sleep(4000);
+
+            driver.FindElement(searchBox).SendKeys("Sandbox: Buyers List Request Submitted: " + caseNumber);
+            Thread.Sleep(5000);
+            driver.FindElement(searchBox).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, filterOptionUnread, 120);
+            driver.FindElement(filterOptionUnread).Click();
+            Thread.Sleep(4000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, recentEmail, 120);
+            driver.FindElement(recentEmail).Click();
+            Thread.Sleep(4000);
+
+            string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
+
+            if(title == "Sandbox: Buyers List Request Submitted: " + caseNumber)
+            {
+                result = true;
+            }
+            return result;
+
         }
 
     }
