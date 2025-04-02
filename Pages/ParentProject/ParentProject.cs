@@ -1136,12 +1136,14 @@ namespace SalesForce_Project.Pages
             driver.FindElement(btnEditbillingReq).Click();
             Thread.Sleep(6000);
             driver.FindElement(txtEditBRComments).SendKeys("Testing");
-            By btnSubDate = By.XPath("//label[text()='Billing Request Name']/ancestor::div[1]//input");
             By btnStatus = By.XPath("//label[text()='Status']/ancestor::div[1]//button");
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnStatus, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnStatus));
-            Thread.Sleep(6000);
-            driver.FindElement(btnStatus).Click();            
+            By lblOracleERP = By.XPath("//h2[contains(text(),'Edit BR')]/../..//slot[@name='main']//h3/span[text()='Oracle ERP Information']");
+                      
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblOracleERP));
+            Thread.Sleep(5000);
+            driver.FindElement(btnStatus).Click();
+            driver.FindElement(btnStatus).Click();
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='Status']/ancestor::div[1]//lightning-base-combobox/div//div[2]/lightning-base-combobox-item//span[2]/span[text()='Sent to ERP']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
@@ -1157,6 +1159,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(tabBillingEvent).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditBillingEvent, 130);
             driver.FindElement(btnEditBillingEvent).Click();
+            Thread.Sleep(4000);
             driver.FindElement(txtEventAmount).Clear();
             driver.FindElement(txtEventAmount).SendKeys("30000");
             driver.FindElement(btnSave).Click();

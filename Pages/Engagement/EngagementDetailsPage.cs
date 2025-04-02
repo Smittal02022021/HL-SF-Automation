@@ -480,6 +480,7 @@ namespace SF_Automation.Pages.Engagement
         
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//span[text()='Billing Request']");
+        By btnBillingRequestL1 = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
         By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
         By msgSendEmail = By.XPath("//table/tbody/tr[1]/td[2]/div");
@@ -3229,8 +3230,16 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 70);
             driver.FindElement(tabEngagementNumL).Click();
             driver.FindElement(By.XPath("//li[10]/lightning-button-menu/button")).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 90);
-            driver.FindElement(btnBillingRequestL).Click();
+            Thread.Sleep(6000);
+            try
+            {
+                driver.FindElement(btnBillingRequestL).Click();
+            }
+            catch
+            {
+                driver.FindElement(btnBillingRequestL1).Click();
+
+            }
         }
         //To get validation message for contact details
         public string GetContactValidationMessageL()

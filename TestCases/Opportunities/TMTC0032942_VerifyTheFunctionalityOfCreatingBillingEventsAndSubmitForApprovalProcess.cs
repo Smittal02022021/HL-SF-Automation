@@ -137,14 +137,14 @@ namespace SF_Automation.TestCases.Opportunities
 
                 usersLogin.DiscardChanges();
                 usersLogin.DiffLightningLogout();
-                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
 
                 driver.Quit();
             }
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
