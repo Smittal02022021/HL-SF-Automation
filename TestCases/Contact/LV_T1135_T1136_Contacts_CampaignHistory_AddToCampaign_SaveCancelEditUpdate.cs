@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.Contact
                 newCampaign.CreateNewParentCampaign(fileTC1135_TC1136);
                 Assert.IsTrue(newCampaign.VerifyIfNewCampaignIsCreatedSuccessfully(campRecordType));
                 extentReports.CreateStepLogs("Passed", "Campaign with Record Type : " + campRecordType + " created successfully. ");
-
+                //need to close campaign page
                 //Navigate to Contacts page
                 lvHomePage.NavigateToAnItemFromHLBankerDropdown("Contacts");
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);

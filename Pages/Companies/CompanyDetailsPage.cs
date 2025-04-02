@@ -273,7 +273,7 @@ namespace SF_Automation.Pages.Companies
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
         By toastMsgCloseIcon = By.XPath("//button[@title='Close']");
         By tableFullNameL = By.XPath("//table//tr//td[@data-label='Full Name']//a");
-        By iconContactActionsMoreL = By.XPath("//button[contains(@class,'button slds-button_icon-border')]");
+        By iconContactActionsMoreL = By.XPath("//button[contains(@class,'button slds-button_icon-border')]");//button[@aria-haspopup='true'][contains(@class,'button slds-button_icon-border')]");
         By lnkContactActionsMoreL = By.XPath("//ul//a[@role='menuitem']//span[text()='Edit']");
         By txtContactPhoneNumberL = By.XPath("//table//td[@data-label='Business Phone']/span");
         By btnAddRelationshipL = By.XPath("//button[contains(@name,'Contact.Add_Relationship')]");
@@ -344,7 +344,8 @@ namespace SF_Automation.Pages.Companies
         By comboTypeL = By.XPath("//label[text()='Type']/..//button");
         By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
 
-        By btnEditInvestmentL = By.XPath("(//button[@name='Edit'])[2]");
+        By btnEditInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Edit']");
+        By btnDeleteInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Delete']");
         By inputInvestmentAmountL = By.XPath("//label[text()='Amount of Investment']/..//input");
         By btnInvestStatusL = By.XPath("//button[@aria-label='Status']");
         By btnActivitiesReportL = By.XPath("//button[text()='Activities Report']");
@@ -1181,7 +1182,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }        
 
-        public void EditFinancialSPRecord(string investmentNumber, string InvestmentAmount)
+        public void EditFinancialSPRecordLV(string investmentNumber, string InvestmentAmount)
         {
             By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
             WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
@@ -1192,6 +1193,45 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(inputInvestmentAmountL).SendKeys(InvestmentAmount);
             Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void ClickInvestmentNumberLV(string investmentNumber)
+        {         
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
+            driver.FindElement(fundRecord).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool IsEditButtonDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditInvestmentL, 5);
+                return driver.FindElement(btnEditInvestmentL).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool IsDeleteButtonDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteInvestmentL, 5);
+                return driver.FindElement(btnDeleteInvestmentL).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public void DeleteInvestmentLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteInvestmentL, 5);
+            driver.FindElement(btnDeleteInvestmentL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 5);
+            driver.FindElement(btnConfirmDeleteL).Click();
         }
 
         public void ClickFSFundsNewButtonDisplayedLV()
@@ -3073,6 +3113,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(inputFlagReasonCommentL).Clear();
             driver.FindElement(inputFlagReasonCommentL).SendKeys(flagReasonComment);
             driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
         }
         
         public void ClickActivitiesReportButtonLV()

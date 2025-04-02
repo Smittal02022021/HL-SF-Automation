@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 
 namespace SF_Automation.Pages
@@ -59,13 +60,14 @@ namespace SF_Automation.Pages
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
         By imgContactL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
+        By inputAdminGlobalSearchL2 = By.XPath("//input[contains(@placeholder,'Search...')]");
         By btnContactSearchL = By.XPath("//button[@aria-label='Search']");
         By txtContactSearchL = By.XPath("//input[contains(@placeholder,'Search Contacts')]");
         By txtContactSearchL2 = By.XPath("//input[@placeholder='Search...']");
         By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
         By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//dd//a");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
         public string SearchContactWithExternalContact(string file)
         {
@@ -389,7 +391,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkContacts, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkContacts, 10);
             driver.FindElement(lnkContacts).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, lnkShowAdvanceSearch);
@@ -652,59 +654,39 @@ namespace SF_Automation.Pages
         public string GlobalSearchContactInLightningView(string contactName)
 
         {
-
             Thread.Sleep(6000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
-
             driver.FindElement(inputGlobalSearchL).Click();
-
             Thread.Sleep(4000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
-
-            driver.FindElement(inputAdminGlobalSearchL).SendKeys(contactName);
-
             try
-
             {
-
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(contactName);
+            }            
+            catch{
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL2, 10);
+                driver.FindElement(inputAdminGlobalSearchL2).SendKeys(contactName);
+            }
+            try
+            {
                 WebDriverWaits.WaitUntilEleVisible(driver, imgContactL, 10);
-
                 driver.FindElement(imgContactL).Click();
-
                 Thread.Sleep(8000);
-
                 return "Record found";
-
             }
-
             catch
-
             {
-
                 driver.FindElement(inputAdminGlobalSearchL).SendKeys(Keys.Enter);
-
                 Thread.Sleep(6000);
-
                 try
-
                 {
-
                     WebDriverWaits.WaitUntilEleVisible(driver, _lnkSearchedContactL(contactName), 20);
-
                     driver.FindElement(_lnkSearchedContactL(contactName)).Click();
-
                     Thread.Sleep(8000);
-
                     return "Record found";
-
                 }
-
                 catch { return "No record found"; }
-
             }
-
         }
 
         public void SearchContactInLightning(string value)

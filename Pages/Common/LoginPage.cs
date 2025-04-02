@@ -13,7 +13,7 @@ namespace SF_Automation.Pages
         By txtPassWord = By.Id("password");
         By btnLogin = By.Id("Login");
         By loggedUser = By.XPath("//span[@id='userNavLabel']");
-        By loggedUserLightningView = By.XPath("//header[@id='oneHeader']/div/div/span");
+        By loggedUserLightningView = By.XPath("//header[@id='oneHeader']/div/div//a");
         By imgProfile = By.CssSelector("div[class*='profileTrigger ']>span[class='uiImage']");
         By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
@@ -28,7 +28,7 @@ namespace SF_Automation.Pages
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 10);
                 IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
                 if (linkSwitchtoLightning.Displayed)
                 {

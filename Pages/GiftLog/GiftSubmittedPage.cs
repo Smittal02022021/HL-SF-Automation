@@ -126,6 +126,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public bool IsTableListPresentLV()
         {
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, frameGiftSubmittedL, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftSubmittedL));
@@ -136,6 +137,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEdit));
+            Thread.Sleep(5000);
         }
         public string GetGiftSubmittedDetailTitleLV()
         {            
@@ -145,6 +147,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void CompareAndClickGiftDescWithGiftNameLV(string giftName)
         {
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, frameGiftSubmittedL, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftSubmittedL));

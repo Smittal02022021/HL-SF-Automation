@@ -134,7 +134,7 @@ namespace SF_Automation.Pages.Company
         public void ClickNewButtonSponsorCoverageDisplayedLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewSponsorCoverageL, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewSponsorCoverageL, 20);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNewSponsorCoverageL));
         }
         public void ClickCancelNewCoverageTeamButtonLV()
@@ -157,7 +157,7 @@ namespace SF_Automation.Pages.Company
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNexRecordTypetL, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNexRecordTypetL, 20);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNexRecordTypetL));
         }
 

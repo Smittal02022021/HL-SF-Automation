@@ -848,7 +848,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
         public void SetApprovalDenialCommentsLV()
         {
@@ -914,7 +914,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
         public void ClickApproveSelectedButtonLV()
         {
@@ -1293,7 +1293,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByRecipientLastNameForNextYear(string file)
@@ -1319,7 +1319,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public string GetGiftDescriptionFromTable()
@@ -1742,7 +1742,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByMonthYearAndStatusOnly(string status)
@@ -1762,7 +1762,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver,btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByStatusForNextYear(string file, string status)
@@ -1791,7 +1791,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public string ErrorMsgApprovalComment()

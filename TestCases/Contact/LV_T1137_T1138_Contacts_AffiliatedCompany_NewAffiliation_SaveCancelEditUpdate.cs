@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.Contact
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-}
+        }
             
     }
 }

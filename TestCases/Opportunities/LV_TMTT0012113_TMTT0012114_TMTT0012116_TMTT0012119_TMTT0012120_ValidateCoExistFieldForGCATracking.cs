@@ -178,7 +178,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");                    
                     randomPages.CloseActiveTab("Internal Team");
 
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on Opportunity Details page for for System Administrator
                     string checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -232,7 +232,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
 
                     //Validate CoExist checkbox exist and checked or not on Opportunity Details page for for CAO
                     checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
@@ -259,7 +259,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    randomPages.DetailPageFullViewLV();//
+                    //randomPages.DetailPageFullViewLV();//
                     //Validate CoExist checkbox exist and checked or not on Engagement Details page for CAO
                     string checkboxValidationResult1 = engagementDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -287,7 +287,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on existing Opportunity Details page
                     checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -302,8 +302,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     engagementHome.SearchEngagementInLightningView(engagementName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Passed", "Engagemen: " + engagementName + " found and selected ");
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on existing Opportunity Details page
                     checkboxValidationResult = engagementDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);

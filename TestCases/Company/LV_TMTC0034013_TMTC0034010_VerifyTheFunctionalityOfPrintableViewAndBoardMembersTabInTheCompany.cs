@@ -179,6 +179,8 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Created Board Member(Affiliation)listed under the Board Members tab of the Company Detail Page");
 
                     //TMT0076418	Verify the functionality of the "Edit" action button on the Board Member - Affiliation detail page
+                    CustomFunctions.PageReload(driver);
+                    companyDetail.ClickBoardMembersTabLV();
                     companyDetail.ClickEditBoardMemberLinkLV();
                     string notesExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 3);
                     companyDetail.UpdateAffiliationNotesLV(notesExl);

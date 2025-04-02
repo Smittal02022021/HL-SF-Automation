@@ -7,7 +7,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using SF_Automation.Pages.Contact;
 
 namespace SalesForce_Project.TestCases.Company
 {
@@ -38,7 +37,10 @@ namespace SalesForce_Project.TestCases.Company
         private string btnNameExl;
         private string tabNameExl;
         private string msgBubble;
-        private string investmentNumber;
+        private string[] investmentNumber = new string[4];
+        private int index = 0;
+        private int invstIndex;
+        private int maxIndex;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -114,9 +116,8 @@ namespace SalesForce_Project.TestCases.Company
 
                     //TMT0076529 Verify that the System Admin can add a Sponsor Company using the "New" button on the Financial Sponsor tab of the Company Detail Page
                     int rowCount = ReadExcelData.GetRowCount(excelPath, "Company");
-
                     for (int invRow = 2; invRow <= rowCount; invRow++)
-                    {
+                    {                        
                         companyDetail.ClickFinancialSponsorsNewButtonDisplayedLV();
                         string investmentStatusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 1);
                         companyDetail.AddNewCompanyFinancialsSponsorsLV(investmentStatusExl);
@@ -124,31 +125,145 @@ namespace SalesForce_Project.TestCases.Company
                         Assert.IsTrue(msgBubble.Contains("was created"));
                         extentReports.CreateStepLogs("Passed", " New FS Sponsors added followed by the success message: " + msgBubble);
 
-                        investmentNumber = companyDetail.GetFinancialSponsorsNameLV();
-                        randomPages.CloseActiveTab(investmentNumber);
+                        investmentNumber[index] = companyDetail.GetFinancialSponsorsNameLV();
+                        randomPages.CloseActiveTab(investmentNumber[index]);
                         //TMT0076523	Verify that the "Financial Sponsor" tab lists all the Current and Previous Sponsors of the Company.
-                        Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber));
+                        Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber[index]));
                         extentReports.CreateStepLogs("Passed", " Added Investment " + investmentNumber + " is present in Record List under "+investmentStatusExl+" Sponsors");
 
                         //TMT0076531 Verify that the System Admin can update the Sponsor Company using the "Edit" button on the Investment list
                         string amountExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 2);
-                        companyDetail.EditFinancialSPRecord(investmentNumber, amountExl);
+                        companyDetail.EditFinancialSPRecordLV(investmentNumber[index], amountExl);
                         msgBubble = randomPages.GetPopUpMessagelV();
                         Assert.IsTrue(msgBubble.Contains("was saved"));
-                        extentReports.CreateStepLogs("Passed", " Investment Record: " + investmentNumber + "  updated followed by the success message: " + msgBubble);
+                        extentReports.CreateStepLogs("Passed", " Investment Record: " + investmentNumber[index] + "  updated followed by the success message: " + msgBubble);
 
                         //TMT0076533 Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
-
-
-                        randomPages.CloseActiveTab(investmentNumber);                        
+                        randomPages.CloseActiveTab(investmentNumber[index]);
+                        index++;
                     }
+                    //int investmentCount = investmentNumber.Length;
+                    //extentReports.CreateStepLogs("Passed", investmentCount+" Fin Sp created " );
                     randomPages.CloseActiveTab(newCompanyName);
+                }
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + valAdminUser + " logged out");
+
+                //Performing Actions with CF Fin User
+                string valCFUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
+                homePage.SearchUserByGlobalSearchN(valCFUser);
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                user = login.ValidateUserLightningView();
+                Assert.AreEqual(user.Contains(valCFUser), true);
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + valCFUser + " logged in on Lightning View");
+
+                appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");                
+
+                //rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
+                for (int row = 2; row <= rowCompanyName; row++)
+                {
+                    string companyName= ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
+                    companyHome.GlobalSearchCompanyInLightningView(companyName);
+                    
+                    tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", row, 1);
+                    Assert.IsTrue(companyDetail.IsCompanyDetailPageTabPresentLV(tabNameExl), "Verify the availability of the '" + tabNameExl + "' tab on the Company detail page");
+                    extentReports.CreateStepLogs("Passed", tabNameExl + " tab available on the Company detail page");
+
+                    //TMT0076525 Verify that the CF Financial User can only "View" Sponsor companies and is not able to add, edit, or delete the Sponsor company.
+                    companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
+                    Assert.IsFalse(companyDetail.IsNewFinancialSPButtonDisplayedLV(), "Verify that the 'New' button is available for the System Admin on the Financial Sponsor tab to add Current and Previous Sponsor Companies");
+                    string investmentStatusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", row, 1);
+                    extentReports.CreateStepLogs("Passed", "'New' button is available on the company.");
+                    if (row == 2)
+                    {
+                        invstIndex = 0;
+                        maxIndex = 2;
+                    }
+                    else
+                    {
+                        invstIndex = 2;
+                        maxIndex = 4;
+                    }
+                    while(invstIndex < maxIndex)//for (int invst = 0; invst <= investmentNumber.Length; invst++)
+                    {
+                        Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber[invstIndex]));
+                        extentReports.CreateStepLogs("Passed", " Investment " + investmentNumber[invstIndex] + " is present in Record List under " + investmentStatusExl + " Sponsors");
+                        companyDetail.ClickInvestmentNumberLV(investmentNumber[invstIndex]);
+                        Assert.IsFalse(companyDetail.IsEditButtonDisplayedLV(), "Verify Edit Button is not displayed fo CF FIn User");
+                        extentReports.CreateStepLogs("Passed", "Investment Edit Button is not displayed fo CF FIn User");
+                        Assert.IsFalse(companyDetail.IsDeleteButtonDisplayedLV(), "Verify Delete Button is not displayed fo CF FIn User");
+                        extentReports.CreateStepLogs("Passed", "Investment Delete Button is not displayed fo CF FIn User");
+                        randomPages.CloseActiveTab(investmentNumber[invstIndex]);
+                        invstIndex++;
+                    }
+                    randomPages.CloseActiveTab(companyName);
+                }
+                usersLogin.ClickLogoutFromLightningView();
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + valCFUser + " logged in on Lightning View");
+
+                // TMT0076533	Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
+                valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
+                homePage.SearchUserByGlobalSearchN(valAdminUser);
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                user = login.ValidateUserLightningView();
+                Assert.AreEqual(user.Contains(valAdminUser), true);
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + valAdminUser + " logged in on Lightning View");
+
+                appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                //rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
+                for (int row = 2; row <= rowCompanyName; row++)
+                {
+                    string companyName = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
+                    companyHome.GlobalSearchCompanyInLightningView(companyName);
+
+                    tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", row, 1);                    
+                    //TMT0076525 Verify that the CF Financial User can only "View" Sponsor companies and is not able to add, edit, or delete the Sponsor company.
+                    companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);                    
+                    if (row == 2)
+                    {
+                        invstIndex = 0;
+                        maxIndex = 2;
+                    }
+                    else
+                    {
+                        invstIndex = 2;
+                        maxIndex = 4;
+                    }
+                    while (invstIndex < maxIndex)
+                    {
+                        //TMT0076533 Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
+                        companyDetail.ClickInvestmentNumberLV(investmentNumber[invstIndex]);
+                        companyDetail.DeleteInvestmentLV();
+                        msgBubble = randomPages.GetPopUpMessagelV();
+                        Assert.IsTrue(msgBubble.Contains("was deleted"));
+                        extentReports.CreateStepLogs("Passed", "Investment Deleted fwollowed by sucess message: "+ msgBubble);
+                        extentReports.CreateStepLogs("Passed", companyName+ " Company deleted ");
+                        invstIndex++;
+                    }
+                    companyDetail.DeleteCompanyLV();
+                    //randomPages.CloseActiveTab(companyName);
                 }
             }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                randomPages.CloseActiveTab(investmentNumber);
+                //randomPages.CloseActiveTab(investmentNumber[index]);
                 randomPages.CloseActiveTab(newCompanyName);
                 usersLogin.ClickLogoutFromLightningView();
                 //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -175,7 +290,7 @@ namespace SalesForce_Project.TestCases.Company
                     extentReports.CreateStepLogs("Passed", "Company: " + companyNameExl + " found and selected");
                     try
                     {
-                        randomPages.CloseActiveTab(investmentNumber);
+                        randomPages.CloseActiveTab(investmentNumber[index]);
                         companyDetail.DeleteCompanyLV();
                        
                     }

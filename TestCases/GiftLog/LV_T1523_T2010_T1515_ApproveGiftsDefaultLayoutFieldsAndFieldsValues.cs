@@ -60,7 +60,6 @@ namespace SF_Automation.TestCases.GiftLog
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
-
         [Test]
         public void VerifyApproveGiftsDefaultLayoutFieldsAndFieldsValuesLV()
         {
@@ -376,9 +375,15 @@ namespace SF_Automation.TestCases.GiftLog
                 usersLogin.UserLogOut();
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT1523;
                 conHome.ClickContact();
-                conHome.SearchContact(fileT1523);
+                //conHome.SearchContact(fileT1523);
                 //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                try
+                {
+                    contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch
+                {//no record found
+                }
                 conHome.ClickContact();
                 conHome.ClickAddContact();
 
@@ -403,8 +408,13 @@ namespace SF_Automation.TestCases.GiftLog
             conHome.ClickContact();
             conHome.SearchContact(fileT1523);
             //To Delete created contact
-            contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
-            conHome.ClickContact();
+            try
+                {
+                    contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch
+                {//no record found
+                } conHome.ClickContact();
             conHome.ClickAddContact();
 
             // Calling select record type and click continue function

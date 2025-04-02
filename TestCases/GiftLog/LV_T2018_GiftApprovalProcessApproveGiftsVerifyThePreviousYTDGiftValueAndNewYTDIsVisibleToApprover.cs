@@ -295,7 +295,7 @@ namespace SF_Automation.TestCases.GiftLog
                         giftRequest.EnterDesiredDateLV(360);
                         //Enter required details in client gift pre- approval page
                         valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2018);
-                        extentReports.CreateStepLogs("Info", "Gift Reques Created with Name: " + valGiftNameEntered);
+                        extentReports.CreateStepLogs("Info", "Gift Request Created with Name: " + valGiftNameEntered);
 
                         enteredGiftValue = double.Parse(ReadExcelData.ReadData(excelPath, "GiftLog", 3));
                         currentNextYearGift = giftRequest.GetCurrentNextYearGiftAmtLV();

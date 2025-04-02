@@ -113,11 +113,11 @@ namespace SF_Automation.TestCases.Contact
 
                 //TC - TMT0034276, TMT0034268 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
                 Assert.IsTrue(lvContactDetails.VerifyDetailsDisplayedAtTheTopBarForExternalContact());
-                extentReports.CreateStepLogs("Passed", "External contact have Company Name,  title, phone and Email in top bar. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Company Name, title, phone and Email in top bar. ");
 
                 //TC - TMT0034269 - Verify that as a CF Finacial user, the external contact has Info, Relationships, coverage, activity, campaign history, and History tabs. 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedInRightSideForExternalContact(fileTMTC0019251));
-                extentReports.CreateStepLogs("Passed", "External contact have Info, Relationships, coverage, activity, campaign history, and History tabs. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Info, Relationships, Coverage, Activity, Campaign history and History tabs. ");
 
                 //TC - TMT0034271 - As CF Finacial user, verify that the Flag Contact and Company details coming in the Quick Updates. 
                 Assert.IsTrue(lvContactDetails.VerifyFlagContactAndCompanyDetailSectionsAreDisplayedInRightSideForExternalContact(fileTMTC0019251));

@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Companies
 
         public bool VerifyAssociatedEngagementsSectionOnContactDetailsPageDisplaysEngagementsWhereTheExternalContactIsAnEngagementContact(string exlEngContact)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 
@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Companies
             String[] engagementNames = new String[noOfEngagements];
             int j = 1;
 
-            for(int i = 0; i <= noOfEngagements - 1; i++)
+            for (int i = 0; i <= noOfEngagements - 1; i++)
             {
                 engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
                 driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Click();
@@ -44,7 +44,7 @@ namespace SF_Automation.Pages.Companies
 
                 try
                 {
-                    if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
+                    if (driver.FindElement(txtEngagementName).Text == engagementNames[i])
                     {
                         WebDriverWaits.WaitUntilEleVisible(driver, linkEngagementContacts, 120);
                         driver.FindElement(linkEngagementContacts).Click();
@@ -57,12 +57,12 @@ namespace SF_Automation.Pages.Companies
                         //Get the total no of contacts
                         int totalNoOfEngagementContacts = driver.FindElements(By.XPath("//table[@aria-label='Engagement Contacts']/tbody/tr")).Count;
 
-                        for(int row = 1; row <= totalNoOfEngagementContacts; row++)
+                        for (int row = 1; row <= totalNoOfEngagementContacts; row++)
                         {
                             //Get the eng contact name from each row
                             string engContactName = driver.FindElement(By.XPath($"(//table[@aria-label='Engagement Contacts']/tbody/tr)[{row}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]")).Text;
 
-                            if(engContactName==exlEngContact)
+                            if (engContactName == exlEngContact)
                             {
                                 result = true;
                                 driver.FindElement(btnCloseEngagementContacts).Click();
@@ -86,7 +86,7 @@ namespace SF_Automation.Pages.Companies
                     }
                     j++;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
 
                 }
@@ -106,14 +106,14 @@ namespace SF_Automation.Pages.Companies
             String[] engagementNames = new String[noOfEngagements];
             int j = 1;
 
-            for(int i = 0; i <= noOfEngagements - 1; i++)
+            for (int i = 0; i <= noOfEngagements - 1; i++)
             {
                 engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Text;
                 driver.FindElement(By.XPath($"(//b[text()='Associated Engagements ']/../../div/dl)[{j}]/dd/p/button")).Click();
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName, 120);
 
-                if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
+                if (driver.FindElement(txtEngagementName).Text == engagementNames[i])
                 {
                     result = true;
                     Thread.Sleep(5000);
@@ -143,14 +143,14 @@ namespace SF_Automation.Pages.Companies
             String[] engagementNames = new String[noOfEngagements];
             int j = 1;
 
-            for(int i = 0; i <= noOfEngagements - 1; i++)
+            for (int i = 0; i <= noOfEngagements - 1; i++)
             {
                 engagementNames[i] = driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div)[{j}]/dl/dd/p/button")).Text;
                 driver.FindElement(By.XPath($"(//b[text()='Referrals ']/following::div)[{j}]/dl/dd/p/button")).Click();
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtEngagementName, 120);
 
-                if(driver.FindElement(txtEngagementName).Text == engagementNames[i])
+                if (driver.FindElement(txtEngagementName).Text == engagementNames[i])
                 {
                     result = true;
                     Thread.Sleep(3000);
@@ -179,21 +179,21 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(By.XPath("//span[text()='Activity']/..")).Click();
                 Thread.Sleep(5000);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
 
             Thread.Sleep(5000);
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
             {
                 result = true;
             }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
+            else if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
             {
                 result = true;
             }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
+            else if (driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
             {
                 result = true;
             }
@@ -208,14 +208,17 @@ namespace SF_Automation.Pages.Companies
                 CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[2]")), 60);
                 Thread.Sleep(3000);
             }
-            catch(Exception)
+            catch (Exception)
             {
+                Thread.Sleep(2000);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[4]")), 60);
+                Thread.Sleep(3000);
             }
         }
 
         public void DeleteActivity()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 

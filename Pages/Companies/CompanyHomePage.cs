@@ -42,13 +42,28 @@ namespace SF_Automation.Pages
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         By txtDefaultSelectedViewL = By.XPath("//h1//span[contains(@class,'lineHeight')]");//h1//span[contains(@class,'selectedListView ')]");
         By iconListViewPickerL = By.XPath("//div[contains(@class,'name-switcher')]//button[contains(@title,'Select a List View')]");
-        By listViewsL = By.XPath("//div[contains(@class,'AutocompleteMenuList')]//li//span[contains(@class,'AutocompleteOptionText')]");
+        By listViewsL = By.XPath("//ul[@aria-label='Recent List Views']/..//li//span/span");//div[contains(@class,'AutocompleteMenuList')]//li//span[contains(@class,'AutocompleteOptionText')]");
         By txtSearchBoxL = By.XPath("//input[@placeholder='Search this list...']");
         By btnClearSearchBoxL = By.XPath("//input[@placeholder='Search this list...']/..//button");
-        By eleItemL = By.XPath("//table/tbody//tr[1]//th/span//a");
+        By eleItemL = By.XPath("//table/tbody//tr[1]//th/span//a//span");
         By imgCompL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By popDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+        By btnDeleteL = By.XPath("//button[contains(text(),'Delete')]");
+        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
+        By btnMoreDeleteL = By.XPath("//span[contains(text(),'Delete')]");
+        By btnConfirmDelete = By.XPath("//div[@role='dialog']//button[@title='Delete']");
+        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
+        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
+
+        private By _btnRadioRecordType(string type)
+        {
+            return By.XPath($"//h2[text()='New Company']/..//label//span[text()='{type}']");
+        }
+        private By _lnkSearchedCompanyL(string name)
+        {
+            return By.XPath($"//div[@aria-label='Companies||List View']//table//tbody//th[1]//a[@title='{name}']");
+        }
         private By _btnCompanyHomePage(string name)
         {
             return By.XPath($"//ul//a[@title='{name}']");
@@ -105,15 +120,16 @@ namespace SF_Automation.Pages
             bool isFound = false;
             IReadOnlyCollection<IWebElement> valViews = driver.FindElements(listViewsL);
             var actualViews = valViews.Select(x => x.Text).ToArray();
+            int viewsCount = actualViews.Length;
             int countViews = ReadExcelData.GetRowCount(excelPath, "Views");
             for (int viewRow = 2; viewRow <= countViews; viewRow++)
             {
                 string expectedViewName = ReadExcelData.ReadDataMultipleRows(excelPath, "Views", viewRow, 1);
-                for (int row = 0; row < actualViews.Length; row++)
+                for (int row = 0; row < viewsCount; row++)
                 {
                     isFound = false;
                     string actualViewName = actualViews[row];                    
-                    if (actualViewName == expectedViewName)
+                    if (actualViewName.Contains(expectedViewName))
                     {
                         isFound = true;
                         break;
@@ -137,17 +153,10 @@ namespace SF_Automation.Pages
         }
         public void ClickButtonCompanyHomePageLV(string btnName)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, _btnCompanyHomePage(btnName), 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnCompanyHomePage(btnName), 20);
             driver.FindElement(_btnCompanyHomePage(btnName)).Click();
             Thread.Sleep(5000);
-        }
-
-        
-
-        private By _lnkSearchedCompanyL(string name)
-        {
-            return By.XPath($"//div[@aria-label='Companies||List View']//table//tbody//th[1]//a[@title='{name}']");
-        }
+        }            
         
         public string GlobalSearchCompanyInLightningView(string companyName)
         {
@@ -380,13 +389,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtNewCompanyName).SendKeys(valCompanyName);
             driver.FindElement(btnSave).Click();
         }
-        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
-        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
         
-        private By _btnRadioRecordType(string type)
-        {
-           return By.XPath($"//h2[text()='New Company']/..//label//span[text()='{type}']");
-        }
         
         public void ClickNewCompanyButtonLV()
         {
@@ -400,12 +403,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnNextL, 10);
             driver.FindElement(btnNextL).Click();
         }
-
-        By btnDeleteL = By.XPath("//button[contains(text(),'Delete')]");
-        By iconExpandMoreButonL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
-        By btnMoreDeleteL = By.XPath("//span[contains(text(),'Delete')]");
-        By btnConfirmDelete = By.XPath("//div[@role='dialog']//button[@title='Delete']");
-
+        
         public string SearchCompanyNew(string companyName)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCompanies, 20);

@@ -341,11 +341,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 //*****Opportunities Counterparty detail page chagned no way to add/check Opportunity Counterparty Contact,Comments*******
                 extentReports.CreateStepLogs("Info", "*****Opportunities Counterparty detail page chagned no way to check Engagement Counterparty Contact,Comments******* ");
                 
-                /*
+                
                 //Validate Eng comments
                 engagementDetails.ClickEngInfoCommentsTabLV();
                 string commentsEng= engagementDetails.GetEngCommentPresentLV(commentOppType);
                 Assert.AreEqual(commentTextOppExl, commentsEng, "Verify Comments added on Opportunity page is available on VE Engagement Comments page");
+                /*
                 // Validate Counterparties
                 engagementDetails.ClickViewCounterpartiesButton();
                 Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List from Opportunity Page is available on VE Engagement Counterparty ");

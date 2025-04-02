@@ -88,8 +88,7 @@ namespace SF_Automation.TestCases.EventExpense
                     string nameTeamMemberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", row, 15);
 
                     expRequest.SaveExpenseRequestRequiredFieldstoSubmitLWC(valLOBExl, eventTypeExl, nameRequestor, nameEventContactExl, nameProductTypeExl, nameEventExl, nameCityExl, eventFormatExl, noOfGuestsExl, costETExl, costEFBExl, costOtherExl, costDscotherExl, nameHLOppExl, nameTeamMemberExl);
-
-                    
+                                        
                     //Validate Requestor value of expense request
                     string requestor=expRequestDetailPage.GetRequestorLWC();
                     Assert.AreEqual(nameRequestor, requestor);

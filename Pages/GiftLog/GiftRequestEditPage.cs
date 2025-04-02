@@ -33,8 +33,9 @@ namespace SF_Automation.Pages.GiftLog
 
         public void ClickNewGiftRequestLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewGiftRequest, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewGiftRequest, 20);
             driver.FindElement(btnNewGiftRequest).Click();
+            Thread.Sleep(5000);
         }
 
         public string GetGiftSelectedViewLV()
@@ -65,7 +66,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public string IsGiftValueAfterGiftApproveEditableLV()
         {
-            return CustomFunctions.IsElementEditable(driver, txtGiftValueAfterGiftApprove);
+            return CustomFunctions.IsElementEditable(driver, txtGiftValueAfterGiftApproveL);
         }
 
         public string IsApporvedDropDownEditableLV()
@@ -168,6 +169,7 @@ namespace SF_Automation.Pages.GiftLog
         By frameEditGiftRequestL = By.XPath("(//iframe[@title='accessibility title'])[2]");
         public string GetGiftRequestEditTitleLV()
         {
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameEditGiftRequestL));
             WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestEditTitle, 20);

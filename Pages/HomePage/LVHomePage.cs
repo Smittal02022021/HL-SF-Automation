@@ -221,7 +221,7 @@ namespace SF_Automation.Pages.HomePage
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkUserDetail, 120);
             driver.FindElement(linkUserDetail).Click();
-            Thread.Sleep(60000);
+            Thread.Sleep(20000);
 
             driver.SwitchTo().Frame(0);
 
@@ -367,7 +367,7 @@ namespace SF_Automation.Pages.HomePage
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 120);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkLogout, 20);
                 driver.FindElement(linkLogout).Click();
                 Thread.Sleep(4000);
             }

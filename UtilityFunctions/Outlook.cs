@@ -20,7 +20,7 @@ namespace SF_Automation.UtilityFunctions
         By linkSignOut = By.CssSelector("a[id*='signOut']");
         By outlookLabel = By.CssSelector("div[id*='owaBranding_container'] > div > a > span");
         //By searchBox = By.CssSelector("div[class='DqR_QI9wxI9eR6VFTBDcQ'] > input");
-        By searchBox = By.XPath("(//div[@class='rclHC']/input)[1]");
+        By searchBox = By.XPath("//div[@role='search']//input[@placeholder='Search']");
         By btnSearch = By.XPath("//*[@id='searchBoxColumnContainerId']/div[1]/button");
         //By btnSearch = By.CssSelector("i[data-icon-name='Search']");
         
@@ -38,8 +38,8 @@ namespace SF_Automation.UtilityFunctions
         By btnFilter = By.XPath("//div[text()='Filter']");
         By filterOptionUnread = By.XPath("//span[text()='Unread']/../../..");
         By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
-
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        By lnkCountinue = By.XPath("//input[@id='hiddenformSubmitBtn']");
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
         By txtMessageBody = By.XPath("//div[@class='PlainText']");
 
@@ -84,7 +84,6 @@ namespace SF_Automation.UtilityFunctions
             Thread.Sleep(2000);
 
             string excelPath = dir + file;
-
             string username = ReadExcelData.ReadData(excelPath, "UserCredential", 1);
             string password = ReadExcelData.ReadData(excelPath, "UserCredential", 2);
             if (CustomFunctions.IsElementPresent(driver, picAnAccount))
@@ -97,7 +96,6 @@ namespace SF_Automation.UtilityFunctions
                 if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
-
                 }
             }
             else
@@ -112,14 +110,24 @@ namespace SF_Automation.UtilityFunctions
                 if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
-
                 }
             }
             else
             {
                 Console.WriteLine("User is already logged in");
             }
-          
+            try
+            {
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkCountinue, 5);
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(lnkCountinue));
+
+                //driver.FindElement(lnkCountinue).Click();
+            }
+            catch
+            {
+                //Do nothing user is on default browser 
+            }
         }
 
         public void SelectExpenseApprovalEmailV()
@@ -141,12 +149,12 @@ namespace SF_Automation.UtilityFunctions
             IWebElement element = driver.FindElement(recentEmail);
             element.Click();
             Thread.Sleep(10000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, linkFirstLevelReviewSubmission, 20);
 
             driver.FindElement(linkFirstLevelReviewSubmission).Click();
+            Thread.Sleep(5000);
             CustomFunctions.SwitchToWindow(driver, 1);
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
         }
 
         public void SelectExpenseApprovalEmail()
@@ -324,6 +332,7 @@ namespace SF_Automation.UtilityFunctions
                 element.Click();
                 Thread.Sleep(10000);
                 driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                Thread.Sleep(5000);
                 CustomFunctions.SwitchToWindow(driver, 1);
                 Thread.Sleep(10000);
             }
@@ -342,18 +351,16 @@ namespace SF_Automation.UtilityFunctions
                 element.Click();
                 Thread.Sleep(10000);
                 driver.FindElement(linkSecondLevelReviewSubmission).Click();
+                Thread.Sleep(5000);
                 CustomFunctions.SwitchToWindow(driver, 1);
                 Thread.Sleep(10000);
-            }
-            
+            }            
         }
-
         public string GetLabelOfOutlook()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, outlookLabel, 120);
             string labelOutlook = driver.FindElement(outlookLabel).Text;
             Thread.Sleep(5000);
-
             return labelOutlook;
         }
 

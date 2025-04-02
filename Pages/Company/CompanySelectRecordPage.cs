@@ -43,7 +43,9 @@ namespace SF_Automation.Pages.Company
         }
         public void SelectCompanyRecordTypeAndClickNextLV(string type)
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, _radioRecordType(type), 20);
             driver.FindElement(_radioRecordType(type)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecordTypePageL, 20);
             driver.FindElement(btnRecordTypePageL).Click();
         }
       

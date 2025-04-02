@@ -298,7 +298,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboViewOptions = By.XPath("//button[@name='view']//parent::div//following-sibling::div[@role='listbox']//lightning-base-combobox-item//span[@class='slds-media__body']//span");
 
         By btnDeleteCounterparty = By.XPath("//div[contains(@class,'button-group')]//slot//button[text()='Delete']");
-        By chkboxSelectAll = By.XPath("//input[contains(@class,'select-all')]//following::label//span[contains(@class,'checkbox')]");//lightning-layout-item//table//span[contains(@class,'checkbox')]//input[contains(@class,'select-all')]");
+        By chkboxSelectAll = By.XPath("//lightning-layout-item//table//span[contains(@class,'checkbox')]//input[contains(@class,'select-all')]/..//label/span[1]"); //input[contains(@class,'select-all')]//following::label//span[contains(@class,'checkbox')]");
         By tableCompanyList = By.XPath("//table[contains(@aria-describedby,'Company-list')]");
         By btnOKCompanyList = By.XPath("//footer//button[@title='OK']");
         By txtSearchCountryparty = By.XPath("//lightning-input[contains(@class,'searchField')]//input");
@@ -1415,8 +1415,19 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtSentTeaser).SendKeys(getDate);
             Actions actions = new Actions(driver);
             //Not working
+            CustomFunctions.MoveToElement(driver, driver.FindElement(iconEditComments));
             IWebElement editComments = driver.FindElement(iconEditComments);
             actions.DoubleClick(editComments).Perform();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txticonEditComments, 2);
+            }
+            catch
+            {
+                // Perform double-click if single click doesn't work on edit comment field
+                editComments.Click();
+            }
+
             //try
             //{
             //    CustomFunctions.MoveToElement(driver, editComments);
@@ -1523,6 +1534,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         public void ClickAllCheckboxCounterpartyCompany()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkboxSelectAll, 10);
             driver.FindElement(chkboxSelectAll).Click();
             Thread.Sleep(5000);
         }

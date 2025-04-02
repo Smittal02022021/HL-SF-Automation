@@ -463,11 +463,11 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(3000);
 
             //Update Primary Ext Attendee
-            driver.FindElement(By.XPath("((//input[@part='checkbox'])[7]/following::span)[1]")).Click();
+            driver.FindElement(By.XPath("((//span[text()='Primary'])[1]/../span)[1]")).Click();
             Thread.Sleep(2000);
 
             //Remove Non Primary HL Attendee
-            driver.FindElement(By.XPath("((//input[@part='checkbox'])[10]/following::span)[1]")).Click();
+            driver.FindElement(By.XPath("((//span[text()='Primary'])[4]/../span)[1]")).Click();
             Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
@@ -538,7 +538,7 @@ namespace SF_Automation.Pages.Activities
                     string meetingNotes1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static']/lightning-formatted-text)[2]")).Text;
                     string industryGroup1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[7]")).Text;
                     string productType1 = driver.FindElement(By.XPath("(//div[@class='slds-form-element__static'])[8]")).Text;
-                    string additionalExtAttendee1 = driver.FindElement(By.XPath("//a[@data-value='003Oy00000OE2H3IAL']")).Text;
+                    string additionalExtAttendee1 = driver.FindElement(By.XPath("//a[@data-value='003Ox00000aqfm1IAA']")).Text;
                     string additionalHLAttendee1 = driver.FindElement(By.XPath("//a[@data-value='0035A00003czwjrQAA']")).Text;
 
                     if(type==type1 && subject==subject1 && description==description1 && meetingNotes==meetingNotes1 && industryGroup==industryGroup1 && productType==productType1 && additionalExtAttendee==additionalExtAttendee1 && additionalHLAttendee==additionalHLAttendee1)

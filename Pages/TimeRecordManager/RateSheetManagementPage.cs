@@ -132,12 +132,15 @@ namespace SF_Automation.Pages.TimeRecordManager
         public void SelectRateSheet(string rateSheetname)
         {
             Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,800)");
             IList<IWebElement> rateSheets = driver.FindElements(By.XPath("//tbody/tr"));
             for (int i = 1; i <= rateSheets.Count; i++)
             {
-                string rateSheetValue = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Text;
+                string rateSheetValue = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a//span")).Text;
                 if (rateSheetValue.Equals(rateSheetname))
                 {
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")));
                     driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Click();
                     Thread.Sleep(2000);
                     break;

@@ -64,7 +64,7 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
@@ -79,6 +79,12 @@ namespace SF_Automation.Pages
         public string GlobalSearchEngagementInLightningView(string engName)
         {
             Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
             WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
             driver.FindElement(inputGlobalSearchL).Click();
             Thread.Sleep(4000);
@@ -652,6 +658,12 @@ namespace SF_Automation.Pages
         public string SearchEngagementInLightningView(string value)
         {
             Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
             driver.FindElement(btnEngNumL).Click();
             Thread.Sleep(4000);

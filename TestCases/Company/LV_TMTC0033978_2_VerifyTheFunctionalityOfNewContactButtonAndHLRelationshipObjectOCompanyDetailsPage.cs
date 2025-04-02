@@ -232,7 +232,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
                 try
-                {
+                {                    
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
@@ -261,7 +261,7 @@ namespace SF_Automation.TestCases.Companies
                 
                 catch (Exception ex)
                 {
-                    extentReports.CreateExceptionLog(ex.Message);
+                    CustomFunctions.PageReload(driver);
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");

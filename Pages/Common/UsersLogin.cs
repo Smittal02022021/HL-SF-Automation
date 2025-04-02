@@ -156,8 +156,11 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, optionUserDetail);
             driver.FindElement(optionUserDetail).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
-            driver.FindElement(btnLogin).Click();
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnLogin));
+
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
+            //driver.FindElement(btnLogin).Click();
             Thread.Sleep(2000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(2000);

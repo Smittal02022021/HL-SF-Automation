@@ -79,12 +79,12 @@ namespace SF_Automation.Pages.Common
         By imgSpinningLoader = By.XPath("//div[@class='loading']");
         By txtProductLineL = By.XPath("//div[contains(@data-target-selection-name,'Product_Line__c')]//lightning-formatted-text");
         By txtProductTypeCodeL = By.XPath("//div[contains(@data-target-selection-name,'Product_Type_Code__c')]//lightning-formatted-text");
-        By valERPProductTypeL = By.XPath("//records-record-layout-item[@field-label='Product Type']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
-        By valERPProductTypCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Product Type Code']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
+        By valERPProductTypeL = By.XPath("//span[text()='Product Type']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
+        By valERPProductTypCodeL = By.XPath("//span[text()='ERP Product Type Code']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
         By checkERPUpdateDFFL = By.XPath("//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Update DFF']//input[@type='checkbox']");
-        By valERPSubmittedToSyncL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
-        By valERPLastIntStatusL = By.XPath("//records-record-layout-item[@field-label='ERP Last Integration Status']//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text
-        By valERPLastIntegrationResponseDateL = By.XPath("//records-record-layout-item[@field-label='ERP Last Integration Response Date']//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text
+        By valERPSubmittedToSyncL = By.XPath("//span[text()='ERP Submitted To Sync']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//lightning-formatted-text");
+        By valERPLastIntStatusL = By.XPath("//span[text()='ERP Last Integration Status']/../../..//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Status']//dd//lightning-formatted-text
+        By valERPLastIntegrationResponseDateL = By.XPath("//span[text()='ERP Last Integration Response Date']/../../..//lightning-formatted-text");//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text");////div[@class='slds-form']//records-record-layout-item[@field-label='ERP Last Integration Response Date']//dd//lightning-formatted-text
         By btnSaveL = By.XPath("//button[text()='Save']");
 
         By iconInlineEditERPSubmittedToSyncL = By.XPath("//records-record-layout-item[@field-label='ERP Submitted To Sync']//dd//button");
@@ -95,25 +95,25 @@ namespace SF_Automation.Pages.Common
         By txtHLSectorComboL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordSector_Combo_cField')]//dd//lightning-formatted-text");
         By txtJobTypeL = By.XPath("//flexipage-field[contains(@data-field-id,'RecordJob_Type')]//dd//lightning-formatted-text");
         By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
-        By valERPIDL = By.XPath("//records-record-layout-item[@field-label='ERP ID']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP ID']//dd//lightning-formatted-text");
-        By valERPProjStatusCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Project Status Code']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Status Code']//dd//lightning-formatted-text");
-        By valERPProjectNumberL = By.XPath("//records-record-layout-item[@field-label='ERP Project Number']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Number']//dd//lightning-formatted-text");
-        By valERPProjectNameL = By.XPath("//records-record-layout-item[@field-label='ERP Project Name']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Name']//dd//lightning-formatted-text");
-        By valERPLOBL = By.XPath("//records-record-layout-item[@field-label='ERP LOB']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP LOB']//dd//lightning-formatted-text");
-        By valERPTemplateL = By.XPath("//records-record-layout-item[@field-label='ERP Template']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Template']//dd//lightning-formatted-text");
-        By valERPUnitL = By.XPath("//records-record-layout-item[@field-label='ERP Business Unit']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit']//dd//lightning-formatted-text");
-        By valERPUnitIDL = By.XPath("//records-record-layout-item[@field-label='ERP Business Unit Id']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit Id']//dd//lightning-formatted-text");
-        By valERPLegalEntityIDL = By.XPath("//records-record-layout-item[@field-label='ERP Legal Entity Id']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity Id']//dd//lightning-formatted-text");
-        By valERPEntityCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Entity Code']//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Entity Code']//dd//lightning-formatted-text");
-        By valERPLegCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Legislation Code']//lightning-formatted-text");
+        By valERPIDL = By.XPath("//span[text()='ERP ID']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP ID']//dd//lightning-formatted-text");
+        By valERPProjStatusCodeL = By.XPath("//span[text()='ERP Project Status Code']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Status Code']//dd//lightning-formatted-text");
+        By valERPProjectNumberL = By.XPath("//span[text()='ERP Project Number']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Number']//dd//lightning-formatted-text");
+        By valERPProjectNameL = By.XPath("//span[text()='ERP Project Name']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Project Name']//dd//lightning-formatted-text");
+        By valERPLOBL = By.XPath("//span[text()='ERP LOB']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP LOB']//dd//lightning-formatted-text");
+        By valERPTemplateL = By.XPath("//span[text()='ERP Template']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Template']//dd//lightning-formatted-text");
+        By valERPUnitL = By.XPath("//span[text()='ERP Business Unit']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit']//dd//lightning-formatted-text");
+        By valERPUnitIDL = By.XPath("//span[text()='ERP Business Unit Id']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Business Unit Id']//dd//lightning-formatted-text");
+        By valERPLegalEntityIDL = By.XPath("//span[text()='ERP Legal Entity Id']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Legal Entity Id']//dd//lightning-formatted-text");
+        By valERPEntityCodeL = By.XPath("//span[text()='ERP Entity Code']/../../..//lightning-formatted-text");//div[@class='slds-form']//records-record-layout-item[@field-label='ERP Entity Code']//dd//lightning-formatted-text");
+        By valERPLegCodeL = By.XPath("//span[text()='ERP Legislation Code']/../../..//lightning-formatted-text");
         By valERPIGL = By.XPath("//records-record-layout-item[contains(@field-label,'ERP Industry Group')]//lightning-formatted-text");
-        By valHLEntityL = By.XPath("//records-record-layout-item[@field-label='HL Entity']//lightning-formatted-text");
-        By valERPHLEntityL = By.XPath("//records-record-layout-item[@field-label='ERP HL Entity']//lightning-formatted-text");
-        By valERPLegalEntityL = By.XPath("//records-record-layout-item[@field-label='ERP Legal Entity']//lightning-formatted-text");
+        By valHLEntityL = By.XPath("//span[text()='HL Entity']/../../..//lightning-formatted-text");
+        By valERPHLEntityL = By.XPath("//span[text()='ERP HL Entity']/../../..//lightning-formatted-text");
+        By valERPLegalEntityL = By.XPath("//span[text()='ERP Legal Entity']/../../..//lightning-formatted-text");
         By valERPErrorL = By.XPath("//records-record-layout-item[contains(@field-label,'Error Description')]//lightning-formatted-text");
-        By valERPEmailIDL = By.XPath("//records-record-layout-item[@field-label='ERP Principal Manager']//lightning-formatted-text");
-        By valLOBL = By.XPath("//records-record-layout-item[@field-label='Line of Business']//lightning-formatted-text");
-        By valJobCodeL = By.XPath("//records-record-layout-item[@field-label='Job Code']//lightning-formatted-text");
+        By valERPEmailIDL = By.XPath("//span[text()='ERP Principal Manager']/../../..//lightning-formatted-text");
+        By valLOBL = By.XPath("//span[text()='Line of Business']/../../..//lightning-formatted-text");
+        By valJobCodeL = By.XPath("//span[text()='Job Code']/../../..//lightning-formatted-text");
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");

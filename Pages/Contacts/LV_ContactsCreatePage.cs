@@ -367,5 +367,48 @@ namespace SF_Automation.Pages.Contact
             string msg = driver.FindElement(By.XPath("(//span[text()='Last Name'])[1]/..")).Text;
             return msg;
         }
+        public void CreateNewContactLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);          
+
+            // Enter value in Company search box
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
+            driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 1));
+            Thread.Sleep(2000);
+
+            try
+            {
+                //Select the company
+                driver.FindElement(By.XPath("(//lightning-base-combobox-item)[2]/span[2]")).Click();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            //Enter first name
+            WebDriverWaits.WaitUntilEleVisible(driver, inputFirstName, 40);
+            driver.FindElement(inputFirstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
+
+            //Enter last name
+            WebDriverWaits.WaitUntilEleVisible(driver, inputLastName, 40);
+            driver.FindElement(inputLastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
+
+            //Enter email
+            WebDriverWaits.WaitUntilEleVisible(driver, inputEmail, 40);
+            driver.FindElement(inputEmail).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 4));
+
+            //Enter phone
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPhone, 40);
+            driver.FindElement(inputPhone).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 5));
+
+            // Click save button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave1);
+            driver.FindElement(btnSave1).Click();
+            Thread.Sleep(5000);
+        }
     }
 }

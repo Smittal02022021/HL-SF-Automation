@@ -1067,7 +1067,8 @@ namespace SF_Automation.Pages.Engagement
         {
             try
             {
-                //driver.FindElement(tabAdministationL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
+                driver.FindElement(tabAdministationL).Click();
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, checkBoxCoExistEngL, 5);
@@ -1166,6 +1167,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string VerifyIfCoExistFieldIsEditableOrNotLV()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
             driver.FindElement(tabAdministationL).Click();
             try
             {
@@ -8134,8 +8136,8 @@ namespace SF_Automation.Pages.Engagement
         By tabEngCommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
         public void ClickEngInfoCommentsTabLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
-            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 10);
+            driver.FindElement(tabInfo2ndL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngCommentsL, 10);
             driver.FindElement(tabEngCommentsL).Click();
             Thread.Sleep(5000);

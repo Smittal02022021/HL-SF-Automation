@@ -238,6 +238,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
                     CustomFunctions.PageReload(driver);
+
                     //addCounterparty.ClickCounterparyQuickLink("Contacts");
                     //Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));
                     // extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available under Counterparty Contact(s) Quicklink");

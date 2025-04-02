@@ -142,6 +142,8 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", contactFullName + " created contact is listed under the Contacts tab of the Company Detail Page");
 
                     //TMT0076333 Verify the functionality of "Edit" action button on the Contact - HL Relationship
+                    CustomFunctions.PageReload(driver);
+                    companyDetail.ClickContactTabLV();
                     companyDetail.ClickEditContactContactTabLV();
                     string valPhoneNumber = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 4);
                     companyDetail.UpdateContactPhoneNumberLV(valPhoneNumber);
@@ -233,6 +235,7 @@ namespace SF_Automation.TestCases.Companies
                 }
                 catch 
                 {
+                    CustomFunctions.PageReload(driver);
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");

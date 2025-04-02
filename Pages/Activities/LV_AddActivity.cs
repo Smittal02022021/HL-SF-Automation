@@ -358,17 +358,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(2000);
-
-            driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
-            Thread.Sleep(1000);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+            Thread.Sleep(2000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
@@ -1087,8 +1079,8 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
 
             string msg1 = driver.FindElement(By.XPath("(//span[text()='Subject'])[2]/..")).Text;
-            string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text;
-            string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text;
+            string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[3]")).Text;
+            string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[6]")).Text;
 
             if(msg1.Contains(subExcel) && msg2.Contains("Complete this field with format") && msg3.Contains("Complete this field with format"))
             {

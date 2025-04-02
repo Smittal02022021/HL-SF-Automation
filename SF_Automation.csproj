@@ -1027,10 +1027,21 @@
     <None Include="packages\Sikuli4Net.1.0.6\Sikuli4Net.1.0.6.nupkg" />
     <None Include="TestData\CloneOperation1.xlsx" />
     <None Include="TestData\CNBC_EndToEnd.xlsx" />
+    <None Include="TestData\CrashpadMetrics-active.pma" />
     <None Include="TestData\ERPPostCoversionToEngagement.xlsx" />
     <None Include="TestData\ERPPostCoversionToEngagement1.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
+    <None Include="TestData\First Run" />
+    <None Include="TestData\Last Browser" />
+    <None Include="TestData\Last Version" />
+    <None Include="TestData\Local State" />
+    <None Include="TestData\LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.xlsx" />
+    <None Include="TestData\LV_T1147_CompaniesEditAndUpdateTheExistingInformation.xlsx" />
+    <None Include="TestData\LV_T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1174_CompaniesAddCFOpportunityOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1176_CompaniesAddFVAOpportunityInCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1177_CompaniesAddFROpportunityInCompanyDetailPage.xlsx" />
     <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
     <None Include="TestData\LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes.xlsx" />
     <None Include="TestData\LV_T1508_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.xlsx" />
@@ -1041,6 +1052,7 @@
     <None Include="TestData\LV_T1526_ApproveGiftsDenySelectedToDenySelectedGiftsFromApprovedList.xlsx" />
     <None Include="TestData\LV_T1527_ApproveSelectedToApproveSelectedGiftsFromDeniedList.xlsx" />
     <None Include="TestData\LV_T1592_ValidationsToBeCompleted.xlsx" />
+    <None Include="TestData\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.xlsx" />
     <None Include="TestData\LV_T1683_HLInternalTeam_EditAndUpdate.xlsx" />
     <None Include="TestData\LV_T1692_ValidationsToBeCompletedBeforeFVAOpportunityIsApproved.xlsx" />
     <None Include="TestData\LV_T1693_ValidationsToBeCompletedBeforeFROpportunityIsApproved.xlsx" />
@@ -1056,6 +1068,12 @@
     <None Include="TestData\LV_T2020_GiftApprovalProcessVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.xlsx" />
     <None Include="TestData\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.xlsx" />
     <None Include="TestData\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.xlsx" />
+    <None Include="TestData\LV_T2274_VerifyValidationRulesOnEventExpense.xlsx" />
+    <None Include="TestData\LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover.xlsx" />
+    <None Include="TestData\LV_T2278_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.xlsx" />
+    <None Include="TestData\LV_T2278_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.xlsx" />
+    <None Include="TestData\LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet1.xlsx" />
+    <None Include="TestData\LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet2.xlsx" />
     <None Include="TestData\LV_T2327_TMTC0002473_VerifyTheRolesAvailableToRegistered.xlsx" />
     <None Include="TestData\LV_T2329_TMTC0002479_VerifyTheRoles.xlsx" />
     <None Include="TestData\LV_T2330_TMTC0002482_VerifyTheRolesAvailable.xlsx" />
@@ -1064,6 +1082,22 @@
     <None Include="TestData\LV_TC2331_TMTC0002485_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\LV_TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\LV_TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TMT0076335_VerifyTheFunctionalityOfNewContactButtonAndHLRelationshipObjectOCompanyDetailsPage.xlsx" />
+    <None Include="TestData\LV_TMT0076578_VerifyTheFunctionalityOfCoveageOfficeStatusOnCoverageTeamDetailPages.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_4_VerifyRelatedListIsUdatedOnCratedCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyDuplicateAlertFunctionalityOfCompaniesAndContact.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyFunctionalityOfCompaniesInfo.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyFunctionalityOfCompaniesInfoSystemAdmin.xlsx" />
+    <None Include="TestData\LV_TMTC0033978_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034013_VerifyTheFunctionalityOfTheBoardMembersTabInTheCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0034016_VerifyTheFunctionalityOfCoverageTabOnCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034058_VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTI0027301_VerifyTheIndustryNameIsUpdatedOnContactDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTI0045469_VerifyNewTitleAddedinTitleRateSheet.xlsx" />
+    <None Include="TestData\LV_TMTI0045472_VerifyBetaUserWithDifferentTitleIsAbletoEnterHoursfromTimeRecordmanager.xlsx" />
+    <None Include="TestData\LV_TMTI0045474_VerifytheAmountIsCalculatedOnTimeRecordManagerForNewEngagement.xlsx" />
     <None Include="TestData\LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.xlsx" />
@@ -1074,9 +1108,21 @@
     <None Include="TestData\LV_TMTI0056883_VerifyNewJobTypeIsForFVAOnly.xlsx" />
     <None Include="TestData\LV_TMTI0063910_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion.xlsx" />
     <None Include="TestData\LV_TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion.xlsx" />
+    <None Include="TestData\LV_TMTT0002649_TimeRecordManager_VerifyTimeEntriesareRoundOffToFirstDecimalPlace.xlsx" />
+    <None Include="TestData\LV_TMTT0005430_TimeRecorderFunctionalities.xlsx" />
+    <None Include="TestData\LV_TMTT0009535_VerifyRateGenerationToStaffWithDifferentTitleInSummaryAndDetailsLogTabLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0011411VerifyUserWithTitleTAGOutsourcedContractor.xlsx" />
+    <None Include="TestData\LV_TMTT0011413_VerifyTimeEntriesRoundOffForSupervisorInTimeRecordManagerLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0011418_VerifyTASSupervisorCanMoreThan24hoursForOneDayForAssociatesWithTitleTAGOutsourcedContractor.xlsx" />
+    <None Include="TestData\LV_TMTT0011419_VerifyTASSupervisorCanonlyEnterLessThan24HoursForOneDayforAssociatesLightningView.xlsx" />
     <None Include="TestData\LV_TMTT0012113_ValidateCoExistFieldForGCATracking.xlsx" />
     <None Include="TestData\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.xlsx" />
+    <None Include="TestData\LV_TMTT0012451_VerifyCFIndustryGroupUpdatedToTECHonCompanies.xlsx" />
+    <None Include="TestData\LV_TMTT0012453_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.xlsx" />
+    <None Include="TestData\LV_TMTT0013748_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.xlsx" />
+    <None Include="TestData\LV_TMTT0022031_VerifyFunctionalityAddNewActivitiesAndVerifyTheSameOnMyActivityDashboard.xlsx" />
     <None Include="TestData\LV_TMTT0024858_VerifyNewJobTypeOnJobTypeObjPageLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0029770_VerifyUserCanSearchProjectWithNameOnTimeRecordManager.xlsx" />
     <None Include="TestData\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement.xlsx" />
@@ -1085,13 +1131,25 @@
     <None Include="TestData\LV_TMTT0036858_VerifyFunctionalityOfDNDSharingFeatureForFVALOBOpportunityAndEngagementOnLightningView.xlsx" />
     <None Include="TestData\LV_TMTT0036859_VerifyTheFunctionalityOfDNDSharingFeatureForCFLOBOpportunityAndEngagementOnLightningView.xlsx" />
     <None Include="TestData\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0038660_VerifyTheFunctionalityOfTimeClockRecorderForFVAStandardUserOnSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVACAOUserOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVAStandardUserOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorCAOUserOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0038660_VerifyTheFunctionalityOfTimeRecordManagerForFVASupervisorUserOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRCAOdUserFromFRTimeTrackingGroupsOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.xlsx" />
+    <None Include="TestData\LV_TMTT0039653_VerifyChangesImplementedOnCVASTimeTracking.xlsx" />
     <None Include="TestData\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
     <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
     <None Include="TestData\LV_TS04AndTS07_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS05_ValidateERPSection.xlsx" />
+    <None Include="TestData\LV_VerifyTheActivityListForUseronLightningView.xlsx" />
+    <None Include="TestData\LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningView.xlsx" />
+    <None Include="TestData\Module Info Cache" />
     <None Include="TestData\Outlook.xlsx" />
+    <None Include="TestData\persisted_first_party_sets.json" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
     <None Include="TestData\T1048_Contact_CreateNewContactRecordTypeHoulihanEmployee.xlsx" />
@@ -1231,10 +1289,34 @@
     <None Include="TestData\TC2331_TMTC0002485_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\TMT0047429_VerifyActivityFunctionalityOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\TMT0047476_VerifyActivityAccessRelatedFunctionalityOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\TMT0047480_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\TMT0047482_VerifyActivityFunctionalityWithoutExternalContactOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\TMT0047484_VerifyPrimaryAttendeeSelection.xlsx" />
     <None Include="TestData\TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.xlsx" />
+    <None Include="TestData\TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.xlsx" />
     <None Include="TestData\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyActivityIsLinkedToTheRelatedCampaign.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyActivityIsLinkedToTheRelatedEngagement.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyActivityIsLinkedToTheRelatedOpportunity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyActivityIsLinkedToTheSelectedCompanyDiscussed.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyActivityPageValidations.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBankerCanCreateExternalAndInternalFollowUpActivity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBankerCanRemoveNonPrimaryHLAndExternalAttendeesFromAnActivity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBankerCanUpdatePrimaryAttendeeAndMakeAnotherPrimaryAttendee.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBankerWhoIsNotPartOfTheActivityCannotEditTheActivity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBanker_PrimaryOrNonPrimary_WhoIsPartOfTheActivityCanEditTheActivity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBothPrimaryAndNonPrimaryAttendeeCanDeleteActivityFromSF.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBothPrimaryAndNonPrimaryAttendeeCanEditFollowUpActivity.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyBothPrimaryAndNonPrimaryAttendeeCanSendNotificationFromSF.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyEACactivityInGlobalSearch.xlsx" />
+    <None Include="TestData\TMTC0032668_VerifyMeetingsEventsActivitiesCreatedAsABankerInSF.xlsx" />
+    <None Include="TestData\TMTC0032670_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.xlsx" />
+    <None Include="TestData\TMTC0032670_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.xlsx" />
     <None Include="TestData\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.xlsx" />
     <None Include="TestData\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.xlsx" />
+    <None Include="TestData\TMTC0034027_VerifyTheFunctionalityOfFinancialsTabOnCompanyDetailPage.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
     <None Include="TestData\TMTI0018624_FREngagementSummary_VerifyLendersAddedunderPreAndPostTransaction.xls" />
     <None Include="TestData\TMTI0027300_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.xlsx" />
@@ -1258,10 +1340,12 @@
     <None Include="TestData\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOn_MeetingManagementPresentationPage.xlsx" />
     <None Include="TestData\TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.xlsx" />
+    <None Include="TestData\TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPageLV.xlsx" />
     <None Include="TestData\TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\TMTI0055011_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFVALOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\TMTI0055029_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTI0055384_NewCFOpportunityWithNewJobType.xlsx" />
     <None Include="TestData\TMTI0055389_EditExistingOppEngToNewCFJobType.xlsx" />
     <None Include="TestData\TMTI0055401_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.xlsx" />
     <None Include="TestData\TMTI0056868_VerifyStatusIsUpdatedInOracleERPInformationSectionForFVARecordTypes.xlsx" />
@@ -1271,8 +1355,12 @@
     <None Include="TestData\TMTI0056876_VerifyNewUpdatedJobTypeAndJobCodeUnderJobTypeObject.xlsx" />
     <None Include="TestData\TMTI0056880_ValidateNewJobTypesAvailability.xlsx" />
     <None Include="TestData\TMTI0056883_VerifyNewJobTypeIsForFVAOnly.xlsx" />
+    <None Include="TestData\TMTI0063910_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion.xlsx" />
+    <None Include="TestData\TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion.xlsx" />
     <None Include="TestData\TMTI0068990_VerifyUserCanSearchProjectWithNameOnTimeRecordManager.xlsx" />
     <None Include="TestData\TMTI0069005_VerifyClientNameIsAddedToTheProjectNamesForOpportunityEngagements.xlsx" />
+    <None Include="TestData\TMTI0075756_75765_EventExpense_EmailNotification_RequestMoreInformationApproveAsFirstLevelApprover.xlsx" />
+    <None Include="TestData\TMTI0075758_75760_75767_75769_EventExpense_ApproveEventExpenseFormAsSecondLevelApprover.xlsx" />
     <None Include="TestData\TMTT0005173_ActivitiesList_VerifyLayoutOfActivitiesList.xlsx" />
     <None Include="TestData\TMTT0005211_RefreshButtonFunctionalities.xlsx" />
     <None Include="TestData\TMTT0005221_StartButtonFunctionalities.xlsx" />
@@ -1300,6 +1388,7 @@
     <None Include="TestData\TMTT0011738_VerifytheTypeFiltersearchwhenthedesiredactivityisnotpresentoncurrentorselectedpage.xlsx" />
     <None Include="TestData\TMTT0011740_VerifytheaccessofOtherAttendeeAccessForPrivatectivity.xlsx" />
     <None Include="TestData\TMTT0011744_VerifythatActivityDescriptionontheactivityisbeingmappedtoEmailTemplatewithsameformatasActivityDescription.xlsx" />
+    <None Include="TestData\TMTT0012113_ValidateCoExistFieldForGCATracking.xlsx" />
     <None Include="TestData\TMTT0013748_TMTT0013750_TMTT0013751_TMTT0013753_VerifyNewTitleRateSheetAvailability_CalculatedAmountOnTimeRecordManagerAfterAddingRateSheet.xlsx" />
     <None Include="TestData\TMTT0013752_ContactDetailsPage_VerifyAvailabilityOfJobCodeFieldAndValue.xlsx" />
     <None Include="TestData\TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType.xlsx" />
@@ -1308,18 +1397,31 @@
     <None Include="TestData\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.xlsx" />
     <None Include="TestData\TMTT0017340_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsRequestor.xlsx" />
     <None Include="TestData\TMTT0017341_EventExpense_VerifyTheCFExpenseRequestFunctionalityOfSearchFilters.xlsx" />
+    <None Include="TestData\TMTT0017877_LightningEngagement.xls" />
+    <None Include="TestData\TMTT0017877_LightningEngagement2.xls" />
     <None Include="TestData\TMTT0017889_CommentsAndContactsMappingToEngUponConversionFromOpportunity.xlsx" />
     <None Include="TestData\TMTT0020211_Tearsheet_VerifyTheFunctionalityOfTearsheetCompanySearchPage.xlsx" />
+    <None Include="TestData\TMTT0022009_VerifiyAvailabilityFunctionalityOfMyActivityTabUnderActivitiesDashboard.xlsx" />
+    <None Include="TestData\TMTT0022150_VerificationOfCoverageCompanyDashboardNewUIAndFunctionality.xlsx" />
     <None Include="TestData\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.xls" />
     <None Include="TestData\TMTT0027453_MassCheckboxs.xls" />
     <None Include="TestData\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_View_Email_Access_Delete_ViewAll.xls" />
+    <None Include="TestData\TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage.xlsx" />
+    <None Include="TestData\TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTT0035667_VerifyInternalDealTeamForAnalystRoleLimitForFVALOBOpportunityEngagement.xlsx" />
+    <None Include="TestData\TMTT0035971_VerifyOpportunityToEngagementConversionDefaultStartDateStatus.xlsx" />
     <None Include="TestData\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.xlsx" />
     <None Include="TestData\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx" />
     <None Include="TestData\TS012_ERPInformationOfContractDetalPage.xlsx" />
     <None Include="TestData\TS013_ERPInformationOfContractDetalPageWithNewCompany.xlsx" />
     <None Include="TestData\TS019_Company_ERPContactUpdateFlagFields.xlsx" />
+    <None Include="TestData\TS01_ValidateERPSection.xlsx" />
+    <None Include="TestData\TS01_ValidateERPSection1.xlsx" />
     <None Include="TestData\TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
+    <None Include="TestData\TS04AndTS07_ValidateERPSection.xlsx" />
     <None Include="TestData\TS04AndTS07_ValidateERPSection2.xlsx" />
+    <None Include="TestData\TS05_ValidateERPSection.xlsx" />
     <None Include="TestData\TS08_MultipleContractsInEngagement.xlsx" />
     <None Include="TestData\TS09_EngagementDetails.xlsx" />
     <None Include="TestData\TS09_VerifyICOContractBasedOnLOBOfLegalEntity.xlsx" />
@@ -1338,6 +1440,7 @@
     <None Include="TestData\TS32_OpportunityDetails.xlsx" />
     <None Include="TestData\TS32_VerifyIcoContractDetailOnOpportunity.xlsx" />
     <None Include="TestData\TS33_mainContractVerification.xlsx" />
+    <None Include="TestData\Variations" />
     <None Include="TestData\VerifyEngagementReportLinks.xls" />
   </ItemGroup>
   <ItemGroup>
@@ -1347,7 +1450,18 @@
     <Content Include="JSikuliModule.jar" />
     <Content Include="mongocrypt.dll" />
     <Content Include="packages\Sikuli4Net.1.0.6\lib\Sikuli4Net.dll" />
+    <Content Include="TestData\BankerDropdown.PNG" />
+    <Content Include="TestData\BankerName.PNG" />
+    <Content Include="TestData\BankerTextbox.PNG" />
+    <Content Include="TestData\chromedriver.exe" />
+    <Content Include="TestData\chrome_shutdown_ms.txt" />
+    <Content Include="TestData\CoverageOfficer.PNG" />
+    <Content Include="TestData\FileToUpload.jpg.png" />
     <Content Include="TestData\FileToUpload.txt" />
+    <Content Include="TestData\Screenshot_Login.PNG" />
+    <Content Include="TestData\Screenshot_Password.PNG" />
+    <Content Include="TestData\Screenshot_Username.PNG" />
+    <Content Include="TestData\UploadFile.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
@@ -1371,7 +1485,7 @@
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.134.0.6998.8800\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.134.0.6998.8800\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
@@ -1383,5 +1497,5 @@
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" />
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.134.0.6998.8800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.134.0.6998.8800\build\Selenium.WebDriver.ChromeDriver.targets')" />
 </Project>
