@@ -841,7 +841,15 @@ namespace SF_Automation.Pages.Engagement
         By btnStartingYear = By.XPath("//button[@aria-label='Year']");
         By valStartingYear = By.XPath("//label[text()='Year']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[5]//span[2]/span");
         By btnViewCounterparty = By.XPath("//li[contains(@data-target-selection-name,'QuickAction.Engagement')]//button[contains(text(),'View Counterparties')]");
-
+        By iconMoreActionComments = By.XPath("//article[@aria-label='Comments']//button/span[text()='Show more actions']/..");
+        By lnkNew = By.XPath("//lightning-button-menu[contains(@class,'slds-is-open')]//div//a//span[text()='New']");
+        By txtEngCommentsIDL = By.XPath("//h1//records-entity-label[text()='Engagement Comment']/../../..//lightning-formatted-text/../..//slot//lightning-formatted-text");
+        By valSponsorCmpnyL = By.XPath("//table[@aria-label='FS Engagements']//tbody//tr[1]//lightning-primitive-cell-factory[@data-label='Sponsor Company']//a");
+        By tabEngCommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
+        private By _quickLink(string linkText)
+        {
+            return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
+        }
         private By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -7802,11 +7810,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             return isFound;
         }
-
-        private By _quickLink(string linkText)
-        {
-            return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
-        }
+        
 
         public void ClickQuickLink(string linkName)
         {
@@ -8004,11 +8008,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(lnkContacts).Text;
             return name;
         }
-
-        By iconMoreActionComments = By.XPath("//article[@aria-label='Comments']//button/span[text()='Show more actions']/..");
-        By lnkNew = By.XPath("//lightning-button-menu[contains(@class,'slds-is-open')]//div//a//span[text()='New']");
-        By txtEngCommentsIDL = By.XPath("//h1//records-entity-label[text()='Engagement Comment']/../../..//lightning-formatted-text/../..//slot//lightning-formatted-text");
-
+              
         public string GetEngagementCommentsID()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngCommentsIDL, 20);
@@ -8121,7 +8121,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngIDL, 10);
             return driver.FindElement(txtFSEngIDL).Text;
         }
-        By valSponsorCmpnyL = By.XPath("//table[@aria-label='FS Engagements']//tbody//tr[1]//lightning-primitive-cell-factory[@data-label='Sponsor Company']//a");
+        
         public string GetFSEngSponsorCompanyLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valSponsorCmpnyL, 10);
@@ -8133,7 +8133,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
-        By tabEngCommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
+        
         public void ClickEngInfoCommentsTabLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 10);

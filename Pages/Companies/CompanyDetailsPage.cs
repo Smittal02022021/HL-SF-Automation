@@ -1180,7 +1180,14 @@ namespace SF_Automation.Pages.Companies
                 return driver.FindElement(fundRecord).Displayed;
             }
             catch { return false; }
-        }        
+        }    
+        public string GetFinancialSPSectionLV(string investmentNumber)
+        {
+            By sectionRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']//ancestor::article//h2//span");
+            WebDriverWaits.WaitUntilEleVisible(driver, sectionRecord, 10);
+            return driver.FindElement(sectionRecord).GetAttribute("title");
+            
+        }
 
         public void EditFinancialSPRecordLV(string investmentNumber, string InvestmentAmount)
         {

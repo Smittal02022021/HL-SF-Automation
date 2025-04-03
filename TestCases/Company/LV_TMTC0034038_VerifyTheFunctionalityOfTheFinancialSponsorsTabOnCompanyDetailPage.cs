@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Company
+namespace SF_Automation.TestCases.Companies
 {
     class LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage:BaseClass
     {
@@ -50,13 +50,21 @@ namespace SalesForce_Project.TestCases.Company
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMT0076521	Verify the availability of the "Financial Sponsors" tab on the Company detail page.
+        //TMT0076523 Verify that the "Financial Sponsor" tab lists all the Current and Previous Sponsors of the Company.
+        //TMT0076525 Verify that the CF Financial User can only "View" Sponsor companies and is not able to add, edit, or delete the Sponsor company.
+        //TMT0076527  Verify that the "New" button is available for the System Admin on the Financial Sponsor tab to add Current and Previous Sponsor Companies.
+        //TMT0076529 Verify that the System Admin can add a Sponsor Company using the "New" button on the Financial Sponsor tab of the Company Detail Page
+        //TMT0076531  Verify that the System Admin can update the Sponsor Company using the "Edit" button on the Investment list
+        //TMT0076533  Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
+        //TMT0076535 Verify that if the Financial Sponsor Company has the status "Prior", it will display under the list "Previous Sponsors" list.
 
-        [Test]
-        public void VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPageLV()
+    [Test]
+    public void VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPageLV()
+    {
+        try
         {
-            try
-            {
-                //Get path of Test data file
+            //Get path of Test data file
                 excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0034038;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -120,6 +128,7 @@ namespace SalesForce_Project.TestCases.Company
                     {                        
                         companyDetail.ClickFinancialSponsorsNewButtonDisplayedLV();
                         string investmentStatusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 1);
+                        
                         companyDetail.AddNewCompanyFinancialsSponsorsLV(investmentStatusExl);
                         msgBubble = randomPages.GetPopUpMessagelV();
                         Assert.IsTrue(msgBubble.Contains("was created"));
@@ -129,7 +138,13 @@ namespace SalesForce_Project.TestCases.Company
                         randomPages.CloseActiveTab(investmentNumber[index]);
                         //TMT0076523	Verify that the "Financial Sponsor" tab lists all the Current and Previous Sponsors of the Company.
                         Assert.IsTrue(companyDetail.IsFinancialSPRecordDisplayedLV(investmentNumber[index]));
-                        extentReports.CreateStepLogs("Passed", " Added Investment " + investmentNumber + " is present in Record List under "+investmentStatusExl+" Sponsors");
+                        extentReports.CreateStepLogs("Passed", " Added Investment " + investmentNumber[index] + " is present in Record List ");
+
+                        //TMT0076535	Verify that if the Financial Sponsor Company has the status "Prior", it will display under the list "Previous Sponsors" list.
+                        string investmentSectionExl = ReadExcelData.ReadDataMultipleRows(excelPath, "section", invRow, row-1);
+                        string sectionSPname = companyDetail.GetFinancialSPSectionLV(investmentNumber[index]);
+                        Assert.AreEqual(investmentSectionExl,sectionSPname);
+                        extentReports.CreateStepLogs("Passed", " Added Investment " + investmentNumber[index] + " with status " + investmentStatusExl + " under section:: "+ sectionSPname);
 
                         //TMT0076531 Verify that the System Admin can update the Sponsor Company using the "Edit" button on the Investment list
                         string amountExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Investment", invRow, 2);

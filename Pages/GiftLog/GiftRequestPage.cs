@@ -287,7 +287,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetWarningMessageOnAmountLimitExceedLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valWarningMsgFirstLine, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, valWarningMsgFirstLine, 20);
             string titleWarningMsg = driver.FindElement(valWarningMsgFirstLine).Text;
 
             WebDriverWaits.WaitUntilEleVisible(driver, valWarningMsgNextLine, 10);

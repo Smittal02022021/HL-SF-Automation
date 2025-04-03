@@ -737,6 +737,7 @@ namespace SF_Automation.Pages.Common
             try
             {
                 Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
                 WebDriverWaits.WaitUntilEleVisible(driver, _TabEle("'Close " + name + "'"), 10);
                 IWebElement closeTabIcon = driver.FindElement(_TabEle("'Close " + name + "'"));
                 closeTabIcon.Click();
