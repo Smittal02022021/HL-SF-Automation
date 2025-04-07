@@ -26,6 +26,10 @@ namespace SF_Automation.Pages
         By btnRequestBuyerListSave = By.XPath("//button[@type='submit']");
         By tabBuyersList = By.XPath("//a[text()='Buyers List']");
 
+        By btnCreateNewCounterpartyList = By.XPath("//button[text()='Create New Counterparty List']");
+        By txtCompanySearch = By.XPath("(//label[text()='Company Search']/following::div/input)[1]");
+        By btnCreate = By.XPath("//button[@value='Create']");
+
         By btnMore = By.XPath("(//button[@title='More Tabs'])[3]");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
 
@@ -9916,6 +9920,78 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
 
             return caseTitle;
+        }
+
+        public bool VerifyCreateNewCounterpartyListButtonOnOpportunityBuyerListPage()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewCounterpartyList, 60);
+            if(driver.FindElement(btnCreateNewCounterpartyList).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ClickCreateNewCounterpartyListButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewCounterpartyList, 60);
+            driver.FindElement(btnCreateNewCounterpartyList).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyReportSelectionPopupIsDisplayed()
+        {
+            bool result = false;
+            if(driver.FindElement(By.XPath("//span[text()='Report selection']")).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void SelectReport(string rName)
+        {
+            int rowCount = driver.FindElements(By.XPath("//tr[contains(@data-row-key-value,'00OPb000002A8J')]")).Count;
+            for(int i=1; i<=rowCount; i++)
+            {
+                string name = driver.FindElement(By.XPath($"(//tr[contains(@data-row-key-value,'00OPb000002A8J')])[{i}]/th//lightning-base-formatted-text")).Text;
+                if(name.Contains(rName))
+                {
+                    driver.FindElement(By.XPath($"(//tr[contains(@data-row-key-value,'00OPb000002A8J')])[{i}]/td/lightning-primitive-cell-checkbox")).Click();
+                    driver.FindElement(By.XPath("//button[text()='Next']")).Click();
+                    break;
+                }
+            }
+            Thread.Sleep(5000);
+        }
+
+        public void SelectCompanyFromTheList(string compName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanySearch, 60);
+            driver.FindElement(txtCompanySearch).SendKeys(compName);
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath("//section[@class='list-values']//li/div")).Click();
+            driver.FindElement(btnCreate).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyCompanyListIsCreatedOnCaseByFSCOUser()
+        {
+            bool result = false;
+            if(driver.FindElement(By.XPath("//records-entity-label[text()='Company List']")).Displayed)
+            {
+                result = true;
+            }
+            Thread.Sleep(5000);
+            return result;
+        }
+
+        public string GetCompanyListName()
+        {
+            string name = driver.FindElement(By.XPath("(//span[text()='Company List Name']/following::dd/div//lightning-formatted-text)[1]")).Text;
+            return name;
         }
     }
 }

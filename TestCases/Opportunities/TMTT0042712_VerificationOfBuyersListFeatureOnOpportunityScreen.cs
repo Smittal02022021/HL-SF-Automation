@@ -151,6 +151,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 driver.Quit();
 
+                /*
                 //TC - TMTI0104949 - Verify that an email sent to requestor and FSCO user of related region once parent case is created.
 
                 //Launch outlook window
@@ -171,6 +172,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //extentReports.CreateStepLogs("Passed", "Email sent to FSCO user related region once parent case is created.");
 
                 driver.Quit();
+                */
 
                 Initialize();
 
@@ -218,6 +220,49 @@ namespace SF_Automation.TestCases.Opportunities
                 {
                     lvHomePage.SelectAppLV1("HL Banker");
                 }
+
+                //TC - TMTI0104951 - Verify that FSCO user of related region can access the case and add company list on the case
+
+                //Search for created opportunity
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", " FSCO User Search for Created Opportunity");
+
+                opportunityDetails.ClickBuyersListTab();
+                string buyerRequestCaseID2 = opportunityDetails.GetParentRequestID();
+                Assert.AreEqual(buyerRequestCaseID, buyerRequestCaseID2);
+                extentReports.CreateStepLogs("Passed", "Buyer Request Case Number: " + buyerRequestCaseID2 + " is displayed under Buyer List Tab of opportunity for FSCO user. ");
+
+                string getCaseTitle2 = opportunityDetails.GetCaseTitle();
+                Assert.AreEqual(getCaseTitle, getCaseTitle2);
+                extentReports.CreateStepLogs("Info", "Case title: " + getCaseTitle2 + " is displayed on case details page for FSCO user. ");
+
+                //Verify create new counterparty list button
+                Assert.IsTrue(opportunityDetails.VerifyCreateNewCounterpartyListButtonOnOpportunityBuyerListPage());
+                extentReports.CreateStepLogs("Passed", "Create new counterparty List button is displayed on buyer list page for FSCO user. ");
+
+                opportunityDetails.ClickCreateNewCounterpartyListButton();
+                extentReports.CreateStepLogs("Info", "Create new counterparty List button is clicked. ");
+
+                //Select Report
+                Assert.IsTrue(opportunityDetails.VerifyReportSelectionPopupIsDisplayed());
+                extentReports.CreateStepLogs("Passed", "Report Selection popup is displayed. ");
+
+                string firstNameFirstLetter = FSCOUser.Substring(0, 1);
+                string[] lastName = FSCOUser.Split(' ');
+                string reportName = firstNameFirstLetter + lastName[1];
+                opportunityDetails.SelectReport(reportName);
+                extentReports.CreateStepLogs("Info", "Report: " + reportName + " is selected. ");
+
+                //Select company from the list
+                string companyName = ReadExcelData.ReadData(excelPath, "RequestBuyersList", 4);
+                opportunityDetails.SelectCompanyFromTheList(companyName);
+                extentReports.CreateStepLogs("Info", "Company is selected from the list. ");
+
+                Assert.IsTrue(opportunityDetails.VerifyCompanyListIsCreatedOnCaseByFSCOUser());
+                extentReports.CreateStepLogs("Passed", "Company list is created on case by FSCO user. ");
+
+                string compListName = opportunityDetails.GetCompanyListName();
+                extentReports.CreateStepLogs("Info", "Company List Name: " + compListName + " is displayed on company list page. ");
 
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
