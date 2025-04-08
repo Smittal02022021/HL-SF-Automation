@@ -190,7 +190,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2022);
-                desireDate = giftRequest.EnterDesiredDateLV(350);
+                desireDate = giftRequest.EnterDesiredDateLV(360);
                 extentReports.CreateLog("Desire Date: " + desireDate + " entered as next year date. ");
 
                 // Adding recipient from add recipient section to selected recipient section

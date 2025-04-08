@@ -64,7 +64,7 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
+        By eleItem = By.XPath("//table/tbody//td[4]/span//span");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");

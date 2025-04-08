@@ -29,7 +29,7 @@ namespace SF_Automation.Pages.GiftLog
         By btnNewGiftRequest = By.CssSelector("td[class='pbButton '] > input[value='New Gift Request']");
         By txtRecipientName = By.CssSelector("span[id*='j_id48:j_id51']");
         By txtDesiredDate = By.CssSelector("input[id*='j_id48:j_id59']");
-        By txtGiftValueAfterGiftApproveL = By.CssSelector("input[id*='j_id48:j_id58']");
+        By txtGiftValueAfterGiftApproveL = By.CssSelector("input[id*='j_id33:j_id44']");// input[id*='j_id48:j_id58']");
 
         public void ClickNewGiftRequestLV()
         {

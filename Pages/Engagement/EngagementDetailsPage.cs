@@ -520,7 +520,7 @@ namespace SF_Automation.Pages.Engagement
         By btnMoreEng = By.XPath("//runtime_platform_actions-actions-ribbon/ul/li[11]/lightning-button-menu/button");
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
-        By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
+        By btnReturnToEngLightning = By.XPath("//input[@value='Return To Engagement']");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
         By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
@@ -8144,7 +8144,8 @@ namespace SF_Automation.Pages.Engagement
         }
         public string GetEngCommentPresentLV(string commentType)
         {            
-            By txtComments = By.XPath($"//article[@aria-label='{commentType}']//table//td[@data-label='Comment']//lightning-base-formatted-text");
+            //By txtComments = By.XPath($"//article[@aria-label='{commentType}']//table//td[@data-label='Comment']//lightning-base-formatted-text");
+            By txtComments = By.XPath($"//dt[text()='Comment:']/..//lightning-base-formatted-text");
             WebDriverWaits.WaitUntilEleVisible(driver, txtComments, 10);
             return driver.FindElement(txtComments).Text.Trim();
 
@@ -8314,6 +8315,39 @@ namespace SF_Automation.Pages.Engagement
                     return "New Opportunity Valuation Period button is not displayed";
                 }
             }
+        }
+        By tabLegalMatterlsL = By.XPath("//a[text()='Legal Matters']");
+        By tabComplianceLegalL = By.XPath("//a[text()='Compliance & Legal']");
+        By txtReceivedDateL = By.XPath("//span[text()='Received by Compliance Date']/../../..//lightning-formatted-text");
+        By txtVerifiedDateL = By.XPath("//span[text()='Verified by Compliance Date']/../../..//lightning-formatted-text");
+        By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
+        public void CLickTabLegalMattersLV()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabLegalMatterlsL, 20);
+            driver.FindElement(tabLegalMatterlsL).Click();
+        }
+        public string GetLegalHoldNotesLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLegalHoldNotesL, 20);
+            return driver.FindElement(txtLegalHoldNotesL).Text;
+        }
+        public void ClickTabComplianceLegalLV()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComplianceLegalL, 20);
+            driver.FindElement(tabComplianceLegalL).Click();
+        }
+
+        public string GetReceivedByComplianceDate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReceivedDateL, 20);
+            return driver.FindElement(txtReceivedDateL).Text;
+        }
+        public string GetVerifiedByComplianceDate()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtVerifiedDateL, 20);
+            return driver.FindElement(txtVerifiedDateL).Text;
         }
     }
 }

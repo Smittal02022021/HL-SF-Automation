@@ -412,6 +412,8 @@ namespace SF_Automation.Pages
         By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabAdmin = By.XPath("//a[text()='Administration']");
+        By tabComplianceLegalL = By.XPath("//a[text()='Compliance & Legal']");
+        By tabLegalMatterlsL = By.XPath("//a[text()='Legal Matters']");
         By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Opportunity Name']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox//lightning-base-combobox//button");
@@ -8163,7 +8165,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             Console.WriteLine("Entered staff function");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;            
+            string excelPath = dir + file;
             string valStaff = ReadExcelData.ReadData(excelPath, "AddOpportunity", 14);
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
             WebDriverWaits.WaitUntilEleVisible(driver, txtDealTeamMember, 20);
@@ -9783,6 +9785,72 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnDeleteActivity));
             driver.FindElement(btnDeleteActivity).Click();
             Thread.Sleep(2000);
+        }
+
+        public void ClickTabComplianceLegalLV()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabComplianceLegalL, 20);
+            driver.FindElement(tabComplianceLegalL).Click();
+        }
+        public void CLickTabLegalMattersLV()
+        {            
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabLegalMatterlsL, 20);
+            driver.FindElement(tabLegalMatterlsL).Click();
+        }
+        By inlineEditCompDateL = By.XPath("//button[@title='Edit Received by Compliance Date']");
+        By inputReceivedByL = By.XPath("//label[text()='Received by Compliance Date']/..//input");
+        By inputVerifiedDateL = By.XPath("//label[text()='Verified by Compliance Date']/..//input");
+        By inlineEditLegalHoldLL = By.XPath("//button[@title='Edit Legal Hold']");
+        By chkLegalHoldL = By.XPath("//label/span[text()='Legal Hold']/../..//input/../span");
+        By chkLegalHoldL2 = By.XPath("//label/span[text()='Legal Hold']/../..//input");
+        By inputLegalHoldNotesL = By.XPath("//label[text()='Legal Hold Notes']/..//textarea");
+
+        By txtReceivedDateL = By.XPath("//span[text()='Received by Compliance Date']/../../..//lightning-formatted-text");
+        By txtVerifiedDateL = By.XPath("//span[text()='Verified by Compliance Date']/../../..//lightning-formatted-text");
+        By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
+        public string GetLegalHoldNotesLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLegalHoldNotesL, 20);
+            return driver.FindElement(txtLegalHoldNotesL).Text;
+        }
+        public string GetReceivedByComplianceDateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtReceivedDateL, 20);
+            return driver.FindElement(txtReceivedDateL).Text;
+        }
+        public string GetVerifiedByComplianceDateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtVerifiedDateL, 20);
+            return driver.FindElement(txtVerifiedDateL).Text;
+        }        
+
+        public void UpdateComplianceReceivedVerfifiedDateLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inlineEditCompDateL, 20);
+            driver.FindElement(inlineEditCompDateL).Click();
+            string datetoday = DateTime.Today.ToString("MM/dd/yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputReceivedByL, 10);
+            driver.FindElement(inputReceivedByL).SendKeys(datetoday);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, inputVerifiedDateL, 10);
+            driver.FindElement(inputVerifiedDateL).SendKeys(datetoday);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(15000);
+        }
+        public void UpdateLegalMattersLV(string notes)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inlineEditLegalHoldLL, 20);
+            driver.FindElement(inlineEditLegalHoldLL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputLegalHoldNotesL, 10);
+            driver.FindElement(inputLegalHoldNotesL).SendKeys(notes);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkLegalHoldL, 10);
+            driver.FindElement(chkLegalHoldL2).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(15000);
         }
     }
 }
