@@ -87,13 +87,13 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Estimated Valuation in NBC is updated with value: " + updEstVal + " ");
 
                 //Validate the value of Est Transaction Size on Opportunity Details
-                //form.SwitchFrameClassic();
+                form.SwitchFrameClassic();
                 string txnSize = opportunityDetails.GetEstTransactionSize();
                 Assert.AreNotEqual(updEstVal, txnSize);
                 extentReports.CreateLog("Estimated Valuation is not copied to Est Transaction Size in Opportunity Details ");
                                             
                 
-                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

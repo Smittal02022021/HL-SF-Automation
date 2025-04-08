@@ -3226,13 +3226,14 @@ namespace SF_Automation.Pages.Engagement
         //To click on billing request button
         public void ClickBillingRequestButtonL()
         {
-           
-            WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementNumL, 70);
+
+            Thread.Sleep(5000);
             driver.FindElement(tabEngagementNumL).Click();
-            driver.FindElement(By.XPath("//li[10]/lightning-button-menu/button")).Click();
-            Thread.Sleep(6000);
+           
             try
             {
+                driver.FindElement(By.XPath("//li[10]/lightning-button-menu/button")).Click();
+                Thread.Sleep(6000);
                 driver.FindElement(btnBillingRequestL).Click();
             }
             catch

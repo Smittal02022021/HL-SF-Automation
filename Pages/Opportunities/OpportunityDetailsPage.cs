@@ -434,6 +434,8 @@ namespace SF_Automation.Pages
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
         By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//dd//slot[1]/lightning-formatted-text");
+       // By valEstTxnSize = By.XPath("//div[contains(@id, 'P4j')]");
+        
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
@@ -1213,7 +1215,7 @@ namespace SF_Automation.Pages
         public string GetEstTransactionSize()
         {
             Thread.Sleep(4000);
-            string value = driver.FindElement(valEstTxnSizeL).Text;
+            string value = driver.FindElement(valEstTxnSize).Text;
             string estTxn = value.Substring(0, 8);
             return estTxn;
         }

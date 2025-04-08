@@ -1039,7 +1039,7 @@ namespace SF_Automation.Pages
             driver.FindElement(valRec1st).Click();
             Thread.Sleep(8000);
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div/div/div/force-aloha-page/div/iframe")));
-            WebDriverWaits.WaitUntilEleVisible(driver, titleHLIntTeam, 280);
+            Thread.Sleep(7000);
             string title = driver.FindElement(titleHLIntTeam).Text;
             return title;
         }

@@ -48,7 +48,7 @@ namespace SF_Automation.Pages
         By tblOpportunities = By.XPath("//div/table/tbody");
         By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]//lst-formatted-text/span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]//lst-formatted-text/span");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
