@@ -58,8 +58,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
 
-        public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";
-        string exectedMaxLimit;
+        public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";        
+        private string receivedByComplianceDate;
+        private string verifiedByComplianceDate;
+        private string legalHoldNotes;
+        private string notesLegalMatters;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -190,6 +194,73 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.CloseActiveTab(opportunityName);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Passed", "Admin: " + adminUserExl + "switched to Classic and Loggout ");
+
+                    //TMT0082742 Verify that the Compliance user can update the fields on the Compliance subtab of the Compliance & Legal tab.
+                    if (valJobType == "FA - Portfolio-Advis/Consulting")
+                    {
+                        string userCompliance = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
+
+                        homePage.SearchUserByGlobalSearchN(userCompliance);
+                        extentReports.CreateStepLogs("Info", "Compliance User: " + userCompliance + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+                        login.SwitchToLightningExperience();
+                        extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged in on Lightning View");
+
+                        homePageLV.SelectAppLV(appNameExl);
+                        appName = homePageLV.GetAppName();
+                        Assert.AreEqual(appNameExl, appName);
+                        extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                        homePageLV.SelectModule(moduleNameExl);
+                        extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                        //Search for created opportunity
+                        opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+                        extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " found and selected");
+
+                        //updating Compliance fields
+                        opportunityDetails.ClickTabComplianceLegalLV();
+                        opportunityDetails.UpdateComplianceReceivedVerfifiedDateLV();
+                        extentReports.CreateStepLogs("Info", "Opportunity Compliance Received & Verfified Date are updated and saved");
+
+                        receivedByComplianceDate = opportunityDetails.GetReceivedByComplianceDateLV();
+                        verifiedByComplianceDate = opportunityDetails.GetVerifiedByComplianceDateLV();
+                        randomPages.CloseActiveTab(opportunityName);
+                        usersLogin.ClickLogoutFromLightningView();
+                        extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
+
+                        /////////////////
+                        //TMT0082744 Verify that the Legal user can update the fields on the Legal Matters subtab of the Compliance & Legal tab
+                        string userLegal = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 5, 1);
+
+                        homePage.SearchUserByGlobalSearchN(userLegal);
+                        extentReports.CreateStepLogs("Info", "Legal User: " + userLegal + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+                        login.SwitchToLightningExperience();
+                        extentReports.CreateStepLogs("Passed", "Legal User: " + userLegal + " logged in on Lightning View");
+
+                        homePageLV.SelectAppLV(appNameExl);
+                        appName = homePageLV.GetAppName();
+                        Assert.AreEqual(appNameExl, appName);
+                        extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                        homePageLV.SelectModule(moduleNameExl);
+                        extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                        //Search for created opportunity
+                        opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+                        extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " found and selected");
+
+                        //updating Compliance fields
+                        opportunityDetails.ClickTabComplianceLegalLV();
+                        opportunityDetails.CLickTabLegalMattersLV();
+                        notesLegalMatters = ReadExcelData.ReadData(excelPath, "Notes", 1);
+                        opportunityDetails.UpdateLegalMattersLV(notesLegalMatters);
+                        extentReports.CreateStepLogs("Info", "Opportunity Legal Matters are updated and saved");
+                        legalHoldNotes = opportunityDetails.GetLegalHoldNotesLV();
+                        usersLogin.ClickLogoutFromLightningView();
+                        extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
+
+                    }
+                    ////--------
 
                     //Submit Request to Convert opportunity into Engagement.
                     extentReports.CreateStepLogs("Info", "Submit Request to Convert opportunity into Engagement");
@@ -344,7 +415,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
                     engagementHome.GlobalSearchEngagementInLightningView(engName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+                    extentReports.CreateStepLogs("Passed", "Engagement: " + opportunityName + " found and selected ");
 
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
                     //TMTI0084221 Verify the status is updated in Oracle ERP Information section
@@ -360,6 +431,74 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.CloseActiveTab(engName);
                     usersLogin.ClickLogoutFromLightningView();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
+                    if (valJobType == "FA - Portfolio-Advis/Consulting")
+                    {
+                        string userCompliance = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
+
+                        homePage.SearchUserByGlobalSearchN(userCompliance);
+                        extentReports.CreateStepLogs("Info", "Compliance User: " + userCompliance + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+                        login.SwitchToLightningExperience();
+                        extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged in on Lightning View");
+
+                        homePageLV.SelectAppLV(appNameExl);
+                        appName = homePageLV.GetAppName();
+                        Assert.AreEqual(appNameExl, appName);
+                        extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                        moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                        homePageLV.SelectModule(moduleNameExl);
+                        extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                        //Search for created opportunity
+                        engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
+                        extentReports.CreateStepLogs("Info", "Engagement: " + opportunityName + " found and selected");
+
+                        //TMT0082753	Verify that the Compliance fields updated by the Compliance user get mapped to the engagement's Compliance tab.
+                        engagementDetails.ClickTabComplianceLegalLV();
+
+                        //Get complianceReview and verifyfied by                        
+                        Assert.AreEqual(receivedByComplianceDate, engagementDetails.GetReceivedByComplianceDate());
+                        extentReports.CreateStepLogs("Passed", "Received By Compliance Date: '" + receivedByComplianceDate + "' is mapped on Engagement page after conversion from Opportunity");
+
+                        Assert.AreEqual(verifiedByComplianceDate, engagementDetails.GetVerifiedByComplianceDate());
+                        extentReports.CreateStepLogs("Passed", "Verified By Compliance Date: '" + verifiedByComplianceDate + "' is mapped on Engagement page after conversion from Opportunity");
+
+                        //opportunityDetails.UpdateComplianceReceivedVerfifiedDateLV();                        
+                        randomPages.CloseActiveTab(opportunityName);
+                        usersLogin.ClickLogoutFromLightningView();
+                        extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
+
+                        /////////////////
+                        //TMT0082744 Verify that the Legal user can update the fields on the Legal Matters subtab of the Compliance & Legal tab
+                        string userLegal = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 5, 1);
+
+                        homePage.SearchUserByGlobalSearchN(userLegal);
+                        extentReports.CreateStepLogs("Info", "Legal User: " + userLegal + " details are displayed. ");
+                        //Login user
+                        usersLogin.LoginAsSelectedUser();
+                        login.SwitchToLightningExperience();
+                        extentReports.CreateStepLogs("Passed", "Legal User: " + userLegal + " logged in on Lightning View");
+
+                        homePageLV.SelectAppLV(appNameExl);
+                        appName = homePageLV.GetAppName();
+                        Assert.AreEqual(appNameExl, appName);
+                        extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                        homePageLV.SelectModule(moduleNameExl);
+                        extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                        //Search for created opportunity
+                        engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
+                        extentReports.CreateStepLogs("Info", "Engagement: " + opportunityName + " found and selected");
+
+                        //TMT0082754	Verify that the Legal fields updated by the legal user get mapped to the engagement's Legal Matters tab.
+                        engagementDetails.ClickTabComplianceLegalLV();
+                        engagementDetails.CLickTabLegalMattersLV();
+                        Assert.AreEqual(notesLegalMatters, engagementDetails.GetLegalHoldNotesLV());
+                        extentReports.CreateStepLogs("Passed", "Legal Hold Notes: '" + legalHoldNotes + "' mapped on Engagement page after conversion from Opportunity");
+
+                        randomPages.CloseActiveTab(opportunityName);
+                        usersLogin.ClickLogoutFromLightningView();
+                        extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
+                    }
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
