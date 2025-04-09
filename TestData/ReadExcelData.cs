@@ -31,6 +31,7 @@ namespace SF_Automation.TestData
             excelApp.Quit();
             return rowCount;
         }
+
         //count the columns of excel file
         public static int GetColumnCount(string Path, string Sheet)
         {
@@ -61,6 +62,7 @@ namespace SF_Automation.TestData
             return data;
 
         }
+
         //To read data from multiple row
         public static string ReadDataMultipleRows(string path, string sheet, int row, int col)
         {
@@ -74,6 +76,7 @@ namespace SF_Automation.TestData
             excelApp.Quit();
             return data;
         }
+
         public static bool SetCellData(string xlFilePath, string sheetName, string colName, int rowNumber, string value)
         {
             OpenExcel(xlFilePath);
@@ -123,6 +126,7 @@ namespace SF_Automation.TestData
             }
             return true;
         }
+
         public static void OpenExcel(string xlFilePath)
         {
             xlApp = new excel.Application();
@@ -137,6 +141,7 @@ namespace SF_Automation.TestData
                 count++;
             }
         }
+
         public static void CloseExcel(string xlFilePath)
         {
             workbook.Close(false, xlFilePath, null); // Close the connection to workbook

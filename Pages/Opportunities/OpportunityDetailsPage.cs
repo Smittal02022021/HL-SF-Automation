@@ -9993,6 +9993,11 @@ namespace SF_Automation.Pages
             string name = driver.FindElement(By.XPath("(//span[text()='Company List Name']/following::dd/div//lightning-formatted-text)[1]")).Text;
             return name;
         }
+
+        public void ClickAddCompanyListMembersNewButton()
+        {
+
+        }
     }
 }
 

@@ -264,6 +264,71 @@ namespace SF_Automation.TestCases.Opportunities
                 string compListName = opportunityDetails.GetCompanyListName();
                 extentReports.CreateStepLogs("Info", "Company List Name: " + compListName + " is displayed on company list page. ");
 
+                //Add Company List Members
+                opportunityDetails.ClickAddCompanyListMembersNewButton();
+                extentReports.CreateStepLogs("Info", "Add Company List Members new button is clicked. ");
+
+
+
+
+
+
+
+
+                //Logout FSCO User
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "FSCO User: " + FSCOUser + " is Logged Out from SF Lightning View. ");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
+                //Search CF Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(valUser);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, valUser + " | Salesforce"), true);
+                extentReports.CreateLog("User " + valUser + " details are displayed ");
+
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(valUser));
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is logged in again.");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
+                //Search for created opportunity
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "FSCO User Search for Created Opportunity");
+
+                opportunityDetails.ClickBuyersListTab();
+                extentReports.CreateStepLogs("Info", "Buyers list tab is clicked");
+
+
+
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
