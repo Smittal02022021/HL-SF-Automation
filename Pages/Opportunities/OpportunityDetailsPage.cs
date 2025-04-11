@@ -104,6 +104,7 @@ namespace SF_Automation.Pages
         By valPitchDate = By.CssSelector("div[id*='PDj']");
         By valWinProb = By.CssSelector("div[id*='OKj']");
         By valTxnSize = By.CssSelector("div[id*='80P4j']");
+        By valTxnSizeL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
         By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd//lightning-formatted-text");
         By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]/dd//lightning-formatted-text");
@@ -2356,6 +2357,15 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
             string txnSize = driver.FindElement(valTxnSize).Text;
             return txnSize;
+        }
+
+        //To get Transaction Size
+        public string GetTransactionSizeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTxnSizeL, 80);
+            Thread.Sleep(3000);
+            string txnSize = driver.FindElement(valTxnSizeL).Text;
+            return txnSize.Substring(4,5);
         }
         //To get Retainer
         public string GetRetainer()

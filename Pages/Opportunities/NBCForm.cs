@@ -143,6 +143,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By btnTxnFeeType = By.XPath("(//lightning-base-combobox)[9]");
+        By btnTxnFeeType1 = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button");
         By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
         By lblFlatFee = By.XPath("//label[text()='Flat Fee (MM)']");
@@ -251,12 +252,16 @@ namespace SF_Automation.Pages.Opportunity
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']");
         By lblTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']");
+        By valTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
         By lblRetainerFeeCred = By.XPath("//span[text()='Retainer Fee Creditable ?']");
         By lblCurrencyFee = By.XPath("//span[text()='Currency']");
-
+        By btnPDF = By.XPath("//button[text()='PDF']");
+        By txtCognoUser = By.XPath("//input[@id='CAMUsername']");
+        By txtCognoPass = By.XPath("//input[@id='CAMPassword']");
+        By btnSignin = By.XPath("//button[text()='Sign in']");
         By secPrePitch = By.XPath("//span[@title='Pre-Pitch']");
         By lblWillThere = By.XPath("//span[text()='Will There Be a Pitch?']");
         By lblHLComp = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordWill_there_be_a_pitch_cField1']/slot[1]/following::span[1]");
@@ -2853,7 +2858,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SwitchFrame()
         {
-           // driver.Close();
+            // driver.Close();
             Console.WriteLine("Closed the last window");
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
@@ -3951,6 +3956,41 @@ namespace SF_Automation.Pages.Opportunity
             string fee = driver.FindElement(valEstTotalFeeMM).Text;
             return fee.Substring(4, 6).Replace(",", "");
         }
+        public string ValidateEstFeeFieldUponSelectingOtherFeeType()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrencyL, 190);
+            driver.FindElement(lnkEditCurrencyL).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(btnTxnFeeType1).SendKeys("Other Fee Structure");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string txnFee = driver.FindElement(lblTxnFee).Text;
+            return txnFee;
+        }
+
+        public string GetEstFeeValueUponSavingOtherFeeType()
+        {            
+            Thread.Sleep(4000);            
+            string txnFee = driver.FindElement(valTxnFee).Text;
+            return txnFee.Substring(4,5);
+        }
+
+        public string GetEstFeeValueOnCognosUponSavingOtherFeeType()
+        {
+
+            driver.FindElement(btnPDF).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(5000);
+            driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
+            driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
+            driver.FindElement(btnSignin).Click();
+            Thread.Sleep(10000);
+            string txnFee = driver.FindElement(valTxnFee).Text;
+            return txnFee.Substring(4, 5);
+        }
     }
+
 
 }

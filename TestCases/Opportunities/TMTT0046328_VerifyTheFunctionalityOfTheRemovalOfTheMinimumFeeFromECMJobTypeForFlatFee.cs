@@ -1,0 +1,121 @@
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using NUnit.Framework;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
+using System;
+using System.Linq;
+
+namespace SF_Automation.TestCases.Opportunities
+{
+    class TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee : BaseClass
+    {
+        ExtentReport extentReports = new ExtentReport();
+        LoginPage login = new LoginPage();
+        OpportunityHomePage opportunityHome = new OpportunityHomePage();
+        AddOpportunityPage addOpportunity = new AddOpportunityPage();
+        UsersLogin usersLogin = new UsersLogin();
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+        CNBCForm form = new CNBCForm();
+        NBCForm nform = new NBCForm();
+        AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
+
+        public static string fileCNBC = "TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFee1.xlsx";
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            Initialize();
+            ExtentReportHelper();
+            ReadJSONData.Generate("Admin_Data.json");
+            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
+        }
+        [Test]
+        public void CNBCFormSubmitforReview()
+        {
+            try
+            {
+                //Get path of Test data file
+                string excelPath = ReadJSONData.data.filePaths.testData + fileCNBC;
+                Console.WriteLine(excelPath);
+
+                //Validating Title of Login Page
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
+                extentReports.CreateLog(driver.Title + " is displayed ");
+
+                // Calling Login function                
+                login.LoginApplication();
+
+                // Validate user logged in                   
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+
+                //Login as Standard User and validate the user
+                string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                usersLogin.SearchUserAndLogin(valUser);
+                string stdUser = login.ValidateUserLightning();
+                Assert.AreEqual(stdUser.Contains(valUser), true);
+                extentReports.CreateLog("User: " + stdUser + " logged in ");
+
+                int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
+                Console.WriteLine("rowCount " + rowJobType);
+
+                for (int row = 2; row <= rowJobType; row++)
+                {
+                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
+                    //Search for created opportunity
+                    string opportunityNumber = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 4);
+
+                    opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                    //opportunityHome.SearchMyOpportunitiesInLightning("78446",valUser);                    
+                    extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
+                    opportunityDetails.ValidateFeesAndFinancialsTabL();
+                   string valTxnSizeOpp = opportunityDetails.GetTransactionSizeL();
+
+
+                    if (valJobType.Equals("Equity Capital Markets"))
+                    {
+                        string title = opportunityDetails.ClickNBCFormLCNBC();
+                        nform.ClickFeesTab();
+                        string txnFee = nform.ValidateEstFeeFieldUponSelectingOtherFeeType();
+                        string valTxnFee = nform.GetEstFeeValueUponSavingOtherFeeType();
+                        Console.WriteLine(valTxnFee);
+                        Assert.AreEqual("Estimated Fee (MM)", txnFee);
+                        Assert.AreEqual(valTxnSizeOpp, valTxnFee);
+                        extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valTxnFee + " is displayed upon saving Transaction Fee as Other ");
+
+
+                        nform.NavigateToNextWindow();
+
+
+
+
+                    }
+                    else
+                    {
+                        string title = opportunityDetails.ClickNBCFormL();
+                        extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
+                       
+                    }
+                    form.SwitchFrame();
+                }
+                usersLogin.DiffLightningLogout();
+                usersLogin.UserLogOut();
+                driver.Quit();
+            }
+            catch (Exception e)
+            {
+                extentReports.CreateExceptionLog(e.Message);
+                usersLogin.UserLogOut();
+                usersLogin.UserLogOut();
+                driver.Quit();
+            }
+        }
+    }
+}
+    
+
+
+
