@@ -9810,11 +9810,31 @@ namespace SF_Automation.Pages
         By txtReceivedDateL = By.XPath("//span[text()='Received by Compliance Date']/../../..//lightning-formatted-text");
         By txtVerifiedDateL = By.XPath("//span[text()='Verified by Compliance Date']/../../..//lightning-formatted-text");
         By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
+        By txtDateOnHoldL = By.XPath("//span[text()='Date on Hold']/../../..//lightning-formatted-text");
+        By txtPutOnHoldL = By.XPath("//span[text()='Put on Hold by']/../../..//lightning-formatted-text");
+        
+        public bool GetLegaHoldLV()
+        {
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, chkLegalHoldL2, 20);
+            return driver.FindElement(chkLegalHoldL2).Selected;
+        }
         public string GetLegalHoldNotesLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtLegalHoldNotesL, 20);
             return driver.FindElement(txtLegalHoldNotesL).Text;
         }
+        public string GetDateOnHoldLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateOnHoldL, 20);
+            return driver.FindElement(txtDateOnHoldL).Text;
+        }
+        public string GetPutOnHoldLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPutOnHoldL, 20);
+            return driver.FindElement(txtPutOnHoldL).Text;
+        }
+
         public string GetReceivedByComplianceDateLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtReceivedDateL, 20);

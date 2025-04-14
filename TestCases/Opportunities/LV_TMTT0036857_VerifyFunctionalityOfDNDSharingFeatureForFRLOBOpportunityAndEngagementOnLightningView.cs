@@ -556,7 +556,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     extentReports.CreateStepLogs("Passed", " Engagement found with DND Opportunity Name: " + dndEngName);
                     randomPages.CloseActiveTab(dndOppName);
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Info", "Engagement Deal Team Member User: " + engDealTeamMember + "switched to Classic and Loggout ");
+                    extentReports.CreateStepLogs("Info", "Engagement Deal Team Member User: " + engDealTeamMember + " switched to Classic and Loggout ");
 
                     //Verify Non-Deal Team Member can access the DND Eng
                     extentReports.CreateStepLogs("Info", "Verify Non-Deal Team Member don't have access to DND Eng with DND-name");

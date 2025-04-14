@@ -99,7 +99,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(actualRecipientContactName, selectedRecipientName);
                 extentReports.CreateLog("Recipient Name: " + selectedRecipientName + " in selected recipient(s) table matches with available recipient name listed in Available Recipient(s) table ");
 
-                string DesireDate = giftRequest.EnterDesiredDateLV(360);
+                string DesireDate = giftRequest.EnterDesiredDateLV(365);
                 extentReports.CreateLog("Desire Date: " + DesireDate + " entered as next year date greater than an year ");
 
                 //Click on submit gift request

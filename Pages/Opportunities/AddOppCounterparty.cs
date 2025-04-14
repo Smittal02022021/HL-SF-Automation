@@ -1513,11 +1513,13 @@ namespace SF_Automation.Pages.Opportunity
         }
         public void ClickOpportunityCounterpartyExportDataButton()
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnExportData, 20);
             driver.FindElement(btnExportData).Click();
             Thread.Sleep(5000);
         }
         public void SearchCounterparty(string name)
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchCountryparty, 20);
             driver.FindElement(txtSearchCountryparty).Click();
             driver.FindElement(txtSearchCountryparty).SendKeys(name);
             Thread.Sleep(2000);

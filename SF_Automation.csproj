@@ -779,6 +779,7 @@
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_FR_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementFR.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit.cs" />
@@ -796,6 +797,8 @@
     <Compile Include="TestCases\Opportunities\LV_TC2331_TMTC0002485_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactInOpportunityOfPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2332_TMTC0002488_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialNonPFGContactCMInOpportunityOfNonPFAJobType.cs" />
     <Compile Include="TestCases\Opportunities\LV_TC2333_TMTC0002494_VerifyTheRolesAvailableToNonUSFinancialPFGContactFromUSandOtherLocations.cs" />
+    <Compile Include="TestCases\Opportunities\LV_CF_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementCF..cs" />
+    <Compile Include="TestCases\Opportunities\LV_FVA_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementFVA.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0012113_TMTT0012114_TMTT0012116_TMTT0012119_TMTT0012120_ValidateCoExistFieldForGCATracking.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.cs" />
