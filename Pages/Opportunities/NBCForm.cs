@@ -1,13 +1,16 @@
-﻿using Microsoft.SqlServer.Server;
+﻿using iTextSharp.text.pdf.parser;
+using iTextSharp.text.pdf;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Security.Policy;
+
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -3970,13 +3973,13 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         public string GetEstFeeValueUponSavingOtherFeeType()
-        {            
-            Thread.Sleep(4000);            
+        {
+            Thread.Sleep(4000);
             string txnFee = driver.FindElement(valTxnFee).Text;
-            return txnFee.Substring(4,5);
+            return txnFee.Substring(4, 5);
         }
 
-        public string GetEstFeeValueOnCognosUponSavingOtherFeeType()
+        public string ConnectCognoAndOpenPDF()
         {
 
             driver.FindElement(btnPDF).Click();
@@ -3986,11 +3989,30 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
             driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
             driver.FindElement(btnSignin).Click();
-            Thread.Sleep(10000);
-            string txnFee = driver.FindElement(valTxnFee).Text;
-            return txnFee.Substring(4, 5);
+            Thread.Sleep(15000);
+            string pdf = driver.Url;
+            return pdf;
+        }
+
+        public bool VerifyPdfTextForEstimatedFeeValue(string pdfFile = null)
+        {
+            Thread.Sleep(1000);
+            bool status = false;
+            using (PdfReader reader = new PdfReader(pdfFile))
+            {
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    string pageText = PdfTextExtractor.GetTextFromPage(reader, i);
+                    if (pageText.Contains("USD 80.00"))
+                    {
+                        status = true;
+                        break;
+                    }
+                }
+                driver.SwitchTo().Window(driver.WindowHandles.First());
+                return status;
+            }
+
         }
     }
-
-
 }

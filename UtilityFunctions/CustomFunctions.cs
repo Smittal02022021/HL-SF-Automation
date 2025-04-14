@@ -1,14 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Net;
+using AutoIt;
+
 
 namespace SF_Automation.UtilityFunctions
 {
@@ -381,6 +389,51 @@ namespace SF_Automation.UtilityFunctions
                 Thread.Sleep(11000);
                 driver.FindElement(btnDone).Click();
             }
+
+
+        public string VerifyPdfTextForEstimatedFee()
+        {
+            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
+            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
+            Thread.Sleep(10000);
+            driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
+            Thread.Sleep(5000);            
+            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[1]")).Text;
+            return estFee;
+              
         }
+
+
+        //public bool VerifyPdfTextForEstimatedFee()
+        //{
+        //    Thread.Sleep(6000);
+        //    bool status = false;      
+        //    string outputFile = @"C:\report.pdf";
+        //    driver.SwitchTo().Frame(0);
+        //    Thread.Sleep(6000);
+        //    driver.FindElement(By.XPath("//button[@title='Save (Ctrl+S)']")).Click();
+        //    Thread.Sleep(4000);
+        //    AutoItX.WinWaitActive("Save As", "", 10);
+        //    AutoItX.Send(outputFile);
+        //    AutoItX.Send("{ENTER}");
+        //    Thread.Sleep(5000);
+        //    using (PdfReader reader = new PdfReader(outputFile))
+        //    {
+        //        for (int i = 1; i <= reader.NumberOfPages; i++)
+        //        {
+        //            string pageText = PdfTextExtractor.GetTextFromPage(reader, i);
+        //            if (pageText.Contains("Estimated Fee (MM):"))
+        //            {
+        //                status = true;
+        //                break;
+        //            }
+        //        }
+        //        return status;
+        //    }            
+
+        //}
+
+
     }
+}
 

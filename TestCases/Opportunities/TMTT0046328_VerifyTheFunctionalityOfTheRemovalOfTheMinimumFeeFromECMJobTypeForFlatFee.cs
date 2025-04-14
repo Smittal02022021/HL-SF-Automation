@@ -21,6 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         CNBCForm form = new CNBCForm();
         NBCForm nform = new NBCForm();
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
+        CustomFunctions customFunctions = new CustomFunctions();
 
         public static string fileCNBC = "TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFee1.xlsx";
 
@@ -85,11 +86,17 @@ namespace SF_Automation.TestCases.Opportunities
                         Assert.AreEqual("Estimated Fee (MM)", txnFee);
                         Assert.AreEqual(valTxnSizeOpp, valTxnFee);
                         extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valTxnFee + " is displayed upon saving Transaction Fee as Other ");
-
-
-                        nform.NavigateToNextWindow();
-
-
+                        
+                        //Connect Cogno and fetch the report
+                        string pdfPath = nform.ConnectCognoAndOpenPDF();
+                        Console.WriteLine("pdfPath:" + pdfPath);
+                        string estFee=  customFunctions.VerifyPdfTextForEstimatedFee();
+                        Console.WriteLine("estFee:" + estFee);
+                        bool estFeeValue = nform.VerifyPdfTextForEstimatedFeeValue();
+                        Console.WriteLine("estFeeValue:" + estFeeValue);
+                        Assert.AreEqual(true, estFee);
+                        Assert.AreEqual(true, estFeeValue);
+                        extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Minimum Fee when Fee Type is 'Other' ");
 
 
                     }
@@ -98,8 +105,7 @@ namespace SF_Automation.TestCases.Opportunities
                         string title = opportunityDetails.ClickNBCFormL();
                         extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
                        
-                    }
-                    form.SwitchFrame();
+                    }                    
                 }
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
