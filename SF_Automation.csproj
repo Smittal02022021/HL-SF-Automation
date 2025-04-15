@@ -860,6 +860,7 @@
     <Compile Include="TestCases\Opportunities\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.cs" />
     <Compile Include="TestCases\Opportunities\TMTC0032940_VerifyTheFunctionalityOfCreatingBillingRequest.cs" />
     <Compile Include="TestCases\Opportunities\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.cs" />
+    <Compile Include="TestCases\Opportunities\LV_CF_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0028212_28204_28218_28210_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0028216_55392_VerifyNewJobForLOBOtherThanCF.cs" />
     <Compile Include="TestCases\Opportunities\TMTI0028216_VerifyNewJobForLOBOtherThanCF.cs" />

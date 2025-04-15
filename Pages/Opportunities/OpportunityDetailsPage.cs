@@ -750,6 +750,8 @@ namespace SF_Automation.Pages
         By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
         By titleMassEditPageL = By.XPath("//header/div[2]/h2/span");
         By linkEng = By.XPath("//article[@aria-label='Engagements']//article//h3//a/../..");
+        By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//dd//lightning-formatted-text");
+        By lnkViewAllCommentsL = By.XPath("//article[@aria-label='Comments']//span[text()='View All']");
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -9638,6 +9640,11 @@ namespace SF_Automation.Pages
             driver.FindElement(buttonSaveL).Click();
             //Thread.Sleep(5000);
         }
+        public string GetCommentTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCommentTypeL, 20);
+            return driver.FindElement(txtCommentTypeL).Text;
+        }
 
         public string GetCommentIDLV()
         {
@@ -9871,6 +9878,11 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(15000);
+        }
+        public void ClickViewAllCommentsLV()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 20);
+            driver.FindElement(lnkViewAllCommentsL).Click();
         }
     }
 }
