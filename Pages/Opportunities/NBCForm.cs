@@ -3961,11 +3961,14 @@ namespace SF_Automation.Pages.Opportunity
         }
         public string ValidateEstFeeFieldUponSelectingOtherFeeType()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrencyL, 190);
             driver.FindElement(lnkEditCurrencyL).Click();
             Thread.Sleep(7000);
-            driver.FindElement(btnTxnFeeType1).SendKeys("Other Fee Structure");
+            driver.FindElement(btnTxnFeeType1).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='Other Fee Structure']")).Click();
+            driver.FindElement(txtEstimatedFee).Clear();
+            driver.FindElement(txtEstimatedFee).SendKeys("60");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             string txnFee = driver.FindElement(lblTxnFee).Text;
@@ -3979,13 +3982,20 @@ namespace SF_Automation.Pages.Opportunity
             return txnFee.Substring(4, 5);
         }
 
+        public string GetMinFeeValue()
+        {
+            Thread.Sleep(4000);
+            string txnFee = driver.FindElement(valMinFee).Text;
+            return txnFee.Substring(4, 5);
+        }
+
         public string ConnectCognoAndOpenPDF()
         {
 
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
             driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
             driver.FindElement(btnSignin).Click();
@@ -3994,25 +4004,70 @@ namespace SF_Automation.Pages.Opportunity
             return pdf;
         }
 
-        public bool VerifyPdfTextForEstimatedFeeValue(string pdfFile = null)
+        public string VerifyEstimatedFeeFieldinReport()
         {
-            Thread.Sleep(1000);
-            bool status = false;
-            using (PdfReader reader = new PdfReader(pdfFile))
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
+            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
+            Thread.Sleep(10000);
+            driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
+            Thread.Sleep(5000);
+            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[1]")).Text;
+            return estFee;
+
+        }
+
+        public string ValidaterEstimatedFeeValueInReport()
+        {            
+            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[3]")).Text;
+            return estFee;
+        }
+
+        public bool ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType(string value)
+        {
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrencyL, 190);
+            driver.FindElement(lnkEditCurrencyL).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(btnTxnFeeType1).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='"+value+"']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            try
             {
-                for (int i = 1; i <= reader.NumberOfPages; i++)
-                {
-                    string pageText = PdfTextExtractor.GetTextFromPage(reader, i);
-                    if (pageText.Contains("USD 80.00"))
-                    {
-                        status = true;
-                        break;
-                    }
-                }
-                driver.SwitchTo().Window(driver.WindowHandles.First());
-                return status;
+                bool minFee = driver.FindElement(lblMinFee).Displayed;
+                return minFee;
+            }
+            catch
+            {
+                return false;
             }
 
+        }
+
+        public string VerifyMinFeeFieldForFlatAndIncentiveFeeinReport(string value)
+        {
+            driver.FindElement(btnPDF).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
+            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
+            Thread.Sleep(8000);
+            if(value.Equals("Incentive Structure"))
+            {
+                string minFee = driver.FindElement(By.XPath("//tr[2]//tr[4]/td/span[1]")).Text;
+                return minFee;
+            }
+            else
+            {
+                string fee = driver.FindElement(By.XPath("//tr[7]//tr[2]//tr[1]//span[1]")).Text;
+                return fee;
+            }
         }
     }
 }

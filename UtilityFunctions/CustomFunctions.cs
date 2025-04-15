@@ -391,17 +391,7 @@ namespace SF_Automation.UtilityFunctions
             }
 
 
-        public string VerifyPdfTextForEstimatedFee()
-        {
-            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
-            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
-            Thread.Sleep(10000);
-            driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
-            Thread.Sleep(5000);            
-            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[1]")).Text;
-            return estFee;
-              
-        }
+      
 
 
         //public bool VerifyPdfTextForEstimatedFee()

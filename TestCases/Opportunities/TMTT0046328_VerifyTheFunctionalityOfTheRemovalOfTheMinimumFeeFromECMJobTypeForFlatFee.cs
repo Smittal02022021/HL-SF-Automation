@@ -73,30 +73,52 @@ namespace SF_Automation.TestCases.Opportunities
                     //opportunityHome.SearchMyOpportunitiesInLightning("78446",valUser);                    
                     extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
                     opportunityDetails.ValidateFeesAndFinancialsTabL();
-                   string valTxnSizeOpp = opportunityDetails.GetTransactionSizeL();
+                    string valTxnSizeOpp = opportunityDetails.GetTransactionSizeL();
 
 
                     if (valJobType.Equals("Equity Capital Markets"))
                     {
+                        //1.  TMTI0113194_Verify that the "Estimated Fee" field is added in the CNBC form on the existing Opportunities
                         string title = opportunityDetails.ClickNBCFormLCNBC();
                         nform.ClickFeesTab();
                         string txnFee = nform.ValidateEstFeeFieldUponSelectingOtherFeeType();
                         string valTxnFee = nform.GetEstFeeValueUponSavingOtherFeeType();
+                        string valMinFee = nform.GetMinFeeValue();
                         Console.WriteLine(valTxnFee);
                         Assert.AreEqual("Estimated Fee (MM)", txnFee);
                         Assert.AreEqual(valTxnSizeOpp, valTxnFee);
-                        extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valTxnFee + " is displayed upon saving Transaction Fee as Other ");
-                        
+                        extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valTxnFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
+
+                        //2.  TMTI0113196_Verify that the "Estimated Fee" field is added in the Cognos report at the top of the Fees page of the existing opportunity.
                         //Connect Cogno and fetch the report
                         string pdfPath = nform.ConnectCognoAndOpenPDF();
                         Console.WriteLine("pdfPath:" + pdfPath);
-                        string estFee=  customFunctions.VerifyPdfTextForEstimatedFee();
-                        Console.WriteLine("estFee:" + estFee);
-                        bool estFeeValue = nform.VerifyPdfTextForEstimatedFeeValue();
+                        string estFee=  nform.VerifyEstimatedFeeFieldinReport();                       
+                        string estFeeValue = nform.ValidaterEstimatedFeeValueInReport();
                         Console.WriteLine("estFeeValue:" + estFeeValue);
-                        Assert.AreEqual(true, estFee);
-                        Assert.AreEqual(true, estFeeValue);
+                        Assert.AreEqual("Estimated Fee (MM): ", estFee);
+                        Assert.AreEqual(valMinFee, estFeeValue);
                         extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Minimum Fee when Fee Type is 'Other' ");
+
+                        //3.  TMTI0113198_Verify that the "Minimum Fee" field is hidden for the Transaction Type - "Flat Fee" from the CNBC form and the Cognos Report PDF on the existing Opportunities of the Equity Capital Market job types.
+                        bool flatFee = nform.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Flat Fee");                        
+                        Assert.AreEqual(false, flatFee);
+                        extentReports.CreateLog("Minimum Fee field is not displayed upon saving Transaction Fee as Flat Fee in CNBC Form ");
+
+                        string flatFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Flat Fee");
+                        Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);
+                        extentReports.CreateLog("Minimum Fee field is not displayed in Cognos report upon saving Transaction Fee as Flat Fee ");
+
+                        //4.   TMTI0113200_Verify that the "Minimum Fee" field is available for the Transaction Type - "Incentive Fee" on the CNBC form and the Cognos Report PDF on the existing Opportunities of the Equity Capital Market job types
+                        bool incenFee = nform.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Incentive Structure");
+                        Assert.AreEqual(true, incenFee);
+                        extentReports.CreateLog("Minimum Fee field is displayed upon saving Transaction Fee as Incentive Fee in CNBC Form ");
+
+                        string incenFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Incentive Structure");
+                        Assert.AreEqual("Minimum Fee (MM): ", incenFeeReport);
+                        extentReports.CreateLog("Minimum Fee field is displayed in Cognos report upon saving Transaction Fee as Incentive Fee ");
+
+                        //5.  
 
 
                     }
