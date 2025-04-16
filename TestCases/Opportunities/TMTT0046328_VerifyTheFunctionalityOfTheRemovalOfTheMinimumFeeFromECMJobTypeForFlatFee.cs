@@ -7,6 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -75,10 +76,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ValidateFeesAndFinancialsTabL();
                     string valTxnSizeOpp = opportunityDetails.GetTransactionSizeL();
 
-
-                    if (valJobType.Equals("Equity Capital Markets"))
-                    {
-                        //1.  TMTI0113194_Verify that the "Estimated Fee" field is added in the CNBC form on the existing Opportunities
+                      //1.  TMTI0113194_Verify that the "Estimated Fee" field is added in the CNBC form on the existing Opportunities
                         string title = opportunityDetails.ClickNBCFormLCNBC();
                         nform.ClickFeesTab();
                         string txnFee = nform.ValidateEstFeeFieldUponSelectingOtherFeeType();
@@ -118,16 +116,8 @@ namespace SF_Automation.TestCases.Opportunities
                         Assert.AreEqual("Minimum Fee (MM): ", incenFeeReport);
                         extentReports.CreateLog("Minimum Fee field is displayed in Cognos report upon saving Transaction Fee as Incentive Fee ");
 
-                        //5.  
-
-
-                    }
-                    else
-                    {
-                        string title = opportunityDetails.ClickNBCFormL();
-                        extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
-                       
-                    }                    
+                    driver.SwitchTo().Window(driver.WindowHandles.First());
+                                            
                 }
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
@@ -136,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
