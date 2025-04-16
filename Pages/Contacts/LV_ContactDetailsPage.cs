@@ -754,7 +754,7 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(10000);
             string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
 
-            if(driver.FindElement(By.XPath($"(//a[@title='{empName}'])[2]")).Displayed)
+            if(driver.FindElement(By.XPath($"(//a[@title='{empName}'])[1]")).Displayed)
             {
                 result = true;
             }

@@ -185,15 +185,7 @@ namespace SF_Automation.Pages.Companies
             }
 
             Thread.Sleep(5000);
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
-            {
-                result = true;
-            }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
-            {
-                result = true;
-            }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
+            if(driver.FindElement(By.XPath($"(//lightning-primitive-cell-factory[@data-label='Subject'])[2]//a[text()='{sub}']")).Displayed)
             {
                 result = true;
             }
@@ -205,14 +197,12 @@ namespace SF_Automation.Pages.Companies
             try
             {
                 Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[3]")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//lightning-primitive-cell-factory[@data-label='Subject'])[2]//a[text()='{name}']")), 60);
                 Thread.Sleep(3000);
             }
             catch(Exception)
             {
-                Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[4]")), 60);
-                Thread.Sleep(3000);
+                
             }
         }
 

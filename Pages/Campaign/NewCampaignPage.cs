@@ -79,7 +79,7 @@ namespace SF_Automation.Pages
             }
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,500)");
+            js.ExecuteScript("window.scrollTo(0,800)");
             Thread.Sleep(2000);
 
             //Get HL Sub Group options Count
