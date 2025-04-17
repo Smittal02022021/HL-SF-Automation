@@ -105,6 +105,7 @@ namespace SF_Automation.Pages
         By valWinProb = By.CssSelector("div[id*='OKj']");
         By valTxnSize = By.CssSelector("div[id*='80P4j']");
         By valTxnSizeL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
+        By txtEstTransSize = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
         By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd//lightning-formatted-text");
         By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]/dd//lightning-formatted-text");
@@ -435,8 +436,8 @@ namespace SF_Automation.Pages
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
         By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//dd//slot[1]/lightning-formatted-text");
-       // By valEstTxnSize = By.XPath("//div[contains(@id, 'P4j')]");
-        
+        // By valEstTxnSize = By.XPath("//div[contains(@id, 'P4j')]");
+        By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
@@ -2366,6 +2367,21 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
             string txnSize = driver.FindElement(valTxnSizeL).Text;
             return txnSize.Substring(4,5);
+        }
+
+        //To get Transaction Size
+        public string UpdateAndGetTransactionSizeL()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(btCurrencyFee).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEstTransSize, 90);
+            driver.FindElement(txtEstTransSize).SendKeys("60");
+            Thread.Sleep(4000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, valTxnSizeL, 100);
+            Thread.Sleep(3000);
+            string txnSize = driver.FindElement(valTxnSizeL).Text;
+            return txnSize.Substring(4, 5);
         }
         //To get Retainer
         public string GetRetainer()

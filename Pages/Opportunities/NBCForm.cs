@@ -3995,7 +3995,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
             driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
             driver.FindElement(btnSignin).Click();
@@ -4049,8 +4049,9 @@ namespace SF_Automation.Pages.Opportunity
 
         public string VerifyMinFeeFieldForFlatAndIncentiveFeeinReport(string value)
         {
+            Thread.Sleep(6000);
             driver.FindElement(btnPDF).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
@@ -4059,6 +4060,26 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
             Thread.Sleep(8000);
             if(value.Equals("Incentive Structure"))
+            {
+                string minFee = driver.FindElement(By.XPath("//tr[2]//tr[4]/td/span[1]")).Text;
+                return minFee;
+            }
+            else
+            {
+                string fee = driver.FindElement(By.XPath("//tr[7]//tr[2]//tr[1]//span[1]")).Text;
+                return fee;
+            }
+        }
+
+        public string VerifyMinFeeFieldForFlatAndIncentiveFeeinReportInNewOpp(string value)
+        {           
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
+            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
+            Thread.Sleep(8000);
+            if (value.Equals("Incentive Structure"))
             {
                 string minFee = driver.FindElement(By.XPath("//tr[2]//tr[4]/td/span[1]")).Text;
                 return minFee;
