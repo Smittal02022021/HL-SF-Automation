@@ -324,7 +324,7 @@ namespace SF_Automation.TestCases.Engagement
                 opportunityDetails.ClickBuyersListTab();
                 extentReports.CreateStepLogs("Info", "Buyers list tab is clicked");
 
-                Assert.IsTrue(opportunityDetails.VerifyBuyerListRequestIsGeneratedAndDisplayed());
+                Assert.IsTrue(opportunityDetails.VerifyBuyerListRequestIsGeneratedAndDisplayed(getCaseTitle2));
                 extentReports.CreateStepLogs("Passed", "Buyer list request is generated and displayed on buyer list page for CF Financial User. ");
 
                 //Create External Primary Contact

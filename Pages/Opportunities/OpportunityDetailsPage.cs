@@ -7616,7 +7616,7 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
 
             //Select Conf Agreement
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboIndemLngL));//lblConflictsRunL
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             driver.FindElement(comboConfAggL).Click();
             Thread.Sleep(4000);
@@ -9994,9 +9994,14 @@ namespace SF_Automation.Pages
             return name;
         }
 
-        public bool VerifyBuyerListRequestIsGeneratedAndDisplayed()
+        public bool VerifyBuyerListRequestIsGeneratedAndDisplayed(string caseTitle)
         {
             bool result = false;
+
+            if(driver.FindElement(By.XPath($"//th[@data-label='Case Number']/following::td//a[@title='{caseTitle}']")).Displayed)
+            {
+                result = true;
+            }
 
             return result;
         }
