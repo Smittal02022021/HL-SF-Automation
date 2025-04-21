@@ -1139,19 +1139,19 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnYes2).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[19]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             js.ExecuteScript("window.scrollTo(0,1600)");
             driver.FindElement(btnYes5).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[22]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnSave).Click();
@@ -3912,6 +3912,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             string value = driver.FindElement(valEstTotalFee).Text;
             return value.Substring(4, 6);
+
         }
 
         //Update Other Fee Structure
@@ -3975,6 +3976,23 @@ namespace SF_Automation.Pages.Opportunity
             return txnFee;
         }
 
+        public string ValidateEstFeeFieldUponSelectingOtherFeeTypeInNewOpp()
+        {
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEditCurrencyL, 190);
+            driver.FindElement(lnkEditCurrencyL).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(btnTxnFeeType1).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='Other Fee Structure']")).Click();
+            driver.FindElement(txtEstimatedFee).Clear();
+            driver.FindElement(txtEstimatedFee).SendKeys("60");
+            driver.FindElement(txtOtherFee).SendKeys("20");
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            string txnFee = driver.FindElement(lblMinFee).Text;
+            return txnFee;
+        }
+
         public string GetEstFeeValueUponSavingOtherFeeType()
         {
             Thread.Sleep(4000);
@@ -3995,7 +4013,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(10000);
+            Thread.Sleep(12000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
             driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
             driver.FindElement(btnSignin).Click();
@@ -4047,19 +4065,21 @@ namespace SF_Automation.Pages.Opportunity
 
         }
 
+
+
         public string VerifyMinFeeFieldForFlatAndIncentiveFeeinReport(string value)
         {
             Thread.Sleep(6000);
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(8000);
+            Thread.Sleep(11000);
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
             driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
             Thread.Sleep(8000);
-            if(value.Equals("Incentive Structure"))
+            if (value.Equals("Incentive Structure") || value.Equals("Other Fee Structure"))
             {
                 string minFee = driver.FindElement(By.XPath("//tr[2]//tr[4]/td/span[1]")).Text;
                 return minFee;
@@ -4070,7 +4090,13 @@ namespace SF_Automation.Pages.Opportunity
                 return fee;
             }
         }
+        
+        public string ValidateAboveKeywordInFinalRatchetPer()
+        {
+            string above = driver.FindElement(By.XPath("//tr[7]//tr[8]/td/span[3]")).Text;
+            return above;
 
+        }
         public string VerifyMinFeeFieldForFlatAndIncentiveFeeinReportInNewOpp(string value)
         {           
             Thread.Sleep(8000);

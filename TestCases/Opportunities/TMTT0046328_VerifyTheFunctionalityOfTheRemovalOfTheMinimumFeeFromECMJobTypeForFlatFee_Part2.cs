@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using Org.BouncyCastle.Asn1.X509;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -10,6 +11,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -110,33 +112,35 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);
                 extentReports.CreateLog("Minimum Fee field is not displayed in Cognos report upon saving Transaction Fee as Flat Fee for Job Type :" + jobType + " ");
 
-                //6.   TMTI0113204_Verify that the "Minimum Fee" field is available for the Transaction Types—"Incentive Fee" and "Other" on the CNBC form and the Cognos Report PDF on the New Opportunities of the Equity Capital Market job type
+                //6(a)   TMTI0113204_Verify that the "Minimum Fee" field is available for the Transaction Types—"Incentive Fee" and "Other" on the CNBC form and the Cognos Report PDF on the New Opportunities of the Equity Capital Market job type
                 bool incenFee = form.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Incentive Structure");
+                form.UpdateAllRatchetValues(fileTC1232);
+                form.UpdateFinalRatchetAmt(fileTC1232);
                 Assert.AreEqual(true, incenFee);
                 extentReports.CreateLog("Minimum Fee field is displayed upon saving Transaction Fee as Incentive Fee in CNBC Form ");
 
+                IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+                js.ExecuteScript("window.scrollTo(0,-350)");
+                Thread.Sleep(4000);
                 string incenFeeReport = form.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Incentive Structure");
                 Assert.AreEqual("Minimum Fee (MM): ", incenFeeReport);
                 extentReports.CreateLog("Minimum Fee field is displayed in Cognos report upon saving Transaction Fee as Incentive Fee ");
 
-                //-----for Other Fee type in CNBC Form and Congnos Report
+                //7.  TMTI0113206_Verify that the word "above" is added after the first value on the Final Ratchet percent on the Cognos PDF form. . 
+                string wordAbove = form.ValidateAboveKeywordInFinalRatchetPer();
+                Assert.AreEqual(" above ", wordAbove);
+                extentReports.CreateLog("Word: "+ wordAbove + " is displayed in Cognos report after the first value of the Final Ratchet percent.");
+
+                //6(b)-----for Other Fee type in CNBC Form and Congnos Report
                 driver.SwitchTo().Window(driver.WindowHandles.First());
-                string txnFee = form.ValidateEstFeeFieldUponSelectingOtherFeeType();
-                string valTxnFee = form.GetEstFeeValueUponSavingOtherFeeType();
-                string valMinFee = form.GetMinFeeValue();
-                Console.WriteLine(valTxnFee);
-                Assert.AreEqual("Estimated Fee (MM)", txnFee);
-                Assert.AreEqual(valTxnSizeOpp, valTxnFee);
-                extentReports.CreateLog("Field with name: " + txnFee + " and value: " + valTxnFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
+                string txnFee = form.ValidateEstFeeFieldUponSelectingOtherFeeTypeInNewOpp();                
+                Assert.AreEqual("Engagement Letter Minimum Fee (MM)", txnFee);               
+                extentReports.CreateLog("Field with name: " + txnFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
 
-                string estFee = form.VerifyEstimatedFeeFieldinReport();
-                string estFeeValue = form.ValidaterEstimatedFeeValueInReport();
-                Console.WriteLine("estFeeValue:" + estFeeValue);
-                Assert.AreEqual("Estimated Fee (MM): ", estFee);
-                Assert.AreEqual(valMinFee, estFeeValue);
-                extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Minimum Fee when Fee Type is 'Other' ");
+                string estFee = form.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Other Fee Structure");               
+                Assert.AreEqual("Minimum Fee (MM): ", estFee);                
+                extentReports.CreateLog("The 'Minimum Fee' field is added in the Cognos report when Fee Type is 'Other' ");
 
-                //7.	TMTI0113206_Verify that the word "above" is added after the first value on the Final Ratchet percent on the Cognos PDF form. . 
                 
                 
                 

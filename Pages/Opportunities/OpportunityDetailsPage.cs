@@ -5759,11 +5759,12 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//span[text()='Client Ownership']/ancestor::div[2]/dd//button")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnClientOwnership).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
+
             driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox/div[1]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(6000);
             driver.FindElement(btnSubjectOwnership).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='Subject Ownership']/ancestor::div[2]//lightning-combobox/div[1]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
