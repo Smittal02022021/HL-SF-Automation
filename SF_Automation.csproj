@@ -664,6 +664,7 @@
     <Compile Include="TestCases\Engagement\TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0042714_VerificationOfBuyersListFeatureOnEngagementScreen.cs" />
     <Compile Include="TestCases\Engagement\TS04AndTS07_ValidateERPSectionAndDefaultContract_PostConversionFromOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Engagement\ZObsolated_LV_TMTI0045436_45443_45461_48254_46851_45467_45490_45542_45547_45556_45516_49645_45494_45538_45519_48957_45485_Verify_Client_Services_Questionnaire_Button_Functionality.cs" />
     <Compile Include="TestCases\Engagement\ZObsolated_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagement.cs" />

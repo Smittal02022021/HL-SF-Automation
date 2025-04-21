@@ -6,9 +6,9 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0042712_VerificationOfBuyersListFeatureOnOpportunityScreen : BaseClass
+    class TMTT0042714_VerificationOfBuyersListFeatureOnEngagementScreen : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -21,7 +21,7 @@ namespace SF_Automation.TestCases.Opportunities
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         Outlook outlook = new Outlook();
 
-        public static string fileTMTT0042712 = "TMTT0042712_VerificationOfBuyersListFeatureOnOpportunityScreen";
+        public static string fileTMTT0042714 = "TMTT0042714_VerificationOfBuyersListFeatureOnEngagementScreen";
         public static string fileOutlook = "Outlook";
 
         [OneTimeSetUp]
@@ -34,12 +34,12 @@ namespace SF_Automation.TestCases.Opportunities
         }
 
         [Test]
-        public void VerifyActivityIsLinkedToTheRelatedOpportunity()
+        public void VerifyActivityIsLinkedToTheRelatedEngagement()
         {
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0042712;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0042714;
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string FSCOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
 
@@ -116,11 +116,11 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Create New Opportunity
-                string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTT0042712);
+                string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTT0042714);
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTT0042712);
+                string displayedTab = addOpportunity.EnterStaffDetailsL(fileTMTT0042714);
                 Assert.AreEqual(displayedTab, "Info");
                 extentReports.CreateStepLogs("Info", "User is on Opportunity detail " + displayedTab + " tab ");
 
@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.ClickRequestBuyersListButton();
                 extentReports.CreateStepLogs("Info", "Request Buyers List button is clicked. ");
 
-                opportunityDetails.FillRequestBuyersListDetails(fileTMTT0042712);
+                opportunityDetails.FillRequestBuyersListDetails(fileTMTT0042714);
                 extentReports.CreateStepLogs("Info", "Request Buyers List Details filled successfully. ");
 
                 Assert.IsTrue(opportunityDetails.VerifyBuyersListTabIsDisplayed());
@@ -221,7 +221,7 @@ namespace SF_Automation.TestCases.Opportunities
                     lvHomePage.SelectAppLV1("HL Banker");
                 }
 
-                //TC - TMTI0104951 - Verify that FSCO user of related region can access the case and add company list on the case
+                //TC - TMTI0104958 - Verify the Buyers list/Counterparty on Engagement screen once Opportunity converted
 
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
