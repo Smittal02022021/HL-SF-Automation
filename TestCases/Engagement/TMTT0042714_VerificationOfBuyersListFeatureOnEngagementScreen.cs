@@ -5,6 +5,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.Opportunity;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -19,6 +22,10 @@ namespace SF_Automation.TestCases.Engagement
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
+        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
+
         Outlook outlook = new Outlook();
 
         public static string fileTMTT0042714 = "TMTT0042714_VerificationOfBuyersListFeatureOnEngagementScreen";
@@ -42,6 +49,7 @@ namespace SF_Automation.TestCases.Engagement
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0042714;
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string FSCOUser = ReadExcelData.ReadData(excelPath, "Users", 2);
+                string userCAOExl = ReadExcelData.ReadData(excelPath, "Users", 3);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -316,6 +324,83 @@ namespace SF_Automation.TestCases.Engagement
                 opportunityDetails.ClickBuyersListTab();
                 extentReports.CreateStepLogs("Info", "Buyers list tab is clicked");
 
+                Assert.IsTrue(opportunityDetails.VerifyBuyerListRequestIsGeneratedAndDisplayed());
+                extentReports.CreateStepLogs("Passed", "Buyer list request is generated and displayed on buyer list page for CF Financial User. ");
+
+                //Create External Primary Contact
+                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
+                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
+                addOpportunityContact.CickAddCFOpportunityContact();
+                addOpportunityContact.CreateContactL2(fileTMTT0042714);
+                extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
+
+                //Update required Opportunity fields for conversion and Internal team details
+                opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTT0042714, valJobType);
+                extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
+
+                opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0042714);
+                extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
+
+                opportunityDetails.ClickReturnToOpportunityLV();
+                extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+
+                //update CC and NBC checkboxes in LV
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
+
+                //Requesting for engagement and validate the success message
+                opportunityDetails.ClickRequestToEngL();
+
+                //Submit Request To Engagement Conversion 
+                string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
+                Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
+                extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
+
+                //Search CAO Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(userCAOExl);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, userCAOExl + " | Salesforce"), true);
+                extentReports.CreateLog("User " + userCAOExl + " details are displayed ");
+
+                //Login as CAO user
+                lvHomePage.UserLogin();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+                }
+                else
+                {
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+                }
+
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(userCAOExl));
+                extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
+
+                //Search for created opportunity
+                extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+
+                //Approve the Opportunity 
+                string status = opportunityDetails.ClickApproveButtonLV2();
+                Assert.AreEqual(status, "Approved");
+                extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
+                opportunityDetails.CloseApprovalHistoryTabL();
+
+                //Calling function to convert to Engagement
+                opportunityDetails.ClickConvertToEngagementL2();
+                extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
+
+                //Validate the Engagement name in Engagement details page
+                string engagementNumber = engagementDetails.GetEngagementNumberL();
+                string engagementName = engagementDetails.GetEngagementNameL();
+
+                //Need to get Name of Opp and Eng
+                Assert.AreEqual(opportunityName, engagementName);
+                extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
 
                 //TC - End
