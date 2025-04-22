@@ -255,7 +255,6 @@ namespace SF_Automation.TestCases.LV_Activities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
             }
         }
     }
