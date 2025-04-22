@@ -157,7 +157,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "Newly created company is deleted successfully. ");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

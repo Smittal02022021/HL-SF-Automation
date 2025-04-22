@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Contact
                 }
 
                 //User Logout
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

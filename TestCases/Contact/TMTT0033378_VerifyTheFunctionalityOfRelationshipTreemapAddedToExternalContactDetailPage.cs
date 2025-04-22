@@ -182,10 +182,6 @@ namespace SF_Automation.TestCases.Contact
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 
-                //Logout from SF Classic View
-                usersLogin.UserLogOut();
-                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Classic View. ");
-
                 driver.Quit();
             }
             catch(Exception e)

@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab("Test External");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 //Select HL Banker app
@@ -147,7 +147,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
             catch (Exception e)

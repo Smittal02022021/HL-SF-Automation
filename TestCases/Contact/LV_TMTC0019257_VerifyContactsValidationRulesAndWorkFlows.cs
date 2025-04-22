@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "Error message displayed upon changing Last Name for HL Contact : Only system administrators can change employee name and salutation.");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 //Select HL Banker app
@@ -171,7 +171,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

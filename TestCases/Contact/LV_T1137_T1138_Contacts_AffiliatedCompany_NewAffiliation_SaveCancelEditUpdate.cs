@@ -125,7 +125,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("Affiliation company is not available after deletion ");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

@@ -197,7 +197,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info","Created External Contact is deleted successfully. ");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info","System Admin User Logged Out from SF Lightning View. ");
                 driver.Quit();
             }
