@@ -141,9 +141,9 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Minimum Fee (MM): ", estFee);                
                 extentReports.CreateLog("The 'Minimum Fee' field is added in the Cognos report when Fee Type is 'Other' ");
 
-                
-                
-                
+                //8.  TMTI0113208_Verify that the "Minimum Fee" field is hidden for the Transaction Type - "Flat Fee" from the NBC form and the Cognos Report PDF on the existing Opportunities 
+
+
                 form.SwitchFrame();
 
                 usersLogin.DiffLightningLogout();            
