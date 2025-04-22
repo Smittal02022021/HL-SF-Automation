@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Info", "Campaign deleted successfully. ");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
