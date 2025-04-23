@@ -231,7 +231,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(opportunityName, engName);
                 extentReports.CreateStepLogs("Passed", "Converted Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
 
-                homePageLV.UserLogoutFromSFLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CAO User: " + UserCFExl + " Loggout ");
 
                 //Select HL Banker app
@@ -448,7 +448,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

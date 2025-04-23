@@ -127,7 +127,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     usersLogin.ClickLogoutFromLightningView();
                 }
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
