@@ -10,7 +10,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T1523_T2010_T1515_ApproveGiftsDefaultLayoutFieldsAndFieldsValues:BaseClass
+    class LV_T1523_T2010_T1515_ApproveGiftsDefaultLayoutFieldsAndFieldsValues : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -51,7 +51,7 @@ namespace SF_Automation.TestCases.GiftLog
         private string warningMessage;
         private string warningMessageExl;
 
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             Initialize();
@@ -59,7 +59,6 @@ namespace SF_Automation.TestCases.GiftLog
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-
 
         [Test]
         public void VerifyApproveGiftsDefaultLayoutFieldsAndFieldsValuesLV()
@@ -85,7 +84,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valUser + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                 user = login.ValidateUserLightningView();
+                user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged in on Lightning View");
 
@@ -134,7 +133,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Company Name: " + selectedCompanyName + " in selected recipient(s) table matches with available company name listed in Available Recipient(s) table ");
 
                 //Verify Current GIft Amount YTD
-                 currentGiftAmtYTD = giftRequest.GetCurrentGiftAmtYTDLV();
+                currentGiftAmtYTD = giftRequest.GetCurrentGiftAmtYTDLV();
                 extentReports.CreateStepLogs("Info", "Current GiftAmtYTD: " + currentGiftAmtYTD + " is displaying");
 
                 //Click on submit gift request
@@ -178,7 +177,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Year: " + defaultSelectedYear + " is selected as default value in Year dropdown ");
 
                 //Verification of default approved status
-                 defaultApprovedStatus = giftApprove.GetDefaultSelectedApprovedStatusLV();
+                defaultApprovedStatus = giftApprove.GetDefaultSelectedApprovedStatusLV();
                 Assert.AreEqual("Pending", defaultApprovedStatus);
                 extentReports.CreateStepLogs("Passed", "ApprovedStatus: " + defaultApprovedStatus + " is selected as default value in Approved Status dropdown ");
 
@@ -223,7 +222,7 @@ namespace SF_Automation.TestCases.GiftLog
                 //Search gift details by approved status
                 //Note**Gift Log Gifts are not filtered when selected approved status from the drop-down(without Contact Last name
                 //giftApprove.SelectApprovedStatusCombo("Approved");
-                giftApprove.SearchByMonthYearAndStatusRecipientLastNameLV(valRecipientLastNameExl,"Approved");
+                giftApprove.SearchByMonthYearAndStatusRecipientLastNameLV(valRecipientLastNameExl, "Approved");
 
                 Assert.IsTrue(giftApprove.CompareGiftDescWithGiftNameLV(valGiftNameEntered));
                 extentReports.CreateStepLogs("Passed", "Gift Description link matches with Gift Name. ");
@@ -355,7 +354,7 @@ namespace SF_Automation.TestCases.GiftLog
                 //Search gift details by denied status
                 //Note**Gift Log Gifts are not filtered when selected approved status from the drop-down(without Contact Last name
                 //giftApprove.SelectApprovedStatusCombo("Denied");
-                giftApprove.SearchByMonthYearAndStatusRecipientLastNameLV(valRecipientLastNameExl,"Denied");
+                giftApprove.SearchByMonthYearAndStatusRecipientLastNameLV(valRecipientLastNameExl, "Denied");
 
                 Assert.IsTrue(giftApprove.CompareGiftDescWithGiftNameLV(valGiftNameEntered));
                 extentReports.CreateStepLogs("Passed", "Gift Description link matches with Gift Name. ");
@@ -368,7 +367,7 @@ namespace SF_Automation.TestCases.GiftLog
                 usersLogin.ClickLogoutFromLightningView();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
@@ -376,9 +375,15 @@ namespace SF_Automation.TestCases.GiftLog
                 usersLogin.UserLogOut();
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT1523;
                 conHome.ClickContact();
-                conHome.SearchContact(fileT1523);
+                //conHome.SearchContact(fileT1523);
                 //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                try
+                {
+                    contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch
+                {//no record found
+                }
                 conHome.ClickContact();
                 conHome.ClickAddContact();
 
@@ -403,7 +408,13 @@ namespace SF_Automation.TestCases.GiftLog
             conHome.ClickContact();
             conHome.SearchContact(fileT1523);
             //To Delete created contact
-            contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+            try
+            {
+                contactDetails.DeleteCreatedContact(fileT1523, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+            }
+            catch
+            {//no record found
+            }
             conHome.ClickContact();
             conHome.ClickAddContact();
 

@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear:BaseClass
+    class LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.GiftLog
                 stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged in on Lightning View");
-                
+
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -190,7 +190,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2022);
-                desireDate = giftRequest.EnterDesiredDateLV(350);
+                desireDate = giftRequest.EnterDesiredDateLV(360);
                 extentReports.CreateLog("Desire Date: " + desireDate + " entered as next year date. ");
 
                 // Adding recipient from add recipient section to selected recipient section
@@ -220,7 +220,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "Browser Closed");
 
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

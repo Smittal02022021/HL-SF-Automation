@@ -28,28 +28,28 @@ namespace SF_Automation.Pages.GiftLog
         By frameGiftSubmittedL = By.XPath("//iframe[@title='accessibility title']");
 
 
-       
+
         public bool ValidateIfGiftDescIsClickableLV(string giftName)
         {
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             bool result = false;
 
-            for (int i = 1; i <= totalRows; i++)
+            for(int i = 1; i <= totalRows; i++)
             {
                 By giftDesc = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > span");
                 IWebElement descGiftWebElement = driver.FindElement(giftDesc);
                 string descGift = descGiftWebElement.Text;
-                if (descGift.Equals(giftName))
+                if(descGift.Equals(giftName))
                 {
                     try
                     {
                         By linkGift = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > a");
-                        WebDriverWaits.WaitUntilEleVisible(driver, linkGift,5);
+                        WebDriverWaits.WaitUntilEleVisible(driver, linkGift, 5);
                         result = true;
                         break;
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         break;
                     }
@@ -72,12 +72,12 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
 
-            for (int i = 1; i <= totalRows; i++)
+            for(int i = 1; i <= totalRows; i++)
             {
                 By linkGiftDesc = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > a");
                 IWebElement descGiftWebElement = driver.FindElement(linkGiftDesc);
                 string descGift = descGiftWebElement.Text;
-                if (descGift.Equals(giftName))
+                if(descGift.Equals(giftName))
                 {
                     recordFound = true;
                     Thread.Sleep(3000);
@@ -126,6 +126,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public bool IsTableListPresentLV()
         {
+            Thread.Sleep(10000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, frameGiftSubmittedL, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftSubmittedL));
@@ -134,31 +135,33 @@ namespace SF_Automation.Pages.GiftLog
         public void ClickEditButtonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 20);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEdit));
+            Thread.Sleep(5000);
         }
         public string GetGiftSubmittedDetailTitleLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestDetail, 20);
             string giftRequestDetail = driver.FindElement(valGiftRequestDetail).Text;
             return giftRequestDetail;
         }
         public void CompareAndClickGiftDescWithGiftNameLV(string giftName)
         {
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, frameGiftSubmittedL, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameGiftSubmittedL));
             Thread.Sleep(1000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for (int i = 1; i <= totalRows; i++)
+            for(int i = 1; i <= totalRows; i++)
             {
                 By linkGiftDesc = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > a");
                 IWebElement descGiftWebElement = driver.FindElement(linkGiftDesc);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(linkGiftDesc));
                 Thread.Sleep(500);
                 string descGift = descGiftWebElement.Text;
-                if (descGift.Equals(giftName))
+                if(descGift.Equals(giftName))
                 {
                     //Console.WriteLine("Gift Description and Gift Name Matches");
                     descGiftWebElement.Click();
@@ -176,7 +179,7 @@ namespace SF_Automation.Pages.GiftLog
         public void GoToGiftsSubmittedPage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, shwAllTab, 120);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(shwAllTab));
             //driver.FindElement(shwAllTab).Click();
 
@@ -192,13 +195,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
 
-            for (int i = 1; i <= totalRows; i++)
+            for(int i = 1; i <= totalRows; i++)
             {
                 By linkGiftDesc = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > a");
                 IWebElement descGiftWebElement = driver.FindElement(linkGiftDesc);
 
                 string descGift = descGiftWebElement.Text;
-                if (descGift.Equals(giftName))
+                if(descGift.Equals(giftName))
                 {
                     Console.WriteLine("Gift Description and Gift Name Matches");
                     descGiftWebElement.Click();
@@ -222,12 +225,12 @@ namespace SF_Automation.Pages.GiftLog
         public void ClickEditButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEdit));
 
             //  driver.FindElement(btnEdit).Click();
         }
-        
+
         public bool tableListPresent()
         {
             return CustomFunctions.IsElementPresent(driver, tableList);
@@ -295,19 +298,19 @@ namespace SF_Automation.Pages.GiftLog
 
             bool result = false;
 
-            for (int i = 1; i <= totalRows; i++)
+            for(int i = 1; i <= totalRows; i++)
             {
                 By linkGiftDesc = By.CssSelector($"table[id='j_id0:theSubmitterForm:j_id34:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > span");
                 IWebElement descGiftWebElement = driver.FindElement(linkGiftDesc);
 
                 string descGift = descGiftWebElement.Text;
-                if (descGift.Equals(giftName))
+                if(descGift.Equals(giftName))
                 {
                     try
                     {
                         WebDriverWaits.WaitUntilClickable(driver, linkGiftDesc, 5);
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         break;
                     }

@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear:BaseClass
+    class LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.GiftLog
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

@@ -10,7 +10,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar: BaseClass
+    class LV_T1516_T1517_T1518_T1519_T1520_T2005_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowanceReviseRequestAndSubmitsRequestForCurrencyTypeUSDollar : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,7 +23,7 @@ namespace SF_Automation.TestCases.GiftLog
         ContactDetailsPage contactDetails = new ContactDetailsPage();
         ContactSelectRecordPage conSelectRecord = new ContactSelectRecordPage();
         ContactHomePage conHome = new ContactHomePage();
-        RandomPages randomPages = new RandomPages();    
+        RandomPages randomPages = new RandomPages();
 
         public static string fileT1516 = "LV_T1516_GiftLog_ClientGiftPreApprovalPageRecipientsExceedsYearlyGiftAllowance";
         private string actualRecipientContactName;
@@ -43,7 +43,7 @@ namespace SF_Automation.TestCases.GiftLog
         private string expectedContactName;
         private string contactType;
 
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             Initialize();
@@ -172,7 +172,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verification of recipient exceeding yearly allowance for different currency types
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "GiftLog_Currency");
-                for (int row = 2; row <= rowCount; row++)
+                for(int row = 2; row <= rowCount; row++)
                 {
                     randomPages.ReloadPage();
                     homePageLV.SelectModule(moduleNameExl);
@@ -182,13 +182,13 @@ namespace SF_Automation.TestCases.GiftLog
                     extentReports.CreateStepLogs("Passed", "Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
                     // Enter required details in client gift pre- approval page
-                    valGiftNameEntered=giftRequest.EnterDetailsGiftRequestLV(fileT1516);
-                    extentReports.CreateStepLogs("Info", "details entered ");
+                    valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT1516);
+                    extentReports.CreateStepLogs("Info", valGiftNameEntered + ": details entered ");
 
                     //Select currency drop down
                     string giftCurrency = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 1);
                     string giftval = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 2);
-                    giftRequest.SelectCurrencyDrpDownLV(giftCurrency);  
+                    giftRequest.SelectCurrencyDrpDownLV(giftCurrency);
 
                     giftRequest.EnterGiftValueLV(giftval);
                     giftRequest.ClickAddRecipientLV();
@@ -199,7 +199,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                     // Verify currency of gift
                     string currencyCode = giftRequest.GetGiftCurrencyCodeLV();
-                    string currencyCodeExl= ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 3);
+                    string currencyCodeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 3);
                     Assert.AreEqual(currencyCodeExl, currencyCode);
                     extentReports.CreateStepLogs("Passed", "Currency Code: " + currencyCode + " is displayed in Selected Recipient(s) table ");
 
@@ -213,9 +213,9 @@ namespace SF_Automation.TestCases.GiftLog
                     giftRequest.ClickSubmitGiftRequestLV();
                     //Verification of error message displaying on submit of gift request exceeds yearly gift allowance for currency type euro(not in france)
                     warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceedLV();
-                                        
+
                     Assert.AreEqual(warningMessageExl, warningMessage);
-                    extentReports.CreateStepLogs("Passed", "Warning Message: " + warningMessage+ " is displayed upon submitting a gift request with gift amount exceeding $100 ");
+                    extentReports.CreateStepLogs("Passed", "Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
                     //CLick on submit request button
                     giftRequest.ClickSubmitRequestButtonLV();
@@ -264,7 +264,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
@@ -273,8 +273,14 @@ namespace SF_Automation.TestCases.GiftLog
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
                 conHome.ClickContact();
                 //conHome.SearchContact(fileT1516);
-                //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                //To Delete created contact                
+                try
+                {
+                    contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch
+                {//no record found
+                }
                 conHome.ClickContact();
                 conHome.ClickAddContact();
 
@@ -288,7 +294,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 usersLogin.UserLogOut();
                 driver.Quit();
-                
+
             }
 
         }

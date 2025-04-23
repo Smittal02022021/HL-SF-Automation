@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar:BaseClass
+    class LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -34,14 +34,14 @@ namespace SF_Automation.TestCases.GiftLog
         private string giftRequestTitleExl;
         private string warningMessageExl;
 
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
-        }      
+        }
 
         [Test]
         public void VerifyRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollarLV()
@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify the warning message
                 warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceedLV();
-                warningMessageExl= ReadExcelData.ReadData(excelPath, "GiftLog", 14);
+                warningMessageExl = ReadExcelData.ReadData(excelPath, "GiftLog", 14);
                 Assert.AreEqual(warningMessageExl, warningMessage);
                 extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
@@ -161,7 +161,7 @@ namespace SF_Automation.TestCases.GiftLog
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
