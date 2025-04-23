@@ -11,7 +11,7 @@ namespace SF_Automation.Pages
     class NewCampaignPage : BaseClass
     {
         By valCampRecordType = By.XPath("((//span[text()='Campaign Record Type'])[2]/following::dd//span)[2]");
-        By txtCampaignName = By.XPath("((//span[text()='Campaign Name']/..)[1]/following::input)[1]");
+        By txtCampaignName = By.XPath("((//span[text()='Campaign Name']/..)[2]/following::input)[1]");
 
         By selectLOB = By.XPath("((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li");
         By selectIndustryGroup = By.XPath("((//div[text()='Industry Groups']/following::div)[1]//ul)[1]/li");
@@ -108,7 +108,7 @@ namespace SF_Automation.Pages
             try
             {
                 Thread.Sleep(5000);
-                driver.FindElement(By.XPath($"((//span[text()='{name}'])[2]/../span)[1]")).Click();
+                driver.FindElement(By.XPath($"((//span[text()='{name}'])[3]/../span)[1]")).Click();
                 Thread.Sleep(3000);
 
                 driver.FindElement(btnNext).Click();
@@ -117,7 +117,7 @@ namespace SF_Automation.Pages
             catch(Exception)
             {
                 Thread.Sleep(5000);
-                driver.FindElement(By.XPath($"((//span[text()='{name}'])[1]/../span)[1]")).Click();
+                driver.FindElement(By.XPath($"((//span[text()='{name}'])[2]/../span)[1]")).Click();
                 Thread.Sleep(3000);
 
                 driver.FindElement(btnNext).Click();
