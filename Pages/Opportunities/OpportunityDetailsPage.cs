@@ -5286,7 +5286,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(btnFairnessL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[3]/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
+            driver.FindElement(By.XPath("//flexipage-component2[3]//flexipage-field[4]//records-form-picklist//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
 
             //New fields for for CF conversion
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));

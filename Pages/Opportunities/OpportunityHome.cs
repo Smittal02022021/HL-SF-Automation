@@ -381,7 +381,7 @@ namespace SF_Automation.Pages
             Console.WriteLine("about to click navigation");
             driver.FindElement(btnNavigationMenu).Click();
             Console.WriteLine("Clicked navigation");
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
             string value = driver.FindElement(tagOpportunities).Text;
             return value;
