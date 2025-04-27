@@ -73,7 +73,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
 
                     //Verify the availability of Opportunity under HL Banker list
-                    string tagOpp = opportunityHome.ValidateOppUnderHLBanker();
+                    string tagOpp = opportunityHome.ClickOppUnderHLBanker();
                     Assert.AreEqual("Opportunities", tagOpp);
                     extentReports.CreateLog(tagOpp + " is displayed under HL Banker dropdown ");
 
@@ -114,7 +114,14 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(false, flatFee);
                     extentReports.CreateLog("Minimum Fee field is not displayed upon saving Transaction Fee as Flat Fee in CNBC Form for Job Type :" + jobType + " ");
 
-                    string pdfPath = form.ConnectCognoAndOpenPDF();
+                    if (valJobType.Equals("Equity Capital Markets"))
+                    {
+                        string pdfPath = form.ConnectCognoAndOpenPDF();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No need to connect again");
+                    }
                     string flatFeeReport = form.VerifyMinFeeFieldForFlatAndIncentiveFeeinReportInNewOpp("Flat Fee");
                     Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);
                     extentReports.CreateLog("Minimum Fee field is not displayed in Cognos report upon saving Transaction Fee as Flat Fee for Job Type :" + jobType + " ");

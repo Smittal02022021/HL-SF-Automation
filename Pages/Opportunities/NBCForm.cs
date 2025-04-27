@@ -4073,7 +4073,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(6000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(12000);
+            Thread.Sleep(14000);
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
             driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
             Thread.Sleep(8000);
