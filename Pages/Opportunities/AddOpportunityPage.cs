@@ -744,25 +744,25 @@ namespace SF_Automation.Pages
             driver.FindElement(txtClientL).SendKeys(valClient);
             Thread.Sleep(5000);
             By eleClient = By.XPath($"//label[text()='Client']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valClient}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 60);
             driver.FindElement(eleClient).Click();
 
             string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
             driver.FindElement(txtSubjectL).SendKeys(valSubject);
             Thread.Sleep(5000);
             By eleSubject = By.XPath($"//label[text()='Subject']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSubject}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleSubject, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, eleSubject, 60);
             driver.FindElement(eleSubject).Click();
             Thread.Sleep(5000);
 
             //Select IG
             string valIG = ReadExcelData.ReadData(excelPath, "AddOpportunity", 4);
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 60);
             driver.FindElement(btnIGL).Click();
             Thread.Sleep(3000);
             By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
             driver.FindElement(eleIG).Click();
 
@@ -781,7 +781,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnJobTypeL).Click();
             Thread.Sleep(3000);
             By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 60);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
             jse.ExecuteScript("window.scrollTo(0,10)");
             driver.FindElement(eleJobType).Click();

@@ -18,6 +18,7 @@ namespace SF_Automation.Pages
 {
     class OpportunityDetailsPage : BaseClass
     {
+        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
         By btnRequestBuyersList = By.XPath("//button[text()='Request Buyers List']");
         By btnBuyerListType = By.XPath("//button[@name='Type']");
         By txtBUyerListDueDate = By.XPath("//input[@name='Due_Date__c']");
@@ -7500,6 +7501,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
+
         By iconInlineEditNBCCheckBox = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//dd//button");
         By chkNBCApprovedL = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//input");
 
@@ -7516,6 +7518,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
         }
+
         public void UpdateReqFieldsForCFConversionLV2(string file, string valJobType)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -7602,6 +7605,11 @@ namespace SF_Automation.Pages
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             //string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");
             driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
+
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
 
             //Select Fairness
             Thread.Sleep(4000);
@@ -7711,7 +7719,6 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
         }
 
-
         public bool VerifyOpportunitySectorAddedToOpportunityOrNot(string sectorName)
         {
             Thread.Sleep(5000);
@@ -7744,7 +7751,6 @@ namespace SF_Automation.Pages
             return name;
         }
 
-
         //Validate Edit tab
         public string ValidateEditTabL()
         {
@@ -7754,6 +7760,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnEditTopPanelL).Click();
             return name;
         }
+
         //Click Return to Opp
         public void ClickReturnToOpp()
         {
@@ -7771,7 +7778,6 @@ namespace SF_Automation.Pages
             driver.FindElement(btnViewCounterpartiesL).Click();
             return name;
         }
-
 
         //Add Opportunity Comments
         public void AddOppCommentaAndValidate(string type)
@@ -7897,7 +7903,6 @@ namespace SF_Automation.Pages
             return title;
         }
 
-
         //Click Add FR Opprotunity Contact 
         public string ClickAddFROppContact()
         {
@@ -7992,6 +7997,7 @@ namespace SF_Automation.Pages
             string value = driver.FindElement(lblEngagement).Text;
             return value;
         }
+
         public void UpdateInternalTeamDetails2(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -8052,12 +8058,14 @@ namespace SF_Automation.Pages
             string clientName = driver.FindElement(valClientL).Text;
             return clientName;
         }
+
         public string GetOpportunityNumberLightning()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valOppNumNBCL, 90);
             string clientName = driver.FindElement(valOppNumNBCL).Text;
             return clientName;
         }
+
         //Get Job Type
         public string GetJobTypeL()
         {
@@ -8065,6 +8073,7 @@ namespace SF_Automation.Pages
             string jobType = driver.FindElement(valJobTypeL).Text;
             return jobType;
         }
+
         //Get Job Type
         public string Get2ndJobTypeL()
         {
@@ -8072,6 +8081,7 @@ namespace SF_Automation.Pages
             string jobType = driver.FindElement(val2ndJobTypeL).Text;
             return jobType;
         }
+
         //Get Subject Company
         public string GetSubjectCompanyL()
         {
@@ -8079,6 +8089,7 @@ namespace SF_Automation.Pages
             string value = driver.FindElement(valSubjectL).Text;
             return value;
         }
+
         public string UpdateStagePriorityLV(string valStagePriority)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 60);
@@ -8233,6 +8244,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
             return message;
         }
+
         public void UpdateReqFieldsForFRConversionLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -8393,6 +8405,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }
+
         public void UpdateReqFieldsForFRConversionLV2(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
