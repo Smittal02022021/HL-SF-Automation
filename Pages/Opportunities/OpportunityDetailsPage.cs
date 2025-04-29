@@ -548,6 +548,7 @@ namespace SF_Automation.Pages
         By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
         By btnFairnessL = By.XPath("//button[contains(@aria-label,'Fairness Opinion')]");
+        By btnLocationBenefitL= By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
 
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
@@ -7593,6 +7594,13 @@ namespace SF_Automation.Pages
             //string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");
             driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
 
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+
+
+
             //Select Fairness
             Thread.Sleep(4000);
             driver.FindElement(btnFairnessL).Click();
@@ -8321,6 +8329,10 @@ namespace SF_Automation.Pages
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(2000);
             driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
 
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
@@ -8869,6 +8881,10 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(2000);
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
 
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
@@ -9880,9 +9896,43 @@ namespace SF_Automation.Pages
             Thread.Sleep(15000);
         }
         public void ClickViewAllCommentsLV()
-        {            
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 20);
-            driver.FindElement(lnkViewAllCommentsL).Click();
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkViewAllCommentsL));
+            //driver.FindElement(lnkViewAllCommentsL).Click();
+        }
+        public string GetOppCommentsTextLV(string type)
+        {
+            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td//lightning-base-formatted-text");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
+            return driver.FindElement(txtOppCommentsL).Text;
+        }
+        public string GetOppCommentsCeatedByLV(string type)
+        {
+            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
+            return driver.FindElement(txtOppCommentsL).Text;
+        }
+        public string GetOppCommentsCeatedDateLV(string type)
+        {
+            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created Date']//span//span");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
+            return driver.FindElement(txtOppCommentsL).Text;
+        }
+
+
+        By errorFieldLevelL = By.XPath("//span[text()='Comment Type']/..");
+        public string GetFieldLevelValidationLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, errorFieldLevelL, 20);
+            string[] text = driver.FindElement(errorFieldLevelL).Text.Split('\n');
+            return text[1];
+        }
+        public void CancelFormLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelEditFormL, 10);
+            driver.FindElement(btnCancelEditFormL).Click();
         }
     }
 }
