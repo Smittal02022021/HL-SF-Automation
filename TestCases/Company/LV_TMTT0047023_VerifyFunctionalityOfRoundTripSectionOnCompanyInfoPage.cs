@@ -77,47 +77,58 @@ namespace SalesForce_Project.TestCases.Company
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Companies | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User navigated to companies list page. ");
 
-                //Click New button to create new company
-                companyHome.ClickNewButton();
-                extentReports.CreateStepLogs("Info", "New button is clicked. ");
-
                 int totalCompanies = ReadExcelData.GetRowCount(excelPath, "Company");
                 for(int row = 2; row <= totalCompanies; row++)
                 {
+                    //Click New button to create new company
+                    companyHome.ClickNewButton();
+                    extentReports.CreateStepLogs("Info", "New button is clicked on companies listing page. ");
+
                     //Select company record type
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     companySelectRecord.SelectCompanyRecordTypeAndClickNextLV(valRecordTypeExl);
 
                     string createCompanyPage = createCompany.GetCreateCompanyPageHeaderLV();
-                    Assert.IsTrue(createCompanyPage.Contains("New Company"));
-                    extentReports.CreateStepLogs("Passed", "Page with heading: " + createCompanyPage + " is displayed upon selecting company record type ");
+                    Assert.IsTrue(createCompanyPage.Contains(valRecordTypeExl));
+                    extentReports.CreateStepLogs("Passed", "Page with heading: " + createCompanyPage + " is displayed upon selecting company record type.");
 
-                    //Create a company
+                    //Create a new company
                     createCompany.CreateNewCompanyLV(fileT47023, row);
-                    extentReports.CreateStepLogs("Info", "New Company Created ");
+                    string valCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
+                    extentReports.CreateStepLogs("Info", "New Company: " + valCompanyNameExl + " is Created.");
+
+                    //Validate company name on company detail heading
+                    string companyName = companyDetail.GetCompanyNameHeaderLV();
+                    Assert.IsTrue(companyName.Contains(valCompanyNameExl));
+                    extentReports.CreateStepLogs("Passed", "Company name: : " + companyName + " is displayed on Company Detail page Header upon adding new company.");
+
+                    //Validate company type value
+                    string companyType = companyDetail.GetCompanyTypeLV();
+                    Assert.AreEqual(valRecordTypeExl, companyType);
+                    extentReports.CreateStepLogs("Passed", "Company Type: " + companyType + " in add company page matches on company details page.");
+
+                    /*
+                    //Search CAO user by global search
+                    lvHomePage.SearchUserFromMainSearch(caoUser);
+
+                    //Verify searched user
+                    Assert.AreEqual(WebDriverWaits.TitleContains(driver, caoUser + " | Salesforce"), true);
+                    extentReports.CreateLog("User " + caoUser + " details are displayed ");
+
+                    //Login as CAO user
+                    lvHomePage.UserLogin();
+                    Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(caoUser));
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + caoUser + " is able to login into lightning view. ");
+
+                    //Logout from SF Lightning View
+                    lvHomePage.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
+                    */
+
+                    //Delete company
+                    companyDetail.DeleteCompanyLV();
+                    extentReports.CreateLog("Created company is deleted successfully ");
                 }
-
-                /*
-                //Search CAO user by global search
-                lvHomePage.SearchUserFromMainSearch(caoUser);
-
-                //Verify searched user
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, caoUser + " | Salesforce"), true);
-                extentReports.CreateLog("User " + caoUser + " details are displayed ");
-
-                //Login as CAO user
-                lvHomePage.UserLogin();
-                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(caoUser));
-                extentReports.CreateStepLogs("Passed", "CAO User: " + caoUser + " is able to login into lightning view. ");
-
-                //Logout from SF Lightning View
-                lvHomePage.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
-                */
-
-                //Delete company
-                companyDetail.DeleteCompanyLV();
-                extentReports.CreateLog("Created company is deleted successfully ");
 
                 //TC - End
                 lvHomePage.LogoutFromSFLightningAsApprover();

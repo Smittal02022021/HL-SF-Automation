@@ -329,6 +329,11 @@ namespace SF_Automation.Pages.Companies
         By btnNewFinancialsL = By.XPath("//article[@aria-label='HL Company Financials']//div//button[@name='New']");
         By btnNewFinancialsSPL = By.XPath("//article[@aria-label='Current Sponsors']//div//button[@name='New']");
         By txtSPNameL = By.XPath("//span[text()='Investment List Number']/../../..//lightning-formatted-text");
+
+        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
+        By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
+        By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
+
         private By _DetailPageQuickLink(string name)
         {
             return By.XPath($"//div[@class='listHoverLinks']//a//span[text()='{name}']");
@@ -1708,15 +1713,14 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }
+
         public void ClickEditCompanyButtonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditTopPanelL, 10);
             driver.FindElement(btnEditTopPanelL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBoxL, 10);
         }
-        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
-        By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
-        By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
+        
         public bool IsContactNameValidationDisplayedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
@@ -1742,6 +1746,7 @@ namespace SF_Automation.Pages.Companies
                 } 
             }                        
         }
+
         public void ClickAddOpportunityButtonLV(string valLOB)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _btnAddOpportunity(valLOB), 10);
@@ -1762,16 +1767,19 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(_CompanyDetailPageQuickLink(linkTxt)).Click();
             }            
         }
+
         public void ClickRelatedNewContactButtonLV()
         {            
             WebDriverWaits.WaitUntilEleVisible(driver, btnRelatedNewContactL, 10);
             driver.FindElement(btnRelatedNewContactL).Click();
         }
+
         public string GetNewContactDialogHeaderLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, headertxtNewContactL, 10);
             return driver.FindElement(headertxtNewContactL).Text.Trim();
         }
+
         public void DeleteCompanyLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -1804,6 +1812,7 @@ namespace SF_Automation.Pages.Companies
             string descriptionValueFromDetail = driver.FindElement(txtDscL).Text;
             return descriptionValueFromDetail;
         }
+
         //Function to get IG
         public string GetIndustryFocusLV()
         {
@@ -1811,6 +1820,7 @@ namespace SF_Automation.Pages.Companies
             string IndustryFocusValueFromDetail = driver.FindElement(txtIGL).Text;
             return IndustryFocusValueFromDetail;
         }
+
         //Function to get company Ownership type
         public string GetOwnershipLV()
         {
@@ -1818,6 +1828,7 @@ namespace SF_Automation.Pages.Companies
             string OwnershipValueFromDetail = driver.FindElement(txtOwnershipL).Text;
             return OwnershipValueFromDetail;
         }
+
         //Function to get company sub type
         public string GetCompanySubTypeLV()
         {
@@ -1846,12 +1857,14 @@ namespace SF_Automation.Pages.Companies
             string companyDescription = driver.FindElement(txtDescL).Text;
             return companyDescription;
         }
+
         public string GetCompanyNameHeaderLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtDetailHeadingL, 20);
             string headingCompanyDetail = driver.FindElement(txtDetailHeadingL).Text;
             return headingCompanyDetail;
         }
+
         public string GetCompanyCompleteAddressLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCompanyAddressL, 20);
