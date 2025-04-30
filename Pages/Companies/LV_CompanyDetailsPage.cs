@@ -1044,13 +1044,13 @@ namespace SF_Automation.Pages.Companies
             {
                 //Get fields name from excel
                 string fieldNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RoundTripFields", row, 1);
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
 
-                int fieldCount = driver.FindElements(By.XPath("//div[@class='test-id__field-label-container slds-form-element__label']//span[contains(text(),'Round Trip')]")).Count;
+                int fieldCount = driver.FindElements(By.XPath("//div[contains(@class,'test-id')]//span[contains(text(),'Round Trip')]")).Count;
                 for (int index = 1; index <= fieldCount; index++)
                 {
                     //Get fields name from UI
-                    string fieldName = driver.FindElement(By.XPath($"(//div[@class='test-id__field-label-container slds-form-element__label']//span[contains(text(),'Round Trip')])[{index}]")).Text;
+                    string fieldName = driver.FindElement(By.XPath($"(//div[contains(@class,'test-id')]//span[contains(text(),'Round Trip')])[{index}]")).Text;
                     if (fieldNameExl == fieldName)
                     {
                         if(row==fieldCountExl)
