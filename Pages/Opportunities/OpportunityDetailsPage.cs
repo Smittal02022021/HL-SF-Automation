@@ -9768,6 +9768,12 @@ namespace SF_Automation.Pages
         public bool VerifyActivityIsLinkedToOpportunity(string sub)
         {
             bool result = false;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,100)");
+            Thread.Sleep(2000);
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+
             Thread.Sleep(2000);
             try
             {
