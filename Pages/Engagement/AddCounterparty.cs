@@ -29,8 +29,8 @@ namespace SF_Automation.Pages.Engagement
         By btnBack = By.Id("back_btn");
         By lnkDetails = By.CssSelector(".view_record__c > a");
         By btnPrintableView = By.XPath("//button[text()='Printable View']");
-        By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
-        By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
+        By valFirstName = By.XPath("//dt[text()='First Name:']/ancestor::dl/dd[1]//span");
+        By valLastName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[2]//span");
         By valCounterparty1stName = By.XPath("//dt[text()='First Name:']/ancestor::dl/dd[1]//span");
         By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[2]//span");
 
@@ -532,13 +532,13 @@ namespace SF_Automation.Pages.Engagement
         //Get 1st Name
         public string Get1stName()
         {
-            Thread.Sleep(10000);
-            var element = driver.FindElement(lnkContacts);
-            Actions action = new Actions(driver);
-            action.MoveToElement(element);
-            action.Perform();
+            //Thread.Sleep(10000);
+            //var element = driver.FindElement(lnkContacts);
+            //Actions action = new Actions(driver);
+            //action.MoveToElement(element);
+            //action.Perform();
             //driver.FindElement(btnPrintableView).Click();
-            //Thread.Sleep(5000);
+            Thread.Sleep(5000);
             // driver.SwitchTo().Window(driver.WindowHandles.Last());            
             WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 180);
             string name = driver.FindElement(valFirstName).Text;
@@ -1265,7 +1265,7 @@ namespace SF_Automation.Pages.Engagement
             actions.Perform();
             Thread.Sleep(5000);
             driver.FindElement(btnEquity).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             driver.FindElement(txtEquity).Clear();
             driver.FindElement(txtEquity).SendKeys(value);
             driver.FindElement(lblMinBid).Click();
@@ -1277,6 +1277,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnDebt).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtEquity).Clear();
+            driver.FindElement(txtEquity).SendKeys(value);
             driver.FindElement(txtEquity).SendKeys(value);
             driver.FindElement(lblMinBid).Click();
             //Bid Date

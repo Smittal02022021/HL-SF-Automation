@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using static iTextSharp.awt.geom.Point2D;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -123,7 +124,7 @@ namespace SF_Automation.TestCases.Opportunities
                         Console.WriteLine("No need to connect again");
                     }
                     string flatFeeReport = form.VerifyMinFeeFieldForFlatAndIncentiveFeeinReportInNewOpp("Flat Fee");
-                    Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);
+                    Assert.AreEqual("Flat Fee: ", flatFeeReport);
                     extentReports.CreateLog("Minimum Fee field is not displayed in Cognos report upon saving Transaction Fee as Flat Fee for Job Type :" + jobType + " ");
 
                     //6(a)   TMTI0113204_Verify that the "Minimum Fee" field is available for the Transaction Types—"Incentive Fee" and "Other" on the CNBC form and the Cognos Report PDF on the New Opportunities of the Equity Capital Market job type

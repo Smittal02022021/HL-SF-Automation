@@ -213,12 +213,12 @@ namespace SF_Automation.TestCases.Engagement
                                 extentReports.CreateLog("All required reports are displayed for deal team member - " + valUser + " for FR engagement ");
                             }
                             usersLogin.UserLogOut();
-                            Console.WriteLine("User " + valUser + "log out successfully");
+                            Console.WriteLine("User " + valUser + " log out successfully");
                         }
                     }
 
                 }
-                usersLogin.UserLogOut();
+                //usersLogin.UserLogOut();
                 driver.Quit();
 
 

@@ -469,7 +469,7 @@ namespace SF_Automation.Pages
 
         By titleAddCFOppContact = By.XPath("//h2[contains(text(),'Add ')]");
         By btnAddFVAContact = By.XPath("//button[@name='Opportunity__c.Add_FVA_Opportunity_Contact']");
-
+        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
         By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
@@ -5297,6 +5297,11 @@ namespace SF_Automation.Pages
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(4000);
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
@@ -5477,8 +5482,13 @@ namespace SF_Automation.Pages
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
             Thread.Sleep(6000);
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+            Thread.Sleep(4000);
             driver.FindElement(btnWomenLedL).Click();
-            driver.FindElement(btnWomenLedL).Click();
+            //driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='Women Led']/ancestor::div/div/lightning-base-combobox//span[2]/span[text()='" + valWomen + "']")).Click();
 
@@ -5564,6 +5574,10 @@ namespace SF_Automation.Pages
 
             //Date Engaged            
             driver.FindElement(txtDateEngL).SendKeys("07/12/2022");
+            Thread.Sleep(4000);
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
         }
