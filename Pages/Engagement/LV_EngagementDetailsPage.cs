@@ -185,7 +185,7 @@ namespace SF_Automation.Pages.Companies
             }
 
             Thread.Sleep(5000);
-            if(driver.FindElement(By.XPath($"(//lightning-primitive-cell-factory[@data-label='Subject'])[2]//a[text()='{sub}']")).Displayed)
+            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
             {
                 result = true;
             }
