@@ -41,6 +41,7 @@ namespace SF_Automation.Pages.Company
         {
             return driver.FindElement(_btnRecordTypePage(btnName)).Displayed;
         }
+
         public void SelectCompanyRecordTypeAndClickNextLV(string type)
         {
             driver.FindElement(_radioRecordType(type)).Click();

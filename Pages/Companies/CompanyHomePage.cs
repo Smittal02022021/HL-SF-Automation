@@ -16,7 +16,6 @@ namespace SF_Automation.Pages
         By tblResults = By.CssSelector("table[id*='pbtCompanies']");
         By matchedResult = By.CssSelector("td[id*=':pbtCompanies:0:j_id68'] a");
               
-        
         By CompanyHomePageHeading = By.CssSelector("h2[class='pageDescription']");
         By btnAddCompany = By.CssSelector("td[class='pbButton center'] > input[value='Add Company']");
         By errPage = By.CssSelector("span[id='theErrorPage:theError']");
@@ -47,6 +46,11 @@ namespace SF_Automation.Pages
         By eleItemL = By.XPath("//table/tbody//tr[1]//th/span//a");
         By imgCompL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Company']");
         By popDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]");
+
+        //Sahil Elements
+        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
+        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
+
         private By _btnCompanyHomePage(string name)
         {
             return By.XPath($"//ul//a[@title='{name}']");
@@ -362,8 +366,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtNewCompanyName).SendKeys(valCompanyName);
             driver.FindElement(btnSave).Click();
         }
-        By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
-        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
+        
         
         private By _btnRadioRecordType(string type)
         {
@@ -432,6 +435,13 @@ namespace SF_Automation.Pages
                 driver.FindElement(btnConfirmDelete).Click();                
             }
             
+        }
+
+        public void ClickNewButton()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCompanyL, 60);
+            driver.FindElement(btnNewCompanyL).Click();
+            Thread.Sleep(3000);
         }
     }
 }

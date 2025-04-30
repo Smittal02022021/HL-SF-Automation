@@ -552,6 +552,7 @@
     <Compile Include="Pages\TimeRecordManager\TimeRecorderFunctionalities.cs" />
     <Compile Include="Pages\TimeRecordManager\TimeRecordManagerEntryPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases\Company\LV_TMTT0047023_VerifyFunctionalityOfRoundTripSectionOnCompanyInfoPage.cs" />
     <Compile Include="TestCases\Company\LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Company\LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation.cs" />
     <Compile Include="TestCases\Company\LV_T1169_CompaniesAddNewContactButtonFuncContactModuleOnCompanyDetailPage.cs" />
