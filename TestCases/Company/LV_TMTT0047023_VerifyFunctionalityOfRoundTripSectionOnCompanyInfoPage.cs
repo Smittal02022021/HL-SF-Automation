@@ -21,6 +21,7 @@ namespace SalesForce_Project.TestCases.Company
 
         LVHomePage lvHomePage = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
+        LV_CompanyDetailsPage companyDetailsPage = new LV_CompanyDetailsPage();
 
         public static string fileT47023 = "LV_TMTT0047023_VerifyFunctionalityOfRoundTripSectionOnCompanyInfoPage";
 
@@ -82,7 +83,7 @@ namespace SalesForce_Project.TestCases.Company
                 {
                     //Click New button to create new company
                     companyHome.ClickNewButton();
-                    extentReports.CreateStepLogs("Info", "New button is clicked on companies listing page. ");
+                    extentReports.CreateStepLogs("Info", "New button is clicked on companies list page. ");
 
                     //Select company record type
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
@@ -107,7 +108,6 @@ namespace SalesForce_Project.TestCases.Company
                     Assert.AreEqual(valRecordTypeExl, companyType);
                     extentReports.CreateStepLogs("Passed", "Company Type: " + companyType + " in add company page matches on company details page.");
 
-                    /*
                     //Search CAO user by global search
                     lvHomePage.SearchUserFromMainSearch(caoUser);
 
@@ -117,17 +117,55 @@ namespace SalesForce_Project.TestCases.Company
 
                     //Login as CAO user
                     lvHomePage.UserLogin();
+
+                    //Switch to lightning view
+                    if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                    {
+                        homePage.SwitchToLightningView();
+                        extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                    }
+
                     Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(caoUser));
                     extentReports.CreateStepLogs("Passed", "CAO User: " + caoUser + " is able to login into lightning view. ");
+
+                    //Search created company
+                    lvHomePage.SearchCompanyFromMainSearch(valCompanyNameExl);
+                    Assert.IsTrue(companyDetailsPage.VerifyUserLandsOnCorrectCompanyDetailPage(companyName));
+                    extentReports.CreateStepLogs("Passed", "User lands on the new company detail page. ");
+
+                    //TMTI0115237 = Verify that the "Round Trip" section is available on the Company Detail Page.
+                    Assert.IsTrue(companyDetailsPage.VerifyRoundTripSectionIsDisplayed());
+                    extentReports.CreateStepLogs("Passed", "Round Trip section is displayed on the Company detail page. ");
+
+                    //TMTI0115240 = Verify the fields under the Round Trip section
+                    Assert.IsTrue(companyDetailsPage.VerifyRoundTripSectionFields(fileT47023));
+                    extentReports.CreateStepLogs("Passed", "Fields displayed under round trip section are : Potential Round Trip, Round Trip Engagement, Round Trip Comment and Potential Round Trip Last Modified Date. ");
 
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
-                    */
+
+                    //Select HL Banker app
+                    try
+                    {
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
+                    }
+
+                    //Search created company
+                    lvHomePage.SearchCompanyFromMainSearch(valCompanyNameExl);
+                    Assert.IsTrue(companyDetailsPage.VerifyUserLandsOnCorrectCompanyDetailPage(companyName));
+                    extentReports.CreateStepLogs("Passed", "User lands on the new company detail page. ");
 
                     //Delete company
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateLog("Created company is deleted successfully ");
+
+                    //Close Tab
+                    companyDetailsPage.CloseTab(valCompanyNameExl);
                 }
 
                 //TC - End

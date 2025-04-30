@@ -68,6 +68,7 @@ namespace SF_Automation.Pages.Companies
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
 
         By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[1]/..");
+        By lblRoundTripSection = By.XPath("//span[text()='Round Trip']");
 
         By _radioRecordType(string recordType)
         {
@@ -1009,6 +1010,59 @@ namespace SF_Automation.Pages.Companies
 
             //Wait for 2 seconds
             Thread.Sleep(2000);
+        }
+
+        public bool VerifyRoundTripSectionIsDisplayed()
+        {
+            bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, lblRoundTripSection, 120);
+            if (driver.FindElement(lblRoundTripSection).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void CloseTab(string tabName)
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyRoundTripSectionFields(string file)
+        {
+            bool result = false;
+
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            int fieldCountExl = ReadExcelData.GetRowCount(excelPath, "RoundTripFields");
+
+            for(int row=2; row<=fieldCountExl; row++)
+            {
+                //Get fields name from excel
+                string fieldNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RoundTripFields", row, 1);
+                Thread.Sleep(5000);
+
+                int fieldCount = driver.FindElements(By.XPath("//div[@class='test-id__field-label-container slds-form-element__label']//span[contains(text(),'Round Trip')]")).Count;
+                for (int index = 1; index <= fieldCount; index++)
+                {
+                    //Get fields name from UI
+                    string fieldName = driver.FindElement(By.XPath($"(//div[@class='test-id__field-label-container slds-form-element__label']//span[contains(text(),'Round Trip')])[{index}]")).Text;
+                    if (fieldNameExl == fieldName)
+                    {
+                        if(row==fieldCountExl)
+                        {
+                            result = true;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return result;
         }
 
     }
