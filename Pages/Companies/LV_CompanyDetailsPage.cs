@@ -1183,6 +1183,43 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyWarningMsgIsDisplayedIfUserSelectsYesInPotentialRoundTripField()
+        {
+            bool result = false;
+
+            //Click on Edit Pencil icon for Potential Round Trip field
+            driver.FindElement(editPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(btnPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            //Select No option
+            driver.FindElement(By.XPath("//lightning-base-combobox-item[@data-value='Yes']")).Click();
+            Thread.Sleep(3000);
+
+            //Click Save button
+            driver.FindElement(By.XPath("//button[@name='SaveEdit']")).Click();
+            Thread.Sleep(5000);
+
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal) == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyWarningMsg(string message)
+        {
+            bool result=false;
+            if(driver.FindElement(warningMsgModal).Text == message)
+            {
+                result = true;
+                driver.FindElement(By.XPath("//button[text()='Close']")).Click();
+                Thread.Sleep(2000);
+            }
+            return result;
+        }
     }
 }
 

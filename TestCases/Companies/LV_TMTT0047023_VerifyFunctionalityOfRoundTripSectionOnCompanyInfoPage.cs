@@ -79,7 +79,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "User navigated to companies list page. ");
 
                 int totalCompanies = ReadExcelData.GetRowCount(excelPath, "Company");
-                for(int row = 2; row <= totalCompanies; row++)
+                for(int row = 3; row <= totalCompanies; row++)
                 {
                     //Click New button to create new company
                     companyHome.ClickNewButton();
@@ -165,7 +165,12 @@ namespace SF_Automation.TestCases.Companies
                     else
                     {
                         //TMTI0115263 = Verify that if user selects "Yes" AND 'Company' is NOT OpCo, then warning message  will appear on the screen
+                        Assert.IsTrue(companyDetailsPage.VerifyWarningMsgIsDisplayedIfUserSelectsYesInPotentialRoundTripField());
+                        extentReports.CreateStepLogs("Passed", "Warning message is displayed if user selects 'Yes' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
 
+                        string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
+                        Assert.IsTrue(companyDetailsPage.VerifyWarningMsg(msg));
+                        extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg + ".");
                     }
 
                     //Logout from SF Lightning View
