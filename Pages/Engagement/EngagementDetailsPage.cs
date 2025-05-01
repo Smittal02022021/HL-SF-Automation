@@ -118,6 +118,10 @@ namespace SF_Automation.Pages.Engagement
         By valLOBL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Line_of_Business__c']//dd//lightning-formatted-text");
         By valClientCompL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Client__c']//dd//records-hoverable-link//span//slot//slot");
         By valLegalEntityL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Legal_Entity__c']//dd//records-hoverable-link//span//slot//slot");
+        By lblLOBHeader = By.XPath("//p[text()='Line of Business']");
+        By valLOBHeader = By.XPath("//p[text()='Line of Business']/ancestor::div[1]/p[2]//lightning-formatted-text");
+        By lblDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dt//span");
+        By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dd//slot/lightning-formatted-text");
 
         By valERPLOB = By.CssSelector("div[id*='e8j']");
         By valIG = By.CssSelector("div[id*='Axj']");
@@ -480,6 +484,7 @@ namespace SF_Automation.Pages.Engagement
         
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//span[text()='Billing Request']");
+        By btnCFEngSummary = By.XPath("//span[text()='Engagement Summary (CF)']");
         By btnBillingRequestL1 = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
         By btnSendEmailL = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
@@ -3242,6 +3247,21 @@ namespace SF_Automation.Pages.Engagement
 
             }
         }
+
+        public void ClickCFEngsummaryButtonL()
+        {            
+            try
+            {
+                driver.FindElement(By.XPath("//li[10]/lightning-button-menu/button")).Click();
+                Thread.Sleep(6000);
+                driver.FindElement(btnCFEngSummary).Click();
+            }
+            catch
+            {
+                driver.FindElement(btnCFEngSummary).Click();
+
+            }
+        }
         //To get validation message for contact details
         public string GetContactValidationMessageL()
         {
@@ -3673,6 +3693,37 @@ namespace SF_Automation.Pages.Engagement
             string LOB = driver.FindElement(valLOBL).Text;
             return LOB;
         }
+
+
+        //Get LOB label on the header
+        public string ValidateLOBOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblLOBHeader);
+            string LOB = driver.FindElement(lblLOBHeader).Text;
+            return LOB;
+        }
+        public string ValidateLOBValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLOBHeader);
+            string LOB = driver.FindElement(valLOBHeader).Text;
+            return LOB;
+        }
+
+        public string GetExtDisclosureStatus()
+        {            
+           WebDriverWaits.WaitUntilEleVisible(driver, lblDiscStatus);
+            string status = driver.FindElement(lblDiscStatus).Text;
+            return status;
+
+        }
+
+        public string GetDisclosureStatusValue()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valDiscStatus);
+            string value = driver.FindElement(valDiscStatus).Text;
+            return value;
+        }
+
         public string GetEngClientCompanyL()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valClientCompL);

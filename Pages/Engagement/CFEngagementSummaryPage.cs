@@ -151,6 +151,8 @@ namespace SF_Automation.Pages.Engagement
         By txtSearchBox = By.XPath("//label[text()='Search Opportunities and more']/following::div/input");
         By btnAdditionalTabs = By.XPath("//button[@class='slds-button slds-button_icon-border-filled']");
         By linkCFEngSummary = By.XPath("//span[text()='Engagement Summary (CF)']");
+        By lblExtDisclosureStatus = By.XPath("//li//span[text()='External Disclosure Status']");
+        By valExtDisclosureStatus = By.XPath("//li//span[text()='External Disclosure Status']/ancestor::li//div[2]");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1182,6 +1184,20 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
         }
 
+
+        //Get Ext Disclosure Status on the header
+        public string ValidateDiscStatusOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblExtDisclosureStatus);
+            string status = driver.FindElement(lblExtDisclosureStatus).Text;
+            return status;
+        }
+        public string ValidateDiscStatusValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valExtDisclosureStatus);
+            string value = driver.FindElement(valExtDisclosureStatus).Text;
+            return value;
+        }
     }
 }
 
