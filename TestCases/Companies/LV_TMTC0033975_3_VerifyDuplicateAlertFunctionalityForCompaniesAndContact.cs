@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Company
+namespace SF_Automation.TestCases.Companies
 {
     class LV_TMTC0033975_3_VerifyDuplicateAlertFunctionalityForCompaniesAndContact:BaseClass
     {

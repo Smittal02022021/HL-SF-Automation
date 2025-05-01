@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SF_Automation.TestData;
 using System;
 
-namespace SalesForce_Project.TestCases.Company
+namespace SF_Automation.TestCases.Companies
 {
     class LV_TMTT0047023_VerifyFunctionalityOfRoundTripSectionOnCompanyInfoPage : BaseClass
     {

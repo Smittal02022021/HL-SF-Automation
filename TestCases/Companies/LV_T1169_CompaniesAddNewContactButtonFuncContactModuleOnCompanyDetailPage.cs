@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SF_Automation.TestData;
 using SF_Automation.Pages.Contact;
 
-namespace SalesForce_Project.TestCases.Company
+namespace SF_Automation.TestCases.Companies
 {
     class LV_T1169_CompaniesAddNewContactButtonFuncContactModuleOnCompanyDetailPage : BaseClass
     {
