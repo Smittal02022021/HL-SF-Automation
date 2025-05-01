@@ -7597,7 +7597,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
 
 
@@ -8332,7 +8332,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
@@ -8884,7 +8884,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
@@ -9901,6 +9901,19 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 20);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkViewAllCommentsL));
             //driver.FindElement(lnkViewAllCommentsL).Click();
+        }
+        By rowsCommentsL = By.XPath("//table[@aria-label='Comments']//tbody/tr");
+        
+        public int GetCommentsCountLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, rowsCommentsL, 20);
+            return driver.FindElements(rowsCommentsL).Count;
+        }
+        public bool IsCommentFoundLV(string type,string user)
+        {
+            By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmComment, 20);
+            return driver.FindElement(elmComment).Displayed;
         }
         public string GetOppCommentsTextLV(string type)
         {
