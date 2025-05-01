@@ -156,6 +156,18 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsNoInPotentialRoundTripField());
                     extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'No' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
 
+                    //TMTI0115261 = Verify that if the user selects "Yes" AND 'Company' is an OpCo, No Warning message will appear on the screen.
+                    if(valCompanyNameExl=="Operating Company")
+                    {
+                        Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsYesInPotentialRoundTripField());
+                        extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'Yes' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
+                    }
+                    else
+                    {
+                        //TMTI0115263 = Verify that if user selects "Yes" AND 'Company' is NOT OpCo, then warning message  will appear on the screen
+
+                    }
+
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
