@@ -141,6 +141,11 @@ namespace SalesForce_Project.TestCases.Company
                     Assert.IsTrue(companyDetailsPage.VerifyRoundTripSectionFields(fileT47023));
                     extentReports.CreateStepLogs("Passed", "Fields displayed under round trip section are : Potential Round Trip, Round Trip Engagement, Round Trip Comment and Potential Round Trip Last Modified Date. ");
 
+                    //TMTI0115244  = Verify that a hover icon for Potential Round Trip field gives expected text
+                    string toolTipTextExl = ReadExcelData.ReadData(excelPath, "Tooltip", 1);
+                    Assert.IsTrue(companyDetailsPage.VerifyHoverTextForPotentialRoundTripField(toolTipTextExl));
+                    extentReports.CreateStepLogs("Passed", "Tooltip text displayed for Potential Round Trip field is: " + toolTipTextExl + ".");
+
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");

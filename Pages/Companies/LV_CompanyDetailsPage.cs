@@ -66,6 +66,10 @@ namespace SF_Automation.Pages.Companies
         By txtCompanyName = By.XPath("//form//input[contains(@name,'AccountName')]");
         By txtCompanyNameL = By.XPath("//form//input[contains(@name,'AccountName')]");
         By btnSaveCompany = By.XPath("//form//input[@value='Save']");
+        By tblResults = By.XPath("(//h2//span[text()='Company Activity']//ancestor::article//table)[2]");
+        By btnActivityDetailsHeader = By.XPath("//c-s-l_-add-new-activity[contains(@class,'ActivityEventView')]//slot[@name='actions']//lightning-button//button");
+        By btnViewAllActivities = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//div[@slot='footer']//button");
+        By txtSearch = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//input[@placeholder='Search...']");
 
         By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[1]/..");
         By lblRoundTripSection = By.XPath("//span[text()='Round Trip']");
@@ -80,6 +84,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 20);
             driver.FindElement(btnNew).Click();
         }
+
         public void SelectRecordType(string recordType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _radioRecordType(recordType), 20);
@@ -100,7 +105,6 @@ namespace SF_Automation.Pages.Companies
             return nameCompany;
         }
 
-        By tblResults= By.XPath("(//h2//span[text()='Company Activity']//ancestor::article//table)[2]");
         private By _matchedResult(string value)
         {
             return By.XPath($"(//h2//span[text()='Company Activity']//ancestor::article//table)[2]//tbody//tr//td[1]//lightning-base-formatted-text[text()='{value}']");
@@ -124,6 +128,7 @@ namespace SF_Automation.Pages.Companies
         {
             return By.XPath($"//lightning-base-combobox-item[@data-value='{value}']");
         }
+
         private By _TabEle(string value)
         {
             return By.XPath($"//button[contains(@title,{value})]");
@@ -168,6 +173,7 @@ namespace SF_Automation.Pages.Companies
             }
             return tabFound;
         }
+
         public bool IsAddActivityButtonDisplayed()
         {
             try
@@ -178,6 +184,7 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
 
         }
+
         public bool IsChartDisplayed()
         {
             try
@@ -343,14 +350,17 @@ namespace SF_Automation.Pages.Companies
 
             return result;
         }
+
         private By _elmActivityType(string type)
         {
             return By.XPath($"//input[@value='{type}']/../label");
         }
+
         private By _comboActivityDetailPage(string option)
         {
             return By.XPath($"//span[@title='{option}']");
         }
+
         public void CreateNewActivityFromCompanyDetailPageLV(string type, string subject, string industryGroup, string productType, string description, string meetingNotes, string extAttendee)
         {
             //Click on Add Activity button
@@ -400,6 +410,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSave));
             driver.FindElement(btnSave).Click();
         }
+        
         public void CreateNewActivityAndFollowupFromCompanyDetailPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -490,6 +501,7 @@ namespace SF_Automation.Pages.Companies
             //Click Save
             driver.FindElement(btnSave).Click();
         }
+
         public string GetActivityPrimayContact()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkPrimayContact, 30);
@@ -504,6 +516,7 @@ namespace SF_Automation.Pages.Companies
             closeTabIcon.Click();
             Thread.Sleep(2000);
         }
+
         public bool IsActivityPrimaryContactHyperlinked()
         {
             try
@@ -563,6 +576,7 @@ namespace SF_Automation.Pages.Companies
             }
             return result;
         }
+
         public bool VerifyAvailableActionsOnCompaniesActivitiesListView(string file)
         {           
             ReadJSONData.Generate("Admin_Data.json");
@@ -599,6 +613,7 @@ namespace SF_Automation.Pages.Companies
             }
             return result;
         }
+
         public bool VerifyAvailableActionsOnCompaniesActivitiesListViewLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -637,12 +652,14 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
             return isSame;
         }
+
         public void RefreshActivitiesList()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnRefereshActivitiesList, 30);
             driver.FindElement(btnRefereshActivitiesList).Click();
             Thread.Sleep(4000);
         }
+
         public bool ClickActivityViewOption()
         {          
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesRow, 30);
@@ -659,6 +676,7 @@ namespace SF_Automation.Pages.Companies
             }
             catch { return false; }         
         }
+
         public void DeleteActivity()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesRow, 30);
@@ -675,8 +693,6 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(4000);
         }
 
-
-        By btnActivityDetailsHeader = By.XPath("//c-s-l_-add-new-activity[contains(@class,'ActivityEventView')]//slot[@name='actions']//lightning-button//button");
         public bool ValidateActivityDetailsPageAvailableButton(string file)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivityDetailsHeader, 30);
@@ -709,6 +725,7 @@ namespace SF_Automation.Pages.Companies
             }
             return result;
         }
+
         public string GetActivitySubject()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnRefereshActivitiesList, 30);
@@ -776,6 +793,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(chckNoExternalContact).Click();
 
         }
+
         public void CreateNewActivityAdditionalHLAttandeeFromCompanyDetailPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -834,6 +852,7 @@ namespace SF_Automation.Pages.Companies
             //Click Save
             //driver.FindElement(btnSave).Click();
         }
+
         public void CreateNewActivitywithAllFieldsFromCompanyDetailPage(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -933,6 +952,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(_eleActivityListFields(fieldName)));
             return driver.FindElement(_eleActivityListFields(fieldName)).Text;
         }
+
         public void ViewActivity()
         {            
                 WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesRow, 30);
@@ -943,11 +963,6 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(btnViewActivityDetails).Click();              
         }
 
-        /// <summary>
-        /// ///////////
-        /// </summary>
-        By btnViewAllActivities = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//div[@slot='footer']//button");
-        By txtSearch = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//input[@placeholder='Search...']");
         public void ClickViewAllActivities()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnViewAllActivities, 30);
@@ -955,6 +970,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnViewAllActivities).Click();
             Thread.Sleep(10000);
         }
+
         public bool IsCompanyActivityListNewTabDispayed()
         {
             string tabName = "Company Activity";
@@ -965,6 +981,7 @@ namespace SF_Automation.Pages.Companies
             }
             catch { return false; }            
         }
+
         public bool IsSearchBoxDisplayed()
         {
             try
@@ -987,7 +1004,6 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
-        //This method deletes a company
         public void DeleteCompany()
         {
             //Wait until the "Show More Actions" button is visible
@@ -1038,19 +1054,30 @@ namespace SF_Automation.Pages.Companies
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
+            //Field count from excel
             int fieldCountExl = ReadExcelData.GetRowCount(excelPath, "RoundTripFields");
 
             for(int row=2; row<=fieldCountExl; row++)
             {
                 //Get fields name from excel
                 string fieldNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RoundTripFields", row, 1);
-                Thread.Sleep(1000);
 
-                int fieldCount = driver.FindElements(By.XPath("//div[contains(@class,'test-id')]//span[contains(text(),'Round Trip')]")).Count;
+                IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+                js.ExecuteScript("window.scrollTo(0,900)");
+                Thread.Sleep(3000);
+
+                //Field count on UI
+                int fieldCount = driver.FindElements(By.XPath("//span[text()='Round Trip']/following::dl[1]//flexipage-column2//dt")).Count;
+
+                if(fieldCount == 0)
+                {
+                    fieldCount = driver.FindElements(By.XPath("//span[text()='Round Trip']/following::dl[1]//flexipage-column1//dt")).Count;
+                }
+
                 for (int index = 1; index <= fieldCount; index++)
                 {
                     //Get fields name from UI
-                    string fieldName = driver.FindElement(By.XPath($"(//div[contains(@class,'test-id')]//span[contains(text(),'Round Trip')])[{index}]")).Text;
+                    string fieldName = driver.FindElement(By.XPath($"(//span[text()='Round Trip']/following::dl[1]//flexipage-column2//dt)[{index}]/div/span")).Text;
                     if (fieldNameExl == fieldName)
                     {
                         if(row==fieldCountExl)
@@ -1065,6 +1092,16 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyHoverTextForPotentialRoundTripField(string tooltip)
+        {
+            bool result = false;
+
+            if(driver.FindElement(By.XPath("(//span[text()='Help Potential Round Trip']/following::span)[1]")).Text == tooltip)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }
 
