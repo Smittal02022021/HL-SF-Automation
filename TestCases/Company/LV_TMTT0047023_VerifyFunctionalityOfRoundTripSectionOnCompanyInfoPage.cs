@@ -61,7 +61,7 @@ namespace SalesForce_Project.TestCases.Company
 
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
-                extentReports.CreateLog("Admin User is able to login into SF");
+                extentReports.CreateStepLogs("Passed", "Admin User is able to login into SF");
 
                 //Select HL Banker app
                 try
@@ -113,7 +113,7 @@ namespace SalesForce_Project.TestCases.Company
 
                     //Verify searched user
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, caoUser + " | Salesforce"), true);
-                    extentReports.CreateLog("User " + caoUser + " details are displayed ");
+                    extentReports.CreateStepLogs("Info", "User " + caoUser + " details are displayed ");
 
                     //Login as CAO user
                     lvHomePage.UserLogin();
@@ -146,6 +146,16 @@ namespace SalesForce_Project.TestCases.Company
                     Assert.IsTrue(companyDetailsPage.VerifyHoverTextForPotentialRoundTripField(toolTipTextExl));
                     extentReports.CreateStepLogs("Passed", "Tooltip text displayed for Potential Round Trip field is: " + toolTipTextExl + ".");
 
+                    //TMTI0115250 = Verify that on the Account Page, fields - Potential Round Trip, Round Trip Engagement & Round Trip Comment are editable
+                    Assert.IsTrue(companyDetailsPage.VerifyOnlyExpectedRoundTripFieldsAreEditable());
+                    extentReports.CreateStepLogs("Passed", "Only Potential Round Trip, Round Trip Engagement and Round Trip Comment fields are editable. ");
+
+                    //TMTI0115254 = Verify that if the user selects "No" AND 'Company' is an OpCo, No Warning message will appear on the screen.
+                    //TMTI0115257 = Verify that if the user selects "No" AND 'Company' is NOT OpCo, No Warning message will appear on the screen.
+
+                    Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsNoInPotentialRoundTripField());
+                    extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'No' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
+
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CAO User Logged Out from SF Lightning View. ");
@@ -167,7 +177,7 @@ namespace SalesForce_Project.TestCases.Company
 
                     //Delete company
                     companyDetail.DeleteCompanyLV();
-                    extentReports.CreateLog("Created company is deleted successfully ");
+                    extentReports.CreateStepLogs("Info", "Created company is deleted successfully ");
 
                     //Close Tab
                     companyDetailsPage.CloseTab(valCompanyNameExl);

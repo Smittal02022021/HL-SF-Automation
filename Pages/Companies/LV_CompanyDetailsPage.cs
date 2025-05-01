@@ -72,7 +72,17 @@ namespace SF_Automation.Pages.Companies
         By txtSearch = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//input[@placeholder='Search...']");
 
         By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[1]/..");
+
+        //Sahil Round Trip Elements
         By lblRoundTripSection = By.XPath("//span[text()='Round Trip']");
+        By editPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/..");
+        By btnPotentialRoundTrip = By.XPath("//button[@aria-label='Potential Round Trip']");
+        By txtRoundTripEngagement = By.XPath("//input[@placeholder='Search Engagements...']");
+        By txtAreaRoundTripComment = By.XPath("//label[text()='Round Trip Comment']/following::textarea");
+        By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
+
+
+
 
         By _radioRecordType(string recordType)
         {
@@ -1063,7 +1073,7 @@ namespace SF_Automation.Pages.Companies
                 string fieldNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RoundTripFields", row, 1);
 
                 IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-                js.ExecuteScript("window.scrollTo(0,900)");
+                js.ExecuteScript("window.scrollTo(0,1000)");
                 Thread.Sleep(3000);
 
                 //Field count on UI
@@ -1097,6 +1107,50 @@ namespace SF_Automation.Pages.Companies
             bool result = false;
 
             if(driver.FindElement(By.XPath("(//span[text()='Help Potential Round Trip']/following::span)[1]")).Text == tooltip)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyOnlyExpectedRoundTripFieldsAreEditable()
+        {
+            bool result = false;
+
+            WebDriverWaits.WaitUntilEleVisible(driver, editPotentialRoundTrip, 120);
+            driver.FindElement(editPotentialRoundTrip).Click();
+            Thread.Sleep(5000);
+
+            if(driver.FindElement(btnPotentialRoundTrip).Displayed && driver.FindElement(txtRoundTripEngagement).Displayed && driver.FindElement(txtAreaRoundTripComment).Displayed)
+            {
+                result = true;
+                driver.FindElement(By.XPath("//button[@name='CancelEdit']")).Click();
+                Thread.Sleep(2000);
+            }
+
+            return result;
+        }
+
+        public bool VerifyNoWarningMsgIsDisplayedIfUserSelectsNoInPotentialRoundTripField()
+        {
+            bool result = false;
+
+            //Click on Edit Pencil icon for Potential Round Trip field
+            driver.FindElement(editPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(btnPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            //Select No option
+            driver.FindElement(By.XPath("//lightning-base-combobox-item[@data-value='No']")).Click();
+            Thread.Sleep(3000);
+
+            //Click Save button
+            driver.FindElement(By.XPath("//button[@name='SaveEdit']")).Click();
+            Thread.Sleep(5000);
+
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal) == false)
             {
                 result = true;
             }
