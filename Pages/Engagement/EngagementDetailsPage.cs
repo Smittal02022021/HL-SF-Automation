@@ -122,6 +122,10 @@ namespace SF_Automation.Pages.Engagement
         By valLOBHeader = By.XPath("//p[text()='Line of Business']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By lblDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dt//span");
         By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dd//slot/lightning-formatted-text");
+        By lblSubjectHeader = By.XPath("//p[@title='Subject']");
+        By valSubjectHeader= By.XPath("//p[@title='Subject']/ancestor::div[1]/p[2]//records-hoverable-link//a//slot//slot/span");
+
+
 
         By valERPLOB = By.CssSelector("div[id*='e8j']");
         By valIG = By.CssSelector("div[id*='Axj']");
@@ -3709,6 +3713,18 @@ namespace SF_Automation.Pages.Engagement
             return LOB;
         }
 
+        public string ValidateSubjectOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSubjectHeader);
+            string subject = driver.FindElement(lblSubjectHeader).Text;
+            return subject;
+        }
+        public string ValidateSubjectValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubjectHeader);
+            string value = driver.FindElement(valSubjectHeader).Text;
+            return value;
+        }
         public string GetExtDisclosureStatus()
         {            
            WebDriverWaits.WaitUntilEleVisible(driver, lblDiscStatus);

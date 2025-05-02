@@ -63,26 +63,40 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Project Moon", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
-                //1. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
                 string LOB = engagementDetails.ValidateLOBOnHeader();
-                string lobValue= engagementDetails.ValidateLOBValueOnHeader();
-                Assert.AreEqual("Line of Business", LOB);
-                Assert.AreEqual("CF", lobValue);
-                extentReports.CreateLog("The label "+LOB +" and mapping value " + lobValue + " is displayed.");
-
-                //2. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
+                string lobValue= engagementDetails.ValidateLOBValueOnHeader();                
+                
                 string discStatus = engagementDetails.GetExtDisclosureStatus();
                 string discStatusValue = engagementDetails.GetDisclosureStatusValue();
 
+                string subject = engagementDetails.ValidateSubjectOnHeader();
+                string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
+
+                //1. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string status = summaryPage.ValidateDiscStatusOnHeader();
-                string statusValue = summaryPage.ValidateDiscStatusValueOnHeader();
-                Assert.AreEqual(discStatus, status);
-                Assert.AreEqual(discStatusValue, statusValue);
-                extentReports.CreateLog("The label " + status + " and mapping value " + statusValue + " is displayed as displayed in Engagement details page. ");
+                string lobSummary = summaryPage.ValidateLOBOnHeader();
+                string lobSummaryValue = summaryPage.ValidateLOBValueOnHeader();
+
+                Assert.AreEqual(LOB, lobSummary);
+                Assert.AreEqual(lobValue, lobSummaryValue);
+                extentReports.CreateLog("The label " + lobSummary + " and mapping value " + lobSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
+                
+                //2. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
+                string discSummary = summaryPage.ValidateDiscStatusOnHeader();
+                string discSummaryValue = summaryPage.ValidateDiscStatusValueOnHeader();
+
+                Assert.AreEqual(discStatus, discSummary);
+                Assert.AreEqual(discStatusValue, discSummaryValue);
+                extentReports.CreateLog("The label " + discSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
                 //3. TMTI0114537_Verify that the "Subject" label and mapping value are displayed.
-                 
+                string subSummary = summaryPage.ValidateSubjectOnHeader();
+                string subSummaryValue = summaryPage.ValidateSubjectValueOnHeader();
+
+                Assert.AreEqual(subject, subSummary);
+                Assert.AreEqual(subjectValue, subSummaryValue);
+                extentReports.CreateLog("The label " + subSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
 
 
                 usersLogin.LightningLogout();

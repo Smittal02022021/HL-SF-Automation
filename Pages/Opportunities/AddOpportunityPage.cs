@@ -669,7 +669,7 @@ namespace SF_Automation.Pages
 
             //Select Additional Subject
             driver.FindElement(comboAddSubjectL).SendKeys("No");
-            Thread.Sleep(7000);
+            Thread.Sleep(9000);
             driver.FindElement(By.XPath("//flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
 
             //Select Beneficial Owner

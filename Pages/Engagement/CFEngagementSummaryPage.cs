@@ -153,6 +153,10 @@ namespace SF_Automation.Pages.Engagement
         By linkCFEngSummary = By.XPath("//span[text()='Engagement Summary (CF)']");
         By lblExtDisclosureStatus = By.XPath("//li//span[text()='External Disclosure Status']");
         By valExtDisclosureStatus = By.XPath("//li//span[text()='External Disclosure Status']/ancestor::li//div[2]");
+        By lblLOB = By.XPath("//li//span[text()='Line of Business']");
+        By valLOB = By.XPath("//li//span[text()='Line of Business']/ancestor::li/div[2]");
+        By lblSubject = By.XPath("//li/div/span[text()='Subject']");
+        By valSubject = By.XPath("//li//span[text()='Subject']/ancestor::li//a");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1183,7 +1187,19 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(linkCFEngSummary).Click();
             Thread.Sleep(3000);
         }
-
+        //Get Ext Disclosure Status on the header
+        public string ValidateLOBOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblLOB);
+            string status = driver.FindElement(lblLOB).Text;
+            return status;
+        }
+        public string ValidateLOBValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valLOB);
+            string value = driver.FindElement(valLOB).Text;
+            return value;
+        }
 
         //Get Ext Disclosure Status on the header
         public string ValidateDiscStatusOnHeader()
@@ -1196,6 +1212,19 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valExtDisclosureStatus);
             string value = driver.FindElement(valExtDisclosureStatus).Text;
+            return value;
+        }
+        
+        public string ValidateSubjectOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSubject);
+            string status = driver.FindElement(lblSubject).Text;
+            return status;
+        }
+        public string ValidateSubjectValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubject);
+            string value = driver.FindElement(valSubject).Text;
             return value;
         }
     }
