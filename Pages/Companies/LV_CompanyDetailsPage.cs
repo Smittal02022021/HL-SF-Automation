@@ -1169,6 +1169,27 @@ namespace SF_Automation.Pages.Companies
         {
             bool result = false;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,100)");
+            Thread.Sleep(5000);
+
+            //Edit Ownership and make it 'Private Quity Group'
+            driver.FindElement(By.XPath("//button[@title='Edit Ownership']")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath("(//button[@aria-label='Ownership'])[2]")).Click();
+            Thread.Sleep(3000);
+
+            //Select Private Equity Group option
+            driver.FindElement(By.XPath("//lightning-base-combobox-item[@data-value='Private Equity Group']")).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(By.XPath("//button[@name='SaveEdit']")).Click();
+            Thread.Sleep(5000);
+
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(5000);
+
             //Click on Edit Pencil icon for Potential Round Trip field
             driver.FindElement(editPotentialRoundTrip).Click();
             Thread.Sleep(3000);
