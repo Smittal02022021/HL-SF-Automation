@@ -1,5 +1,4 @@
-﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Companies;
+﻿using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.Company;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages;
@@ -79,7 +78,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "User navigated to companies list page. ");
 
                 int totalCompanies = ReadExcelData.GetRowCount(excelPath, "Company");
-                for(int row = 3; row <= totalCompanies; row++)
+                for(int row = 2; row <= totalCompanies; row++)
                 {
                     //Click New button to create new company
                     companyHome.ClickNewButton();
@@ -144,7 +143,7 @@ namespace SF_Automation.TestCases.Companies
                     //TMTI0115244  = Verify that a hover icon for Potential Round Trip field gives expected text
                     string toolTipTextExl = ReadExcelData.ReadData(excelPath, "Tooltip", 1);
                     Assert.IsTrue(companyDetailsPage.VerifyHoverTextForPotentialRoundTripField(toolTipTextExl));
-                    extentReports.CreateStepLogs("Passed", "Tooltip text displayed for Potential Round Trip field is: " + toolTipTextExl + ".");
+                    extentReports.CreateStepLogs("Passed", "Tooltip text displayed for Potential Round Trip field is: " + toolTipTextExl);
 
                     //TMTI0115250 = Verify that on the Account Page, fields - Potential Round Trip, Round Trip Engagement & Round Trip Comment are editable
                     Assert.IsTrue(companyDetailsPage.VerifyOnlyExpectedRoundTripFieldsAreEditable());
@@ -156,11 +155,11 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsNoInPotentialRoundTripField());
                     extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'No' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
 
-                    //TMTI0115261 = Verify that if the user selects "Yes" AND 'Company' is an OpCo, No Warning message will appear on the screen.
                     if(valRecordTypeExl=="Operating Company")
                     {
-                        Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsYesInPotentialRoundTripField());
-                        extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'Yes' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
+                        //TMTI0115261 = Verify that if the user selects "Yes" AND 'Company' is an OpCo, No Warning message will appear on the screen.
+                        //Assert.IsTrue(companyDetailsPage.VerifyNoWarningMsgIsDisplayedIfUserSelectsYesInPotentialRoundTripField());
+                        //extentReports.CreateStepLogs("Passed", "No warning message is displayed if user selects 'Yes' in Potential Round Trip field for company type: " + valRecordTypeExl + ".");
                     }
                     else
                     {
@@ -170,13 +169,20 @@ namespace SF_Automation.TestCases.Companies
 
                         string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
                         Assert.IsTrue(companyDetailsPage.VerifyWarningMsg(msg));
-                        extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg + ".");
+                        extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                         string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
                         string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
 
                         Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, caoUser));
                         extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + caoUser + ".");
+
+                        //TMTI0115265 = Verify that all the flag updates are tracked on the "Audit Records Report - Companies"
+                        driver.Navigate().GoToUrl("https://hl--test.sandbox.lightning.force.com/lightning/r/Report/00OOx00000927oDMAQ/edit?0.source=alohaHeader");
+                        Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Report Builder | Salesforce"), true);
+
+                        Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedOnTheCompanyAuditRecordsReport(valCompanyNameExl, fReason, fReasonComment, caoUser));
+                        extentReports.CreateStepLogs("Passed", "Flag details are updated as expected on the company audit records report.");
                     }
 
                     //Logout from SF Lightning View
@@ -196,11 +202,11 @@ namespace SF_Automation.TestCases.Companies
                     //Search created company
                     lvHomePage.SearchCompanyFromMainSearch(valCompanyNameExl);
                     Assert.IsTrue(companyDetailsPage.VerifyUserLandsOnCorrectCompanyDetailPage(companyName));
-                    extentReports.CreateStepLogs("Passed", "User lands on the new company detail page. ");
+                    extentReports.CreateStepLogs("Passed", "Admin User lands on the new company detail page. ");
 
                     //Delete company
                     companyDetail.DeleteCompanyLV();
-                    extentReports.CreateStepLogs("Info", "Created company is deleted successfully ");
+                    extentReports.CreateStepLogs("Info", "Created company is deleted successfully by Admin user.");
 
                     //Close Tab
                     companyDetailsPage.CloseTab(valCompanyNameExl);

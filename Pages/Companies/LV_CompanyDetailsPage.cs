@@ -1,4 +1,5 @@
 ﻿
+using NUnit.Framework;
 using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -1234,7 +1235,9 @@ namespace SF_Automation.Pages.Companies
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(5000);
 
             //Click More Tabs button
             driver.FindElement(btnMoreTabs).Click();
@@ -1242,7 +1245,7 @@ namespace SF_Automation.Pages.Companies
 
             //Select the Flag option
             driver.FindElement(By.XPath("//span[text()='Flag']/..")).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             //Get Flag Reason, Flag Reason Comment, Flag Reason Changed By and Flag Reason Changed Date
             string flagReason = driver.FindElement(txtFlagReason).Text;
@@ -1253,6 +1256,50 @@ namespace SF_Automation.Pages.Companies
             {
                 result = true;
             }
+            return result;
+        }
+
+        public bool VerifyFlagDetailsAreUpdatedOnTheCompanyAuditRecordsReport(string compName, string reason, string comment, string changeBy)
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+
+            try
+            {
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='Report Builder']")));
+                Thread.Sleep(3000);
+
+                //Run the report
+                driver.FindElement(By.XPath("//button[text()='Run']")).Click();
+                Thread.Sleep(5000);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Companies Flag Reason | Salesforce"), true);
+                Thread.Sleep(5000);
+
+                driver.SwitchTo().DefaultContent();
+
+                driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='Report Viewer']")));
+                Thread.Sleep(3000);
+
+                if(driver.FindElement(By.XPath($"((//div[contains(@data-tooltip,'{compName}')])[1]/span)[1]/a")).Text == compName)
+                {
+                    //Get Flag Reason, Flag Reason Comment, Flag Reason Changed By and Flag Reason Changed Date
+                    string flagReason = driver.FindElement(By.XPath("((//div[contains(@data-tooltip,'Request to')])[1]/span)[1]")).Text;
+                    string flagReasonComment = driver.FindElement(By.XPath("((//div[contains(@data-tooltip,'Requesting to either')])[1]/span)[1]/span")).Text;
+                    string flagReasonChangedBy = driver.FindElement(By.XPath($"((//div[contains(@data-tooltip,'{changeBy}')])[1]/span)[1]/a")).Text;
+
+                    if(flagReason == reason && flagReasonComment == comment && flagReasonChangedBy == changeBy)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+            driver.SwitchTo().DefaultContent();
             return result;
         }
     }
