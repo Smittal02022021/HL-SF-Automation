@@ -171,6 +171,12 @@ namespace SF_Automation.TestCases.Companies
                         string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
                         Assert.IsTrue(companyDetailsPage.VerifyWarningMsg(msg));
                         extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg + ".");
+
+                        string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                        string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                        Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, caoUser));
+                        extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + caoUser + ".");
                     }
 
                     //Logout from SF Lightning View

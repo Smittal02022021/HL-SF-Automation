@@ -80,8 +80,11 @@ namespace SF_Automation.Pages.Companies
         By txtRoundTripEngagement = By.XPath("//input[@placeholder='Search Engagements...']");
         By txtAreaRoundTripComment = By.XPath("//label[text()='Round Trip Comment']/following::textarea");
         By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
-
-
+        By btnMoreTabs = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs']");
+        By txtFlagReason = By.XPath("//records-record-layout-item[@field-label='Flag Reason']//dd//lightning-formatted-text");
+        By txtFlagReasonComment = By.XPath("//records-record-layout-item[@field-label='Flag Reason Comment']//dd//lightning-formatted-text");
+        By txtFlagReasonChangeBy = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change By']//dd//div//a//span//span//span");
+        By txtFlagReasonChangeDate = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change Date']//dd//lightning-formatted-text");
 
 
         By _radioRecordType(string recordType)
@@ -1119,7 +1122,11 @@ namespace SF_Automation.Pages.Companies
 
             WebDriverWaits.WaitUntilEleVisible(driver, editPotentialRoundTrip, 120);
             driver.FindElement(editPotentialRoundTrip).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(3000);
 
             if(driver.FindElement(btnPotentialRoundTrip).Displayed && driver.FindElement(txtRoundTripEngagement).Displayed && driver.FindElement(txtAreaRoundTripComment).Displayed)
             {
@@ -1217,6 +1224,34 @@ namespace SF_Automation.Pages.Companies
                 result = true;
                 driver.FindElement(By.XPath("//button[text()='Close']")).Click();
                 Thread.Sleep(2000);
+            }
+            return result;
+        }
+
+        public bool VerifyFlagDetailsAreUpdatedForTheCompany(string reason, string comment, string changeBy)
+        {
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            //Click More Tabs button
+            driver.FindElement(btnMoreTabs).Click();
+            Thread.Sleep(2000);
+
+            //Select the Flag option
+            driver.FindElement(By.XPath("//span[text()='Flag']/..")).Click();
+            Thread.Sleep(2000);
+
+            //Get Flag Reason, Flag Reason Comment, Flag Reason Changed By and Flag Reason Changed Date
+            string flagReason = driver.FindElement(txtFlagReason).Text;
+            string flagReasonComment = driver.FindElement(txtFlagReasonComment).Text;
+            string flagReasonChangedBy = driver.FindElement(txtFlagReasonChangeBy).Text;
+
+            if(flagReason == reason && flagReasonComment == comment && flagReasonChangedBy == changeBy)
+            {
+                result = true;
             }
             return result;
         }
