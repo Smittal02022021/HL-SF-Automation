@@ -107,7 +107,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Info", "Industry Group: " + industryGroupExl + " is updated on Company's Coverage Team Type Drop-Down ");
                     randomPages.CloseActiveTab(companyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Pass", "User: " + userExl + " Logged out");
                 login.SwitchToClassicView();
                 //Deleting ceated compnay as garbage collection 
@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateExceptionLog(e.Message);
                 if (companyName != null)
                 {
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     login.SwitchToClassicView();
                     for (int i = 0; i < index; i++)
                     {

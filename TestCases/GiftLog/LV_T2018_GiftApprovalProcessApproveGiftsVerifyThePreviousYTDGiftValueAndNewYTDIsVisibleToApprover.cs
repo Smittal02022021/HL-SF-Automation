@@ -175,7 +175,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Info","Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                         //Search Compliance user by global search
@@ -260,7 +260,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", "New YTD Value : " + approvedNewYTDResult + " is equal to Prev YTD Value: " + approvedPrevYTDResult + " in approved gifts table. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
 
                     }
@@ -314,7 +314,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Info", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                         //Search Compliance user by global search
@@ -399,7 +399,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", "New YTD Value : " + approvedNewYTDResult + " is equal to Prev YTD Value: " + approvedPrevYTDResult + " in approved gifts table. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
                     }
                 }

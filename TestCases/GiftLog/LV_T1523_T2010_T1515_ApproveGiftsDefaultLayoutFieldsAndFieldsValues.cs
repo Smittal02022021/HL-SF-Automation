@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 //Login as Compliance User
@@ -232,7 +232,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", giftStatus + "Filters are working correctly ");
 
                 CustomFunctions.PageReload(driver);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
 
                 //CF Financial User login 
@@ -310,7 +310,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Switch from gift log to HL Force
                 CustomFunctions.PageReload(driver);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userCompliance + " logged out");
 
 
@@ -364,7 +364,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", giftStatus + "Filters are working correctly ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
             }
             catch (Exception e)

@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged out ");
 
                 //Select HL Banker app
@@ -444,7 +444,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     rateSheetMgt.DeleteRateSheetLV(engagement);                    
                     extentReports.CreateLog("Deleted rate sheet entry successfully after verification ");                     
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
 
                 //TC - End

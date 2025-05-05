@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 string actualListValidationErrors= opportunityDetails.GetOppVEValidationErrorsLV();                
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
                 ////////////// TMTI0101380 Test Case Start////////////////////
@@ -160,7 +160,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 randomPages.CloseActiveTab("Internal Team");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "System Administrator: " + appNameExl + " Logged out after filling Page level Required fields ");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
@@ -348,7 +348,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 CustomFunctions.PageReload(driver);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User logged out");
                 ////////////////////////////////////////////
 
@@ -376,7 +376,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 commentTextExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngComments", 5, 2);
                 engagementDetails.AddEngementCommentsLV(commentTypeExl, commentTextExl);
                 extentReports.CreateStepLogs("Info", "Comments added on Engagement page with Type:  " + commentTypeExl);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: "+ complianceuserExl+" logged out");
                 ////*****************************************////
 
@@ -405,7 +405,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.IsTrue(popupMessage.Contains("FS Engagement"), "Verify the Added FS Engagement is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", " FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company: " + counterpartyCompanyNameExl);
                 randomPages.CloseActiveTab(nameFSEng);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator: " + appNameExl + " logged out");
 
                 //////////////////////////////////////////               
@@ -472,9 +472,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
-                
+
                 //xtentReports.CreateStepLogs("Passed", "Request Full Engagement button clicked with popup message: "+ popupMessage);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User: "+ userExl + " logged out" );
 
                 //TMTI0101394 Verify that CAO User can approve the Full engagement request
@@ -616,7 +616,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " logged out");
 
                 //Login as Compliance user and Verfy the Eng Compliance comments               
@@ -644,7 +644,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 //---------------//
                 randomPages.CloseActiveTab(engagementName);
                 extentReports.CreateStepLogs("Info", "Engagement tab closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + complianceuserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

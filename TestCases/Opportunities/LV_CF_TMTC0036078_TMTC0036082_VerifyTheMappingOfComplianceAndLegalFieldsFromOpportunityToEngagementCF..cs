@@ -132,7 +132,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
 
                     extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
@@ -178,7 +178,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     valReceivedByComplianceDate = opportunityDetails.GetReceivedByComplianceDateLV();
                     valVerifiedByComplianceDate = opportunityDetails.GetVerifiedByComplianceDateLV();
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
 
                     /////////////////
@@ -213,7 +213,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     valLegalHoldNotes = opportunityDetails.GetLegalHoldNotesLV();
                     valDateOnHold = opportunityDetails.GetDateOnHoldLV();
                     valPutOnHold = opportunityDetails.GetPutOnHoldLV();
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
 
                     ////--------
@@ -243,7 +243,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
@@ -313,7 +313,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "Put On Hold: '" + valPutOnHold + "' mapped on Engagement page after conversion from Opportunity verified as CAO User");
 
                     randomPages.CloseActiveTab(engagementName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
 
                     //string userCompliance = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", 3, 1);
 
@@ -347,7 +347,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //opportunityDetails.UpdateComplianceReceivedVerfifiedDateLV();                        
                     randomPages.CloseActiveTab(engagementName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
 
                     /////////////////
@@ -388,7 +388,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "Put On Hold: '" + valPutOnHold + "' mapped on Engagement page after conversion from Opportunity");
 
                     randomPages.CloseActiveTab(engagementName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
                 }
                 usersLogin.UserLogOut();

@@ -180,7 +180,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 }
 
                 //Logout for CF Financial User
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 
                 //TC - End

@@ -110,7 +110,7 @@ namespace SF_Automation.TestCases.Companies
 
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + valAdminUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Companies
             catch (Exception ex)
             {
                 extentReports.CreateExceptionLog(ex.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

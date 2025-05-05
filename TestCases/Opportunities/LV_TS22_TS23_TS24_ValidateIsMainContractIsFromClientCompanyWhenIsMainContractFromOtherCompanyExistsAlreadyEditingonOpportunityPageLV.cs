@@ -103,7 +103,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
 
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", valUserExl + " Logged out");
 
                 //Performing actions with System Admin
@@ -187,7 +187,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", contractName1Exl + " detail page is closed");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info","CAO User: "+ caoUserExl + " Logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

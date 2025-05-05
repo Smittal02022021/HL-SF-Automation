@@ -104,13 +104,22 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0035666);
-                    opportunityDetails.UpdateTotalDebtConfirmedLV();
+                    opportunityDetails.UpdateTotalDebtConfirmedLV();                    
+
                     extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0035666);
                     extentReports.CreateLog("Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateLog("Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                     //AddMultiple Staff 
                     string memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "Roles", row, 1);
                     string exectedMaxLimit = ReadExcelData.ReadDataMultipleRows(excelPath, "OverLimitMessage", row, 2);

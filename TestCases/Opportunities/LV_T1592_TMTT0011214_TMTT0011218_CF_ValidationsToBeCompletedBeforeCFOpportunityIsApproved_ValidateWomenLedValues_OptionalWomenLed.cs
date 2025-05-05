@@ -100,12 +100,11 @@ namespace SF_Automation.TestCases.Opportunities
                     string txtExpectedRequiredFieldsValidation = opportunityDetails.GetExpectedRequiredFieldsValidationForConversionLV(fileTC1624);
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
-
-                }                
-                usersLogin.ClickLogoutFromLightningView();
+                }
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch (Exception e)
             {

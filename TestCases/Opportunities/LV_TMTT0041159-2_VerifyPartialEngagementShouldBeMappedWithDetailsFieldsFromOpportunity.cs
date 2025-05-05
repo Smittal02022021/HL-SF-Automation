@@ -109,7 +109,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
                 ////////////// TMTI0101380 Test Case Start////////////////////
@@ -143,7 +143,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 randomPages.CloseActiveTab("Internal Team");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "System Administrator: " + appNameExl + " Logged out after filling Page level Required fields ");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
@@ -253,7 +253,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 randomPages.CloseActiveTab("Counterparty Editor");
                 */
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
                 
 
@@ -312,7 +312,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.AreEqual(counterpartyCompanyNameExl, engSponsorCmpny);
                 extentReports.CreateStepLogs("Passed", "FS Engagement with ID: " + idFSEng + " and Sponsor Company: "+ counterpartyCompanyNameExl+" is mapped on Engagement page same as added on Oporunity page  ");
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
@@ -370,7 +370,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 randomPages.CloseActiveTab("Counterparty Editor");
                 */
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

@@ -765,6 +765,36 @@ namespace SF_Automation.Pages
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
         }
+
+        By comboRolePitchL = By.XPath("//label[text()='Role Pitched']/..//button");
+        By comboPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//button");
+        By inputPitchDateL = By.XPath("//label[text()='Date of Pitch']/..//input");
+        By txtPMAIDL = By.XPath("//h1//records-entity-label[text()='Pitch/Mandate Award']/../../..//lightning-formatted-text");
+        public void CreateNewPitchMandateAwardLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewL, 10);
+            driver.FindElement(btnNewL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboRolePitchL, 5);
+            driver.FindElement(comboRolePitchL).Click();
+            By optionRolPitchL = By.XPath("//label[text()='Role Pitched']/..//lightning-base-combobox-item//span[@title='Buyside']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionRolPitchL, 5);
+            driver.FindElement(optionRolPitchL).Click();
+            driver.FindElement(comboPitchOutcomeL).Click();
+            By optionPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//lightning-base-combobox-item//span[@title='HL Passed']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionPitchOutcomeL, 5);
+            driver.FindElement(optionPitchOutcomeL).Click();
+            string getDate = DateTime.Today.ToString("MM/dd/yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPitchDateL, 5);
+            driver.FindElement(inputPitchDateL).SendKeys(getDate);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(8000);
+        }
+        public string GetPitchMandateAwardID()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtPMAIDL, 10);
+            return driver.FindElement(txtPMAIDL).Text;
+
+        }
         public void ClickReturnToOpportunityLV()
         {
             driver.SwitchTo().DefaultContent();
@@ -9909,7 +9939,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, rowsCommentsL, 20);
             return driver.FindElements(rowsCommentsL).Count;
         }
-        public bool IsCommentFoundLV(string type,string user)
+        public bool IsUserCommentFoundLV(string type,string user)
         {
             By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmComment, 20);

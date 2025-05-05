@@ -205,7 +205,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.DeleteTimeEntryLV();
                 extentReports.CreateLog("User has deleted the record ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
                 
                 //TC - End

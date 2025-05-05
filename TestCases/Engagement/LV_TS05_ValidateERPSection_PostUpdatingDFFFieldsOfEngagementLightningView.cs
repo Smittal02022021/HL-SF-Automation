@@ -428,7 +428,7 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New : " + ERPResLOB + " is displayed Old: "+ ERPResClient);
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

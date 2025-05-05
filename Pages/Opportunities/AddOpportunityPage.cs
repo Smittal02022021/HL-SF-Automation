@@ -54,6 +54,7 @@ namespace SF_Automation.Pages
         By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox//input");
         By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button"); //button[@aria-label='Job Type, --None--']");
         By btnIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");//button[@aria-label='Industry Group, --None--']");
+        By lblRefEngL=By.XPath("//label[text()='Referring Engagement']");
         By comboSectorL = By.XPath("//label[text()='Sector']/parent::div//button");//button[@aria-label='Sector, --None--']");
         By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");//button[@aria-label='Primary Office, --None--']");
         By txtLegalEntitiesL = By.XPath("//input[@placeholder='Search Legal Entities...']");
@@ -820,12 +821,12 @@ namespace SF_Automation.Pages
             if (valRecordType == "FVA")
             {
                 string valFee = ReadExcelData.ReadData(excelPath, "AddOpportunity", 28);
-                CustomFunctions.MoveToElement(driver, driver.FindElement(comboRefTypeL));
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboRefTypeL));//
                 driver.FindElement(txtEstFee).SendKeys(valFee);
             }
             //Select Referral Type //Need to move in UpdteReq function  
             string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblRefEngL));
             if (valRecordType == "CF" || valRecordType == "FVA")
             {
                 driver.FindElement(comboRefTypeL).Click();

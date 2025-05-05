@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Opportunities
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
                     }
                     extentReports.CreateStepLogs("Info", "Opportunity of LOB: " + valRecordType + " All Required Fields for Converting into Engagement are Filled ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard User:" + userExl + " logged out");
 
                     //Login as System Admin user to Fill Required fields for conversion 
@@ -186,7 +186,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for for System Administrator on Opportunity detail page. ");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " logged out");
 
                     //Login as Standard User To Request for Eng
@@ -209,7 +209,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard User loggout after request for Engagement");
 
                     //Login as CAO user to approve the Opportunity
@@ -258,7 +258,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual("Co-Exist checkbox is displayed and checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult1 + " on Engagement detail page. ");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCAOExl + " CAO User loggout after converting Opportunity into Engagement");
 
                     //Validate if Admin User is able to edit the CoExist field
@@ -297,7 +297,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for System Administrator on Engagement detail page");
                     randomPages.CloseActiveTab(engagementName);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator Logged out after final validation on Opportunity and Engagement detail page for LOB: " + valRecordType);
 
                 }
@@ -307,7 +307,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

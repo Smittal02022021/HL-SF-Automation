@@ -119,14 +119,22 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);
+                    opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);                    
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
+                    
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTC1624);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityL();
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
 
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", userExl + " Standard User logged out ");
@@ -166,7 +174,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     valReceivedByComplianceDate = opportunityDetails.GetReceivedByComplianceDateLV();
                     valVerifiedByComplianceDate = opportunityDetails.GetVerifiedByComplianceDateLV();
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
 
                     /////////////////
@@ -200,7 +208,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     valLegalHoldNotes = opportunityDetails.GetLegalHoldNotesLV();
                     valDateOnHold = opportunityDetails.GetDateOnHoldLV();
                     valPutOnHold = opportunityDetails.GetPutOnHoldLV();
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
 
                     ////--------
@@ -308,7 +316,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "Put On Hold: '" + valPutOnHold + "' mapped on Engagement page after conversion from Opportunity verified as CAO User");
 
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
 
                     // string userCompliance = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
 
@@ -342,7 +350,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //opportunityDetails.UpdateComplianceReceivedVerfifiedDateLV();                        
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");
 
                     /////////////////
@@ -386,7 +394,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     randomPages.CloseActiveTab(opportunityName);
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userLegal + " Legal User logged out ");
                 }
                 usersLogin.UserLogOut();

@@ -257,7 +257,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     timeEntry.DeleteTimeEntryLV();
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                     //Select HL Banker app

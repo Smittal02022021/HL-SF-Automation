@@ -122,7 +122,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Info", companyNameExl + ": Company Tab Closed ");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

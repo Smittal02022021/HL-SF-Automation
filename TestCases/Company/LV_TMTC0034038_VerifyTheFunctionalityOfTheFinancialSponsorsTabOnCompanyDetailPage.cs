@@ -161,7 +161,7 @@ namespace SF_Automation.TestCases.Companies
                     //extentReports.CreateStepLogs("Passed", investmentCount+" Fin Sp created " );
                     randomPages.CloseActiveTab(newCompanyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + valAdminUser + " logged out");
 
                 //Performing Actions with CF Fin User
@@ -221,7 +221,7 @@ namespace SF_Automation.TestCases.Companies
                     }
                     randomPages.CloseActiveTab(companyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User: " + valCFUser + " logged in on Lightning View");
 
                 // TMT0076533	Verify that clicking "Delete" will delete the Investment List and give a success message on the screen.
@@ -280,7 +280,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateExceptionLog(e.Message);
                 //randomPages.CloseActiveTab(investmentNumber[index]);
                 randomPages.CloseActiveTab(newCompanyName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();

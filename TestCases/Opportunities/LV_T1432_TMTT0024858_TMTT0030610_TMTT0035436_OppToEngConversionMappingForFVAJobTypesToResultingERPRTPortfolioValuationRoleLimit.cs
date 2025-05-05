@@ -321,7 +321,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
                     randomPages.CloseActiveTab(opportunityName);
                     /////////
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CAO User: " + caoUserExl + " switched to Classic and Loggout ");
 
                     //---------------------------------------------------------//
@@ -356,7 +356,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual("Success", ERPStatusOffice, "Verify the Engagement ERP Last Integration Status as Success ");
                     extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
                     randomPages.CloseActiveTab(engName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
                 }
                 login.SwitchToClassicView();

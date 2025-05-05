@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.IsTrue(IsActivityListCorrect, "Verify Activty List for logged in user is correct ");
                     extentReports.CreateStepLogs("Passed", "Activty List is correct on Weekly Overview Page for logged in user:" + userExl);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                     //Select HL Banker app

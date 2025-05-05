@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Companies
                     //////////////////////////////////////////////////////////////
                     
                     //Changing the status of Officer as System admin 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.Companies
                     contactDetail.UpdateContactStatusLV(contactStatus);
                     extentReports.CreateStepLogs("Passed", "Coverage Team Officer Contact is updated to Inactive");
                     randomPages.CloseActiveTab(officerExl);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
                     /////////////////////////////////////////////////////////
                     ///Verify the Oficer Status as CF Fin user
@@ -193,7 +193,7 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsFalse(companyDetail.IsIndustryCoverageTamMemberDisplayedRelatedTabListLV(officerExl), "Verify that the Coverage officer i.e. Houlihan Contact is Inactive has been removed from the respective types of Coverage Team.");
                     extentReports.CreateStepLogs("Passed", "Inactive Houlihan Contact is has been removed from the respective types of Coverage Team List.");
                     randomPages.CloseActiveTab(companyNameExl);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                    
                     //Changing the status of Contact as System Admin
@@ -219,7 +219,7 @@ namespace SF_Automation.TestCases.Companies
                     contactDetail.UpdateContactStatusLV(contactStatus);
                     randomPages.CloseActiveTab(officerExl);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
 
                     //Verify the status of Officer as CF Fin User
@@ -267,7 +267,7 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(companyNameExl);
                     //Change the Coverage team satatus as CF FIn user need to work 
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     //Delete crated company,coverage team, as system admin 
@@ -295,7 +295,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Administrator: " + valAdminUser + " logged out");
                 }
                 driver.Quit();
@@ -304,7 +304,7 @@ namespace SF_Automation.TestCases.Companies
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -358,7 +358,7 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                     }
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

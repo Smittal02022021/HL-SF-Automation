@@ -160,7 +160,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.IsTrue(timeEntry.IsComboSelectProjectDisplayedLV(), "Verify after selecting the project, the search bar to changed to old Select Project Drop-Down");
                     extentReports.CreateStepLogs("Passed", "After selecting the project, the search bar to changed to old Select Project Drop-Down on Weekly Overview ");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                 //TC - End

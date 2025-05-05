@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
+using System.Timers;
 
 
 namespace SF_Automation.Pages.Common
@@ -115,7 +116,9 @@ namespace SF_Automation.Pages.Common
         By valLOBL = By.XPath("//span[text()='Line of Business']/../../..//lightning-formatted-text");
         By valJobCodeL = By.XPath("//span[text()='Job Code']/../../..//lightning-formatted-text");
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
+        By tabPitchMandateAwardL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Pitches/Mandate Awards']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
+        By tabMorePitchesMandateAwardsL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Pitches/Mandate Awards']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
 
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
@@ -123,20 +126,7 @@ namespace SF_Automation.Pages.Common
         By lnkRefereshTabL = By.XPath("//ul//li[@title='Refresh Tab']/a");
         By tabOracleERPL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Oracle ERP']");
         By tabMoreOracleERPL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Oracle ERP']");
-
-        public void RefreshActiveTab(string name)
-        {
-            driver.SwitchTo().DefaultContent();
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, _TabEle("'Actions for " + name + "'"), 10);
-            IWebElement closeTabIcon = driver.FindElement(_TabEle("'Actions for " + name + "'"));
-            closeTabIcon.Click();
-            Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkRefereshTabL, 5);
-            driver.FindElement(lnkRefereshTabL).Click();
-            Thread.Sleep(8000);
-        }
-
+        By btnNewL = By.XPath("//button[@name='New']");
         private By _optionListView(string name)
         {
             return By.XPath($"//lightning-popup/section//span[text()='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -175,6 +165,54 @@ namespace SF_Automation.Pages.Common
         private By _txtPageHeader(string itemName)
         {
             return By.XPath($"//h1//slot//lightning-formatted-text[text()='{itemName}']");
+        }
+        private By _eleJobType(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
+        }
+        private By _eleLegalEntity(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//td//a[@title='{name}']");
+        }
+        private By _quickEleLegalEntity(string name)
+        {
+            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
+        }
+
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        
+        public void RefreshActiveTab(string name)
+        {
+            driver.SwitchTo().DefaultContent();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, _TabEle("'Actions for " + name + "'"), 10);
+            IWebElement closeTabIcon = driver.FindElement(_TabEle("'Actions for " + name + "'"));
+            closeTabIcon.Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRefereshTabL, 5);
+            driver.FindElement(lnkRefereshTabL).Click();
+            Thread.Sleep(8000);
+        }       
+
+        public void ClickPitchMandteAwardTabLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, tabPitchMandateAwardL, 10);
+                driver.FindElement(tabPitchMandateAwardL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
+                driver.FindElement(iconHeaderMoreTabsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabMorePitchesMandateAwardsL, 10);
+                driver.FindElement(tabMorePitchesMandateAwardsL).Click();
+            }
+            Thread.Sleep(10000);
         }
 
         public string ClickReportsTab()
@@ -828,20 +866,6 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(4000);
         }
 
-        private By _eleJobType(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
-        }
-        private By _eleLegalEntity(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//td//a[@title='{name}']");
-        }
-        private By _quickEleLegalEntity(string name)
-        {
-            return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
-        }
-
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
         public string SelectJobTypesLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;

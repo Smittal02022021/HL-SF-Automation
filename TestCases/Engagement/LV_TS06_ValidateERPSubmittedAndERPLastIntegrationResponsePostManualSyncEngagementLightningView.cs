@@ -109,7 +109,7 @@ namespace SF_Automation.TestCases.Engagements
 
                 randomPages.CloseActiveTab(EngName);
                 extentReports.CreateStepLogs("Info", "Engagement is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

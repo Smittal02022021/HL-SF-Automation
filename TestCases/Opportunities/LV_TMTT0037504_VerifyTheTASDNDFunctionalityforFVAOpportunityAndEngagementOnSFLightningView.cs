@@ -244,7 +244,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                             Assert.IsFalse(opportunityDetails.IsBtnTASDNDDisplayedLV(), "Verify DND button availablity is FALSE for " + dealMemberLOBExl + " Deal team members: " + dealMemberNameExl + " with " + dealMemberRoleExl + " role");
                             extentReports.CreateStepLogs("Passed", "TAS DND button is is availablity is False for " + dealMemberLOBExl + " Deal team members: " + dealMemberNameExl + " with " + dealMemberRoleExl + " role");
                         }
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");
                     }
                     ////////////////////////////////////////////////////////////////
@@ -285,7 +285,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                             Assert.AreEqual("Record found", result);
                             extentReports.CreateStepLogs("Passed", "Opp Name: "+dndOppName+" is "+ result + " and selected");
                             randomPages.CloseActiveTab(dndOppName);
-                            usersLogin.ClickLogoutFromLightningView();
+                            homePageLV.LogoutFromSFLightningAsApprover();
                             extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");
                         }   
                     }
@@ -321,7 +321,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");
                     //TMTI0090540 Verify that new deal team members in the Principal role and members of the TAS Officer have access to TAS DND Opportunity. (Before Conversion)
                     //TMTI0090545 Verify that the new deal team member in the Principal role and who is not a member of the TAS Officer has access to TAS DND Opportunity and cannot click the TAS DND button. (Before Conversion)
@@ -369,7 +369,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                             extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
                         }                        
 
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");
                     }
                     
@@ -428,7 +428,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     //Assert.AreEqual(chkTASDNDStatus, "Checked");
                     //dndOppName = opportunityDetails.GetOpportunityNameL();
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "FVA CAO user: " + caoUserExl + " logged out");
                     ///////////////////////////////////////////////////////////////////
                     //TMTI0090535 Verify that the TAS DND button is accessible to FVA Deal team members having a Principal role in Engaged Opportunity.
@@ -465,7 +465,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                         extentReports.CreateStepLogs("Passed", "TAS DND Checkbox is " + chkTASDNDStatus + " for TAS DND(On) Confirmed Opportunity");
                         dndOppName = opportunityDetails.GetOpportunityNameL();
                     }
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "FVA user: " + dealMemberNameExl + " logged out");
 
                     //TMTI0090541	Verify existing deal team members and new deal team members have access to DND Opportunity after adding new deal team members.
@@ -495,7 +495,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                         Assert.AreEqual("Record found", result);
                         extentReports.CreateStepLogs("Passed", "Opp Name: " + dndOppName + " is " + result + " and selected");
                         randomPages.CloseActiveTab(dndOppName);
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "User: " + dealMemberNameExl + " logged out");                       
                     }
                     login.SwitchToClassicView();

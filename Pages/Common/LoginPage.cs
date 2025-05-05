@@ -77,6 +77,16 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "FirstLevelApprover", row, 2));
             driver.FindElement(btnLogin).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnVerifyIdentity, 5);
+                Thread.Sleep(5000);
+                outlook.SelectVerifyIdentityEmail();
+            }
+            catch
+            {
+                // No Need to Verify your identity in Salesforce
+            }
         }
         public void SwitchToClassicView()
         {

@@ -256,7 +256,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Opportunity searched and found with Opportunity Name:: " + opportunityName + " in list");
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valUser + " logged out, Add Opportunitues button is not present for Houlihan Company and Conflicts Check LDCCR Company Type");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");

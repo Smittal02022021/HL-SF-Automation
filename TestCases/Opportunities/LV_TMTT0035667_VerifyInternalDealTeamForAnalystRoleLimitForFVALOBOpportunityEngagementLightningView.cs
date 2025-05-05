@@ -260,7 +260,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     /////////////////////////////////////////////////   
                     randomPages.CloseActiveTab("Internal Team");
                     randomPages.CloseActiveTab(engName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
                 }
                 login.SwitchToClassicView();

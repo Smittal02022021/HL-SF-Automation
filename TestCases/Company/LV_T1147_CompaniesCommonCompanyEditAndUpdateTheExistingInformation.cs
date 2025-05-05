@@ -98,7 +98,7 @@ namespace SalesForce_Project.TestCases.Company
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 10), companyDesc);
                 extentReports.CreateLog("Updated Company description: " + companyDesc + " in edit company page matches on company details page ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");

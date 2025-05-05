@@ -106,7 +106,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

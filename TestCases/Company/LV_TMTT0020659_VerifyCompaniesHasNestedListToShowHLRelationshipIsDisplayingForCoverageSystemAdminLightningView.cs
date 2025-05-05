@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetails.CloseCompanyTabLV(companyNameExl);//not displayed so commenting this line for now
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

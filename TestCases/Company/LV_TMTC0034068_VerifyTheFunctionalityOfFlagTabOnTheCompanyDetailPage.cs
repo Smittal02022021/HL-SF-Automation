@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Flag Reason and Flag Comment reverted Company detail page");
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Fin user: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
@@ -127,7 +127,7 @@ namespace SF_Automation.TestCases.Companies
             {
                 extentReports.CreateExceptionLog(ex.Message);
                 randomPages.CloseActiveTab(companyNameExl);                
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

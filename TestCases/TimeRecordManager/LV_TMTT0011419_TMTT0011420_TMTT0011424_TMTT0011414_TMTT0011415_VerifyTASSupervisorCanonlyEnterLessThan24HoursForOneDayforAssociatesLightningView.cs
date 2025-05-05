@@ -263,7 +263,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 rateSheetMgt.DeleteRateSheetLV(engagementExl);
                 extentReports.CreateStepLogs("Info", "Deleted rate sheet entry successfully after verification ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                 //TC - End

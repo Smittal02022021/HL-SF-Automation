@@ -90,7 +90,7 @@ namespace SalesForce_Project.TestCases.Company
                 Assert.IsTrue(companySelectRecord.IsButtonPresentOnRecordTypePageLV(btnNameExl));
                 extentReports.CreateStepLogs("Passed", "Button: " + btnNameExl + " present on Company Record Type Page");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + valAdminUser + " logged out");
                                 
                 int rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
@@ -159,7 +159,7 @@ namespace SalesForce_Project.TestCases.Company
                     extentReports.CreateStepLogs("Passed", "Company Type: " + companyType + " in add company page matches on company details page ");
 
                     // Logout from standard User
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
@@ -236,7 +236,7 @@ namespace SalesForce_Project.TestCases.Company
                    companyDetail.DeleteCompanyLV();
                    extentReports.CreateLog("Created company is deleted successfully ");
                    randomPages.CloseActiveTab(companyName);
-                   usersLogin.ClickLogoutFromLightningView();
+                   homePageLV.LogoutFromSFLightningAsApprover();
                    extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
                 }           
 

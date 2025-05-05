@@ -233,7 +233,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 timeEntry.VerifyActivityDropDownForFuturePeriodLV(fileTMT1411);
                 extentReports.CreateStepLogs("Passed", "Forecast option is available in  Activity List for future dates");                
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                 //TC - End

@@ -124,7 +124,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     //Logout as CF Financial user
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                 }
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();

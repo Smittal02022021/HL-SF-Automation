@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     extentReports.CreateStepLogs("Passed", "Time Entry Deleted");
 
                     //Logout for CAO User
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                 }
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();

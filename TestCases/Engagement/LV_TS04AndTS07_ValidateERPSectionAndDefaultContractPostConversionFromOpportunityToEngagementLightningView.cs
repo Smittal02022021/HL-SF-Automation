@@ -124,7 +124,7 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "Required fields are entered for LOB: " + valRecordType);
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + valUserExl + " logged out");
 
                     //------Only System Admin can see the ERP Section on Opportunity Detail page//
@@ -157,7 +157,7 @@ namespace SF_Automation.TestCases.Engagements
                     randomPages.CloseActiveTab("Internal Team");
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator User: " + adminUserExl + " logged out");
 
                     //Login again as Standard User

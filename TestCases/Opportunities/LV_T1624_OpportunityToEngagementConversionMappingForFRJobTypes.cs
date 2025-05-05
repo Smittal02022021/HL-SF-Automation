@@ -121,6 +121,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", userExl + " Standard User logged out ");
 

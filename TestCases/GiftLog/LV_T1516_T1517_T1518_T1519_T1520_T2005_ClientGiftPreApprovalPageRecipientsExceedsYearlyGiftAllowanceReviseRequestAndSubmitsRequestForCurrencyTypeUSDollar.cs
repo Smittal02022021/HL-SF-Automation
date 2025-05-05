@@ -259,7 +259,7 @@ namespace SF_Automation.TestCases.GiftLog
                     randomPages.CloseActiveTab("SL_GiftPreApproval");
                 }
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 extentReports.CreateStepLogs("Info", "Browser Closed");

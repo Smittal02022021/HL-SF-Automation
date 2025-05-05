@@ -124,7 +124,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "Address location: "+ addLocationID+"  record is updated");
 
                 randomPages.CloseActiveTab(companyNameExl);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 //System Admin actions    
@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Companies
                 companyDetail.DeleteAddLocationLV();
                 extentReports.CreateStepLogs("Passed", "Location deleted from Company " + companyNameExl);
                 randomPages.CloseActiveTab(companyNameExl);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + valAdminUser + " logged out");
             }
                 driver.Quit();
@@ -166,7 +166,7 @@ namespace SF_Automation.TestCases.Companies
             {
                 extentReports.CreateExceptionLog(ex.Message);
                 randomPages.CloseActiveTab(companyNameExl);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valAdminUser + " details are displayed. ");
@@ -202,7 +202,7 @@ namespace SF_Automation.TestCases.Companies
                         randomPages.CloseActiveTab(companyNameExl);
                     }                     
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

@@ -132,7 +132,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     randomPages.CloseActiveTab(nameRateSheetExl);
                     extentReports.CreateStepLogs("Info", "Rate Sheet: " + nameRateSheetExl + " page is closed ");                    
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
 
                 //TC - End

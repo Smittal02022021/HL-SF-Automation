@@ -137,7 +137,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
 
                     extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
@@ -184,7 +184,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
@@ -283,7 +283,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual("Success", valERPStatus);
                     extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + valERPStatus + " is displayed on Opportunity Detail page");
                     randomPages.CloseActiveTab(opportunityName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out ");                    
                 }
                 usersLogin.UserLogOut();

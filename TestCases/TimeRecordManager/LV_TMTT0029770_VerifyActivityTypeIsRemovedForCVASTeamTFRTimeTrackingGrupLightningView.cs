@@ -161,7 +161,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                     Assert.IsFalse(timeEntry.IsActivityListDisplayedLV(projectFullname), "Verify Activity List is not displayed for logged in user");
                     extentReports.CreateStepLogs("Passed", "Activity List is not displayed for logged in user on Weekly Overview ");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " logged out");
 
                 //TC - End

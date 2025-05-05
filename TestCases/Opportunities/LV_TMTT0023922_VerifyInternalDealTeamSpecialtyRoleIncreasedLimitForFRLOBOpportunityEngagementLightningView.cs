@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileTMTI0055018 = "LV_TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement";
 
@@ -106,6 +107,14 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         //Update required Opportunity fields for conversion and Internal team details
                         opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTI0055018);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
+
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                         extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                         opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055018);
                         extentReports.CreateLog("Opportunity Internal Team Details are provided ");

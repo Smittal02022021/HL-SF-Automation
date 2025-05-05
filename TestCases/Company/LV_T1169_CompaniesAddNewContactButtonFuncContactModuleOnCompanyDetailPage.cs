@@ -89,7 +89,7 @@ namespace SalesForce_Project.TestCases.Company
                     randomPages.CloseActiveTab(companyName);
                     randomPages.CloseActiveTab(companyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully ");

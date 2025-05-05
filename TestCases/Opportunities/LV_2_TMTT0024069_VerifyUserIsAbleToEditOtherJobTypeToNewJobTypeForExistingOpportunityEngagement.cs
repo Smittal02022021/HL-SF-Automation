@@ -123,7 +123,7 @@ namespace SF_Automation.TestCases.Opportunities
                     
                     //Reverting Job Type to Actual Job Type
                     opportunityDetails.UpdateJobTypeLV(newJobType,existingJobType);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateLog(valUser + " User logged out ");
                     extentReports.CreateLog("Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
@@ -184,7 +184,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
 
                     //Log out of Standard User
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
 
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
@@ -238,7 +238,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Reverting Job Type to Actual Job Type
                     engagementDetails.UpdateJobTypeLV(newJobType, existingJobType);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out");
                 }
                 usersLogin.UserLogOut();
@@ -248,7 +248,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

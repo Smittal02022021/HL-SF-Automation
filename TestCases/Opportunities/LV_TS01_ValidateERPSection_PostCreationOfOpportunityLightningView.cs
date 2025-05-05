@@ -111,7 +111,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                     extentReports.CreateStepLogs("Info", "Required fields are entered for LOB: "+ valRecordType);
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + valUserExl + " logged out");
 
                     //------Only System Admin can see the ERP Section on Opportunity Detail page//
@@ -333,7 +333,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                     extentReports.CreateStepLogs("Passed", "ERP Principal Manager in ERP section: " + ERPEmailID + " matches with email id of contact of Internal team member: " + valStaff + " ");
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Admin : " + adminUserExl + " logged out");
                 }
                 usersLogin.UserLogOut();

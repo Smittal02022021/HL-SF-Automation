@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(capIQCompaniesHome.IsIndustryGroupAvailableOnNewCapIQCompanyPageLV(IndustryTypeExl), "Verify Industry Group Type  is available on New CapIQ Company page");
                 extentReports.CreateStepLogs("Passed", "Industry Group Type: " + IndustryTypeExl + " is updated on CapIQ Company Page ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Pass", "User: " + userExl + " Logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

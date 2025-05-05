@@ -346,9 +346,10 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "Click on Deny Selected Button successfully ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
-
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch (Exception e)
             {
