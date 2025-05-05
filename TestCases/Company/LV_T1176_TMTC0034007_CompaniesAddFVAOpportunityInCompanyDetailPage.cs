@@ -177,7 +177,7 @@ namespace SF_Automation.TestCases.Companies
                     //extentReports.CreateStepLogs("Passed", "Sector: " + sector + " in add opportunity page matches on Opportunity details page ");
 
                     //randomPages.DetailPageFullViewLV();
-                    companyDetail.ClickCompanyDetailPageTabLV("Client/Subject & Referral");
+                    companyDetail.ClickCompanyDetailPageTabLV("KYC/Client/Subject/Referral");
                     // Validate additonal client 
                     string additionalClient = oppDetails.GetAdditionalClientLV();
                     string additionalClientExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
