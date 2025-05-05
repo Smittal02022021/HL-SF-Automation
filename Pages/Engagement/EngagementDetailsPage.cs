@@ -16,6 +16,9 @@ namespace SF_Automation.Pages.Engagement
 {
     class EngagementDetailsPage : BaseClass
     {
+        //Potential Round Trip - Sahil
+        By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip'])");
+
         By valEngContact2 = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         By lnkContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valEngName = By.CssSelector("div[id='Namej_id0_j_id4_ileinner']");
@@ -8312,6 +8315,29 @@ namespace SF_Automation.Pages.Engagement
                     return "New Opportunity Valuation Period button is not displayed";
                 }
             }
+        }
+
+        ////////////Round Trip Functions
+        ///
+        ///////////////////////
+
+        public bool VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault()
+        {
+            bool result = false;
+            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditPotentialRoundTrip, 60);
+            if(driver.FindElement(btnEditPotentialRoundTrip).Displayed == true)
+            {
+                driver.FindElement(btnEditPotentialRoundTrip).Click();
+                Thread.Sleep(3000);
+                if(driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']/span")).Text == "None")
+                {
+                    result = true;
+                    driver.FindElement(btnCancelEditFormL).Click();
+                    Thread.Sleep(2000);
+                }
+            }
+            return result;
         }
     }
 }

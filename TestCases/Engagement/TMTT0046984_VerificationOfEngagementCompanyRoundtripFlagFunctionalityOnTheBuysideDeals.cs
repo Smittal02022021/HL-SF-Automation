@@ -152,18 +152,6 @@ namespace SF_Automation.TestCases.Engagement
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                //update CC and NBC checkboxes in LV
-                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
-                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
-
-                //Requesting for engagement and validate the success message
-                opportunityDetails.ClickRequestToEngL();
-
-                //Submit Request To Engagement Conversion 
-                string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
-                Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
-                extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
-
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
@@ -177,6 +165,22 @@ namespace SF_Automation.TestCases.Engagement
                 {
                     lvHomePage.SelectAppLV1("HL Banker");
                 }
+
+                //Search for created opportunity
+                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
+                extentReports.CreateStepLogs("Info", "Admin User Search for Created Opportunity");
+
+                //update CC and NBC checkboxes in LV
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated by Admin user. ");
+
+                //Requesting for engagement and validate the success message
+                opportunityDetails.ClickRequestToEngL();
+
+                //Submit Request To Engagement Conversion 
+                string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
+                Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
+                extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
 
                 //Search CAO Financial user by global search
                 lvHomePage.SearchUserFromMainSearch(userCAOExl);
@@ -204,7 +208,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Search for created opportunity
                 extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
-                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
 
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonLV2();
@@ -224,9 +228,17 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
+                //TMTI0114952 - Verify that the "Engagement is a Potential Round Trip" picklist is added on the Engagement detail page and that it is "None" by default.
+                Assert.IsTrue(engagementDetails.VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault());
+                extentReports.CreateStepLogs("Passed", "Engagement is a Potential Round Trip Picklist is added on Engagement detail page and it is None by default. ");
+
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
+
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
             }

@@ -717,7 +717,7 @@ namespace SF_Automation.Pages
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associate Address']");//label[text()='Associated Address']");
         By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
-        By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//label[text()='Conflicts Run']");
+        By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Cancel and close']");//Close this window
         By iconCloseConversionPopup2 = By.XPath("//button[@title='Close this window']");//
@@ -7609,7 +7609,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% inside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //Select Fairness
             Thread.Sleep(4000);
