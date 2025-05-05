@@ -290,7 +290,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate Client/Subject & Referral tab and its sections
                 string tabClient = opportunityDetails.ValidateClientSubjectAndReferralTabL();
-                Assert.AreEqual("Client/Subject & Referral", tabClient);
+                Assert.AreEqual("KYC/Client/Subject/Referral", tabClient);
                 extentReports.CreateLog("Tab with name: " + tabClient + " is displayed under Opportunity Details page ");
 
                 //Validate Referral Info section
@@ -300,7 +300,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate Additional Client/Subject section
                 string secAddClient = opportunityDetails.ValidateAdditionalClientAndSubjectSection();
-                Assert.AreEqual("Additional Client/Subject", secAddClient);
+                Assert.AreEqual("Additional Clients/Subjects", secAddClient);
                 extentReports.CreateLog("Section with name: " + secAddClient + " is displayed under Client/Subject & Referral tab ");
 
                 //Validate Edit functionality of Client/Subject & Referral tab              

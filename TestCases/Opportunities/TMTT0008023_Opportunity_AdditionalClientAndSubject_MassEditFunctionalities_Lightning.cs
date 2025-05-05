@@ -149,8 +149,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Validate columns displayed in the table
                     string Column1 = clientSubjectsPage.Get1stColumn();
-                    Console.WriteLine("Column1:" + Column1 + "Column1:");
-                    Assert.AreEqual("Client/Subject  ", Column1);
+                    Console.WriteLine("Column1:" + Column1);
+                    Assert.AreEqual("Client/Subject Company  ", Column1);
 
                     //clientSubjectsPage.ValidateTableColumns();
                     Assert.IsTrue(clientSubjectsPage.ValidateTableColumns(), "Verified that displayed columns are same");

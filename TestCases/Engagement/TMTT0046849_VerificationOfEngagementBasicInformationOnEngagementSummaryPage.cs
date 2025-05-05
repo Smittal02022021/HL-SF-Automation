@@ -72,6 +72,9 @@ namespace SF_Automation.TestCases.Engagement
                 string subject = engagementDetails.ValidateSubjectOnHeader();
                 string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
 
+                engagementDetails.ValidateFeesTab();
+
+
                 //1. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
                 engagementDetails.ClickCFEngsummaryButtonL();
                 string lobSummary = summaryPage.ValidateLOBOnHeader();

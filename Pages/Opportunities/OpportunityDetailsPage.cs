@@ -32,7 +32,7 @@ namespace SF_Automation.Pages
         By btnAdditionalSubjectL = By.XPath("//button[@aria-label='Additional Subject']");
 
         By valAdditionalClientL = By.XPath("//flexipage-tab2[5]//flexipage-column2[1]//lightning-base-combobox-item//span[text()='Yes']");
-        By valAdditionalSubjectL = By.XPath("//flexipage-tab2[5]//flexipage-column2[2]//lightning-base-combobox-item//span[text()='Yes']");
+        By valAdditionalSubjectL = By.XPath("//flexipage-tab2[5]//flexipage-column2[1]//lightning-base-combobox-item[2]//span[text()='Yes']");
        
         By valOpportunity = By.XPath("//div[contains(@id,'Name')]");
         By btnDNDOnOff = By.CssSelector("input[name='dnd_on_off']");
@@ -363,7 +363,7 @@ namespace SF_Automation.Pages
         By comboSubjectOwnershipL = By.XPath("//button[contains(@aria-label,'Subject Ownership')]");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By txtRefContactL = By.XPath("//flexipage-component2[8]/slot//flexipage-column2[2]//div/input");
-        By txtRefContactFVAL = By.XPath("//flexipage-component2[9]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
+        By txtRefContactFVAL = By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
@@ -440,7 +440,7 @@ namespace SF_Automation.Pages
         By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSubject = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By tabIT = By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
         By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
@@ -471,7 +471,7 @@ namespace SF_Automation.Pages
         By btnAddFVAContact = By.XPath("//button[@name='Opportunity__c.Add_FVA_Opportunity_Contact']");
         By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
-        By secAdditionalClient = By.XPath("//span[text()='Additional Client/Subject']");
+        By secAdditionalClient = By.XPath("//h2//span[text()='Additional Clients/Subjects']");
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
@@ -1162,7 +1162,9 @@ namespace SF_Automation.Pages
             {
                 Thread.Sleep(6000);
                 string type = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']")).Text;
-                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
+                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::flexipage-column2/../flexipage-column2//flexipage-field[2]//records-hoverable-link//span//span//span")).Click();
+                    
+                //driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
                 Thread.Sleep(5000);
                 driver.FindElement(tabClientSubject).Click();
                 Thread.Sleep(5000);
@@ -4717,7 +4719,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 //driver.FindElement(lnkShowMoreL).Click();
                 //Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//span[text()='Client/Subject']/ancestor::div/dd/div[1]//force-lookup//a/span//span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//span[text()='Client/Subject Company']/ancestor::div/dd/div[1]//force-lookup//a/span//span/slot")).Text;
                 return value;
             }
         }
@@ -6108,7 +6110,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, secAdditionalClient);
             string name = driver.FindElement(secAdditionalClient).Text;
-            driver.FindElement(secAdditionalClient).Click();
+            //driver.FindElement(secAdditionalClient).Click();
             return name;
         }
 
@@ -6139,12 +6141,12 @@ namespace SF_Automation.Pages
         //Validate if Client/Subject and Referral tab is editable after clicking pencil icon
         public string ValidateClientSubjectRefTabIsEditable()
         {
-            Thread.Sleep(5000);
-            driver.FindElement(secReferralInfo).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
+            //driver.FindElement(secReferralInfo).Click();
+            //Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditRefType, 150);
             driver.FindElement(lnkEditRefType).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
             return value;
@@ -8392,6 +8394,10 @@ namespace SF_Automation.Pages
 
             //Date Engaged &Estimated Closed Date  
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
+            Thread.Sleep(2000);
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
             Thread.Sleep(2000);
             driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
 

@@ -667,11 +667,22 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='No']")).Click();
 
+
             //Select Additional Subject
             driver.FindElement(comboAddSubjectL).SendKeys("No");
-            Thread.Sleep(9000);
-            driver.FindElement(By.XPath("//flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
-
+            Thread.Sleep(8000);
+            if (valRecordType == "FR")
+            {
+                driver.FindElement(By.XPath("//flexipage-component2[7]//flexipage-field[2]//lightning-base-combobox//lightning-base-combobox-item[3]/span[2]/span")).Click();
+            }
+            else if (valRecordType == "FVA")
+            {
+                driver.FindElement(By.XPath("//flexipage-component2[9]//flexipage-field[2]//lightning-base-combobox//lightning-base-combobox-item[3]/span[2]/span")).Click();
+            }
+            else 
+            {
+                driver.FindElement(By.XPath("//flexipage-component2[8]//flexipage-field[2]//lightning-base-combobox//lightning-base-combobox-item[3]/span[2]/span")).Click();
+            }
             //Select Beneficial Owner
             string valBenOwner = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(comboBenOwnerL));
