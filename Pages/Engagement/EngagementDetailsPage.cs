@@ -8379,5 +8379,17 @@ namespace SF_Automation.Pages.Engagement
 
             return result;
         }
+
+        public bool VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(string icon)
+        {
+            bool result = false;
+            Thread.Sleep(2000);
+
+            if(driver.FindElement(By.XPath("(//span[text()='Help Engagement is a potential round trip']/following::span)[1]")).Text == icon)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

@@ -8,6 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -236,6 +237,11 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(engagementDetails.VerifyPotentialRoundTripPicklistValues(fileTMTT0046984));
                 extentReports.CreateStepLogs("Passed", "Picklist values displayed under Engagement is a Potential Round Trip field are: Subject is a potential round trip, Buyer is a potential round trip, Neither subject nor buyer are round trip. ");
 
+                //TMTI0114955 - Verify that a hover icon displays the expected description for the Engagement is a Potential Round Trip field
+                string iconDesc = ReadExcelData.ReadData(excelPath, "HoverIcon", 1);
+                Assert.IsTrue(engagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
+                extentReports.CreateStepLogs("Passed", "Hover icon displays the expected description for the Engagement is a Potential Round Trip field: " + iconDesc);
+                
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
