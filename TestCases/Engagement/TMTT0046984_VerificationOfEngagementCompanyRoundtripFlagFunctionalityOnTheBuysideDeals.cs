@@ -232,13 +232,13 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(engagementDetails.VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault());
                 extentReports.CreateStepLogs("Passed", "Engagement is a Potential Round Trip Picklist is added on Engagement detail page and it is None by default. ");
 
-                //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
-                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
+                //TMTI0114954 - Verify the following picklist values are added to the field "Engagement is a Potential Round Trip": - a) Subject is a potential round trip b) Buyer is a potential round trip c) Neither subject nor buyer are round trip
+                Assert.IsTrue(engagementDetails.VerifyPotentialRoundTripPicklistValues(fileTMTT0046984));
+                extentReports.CreateStepLogs("Passed", "Picklist values displayed under Engagement is a Potential Round Trip field are: Subject is a potential round trip, Buyer is a potential round trip, Neither subject nor buyer are round trip. ");
 
                 //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
-                extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
+                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
             }

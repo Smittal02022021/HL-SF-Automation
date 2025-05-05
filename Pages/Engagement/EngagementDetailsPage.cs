@@ -17,7 +17,7 @@ namespace SF_Automation.Pages.Engagement
     class EngagementDetailsPage : BaseClass
     {
         //Potential Round Trip - Sahil
-        By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip'])");
+        By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip']");
 
         By valEngContact2 = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         By lnkContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
@@ -8330,13 +8330,53 @@ namespace SF_Automation.Pages.Engagement
             {
                 driver.FindElement(btnEditPotentialRoundTrip).Click();
                 Thread.Sleep(3000);
-                if(driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']/span")).Text == "None")
+                if(driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']/span")).Text == "--None--")
                 {
                     result = true;
                     driver.FindElement(btnCancelEditFormL).Click();
                     Thread.Sleep(2000);
                 }
             }
+            return result;
+        }
+
+        public bool VerifyPotentialRoundTripPicklistValues(string file)
+        {
+            bool result = false;
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(2000);
+
+            driver.FindElement(btnEditPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            int excelCount = ReadExcelData.GetRowCount(excelPath, "PicklistValues");
+
+            driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']")).Click();
+            int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span")).Count;
+
+            for(int i=2; i<=excelCount; i++)
+            {
+                string excelValue = ReadExcelData.ReadDataMultipleRows(excelPath, "PicklistValues", i, 1);
+
+                for(int j=1; j<=valueCount; j++)
+                {
+                    string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Text;
+                    if(excelValue==picklistValue)
+                    {
+                        if(i == excelCount)
+                        {
+                            result = true;
+                            driver.FindElement(btnCancelEditFormL).Click();
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                        break;
+                    }
+                    
+                }
+            }
+
             return result;
         }
     }
