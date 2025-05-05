@@ -113,6 +113,13 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
                     //Add Multipe users with Different Role on created opportunity
                     displayedTab = addOpportunity.EnterMembersToDealTeamL(fileTMTT0036857);
                     randomPages.CloseActiveTab("Internal Team");

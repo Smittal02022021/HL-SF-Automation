@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Contact
         By inputCoverageTeamCommentsL = By.XPath("//label[text()='Comment']/..//textarea");
         By btnSaveCommentsL = By.XPath("//div[contains(@class,'comment')]//button[@name='save']");
         By txtCoverageTeamCommentsL = By.XPath("//dt[text()='Comment:']/..//lightning-base-formatted-text");
-        By iconShowMoreActionsL = By.XPath("//article[@aria-label='Coverage Team Comments']//article//button[contains(@class,'slds-button_icon-border')]");
+        By iconShowMoreActionsL = By.XPath("//article[@aria-label='Coverage Team Comments']//article//button[contains(@class,'slds-button_icon-border')]");////article[@aria-label='Coverage Team Comments']//article//ul//a
         By iconShowMoreActionCSectorL = By.XPath("//article[@aria-label='Coverage Sectors']//button[contains(@class,'slds-button_icon-border')]");
         By iconShowMoreActionCContactsL = By.XPath("//article[@aria-label='Coverage Contacts']//button[contains(@class,'slds-button_icon-border')]");
         By iconShowMoreActionsCContactL = By.XPath("//article[@aria-label='Coverage Contacts']//div//article//button[contains(@class,'slds-button_icon-border')]");
@@ -242,6 +242,7 @@ namespace SF_Automation.Pages.Contact
         public void DeleteCoverageCommentsLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
             WebDriverWaits.WaitUntilEleVisible(driver, iconShowMoreActionsL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconShowMoreActionsL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteL, 10);
