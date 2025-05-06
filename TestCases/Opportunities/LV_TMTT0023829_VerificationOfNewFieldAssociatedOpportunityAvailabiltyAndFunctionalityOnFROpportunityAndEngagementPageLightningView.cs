@@ -24,6 +24,7 @@ namespace SF_Automation.TestCases.Opportunities
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileTMTI0054683 = "LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage";
 
@@ -125,7 +126,13 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTI0054683);
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
-                    
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(stdUser + " Standard User Logged Out ");
                      

@@ -135,7 +135,15 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         opportunityDetails.UpdateReqFieldsForFRConversionLV(fileGCATracking);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
+
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
                     }
+
                     extentReports.CreateStepLogs("Info", "Opportunity of LOB: "+ valRecordType + " All Required Fields for Converting into Engagement are Filled ");
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard User:" + userExl + " logged out");
