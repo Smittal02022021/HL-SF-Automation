@@ -286,7 +286,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actMinFeeValidation = nform.GetValidationOfMinFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
-                Assert.AreEqual("Engagement Letter Minimum Fee (MM)\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
                                              
                 string actEstFeeValidation = form.GetValidationOfEstimatedFee();
@@ -301,7 +301,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actRefFeeValidation = form.GetValidationOfReferralFee();
                 string expRefFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 68);
-                Assert.AreEqual("Referral Fee Owed (MM)\r\nFees: Referral Fee Owed", actRefFeeValidation);
+                Assert.AreEqual("Referral Fee Owed\r\nFees: Referral Fee Owed", actRefFeeValidation);
                 extentReports.CreateLog("Validation: " + actRefFeeValidation + " is displayed for Referral Fee Owned field ");
 
                 //Click Administrative tab and validate its mandatory validations 

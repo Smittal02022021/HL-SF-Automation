@@ -413,11 +413,11 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name: " + txtProgFee + " is displayed ");
 
                 string txtMinFee = form.GetLabelMinimumFee();
-                Assert.AreEqual("Engagement Letter Minimum Fee (MM)", txtMinFee);
+                Assert.AreEqual("Engagement Letter Minimum Fee", txtMinFee);
                 extentReports.CreateLog("Field with name: " + txtMinFee + " is displayed ");
 
                 string txtEstFee = form.GetLabelTxnFeeType();
-                Assert.AreEqual("Estimated Fee (MM)", txtEstFee);
+                Assert.AreEqual("Estimated Fee", txtEstFee);
                 extentReports.CreateLog("Field with name: " + txtEstFee + " is displayed ");
 
                 string txtFee = cnbc.GetLabelFeeStructure();
@@ -429,7 +429,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name: " + txtLockups + " is displayed ");
 
                 string txtReferral = cnbc.GetLabelReferralFeeOwed();
-                Assert.AreEqual("Referral Fee Owed (MM)", txtReferral);
+                Assert.AreEqual("Referral Fee Owed", txtReferral);
                 extentReports.CreateLog("Field with name: " + txtReferral + " is displayed ");
 
                 string txtRetainerFee = cnbc.GetLabelRetainerFeeCred();

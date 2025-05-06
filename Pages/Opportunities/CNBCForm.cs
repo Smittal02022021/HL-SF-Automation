@@ -28,8 +28,8 @@ namespace SF_Automation.Pages.Opportunity
         By msgSanctions = By.XPath("//div[text()='Overview and Financials: Sanctions concerns/issues?']");
         By msgUseOfProceeds = By.XPath("//lightning-picklist/lightning-dual-listbox/div/span");
         By msgCapitalRaise = By.XPath("//label[text()='Capital Raise (MM)']/following::div[2]");
-        By msgEstimatedFee = By.XPath("//label[text()='Estimated Fee (MM)']/following::div[2]");
-        By msgReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[2]");
+        By msgEstimatedFee = By.XPath("//label[text()='Estimated Fee']/following::div[2]");
+        By msgReferralFee = By.XPath("//label[text()='Referral Fee Owed']/following::div[2]");
 
         By tabAdmin = By.XPath("//*[@id='flexipage_tab5__item']");
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
@@ -66,7 +66,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtMinFee = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstimatedFee = By.XPath("//input[@name='Total_Otherfee__c']");
         By btnLockUp = By.XPath("(//lightning-base-combobox)[11]");
-        By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
+        By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed']/following::div[1]/input");
 
         By btnRestricted = By.XPath("(//lightning-base-combobox)[13]");
 

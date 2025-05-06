@@ -37,6 +37,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnSubmit = By.XPath("//span/input[@name='Submit_For_Review__c']");
         By btnUpdSubmit = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[5]");
         By btnUpdSubmit2nd = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
+        By chkNextSchCall2nd = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[1]");
         By chkNextSchCall = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[3]");
         By btnSave = By.XPath("//li[2]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-lwc-headless/slot[1]/slot/lightning-button/button");
         By btnClose = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
@@ -97,7 +98,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgRetainer = By.XPath("//label[text()='Retainer']/following::div[2]");
         By msgRetainerFee = By.XPath("//label[text()='Retainer Fee Creditable ?']/following::div[3]");
         By msgProgressFee = By.XPath("//label[text()='Progress Fee Creditable ?']/following::div[3]");
-        By msgMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee (MM)']/following::div[2]");
+        By msgMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/following::div[2]");
         By msgTxnFeeType = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
         By msgEstTxnValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
 
@@ -148,7 +149,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnTxnFeeType = By.XPath("(//lightning-base-combobox)[9]");
         By btnTxnFeeType1 = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button");
         By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
-        By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed (MM)']/following::div[1]/input");
+        By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed']/following::div[1]/input");
         By lblFlatFee = By.XPath("//label[text()='Flat Fee (MM)']");
         By lblOtherFee = By.XPath("//label[contains(text(),'Other Fee Structure')]");
         By txtOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::textarea[1]");
@@ -253,8 +254,8 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
-        By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']");
-        By lblTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']");
+        By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']");
+        By lblTxnFee = By.XPath("//span[text()='Estimated Fee']");
         By valTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
@@ -1603,12 +1604,13 @@ namespace SF_Automation.Pages.Opportunity
             //driver.FindElement(btnTxnFeeType).Click();           
             //Thread.Sleep(5000);
             //driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
+            //driver.FindElement(chkNextSchCall2nd).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 250);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 100);
             driver.FindElement(btnClose).Click();
-            js.ExecuteScript("window.scrollTo(0,-150)");
+            js.ExecuteScript("window.scrollTo(0,-200)");
         }
 
         public void SaveAllReqFieldsInFeesWhenTypeIsIncentive(string file)
@@ -1681,6 +1683,7 @@ namespace SF_Automation.Pages.Opportunity
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnFairnessOpinion).Click();
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             driver.FindElement(tabAdmin).Click();
             Thread.Sleep(6000);

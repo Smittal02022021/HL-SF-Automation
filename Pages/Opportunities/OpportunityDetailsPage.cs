@@ -363,8 +363,12 @@ namespace SF_Automation.Pages
         By comboSubjectOwnershipL = By.XPath("//button[contains(@aria-label,'Subject Ownership')]");
         By comboSICL = By.XPath("//ul/li/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
         By txtRefContactL = By.XPath("//flexipage-component2[8]/slot//flexipage-column2[2]//div/input");
+        By txtRefContactCFL = By.XPath("//label[text()='Referral Contact']/ancestor::lightning-grouped-combobox//lightning-base-combobox//input");
         By txtRefContactFVAL = By.XPath("//flexipage-component2[10]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
+        By comboRefContactCFL = By.XPath("//ul/li[1]/lightning-base-combobox-item/span[2]/span[1]//lightning-base-combobox-formatted-text/strong");
+
+
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
         By comboUpdBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial')]");
         By btnConfAgreeL = By.XPath("//flexipage-component2[11]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[1]/button");
@@ -5257,9 +5261,9 @@ namespace SF_Automation.Pages
 
             //Ref Contact
             string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
-            driver.FindElement(txtRefContactL).SendKeys(valRef);
+            driver.FindElement(txtRefContactCFL).SendKeys(valRef);
             Thread.Sleep(5000);
-            driver.FindElement(comboRefContactL).Click();
+            driver.FindElement(comboRefContactCFL).Click();
 
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
 
