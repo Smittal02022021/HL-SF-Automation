@@ -1652,7 +1652,7 @@ namespace SF_Automation.Pages
             if (valRecordType == "FVA")
             {
                 string valFee = ReadExcelData.ReadData(excelPath, "AddOpportunity", 28);
-                CustomFunctions.MoveToElement(driver, driver.FindElement(comboBenOwnerL));
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboRefTypeL));
                 driver.FindElement(txtEstFee).SendKeys(valFee);
             }
             //Select Referral Type //Need to move in UpdteReq function  
