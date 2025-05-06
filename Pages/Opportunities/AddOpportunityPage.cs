@@ -1657,7 +1657,7 @@ namespace SF_Automation.Pages
             }
             //Select Referral Type //Need to move in UpdteReq function  
             string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboBenOwnerL));
             Thread.Sleep(2000);
             if (valRecordType == "CF" || valRecordType == "FVA")
             {
