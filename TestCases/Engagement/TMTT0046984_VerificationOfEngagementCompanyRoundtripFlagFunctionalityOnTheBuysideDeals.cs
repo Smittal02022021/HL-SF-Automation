@@ -230,6 +230,8 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Close the engagement
                 engagementDetails.ChangeEngagementStageToClosed();
+                engagementDetails.CloseEstimatedRevenueDateReminderPopup();
+
                 string stage = engagementDetails.GetEngagementStage();
                 Assert.AreEqual("Closed", stage);
                 extentReports.CreateStepLogs("Passed", "Stage of Engagement is change to : " + stage);
@@ -251,10 +253,10 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Check Subject Company = Operating Company & Client Ownership = Private Equit Group
                 string valClientCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
-                string valSubjectCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
+                string valSubjectCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
 
-                string compType = engagementDetails.GetSubjectCompanyType(valClientCompName);
-                string clientOwnership = engagementDetails.GetClientOwnership(valSubjectCompName);
+                string compType = engagementDetails.GetSubjectCompanyType(valSubjectCompName);
+                string clientOwnership = engagementDetails.GetClientOwnership(valClientCompName);
 
                 if(compType == "Operating Company" && clientOwnership == "Private Equity Group")
                 {
@@ -267,15 +269,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 }
 
-                //for subject companytype
-                //  for client ownershp
-                //verify subject & client conditions
-
-            //round rip selection
-
-            //verify subject and client company round trip section values
-
-            //TC - End
+                //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 

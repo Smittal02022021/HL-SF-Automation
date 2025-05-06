@@ -7597,14 +7597,17 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 Thread.Sleep(2000);
             }
+
             //Date Engaged
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
-            driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
+            driver.FindElement(txtDateEngL).SendKeys(DateTime.Today.AddDays(-20).ToString("MM/dd/yyyy").Replace("-", "/"));
             Thread.Sleep(4000);
+
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
             //string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");
-            driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
+            driver.FindElement(txtEstCloseDateL).SendKeys(DateTime.Today.AddDays(2).ToString("MM/dd/yyyy").Replace("-", "/"));
 
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();

@@ -21,6 +21,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip']");
         By btnEditEngagementStage = By.XPath("//button[@title='Edit Stage']");
         By txtCloseDate = By.XPath("//input[@name='Close_Date__c']");
+        By btnReminderClose = By.XPath("//button[text()='Close']");
         By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
 
 
@@ -8439,6 +8440,21 @@ namespace SF_Automation.Pages.Engagement
             {
                 Thread.Sleep(2000);
             }
+        }
+
+        public void CloseEstimatedRevenueDateReminderPopup()
+        {
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnReminderClose, 120);
+                driver.FindElement(btnReminderClose).Click();
+            }
+            catch(Exception e)
+            {
+                Thread.Sleep(2000);
+            }
+            Thread.Sleep(3000);
         }
 
         public string GetEngagementStage()
