@@ -26,8 +26,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-
-        Outlook outlook = new Outlook();
+        LV_CompanyDetailsPage companyDetailsPage = new LV_CompanyDetailsPage();
 
         public static string fileTMTT0046984 = "TMTT0046984_VerificationOfEngagementCompanyRoundtripFlagFunctionalityOnTheBuysideDeals";
 
@@ -229,6 +228,12 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
+                //Close the engagement
+                engagementDetails.ChangeEngagementStageToClosed();
+                string stage = engagementDetails.GetEngagementStage();
+                Assert.AreEqual("Closed", stage);
+                extentReports.CreateStepLogs("Passed", "Stage of Engagement is change to : " + stage);
+
                 //TMTI0114952 - Verify that the "Engagement is a Potential Round Trip" picklist is added on the Engagement detail page and that it is "None" by default.
                 Assert.IsTrue(engagementDetails.VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault());
                 extentReports.CreateStepLogs("Passed", "Engagement is a Potential Round Trip Picklist is added on Engagement detail page and it is None by default. ");
@@ -241,8 +246,36 @@ namespace SF_Automation.TestCases.Engagement
                 string iconDesc = ReadExcelData.ReadData(excelPath, "HoverIcon", 1);
                 Assert.IsTrue(engagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
                 extentReports.CreateStepLogs("Passed", "Hover icon displays the expected description for the Engagement is a Potential Round Trip field: " + iconDesc);
-                
-                //TC - End
+
+                //TMTI0114956 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
+
+                //Check Subject Company = Operating Company & Client Ownership = Private Equit Group
+                string valClientCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
+                string valSubjectCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
+
+                string compType = engagementDetails.GetSubjectCompanyType(valClientCompName);
+                string clientOwnership = engagementDetails.GetClientOwnership(valSubjectCompName);
+
+                if(compType == "Operating Company" && clientOwnership == "Private Equity Group")
+                {
+                    engagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                    Assert.IsTrue(engagementDetails.VerifyNoWarningMsgIsDisplayed());
+                    extentReports.CreateStepLogs("Passed", "No Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group ");
+                }
+                else
+                {
+
+                }
+
+                //for subject companytype
+                //  for client ownershp
+                //verify subject & client conditions
+
+            //round rip selection
+
+            //verify subject and client company round trip section values
+
+            //TC - End
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
 

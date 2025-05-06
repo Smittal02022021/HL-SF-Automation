@@ -8,6 +8,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
@@ -18,6 +19,12 @@ namespace SF_Automation.Pages.Engagement
     {
         //Potential Round Trip - Sahil
         By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip']");
+        By btnEditEngagementStage = By.XPath("//button[@title='Edit Stage']");
+        By txtCloseDate = By.XPath("//input[@name='Close_Date__c']");
+        By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
+
+
+        //*********************************************************************************************************
 
         By valEngContact2 = By.CssSelector("div[id*='D7QcI_body'] table th a:nth-child(2)");
         By lnkContract = By.CssSelector("div[id*='M0ecq_body'] > table > tbody > tr:nth-child(2) > th > a");
@@ -8390,6 +8397,129 @@ namespace SF_Automation.Pages.Engagement
                 result = true;
             }
             return result;
+        }
+
+        public void ChangeEngagementStageToClosed()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(3000);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngagementStage, 60);
+                driver.FindElement(btnEditEngagementStage).Click();
+                Thread.Sleep(3000);
+
+                driver.FindElement(By.XPath("//button[@aria-label='Stage']")).Click();
+                Thread.Sleep(2000);
+
+                int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span")).Count;
+
+                for(int i = 1; i <= valueCount; i++)
+                {
+                    string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span)[{i}]")).Text;
+                    if(picklistValue == "Closed")
+                    {
+                        driver.FindElement(By.XPath($"(//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span)[{i}]")).Click();
+                        Thread.Sleep(2000);
+
+                        //Enter Close Date
+                        driver.FindElement(txtCloseDate).SendKeys(DateTime.Now.Date.ToString("MM/dd/yyyy").Replace("-", "/"));
+                        Thread.Sleep(2000);
+
+                        //Click Save
+                        driver.FindElement(btnSaveDetailsL).Click();
+                        Thread.Sleep(2000);
+                        break;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Thread.Sleep(2000);
+            }
+        }
+
+        public string GetEngagementStage()
+        {
+            Thread.Sleep(2000);
+            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            return stageName;
+        }
+
+        public void SelectValueInPotentialRoundTripField(string value)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(3000);
+
+            driver.FindElement(btnEditPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']")).Click();
+            int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span")).Count;
+
+            for(int j = 1; j <= valueCount; j++)
+            {
+                string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Text;
+                if(value == picklistValue)
+                {
+                    driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Click();
+                    Thread.Sleep(2000);
+
+                    //Click Save
+                    driver.FindElement(btnSaveDetailsL).Click();
+                    Thread.Sleep(2000);
+                    break;
+                }
+            }
+        }
+
+        public bool VerifyNoWarningMsgIsDisplayed()
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal) == false)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public string GetSubjectCompanyType(string compName)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
+
+            //Navigate to subject company detail page
+            driver.FindElement(By.XPath($"(//span[text()='{compName}'])[2]/../../../../..")).Click();
+            Thread.Sleep(3000);
+
+            string companyType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::dd//span)[2]")).Text;
+
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return companyType;
+        }
+
+        public string GetClientOwnership(string compName)
+        {
+            //Navigate to client company detail page
+            driver.FindElement(By.XPath($"(//span[text()='{compName}'])[2]/../../../../..")).Click();
+            Thread.Sleep(3000);
+
+            string clientOwnership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return clientOwnership;
         }
     }
 }
