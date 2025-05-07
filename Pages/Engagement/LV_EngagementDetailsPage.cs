@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
@@ -9,6 +10,10 @@ namespace SF_Automation.Pages.Companies
     {
         //General
         By txtEngagementName = By.XPath("//h1/slot/lightning-formatted-text");
+        By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
 
         //Tabs
         By linkEngagementContacts = By.XPath("//a[@data-label='Eng Contacts']");
@@ -19,6 +24,21 @@ namespace SF_Automation.Pages.Companies
 
         By btnMoreAdmin = By.XPath("(//button[@title='More Tabs'])[3]");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
+
+        //Potential Round Trip - Sahil
+        By btnEditPotentialRoundTrip = By.XPath("//button[@title='Edit Engagement is a potential round trip']");
+        By btnEditEngagementStage = By.XPath("//button[@title='Edit Stage']");
+        By txtCloseDate = By.XPath("//input[@name='Close_Date__c']");
+        By btnReminderClose = By.XPath("//button[text()='Close']");
+        By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
+
+        By lblPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/../..//lightning-formatted-text");
+        By lblRoundTripEngagement = By.XPath("(//span[text()='Edit Round Trip Engagement']/../../span//records-hoverable-link//a//span)[3]");
+        By lblPotentialRoundTripModifiedDate = By.XPath("(//span[text()='Potential Round Trip Last Modified Date']/following::dd)[1]//slot/lightning-formatted-text");
+        By lblRoundTripComment = By.XPath("(//span[text()='Round Trip Comment']/following::dd)[1]//slot/lightning-formatted-text");
+
+        //*********************************************************************************************************
+
 
         public bool VerifyAssociatedEngagementsSectionOnContactDetailsPageDisplaysEngagementsWhereTheExternalContactIsAnEngagementContact(string exlEngContact)
         {
@@ -218,6 +238,312 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
         }
 
+        public string GetEngagementNumberL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 30);
+            return driver.FindElement(txtEngNumberL).Text;
+        }
+
+        public string GetEngagementNameL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 30);
+            return driver.FindElement(txtEngNameL).Text;
+        }
+
+        ////////////Round Trip Functions
+        ///
+        ///////////////////////
+
+        public bool VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault()
+        {
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditPotentialRoundTrip, 60);
+            if(driver.FindElement(btnEditPotentialRoundTrip).Displayed == true)
+            {
+                driver.FindElement(btnEditPotentialRoundTrip).Click();
+                Thread.Sleep(3000);
+                if(driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']/span")).Text == "--None--")
+                {
+                    result = true;
+                    driver.FindElement(btnCancelEditFormL).Click();
+                    Thread.Sleep(2000);
+                }
+            }
+            return result;
+        }
+
+        public bool VerifyPotentialRoundTripPicklistValues(string file)
+        {
+            bool result = false;
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(2000);
+
+            driver.FindElement(btnEditPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            int excelCount = ReadExcelData.GetRowCount(excelPath, "PicklistValues");
+
+            driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']")).Click();
+            int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span")).Count;
+
+            for(int i = 2; i <= excelCount; i++)
+            {
+                string excelValue = ReadExcelData.ReadDataMultipleRows(excelPath, "PicklistValues", i, 1);
+
+                for(int j = 1; j <= valueCount; j++)
+                {
+                    string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Text;
+                    if(excelValue == picklistValue)
+                    {
+                        if(i == excelCount)
+                        {
+                            result = true;
+                            driver.FindElement(btnCancelEditFormL).Click();
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                        break;
+                    }
+
+                }
+            }
+
+            return result;
+        }
+
+        public bool VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(string icon)
+        {
+            bool result = false;
+            Thread.Sleep(2000);
+
+            if(driver.FindElement(By.XPath("(//span[text()='Help Engagement is a potential round trip']/following::span)[1]")).Text == icon)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ChangeEngagementStageToClosed()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(3000);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngagementStage, 60);
+                driver.FindElement(btnEditEngagementStage).Click();
+                Thread.Sleep(3000);
+
+                driver.FindElement(By.XPath("//button[@aria-label='Stage']")).Click();
+                Thread.Sleep(2000);
+
+                int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span")).Count;
+
+                for(int i = 1; i <= valueCount; i++)
+                {
+                    string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span)[{i}]")).Text;
+                    if(picklistValue == "Closed")
+                    {
+                        driver.FindElement(By.XPath($"(//div[@aria-label='Stage']//lightning-base-combobox-item//span[2]/span)[{i}]")).Click();
+                        Thread.Sleep(2000);
+
+                        //Enter Close Date
+                        driver.FindElement(txtCloseDate).SendKeys(DateTime.Now.Date.ToString("MM/dd/yyyy").Replace("-", "/"));
+                        Thread.Sleep(2000);
+
+                        //Click Save
+                        driver.FindElement(btnSaveDetailsL).Click();
+                        Thread.Sleep(2000);
+                        break;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Thread.Sleep(2000);
+            }
+        }
+
+        public void CloseEstimatedRevenueDateReminderPopup()
+        {
+            Thread.Sleep(10000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnReminderClose));
+            }
+            catch(Exception e)
+            {
+                Thread.Sleep(2000);
+            }
+            Thread.Sleep(3000);
+        }
+
+        public string GetEngagementStage()
+        {
+            Thread.Sleep(2000);
+            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            return stageName;
+        }
+
+        public void SelectValueInPotentialRoundTripField(string value)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(3000);
+
+            driver.FindElement(btnEditPotentialRoundTrip).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(By.XPath("//button[@aria-label='Engagement is a potential round trip']")).Click();
+            int valueCount = driver.FindElements(By.XPath("//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span")).Count;
+
+            for(int j = 1; j <= valueCount; j++)
+            {
+                string picklistValue = driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Text;
+                if(value == picklistValue)
+                {
+                    driver.FindElement(By.XPath($"(//div[@aria-label='Engagement is a potential round trip']//lightning-base-combobox-item//span[2]/span)[{j}]")).Click();
+                    Thread.Sleep(2000);
+
+                    //Click Save
+                    driver.FindElement(btnSaveDetailsL).Click();
+                    Thread.Sleep(2000);
+                    break;
+                }
+            }
+        }
+
+        public bool VerifyNoWarningMsgIsDisplayed()
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal) == false)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public string GetSubjectCompanyType(string compName)
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Subject']/following::p//a)[3]")));
+            }
+            catch(Exception)
+            {
+
+            }
+            Thread.Sleep(8000);
+
+            string companyType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::dd//span)[2]")).Text;
+
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return companyType;
+        }
+
+        public string GetClientOwnership(string compName)
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Client']/following::p//a)[3]")));
+            }
+            catch(Exception)
+            {
+
+            }
+            Thread.Sleep(8000);
+
+            string clientOwnership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return clientOwnership;
+        }
+
+        public bool VerifyUpdatesOnSubjectCompany(string engName, string roundTrip, string comment, string compName)
+        {
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            //Navigate to company detail page
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Subject']/following::p//a)[3]")));
+            Thread.Sleep(5000);
+
+            js.ExecuteScript("window.scrollTo(0,1000)");
+
+            string potentialRoundTripValue = driver.FindElement(lblPotentialRoundTrip).Text;
+            string roundTripEngagementValue = driver.FindElement(lblRoundTripEngagement).Text;
+            string roundTripModifiedDateValue = driver.FindElement(lblPotentialRoundTripModifiedDate).Text;
+            string roundTripCommentValue = driver.FindElement(lblRoundTripComment).Text;
+
+            string currentDate = DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/');
+
+            if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
+            {
+                result = true;
+            }
+
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return result;
+        }
+
+        public bool VerifyUpdatesOnClientCompany(string engName, string roundTrip, string comment, string compName)
+        {
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            //Navigate to company detail page
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Subject']/following::p//a)[3]")));
+            Thread.Sleep(5000);
+
+            js.ExecuteScript("window.scrollTo(0,1000)");
+
+            string potentialRoundTripValue = driver.FindElement(lblPotentialRoundTrip).Text;
+            string roundTripEngagementValue = driver.FindElement(lblRoundTripEngagement).Text;
+            string roundTripModifiedDateValue = driver.FindElement(lblPotentialRoundTripModifiedDate).Text;
+            string roundTripCommentValue = driver.FindElement(lblRoundTripComment).Text;
+
+            string currentDate = DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/');
+
+            if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
+            {
+                result = true;
+            }
+
+            //Close the tab
+            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+            Thread.Sleep(2000);
+
+            return result;
+        }
     }
 }
 

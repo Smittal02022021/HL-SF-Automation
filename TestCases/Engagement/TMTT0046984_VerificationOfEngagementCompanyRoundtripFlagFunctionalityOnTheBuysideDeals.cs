@@ -23,10 +23,8 @@ namespace SF_Automation.TestCases.Engagement
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        LV_CompanyDetailsPage companyDetailsPage = new LV_CompanyDetailsPage();
 
         public static string fileTMTT0046984 = "TMTT0046984_VerificationOfEngagementCompanyRoundtripFlagFunctionalityOnTheBuysideDeals";
 
@@ -48,6 +46,8 @@ namespace SF_Automation.TestCases.Engagement
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0046984;
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string userCAOExl = ReadExcelData.ReadData(excelPath, "Users", 2);
+                string valClientCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
+                string valSubjectCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -221,48 +221,58 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
 
                 //Validate the Engagement name in Engagement details page
-                string engagementNumber = engagementDetails.GetEngagementNumberL();
-                string engagementName = engagementDetails.GetEngagementNameL();
+                string engagementNumber = lvEngagementDetails.GetEngagementNumberL();
+                string engagementName = lvEngagementDetails.GetEngagementNameL();
 
                 //Need to get Name of Opp and Eng
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                 //Close the engagement
-                engagementDetails.ChangeEngagementStageToClosed();
-                engagementDetails.CloseEstimatedRevenueDateReminderPopup();
+                lvEngagementDetails.ChangeEngagementStageToClosed();
+                lvEngagementDetails.CloseEstimatedRevenueDateReminderPopup();
 
-                string stage = engagementDetails.GetEngagementStage();
+                string stage = lvEngagementDetails.GetEngagementStage();
                 Assert.AreEqual("Closed", stage);
                 extentReports.CreateStepLogs("Passed", "Stage of Engagement is change to : " + stage);
 
                 //TMTI0114952 - Verify that the "Engagement is a Potential Round Trip" picklist is added on the Engagement detail page and that it is "None" by default.
-                Assert.IsTrue(engagementDetails.VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault());
+                Assert.IsTrue(lvEngagementDetails.VerifyIfEngagementIsAPotentialRoundTripIsAddedAndItIsNoneByDefault());
                 extentReports.CreateStepLogs("Passed", "Engagement is a Potential Round Trip Picklist is added on Engagement detail page and it is None by default. ");
 
                 //TMTI0114954 - Verify the following picklist values are added to the field "Engagement is a Potential Round Trip": - a) Subject is a potential round trip b) Buyer is a potential round trip c) Neither subject nor buyer are round trip
-                Assert.IsTrue(engagementDetails.VerifyPotentialRoundTripPicklistValues(fileTMTT0046984));
+                Assert.IsTrue(lvEngagementDetails.VerifyPotentialRoundTripPicklistValues(fileTMTT0046984));
                 extentReports.CreateStepLogs("Passed", "Picklist values displayed under Engagement is a Potential Round Trip field are: Subject is a potential round trip, Buyer is a potential round trip, Neither subject nor buyer are round trip. ");
 
                 //TMTI0114955 - Verify that a hover icon displays the expected description for the Engagement is a Potential Round Trip field
                 string iconDesc = ReadExcelData.ReadData(excelPath, "HoverIcon", 1);
-                Assert.IsTrue(engagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
+                Assert.IsTrue(lvEngagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
                 extentReports.CreateStepLogs("Passed", "Hover icon displays the expected description for the Engagement is a Potential Round Trip field: " + iconDesc);
 
                 //TMTI0114956 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
 
                 //Check Subject Company = Operating Company & Client Ownership = Private Equit Group
-                string valClientCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 1);
-                string valSubjectCompName = ReadExcelData.ReadData(excelPath, "AddOpportunity", 2);
-
-                string compType = engagementDetails.GetSubjectCompanyType(valSubjectCompName);
-                string clientOwnership = engagementDetails.GetClientOwnership(valClientCompName);
+                string compType = lvEngagementDetails.GetSubjectCompanyType(valSubjectCompName);
+                string clientOwnership = lvEngagementDetails.GetClientOwnership(valClientCompName);
 
                 if(compType == "Operating Company" && clientOwnership == "Private Equity Group")
                 {
-                    engagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
-                    Assert.IsTrue(engagementDetails.VerifyNoWarningMsgIsDisplayed());
-                    extentReports.CreateStepLogs("Passed", "No Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group ");
+                    //Verify No warning message is displayed
+                    lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                    Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
+                    extentReports.CreateStepLogs("Passed", "No Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group.");
+
+                    //Verify updates on Subject Company
+                    string subPotentialRoundTripExl = ReadExcelData.ReadData(excelPath, "CompanyUpdates", 1);
+                    string roundTripCommentExl = ReadExcelData.ReadData(excelPath, "CompanyUpdates", 2);
+
+                    lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
+                    extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                    //Verify updates on Client Company
+                    string clientPotentialRoundTripExl = ReadExcelData.ReadData(excelPath, "CompanyUpdates", 3);
+                    lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
+                    extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
                 }
                 else
                 {
