@@ -1,7 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.AspNetCore.Http;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Globalization;
 using System.Threading;
 
 namespace SF_Automation.Pages.Companies
@@ -498,7 +500,23 @@ namespace SF_Automation.Pages.Companies
             string roundTripModifiedDateValue = driver.FindElement(lblPotentialRoundTripModifiedDate).Text;
             string roundTripCommentValue = driver.FindElement(lblRoundTripComment).Text;
 
-            string currentDate = DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/');
+            string currentDate = DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture).Replace('-', '/');
+
+            try
+            {
+                DateTime parsedDate = DateTime.ParseExact(currentDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                // Convert it to M/d/yyyy (removes leading zeros)
+                string newFormat = parsedDate.ToString("M/d/yyyy").Replace('-', '/');
+                if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(newFormat))
+                {
+                    result = true;
+                }
+            }
+            catch(Exception)
+            {
+
+            }
 
             if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
             {
@@ -521,7 +539,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(3000);
 
             //Navigate to company detail page
-            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Subject']/following::p//a)[3]")));
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Client']/following::p//a)[3]")));
             Thread.Sleep(5000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
@@ -531,7 +549,23 @@ namespace SF_Automation.Pages.Companies
             string roundTripModifiedDateValue = driver.FindElement(lblPotentialRoundTripModifiedDate).Text;
             string roundTripCommentValue = driver.FindElement(lblRoundTripComment).Text;
 
-            string currentDate = DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/');
+            string currentDate = DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture).Replace('-', '/');
+
+            try
+            {
+                DateTime parsedDate = DateTime.ParseExact(currentDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                // Convert it to M/d/yyyy (removes leading zeros)
+                string newFormat = parsedDate.ToString("M/d/yyyy").Replace('-', '/');
+                if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(newFormat))
+                {
+                    result = true;
+                }
+            }
+            catch(Exception)
+            {
+
+            }
 
             if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
             {
