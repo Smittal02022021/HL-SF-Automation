@@ -241,16 +241,16 @@ namespace SF_Automation.TestCases.Engagement
                     Assert.IsTrue(lvEngagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
                     extentReports.CreateStepLogs("Passed", "Hover icon displays the expected description for the Engagement is a Potential Round Trip field: " + iconDesc);
 
-                    //TMTI0114956 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
-
-                    //Check Subject Company = Operating Company & Client Ownership = Private Equit Group
                     string compType = lvEngagementDetails.GetSubjectCompanyType(valSubjectCompName);
                     string clientOwnership = lvEngagementDetails.GetClientOwnership(valClientCompName);
-
+                    
+                    //Check Subject Company Type & Client Ownership
                     if(compType == "Operating Company")
                     {
                         if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
+                            //TMTI0114956 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
+
                             //Verify No warning message is displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
@@ -273,7 +273,9 @@ namespace SF_Automation.TestCases.Engagement
                     {
                         if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
+                            //TMTI0114958 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, expected warning message should appear on the screen
                             //Verify warning message should be displayed
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
                         }
                     }
 
