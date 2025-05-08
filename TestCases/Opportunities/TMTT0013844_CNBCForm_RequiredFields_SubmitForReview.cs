@@ -286,7 +286,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actMinFeeValidation = nform.GetValidationOfMinFee();
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
-                Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee (MM) is required.", actMinFeeValidation);
+                Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
                                              
                 string actEstFeeValidation = form.GetValidationOfEstimatedFee();

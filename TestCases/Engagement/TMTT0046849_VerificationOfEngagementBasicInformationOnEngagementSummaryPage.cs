@@ -73,7 +73,8 @@ namespace SF_Automation.TestCases.Engagement
                 string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
 
                 engagementDetails.ValidateFeesTab();
-
+                string txnSizeValue = engagementDetails.GetValEstTansacttionMarketCapLV();
+                string txnSize = engagementDetails.GetEstTansacttionMarketCapLabel();
 
                 //1. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
                 engagementDetails.ClickCFEngsummaryButtonL();
@@ -98,9 +99,21 @@ namespace SF_Automation.TestCases.Engagement
 
                 Assert.AreEqual(subject, subSummary);
                 Assert.AreEqual(subjectValue, subSummaryValue);
-                extentReports.CreateLog("The label " + subSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+                extentReports.CreateLog("The label " + subSummary + " and mapping value " + subSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
+                //4. TMTI0114531_Verify the label Est. Transaction Size / Market Cap (MM) mapping values are displayed and the tooltip.
+                string txnSizeSummary = summaryPage.ValidateEstTxnSizeOnHeader();
+                string txnSizeSummaryValue = summaryPage.ValidateEstTxnSizeValueOnHeader();
+                string txnSizeSummaryMessage = summaryPage.ValidateEstTxnSizeMessageOnHeader();
 
+                Assert.AreEqual(txnSize, txnSizeSummary);
+                Assert.AreEqual(txnSizeValue, txnSizeSummaryValue);
+                extentReports.CreateLog("The label " + txnSizeSummary + " and mapping value " + txnSizeSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
+                Assert.AreEqual("If Engagement involves a majority stake in a Public Company, insert Market Cap as of Engagement Letter date.", txnSizeSummaryMessage);
+                extentReports.CreateLog("The Tool tip message " + txnSizeSummaryMessage + " is displayed on Est. Transaction Size / Market Cap (MM) in CF Engagement Summary ");
+
+                //5. TMTI0114538_Verify that the Client "label " and mapping value are displayed.
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

@@ -157,7 +157,10 @@ namespace SF_Automation.Pages.Engagement
         By valLOB = By.XPath("//li//span[text()='Line of Business']/ancestor::li/div[2]");
         By lblSubject = By.XPath("//li/div/span[text()='Subject']");
         By valSubject = By.XPath("//li//span[text()='Subject']/ancestor::li//a");
-
+        By lblTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]/span");
+        By valTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[2]");
+        By msgTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]//button//span[2]");
+        
         public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
@@ -1225,6 +1228,24 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valSubject);
             string value = driver.FindElement(valSubject).Text;
+            return value;
+        }
+        public string ValidateEstTxnSizeOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTxnSize);
+            string status = driver.FindElement(lblTxnSize).Text;
+            return status;
+        }
+        public string ValidateEstTxnSizeValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valTxnSize);
+            string value = driver.FindElement(valTxnSize).Text;
+            return value;
+        }
+        public string ValidateEstTxnSizeMessageOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgTxnSize);
+            string value = driver.FindElement(msgTxnSize).Text;
             return value;
         }
     }

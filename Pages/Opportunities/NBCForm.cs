@@ -146,11 +146,11 @@ namespace SF_Automation.Pages.Opportunity
         By txtMinFee = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By btnTxnFeeType = By.XPath("(//lightning-base-combobox)[9]");
+        By btnTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox[1]/div//button");
         By btnTxnFeeType1 = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button");
         By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed']/following::div[1]/input");
-        By lblFlatFee = By.XPath("//label[text()='Flat Fee (MM)']");
+        By lblFlatFee = By.XPath("//label[text()='Flat Fee']");
         By lblOtherFee = By.XPath("//label[contains(text(),'Other Fee Structure')]");
         By txtOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::textarea[1]");
         By msgOtherFee = By.XPath("//label[text()='Other Fee Structure']/following::div[2]");
@@ -159,13 +159,13 @@ namespace SF_Automation.Pages.Opportunity
         By txtMinFeeMM = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstTxnValueMM = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By txtReferralFeeOwnedMM = By.XPath("//input[@name='Referral_Fee__c']");
-        By valEstTotalFeeMM = By.XPath("//flexipage-field[1]/slot/record_flexipage-record-field/div/div/dd/div[1]/span/slot[1]/records-formula-output/slot/lightning-formatted-text");
+        By valEstTotalFeeMM = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]//dd//lightning-formatted-text");
         By lnkEditProgressFeeCred = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::div[2]/dd[1]//button");
-        By valFlatFee = By.XPath("//span[text()='Flat Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valFlatFee = By.XPath("//span[text()='Flat Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By lnkEditCurrency = By.XPath("//span[text()='Currency']/ancestor::div[2]/dd[1]//button");
         By lnkEditCurrencyL = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::slot[3]/flexipage-column2[2]//span[text()='Currency']/ancestor::div[2]//button");
-        By txtFlatFee = By.XPath("//label[text()='Flat Fee (MM)']/following::div[1]/input");
-        By valMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By txtFlatFee = By.XPath("//label[text()='Flat Fee']/following::div[1]/input");
+        By valMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By btnWillThere = By.XPath("//label[text()='Will There Be a Pitch?']/following::button[1]");
         By txtHLComp = By.XPath("//label[text()='Houlihan Lokey Competition']/following::textarea[1]");
         By btnLockups = By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/following::button[1]");
@@ -470,7 +470,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblFinalRatchet = By.XPath("//span[text()='Final Ratchet Percent']");
         By lblFinalRatchetAmt = By.XPath("//span[text()='Final Ratchet Amount (MM)']");
 
-        By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee (MM)']/following::input[1]");
+        By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee']/following::input[1]");
         //Validate Opp Name
         public string ValidateOppName()
         {
@@ -780,7 +780,7 @@ namespace SF_Automation.Pages.Opportunity
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valTxnFeeType);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             //string[] expectedValue = {"CF", "Conflicts Check", "FAS","FR", "HL Internal Opportunity", "OPP DEL","SC"};
-            string[] expectedValue = { "--None--", "Flat Fee", "Incentive Structure", "Other Fee Structure" };
+            string[] expectedValue = { "--None--", "Flat Fee", "Incentive Structure (Value Based)", "Incentive Structure (Multiple Based)", "Other Fee Structure" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -801,8 +801,8 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Flat Fee field
         public string ValidateFlatFeeField()
         {
-            //driver.FindElement(btnTxnFeeType).SendKeys("Flat Fee");
-            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            //driver.FindElement(btnTxnFeeType).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox[1]/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(5000);
             string label = driver.FindElement(lblFlatFee).Text;
             return label;
@@ -812,7 +812,7 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateOtherFeeField()
         {
             //driver.FindElement(btnTxnFeeType).SendKeys("Flat Fee");
-            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[5]/span[2]/span")).Click();
             Thread.Sleep(3000);
             string label = driver.FindElement(lblOtherFee).Text;
             return label;
@@ -3420,7 +3420,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtReferralFeeOwnedMM).Clear();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             double estTotalFee = (Convert.ToDouble((driver.FindElement(valEstTotalFeeMM).Text).Substring(4, 4)));
             Console.WriteLine("estTotalFee: " + estTotalFee.ToString("0.00"));
             return estTotalFee.ToString("0.00");

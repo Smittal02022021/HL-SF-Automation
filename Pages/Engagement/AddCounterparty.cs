@@ -1265,6 +1265,7 @@ namespace SF_Automation.Pages.Engagement
             actions.Perform();
             Thread.Sleep(5000);
             driver.FindElement(btnEquity).Click();
+            driver.FindElement(btnEquity).Click();
             Thread.Sleep(7000);
             driver.FindElement(txtEquity).Clear();
             driver.FindElement(txtEquity).SendKeys(value);

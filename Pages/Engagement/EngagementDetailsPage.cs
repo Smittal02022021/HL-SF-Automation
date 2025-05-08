@@ -8295,6 +8295,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
         }
 
+        By lblEstTxnSize = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Est_Transaction_Size_MM__c']//span[text()='Est. Transaction Size / Market Cap (MM)']");
         By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
         By txtEbitdaL = By.XPath("//span[contains(text(),'EBITDA')]/../../..//lightning-formatted-text");
         By txtRetainerL = By.XPath("//span[contains(text(),'Retainer')]/../../..//lightning-formatted-text");
@@ -8304,11 +8305,17 @@ namespace SF_Automation.Pages.Engagement
         By txtSSExpenseL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
         By txtExpenseCapL = By.XPath("//span[contains(text(),'Expense Cap')]/../../..//lightning-formatted-text");
         By txtLegalCapL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
-
+        
         public string GetValEstTansacttionMarketCapLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEstTransMCapL, 10);
             return driver.FindElement(txtEstTransMCapL).Text;
+        }
+
+        public string GetEstTansacttionMarketCapLabel()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEstTxnSize, 10);
+            return driver.FindElement(lblEstTxnSize).Text;
         }
         public string GetValEbitdaLV()
         {

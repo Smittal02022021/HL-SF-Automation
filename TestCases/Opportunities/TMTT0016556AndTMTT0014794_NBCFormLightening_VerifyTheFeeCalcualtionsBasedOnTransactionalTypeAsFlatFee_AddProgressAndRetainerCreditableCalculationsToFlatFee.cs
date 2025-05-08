@@ -143,7 +143,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate that Flat Fee (MM) field appears upon selecting Flat Fee type
                 string flatFee = form.ValidateFlatFeeField();
-                Assert.AreEqual("Flat Fee (MM)", flatFee);
+                Assert.AreEqual("Flat Fee", flatFee);
                 extentReports.CreateLog("Field with name : " + flatFee + " is displayed upon selecting Transaction Fee Type as Flat Fee ");
 
                 //Get Retainer from NBC form
@@ -173,21 +173,23 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
                 double actualFee = Convert.ToDouble(fee);
+                Console.WriteLine(actualFee);
                 string feeCred = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
                 double actualFeeCred = Convert.ToDouble(feeCred);
-                Assert.AreEqual(((actualFee- ((actualFee*actualFeeCred)/100))/1000000).ToString("0.00"), estFeeWithRetainer);
+                Console.WriteLine(((actualFee - ((actualFee * actualFeeCred) / 100))).ToString("0.00"));
+                Assert.AreEqual(((actualFee- ((actualFee*actualFeeCred)/100))).ToString("0.00"), estFeeWithRetainer);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithRetainer + " is getting calculated as expected when only Retainer and Retainer Fee Creditable is entered for Flat Fee ");
-
+                
                 //Clear out Retainer Fee fields, enter Progress Fee and validate Estimated Total Fee
                 string estFeeWithProgress =form.UpdateRetainerAndProgressFee(fileTC1232);
                 Console.WriteLine(estFeeWithProgress);
-                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred)/100)) / 1000000).ToString("0.00"), estFeeWithProgress);
+                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred)/100))).ToString("0.00"), estFeeWithProgress);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithProgress + " is getting calculated as expected when only Progress and Progress Fee Creditable is entered for Flat Fee ");
                 
                 //Enter the values of Retainer Fee fieds and Progress Fee and validate Estimated Total Fee
                 string estFeeWithBoth = form.UpdateBothRetainerAndProgressFee(fileTC1232);
                 Console.WriteLine(estFeeWithBoth);
-                Assert.AreEqual((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000)+((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000)).ToString("0.00"), estFeeWithBoth);
+                Assert.AreEqual((((actualFee - ((actualFee * actualFeeCred) / 100)))+((actualFee - ((actualFee * actualFeeCred) / 100)))).ToString("0.00"), estFeeWithBoth);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered for Flat Fee ");
 
                 //Validate that Flat Fee (MM) field is blank
@@ -203,8 +205,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate Estimated Total Fee after entering Flat Fee
                 string estFeeWithFlatFee = form.GetEstTotalFee();
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000) + ((actualFee - ((actualFee * actualFeeCred) / 100)) / 1000000)))+ Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered along with Flat Fee ");
+                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100))) + ((actualFee - ((actualFee * actualFeeCred) / 100)) )))+ Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
+                extentReports.CreateLog("Estimated Total Fee " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered along with Flat Fee ");
 
                 //Commented as Min Fee is not applicable for Flat Fee
                 ////Validate that if Minimum Fee is greater than Estimated Total Fee then it will be copied to Estimated Total Fee
@@ -222,13 +224,13 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Update Creditable fields to 0%
                 string estFeeWithZeroCred = form.UpdateFeeCreditables("0");               
-                Assert.AreEqual((((((actualFee - ((actualFee * 0) / 100)) / 1000000) + ((actualFee - ((actualFee * 0) / 100)) / 1000000))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithZeroCred));
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithZeroCred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 0 ");
+                Assert.AreEqual((((((actualFee - ((actualFee * 0) / 100))) + ((actualFee - ((actualFee * 0) / 100))))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithZeroCred));
+                extentReports.CreateLog("Estimated Total Fee " + estFeeWithZeroCred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 0 ");
 
                 //Update Creditable fields to 100%
                 string estFeeWith100Cred = form.UpdateFeeCreditables("100");
-                Assert.AreEqual((((((actualFee - ((actualFee * 100) / 100)) / 1000000) + ((actualFee - ((actualFee * 100) / 100)) / 1000000))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWith100Cred));
-                extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWith100Cred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 100 ");
+                Assert.AreEqual((((((actualFee - ((actualFee * 100) / 100))) + ((actualFee - ((actualFee * 100) / 100))))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWith100Cred));
+                extentReports.CreateLog("Estimated Total Fee " + estFeeWith100Cred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 100 ");
 
                 form.SwitchFrame();
                 usersLogin.DiffLightningLogout();                           
