@@ -548,7 +548,7 @@ namespace SF_Automation.Pages
         By comboBenOwnerL = By.XPath("//button[@aria-label='Beneficial Owner & Control Person form?, --None--']");
         By txtEstCloseDateL = By.XPath("//input[@name='Estimated_Close_Date__c']");
         By btnFairnessL = By.XPath("//button[contains(@aria-label,'Fairness Opinion')]");
-        By btnLocationBenefitL= By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
+        By btnLocationBenefitL= By.XPath("//button[contains(@aria-label,'Location where Benefit is to be Provided')]");
         By btnConfAgree = By.XPath("//button[@aria-label='Confidentiality Agreement, --None--']");
 
         By btnReqEngL = By.XPath("//span[text()='Request Engagement']");
@@ -770,6 +770,56 @@ namespace SF_Automation.Pages
         By comboPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//button");
         By inputPitchDateL = By.XPath("//label[text()='Date of Pitch']/..//input");
         By txtPMAIDL = By.XPath("//h1//records-entity-label[text()='Pitch/Mandate Award']/../../..//lightning-formatted-text");
+        By comboHLEntityL = By.XPath("//label[text()='HL Entity']/..//button");       
+
+        public void UpdateOutcomeDetailsLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+            driver.FindElement(btnEdit).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboHLEntityL));
+            try
+            {
+                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
+                {
+                    driver.FindElement(lnkOutcomeDate).Click();
+                }
+                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
+                {
+                    driver.FindElement(lnkOutcomeDateFR).Click();
+                }
+                else
+                {
+                    driver.FindElement(lnkOutcomeDateFAS).Click();
+                }
+                driver.FindElement(comboOutcomeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
+                driver.FindElement(btnSave).Click();
+            }
+            catch (Exception)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                driver.FindElement(lnkReDisplayRec).Click();
+                Thread.Sleep(1000);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 110);
+                driver.FindElement(btnEdit).Click();
+                if (driver.FindElement(comboRecordType).Text.Contains("CF"))
+                {
+                    driver.FindElement(lnkOutcomeDate).Click();
+                }
+                else if (driver.FindElement(comboRecordType).Text.Contains("FR"))
+                {
+                    driver.FindElement(lnkOutcomeDateFR).Click();
+                }
+                else
+                {
+                    driver.FindElement(lnkOutcomeDateFAS).Click();
+                }
+                driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
+                driver.FindElement(btnSave).Click();
+            }
+        }
         public void CreateNewPitchMandateAwardLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewL, 10);
@@ -866,7 +916,7 @@ namespace SF_Automation.Pages
         public bool IsVerballyEngagedEngCreatedLV(string oppName)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,400)");
+            js.ExecuteScript("window.scrollTo(0,600)");
             try
             {
                 By txtEngOppPage = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot/span[text()='{oppName}']");
@@ -7627,7 +7677,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
 
 
@@ -9942,6 +9992,7 @@ namespace SF_Automation.Pages
         public bool IsUserCommentFoundLV(string type,string user)
         {
             By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']");
+            //By elmComment= By.xpath("//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//td[@data-label='{createdDate']}");
             WebDriverWaits.WaitUntilEleVisible(driver, elmComment, 20);
             return driver.FindElement(elmComment).Displayed;
         }
