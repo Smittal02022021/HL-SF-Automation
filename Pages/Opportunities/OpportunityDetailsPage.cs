@@ -7679,8 +7679,6 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
-
-
             //Select Fairness
             Thread.Sleep(4000);
             driver.FindElement(btnFairnessL).Click();
