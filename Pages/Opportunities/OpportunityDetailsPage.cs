@@ -8410,7 +8410,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
@@ -8962,7 +8962,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //Funds & Financials
             driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
