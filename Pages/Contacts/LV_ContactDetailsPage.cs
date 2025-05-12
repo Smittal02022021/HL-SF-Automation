@@ -1795,8 +1795,8 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0, 2500)");
 
             //Select Deal Announcement
-            WebDriverWaits.WaitUntilEleVisible(driver, inputMergeGroup, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(inputMergeGroup));
+            //WebDriverWaits.WaitUntilEleVisible(driver, inputMergeGroup, 120);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(inputMergeGroup));
             driver.FindElement(dropdownDealAnnouncements).Click();
             Thread.Sleep(2000);
 
