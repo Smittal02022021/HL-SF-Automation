@@ -205,7 +205,6 @@ namespace SF_Automation.Pages.Contact
             {
 
             }
-            */
 
             //Click lookup 
             //WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
@@ -229,7 +228,6 @@ namespace SF_Automation.Pages.Contact
 
             }
 
-            /*
             //Click on Go button
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
