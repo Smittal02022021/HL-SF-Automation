@@ -1323,6 +1323,21 @@ namespace SF_Automation.Pages.Companies
             driver.SwitchTo().DefaultContent();
             return result;
         }
+
+        public void CloseDuplicateCompanyWarningMsg()
+        {
+            //Close the warning message if any
+            try
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
+        }
     }
 }
 

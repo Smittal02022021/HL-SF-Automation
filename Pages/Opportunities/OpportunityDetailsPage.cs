@@ -18,7 +18,7 @@ namespace SF_Automation.Pages
 {
     class OpportunityDetailsPage : BaseClass
     {
-        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
+        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit is to be Provided')]");
         By btnRequestBuyersList = By.XPath("//button[text()='Request Buyers List']");
         By btnBuyerListType = By.XPath("//button[@name='Type']");
         By txtBUyerListDueDate = By.XPath("//input[@name='Due_Date__c']");
@@ -7612,7 +7612,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //Select Fairness
             Thread.Sleep(4000);

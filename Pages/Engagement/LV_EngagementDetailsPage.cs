@@ -32,7 +32,7 @@ namespace SF_Automation.Pages.Companies
         By btnEditEngagementStage = By.XPath("//button[@title='Edit Stage']");
         By txtCloseDate = By.XPath("//input[@name='Close_Date__c']");
         By btnReminderClose = By.XPath("//button[text()='Close']");
-        By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
+        By warningMsgModal = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'A Subject is')])[2]");
 
         By lblPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/../..//lightning-formatted-text");
         By lblRoundTripEngagement = By.XPath("(//span[text()='Edit Round Trip Engagement']/../../span//records-hoverable-link//a//span)[3]");
@@ -435,6 +435,30 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyWarningMsgIsDisplayed()
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal) == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyWarningMsg(string message)
+        {
+            bool result = false;
+            if(driver.FindElement(warningMsgModal).Text == message)
+            {
+                result = true;
+                driver.FindElement(By.XPath("(//button[text()='Close'])[2]")).Click();
+                Thread.Sleep(2000);
+            }
+            return result;
+        }
+
         public string GetSubjectCompanyType(string compName)
         {
             Thread.Sleep(3000);
@@ -450,6 +474,18 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(8000);
 
             string companyType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::dd//span)[2]")).Text;
+
+            //Close the warning message if any
+            try
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
 
             //Close the tab
             driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
@@ -473,6 +509,18 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(8000);
 
             string clientOwnership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+
+            //Close the warning message if any
+            try
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
 
             //Close the tab
             driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
@@ -523,10 +571,6 @@ namespace SF_Automation.Pages.Companies
                 result = true;
             }
 
-            //Close the tab
-            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
-            Thread.Sleep(2000);
-
             return result;
         }
 
@@ -571,10 +615,6 @@ namespace SF_Automation.Pages.Companies
             {
                 result = true;
             }
-
-            //Close the tab
-            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
-            Thread.Sleep(2000);
 
             return result;
         }

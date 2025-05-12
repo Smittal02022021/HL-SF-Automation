@@ -23,6 +23,8 @@ namespace SF_Automation.TestCases.Engagement
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
+        LV_CompanyDetailsPage companyDetailsPage = new LV_CompanyDetailsPage();
+
 
         public static string fileTMTT0046984 = "TMTT0046984_VerificationOfEngagementCompanyRoundtripFlagFunctionalityOnTheBuysideDeals";
 
@@ -68,7 +70,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 2; row <= rowCount; row++)
+                for(int row = 3; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -263,6 +265,12 @@ namespace SF_Automation.TestCases.Engagement
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valClientCompName);
+
                             //Verify updates on Client Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
@@ -274,8 +282,45 @@ namespace SF_Automation.TestCases.Engagement
                         if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
                             //TMTI0114958 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, expected warning message should appear on the screen
+                            
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+
+                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
+                            extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
+
+                            //Verify updates on Subject Company
+                            string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
+                            string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
+
+                            lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valSubjectCompName);
+
+                            //Verify updates on Client Company
+                            string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
+                            lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valClientCompName);
                         }
                     }
 
