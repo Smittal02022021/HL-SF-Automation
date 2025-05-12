@@ -108,7 +108,7 @@ namespace SF_Automation.Pages
             try
             {
                 Thread.Sleep(5000);
-                driver.FindElement(By.XPath($"((//span[text()='{name}'])[3]/../span)[1]")).Click();
+                driver.FindElement(By.XPath($"(//div[@class='changeRecordTypeCenter']//label//span[2][text()='{name}']/../span)[1]")).Click();
                 Thread.Sleep(3000);
 
                 driver.FindElement(btnNext).Click();
@@ -116,12 +116,7 @@ namespace SF_Automation.Pages
             }
             catch(Exception)
             {
-                Thread.Sleep(5000);
-                driver.FindElement(By.XPath($"((//span[text()='{name}'])[2]/../span)[1]")).Click();
-                Thread.Sleep(3000);
-
-                driver.FindElement(btnNext).Click();
-                Thread.Sleep(3000);
+                
             }
         }
 
