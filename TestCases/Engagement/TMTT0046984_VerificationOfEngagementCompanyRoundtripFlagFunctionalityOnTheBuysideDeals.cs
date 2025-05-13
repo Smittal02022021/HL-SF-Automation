@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                     //Create New Opportunity
-                    string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTT0046984);
+                    string opportunityName = addOpportunity.AddOpportunitiesMutipleRows(valJobType, fileTMTT0046984, row);
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                     //Call function to enter Internal Team details and validate Opportunity detail page
@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
-                    opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTT0046984, valJobType);
+                    opportunityDetails.UpdateReqFieldsForCFConversionMultipleRows(fileTMTT0046984, valJobType, row);
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
 
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0046984);

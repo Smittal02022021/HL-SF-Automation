@@ -391,7 +391,7 @@ namespace SF_Automation.Pages.Companies
         public string GetEngagementStage()
         {
             Thread.Sleep(2000);
-            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'][@class='test-id__field-label'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
             return stageName;
         }
 
@@ -481,15 +481,15 @@ namespace SF_Automation.Pages.Companies
                 Thread.Sleep(2000);
                 driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
                 Thread.Sleep(2000);
+
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
             }
             catch(Exception)
             {
 
             }
-
-            //Close the tab
-            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
-            Thread.Sleep(2000);
 
             return companyType;
         }
@@ -516,15 +516,15 @@ namespace SF_Automation.Pages.Companies
                 Thread.Sleep(2000);
                 driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
                 Thread.Sleep(2000);
+
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
             }
             catch(Exception)
             {
 
             }
-
-            //Close the tab
-            driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
-            Thread.Sleep(2000);
 
             return clientOwnership;
         }

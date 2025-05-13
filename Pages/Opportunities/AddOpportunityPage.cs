@@ -876,6 +876,157 @@ namespace SF_Automation.Pages
 
         }
 
+        public string AddOpportunitiesMutipleRows(string type, string file, int rowCount)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Thread.Sleep(5000);
+
+            string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 25);
+            //--------------------------Enter Opportunity details-----------------------------
+            //Information Section           
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOpportunityNameL, 240);
+            string valOpportunity = CustomFunctions.RandomValue();
+
+            driver.FindElement(txtOpportunityNameL).SendKeys(valOpportunity);
+            string valClient = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 1);
+            driver.FindElement(txtClientL).SendKeys(valClient);
+            Thread.Sleep(5000);
+            By eleClient = By.XPath($"//label[text()='Client']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valClient}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleClient, 60);
+            driver.FindElement(eleClient).Click();
+
+            string valSubject = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 2);
+            driver.FindElement(txtSubjectL).SendKeys(valSubject);
+            Thread.Sleep(5000);
+            By eleSubject = By.XPath($"//label[text()='Subject']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSubject}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleSubject, 60);
+            driver.FindElement(eleSubject).Click();
+            Thread.Sleep(5000);
+
+            //Select Job Type
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 80);
+            driver.FindElement(btnJobTypeL).Click();
+            Thread.Sleep(3000);
+            By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+
+            jse.ExecuteScript("window.scrollTo(0,10)");
+            driver.FindElement(eleJobType).Click();
+
+            //Select IG
+            string valIG = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 4);
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIGL, 60);
+            driver.FindElement(btnIGL).Click();
+            Thread.Sleep(3000);
+            By eleIG = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{valIG}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleIG, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleIG));
+            driver.FindElement(eleIG).Click();
+
+            //Select sector
+            string valSector = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtSICL));
+            driver.FindElement(comboSectorL).Click();
+            By eleSector = By.XPath($"//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='{valSector}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
+            WebDriverWaits.WaitUntilEleVisible(driver, eleSector, 20);
+            driver.FindElement(eleSector).Click();
+
+            //Select Primary Office
+            string valPO = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 11);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblWomenLed));
+            driver.FindElement(comboPrimaryOfficeL).Click();
+            By elePO = By.XPath($"//label[text()='Primary Office']/following::lightning-base-combobox-item//span[@title='{valPO}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+            WebDriverWaits.WaitUntilEleVisible(driver, elePO, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elePO));
+            driver.FindElement(elePO).Click();
+
+            //Select Legal Entity
+            string valEntity = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 12);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtLegalEntitiesL));
+            driver.FindElement(txtLegalEntitiesL).SendKeys(valEntity);
+            Thread.Sleep(3000);
+            By eleLegalEntity = By.XPath($"//label[text()='Legal Entity']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valEntity}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleLegalEntity, 80);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleLegalEntity));
+            driver.FindElement(eleLegalEntity).Click();
+
+            if(valRecordType == "FVA")
+            {
+                string valFee = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 28);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(comboRefTypeL));
+                driver.FindElement(txtEstFee).SendKeys(valFee);
+            }
+            //Select Referral Type //Need to move in UpdteReq function  
+            string valRefType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 8);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCongAgg));
+            if(valRecordType == "CF" || valRecordType == "FVA")
+            {
+                driver.FindElement(comboRefTypeL).Click();
+                By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+                driver.FindElement(eleReferralType).Click();
+            }
+
+            By txtTotalDebt = By.XPath("//input[@name='Total_Debt_MM__c']");
+            if(valRecordType == "FR")
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalDebt));
+                driver.FindElement(txtTotalDebt).SendKeys("10");
+            }
+            //Select Additional Client
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboBenOwnerL));
+            //driver.FindElement(comboAddClientL).Click();
+            Thread.Sleep(1000);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboAddClientL));
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Additional Client']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            //Select Additional Subject
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddSubjectL));
+            Thread.Sleep(1000);
+            driver.FindElement(comboAddSubjectL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Additional Subject']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            //Select Beneficial Owner
+            string valBenOwner = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCongAgg));
+            Thread.Sleep(1000);
+            driver.FindElement(comboBenOwnerL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath($"//label[text()='Beneficial Owner & Control Person form?']/following::lightning-base-combobox-item//span[@title='{valBenOwner}']")).Click();
+
+            //Select Does HL have material
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboHLMaterialL));
+            Thread.Sleep(1000);
+            driver.FindElement(comboHLMaterialL).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            //Select Conf Agreement//Need to move in UpdteReq function  
+            //string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
+            //Thread.Sleep(1000);
+            //driver.FindElement(comboConfAggL).Click();
+            //Thread.Sleep(1000);
+            //driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
+
+            //Click Save button                           
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+            return valOpportunity;
+
+        }
+
         //Validate mandatory field validations
         public string ValidateMandatoryFieldsValidations()
         {
