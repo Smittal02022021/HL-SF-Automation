@@ -453,9 +453,23 @@ namespace SF_Automation.Pages.Companies
             if(driver.FindElement(warningMsgModal).Text == message)
             {
                 result = true;
-                driver.FindElement(By.XPath("(//button[text()='Close'])[2]")).Click();
-                Thread.Sleep(2000);
             }
+
+            try
+            {
+                Thread.Sleep(5000);
+
+                driver.FindElement(By.XPath("(//button[text()='Close'])[1]")).Click();
+                Thread.Sleep(5000);
+            }
+            catch(Exception)
+            {
+                Thread.Sleep(5000);
+
+                driver.FindElement(By.XPath("(//button[text()='Close'])[2]")).Click();
+                Thread.Sleep(5000);
+            }
+
             return result;
         }
 
@@ -488,7 +502,9 @@ namespace SF_Automation.Pages.Companies
             }
             catch(Exception)
             {
-
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
             }
 
             return companyType;
@@ -523,7 +539,9 @@ namespace SF_Automation.Pages.Companies
             }
             catch(Exception)
             {
-
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
             }
 
             return clientOwnership;
@@ -542,6 +560,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(5000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(5000);
 
             string potentialRoundTripValue = driver.FindElement(lblPotentialRoundTrip).Text;
             string roundTripEngagementValue = driver.FindElement(lblRoundTripEngagement).Text;
@@ -587,6 +606,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(5000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(5000);
 
             string potentialRoundTripValue = driver.FindElement(lblPotentialRoundTrip).Text;
             string roundTripEngagementValue = driver.FindElement(lblRoundTripEngagement).Text;

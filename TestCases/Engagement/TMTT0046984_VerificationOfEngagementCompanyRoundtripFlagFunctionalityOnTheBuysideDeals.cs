@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 3; row <= rowCount; row++)
+                for(int row = 2; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -269,12 +269,18 @@ namespace SF_Automation.TestCases.Engagement
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
 
                             //Close Company tab
-                            companyDetailsPage.CloseTab(valClientCompName);
+                            companyDetailsPage.CloseTab(valSubjectCompName);
 
                             //Verify updates on Client Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valSubjectCompName);
                         }
                     }
                     else
@@ -299,14 +305,14 @@ namespace SF_Automation.TestCases.Engagement
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
-                            //Close duplicate company warning msg
-                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
-
                             string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
                             string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
 
                             Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
                             extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
 
                             //Close Company tab
                             companyDetailsPage.CloseTab(valSubjectCompName);
@@ -325,7 +331,7 @@ namespace SF_Automation.TestCases.Engagement
                     }
 
                     //TC - End
-                    lvHomePage.UserLogoutFromSFLightningView();
+                    lvHomePage.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
                 }
                 driver.Quit();

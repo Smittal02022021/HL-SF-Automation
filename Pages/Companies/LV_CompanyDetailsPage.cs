@@ -1257,12 +1257,20 @@ namespace SF_Automation.Pages.Companies
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
+
             driver.Navigate().Refresh();
             Thread.Sleep(5000);
 
-            //Click More Tabs button
-            driver.FindElement(btnMoreTabs).Click();
-            Thread.Sleep(2000);
+            try
+            {
+                //Click More Tabs button
+                driver.FindElement(btnMoreTabs).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+                driver.FindElement(By.XPath("(//lightning-button-menu[@label='More']/button[@title='More Tabs'])[4]")).Click();
+            }
 
             //Select the Flag option
             driver.FindElement(By.XPath("//span[text()='Flag']/..")).Click();
