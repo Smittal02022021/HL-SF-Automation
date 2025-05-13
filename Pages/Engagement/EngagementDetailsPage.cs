@@ -241,6 +241,10 @@ namespace SF_Automation.Pages.Engagement
         By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
         By btnBackToEng = By.XPath("//div[1]/span/lightning-button/button");
         By lblEngagement = By.XPath("//records-entity-label[text()='Engagement']");
+        By lblEngNumberHeaderL = By.XPath("//p[text()='Engagement Number']");
+        By valEngNumberHeaderL = By.XPath("//p[text()='Engagement Number']/ancestor::div[1]/p[2]//lightning-formatted-text");
+        By lblSubOwnerHeaderL = By.XPath("//p[text()='Subject Ownership']");
+        By valSubOwnerHeaderL = By.XPath("//p[text()='Subject Ownership']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By titleEngDetails = By.CssSelector("div[id*='j_id4'] > div.pbHeader > table > tbody > tr > td.pbTitle > h2");
         By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
         By titleMassEditPageL = By.XPath("//header/div[2]/h2/span");
@@ -6736,6 +6740,31 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 30);
             return driver.FindElement(txtEngNumberL).Text;
+        }
+
+        public string GetEngagementNumberHeaderL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngNumberHeaderL, 30);
+            return driver.FindElement(lblEngNumberHeaderL).Text;
+        }
+
+        public string GetEngagementNumberValueHeaderL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEngNumberHeaderL, 30);
+            return driver.FindElement(valEngNumberHeaderL).Text;
+        }
+
+
+        public string GetSubOwnershipHeaderL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSubOwnerHeaderL, 30);
+            return driver.FindElement(lblSubOwnerHeaderL).Text;
+        }
+
+        public string GetSubOwnershipValueHeaderL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubOwnerHeaderL, 30);
+            return driver.FindElement(valSubOwnerHeaderL).Text;
         }
         public string GetEngagementNameL()
         {

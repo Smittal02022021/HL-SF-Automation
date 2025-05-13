@@ -4114,7 +4114,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(5000);
             driver.FindElement(btnSaveKeyCredL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             bool row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed;
             return row;
         }

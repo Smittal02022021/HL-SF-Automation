@@ -36,10 +36,14 @@ namespace SF_Automation.Pages
         By listStaff = By.XPath("/html/body/ul");
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By linkCompanyName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/th/a");
-        By lnkCompanyNameL = By.XPath("//span[@title='Client']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
+        //By lnkCompanyNameL = By.XPath("//span[@title='Client']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
+        By lnkCompanyNameL = By.XPath("//lightning-formatted-text[text()='Client']/ancestor::tr/td[2]//lightning-formatted-text");
+
+
         By linkSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[3]/th/a");
         By txtCompanyType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[2]");
-        By valClientTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[3]");
+        //By valClientTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[3]");
+        By valClientTypeL = By.XPath("//lightning-formatted-text[text()='Client']");
         By valSubjectTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[3]");
         By txtCompanyRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[3]");
         By txtCompanyRecTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[4]//a");

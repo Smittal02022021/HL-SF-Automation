@@ -444,7 +444,7 @@ namespace SF_Automation.Pages
         By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By tabClientSubject = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
+        By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT = By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
         By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
@@ -473,9 +473,9 @@ namespace SF_Automation.Pages
 
         By titleAddCFOppContact = By.XPath("//h2[contains(text(),'Add ')]");
         By btnAddFVAContact = By.XPath("//button[@name='Opportunity__c.Add_FVA_Opportunity_Contact']");
-        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit was Provided')]");
+        By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit is to be Provided')]");
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
-        By secAdditionalClient = By.XPath("//h2//span[text()='Additional Clients/Subjects']");
+        By secAdditionalClient = By.XPath("//h2//span[text()='Clients/Subjects']");
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
@@ -5306,7 +5306,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             driver.FindElement(btnSaveDetailsL).Click();
         }
@@ -5491,7 +5491,7 @@ namespace SF_Automation.Pages
             //Location where Benefit was Provided
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnWomenLedL).Click();
             //driver.FindElement(btnWomenLedL).Click();
@@ -5583,14 +5583,13 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
         }
         //Validate Approve  button
         public string ValidateApproveButton()
         {
-
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,500)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 100);
@@ -6105,7 +6104,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, secReferralInfo, 120);
             string name = driver.FindElement(secReferralInfo).Text;
-            driver.FindElement(secReferralInfo).Click();
+            //driver.FindElement(secReferralInfo).Click();
             return name;
         }
 
@@ -7795,7 +7794,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[8]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[6]")).Click();
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();

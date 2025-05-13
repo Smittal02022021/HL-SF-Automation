@@ -300,7 +300,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate Additional Client/Subject section
                 string secAddClient = opportunityDetails.ValidateAdditionalClientAndSubjectSection();
-                Assert.AreEqual("Additional Clients/Subjects", secAddClient);
+                Assert.AreEqual("Clients/Subjects", secAddClient);
                 extentReports.CreateLog("Section with name: " + secAddClient + " is displayed under Client/Subject & Referral tab ");
 
                 //Validate Edit functionality of Client/Subject & Referral tab              

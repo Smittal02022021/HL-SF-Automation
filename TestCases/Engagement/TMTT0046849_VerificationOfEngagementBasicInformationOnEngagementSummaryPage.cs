@@ -62,6 +62,11 @@ namespace SF_Automation.TestCases.Engagement
                 string message=  engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2), ReadExcelData.ReadData(excelPath, "Engagement", 1));
                 Assert.AreEqual("Project Moon", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
+                string engNum = engagementDetails.GetEngagementNumberHeaderL();
+                string engNumValue = engagementDetails.GetEngagementNumberValueHeaderL();
+
+                string subOwner = engagementDetails.GetSubOwnershipHeaderL();
+                string subOwnerValue = engagementDetails.GetSubOwnershipValueHeaderL();
 
                 string LOB = engagementDetails.ValidateLOBOnHeader();
                 string lobValue= engagementDetails.ValidateLOBValueOnHeader();                
@@ -76,32 +81,27 @@ namespace SF_Automation.TestCases.Engagement
                 string txnSizeValue = engagementDetails.GetValEstTansacttionMarketCapLV();
                 string txnSize = engagementDetails.GetEstTansacttionMarketCapLabel();
 
-                //1. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
+                //1. TMTI0114529_Verify the "Engagement Number" label and mapping value are displayed
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string lobSummary = summaryPage.ValidateLOBOnHeader();
-                string lobSummaryValue = summaryPage.ValidateLOBValueOnHeader();
+                string engNumSummary = summaryPage.ValidateEngNumOnHeader();
+                string engNumSummaryValue = summaryPage.ValidateEngNumValueOnHeader();
+                string engNumSummaryMessage = summaryPage.ValidateEngNumberMessageOnHeader();
 
-                Assert.AreEqual(LOB, lobSummary);
-                Assert.AreEqual(lobValue, lobSummaryValue);
-                extentReports.CreateLog("The label " + lobSummary + " and mapping value " + lobSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
-                
-                //2. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
-                string discSummary = summaryPage.ValidateDiscStatusOnHeader();
-                string discSummaryValue = summaryPage.ValidateDiscStatusValueOnHeader();
+                Assert.AreEqual(engNum, engNumSummary);
+                Assert.AreEqual(engNumValue, engNumSummaryValue);
+                extentReports.CreateLog("The label " + engNumSummary + " and mapping value " + engNumSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
 
-                Assert.AreEqual(discStatus, discSummary);
-                Assert.AreEqual(discStatusValue, discSummaryValue);
-                extentReports.CreateLog("The label " + discSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+                Assert.AreEqual("Case Number", engNumSummaryMessage);
+                extentReports.CreateLog("The Tool tip message " + engNumSummaryMessage + " is displayed on Engagement Number in CF Engagement Summary ");
 
-                //3. TMTI0114537_Verify that the "Subject" label and mapping value are displayed.
-                string subSummary = summaryPage.ValidateSubjectOnHeader();
-                string subSummaryValue = summaryPage.ValidateSubjectValueOnHeader();
+                //2. TMTI0114530_Verify the "Subject Ownership" label and mapping value are displayed.
+                string subOwnerSummary = summaryPage.ValidateSubOwnerOnHeader();
+                string subOwnerSummaryValue = summaryPage.ValidateSubOwnerValueOnHeader();
+                Assert.AreEqual(subOwner, subOwnerSummary);
+                Assert.AreEqual(subOwnerValue, subOwnerSummaryValue);
+                extentReports.CreateLog("The label " + subOwnerSummary + " and mapping value " + subOwnerSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
 
-                Assert.AreEqual(subject, subSummary);
-                Assert.AreEqual(subjectValue, subSummaryValue);
-                extentReports.CreateLog("The label " + subSummary + " and mapping value " + subSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
-
-                //4. TMTI0114531_Verify the label Est. Transaction Size / Market Cap (MM) mapping values are displayed and the tooltip.
+                //3. TMTI0114531_Verify the label Est. Transaction Size / Market Cap (MM) mapping values are displayed and the tooltip.
                 string txnSizeSummary = summaryPage.ValidateEstTxnSizeOnHeader();
                 string txnSizeSummaryValue = summaryPage.ValidateEstTxnSizeValueOnHeader();
                 string txnSizeSummaryMessage = summaryPage.ValidateEstTxnSizeMessageOnHeader();
@@ -113,7 +113,43 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("If Engagement involves a majority stake in a Public Company, insert Market Cap as of Engagement Letter date.", txnSizeSummaryMessage);
                 extentReports.CreateLog("The Tool tip message " + txnSizeSummaryMessage + " is displayed on Est. Transaction Size / Market Cap (MM) in CF Engagement Summary ");
 
-                //5. TMTI0114538_Verify that the Client "label " and mapping value are displayed.
+                //4. TMTI0114532_Verify the link Summary Report is displayed and leads to Cogno's ES Report.
+                string summaryReport =summaryPage.ValidateSummaryReportButtonOnHeader();
+                Assert.AreEqual("Summary Report", summaryReport);
+                extentReports.CreateLog("Button with name " + summaryReport + " is displayed on CF Engagement Summary page. ");
+
+                string report =summaryPage.ConnectCognoAndOpenPDF();
+                string engSummaryReport = summaryPage.VerifyEngSummaryinReport();
+                Assert.AreEqual("Engagement Summary Report", engSummaryReport);
+                extentReports.CreateLog("Report with name: " + engSummaryReport +  " is displayed after clicking Summary Report button on CF Engagement Summary . ");
+
+                //6. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
+                string discSummary = summaryPage.ValidateDiscStatusOnHeader();
+                string discSummaryValue = summaryPage.ValidateDiscStatusValueOnHeader();
+
+                Assert.AreEqual(discStatus, discSummary);
+                Assert.AreEqual(discStatusValue, discSummaryValue);
+                extentReports.CreateLog("The label " + discSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
+                //7. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
+                string lobSummary = summaryPage.ValidateLOBOnHeader();
+                string lobSummaryValue = summaryPage.ValidateLOBValueOnHeader();
+
+                Assert.AreEqual(LOB, lobSummary);
+                Assert.AreEqual(lobValue, lobSummaryValue);
+                extentReports.CreateLog("The label " + lobSummary + " and mapping value " + lobSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
+                
+                       
+                //8. TMTI0114537_Verify that the "Subject" label and mapping value are displayed.
+                string subSummary = summaryPage.ValidateSubjectOnHeader();
+                string subSummaryValue = summaryPage.ValidateSubjectValueOnHeader();
+
+                Assert.AreEqual(subject, subSummary);
+                Assert.AreEqual(subjectValue, subSummaryValue);
+                extentReports.CreateLog("The label " + subSummary + " and mapping value " + subSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
+               
+                
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

@@ -3,6 +3,7 @@ using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace SF_Automation.Pages.Engagement
@@ -155,12 +156,21 @@ namespace SF_Automation.Pages.Engagement
         By valExtDisclosureStatus = By.XPath("//li//span[text()='External Disclosure Status']/ancestor::li//div[2]");
         By lblLOB = By.XPath("//li//span[text()='Line of Business']");
         By valLOB = By.XPath("//li//span[text()='Line of Business']/ancestor::li/div[2]");
+        By lblEngNum = By.XPath("//li//span[text()='Engagement Number']");
+        By valEngNum = By.XPath("//li//span[text()='Engagement Number']//ancestor::li/div[2]");
+        By lblSubOwner = By.XPath("//li//span[text()='Subject Ownership']");
+        By valSubOwner = By.XPath("//li//span[text()='Subject Ownership']//ancestor::li/div[2]");
         By lblSubject = By.XPath("//li/div/span[text()='Subject']");
         By valSubject = By.XPath("//li//span[text()='Subject']/ancestor::li//a");
         By lblTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]/span");
         By valTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[2]");
         By msgTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]//button//span[2]");
-        
+        By msgEngNum = By.XPath("//li//span[text()='Engagement Number']/ancestor::li//div[1]//button//span[2]");
+        By btnSummaryReport = By.XPath("//button[text()='Summary Report']");
+        By txtCognoUser = By.XPath("//input[@id='CAMUsername']");
+        By txtCognoPass = By.XPath("//input[@id='CAMPassword']");
+        By btnSignin = By.XPath("//button[text()='Sign in']");
+
         public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
@@ -1190,7 +1200,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(linkCFEngSummary).Click();
             Thread.Sleep(3000);
         }
-        //Get Ext Disclosure Status on the header
+        //Get LOB on the header
         public string ValidateLOBOnHeader()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblLOB);
@@ -1201,6 +1211,32 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valLOB);
             string value = driver.FindElement(valLOB).Text;
+            return value;
+        }
+
+        public string ValidateEngNumOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblEngNum);
+            string status = driver.FindElement(lblEngNum).Text;
+            return status;
+        }
+        public string ValidateEngNumValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valEngNum);
+            string value = driver.FindElement(valEngNum).Text;
+            return value;
+        }
+
+        public string ValidateSubOwnerOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblSubOwner);
+            string status = driver.FindElement(lblSubOwner).Text;
+            return status;
+        }
+        public string ValidateSubOwnerValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valSubOwner);
+            string value = driver.FindElement(valSubOwner).Text;
             return value;
         }
 
@@ -1247,6 +1283,47 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, msgTxnSize);
             string value = driver.FindElement(msgTxnSize).Text;
             return value;
+        }
+        public string ValidateEngNumberMessageOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgEngNum);
+            string value = driver.FindElement(msgEngNum).Text;
+            return value;
+        }
+        public string ValidateSummaryReportButtonOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSummaryReport);
+            string value = driver.FindElement(btnSummaryReport).Text;
+            return value;
+        }
+
+        public string ConnectCognoAndOpenPDF()
+        {
+
+            driver.FindElement(btnSummaryReport).Click();
+            Thread.Sleep(4000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            Thread.Sleep(12000);
+            driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
+            driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
+            driver.FindElement(btnSignin).Click();
+            Thread.Sleep(15000);
+            string pdf = driver.Url;
+            return pdf;
+        }
+
+
+        public string VerifyEngSummaryinReport()
+        {
+            Thread.Sleep(8000);
+            driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
+            Thread.Sleep(8000);            
+            string engSummary = driver.FindElement(By.XPath("//tr[3]/td//tr[1]/td/div/span")).Text;
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            Thread.Sleep(6000);
+            return engSummary;
         }
     }
 }
