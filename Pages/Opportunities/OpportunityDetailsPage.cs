@@ -9023,14 +9023,19 @@ namespace SF_Automation.Pages
             driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(2000);
 
-            //Funds & Financials
-            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            //Location where Benefit was Provided
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
 
             //WomenLed
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            //Funds & Financials
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
 
             ////Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
@@ -9043,7 +9048,9 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             Thread.Sleep(8000);
         }
+
         By editPageSectionTabL = By.XPath("//h3//span[@title='Administration']");
+
         public void UpdateTASServicesLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
