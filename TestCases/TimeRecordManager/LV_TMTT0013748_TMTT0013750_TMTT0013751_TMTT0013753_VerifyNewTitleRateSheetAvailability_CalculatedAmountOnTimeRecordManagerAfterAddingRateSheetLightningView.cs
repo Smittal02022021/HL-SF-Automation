@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged out ");
 
                 //Select HL Banker app

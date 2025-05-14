@@ -58,12 +58,12 @@ namespace SF_Automation.Pages.TimeRecordManager
             driver.FindElement(btnListView).Click();
             Thread.Sleep(2000);
 
-            IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@role='listbox']/li"));
+            IList<IWebElement> elements = driver.FindElements(By.XPath("(//ul[@aria-label='Recent List Views'])[1]/li"));
             int size = elements.Count;
 
             for(int items = 2; items <= size; items++)
             {
-                By itemLink = By.XPath($"(//ul[@role='listbox']/li)[{items}]/a/span");
+                By itemLink = By.XPath($"(//ul[@aria-label='Recent List Views'])[1]/li[{items}]/lightning-base-combobox-item/span[2]/span");
                 string itemName = driver.FindElement(itemLink).Text;
 
                 if(itemName == listName)
@@ -135,11 +135,13 @@ namespace SF_Automation.Pages.TimeRecordManager
             IList<IWebElement> rateSheets = driver.FindElements(By.XPath("//tbody/tr"));
             for (int i = 1; i <= rateSheets.Count; i++)
             {
-                string rateSheetValue = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Text;
+                string rateSheetValue = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a//span")).Text;
                 if (rateSheetValue.Equals(rateSheetname))
                 {
+                    IWebElement element = driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a"));
+                    CustomFunctions.MoveToElement(driver, element);
                     driver.FindElement(By.XPath($"(//tbody/tr)[{i}]/td[3]//a")).Click();
-                    Thread.Sleep(2000);
+                    Thread.Sleep(5000);
                     break;
                 }
             }
@@ -451,7 +453,7 @@ namespace SF_Automation.Pages.TimeRecordManager
                 driver.FindElement(comboSelectRateSheet1).SendKeys(rateSheet);                
             }
             //Thread.Sleep(2000);
-            string getFromDate = DateTime.Now.ToString("MMM dd, yyyy");
+            string getFromDate = DateTime.Now.AddDays(-2).ToString("MMM dd, yyyy");
             WebDriverWaits.WaitUntilEleVisible(driver, txtRateSheetFromDate);
             driver.FindElement(txtRateSheetFromDate).Clear();
             driver.FindElement(txtRateSheetFromDate).SendKeys(getFromDate);

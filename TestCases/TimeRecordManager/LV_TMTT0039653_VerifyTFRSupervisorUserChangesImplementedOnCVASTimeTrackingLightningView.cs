@@ -67,19 +67,19 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateStepLogs("PAssed", "Admin User is able to login into SF");
 
-                //Select HL Banker app
-                try
-                {
-                    lvHomePage.SelectAppLV("HL Banker");
-                }
-                catch(Exception)
-                {
-                    lvHomePage.SelectAppLV1("HL Banker");
-                }
-
                 int rowSearchValue = ReadExcelData.GetRowCount(excelPath, "SupervisorUser");
                 for (int row = 2; row <= rowSearchValue; row++)
                 {
+                    //Select HL Banker app
+                    try
+                    {
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
+                    }
+
                     //Login as User and validate the user
                     userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", row, 1);
                     groupName = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", row, 2);
