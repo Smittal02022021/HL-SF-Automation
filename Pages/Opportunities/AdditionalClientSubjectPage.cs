@@ -207,6 +207,8 @@ namespace SF_Automation.Pages
         By frameInternalTeamDetailPage = By.XPath("//iframe[@title='accessibility title']");
         By tabInternalTeamL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Internal Team']");
         By btnModifyRolesL = By.XPath("//div[1]/table/tbody/tr/td[2]/a");
+        By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
+
 
         public void EnterMultipleStaffDetails(string file, int row, int row1, string recordType)
         {
@@ -2433,9 +2435,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitForPageToLoad(driver, 60);
                 Thread.Sleep(5000);
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
-            driver.FindElement(btnReturnToOppor).Click();
-            Thread.Sleep(5000);
+
             driver.SwitchTo().DefaultContent();
         }
     }
