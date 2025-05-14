@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for LOB: " + valRecordType + " and Job Type: " + valJobType);
 
-                string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTT0013748);
+                string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
