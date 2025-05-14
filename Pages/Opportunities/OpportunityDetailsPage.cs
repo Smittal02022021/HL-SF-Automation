@@ -7647,7 +7647,6 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            //string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
             Thread.Sleep(10000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
