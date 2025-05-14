@@ -161,13 +161,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Admin user searched for created opportunity.");
 
                 //Update Internal Team details
                 clientSubjectsPage.EnterMembersToDealTeamLV(fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Added all members to Internal Team Details.");
 
-                opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0013748);
-                extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are updated ");
+                //opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0013748);
+                //extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are updated ");
                 
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");

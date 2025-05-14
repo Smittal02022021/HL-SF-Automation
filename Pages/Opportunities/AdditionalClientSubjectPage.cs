@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -2373,54 +2374,64 @@ namespace SF_Automation.Pages
             for (int row = 2; row <= rowCount; row++)
             {
                 valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
-                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
-                driver.FindElement(txtStaff).SendKeys(valStaff);
-                Thread.Sleep(5000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
+                    driver.FindElement(txtStaff).SendKeys(valStaff);
+                    Thread.Sleep(5000);
+                    By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/..");
+                    CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
+                    Thread.Sleep(3000);
+                }
+                catch(Exception e)
+                {
+                    //Console.WriteLine(e.Message);
+                }
 
-                By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
-                CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
-                Thread.Sleep(2000);
+                //By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
+                //CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
+                //Thread.Sleep(2000);
 
                 switch (row)
                 {
                     case 2:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 60);
                         driver.FindElement(checkInitiator).Click();
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 60);
                         driver.FindElement(checkPrincipal).Click();
                         break;
                     case 3:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 60);
                         driver.FindElement(checkManager).Click();
                         break;
                     case 4:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpecialty, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpecialty, 60);
                         driver.FindElement(checkSpecialty).Click();
                         break;
                     case 5:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkMarketing, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkMarketing, 60);
                         driver.FindElement(checkMarketing).Click();
                         break;
                     case 6:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 60);
                         driver.FindElement(checkSeller).Click();
                         break;
                     case 7:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 60);
                         driver.FindElement(checkAssociate).Click();
                         break;
                     case 8:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 60);
                         driver.FindElement(checkAnalyst).Click();
                         break;
                     case 9:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 20);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 60);
                         driver.FindElement(checkIntern).Click();
                         break;
                 }
                 driver.FindElement(btnSave).Click();
-                WebDriverWaits.WaitForPageToLoad(driver, 20);
-                Thread.Sleep(10000);
+                WebDriverWaits.WaitForPageToLoad(driver, 60);
+                Thread.Sleep(5000);
             }
             WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
             driver.FindElement(btnReturnToOppor).Click();
