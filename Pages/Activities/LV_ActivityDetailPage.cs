@@ -490,22 +490,22 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(btnSendNotification).Click();
             Thread.Sleep(2000);
 
-            driver.FindElement(txtEmailId).SendKeys(toEmail);
-            Thread.Sleep(5000);
-
             try
             {
-                driver.FindElement(By.XPath($"(//span[text()='{toEmail}']/..)[2]/../..")).Click();
+                driver.FindElement(txtEmailId).SendKeys(toEmail);
+                Thread.Sleep(5000);
+
+                driver.FindElement(By.XPath($"//span[text()='{toEmail}']/../..")).Click();
+
+                Thread.Sleep(5000);
+
+                driver.FindElement(btnSendEmail).Click();
+                Thread.Sleep(2000);
             }
             catch (Exception)
             {
 
             }
-
-            Thread.Sleep(1000);
-
-            driver.FindElement(btnSendEmail).Click();
-            Thread.Sleep(2000);
         }
 
         public bool VerifyIfActivityDetailsMatchWhenNavigatedFromGlobalSearch(string file, string actSub, int row)
