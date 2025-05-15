@@ -488,23 +488,25 @@ namespace SF_Automation.Pages.Activities
             string toEmail = ReadExcelData.ReadData(excelPath, "Notification", 1);
 
             driver.FindElement(btnSendNotification).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             try
             {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEmailId, 60);
                 driver.FindElement(txtEmailId).SendKeys(toEmail);
                 Thread.Sleep(5000);
 
-                driver.FindElement(By.XPath($"//span[text()='{toEmail}']/../..")).Click();
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//ul[@class='slds-listbox slds-listbox_vertical']//div)[1]")));
 
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
 
                 driver.FindElement(btnSendEmail).Click();
                 Thread.Sleep(2000);
             }
             catch (Exception)
             {
-
+                
             }
         }
 
