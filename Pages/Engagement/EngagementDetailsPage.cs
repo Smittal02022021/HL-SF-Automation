@@ -846,6 +846,7 @@ namespace SF_Automation.Pages.Engagement
         By txtEngCommentsIDL = By.XPath("//h1//records-entity-label[text()='Engagement Comment']/../../..//lightning-formatted-text/../..//slot//lightning-formatted-text");
         By valSponsorCmpnyL = By.XPath("//table[@aria-label='FS Engagements']//tbody//tr[1]//lightning-primitive-cell-factory[@data-label='Sponsor Company']//a");
         By tabEngCommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
+        By lnkViewAllCommentsL = By.XPath("(//article[@aria-label='Comments']//span[text()='View All'])[2]");
         private By _quickLink(string linkText)
         {
             return By.XPath($"//flexipage-component2[contains(@data-component-id,'ListQuickLinks')]//a//slot[contains(text(),'{linkText}')]/../..");
@@ -911,6 +912,28 @@ namespace SF_Automation.Pages.Engagement
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
         }
 
+        public void ClickViewAllCommentsLV()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 20);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkViewAllCommentsL));
+            //driver.FindElement(lnkViewAllCommentsL).Click();
+        }
+        public bool IsViewAllCommentsDisplayedLV()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 10);
+                return driver.FindElement(lnkViewAllCommentsL).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+            
+            
+        }
 
         public string GetRecordTypeL()
         {

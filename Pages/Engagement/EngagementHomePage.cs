@@ -72,10 +72,12 @@ namespace SF_Automation.Pages
         By txtEngNumLCAO = By.XPath("//input[@placeholder='Search...']");
         By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
         By txtEngL = By.XPath("//input[@placeholder='Search...']");
+        
         private By _lnkSearchedEngL(string name)
         {
             return By.XPath($"//div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
-        }
+        }   
+
         public string GlobalSearchEngagementInLightningView(string engName)
         {
             Thread.Sleep(6000);

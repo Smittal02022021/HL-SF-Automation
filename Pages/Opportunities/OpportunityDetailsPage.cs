@@ -915,6 +915,8 @@ namespace SF_Automation.Pages
 
         public bool IsVerballyEngagedEngCreatedLV(string oppName)
         {
+            driver.Navigate().Refresh();
+            Thread.Sleep(8000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,600)");
             try
@@ -7272,6 +7274,7 @@ namespace SF_Automation.Pages
             driver.FindElement(chkManagerL).Click();
             driver.FindElement(chkAssociateL).Click();
             driver.FindElement(chkAnalystL).Click();
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveTeamL, 20);
             driver.FindElement(btnSaveTeamL).Click();
             Thread.Sleep(5000);

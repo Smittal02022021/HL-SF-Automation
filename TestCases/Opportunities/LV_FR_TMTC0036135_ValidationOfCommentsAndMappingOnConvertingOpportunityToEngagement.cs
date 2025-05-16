@@ -7,13 +7,10 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using AventStack.ExtentReports;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_CF_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement : BaseClass
+    class LV_FR_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -28,7 +25,7 @@ namespace SalesForce_Project.TestCases.Opportunities
         HomeMainPage homePage = new HomeMainPage();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTMTC0036135 = "LV_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagementCF";        
+        public static string fileTMTC0036135 = "LV_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagementFR";
         private string commentTextOppExl;
         private string commentTypeOppExl;
         private string userCompliance;
@@ -49,7 +46,7 @@ namespace SalesForce_Project.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         /// <summary>
-        /// /CF***/////
+        /// /FR***/////
         /// </summary>
         //TMT0082945 Verify that a standard user can add "Administrative" comments to an opportunity.
         //TMT0082949 Verify that a standard user can add "Internal" comments to an opportunity.
@@ -60,7 +57,7 @@ namespace SalesForce_Project.TestCases.Opportunities
 
 
         [Test]
-        public void VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementCFLV()
+        public void VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementFRLV()
         {
             try
             {
@@ -77,9 +74,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                
+
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
-                string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
+                string valRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 25);
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
                 //Login as Standard User profile and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
@@ -125,18 +122,27 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
-                addOpportunityContact.CickAddCFOpportunityContact();
+                addOpportunityContact.CickAddOpportunityContactLV();
                 addOpportunityContact.CreateContactL2(fileTMTC0036135);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
-                opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTC0036135, valJobType);//udated Move to element
+                opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTC0036135);
+                opportunityDetails.UpdateTotalDebtConfirmedLV();
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
+                
                 opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTC0036135);
                 extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
-                opportunityDetails.ClickReturnToOpportunityLV();
+                opportunityDetails.ClickReturnToOpportunityL();
                 randomPages.CloseActiveTab("Internal Team");
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+
+                //PitchMandateAward details
+                randomPages.ClickPitchMandteAwardTabLV();
+                opportunityDetails.CreateNewPitchMandateAwardLV();
+                extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
 
                 //CF Financial User Add Comments on Opportunity detail page
                 //TMT0082945 Verify that a standard user can add "Administrative" comments to an opportunity.
@@ -145,36 +151,36 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 int typeRowCount = ReadExcelData.GetRowCount(excelPath, "Comments");
                 for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
-                {                        
+                {
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
                     opportunityDetails.ClickOppNewCommentsLV();
-                    opportunityDetails.AddNewOppCommentLV(commentTypeOppExl, commentTextOppExl);                    
+                    opportunityDetails.AddNewOppCommentLV(commentTypeOppExl, commentTextOppExl);
                     commentOppType = opportunityDetails.GetCommentTypeLV();
                     Assert.AreEqual(commentOppType, commentTypeOppExl, "Verify Comments added with Type:  " + commentTypeOppExl);
-                    extentReports.CreateStepLogs("Passed", "CF Financial User added '"+ commentTypeOppExl+"' Comments on Opportunity page" );
+                    extentReports.CreateStepLogs("Passed", "CF Financial User added '" + commentTypeOppExl + "' Comments on Opportunity page");
                     randomPages.CloseActiveTab(opportunityDetails.GetCommentIDLV());
-                    extentReports.CreateStepLogs("Info", "Comments Detail page is closed" );
+                    extentReports.CreateStepLogs("Info", "Comments Detail page is closed");
 
                     //User redirected to Opp Details page
-                    opportunityDetails.ClickViewAllCommentsLV();                        
-                    oppCommentsText= opportunityDetails.GetOppCommentsTextLV(commentTypeOppExl);
-                    oppCommentsCeatedBy=opportunityDetails.GetOppCommentsCeatedByLV(commentTypeOppExl);
-                    oppCommentsCeatedDate=opportunityDetails.GetOppCommentsCeatedDateLV(commentTypeOppExl);
-                    extentReports.CreateStepLogs("Info", oppCommentsText+", "+ oppCommentsCeatedBy+","+ oppCommentsCeatedDate+" CF Financial User added Comments added on Opportunity page with Type:  " + commentTypeOppExl);
+                    opportunityDetails.ClickViewAllCommentsLV();
+                    oppCommentsText = opportunityDetails.GetOppCommentsTextLV(commentTypeOppExl);
+                    oppCommentsCeatedBy = opportunityDetails.GetOppCommentsCeatedByLV(commentTypeOppExl);
+                    oppCommentsCeatedDate = opportunityDetails.GetOppCommentsCeatedDateLV(commentTypeOppExl);
+                    extentReports.CreateStepLogs("Info", oppCommentsText + ", " + oppCommentsCeatedBy + "," + oppCommentsCeatedDate + " CF Financial User added Comments added on Opportunity page with Type:  " + commentTypeOppExl);
                     Assert.AreEqual(valUser, oppCommentsCeatedBy);
-                    extentReports.CreateStepLogs("Info", commentTypeOppExl+": "+oppCommentsText + "Created by " + oppCommentsCeatedBy + "on Date: " + oppCommentsCeatedDate + " are saved " );
+                    extentReports.CreateStepLogs("Info", commentTypeOppExl + ": " + oppCommentsText + "Created by " + oppCommentsCeatedBy + "on Date: " + oppCommentsCeatedDate + " are saved ");
                     randomPages.CloseActiveTab("Opportunity Comments");
                 }
 
                 //TMT0082953 Verify that a standard user cannot add "Compliance" comments to an opportunity.
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 2);
-                errorFieldLevelExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 3);
+                errorFieldLevelExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 3);
 
                 opportunityDetails.ClickOppNewCommentsLV();
                 opportunityDetails.AddNewOppCommentLV(commentTypeOppExl, commentTextOppExl);
-                fieldValidation=opportunityDetails.GetFieldLevelValidationLV();
+                fieldValidation = opportunityDetails.GetFieldLevelValidationLV();
                 Assert.AreEqual(errorFieldLevelExl, fieldValidation);
                 extentReports.CreateStepLogs("Passed", "CF Financial user is not able to add Compliance commetns with validation message: " + fieldValidation);
                 opportunityDetails.CancelFormLV();
@@ -213,23 +219,23 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual(commentTextOppExl, oppCommentsText);
                     oppCommentsCeatedBy = opportunityDetails.GetOppCommentsCeatedByLV(commentTypeOppExl);
                     Assert.AreEqual(valUser, oppCommentsCeatedBy);
-                    extentReports.CreateStepLogs("Passed", "Compliance user can see '"+commentTypeOppExl+"' added by CF Financial User:" +valUser+" on  Opportunity" + opportunityName);
+                    extentReports.CreateStepLogs("Passed", "Compliance user can see '" + commentTypeOppExl + "' added by CF Financial User:" + valUser + " on  Opportunity" + opportunityName);
                     oppCommentsCeatedDate = opportunityDetails.GetOppCommentsCeatedDateLV(commentTypeOppExl);
-                    extentReports.CreateStepLogs("Info", commentTypeOppExl+": " +oppCommentsText + ", " + oppCommentsCeatedBy + "," + oppCommentsCeatedDate + " are displayed to Compliance user ");
-                     
+                    extentReports.CreateStepLogs("Info", commentTypeOppExl + ": " + oppCommentsText + ", " + oppCommentsCeatedBy + "," + oppCommentsCeatedDate + " are displayed to Compliance user ");
+
                 }
                 randomPages.CloseActiveTab("Opportunity Comments");
 
                 //TMT0082958	Verify that the Compliance user can add "Compliance" comments to an opportunity.
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 2);
-                    
+
                 opportunityDetails.ClickOppNewCommentsLV();
                 opportunityDetails.AddNewOppCommentLV(commentTypeOppExl, commentTextOppExl);
                 extentReports.CreateStepLogs("Info", "Comments added on Opportunity page with Type:  " + commentTypeOppExl);
                 commentOppType = opportunityDetails.GetCommentTypeLV();
                 Assert.AreEqual(commentOppType, commentTypeOppExl, "Verify Comments added with Type:  " + commentTypeOppExl);
-                extentReports.CreateStepLogs("Passed", "Compliance User added '"+ commentOppType+"' Comments on Opportunity");
+                extentReports.CreateStepLogs("Passed", "Compliance User added '" + commentOppType + "' Comments on Opportunity");
                 randomPages.CloseActiveTab(opportunityDetails.GetCommentIDLV());
 
                 opportunityDetails.ClickViewAllCommentsLV();
@@ -252,7 +258,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     opportunityDetails.AddNewOppCommentLV(commentTypeOppExl, commentTextOppExl);
                     fieldValidation = opportunityDetails.GetFieldLevelValidationLV();
                     Assert.AreEqual(errorFieldLevelExl, fieldValidation);
-                    extentReports.CreateStepLogs("Passed", "Compliance user is not able to add '"+ commentTypeOppExl+"' Compliance comments with validation message: " + fieldValidation);
+                    extentReports.CreateStepLogs("Passed", "Compliance user is not able to add '" + commentTypeOppExl + "' Compliance comments with validation message: " + fieldValidation);
                     opportunityDetails.CancelFormLV();
                 }
                 randomPages.CloseActiveTab(opportunityName);
@@ -290,7 +296,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     oppCommentsText = opportunityDetails.GetOppCommentsTextLV(commentTypeOppExl);
                     Assert.AreEqual(commentTextOppExl, oppCommentsText);
                     oppCommentsCeatedBy = opportunityDetails.GetOppCommentsCeatedByLV(commentTypeOppExl);
-                    if(commentTypeOppExl== "Compliance")
+                    if (commentTypeOppExl == "Compliance")
                     {
                         Assert.AreEqual(userCompliance, oppCommentsCeatedBy);
                     }
@@ -298,7 +304,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     {
                         Assert.AreEqual(valUser, oppCommentsCeatedBy);
                     }
-                    
+
                     extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on  Opportunity " + opportunityName);
                     oppCommentsCeatedDate = opportunityDetails.GetOppCommentsCeatedDateLV(commentTypeOppExl);
                     extentReports.CreateStepLogs("Info", commentTypeOppExl + ": " + oppCommentsText + ", " + oppCommentsCeatedBy + "," + oppCommentsCeatedDate + " are displayed to CAO user ");
@@ -412,6 +418,11 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
                 //Search for created opportunity
                 opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+                //opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTC0036135);
+                //extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
+                //opportunityDetails.ClickReturnToOpportunityLV();
+                //randomPages.CloseActiveTab("Internal Team");
+
                 randomPages.DetailPageFullViewLV();
                 opportunityDetails.UpdateCCOutcomeDetailsLV();
 
@@ -476,7 +487,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
-                    extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser+ " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
 
                 }
                 for (int typeRow = 3; typeRow < typeRowCount; typeRow++)
@@ -493,7 +504,7 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Standard User: " + valUser + " logged out");
-                                
+
                 //TMT0082974	Verify that the Compliance user can view standard users' and CAO's Internal/ Next step comments and Compliance comments on the opportunity before approval.
                 homePage.SearchUserByGlobalSearchN(userCompliance);
                 extentReports.CreateStepLogs("Info", "Compliance User: " + userCompliance + " details are displayed. ");
@@ -520,7 +531,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
-                    extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser+ " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
                 }
                 //Compliance User can see added Comments added by CAO User
                 for (int typeRow = 3; typeRow < typeRowCount; typeRow++)
@@ -529,7 +540,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
-                    extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO+ " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before approval for Engagement");
                 }
 
                 //Compliance User can see added ComplianceComments
@@ -541,7 +552,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliane User: " + userCompliance + " logged out");
-                 
+
                 //TMT0082976	Verify that CAO can view standard users' and CAO's Administrative/Internal/ Next step comments and Compliance comments on the opportunity before approval.
                 homePage.SearchUserByGlobalSearchN(userCAO);
                 extentReports.CreateStepLogs("Info", "CAO User: " + userCAO + " details are displayed. ");
@@ -744,7 +755,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
                     //**Issue
                     //Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " are mapped on Converted Engagement");
+                    extentReports.CreateStepLogs("Passed", "//**Issue CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " are mapped on Converted Engagement");
 
                 }
 
@@ -754,7 +765,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
                     //**Issue
                     //Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " are mapped on Converted Engagement");
+                    extentReports.CreateStepLogs("Passed", "//**Issue CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " are mapped on Converted Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
@@ -797,7 +808,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
                     //**Issue
                     //Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
-                    extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " are mapped on Converted Engagement");
+                    extentReports.CreateStepLogs("Passed", "//**Issue CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " are mapped on Converted Engagement");
 
                 }
                 for (int typeRow = 3; typeRow < typeRowCount; typeRow++)
@@ -806,7 +817,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
                     //**Issue
                     //Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
-                    extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " are mapped on Converted Engagement");
+                    extentReports.CreateStepLogs("Passed", "//**Issue CF Financial user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " are mapped on Converted Engagement");
 
                 }
                 randomPages.CloseActiveTab("Opportunity Comments");
@@ -836,7 +847,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.IsFalse(engagementDetails.IsViewAllCommentsDisplayedLV());
                 extentReports.CreateStepLogs("Passed", "Compliance user cannot see any comments as expected");
                 randomPages.CloseActiveTab(opportunityName);
-                
+
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
 

@@ -118,19 +118,8 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTC0036078);
-                    if (valJobType.Contains("TAS"))
-                    {
-                        opportunityDetails.UpdateTASServicesLV();
-                    }
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
-
-                    //PitchMandateAward details
-                    randomPages.ClickPitchMandteAwardTabLV();
-                    opportunityDetails.CreateNewPitchMandateAwardLV();
-                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
-                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
-                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
-
+                    
                     login.SwitchToClassicView();
                     usersLogin.UserLogOut();
 
