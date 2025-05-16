@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V120.DOM;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
