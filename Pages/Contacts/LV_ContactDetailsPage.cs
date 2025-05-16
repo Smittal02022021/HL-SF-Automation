@@ -734,7 +734,7 @@ namespace SF_Automation.Pages.Contact
 
             string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
             driver.FindElement(txtHLContact).SendKeys(empName);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@title='{empName}']/..")).Click();
 
             driver.FindElement(txtAreaPersonalNote).SendKeys(ReadExcelData.ReadData(excelPath,"AddRelationship",4));
