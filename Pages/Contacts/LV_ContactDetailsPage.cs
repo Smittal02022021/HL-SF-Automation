@@ -142,6 +142,7 @@ namespace SF_Automation.Pages.Contact
         By inputBadgeFirstName = By.XPath("//input[@name='Badge_First_Name__c']");
         By inputBadgeLastName = By.XPath("//input[@name='Badge_Last_Name__c']");
         By inputBadgeCompanyName = By.XPath("//input[@name='Badge_Company__c']");
+        By inputAccEngScore = By.XPath("//label[text()='Account Engagement Score']/following::div/input");
 
         //Marketing Tab Elements
         By lblDealAnnouncement = By.XPath("(//span[text()='Deal Announcements']/following::lightning-formatted-text)[1]");
@@ -1674,16 +1675,16 @@ namespace SF_Automation.Pages.Contact
 
             // Scroll to the bottom of the page
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0, 2500)");
+            js.ExecuteScript("window.scrollTo(0, 3500)");
 
             WebDriverWaits.WaitUntilClickable(driver, btnEditContactCurrency, 120);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditContactCurrency));
             driver.FindElement(btnEditContactCurrency).Click();
-            js.ExecuteScript("window.scrollTo(0, 2500)");
+            js.ExecuteScript("window.scrollTo(0, 3500)");
 
             WebDriverWaits.WaitUntilClickable(driver, btnSaveEdit, 120);
             driver.FindElement(dropdownContactCurrency).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             driver.FindElement(dropdownContactCurrency).SendKeys(Keys.ArrowUp);
             driver.FindElement(dropdownContactCurrency).SendKeys(Keys.Enter);
@@ -1713,6 +1714,7 @@ namespace SF_Automation.Pages.Contact
             // Scroll to the top of the page
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0, 0)");
+            Thread.Sleep(2000);
 
             WebDriverWaits.WaitUntilClickable(driver, btnEditName, 120);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditName));
@@ -1783,20 +1785,13 @@ namespace SF_Automation.Pages.Contact
             bool result1 = false;
             bool result2 = false;
 
-            //Cick on Edit button
+            //Click on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilClickable(driver, btnCancelOnEdit, 120);
-
-            //Scroll to the bottom of the page
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0, 2500)");
-
             //Select Deal Announcement
-            //WebDriverWaits.WaitUntilEleVisible(driver, inputMergeGroup, 120);
-            //CustomFunctions.MoveToElement(driver, driver.FindElement(inputMergeGroup));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownInsightsContent));
             driver.FindElement(dropdownDealAnnouncements).Click();
             Thread.Sleep(2000);
 
@@ -1812,8 +1807,7 @@ namespace SF_Automation.Pages.Contact
             }
 
             //Select Event Conference
-            WebDriverWaits.WaitUntilClickable(driver, dropdownEventConferences, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownEventConferences));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownInsightsContent));
             driver.FindElement(dropdownEventConferences).Click();
             Thread.Sleep(2000);
 
@@ -1829,10 +1823,16 @@ namespace SF_Automation.Pages.Contact
             }
 
             //Select General Announcement
-            WebDriverWaits.WaitUntilClickable(driver, dropdownGeneralAnnouncements, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownGeneralAnnouncements));
-            driver.FindElement(dropdownGeneralAnnouncements).Click();
-            Thread.Sleep(2000);
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(inputAccEngScore));
+                driver.FindElement(dropdownGeneralAnnouncements).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
 
             if(generalAnn == "Opt In")
             {
@@ -1846,8 +1846,6 @@ namespace SF_Automation.Pages.Contact
             }
 
             //Select Insights Content
-            WebDriverWaits.WaitUntilClickable(driver, dropdownInsightsContent, 120);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(dropdownInsightsContent));
             driver.FindElement(dropdownInsightsContent).Click();
             Thread.Sleep(2000);
 
@@ -1866,13 +1864,10 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnSaveOnEdit).Click();
             Thread.Sleep(5000);
 
-            //Scroll to the top of the page
-            js.ExecuteScript("window.scrollTo(0, 0)");
-
             //Navigate to Marketing Tab
             WebDriverWaits.WaitUntilEleVisible(driver, tabMarketing, 120);
             driver.FindElement(tabMarketing).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             if(dealAnn == driver.FindElement(lblDealAnnouncement).Text && eventConference == driver.FindElement(lblEventsConferences).Text && generalAnn == driver.FindElement(lblGeneralAnnouncements).Text && insightsCon == driver.FindElement(lblInsightsContent).Text)
             {
