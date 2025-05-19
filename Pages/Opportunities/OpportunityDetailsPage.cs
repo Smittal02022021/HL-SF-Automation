@@ -6836,12 +6836,16 @@ namespace SF_Automation.Pages
                             WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
                             driver.FindElement(checkSpeciality).Click();
                         }
+                        CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
                 }
                 catch (Exception)
                 {
+                    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                    js.ExecuteScript("window.scrollTo(0,0)");
+                    Thread.Sleep(1000);
                     return row - 2;
                 }
             }
