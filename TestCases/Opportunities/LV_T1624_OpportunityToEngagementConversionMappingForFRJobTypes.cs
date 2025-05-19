@@ -253,7 +253,44 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Pass", userExl + " logged out ");                    
+                    extentReports.CreateStepLogs("Pass", userExl + " logged out ");
+                    //---------------------------------------------------------//
+                    //Login Via System Admin to verify Last Integration the ERP Status
+                    //Login as System Admin user 
+                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+
+                    login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Passed", "System Admin Loggin to Lightning View ");
+                    //Go to Opportunity module in Lightning View 
+                    homePageLV.SelectAppLV(appNameExl);
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                    //Search for created opportunity
+                    engagementHome.GlobalSearchEngagementInLightningView(engagementName);
+                    extentReports.CreateStepLogs("Passed", "Engagement: " + opportunityName + " found and selected ");
+
+                    //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
+                    //TMTI0084221 Verify the status is updated in Oracle ERP Information section
+                    //Validate the ERP Last Integration Status on Engagement details page
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
+                    string ERPStatus = randomPages.GetERPLastIntegrationStatusLV();
+                    Assert.AreEqual("Success", ERPStatus, "Verify the Engagement ERP Last Integration Status as Success ");
+                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
+                    randomPages.CloseActiveTab(engagementName);
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
+
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();

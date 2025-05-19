@@ -327,7 +327,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //---------------------------------------------------------//
                     //Login Via System Admin to verify Last Integration the ERP Status
                     homePage.SearchUserByGlobalSearchN(adminUserExl);
-                    extentReports.CreateStepLogs("Info", "User: " + caoUserExl + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
 
@@ -352,9 +352,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     randomPages.ClickTabOracleERPLV();
                     extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
-                    string ERPStatusOffice = randomPages.GetERPLastIntegrationStatusLV();
-                    Assert.AreEqual("Success", ERPStatusOffice, "Verify the Engagement ERP Last Integration Status as Success ");
-                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatusOffice + " is displayed ");
+                    string ERPStatus = randomPages.GetERPLastIntegrationStatusLV();
+                    Assert.AreEqual("Success", ERPStatus, "Verify the Engagement ERP Last Integration Status as Success ");
+                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
                     randomPages.CloseActiveTab(engName);
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
