@@ -409,7 +409,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Page with title: " + RevProj + " is displayed after clicking Revenue Projection tab ");
 
                 ////Validate Update functionality of Revenue Projection
-                //string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
+                string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
                 //Assert.AreEqual("GBP 10.00", valRevProj);
                 //extentReports.CreateLog("Revenue Projection with Projected Monthly Fee: " + valRevProj + " is displayed after updating Revenue Projection ");
 
@@ -491,13 +491,10 @@ namespace SF_Automation.TestCases.Opportunities
                 //extentReports.CreateLog("Tab " + tabCST + " is displayed in Right panel of Engagement details page ");
 
                 //Save an Engagement Comment and Validate the added
-                engagementDetails.AddEngCommentaAndValidate();
-                //string addedComments = opportunityDetails.GetOppCommentsL();
-                //Assert.AreEqual("Administrative", addedCommentsType);
-                //Assert.AreEqual("Testing", addedComments);
-                //extentReports.CreateLog("Added Engagement comments with comments: " + addedComments + " is displayed under Comments section ");
+                engagementDetails.AddEngCommentaAndValidate("Administrative");
+                string addedComments = opportunityDetails.GetOppCommentsL();
+                Assert.AreEqual("Testing", addedComments);
                 extentReports.CreateLog("Added Engagement comments with comments is displayed under Comments section ");
-
 
                 //Validate update functionality of existing comment
                 string valUpdatedComment =engagementDetails.ValidateUpdateFunctionalityOfEngComment();

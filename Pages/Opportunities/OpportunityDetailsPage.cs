@@ -444,7 +444,8 @@ namespace SF_Automation.Pages
         By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSubject = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
+        By tabClientSubjectL = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT = By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
         By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
@@ -1614,7 +1615,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnMassEditRecordsL).Click();
             Thread.Sleep(5000);
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
-            Thread.Sleep(6000);
+            Thread.Sleep(10000);
             string name = driver.FindElement(titleMassEditPageL).Text;
             return name;
         }
@@ -1993,9 +1994,9 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
-                driver.FindElement(lnkMoreL).Click();
-                Thread.Sleep(5000);
+                //WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
+                //driver.FindElement(lnkMoreL).Click();
+                //Thread.Sleep(5000);
                 string valImage = driver.FindElement(btnFEISL).Displayed.ToString();
                 Console.WriteLine("Lock Image: " + valImage);
                 return "FEIS Form button is displayed";
@@ -6042,7 +6043,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(3000);
             driver.Navigate().Refresh();
-            Thread.Sleep(4000);
+            Thread.Sleep(9000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubject);
             string name = driver.FindElement(tabClientSubject).Text;
             Thread.Sleep(3000);
@@ -6051,6 +6052,20 @@ namespace SF_Automation.Pages
             return name;
         }
 
+
+        //Validate Client/Subject and Referral tab
+        public string ValidateClientSubjectAndReferralTabFVAL()
+        {
+            Thread.Sleep(3000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubject);
+            string name = driver.FindElement(tabClientSubject).Text;
+            Thread.Sleep(3000);
+            driver.FindElement(tabClientSubject).Click();
+            Thread.Sleep(5000);
+            return name;
+        }
         //Validate Internal Team tab
         public string ValidateInternalTeamTabL()
         {

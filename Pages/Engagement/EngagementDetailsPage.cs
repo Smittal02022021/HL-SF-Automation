@@ -124,8 +124,11 @@ namespace SF_Automation.Pages.Engagement
         By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dd//slot/lightning-formatted-text");
         By lblSubjectHeader = By.XPath("//p[@title='Subject']");
         By valSubjectHeader= By.XPath("//p[@title='Subject']/ancestor::div[1]/p[2]//records-hoverable-link//a//slot//slot/span");
-
-
+        By lblCloseDate = By.XPath("//flexipage-field//div/span[text()='Close Date']");
+        By valCloseDate = By.XPath("//flexipage-field//div/span[text()='Close Date']/ancestor::div[2]//lightning-formatted-text");
+        By lblJobTypeHeader = By.XPath("//p[@title='Job Type']");
+        By valJobTypeHeader = By.XPath("//p[text()='Job Type']/ancestor::div[1]/p[2]//lightning-formatted-text");
+        
 
         By valERPLOB = By.CssSelector("div[id*='e8j']");
         By valIG = By.CssSelector("div[id*='Axj']");
@@ -342,9 +345,9 @@ namespace SF_Automation.Pages.Engagement
         By txtEstMktDate = By.XPath("//input[@name='Expected_In_Market_Date__c']");
         By valEstMktDate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Expected_In_Market_Date__c']//lightning-formatted-text");
         By lnkAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
-        By lnkEditAccStatus = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[1]//flexipage-column2[1]/div/slot/flexipage-field[2]/slot//button/span[1]");
+        By lnkEditAccStatus = By.XPath("//flexipage-tab2[3]//flexipage-component2[1]//flexipage-column2[2]//flexipage-field[2]//button/span[1]");
         By txtDealCloudID = By.XPath("//input[@name='Legacy_SLX_ID__c']");
-        By valDealCloudIDPostUpdate = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2[1]//flexipage-column2[1]/div/slot/flexipage-field[5]/slot//lightning-formatted-text");
+        By valDealCloudIDPostUpdate = By.XPath("//span[text()='DealCloud ID']/ancestor::div[2]/dd//lightning-formatted-text");
         By lnkEditIntDeal = By.XPath("//button[@title='Edit Internal Deal Announcement']");
         By btnIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]/div//button");
         By valIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]//lightning-base-combobox-item[3]/span[2]/span");
@@ -432,26 +435,26 @@ namespace SF_Automation.Pages.Engagement
         By lnkEditConfAgree = By.XPath("//button[@title='Edit Confidentiality Agreement']");
         By txtDateSigned = By.XPath("//input[@name='Date_CA_Signed__c']");
         By valDateSigned = By.XPath("//flexipage-tab2[2]//flexipage-column2[2]//flexipage-field[1]//record_flexipage-record-field//dd//lightning-formatted-text");
-        By tabComments = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
+        By tabComments = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2//a[text()='Comments']");
         By tabFinancials = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By tabEngContacts = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
         
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
-        By btnView = By.XPath("//lst-list-view-row-level-action/lightning-button-menu/button");
+        By btnView = By.XPath("//ul/li/div/div/div/div/a");
         By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
-        By lnkEditComments = By.XPath("//button[text()='Change Owner']/ancestor::ul/li[1]//button");
+        By lnkEditComments = By.XPath("//a[@title='Edit']");
         By btnEditEngComment = By.XPath("//table/tbody/tr/td[8]/span/div/a");
-        By txtEditComment = By.XPath("//textarea");
-        By lnkDeleteComment = By.XPath("//button[text()='Change Owner']/ancestor::ul/li[2]//button");
+        By txtEditComment = By.XPath("//lightning-textarea//textarea");
+        By lnkDeleteComment = By.XPath("//a[@title='Delete']");
         By msgDeleteComment = By.XPath("//span[text()='Comments']/ancestor::a/span[2]");
-        By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
+        By lnkComments = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2//span[text()='Comments']/ancestor::div[4]//button");
         By lnkNewComment = By.XPath("//span[text()='New']");
         By btnComments = By.XPath("//button[@data-value='Internal']");
-        By valCommentsType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span");
+        By valCommentsType = By.XPath("//lightning-base-combobox-item/span[2]/span[text()='Administrative']");
         By txtCommentNotes = By.XPath("//textarea");
         By btnSaveComments = By.XPath("//c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[4]/div/lightning-button/button");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valAddedComment = By.XPath("//flexipage-component2[1]/slot//records-record-layout-section[2]//slot[1]/lightning-formatted-text");
+        By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]//lightning-base-formatted-text");
         //By tabFinancials = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By btnFinancials = By.XPath("//lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li/lightning-button-menu/button");
         By lnkAddFinancials = By.XPath("//span[text()='New Financials']");
@@ -535,7 +538,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
-        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
+        By valRelatedOppL = By.XPath("//span[text()='Engagement']/ancestor::div[2]//dd//a//span[1]//span//span");
         By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
@@ -3729,6 +3732,33 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valSubjectHeader).Text;
             return value;
         }
+
+        public string ValidateJobTypeOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblJobTypeHeader);
+            string subject = driver.FindElement(lblJobTypeHeader).Text;
+            return subject;
+        }
+        public string ValidateJobtypeValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeHeader);
+            string value = driver.FindElement(valJobTypeHeader).Text;
+            return value;
+        }
+
+
+        public string ValidateCloseDateLabel()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCloseDate);
+            string subject = driver.FindElement(lblCloseDate).Text;
+            return subject;
+        }
+        public string ValidateCloseDateValue()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCloseDate);
+            string value = driver.FindElement(valCloseDate).Text;
+            return value;
+        }
         public string GetExtDisclosureStatus()
         {            
            WebDriverWaits.WaitUntilEleVisible(driver, lblDiscStatus);
@@ -5886,10 +5916,10 @@ namespace SF_Automation.Pages.Engagement
         //Validate if Administration tab is editable after clicking pencil icon
         public string ValidateAdministrationTabIsEditable()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditAccStatus, 150);
             driver.FindElement(lnkEditAccStatus).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 150);
             string value = driver.FindElement(btnSaveDetailsL).Displayed.ToString();
             return value;
@@ -6236,8 +6266,8 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateUpdateFunctionalityOfEngComment()
         {
             Thread.Sleep(3000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnView, 190);
-            //driver.FindElement(btnView).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnView, 190);
+            driver.FindElement(btnView).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditComments, 150);
             driver.FindElement(lnkEditComments).Click();
@@ -6253,24 +6283,24 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Add Engagement Comments
-        public void AddEngCommentaAndValidate()
+        public void AddEngCommentaAndValidate(string type)
         {
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
             driver.FindElement(tabComments).Click();
             Thread.Sleep(4000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 150);
-            //driver.FindElement(lnkComments).Click();
-            //Thread.Sleep(5000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkNewComment, 150);
-            //driver.FindElement(lnkNewComment).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkComments, 150);
+            driver.FindElement(lnkComments).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkNewComment, 150);
+            driver.FindElement(lnkNewComment).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnComments, 150);
             driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
-            driver.FindElement(valCommentsType).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + type + "']")).Click();
             driver.FindElement(txtCommentNotes).SendKeys("Testing");
-            driver.FindElement(btnSaveComments).Click();
+            driver.FindElement(btnSaveCSTQuestionnaire).Click();
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,550)");
@@ -6279,6 +6309,17 @@ namespace SF_Automation.Pages.Engagement
             //return commentType;
         }
 
+        //Get added Engagement comments
+        public string GetEngCommentsL()
+        {            
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
+            string comment = driver.FindElement(valAddedComment).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 210);
+            driver.FindElement(valRelatedOppL).Click();
+            Thread.Sleep(5000);
+            return comment;
+        }
 
         //Add Financials.
         public string AddFinancialsAndValidate()
@@ -6961,9 +7002,9 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateDeleteFunctionalityOfEngComment()
         {
             Thread.Sleep(4000);
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnViewDel, 150);
-            //driver.FindElement(btnViewDel).Click();
-            //Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnView, 150);
+            driver.FindElement(btnView).Click();
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteComment, 160);
             driver.FindElement(lnkDeleteComment).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDelete, 170);

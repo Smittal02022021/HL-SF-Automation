@@ -77,6 +77,12 @@ namespace SF_Automation.TestCases.Engagement
                 string subject = engagementDetails.ValidateSubjectOnHeader();
                 string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
 
+                string closeDate = engagementDetails.ValidateCloseDateLabel();
+                string closeDateValue = engagementDetails.ValidateCloseDateValue();
+
+                string jobType = engagementDetails.ValidateJobTypeOnHeader();
+                string jobTypeValue = engagementDetails.ValidateJobtypeValueOnHeader();
+
                 engagementDetails.ValidateFeesTab();
                 string txnSizeValue = engagementDetails.GetValEstTansacttionMarketCapLV();
                 string txnSize = engagementDetails.GetEstTansacttionMarketCapLabel();
@@ -120,10 +126,21 @@ namespace SF_Automation.TestCases.Engagement
 
                 string report =summaryPage.ConnectCognoAndOpenPDF();
                 string engSummaryReport = summaryPage.VerifyEngSummaryinReport();
-                Assert.AreEqual("Engagement Summary Report", engSummaryReport);
+                Assert.AreEqual("Engagement Summary Report ", engSummaryReport);
                 extentReports.CreateLog("Report with name: " + engSummaryReport +  " is displayed after clicking Summary Report button on CF Engagement Summary . ");
 
-                //6. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
+                //5. TMTI0114533_Verify the "Closed Date" label and mapping value are displayed.
+                string closeDateSummary = summaryPage.ValidateCloseDateOnHeader();
+                string closeDateSummaryValue = summaryPage.ValidateCloseDateValueOnHeader();
+                
+                Assert.AreEqual(closeDate, closeDateSummary);
+                Assert.AreEqual(closeDateValue, closeDateSummaryValue);
+                extentReports.CreateLog("The label " + closeDateSummary + " and mapping value " + closeDateSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
+                //6. TMTI0114534_Verify the "Job Type" label and mapping value are displayed.
+                 
+
+                //7. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
                 string discSummary = summaryPage.ValidateDiscStatusOnHeader();
                 string discSummaryValue = summaryPage.ValidateDiscStatusValueOnHeader();
 
@@ -131,7 +148,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(discStatusValue, discSummaryValue);
                 extentReports.CreateLog("The label " + discSummary + " and mapping value " + discSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
-                //7. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
+                //8. TMTI0114536_Verify the "Line Of Business" label and mapping value is displayed.
                 string lobSummary = summaryPage.ValidateLOBOnHeader();
                 string lobSummaryValue = summaryPage.ValidateLOBValueOnHeader();
 

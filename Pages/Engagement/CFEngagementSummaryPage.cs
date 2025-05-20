@@ -170,6 +170,8 @@ namespace SF_Automation.Pages.Engagement
         By txtCognoUser = By.XPath("//input[@id='CAMUsername']");
         By txtCognoPass = By.XPath("//input[@id='CAMPassword']");
         By btnSignin = By.XPath("//button[text()='Sign in']");
+        By lblCloseDate = By.XPath("//li//span[text()='Close Date']/ancestor::li//div[1]/span");
+        By valCloseDate = By.XPath("//li//span[text()='Close Date']/ancestor::li//div[2]");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1284,6 +1286,19 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(msgTxnSize).Text;
             return value;
         }
+
+        public string ValidateCloseDateOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCloseDate);
+            string status = driver.FindElement(lblCloseDate).Text;
+            return status;
+        }
+        public string ValidateCloseDateValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valCloseDate);
+            string value = driver.FindElement(valCloseDate).Text;
+            return value;
+        }
         public string ValidateEngNumberMessageOnHeader()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgEngNum);
@@ -1315,11 +1330,11 @@ namespace SF_Automation.Pages.Engagement
 
         public string VerifyEngSummaryinReport()
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(15000);
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
             Thread.Sleep(7000);
             driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
-            Thread.Sleep(8000);            
+            Thread.Sleep(22000);            
             string engSummary = driver.FindElement(By.XPath("//tr[3]/td//tr[1]/td/div/span")).Text;
             driver.SwitchTo().Window(driver.WindowHandles.First());
             Thread.Sleep(6000);

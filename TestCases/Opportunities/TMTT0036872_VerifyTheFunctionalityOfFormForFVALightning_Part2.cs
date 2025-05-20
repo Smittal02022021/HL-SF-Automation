@@ -108,7 +108,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string FEISForm = opportunityDetails.ValidateFEISFormButton();
                 string clientName = opportunityDetails.GetClientCompanyL();
                 string subjectName = opportunityDetails.GetSubjectCompanyL();
-                opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                 string valUpdRefType = opportunityDetails.GetRefTypePostUpdate();
                 addOpportunity.ClickInfoTab();
                 Assert.AreEqual("FEIS Form button is displayed", FEISForm);

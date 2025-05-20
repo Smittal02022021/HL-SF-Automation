@@ -1266,7 +1266,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAllocationL).Click();
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(2);
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             string value = driver.FindElement(addedAllocationL).Displayed.ToString();
             return value;
         }
