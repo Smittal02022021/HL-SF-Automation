@@ -5,11 +5,10 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Linq;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType : BaseClass
+    class zTMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -32,7 +31,7 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void CNBCFormSubmitforReview()
+        public void EstimatedValuationField()
         {
             try
             {
@@ -58,43 +57,42 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                Console.WriteLine("rowCount " + rowJobType);
+                string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 3, 3);
+              
+                //Search for created opportunity
+                string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
+                Assert.AreEqual("Record found", message);
+                extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
 
-                for (int row = 2; row <= rowJobType; row++)
-                {
-                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
-                    //Search for created opportunity
-                   string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
-                    //opportunityHome.SearchMyOpportunitiesInLightning("78446",valUser);                    
-                    extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
-                    
-                    if (valJobType.Equals("Illiquid Financial Assets")|| valJobType.Equals("Buyside & Financing Advisory"))
-                    {
-                        string title = opportunityDetails.ClickNBCForm();
-                        //Validate the pop up
-                        Assert.AreEqual("Please select a form type.", title);
-                        extentReports.CreateLog("Page with title: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : " + valJobType + " ");
+                //Update the Est. Transaction Size and get its updated value
+                string updTxnSize= opportunityDetails.UpdateEstTransactionSize();
+                extentReports.CreateLog("Est Transaction Size is updated with value: "+ updTxnSize + " ");
 
-                        //Validate Radio buttons
-                        string MA = opportunityDetails.ValidateMARadioButton();
-                        Assert.AreEqual("M&A", MA);
-                        extentReports.CreateLog("Radio button with name: " + MA + " is displayed on the pop up ");
+                //Open the NBC form and navigate to Opportunity Overview tab
+                string title = opportunityDetails.ClickNBCFormL();
+                Assert.AreEqual("Public Sensitivity",title);
+                extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
 
-                        string CapitalMkt = opportunityDetails.ValidateCapitalMktRadioButton();
-                        Assert.AreEqual("Capital Market", CapitalMkt);
-                        extentReports.CreateLog("Radio button with name: " + CapitalMkt + " is displayed on the pop up ");
-                        
+                string oppOverview = nform.ClickFeesTab();
+                Assert.AreEqual("Fees", oppOverview);
+                extentReports.CreateLog("Page with tab: " + oppOverview + " is displayed upon clicking Opportunity Overview tab ");
 
-                    }
-                    else
-                    {
-                        string title = opportunityDetails.ClickNBCFormL();
-                        extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
-                       
-                    }
-                    form.SwitchFrameClassic();
-                }
+                //Validate the value of Estimated Valuation on NBC Form
+                string estVal= nform.GetEstimatedValuation();
+                Assert.AreNotEqual(updTxnSize, estVal);
+                extentReports.CreateLog("Est Transaction Size is not copied to Estimated Valuation in NBC ");
+
+                //Update Estimated Valuation in NBC now
+                string updEstVal = nform.UpdateEstimatedValuation();
+                extentReports.CreateLog("Estimated Valuation in NBC is updated with value: " + updEstVal + " ");
+
+                //Validate the value of Est Transaction Size on Opportunity Details
+                form.SwitchFrameClassic();
+                string txnSize = opportunityDetails.GetEstTransactionSize();
+                Assert.AreNotEqual(updEstVal, txnSize);
+                extentReports.CreateLog("Estimated Valuation is not copied to Est Transaction Size in Opportunity Details ");
+                                            
+                
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();

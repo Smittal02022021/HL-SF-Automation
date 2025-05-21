@@ -97,7 +97,7 @@ namespace SF_Automation.Pages.Common
         //To logout from a user
         public void UserLogOut()
         {
-            Thread.Sleep(6000);
+            Thread.Sleep(7000);
             //WebDriverWaits.WaitUntilEleVisible(driver, loggedUser, 140);
             driver.FindElement(loggedUser).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 160);
@@ -177,7 +177,7 @@ namespace SF_Automation.Pages.Common
         //Log out of Lightning
         public void DiffLightningLogout()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 70);
             driver.FindElement(imgUser).Click();
             Thread.Sleep(3000);

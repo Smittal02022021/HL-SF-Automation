@@ -162,6 +162,8 @@ namespace SF_Automation.Pages.Engagement
         By valSubOwner = By.XPath("//li//span[text()='Subject Ownership']//ancestor::li/div[2]");
         By lblSubject = By.XPath("//li/div/span[text()='Subject']");
         By valSubject = By.XPath("//li//span[text()='Subject']/ancestor::li//a");
+        By lblClient = By.XPath("//li/div/span[text()='Client']");
+        By valClient = By.XPath("//li//span[text()='Client']/ancestor::li//a");
         By lblTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]/span");
         By valTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[2]");
         By msgTxnSize = By.XPath("//li//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::li//div[1]//button//span[2]");
@@ -172,6 +174,8 @@ namespace SF_Automation.Pages.Engagement
         By btnSignin = By.XPath("//button[text()='Sign in']");
         By lblCloseDate = By.XPath("//li//span[text()='Close Date']/ancestor::li//div[1]/span");
         By valCloseDate = By.XPath("//li//span[text()='Close Date']/ancestor::li//div[2]");
+        By lblJoType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[1]/span");
+        By valJobType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[2]");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1268,6 +1272,19 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valSubject).Text;
             return value;
         }
+
+        public string ValidateClientOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClient);
+            string status = driver.FindElement(lblClient).Text;
+            return status;
+        }
+        public string ValidateClientValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClient);
+            string value = driver.FindElement(valClient).Text;
+            return value;
+        }
         public string ValidateEstTxnSizeOnHeader()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblTxnSize);
@@ -1297,6 +1314,18 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCloseDate);
             string value = driver.FindElement(valCloseDate).Text;
+            return value;
+        }
+        public string ValidateJobTypeOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblJoType);
+            string status = driver.FindElement(lblJoType).Text;
+            return status;
+        }
+        public string ValidateJobTypeValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobType);
+            string value = driver.FindElement(valJobType).Text;
             return value;
         }
         public string ValidateEngNumberMessageOnHeader()
@@ -1330,7 +1359,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string VerifyEngSummaryinReport()
         {
-            Thread.Sleep(15000);
+            Thread.Sleep(17000);
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
             Thread.Sleep(7000);
             driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();

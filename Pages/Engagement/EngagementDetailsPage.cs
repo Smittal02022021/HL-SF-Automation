@@ -124,6 +124,8 @@ namespace SF_Automation.Pages.Engagement
         By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dd//slot/lightning-formatted-text");
         By lblSubjectHeader = By.XPath("//p[@title='Subject']");
         By valSubjectHeader= By.XPath("//p[@title='Subject']/ancestor::div[1]/p[2]//records-hoverable-link//a//slot//slot/span");
+        By lblClientHeader = By.XPath("//p[@title='Client']");
+        By valClientHeader = By.XPath("//p[@title='Client']/ancestor::div[1]/p[2]//records-hoverable-link//a//slot//slot/span");
         By lblCloseDate = By.XPath("//flexipage-field//div/span[text()='Close Date']");
         By valCloseDate = By.XPath("//flexipage-field//div/span[text()='Close Date']/ancestor::div[2]//lightning-formatted-text");
         By lblJobTypeHeader = By.XPath("//p[@title='Job Type']");
@@ -538,7 +540,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
-        By valRelatedOppL = By.XPath("//span[text()='Engagement']/ancestor::div[2]//dd//a//span[1]//span//span");
+        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]//dd//a//span[1]//span//span");
         By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
@@ -3730,6 +3732,18 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valSubjectHeader);
             string value = driver.FindElement(valSubjectHeader).Text;
+            return value;
+        }
+        public string ValidateClientOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lblClientHeader);
+            string subject = driver.FindElement(lblClientHeader).Text;
+            return subject;
+        }
+        public string ValidateClientValueOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valClientHeader);
+            string value = driver.FindElement(valClientHeader).Text;
             return value;
         }
 
@@ -8430,7 +8444,8 @@ namespace SF_Automation.Pages.Engagement
         //Validate New Opp Valuation Period button of an Opportunity converted to Engagement
         public string ValidateNewOppValPeriodButtonOfRelatedOpp(string user)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 120);
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 190);
             driver.FindElement(valRelatedOppL).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);

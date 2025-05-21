@@ -77,6 +77,9 @@ namespace SF_Automation.TestCases.Engagement
                 string subject = engagementDetails.ValidateSubjectOnHeader();
                 string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
 
+                string client = engagementDetails.ValidateClientOnHeader();
+                string clientValue = engagementDetails.ValidateClientValueOnHeader();
+
                 string closeDate = engagementDetails.ValidateCloseDateLabel();
                 string closeDateValue = engagementDetails.ValidateCloseDateValue();
 
@@ -138,7 +141,13 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("The label " + closeDateSummary + " and mapping value " + closeDateSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
                 //6. TMTI0114534_Verify the "Job Type" label and mapping value are displayed.
-                 
+                string jobTypeSummary = summaryPage.ValidateJobTypeOnHeader();
+                string jobTypeSummaryValue = summaryPage.ValidateJobTypeValueOnHeader();
+
+                Assert.AreEqual(jobType, jobTypeSummary);
+                Assert.AreEqual(jobTypeValue, jobTypeSummaryValue);
+                extentReports.CreateLog("The label " + jobTypeSummary + " and mapping value " + jobTypeSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
+
 
                 //7. TMTI0114535_Verify that the label External Disclosure Status and mapping value are displayed.
                 string discSummary = summaryPage.ValidateDiscStatusOnHeader();
@@ -157,7 +166,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("The label " + lobSummary + " and mapping value " + lobSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
                 
                        
-                //8. TMTI0114537_Verify that the "Subject" label and mapping value are displayed.
+                //9. TMTI0114537_Verify that the "Subject" label and mapping value are displayed.
                 string subSummary = summaryPage.ValidateSubjectOnHeader();
                 string subSummaryValue = summaryPage.ValidateSubjectValueOnHeader();
 
@@ -165,8 +174,13 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(subjectValue, subSummaryValue);
                 extentReports.CreateLog("The label " + subSummary + " and mapping value " + subSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
-               
-                
+                //10. TMTI0114538_Verify that the "Client" label and mapping value are displayed.
+                string clientSummary = summaryPage.ValidateClientOnHeader();
+                string clientSummaryValue = summaryPage.ValidateClientValueOnHeader();
+
+                Assert.AreEqual(client, clientSummary);
+                Assert.AreEqual(clientValue, clientSummaryValue);
+                extentReports.CreateLog("The label " + clientSummary + " and mapping value " + clientSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

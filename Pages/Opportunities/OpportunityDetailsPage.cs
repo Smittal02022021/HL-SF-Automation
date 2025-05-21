@@ -60,12 +60,13 @@ namespace SF_Automation.Pages
         By valJobType = By.CssSelector("div[id*='00Ni000000D8hWWj']");
         By btnNBCForm = By.CssSelector("input[name='nbc_form_cr']");
         By btnNBCFormL = By.CssSelector("input[name='nbc_form_c']");
-        By btnNBCFormLightning = By.XPath("//button[text()='NBC']");
+        By btnNBCFormLightning = By.XPath("//button[contains(text(),'NBC')]");
         By btnNBCFormType = By.CssSelector("input[name='nbc_form_cr']");
         By msgNoNBCAccessL = By.XPath("//tbody/tr[1]/td[2]/div");
         By btnMA = By.XPath("//fieldset/table/tbody/tr/td[1]/label");
         By btnCapMkt = By.XPath("//fieldset/table/tbody/tr/td[2]/label");
         By titleNBCForm = By.XPath("//table//tr/td[2]//div[2]/p");
+        By titlePopUp = By.XPath("//p[text()='Please select a form type.']");
         By titleFEISL = By.XPath("//div[@class='slds-rich-text-editor__output uiOutputRichText forceOutputRichText']/p[1]");
         By linkRequestDate = By.CssSelector("div:nth-child(23) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span > span > a");
         By linkPitchDate = By.XPath("//div[3]/table/tbody//td[4]/span/span/a");
@@ -340,6 +341,7 @@ namespace SF_Automation.Pages
         By valTotalDebtMML = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_MM__c']//dd//lightning-formatted-number");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
         By titleNBCAdmin = By.XPath("//table//tr/td[2]/p[1]");
+
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
@@ -1561,7 +1563,14 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCapMkt, 120);
             string button = driver.FindElement(btnCapMkt).Text;
+            driver.SwitchTo().DefaultContent();
+            
             return button;
+        }
+
+        public void CloseOpportunityTab()
+        {
+            driver.FindElement(By.XPath("//li[2]//button[contains(@title,'Close')]")).Click();
         }
 
 
@@ -1916,6 +1925,29 @@ namespace SF_Automation.Pages
             driver.FindElement(btnNBCFormLightning).Click();
             //driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
+            string title = driver.FindElement(txtDefaultTabCNBC).Text;
+            return title;
+        }
+
+        public string ClickNBCFormLAndValidatePopUp()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormLightning, 120);
+            driver.FindElement(btnNBCFormLightning).Click();
+            Thread.Sleep(5000);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titlePopUp, 140);
+            string title = driver.FindElement(titlePopUp).Text;           
+            return title;
+        }
+        public string ClickNBCFormLAndValidatePage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNBCFormLightning, 120);
+            driver.FindElement(btnNBCFormLightning).Click();
+            Thread.Sleep(5000);
+            //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
             string title = driver.FindElement(txtDefaultTabCNBC).Text;
             return title;

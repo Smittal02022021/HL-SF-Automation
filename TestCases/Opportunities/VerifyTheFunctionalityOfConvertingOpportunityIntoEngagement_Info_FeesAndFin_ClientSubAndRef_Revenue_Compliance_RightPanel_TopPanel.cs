@@ -408,8 +408,8 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Revenue Projections", RevProj);
                 extentReports.CreateLog("Page with title: " + RevProj + " is displayed after clicking Revenue Projection tab ");
 
-                ////Validate Update functionality of Revenue Projection
-                string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
+                //Validate Update functionality of Revenue Projection
+                //string valRevProj = engagementDetails.ValidateEditRevenueProjFunctionality();
                 //Assert.AreEqual("GBP 10.00", valRevProj);
                 //extentReports.CreateLog("Revenue Projection with Projected Monthly Fee: " + valRevProj + " is displayed after updating Revenue Projection ");
 

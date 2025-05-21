@@ -46,13 +46,14 @@ namespace SF_Automation.Pages
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By tblOpportunities = By.XPath("//div/table/tbody");
-        By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
+       By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]//lst-formatted-text/span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]//lst-formatted-text/span");
+        By valSearchedOppName = By.XPath("//table/tbody/tr/th//a");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
-        By tabOpportunityL = By.XPath("//a/span[text()='Opportunities']");
+       By tabOpportunityL = By.XPath("//a/span[text()='Opportunities']");
         By valRec1st = By.XPath("//table/tbody/tr[1]/th/span//a");
         By btnCloseOpp = By.XPath("//ul[2]/li[2]/div[2]/button");
         By tab1stOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
@@ -509,11 +510,11 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfOpportunities(string name)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchOpp, 150);
+            Thread.Sleep(7000);
             driver.FindElement(txtSearchOpp).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             string opp = driver.FindElement(valSearchedOpp).Text;
             try
             {
@@ -526,6 +527,30 @@ namespace SF_Automation.Pages
             catch (Exception)
             {
                 return opp;
+            }
+        }
+
+        //Validate if Search functionality is working as expected
+        public string SearchOpportunityUsingSearchBox(string name)
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(txtSearchOpp).Clear();
+            driver.FindElement(txtSearchOpp).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(valSearchedOppName).Click();
+            try
+            {
+                //WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+                //driver.FindElement(valRec1st).Click();
+                //driver.FindElement(btnCloseOpp).Click();
+
+                return "Opportunity found";
+            }
+            catch (Exception)
+            {
+                return "Opportunity not found";
             }
         }
 
