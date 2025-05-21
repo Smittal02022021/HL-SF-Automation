@@ -38,7 +38,7 @@ namespace SF_Automation.TestCases.Engagement
         }
 
         [Test]
-        public void VerifyActivityIsLinkedToTheRelatedEngagement()
+        public void VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheBuysideDeals_BuyerIsAPotentialRoundTrip()
         {
             try
             {
