@@ -450,25 +450,13 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyWarningMsg(string message)
         {
             bool result = false;
-            if(driver.FindElement(warningMsgModal).Text == message)
+            if (driver.FindElement(warningMsgModal).Text == message)
             {
                 result = true;
             }
 
-            try
-            {
-                Thread.Sleep(5000);
-
-                driver.FindElement(By.XPath("(//button[text()='Close'])[1]")).Click();
-                Thread.Sleep(5000);
-            }
-            catch(Exception)
-            {
-                Thread.Sleep(5000);
-
-                driver.FindElement(By.XPath("(//button[text()='Close'])[2]")).Click();
-                Thread.Sleep(5000);
-            }
+            CustomFunctions.PageReload(driver);
+            Thread.Sleep(10000);
 
             return result;
         }

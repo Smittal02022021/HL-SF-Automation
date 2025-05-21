@@ -7702,7 +7702,7 @@ namespace SF_Automation.Pages
             if(valJobType == "Lender Education")
             {
                 driver.FindElement(txtRefContactL2).SendKeys(valRef);
-                Thread.Sleep(4000);
+                Thread.Sleep(5000);
                 By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']"); //flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
                 CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
                 driver.FindElement(refContactL).Click();
@@ -7710,7 +7710,7 @@ namespace SF_Automation.Pages
             else
             {
                 driver.FindElement(txtRefContactL2).SendKeys(valRef);
-                Thread.Sleep(4000);
+                Thread.Sleep(5000);
                 By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']"); //flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
                 CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
                 driver.FindElement(refContactL).Click();
