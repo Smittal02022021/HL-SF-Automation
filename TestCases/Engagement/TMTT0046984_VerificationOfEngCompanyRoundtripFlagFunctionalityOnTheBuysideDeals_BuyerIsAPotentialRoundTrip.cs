@@ -240,7 +240,7 @@ namespace SF_Automation.TestCases.Engagement
                         //Check Client Ownership
                         if (clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
-                            //TMTI0114956 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
+                            //TMTI0114971 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is PE or PE Owned, no prompt will appear, and set the values as selected. 
 
                             //Verify No warning message is displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");

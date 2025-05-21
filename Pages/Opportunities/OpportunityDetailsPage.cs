@@ -7653,7 +7653,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnEditL).Click();
             Thread.Sleep(4000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 60);
             string valClient = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 18);
             driver.FindElement(comboClientOwnershipL).Click();// SendKeys(valClient);
             Thread.Sleep(3000);
@@ -7765,7 +7765,6 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
-
 
         public bool IsViewCounterpartyButton()
         {

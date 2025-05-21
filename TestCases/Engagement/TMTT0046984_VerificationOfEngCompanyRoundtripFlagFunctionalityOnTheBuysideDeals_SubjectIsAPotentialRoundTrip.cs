@@ -115,7 +115,7 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Validating Title of New Opportunity Page
                     string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
-                    Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
+                    Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity page for selected LOB ");
                     extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                     //Create New Opportunity
