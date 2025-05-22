@@ -442,6 +442,7 @@ namespace SF_Automation.Pages
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
         By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//dd//slot[1]/lightning-formatted-text");
+        By valEstTxnSizeOppL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]//dd//lightning-formatted-text");
         // By valEstTxnSize = By.XPath("//div[contains(@id, 'P4j')]");
         By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
         By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
@@ -461,7 +462,7 @@ namespace SF_Automation.Pages
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
         By valCreator = By.XPath("//dt[text()='Created By:']/ancestor::dl/dd[2]//span");
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
-        By tabOpportunityL = By.XPath("//section[3]/div/div//ul[2]/li[2]/a/span[2]");
+        By tabOpportunityL = By.XPath("//div[1]/div/div[1]/div[2]//ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         //By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
@@ -1230,6 +1231,20 @@ namespace SF_Automation.Pages
             string estTxn = value.Substring(0, 8);
             return estTxn;
         }
+        //Get the value of Est Txn Size
+        public string GetEstTransactionSizeL()
+        {
+            Thread.Sleep(8000);
+            driver.FindElement(tabOpportunityL).Click();            
+            Thread.Sleep(5000);
+            driver.FindElement(tabOppL).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valEstTxnSizeOppL).Text;
+            string estTxn = value.Substring(0, 8);
+            return estTxn;
+        }
 
         //Update Est Txn Size
         public string UpdateEstTransactionSize()
@@ -1242,6 +1257,23 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valEstTxnSize).Text;
+            string estTxn = value.Substring(0, 8);
+            return estTxn;
+        }
+
+        //Update Est Txn Size
+        public string UpdateEstTransactionSizeL()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 180);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtEstTxnSizeL).Clear();
+            driver.FindElement(txtEstTxnSizeL).SendKeys("5");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valEstTxnSizeL).Text;
             string estTxn = value.Substring(0, 8);
             return estTxn;
         }

@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions : BaseClass
+    class TMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions_Lightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -53,20 +53,21 @@ namespace SF_Automation.TestCases.Opportunities
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUser();
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 3, 3);
               
                 //Search for created opportunity
-                string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
-                Assert.AreEqual("Record found", message);
+                string message= opportunityHome.SearchOpportunityUsingSearchBox("111344");
+                Assert.AreEqual("Opportunity found", message);
                 extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
 
                 //Open the NBC form
-                string title = opportunityDetails.ClickNBCFormL();
-                extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
+                string title = opportunityDetails.ClickNBCFormLAndValidatePage();
+                Assert.AreEqual("Opportunity Overview", title);
+                extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : " + valJobType + " ");
 
                 string txtFees = nform.ClickFeesTab();
                 Assert.AreEqual("Fees", txtFees);
@@ -83,9 +84,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string EstFee = nform.GetEstimatedTotalFee();
                 Console.WriteLine("EstFee: " + EstFee);
                 Assert.AreEqual("EUR 25.0", EstFee);
-                extentReports.CreateLog("Estimated Total Fee: " + EstFee + " is displayed in MM ");                                
+                extentReports.CreateLog("Estimated Total Fee: " + EstFee + " is displayed ");                                
 
-                form.SwitchFrame();
+                //form.SwitchFrame();
                 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC_Lightning : BaseClass
+    class zTMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -31,7 +31,7 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         [Test]
-        public void EstimatedValuationField()
+        public void VerificationOfRetainer()
         {
             try
             {
@@ -53,46 +53,39 @@ namespace SF_Automation.TestCases.Opportunities
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUserLightning();
+                string stdUser = login.ValidateUser();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
                 string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 3, 3);
               
                 //Search for created opportunity
-                string message= opportunityHome.SearchOpportunityUsingSearchBox("111344");
-                Assert.AreEqual("Opportunity found", message);
+                string message= opportunityHome.SearchOpportunityWithJobTypeAndStge(valJobType, "Low");
+                Assert.AreEqual("Record found", message);
                 extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
 
-                //Update the Est. Transaction Size and get its updated value
-               
-                string updTxnSize= opportunityDetails.UpdateEstTransactionSizeL();
-                extentReports.CreateLog("Est Transaction Size is updated with value: "+ updTxnSize + " ");
-
-                //Open the NBC form and navigate to Opportunity Overview tab
-                string title = opportunityDetails.ClickNBCFormLAndValidatePage();
-                Assert.AreEqual("Opportunity Overview",title);
+                //Open the NBC form
+                string title = opportunityDetails.ClickNBCFormL();
                 extentReports.CreateLog("Page with default tab: " + title + " is displayed upon clicking NBC-L form button for Opportunity with Job Type : "+valJobType +" ");
 
-                string oppOverview = nform.ClickFeesTab();
-                Assert.AreEqual("Fees", oppOverview);
-                extentReports.CreateLog("Page with tab: " + oppOverview + " is displayed upon clicking Opportunity Overview tab ");
+                string txtFees = nform.ClickFeesTab();
+                Assert.AreEqual("Fees", txtFees);
+                extentReports.CreateLog("Tab with name " + txtFees + " is displayed upon clicking Fees tab. ");
 
-                //Validate the value of Estimated Valuation on NBC Form
-                string estVal= nform.GetEstimatedValuationL();
-                Assert.AreNotEqual(updTxnSize, estVal);
-                extentReports.CreateLog("Est Transaction Size is not copied to Estimated Valuation in NBC ");
+                string txtRetainer = nform.GetLabelRetainer();
+                Assert.AreEqual("Retainer", txtRetainer);
+                extentReports.CreateLog("Field with name: " + txtRetainer + " is displayed without (MM) ");
 
-                //Update Estimated Valuation in NBC now
-                string updEstVal = nform.UpdateEstimatedValuation();
-                extentReports.CreateLog("Estimated Valuation in NBC is updated with value: " + updEstVal + " ");
+                string value = nform.UpdateRetainerAndValidate();                
+                Assert.AreEqual("EUR 1,000,000.00", value);
+                extentReports.CreateLog("Retainer Value: " + value + " is displayed as it is saved ");
 
-                //Validate the value of Est Transaction Size on Opportunity Details
-                //form.SwitchFrameClassic();
-                string txnSize = opportunityDetails.GetEstTransactionSizeL();
-                Assert.AreNotEqual(updEstVal, txnSize);
-                extentReports.CreateLog("Estimated Valuation is not copied to Est Transaction Size in Opportunity Details ");
-                                            
+                string EstFee = nform.GetEstimatedTotalFee();
+                Console.WriteLine("EstFee: " + EstFee);
+                Assert.AreEqual("EUR 25.0", EstFee);
+                extentReports.CreateLog("Estimated Total Fee: " + EstFee + " is displayed in MM ");                                
+
+                form.SwitchFrame();
                 
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();

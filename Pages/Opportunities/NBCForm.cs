@@ -79,7 +79,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By lnkEditOppOverviewTab = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By msgTransOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::div[3]");
-        By msgTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::div[2]");
+        By msgTotalDebt = By.XPath("//label[text()='Total Debt']/following::div[2]");
         By msgEstValuation = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
         By msgCurrentStatus = By.XPath("//div[text()='Opportunity Overview: Current Status']");
         By msgValuationExp = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
@@ -100,7 +100,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgProgressFee = By.XPath("//label[text()='Progress Fee Creditable ?']/following::div[3]");
         By msgMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/following::div[2]");
         By msgTxnFeeType = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div[2]");
-        By msgEstTxnValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
+        By msgEstTxnValue = By.XPath("//div[text()='Estimated Transaction Value should be greater than 0']");
 
         By msgWillThere = By.XPath("//div[text()='Pre-Pitch: Will there be a pitch?']");
         By msgHLComp = By.XPath("//label[text()='Houlihan Lokey Competition']/following::div[2]");
@@ -119,8 +119,8 @@ namespace SF_Automation.Pages.Opportunity
         By msgGroupHead = By.XPath("//div[text()='Opportunity Overview: Please confirm that a group head has approved prior to submitting to the committee.']");
 
         By txtTxnOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::textarea[1]");
-        By txtTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::input[1]");
-        By txtEstValuation = By.XPath("//label[text()='Estimated Transaction Value (MM)']/following::input[1]");
+        By txtTotalDebt = By.XPath("//label[text()='Total Debt']/following::input[1]");
+        By txtEstValuation = By.XPath("//label[text()='Estimated Transaction Value']/following::input[1]");
         By btnCurrentStatus = By.XPath("//label[text()='Current Status']/following::button[2]");
         By comboCurrentStatus = By.XPath("//label[text()='Current Status']/following::lightning-base-combobox-item/span[2]/span[text()='Pitched']");
         By txtValuationExp = By.XPath("//label[text()='Valuation Expectations']/following::textarea");
@@ -145,7 +145,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtProgressFeeCred = By.XPath("//input[@name='Is_Progress_Fee_Creditable__c']");
         By txtMinFee = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
-        By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By btnTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox[1]/div//button");
         By btnTxnFeeType1 = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button");
         By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
@@ -175,9 +175,9 @@ namespace SF_Automation.Pages.Opportunity
         By txtOutsideCouncil = By.XPath("//label[text()='Outside Council']/following::textarea[1]");
         By msgEstTransValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
 
-        By txtBaseFee = By.XPath("//label[text()='Base Fee (MM)']/following::input[1]");
-        By valBaseFee = By.XPath("//span[text()='Base Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee (MM)']/ancestor::div[2]/dd[1]//button");
+        By txtBaseFee = By.XPath("//label[text()='Base Fee']/following::input[1]");
+        By valBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]/dd[1]//button");
         By txt1stRatchetPer = By.XPath("//label[text()='First Ratchet Percent']/following::input[1]");
         By txt2ndRatchetPer = By.XPath("//label[text()='Second Ratchet Percent']/following::input[1]");
         By txt3rdRatchetPer = By.XPath("//label[text()='Third Ratchet Percent']/following::input[1]");
@@ -188,14 +188,14 @@ namespace SF_Automation.Pages.Opportunity
         By lnkUpd3rdRatchet = By.XPath("//span[text()='Third Ratchet Percent']/ancestor::div[2]/dd[1]//button");
         By lnkUpd4thRatchet = By.XPath("//span[text()='Fourth Ratchet Percent']/ancestor::div[2]/dd[1]//button");
         By lnkUpdFinalRatchet = By.XPath("//span[text()='Final Ratchet Percent']/ancestor::div[2]/dd[1]//button");
-        By msg1stRatchetFromAmount = By.XPath("//label[text()='First Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg1stRatchetToAmount = By.XPath("//label[text()='First Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg2ndRatchetFromAmount = By.XPath("//label[text()='Second Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg2ndRatchetToAmount = By.XPath("//label[text()='Second Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg3rdRatchetFromAmount = By.XPath("//label[text()='Third Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg3rdRatchetToAmount = By.XPath("//label[text()='Third Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg4thRatchetFromAmount = By.XPath("//label[text()='Fourth Ratchet From Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
-        By msg4thRatchetToAmount = By.XPath("//label[text()='Fourth Ratchet To Amount (MM)']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg1stRatchetFromAmount = By.XPath("//label[text()='First Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg1stRatchetToAmount = By.XPath("//label[text()='First Ratchet To Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg2ndRatchetFromAmount = By.XPath("//label[text()='Second Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg2ndRatchetToAmount = By.XPath("//label[text()='Second Ratchet To Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg3rdRatchetFromAmount = By.XPath("//label[text()='Third Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg3rdRatchetToAmount = By.XPath("//label[text()='Third Ratchet To Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg4thRatchetFromAmount = By.XPath("//label[text()='Fourth Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
+        By msg4thRatchetToAmount = By.XPath("//label[text()='Fourth Ratchet To Amount']/ancestor::lightning-primitive-input-simple/div[2]");
         By txt1stRatchetFromAmount = By.XPath("//input[@name='First_Ratchet_From_Amount__c']");
         By txt1stRatchetToAmount = By.XPath("//input[@name='First_Ratchet_To_Amount__c']");
         By txt2ndRatchetFromAmount = By.XPath("//input[@name='Second_Ratchet_From_Amount__c']");
@@ -235,7 +235,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblOwnerCapStr = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordCompany_Description__cField']/slot[1]/following::span[1]");
         By lblRiskFact = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordOwnership_and_Capital_Structure__cField']/slot[1]/following::span[1]");
         By lblIntAngle = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordRisk_Factors_cField1']/slot[1]/following::span[1]");
-        By lblTotalDebtMM = By.XPath("//span[text()='Total Debt (MM)']");
+        By lblTotalDebtMM = By.XPath("//span[text()='Total Debt']");
         By lblEstimatedValuation = By.XPath("//span[text()='Valuation Expectations']");
         By lblValExp = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordEstimated_Valuation_cField2']/slot[1]/following::span[1]");
         By lblRealEstate = By.XPath("//span[text()='Real Estate Angle']");
@@ -256,8 +256,8 @@ namespace SF_Automation.Pages.Opportunity
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']");
         By lblTxnFee = By.XPath("//span[text()='Estimated Fee']");
-        By valTxnFee = By.XPath("//span[text()='Estimated Fee (MM)']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
-        By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value (MM)']");
+        By valTxnFee = By.XPath("//span[text()='Estimated Fee']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
+        By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
         By lblRetainerFeeCred = By.XPath("//span[text()='Retainer Fee Creditable ?']");
@@ -441,8 +441,8 @@ namespace SF_Automation.Pages.Opportunity
         By lnkEditRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd[1]//button");
         By valRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By valProgressFee = By.XPath("//span[text()='Progress Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By valEstTotalFee = By.XPath("//span[text()='Estimated Total Fee (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By valEstValuation = By.XPath("//span[text()='Estimated Transaction Value (MM)']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valEstTotalFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valEstValuation = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
         By lnkEditEstValuation = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordTotal_Debt_MM_cField2']/slot[1]/following::button[2]/span[1]");
         By msgCCStatus = By.XPath("//span[text()='Conflict Check Status']/ancestor::div[2]/dd[1]//lightning-formatted-text");
 
@@ -453,22 +453,22 @@ namespace SF_Automation.Pages.Opportunity
         By msgCC4 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[10]//lightning-combobox/div/div[2]");
         By msgCC5 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[12]//lightning-combobox/div/div[2]");
         By valDateSubmitted = By.XPath("//span[text()='Date Submitted']/ancestor::div[2]/dd//lightning-formatted-text");
-        By lblBaseFee = By.XPath("//span[text()='Base Fee (MM)']");
+        By lblBaseFee = By.XPath("//span[text()='Base Fee']");
         By lbl1stRatchetPercent = By.XPath("//span[text()='First Ratchet Percent']");
-        By lbl1stRatchetFromAmt = By.XPath("//span[text()='First Ratchet From Amount (MM)']");
-        By lbl1stRatchetToAmt = By.XPath("//span[text()='First Ratchet To Amount (MM)']");
+        By lbl1stRatchetFromAmt = By.XPath("//span[text()='First Ratchet From Amount']");
+        By lbl1stRatchetToAmt = By.XPath("//span[text()='First Ratchet To Amount']");
         By lbl2ndRatchetPercent = By.XPath("//span[text()='Second Ratchet Percent']");
-        By lbl2ndRatchetFromAmt = By.XPath("//span[text()='Second Ratchet From Amount (MM)']");
-        By lbl2ndRatchetToAmt = By.XPath("//span[text()='Second Ratchet To Amount (MM)']");
+        By lbl2ndRatchetFromAmt = By.XPath("//span[text()='Second Ratchet From Amount']");
+        By lbl2ndRatchetToAmt = By.XPath("//span[text()='Second Ratchet To Amount']");
         By lblFeeComments = By.XPath("//span[text()='Fee Comment, If applicable']");
         By lbl3rdRatchetPercent = By.XPath("//span[text()='Third Ratchet Percent']");
-        By lbl3rdRatchetFromAmt = By.XPath("//span[text()='Third Ratchet From Amount (MM)']");
-        By lbl3rdRatchetToAmt = By.XPath("//span[text()='Third Ratchet To Amount (MM)']");
+        By lbl3rdRatchetFromAmt = By.XPath("//span[text()='Third Ratchet From Amount']");
+        By lbl3rdRatchetToAmt = By.XPath("//span[text()='Third Ratchet To Amount']");
         By lbl4thRatchetPercent = By.XPath("//span[text()='Fourth Ratchet Percent']");
-        By lbl4thRatchetFromAmt = By.XPath("//span[text()='Fourth Ratchet From Amount (MM)']");
-        By lbl4thRatchetToAmt = By.XPath("//span[text()='Fourth Ratchet To Amount (MM)']");
+        By lbl4thRatchetFromAmt = By.XPath("//span[text()='Fourth Ratchet From Amount']");
+        By lbl4thRatchetToAmt = By.XPath("//span[text()='Fourth Ratchet To Amount']");
         By lblFinalRatchet = By.XPath("//span[text()='Final Ratchet Percent']");
-        By lblFinalRatchetAmt = By.XPath("//span[text()='Final Ratchet Amount (MM)']");
+        By lblFinalRatchetAmt = By.XPath("//span[text()='Final Ratchet Amount']");
 
         By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee']/following::input[1]");
         //Validate Opp Name
@@ -3300,6 +3300,15 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, valEstValuation);
             string value = driver.FindElement(valEstValuation).Text;
             string actual = value.Substring(0, 8);
+            return actual;
+        }
+        //Get value of Estimated Valuation
+        public string GetEstimatedValuationL()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valEstValuation);
+            string value = driver.FindElement(valEstValuation).Text;
+            string actual = value.Substring(4, 8);
             return actual;
         }
 

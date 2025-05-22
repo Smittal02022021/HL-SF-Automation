@@ -294,7 +294,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actTxnValueValidation = form.GetValidationOfEstTxnValue();
                 string expTxnValueValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
-                Assert.AreEqual("Estimated Transaction Value (MM)\r\nEstimated Transaction Value (MM ) should be greater than 0", actTxnValueValidation);
+                Assert.AreEqual("Estimated Transaction Value\r\nEstimated Transaction Value (MM ) should be greater than 0", actTxnValueValidation);
                 extentReports.CreateLog("Validation: " + actTxnValueValidation + " is displayed for Estimated Transaction Value (MM) field ");
                                 
                 //Click Pitch tab and validate its mandatory validations 

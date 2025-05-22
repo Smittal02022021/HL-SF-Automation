@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         AddCounterparty counterparty = new AddCounterparty();
-        public static string fileTC7877 = "TMTT0027453_MassCheckboxs";
+        public static string fileTC7877 = "TMTT0027453_MassCheckbox";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

@@ -360,7 +360,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //extentReports.CreateLog("Field with name: " + txtTxnFee + " is displayed ");
 
                 string txtRetainerFee = form.GetLabelEstTxn();
-                Assert.AreEqual("Estimated Transaction Value (MM)", txtRetainerFee);
+                Assert.AreEqual("Estimated Transaction Value", txtRetainerFee);
                 extentReports.CreateLog("Field with name: " + txtRetainerFee + " is displayed ");
 
                 //string txtEstTxnValueReport = form.GetLabelEstTxnValueReport();
