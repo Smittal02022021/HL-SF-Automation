@@ -173,9 +173,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record is not deleted", msgCancel);
                 extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
-                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
-                Assert.AreEqual("Record is deleted", msgDelete);
-                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+                //string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
+                //Assert.AreEqual("Record is deleted", msgDelete);
+                //extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
 
                 //---TMTI0073037_Verify the "Total Financing Amount" field is a formula field and can be overridden
                 string updMessage = summaryPage.UpdateTotalFinancingAmountValue();

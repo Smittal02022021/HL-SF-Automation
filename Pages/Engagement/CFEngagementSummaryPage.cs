@@ -3,6 +3,7 @@ using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -176,6 +177,12 @@ namespace SF_Automation.Pages.Engagement
         By valCloseDate = By.XPath("//li//span[text()='Close Date']/ancestor::li//div[2]");
         By lblJoType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[1]/span");
         By valJobType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[2]");
+        By secParties = By.XPath("//span[text()='Parties']");
+        By btnParties = By.XPath("//span[text()='Parties']/ancestor::button");
+        By secSeller = By.XPath("//h2/span[text()='Seller']");
+        By secBuyer = By.XPath("//h2/span[text()='Buyer']");
+        By lblSellerSection = By.XPath("//lightning-output-field/span[text()='Client']/ancestor::div[4]//lightning-output-field/span");
+
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1369,6 +1376,54 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             return engSummary;
         }
+
+        public string ValidatePartiesSection()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, secParties);
+            string value = driver.FindElement(secParties).Text;
+            return value;
+        }
+
+        public string ValidateSellerSection()
+        {
+            driver.FindElement(btnParties).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, secSeller);
+            string value = driver.FindElement(secSeller).Text;
+            return value;
+        }
+        public string ValidateBuyerSection()
+        {
+            
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, secBuyer);
+            string value = driver.FindElement(secBuyer).Text;
+            return value;
+        }
+
+        public bool VerifyFieldsUnderSellerSection()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Client", "Client Ownership", "Subject", "Subject Ownership" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
     }
 }
 

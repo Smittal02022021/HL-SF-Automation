@@ -1297,6 +1297,8 @@ namespace SF_Automation.Pages.Engagement
             actions.Perform();
             Thread.Sleep(4000);
             driver.FindElement(btnComments).Click();
+            driver.FindElement(btnComments).Click();
+            driver.FindElement(btnComments).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtComments).Clear();
             driver.FindElement(txtComments).SendKeys("Testing");

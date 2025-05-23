@@ -16,7 +16,7 @@ namespace SalesForce_Project.Pages
     {
 
         By btnNew = By.XPath("//div[@title='New']");
-        By titleProject = By.XPath("//h2[text()='New Parent Project']");
+        By titleProject = By.XPath("//h2[text()='New Project Billing']");
         By msgProject = By.XPath("//flexipage-field//div[contains(text(),'Complete')]");
         By btnSave = By.XPath("//button[@name='SaveEdit']");
         By btnClose = By.XPath("//records-record-edit-error-header//button/lightning-primitive-icon");
@@ -176,7 +176,7 @@ namespace SalesForce_Project.Pages
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
-            string[] expectedValue = { "Parent Project Name\r\nComplete this field.", "Bill To\r\nComplete this field.", "Bill To Contact\r\nComplete this field." };
+            string[] expectedValue = { "Parent Project Name\r\nComplete this field.", "Invoice Type\r\nComplete this field." ,"Bill To\r\nComplete this field.", "Bill To Contact\r\nComplete this field." };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)

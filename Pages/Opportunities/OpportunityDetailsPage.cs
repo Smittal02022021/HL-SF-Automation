@@ -6108,10 +6108,10 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
             driver.Navigate().Refresh();
             Thread.Sleep(9000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubject);
-            string name = driver.FindElement(tabClientSubject).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, tabClientSubjectL);
+            string name = driver.FindElement(tabClientSubjectL).Text;
             Thread.Sleep(3000);
-            driver.FindElement(tabClientSubject).Click();
+            driver.FindElement(tabClientSubjectL).Click();
             Thread.Sleep(5000);
             return name;
         }

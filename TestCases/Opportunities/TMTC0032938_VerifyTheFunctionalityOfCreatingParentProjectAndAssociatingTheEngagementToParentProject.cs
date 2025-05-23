@@ -64,11 +64,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Verify the availability of Opportunity under HL Banker list
                 string tagOpp = opportunityHome.ValidateParentProjectUnderHLBanker();
-                Assert.AreEqual("Parent Projects", tagOpp);
+                Assert.AreEqual("Project Billings", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under Home dropdown ");
 
                 string titleProject = project.ClickNewButton();
-                Assert.AreEqual("New Parent Project", titleProject);
+                Assert.AreEqual("New Project Billing", titleProject);
                 extentReports.CreateLog(titleProject + " page is displayed after clicking New button ");
 
                 Assert.IsTrue(project.VerifyParentProjectMandatoryValdiations(), "Verified that displayed mandatory validations are same ");
