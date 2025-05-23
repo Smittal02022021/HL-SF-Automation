@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net.PeerToPeer;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -615,7 +616,7 @@ namespace SF_Automation.Pages
         By txtOppDescL = By.XPath("//label[text()='Opportunity Description']/ancestor::records-record-layout-text-area/lightning-textarea/div/textarea");
         By popupError = By.XPath("//div[contains(@class,'OppRequestEngagementAura')]");
         By txtErrorList = By.XPath("//div[contains(@class,'OppRequestEngagementAura')]//lightning-formatted-text");
-        By tabOppClientSubjectRefL = By.XPath("//li/a[contains(@data-label,'Subject & Referral')]");
+        By tabOppClientSubjectRefL = By.XPath("//li/a[contains(@data-label,'KYC/Client/Subject/Referral')]");//li/a[contains(@data-label,'Subject & Referral')]");
         By tabOppaddClientSubjectL = By.XPath("//article[@aria-label='Additional Clients/Subjects']//h2/a");
         By chkboxPrimaryL = By.XPath("//article//table[@aria-label='Additional Clients/Subjects']//tr[1]//td//lst-checkbox//span[@part='indicator']");
         By iconCloseErrorL = By.XPath("//button[@title='Cancel and close']");//'Close this window']");
@@ -930,7 +931,16 @@ namespace SF_Automation.Pages
                 return false;
             }
         }
+        public void ClickVerballyEngagedEngagementNumberLV(string oppName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,600)");
+            
+            By verballyEngName = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot/span[text()='{oppName}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, verballyEngName, 10);
+            jse.ExecuteScript("arguments[0].click();", driver.FindElement(verballyEngName));
 
+        }
         public void ClickVerballyEngLinkLV(string oppName)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -1111,6 +1121,9 @@ namespace SF_Automation.Pages
 
         public string ValidateDealTeamMemberOverLimitLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
             try
             {
                 driver.SwitchTo().Frame(driver.FindElement(frameWarningPopup));
@@ -6844,7 +6857,7 @@ namespace SF_Automation.Pages
                 catch (Exception)
                 {
                     IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-                    js.ExecuteScript("window.scrollTo(0,0)");
+                    js.ExecuteScript("window.scrollTo(000,000)");
                     Thread.Sleep(1000);
                     return row - 2;
                 }
@@ -9994,12 +10007,16 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, rowsCommentsL, 20);
             return driver.FindElements(rowsCommentsL).Count;
         }
-        public bool IsUserCommentFoundLV(string type,string user)
+        public bool IsUserCommentFoundLV(string type,string user, string commentText)
         {
-            By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']");
+            By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//lightning-base-formatted-text[text()='{commentText}']");
             //By elmComment= By.xpath("//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//td[@data-label='{createdDate']}");
-            WebDriverWaits.WaitUntilEleVisible(driver, elmComment, 20);
-            return driver.FindElement(elmComment).Displayed;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, elmComment, 10);
+                return driver.FindElement(elmComment).Displayed;
+            }
+            catch { return false; }
         }
         public string GetOppCommentsTextLV(string type)
         {
