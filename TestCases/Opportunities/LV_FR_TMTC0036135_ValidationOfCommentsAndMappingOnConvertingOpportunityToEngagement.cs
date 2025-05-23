@@ -379,7 +379,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser);
                 }
                 //Compliance User can see added Comments added by CAO User
@@ -388,14 +388,14 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO);
                 }
 
                 //Compliance User can see added ComplianceComments
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 2);
-                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance));
+                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
                 extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by Compliance User " + userCompliance);
                 randomPages.CloseActiveTab("Opportunity Comments");
                 randomPages.CloseActiveTab(opportunityName);
@@ -458,7 +458,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser);
 
                 }
@@ -467,7 +467,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO);
 
                 }
@@ -486,7 +486,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
 
                 }
@@ -495,7 +495,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before approval for Engagement ");
 
                 }
@@ -530,7 +530,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
                 }
                 //Compliance User can see added Comments added by CAO User
@@ -539,14 +539,14 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before approval for Engagement");
                 }
 
                 //Compliance User can see added ComplianceComments
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 2);
-                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance));
+                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
                 extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by Compliance User " + userCompliance + " On Requested Opportunity before approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 randomPages.CloseActiveTab(opportunityName);
@@ -578,7 +578,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " On Requested Opportunity before approval for Engagement");
 
                 }
@@ -588,12 +588,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " On Requested Opportunity before approval for Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
-                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance));
+                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
                 extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCompliance + " On Requested Opportunity before approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 string status = opportunityDetails.ClickApproveButtonLV2();
@@ -609,7 +609,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " On Requested Opportunity After approval for Engagement");
 
                 }
@@ -619,12 +619,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " On Requested Opportunity After approval for Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
-                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance));
+                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
                 extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCompliance + " On Requested Opportunity After approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 randomPages.CloseActiveTab(opportunityName);
@@ -659,7 +659,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity After approval for Engagement");
 
                 }
@@ -668,7 +668,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "CF Financial user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity After approval for Engagement ");
 
                 }
@@ -702,7 +702,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity After approval for Engagement");
                 }
                 //Compliance User can see added Comments added by CAO User
@@ -711,14 +711,14 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
-                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO));
+                    Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
                     extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before After for Engagement");
                 }
 
                 //Compliance User can see added ComplianceComments
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 2);
-                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance));
+                Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
                 extentReports.CreateStepLogs("Passed", "Compliane user can see '" + commentTypeOppExl + "' on added by Compliance User " + userCompliance + " On Requested Opportunity After approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 randomPages.CloseActiveTab(opportunityName);
