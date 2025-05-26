@@ -335,6 +335,10 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
+
+            By ele = By.XPath($"(//a[@title='{name}'])[1]");
+            WebDriverWaits.WaitUntilEleVisible(driver, ele, 60);
+
             driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
             Thread.Sleep(5000);
         }

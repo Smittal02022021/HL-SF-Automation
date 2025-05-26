@@ -277,11 +277,11 @@ namespace SF_Automation.TestCases.Engagement
 
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company
@@ -323,11 +323,11 @@ namespace SF_Automation.TestCases.Engagement
 
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company
@@ -366,11 +366,11 @@ namespace SF_Automation.TestCases.Engagement
 
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
-                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company
