@@ -273,7 +273,7 @@ namespace SF_Automation.TestCases.Engagement
                         }
                         else
                         {
-                            //TMTI0114962 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
+                            //TMTI0114979 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
 
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
@@ -362,7 +362,7 @@ namespace SF_Automation.TestCases.Engagement
                         }
                         else
                         {
-                            //TMTI0114967 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
+                            //TMTI0114982 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
 
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
