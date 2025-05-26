@@ -7,6 +7,9 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
@@ -49,7 +52,11 @@ namespace SalesForce_Project.TestCases.Opportunities
         //TMT0082992	Verify that the standard user is able to view the standard user's Administrative/Internal/ Next step comments and CAO's Internal and Next step comments on changing Stage to Verbally Engaged.
         //TMT0082994	Verify that CAO can view standard users' and CAO's Administrative/Internal/ Next step comments on changing Stage to Verbally Engaged.
         //TMT0082996    Verify that the Compliance user can view standard users' and CAO's Internal/ Next step comments and Compliance comments on changing Stage to Verbally Engaged.
+        //TMT0083031	Verify that the Standard user can view standard user's Administrative/Internal/ Next step comments and CAO's Internal and Next step comments on changing the engagement from Verbally Engaged to Fully Engaged.
+        //TMT0083036    Verify that the CAO can view standard user's and CAO's Administrative/Internal/ Next step comments on changing the engagement from Verbally Engaged to Fully Engaged.
+        //TMT0083039    Verify that the Compliance user is able to view only the Compliance comments on changing the engagement from Verbally Engaged to Fully Engaged.
         
+
 
         [Test]
         public void VerifyTheVerballyEngagedMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementCFLV()
@@ -99,7 +106,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType);
-                string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTC0036135);//updated move to jobtype
+                string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTC0036135); ;//updated move to jobtype
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
@@ -453,6 +460,39 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " found and selected");
                 opportunityDetails.ClickVerballyEngagedEngagementNumberLV(opportunityName);
                 engagementDetails.ClickRequestFullEngagementLV();
+                engagementDetails.EnterRequestFullEngagementReqValuesLV();
+                extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
+                string popupMessage = randomPages.GetLVMessagePopup();
+                extentReports.CreateStepLogs("Passed", "Required Fields saved with popup message: " + popupMessage);                //Create Primary Contact 
+
+                //engagementDetails.CickAddEngagementContactLV(valRecordType);
+                //string billingContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 1);
+
+                //string contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 3);
+                //engagementDetails.CreateBillingContactLV(billingContactNameExl, contactPartyExl);
+                //popupMessage = randomPages.GetLVMessagePopup();
+                //Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
+                //extentReports.CreateStepLogs("Passed", billingContactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page(Required for Full Engagement Request)");
+
+                //Get Fee & Financial details 
+                //engagementDetails.ClickTabEngFeeAndFincnciaLV();
+
+                //valPEEstTransMCap = engagementDetails.GetValEstTansacttionMarketCapLV();
+                //valPEEBITDA = engagementDetails.GetValEbitdaLV();
+                //valPERetainer = engagementDetails.GetValRetainerLV();
+                //valPEProgressMonthlyFee = engagementDetails.GetValProgressMonthlyFeeLV();
+                //valPEContingentFee = engagementDetails.GetValContingentFeeLV();
+                //valPETotalFee = engagementDetails.GetValTotalFeeLV();
+                //valPESSExpense = engagementDetails.GetValSSExpenseLV();
+                //valPEExpenseCap = engagementDetails.GetValExpenseCapLV();
+                //valPELegalCap = engagementDetails.GetValLegalCapLV();
+
+                //engagementDetails.ClickRequestFullEngagementLV();
+                //extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
+
+
+
+                //engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
                                 
                 homePageLV.LogoutFromSFLightningAsApprover();
@@ -482,9 +522,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(status, "Approved");
                 extentReports.CreateStepLogs("Passed", "Verbally Engagement is " + status + " for Full Enagement ");
                 opportunityDetails.CloseApprovalHistoryTabL();
-                
+                CustomFunctions.PageReload(driver);
                 //Verify CAO User can see standard user's and CAO Administrative/Internal/ Next step comments
-                engagementDetails.ClickViewAllCommentsLV();
+                opportunityDetails.ClickViewAllCommentsLV();
                 for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
                 {
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
@@ -535,7 +575,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                 engagementHome.SearchEngagementInLightningView(opportunityName);
 
-                engagementDetails.ClickViewAllCommentsLV();
+                opportunityDetails.ClickViewAllCommentsLV();
                 for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
                 {
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);
@@ -584,8 +624,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //Search for created opportunity
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", "Engagement: " + opportunityName + " found and selected");
-                
-                engagementDetails.ClickViewAllCommentsLV();
+
+                opportunityDetails.ClickViewAllCommentsLV();
                 for (int typeRow = 2; typeRow < typeRowCount; typeRow++)
                 {
                     commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 1);

@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Requestor value is validated as " + requestor);
 
                     ////Validate status of expense request created
-                    string ExpReqStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(1);
+                    string ExpReqStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(0);//1
                     Assert.AreEqual("Saved", ExpReqStatus);
                     extentReports.CreateStepLogs("Passed", "Expense request status is validated as " + ExpReqStatus);
 
@@ -365,4 +365,3 @@ namespace SF_Automation.TestCases.EventExpense
         }
     }
 }
-
