@@ -91,6 +91,8 @@ namespace SF_Automation.UtilityFunctions
             {
                 driver.FindElement(picAnAccount).Click();
                 Thread.Sleep(5000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtPassword, 40);
+
                 driver.FindElement(txtPassword).SendKeys(password);
                 driver.FindElement(btnSignIn).Click();
                 Thread.Sleep(25000);
@@ -106,6 +108,8 @@ namespace SF_Automation.UtilityFunctions
                 driver.FindElement(txtEmailOrPhone).SendKeys(username);
                 driver.FindElement(btnNextAndSignIn).Click();
                 Thread.Sleep(8000);
+                WebDriverWaits.WaitUntilEleVisible(driver, txtPassword, 40);
+
                 driver.FindElement(txtPassword).SendKeys(password);
                 driver.FindElement(btnSignIn).Click();
                 Thread.Sleep(25000);

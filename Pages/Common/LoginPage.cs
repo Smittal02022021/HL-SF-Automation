@@ -172,7 +172,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtUserName).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 1));
             driver.FindElement(txtPassWord).SendKeys(ReadExcelData.ReadData(excelPath, "Approver", 2));
             driver.FindElement(btnLogin).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(30000);
         }
 
         public void LoginAsFirstLevelExpenseRequest(string file)
