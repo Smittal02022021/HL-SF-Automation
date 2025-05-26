@@ -1000,6 +1000,7 @@ namespace SF_Automation.Pages.Companies
                 if(record.Text == officeName)
                 {
                     record.Click();
+                    Thread.Sleep(5000);
                     break;
                 }
             }
@@ -1014,6 +1015,7 @@ namespace SF_Automation.Pages.Companies
                 if (record.Text == officeName)
                 {
                     record.Click();
+                    Thread.Sleep(5000);
                     break;
                 }
             }
