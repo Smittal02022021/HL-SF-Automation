@@ -3167,11 +3167,12 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsOppoortunitiesFoundByNameLV(string name)
+        public bool IsOpportunitiesFoundByNameLV(string name)
         {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
-            driver.FindElement(searchOpportunitiesL).SendKeys(name);
+            WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);            
+            jse.ExecuteScript("arguments[0].value='"+name+"';", driver.FindElement(searchOpportunitiesL));
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);

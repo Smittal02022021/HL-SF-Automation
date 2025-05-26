@@ -252,7 +252,7 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetail.IsOpportunitiesSearchBoxL(), "Verify search Opportunities Box is Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateStepLogs("Passed", "Search Opportunities Box is Displayed after clicking on Opportunities Tab ");
 
-                    Assert.IsTrue(companyDetail.IsOppoortunitiesFoundByNameLV(opportunityName), "Verify Opportunity is found with Opportunity Name ");
+                    Assert.IsTrue(companyDetail.IsOpportunitiesFoundByNameLV(opportunityName), "Verify Opportunity is found with Opportunity Name ");
                     extentReports.CreateStepLogs("Passed", "Opportunity searched and found with Opportunity Name:: " + opportunityName + " in list");
                     randomPages.CloseActiveTab(companyNameExl);
                 }

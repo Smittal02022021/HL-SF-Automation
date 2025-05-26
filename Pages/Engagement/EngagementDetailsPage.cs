@@ -915,6 +915,7 @@ namespace SF_Automation.Pages.Engagement
         public void ClickViewAllCommentsLV()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(lnkViewAllCommentsL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllCommentsL, 20);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkViewAllCommentsL));
             //driver.FindElement(lnkViewAllCommentsL).Click();

@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Companies
                     string oppNumberExcel = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 4);
                     string oppStageExcel = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 5);
 
-                    Assert.IsTrue(companyDetails.IsOppoortunitiesFoundByNameLV(oppNameExcel),"Verify Opportunity is found with Opportunity Name ");
+                    Assert.IsTrue(companyDetails.IsOpportunitiesFoundByNameLV(oppNameExcel),"Verify Opportunity is found with Opportunity Name ");
                     extentReports.CreateLog("Opportunity is found with Opportunity Name:: "+ oppNameExcel+" ");
                     Assert.IsTrue(companyDetails.IsOppoortunitiesFoundByNumberLV(oppNumberExcel), "Verify Opportunity is found with Opportunity Number");
                     extentReports.CreateLog("Opportunity is found with Opportunity Number:: "+ oppNumberExcel+" ");

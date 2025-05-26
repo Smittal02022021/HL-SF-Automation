@@ -939,7 +939,7 @@ namespace SF_Automation.Pages
             By verballyEngName = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot/span[text()='{oppName}']");
             WebDriverWaits.WaitUntilEleVisible(driver, verballyEngName, 10);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(verballyEngName));
-
+            Thread.Sleep(5000);
         }
         public void ClickVerballyEngLinkLV(string oppName)
         {
