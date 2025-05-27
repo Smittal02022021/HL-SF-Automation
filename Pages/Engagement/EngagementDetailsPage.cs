@@ -1057,6 +1057,13 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnEngInfoSaveL).Click();
             //driver.FindElement(iconCloseErrorL).Click();
         }
+        public void ClickSaveEngagementInformationPopup()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngInfoSaveL));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEngInfoSaveL, 5);
+            driver.FindElement(btnEngInfoSaveL).Click();
+            Thread.Sleep(5000);
+        }
         public void ClickRequestFullEngagementLV()
         {
             try

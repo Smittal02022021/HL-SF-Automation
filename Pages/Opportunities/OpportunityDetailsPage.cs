@@ -1123,12 +1123,13 @@ namespace SF_Automation.Pages
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(1000);
+            Thread.Sleep(8000);
             try
             {
                 driver.SwitchTo().Frame(driver.FindElement(frameWarningPopup));
                 WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 20);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(txtMsgOverlimit));
+                //js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtMsgOverlimit));
                 string msgPopup = driver.FindElement(txtMsgOverlimit).Text;
                 WebDriverWaits.WaitUntilEleVisible(driver, btnBackPopup, 10);
                 driver.FindElement(btnBackPopup).Click();
@@ -6795,12 +6796,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamModifyPage));
-
-            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            int rowCount = ReadExcelData.GetRowCount(excelPath, "OppDealTeamMembers");            
             int totalDealTeamMemberadded = 0;
             for (int row = 2; row <= rowCount; row++)
-            {
+            {                
+                js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnSaveITTeam));
                 try
                 {
                     string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", row, 1);
@@ -6827,7 +6828,7 @@ namespace SF_Automation.Pages
                             WebDriverWaits.WaitUntilEleVisible(driver, checkFRSpeciality, 20);
                             driver.FindElement(checkFRSpeciality).Click();
                         }
-
+                        js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnSaveITTeam));
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
@@ -6849,14 +6850,13 @@ namespace SF_Automation.Pages
                             WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 20);
                             driver.FindElement(checkSpeciality).Click();
                         }
-                        CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveITTeam));
+                        js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnSaveITTeam));
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
                 }
                 catch (Exception)
-                {
-                    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                {                    
                     js.ExecuteScript("window.scrollTo(000,000)");
                     Thread.Sleep(1000);
                     return row - 2;
