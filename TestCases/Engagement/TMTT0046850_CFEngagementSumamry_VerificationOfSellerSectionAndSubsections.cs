@@ -59,8 +59,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " logged in ");
 
-                //Search for the required engagement           
-                string message=  engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2), ReadExcelData.ReadData(excelPath, "Engagement", 1));
+                //Search for the required engagement
+                string valJobType = ReadExcelData.ReadData(excelPath, "Engagement", 1);
+                string message=  engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2),valJobType );
                 Assert.AreEqual("Project Moon", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
@@ -77,7 +78,41 @@ namespace SF_Automation.TestCases.Engagement
 
                 //2. TMTI0114547_Verify the Seller's basic information is displayed and mapped to the fields on the corresponding Engagement
                 Assert.IsTrue(summaryPage.VerifyFieldsUnderSellerSection(), "Verify that displayed fields under Seller section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields under Seller secction are as expected. ");
+                extentReports.CreateStepLogs("Passed", "Displayed fields under Seller section are as expected for job Type: " +valJobType +" ");
+
+                string iconSeller = summaryPage.ValidateSellerIcon();
+                Assert.AreEqual("success", iconSeller);
+                extentReports.CreateLog("Green tick is displayed on section " + secSeller + " indicating the field information is pre-populated ");
+
+                //3.  TMTI0114551_Seller - Verify that the "Seller's Background" information is displayed under the subsection Seller Background
+                Assert.IsTrue(summaryPage.VerifyFieldsUnderSellerBackGroundSection(), "Verify that displayed fields under Seller Background section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields under Seller Background section are as expected for job Type: " + valJobType + " ");
+
+                string IG = summaryPage.ValidateIGValueInSellerBackground();
+                string Sector = summaryPage.ValidateSectorValueInSellerBackground();
+                string Desc = summaryPage.ValidateDescriptionValueInSellerBackground();
+                Console.WriteLine("Desc " +Desc);
+
+                string industryGroup = summaryPage.ValidateIGValueOfCompany();
+                Assert.AreEqual(industryGroup, IG);
+                extentReports.CreateLog("Industry Group " + industryGroup + " value is mapped with Company's Industry Group ");
+
+                string sector = summaryPage.ValidateSectorValueOfCompany();
+                Assert.AreEqual(Sector, sector);
+                extentReports.CreateLog("Sector " + sector + " value is mapped with Company's Sector ");
+
+                string description = summaryPage.ValidateDescriptionValueOfCompany();
+                Assert.AreEqual(Desc, description);
+                extentReports.CreateLog("Description " + description + " value is mapped with Company's Description ");
+
+                //4.   TMTI0114555_Verify that the "Seller's Details" information is displayed under the subsection Seller Details.
+                Assert.IsTrue(summaryPage.VerifyFieldsUnderSellerDetailsSection(), "Verify that displayed fields under Seller Details section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields under Seller Details section are as expected for job Type: " + valJobType + " ");
+
+                string iconSellerDetails = summaryPage.ValidateSellerDetailsIcon();
+                Assert.AreEqual("Transaction Rationale", iconSellerDetails);
+                extentReports.CreateLog("Mandatory field " + iconSellerDetails + " is displayed upon clicking Seller Details icon ");
+
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

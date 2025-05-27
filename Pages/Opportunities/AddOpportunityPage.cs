@@ -1166,7 +1166,7 @@ namespace SF_Automation.Pages
         //To enter team member details
         public string EnterStaffDetailsL(string file)
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(12000);
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;

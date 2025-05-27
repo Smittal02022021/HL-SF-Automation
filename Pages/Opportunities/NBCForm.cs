@@ -78,10 +78,10 @@ namespace SF_Automation.Pages.Opportunity
         By btnCancelAddFin = By.XPath("//div[2]/div/div/footer/button[1]/span");
 
         By lnkEditOppOverviewTab = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
-        By msgTransOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::div[3]");
-        By msgTotalDebt = By.XPath("//label[text()='Total Debt']/following::div[2]");
+        By msgTransOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/ancestor::lightning-textarea//div[2]");
+        By msgTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::div[2]");
         By msgEstValuation = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
-        By msgCurrentStatus = By.XPath("//div[text()='Opportunity Overview: Current Status']");
+        By msgCurrentStatus = By.XPath("//label[text()='Current Status']/ancestor::lightning-combobox/div[1]/div[2]");
         By msgValuationExp = By.XPath("//label[text()='Valuation Expectations']/following::div[3]");
         By msgCompanyDesc = By.XPath("//label[text()='Company Description']/following::div[3]");
         By msgRealEstate = By.XPath("//div[text()='Opportunity Overview: Real Estate Angle']");
@@ -119,7 +119,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgGroupHead = By.XPath("//div[text()='Opportunity Overview: Please confirm that a group head has approved prior to submitting to the committee.']");
 
         By txtTxnOverview = By.XPath("//lightning-textarea/label[text()='Transaction Overview']/following::textarea[1]");
-        By txtTotalDebt = By.XPath("//label[text()='Total Debt']/following::input[1]");
+        By txtTotalDebt = By.XPath("//label[text()='Total Debt (MM)']/following::input[1]");
         By txtEstValuation = By.XPath("//label[text()='Estimated Transaction Value']/following::input[1]");
         By btnCurrentStatus = By.XPath("//label[text()='Current Status']/following::button[2]");
         By comboCurrentStatus = By.XPath("//label[text()='Current Status']/following::lightning-base-combobox-item/span[2]/span[text()='Pitched']");
@@ -235,7 +235,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblOwnerCapStr = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordCompany_Description__cField']/slot[1]/following::span[1]");
         By lblRiskFact = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordOwnership_and_Capital_Structure__cField']/slot[1]/following::span[1]");
         By lblIntAngle = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordRisk_Factors_cField1']/slot[1]/following::span[1]");
-        By lblTotalDebtMM = By.XPath("//span[text()='Total Debt']");
+        By lblTotalDebtMM = By.XPath("//span[text()='Total Debt (MM)']");
         By lblEstimatedValuation = By.XPath("//span[text()='Valuation Expectations']");
         By lblValExp = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordEstimated_Valuation_cField2']/slot[1]/following::span[1]");
         By lblRealEstate = By.XPath("//span[text()='Real Estate Angle']");
@@ -333,8 +333,8 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
-        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
-        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[3]/a");
 
         By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
         By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
@@ -1163,7 +1163,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             Thread.Sleep(5000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,-2500)");
+            js.ExecuteScript("window.scrollTo(0,-250)");
             Thread.Sleep(4000);
             driver.FindElement(btnSubmitForReview).Click();
             Thread.Sleep(9000);
@@ -1223,6 +1223,8 @@ namespace SF_Automation.Pages.Opportunity
             string value = driver.FindElement(msgEstValuation).Text;
             return value;
         }
+
+        
 
         //Get Validation of Current Status
         public string GetValidationOfCurrentStatus()
@@ -1505,6 +1507,7 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             driver.FindElement(txtTxnOverview).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
+            Thread.Sleep(4000);            
             driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 9));
             //driver.FindElement(txtEstValuation).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 11));
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -2489,7 +2492,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             string ques = driver.FindElement(msgQuestion1).Text;
             return ques;
         }
@@ -2610,6 +2613,19 @@ namespace SF_Automation.Pages.Opportunity
             string text = driver.FindElement(secApprovalHistory).Text;
             Thread.Sleep(5000);
             return text;
+        }
+
+        public void UpdateTransactionFee()
+        {
+            driver.FindElement(By.XPath("//flexipage-tab2[3]//flexipage-column2[1]//flexipage-field[3]//lightning-base-combobox//div[1]/button")).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//flexipage-tab2[3]//flexipage-column2[1]//flexipage-field[3]//lightning-base-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
+            driver.FindElement(btnClose).Click();
+             
+        
         }
 
         //Update Fairness Opinion Provided option

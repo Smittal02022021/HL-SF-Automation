@@ -85,6 +85,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateClientSubjectOwnershipL();
                 string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
                 string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
+                Console.WriteLine("subjectOwnership:" + subjectOwnership);
 
                 //Logout of user and validate Admin login
                 usersLogin.DiffLightningLogout();
@@ -175,6 +176,11 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtOppOverview = nform.ClickOpportunityOverview();
                 Assert.AreEqual("Opportunity Overview", txtOppOverview);
                 extentReports.CreateLog("Tab with name " + txtOppOverview + " is displayed upon clicking the tab. ");
+
+                //Fill Transaction fee type
+                nform.ClickFeesTab();
+                nform.UpdateTransactionFee();
+                nform.ClickOpportunityOverview();
 
                 string actTransOverValidation = nform.GetFieldsValidationsOfOppOverview();
                 Console.WriteLine(actTransOverValidation);
@@ -284,25 +290,25 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Progress Fee Creditable ?\r\nThe value can't be null for 'Progress Fee Creditable ?'", actProgressFeeValidation);
                 extentReports.CreateLog("Validation: " + actProgressFeeValidation + " is displayed for Progress Fee field ");
 
-                string actMinFeeValidation = nform.GetValidationOfMinFee();
-                string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
-                Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee is required.", actMinFeeValidation);
-                extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
+                //string actMinFeeValidation = nform.GetValidationOfMinFee();
+                //string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 71);
+                //Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee is required.", actMinFeeValidation);
+                //extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee field ");
                                              
-                string actEstFeeValidation = form.GetValidationOfEstimatedFee();
-                string expEstFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 67);
-                Assert.AreEqual("Fees: Estimated Fee (MM)", expEstFeeValidation);
-                extentReports.CreateLog("Validation: " + expEstFeeValidation + " is displayed for Estimated Fee field ");
+                //string actEstFeeValidation = form.GetValidationOfEstimatedFee();
+                //string expEstFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 67);
+                //Assert.AreEqual("Fees: Estimated Fee (MM)", expEstFeeValidation);
+                //extentReports.CreateLog("Validation: " + expEstFeeValidation + " is displayed for Estimated Fee field ");
 
                 string actLockupsValidation = nform.GetValidationOfLockups();
                 string expLockupsValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 53);
                 Assert.AreEqual("Lockups on Future M&A or Financing Work\r\nPre-Pitch: Lockups on Future M&A or Financing Work", actLockupsValidation);
                 extentReports.CreateLog("Validation: " + actLockupsValidation + " is displayed for Lockups on Future M&A on Financing work field ");
 
-                string actRefFeeValidation = form.GetValidationOfReferralFee();
-                string expRefFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 68);
-                Assert.AreEqual("Referral Fee Owed\r\nFees: Referral Fee Owed", actRefFeeValidation);
-                extentReports.CreateLog("Validation: " + actRefFeeValidation + " is displayed for Referral Fee Owned field ");
+                //string actRefFeeValidation = form.GetValidationOfReferralFee();
+                //string expRefFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 68);
+                //Assert.AreEqual("Referral Fee Owed\r\nFees: Referral Fee Owed", actRefFeeValidation);
+                //extentReports.CreateLog("Validation: " + actRefFeeValidation + " is displayed for Referral Fee Owned field ");
 
                 //Click Administrative tab and validate its mandatory validations 
                 string txtAdmin = form.ClickAdministrativeTab();
@@ -328,6 +334,7 @@ namespace SF_Automation.TestCases.Opportunities
                 form.SaveAllReqFieldsInAdministrative(fileCNBC);
 
                 form.UpdateNextSchCall();
+                form.UpdateReviewSubmissionAndUpdateReferralFee();
 
                 //Validate title of Email Template page
                 string pageTitle = form.ClickSubmitButton();

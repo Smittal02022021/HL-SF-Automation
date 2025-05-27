@@ -182,9 +182,24 @@ namespace SF_Automation.Pages.Engagement
         By secSeller = By.XPath("//h2/span[text()='Seller']");
         By secBuyer = By.XPath("//h2/span[text()='Buyer']");
         By lblSellerSection = By.XPath("//lightning-output-field/span[text()='Client']/ancestor::div[4]//lightning-output-field/span");
-
-
-        public void ClickEngagementDynamicsSection()
+        By iconSeller = By.XPath("//h2/span[text()='Seller']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
+        By lblSellerBackgroundSection = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//lightning-output-field/span");
+        By lnkClientCompany = By.XPath("//span[text()='Client']/ancestor::div[4]/div[1]/div[1]/div[1]//lightning-formatted-lookup");
+        By valIGCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Industry Group']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valSectorCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Sector']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valDesc = By.XPath("//span[text()='Description']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valIGSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Industry Group']/ancestor::lightning-output-field//lightning-formatted-text");
+        By valSectorSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Sector']/ancestor::lightning-output-field//lightning-formatted-text");
+        By valDescSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Description']/ancestor::lightning-output-field//lightning-formatted-text");
+        By tabEngsummary = By.XPath("//a/span[text()='Engagement Summary']");
+        By lblSellerDetailsSection = By.XPath("//span[text()='Seller Details (MM)']/ancestor::div[1]//lightning-output-field/span");
+        By iconSellerDetails = By.XPath("//span[text()='Seller Details (MM)']/ancestor::h3//c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
+        By lblTxnRationale = By.XPath("//li[1]/span[text()='Transaction Rationale']");
+        By btnEditTxnRationale = By.XPath("//lightning-output-field/span[text()='Transaction Rationale']/ancestor::div[1]//button");
+        By btnTxnRationale = By.XPath("//button[@name='Transaction_Rationale__c']");
+       
+            
+            public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
 
@@ -1424,6 +1439,135 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
 
+        public string ValidateSellerIcon()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconSeller);
+            string value = driver.FindElement(iconSeller).GetAttribute("variant");
+            return value;
+        }
+        public bool VerifyFieldsUnderSellerBackGroundSection()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerBackgroundSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Industry Group", "Sector", "Description" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateIGValueOfCompany()
+        {
+
+            driver.FindElement(lnkClientCompany).Click();
+            Thread.Sleep(7000);
+            string value = driver.FindElement(valIGCompany).Text;
+            return value;
+        }
+
+        public string ValidateSectorValueOfCompany()
+        {             
+            string value = driver.FindElement(valSectorCompany).Text;
+            return value;
+        }
+
+        public string ValidateDescriptionValueOfCompany()           
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valDesc).Text;
+            return value;
+        }
+
+        public string ValidateIGValueInSellerBackground()
+        {            
+            Thread.Sleep(7000);
+            string value = driver.FindElement(valIGSummary).Text;
+            return value;
+        }
+
+        public string ValidateSectorValueInSellerBackground()
+        {            
+            string value = driver.FindElement(valSectorSummary).Text;
+            return value;
+        }
+
+        public string ValidateDescriptionValueInSellerBackground()
+        {           
+            string value = driver.FindElement(valDescSummary).Text;
+            return value;
+        }
+
+        public bool VerifyFieldsUnderSellerDetailsSection()
+        {
+            driver.FindElement(tabEngsummary).Click();
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,450)");
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerDetailsSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Private Company with Public Debt", "Engagement Letter Base", "Pitch EBITDA LTM", "Pitch EBITDA FYE", "Pitch Value Low", "Pitch Value High", "Transaction Rationale" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateSellerDetailsIcon()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconSellerDetails);
+            driver.FindElement(iconSellerDetails).Click();
+            string value = driver.FindElement(lblTxnRationale).Text;
+            return value;
+        }
+        public bool VerifyTxnRationaleValues()
+        {
+            driver.FindElement(btnEditTxnRationale).Click();            
+            Thread.Sleep(6000);
+            driver.FindElement(btnTxnRationale).Click();
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerDetailsSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Private Company with Public Debt", "Engagement Letter Base", "Pitch EBITDA LTM", "Pitch EBITDA FYE", "Pitch Value Low", "Pitch Value High", "Transaction Rationale" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
     }
 }
 

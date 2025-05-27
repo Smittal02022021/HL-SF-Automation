@@ -2327,7 +2327,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(chkUpAssociate).Click();
                 driver.FindElement(chkUpAnalyst).Click();
                 driver.FindElement(btnSaveITTeam).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(7000);
 
                 //Click to return back to Opportunity details
                 WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOpp, 90);
@@ -5811,7 +5811,7 @@ namespace SF_Automation.Pages
         //Get default value of Client Ownership
         public string GetClientOwnershipLPostUpdate()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, valClientOwnershipAfter, 150);
             string value = driver.FindElement(valClientOwnershipAfter).Text;
             return value;
@@ -5843,7 +5843,7 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath("//span[text()='Client Ownership']/ancestor::div[2]/dd//button")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnClientOwnership).Click();
-            Thread.Sleep(6000);
+            Thread.Sleep(7000);
 
             driver.FindElement(By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox/div[1]//lightning-base-combobox-item[2]/span[2]/span")).Click();
             Thread.Sleep(6000);

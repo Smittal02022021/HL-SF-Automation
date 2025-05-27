@@ -289,7 +289,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Est Transaction Size with value: " + estTxnValue + " is displayed when it is entered less than 100000 ");
 
                 //Validate Client/Subject & Referral tab and its sections
-                string tabClient = opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                string tabClient = opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                 Assert.AreEqual("KYC/Client/Subject/Referral", tabClient);
                 extentReports.CreateLog("Tab with name: " + tabClient + " is displayed under Opportunity Details page ");
 

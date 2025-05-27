@@ -180,8 +180,8 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 70);
             driver.FindElement(imgUser).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 10);
+            Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 10);
             driver.FindElement(lnkLogoutL).Click();
         }
 

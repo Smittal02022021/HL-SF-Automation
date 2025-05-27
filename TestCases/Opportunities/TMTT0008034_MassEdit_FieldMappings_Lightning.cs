@@ -73,7 +73,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Total Debt MM's valie: " + totalDebt + " is displayed in Opportunity details page ");
 
                 //Validate the title of page upon clicking Mass Edit Records button
-                opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                 string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButtonLightning();
                 Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                 extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");
