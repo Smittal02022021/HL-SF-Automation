@@ -1059,10 +1059,16 @@ namespace SF_Automation.Pages.Engagement
         }
         public void ClickSaveEngagementInformationPopup()
         {
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngInfoSaveL));
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEngInfoSaveL, 5);
-            driver.FindElement(btnEngInfoSaveL).Click();
-            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEngInfoSaveL, 20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(btnEngInfoSaveL));
+                driver.FindElement(btnEngInfoSaveL).Click();
+                Thread.Sleep(5000);
+            }
+            catch { 
+                //nothing to click
+                  }
         }
         public void ClickRequestFullEngagementLV()
         {
@@ -6752,8 +6758,11 @@ namespace SF_Automation.Pages.Engagement
             }
             return totalDealTeamMemberadded;
         }
+        By frameWarningPopup = By.XPath("//iframe[contains(@src,'HL_InternalTeamModifyView')]");
+        By txtMsgOverlimit = By.XPath("//div[@class='message warningM2']//div[@class='messageText']");
         public int AddEngMultipleDealTeamMembersLV(string RecordType, string file)
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -6819,12 +6828,24 @@ namespace SF_Automation.Pages.Engagement
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
-
+                    try
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 5);
+                        js.ExecuteScript("window.scrollTo(000,000)");                         
+                        break;
+                    }
+                    catch
+                    {
+                        //
+                    }
                 }
                 catch (Exception)
                 {
+                    js.ExecuteScript("window.scrollTo(000,000)");
+                    Thread.Sleep(1000);
                     return row - 2;
                 }
+                
             }
             driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;

@@ -65,7 +65,7 @@ namespace SF_Automation.Pages
         By txtOppsearchL = By.XPath("//input[contains(@placeholder,'Search Opportunities')]");
         By imgOpp = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[4]/span//span");
+        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
         By lblRecordTypeL = By.XPath("//div[contains(@class,'RecordTypeTopDownOneColumn')]//label//span[contains(@class,'radio--label')]");
         By descRecordTypeL = By.XPath("//div[contains(@class,'RecordTypeTopDownOneColumn')]//label//div[contains(@class,'ItemDescription')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");

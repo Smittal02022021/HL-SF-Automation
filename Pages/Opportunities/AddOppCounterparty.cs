@@ -1425,7 +1425,8 @@ namespace SF_Automation.Pages.Opportunity
             catch
             {
                 // Perform double-click if single click doesn't work on edit comment field
-                editComments.Click();
+                //editComments.Click();
+                actions.DoubleClick(editComments).Perform();
             }
 
             //try

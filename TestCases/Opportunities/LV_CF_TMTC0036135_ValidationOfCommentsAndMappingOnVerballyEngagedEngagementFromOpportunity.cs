@@ -56,8 +56,6 @@ namespace SalesForce_Project.TestCases.Opportunities
         //TMT0083036    Verify that the CAO can view standard user's and CAO's Administrative/Internal/ Next step comments on changing the engagement from Verbally Engaged to Fully Engaged.
         //TMT0083039    Verify that the Compliance user is able to view only the Compliance comments on changing the engagement from Verbally Engaged to Fully Engaged.
         
-
-
         [Test]
         public void VerifyTheVerballyEngagedMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementCFLV()
         {
@@ -464,37 +462,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
                 string popupMessage = randomPages.GetLVMessagePopup();
                 extentReports.CreateStepLogs("Passed", "Required Fields saved with popup message: " + popupMessage);                //Create Primary Contact 
-
-                //engagementDetails.CickAddEngagementContactLV(valRecordType);
-                //string billingContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 1);
-
-                //string contactPartyExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", 3, 3);
-                //engagementDetails.CreateBillingContactLV(billingContactNameExl, contactPartyExl);
-                //popupMessage = randomPages.GetLVMessagePopup();
-                //Assert.IsTrue(popupMessage.Contains("Engagement Contact"), "Verify the Added Engagement Contact is displayed in Popup message ");
-                //extentReports.CreateStepLogs("Passed", billingContactNameExl + " Primary, Billing Contact added on Verbally Engaged Engagement page(Required for Full Engagement Request)");
-
-                //Get Fee & Financial details 
-                //engagementDetails.ClickTabEngFeeAndFincnciaLV();
-
-                //valPEEstTransMCap = engagementDetails.GetValEstTansacttionMarketCapLV();
-                //valPEEBITDA = engagementDetails.GetValEbitdaLV();
-                //valPERetainer = engagementDetails.GetValRetainerLV();
-                //valPEProgressMonthlyFee = engagementDetails.GetValProgressMonthlyFeeLV();
-                //valPEContingentFee = engagementDetails.GetValContingentFeeLV();
-                //valPETotalFee = engagementDetails.GetValTotalFeeLV();
-                //valPESSExpense = engagementDetails.GetValSSExpenseLV();
-                //valPEExpenseCap = engagementDetails.GetValExpenseCapLV();
-                //valPELegalCap = engagementDetails.GetValLegalCapLV();
-
-                //engagementDetails.ClickRequestFullEngagementLV();
-                //extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
-
-
-
+                 
                 //engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
-                                
+                //*******Don't have clarify of the Engagement Information pop-up******
+                engagementDetails.ClickSaveEngagementInformationPopup();
+                extentReports.CreateStepLogs("Passed", "Save button clicked on Engagement Information pop-up");
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " logged out");
 
@@ -653,7 +626,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
-
 
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");

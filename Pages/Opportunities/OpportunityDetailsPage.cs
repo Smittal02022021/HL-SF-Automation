@@ -6854,6 +6854,16 @@ namespace SF_Automation.Pages
                         driver.FindElement(btnSaveITTeam).Click();
                         totalDealTeamMemberadded = row - 2;
                     }
+                    try
+                    {
+                        WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 5);
+                        js.ExecuteScript("window.scrollTo(000,000)");
+                        break;
+                    }
+                    catch
+                    {
+                        //
+                    }
                 }
                 catch (Exception)
                 {                    
@@ -6861,6 +6871,7 @@ namespace SF_Automation.Pages
                     Thread.Sleep(1000);
                     return row - 2;
                 }
+                
             }
             driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;

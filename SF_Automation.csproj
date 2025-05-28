@@ -779,6 +779,7 @@
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_CF_TMTC0036135_ValidationOfCommentsAndMappingOnVerballyEngagedEngagementFromOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\LV_FR_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementFR.cs" />
     <Compile Include="TestCases\Opportunities\LV_FR_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_FVA_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
@@ -828,6 +829,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0041159-1_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0041159-2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_VerifyTailExpireFieldOnCFEngagementwithJobTypeShowsValidationWhileChangingStage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />

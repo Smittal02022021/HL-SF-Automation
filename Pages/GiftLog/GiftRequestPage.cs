@@ -460,9 +460,11 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetAvailableRecipientNameLV()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAvailableRecipientName, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valAvailableRecipientName));
             string AvailableRecipientName = driver.FindElement(valAvailableRecipientName).Text;
+            Thread.Sleep(2000);
             return AvailableRecipientName;
         }
         public void SearchWithCompanyContactNameComboBoxLV(string value, string val, string companyname, string contactname)
@@ -714,7 +716,7 @@ namespace SF_Automation.Pages.GiftLog
             //Click search button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 10);
             driver.FindElement(btnSearch).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             return valGiftName;
         }
         public string AreRequiredFieldsValidationDisplayedLV(string file)

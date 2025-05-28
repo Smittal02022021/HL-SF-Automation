@@ -347,7 +347,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 }
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
-                CustomFunctions.PageReload(driver);
+                //CustomFunctions.PageReload(driver);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User logged out");
                 ////////////////////////////////////////////
@@ -472,8 +472,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                 engagementDetails.ClickRequestFullEngagementLV();
                 extentReports.CreateStepLogs("Info", "Click on Request Full Engagement button and Fill are required fields");
-
-                //xtentReports.CreateStepLogs("Passed", "Request Full Engagement button clicked with popup message: "+ popupMessage);
+                //*******Don't have clarify of the Engagement Information pop-up******
+                engagementDetails.ClickSaveEngagementInformationPopup();
+                extentReports.CreateStepLogs("Passed", "*******Don't have clarify of the Engagement Information pop-up******");
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User: "+ userExl + " logged out" );
 

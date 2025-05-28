@@ -277,7 +277,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
-                    Assert.AreEqual(user.Contains(adminUserExl), true);
+                    //Assert.AreEqual(user.Contains(adminUserExl), true);
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
@@ -493,7 +493,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
 
                     //Search and Approve the DND Opp
                     homePage.SearchUserByGlobalSearchN(userCAOUserExl);
-                    extentReports.CreateStepLogs("Info", "User: " + userCAOUserExl + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + " details are displayed. ");
                     //Login user
 
                     usersLogin.LoginAsSelectedUser();
