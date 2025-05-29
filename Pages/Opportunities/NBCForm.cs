@@ -173,7 +173,7 @@ namespace SF_Automation.Pages.Opportunity
         By btnExistingClient = By.XPath("//label[text()='Existing or Repeat Client?']/following::button[1]");
         By btnTAS = By.XPath("//label[text()='TAS/Bridge Assistance Benefit?']/following::button[2]");
         By txtOutsideCouncil = By.XPath("//label[text()='Outside Council']/following::textarea[1]");
-        By msgEstTransValue = By.XPath("//div[text()='Estimated Transaction Value (MM ) should be greater than 0']");
+        By msgEstTransValue = By.XPath("//div[text()='Estimated Transaction Value should be greater than 0']");
 
         By txtBaseFee = By.XPath("//label[text()='Base Fee']/following::input[1]");
         By valBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
@@ -333,8 +333,8 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
-        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
-        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[3]/a");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
 
         By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
         By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
@@ -3604,7 +3604,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(txtEstTxnVal).Clear();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valEstTxnVal).Text;
             return value;
         }
@@ -3701,11 +3701,11 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(txt1stRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt1stRatchetToAmount).SendKeys("50");
-            driver.FindElement(txt2ndRatchetFromAmount).SendKeys("100");
+           // driver.FindElement(txt2ndRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt2ndRatchetToAmount).SendKeys("50");
-            driver.FindElement(txt3rdRatchetFromAmount).SendKeys("100");
+            //driver.FindElement(txt3rdRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt3rdRatchetToAmount).SendKeys("50");
-            driver.FindElement(txt4thRatchetFromAmount).SendKeys("100");
+            //driver.FindElement(txt4thRatchetFromAmount).SendKeys("100");
             driver.FindElement(txt4thRatchetToAmount).SendKeys("50");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(6000);
@@ -3752,15 +3752,15 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt1stRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt1stRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(txt2ndRatchetPer).Clear();
-            driver.FindElement(txt2ndRatchetFromAmount).Clear();
+            //driver.FindElement(txt2ndRatchetFromAmount).Clear();
             driver.FindElement(txt2ndRatchetToAmount).Clear();
 
             driver.FindElement(txt3rdRatchetPer).Clear();
-            driver.FindElement(txt3rdRatchetFromAmount).Clear();
+            //driver.FindElement(txt3rdRatchetFromAmount).Clear();
             driver.FindElement(txt3rdRatchetToAmount).Clear();
 
             driver.FindElement(txt4thRatchetPer).Clear();
-            driver.FindElement(txt4thRatchetFromAmount).Clear();
+            //driver.FindElement(txt4thRatchetFromAmount).Clear();
             driver.FindElement(txt4thRatchetToAmount).Clear();
 
             driver.FindElement(btnSave).Click();
@@ -3822,7 +3822,7 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt2ndRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt2ndRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt2ndRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt2ndRatchetToAmount).SendKeys(ToAmt);
 
             driver.FindElement(btnSave).Click();
@@ -3844,12 +3844,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEstTxnVal).SendKeys(ToAmt);
             driver.FindElement(txt2ndRatchetPer).Clear();
             driver.FindElement(txt2ndRatchetToAmount).Clear();
-            driver.FindElement(txt2ndRatchetFromAmount).Clear();
+            //driver.FindElement(txt2ndRatchetFromAmount).Clear();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt3rdRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt3rdRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt3rdRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt3rdRatchetToAmount).SendKeys(ToAmt);
 
             driver.FindElement(btnSave).Click();
@@ -3871,12 +3871,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEstTxnVal).SendKeys(ToAmt);
             driver.FindElement(txt3rdRatchetPer).Clear();
             driver.FindElement(txt3rdRatchetToAmount).Clear();
-            driver.FindElement(txt3rdRatchetFromAmount).Clear();
+            //driver.FindElement(txt3rdRatchetFromAmount).Clear();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt4thRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt4thRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt4thRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt4thRatchetToAmount).SendKeys(ToAmt);
 
             driver.FindElement(btnSave).Click();
@@ -3898,12 +3898,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEstTxnVal).SendKeys(ToAmt);
             driver.FindElement(txt4thRatchetPer).Clear();
             driver.FindElement(txt4thRatchetToAmount).Clear();
-            driver.FindElement(txt4thRatchetFromAmount).Clear();
+            //driver.FindElement(txt4thRatchetFromAmount).Clear();
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txtFinalRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txtFinalRatchetAmount).SendKeys(fromAmt);
+            //driver.FindElement(txtFinalRatchetAmount).SendKeys(fromAmt);
 
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
@@ -3928,13 +3928,13 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt1stRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt1stRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(txt2ndRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt2ndRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt2ndRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt2ndRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(txt3rdRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt3rdRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt3rdRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt3rdRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(txt4thRatchetPer).SendKeys(fromAmt);
-            driver.FindElement(txt4thRatchetFromAmount).SendKeys(fromAmt);
+            //driver.FindElement(txt4thRatchetFromAmount).SendKeys(fromAmt);
             driver.FindElement(txt4thRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
@@ -3948,7 +3948,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             driver.FindElement(txtOtherFee).SendKeys("10");
             Thread.Sleep(3000);
-            driver.FindElement(txtEstimatedFee).SendKeys("10");
+            //driver.FindElement(txtEstimatedFee).SendKeys("10");
             driver.FindElement(txtReferralFeeOwnedMM).SendKeys("10");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(3000);

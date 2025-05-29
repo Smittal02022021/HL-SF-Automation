@@ -122,7 +122,7 @@ namespace SF_Automation.Pages
         }
         public string ValidateUser()
         {
-            Thread.Sleep(6000);
+            Thread.Sleep(9000);
             //driver.SwitchTo().Window(driver.WindowHandles.Last());
             //WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,190);
             IWebElement loggedUserName = driver.FindElement(loggedUser);

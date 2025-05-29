@@ -3379,6 +3379,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 100);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(4000);
             try
             {
                 if (driver.FindElement(comboRecordType).Text.Contains("CF"))
@@ -3398,9 +3399,9 @@ namespace SF_Automation.Pages
             }
             catch (Exception)
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
+                Thread.Sleep(5000);
                 driver.FindElement(lnkReDisplayRec).Click();
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 110);
                 driver.FindElement(btnEdit).Click();
                 if (driver.FindElement(comboRecordType).Text.Contains("CF"))

@@ -1674,12 +1674,12 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, secAddCounterparty2, 150);
             driver.FindElement(secAddCounterparty2).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompAddCounterparty, 150);
             driver.FindElement(txtCompAddCounterparty).SendKeys("2022 Summit Attendees");
-            Thread.Sleep(2000);
-            driver.FindElement(txtCompAddCounterparty).Click();
             Thread.Sleep(4000);
+            driver.FindElement(txtCompAddCounterparty).Click();
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath("//lightning-accordion-section[2]/div/section/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/p[1]/c-custom-search-component/div/div/div/div[2]/ul/li/div")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearchCompAddCounterparty, 150);
             driver.FindElement(btnSearchCompAddCounterparty).Click();
@@ -1696,7 +1696,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkCompany, 250);
             driver.FindElement(chkCompany).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 150);
             driver.FindElement(btnAddCounterparty).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgSuccessL, 350);
