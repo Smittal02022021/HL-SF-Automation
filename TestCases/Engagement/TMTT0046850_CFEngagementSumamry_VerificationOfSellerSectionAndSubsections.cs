@@ -113,6 +113,35 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Transaction Rationale", iconSellerDetails);
                 extentReports.CreateLog("Mandatory field " + iconSellerDetails + " is displayed upon clicking Seller Details icon ");
 
+                string txnRationale = summaryPage.GetValueOfTxnRationale();
+
+                Assert.IsTrue(summaryPage.VerifyTxnRationaleValues(), "Verify that displayed values of Transaction Rationale are same");
+                extentReports.CreateStepLogs("Passed", "Displayed values of Transaction Rationale are as expected ");
+
+                //5. TMTI0114556_Verify the "Edit" functionality on the Seller Details of the CF Engagement Summary
+                //---Validate Cancel functionality of Selller details
+                string cancelTxnRationale = summaryPage.ValidateCancelFunctionalityOfSellerDetailsSection();
+                Console.WriteLine("cancelTxnRationale" + cancelTxnRationale);
+                Assert.AreEqual(txnRationale, cancelTxnRationale);
+                extentReports.CreateLog("Details are not saved upon clicking Cancel button in Seller Details button ");
+
+                //-- Valdiate Save functionality of Seller details
+                string saveTxnRationale = summaryPage.ValidateSaveFunctionalityOfSellerDetailsSection("Public - Hostile");
+                Assert.AreNotEqual(cancelTxnRationale, saveTxnRationale);
+                extentReports.CreateLog("Details are saved upon clicking Save button in Seller Details button ");
+
+                summaryPage.ValidateSaveFunctionalityOfSellerDetailsSection("Public - Activist Shareholder");
+
+                //6. TMTI0114540_Verify that the "Seller Financials" is displayed under subsection Seller Financials.
+                string iconAddRecord = summaryPage.ValidateAddRecordIcon();
+                Assert.AreEqual("Add Record", iconAddRecord);
+                extentReports.CreateLog("Icon " + iconAddRecord + " is displayed in Seller Financials section ");
+
+                Assert.IsTrue(summaryPage.VerifyAddRecordFields(), "Verify that displayed fields on Add Record section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields on Add Record section are as expected ");
+
+
+
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

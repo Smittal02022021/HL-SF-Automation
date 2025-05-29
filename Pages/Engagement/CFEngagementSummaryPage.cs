@@ -195,11 +195,17 @@ namespace SF_Automation.Pages.Engagement
         By lblSellerDetailsSection = By.XPath("//span[text()='Seller Details (MM)']/ancestor::div[1]//lightning-output-field/span");
         By iconSellerDetails = By.XPath("//span[text()='Seller Details (MM)']/ancestor::h3//c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
         By lblTxnRationale = By.XPath("//li[1]/span[text()='Transaction Rationale']");
-        By btnEditTxnRationale = By.XPath("//lightning-output-field/span[text()='Transaction Rationale']/ancestor::div[1]//button");
+        By btnEditTxnRationale = By.XPath("//button[@title='Edit: Transaction_Rationale__c']");
         By btnTxnRationale = By.XPath("//button[@name='Transaction_Rationale__c']");
-       
-            
-            public void ClickEngagementDynamicsSection()
+        By valTxnRationale = By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By valTxnRationaleBeforeUpdate = By.XPath("//button[@title='Edit: Transaction_Rationale__c']/ancestor::div[1]/lightning-formatted-text");
+        By iconAddRecord = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Add Record']");
+        By lblAddRecordSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
+
+
+
+
+        public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
 
@@ -1544,14 +1550,23 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(lblTxnRationale).Text;
             return value;
         }
+
+        public string GetValueOfTxnRationale()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,350)");
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valTxnRationaleBeforeUpdate).Text;
+            return value;
+        }
         public bool VerifyTxnRationaleValues()
         {
             driver.FindElement(btnEditTxnRationale).Click();            
             Thread.Sleep(6000);
             driver.FindElement(btnTxnRationale).Click();
-            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerDetailsSection);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valTxnRationale);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Private Company with Public Debt", "Engagement Letter Base", "Pitch EBITDA LTM", "Pitch EBITDA FYE", "Pitch Value Low", "Pitch Value High", "Transaction Rationale" };
+            string[] expectedValue = { "--None--", "Public - Activist Shareholder", "Public - Hostile", "Maximizing Current Value / Proceeds", "Estate Planning / Family Transition", "Distressed Sale", "PE - End of Fund Life", "PE - Investment Maturity" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1568,6 +1583,69 @@ namespace SF_Automation.Pages.Engagement
             }
             return isSame;
         }
+
+        //Validate Cancel functionality of Selller details
+        public string ValidateCancelFunctionalityOfSellerDetailsSection()
+        {
+            driver.FindElement(By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click(); ;
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valTxnRationaleBeforeUpdate).Text;
+            return value;
+        }
+
+
+        //Validate Save functionality of Selller details
+        public string ValidateSaveFunctionalityOfSellerDetailsSection(string value)
+        {
+            driver.FindElement(btnEditTxnRationale).Click();
+            Thread.Sleep(4000);            
+            driver.FindElement(btnTxnRationale).Click();
+            driver.FindElement(By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+value+"']")).Click(); ;
+
+            Thread.Sleep(4000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string txn = driver.FindElement(valTxnRationaleBeforeUpdate).Text;
+            return txn;
+        }
+        public string ValidateAddRecordIcon()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            WebDriverWaits.WaitUntilEleVisible(driver, iconAddRecord);
+            driver.FindElement(iconAddRecord).Click();
+            string value = driver.FindElement(iconAddRecord).GetAttribute("title");
+            return value;
+        }
+
+        public bool VerifyAddRecordFields()
+        {            
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblAddRecordSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Type", "As Of Date", "Revenue LTM (MM)", "EBITDA LTM (MM)", "Revenue FY (MM)", "EBITDA FY (MM)", "Revenue FY+1 (MM)", "EBITDA FY+1 (MM)", "Net Income LTM (MM)", "Book Value Current (MM)", "Total Assets (MM)", "Currency" };
+            Console.WriteLine(expectedValue[1]);
+            Console.WriteLine(expectedValue[2]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
     }
 }
 
