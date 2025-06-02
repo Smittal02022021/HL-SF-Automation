@@ -23,9 +23,11 @@ namespace SalesForce_Project.Pages
         By txtName = By.XPath("//input[@name='Name']");
         By txtBillTo = By.XPath("//input[@placeholder='Search Companies...']");
         By txtBillToContact = By.XPath("//input[@placeholder='Search Contacts...']");
+        By btnInvoice = By.XPath("//button[@aria-label='Invoice Type']");
+        
         By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//dd//span//lightning-formatted-text");
         By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot//div/button[@title='Edit Parent Project']");
-        By txtParentProject = By.XPath("//input[@placeholder='Search Parent Projects...']");
+        By txtParentProject = By.XPath("//input[@placeholder='Search Project Billings...']");
         By btnClearParentProject = By.XPath("//label[text()='Parent Project']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
         By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
         By lnkParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link");
@@ -47,11 +49,11 @@ namespace SalesForce_Project.Pages
         By lblRelatedSections = By.XPath("//h2[@class='header-title-container']/span");
         By lblBillingRequest = By.XPath("//span[@title='Billing Requests']");
         By tabParentProj = By.XPath("//span[@title='Parent Project  c']");
-        By btnEditParentProj = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
+        By btnEditParentProj = By.XPath("//records-entity-label[text()='Project Billing']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
         By txtEditParentProjName = By.XPath("//input[@name='Name']");
-        By valUpdatedParentProjName = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//h1/slot/lightning-formatted-text");
-        By btnDeleteParentProj = By.XPath("//records-entity-label[text()='Parent Project']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Delete']");
-        By tabProject = By.XPath("//a[@title='Parent Projects Tab']");
+        By valUpdatedParentProjName = By.XPath("//records-entity-label[text()='Project Billing']/ancestor::records-highlights2//h1/slot/lightning-formatted-text");
+        By btnDeleteParentProj = By.XPath("//records-entity-label[text()='Project Billing']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Delete']");
+        By tabProject = By.XPath("//a[@title='Project Billings Tab']");
         By lnkProjName = By.XPath("//div[2]//td[2]/div[3]//tr[2]/th/a");
         By btnDeleteProjAdmin = By.XPath("//div[4]/div[1]//input[@title='Delete']");
         By lnkBillingReq = By.XPath("//slot[contains(text(),'Billing Requests')]/ancestor::a");
@@ -206,6 +208,9 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//label[text()='Bill To Contact']/ancestor::lightning-grouped-combobox//ul/li[1]/lightning-base-combobox-item")).Click();
 
+            driver.FindElement(btnInvoice).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Invoice Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[2]//span[2]/span")).Click();
              driver.FindElement(btnSave).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedProject);
             string project = driver.FindElement(valAddedProject).Text;
@@ -274,8 +279,8 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(4000);
             driver.FindElement(lnkParentProjectEng).Click();
             //driver.Navigate().Refresh();
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng, 120);
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng, 135);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }

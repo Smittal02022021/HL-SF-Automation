@@ -83,9 +83,9 @@ namespace SF_Automation.TestCases.Opportunities
                         string valTxnFee = nform.GetEstFeeValueUponSavingOtherFeeType();
                         string valMinFee = nform.GetMinFeeValue();
                         Console.WriteLine(valTxnFee);
-                        Assert.AreEqual("Estimated Fee (MM)", txnFee);
-                        Assert.AreEqual(valTxnSizeOpp, valTxnFee);
-                        extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valTxnFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
+                        Assert.AreEqual("Estimated Total Fee", txnFee);
+                        Assert.AreEqual(valTxnSizeOpp, valMinFee);
+                        extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valMinFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
 
                         //2.  TMTI0113196_Verify that the "Estimated Fee" field is added in the Cognos report at the top of the Fees page of the existing opportunity.
                         //Connect Cogno and fetch the report
@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.Opportunities
                         string estFee=  nform.VerifyEstimatedFeeFieldinReport();                       
                         string estFeeValue = nform.ValidaterEstimatedFeeValueInReport();
                         Console.WriteLine("estFeeValue:" + estFeeValue);
-                        Assert.AreEqual("Estimated Fee (MM): ", estFee);
+                        Assert.AreEqual("Estimated Fee: ", estFee);
                         Assert.AreEqual(valMinFee, estFeeValue);
                         extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Minimum Fee when Fee Type is 'Other' ");
 

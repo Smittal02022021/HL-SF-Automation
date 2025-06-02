@@ -3394,6 +3394,7 @@ namespace SF_Automation.Pages
                 {
                     driver.FindElement(lnkOutcomeDateFAS).Click();
                 }
+                Thread.Sleep(5000);
                 driver.FindElement(comboOutcome).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 24));
                 driver.FindElement(btnSave).Click();
             }
@@ -3401,9 +3402,10 @@ namespace SF_Automation.Pages
             {
                 Thread.Sleep(5000);
                 driver.FindElement(lnkReDisplayRec).Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 110);
                 driver.FindElement(btnEdit).Click();
+                Thread.Sleep(6000);
                 if (driver.FindElement(comboRecordType).Text.Contains("CF"))
                 {
                     driver.FindElement(lnkOutcomeDate).Click();

@@ -134,7 +134,7 @@ namespace SF_Automation.Pages.Common
 
         public void SearchUserAndLogin(string name)
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(10000);
             //WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 180);
             driver.FindElement(txtSearch).SendKeys(name);
             Thread.Sleep(7000);

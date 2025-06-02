@@ -91,9 +91,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(value);
+                opportunityDetails.UpdateOutcomeDetails(fileTC1644);
                 opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
                 extentReports.CreateLog("Internal Team members details are saved ");               
-                opportunityDetails.UpdateOutcomeDetails(fileTC1644);
+               
 
                 //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);

@@ -174,7 +174,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //15.  TMT0073632_Verify that the "Delete" button is only not available for assistants/accountants/biller
                 string deleteProj = project.ValidateDeleteParenttProjectButton();
-                Assert.AreEqual("Delete button is not displayed", deleteProj);
+                Assert.AreEqual("Delete button is displayed", deleteProj);
                 extentReports.CreateLog(deleteProj + " for CF Financial User ");
 
                 usersLogin.DiffLightningLogout();

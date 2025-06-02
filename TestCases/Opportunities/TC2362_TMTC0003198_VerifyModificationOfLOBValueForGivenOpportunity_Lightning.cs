@@ -98,10 +98,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(opportunityNumber);
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
-                extentReports.CreateLog("Internal Team members details are saved ");
                 opportunityDetails.UpdateOutcomeDetails(fileTC2362);
                 extentReports.CreateLog("Conflict Check fields are updated ");
+                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
+                extentReports.CreateLog("Internal Team members details are saved ");
+                
 
                 //Update Record Type to CF, LOB to CF, Job Type to Negotiated Fairness and validate Job Type and LOB                
                 string lob = opportunityDetails.UpdateRecordTypeAndLOB();

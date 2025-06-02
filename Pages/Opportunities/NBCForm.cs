@@ -255,8 +255,8 @@ namespace SF_Automation.Pages.Opportunity
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']");
-        By lblTxnFee = By.XPath("//span[text()='Estimated Fee']");
-        By valTxnFee = By.XPath("//span[text()='Estimated Fee']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
+        By lblTxnFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']");
+        By valTxnFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
@@ -333,8 +333,8 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
-        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
-        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[3]/a");
 
         By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
         By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
@@ -471,6 +471,9 @@ namespace SF_Automation.Pages.Opportunity
         By lblFinalRatchetAmt = By.XPath("//span[text()='Final Ratchet Amount']");
 
         By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee']/following::input[1]");
+        By txtEngLetterMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/ancestor::div[1]//input");
+        By lblEstTransTotalFee = By.XPath("//span[text()='Estimated Total Fee']");
+
         //Validate Opp Name
         public string ValidateOppName()
         {
@@ -3996,11 +3999,12 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(7000);
             driver.FindElement(btnTxnFeeType1).Click();
             driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='Other Fee Structure']")).Click();
-            driver.FindElement(txtEstimatedFee).Clear();
-            driver.FindElement(txtEstimatedFee).SendKeys("60");
+            Thread.Sleep(7000);
+            driver.FindElement(txtEngLetterMinFee).Clear();
+            driver.FindElement(txtEngLetterMinFee).SendKeys("60");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
-            string txnFee = driver.FindElement(lblTxnFee).Text;
+            Thread.Sleep(7000);
+            string txnFee = driver.FindElement(lblEstTransTotalFee).Text;
             return txnFee;
         }
 

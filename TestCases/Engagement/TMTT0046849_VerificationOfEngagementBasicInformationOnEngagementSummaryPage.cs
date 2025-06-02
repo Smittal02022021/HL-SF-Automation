@@ -73,18 +73,21 @@ namespace SF_Automation.TestCases.Engagement
                 
                 string discStatus = engagementDetails.GetExtDisclosureStatus();
                 string discStatusValue = engagementDetails.GetDisclosureStatusValue();
+                Console.WriteLine(discStatusValue);
 
                 string subject = engagementDetails.ValidateSubjectOnHeader();
                 string subjectValue = engagementDetails.ValidateSubjectValueOnHeader();
 
                 string client = engagementDetails.ValidateClientOnHeader();
                 string clientValue = engagementDetails.ValidateClientValueOnHeader();
+                Console.WriteLine(clientValue);
 
                 string closeDate = engagementDetails.ValidateCloseDateLabel();
                 string closeDateValue = engagementDetails.ValidateCloseDateValue();
 
                 string jobType = engagementDetails.ValidateJobTypeOnHeader();
                 string jobTypeValue = engagementDetails.ValidateJobtypeValueOnHeader();
+                Console.WriteLine(jobTypeValue);
 
                 engagementDetails.ValidateFeesTab();
                 string txnSizeValue = engagementDetails.GetValEstTansacttionMarketCapLV();
