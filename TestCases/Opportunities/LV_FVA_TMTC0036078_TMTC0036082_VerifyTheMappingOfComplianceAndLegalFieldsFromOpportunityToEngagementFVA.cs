@@ -126,12 +126,10 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //Login as System Admin user 
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 3, 1);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
-
                     homePage.SearchUserByGlobalSearchN(adminUserExl);
                     extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-
                     login.SwitchToClassicView();
                     string userAdmin = login.ValidateUser();
                     Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
@@ -169,7 +167,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "Admin: " + adminUserExl + "switched to Classic and Loggout ");
 
                     //TMT0082742 Verify that the Compliance user can update the fields on the Compliance subtab of the Compliance & Legal tab.
-
                     string userCompliance = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
                     homePage.SearchUserByGlobalSearchN(userCompliance);
                     extentReports.CreateStepLogs("Info", "Compliance User: " + userCompliance + " details are displayed. ");
@@ -202,7 +199,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     /////////////////
                     //TMT0082744 Verify that the Legal user can update the fields on the Legal Matters subtab of the Compliance & Legal tab
                     string userLegal = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 5, 1);
-
                     homePage.SearchUserByGlobalSearchN(userLegal);
                     extentReports.CreateStepLogs("Info", "Legal User: " + userLegal + " details are displayed. ");
                     //Login user
@@ -290,7 +286,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(status, "Approved");
                     extentReports.CreateStepLogs("Pass", "Opportunity " + status + " and ready for conversion ");
                     opportunityDetails.CloseApprovalHistoryTabL();
-
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL2();
                     extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " Converted into Engagement ");
@@ -303,7 +298,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(opportunityName, engName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
                     randomPages.CloseActiveTab(engName);
-
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
@@ -312,7 +306,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //TMT0082753	Verify that the Compliance fields updated by the Compliance user get mapped to the engagement's Compliance tab as CAO user.
                     engagementDetails.ClickTabComplianceLegalLV();
-
                     //Get complianceReview and verifyfied by                        
                     Assert.AreEqual(valReceivedByComplianceDate, engagementDetails.GetReceivedByComplianceDate());
                     extentReports.CreateStepLogs("Passed", "Received By Compliance Date: '" + valReceivedByComplianceDate + "' is mapped on Engagement page after conversion from Opportunity verified as CAO User");
