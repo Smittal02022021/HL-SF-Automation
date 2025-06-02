@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 4; row <= rowCount; row++)
+                for(int row = 5; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -280,7 +280,7 @@ namespace SF_Automation.TestCases.Engagement
                             Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
-                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
+                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
@@ -289,13 +289,7 @@ namespace SF_Automation.TestCases.Engagement
                             string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
-                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
-
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -306,7 +300,13 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify updates on Client Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -369,7 +369,7 @@ namespace SF_Automation.TestCases.Engagement
                             Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
-                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
+                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
@@ -378,13 +378,7 @@ namespace SF_Automation.TestCases.Engagement
                             string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
-                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
-
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -395,7 +389,13 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify updates on Client Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
