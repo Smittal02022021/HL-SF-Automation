@@ -278,7 +278,7 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
@@ -367,7 +367,7 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
