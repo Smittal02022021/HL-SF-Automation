@@ -244,7 +244,7 @@ namespace SF_Automation.TestCases.Engagement
 
                             //Verify No warning message is displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group.");
 
                             //Verify updates on Subject Company
@@ -252,7 +252,14 @@ namespace SF_Automation.TestCases.Engagement
                             string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag Reason and comments for Subject Company
+                            string fReason = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 1);
+                            string fReasonComment = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -263,7 +270,14 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify updates on Client Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag Reason and comments for Client Company
+                            string fReason1 = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 1);
+                            string fReasonComment1 = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 3);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason1, fReasonComment1, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason1 + "\r\n Flag Reason Comment: " + fReasonComment1 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -273,12 +287,12 @@ namespace SF_Automation.TestCases.Engagement
                         }
                         else
                         {
-                            //TMTI0114979 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
+                            //TMTI0115069 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
 
                             //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
@@ -291,6 +305,13 @@ namespace SF_Automation.TestCases.Engagement
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
+                            //Verify Flag Reason and comments for Subject Company
+                            string fReason4 = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 1);
+                            string fReasonComment4 = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagReason", row, 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason4, fReasonComment4, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason4 + "\r\n Flag Reason Comment: " + fReasonComment4 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
 
@@ -302,11 +323,12 @@ namespace SF_Automation.TestCases.Engagement
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
-                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
-                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+                            //Verify Flag Reason and comments for Client Company
+                            string fReason5 = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment5 = ReadExcelData.ReadData(excelPath, "FlagReason", 3);
 
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason5, fReasonComment5, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason5 + "\r\n Flag Reason Comment: " + fReasonComment5 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -319,59 +341,12 @@ namespace SF_Automation.TestCases.Engagement
                     {
                         if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
-                            //TMTI0114976 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, expected warning message should appear on the screen
+                            //TMTI0114988 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, no warning message should appear on the screen
 
                             //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
-
-                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
-                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
-                            extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
-
-                            //Verify updates on Subject Company
-                            string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
-                            string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
-
-                            lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
-                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
-
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
-
-                            //Close duplicate company warning msg
-                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
-
-                            //Close Company tab
-                            companyDetailsPage.CloseTab(valSubjectCompName);
-
-                            //Verify updates on Client Company
-                            string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
-                            lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            //Close duplicate company warning msg
-                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
-
-                            //Close Company tab
-                            companyDetailsPage.CloseTab(valClientCompName);
-                        }
-                        else
-                        {
-                            //TMTI0114982 - Verify that if the user selects "Buyer is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
-
-                            //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Buyer is a potential round trip");
-                            Assert.IsTrue(lvEngagementDetails.VerifyBuyerWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
-
-                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
-                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
-                            extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             //Verify updates on Subject Company
                             string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
@@ -379,6 +354,13 @@ namespace SF_Automation.TestCases.Engagement
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag Reason and comments for Subject Company
+                            string fReason2 = "";
+                            string fReasonComment2 = "";
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason2, fReasonComment2, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason2 + "\r\n Flag Reason Comment: " + fReasonComment2 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -391,11 +373,64 @@ namespace SF_Automation.TestCases.Engagement
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
-                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
-                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 3);
+                            //Verify Flag Reason and comments for Client Company
+                            string fReason3 = "";
+                            string fReasonComment3 = "";
 
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason3, fReasonComment3, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason3 + "\r\n Flag Reason Comment: " + fReasonComment3 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valClientCompName);
+                        }
+                        else
+                        {
+                            //TMTI0115071 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
+
+                            //Verify warning message should be displayed
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
+
+                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
+                            extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
+
+                            //Verify updates on Subject Company
+                            string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
+                            string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
+
+                            lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag Reason and comments for subject Company
+                            string fReason6 = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment6 = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason6, fReasonComment6, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason6 + "\r\n Flag Reason Comment: " + fReasonComment6 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valSubjectCompName);
+
+                            //Verify updates on Client Company
+                            string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
+                            lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag Reason and comments for Client Company
+                            string fReason7 = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment7 = ReadExcelData.ReadData(excelPath, "FlagReason", 3);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason7, fReasonComment7, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason7 + "\r\n Flag Reason Comment: " + fReasonComment7 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
