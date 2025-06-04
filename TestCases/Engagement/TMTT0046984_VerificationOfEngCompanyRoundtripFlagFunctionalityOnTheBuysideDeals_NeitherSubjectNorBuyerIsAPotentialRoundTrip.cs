@@ -240,12 +240,12 @@ namespace SF_Automation.TestCases.Engagement
                         //Check Client Ownership
                         if (clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
-                            //TMTI0114985 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is Potential Round Trip, 'SUBJECT' is OpCo, AND 'CLIENT' is OpCo PE Owned, warning message will appear, and verify the respective company updates
+                            //TMTI0114985 - Verify that if the user selects "Neither subject nor buyer are round trip" in Engagement is Potential Round Trip, 'SUBJECT' is OpCo, AND 'CLIENT' is OpCo PE Owned, warning message will appear, and verify the respective company updates
 
                             //Verify No warning message is displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither subject nor buyer are round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership = Private Equity Group.");
 
                             //Verify updates on Subject Company
                             string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
@@ -287,12 +287,12 @@ namespace SF_Automation.TestCases.Engagement
                         }
                         else
                         {
-                            //TMTI0115069 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
+                            //TMTI0115069 - Verify that if the user selects "Neither subject nor buyer are round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'CLIENT(Buyer)' is NOT PE or PE Owned, warning message will appear, and verify the respective company updates
 
                             //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither subject nor buyer are round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
                             Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
@@ -341,12 +341,12 @@ namespace SF_Automation.TestCases.Engagement
                     {
                         if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
                         {
-                            //TMTI0114988 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, no warning message should appear on the screen
+                            //TMTI0114988 - Verify that if the user selects "Neither subject nor buyer are round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is PE or PE Owned, no warning message should appear on the screen
 
                             //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither subject nor buyer are round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             //Verify updates on Subject Company
                             string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
@@ -389,12 +389,12 @@ namespace SF_Automation.TestCases.Engagement
                         }
                         else
                         {
-                            //TMTI0115071 - Verify that if the user selects "Neither Subject nor buyer is round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
+                            //TMTI0115071 - Verify that if the user selects "Neither subject nor buyer are round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'CLIENT' is NOT PE or PE Owned, the warning message will appear, and verify the respective company updates.
 
                             //Verify warning message should be displayed
-                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither Subject nor buyer is round trip");
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither subject nor buyer are round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither Subject nor buyer is round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
                             Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg));
