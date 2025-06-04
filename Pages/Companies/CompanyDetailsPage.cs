@@ -459,6 +459,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, inputAffNotesL, 10);
             driver.FindElement(inputAffNotesL).SendKeys(notes);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
             driver.FindElement(btnSaveDetailsL).Click();
         }
 

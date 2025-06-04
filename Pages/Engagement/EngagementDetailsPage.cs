@@ -133,7 +133,7 @@ namespace SF_Automation.Pages.Engagement
         By tabDetails = By.XPath("//a[text()='Details']");
         By lnkStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//button");
         By btnStageL = By.XPath("//flexipage-field[5]//div[2]/slot//button/span");
-        By valStageL = By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");
+        By valStageL = By.XPath("//span[text()='Stage']/../../..//lightning-formatted-text");//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
         By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
         By valSavedStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//slot[1]/lightning-formatted-text");
@@ -683,7 +683,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEditEngL = By.XPath("//ul//li[contains(@data-target-selection-name,'Button.Engagement')]//button[@name='Edit']");
         By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
         By lnkEngClientSubL = By.XPath("//span[text()='Engagement']/ancestor::div/dd/div[1]//force-lookup//records-hoverable-link");
-
+        By ComboStagePriorityL = By.XPath("//label[text()='Stage']/parent::div//button");
         By txtAssociatedEngLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']");
         By editAssociatedEngField = By.XPath("//input[@name='CF00N6e00000MfcTw']");
         By txtAssociatedEng = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']//following::td//a[contains(@id,'MfcTw')]");
@@ -800,7 +800,7 @@ namespace SF_Automation.Pages.Engagement
         By linkReqFullEngL = By.XPath("//a/span[contains(text(),'Request Full Engagement')]");
         By txtEngAlertHeaderErrorsL = By.XPath("//c-engagement-verbally-engaged-approval//div[@role='alert']//h2/lightning-formatted-text");
         By lblVEEngEditFormLabelsL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label");
-        By iconCloseErrorL = By.XPath("//button[@title='Close this window']");
+        By iconCloseErrorL = By.XPath("//button[@title='Cancel and close']");//Close this window
         By inputSSExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Shared Services Expense']/..//input");
         By inputExpCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Expense Cap']/..//input");
         By inputLegalCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Legal Cap']/..//input");
@@ -808,7 +808,7 @@ namespace SF_Automation.Pages.Engagement
         By inputRetainerL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Retainer']/..//input");
         By inputProgMnthFL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Progress/Monthly Fee']/..//input");
         By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
-        By inputTailExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Tail Expires']/..//input");
+        By inputTailExpL = By.XPath("//label[text()='Tail Expires']/parent::div//input");
         By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
         By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
         By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
@@ -910,6 +910,159 @@ namespace SF_Automation.Pages.Engagement
         private By _btnAddContactL(string lob)
         {
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
+        }
+
+        public void EditEngagementStageLV(string stage)
+        {
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditEngL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditEngL));
+            driver.FindElement(btnEditEngL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, headerEditBox, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, ComboStagePriorityL, 20);
+            driver.FindElement(ComboStagePriorityL).Click();
+            Thread.Sleep(1000);
+            By eleStage = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='{stage}']");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            }
+            catch
+            {
+                driver.FindElement(ComboStagePriorityL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            }
+
+            driver.FindElement(eleStage).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
+            driver.FindElement(btnSaveL).Click();
+            //Thread.Sleep(2000);
+            //WebDriverWaits.WaitTillElementVisible(driver, iconLoadSpinner);
+            Thread.Sleep(10000);
+        }
+        By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
+        By txtFieldLevelError = By.XPath("//div[@class='fieldLevelErrors']//li");
+        By txtFieldLevelErrorsList = By.XPath("//div[contains(@class,'fieldLevelErrors')]//li/a");
+
+
+        public bool IsValidationDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, popHitaSang, 10);
+                return driver.FindElement(popHitaSang).Displayed;
+            }
+            catch { return false; }
+
+        }
+        public string GetEngChangeStageFieldLevelValidationErrorsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, popHitaSang, 10);
+            Thread.Sleep(2000);
+            //string pageLevelError = driver.FindElement(txtFieldLevelError).Text;
+            //string formatedpageLevelError = Regex.Replace(pageLevelError, @"\t|\n|\r", "");
+            string formatedpageLevelError="";
+            IList<IWebElement> fieldLevelErrors = driver.FindElements(txtFieldLevelErrorsList);
+            string formatedFieldLevelErrors = "";
+            foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
+            {
+                string fieldLevelError = txtFieldLevelError.Text;
+                string formatedfieldLevelError = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
+                formatedFieldLevelErrors = formatedFieldLevelErrors + formatedfieldLevelError;
+            }
+
+            string finalErroList = formatedpageLevelError + formatedFieldLevelErrors;
+            driver.FindElement(iconCloseErrorL).Click();
+            return finalErroList;
+        }
+        By btnCloseErrorDialogL = By.XPath("//button[@title='Close error dialog']");
+        By lblSystemInfoL = By.XPath("//span[@title='System Information']");
+        By comboWentToMarketL = By.XPath("//label[text()='Went To Market?']/parent::div//button");
+        By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
+        By comboPreparationEffortL = By.XPath("//label[text()='Preparation Effort']/parent::div//button");
+        By inputStageCommentsL = By.XPath("//label[text()='Dead/Hold Comments']/..//textarea");
+        public void EntertStageChangeReqValuesLV(string stage)
+        {
+            this.EditEngagementStageLV(stage);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseErrorDialogL, 20);
+            driver.FindElement(btnCloseErrorDialogL).Click();
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            if (stage == "Dead")
+            {
+                jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(comboWentToMarketL));
+                ////////////
+                WebDriverWaits.WaitUntilEleVisible(driver, comboWentToMarketL, 10);
+                driver.FindElement(comboWentToMarketL).Click();
+                //Thread.Sleep(1000);
+                By eleMarketOption = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='Yes']");
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleMarketOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleMarketOption));
+                }
+                catch
+                {
+                    driver.FindElement(comboWentToMarketL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleMarketOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleMarketOption));
+                }
+                driver.FindElement(eleMarketOption).Click();
+                /////////////////
+                jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(comboOutcomeL));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboOutcomeL, 10);
+                driver.FindElement(comboOutcomeL).Click();
+                //Thread.Sleep(1000);
+                By eleOutcomeOption = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='Lost buyside']");
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleOutcomeOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleOutcomeOption));
+                }
+                catch
+                {
+                    driver.FindElement(comboOutcomeL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, eleOutcomeOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(eleOutcomeOption));
+                }
+                driver.FindElement(eleOutcomeOption).Click();
+                //////////////////
+                jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(comboPreparationEffortL));
+                WebDriverWaits.WaitUntilEleVisible(driver, comboPreparationEffortL, 10);
+                driver.FindElement(comboPreparationEffortL).Click();
+                //Thread.Sleep(1000);
+                By elePrepEffOption = By.XPath($"//lightning-base-combobox-item/span[2]/span[text()='Minimal preparation']");
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, elePrepEffOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePrepEffOption));                    
+                }
+                catch
+                {
+                    driver.FindElement(comboPreparationEffortL).Click();
+                    WebDriverWaits.WaitUntilEleVisible(driver, elePrepEffOption, 5);
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePrepEffOption));
+                }
+                driver.FindElement(elePrepEffOption).Click();
+            }
+
+            if (stage == "Hold")
+            {
+                jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(inputStageCommentsL));
+                Thread.Sleep(1000);
+                driver.FindElement(inputStageCommentsL).SendKeys("Test Hold Comments");
+            }
+
+                //////////
+            jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(inputTailExpL));
+            Thread.Sleep(1000);
+            string dateTailExp = DateTime.Today.ToString("dd/MM/yyyy");
+            driver.FindElement(inputTailExpL).SendKeys(dateTailExp);
+            driver.FindElement(btnSaveL).Click();
+            //Thread.Sleep(8000);
         }
 
         public void ClickViewAllCommentsLV()
@@ -1104,7 +1257,7 @@ namespace SF_Automation.Pages.Engagement
                 string formatedfieldLevelLabels = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
                 formatedReqFieldLabels = formatedReqFieldLabels + formatedfieldLevelLabels;
             }
-            //driver.FindElement(iconCloseErrorL).Click();
+            driver.FindElement(iconCloseErrorL).Click();
             Thread.Sleep(2000);
             return formatedReqFieldLabels;
         }
@@ -6709,6 +6862,13 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 30);
             return driver.FindElement(txtEngNameL).Text;
+        }
+        public string GetStageLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, valStageL, 20);
+            Thread.Sleep(5000);
+            string stage = driver.FindElement(valStageL).Text;
+            return stage;
         }
         public int AddEngMultipleDealTeamMembers(string RecordType, string file)
         {

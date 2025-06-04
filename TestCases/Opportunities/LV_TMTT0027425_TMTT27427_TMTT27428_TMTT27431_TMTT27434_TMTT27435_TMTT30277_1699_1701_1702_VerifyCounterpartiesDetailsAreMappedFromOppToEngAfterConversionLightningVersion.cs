@@ -237,7 +237,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     addCounterparty.ButtonClick("Back");
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
-                    CustomFunctions.PageReload(driver);
+                    //CustomFunctions.PageReload(driver);
 
                     //addCounterparty.ClickCounterparyQuickLink("Contacts");
                     //Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));

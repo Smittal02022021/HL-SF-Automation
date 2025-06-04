@@ -155,6 +155,14 @@ namespace SF_Automation.TestCases.Engagements
                     opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
                     homePageLV.LogoutFromSFLightningAsApprover();

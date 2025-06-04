@@ -405,7 +405,7 @@ namespace SF_Automation.TestCases.GiftLog
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
 
             }
             catch (Exception e)
