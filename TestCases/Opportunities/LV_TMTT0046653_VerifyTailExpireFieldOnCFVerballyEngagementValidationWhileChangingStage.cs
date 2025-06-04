@@ -105,7 +105,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                         string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                         string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                         string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                        addOpportunityContact.CickAddCFOpportunityContact();
+                        addOpportunityContact.CickAddOpportunityContactLV();
                         addOpportunityContact.CreateContactL2(fileTMTT0046653);
                         extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
                         extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");

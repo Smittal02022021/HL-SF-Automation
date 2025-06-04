@@ -94,7 +94,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                             extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
                             //Validating Title of New Opportunity Page
-                            string pageTitle = opportunityHome.ClickNewButtonAndSelectCFOpp();
+                            string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                             Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                             extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
@@ -114,13 +114,13 @@ namespace SalesForce_Project.TestCases.Opportunities
                             string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                             string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                            addOpportunityContact.CickAddCFOpportunityContact();
+                            addOpportunityContact.CickAddOpportunityContactLV();
                             addOpportunityContact.CreateContactL2(fileTMTT0046653);
                             extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                             //Update required Opportunity fields for conversionfor CF/FR/FVA and Internal team details                            
                             
-                            opportunityDetails.UpdateReqFieldsForConversionLV(fileTMTT0046653, valJobType);
+                            opportunityDetails.UpdateReqFieldsForConversionLV(fileTMTT0046653, valJobType,valRecordType);
                              
                             extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                             opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0046653);
@@ -261,7 +261,7 @@ namespace SalesForce_Project.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                login.SwitchToClassicView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }
