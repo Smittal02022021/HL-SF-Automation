@@ -925,6 +925,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(8000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,600)");
+            Thread.Sleep(5000);
             try
             {
                 By txtEngOppPage = By.XPath($"//article[@aria-label='Engagements']//h3//a//slot/span[text()='{oppName}']");
@@ -8338,7 +8339,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo);
             return message;
         }
-        public void UpdateReqFieldsForConversionLV(string file, string valJobType)
+        public void UpdateReqFieldsForConversionLV(string file, string valJobType, string valRecordType)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -8362,7 +8363,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
             driver.FindElement(eleSubjectOwnership).Click();
 
-            if (valJobType == "FR")
+            if (valRecordType == "FR")
             {  
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
@@ -8463,7 +8464,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
                 
             }
-            if (valJobType == "FVA")
+            if (valRecordType == "FVA")
             {  
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
@@ -8533,7 +8534,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
                                 
             }
-            if (valJobType == "CF")
+            if (valRecordType == "CF")
             {
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
