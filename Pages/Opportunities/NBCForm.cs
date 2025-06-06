@@ -333,8 +333,11 @@ namespace SF_Automation.Pages.Opportunity
 
         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
-        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
-        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[3]/a");
+        By msgQuestion1 = By.XPath("//records-record-edit-error/div/div/ul/li[1]/a");
+        By msgQuestion2 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+
+        By msgQuest1 = By.XPath("//records-record-edit-error/div/div/ul/li[2]/a");
+        By msgQuest2 = By.XPath("//records-record-edit-error/div/div/ul/li[3]/a");
 
         By lblSupportingQues = By.XPath("//span[contains(text(),'Do you have')]");
         By msgSupportingQues = By.XPath("//span[contains(text(),'Such as potential')]");
@@ -1147,10 +1150,10 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,800)");
             driver.FindElement(btnYes3).Click();
             driver.FindElement(By.XPath("(//lightning-base-combobox)[20]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(9000);
             js.ExecuteScript("window.scrollTo(0,1150)");
             driver.FindElement(btnYes4).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(9000);
             driver.FindElement(By.XPath("(//lightning-base-combobox)[21]/div/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(8000);
             js.ExecuteScript("window.scrollTo(0,1600)");
@@ -2497,6 +2500,23 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSave).Click();
             Thread.Sleep(7000);
             string ques = driver.FindElement(msgQuestion1).Text;
+            return ques;
+        }
+
+
+        public string Validate1stMessageOfReqFeedbacks()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(7000);
+            string ques = driver.FindElement(msgQuest1).Text;
+            return ques;
+        }
+
+        public string Validate2ndMessageOfReqFeedbacks()
+        {
+            string ques = driver.FindElement(msgQuest2).Text;
+            driver.FindElement(btnClose).Click();
             return ques;
         }
 

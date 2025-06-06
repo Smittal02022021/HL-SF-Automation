@@ -509,11 +509,11 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("*Why can't this wait until next call?", ques2);
                 extentReports.CreateLog("Question 1: " + ques2 + " is displayed upon selecting Feedback required before next call? checkbox ");
 
-                string message1 = form.Validate1stMessageOfReqFeedback();
+                string message1 = form.Validate1stMessageOfReqFeedbacks();
                 Assert.AreEqual("When is feedback needed by?", message1);
                 extentReports.CreateLog("Mandatory Validation: " + message1 + " is displayed upon clicking Save button without entering its values ");
 
-                string message2 = form.Validate2ndMessageOfReqFeedback();
+                string message2 = form.Validate2ndMessageOfReqFeedbacks();
                 Assert.AreEqual("Why can't this wait until next call?", message2);
                 extentReports.CreateLog("Mandatory Validation: " + message2 + " is displayed upon clicking Save button without entering its values ");
 

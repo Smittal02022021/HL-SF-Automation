@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using SF_Automation.TestCases.GiftLog;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -201,9 +202,13 @@ namespace SF_Automation.Pages.Engagement
         By valTxnRationaleBeforeUpdate = By.XPath("//button[@title='Edit: Transaction_Rationale__c']/ancestor::div[1]/lightning-formatted-text");
         By iconAddRecord = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Add Record']");
         By lblAddRecordSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
-
-
-
+        By btnType = By.XPath("//button[@name='Type__c']");
+        By valType = By.XPath("//button[@name='Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By msgType = By.XPath("//label[text()='Type']/ancestor::div[1]/lightning-helptext//span[2]");
+        By txtRevMM = By.XPath("//input[@name='Revenue_LTM_MM__c']");
+        By txtEBITDA = By.XPath("//input[@name='EBITDA_LTM_MM__c']");
+        By valRevMM = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//td[2]//lightning-formatted-number");
+        By btnCurrency = By.XPath("//label[text()='Currency']/ancestor::div[1]/div//button");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1644,6 +1649,55 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
             return isSame;
+        }
+
+
+        public bool ValidateTypeValues()
+        {
+            driver.FindElement(btnType).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valType);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "First", "Closing", "Final", "Second",  "Third" };
+            Console.WriteLine(expectedValue[1]);
+            Console.WriteLine(expectedValue[2]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateTypeMessage()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgType);
+            string value = driver.FindElement(msgType).Text;
+            return value;
+        }
+
+        public string ValidateSaveFunctionalityOfAddRecord(String amount, string currency)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRevMM);
+            driver.FindElement(txtRevMM).SendKeys(amount);
+            driver.FindElement(txtEBITDA).SendKeys(amount);
+            driver.FindElement(btnCurrency).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Currency']/ancestor::div[1]//lightning-base-combobox-item//span[2]/span[text()='"+currency+"']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valRevMM).Text;
+            return value.Substring(5,5);
         }
 
     }

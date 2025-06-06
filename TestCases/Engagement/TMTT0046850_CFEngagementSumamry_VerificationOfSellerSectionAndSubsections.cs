@@ -140,6 +140,22 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifyAddRecordFields(), "Verify that displayed fields on Add Record section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields on Add Record section are as expected ");
 
+                Assert.IsTrue(summaryPage.ValidateTypeValues(), "Verify that displayed Values of Type dropdown are same");
+                extentReports.CreateStepLogs("Passed", "Displayed Values of Type dropdown are as expected ");
+
+                string messageType = summaryPage.ValidateTypeMessage();
+                Assert.AreEqual("Please indicate when these financial metrics were gathered.", messageType);
+                extentReports.CreateLog("Message: " +messageType + " is displayed on Type icon ");
+
+                //7.  TMTI0114552_Verify the add record functionality for "Seller Financials".
+                string Revenue1st = summaryPage.ValidateSaveFunctionalityOfAddRecord("10","CAD - Canadian Dollar");
+                Assert.AreEqual("10.00", Revenue1st);
+                extentReports.CreateLog("Revenue: " + Revenue1st + " is displayed after saving Add Record details ");
+
+                string Revenue2nd = summaryPage.ValidateSaveFunctionalityOfAddRecord("20", "GBP - British Pound");
+                Assert.AreEqual("20.00", Revenue2nd);
+                extentReports.CreateLog("Revenue: " + Revenue2nd + " is displayed after saving Add Record details ");
+
 
 
 

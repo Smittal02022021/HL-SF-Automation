@@ -87,11 +87,11 @@ namespace SF_Automation.TestCases.Opportunities
                 //Create External Primary Contact      
                 //Update all required fields for Conversion to Engagement
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);               
-                opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC2362);
-                extentReports.CreateLog("All required details are saved ");
+                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);             
                 opportunityDetails.ClickAddFVAOppContact();
                 addContact.CreateContactL(fileTC2362);
+                opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC2362);
+                extentReports.CreateLog("All required details are saved ");
 
                 //Logout
                 usersLogin.LightningLogout();
