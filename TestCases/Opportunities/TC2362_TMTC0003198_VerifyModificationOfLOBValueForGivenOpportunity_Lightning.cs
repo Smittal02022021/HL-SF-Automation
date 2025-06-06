@@ -107,12 +107,13 @@ namespace SF_Automation.TestCases.Opportunities
                 //Update Record Type to CF, LOB to CF, Job Type to Negotiated Fairness and validate Job Type and LOB                
                 string lob = opportunityDetails.UpdateRecordTypeAndLOB();
                 Assert.AreEqual("CF", lob);
+                opportunityDetails.AddEstFeesWithAdmin(fileTC2362);
                 string jobType = opportunityDetails.GetJobType();
                 Assert.AreEqual("Negotiated Fairness", jobType);
                 extentReports.CreateLog("LOB and Job Type are updated to " + lob + " and " + jobType + " ");
 
                 //Update additional fields i.e Estimated Fees and Fairness Opinion Component
-                opportunityDetails.AddEstFeesWithAdmin(fileTC2362);
+               
 
                 //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);

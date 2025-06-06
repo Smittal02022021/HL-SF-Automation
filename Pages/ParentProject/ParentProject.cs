@@ -210,7 +210,7 @@ namespace SalesForce_Project.Pages
 
             driver.FindElement(btnInvoice).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Invoice Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[2]//span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Invoice Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[3]//span[2]/span")).Click();
              driver.FindElement(btnSave).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, valAddedProject);
             string project = driver.FindElement(valAddedProject).Text;
@@ -289,7 +289,7 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(lnkContract).Click();
             //driver.Navigate().Refresh();
-            Thread.Sleep(10000);
+            Thread.Sleep(12000);
             string fee = driver.FindElement(valTotalFee).Text;
             return fee;
 

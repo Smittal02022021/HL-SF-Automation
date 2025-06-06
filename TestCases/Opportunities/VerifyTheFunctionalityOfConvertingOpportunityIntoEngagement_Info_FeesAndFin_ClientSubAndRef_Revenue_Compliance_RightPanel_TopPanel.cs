@@ -492,7 +492,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Save an Engagement Comment and Validate the added
                 engagementDetails.AddEngCommentaAndValidate("Administrative");
-                string addedComments = opportunityDetails.GetOppCommentsL();
+                string addedComments = opportunityDetails.GetEngCommentsL();
                 Assert.AreEqual("Testing", addedComments);
                 extentReports.CreateLog("Added Engagement comments with comments is displayed under Comments section ");
 

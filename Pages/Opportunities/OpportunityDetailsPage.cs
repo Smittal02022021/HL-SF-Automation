@@ -465,6 +465,7 @@ namespace SF_Automation.Pages
         By tabOpportunityL = By.XPath("//div[1]/div/div[1]/div[2]//ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
+        By lnkEngagementL = By.XPath("//span[text()='Engagement']/ancestor::dt/following::dd[1]//a//span//slot//slot/span");
         //By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
@@ -2688,14 +2689,33 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, txtMonthlyFee, 90);
-            driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
-            //driver.FindElement(lnkTrialExp).Click();
-            driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
-            driver.FindElement(lnkEstClosedDate).Click();
-            driver.FindElement(comboFairnessOpinion).SendKeys("No");
-            driver.FindElement(comboWomenLed).SendKeys("No");
-            driver.FindElement(btnSave).Click();
+            try
+            {               
+                WebDriverWaits.WaitUntilEleVisible(driver, txtMonthlyFee, 90);
+                driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
+                //driver.FindElement(lnkTrialExp).Click();
+                driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+                driver.FindElement(lnkEstClosedDate).Click();
+                driver.FindElement(comboFairnessOpinion).SendKeys("No");
+                driver.FindElement(comboWomenLed).SendKeys("No");
+                driver.FindElement(btnSave).Click();
+            }
+            catch (Exception)
+            {
+                Thread.Sleep(8000);
+                driver.FindElement(lnkReDisplayRec).Click();
+                Thread.Sleep(5000);               
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
+                driver.FindElement(btnEdit).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtMonthlyFee, 90);
+                driver.FindElement(txtMonthlyFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 16));
+                //driver.FindElement(lnkTrialExp).Click();
+                driver.FindElement(txtContingentFee).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 17));
+                driver.FindElement(lnkEstClosedDate).Click();
+                driver.FindElement(comboFairnessOpinion).SendKeys("No");
+                driver.FindElement(comboWomenLed).SendKeys("No");
+                driver.FindElement(btnSave).Click();
+            }
         }
 
         //To update additional fields when FAS changed to CF
@@ -7966,6 +7986,19 @@ namespace SF_Automation.Pages
             return comment;
         }
 
+        //Get added Opportunity comments
+        public string GetEngCommentsL()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabComments, 150);
+            //driver.FindElement(tabComments).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valAddedComment, 180);
+            string comment = driver.FindElement(valAddedComment).Text;
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagementL, 210);
+            driver.FindElement(lnkEngagementL).Click();
+            Thread.Sleep(5000);
+            return comment;
+        }
         public string GetCommentCreator()
         {
             Thread.Sleep(5000);
