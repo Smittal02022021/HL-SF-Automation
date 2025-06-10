@@ -100,11 +100,6 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityHome.SearchOpportunity(opportunityNumber);
                 opportunityDetails.UpdateOutcomeDetails(fileTC2362);
                 extentReports.CreateLog("Conflict Check fields are updated ");
-                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
-                extentReports.CreateLog("Internal Team members details are saved ");
-                
-
-                //Update Record Type to CF, LOB to CF, Job Type to Negotiated Fairness and validate Job Type and LOB                
                 string lob = opportunityDetails.UpdateRecordTypeAndLOB();
                 Assert.AreEqual("CF", lob);
                 opportunityDetails.AddEstFeesWithAdmin(fileTC2362);
@@ -112,6 +107,12 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Negotiated Fairness", jobType);
                 extentReports.CreateLog("LOB and Job Type are updated to " + lob + " and " + jobType + " ");
 
+                opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
+                extentReports.CreateLog("Internal Team members details are saved ");
+                
+                //Update Record Type to CF, LOB to CF, Job Type to Negotiated Fairness and validate Job Type and LOB                
+                               
+                
                 //Update additional fields i.e Estimated Fees and Fairness Opinion Component
                
 

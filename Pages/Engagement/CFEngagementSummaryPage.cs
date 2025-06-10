@@ -209,6 +209,14 @@ namespace SF_Automation.Pages.Engagement
         By txtEBITDA = By.XPath("//input[@name='EBITDA_LTM_MM__c']");
         By valRevMM = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//td[2]//lightning-formatted-number");
         By btnCurrency = By.XPath("//label[text()='Currency']/ancestor::div[1]/div//button");
+        By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
+        By tabFees = By.XPath("//a[@data-label='Fees & Financials']");
+        By valAddedRevs = By.XPath("//span[@title='Financials']/ancestor::article//tr/td[2]//span//lst-formatted-text/span");
+        By btnAddFinancial = By.XPath("//button[text()='New Financials']");
+        By txtRelatedEng = By.XPath("//input[@placeholder='Search Engagements...']");
+        By btnSaveFin = By.XPath("//button[@name='SaveEdit']");
+        By valAddedFin = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::div[@class='slds-grid slds-wrap simpleRecordHomeTemplate']//span[text()='Revenue LTM (MM)']/ancestor::div[2]//span//lightning-formatted-text");
+        By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1688,7 +1696,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string ValidateSaveFunctionalityOfAddRecord(String amount, string currency)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtRevMM);
+            Thread.Sleep(5000);
             driver.FindElement(txtRevMM).SendKeys(amount);
             driver.FindElement(txtEBITDA).SendKeys(amount);
             driver.FindElement(btnCurrency).Click();
@@ -1696,10 +1704,83 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//label[text()='Currency']/ancestor::div[1]//lightning-base-combobox-item//span[2]/span[text()='"+currency+"']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
-            string value = driver.FindElement(valRevMM).Text;
-            return value.Substring(5,5);
+            //driver.FindElement(btnRefreshFin).Click();
+            //Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+            return value;
         }
 
+        public bool ValidateAddedRecordsInEngDetails()
+        {
+            driver.Navigate().Refresh();
+            Thread.Sleep(4000);
+            driver.FindElement(tabEngagementL).Click();
+            Thread.Sleep(6000);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valAddedRevs);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "CAD 10.00 (GBP 5.65)", "GBP 20.00" };
+            Console.WriteLine(actualValue[0]);
+            Console.WriteLine(actualValue[1]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+
+        public string ValidateAddFinancialsFunctionalityOfEngagement()
+        {
+            driver.FindElement(btnAddFinancial).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtRelatedEng).Click();          
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Engagements...']/ancestor::div[4]/div[2]//li[2]/lightning-base-combobox-item/span[1]")).Click();
+            driver.FindElement(txtRevMM).SendKeys("25");
+            driver.FindElement(btnSaveFin).Click();
+            Thread.Sleep(7000);
+            string value = driver.FindElement(valAddedFin).Text;
+            return value;
+        }
+
+        public string GetAdded2ndRevenueInSellerFinanials()
+        {
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[2]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
+
+        public string ValidateAddFinancialsInCFEngSummary()
+        {
+            driver.FindElement(tabEngsummary).Click();
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,850)");
+            Thread.Sleep(6000);
+            driver.FindElement(btnParties).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);            
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[3]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
     }
 }
 

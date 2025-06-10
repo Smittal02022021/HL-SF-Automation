@@ -149,12 +149,30 @@ namespace SF_Automation.TestCases.Engagement
 
                 //7.  TMTI0114552_Verify the add record functionality for "Seller Financials".
                 string Revenue1st = summaryPage.ValidateSaveFunctionalityOfAddRecord("10","CAD - Canadian Dollar");
-                Assert.AreEqual("10.00", Revenue1st);
+                Console.WriteLine("Revenue1st:" + Revenue1st);
+                Assert.AreEqual("CAD 10.00", Revenue1st);
                 extentReports.CreateLog("Revenue: " + Revenue1st + " is displayed after saving Add Record details ");
 
-                string Revenue2nd = summaryPage.ValidateSaveFunctionalityOfAddRecord("20", "GBP - British Pound");
-                Assert.AreEqual("20.00", Revenue2nd);
+                summaryPage.ValidateAddRecordIcon();
+                summaryPage.ValidateSaveFunctionalityOfAddRecord("20", "GBP - British Pound");
+                string Revenue2nd = summaryPage.GetAdded2ndRevenueInSellerFinanials();
+                Assert.AreEqual("GBP 20.00", Revenue2nd);
                 extentReports.CreateLog("Revenue: " + Revenue2nd + " is displayed after saving Add Record details ");
+
+                Assert.IsTrue(summaryPage.ValidateAddedRecordsInEngDetails(), "Verify that added Revenue records are on Add Record section are same");
+                extentReports.CreateStepLogs("Passed", "Added Revenue records in Seller Financials are displayed as expected ");
+
+                string addedFin = summaryPage.ValidateAddFinancialsFunctionalityOfEngagement();
+                Console.WriteLine("addedFin:" + addedFin);
+
+                //Validate added record in Engagement is displayed in Eng Summary
+                string Revenue3rd = summaryPage.ValidateAddFinancialsInCFEngSummary();
+                Assert.AreEqual(addedFin, Revenue3rd);
+                extentReports.CreateLog("Financal record added in Engagement is displayed under Seller Financials section of CF Engagement Summary ");
+
+                //8. TMTI0114544_Verify the "Edit" functionality on the Seller Financials record. 
+
+
 
 
 
