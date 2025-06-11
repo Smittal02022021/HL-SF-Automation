@@ -217,6 +217,13 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveFin = By.XPath("//button[@name='SaveEdit']");
         By valAddedFin = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::div[@class='slds-grid slds-wrap simpleRecordHomeTemplate']//span[text()='Revenue LTM (MM)']/ancestor::div[2]//span//lightning-formatted-text");
         By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
+        By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
+        By lnkEditRecord = By.XPath("//span[text()='Edit']");
+        By lnkDeleteRecord = By.XPath("//span[text()='Delete']");
+        By btnWinCancel = By.XPath("//button[text()='Cancel']");
+        By btnWinOk = By.XPath("//button[text()='Ok']");
+        By msgDelete = By.XPath("//h2[text()='Record was deleted.']");
+
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1779,6 +1786,65 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnRefreshFin).Click();
             Thread.Sleep(4000);            
             string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[3]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
+
+        public string ValidateCancelFunctionalityOfAddRecord(String amount)
+        {
+            driver.FindElement(btnMoreFin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkEditRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtRevMM).SendKeys(amount);
+            driver.FindElement(txtEBITDA).SendKeys(amount);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
+
+        public string ValidateEditFunctionalityOfAddRecord(String amount)
+        {
+            driver.FindElement(btnMoreFin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkEditRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtRevMM).Clear();
+            driver.FindElement(txtRevMM).SendKeys(amount);
+            driver.FindElement(txtEBITDA).SendKeys(amount);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
+        public string ValidateCancelDeleteFunctionalityOfAddRecord()
+        {
+            driver.FindElement(btnMoreFin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDeleteRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnWinCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+            return value;
+        }
+        public string ValidateConfirmDeleteFunctionalityOfAddRecord()
+        {
+            driver.FindElement(btnMoreFin).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDeleteRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnWinOk).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(msgDelete).Text;
             return value;
         }
     }

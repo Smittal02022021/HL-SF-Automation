@@ -171,10 +171,28 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Financal record added in Engagement is displayed under Seller Financials section of CF Engagement Summary ");
 
                 //8. TMTI0114544_Verify the "Edit" functionality on the Seller Financials record. 
+                //Cancel Functionality----
+                string cancelRev = summaryPage.ValidateCancelFunctionalityOfAddRecord("25");
+                Assert.AreEqual(Revenue1st, cancelRev);
+                extentReports.CreateLog("Revenue value is not updated after clicking cancel button post updating Revenue value in Edit Record window ");
 
+                //Save Functionality----
+                string editRev = summaryPage.ValidateEditFunctionalityOfAddRecord("25");
+                Assert.AreNotEqual(Revenue1st, editRev);
+                extentReports.CreateLog("Revenue value : "+editRev+ " is updated after clicking save button post updating Revenue value in Edit Record window ");
 
+                //9. TMTI0114543_Verify the "Delete" functionality on the Seller Financials Delete Record
+                //Cancel Delete Functionality----
+                string cancelDelete = summaryPage.ValidateCancelDeleteFunctionalityOfAddRecord();
+                Assert.AreEqual(editRev, cancelDelete);
+                extentReports.CreateLog("Revenue record is not deleted after clicking Cancel button on Delete Confirmation pop up window ");
 
+                //Confirm Delete Functionality----
+                string confirmDelete = summaryPage.ValidateConfirmDeleteFunctionalityOfAddRecord();
+                Assert.AreEqual("Record was deleted.", confirmDelete);
+                extentReports.CreateLog("Revenue record is deleted after clicking Ok button on Delete Confirmation pop up window ");
 
+                //10. 
 
 
                 usersLogin.LightningLogout();
