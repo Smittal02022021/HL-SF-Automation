@@ -34,6 +34,7 @@ namespace SF_Automation.Pages.Companies
         By btnReminderClose = By.XPath("//button[text()='Close']");
         By warningMsgModal = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'A Subject is')])[2]");
         By warningMsgModal1 = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'A Buyer is')])[1]");
+        By warningMsgModal2 = By.XPath("(//div[@part='modal-body']//h2)[1]");
 
         By lblPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/../..//lightning-formatted-text");
         By lblRoundTripEngagement = By.XPath("(//span[text()='Edit Round Trip Engagement']/../../span//records-hoverable-link//a//span)[3]");
@@ -450,6 +451,18 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyNeitherBuyerNorSubjectWarningMsgIsDisplayed()
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+            if (CustomFunctions.IsElementPresent(driver, warningMsgModal2) == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public bool VerifyBuyerWarningMsgIsDisplayed()
         {
             bool result = false;
@@ -487,6 +500,20 @@ namespace SF_Automation.Pages.Companies
         {
             bool result = false;
             if (driver.FindElement(warningMsgModal1).Text == message)
+            {
+                result = true;
+            }
+
+            CustomFunctions.PageReload(driver);
+            Thread.Sleep(10000);
+
+            return result;
+        }
+
+        public bool VerifyNeitherSubjectNorBuyerWarningMsg(string message)
+        {
+            bool result = false;
+            if (driver.FindElement(warningMsgModal2).Text == message)
             {
                 result = true;
             }
