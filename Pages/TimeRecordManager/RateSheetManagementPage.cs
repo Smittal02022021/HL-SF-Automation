@@ -345,7 +345,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         public double GetDefaultRateAsPerRole(string role)
         {
-            string ratePerHour = driver.FindElement(By.XPath($"((//span[text()='{role}'])[2]/following::dd//span//lightning-formatted-text)[1]")).Text;
+            string ratePerHour = driver.FindElement(By.XPath($"(//div/span[text()='{role}']/following::div//span//lightning-formatted-text)[1]")).Text;
             double rate = Convert.ToDouble(ratePerHour.Split(' ')[1].Trim());
             return rate;
         }
@@ -584,7 +584,7 @@ namespace SF_Automation.Pages.TimeRecordManager
 
         private By nameRole(string role)
         {
-            return By.XPath($"//div/span[text()='{role}']//ancestor::dt/following-sibling::dd//lightning-formatted-text");//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
+            return By.XPath($"(//div/span[text()='{role}']/following::div//span//lightning-formatted-text)[1]");//*[text()='{role}']//ancestor::dl//dd//span//lightning-formatted-text");
         }
 
         public double GetDefaultRateAsPerRoleLV(string role)

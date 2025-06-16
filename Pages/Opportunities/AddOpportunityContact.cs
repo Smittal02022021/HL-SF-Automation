@@ -203,6 +203,15 @@ namespace SF_Automation.Pages.Opportunity
                 Console.WriteLine("Party not found: " + ex.Message);
             }
 
+            try
+            {
+                driver.FindElement(comboRole).SendKeys(ReadExcelData.ReadData(excelPath, "AddContact", 2));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Role not found: " + ex.Message);
+            }
+
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
