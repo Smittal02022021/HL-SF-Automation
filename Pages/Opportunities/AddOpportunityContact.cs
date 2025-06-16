@@ -18,7 +18,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("//dl[4]/div[1]//div/a");
+        By btnPartyL = By.XPath("//span[text()='Party']/../..//a");//dl[4]/div[1]//div/a");
 
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
@@ -195,7 +195,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            driver.FindElement(By.XPath($"//ul//li//a[@title='{party}']")).Click();; //div[8]/div/ul/li/a[text()='" + party + "']")).Click();
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
