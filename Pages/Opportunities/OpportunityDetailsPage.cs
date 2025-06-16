@@ -579,7 +579,7 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNumberL = By.XPath("(//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/following::div/span//lightning-formatted-text)[1]");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");

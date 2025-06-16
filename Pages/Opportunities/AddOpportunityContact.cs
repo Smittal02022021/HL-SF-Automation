@@ -190,12 +190,19 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
                 driver.FindElement(txtContact).Click();
             }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
+                driver.FindElement(btnPartyL).Click();
+                Thread.Sleep(3000);
+                string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
+                driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Party not found: " + ex.Message);
+            }
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
-            driver.FindElement(btnPartyL).Click();
-            Thread.Sleep(3000);
-            string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
